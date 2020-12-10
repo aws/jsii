@@ -42,19 +42,37 @@ By compiling our source module using `jsii`, we can now package it as modules in
 Each target module has the exact same API as the source. This allows users of that target language to use `HelloJsii`
 like any other class:
 
-- In **C#**
-  ```csharp
-  var greeter = new Greeter();
-  greeter.Greet("World"); // => Hello, World!
-  ```
-- In **Java**
-  ```java
-  final Greeter greeter = new Greeter();
-  greeter.greet("World"); // => Hello, World!
-  ```
-- In **Python**:
-  ```python
-  greeter = Greeter()
-  greeter.greet("World"); # => Hello, World!
-  ```
-- ... and more to come!
+=== "C#"
+
+    ```csharp
+    var greeter = new Greeter();
+    greeter.Greet("World"); // => Hello, World!
+    ```
+
+=== "Go"
+
+    ```go
+    greeter := NewGreeter()
+    greeter.Greet("World") // => Hello, World!
+    ```
+
+=== "Java"
+
+    ```java
+    final Greeter greeter = new Greeter();
+    greeter.greet("World"); // => Hello, World!
+    ```
+
+=== "JavaScript"
+
+    ```java
+    const greeter = new Greeter();
+    greeter.greet("World"); // => Hello, World!
+    ```
+
+=== "Python"
+
+    ```python
+    greeter = Greeter()
+    greeter.greet("World"); # => Hello, World!
+    ```

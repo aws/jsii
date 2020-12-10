@@ -38,7 +38,7 @@ The following target languages are currently offered by `jsii-pacmak`, or are cu
 | Kotlin     | :octicons-tools-24: Development                |
 | Python     | :octicons-check-circle-24: Generally Available |
 
-!!! info
+??? question "Status Definitions"
     - **:octicons-check-circle-24: Generally Available** languages are fully supported. The generated APIs will not
       change in breaking ways across minor and patch releases.
     - **:octicons-beaker-24: Developer Preview** languages are experimental. The generated APIs may change in breaking

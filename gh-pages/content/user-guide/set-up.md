@@ -1,5 +1,7 @@
 # Set Up
 
+## Creating a new _npm_ package
+
 Start by creating a new empty _npm_ package:
 
 ```console
@@ -21,6 +23,8 @@ Wrote to /Users/rmuller/Downloads/project-name/package.json:
   "license": "ISC"
 }
 ```
+
+## Adding mandatory metadata
 
 Then, add the mandatory information to the new `package.json` file that was created. Specifically, _jsii modules_ must
 have an `author` and `repository` setting (those are necessary to generate _valid_ libraries for certain distribution
@@ -47,6 +51,8 @@ points, such as _Maven Central_):
 }
 ```
 
+## Setting up the _jsii_ configuration
+
 Finish up the configuration by running `jsii-config`, and letting the assistant guide you through the process:
 
 ```console
@@ -59,36 +65,40 @@ Finish up the configuration by running `jsii-config`, and letting the assistant 
 Success!
 ```
 
+## Install Dependencies
+
 Now, you're ready to install the basic tools into the packages' dependency closure. The exact instructions depend on the
 **JavaScript** package manager you want to be using:
 
-- Using `yarn`:
+=== "yarn"
 
-  ```console
-  # yarn add -D jsii jsii-pacmak
-  yarn add v1.22.10
-  info No lockfile found.
-  [1/4] 🔍  Resolving packages...
-  [2/4] 🚚  Fetching packages...
-  [3/4] 🔗  Linking dependencies...
-  [4/4] 🔨  Building fresh packages...
-  success Saved lockfile.
-  success Saved 66 new dependencies.
-  ...
-  ```
+    ```console
+    # yarn add -D jsii jsii-pacmak
+    yarn add v1.22.10
+    info No lockfile found.
+    [1/4] 🔍  Resolving packages...
+    [2/4] 🚚  Fetching packages...
+    [3/4] 🔗  Linking dependencies...
+    [4/4] 🔨  Building fresh packages...
+    success Saved lockfile.
+    success Saved 66 new dependencies.
+    ...
+    ```
 
-- Using `npm`:
+=== "npm"
 
-  ```console
-  # npm install --save-dev jsii jsii-pacmak
+    ```console
+    # npm install --save-dev jsii jsii-pacmak
 
-  added 107 packages, and audited 107 packages in 4s
+    added 107 packages, and audited 107 packages in 4s
 
-  39 packages are looking for funding
-    run `npm fund` for details
+    39 packages are looking for funding
+      run `npm fund` for details
 
-  found 0 vulnerabilities
-  ```
+    found 0 vulnerabilities
+    ```
+
+## Set up essential scripts
 
 Finally, you might want to configure convenience scripts in your `package.json` file in order to facilitate working with
 your project:
@@ -102,7 +112,7 @@ your project:
   "scripts": {
     "build": "jsii",
     "build:watch": "jsii --watch",
-    "pacmak": "jsii-pacmak"
+    "package": "jsii-pacmak"
   },
   "keywords": []
   // ...
@@ -111,8 +121,8 @@ your project:
 
 Those scripts have the following effect:
 
-| Script        | Use with `npm`        | Use with `yarn`    | Description                                       |
-| ------------- | --------------------- | ------------------ | ------------------------------------------------- |
-| `build`       | `npm run build`       | `yarn build`       | Compiles the project                              |
-| `build:watch` | `npm run build:watch` | `yarn build:watch` | Watches for file changes and recompiles as needed |
-| `pacmak`      | `npm run pacmak`      | `yarn pacmak`      | Generates libraries for all languages             |
+| Script        | Description                                       |
+| ------------- | ------------------------------------------------- |
+| `build`       | Compiles the project                              |
+| `build:watch` | Watches for file changes and recompiles as needed |
+| `package`     | Generates libraries for all languages             |

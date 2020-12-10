@@ -17,14 +17,14 @@ optional in the standard [package.json schema] are required by `jsii`.
 For example, Maven Central requires packages to carry [sufficient metadata], such as _developer information_ and
 _license_, in order to be valid for publishing.
 
-| Field        | Required | Extensions                       |
-| ------------ | -------- | -------------------------------- |
-| `author`     | Required | `author.organization`            |
-| `license`    | Required |
-| `main`       | Required |
-| `repository` | Required |
-| `stability`  |          | The field itself is an extension |
-| `types`      | Required |
+| Field        | Required                        | Extensions                       |
+| ------------ |:-------------------------------:| -------------------------------- |
+| `author`     | :octicons-check-circle-fill-24: | `author.organization`            |
+| `license`    | :octicons-check-circle-fill-24: |                                  |
+| `main`       | :octicons-check-circle-fill-24: |                                  |
+| `repository` | :octicons-check-circle-fill-24: |                                  |
+| `stability`  |                                 | The field itself is an extension |
+| `types`      | :octicons-check-circle-fill-24: |                                  |
 
 [sufficient metadata]: https://central.sonatype.org/pages/requirements.html#sufficient-metadata
 
@@ -104,14 +104,14 @@ maintainer, the generic interpretation for those on packages is:
 In order to configure the behavior of `jsii`, the `package.json` file must include a `jsii` section that can contain the
 following entries:
 
-| Field               | Type       | Required | Default                         |
-| ------------------- | ---------- | -------- | ------------------------------- | ------ |
-| `excludeTypescript` | `string[]` |          | _none_                          |
-| `metadata`          | `object`   |          | _none_                          |
-| `projectReferences` | `boolean`  |          | `true`                          |
-| `targets`           | `object`   | Required |
-| `tsc`               | `object`   |          | `{ outDir: '.', rootDir: '.' }` |
-| `versionFormat`     | `short     | full`    |                                 | `full` |
+| Field               | Type           | Required                        | Default                         |
+| ------------------- | -------------- |:-------------------------------:| ------------------------------- |
+| `excludeTypescript` | `string[]`     |                                 | _none_                          |
+| `metadata`          | `object`       |                                 | _none_                          |
+| `projectReferences` | `boolean`      |                                 | `true`                          |
+| `targets`           | `object`       | :octicons-check-circle-fill-24: |                                 |
+| `tsc`               | `object`       |                                 | `{ outDir: '.', rootDir: '.' }` |
+| `versionFormat`     | `short | full` |                                 | `full`                          |
 
 ### `excludeTypescript`
 

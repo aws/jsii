@@ -19,17 +19,10 @@ all the supported languages, they must be bundled with the *jsii module* that de
 into the `bundleDependencies` array in `package.json`. The API of the *jsii module* can not expose any type from bundled
 dependencies, since those types would not be available in other languages.
 
-> For more information on `package.json` file contents, refer to the [npm documentation][package-json].
->
-> [package-json]: https://docs.npmjs.com/cli/v6/configuring-npm/package-json
+!!! info
+    For more information on `package.json` file contents, refer to the [npm documentation][package-json].
 
-## Metadata
-
-
-
-> For more information on `package.json` file contents, refer to the [npm documentation][package-json].
->
-> [package-json]: https://docs.npmjs.com/cli/v6/configuring-npm/package-json
+    [package-json]: https://docs.npmjs.com/cli/v6/configuring-npm/package-json
 
 ## Naming
 

@@ -17,7 +17,7 @@
 | [jsii-srcmak]  | Community    | Generates relocatable source code in jsii languages from typescript   |
 | [jsii-docgen]  | Community    | Generates markdown API documentation for jsii modules                 |
 
-!!! tip
+??? question "Stability Definitions"
     - **Stable**: Projects that comply with the [Semantic Versioning][semver] specification, and will hence not change
       behavior or receive other breaking changes across minor and patch version bumps.
     - **Experimental**: Projects that are under active development and may change behavior or receive other breaking
