@@ -7,7 +7,7 @@ on:
 
 jobs:
   push-go-runtime:
-    name: Install Dependencies
+    name: Build and Publish
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -65,8 +65,14 @@ jobs:
           fi
       - name: Commit and Push
         if: steps.check-for-changes.outputs.result == 'true'
+        env:
+          JSII_RUNTIME_REPO_NAME: ${{ secrets.JSII_RUNTIME_REPO_NAME }}
+          JSII_RUNTIME_REPO_USERNAME: ${{ secrets.JSII_RUNTIME_REPO_USERNAME }}
+          JSII_RUNTIME_REPO_TOKEN: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
         run: |-
-          message=$(git log -1 --format=%s)
+          MESSAGE=$(git log -1 --format=%s)
           cd ${{ steps.build-repo-dir.outputs.repodir }}
-          git commit -m $message
-          git push origin main
+          git config user.name "$JSII_RUNTIME_REPO_USERNAME"
+          git config user.email "aws-cdk+automation@amazon.com"
+          git commit -m "$MESSAGE"
+          git push https://$JSII_RUNTIME_REPO_USERNAME:$JSII_RUNTIME_REPO_TOKEN@github.com/$JSII_RUNTIME_REPO_NAME.git main
