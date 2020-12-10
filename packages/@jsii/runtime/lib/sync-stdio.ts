@@ -1,7 +1,5 @@
 import * as fs from 'fs';
 
-import { sleep } from './sleep';
-
 // Note: the `process.std{in,out,err}.fd` is not part of the `@types/node` declarations, because
 // those cannot model how those fields are guaranteed to be absent within the context of worker
 // threads. The should be present here, but since we must resort to `as any`, we take the extra
@@ -53,7 +51,8 @@ export class SyncStdio {
         if (e.code !== 'EAGAIN') {
           throw e;
         }
-        sleep(50 /*ms*/);
+        // We'll retry immediately, and possibly thrash the CPU until the buffer was drained. We
+        // do not currently have a better way around.
       }
     }
   }
@@ -96,10 +95,7 @@ function readSync(
         // attempts, sleeping too much would slow everything to a crawl, and not enough would cause
         // significant wasting of CPU cycles.
         case 'EAGAIN':
-          // Keep trying until it no longer says EAGAIN. We'll be waiting a little before retrying
-          // in order to avoid thrashing the CPU like there is no tomorrow. This is not entirely
-          // ideal, but it has to do.
-          sleep(50 /*ms*/);
+          // Thrashing the CPU as previously discussed...
           break;
 
         // HACK: in Windows, when STDIN (aka FD#0) is wired to a socket (as is the case when started

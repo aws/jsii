@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Set up all of our standard runtimes
-      - name: Set up .NET 3.1
+      - name: Set up .NET 5
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
+          dotnet-version: '5.0.x'
       - name: Set up Java 8
         uses: actions/setup-java@v1
         with:
@@ -109,10 +109,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Set up all of our standard runtimes
-      - name: Set up .NET 3.1
+      - name: Set up .NET 5
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
+          dotnet-version: '5.0.x'
       - name: Set up Java 8
         uses: actions/setup-java@v1
         with:
@@ -345,7 +345,7 @@ jobs:
       - name: Set up .NET 3.1
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
+          dotnet-version: '5.0.x'
       - name: Set up Java 8
         uses: actions/setup-java@v1
         with:

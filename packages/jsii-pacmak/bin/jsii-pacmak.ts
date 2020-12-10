@@ -7,8 +7,18 @@ import { VERSION_DESC } from '../lib/version';
 
 (async function main() {
   const argv = yargs
-    .usage('Usage: jsii-pacmak [-t target,...] [-o outdir] [package-dir]')
     .env('JSII_PACMAK')
+    .command(
+      ['$0  [PROJECTS...]', 'generate [PROJECTS...]'],
+      'Generates jsii bindings for the selected project(s)',
+      (argv) =>
+        argv.positional('PROJECTS', {
+          type: 'string',
+          desc: 'Project(s) to generate',
+          normalize: true,
+          default: ['.'],
+        }),
+    )
     .option('targets', {
       alias: ['target', 't'],
       type: 'array',
@@ -121,7 +131,7 @@ import { VERSION_DESC } from '../lib/version';
     force: argv.force,
     forceSubdirectory: argv['force-subdirectory'],
     forceTarget: argv['force-target'],
-    inputDirectories: argv._,
+    inputDirectories: argv.PROJECTS,
     outputDirectory: argv.outdir,
     parallel: argv.parallel,
     recurse: argv.recurse,
