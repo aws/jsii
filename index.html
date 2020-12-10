@@ -692,8 +692,8 @@ suited for development and build tools, as opposed to performance-sensitive or r
 <span class="p">}</span>
 </code></pre></div>
 <p>By compiling our source module using <code>jsii</code>, we can now package it as modules in one of the supported target languages.
-Each target module has the exact same API as the source. This allows users of that target language to use <code>HelloJsii</code>
-like any other class:</p>
+Each target module has the exact same API as the source. This allows users of that target language to use <code>Greeter</code> like
+any other native type:</p>
 <div class="tabbed-set" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">C#</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">greeter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
 <span class="n">greeter</span><span class="p">.</span><span class="n">Greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span> <span class="c1">// =&gt; Hello, World!</span>
