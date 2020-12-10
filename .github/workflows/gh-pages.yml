@@ -69,8 +69,8 @@ jobs:
         run: |-
           rsync --delete --exclude=.git --recursive ${{ runner.temp }}/site/ ./
           touch .nojekyll
-          git diff --exit-code >/dev/null || (
-            git add .
+          git add .
+          git diff --cached --exit-code >/dev/null || (
             git commit -am 'docs: publish from ${{ github.sha }}'
           )
       - name: Push
