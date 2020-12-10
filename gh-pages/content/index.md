@@ -39,8 +39,8 @@ export class Greeter {
 ```
 
 By compiling our source module using `jsii`, we can now package it as modules in one of the supported target languages.
-Each target module has the exact same API as the source. This allows users of that target language to use `HelloJsii`
-like any other class:
+Each target module has the exact same API as the source. This allows users of that target language to use `Greeter` like
+any other native type:
 
 === "C#"
 
