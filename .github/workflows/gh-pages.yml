@@ -69,7 +69,10 @@ jobs:
         run: |-
           rsync --delete --exclude=.git --recursive ${{ runner.temp }}/site/ ./
           touch .nojekyll
-          git commit -am 'docs: publish from ${{ github.sha }}'
+          git diff --exit-code >/dev/null || (
+            git add .
+            git commit -am 'docs: publish from ${{ github.sha }}'
+          )
       - name: Push
         run: |-
           git push origin gh-pages:gh-pages
