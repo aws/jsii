@@ -11,7 +11,7 @@
   --md-default-fg-color--lightest: #c0c0c0;
 }
 
-:root > * {
+:root .highlight > * {
   /* Code color shades */
   --md-code-fg-color: #c9d1d9;
   --md-code-bg-color: #0d1117;
@@ -123,18 +123,4 @@ kbd {
 /* Custom look for arbitrary names */
 .highlight .nx {
   color: var(--md-code-hl-name-color);
-}
-
-/* Fixing up <code> rendering in some contexts */
-.md-typeset code {
-  padding: 3px;
-}
-
-.md-typeset h1 code,
-.md-typeset h2 code,
-.md-typeset h3 code,
-.md-typeset h4 code,
-.md-typeset h5 code,
-.md-typeset h6 code {
-  color: var(--md-default-fg-color--light);
 }
