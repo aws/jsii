@@ -47,7 +47,7 @@ jobs:
           JSII_RUNTIME_REPO_TOKEN: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
         run: |-
           REPO_DIR=$(mktemp -d)
-          npx ts-node ./build-tools/build-repo-dir.ts $REPO_DIR
+          yarn ts-node ./build-tools/build-repo-dir.ts $REPO_DIR
           echo "::set-output name=repodir::$REPO_DIR"
       - name: Check for changes
         id: check-for-changes
