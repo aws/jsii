@@ -6,7 +6,8 @@ the [AWS Cloud Development Kit][cdk] to deliver polyglot libraries from a single
 [cdk]: https://github.com/aws/aws-cdk
 
 A class library written in **TypeScript** can be used in projects authored in **TypeScript** or **Javascript** (as
-usual), but also in **Python**, **Java**, **C#** (and other languages from the _.NET_ family), ...
+usual), but also in **C#** (and other languages from the _.NET_ family), **Go**, **Java**, **Python**, ... More
+languages will be added in the future!
 
 !!! warning
     Due to *JSON* marshaling costs and the absence of a distributed garbage collector feature, `jsii` modules are best
