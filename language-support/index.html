@@ -10,22 +10,22 @@
       
       
       
-        <link rel="canonical" href="https://aws.github.io/jsii/dev-guide/prerequisites/">
+        <link rel="canonical" href="https://aws.github.io/jsii/language-support/">
       
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
       
-        <title>Prerequisites - The jsii reference</title>
+        <title>Language Implementation - The jsii reference</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
         
       
     
@@ -35,9 +35,9 @@
     
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/amazon-ember-display.css">
+      <link rel="stylesheet" href="../assets/stylesheets/amazon-ember-display.css">
     
-      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
     
     
       
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#prerequisites" class="md-skip">
+        <a href="#language-implementation" class="md-skip">
           Skip to content
         </a>
       
@@ -75,7 +75,7 @@
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-header-nav__button md-logo" aria-label="The jsii reference">
       
-  <img src="../../assets/images/logo.png" alt="logo">
+  <img src="../assets/images/logo.png" alt="logo">
 
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -89,7 +89,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Prerequisites
+              Language Implementation
             
           </span>
         </div>
@@ -161,8 +161,34 @@
     <li class="md-tabs__item">
       
       
-      <a href="../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../dev-guide/" class="md-tabs__link">
+        Author Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../consumer-guide/" class="md-tabs__link">
+        Consumer Guide
       </a>
     </li>
   
@@ -177,32 +203,6 @@
         
       
       <a href="./" class="md-tabs__link md-tabs__link--active">
-        Author Guide
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-      
-      <a href="../../consumer-guide/prerequisites/" class="md-tabs__link">
-        Consumer Guide
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-      
-      <a href="../../language-support/assembly/" class="md-tabs__link">
         Language Implementation
       </a>
     </li>
@@ -215,7 +215,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../specification/1-introduction/" class="md-tabs__link">
+      <a href="../specification/1-introduction/" class="md-tabs__link">
         Specification
       </a>
     </li>
@@ -240,7 +240,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference">
       
-  <img src="../../assets/images/logo.png" alt="logo">
+  <img src="../assets/images/logo.png" alt="logo">
 
     </a>
     The jsii reference
@@ -287,7 +287,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../.." class="md-nav__link">
+    <a href=".." class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -299,7 +299,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../home/features/" class="md-nav__link">
+    <a href="../home/features/" class="md-nav__link">
       Features
     </a>
   </li>
@@ -311,7 +311,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../home/toolchain/" class="md-nav__link">
+    <a href="../home/toolchain/" class="md-nav__link">
       Toolchain
     </a>
   </li>
@@ -323,7 +323,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../home/runtime-architecture/" class="md-nav__link">
+    <a href="../home/runtime-architecture/" class="md-nav__link">
       Runtime Architecture
     </a>
   </li>
@@ -338,12 +338,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
     <label class="md-nav__link" for="nav-2">
       Author Guide
       <span class="md-nav__icon md-icon"></span>
@@ -360,63 +358,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Prerequisites
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../dev-guide/" class="md-nav__link">
       Prerequisites
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#common-runtime" class="md-nav__link">
-     Common Runtime
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#other-languages" class="md-nav__link">
-     Other Languages
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download-locations" class="md-nav__link">
-     Download Locations
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -446,7 +392,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../set-up/" class="md-nav__link">
+    <a href="../dev-guide/set-up/" class="md-nav__link">
       Set Up
     </a>
   </li>
@@ -458,7 +404,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../write-code/" class="md-nav__link">
+    <a href="../dev-guide/write-code/" class="md-nav__link">
       Write Code
     </a>
   </li>
@@ -475,7 +421,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../typescript-restrictions/" class="md-nav__link">
+    <a href="../dev-guide/typescript-restrictions/" class="md-nav__link">
       TypeScript Restrictions
     </a>
   </li>
@@ -507,7 +453,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../configuration/" class="md-nav__link">
+    <a href="../dev-guide/configuration/" class="md-nav__link">
       Overview
     </a>
   </li>
@@ -539,7 +485,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../configuration/targets/dotnet/" class="md-nav__link">
+    <a href="../dev-guide/configuration/targets/dotnet/" class="md-nav__link">
       .NET
     </a>
   </li>
@@ -551,7 +497,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../configuration/targets/go/" class="md-nav__link">
+    <a href="../dev-guide/configuration/targets/go/" class="md-nav__link">
       Go
     </a>
   </li>
@@ -563,7 +509,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../configuration/targets/java/" class="md-nav__link">
+    <a href="../dev-guide/configuration/targets/java/" class="md-nav__link">
       Java
     </a>
   </li>
@@ -575,7 +521,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../configuration/targets/python/" class="md-nav__link">
+    <a href="../dev-guide/configuration/targets/python/" class="md-nav__link">
       Python
     </a>
   </li>
@@ -622,7 +568,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../consumer-guide/prerequisites/" class="md-nav__link">
+    <a href="../consumer-guide/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -654,7 +600,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../consumer-guide/python/" class="md-nav__link">
+    <a href="../consumer-guide/python/" class="md-nav__link">
       Python
     </a>
   </li>
@@ -674,10 +620,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     <label class="md-nav__link" for="nav-4">
       Language Implementation
       <span class="md-nav__icon md-icon"></span>
@@ -694,9 +642,121 @@
           
           
 
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Language Implementation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Language Implementation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#foreword" class="md-nav__link">
+    Foreword
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scoping-planning" class="md-nav__link">
+    Scoping &amp; Planning
+  </a>
+  
+    <nav class="md-nav" aria-label="Scoping &amp; Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-proposition-rfc" class="md-nav__link">
+    Language Proposition RFC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-generation" class="md-nav__link">
+    Code Generation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-library" class="md-nav__link">
+    Host Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-packaging" class="md-nav__link">
+    Building &amp; Packaging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-preview" class="md-nav__link">
+    Developer Preview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-availability" class="md-nav__link">
+    General Availability
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
 
   <li class="md-nav__item">
-    <a href="../../language-support/assembly/" class="md-nav__link">
+    <a href="assembly/" class="md-nav__link">
       .jsii Assemblies
     </a>
   </li>
@@ -708,20 +768,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../language-support/callbacks/" class="md-nav__link">
+    <a href="callbacks/" class="md-nav__link">
       Callbacks and Overrides
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../language-support/language-implementation/" class="md-nav__link">
-      Language Implementation
     </a>
   </li>
 
@@ -757,7 +805,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../specification/1-introduction/" class="md-nav__link">
+    <a href="../specification/1-introduction/" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -769,7 +817,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../specification/2-type-system/" class="md-nav__link">
+    <a href="../specification/2-type-system/" class="md-nav__link">
       The jsii type system
     </a>
   </li>
@@ -781,7 +829,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../specification/3-kernel-api/" class="md-nav__link">
+    <a href="../specification/3-kernel-api/" class="md-nav__link">
       The jsii kernel API
     </a>
   </li>
@@ -793,7 +841,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../specification/4-standard-compliance-suite/" class="md-nav__link">
+    <a href="../specification/4-standard-compliance-suite/" class="md-nav__link">
       Standard Compliance Suite
     </a>
   </li>
@@ -805,7 +853,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../specification/5-new-language-intake/" class="md-nav__link">
+    <a href="../specification/5-new-language-intake/" class="md-nav__link">
       New Language Intake
     </a>
   </li>
@@ -840,22 +888,70 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#common-runtime" class="md-nav__link">
-     Common Runtime
+  <a href="#foreword" class="md-nav__link">
+    Foreword
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-languages" class="md-nav__link">
-     Other Languages
+  <a href="#scoping-planning" class="md-nav__link">
+    Scoping &amp; Planning
+  </a>
+  
+    <nav class="md-nav" aria-label="Scoping &amp; Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-proposition-rfc" class="md-nav__link">
+    Language Proposition RFC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-generation" class="md-nav__link">
+    Code Generation
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#download-locations" class="md-nav__link">
-     Download Locations
+  <a href="#host-library" class="md-nav__link">
+    Host Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-packaging" class="md-nav__link">
+    Building &amp; Packaging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-preview" class="md-nav__link">
+    Developer Preview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-availability" class="md-nav__link">
+    General Availability
   </a>
   
 </li>
@@ -872,139 +968,142 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/dev-guide/prerequisites.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/language-support/index.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="prerequisites">Prerequisites</h1>
-<h2 id="common-runtime"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 508c-6.7 0-13.5-1.8-19.4-5.2l-61.7-36.5c-9.2-5.2-4.7-7-1.7-8 12.3-4.3 14.8-5.2 27.9-12.7 1.4-.8 3.2-.5 4.6.4l47.4 28.1c1.7 1 4.1 1 5.7 0l184.7-106.6c1.7-1 2.8-3 2.8-5V149.3c0-2.1-1.1-4-2.9-5.1L226.8 37.7c-1.7-1-4-1-5.7 0L36.6 144.3c-1.8 1-2.9 3-2.9 5.1v213.1c0 2 1.1 4 2.9 4.9l50.6 29.2c27.5 13.7 44.3-2.4 44.3-18.7V167.5c0-3 2.4-5.3 5.4-5.3h23.4c2.9 0 5.4 2.3 5.4 5.3V378c0 36.6-20 57.6-54.7 57.6-10.7 0-19.1 0-42.5-11.6l-48.4-27.9C8.1 389.2.7 376.3.7 362.4V149.3c0-13.8 7.4-26.8 19.4-33.7L204.6 9c11.7-6.6 27.2-6.6 38.8 0l184.7 106.7c12 6.9 19.4 19.8 19.4 33.7v213.1c0 13.8-7.4 26.7-19.4 33.7L243.4 502.8c-5.9 3.4-12.6 5.2-19.4 5.2zm149.1-210.1c0-39.9-27-50.5-83.7-58-57.4-7.6-63.2-11.5-63.2-24.9 0-11.1 4.9-25.9 47.4-25.9 37.9 0 51.9 8.2 57.7 33.8.5 2.4 2.7 4.2 5.2 4.2h24c1.5 0 2.9-.6 3.9-1.7s1.5-2.6 1.4-4.1c-3.7-44.1-33-64.6-92.2-64.6-52.7 0-84.1 22.2-84.1 59.5 0 40.4 31.3 51.6 81.8 56.6 60.5 5.9 65.2 14.8 65.2 26.7 0 20.6-16.6 29.4-55.5 29.4-48.9 0-59.6-12.3-63.2-36.6-.4-2.6-2.6-4.5-5.3-4.5h-23.9c-3 0-5.3 2.4-5.3 5.3 0 31.1 16.9 68.2 97.8 68.2 58.4-.1 92-23.2 92-63.4z"/></svg></span> Common Runtime</h2>
-<p>Whether you are developing <em>jsii modules</em> or consuming them (see <a href="../../home/runtime-architecture/">Runtime Architecture</a>), a compatible <code>node</code> runtime
-must be available. Current <code>node</code> runtime versions support status is as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Release</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>&lt;10.3.0</code></td>
-<td><img alt="❌" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/274c.svg" title=":x:" /> Defunct</td>
-</tr>
-<tr>
-<td><code>^10.3.0</code></td>
-<td><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</td>
-</tr>
-<tr>
-<td><code>^11.0.0</code></td>
-<td><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Unsupported</td>
-</tr>
-<tr>
-<td><code>^12.0.0</code></td>
-<td><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</td>
-</tr>
-<tr>
-<td><code>^13.0.0</code></td>
-<td><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Unsupported</td>
-</tr>
-<tr>
-<td><code>^14.0.0</code></td>
-<td><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</td>
-</tr>
-<tr>
-<td><code>^15.0.0</code></td>
-<td><img alt="🧪" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f9ea.svg" title=":test_tube:" /> Best effort</td>
-</tr>
-</tbody>
-</table>
-<details class="question"><summary>Status Definitions</summary><ul>
-<li><strong><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</strong>: Long Term Support (LTS) releases  (those with an even major version) are
-  supported and bugs specific to those releases are addressed with the highest priority. Every <code>jsii</code> release is
-  automatically tested against those releases.</li>
-<li><strong><img alt="🧪" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f9ea.svg" title=":test_tube:" /> Best effort</strong>: Development releases (those with an odd major version) are supported on a best-effort
-  basis. No automated testing is performed against those releases.</li>
-<li><strong><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Unsupported</strong>: End-of-Life releases are not supported. Bugs affecting those may not be fixed, and
-  users are strongly advised to migrate to more recent releases.</li>
-<li><strong><img alt="❌" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/274c.svg" title=":x:" /> Defunct</strong>: Very old releases (these have been End-of-Live for a while now) are unlikely to work at all.</li>
+                <h1 id="language-implementation">Language Implementation</h1>
+<p>This handbook provides an overview of the process that should be followed when looking to implement support for a new
+programming language in <em>jsii</em>. It attempts to provide a step-by-step procedure, while drawing the reader's attention on
+points that have been found to cause problems in the past.</p>
+<h2 id="foreword">Foreword</h2>
+<p>Implementing a new language in <em>jsii</em> is not just a matter of implementing code generation. Mapping the <em><a href="../specification/2-type-system/">jsii type
+system</a></em> to a new programming language means finding how to represent an API originally designed in TypeScript to a form
+that is as idiomatic as possible in the new language. This is a craft that often requires trial and error, and the best
+(if not only) way to validate a proposal is to put it in front of users and seek feedback. As a consequence, this
+endeavor should be expected to span months, not weeks.</p>
+<h2 id="scoping-planning">Scoping &amp; Planning</h2>
+<p>The first step of most successful projects is to start by scoping work out and establishing a baseline plan to execute
+on. For contributors not yet familiar with <em>jsii</em>, the <a href="../specification/1-introduction/">specification</a> document is a great place to start. In
+particular, the <a href="../specification/5-new-language-intake/">New Language Intake</a> document provides a high-level view of the recommended process for implementing
+new language support.</p>
+<p>The work of implementing support for a new language involves many different components:</p>
+<ul>
+<li>The [<code>jsii</code>] compiler emits warnings when a language's reserved words are used to name types, methods or properties;
+  as this will later require slugification or escaping in the generated code - usually resulting in a degraded developer
+  experience.</li>
+<li>The [<code>jsii-pacmak</code>] tool includes code generators for all supported languages, and a new implementation must be
+  provided for the new language.</li>
+<li>Code generation usually requires specific configuration to be provided in order to be able to generate valid packages
+  (for example, the <strong>Java</strong> code generator requires a base java package to generate into, as well as a Maven group and
+  artifact ID for the package). The [<code>jsii-config</code>] tool needs to be updated with support generating a configuration
+  block with the required entries for the new code generator.</li>
+<li>[<code>jsii-rosetta</code>] tool translates <strong>TypeScript</strong> example code found in the original documentation into the new target
+  language. A new translation implementation needs to be added for the new language.</li>
+<li>Building and publishing infrastructure elements are provided by [<code>aws-delivlib</code>] to make it easier for <em>jsii</em> users to
+  publish their libraries to all supported package registries.</li>
 </ul>
-<p>The <a href="https://nodejs.org/en/about/releases/">node releases schedule</a> provides up-to-date information on the current status of all active
-releases, and indicates the timelines for support (including planned End-of-Life dates for each).</p>
-</details>
-<h2 id="other-languages"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 3a2 2 0 012-2h9.982a2 2 0 011.414.586l4.018 4.018A2 2 0 0121 7.018V21a2 2 0 01-2 2H4.75a.75.75 0 010-1.5H19a.5.5 0 00.5-.5V8.5h-4a2 2 0 01-2-2v-4H5a.5.5 0 00-.5.5v6.25a.75.75 0 01-1.5 0V3zm12-.5v4a.5.5 0 00.5.5h4a.5.5 0 00-.146-.336l-4.018-4.018A.5.5 0 0015 2.5z"/><path d="M4.53 12.24a.75.75 0 01-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 11-1.022 1.1l-3.23-3a.75.75 0 010-1.1l3.23-3a.75.75 0 011.06.04zm3.979 1.06a.75.75 0 111.02-1.1l3.231 3a.75.75 0 010 1.1l-3.23 3a.75.75 0 11-1.021-1.1l2.639-2.45-2.64-2.45z"/></svg></span> Other Languages</h2>
-<p>When developing <em>jsii modules</em>, the SDK for each desired target language must be available for <code>jsii-pacmak</code> to be able
-to produce releasable artifacts.</p>
-<table>
-<thead>
-<tr>
-<th>Language/Platform</th>
-<th>SDK Requirement</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.NET</td>
-<td>.NET Core ≥ 3.1 / .NET ≥ 5.0</td>
-</tr>
-<tr>
-<td>Go</td>
-<td>Go ≥ 1.15</td>
-</tr>
-<tr>
-<td>Java</td>
-<td>JDK ≥ 8 <em>and</em> Maven ≥ 3.6</td>
-</tr>
-<tr>
-<td>Python</td>
-<td>Python ≥ 3.6</td>
-</tr>
-</tbody>
-</table>
-<h2 id="download-locations"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.25 9.331V.75a.75.75 0 011.5 0v8.58l1.949-2.11A.75.75 0 1115.8 8.237l-3.25 3.52a.75.75 0 01-1.102 0l-3.25-3.52A.75.75 0 119.3 7.22l1.949 2.111z"/><path fill-rule="evenodd" d="M2.5 3.75a.25.25 0 01.25-.25h5.5a.75.75 0 100-1.5h-5.5A1.75 1.75 0 001 3.75v11.5c0 .966.784 1.75 1.75 1.75h6.204c-.171 1.375-.805 2.652-1.77 3.757A.75.75 0 007.75 22h8.5a.75.75 0 00.565-1.243c-.964-1.105-1.598-2.382-1.769-3.757h6.204A1.75 1.75 0 0023 15.25V3.75A1.75 1.75 0 0021.25 2h-5.5a.75.75 0 000 1.5h5.5a.25.25 0 01.25.25v11.5a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V3.75zM10.463 17c-.126 1.266-.564 2.445-1.223 3.5h5.52c-.66-1.055-1.098-2.234-1.223-3.5h-3.074z"/></svg></span> Download Locations</h2>
-<p>This table provides typical download locations for the prerequisites mentioned in this document. Most of these tools can
-also be installed using traidtional package managers (standard for the operating system and platform).</p>
-<table>
-<thead>
-<tr>
-<th>Tool</th>
-<th>Description</th>
-<th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.NET</td>
-<td>Official Microsoft .NET SDK distribution</td>
-<td><a href="https://dotnet.microsoft.com/download">Download</a></td>
-</tr>
-<tr>
-<td>Amazon Corretto</td>
-<td>Amazon's free OpenJDK distribution</td>
-<td><a href="https://aws.amazon.com/fr/corretto/">Download</a></td>
-</tr>
-<tr>
-<td>Go</td>
-<td>Official Go distribution</td>
-<td><a href="https://golang.org/dl/">Download</a></td>
-</tr>
-<tr>
-<td>OpenJDK</td>
-<td>Oracle OpenJDK distribution</td>
-<td><a href="https://openjdk.java.net/install/index.html">Download</a></td>
-</tr>
-<tr>
-<td>Maven</td>
-<td>Official Maven distribution</td>
-<td><a href="https://maven.apache.org/download.cgi">Download</a></td>
-</tr>
-<tr>
-<td>Node</td>
-<td>Official NodeJS distribution</td>
-<td><a href="https://nodejs.org/en/download/">Download</a></td>
-</tr>
-</tbody>
-</table>
+<h3 id="language-proposition-rfc">Language Proposition RFC</h3>
+<p>The recommended way to formalize the initial plan is to write it into an RFC hosted in the <a href="https://github.com/awslabs/aws-cdk-rfcs#readme">CDK RFC repository</a>. Enough
+time has to be spent considering the requirements in order to get the work scoped and planned well, ensuring smooth
+execution.</p>
+<p>An additional benefit of following the RFC process is that it makes it easier to track learnings accumulated through the
+implementation process, as those will be tracked as comments or iterations on the RFC document.</p>
+<p>It is possible (and sometimes desirable) to start prototyping code-generation for the new language, as this can
+highlight implementation challenges that need to be discussed in the RFC document. In any case, examples of the API
+signatures that are expected to be rendered allow early feedback to be provided by possible future users, and still
+helps identify challenges.</p>
+<p>The following questions should be answered as early as possible in the process, to avoid surprises later on that result
+in significant re-engineering effort:</p>
+<ul>
+<li>What do the generated APIs look like, for the typical API idioms?</li>
+<li><em>Classes</em> (constructors, properties, methods, inheritance strategy, abstract members, ...)<ul>
+<li>The <a href="https://github.com/aws/aws-cdk">AWS CDK</a> (one of the main consumers of <em>jsii</em>) uses specific patterns to offer a better experience in many
+  programming languages. For example, constructor signatures where the last argument is a <em>jsii struct</em> allows for
+  keyword argument lifting in <strong>Python</strong>, and convenient <code>Builder</code> APIs in <strong>Java</strong>.</li>
+</ul>
+</li>
+<li><em>Enums</em></li>
+<li><em>Interfaces</em> and <em>Structs</em> (properties, methods, inheritance strategy, implementation, ...). In particular, how are
+    new optional properties handled (those are not considered breaking change within the <a href="../specification/2-type-system/">jsii type system</a>).</li>
+<li><em>Structs</em> (properties, inheritance strategy, implementation, ...)</li>
+<li>What information is needed in order for the code-generator to produce artifacts? What should the configuration block
+  look like?</li>
+<li>What is the standard way to publish packages for the new language?</li>
+<li>Are there any requirements (code signature, special metadata, ...) that need to be implemented in order to publish
+    valid packages?</li>
+<li>How are dependencies modeled? If <a href="https://semver.org">semantic versioning</a> is not the norm, what is the strategy to correctly represent
+    semantic version ranges?</li>
+<li>What are the toolchain and platform requirements?</li>
+<li>For example, <strong>Java</strong> requires an OpenJDK 8 distribution and <code>maven</code>, <strong>Python</strong> requires <code>python</code> 3.6 or above,
+    etc...</li>
+</ul>
+<h2 id="code-generation">Code Generation</h2>
+<p>First, implement a first version of the code generation for the new language before getting too far into the
+<em><a href="#host-library">host library</a></em> implementation. This top-down approach ensures the requirements for the lower level
+parts of the implementation are well-defined before they are implemented (reducing the chances that significant re-work
+has to be done), and enables using the <a href="../specification/4-standard-compliance-suite/">Standard Compliance Suite</a> to ensure the overall implementation is <em>correct</em>
+according to the <a href="../specification/1-introduction/">specification</a> (since the code necessary to implement the test cases will be available right from the
+start).</p>
+<p>This work happens within the [<code>jsii-pacmak</code>] package.</p>
+<p>Focus initially on the API signatures before getting into their implementation. The first version may even throw a <em>not
+implemented</em> exception when called.</p>
+<p>The [<code>jsii-calc</code>] package, can be used as a sample consuming library which uses <em>jsii</em> to generate code in all target
+languages. Start by making sure a decent API is generated from this package and its dependencies, and use those to
+implement the tests from the <a href="../specification/4-standard-compliance-suite/">Standard Compliance Suite</a>. You'll also get a feeling for whether the generated code
+achieves a good developer experience or not.</p>
+<h2 id="host-library">Host Library</h2>
+<p>Now that we are generating "empty shell" APIs that represent the necessary entities to back the <a href="../specification/4-standard-compliance-suite/">Standard Compliance
+Suite</a> tests, start implementing the <em>host library</em> and update the code generator until all the tests pass. It is
+possible to publish artifacts even when tests in the suite are failing. As soon as basic features are working, work on
+<a href="#building-and-packaging">Building and Packaging</a> can start, so early feedback can be gathered.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>A standard architecture for the <em>host library</em> has not been documented yet. Upcoming language implementations should
+contribute to this process by documenting a general architecture that should be implementable in any programming
+languages (and thus, abstracting away language specificities).</p>
+</div>
+<h2 id="building-packaging">Building &amp; Packaging</h2>
+<p>The necessary toolchains should be added to he [<code>jsii/superchain</code>] Docker image, so that the [<code>jsii-pacmak</code>] generation
+can be changed to support building ready to publish artifacts instead of just code.</p>
+<p>Before publishing any artifacts, ensure all packages (the <em>host library</em> as well as generated artifacts) are designated
+as <em>experimental</em> (e.g: <strong>Python</strong> packages were annotated with the <code>Development Status :: 4 - Beta</code> trove classifier on
+PyPI, and <strong>NuGet</strong> packages were published with a pre-release version such as <code>1.2.3-pre</code>).</p>
+<p>Additionally, [<code>aws-delivlib</code>] needs to be augmented to support publishing artifacts to the language's package
+repository.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>The package publishing is being extracted from [<code>aws-delivlib</code>] into a standalone library, currently hosted at
+<a href="https://github.com/eladb/jsii-release"><code>eladb/jsii-release</code></a>.</p>
+</div>
+<h2 id="documentation">Documentation</h2>
+<p>Before releasing the new language support to <em>Developer Preview</em>, basic documentation needs to be produced to explain
+how to configure a <em>jsii</em> project to support the new language, and any peculiarities in working with libraries generated
+by [<code>jsii-pacmak</code>] for this language.</p>
+<p>Support for example code translation should also be built into [<code>jsii-rosetta</code>].</p>
+<h2 id="developer-preview">Developer Preview</h2>
+<p>Once the full <a href="../specification/4-standard-compliance-suite/">Standard Compliance Suite</a> passes (possibly with the exception of certain fringy features), and the
+documentation covering all aspects of using the language bindings have been produced, the new language can be released
+to <em>Developer Preview</em>.</p>
+<p>It is recommended that new languages stay in <em>Developer Preview</em> for a minimum of 4 weeks, ideally until they have
+received sufficient usage to have built confidence that there are no major usability concerns: once out of <em>Developer
+Preview</em>, it will no longer be possible to introduce breaking changes to the generated code in order to address
+usability issues or bugs.</p>
+<p>In order to improve the chances of catching usability issues, focused user experience studies will be conducted with an
+audience composed of developers with varied degrees of experience with the new language.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>A user experience template will be provided to ensure coverage of critical aspects of the experience. Any critical
+user experience issue (for example, issues that required breaking changes to the generated code) discovered but not
+covered in the template should be added to the template so that subsequent language implementations do not fall to
+the same problem.</p>
+</div>
+<h2 id="general-availability">General Availability</h2>
+<p>Once the new language has been in <em>Developer Preview</em> without any significant usability issues or bugs for a sufficient
+amount of time and is used in real-world use-cases such as for <a href="https://github.com/aws/aws-cdk">AWS CDK</a> applications, it becomes a candidate to be
+declared <em>Generally Available</em>. At this point, breaking changes are no longer possible on the generated code.</p>
+<!-- ######################### External References ######################### -->
                 
                   
                     
@@ -1036,7 +1135,7 @@ also be installed using traidtional package managers (standard for the operating
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../../home/runtime-architecture/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../consumer-guide/python/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1045,19 +1144,19 @@ also be installed using traidtional package managers (standard for the operating
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Runtime Architecture
+                Python
               </div>
             </div>
           </a>
         
         
-          <a href="../set-up/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="assembly/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Set Up
+                .jsii Assemblies
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -1098,15 +1197,15 @@ also be installed using traidtional package managers (standard for the operating
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
-          base: "../..",
+          base: "..",
           features: ['navigation.expand', 'navigation.instant', 'navigation.tabs'],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

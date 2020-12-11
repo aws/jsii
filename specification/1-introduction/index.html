@@ -174,7 +174,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../dev-guide/prerequisites/" class="md-tabs__link">
+      <a href="../../dev-guide/" class="md-tabs__link">
         Author Guide
       </a>
     </li>
@@ -187,7 +187,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../consumer-guide/prerequisites/" class="md-tabs__link">
+      <a href="../../consumer-guide/" class="md-tabs__link">
         Consumer Guide
       </a>
     </li>
@@ -200,7 +200,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../language-support/assembly/" class="md-tabs__link">
+      <a href="../../language-support/" class="md-tabs__link">
         Language Implementation
       </a>
     </li>
@@ -360,7 +360,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../dev-guide/prerequisites/" class="md-nav__link">
+    <a href="../../dev-guide/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -568,7 +568,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../consumer-guide/prerequisites/" class="md-nav__link">
+    <a href="../../consumer-guide/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -642,6 +642,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../language-support/" class="md-nav__link">
+      Language Implementation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../language-support/assembly/" class="md-nav__link">
       .jsii Assemblies
     </a>
@@ -656,18 +668,6 @@
   <li class="md-nav__item">
     <a href="../../language-support/callbacks/" class="md-nav__link">
       Callbacks and Overrides
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../language-support/language-implementation/" class="md-nav__link">
-      Language Implementation
     </a>
   </li>
 
@@ -1050,16 +1050,16 @@ ensure consistent behavior across the various supported languages.</p>
 <p>The document is hosted with the <em>jsii</em> codebase, making it easy to determine what specification was in place at the time
 of a give <em>jsii</em> release (by ways of referring to the <code>vX.Y.Z</code> git tag). A single version of the specification is
 considered <strong>active</strong> at any given time: the version of the specification that is represented on the <code>HEAD</code> commit of
-the <code>main</code> branch of the [<code>aws/jsii</code>] repository. The <strong>active</strong> specification must be the base version for any update
-proposal.</p>
+the <code>main</code> branch of the <a href="https://github.com/aws/jsii"><code>aws/jsii</code></a> repository. The <strong>active</strong> specification must be the base version for
+any update proposal.</p>
 <p>The process to update the specification is intended to be as lightweight as possible, while ensuring sufficient
 conversation takes place before implementing significant (and breaking) changes. Since the process to update the
 specification is part of the specification itself, it is amenable to be changed following the process described in the
 currently <strong>active</strong> specification.</p>
 <h3 id="process">Process</h3>
-<p>While the general process for updating the specification is to create a GitHub pull request against the [<code>aws/jsii</code>]
-repository, the exact requirements for what should be included in the pull request vary depending on the type of update
-that is proposed:</p>
+<p>While the general process for updating the specification is to create a GitHub pull request against the
+<a href="https://github.com/aws/jsii"><code>aws/jsii</code></a> repository, the exact requirements for what should be included in the pull request vary depending
+on the type of update that is proposed:</p>
 <ul>
 <li><a href="#new-behavior"><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Changing Behavior</a> describes the process to be followed when introducing changes to the
   behavior of any component of <em>jsii</em>: new features, breaking changes to existing features, ...</li>
@@ -1068,19 +1068,20 @@ that is proposed:</p>
 <li><a href="#trivial"><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /> Trivial Changes</a> explains how to propose changes that improve the specification without changing
   its meaning.</li>
 </ul>
-<h4 id="changing-behavior"><a id="new-behavior"/> <img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Changing Behavior</h4>
+<h4 id="changing-behavior"><a id="new-behavior"></a> <img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Changing Behavior</h4>
 <p>If the change is <strong>not backwards compatible</strong> (it is a breaking change to an existing feature, or it is a new feature
 that requires all runtime libraries implement support immediately), a new RFC should be created in the
-[<code>awslabs/aws-cdk-rfcs</code>] repository, following the <a href="https://github.com/aws/aws-cdk-rfcs#what-the-process-is">RFC Process</a>. This ensures enough time is spent considering
-alternatives to breaking changes, and to create consensus that the change is desirable before time is spent implementing
-it.</p>
-<blockquote>
+<a href="https://github.com/awslabs/aws-cdk-rfcs"><code>awslabs/aws-cdk-rfcs</code></a> repository, following the <a href="https://github.com/aws/aws-cdk-rfcs#what-the-process-is">RFC Process</a>. This ensures enough time is
+spent considering alternatives to breaking changes, and to create consensus that the change is desirable before time is
+spent implementing it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>While going through the RFC process upfront is <strong>strongly recommended</strong>, contributors may choose not to file an RFC
 for a behavior change. In this case however, any core maintainer may decide that an RFC is required and block the
 contribution until the RFC process has been followed.</p>
 <p>It is worth noting that a draft pull request with proposed modifications to the specification (and possibly a
-proof-of-concept implementation), can b</p>
-</blockquote>
+proof-of-concept implementation), can be extremely useful.</p>
+</div>
 <p>When the RFC is <strong>ready</strong>, a GitHub pull request is created that must contain:</p>
 <ul>
 <li>Relevant additions or modifications to the specification documents</li>
@@ -1089,7 +1090,7 @@ proof-of-concept implementation), can b</p>
 </ul>
 <p>The pull request's body must reference the RFC if there has been one, and otherwise must include all discussion
 necessary to explain the reasoning behind the proposal (including alternatives considered, risks, ...).</p>
-<h4 id="addressing-gaps"><a id="addressing-gaps"/> <img alt="🔍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50d.svg" title=":mag:" /> Addressing Gaps</h4>
+<h4 id="addressing-gaps"><a id="addressing-gaps"></a> <img alt="🔍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50d.svg" title=":mag:" /> Addressing Gaps</h4>
 <p>Proposals that increase the specification's coverage (desribing behavior that already exists) are handled as GitHub pull
 requests that must contain the following elements:</p>
 <ul>
@@ -1099,7 +1100,7 @@ requests that must contain the following elements:</p>
 </ul>
 <p>The pull request body should provide pointers to any and all elements that can be used to verify that the behavior that
 is described is indeed what is currently implemented.</p>
-<h4 id="trivial-changes"><a id="trivial"/> <img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /> Trivial Changes</h4>
+<h4 id="trivial-changes"><a id="trivial"></a> <img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /> Trivial Changes</h4>
 <p>Proposal of trivial changes, such as correcting typos in the document, or re-phrasing elements of the specification
 without altering the meaning (typically to improve clarity) are handled in a simple GitHub pull request.</p>
 <h2 id="design-tenets-unless-you-know-better-ones">Design Tenets (unless you know better ones)</h2>
@@ -1124,35 +1125,27 @@ without altering the meaning (typically to improve clarity) are handled in a sim
 <h2 id="annotations">Annotations</h2>
 <p>Annotations are present in the <em>jsii</em> specification to provide additional information to the reader that is
 non-normative. Those take the form of block-quotes that use the following chart:</p>
-<ul>
-<li>
-<blockquote>
-<p><img alt="🚧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f6a7.svg" title=":construction:" /> Is used to annotate parts of the specification that are known to be partially or incorrectly
-implemented in the current releases. Those are known issues in the current implementation that will be addressed in
-the future.</p>
-</blockquote>
-</li>
-<li>
-<blockquote>
-<p><img alt="❓" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2753.svg" title=":question:" /> Is used to annotate open questions. They are typically in parts of the specification that is likely to
-change in future releases, and that may be good candidates for introducing RFCs.</p>
-</blockquote>
-</li>
-<li>
-<blockquote>
-<p><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Is used to draw the reader's attention on specific points. They are used primarily to help the reader
-identify areas of the specification that, when incorrectly implemented, may result in hard-to-troubleshoot bugs; or
-to identify behavior that is intentionally undefined.</p>
-</blockquote>
-</li>
-<li>
-<blockquote>
-<p><img alt="ℹ" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2139.svg" title=":information_source:" /> Is used to provide additional context which may not be obvious to the reader. They typically
-contain trivia that can help the reader understand the motivation for certain behaviors that are not always
-intuitive.</p>
-</blockquote>
-</li>
-</ul>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>Is used to annotate parts of the specification that are known to be partially or incorrectly implemented in the
+current releases. Those are known issues in the current implementation that will be addressed in the future.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Is used to annotate open questions. They are typically in parts of the specification that is likely to change in
+future releases, and that may be good candidates for introducing RFCs.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Is used to draw the reader's attention on specific points. They are used primarily to help the reader identify areas
+of the specification that, when incorrectly implemented, may result in hard-to-troubleshoot bugs; or to identify
+behavior that is intentionally undefined.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Is used to provide additional context which may not be obvious to the reader. They typically contain trivia that can
+help the reader understand the motivation for certain behaviors that are not always intuitive.</p>
+</div>
 <h2 id="concepts">Concepts</h2>
 <p><em>jsii</em> allows developers to author code once in <strong>TypeScript</strong>, while allowing use in a variety of other programming
 languages (including <strong>C#</strong>, <strong>Java</strong> and <strong>Python</strong>).</p>
@@ -1163,7 +1156,7 @@ with method and property signatures, associated documentation elements, ...) and
 <p>The <em>npm</em> package produced as a result of compiling the <strong>TypeScript</strong> source remains the source of truth with respects
 to implementation of the API.</p>
 <h3 id="host-kernel">Host &amp; Kernel</h3>
-<p>The [<em>jsii</em> runtime architecture] defines two processes:</p>
+<p>The <a href="../../home/runtime-architecture/"><em>jsii</em> runtime architecture</a> defines two processes:</p>
 <ol>
 <li>The <em>host</em> process runs the users' code native environment (a Java virtual machine, the .NET Runtime, ...).</li>
 <li>The <em>kernel</em> process hosts the <strong>JavaScript</strong> code from the standard <em>npm</em> package defined by the user (and their
@@ -1177,13 +1170,13 @@ API</em> that is standardized in the <em>jsii specification</em>.</p>
 <h2 id="components">Components</h2>
 <p>Several tools are involved in making this possible:</p>
 <ul>
-<li>[<code>jsii</code>] is a modified <strong>TypeScript</strong> compiler. In addition to generating <strong>JavaScript</strong> code from the source, it
+<li><a href="https://github.com/aws/jsii/tree/main/packages/jsii"><code>jsii</code></a> is a modified <strong>TypeScript</strong> compiler. In addition to generating <strong>JavaScript</strong> code from the source, it
   produces a <em>jsii Assembly</em> document.</li>
-<li>[<code>jsii-pacmak</code>] generates language bindings from a package compiled using <code>jsii</code>. It generates code in <em>host</em>
+<li><a href="https://github.com/aws/jsii/tree/main/packages/jsii-pacmak"><code>jsii-pacmak</code></a> generates language bindings from a package compiled using <code>jsii</code>. It generates code in <em>host</em>
   languages that expose the API declared in the <em>jsii Assembly</em> document.</li>
-<li><em>Host runtime libraries</em> centralize features used by code generated by [<code>jsii-pacmak</code>], such as primitives to interact
+<li><em>Host runtime libraries</em> centralize features used by code generated by <a href="https://github.com/aws/jsii/tree/main/packages/jsii-pacmak"><code>jsii-pacmak</code></a>, such as primitives to interact
   with the <em>kernel</em> process, so that this code does not need to be duplicated in every generated module.</li>
-<li>[<code>@jsii/kernel</code>] (and [<code>@jsii/runtime</code>]) provide the functionality exposed by the <em>kernel</em> process, and allow the
+<li><a href="https://github.com/aws/jsii/tree/main/packages/@jsii/kernel"><code>@jsii/kernel</code></a> (and <a href="https://github.com/aws/jsii/tree/main/packages/@jsii/runtime"><code>@jsii/runtime</code></a>) provide the functionality exposed by the <em>kernel</em> process, and allow the
   <em>host</em> code to seamlessly interact with the <strong>JavaScript</strong> implementation.</li>
 </ul>
                 
@@ -1217,7 +1210,7 @@ API</em> that is standardized in the <em>jsii specification</em>.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../../language-support/language-implementation/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../language-support/callbacks/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1226,7 +1219,7 @@ API</em> that is standardized in the <em>jsii specification</em>.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Language Implementation
+                Callbacks and Overrides
               </div>
             </div>
           </a>

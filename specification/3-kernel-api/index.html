@@ -174,7 +174,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../dev-guide/prerequisites/" class="md-tabs__link">
+      <a href="../../dev-guide/" class="md-tabs__link">
         Author Guide
       </a>
     </li>
@@ -187,7 +187,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../consumer-guide/prerequisites/" class="md-tabs__link">
+      <a href="../../consumer-guide/" class="md-tabs__link">
         Consumer Guide
       </a>
     </li>
@@ -200,7 +200,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../language-support/assembly/" class="md-tabs__link">
+      <a href="../../language-support/" class="md-tabs__link">
         Language Implementation
       </a>
     </li>
@@ -360,7 +360,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../dev-guide/prerequisites/" class="md-nav__link">
+    <a href="../../dev-guide/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -568,7 +568,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../consumer-guide/prerequisites/" class="md-nav__link">
+    <a href="../../consumer-guide/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -642,6 +642,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../language-support/" class="md-nav__link">
+      Language Implementation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../language-support/assembly/" class="md-nav__link">
       .jsii Assemblies
     </a>
@@ -656,18 +668,6 @@
   <li class="md-nav__item">
     <a href="../../language-support/callbacks/" class="md-nav__link">
       Callbacks and Overrides
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../language-support/language-implementation/" class="md-nav__link">
-      Language Implementation
     </a>
   </li>
 
@@ -1112,8 +1112,7 @@ output pipes.</p>
 <p>Upon initialization, the <code>@jsii/kernel</code> process introduces itself to the <em>host</em> application by emitting a single JSON
 message:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="c1">// The package name@version of the @jsii/kernel in use</span>
-  <span class="s2">&quot;hello&quot;</span><span class="o">:</span> <span class="s2">&quot;@jsii/runtime@0.21.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hello&quot;</span><span class="p">:</span> <span class="s2">&quot;@jsii/runtime@0.21.1&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Any additional key present on the <code>hello</code> message will be silently ignored by a <em>host</em> library that does not know how to

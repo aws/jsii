@@ -174,7 +174,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../dev-guide/prerequisites/" class="md-tabs__link">
+      <a href="../../dev-guide/" class="md-tabs__link">
         Author Guide
       </a>
     </li>
@@ -187,7 +187,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../consumer-guide/prerequisites/" class="md-tabs__link">
+      <a href="../../consumer-guide/" class="md-tabs__link">
         Consumer Guide
       </a>
     </li>
@@ -200,7 +200,7 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../language-support/assembly/" class="md-tabs__link">
+      <a href="../../language-support/" class="md-tabs__link">
         Language Implementation
       </a>
     </li>
@@ -360,7 +360,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../dev-guide/prerequisites/" class="md-nav__link">
+    <a href="../../dev-guide/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -568,7 +568,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../consumer-guide/prerequisites/" class="md-nav__link">
+    <a href="../../consumer-guide/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -642,6 +642,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../language-support/" class="md-nav__link">
+      Language Implementation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../language-support/assembly/" class="md-nav__link">
       .jsii Assemblies
     </a>
@@ -656,18 +668,6 @@
   <li class="md-nav__item">
     <a href="../../language-support/callbacks/" class="md-nav__link">
       Callbacks and Overrides
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../language-support/language-implementation/" class="md-nav__link">
-      Language Implementation
     </a>
   </li>
 
@@ -1411,29 +1411,31 @@ supported values: <code>true</code> and <code>false</code>.</p>
 <p><strong>TypeScript</strong> arrays (<code>Array&lt;T&gt;</code>, <code>T[]</code>, <code>ReadonlyArray&lt;T&gt;</code> and <code>readonly T[]</code>) are represented as <em>lists</em> in the
 <em>jsii</em> type model. Lists are shared between the <em>node</em> process and the host process by-value, meaning a copy of the
 array is produced each time it is passed through the process boundary.</p>
-<blockquote>
-<p><img alt="ℹ" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2139.svg" title=":information_source:" /> Items in the list may be passed by-reference (according to their type's specification), in which
-case mutating operations performed on those may be visible across the process boundary.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Items in the list may be passed by-reference (according to their type's specification), in which case mutating
+operations performed on those may be visible across the process boundary.</p>
+</div>
 <h3 id="enum">Enum</h3>
 <p>As in many languages, <code>enum</code> can be used to represent a group of related constants. While <strong>TypeScript</strong> <code>enum</code> entries
 are associated with a value that is either a <code>string</code> or a <code>number</code>, the <em>jsii</em> type system does not allow for those to
 be down-casted to their value type (e.g: a <code>string</code>-valued <code>enum</code> entry cannot be directly passed into a <code>string</code>
 parameter).</p>
-<blockquote>
-<p><img alt="ℹ" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2139.svg" title=":information_source:" /> Unlike in certain languages such as <strong>Java</strong>, <code>enum</code> types cannot declare new properties or
-methods.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Unlike in certain languages such as <strong>Java</strong>, <code>enum</code> types cannot declare new properties or methods.</p>
+</div>
 <h3 id="any-and-unknown">Any and Unknown</h3>
 <p><strong>TypeScript</strong> defines two opaque types: <code>any</code> and <code>unknown</code> that can be used to represent a value of arbitary type. The
 difference between them is that while <code>any</code> is assignable to any other type, <code>unknown</code> requires a type assertion or
 explicit cast to be performed before it can be assigned.</p>
 <p>Both of these types map to an <code>Any</code> <em>primitive type</em> in the <em>jsii</em> type system, and the subtle distinction between <code>any</code>
 and <code>unknown</code> is lost in the process.</p>
-<blockquote>
-<p><img alt="ℹ" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2139.svg" title=":information_source:" /> It is important to note that, contrary to the other types in the <strong>TypeScript</strong> type system,
-<code>any</code> and <code>unknown</code> types are inherently <code>null</code>-able.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It is important to note that, contrary to the other types in the <strong>TypeScript</strong> type system, <code>any</code> and <code>unknown</code>
+types are inherently <code>null</code>-able.</p>
+</div>
 <h3 id="void">Void</h3>
 <p>As in most languages, the <code>void</code> type is used to denote a method does not return anything.</p>
 <h3 id="null-and-undefined">Null and Undefined</h3>
@@ -1441,21 +1443,26 @@ and <code>unknown</code> is lost in the process.</p>
 <code>null</code> denotes an intentional signal of there being <em>no data</em>. Most other programming languages (particularly statically
 typed languages) however lack this distinction, and the <em>jsii</em> type model consequently considers <code>null</code> and <code>undefined</code>
 are semantically equivalent.</p>
-<blockquote>
-<p><img alt="ℹ" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2139.svg" title=":information_source:" /> Unlike certain other programming languages, such as <strong>Java</strong>, <strong>TypeScript</strong> does not allow
-<code>null</code> (or <code>undefined</code>) values unless the type signature expressedly supports that (with the exception of <code>any</code> and
-<code>unknown</code>, which are implicitly <code>null</code>-able, as was discussed earlier).</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Unlike certain other programming languages, such as <strong>Java</strong>, <strong>TypeScript</strong> does not allow <code>null</code> (or <code>undefined</code>)
+values unless the type signature expressedly supports that (with the exception of <code>any</code> and <code>unknown</code>, which are
+implicitly <code>null</code>-able, as was discussed earlier).</p>
+</div>
 <h3 id="object">Object</h3>
 <p><strong>TypeScript</strong>'s <code>object</code> type denotes anything that is not a <em>primitive</em> type, meaning anything other than a <code>number</code>,
 <code>string</code>, <code>boolean</code>, <code>bigint</code>, <code>symbol</code>, <code>null</code> or <code>undefined</code>.</p>
 <p>In the <em>jsii</em> type model, <code>object</code> indicates a block of structured data that can be shared by-value across the process
 boundary. As a consequence, they may not include any method.</p>
-<blockquote>
-<p><img alt="🚧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f6a7.svg" title=":construction:" /> This type is called <code>Json</code> in the current implementation.</p>
-<p><img alt="❓" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2753.svg" title=":question:" /> The by-value nature of <code>object</code> is problematic because <strong>TypeScript</strong> makes no guarantee with respects to
-the absence of methods on <code>object</code>, and properties may be dynamic.</p>
-</blockquote>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>This type is called <code>Json</code> in the current implementation.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The by-value nature of <code>object</code> is problematic because <strong>TypeScript</strong> makes no guarantee with respects to the
+absence of methods on <code>object</code>, and properties may be dynamic.</p>
+</div>
 <h3 id="promises">Promises</h3>
 <p><em>jsii</em> supports asynchronous methods, and the <strong>TypeScript</strong> <code>Promise&lt;T&gt;</code> type has to be used as the result of <code>async</code>
 methods. Promises can only be used as the result type of methods, not as the type of a property or parameter.</p>
@@ -1626,11 +1633,12 @@ given dynamic type (columns). The <img alt="❌" class="twemoji" src="https://tw
 </table>
 <p>In the case of <code>object</code> being passed though <code>any</code>, the value may be serialized by <a href="#value-serialization">Value</a> only if the value being passed
 does not have any method or dynamic accessor. Otherwise, it must be passed by <a href="#reference-serialization">Reference</a> instead.</p>
-<blockquote>
-<p><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> The serialization behavior around <code>undefined</code> values is affected by the <code>optional</code> attribute of the declared
-type. As discussed earlier, the <code>any</code> type is implicitly <code>optional</code>; but all other types' serialization process will
-only allow serialization of <code>undefined</code> if they were declared <code>optional</code>.</p>
-</blockquote>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The serialization behavior around <code>undefined</code> values is affected by the <code>optional</code> attribute of the declared type.
+As discussed earlier, the <code>any</code> type is implicitly <code>optional</code>; but all other types' serialization process will only
+allow serialization of <code>undefined</code> if they were declared <code>optional</code>.</p>
+</div>
 <h3 id="array-serialization">Array Serialization</h3>
 <p>Arrays are serialized into the standard JSON representation for them. Each value in the array is serialized according to
 the behavior dictated by the declared element type of the list, combined with the dynamic type of the value itself.</p>
@@ -1668,8 +1676,8 @@ the instance within its owning process. It includes a <code>$jsii.byref</code> k
 identifies the instance, and an optional <code>$jsii.interfaces</code> key that provides a list of interfaces that the object
 implements.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;$jsii.byref&quot;</span><span class="o">:</span> <span class="s2">&quot;@scope/module.Foo@1337&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;$jsii.interfaces&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;@scope/module.IBar&quot;</span><span class="p">,</span> <span class="s2">&quot;@scope/module.IBaz&quot;</span><span class="p">]</span>
+  <span class="nt">&quot;$jsii.byref&quot;</span><span class="p">:</span> <span class="s2">&quot;@scope/module.Foo@1337&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;$jsii.interfaces&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;@scope/module.IBar&quot;</span><span class="p">,</span> <span class="s2">&quot;@scope/module.IBaz&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="value-serialization">Value Serialization</h3>
@@ -1679,20 +1687,16 @@ type information for the provided data as well as the <em>struct</em>'s members.
 type, and a <code>data</code> key that contains the members of the <em>struct</em>, serialized according to the behavior described in this
 document.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;$jsii.struct&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;fqn&quot;</span><span class="o">:</span> <span class="s2">&quot;@scope/module.StructType&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;enumValue&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;$jsii.enum&quot;</span><span class="o">:</span> <span class="s2">&quot;@scope/module.EnumType.ENTRY_NAME&quot;</span> <span class="p">},</span>
-      <span class="s2">&quot;stringProperty&quot;</span><span class="o">:</span> <span class="s2">&quot;Hello, I&#39;m a string!&quot;</span>
+  <span class="nt">&quot;$jsii.struct&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;fqn&quot;</span><span class="p">:</span> <span class="s2">&quot;@scope/module.StructType&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;enumValue&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$jsii.enum&quot;</span><span class="p">:</span> <span class="s2">&quot;@scope/module.EnumType.ENTRY_NAME&quot;</span> <span class="p">},</span>
+      <span class="nt">&quot;stringProperty&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello, I&#39;m a string!&quot;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="submodules">Submodules</h2>
-<blockquote>
-<p><img alt="🚧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f6a7.svg" title=":construction:" /> The <em>submodules</em> feature is still under active development and the specific behavior around it (in
-particular with respects to code generation) are still subject to change.</p>
-</blockquote>
 <h3 id="overview">Overview</h3>
 <p>Typescript allows grouping declarations together in <em>namespaces</em>, which are interpreted by <em>jsii</em> as <em>submodules</em>.
 <em>Submodules</em> names are the fully qualified name of the namespace from the package's root (if a package <code>foo</code> defines a
@@ -1704,10 +1708,11 @@ namespace <code>ns1</code>, which itself contains <code>ns2</code>, the submodul
 <h3 id="restrictions">Restrictions</h3>
 <p><em>Submodules</em> cannot be involved in dependency cycles. While it is possible to build such cycles in <strong>JavaScript</strong>, that
 configuration cannot be reliably reprensented in certain other programming languages (e.g: <strong>Python</strong>).</p>
-<blockquote>
-<p><img alt="🚧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f6a7.svg" title=":construction:" /> [<code>jsii</code>] does not currently check for circular submodule dependencies. Invalid dependency patterns may
-result in errors at code generation by [<code>jsii-pacmak</code>], or at runtime.</p>
-</blockquote>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p><a href="https://github.com/aws/jsii/tree/main/packages/jsii"><code>jsii</code></a> does not currently check for circular submodule dependencies. Invalid dependency patterns may result
+in errors at code generation by <a href="https://github.com/aws/jsii/tree/main/packages/jsii-pacmak"><code>jsii-pacmak</code></a>, or at runtime.</p>
+</div>
 <p>Since this would result in ambiguity that cannot be consistently resolved, a given type can only be exported as part of
 one <em>submodule</em>.</p>
 <h3 id="declaration">Declaration</h3>
@@ -1724,9 +1729,10 @@ one <em>submodule</em>.</p>
 </ul>
 <p><em>Submodules</em> declared using the <code>export * as ns from './module';</code> syntax can be documented using a markdown document
 located at <code>./module/README.md</code>.</p>
-<blockquote>
-<p><img alt="🚧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f6a7.svg" title=":construction:" /> The <code>./module/README.md</code> file support is not yet implemented.</p>
-</blockquote>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>The <code>./module/README.md</code> file support is not yet implemented.</p>
+</div>
 <h3 id="submodule-configuration">Submodule Configuration</h3>
 <p>In languages where this is relevant (e.g: <strong>Python</strong>), <em>submodules</em> are rendered as native <em>submodules</em>. In languages
 where a namespace system exists (<strong>Java</strong> uses <em>packages</em>, <strong>C#</strong> uses <em>namespaces</em>, ...), <em>submodules</em> are rendered
@@ -1745,16 +1751,17 @@ directives (e.g: <strong>Java</strong> package names, <strong>C#</strong> namesp
 language-specific and each language implementation specifies and documents its own configuration schema.</p>
 <p>Configuration is sourced in the <code>package.json</code> file at the root of the npm package, under the special <code>jsii</code> key. The
 general schema is described in the <a href="../../dev-guide/configuration/">configuration</a> document.</p>
-<blockquote>
-<p><img alt="🚧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f6a7.svg" title=":construction:" /> There is a proposition to allow this configuration to be placed in a <code>.jsiirc.json</code> file, which would
-take precedence over what is specified in <code>package.json</code>. <em>Submodules</em> introduced using the
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>There is a proposition to allow this configuration to be placed in a <code>.jsiirc.json</code> file, which would take
+precedence over what is specified in <code>package.json</code>. <em>Submodules</em> introduced using the
 <code>export * as ns from './module';</code> syntax would then be able to define <em>submodule</em>-local configuration using the
 <code>./module/.jsiirc.json</code> file.</p>
-</blockquote>
+</div>
 <h2 id="references">References</h2>
-<p>The <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html"><strong>TypeScript</strong> Handbook</a> describes the language's type system and syntax elements that serve as the basis for the
-<em>jsii</em> type system. Additionally, the <strong>JavaScript</strong> type system is described in the <a href="https://javascript.info/types"><strong>JavaScript</strong> Fundamentals</a>
-document.</p>
+<p>The <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html"><strong>TypeScript</strong> Handbook</a> describes the language's type system and syntax elements that serve as the
+basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</strong> type system is described in the
+<a href="https://javascript.info/types"><strong>JavaScript</strong> Fundamentals</a> document.</p>
                 
                   
                     

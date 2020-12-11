@@ -16,7 +16,7 @@
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/dev-guide/prerequisites/</loc>
+     <loc>https://aws.github.io/jsii/dev-guide/</loc>
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
@@ -52,11 +52,15 @@
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/consumer-guide/prerequisites/</loc>
+     <loc>https://aws.github.io/jsii/consumer-guide/</loc>
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://aws.github.io/jsii/consumer-guide/python/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/language-support/</loc>
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
@@ -65,10 +69,6 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://aws.github.io/jsii/language-support/callbacks/</loc>
-     <lastmod>2020-12-11</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://aws.github.io/jsii/language-support/language-implementation/</loc>
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
