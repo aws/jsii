@@ -56,11 +56,13 @@ code.closeFile(RUNTIME_FILE);
 code.openFile(VERSION_FILE);
 code.line('package jsii');
 code.line();
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const thisVersion = require('../package.json').version;
 code.line(`const version = ${JSON.stringify(thisVersion)}`);
 code.closeFile(VERSION_FILE);
 
-code.save(OUTPUT_DIR);
+code.save(OUTPUT_DIR).catch(console.error);
 
 function getByteSlice(path: string) {
   const fileData = readFileSync(path).toString('hex');
