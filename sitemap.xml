@@ -36,6 +36,22 @@
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
+     <loc>https://aws.github.io/jsii/dev-guide/configuration/targets/dotnet/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/dev-guide/configuration/targets/go/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/dev-guide/configuration/targets/java/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/dev-guide/configuration/targets/python/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
      <loc>https://aws.github.io/jsii/consumer-guide/prerequisites/</loc>
      <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
