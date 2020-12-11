@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://aws.github.io/jsii/white-papers/assembly/">
+        <link rel="canonical" href="https://aws.github.io/jsii/language-support/assembly/">
       
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
@@ -34,6 +34,8 @@
       
     
     
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/amazon-ember-display.css">
     
       <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
     
@@ -172,8 +174,8 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../user-guide/prerequisites/" class="md-tabs__link">
-        User Guide
+      <a href="../../dev-guide/prerequisites/" class="md-tabs__link">
+        Author Guide
       </a>
     </li>
   
@@ -185,8 +187,8 @@
     <li class="md-tabs__item">
       
       
-      <a href="../../specification/1-introduction/" class="md-tabs__link">
-        Specification
+      <a href="../../consumer-guide/prerequisites/" class="md-tabs__link">
+        Consumer Guide
       </a>
     </li>
   
@@ -201,7 +203,20 @@
         
       
       <a href="./" class="md-tabs__link md-tabs__link--active">
-        White Papers
+        Language Implementation
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../specification/1-introduction/" class="md-tabs__link">
+        Specification
       </a>
     </li>
   
@@ -284,7 +299,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../features/" class="md-nav__link">
+    <a href="../../home/features/" class="md-nav__link">
       Features
     </a>
   </li>
@@ -296,7 +311,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../toolchain/" class="md-nav__link">
+    <a href="../../home/toolchain/" class="md-nav__link">
       Toolchain
     </a>
   </li>
@@ -308,7 +323,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../runtime-architecture/" class="md-nav__link">
+    <a href="../../home/runtime-architecture/" class="md-nav__link">
       Runtime Architecture
     </a>
   </li>
@@ -328,13 +343,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
     <label class="md-nav__link" for="nav-2">
-      User Guide
+      Author Guide
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+    <nav class="md-nav" aria-label="Author Guide" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
         <span class="md-nav__icon md-icon"></span>
-        User Guide
+        Author Guide
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -345,7 +360,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/prerequisites/" class="md-nav__link">
+    <a href="../../dev-guide/prerequisites/" class="md-nav__link">
       Prerequisites
     </a>
   </li>
@@ -377,7 +392,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/set-up/" class="md-nav__link">
+    <a href="../../dev-guide/set-up/" class="md-nav__link">
       Set Up
     </a>
   </li>
@@ -389,7 +404,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/write-code/" class="md-nav__link">
+    <a href="../../dev-guide/write-code/" class="md-nav__link">
       Write Code
     </a>
   </li>
@@ -406,7 +421,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/typescript-restrictions/" class="md-nav__link">
+    <a href="../../dev-guide/typescript-restrictions/" class="md-nav__link">
       TypeScript Restrictions
     </a>
   </li>
@@ -418,7 +433,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/configuration/" class="md-nav__link">
+    <a href="../../dev-guide/configuration/" class="md-nav__link">
       Configuration Reference
     </a>
   </li>
@@ -438,13 +453,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     <label class="md-nav__link" for="nav-3">
-      Specification
+      Consumer Guide
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Specification" data-md-level="1">
+    <nav class="md-nav" aria-label="Consumer Guide" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
-        Specification
+        Consumer Guide
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -455,8 +470,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../specification/1-introduction/" class="md-nav__link">
-      Introduction
+    <a href="../../consumer-guide/prerequisites/" class="md-nav__link">
+      Prerequisites
     </a>
   </li>
 
@@ -466,12 +481,20 @@
           
 
 
-  <li class="md-nav__item">
-    <a href="../../specification/2-type-system/" class="md-nav__link">
-      The jsii type system
-    </a>
-  </li>
-
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" >
+    <label class="md-nav__link" for="nav-3-2">
+      Language Specifics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Language Specifics" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon"></span>
+        Language Specifics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
         
           
           
@@ -479,33 +502,14 @@
 
 
   <li class="md-nav__item">
-    <a href="../../specification/3-kernel-api/" class="md-nav__link">
-      The jsii kernel API
+    <a href="../../consumer-guide/python/" class="md-nav__link">
+      Python
     </a>
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../specification/4-standard-compliance-suite/" class="md-nav__link">
-      Standard Compliance Suite
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../specification/5-new-language-intake/" class="md-nav__link">
-      New Language Intake
-    </a>
+      </ul>
+    </nav>
   </li>
 
         
@@ -525,13 +529,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     <label class="md-nav__link" for="nav-4">
-      White Papers
+      Language Implementation
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="White Papers" data-md-level="1">
+    <nav class="md-nav" aria-label="Language Implementation" data-md-level="1">
       <label class="md-nav__title" for="nav-4">
         <span class="md-nav__icon md-icon"></span>
-        White Papers
+        Language Implementation
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -710,6 +714,91 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Specification
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Specification" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Specification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/1-introduction/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/2-type-system/" class="md-nav__link">
+      The jsii type system
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/3-kernel-api/" class="md-nav__link">
+      The jsii kernel API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/4-standard-compliance-suite/" class="md-nav__link">
+      Standard Compliance Suite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/5-new-language-intake/" class="md-nav__link">
+      New Language Intake
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -847,7 +936,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/white-papers/assembly.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/language-support/assembly.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1271,7 +1360,7 @@ Members</a>, which can be proactively resolved by the <code>jsii</code> runtimes
 <div class="md-source-date">
   <small>
     
-      Last update: 2020-12-10
+      Last update: 2020-12-11
     
   </small>
 </div>
@@ -1294,7 +1383,7 @@ Members</a>, which can be proactively resolved by the <code>jsii</code> runtimes
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../../specification/5-new-language-intake/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../consumer-guide/python/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1303,7 +1392,7 @@ Members</a>, which can be proactively resolved by the <code>jsii</code> runtimes
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                New Language Intake
+                Python
               </div>
             </div>
           </a>

@@ -1,71 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://aws.github.io/jsii/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/features/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/home/features/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/toolchain/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/home/toolchain/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/runtime-architecture/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/home/runtime-architecture/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/user-guide/prerequisites/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/dev-guide/prerequisites/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/user-guide/set-up/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/dev-guide/set-up/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/user-guide/write-code/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/dev-guide/write-code/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/user-guide/typescript-restrictions/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/dev-guide/typescript-restrictions/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://aws.github.io/jsii/user-guide/configuration/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <loc>https://aws.github.io/jsii/dev-guide/configuration/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/consumer-guide/prerequisites/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/consumer-guide/python/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/language-support/assembly/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/language-support/callbacks/</loc>
+     <lastmod>2020-12-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://aws.github.io/jsii/language-support/language-implementation/</loc>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://aws.github.io/jsii/specification/1-introduction/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://aws.github.io/jsii/specification/2-type-system/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://aws.github.io/jsii/specification/3-kernel-api/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://aws.github.io/jsii/specification/4-standard-compliance-suite/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://aws.github.io/jsii/specification/5-new-language-intake/</loc>
-     <lastmod>2020-12-10</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://aws.github.io/jsii/white-papers/assembly/</loc>
-     <lastmod>2020-12-10</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://aws.github.io/jsii/white-papers/callbacks/</loc>
-     <lastmod>2020-12-10</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://aws.github.io/jsii/white-papers/language-implementation/</loc>
-     <lastmod>2020-12-10</lastmod>
+     <lastmod>2020-12-11</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

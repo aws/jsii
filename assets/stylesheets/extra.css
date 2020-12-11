@@ -50,43 +50,6 @@
   --md-footer-bg-color--dark: var(--amazon-squid-ink);
 }
 
-@font-face {
-  font-family: 'AmazonEmberDisplay';
-  src: url('../typefaces/AmazonEmberDisplay_Lt.woff2') format('woff2'),
-    url('../typefaces/AmazonEmberDisplay_Lt.woff') format('woff'),
-    url('../typefaces/AmazonEmberDisplay_Lt.eot') format('embedded-opentype'),
-    url('../typefaces/AmazonEmberDisplay_Lt.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AmazonEmberDisplay';
-  src: url('../typefaces/AmazonEmberDisplay_Rg.woff2') format('woff2'),
-    url('../typefaces/AmazonEmberDisplay_Rg.woff') format('woff'),
-    url('../typefaces/AmazonEmberDisplay_Rg.eot') format('embedded-opentype'),
-    url('../typefaces/AmazonEmberDisplay_Rg.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AmazonEmberDisplay';
-  src: url('../typefaces/AmazonEmberDisplay_Md.woff2') format('woff2'),
-    url('../typefaces/AmazonEmberDisplay_Md.woff') format('woff'),
-    url('../typefaces/AmazonEmberDisplay_Md.eot') format('embedded-opentype'),
-    url('../typefaces/AmazonEmberDisplay_Md.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AmazonEmberDisplay';
-  src: url('../typefaces/AmazonEmberDisplay_Bd.woff2') format('woff2'),
-    url('../typefaces/AmazonEmberDisplay_Bd.woff') format('woff'),
-    url('../typefaces/AmazonEmberDisplay_Bd.eot') format('embedded-opentype'),
-    url('../typefaces/AmazonEmberDisplay_Bd.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
 body {
   font-family: 'AmazonEmberDisplay', 'Helvetica Neue', Roboto, Arial, sans-serif;
 }
@@ -102,8 +65,10 @@ kbd {
   width: auto !important;
 }
 
-.md-tabs__link--active {
-  box-shadow: inset 0 -2px 0 0 var(--amazon-orange);
+.md-tabs__link--active,
+.md-nav__item .md-nav__link--active {
+  color: var(--md-accent-fg-color);
+  font-weight: bolder;
 }
 
 /* Custom look for highlighted lines */
@@ -123,4 +88,9 @@ kbd {
 /* Custom look for arbitrary names */
 .highlight .nx {
   color: var(--md-code-hl-name-color);
+}
+
+/* Custom look for links */
+.md-typeset a {
+  color: #5b79a0;
 }

@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'AmazonEmberDisplay';
+  src: url('../typefaces/AmazonEmberDisplay_Lt.woff2') format('woff2'),
+    url('../typefaces/AmazonEmberDisplay_Lt.woff') format('woff'),
+    url('../typefaces/AmazonEmberDisplay_Lt.eot') format('embedded-opentype'),
+    url('../typefaces/AmazonEmberDisplay_Lt.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AmazonEmberDisplay';
+  src: url('../typefaces/AmazonEmberDisplay_Rg.woff2') format('woff2'),
+    url('../typefaces/AmazonEmberDisplay_Rg.woff') format('woff'),
+    url('../typefaces/AmazonEmberDisplay_Rg.eot') format('embedded-opentype'),
+    url('../typefaces/AmazonEmberDisplay_Rg.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AmazonEmberDisplay';
+  src: url('../typefaces/AmazonEmberDisplay_Md.woff2') format('woff2'),
+    url('../typefaces/AmazonEmberDisplay_Md.woff') format('woff'),
+    url('../typefaces/AmazonEmberDisplay_Md.eot') format('embedded-opentype'),
+    url('../typefaces/AmazonEmberDisplay_Md.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AmazonEmberDisplay';
+  src: url('../typefaces/AmazonEmberDisplay_Bd.woff2') format('woff2'),
+    url('../typefaces/AmazonEmberDisplay_Bd.woff') format('woff'),
+    url('../typefaces/AmazonEmberDisplay_Bd.eot') format('embedded-opentype'),
+    url('../typefaces/AmazonEmberDisplay_Bd.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
