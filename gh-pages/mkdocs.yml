@@ -49,7 +49,7 @@ extra:
   social:
     - icon: fontawesome/brands/aws
       name: Amazon Web Services, Inc.
-      link: https://amazonaws.com
+      link: https://aws.amazon.com
 
 theme:
   name: material
