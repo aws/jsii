@@ -7,7 +7,7 @@ require unusual syntax when *jsii modules* are involved.
 
 !!! info
     Our intention is to make working with *jsii modules* from **Python** as idiomatic as possible. Removing the [custom
-    metaclass][metaclass] usage without breaking existing code is a challenging task, adn the situation may consequently
+    metaclass][metaclass] usage without breaking existing code is a challenging task, and the situation may consequently
     remain sub-optional for the near future at least.
 
 ## Implementing Interfaces
