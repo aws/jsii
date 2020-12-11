@@ -1,5 +1,6 @@
 | Release   | Status                       |
 | --------- | ---------------------------- |
+| `<10.3.0` | :x: Defunct                  |
 | `^10.3.0` | :white_check_mark: Supported |
 | `^11.0.0` | :warning: Unsupported        |
 | `^12.0.0` | :white_check_mark: Supported |
@@ -15,6 +16,7 @@
       basis. No automated testing is performed against those releases.
     - **:warning: Unsupported**: End-of-Life releases are not supported. Bugs affecting those may not be fixed, and
       users are strongly advised to migrate to more recent releases.
+    - **:x: Defunct**: Very old releases (these have been End-of-Live for a while now) are unlikely to work at all.
 
     The [node releases schedule][node-releases] provides up-to-date information on the current status of all active
     releases, and indicates the timelines for support (including planned End-of-Life dates for each).
