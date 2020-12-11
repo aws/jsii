@@ -98,7 +98,7 @@ The [*jsii project*](https://github.com/aws/jsii) welcomes all kind of contribut
 to contribute to the project in general.
 
 !!! tip
-    You can submit pull request for documentation updates without leaving the comfort of your web browser!
+    You can submit pull requests for documentation updates without leaving the comfort of your web browser!
 
     All pages of this website have a :material-pencil: icon on the top right of each page that links to a GitHub web
     editor for the source of the page in question.
