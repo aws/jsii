@@ -8,31 +8,36 @@ copyright: Copyright &copy; 2020 Amazon Web Services, Inc.
 
 docs_dir: content
 extra_css:
+  - assets/stylesheets/amazon-ember-display.css
   - assets/stylesheets/extra.css
 
 nav:
   - Home:
       - index.md
-      - features.md
-      - toolchain.md
-      - runtime-architecture.md
-  - User Guide:
-      - user-guide/prerequisites.md
+      - home/features.md
+      - home/toolchain.md
+      - home/runtime-architecture.md
+  - Author Guide:
+      - dev-guide/prerequisites.md
       - Quick Start:
-          - user-guide/set-up.md
-          - user-guide/write-code.md
-      - user-guide/typescript-restrictions.md
-      - user-guide/configuration.md
+          - dev-guide/set-up.md
+          - dev-guide/write-code.md
+      - dev-guide/typescript-restrictions.md
+      - dev-guide/configuration.md
+  - Consumer Guide:
+      - consumer-guide/prerequisites.md
+      - Language Specifics:
+          - Python: consumer-guide/python.md
+  - Language Implementation:
+      - .jsii Assemblies: language-support/assembly.md
+      - language-support/callbacks.md
+      - language-support/language-implementation.md
   - Specification:
       - specification/1-introduction.md
       - The jsii type system: specification/2-type-system.md
       - The jsii kernel API: specification/3-kernel-api.md
       - specification/4-standard-compliance-suite.md
       - specification/5-new-language-intake.md
-  - White Papers:
-      - .jsii Assemblies: white-papers/assembly.md
-      - white-papers/callbacks.md
-      - white-papers/language-implementation.md
 
 theme:
   name: material
@@ -55,6 +60,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.tabbed
   - pymdownx.emoji:

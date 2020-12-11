@@ -84,7 +84,7 @@ exported from the `types` file.
 
 ### Package-level API Stability
 
-The [`.jsii` assembly document](../white-papers/assembly.md) allows representing API stability levels on individual API
+The [`.jsii` assembly document](../language-support/assembly.md) allows representing API stability levels on individual API
 elements. The default value set for API elements for which a stability declaration is not found can be configured using
 the `stability` field of the `package.json` file. It can be set to one of the following values: `experimental`,
 `stable`, `deprecated` and `external`. While the exact semantic value of those fields is defined by the package
@@ -104,14 +104,14 @@ maintainer, the generic interpretation for those on packages is:
 In order to configure the behavior of `jsii`, the `package.json` file must include a `jsii` section that can contain the
 following entries:
 
-| Field               | Type           | Required                        | Default                         |
-| ------------------- | -------------- |:-------------------------------:| ------------------------------- |
-| `excludeTypescript` | `string[]`     |                                 | _none_                          |
-| `metadata`          | `object`       |                                 | _none_                          |
-| `projectReferences` | `boolean`      |                                 | `true`                          |
-| `targets`           | `object`       | :octicons-check-circle-fill-24: |                                 |
-| `tsc`               | `object`       |                                 | `{ outDir: '.', rootDir: '.' }` |
-| `versionFormat`     | `short | full` |                                 | `full`                          |
+| Field               | Type                    | Required                        | Default                              |
+| ------------------- | ----------------------- |:-------------------------------:| ------------------------------------ |
+| `excludeTypescript` | `#!ts string[]`         |                                 | _none_                               |
+| `metadata`          | `#!ts object`           |                                 | _none_                               |
+| `projectReferences` | `#!ts boolean`          |                                 | `#!ts true`                          |
+| `targets`           | `#!ts object`           | :octicons-check-circle-fill-24: |                                      |
+| `tsc`               | `#!ts object`           |                                 | `#!ts { outDir: '.', rootDir: '.' }` |
+| `versionFormat`     | `#!ts 'short' | 'full'` |                                 | `#!ts 'full'`                        |
 
 ### `excludeTypescript`
 

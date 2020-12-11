@@ -14,7 +14,7 @@ usual), but also in **Python**, **Java**, **C#** (and other languages from the _
 
     See [Runtime Architecture] for more information.
 
-    [runtime architecture]: runtime-architecture.md
+    [runtime architecture]: home/runtime-architecture.md
 
 ## An example is worth a thousand words
 

@@ -22,7 +22,7 @@ You can then refer to the [TypeScript] documentation to determine which language
     exported by a *jsii module*, in order to ensure those APIs can be consistently represented in other languages. For
     more information, refer to the [TypeScript Restrictions page][restrictions].
 
-    [restrictions]: user-guide/typescript-restrictions.md
+    [restrictions]: ../dev-guide/typescript-restrictions.md
 
 [typescript]: https://www.typescriptlang.org
 
@@ -33,10 +33,12 @@ The following target languages are currently offered by `jsii-pacmak`, or are cu
 | Language   | Status                                         |
 | ---------- | ---------------------------------------------- |
 | C#         | :octicons-check-circle-24: Generally Available |
-| Go         | :octicons-tools-24: Development                |
+| Go         | :octicons-tools-24:        Development         |
 | Java       | :octicons-check-circle-24: Generally Available |
-| Kotlin     | :octicons-tools-24: Development                |
+| JavaScript | :octicons-check-circle-24: Generally Available |
+| Kotlin     | :octicons-tools-24:        Development         |
 | Python     | :octicons-check-circle-24: Generally Available |
+| TypeScript | :octicons-check-circle-24: Generally Available |
 
 ??? question "Status Definitions"
     - **:octicons-check-circle-24: Generally Available** languages are fully supported. The generated APIs will not

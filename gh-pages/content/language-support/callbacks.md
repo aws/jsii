@@ -153,5 +153,5 @@ The schematized exchange between the _jsii runtime library_ and the _jsii kernem
 
 ## See Also
 
-- [The _jsii_ runtime architecture](../runtime-architecture.md)
+- [The _jsii_ runtime architecture](../home/runtime-architecture.md)
 - [The _jsii_ kernel API](../specification/3-kernel-api.md)
