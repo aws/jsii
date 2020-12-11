@@ -23,7 +23,13 @@ nav:
           - dev-guide/set-up.md
           - dev-guide/write-code.md
       - dev-guide/typescript-restrictions.md
-      - dev-guide/configuration.md
+      - Configuration Reference:
+          - dev-guide/configuration/index.md
+          - Targets:
+              - .NET: dev-guide/configuration/targets/dotnet.md
+              - Go: dev-guide/configuration/targets/go.md
+              - Java: dev-guide/configuration/targets/java.md
+              - Python: dev-guide/configuration/targets/python.md
   - Consumer Guide:
       - consumer-guide/prerequisites.md
       - Language Specifics:
@@ -39,6 +45,12 @@ nav:
       - specification/4-standard-compliance-suite.md
       - specification/5-new-language-intake.md
 
+extra:
+  social:
+    - icon: fontawesome/brands/aws
+      name: Amazon Web Services, Inc.
+      link: https://amazonaws.com
+
 theme:
   name: material
   font: false
@@ -52,7 +64,6 @@ theme:
   features:
     - navigation.expand
     - navigation.instant
-    - navigation.sections
     - navigation.tabs
 
 markdown_extensions:

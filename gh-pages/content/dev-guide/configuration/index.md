@@ -1,4 +1,4 @@
-# Configuration Reference
+# Overview
 
 The configuration for `jsii` is recorded in the `package.json` file, which is the standard package manifest for NPM
 packages. This document describes the constraints and extensions `jsii` adds to the [package.json schema].
@@ -84,11 +84,11 @@ exported from the `types` file.
 
 ### Package-level API Stability
 
-The [`.jsii` assembly document](../language-support/assembly.md) allows representing API stability levels on individual API
-elements. The default value set for API elements for which a stability declaration is not found can be configured using
-the `stability` field of the `package.json` file. It can be set to one of the following values: `experimental`,
-`stable`, `deprecated` and `external`. While the exact semantic value of those fields is defined by the package
-maintainer, the generic interpretation for those on packages is:
+The [`.jsii` assembly document](../../language-support/assembly.md) allows representing API stability levels on
+individual API elements. The default value set for API elements for which a stability declaration is not found can be
+configured using the `stability` field of the `package.json` file. It can be set to one of the following values:
+`experimental`, `stable`, `deprecated` and `external`. While the exact semantic value of those fields is defined by the
+package maintainer, the generic interpretation for those on packages is:
 
 - `experimental` - the package is not yet ready for production usage, as it is still in the early stages of its
   development.
@@ -135,168 +135,12 @@ The `targets` section is where `jsii` packages define which target languages the
 generators with the additional information they require in order to name generated artifacts. Configuration is provided
 as a mapping from target name to a configuration object.
 
-#### Configuring `Python`
+The specific configuration accepted for each supported language is presented in dedicated pages:
 
-The `python` target requires two configuration entries:
-
-- `module` - the name of the generated **Python** module, which will be used by users in `import` directives.
-- `distName` - the [PyPI] distribution name for the package.
-- `classifiers` - a list of [trove classifiers] to declare on the package. It is the user's responsibility to specify
-  _valid_ values (the authoritative list of valid [trove classifiers] is defined in the [pypa/trove-classifiers]
-  package).
-  - Some classifiers are automatically included (and should not be added to the `classifiers` property) based on
-    relevant configuration from the `package.json` file:
-    - `Development Status :: ` is determined based on the package's `stability`
-    - `License ::` is determined based on the package's `license`
-    - `Operating System :: OS Independent` is always set
-    - `Typing :: Typed` is always set
-  - Additionally, the following `Programming Language ::` classifiers are already set (more could be added by the user
-    if relevant):
-    - `Programming Language :: Python :: 3 :: Only`
-    - `Programming Language :: Python :: 3.6`
-    - `Programming Language :: Python :: 3.7`
-    - `Programming Language :: Python :: 3.8`
-    - `Programming Language :: Python :: 3.9`
-
-Example:
-
-```js
-{
-  "jsii": {
-    "targets": {
-      "python": {
-        "module": "hello_jsii",   // Required
-        "distName": "hello-jsii", // Required
-        "classifiers": [          // Optional
-          "Framework :: AWS CDK",
-          "Framework :: AWS CDK :: 1"
-        ]
-      },
-      // ...
-    }
-    // ...
-  },
-  // ...
-}
-```
-
-The resulting package can be published to [PyPI].
-
-[pypi]: https://pypi.org/
-[trove classifiers]: https://www.python.org/dev/peps/pep-0301/#distutils-trove-classification
-[pypa/trove-classifiers]: https://github.com/pypa/trove-classifiers
-
-##### Prerelease Versions
-
-The original `npm` package may feature a version number that includes a [SemVer 2.0][semver]-compliant prerelease
-identifer (e.g: `1.2.3-pre.4`). Python packages distributed to [PyPI] must however use a different format to express
-prerelease versions, as specified in [PEP-440]. In order to generate valid packages, only certain prerelease identifiers
-are accepted by `jsii-pacmak`, and are translated according to the following table:
-
-| Source Version (`npm`) | Python Version ([PEP-440]) | Notes                            |
-| ---------------------- | -------------------------- | -------------------------------- |
-| `X.Y.Z.dev.N`          | `X.Y.Z.devN`               | Development, iteration `N`.      |
-| `X.Y.Z.pre.N`          | `X.Y.Z.devN`               | Development, iteration `N`       |
-| `X.Y.Z.alpha.N`        | `X.Y.Z.aN`                 | Alpha release, iteration `N`     |
-| `X.Y.Z.beta.N`         | `X.Y.Z.bN`                 | Beta release, iteration `N`      |
-| `X.Y.Z.rc.N`           | `X.Y.Z.rcN`                | Release candidate, iteration `N` |
-
-[semver]: https://semver.org/spec/v2.0.0.html
-[pep-440]: https://www.python.org/dev/peps/pep-0440/#pre-releases
-
-#### Configuring `Java`
-
-The `java` target requires the following configuration:
-
-- `maven` - the `groupId` and `artifactId` for the **Maven** package.
-  - Optionally a `versionSuffix` can be provided that will be appended at the end of the **Maven** package's `version`
-    field. The suffix must start with a `.` or a `-`.
-- `package` - the root **Java** package name under which the types will be declared.
-
-Example:
-
-```js
-{
-  "jsii": {
-    "java": {
-      "package": "acme.jsii.hello",   // Required
-      "maven": {
-        "groupId": "acme",            // Required
-        "artifactId": "jsii-hello",   // Required
-        "versionSuffix": ".PREVIEW"   // Optional
-      }
-    },
-    // ...
-  },
-  // ...
-}
-```
-
-The resulting artifact is a **Maven** package that can be deployed to [Maven Central] using the
-`deploy-staged-repository` command of the [nexus-staging-maven-plugin].
-
-[maven central]: https://search.maven.org
-[nexus-staging-maven-plugin]: https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin
-
-#### Configuring `.NET`
-
-The `dotnet` target requires the following configuration:
-
-- `namespace` - the root namespace under which types will be declared.
-- `packageId` - the identified of the package in the NuGet registry.
-- `iconUrl` - the URL of the icon to be shown in the [NuGet Gallery][nuget]. It should be at least 64x64 pixels and a
-  transparent background is recommended. See the [.NET documentation] for more information.
-- `versionSuffix` - an optional suffix that will be appended at the end of the NuGet package's `version` field. The
-  suffix must start with a `-`.
-- `signAssembly` - whether the assembly should be strong-name signed. Defaults to `false` when not specified.
-- `assemblyOriginatorKeyFile`- the path to the strong-name signing key to be used. When not specified or if the file
-  referred to does not exist, the assembly will not be strong-name signed.
-
-Example:
-
-```js
-{
-  "jsii": {
-    "dotnet": {
-      "namespace": "Acme.HelloJsii",              // Required
-      "packageId": "Acme.HelloJsii",              // Required
-      "iconUrl": "https://cdn.acme.com/icon.png", // Optional
-      "signAssembly": true,                       // Optional
-      "assemblyOriginatorKeyFile": "./key.snk",   // Optional
-      "versionSuffix": "-preview"                 // Optional
-    },
-    // ...
-  },
-  // ...
-}
-```
-
-The resulting artifact is a NuGet package that can be published to [NuGet] using the standard [`nuget push`][nuget-push]
-command.
-
-[nuget]: https://www.nuget.org
-[nuget-push]: https://docs.microsoft.com/fr-fr/nuget/nuget-org/publish-a-package
-[.net documentation]: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#packageiconurl
-
-#### Configuring `GoLang` - **Experimental**
-
-The `go` target is currently unstable and not suitable for production use. To enable go package generation, add the `go`
-key with an empty object to the jsii targets configuration.
-
-This will add generated go package code to your specified `outDir` for testing and experimentation.
-
-```js
-{
-  "jsii": {
-    "targets": {
-      "go": {},
-      // ...
-    },
-    // ...
-  },
-  // ...
-}
-```
+- [:octicons-book-24: .NET Target](targets/dotnet.md)
+- [:octicons-book-24: Go Target](targets/go.md)
+- [:octicons-book-24: Java Target](targets/java.md)
+- [:octicons-book-24: Python Target](targets/python.md)
 
 ### `tsc`
 
@@ -339,7 +183,7 @@ console.
 
 These can be re-configured to a different category under the `diagnostics` key as so -
 
-```js
+```json
 "jsii": {
   // ...
   "diagnostics": {
@@ -359,7 +203,7 @@ The full list of diagnostic codes can be found in
 
 ## Dependency considerations
 
-Like any node library, `jsii` packages can declare runtime dependencies using the [`dependencies`][npm-reps] section of
+Like any node library, `jsii` packages can declare runtime dependencies using the [`dependencies`][npm-deps] section of
 `package.json`.
 
 [npm-deps]: https://docs.npmjs.com/files/package.json#dependencies
