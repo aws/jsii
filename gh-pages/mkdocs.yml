@@ -18,7 +18,7 @@ nav:
       - home/toolchain.md
       - home/runtime-architecture.md
   - Author Guide:
-      - dev-guide/prerequisites.md
+      - dev-guide/index.md
       - Quick Start:
           - dev-guide/set-up.md
           - dev-guide/write-code.md
@@ -31,13 +31,13 @@ nav:
               - Java: dev-guide/configuration/targets/java.md
               - Python: dev-guide/configuration/targets/python.md
   - Consumer Guide:
-      - consumer-guide/prerequisites.md
+      - consumer-guide/index.md
       - Language Specifics:
           - Python: consumer-guide/python.md
   - Language Implementation:
+      - language-support/index.md
       - .jsii Assemblies: language-support/assembly.md
       - language-support/callbacks.md
-      - language-support/language-implementation.md
   - Specification:
       - specification/1-introduction.md
       - The jsii type system: specification/2-type-system.md

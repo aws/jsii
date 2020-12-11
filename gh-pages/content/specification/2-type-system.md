@@ -41,8 +41,9 @@ The _jsii_ type system mirrors **TypeScript**'s `string`. Strings are used to re
 _jsii_ type model. Lists are shared between the _node_ process and the host process by-value, meaning a copy of the
 array is produced each time it is passed through the process boundary.
 
-> :information_source: Items in the list may be passed by-reference (according to their type's specification), in which
-> case mutating operations performed on those may be visible across the process boundary.
+!!! info
+    Items in the list may be passed by-reference (according to their type's specification), in which case mutating
+    operations performed on those may be visible across the process boundary.
 
 ### Enum
 
@@ -51,8 +52,8 @@ are associated with a value that is either a `string` or a `number`, the _jsii_ 
 be down-casted to their value type (e.g: a `string`-valued `enum` entry cannot be directly passed into a `string`
 parameter).
 
-> :information_source: Unlike in certain languages such as **Java**, `enum` types cannot declare new properties or
-> methods.
+!!! info
+    Unlike in certain languages such as **Java**, `enum` types cannot declare new properties or methods.
 
 ### Any and Unknown
 
@@ -63,8 +64,9 @@ explicit cast to be performed before it can be assigned.
 Both of these types map to an `Any` _primitive type_ in the _jsii_ type system, and the subtle distinction between `any`
 and `unknown` is lost in the process.
 
-> :information_source: It is important to note that, contrary to the other types in the **TypeScript** type system,
-> `any` and `unknown` types are inherently `null`-able.
+!!! info
+    It is important to note that, contrary to the other types in the **TypeScript** type system, `any` and `unknown`
+    types are inherently `null`-able.
 
 ### Void
 
@@ -77,9 +79,10 @@ As in most languages, the `void` type is used to denote a method does not return
 typed languages) however lack this distinction, and the _jsii_ type model consequently considers `null` and `undefined`
 are semantically equivalent.
 
-> :information_source: Unlike certain other programming languages, such as **Java**, **TypeScript** does not allow
-> `null` (or `undefined`) values unless the type signature expressedly supports that (with the exception of `any` and
-> `unknown`, which are implicitly `null`-able, as was discussed earlier).
+!!! info
+    Unlike certain other programming languages, such as **Java**, **TypeScript** does not allow `null` (or `undefined`)
+    values unless the type signature expressedly supports that (with the exception of `any` and `unknown`, which are
+    implicitly `null`-able, as was discussed earlier).
 
 ### Object
 
@@ -89,10 +92,12 @@ are semantically equivalent.
 In the _jsii_ type model, `object` indicates a block of structured data that can be shared by-value across the process
 boundary. As a consequence, they may not include any method.
 
-> :construction: This type is called `Json` in the current implementation.
+!!! bug "Unimplemented"
+    This type is called `Json` in the current implementation.
 
-> :question: The by-value nature of `object` is problematic because **TypeScript** makes no guarantee with respects to
-> the absence of methods on `object`, and properties may be dynamic.
+!!! question
+    The by-value nature of `object` is problematic because **TypeScript** makes no guarantee with respects to the
+    absence of methods on `object`, and properties may be dynamic.
 
 ### Promises
 
@@ -193,9 +198,10 @@ _primitive_ encompasses `boolean`, `string`, and `number`.
 In the case of `object` being passed though `any`, the value may be serialized by [Value] only if the value being passed
 does not have any method or dynamic accessor. Otherwise, it must be passed by [Reference] instead.
 
-> :warning: The serialization behavior around `undefined` values is affected by the `optional` attribute of the declared
-> type. As discussed earlier, the `any` type is implicitly `optional`; but all other types' serialization process will
-> only allow serialization of `undefined` if they were declared `optional`.
+!!! danger
+    The serialization behavior around `undefined` values is affected by the `optional` attribute of the declared type.
+    As discussed earlier, the `any` type is implicitly `optional`; but all other types' serialization process will only
+    allow serialization of `undefined` if they were declared `optional`.
 
 ### Array Serialization
 
@@ -265,7 +271,7 @@ the instance within its owning process. It includes a `$jsii.byref` key associat
 identifies the instance, and an optional `$jsii.interfaces` key that provides a list of interfaces that the object
 implements.
 
-```js
+```json
 {
   "$jsii.byref": "@scope/module.Foo@1337",
   "$jsii.interfaces": ["@scope/module.IBar", "@scope/module.IBaz"]
@@ -283,7 +289,7 @@ The wrapper uses a single `$jsii.struct` key with a `fqn` key that indicates the
 type, and a `data` key that contains the members of the _struct_, serialized according to the behavior described in this
 document.
 
-```js
+```json
 {
   "$jsii.struct": {
     "fqn": "@scope/module.StructType",
@@ -296,9 +302,6 @@ document.
 ```
 
 ## Submodules
-
-> :construction: The _submodules_ feature is still under active development and the specific behavior around it (in
-> particular with respects to code generation) are still subject to change.
 
 ### Overview
 
@@ -317,14 +320,15 @@ _Submodules_ are hierarchical, and their fully qualified name is representative 
 _Submodules_ cannot be involved in dependency cycles. While it is possible to build such cycles in **JavaScript**, that
 configuration cannot be reliably reprensented in certain other programming languages (e.g: **Python**).
 
-> :construction: [`jsii`] does not currently check for circular submodule dependencies. Invalid dependency patterns may
-> result in errors at code generation by [`jsii-pacmak`], or at runtime.
+!!! bug "Unimplemented"
+    [`jsii`][jsii] does not currently check for circular submodule dependencies. Invalid dependency patterns may result
+    in errors at code generation by [`jsii-pacmak`][jsii-pacmak], or at runtime.
 
 Since this would result in ambiguity that cannot be consistently resolved, a given type can only be exported as part of
 one _submodule_.
 
-[`jsii`]: https://github.com/aws/jsii/tree/main/packages/jsii
-[`jsii-pacmak`]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
+[jsii]: https://github.com/aws/jsii/tree/main/packages/jsii
+[jsii-pacmak]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
 
 ### Declaration
 
@@ -344,7 +348,8 @@ There are two supported ways to introduce _submodules_:
 _Submodules_ declared using the `export * as ns from './module';` syntax can be documented using a markdown document
 located at `./module/README.md`.
 
-> :construction: The `./module/README.md` file support is not yet implemented.
+!!! bug "Unimplemented"
+    The `./module/README.md` file support is not yet implemented.
 
 ### Submodule Configuration
 
@@ -371,18 +376,19 @@ language-specific and each language implementation specifies and documents its o
 Configuration is sourced in the `package.json` file at the root of the npm package, under the special `jsii` key. The
 general schema is described in the [configuration] document.
 
-> :construction: There is a proposition to allow this configuration to be placed in a `.jsiirc.json` file, which would
-> take precedence over what is specified in `package.json`. _Submodules_ introduced using the
-> `export * as ns from './module';` syntax would then be able to define _submodule_-local configuration using the
-> `./module/.jsiirc.json` file.
+!!! bug "Unimplemented"
+    There is a proposition to allow this configuration to be placed in a `.jsiirc.json` file, which would take
+    precedence over what is specified in `package.json`. _Submodules_ introduced using the
+    `export * as ns from './module';` syntax would then be able to define _submodule_-local configuration using the
+    `./module/.jsiirc.json` file.
 
 [configuration]: ../dev-guide/configuration/index.md
 
 ## References
 
-The [**TypeScript** Handbook] describes the language's type system and syntax elements that serve as the basis for the
-_jsii_ type system. Additionally, the **JavaScript** type system is described in the [**JavaScript** Fundamentals]
-document.
+The [**TypeScript** Handbook][ts-handbook] describes the language's type system and syntax elements that serve as the
+basis for the _jsii_ type system. Additionally, the **JavaScript** type system is described in the
+[**JavaScript** Fundamentals][js-fundamentals] document.
 
-[**javascript** fundamentals]: https://javascript.info/types
-[**typescript** handbook]: https://www.typescriptlang.org/docs/handbook/basic-types.html
+[js-fundamentals]: https://javascript.info/types
+[ts-handbook]: https://www.typescriptlang.org/docs/handbook/basic-types.html

@@ -38,10 +38,9 @@ output pipes.
 Upon initialization, the `@jsii/kernel` process introduces itself to the _host_ application by emitting a single JSON
 message:
 
-```js
+```json
 {
-  // The package name@version of the @jsii/kernel in use
-  "hello": "@jsii/runtime@0.21.1",
+  "hello": "@jsii/runtime@0.21.1"
 }
 ```
 
