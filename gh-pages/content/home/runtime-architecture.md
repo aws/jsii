@@ -3,7 +3,7 @@
 
 When using `jsii-pacmak` to generate libraries in different programming
 languages, the **Javascript** code is bundled within the generated library, so
-that it can be used during at runtime. This is the reason why a `node` runtime
+that it can be used at runtime. This is the reason why a `node` runtime
 needs to be available in order to execute code that depends on *jsii* libraries.
 
 The generated libraries have a dependency on a *Runtime client* library for the
