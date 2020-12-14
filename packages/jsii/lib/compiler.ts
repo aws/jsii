@@ -203,7 +203,7 @@ export class Compiler implements Emitter {
       },
       // Make the references absolute for the compiler
       projectReferences: tsconf.references?.map((ref) => ({
-        path: path.resolve(ref.path),
+        path: path.resolve(path.dirname(this.configPath), ref.path),
       })),
       host: this.compilerHost,
     });
