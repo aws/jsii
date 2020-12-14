@@ -109,9 +109,4 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
-# Upgrade all packages that weren't up-to-date just yet (last so it risks invalidating cache less)
-# This is the second time we do it (this layer may be empty)... It's in case we re-used a cached layer the first time
-RUN yum -y upgrade                                                                                                      \
-  && yum clean all && rm -rf /var/cache/yum
-
 CMD ["/bin/bash"]
