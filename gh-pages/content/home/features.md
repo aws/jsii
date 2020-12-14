@@ -18,7 +18,7 @@ You can then refer to the [TypeScript] documentation to determine which language
 [TypeScript] release.
 
 !!! warning
-    The `jsii` compiler imposes some restrictions on whath **TypeScript** features can be used to declare the APIs
+    The `jsii` compiler imposes some restrictions on what **TypeScript** features can be used to declare the APIs
     exported by a *jsii module*, in order to ensure those APIs can be consistently represented in other languages. For
     more information, refer to the [TypeScript Restrictions page][restrictions].
 
