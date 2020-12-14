@@ -175,6 +175,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/majasb"><img src="https://avatars2.githubusercontent.com/u/142510?v=4" width="100px;" alt=""/><br /><sub><b>Maja S Bratseth</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Amajasb+label%3Abug" title="Bug reports">🐛</a></td>
     <td align="center"><a href="http://twiiter.com/benbridts"><img src="https://avatars0.githubusercontent.com/u/1301221?v=4" width="100px;" alt=""/><br /><sub><b>Ben Bridts</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=benbridts" title="Documentation">📖</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/MohamadSoufan"><img src="https://avatars3.githubusercontent.com/u/28849417?v=4" width="100px;" alt=""/><br /><sub><b>Mohamad Soufan</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=MohamadSoufan" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
