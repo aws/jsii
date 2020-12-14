@@ -173,6 +173,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://ty.coghlan.dev/"><img src="https://avatars2.githubusercontent.com/u/15920577?v=4" width="100px;" alt=""/><br /><sub><b>Ty Coghlan</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3AOphirr33+label%3Abug" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/slotnick"><img src="https://avatars3.githubusercontent.com/u/918175?v=4" width="100px;" alt=""/><br /><sub><b>Dave Slotnick</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Aslotnick+label%3Abug" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/majasb"><img src="https://avatars2.githubusercontent.com/u/142510?v=4" width="100px;" alt=""/><br /><sub><b>Maja S Bratseth</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Amajasb+label%3Abug" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://twiiter.com/benbridts"><img src="https://avatars0.githubusercontent.com/u/1301221?v=4" width="100px;" alt=""/><br /><sub><b>Ben Bridts</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=benbridts" title="Documentation">📖</a></td>
   </tr>
 </table>
 
