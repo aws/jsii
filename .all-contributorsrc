@@ -1019,6 +1019,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "benbridts",
+      "name": "Ben Bridts",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1301221?v=4",
+      "profile": "http://twiiter.com/benbridts",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoType": "github",
