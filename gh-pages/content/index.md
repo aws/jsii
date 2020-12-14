@@ -75,7 +75,7 @@ any other native type:
 
     ```python
     greeter = Greeter()
-    greeter.greet("World"); # => Hello, World!
+    greeter.greet("World") # => Hello, World!
     ```
 
 ## How to use this website
