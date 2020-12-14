@@ -20,7 +20,7 @@
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.19",
     "@types/mock-fs": "^4.13.0",
-    "@types/node": "^10.17.48",
+    "@types/node": "^10.17.49",
     "@types/yargs": "^15.0.11",
     "eslint": "^7.15.0",
     "jest": "^26.6.3",
