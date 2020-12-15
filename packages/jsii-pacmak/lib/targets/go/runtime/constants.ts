@@ -1,5 +1,5 @@
 // JSII go runtime module name
-export const JSII_RT_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii-experimental';
+export const JSII_RT_MODULE_NAME = 'github.com/aws/jsii-runtime-go';
 export const JSII_RT_ALIAS = '_jsii_';
 
 // Jsii initializer package name
@@ -8,6 +8,8 @@ export const JSII_INIT_PACKAGE = 'jsii';
 export const JSII_INIT_FUNC = 'Initialize';
 // Alias used for the jsii init
 export const JSII_INIT_ALIAS = '_init_';
+// Type of global implementation map
+export const JSII_IMPL_MAP_TYPE = `map[reflect.Type]reflect.Type`;
 
 // Function to make create request
 export const JSII_CREATE_FUNC = `${JSII_RT_ALIAS}.Create`;
@@ -23,7 +25,7 @@ export const JSII_GET_FUNC = `${JSII_RT_ALIAS}.Get`;
 export const JSII_SGET_FUNC = `${JSII_RT_ALIAS}.StaticGet`;
 
 // JSII set request
-export const JSII_SET_FUNC = `${JSII_RT_ALIAS}.Get`;
+export const JSII_SET_FUNC = `${JSII_RT_ALIAS}.Set`;
 
 // JSII static set request
 export const JSII_SSET_FUNC = `${JSII_RT_ALIAS}.StaticSet`;

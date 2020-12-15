@@ -10,27 +10,36 @@ export interface TranslateMarkdownOptions extends AstRendererOptions {
    * What language to put in the returned markdown blocks
    */
   languageIdentifier?: string;
+
+  /**
+   * Whether to operate in `strict` mode or not.
+   */
+  strict?: boolean;
 }
 
 export function translateMarkdown(
   markdown: File,
   visitor: AstHandler<any>,
-  options: TranslateMarkdownOptions = {},
+  opts: TranslateMarkdownOptions = {},
 ): TranslateResult {
   const translator = new Translator(false);
 
   const translatedMarkdown = transformMarkdown(
     markdown.contents,
     new MarkdownRenderer(),
-    new ReplaceTypeScriptTransform(markdown.fileName, (tsSnippet) => {
-      const translated = translator
-        .translatorFor(tsSnippet)
-        .renderUsing(visitor);
-      return {
-        language: options.languageIdentifier ?? '',
-        source: translated,
-      };
-    }),
+    new ReplaceTypeScriptTransform(
+      markdown.fileName,
+      opts.strict ?? false,
+      (tsSnippet) => {
+        const translated = translator
+          .translatorFor(tsSnippet)
+          .renderUsing(visitor);
+        return {
+          language: opts.languageIdentifier ?? '',
+          source: translated,
+        };
+      },
+    ),
   );
 
   return {

@@ -205,7 +205,11 @@ public final class JsiiRuntime {
 
             // We shut down already, no need for the shutdown hook anymore
             if (this.shutdownHook != null) {
-                Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+                try {
+                    Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+                } catch (final IllegalStateException ise) {
+                    // VM Shutdown is in progress, removal is now impossible (and unnecessary)
+                }
                 this.shutdownHook = null;
             }
         } catch (final IOException ioe) {

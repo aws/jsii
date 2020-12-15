@@ -15,38 +15,52 @@ const warningTypes = Object.keys(enabledWarnings);
 (async () => {
   const argv = yargs
     .env('JSII')
-    .option('watch', {
-      alias: 'w',
-      type: 'boolean',
-      desc: 'Watch for file changes and recompile automatically',
-    })
+    .command(
+      ['$0 [PROJECT_ROOT]', 'compile [PROJECT_ROOT]'],
+      'Compiles a jsii/TypeScript project',
+      (argv) =>
+        argv
+          .positional('PROJECT_ROOT', {
+            type: 'string',
+            desc: 'The root of the project to be compiled',
+            default: '.',
+            normalize: true,
+          })
+          .option('watch', {
+            alias: 'w',
+            type: 'boolean',
+            desc: 'Watch for file changes and recompile automatically',
+          })
+          .option('project-references', {
+            alias: 'r',
+            type: 'boolean',
+            desc:
+              'Generate TypeScript project references (also [package.json].jsii.projectReferences)',
+          })
+          .option('fix-peer-dependencies', {
+            type: 'boolean',
+            default: true,
+            desc:
+              'Automatically add missing entries in the peerDependencies section of package.json',
+          })
+          .options('fail-on-warnings', {
+            alias: 'Werr',
+            type: 'boolean',
+            desc: 'Treat warnings as errors',
+          })
+          .option('silence-warnings', {
+            type: 'array',
+            default: [],
+            desc: `List of warnings to silence (warnings: ${warningTypes.join(
+              ',',
+            )})`,
+          }),
+    )
     .option('verbose', {
       alias: 'v',
       type: 'count',
       desc: 'Increase the verbosity of output',
       global: true,
-    })
-    .option('project-references', {
-      alias: 'r',
-      type: 'boolean',
-      desc:
-        'Generate TypeScript project references (also [package.json].jsii.projectReferences)',
-    })
-    .option('fix-peer-dependencies', {
-      type: 'boolean',
-      default: true,
-      desc:
-        'Automatically add missing entries in the peerDependencies section of package.json',
-    })
-    .options('fail-on-warnings', {
-      alias: 'Werr',
-      type: 'boolean',
-      desc: 'Treat warnings as errors',
-    })
-    .option('silence-warnings', {
-      type: 'array',
-      default: [],
-      desc: `List of warnings to silence (warnings: ${warningTypes.join(',')})`,
     })
     .help()
     .version(
@@ -57,7 +71,7 @@ const warningTypes = Object.keys(enabledWarnings);
   _configureLog4js(argv.verbose);
 
   const projectRoot = path.normalize(
-    path.resolve(process.cwd(), argv._[0] ?? '.'),
+    path.resolve(process.cwd(), argv.PROJECT_ROOT),
   );
 
   const projectInfo = await loadProjectInfo(projectRoot, {

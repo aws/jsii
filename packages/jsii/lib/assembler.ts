@@ -200,6 +200,7 @@ export class Assembler implements Emitter {
       docs,
       readme,
       jsiiVersion,
+      bin: this.projectInfo.bin,
       fingerprint: '<TBD>',
     };
 
@@ -958,6 +959,12 @@ export class Assembler implements Emitter {
     for (const clause of clauses) {
       for (const node of clause.types) {
         const parentType = this._typeChecker.getTypeAtLocation(node);
+        if (parentType.symbol == null) {
+          // The parent type won't have a symbol if it's an "error type" inserted by the type checker when the original
+          // code contains a compilation error. In such cases, the TypeScript compiler will already have reported about
+          // the incoherent declarations, so we'll just not re-validate it there (we'd fail anyway).
+          continue;
+        }
         // For some reason, we cannot trust parentType.isClassOrInterface()
         const badDecl = parentType.symbol.declarations.find(
           (decl) =>
