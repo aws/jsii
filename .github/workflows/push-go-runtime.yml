@@ -40,7 +40,7 @@ jobs:
           --scope @jsii/go-runtime
       - name: Build Repo Directory
         id: build-repo-dir
-        working-directory: $GITHUB_WORKSPACE/packages/@jsii/go-runtime
+        working-directory: ${{ github.workspace }}/packages/@jsii/go-runtime
         env:
           JSII_RUNTIME_REPO_NAME: ${{ secrets.JSII_RUNTIME_REPO_NAME }}
           JSII_RUNTIME_REPO_USERNAME: ${{ secrets.JSII_RUNTIME_REPO_USERNAME }}
