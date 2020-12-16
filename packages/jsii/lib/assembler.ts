@@ -35,6 +35,7 @@ const LOG = log4js.getLogger('jsii/assembler');
  */
 export class Assembler implements Emitter {
   private readonly commentReplacer = new TsCommentReplacer();
+  private readonly runtimeTypeInfoInjector: RuntimeTypeInfoInjector;
   private readonly mainFile: string;
 
   private _diagnostics = new Array<JsiiDiagnostic>();
@@ -44,13 +45,6 @@ export class Assembler implements Emitter {
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
   private readonly _submodules = new Map<ts.Symbol, SubmoduleSpec>();
-
-  private readonly projectVersion: string;
-  // Map of nodes to types for exported class types. Used by the RuntimeTypeInfoInjector
-  private readonly classTypesMap = new Map<
-    ts.ClassDeclaration,
-    spec.TypeBase
-  >();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -81,7 +75,9 @@ export class Assembler implements Emitter {
     }
 
     this.mainFile = path.resolve(projectInfo.projectRoot, mainFile);
-    this.projectVersion = projectInfo.version;
+    this.runtimeTypeInfoInjector = new RuntimeTypeInfoInjector(
+      projectInfo.version,
+    );
   }
 
   private get _typeChecker(): ts.TypeChecker {
@@ -90,22 +86,19 @@ export class Assembler implements Emitter {
 
   public makeTransformers(): ts.CustomTransformers {
     const commentTransformers = this.commentReplacer.makeTransformers();
-    const runtimeTypeTransformer = new RuntimeTypeInfoInjector(
-      this.projectVersion,
-      this.classTypesMap,
-    ).makeTransformers();
+    const runtimeTypeTransformers = this.runtimeTypeInfoInjector.makeTransformers();
     return {
       before: [
         ...(commentTransformers.before ?? []),
-        ...(runtimeTypeTransformer.before ?? []),
+        ...(runtimeTypeTransformers.before ?? []),
       ],
       after: [
         ...(commentTransformers.after ?? []),
-        ...(runtimeTypeTransformer.after ?? []),
+        ...(runtimeTypeTransformers.after ?? []),
       ],
       afterDeclarations: [
         ...(commentTransformers.afterDeclarations ?? []),
-        ...(runtimeTypeTransformer.afterDeclarations ?? []),
+        ...(runtimeTypeTransformers.afterDeclarations ?? []),
       ],
     };
   }
@@ -860,7 +853,7 @@ export class Assembler implements Emitter {
         context,
       );
       if (jsiiType) {
-        this.classTypesMap.set(node, jsiiType);
+        this.registerExportedClassFqn(node, jsiiType.fqn);
       }
     } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
       // export interface Name { ... }
@@ -2519,6 +2512,14 @@ export class Assembler implements Emitter {
         delete current.optional;
       }
     }
+  }
+
+  /**
+   * Updates the runtime type info with the fully-qualified name for the current class definition.
+   * Used by the runtime type info injector to add this information to the compiled file.
+   */
+  private registerExportedClassFqn(clazz: ts.ClassDeclaration, fqn: string) {
+    this.runtimeTypeInfoInjector.registerClassFqn(clazz, fqn);
   }
 
   /**

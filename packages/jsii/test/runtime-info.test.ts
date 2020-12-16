@@ -1,7 +1,6 @@
-import * as spec from '@jsii/spec';
 import * as ts from 'typescript';
 
-import { RuntimeClassInfo, RuntimeTypeInfoInjector } from '../lib/runtime-info';
+import { RuntimeTypeInfoInjector } from '../lib/runtime-info';
 
 test('adds vfqn symbol at the top of each file', () => {
   expect(transformedSource(EXAMPLE_SINGLE_CLASS)).toContain(
@@ -36,36 +35,41 @@ test('skips runtime info if not available', () => {
 });
 
 function transformedSource(source: string, ...classNames: string[]) {
-  const typeInfo = mockedTypeInfoForClasses(...classNames);
+  const mockedTypeInfo = mockedTypeInfoForClasses(...classNames);
+  const injector = new TestRuntimeTypeInfoInjector(mockedTypeInfo);
   const transformed = ts.transform(
     ts.createSourceFile('source.ts', source, ts.ScriptTarget.Latest),
-    [new RuntimeTypeInfoInjector('1.2.3', typeInfo).runtimeTypeTransformer()],
+    [injector.runtimeTypeTransformer()],
   );
   return ts
     .createPrinter()
     .printBundle(ts.createBundle(transformed.transformed));
 }
 
+/** Test subclass of RuntimeTypeInfoInjector that accepts overrides for type info */
+class TestRuntimeTypeInfoInjector extends RuntimeTypeInfoInjector {
+  public constructor(private readonly typeInfo: Map<string, string>) {
+    super('1.2.3');
+  }
+
+  protected getClassFqn(clazz: ts.ClassDeclaration): string | undefined {
+    return clazz.name ? this.typeInfo.get(clazz.name.text) : undefined;
+  }
+}
+
 /**
- * Mock the `RuntimeClassInfo`, typically provided by a Map<ts.Node, spec.TypeBase>.
+ * Mock the Map<ts.ClassDefinition, string> of classes to fqns.
  * This assumes each class name only appears once in the source,
  * which is a reasonable assumption for these tests.
  */
-function mockedTypeInfoForClasses(...classNames: string[]): RuntimeClassInfo {
-  const typeInfoMap = new Map<string, spec.TypeBase>();
+function mockedTypeInfoForClasses(
+  ...classNames: string[]
+): Map<string, string> {
+  const typeInfoMap = new Map<string, string>();
   classNames.forEach((clazz) =>
-    typeInfoMap.set(clazz, {
-      assembly: 'test',
-      fqn: `RuntimeInfoTest.${clazz}`,
-      kind: spec.TypeKind.Class,
-      name: clazz,
-    }),
+    typeInfoMap.set(clazz, `RuntimeInfoTest.${clazz}`),
   );
-  return {
-    get: (node: ts.ClassDeclaration) => {
-      return node.name ? typeInfoMap.get(node.name.text) : undefined;
-    },
-  };
+  return typeInfoMap;
 }
 
 /**
