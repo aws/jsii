@@ -4,6 +4,20 @@ import { Worker } from 'worker_threads';
 
 const workerScript = require.resolve('./sync-reader/worker');
 
+/*
+                \||/               O YE WHO VISIT THIS SOURCE FILE! THIS IS A
+                |  @___oo          LAND OF DRAGONS AND DARK ARTS.
+      /\  /\   / (__,,,,|
+     ) /^\) ^\/ _)                 THIS BEAUTYFUL CONTRAPTION IS SET TO ACHIEVE
+     )   /^\/   _)                 THE IMPOSSIBLE: SYNCHRONOUS ACCESS ON A NON
+     )   _ /  / _)                 BLOCKING FILE DESCRIPTOR WITHOUT THRASHING
+ /\  )/\/ ||  | )_)                THE CPU WHEN RECOVERING FROM THE DREADED
+<  >      |(,,) )__)               {EAGAIN} ERRNO.
+ ||      /    \)___)\
+ | \____(      )___) )___          THE ELDERS HAVE LEFT MUCH LORE IN THIS FILE.
+  \______(_______;;; __;;;         READ BEFORE YE SHOOT YOURSELF IN THE FOOT!
+*/
+
 /**
  * This class provides a facility to deliver synchronous access to asynchronous
  * (i.e: non blocking) file descriptors, such as a node process's STDIN. It
