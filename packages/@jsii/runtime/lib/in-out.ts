@@ -13,10 +13,15 @@ export type Input =
   | ({ api: string } & api.KernelRequest)
   | { complete: api.CompleteRequest };
 
-export class InputOutput {
+export interface IInputOutput {
+  read(): Input | undefined;
+  write(obj: Output): void;
+}
+
+export class InputOutput implements IInputOutput {
   public debug = false;
 
-  private readonly stdio = new SyncStdio();
+  public constructor(private readonly stdio = new SyncStdio()) {}
 
   public write(obj: Output) {
     const output = JSON.stringify(obj);

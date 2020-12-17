@@ -4,7 +4,7 @@ import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
 
-import { InputOutput, KernelHost, Input, Output } from '../lib';
+import { IInputOutput, KernelHost, Input, Output } from '../lib';
 
 const recordsDir = createRecords();
 const records = fs
@@ -17,17 +17,15 @@ test('are present', () => {
 
 describe(`replay records in ${recordsDir}`, () => {
   for (const record of records) {
-    test(path.basename(record, '.log'), () => {
+    test(path.basename(record, '.log'), (done) => {
       const inout = new PlaybackInputOutput(record);
       const host = new KernelHost(inout, { noStack: true, debug: false });
 
-      return new Promise<void>((ok) => {
-        host.on('exit', () => {
-          ok(inout.expectCompleted());
-        });
-
-        host.run();
+      host.on('exit', () => {
+        done(inout.expectCompleted());
       });
+
+      host.run();
     });
   }
 });
@@ -89,12 +87,11 @@ function createRecords(): string {
   return records;
 }
 
-class PlaybackInputOutput extends InputOutput {
+class PlaybackInputOutput implements IInputOutput {
   public readonly inputCommands: Input[];
   public readonly expectedOutputs: Output[];
 
   public constructor(recordPath: string) {
-    super();
     const inputLines = fs
       .readFileSync(recordPath, { encoding: 'utf-8' })
       .split('\n');
