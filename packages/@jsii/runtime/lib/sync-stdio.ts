@@ -17,8 +17,11 @@ export class SyncStdio {
 
   private bufferedData = Buffer.alloc(0);
 
-  public constructor(stdin: number = STDIN_FD, bufferSize = 1_048_576) {
-    this.stdin = new SyncReader(stdin);
+  public constructor(
+    stdin: number = STDIN_FD,
+    bufferSize = process.stdin.readableHighWaterMark,
+  ) {
+    this.stdin = new SyncReader(stdin, bufferSize);
     this.buffer = Buffer.alloc(bufferSize);
   }
 

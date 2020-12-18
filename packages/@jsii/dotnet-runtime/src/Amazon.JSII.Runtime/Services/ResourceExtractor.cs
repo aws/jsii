@@ -11,7 +11,7 @@ namespace Amazon.JSII.Runtime.Services
         readonly IDictionary<string, string> _bags = new Dictionary<string, string>();
         readonly IFileSystem _fileSystem;
 
-        public ResourceExtractor(IFileSystem fileSystem) 
+        public ResourceExtractor(IFileSystem fileSystem)
         {
             _fileSystem = fileSystem;
         }
@@ -26,12 +26,19 @@ namespace Amazon.JSII.Runtime.Services
             }
 
             var outputPath = Path.Combine(workingDirectory, fileName ?? resourceName);
+
+            // In case the fileName included path delimiters...
+            var outputDir = Path.GetDirectoryName(outputPath);
+            if (outputDir != null && !_fileSystem.Directory.Exists(outputDir))
+            {
+                _fileSystem.Directory.CreateDirectory(outputDir);
+            }
             using (var output = _fileSystem.File.Create(outputPath))
             {
                 using var stream = assembly.GetManifestResourceStream(resourceName);
                 if (stream == null)
                 {
-                    throw new JsiiException("Cannot find embedded resource: " + resourceName + " in assembly " + assembly.GetName(), null);
+                    throw new JsiiException($"Cannot find embedded resource: {resourceName} in {String.Join(", ", assembly.GetManifestResourceNames())}", null);
                 }
 
                 stream.CopyTo(output);

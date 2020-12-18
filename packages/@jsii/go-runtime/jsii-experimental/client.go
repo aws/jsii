@@ -119,7 +119,10 @@ func newClient() (*client, error) {
 
 		for file, data := range embeddedruntime {
 			filepath := path.Join(tmpdir, file)
-			if err := ioutil.WriteFile(filepath, data, 0644); err != nil {
+			if err := os.MkdirAll(path.Dir(filepath), 0700); err != nil {
+				return nil, err
+			}
+			if err := ioutil.WriteFile(filepath, data, 0600); err != nil {
 				return nil, err
 			}
 		}

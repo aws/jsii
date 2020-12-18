@@ -254,7 +254,7 @@ public final class JsiiRuntime {
         // otherwise, we default to "jsii-runtime" from PATH.
         String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
         if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = prepareBundledRuntime();
+            jsiiRuntimeExecutable = BundledRuntime.extract(getClass());
         }
 
         if (traceEnabled) {
@@ -388,26 +388,6 @@ public final class JsiiRuntime {
             throw new JsiiException("Incompatible jsii-runtime version. Expecting "
                     + shortExpectedVersion
                     + ", actual was " + shortActualVersion);
-        }
-    }
-
-    /**
-     * Extracts all files needed for jsii-runtime.js from JAR into a temp directory.
-     * @return The full path for jsii-runtime.js
-     */
-    private String prepareBundledRuntime() {
-        try {
-            Path directory = Files.createTempDirectory("jsii-java-runtime");
-            directory.toFile().deleteOnExit();
-
-            Path entrypoint = extractResource(getClass(), "jsii-runtime.js", directory);
-            entrypoint.toFile().deleteOnExit();
-
-            extractResource(getClass(), "jsii-runtime.js.map", directory).toFile().deleteOnExit();
-
-            return entrypoint.toString();
-        } catch (IOException e) {
-            throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
         }
     }
 

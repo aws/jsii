@@ -1,7 +1,7 @@
 #!/usr/bin/env npx ts-node
 
-import { copyFileSync, readdirSync, writeFileSync } from 'fs';
-import { join, resolve } from 'path';
+import { copyFileSync, readdirSync, statSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
 
 const EMBEDDED_SOURCE = resolve(__dirname, '..', '..', 'runtime', 'webpack');
 const EMBEDDED_INFO = resolve(__dirname, '..', '..', 'runtime', 'package.json');
@@ -30,10 +30,56 @@ writeFileSync(
   { encoding: 'utf-8' },
 );
 
-for (const filename of readdirSync(EMBEDDED_SOURCE)) {
-  const filepath = join(EMBEDDED_SOURCE, filename);
-  copyFileSync(
-    filepath,
-    resolve(__dirname, '..', 'src', 'jsii', '_embedded', 'jsii', filename),
-  );
+const EMBEDDED_TARGET = resolve(
+  __dirname,
+  '..',
+  'src',
+  'jsii',
+  '_embedded',
+  'jsii',
+);
+
+function embedFiles(
+  sourceDirectory: string,
+  prefix?: string,
+): { [path: string]: string } {
+  const result: { [path: string]: string } = {};
+
+  for (const filename of readdirSync(sourceDirectory)) {
+    const filepath = resolve(sourceDirectory, filename);
+    if (statSync(filepath).isDirectory()) {
+      // Not using path.join because we don't want Windows path separators here
+      const nextPrefix = prefix ? `${prefix}/${filename}` : filename;
+      Object.assign(result, embedFiles(filepath, nextPrefix));
+      continue;
+    }
+
+    const embeddedFileName = prefix
+      ? `${prefix.replace(/[/]/g, '__')}__${filename}`
+      : filename;
+    const targetFile = resolve(EMBEDDED_TARGET, embeddedFileName);
+    copyFileSync(filepath, targetFile);
+    // Not using path.join because we don't want Windows path separators here
+    result[embeddedFileName] = prefix ? `${prefix}/${filename}` : filename;
+  }
+
+  return result;
 }
+
+const embeddedFiles = embedFiles(EMBEDDED_SOURCE);
+
+writeFileSync(
+  resolve(EMBEDDED_TARGET, '__init__.py'),
+  `EMBEDDED_FILES = {
+${Object.entries(embeddedFiles)
+  // Sorting to ensure `jsii-runtime.js` is first.
+  .map(([embedded, actual]) => `    "${embedded}": "${actual}",`)
+  .join('\n')}
+}
+
+ENTRYPOINT = "jsii-runtime.js"
+
+__all__ = ["EMBEDDED_FILES", "ENTRYPOINT"]
+`,
+  { encoding: 'utf-8' },
+);

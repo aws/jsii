@@ -1,4 +1,5 @@
-import { createReadStream } from 'fs';
+import { createReadStream, fstatSync } from 'fs';
+import { Socket } from 'net';
 import { parentPort } from 'worker_threads';
 
 /*
@@ -74,8 +75,27 @@ parentPort!.once(
       Atomics.store(lengthArray, 0, size);
     }
 
-    // Note: the path will be ignored since we are providing an FD.
-    const stream = createReadStream('/dev/stdin', { fd, autoClose: false });
+    const stat = fstatSync(fd);
+    // If the file descriptor refers to a FIFO or a Socket, then we should use
+    // the `net.Socket` API instead of using the `fs.ReadStream` API, which may
+    // in this case strangely fail on `EAGAIN`.
+    const stream =
+      stat.isSocket() || stat.isFIFO()
+        ? new Socket({
+            fd,
+            readable: true,
+            writable: false,
+            allowHalfOpen: true,
+          })
+        : // Note: the path will be ignored since we are providing an FD.
+          createReadStream('/dev/stdin', { fd, autoClose: false });
+
+    // If the stream is a Socket, we'll ensure the writable side of it is marked
+    // as finished before moving on, so we are sure to get the 'end' event
+    // generated when the reading side reaches end of stream.
+    if (stream instanceof Socket) {
+      stream.end();
+    }
 
     /**
      * Accepts a new chunk of data from the file description (via the

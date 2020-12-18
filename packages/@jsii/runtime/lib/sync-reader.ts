@@ -1,8 +1,9 @@
 import * as assert from 'assert';
 import * as fs from 'fs';
+import { resolve } from 'path';
 import { Worker } from 'worker_threads';
 
-const workerScript = require.resolve('./sync-reader/worker');
+const workerScript = resolve(__dirname, 'sync-reader', 'worker.js');
 
 /*
                 \||/               O YE WHO VISIT THIS SOURCE FILE! THIS IS A
@@ -74,7 +75,7 @@ export class SyncReader {
    *                   small buffers has adverse performance implications, so
    *                   choose wisely (or just use the default size of 1MiB).
    */
-  public constructor(fd: number, bufferSize = 1_048_576) {
+  public constructor(fd: number, bufferSize: number) {
     const sharedBuffer = new SharedArrayBuffer(bufferSize);
     const availableBytes = new SharedArrayBuffer(4);
 
