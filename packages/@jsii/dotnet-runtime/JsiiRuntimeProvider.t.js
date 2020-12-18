@@ -14,7 +14,7 @@ namespace Amazon.JSII.Runtime.Services
     [GeneratedCode("${path.basename(__filename)}", "${version}")]
     internal sealed class JsiiRuntimeProvider : IJsiiRuntimeProvider
     {
-        internal JsiiRuntimeProvider(IResourceExtractor resourceExtractor)
+        public JsiiRuntimeProvider(IResourceExtractor resourceExtractor)
         {
             // deploy embedded resources to the temp directory
             var assembly = Assembly.GetExecutingAssembly();
