@@ -13,7 +13,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
       - name: Set up Node 10
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v2.1.4
         with:
           node-version: '10'
       - uses: actions/cache@v2
