@@ -159,13 +159,13 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onEndInterface(ifc: spec.InterfaceType) {
+    // emit interface proxy class
+    this.emitInterfaceProxy(ifc);
+
     const interfaceName = this.nameutils.convertInterfaceName(ifc);
     this.code.closeBlock();
     const namespace = this.namespaceFor(this.assembly, ifc);
     this.closeFileIfNeeded(interfaceName, namespace, this.isNested(ifc));
-
-    // emit interface proxy class
-    this.emitInterfaceProxy(ifc);
 
     // emit implementation class
     // TODO: If datatype then we may not need the interface proxy to be created, We could do with just the interface impl?
@@ -357,14 +357,14 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onEndClass(cls: spec.ClassType) {
+    if (cls.abstract) {
+      this.emitInterfaceProxy(cls);
+    }
+
     this.code.closeBlock();
     const className = this.nameutils.convertClassName(cls);
     const namespace = this.namespaceFor(this.assembly, cls);
     this.closeFileIfNeeded(className, namespace, this.isNested(cls));
-
-    if (cls.abstract) {
-      this.emitInterfaceProxy(cls);
-    }
   }
 
   protected onField(
@@ -631,12 +631,12 @@ export class DotNetGenerator extends Generator {
    * Emits an interface proxy for an interface or an abstract class.
    */
   private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType): void {
-    // No need to slugify for a proxy
-    const name = `${this.nameutils.convertTypeName(ifc.name)}Proxy`;
+    const name = 'Jsii_Proxy';
     const namespace = this.namespaceFor(this.assembly, ifc);
-    const isNested = this.isNested(ifc);
+    const isNested = true;
     this.openFileIfNeeded(name, namespace, isNested);
 
+    this.code.line();
     this.dotnetDocGenerator.emitDocs(ifc);
     this.dotnetRuntimeGenerator.emitAttributesForInterfaceProxy(ifc);
     const interfaceFqn = this.typeresolver.toNativeFqn(ifc.fqn);
