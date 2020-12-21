@@ -635,7 +635,7 @@ export class DotNetGenerator extends Generator {
    * Emits an interface proxy for an interface or an abstract class.
    */
   private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType): void {
-    const name = 'Jsii_Proxy';
+    const name = '_Proxy';
     const namespace = this.namespaceFor(this.assembly, ifc);
     const isNested = true;
     this.openFileIfNeeded(name, namespace, isNested);
