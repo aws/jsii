@@ -95,6 +95,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         {
             return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{})!;
         }
+
         /// <summary>A base class.</summary>
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base), fullyQualifiedName: "@scope/jsii-calc-base.Base")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base
@@ -150,6 +151,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
     {
         [JsiiMethod(name: "bar")]
         void Bar();
+
         [JsiiTypeProxy(nativeType: typeof(IBaseInterface), fullyQualifiedName: "@scope/jsii-calc-base.IBaseInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseInterface
         {
@@ -189,6 +191,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IBaseProps), fullyQualifiedName: "@scope/jsii-calc-base.BaseProps")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps
         {
@@ -310,6 +313,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
     {
         [JsiiMethod(name: "foo")]
         void Foo();
+
         [JsiiTypeProxy(nativeType: typeof(IVeryBaseInterface), fullyQualifiedName: "@scope/jsii-calc-base-of-base.IVeryBaseInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.IVeryBaseInterface
         {
@@ -343,6 +347,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IVeryBaseProps), fullyQualifiedName: "@scope/jsii-calc-base-of-base.VeryBaseProps")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.IVeryBaseProps
         {
@@ -619,6 +624,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
             get;
         }
+
         /// <summary>(deprecated) The general contract for a concrete number.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
@@ -671,6 +677,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         [System.Obsolete()]
         string Hello();
+
         /// <summary>(deprecated) Applies to classes that are considered friendly.</summary>
         /// <remarks>
         /// These classes can be greeted with
@@ -752,6 +759,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
                 return null;
             }
         }
+
         /// <summary>(deprecated) This is the first struct we have created in jsii.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
@@ -859,6 +867,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
                 return null;
             }
         }
+
         /// <summary>(deprecated) This is a struct with only optional properties.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
@@ -934,6 +943,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiMethod(name: "baz")]
         [System.Obsolete()]
         void Baz();
+
         /// <summary>(deprecated) Interface that inherits from packages 2 levels up the tree.</summary>
         /// <remarks>
         /// Their presence validates that .NET/Java/jsii-reflect can track all fields
@@ -1170,6 +1180,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
             get;
         }
+
         /// <summary>(deprecated) Abstract class which represents a numeric value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
@@ -1238,6 +1249,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         [System.Obsolete()]
         public override abstract string ToString();
+
 
         /// <summary>(deprecated) Represents an operation on values.</summary>
         /// <remarks>
@@ -1356,6 +1368,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         {
             get;
         }
+
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -1415,6 +1428,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         {
             get;
         }
+
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -1540,6 +1554,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
             {
                 get;
             }
+
             /// <summary>(deprecated) This is a struct, nested within a class.</summary>
             /// <remarks>
             /// Normal.
@@ -2072,6 +2087,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<string>()!;
         }
+
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClass), fullyQualifiedName: "jsii-calc.AbstractClass")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.AbstractClass
         {
@@ -2129,6 +2145,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase), fullyQualifiedName: "jsii-calc.AbstractClassBase")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase
         {
@@ -2244,6 +2261,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+
         /// <summary>Ensures abstract members implementations correctly register overrides in various languages.</summary>
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractSuite), fullyQualifiedName: "jsii-calc.AbstractSuite")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.AbstractSuite
@@ -2924,6 +2942,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue>()!;
         }
+
         /// <summary>Represents an operation with two operands.</summary>
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation
@@ -2999,6 +3018,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <returns>\`value\`</returns>
         [JsiiMethod(name: "giveItBack", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value that should be returned.\\"},\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
         public abstract object GiveItBack(object @value);
+
 
         /// <summary>See https://github.com/aws/aws-cdk/issues/7977.</summary>
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BurriedAnonymousObject), fullyQualifiedName: "jsii-calc.BurriedAnonymousObject")]
@@ -3687,6 +3707,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             [JsiiEnumMember(name: "DECORATED")]
             DECORATED
         }
+
         /// <summary>Abstract operation composed from an expression of other operations.</summary>
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
@@ -5104,6 +5125,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "repeat", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value to return.\\"},\\"name\\":\\"word\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
         public abstract string Repeat(string word);
 
+
         /// <summary>This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).</summary>
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Entropy), fullyQualifiedName: "jsii-calc.Entropy")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.Entropy
@@ -5710,6 +5732,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         Amazon.JSII.Tests.CalculatorNamespace.Implementation ProvideAsClass();
         [JsiiMethod(name: "provideAsInterface", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IAnonymouslyImplementMe\\"}}")]
         Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe ProvideAsInterface();
+
         /// <summary>We can return an anonymous interface implementation from an override without losing the interface declarations.</summary>
         [JsiiTypeProxy(nativeType: typeof(IAnonymousImplementationProvider), fullyQualifiedName: "jsii-calc.IAnonymousImplementationProvider")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IAnonymousImplementationProvider
@@ -5752,6 +5775,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         [JsiiMethod(name: "verb", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string Verb();
+
         [JsiiTypeProxy(nativeType: typeof(IAnonymouslyImplementMe), fullyQualifiedName: "jsii-calc.IAnonymouslyImplementMe")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe
         {
@@ -5792,6 +5816,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IAnotherPublicInterface), fullyQualifiedName: "jsii-calc.IAnotherPublicInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IAnotherPublicInterface
         {
@@ -5823,6 +5848,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "ring")]
         void Ring();
+
         [JsiiTypeProxy(nativeType: typeof(IBell), fullyQualifiedName: "jsii-calc.IBell")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IBell
         {
@@ -5854,6 +5880,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"name\\":\\"bell\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBell\\"}}]")]
         void YourTurn(Amazon.JSII.Tests.CalculatorNamespace.IBell bell);
+
         /// <summary>Takes the object parameter as an interface.</summary>
         [JsiiTypeProxy(nativeType: typeof(IBellRinger), fullyQualifiedName: "jsii-calc.IBellRinger")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IBellRinger
@@ -5913,6 +5940,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>Properties for Calculator.</summary>
         [JsiiTypeProxy(nativeType: typeof(ICalculatorProps), fullyQualifiedName: "jsii-calc.CalculatorProps")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps
@@ -5965,6 +5993,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IChildStruct982), fullyQualifiedName: "jsii-calc.ChildStruct982")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IChildStruct982
         {
@@ -6002,6 +6031,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"name\\":\\"bell\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"}}]")]
         void YourTurn(Amazon.JSII.Tests.CalculatorNamespace.Bell bell);
+
         /// <summary>Takes the object parameter as a calss.</summary>
         [JsiiTypeProxy(nativeType: typeof(IConcreteBellRinger), fullyQualifiedName: "jsii-calc.IConcreteBellRinger")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IConcreteBellRinger
@@ -6040,6 +6070,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(IConfusingToJacksonStruct), fullyQualifiedName: "jsii-calc.ConfusingToJacksonStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct
         {
@@ -6096,6 +6127,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "method")]
         [System.Obsolete("services no purpose")]
         void Method();
+
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -6157,6 +6189,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -6243,6 +6276,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>A struct which derives from another struct.</summary>
         [JsiiTypeProxy(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
@@ -6345,6 +6379,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IDiamondInheritanceBaseLevelStruct), fullyQualifiedName: "jsii-calc.DiamondInheritanceBaseLevelStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceBaseLevelStruct
         {
@@ -6378,6 +6413,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IDiamondInheritanceFirstMidLevelStruct), fullyQualifiedName: "jsii-calc.DiamondInheritanceFirstMidLevelStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceFirstMidLevelStruct
         {
@@ -6417,6 +6453,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IDiamondInheritanceSecondMidLevelStruct), fullyQualifiedName: "jsii-calc.DiamondInheritanceSecondMidLevelStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceSecondMidLevelStruct
         {
@@ -6456,6 +6493,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IDiamondInheritanceTopLevelStruct), fullyQualifiedName: "jsii-calc.DiamondInheritanceTopLevelStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceTopLevelStruct
         {
@@ -6521,6 +6559,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(IEraseUndefinedHashValuesOptions), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValuesOptions")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions
         {
@@ -6581,6 +6620,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiMethod(name: "method")]
         void Method();
+
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -6637,6 +6677,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -6682,6 +6723,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IExtendsInternalInterface), fullyQualifiedName: "jsii-calc.ExtendsInternalInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IExtendsInternalInterface
         {
@@ -6728,6 +6770,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IExtendsPrivateInterface), fullyQualifiedName: "jsii-calc.IExtendsPrivateInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IExtendsPrivateInterface
         {
@@ -6787,6 +6830,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiMethod(name: "method")]
         void Method();
+
         /// <remarks>
         /// <strong>External</strong>: true
         /// </remarks>
@@ -6843,6 +6887,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         /// <remarks>
         /// <strong>External</strong>: true
         /// </remarks>
@@ -6885,6 +6930,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <returns>A goodbye blessing.</returns>
         [JsiiMethod(name: "goodbye", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string Goodbye();
+
         /// <summary>Even friendlier classes can implement this interface.</summary>
         [JsiiTypeProxy(nativeType: typeof(IFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier
@@ -6934,6 +6980,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IFriendlyRandomGenerator), fullyQualifiedName: "jsii-calc.IFriendlyRandomGenerator")]
     public interface IFriendlyRandomGenerator : Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
     {
+
         [JsiiTypeProxy(nativeType: typeof(IFriendlyRandomGenerator), fullyQualifiedName: "jsii-calc.IFriendlyRandomGenerator")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IFriendlyRandomGenerator
         {
@@ -6989,6 +7036,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>These are some arguments you can pass to a method.</summary>
         [JsiiTypeProxy(nativeType: typeof(IGreetee), fullyQualifiedName: "jsii-calc.Greetee")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IGreetee
@@ -7028,6 +7076,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IImplictBaseOfBase
         {
@@ -7074,6 +7123,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         /// <summary>awslabs/jsii#220 Abstract return type.</summary>
         [JsiiTypeProxy(nativeType: typeof(IInterfaceImplementedByAbstractClass), fullyQualifiedName: "jsii-calc.IInterfaceImplementedByAbstractClass")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceImplementedByAbstractClass
@@ -7109,6 +7159,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         /// <summary>Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.</summary>
         [JsiiTypeProxy(nativeType: typeof(IInterfaceThatShouldNotBeADataType), fullyQualifiedName: "jsii-calc.IInterfaceThatShouldNotBeADataType")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceThatShouldNotBeADataType
@@ -7152,6 +7203,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "visible")]
         void Visible();
+
         [JsiiTypeProxy(nativeType: typeof(IInterfaceWithInternal), fullyQualifiedName: "jsii-calc.IInterfaceWithInternal")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithInternal
         {
@@ -7187,6 +7239,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         [JsiiMethod(name: "doThings")]
         void DoThings();
+
         [JsiiTypeProxy(nativeType: typeof(IInterfaceWithMethods), fullyQualifiedName: "jsii-calc.IInterfaceWithMethods")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithMethods
         {
@@ -7224,6 +7277,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "hello", parametersJson: "[{\\"name\\":\\"arg1\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg2\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
         void Hello(string arg1, double? arg2 = null);
+
         /// <summary>awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.</summary>
         [JsiiTypeProxy(nativeType: typeof(IInterfaceWithOptionalMethodArguments), fullyQualifiedName: "jsii-calc.IInterfaceWithOptionalMethodArguments")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithOptionalMethodArguments
@@ -7265,6 +7319,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IInterfaceWithProperties), fullyQualifiedName: "jsii-calc.IInterfaceWithProperties")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties
         {
@@ -7306,6 +7361,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IInterfaceWithPropertiesExtension), fullyQualifiedName: "jsii-calc.IInterfaceWithPropertiesExtension")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithPropertiesExtension
         {
@@ -7357,6 +7413,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         void Bar();
         [JsiiMethod(name: "baz")]
         void Baz();
+
         [JsiiTypeProxy(nativeType: typeof(IJSII417Derived), fullyQualifiedName: "jsii-calc.IJSII417Derived")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJSII417Derived
         {
@@ -7416,6 +7473,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         [JsiiMethod(name: "foo")]
         void Foo();
+
         [JsiiTypeProxy(nativeType: typeof(IJSII417PublicBaseOfBase), fullyQualifiedName: "jsii-calc.IJSII417PublicBaseOfBase")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJSII417PublicBaseOfBase
         {
@@ -7450,6 +7508,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IJsii487External), fullyQualifiedName: "jsii-calc.IJsii487External")]
     public interface IJsii487External
     {
+
         [JsiiTypeProxy(nativeType: typeof(IJsii487External), fullyQualifiedName: "jsii-calc.IJsii487External")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJsii487External
         {
@@ -7472,6 +7531,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IJsii487External2), fullyQualifiedName: "jsii-calc.IJsii487External2")]
     public interface IJsii487External2
     {
+
         [JsiiTypeProxy(nativeType: typeof(IJsii487External2), fullyQualifiedName: "jsii-calc.IJsii487External2")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJsii487External2
         {
@@ -7494,6 +7554,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IJsii496), fullyQualifiedName: "jsii-calc.IJsii496")]
     public interface IJsii496
     {
+
         [JsiiTypeProxy(nativeType: typeof(IJsii496), fullyQualifiedName: "jsii-calc.IJsii496")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJsii496
         {
@@ -7521,6 +7582,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(ILevelOneProps), fullyQualifiedName: "jsii-calc.LevelOneProps")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps
         {
@@ -7645,6 +7707,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
         [JsiiTypeProxy(nativeType: typeof(ILoadBalancedFargateServiceProps), fullyQualifiedName: "jsii-calc.LoadBalancedFargateServiceProps")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ILoadBalancedFargateServiceProps
@@ -7755,6 +7818,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IMutableObjectLiteral), fullyQualifiedName: "jsii-calc.IMutableObjectLiteral")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IMutableObjectLiteral
         {
@@ -7790,6 +7854,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(INestedStruct), fullyQualifiedName: "jsii-calc.NestedStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INestedStruct
         {
@@ -7832,6 +7897,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+
         [JsiiTypeProxy(nativeType: typeof(INonInternalInterface), fullyQualifiedName: "jsii-calc.INonInternalInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface
         {
@@ -7890,6 +7956,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(INullShouldBeTreatedAsUndefinedData), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefinedData")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData
         {
@@ -7934,6 +8001,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         [JsiiMethod(name: "wasSet", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}")]
         bool WasSet();
+
         /// <summary>Make sure that setters are properly called on objects with interfaces.</summary>
         [JsiiTypeProxy(nativeType: typeof(IObjectWithProperty), fullyQualifiedName: "jsii-calc.IObjectWithProperty")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IObjectWithProperty
@@ -7973,6 +8041,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "optional", returnsJson: "{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string? Optional();
+
         /// <summary>Checks that optional result from interface method code generates correctly.</summary>
         [JsiiTypeProxy(nativeType: typeof(IOptionalMethod), fullyQualifiedName: "jsii-calc.IOptionalMethod")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IOptionalMethod
@@ -8011,6 +8080,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(IOptionalStruct), fullyQualifiedName: "jsii-calc.OptionalStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct
         {
@@ -8046,6 +8116,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         /// <summary>https://github.com/aws/jsii/issues/982.</summary>
         [JsiiTypeProxy(nativeType: typeof(IParentStruct982), fullyQualifiedName: "jsii-calc.ParentStruct982")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IParentStruct982
@@ -8080,6 +8151,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IPrivatelyImplemented), fullyQualifiedName: "jsii-calc.IPrivatelyImplemented")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IPrivatelyImplemented
         {
@@ -8110,6 +8182,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "bye", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string Bye();
+
         [JsiiTypeProxy(nativeType: typeof(IPublicInterface), fullyQualifiedName: "jsii-calc.IPublicInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface
         {
@@ -8140,6 +8213,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "ciao", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string Ciao();
+
         [JsiiTypeProxy(nativeType: typeof(IPublicInterface2), fullyQualifiedName: "jsii-calc.IPublicInterface2")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface2
         {
@@ -8173,6 +8247,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <returns>A random number.</returns>
         [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
         double Next();
+
         /// <summary>Generates random numbers.</summary>
         [JsiiTypeProxy(nativeType: typeof(IRandomNumberGenerator), fullyQualifiedName: "jsii-calc.IRandomNumberGenerator")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
@@ -8210,6 +8285,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         /// <summary>Returns a subclass of a known class which implements an interface.</summary>
         [JsiiTypeProxy(nativeType: typeof(IReturnJsii976), fullyQualifiedName: "jsii-calc.IReturnJsii976")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IReturnJsii976
@@ -8246,6 +8322,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         [JsiiMethod(name: "obtainNumber", returnsJson: "{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.IDoublable\\"}}")]
         Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable ObtainNumber();
+
         [JsiiTypeProxy(nativeType: typeof(IReturnsNumber), fullyQualifiedName: "jsii-calc.IReturnsNumber")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber
         {
@@ -8301,6 +8378,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.</summary>
         /// <remarks>
         /// This is cheating with the (current) declared types, but this is the "more
@@ -8359,6 +8437,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(ISecondLevelStruct), fullyQualifiedName: "jsii-calc.SecondLevelStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct
         {
@@ -8407,6 +8486,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(ISmellyStruct), fullyQualifiedName: "jsii-calc.SmellyStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ISmellyStruct
         {
@@ -8456,6 +8536,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         [JsiiMethod(name: "method")]
         void Method();
+
         [JsiiTypeProxy(nativeType: typeof(IStableInterface), fullyQualifiedName: "jsii-calc.IStableInterface")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStableInterface
         {
@@ -8497,6 +8578,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IStableStruct), fullyQualifiedName: "jsii-calc.StableStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStableStruct
         {
@@ -8551,6 +8633,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>We can serialize and deserialize structs without silently ignoring optional fields.</summary>
         [JsiiTypeProxy(nativeType: typeof(IStructA), fullyQualifiedName: "jsii-calc.StructA")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStructA
@@ -8620,6 +8703,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.</summary>
         [JsiiTypeProxy(nativeType: typeof(IStructB), fullyQualifiedName: "jsii-calc.StructB")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStructB
@@ -8682,6 +8766,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         /// <summary>Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.</summary>
         /// <remarks>
         /// See: https://github.com/aws/aws-cdk/issues/4302
@@ -8724,6 +8809,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "returnStruct", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.StructB\\"}}")]
         Amazon.JSII.Tests.CalculatorNamespace.IStructB ReturnStruct();
+
         /// <summary>Verifies that a "pure" implementation of an interface works correctly.</summary>
         [JsiiTypeProxy(nativeType: typeof(IStructReturningDelegate), fullyQualifiedName: "jsii-calc.IStructReturningDelegate")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStructReturningDelegate
@@ -8788,6 +8874,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(IStructWithJavaReservedWords), fullyQualifiedName: "jsii-calc.StructWithJavaReservedWords")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStructWithJavaReservedWords
         {
@@ -8857,6 +8944,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(ISupportsNiceJavaBuilderProps), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilderProps")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps
         {
@@ -8921,6 +9009,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(ITopLevelStruct), fullyQualifiedName: "jsii-calc.TopLevelStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct
         {
@@ -8980,6 +9069,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(IUnionProperties), fullyQualifiedName: "jsii-calc.UnionProperties")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IUnionProperties
         {
@@ -9019,6 +9109,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Returns the current time, formatted as an ISO-8601 string.</summary>
         [JsiiMethod(name: "iso8601Now", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string Iso8601Now();
+
         /// <summary>Implement this interface.</summary>
         [JsiiTypeProxy(nativeType: typeof(IWallClock), fullyQualifiedName: "jsii-calc.IWallClock")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IWallClock
@@ -9434,6 +9525,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IHello), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses.IHello
         {
@@ -9490,6 +9582,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterfac
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IHello), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterface.IHello
         {
@@ -9599,6 +9692,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.Isomorphism>(new System.Type[]{}, new object[]{})!;
         }
+
         /// <summary>Checks the "same instance" isomorphism is preserved within the constructor.</summary>
         /// <remarks>
         /// Create a subclass of this, and assert that <c>this.myself()</c> actually returns
@@ -10458,6 +10552,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 get;
             }
+
             [JsiiTypeProxy(nativeType: typeof(IPropBooleanValue), fullyQualifiedName: "jsii-calc.LevelOne.PropBooleanValue")]
             internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue
             {
@@ -10492,6 +10587,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 get;
             }
+
             [JsiiTypeProxy(nativeType: typeof(IPropProperty), fullyQualifiedName: "jsii-calc.LevelOne.PropProperty")]
             internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty
             {
@@ -11586,6 +11682,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "consumePartiallyInitializedThis", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.ConstructorPassesThisOut\\"}},{\\"name\\":\\"dt\\",\\"type\\":{\\"primitive\\":\\"date\\"}},{\\"name\\":\\"ev\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}}]")]
         public abstract string ConsumePartiallyInitializedThis(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut obj, System.DateTime dt, Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum ev);
 
+
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer), fullyQualifiedName: "jsii-calc.PartiallyInitializedThisConsumer")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer
         {
@@ -12103,6 +12200,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
     {
         [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"self\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
         string Method(double self);
+
         [JsiiTypeProxy(nativeType: typeof(IInterfaceWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.IInterfaceWithSelf")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IInterfaceWithSelf
         {
@@ -12136,6 +12234,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IStructWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.StructWithSelf")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf
         {
@@ -13232,6 +13331,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.BackReferences
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IMyClassReference), fullyQualifiedName: "jsii-calc.submodule.back_references.MyClassReference")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.BackReferences.IMyClassReference
         {
@@ -13336,6 +13436,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
                 return null;
             }
         }
+
         [JsiiTypeProxy(nativeType: typeof(IKwargsProps), fullyQualifiedName: "jsii-calc.submodule.child.KwargsProps")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IKwargsProps
         {
@@ -13376,6 +13477,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(ISomeStruct), fullyQualifiedName: "jsii-calc.submodule.child.SomeStruct")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct
         {
@@ -13409,6 +13511,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(IStructure), fullyQualifiedName: "jsii-calc.submodule.child.Structure")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IStructure
         {
@@ -13721,6 +13824,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.Deeply
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(INamespaced), fullyQualifiedName: "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.DeeplyNested.INamespaced
         {
@@ -13774,6 +13878,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.Namespaced), fullyQualifiedName: "jsii-calc.submodule.nested_submodule.Namespaced")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.Namespaced
         {
@@ -13807,6 +13912,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param
         {
             get;
         }
+
         [JsiiTypeProxy(nativeType: typeof(ISpecialParameter), fullyQualifiedName: "jsii-calc.submodule.param.SpecialParameter")]
         internal sealed class Jsii_Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter
         {
@@ -14362,6 +14468,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue>()!;
         }
+
         /// <summary>An operation on a single operand.</summary>
         [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation")]
         internal sealed class Jsii_Proxy : Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation
@@ -14799,6 +14906,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<bool>()!;
         }
+
         /// <summary>This test is used to validate the runtimes can return correctly from a void callback.</summary>
         /// <remarks>
         /// <list type="bullet">
