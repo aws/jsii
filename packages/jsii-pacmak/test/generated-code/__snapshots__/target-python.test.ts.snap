@@ -7045,6 +7045,26 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
         jsii.sset(cls, "staticVariable", value)
 
 
+class StaticHelloParent(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.StaticHelloParent",
+):
+    """Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not share this feature."""
+
+    def __init__(self) -> None:
+        jsii.create(StaticHelloParent, self, [])
+
+    @jsii.member(jsii_name="method")
+    @builtins.classmethod
+    def method(cls) -> None:
+        return jsii.sinvoke(cls, "method", [])
+
+    @jsii.python.classproperty # type: ignore
+    @jsii.member(jsii_name="property")
+    def property(cls) -> jsii.Number:
+        return jsii.sget(cls, "property")
+
+
 class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     def __init__(self, value: builtins.str) -> None:
         """
@@ -8477,6 +8497,22 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
         return jsii.get(self, "value")
 
 
+class StaticHelloChild(
+    StaticHelloParent,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.StaticHelloChild",
+):
+    @jsii.member(jsii_name="method")
+    @builtins.classmethod
+    def method(cls) -> None:
+        return jsii.sinvoke(cls, "method", [])
+
+    @jsii.python.classproperty # type: ignore
+    @jsii.member(jsii_name="property")
+    def property(cls) -> jsii.Number:
+        return jsii.sget(cls, "property")
+
+
 class SupportsNiceJavaBuilder(
     SupportsNiceJavaBuilderWithRequiredProps,
     metaclass=jsii.JSIIMeta,
@@ -8695,6 +8731,8 @@ __all__ = [
     "StableEnum",
     "StableStruct",
     "StaticContext",
+    "StaticHelloChild",
+    "StaticHelloParent",
     "Statics",
     "StringEnum",
     "StripInternal",

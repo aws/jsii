@@ -11631,6 +11631,86 @@ func StaticContext_SetStaticVariable(val bool) {
 }
 
 // Class interface
+type StaticHelloChildIface interface {
+}
+
+// Struct proxy
+type StaticHelloChild struct {
+}
+
+func StaticHelloChild_Method() {
+	_init_.Initialize()
+	var returns interface{}
+	_jsii_.InvokeStatic(
+		"jsii-calc.StaticHelloChild",
+		"method",
+		[]interface{}{},
+		false,
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+}
+
+func StaticHelloChild_Property() float64 {
+	_init_.Initialize()
+	var returns float64
+	_jsii_.StaticGet(
+		"jsii-calc.StaticHelloChild",
+		"property",
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+	return returns
+}
+
+// Class interface
+type StaticHelloParentIface interface {
+}
+
+// Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not share this feature.
+// Struct proxy
+type StaticHelloParent struct {
+}
+
+func NewStaticHelloParent() StaticHelloParentIface {
+	_init_.Initialize()
+	self := StaticHelloParent{}
+	_jsii_.Create(
+		"jsii-calc.StaticHelloParent",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&self,
+	)
+	return &self
+}
+
+func StaticHelloParent_Method() {
+	_init_.Initialize()
+	var returns interface{}
+	_jsii_.InvokeStatic(
+		"jsii-calc.StaticHelloParent",
+		"method",
+		[]interface{}{},
+		false,
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+}
+
+func StaticHelloParent_Property() float64 {
+	_init_.Initialize()
+	var returns float64
+	_jsii_.StaticGet(
+		"jsii-calc.StaticHelloParent",
+		"property",
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+	return returns
+}
+
+// Class interface
 type StaticsIface interface {
 	GetValue() string
 	JustMethod() string

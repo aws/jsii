@@ -2694,6 +2694,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 StableEnum.java
           ┃                 ┣━ 📄 StableStruct.java
           ┃                 ┣━ 📄 StaticContext.java
+          ┃                 ┣━ 📄 StaticHelloChild.java
+          ┃                 ┣━ 📄 StaticHelloParent.java
           ┃                 ┣━ 📄 Statics.java
           ┃                 ┣━ 📄 StringEnum.java
           ┃                 ┣━ 📄 StripInternal.java
@@ -16679,6 +16681,85 @@ public class StaticContext extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/StaticHelloChild.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StaticHelloChild")
+public class StaticHelloChild extends software.amazon.jsii.tests.calculator.StaticHelloParent {
+
+    protected StaticHelloChild(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected StaticHelloChild(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void method() {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StaticHelloChild.class, "method", software.amazon.jsii.NativeType.VOID);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Number getProperty() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticHelloChild.class, "property", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/StaticHelloParent.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not share this feature.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StaticHelloParent")
+public class StaticHelloParent extends software.amazon.jsii.JsiiObject {
+
+    protected StaticHelloParent(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected StaticHelloParent(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public StaticHelloParent() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void method() {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StaticHelloParent.class, "method", software.amazon.jsii.NativeType.VOID);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Number getProperty() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticHelloParent.class, "property", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Statics.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -21382,6 +21463,8 @@ jsii-calc.StableClass=software.amazon.jsii.tests.calculator.StableClass
 jsii-calc.StableEnum=software.amazon.jsii.tests.calculator.StableEnum
 jsii-calc.StableStruct=software.amazon.jsii.tests.calculator.StableStruct
 jsii-calc.StaticContext=software.amazon.jsii.tests.calculator.StaticContext
+jsii-calc.StaticHelloChild=software.amazon.jsii.tests.calculator.StaticHelloChild
+jsii-calc.StaticHelloParent=software.amazon.jsii.tests.calculator.StaticHelloParent
 jsii-calc.Statics=software.amazon.jsii.tests.calculator.Statics
 jsii-calc.StringEnum=software.amazon.jsii.tests.calculator.StringEnum
 jsii-calc.StripInternal=software.amazon.jsii.tests.calculator.StripInternal

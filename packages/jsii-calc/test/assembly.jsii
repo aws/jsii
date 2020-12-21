@@ -11422,6 +11422,101 @@
         }
       ]
     },
+    "jsii-calc.StaticHelloChild": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.StaticHelloParent",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.StaticHelloChild",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2858
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2863
+          },
+          "name": "method",
+          "overrides": "jsii-calc.StaticHelloParent",
+          "static": true
+        }
+      ],
+      "name": "StaticHelloChild",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2859
+          },
+          "name": "property",
+          "overrides": "jsii-calc.StaticHelloParent",
+          "static": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.StaticHelloParent": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not share this feature."
+      },
+      "fqn": "jsii-calc.StaticHelloParent",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2849
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2854
+          },
+          "name": "method",
+          "static": true
+        }
+      ],
+      "name": "StaticHelloParent",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2850
+          },
+          "name": "property",
+          "static": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.Statics": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14345,5 +14440,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XfCnzPEGbEJR6hhBX8zWyFzWJP2wH9ztW2ZcW6Wdb+4="
+  "fingerprint": "lMjqpro90RI1jZrcELFmEzcSJQCxkEhm77olVYW0fc8="
 }
