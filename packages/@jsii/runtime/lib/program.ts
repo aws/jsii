@@ -1,3 +1,6 @@
+// Import for side-effects
+import './ensure-workers-usable';
+
 import * as process from 'process';
 
 import * as packageInfo from '../package.json';
