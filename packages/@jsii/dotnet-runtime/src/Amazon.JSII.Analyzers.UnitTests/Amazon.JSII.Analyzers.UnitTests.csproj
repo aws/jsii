@@ -19,7 +19,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
-    <DotNetCliToolReference Include="dotnet-xunit" />
     <ProjectReference Include="..\Amazon.JSII.Analyzers\Amazon.JSII.Analyzers.csproj" />
   </ItemGroup>
 

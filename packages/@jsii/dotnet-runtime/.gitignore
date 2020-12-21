@@ -21,6 +21,7 @@ bin/
 cli/
 obj/
 *.DotSettings.user
+.nuget/
 
 # consumed by generate.sh
 !*.t.js
