@@ -647,7 +647,7 @@ export class DotNetGenerator extends Generator {
     const suffix = spec.isInterfaceType(ifc)
       ? `: DeputyBase, ${interfaceFqn}`
       : `: ${interfaceFqn}`;
-    this.code.openBlock(`internal sealed class ${name} ${suffix}`);
+    this.code.openBlock(`new internal sealed class ${name} ${suffix}`);
 
     // Create the private constructor
     this.code.openBlock(
