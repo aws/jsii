@@ -6,6 +6,21 @@
   "commitConvention": "angular",
   "contributorsSortAlphabetically": true,
   "types": {
+    "bug": {
+      "symbol": "🐛",
+      "description": "Bug reports",
+      "link": "https://github.com/aws/jsii/issues?q=author%3A<%= contributor.login %>+label%3Abug"
+    },
+    "ideas": {
+      "symbol": "🤔",
+      "description": "Feature requests",
+      "link": "https://github.com/aws/jsii/issues?q=author%3A<%= contributor.login %>+label%3Afeature-request"
+    },
+    "maintenance": {
+      "symbol": "🚧",
+      "description": "Maintenance",
+      "link": "https://github.com/aws/jsii/pulls?q=is%3Apr+author%3A<%= contributor.login %>"
+    },
     "dotnet": {
       "symbol": "🥅",
       "description": ".NET Bindings",
@@ -148,7 +163,8 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/416563?v=4",
       "profile": "https://github.com/CaerusKaru",
       "contributions": [
-        "code"
+        "code",
+        "maintenance"
       ]
     },
     {
@@ -538,7 +554,8 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/1559437?v=4",
       "profile": "http://www.matthewbonig.com/",
       "contributions": [
-        "bug"
+        "bug",
+        "blog"
       ]
     },
     {
@@ -946,6 +963,79 @@
       "profile": "https://github.com/edsenabr",
       "contributions": [
         "bug"
+      ]
+    },
+    {
+      "login": "floydpink",
+      "name": "Hari Pachuveetil",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/171072?v=4",
+      "profile": "https://harimenon.com/",
+      "contributions": [
+        "blog",
+        "doc"
+      ]
+    },
+    {
+      "login": "deccy-mcc",
+      "name": "deccy-mcc",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/45844893?v=4",
+      "profile": "https://github.com/deccy-mcc",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "ThomasSteinbach",
+      "name": "Thomas Steinbach",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1683246?v=4",
+      "profile": "https://github.com/ThomasSteinbach",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Ophirr33",
+      "name": "Ty Coghlan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15920577?v=4",
+      "profile": "https://ty.coghlan.dev/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "slotnick",
+      "name": "Dave Slotnick",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/918175?v=4",
+      "profile": "https://github.com/slotnick",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "majasb",
+      "name": "Maja S Bratseth",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/142510?v=4",
+      "profile": "https://github.com/majasb",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "benbridts",
+      "name": "Ben Bridts",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1301221?v=4",
+      "profile": "http://twiiter.com/benbridts",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "MohamadSoufan",
+      "name": "Mohamad Soufan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/28849417?v=4",
+      "profile": "https://github.com/MohamadSoufan",
+      "contributions": [
+        "doc"
       ]
     }
   ],

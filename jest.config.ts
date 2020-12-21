@@ -47,6 +47,11 @@ export function overriddenConfig(overrides: Config.InitialOptions) {
 
   function merge<T>(original: T, override: T): T {
     if (typeof original === 'object') {
+      // Arrays are objects, too!
+      if (Array.isArray(override)) {
+        return override;
+      }
+
       const result: any = {};
       const allKeys = new Set([
         ...Object.keys(original),

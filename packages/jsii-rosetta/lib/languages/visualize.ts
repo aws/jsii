@@ -192,6 +192,13 @@ export class VisualizeAstVisitor implements AstHandler<void> {
     return this.defaultNode('propertyDeclaration', node, context);
   }
 
+  public computedPropertyName(
+    node: ts.Expression,
+    context: AstRenderer<void>,
+  ): OTree {
+    return this.defaultNode('computedPropertyName', node, context);
+  }
+
   public methodDeclaration(
     node: ts.MethodDeclaration,
     context: AstRenderer<void>,

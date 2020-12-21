@@ -107,7 +107,7 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
 
   /**
    * Direct dependencies on other assemblies (with semver), the key is the JSII
-   * assembly name, and the value is a SemVer expression..
+   * assembly name, and the value is a SemVer expression.
    *
    * @default none
    */
@@ -143,6 +143,13 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
    * @default none
    */
   readme?: { markdown: string };
+
+  /**
+   * List of bin-scripts
+   *
+   * @default none
+   */
+  bin?: { readonly [script: string]: string };
 }
 
 /**

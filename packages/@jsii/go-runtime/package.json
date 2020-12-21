@@ -5,13 +5,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm run gen:rt && (cd ./jsii-experimental && go build)",
     "fmt": "go fmt ./jsii-experimental ./jsii-calc-test",
     "gen:calc": "ts-node build-tools/gen-calc.ts",
     "gen:rt": "ts-node build-tools/gen.ts",
     "generate": "npm run gen:rt && npm run gen:calc",
-    "build": "npm run generate && go build ./jsii-experimental",
-    "test": "go test ./jsii-experimental && npm run test:calc",
-    "test:calc": "npm run gen:calc && go run ./jsii-calc-test"
+    "lint": "eslint . --ext .ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix",
+    "test": "(cd ./jsii-experimental && go test) && npm run test:calc",
+    "test:calc": "npm run gen:calc && go test ./jsii-calc-test"
   },
   "keywords": [],
   "author": "",
@@ -21,12 +23,14 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.42",
+    "@types/node": "^10.17.49",
     "codemaker": "^0.0.0",
+    "eslint": "^7.15.0",
     "fs-extra": "^9.0.1",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
-    "ts-node": "^9.0.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
     "typescript": "~3.9.7"
   }
 }

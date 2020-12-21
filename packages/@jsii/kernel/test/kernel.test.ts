@@ -95,7 +95,7 @@ defineTest.skip = function (
       });
       expect(result.result).toBe(0o644);
 
-      return closeRecording(kernel);
+      return await closeRecording(kernel);
     } finally {
       // Restore the original umask
       process.umask(originalUmask);
@@ -400,7 +400,7 @@ defineTest(
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
       go: {
-        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/go',
       },
       java: {
         package: 'software.amazon.jsii.tests.calculator',
@@ -424,7 +424,7 @@ defineTest(
           versionSuffix: '-devpreview',
         },
         go: {
-          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/go',
         },
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',
@@ -2134,6 +2134,18 @@ defineTest('Override transitive property', (sandbox) => {
   expect(propValue).toBe('N3W');
 });
 
+defineTest('invokeBinScript() return output', (sandbox) => {
+  const result = sandbox.invokeBinScript({
+    assembly: 'jsii-calc',
+    script: 'calc',
+  });
+
+  expect(result.stdout).toEqual('Hello World!\n');
+  expect(result.stderr).toEqual('');
+  expect(result.status).toEqual(0);
+  expect(result.signal).toBeNull();
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = {};
@@ -2204,7 +2216,7 @@ async function preparePackage(module: string, useCache = true) {
     });
     const stdout = new Array<Buffer>();
     child.stdout.on('data', (chunk) => stdout.push(Buffer.from(chunk)));
-    child.once('exit', (code, signal) => {
+    child.once('close', (code, signal) => {
       if (code === 0) {
         return ok();
       }

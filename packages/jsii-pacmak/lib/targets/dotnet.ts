@@ -14,6 +14,9 @@ import {
 } from '../target';
 import { shell, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
+import { toReleaseVersion } from './version-utils';
+
+import { TargetName } from '.';
 
 export const TARGET_FRAMEWORK = 'netcoreapp3.1';
 
@@ -24,7 +27,7 @@ export class DotnetBuilder implements TargetBuilder {
   private readonly targetName = 'dotnet';
 
   public constructor(
-    private readonly modules: JsiiModule[],
+    private readonly modules: readonly JsiiModule[],
     private readonly options: BuildOptions,
   ) {}
 
@@ -78,7 +81,7 @@ export class DotnetBuilder implements TargetBuilder {
   }
 
   private async generateAggregateSourceDir(
-    modules: JsiiModule[],
+    modules: readonly JsiiModule[],
   ): Promise<Scratch<TemporaryDotnetPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate .NET source dir at ${tmpDir}`);
@@ -275,7 +278,7 @@ export default class Dotnet extends Target {
     assm: spec.Assembly,
   ): { [language: string]: PackageInfo } {
     const packageId = assm.targets!.dotnet!.packageId;
-    const version = assm.version;
+    const version = toReleaseVersion(assm.version, TargetName.DOTNET);
     const packageInfo: PackageInfo = {
       repository: 'Nuget',
       url: `https://www.nuget.org/packages/${packageId}/${version}`,

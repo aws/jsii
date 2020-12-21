@@ -1,4 +1,7 @@
-import { Comparator, Range } from 'semver';
+import { Comparator, Range, parse } from 'semver';
+import { inspect } from 'util';
+
+import { TargetName } from '.';
 
 /**
  * Converts a SemVer range expression to a Maven version range expression.
@@ -12,7 +15,10 @@ export function toMavenVersionRange(
   semverRange: string,
   suffix?: string,
 ): string {
-  return toBracketNotation(semverRange, suffix, { semver: false });
+  return toBracketNotation(semverRange, suffix, {
+    semver: false,
+    target: TargetName.JAVA,
+  });
 }
 
 /**
@@ -23,7 +29,10 @@ export function toMavenVersionRange(
  * @see https://docs.microsoft.com/en-us/nuget/concepts/package-versioning#version-ranges-and-wildcards
  */
 export function toNuGetVersionRange(semverRange: string): string {
-  return toBracketNotation(semverRange, undefined, { semver: false });
+  return toBracketNotation(semverRange, undefined, {
+    semver: false,
+    target: TargetName.DOTNET,
+  });
 }
 
 /**
@@ -38,7 +47,10 @@ export function toPythonVersionRange(semverRange: string): string {
     .map((set) =>
       set
         .map((comp) => {
-          const versionId = comp.semver.raw?.replace(/-0$/, '') ?? '0.0.0';
+          const versionId = toReleaseVersion(
+            comp.semver.raw?.replace(/-0$/, '') ?? '0.0.0',
+            TargetName.PYTHON,
+          );
           switch (comp.operator) {
             case '':
               // With ^0.0.0, somehow we get a left entry with an empty operator and value, we'll fix this up
@@ -55,10 +67,96 @@ export function toPythonVersionRange(semverRange: string): string {
     .join(', ');
 }
 
+/**
+ * Converts an original version number from the NPM convention to the target
+ * language's convention for expressing the same. For versions that do not
+ * include a prerelease identifier, this always returns the assembly version
+ * unmodified.
+ *
+ * @param assemblyVersion the assembly version being released
+ * @param target          the target language for which the version is destined
+ *
+ * @returns the version that should be serialized
+ */
+export function toReleaseVersion(
+  assemblyVersion: string,
+  target: TargetName,
+): string {
+  const version = parse(assemblyVersion, { includePrerelease: true });
+  if (version == null) {
+    throw new Error(
+      `Unable to parse the provided assembly version: "${assemblyVersion}"`,
+    );
+  }
+  if (version.prerelease.length === 0) {
+    return assemblyVersion;
+  }
+  switch (target) {
+    case TargetName.PYTHON:
+      // Python supports a limited set of identifiers... And we have a mapping table...
+      // https://packaging.python.org/guides/distributing-packages-using-setuptools/#pre-release-versioning
+      const [label, sequence, ...rest] = version.prerelease;
+      if (rest.filter((elt) => elt !== 0).length > 0 || sequence == null) {
+        throw new Error(
+          `Unable to map prerelease identifier (in: ${assemblyVersion}) components to python: ${inspect(
+            version.prerelease,
+          )}. The format should be 'X.Y.Z-label.sequence', where sequence is a positive integer, and label is "dev", "pre", "alpha", beta", or "rc"`,
+        );
+      }
+      if (!Number.isInteger(sequence)) {
+        throw new Error(
+          `Unable to map prerelease identifier (in: ${assemblyVersion}) to python, as sequence ${inspect(
+            sequence,
+          )} is not an integer`,
+        );
+      }
+      const baseVersion = `${version.major}.${version.minor}.${version.patch}`;
+      // See PEP 440: https://www.python.org/dev/peps/pep-0440/#pre-releases
+      switch (label) {
+        case 'dev':
+        case 'pre':
+          return `${baseVersion}.dev${sequence}`;
+        case 'alpha':
+          return `${baseVersion}.a${sequence}`;
+        case 'beta':
+          return `${baseVersion}.b${sequence}`;
+        case 'rc':
+          return `${baseVersion}.rc${sequence}`;
+        default:
+          throw new Error(
+            `Unable to map prerelease identifier (in: ${assemblyVersion}) to python, as label ${inspect(
+              label,
+            )} is not mapped (only "dev", "pre", "alpha", "beta" and "rc" are)`,
+          );
+      }
+    case TargetName.DOTNET:
+    case TargetName.GO:
+    case TargetName.JAVA:
+    case TargetName.JAVASCRIPT:
+      // Not touching - the NPM version number should be usable as-is
+      break;
+  }
+  return assemblyVersion;
+}
+
+/**
+ * Converts a semantic version range to the kind of bracket notation used by
+ * Maven and NuGet. For example, this turns `^1.2.3` into `[1.2.3,2.0.0)`.
+ *
+ * @param semverRange The semantic version range to be converted.
+ * @param suffix A version suffix to apply to versions in the resulting expression.
+ * @param semver Whether the target supports full semantic versioning (including
+ *               `-0` as the lowest possible prerelease identifier)
+ *
+ * @returns a bracket-notation version range.
+ */
 function toBracketNotation(
   semverRange: string,
   suffix?: string,
-  { semver = true }: { semver?: boolean } = {},
+  {
+    semver = true,
+    target = TargetName.JAVASCRIPT,
+  }: { semver?: boolean; target?: TargetName } = {},
 ): string {
   if (semverRange === '*') {
     semverRange = '>=0.0.0';
@@ -70,7 +168,7 @@ function toBracketNotation(
         const version = set[0].semver.raw;
         if (!version && range.raw === '>=0.0.0') {
           // Case where version is '*'
-          return `[0.0.0,]`;
+          return `[0.0.0,)`;
         }
         switch (set[0].operator || '=') {
           // "[version]" => means exactly version
@@ -78,16 +176,16 @@ function toBracketNotation(
             return `[${addSuffix(version)}]`;
           // "(version,]" => means greater than version
           case '>':
-            return `(${addSuffix(version)},]`;
+            return `(${addSuffix(version)},)`;
           // "[version,]" => means greater than or equal to that version
           case '>=':
-            return `[${addSuffix(version)},]`;
+            return `[${addSuffix(version)},)`;
           // "[,version)" => means less than version
           case '<':
-            return `[,${addSuffix(version, !semver)})`;
+            return `(,${addSuffix(version, !semver)})`;
           // "[,version]" => means less than or equal to version
           case '<=':
-            return `[,${addSuffix(version)}]`;
+            return `(,${addSuffix(version)}]`;
         }
       } else if (set.length === 2) {
         const nugetRange = toBracketRange(set[0], set[1]);
@@ -137,6 +235,6 @@ function toBracketNotation(
     if (trimDashZero) {
       str = str.replace(/-0$/, '');
     }
-    return suffix ? `${str}${suffix}` : str;
+    return suffix ? `${str}${suffix}` : toReleaseVersion(str, target);
   }
 }

@@ -2,6 +2,7 @@
 
 import { removeSync } from 'fs-extra';
 import { join, resolve } from 'path';
+
 import { runCommand } from './_constants';
 
 const genRoot = join(__dirname, '..', 'jsii-calc');
@@ -19,4 +20,5 @@ runCommand(
     '--recurse',
     resolve(__dirname, '..', '..', '..', 'jsii-calc'),
   ],
+  { stdio: 'inherit' },
 );

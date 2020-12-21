@@ -62,7 +62,11 @@ export class DotNetGenerator extends Generator {
       this.code,
       this.typeresolver,
     );
-    this.dotnetDocGenerator = new DotNetDocGenerator(this.code, this.rosetta);
+    this.dotnetDocGenerator = new DotNetDocGenerator(
+      this.code,
+      this.rosetta,
+      this.assembly,
+    );
 
     this.emitNamespaceDocs();
 

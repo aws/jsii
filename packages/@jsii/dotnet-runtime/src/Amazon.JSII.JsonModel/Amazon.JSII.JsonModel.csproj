@@ -7,12 +7,14 @@
     <Title>[DEPRECATED] .NET JsonModel for JSII</Title>
     <PackageIcon>icon.png</PackageIcon>
 
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NetCore.Analyzers" PrivateAssets="all" />
     <ProjectReference Include="..\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj" />
   </ItemGroup>
 

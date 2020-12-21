@@ -160,7 +160,7 @@ export class AstRenderer<C> {
    */
   public typeOfExpression(node: ts.Expression): ts.Type {
     return (
-      this.typeChecker.getContextualType(node) ||
+      this.typeChecker.getContextualType(node) ??
       this.typeChecker.getTypeAtLocation(node)
     );
   }
@@ -340,6 +340,9 @@ export class AstRenderer<C> {
     if (ts.isPropertyDeclaration(tree)) {
       return visitor.propertyDeclaration(tree, this);
     }
+    if (ts.isComputedPropertyName(tree)) {
+      return visitor.computedPropertyName(tree.expression, this);
+    }
     if (ts.isMethodDeclaration(tree)) {
       return visitor.methodDeclaration(tree, this);
     }
@@ -415,37 +418,39 @@ export class AstRenderer<C> {
 
     const precede: OTree[] = [];
     for (const range of leadingRanges) {
+      let trivia: OTree | undefined = undefined;
       switch (range.type) {
         case 'other':
-          precede.push(
-            new OTree(
-              [
-                repeatNewlines(
-                  this.sourceFile.text.substring(range.pos, range.end),
-                ),
-              ],
-              [],
-              {
-                renderOnce: `ws-${range.pos}`,
-              },
-            ),
+          trivia = new OTree(
+            [
+              repeatNewlines(
+                this.sourceFile.text.substring(range.pos, range.end),
+              ),
+            ],
+            [],
+            {
+              renderOnce: `ws-${range.pos}`,
+            },
           );
           break;
         case 'linecomment':
         case 'blockcomment':
-          precede.push(
-            this.handler.commentRange(
-              commentSyntaxFromCommentRange(
-                commentRangeFromTextRange(range),
-                this,
-              ),
+          trivia = this.handler.commentRange(
+            commentSyntaxFromCommentRange(
+              commentRangeFromTextRange(range),
               this,
             ),
+            this,
           );
           break;
 
         case 'directive':
           break;
+      }
+      if (trivia != null) {
+        // Set spans on comments to make sure their visibility is toggled correctly.
+        trivia.setSpan(range.pos, range.end);
+        precede.push(trivia);
       }
     }
 
@@ -539,6 +544,7 @@ export interface AstHandler<C> {
     node: ts.PropertyDeclaration,
     context: AstRenderer<C>,
   ): OTree;
+  computedPropertyName(node: ts.Expression, context: AstRenderer<C>): OTree;
   methodDeclaration(node: ts.MethodDeclaration, context: AstRenderer<C>): OTree;
   interfaceDeclaration(
     node: ts.InterfaceDeclaration,

@@ -15,6 +15,9 @@
     "jsii": {
       "pacmak": {
         "hasDefaultInterfaces": true
+      },
+      "rosetta": {
+        "strict": true
       }
     }
   },
@@ -31,7 +34,7 @@
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
     },
     "go": {
-      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/go"
     },
     "java": {
       "maven": {
@@ -158,5 +161,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Cj150WaTlCJ7fRsgnSfy2UkF6LVkhYEcPLiY+4/9+mk="
+  "fingerprint": "5CKE8vMY9yfI2nwINNFdsXEWiu+2IweLBMNSugSydHM="
 }

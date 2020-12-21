@@ -7,6 +7,7 @@ import {
   Rosetta,
   typeScriptSnippetFromSource,
   Translation,
+  enforcesStrictMode,
   markDownToJavaDoc,
 } from 'jsii-rosetta';
 import * as path from 'path';
@@ -25,11 +26,12 @@ import {
 import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
-import { toMavenVersionRange } from './version-utils';
+import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
+  TargetName,
 } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
@@ -54,7 +56,7 @@ export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
 
   public constructor(
-    private readonly modules: JsiiModule[],
+    private readonly modules: readonly JsiiModule[],
     private readonly options: BuildOptions,
   ) {}
 
@@ -124,7 +126,7 @@ export class JavaBuilder implements TargetBuilder {
   }
 
   private async generateAggregateSourceDir(
-    modules: JsiiModule[],
+    modules: readonly JsiiModule[],
     options: BuildOptions,
   ): Promise<Scratch<TemporaryJavaPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
@@ -369,6 +371,7 @@ export default class Java extends Target {
   ): { [language: string]: PackageInfo } {
     const groupId = assm.targets!.java!.maven.groupId;
     const artifactId = assm.targets!.java!.maven.artifactId;
+    const releaseVersion = toReleaseVersion(assm.version, TargetName.JAVA);
     const url = `https://repo1.maven.org/maven2/${groupId.replace(
       /\./g,
       '/',
@@ -382,12 +385,12 @@ export default class Java extends Target {
             language: 'xml',
             code: xmlbuilder
               .create({
-                dependency: { groupId, artifactId, version: assm.version },
+                dependency: { groupId, artifactId, version: releaseVersion },
               })
               .end({ pretty: true })
               .replace(/<\?\s*xml(\s[^>]+)?>\s*/m, ''),
           },
-          'Apache Buildr': `'${groupId}:${artifactId}:jar:${assm.version}'`,
+          'Apache Buildr': `'${groupId}:${artifactId}:jar:${releaseVersion}'`,
           'Apache Ivy': {
             language: 'xml',
             code: xmlbuilder
@@ -395,14 +398,14 @@ export default class Java extends Target {
                 dependency: {
                   '@groupId': groupId,
                   '@name': artifactId,
-                  '@rev': assm.version,
+                  '@rev': releaseVersion,
                 },
               })
               .end({ pretty: true })
               .replace(/<\?\s*xml(\s[^>]+)?>\s*/m, ''),
           },
-          'Groovy Grape': `@Grapes(\n@Grab(group='${groupId}', module='${artifactId}', version='${assm.version}')\n)`,
-          'Gradle / Grails': `compile '${groupId}:${artifactId}:${assm.version}'`,
+          'Groovy Grape': `@Grapes(\n@Grab(group='${groupId}', module='${artifactId}', version='${releaseVersion}')\n)`,
+          'Gradle / Grails': `compile '${groupId}:${artifactId}:${releaseVersion}'`,
         },
       },
     };
@@ -1034,7 +1037,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-javadoc-plugin',
-                      version: '3.1.1',
+                      version: '3.2.0',
                       executions: {
                         execution: {
                           id: 'attach-javadocs',
@@ -1077,7 +1080,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.codehaus.mojo',
                       artifactId: 'versions-maven-plugin',
-                      version: '2.7',
+                      version: '2.8.1',
                       configuration: {
                         generateBackupPoms: false,
                       },
@@ -1102,7 +1105,7 @@ class JavaGenerator extends Generator {
      */
     function makeVersion(version: string, suffix?: string): string {
       if (!suffix) {
-        return version;
+        return toReleaseVersion(version, TargetName.JAVA);
       }
       if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
         throw new Error(
@@ -1558,7 +1561,7 @@ class JavaGenerator extends Generator {
         forMarshalling: true,
       })}.class`,
       javaTypes: this.toJavaTypes(property.type, { covariant: true }),
-      immutable: property.immutable || false,
+      immutable: property.immutable ?? false,
       inherited,
     };
   }
@@ -2250,7 +2253,7 @@ class JavaGenerator extends Generator {
       const method = doc as spec.Method;
       if (method.parameters) {
         for (const param of method.parameters) {
-          const summary = param.docs?.summary || undefined;
+          const summary = param.docs?.summary;
           tagLines.push(paramJavadoc(param.name, param.optional, summary));
         }
       }
@@ -2746,10 +2749,10 @@ class JavaGenerator extends Generator {
       return this.getNativeName(depMod, name.join('.'), mod);
     }
 
-    const { packageName, typeName } = this.toNativeName(
-      this.assembly,
-      this.assembly.types![fqn],
-    );
+    const { packageName, typeName } =
+      fqn === this.assembly.name
+        ? this.toNativeName(this.assembly)
+        : this.toNativeName(this.assembly, this.assembly.types![fqn]);
     const className =
       typeName && binaryName ? typeName.replace('.', '$') : typeName;
     return `${packageName}${className ? `.${className}` : ''}`;
@@ -2770,7 +2773,9 @@ class JavaGenerator extends Generator {
     return `${javaPackage}${tail ? `.${tail}` : ''}`;
   }
 
-  private toNativeName(assm: spec.Assembly): { packageName: string };
+  private toNativeName(
+    assm: spec.Assembly,
+  ): { packageName: string; typeName: undefined };
   private toNativeName(
     assm: spec.Assembly,
     type: spec.Type,
@@ -2819,7 +2824,11 @@ class JavaGenerator extends Generator {
   }
 
   private convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const snippet = typeScriptSnippetFromSource(
+      example,
+      'example',
+      enforcesStrictMode(this.assembly),
+    );
     const translated = this.rosetta.translateSnippet(snippet, 'java');
     if (!translated) {
       return example;
@@ -2831,6 +2840,7 @@ class JavaGenerator extends Generator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'java',
+      enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),

@@ -49,8 +49,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     <EmbeddedResource Include="scope-jsii-calc-base-0.0.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[0.0.0,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="(,0.0.1)" />
   </ItemGroup>
   <PropertyGroup>
     <NoWarn>0612,0618</NoWarn>
@@ -291,7 +291,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <EmbeddedResource Include="scope-jsii-calc-base-of-base-0.0.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
   </ItemGroup>
   <PropertyGroup>
     <NoWarn>0612,0618</NoWarn>
@@ -554,9 +554,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     <EmbeddedResource Include="scope-jsii-calc-lib-0.0.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="[0.0.0,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[0.0.0,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="(,0.0.1)" />
   </ItemGroup>
   <PropertyGroup>
     <NoWarn>0612,0618</NoWarn>
@@ -2031,9 +2031,9 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <EmbeddedResource Include="jsii-calc-0.0.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="[0.0.0,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[0.0.0,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="(,0.0.1)" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="[0.0.0-devpreview,0.0.1)" />
   </ItemGroup>
   <PropertyGroup>

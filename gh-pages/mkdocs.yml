@@ -1,0 +1,83 @@
+site_name: The jsii reference
+site_description: jsii allows code in any language to naturally interact with JavaScript classes.
+repo_name: aws/jsii
+repo_url: https://github.com/aws/jsii
+site_url: https://aws.github.io/jsii/
+edit_uri: edit/main/gh-pages/content/
+copyright: Copyright &copy; 2020 Amazon Web Services, Inc.
+
+docs_dir: content
+extra_css:
+  - assets/stylesheets/amazon-ember-display.css
+  - assets/stylesheets/extra.css
+
+nav:
+  - Home:
+      - index.md
+      - home/features.md
+      - home/toolchain.md
+      - home/runtime-architecture.md
+  - Author Guide:
+      - dev-guide/index.md
+      - Quick Start:
+          - dev-guide/set-up.md
+          - dev-guide/write-code.md
+      - dev-guide/typescript-restrictions.md
+      - Configuration Reference:
+          - dev-guide/configuration/index.md
+          - Targets:
+              - .NET: dev-guide/configuration/targets/dotnet.md
+              - Go: dev-guide/configuration/targets/go.md
+              - Java: dev-guide/configuration/targets/java.md
+              - Python: dev-guide/configuration/targets/python.md
+  - Consumer Guide:
+      - consumer-guide/index.md
+      - Language Specifics:
+          - Python: consumer-guide/python.md
+  - Language Implementation:
+      - language-support/index.md
+      - .jsii Assemblies: language-support/assembly.md
+      - language-support/callbacks.md
+  - Specification:
+      - specification/1-introduction.md
+      - The jsii type system: specification/2-type-system.md
+      - The jsii kernel API: specification/3-kernel-api.md
+      - specification/4-standard-compliance-suite.md
+      - specification/5-new-language-intake.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/aws
+      name: Amazon Web Services, Inc.
+      link: https://aws.amazon.com
+
+theme:
+  name: material
+  font: false
+  logo: assets/images/logo.png
+  icon:
+    logo: fontawesome/brands/aws
+    repo: fontawesome/brands/github
+  favicon: assets/images/favicon.png
+  palette:
+    scheme: default
+  features:
+    - navigation.expand
+    - navigation.instant
+    - navigation.tabs
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+plugins:
+  - git-revision-date
+  - search

@@ -739,7 +739,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'miscellaneous/unknown-error',
   });
 
-  public static readonly JSII_9998_UNSUPORTED_NODE = Code.message({
+  public static readonly JSII_9998_UNSUPPORTED_NODE = Code.message({
     code: 9998,
     formatter: (kindOrMessage: ts.SyntaxKind | string) =>
       typeof kindOrMessage === 'string'
@@ -777,9 +777,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public readonly start: number | undefined;
   public readonly length: number | undefined;
 
-  public readonly relatedInformation = new Array<
-    ts.DiagnosticRelatedInformation
-  >();
+  public readonly relatedInformation = new Array<ts.DiagnosticRelatedInformation>();
 
   /**
    * Creates a new `JsiiDiagnostic` with the provided properties.
@@ -816,3 +814,28 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 export type DiagnosticMessageFormatter = (
   ...args: any[]
 ) => JsiiDiagnostic['messageText'];
+
+export function configureCategories(records: {
+  [code: string]: ts.DiagnosticCategory;
+}) {
+  for (const [code, category] of Object.entries(records)) {
+    const diagCode = Code.lookup(diagnosticCode(code));
+    if (!diagCode) {
+      throw new Error(`Unrecognized diagnostic code '${code}'`);
+    }
+    diagCode.category = category;
+  }
+}
+
+function diagnosticCode(str: string): string | number {
+  if (str.toLowerCase().startsWith('jsii')) {
+    const re = /^JSII(\d+)$/i.exec(str);
+    if (re) {
+      return parseInt(re[1], 10);
+    }
+    throw new Error(
+      `Invalid diagnostic code ${str}. A number must follow code that starts with 'JSII'`,
+    );
+  }
+  return str;
+}

@@ -30,17 +30,17 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@types/node": "^10.17.42",
+    "@types/node": "^10.17.49",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.1"
   },
   "jsii": {
     "outdir": "dist",
     "targets": {
       "go": {
-        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/go"
       },
       "java": {
         "package": "software.amazon.jsii.tests.calculator.baseofbase",
@@ -58,6 +58,13 @@
         "module": "scope.jsii_calc_base_of_base"
       }
     },
-    "versionFormat": "short"
+    "versionFormat": "short",
+    "metadata": {
+      "jsii": {
+        "rosetta": {
+          "strict": true
+        }
+      }
+    }
   }
 }

@@ -32,7 +32,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   strict: true,
   strictNullChecks: true,
   strictPropertyInitialization: true,
-  stripInternal: true,
+  stripInternal: false,
   target: ts.ScriptTarget.ES2018,
 };
 
@@ -203,7 +203,7 @@ export class Compiler implements Emitter {
       },
       // Make the references absolute for the compiler
       projectReferences: tsconf.references?.map((ref) => ({
-        path: path.resolve(ref.path),
+        path: path.resolve(path.dirname(this.configPath), ref.path),
       })),
       host: this.compilerHost,
     });

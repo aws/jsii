@@ -31,12 +31,13 @@ setuptools.setup(
     },
     install_requires=[
         "attrs~=20.1",
-        "cattrs~=1.0",
+        "cattrs~=1.0.0 ; python_version < '3.7'",
+        "cattrs~=1.1.0 ; python_version >= '3.7'",
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
         "typing_extensions~=3.7",
     ],
-    python_requires=">=3.6",
+    python_requires="~=3.6",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
@@ -46,6 +47,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Software Development :: Libraries",
         "Topic :: Utilities",
         "Typing :: Typed",

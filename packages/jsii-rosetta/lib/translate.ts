@@ -17,7 +17,7 @@ import {
   TypeScriptCompiler,
   CompilationResult,
 } from './typescript/ts-compiler';
-import { File } from './util';
+import { annotateStrictDiagnostic, File } from './util';
 
 export function translateTypeScript(
   source: File,
@@ -44,7 +44,8 @@ export function translateTypeScript(
  */
 export class Translator {
   private readonly compiler = new TypeScriptCompiler();
-  public readonly diagnostics: ts.Diagnostic[] = [];
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  #diagnostics: readonly ts.Diagnostic[] = [];
 
   public constructor(private readonly includeCompilerDiagnostics: boolean) {}
 
@@ -69,9 +70,15 @@ export class Translator {
       snippet.addTranslatedSource(lang, translated);
     }
 
-    this.diagnostics.push(...translator.diagnostics);
+    this.#diagnostics = ts.sortAndDeduplicateDiagnostics(
+      this.#diagnostics.concat(translator.diagnostics),
+    );
 
     return snippet;
+  }
+
+  public get diagnostics(): readonly ts.Diagnostic[] {
+    return Array.from(this.#diagnostics);
   }
 
   /**
@@ -107,7 +114,7 @@ export interface SnippetTranslatorOptions extends AstRendererOptions {
 
 export interface TranslateResult {
   translation: string;
-  diagnostics: ts.Diagnostic[];
+  diagnostics: readonly ts.Diagnostic[];
 }
 
 /**
@@ -123,7 +130,7 @@ export class SnippetTranslator {
     snippet: TypeScriptSnippet,
     private readonly options: SnippetTranslatorOptions = {},
   ) {
-    const compiler = options.compiler || new TypeScriptCompiler();
+    const compiler = options.compiler ?? new TypeScriptCompiler();
     const source = completeSource(snippet);
 
     const fakeCurrentDirectory =
@@ -138,14 +145,19 @@ export class SnippetTranslator {
     this.visibleSpans = calculateVisibleSpans(source);
 
     // This makes it about 5x slower, so only do it on demand
-    if (options.includeCompilerDiagnostics) {
+    if (options.includeCompilerDiagnostics || snippet.strict) {
       const program = this.compilation.program;
-      this.compileDiagnostics.push(
+      const diagnostics = [
         ...program.getGlobalDiagnostics(),
         ...program.getSyntacticDiagnostics(this.compilation.rootFile),
         ...program.getDeclarationDiagnostics(this.compilation.rootFile),
         ...program.getSemanticDiagnostics(this.compilation.rootFile),
-      );
+      ];
+      if (snippet.strict) {
+        // In a strict assembly, so we'll need to brand all diagnostics here...
+        diagnostics.forEach(annotateStrictDiagnostic);
+      }
+      this.compileDiagnostics.push(...diagnostics);
     }
   }
 
@@ -163,8 +175,10 @@ export class SnippetTranslator {
     return renderTree(converted, { visibleSpans: this.visibleSpans });
   }
 
-  public get diagnostics() {
-    return [...this.compileDiagnostics, ...this.translateDiagnostics];
+  public get diagnostics(): readonly ts.Diagnostic[] {
+    return ts.sortAndDeduplicateDiagnostics(
+      this.compileDiagnostics.concat(this.translateDiagnostics),
+    );
   }
 }
 
@@ -172,7 +186,7 @@ export class SnippetTranslator {
  * Hide diagnostics that are rosetta-sourced if they are reported against a non-visible span
  */
 function filterVisibleDiagnostics(
-  diags: ts.Diagnostic[],
+  diags: readonly ts.Diagnostic[],
   visibleSpans: Span[],
 ): ts.Diagnostic[] {
   return diags.filter(

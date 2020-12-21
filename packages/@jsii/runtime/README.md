@@ -9,10 +9,10 @@ classes, such as getting/setting properties or invoking methods is transmitted
 via a simple STDIN/STDOUT protocol to the actual object hosted within the VM.
 
 [jsii]: https://github.com/aws/jsii
-[@jsii/kernel]: https://github.com/aws/jsii/tree/master/packages/@jsii/kernel
+[@jsii/kernel]: https://github.com/aws/jsii/tree/main/packages/@jsii/kernel
 
 See [STDIN/STDOUT protocol](./lib/in-out.ts) and [@jsii/kernel
-API](https://github.com/aws/jsii/blob/master/packages/@jsii/kernel/lib/api.ts)
+API](https://github.com/aws/jsii/blob/main/packages/@jsii/kernel/lib/api.ts)
 for details.
 
 ## License
