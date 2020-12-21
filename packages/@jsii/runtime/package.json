@@ -29,8 +29,8 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
     "lint:fix": "yarn lint --fix",
-    "test": "jest",
-    "test:update": "jest -u",
+    "test": "NODE_OPTIONS=--experimental-worker jest",
+    "test:update": "yarn test -u",
     "package": "package-js"
   },
   "dependencies": {
