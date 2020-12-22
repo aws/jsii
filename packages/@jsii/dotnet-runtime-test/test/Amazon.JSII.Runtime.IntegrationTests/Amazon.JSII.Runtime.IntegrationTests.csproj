@@ -27,7 +27,6 @@
         <PackageReference Include="xunit" />
         <PackageReference Include="xunit.runner.visualstudio" />
         <PackageReference Include="XunitXml.TestLogger" />
-        <DotNetCliToolReference Include="dotnet-xunit" />
     </ItemGroup>
 
     <ItemGroup>
