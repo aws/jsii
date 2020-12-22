@@ -2844,7 +2844,12 @@ export namespace LevelOne {
 /**
  * Static methods that override parent class are technically overrides (the
  * inheritance of statics is part of the ES6 specification), but certain other
- * languages such as Java do not share this feature.
+ * languages such as Java do not carry statics in the inheritance chain at all,
+ * so they cannot be overridden, only hidden.
+ *
+ * The difference is fairly minor (for typical use-cases, the end result is the
+ * same), however this has implications on what the generated code should look
+ * like.
  */
 export class StaticHelloParent {
   public static get property(): number {

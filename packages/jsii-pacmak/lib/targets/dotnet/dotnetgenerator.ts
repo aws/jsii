@@ -497,7 +497,10 @@ export class DotNetGenerator extends Generator {
       }
     }
     if (overrides) {
-      // Add the override key word if the method is emitted for a proxy or data type or is defined on an ancestor
+      // Add the override key word if the method is emitted for a proxy or data type or is defined on an ancestor. If
+      // the member is static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor
+      // declaration (as C# does not inherit statics, they can be hidden but not overridden). The "new" keyword is
+      // optional in this context, but helps clarify intention.
       overrideKeyWord = method.static ? 'new ' : 'override ';
     } else if (
       !method.static &&
@@ -831,7 +834,10 @@ export class DotNetGenerator extends Generator {
         prop,
       );
       if (implementedInBase || datatype || proxy) {
-        // Override if the property is in a datatype or proxy class or declared in a parent class
+        // Override if the property is in a datatype or proxy class or declared in a parent class. If the member is
+        // static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor declaration (as
+        // C# does not inherit statics, they can be hidden but not overridden).The "new" keyword is optional in this
+        // context, but helps clarify intention.
         isOverrideKeyWord = prop.static ? 'new ' : 'override ';
       } else if (prop.abstract) {
         // Abstract members get decorated as such

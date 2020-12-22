@@ -11432,7 +11432,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2858
+        "line": 2863
       },
       "methods": [
         {
@@ -11441,7 +11441,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2863
+            "line": 2868
           },
           "name": "method",
           "overrides": "jsii-calc.StaticHelloParent",
@@ -11457,7 +11457,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2859
+            "line": 2864
           },
           "name": "property",
           "overrides": "jsii-calc.StaticHelloParent",
@@ -11471,8 +11471,9 @@
     "jsii-calc.StaticHelloParent": {
       "assembly": "jsii-calc",
       "docs": {
+        "remarks": "The difference is fairly minor (for typical use-cases, the end result is the\nsame), however this has implications on what the generated code should look\nlike.",
         "stability": "stable",
-        "summary": "Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not share this feature."
+        "summary": "Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden."
       },
       "fqn": "jsii-calc.StaticHelloParent",
       "initializer": {
@@ -11483,7 +11484,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2849
+        "line": 2854
       },
       "methods": [
         {
@@ -11492,7 +11493,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2854
+            "line": 2859
           },
           "name": "method",
           "static": true
@@ -11507,7 +11508,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2850
+            "line": 2855
           },
           "name": "property",
           "static": true,
@@ -14440,5 +14441,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "lMjqpro90RI1jZrcELFmEzcSJQCxkEhm77olVYW0fc8="
+  "fingerprint": "8y6c87ScX7dJInuohtU3oLM8TCUz8yoYZ+j14fnHG9s="
 }
