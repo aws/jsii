@@ -509,8 +509,10 @@ export class DotNetGenerator extends Generator {
       // Methods should always be virtual when possible
       virtualKeyWord = 'virtual ';
     }
+
     const access = this.renderAccessLevel(method);
     const methodName = this.nameutils.convertMethodName(method.name);
+
     const isOptional = method.returns && method.returns.optional ? '?' : '';
     const signature = `${returnType}${isOptional} ${methodName}(${this.renderMethodParameters(
       method,
@@ -643,11 +645,16 @@ export class DotNetGenerator extends Generator {
     this.code.line();
     this.dotnetDocGenerator.emitDocs(ifc);
     this.dotnetRuntimeGenerator.emitAttributesForInterfaceProxy(ifc);
+
     const interfaceFqn = this.typeresolver.toNativeFqn(ifc.fqn);
     const suffix = spec.isInterfaceType(ifc)
       ? `: DeputyBase, ${interfaceFqn}`
       : `: ${interfaceFqn}`;
-    this.code.openBlock(`new internal sealed class ${name} ${suffix}`);
+    const newModifier = this.proxyMustUseNewModifier(ifc) ? 'new ' : '';
+
+    this.code.openBlock(
+      `${newModifier}internal sealed class ${name} ${suffix}`,
+    );
 
     // Create the private constructor
     this.code.openBlock(
@@ -664,6 +671,46 @@ export class DotNetGenerator extends Generator {
 
     this.code.closeBlock();
     this.closeFileIfNeeded(name, namespace, isNested);
+  }
+
+  /**
+   * Determines whether any ancestor of the given type must use the `new`
+   * modifier when introducing it's own proxy.
+   *
+   * If the type is a `class`, then it must use `new` if it extends another
+   * abstract class defined in the same assembly (since proxies are internal,
+   * external types' proxies are not visible in that context).
+   *
+   * If the type is an `interface`, then it must use `new` if it extends another
+   * interface from the same assembly.
+   *
+   * @param type the tested proxy-able type (an abstract class or an interface).
+   *
+   * @returns true if any ancestor of this type has a visible proxy.
+   */
+  private proxyMustUseNewModifier(
+    type: spec.ClassType | spec.InterfaceType,
+  ): boolean {
+    if (spec.isClassType(type)) {
+      if (type.base == null) {
+        return false;
+      }
+
+      const base = this.findType(type.base) as spec.ClassType;
+      return (
+        base.assembly === type.assembly &&
+        (base.abstract
+          ? true
+          : // An abstract class could extend a concrete class... We must walk up the inheritance tree in this case...
+            this.proxyMustUseNewModifier(base))
+      );
+    }
+
+    return (
+      type.interfaces?.find(
+        (fqn) => this.findType(fqn).assembly === type.assembly,
+      ) != null
+    );
   }
 
   /**
