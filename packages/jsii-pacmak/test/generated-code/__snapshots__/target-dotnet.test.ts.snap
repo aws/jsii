@@ -13753,7 +13753,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not share this feature.</summary>
+    /// <summary>Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden.</summary>
+    /// <remarks>
+    /// The difference is fairly minor (for typical use-cases, the end result is the
+    /// same), however this has implications on what the generated code should look
+    /// like.
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent), fullyQualifiedName: "jsii-calc.StaticHelloParent")]
     public class StaticHelloParent : DeputyBase
     {

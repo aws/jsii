@@ -16720,7 +16720,11 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not share this feature.
+ * Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden.
+ * <p>
+ * The difference is fairly minor (for typical use-cases, the end result is the
+ * same), however this has implications on what the generated code should look
+ * like.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
