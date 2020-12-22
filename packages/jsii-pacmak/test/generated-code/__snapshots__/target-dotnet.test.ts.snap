@@ -2168,6 +2168,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 StableStruct.cs
        ┃           ┣━ 📄 StableStructProxy.cs
        ┃           ┣━ 📄 StaticContext.cs
+       ┃           ┣━ 📄 StaticHelloChild.cs
+       ┃           ┣━ 📄 StaticHelloParent.cs
        ┃           ┣━ 📄 Statics.cs
        ┃           ┣━ 📄 StringEnum.cs
        ┃           ┣━ 📄 StripInternal.cs
@@ -13698,6 +13700,96 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetStaticProperty<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticContext))!;
             set => SetStaticProperty(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticContext), value);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StaticHelloChild.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloChild), fullyQualifiedName: "jsii-calc.StaticHelloChild")]
+    public class StaticHelloChild : Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticHelloChild(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticHelloChild(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "method", isOverride: true)]
+        public static new void Method()
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloChild), new System.Type[]{}, new object[]{});
+        }
+
+        [JsiiProperty(name: "property", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public static new double Property
+        {
+            get => GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloChild))!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StaticHelloParent.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden.</summary>
+    /// <remarks>
+    /// The difference is fairly minor (for typical use-cases, the end result is the
+    /// same), however this has implications on what the generated code should look
+    /// like.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent), fullyQualifiedName: "jsii-calc.StaticHelloParent")]
+    public class StaticHelloParent : DeputyBase
+    {
+        public StaticHelloParent(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticHelloParent(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticHelloParent(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "method")]
+        public static void Method()
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent), new System.Type[]{}, new object[]{});
+        }
+
+        [JsiiProperty(name: "property", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public static double Property
+        {
+            get => GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent))!;
         }
     }
 }

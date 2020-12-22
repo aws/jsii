@@ -476,7 +476,7 @@ export class DotNetGenerator extends Generator {
     const returnType = method.returns
       ? this.typeresolver.toDotNetType(method.returns.type)
       : 'void';
-    let staticKeyWord = '';
+    const staticKeyWord = method.static ? 'static ' : '';
     let overrideKeyWord = '';
     let virtualKeyWord = '';
 
@@ -496,12 +496,14 @@ export class DotNetGenerator extends Generator {
         overrides = true;
       }
     }
-    if (method.static) {
-      staticKeyWord = 'static ';
-    } else if (overrides) {
-      // Add the override key word if the method is emitted for a proxy or data type or is defined on an ancestor
-      overrideKeyWord = 'override ';
+    if (overrides) {
+      // Add the override key word if the method is emitted for a proxy or data type or is defined on an ancestor. If
+      // the member is static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor
+      // declaration (as C# does not inherit statics, they can be hidden but not overridden). The "new" keyword is
+      // optional in this context, but helps clarify intention.
+      overrideKeyWord = method.static ? 'new ' : 'override ';
     } else if (
+      !method.static &&
       (method.abstract || !definedOnAncestor) &&
       !emitForProxyOrDatatype
     ) {
@@ -832,8 +834,11 @@ export class DotNetGenerator extends Generator {
         prop,
       );
       if (implementedInBase || datatype || proxy) {
-        // Override if the property is in a datatype or proxy class or declared in a parent class
-        isOverrideKeyWord = 'override ';
+        // Override if the property is in a datatype or proxy class or declared in a parent class. If the member is
+        // static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor declaration (as
+        // C# does not inherit statics, they can be hidden but not overridden).The "new" keyword is optional in this
+        // context, but helps clarify intention.
+        isOverrideKeyWord = prop.static ? 'new ' : 'override ';
       } else if (prop.abstract) {
         // Abstract members get decorated as such
         isAbstractKeyword = 'abstract ';
@@ -845,7 +850,7 @@ export class DotNetGenerator extends Generator {
 
     const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
     const isOptional = prop.optional ? '?' : '';
-    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptional} ${propName}`;
+    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${staticKeyWord}${isOverrideKeyWord}${propTypeFQN}${isOptional} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters
