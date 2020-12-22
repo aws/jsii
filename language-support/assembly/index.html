@@ -1449,7 +1449,13 @@ members of <a href="#interfaces">interfaces</a> must be <code>abstract</code>.</
 </table>
 <p>Properties that are <code>const</code> must have a <code>name</code> that is <code>UPPER_SNAKE_CASED</code>. They represent constants similar to <a href="#enum-members">Enum
 Members</a>, which can be proactively resolved by the <code>jsii</code> runtimes.</p>
-<p>Properties that are <code>static</code> cannot feature the <code>overrides</code> attribute, as <code>static</code> members are not inherited.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Properties and methods that are <code>static</code> <strong>can</strong> feature the <code>overrides</code> attribute, as <code>static</code> members are
+inherited with the prototype in <strong>JavaScript</strong> (as part of the ES6 specification). Not all target languages have
+this capability (most, like <strong>C#</strong> and <strong>Java</strong>, only support <em>hiding</em> static declarations), and consequently code
+generators may ignore this (or explicitly hide parent declarations) instead.</p>
+</div>
                 
                   
                     
@@ -1458,7 +1464,7 @@ Members</a>, which can be proactively resolved by the <code>jsii</code> runtimes
 <div class="md-source-date">
   <small>
     
-      Last update: 2020-12-14
+      Last update: 2020-12-22
     
   </small>
 </div>
