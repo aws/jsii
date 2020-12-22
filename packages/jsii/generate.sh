@@ -20,3 +20,12 @@ export const SHORT_VERSION = '${VERSION}';
 /** The qualified version number for this JSII compiler (e.g: \`X.Y.Z (build #######)\`) */
 export const VERSION = '${VERSION} (build ${commit:0:7}${suffix:-})';
 HERE
+
+mkdir -p schema
+typescript-json-schema                                                      \
+    lib/project-info/_jsii-config-block.ts  'JsiiConfigBlock'               \
+    --out                                   schema/jsii-config.schema.json  \
+    --refs                                  true                            \
+    --required                              true                            \
+    --strictNullChecks                      true                            \
+    --topRef                                true
