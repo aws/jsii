@@ -1,7 +1,7 @@
 {
-  "name": "jsii",
+  "name": "@jsii/config",
   "version": "0.0.0",
-  "description": "TypeScript compiler for jsii",
+  "description": "Access the configuration of jsii projects",
   "license": "Apache-2.0",
   "author": {
     "name": "Amazon Web Services",
@@ -14,57 +14,38 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git",
-    "directory": "packages/jsii"
+    "directory": "packages/@jsii/config"
   },
   "engines": {
     "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "bin": {
-    "jsii": "bin/jsii"
-  },
   "scripts": {
-    "build": "cp ../../README.md . && bash ./generate.sh && tsc --build && npm run lint",
-    "watch": "bash ./generate.sh && tsc --build -w",
-    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
+    "build": "yarn gen && tsc --build && yarn lint",
+    "gen": "node build-tools/generate.js",
+    "watch": "yarn gen && tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern='build-tools/*'",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/config": "^0.0.0",
     "@jsii/spec": "^0.0.0",
-    "case": "^1.6.3",
-    "colors": "^1.4.0",
-    "deep-equal": "^2.0.5",
-    "fs-extra": "^9.0.1",
     "jsonschema": "^1.4.0",
-    "log4js": "^6.3.0",
-    "semver": "^7.3.4",
-    "semver-intersect": "^1.4.0",
-    "sort-json": "^2.0.0",
     "spdx-license-list": "^6.3.0",
-    "typescript": "~3.9.7",
-    "yargs": "^16.2.0"
+    "typescript": "~3.9.7"
   },
   "devDependencies": {
-    "@types/clone": "^2.1.0",
-    "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.19",
-    "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^10.17.49",
-    "@types/semver": "^7.3.4",
-    "@types/yargs": "^15.0.12",
-    "clone": "^2.1.2",
     "eslint": "^7.16.0",
+    "fs-extra": "^9.0.1",
     "jest": "^26.6.3",
-    "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.2.1",
-    "ts-jest": "^26.4.4",
     "typescript-json-schema": "^0.45.1"
   }
 }

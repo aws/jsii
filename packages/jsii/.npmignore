@@ -4,7 +4,6 @@
 !**/*.d.ts
 !bin/jsii
 !bin/jsii-fix-peers
-!schema/*.schema.json
 
 
 coverage

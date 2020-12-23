@@ -3,7 +3,6 @@
 node_modules/
 .nyc_output/
 coverage/
-schema/
 
 # copied from the root of the repo upon build
 README.md
