@@ -41,6 +41,6 @@
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.2.1",
     "typescript": "~3.9.7",
-    "typescript-json-schema": "^0.45.1"
+    "typescript-json-schema": "^0.46.0"
   }
 }
