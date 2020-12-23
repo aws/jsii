@@ -120,7 +120,7 @@ namespace Amazon.JSII.Runtime.Deputy
             referenceMap.AddNativeReference(Reference, this);
         }
 
-        public ByRefValue Reference { get; }
+        internal ByRefValue Reference { get; }
 
         #region GetProperty
 
@@ -476,7 +476,7 @@ namespace Amazon.JSII.Runtime.Deputy
         /// <summary>
         /// Unsafely obtains a proxy of a given type for this instance. This method allows obtaining a proxy instance
         /// that is not known to be supported by the backing object instance; in which case the behavior of any
-        /// operation that is not supported by the backing instance is undefined. 
+        /// operation that is not supported by the backing instance is undefined.
         /// </summary>
         /// <typeparam name="T">
         /// A jsii-managed interface to obtain a proxy for.
@@ -535,7 +535,7 @@ namespace Amazon.JSII.Runtime.Deputy
             bool ToTypeCore(out object? result)
             {
                 if (!conversionType.IsInstanceOfType(this)) return MakeProxy(conversionType, false, out result);
-                
+
                 result = this;
                 return true;
 
@@ -549,7 +549,7 @@ namespace Amazon.JSII.Runtime.Deputy
                 result = null;
                 return false;
             }
-            
+
             var interfaceAttribute = interfaceType.GetCustomAttribute<JsiiInterfaceAttribute>();
             if (interfaceAttribute == null)
             {
@@ -581,7 +581,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
             return true;
-            
+
             bool TryFindSupportedInterface(string declaredFqn, string[] availableFqns, ITypeCache types, out string? foundFqn)
             {
                 var declaredType = types.GetInterfaceType(declaredFqn);

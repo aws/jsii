@@ -1274,7 +1274,7 @@ class JavaGenerator extends Generator {
     if (includeGetter) {
       this.code.line();
       this.addJavaDocs(prop);
-      if (overrides) {
+      if (overrides && !prop.static) {
         this.code.line('@Override');
       }
       this.emitStabilityAnnotations(prop);
@@ -1307,7 +1307,7 @@ class JavaGenerator extends Generator {
       for (const type of setterTypes) {
         this.code.line();
         this.addJavaDocs(prop);
-        if (overrides) {
+        if (overrides && !prop.static) {
           this.code.line('@Override');
         }
         this.emitStabilityAnnotations(prop);
@@ -1364,7 +1364,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
-    if (overrides) {
+    if (overrides && !method.static) {
       this.code.line('@Override');
     }
     if (method.abstract && !defaultImpl) {
