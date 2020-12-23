@@ -5,7 +5,7 @@ import { DiagnosticCategory } from 'typescript';
 /**
  * The key which is used in tsconfig.json to store the jsii configuration.
  */
-export const JSII_CONFIG_ENTRY = 'x-aws-jsii';
+export const JSII_CONFIG_ENTRY = 'x-jsii';
 
 /**
  * jsii configuration data.

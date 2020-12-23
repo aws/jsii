@@ -24,7 +24,7 @@
   "include": ["**/*.ts"],
   "exclude": ["node_modules"],
   // The JSII configuration
-  "x-aws-jsii": {
+  "x-jsii": {
     "outdir": "dist",
     "targets": {
       "go": {
