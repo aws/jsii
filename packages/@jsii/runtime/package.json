@@ -29,7 +29,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
     "lint:fix": "yarn lint --fix",
-    "jest": "node --experimental-worker $(node -p 'require.resolve(\"jest-cli/bin/jest\")')",
+    "jest": "bin/jest",
     "test": "yarn --silent jest",
     "test:update": "yarn --silent test -u",
     "package": "package-js"

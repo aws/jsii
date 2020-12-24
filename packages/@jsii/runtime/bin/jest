@@ -1,0 +1,7 @@
+#!/bin/bash
+
+###
+# Starts jest with the `--experimental-worker` node flag enabled.
+###
+
+exec node --experimental-worker $(node -p 'require.resolve("jest-cli/bin/jest")') $@
