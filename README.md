@@ -27,7 +27,7 @@ Here's a collection of blog posts (in chronological order) related to `jsii`:
 - **2020-01-11:** <a id="blog-mbonig" /> [How to Create CDK Constructs][mbonig-2020-01-11], by [Matthew Bonig][@mbonig]
 - **2020-05-27:** <a id="blog-floydpink" /> [Generate Python, Java, and .NET software libraries from a TypeScript
   source][floydpink-2020-05-27], by [Hari Pachuveetil][@floydpink]
-- **2020-12-23:** <a id="blog-romain" /> [How the jsii open source framework meets developers where they are
+- **2020-12-23:** <a id="blog-romainmuller" /> [How the jsii open source framework meets developers where they are
   ][romain-2020-12-23], by [Romain Marcadier][@RomainMuller]
 
 [mbonig-2020-01-11]: https://www.matthewbonig.com/2020/01/11/creating-constructs/
