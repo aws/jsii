@@ -23,10 +23,12 @@ try {
 
   // But first, ensure we have a node version that is actually recent enough to
   // be supported. The `process.versions.node` value is "Major.Minor.Patch".
-  const nodeMajor = parseInt(process.versions.node.split('.')[0], 10);
-  if (nodeMajor < 10) {
+  const [nodeMajor, nodeMinor] = process.versions.node
+    .split('.')
+    .map((num) => parseInt(num, 10));
+  if (nodeMajor < 10 || (nodeMajor === 10 && nodeMinor < 5)) {
     console.error(
-      `Unsupported node version: ${process.versions.node}. Node >= 10.3.0 is required.`,
+      `Unsupported node version: ${process.versions.node}. Node >= 10.5.0 is required.`,
     );
     process.exit(-1);
   }
@@ -35,12 +37,10 @@ try {
     process.execPath,
     ['--experimental-worker', ...process.execArgv, ...process.argv.slice(1)],
     {
-      cwd: process.cwd(),
-      env: process.env,
+      argv0: process.argv0,
       shell: process.platform === 'win32',
       stdio: 'inherit',
       windowsHide: true,
-      windowsVerbatimArguments: true,
     },
   );
 
