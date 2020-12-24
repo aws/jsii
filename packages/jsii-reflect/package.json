@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.0.0",
-    "@types/fs-extra": "^8.1.1",
+    "@types/fs-extra": "^9.0.6",
     "@types/jest": "^26.0.19",
     "@types/node": "^10.17.50",
     "@types/yargs": "^15.0.12",
