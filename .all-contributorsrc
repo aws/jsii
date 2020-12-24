@@ -743,7 +743,8 @@
         "java",
         "maintenance",
         "python",
-        "review"
+        "review",
+        "blog"
       ]
     },
     {
@@ -1035,6 +1036,15 @@
       "name": "Mohamad Soufan",
       "avatar_url": "https://avatars3.githubusercontent.com/u/28849417?v=4",
       "profile": "https://github.com/MohamadSoufan",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Chriscbr",
+      "name": "Christopher Rybicki",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5008987?v=4",
+      "profile": "https://rybicki.io/",
       "contributions": [
         "doc"
       ]
