@@ -37,7 +37,7 @@ try {
     {
       cwd: process.cwd(),
       env: process.env,
-      shell: false,
+      shell: process.platform === 'win32',
       stdio: 'inherit',
       windowsHide: true,
       windowsVerbatimArguments: true,
