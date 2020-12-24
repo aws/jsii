@@ -1048,6 +1048,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "bmacher",
+      "name": "Benjamin Macher",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/32685580?v=4",
+      "profile": "http://macher.dev",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoType": "github",
