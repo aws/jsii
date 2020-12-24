@@ -135,7 +135,10 @@ export class SyncReader {
         }
         // If the worker abnormally exists and 'error' was not received, throw.
         if (exitCode !== 0 && this.workerError == null) {
-          throw new Error(`Worker exited with error code ${exitCode}`);
+          this.workerError = new Error(
+            `Worker exited with error code ${exitCode}`,
+          );
+          throw this.workerError;
         }
       });
 
@@ -221,7 +224,7 @@ export class SyncReader {
 
     // Reset the available data counter (notifying we consumed all the data)
     Atomics.store(this.sharedBufferLength, 0, 0);
-    Atomics.notify(this.sharedBufferLength, 0);
+    Atomics.notify(this.sharedBufferLength, 0, Number.POSITIVE_INFINITY);
 
     return copied;
   }

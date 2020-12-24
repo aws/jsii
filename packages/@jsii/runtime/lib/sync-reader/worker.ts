@@ -86,7 +86,7 @@ parentPort!.once(
      */
     function notifyAvailable(size: number) {
       Atomics.store(lengthArray, 0, size);
-      Atomics.notify(lengthArray, 0);
+      Atomics.notify(lengthArray, 0, Number.POSITIVE_INFINITY);
     }
 
     const stat = fstatSync(fd);
