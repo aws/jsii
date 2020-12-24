@@ -34,7 +34,14 @@ try {
   const result = child.spawnSync(
     process.execPath,
     ['--experimental-worker', ...process.execArgv, ...process.argv.slice(1)],
-    { shell: false, stdio: 'inherit' },
+    {
+      cwd: process.cwd(),
+      env: process.env,
+      shell: false,
+      stdio: 'inherit',
+      windowsHide: true,
+      windowsVerbatimArguments: true,
+    },
   );
 
   if (result.error) {

@@ -23,9 +23,22 @@ parentPort!.once(
     sharedBuffer,
     fd,
   }: {
+    /**
+     * A slice of shared memory where we'll store the count of bytes we placed
+     * into the `sharedBuffer`. This is assumed to be at least 4 bytes (ideally,
+     * it is *exactly* 4 bytes; this will store a 32 bits signed integer).
+     */
     availableBytes: SharedArrayBuffer;
+    /**
+     * A slice of shared memory where we'll store the data that was accepted
+     * from the provided file descriptor. This buffer is assumed to have non-0
+     * length (ideally, should be the FD's high water mark, so we can transfer
+     * the whole buffer, always).
+     */
     sharedBuffer: SharedArrayBuffer;
-    sharedBufferLength: number;
+    /**
+     * The file descriptor from which this worker will asynchronously read data.
+     */
     fd: number;
   }) => {
     // We won't be exchanging any more messages with the main thread through
@@ -73,6 +86,7 @@ parentPort!.once(
      */
     function notifyAvailable(size: number) {
       Atomics.store(lengthArray, 0, size);
+      Atomics.notify(lengthArray, 0);
     }
 
     const stat = fstatSync(fd);
@@ -133,8 +147,6 @@ parentPort!.once(
     stream.once('end', () => {
       waitForBuffer();
       notifyAvailable(-1);
-
-      stream.removeAllListeners();
 
       // Only terminates this worker, not the whole process!
       process.exit(0);

@@ -51,12 +51,39 @@ const workerScript = resolve(__dirname, 'sync-reader', 'worker.js');
  * attempt to rewind it.
  */
 export class SyncReader {
+  /**
+   * Shared memory where the worker thread will place the data it accepted from
+   * the file descriptor, for the main thread to read.
+   */
   private readonly sharedBuffer: Buffer;
+  /**
+   * Shared memory where the worker thread will store the count of bytes it
+   * stored in `sharedBuffer` for the main thread to read. This array has a
+   * length of 1. When the value at index 0 is -1, it means the worker thread
+   * has reached end-of-file. When it is 0, it means the worker thread is yet
+   * to provide data to be read (and the main thread should block).
+   */
   private readonly sharedBufferLength: Int32Array;
 
+  /**
+   * The worker thread that will asynchronously read and provide data via shared
+   * memory buffers defined above.
+   */
   private readonly worker: Worker;
 
+  /**
+   * Any leftover data that was provided through the `sharedBuffer`, but could
+   * not be copied out during `readSync` because the provided target `Buffer`
+   * was not large enough to accomodate all of the available data. This data
+   * will subsequently be served right away (until exausted) without blocking.
+   */
   private privateBuffer: Buffer | undefined;
+  /**
+   * If the worker thread failed (an exception escaped from it, causing it to
+   * terminate), the exception will be stored in this slot, and will be thrown
+   * by `readSync` on the next attempt to access shared data. THis emulates an
+   * error being thrown by a synchronous read API.
+   */
   private workerError?: Error;
 
   /**
@@ -83,17 +110,27 @@ export class SyncReader {
     this.sharedBuffer = Buffer.from(sharedBuffer);
 
     this.worker = new Worker(workerScript)
+      // This event fires if an exception bubbles out of the worker thread. It
+      // will exit (unsuccessfully) after this event has fired, and the 'exit'
+      // event will then fire.
       .once('error', (err) => {
         this.workerError = err;
       })
+      // This event fires when the worker thread exits, whether successfully or
+      // not. The `exitCode` has similar semantics to those of processes (0
+      // indicates success, non-0 indicates failure).
       .once('exit', (exitCode) => {
         try {
           fs.closeSync(fd);
         } catch (err) {
-          // We could not close the FD... one reason could be it was already closed, but since the
-          // file descriptors can be re-used by the system, it's not always possible to draw correct
-          // conclusions from the exception we received while trying to clean up after ourselves.
-          // Well... We tried... So we'll just emit a warning to let folks know we failed.
+          // We could not close the FD... one reason could be it was already
+          // closed (for example, if the worker died due to a stream error, the
+          // stream will already have closed the FD as part of it's error
+          // handling), but since the file descriptors can be re-used by the
+          // system, it's not always possible to draw correct conclusions from
+          // the exception we received while trying to clean up after ourselves.
+          // Well... We tried... So we'll just emit a warning to let folks know
+          // we failed.
           process.emitWarning(err);
         }
         // If the worker abnormally exists and 'error' was not received, throw.
@@ -102,12 +139,25 @@ export class SyncReader {
         }
       });
 
+    // We can only pass shared memory and method-less data though to the worker
+    // using the `port.postMessage` API. This is why we are passing a file
+    // descriptor, and not a `NodeJS.ReadableStream` (it would be unusable in
+    // the worker thread, as it would have lost all of it's methods).
+    // Additionally, we pass `SharedArrayBuffer` instances, and not the
+    // `Int32Array` and `Buffer` wrapping those, as `SharedArrayBuffer` has
+    // special handling through this API (as this is intended to be shared
+    // memory, it is NOT copied across - that'd defeat the purpose).
     this.worker.postMessage({
       availableBytes: availableBytes,
       sharedBuffer: sharedBuffer,
       fd,
     });
-    // Unref the worker so it does not keep the process running.
+
+    // Unref the worker so it does not keep the process running. We do this last
+    // because adding handlers on the worker will cause it to become `ref()`'d
+    // again... It being un-ref'd makes it possible for the VM to exit even if
+    // an exception bubbled out in such a way that this `SyncReader` instance is
+    // no longer accessible.
     this.worker.unref();
   }
 
@@ -151,7 +201,10 @@ export class SyncReader {
     // Check out how much data is available
     const available = Atomics.load(this.sharedBufferLength, 0);
     if (available < 0) {
-      // Means we reached EOF, so we close the FD (so we don't leak) and return 0.
+      // Means we reached EOF, so we close the FD (so we don't leak) and return
+      // 0. In this case we will *NOT* re-set `sharedBufferLength` to 0, so we
+      // "stay" at EOF "forever".The worker thread has terminated itself already
+      // anyway!
       return 0;
     }
 
@@ -168,6 +221,7 @@ export class SyncReader {
 
     // Reset the available data counter (notifying we consumed all the data)
     Atomics.store(this.sharedBufferLength, 0, 0);
+    Atomics.notify(this.sharedBufferLength, 0);
 
     return copied;
   }
