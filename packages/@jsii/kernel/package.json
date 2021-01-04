@@ -43,7 +43,7 @@
     "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^10.17.50",
     "@types/tar": "^4.0.4",
-    "eslint": "^7.16.0",
+    "eslint": "^7.17.0",
     "jest": "^26.6.3",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
