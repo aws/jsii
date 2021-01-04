@@ -1,13 +1,27 @@
-using System;
 using Amazon.JSII.Runtime.Deputy;
+using System;
+using Amazon.JSII.Runtime.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Amazon.JSII.Runtime.UnitTests.Deputy
 {
-    public sealed class DeputyBaseTests
+    public sealed class DeputyBaseTests: IDisposable
     {
         const string Prefix = "Runtime.Deputy." + nameof(DeputyBase) + ".";
+
+        private readonly IServiceProvider _serviceProvider;
+
+        public DeputyBaseTests()
+        {
+            _serviceProvider = ServiceContainer.BuildServiceProvider();
+            ServiceContainer.ServiceProviderOverride = _serviceProvider;
+        }
+
+        void IDisposable.Dispose()
+        {
+            _serviceProvider.GetRequiredService<INodeProcess>().Dispose();
+        }
 
         [Fact(DisplayName = Prefix + nameof(CanCastToAnyInterface))]
         public void CanCastToAnyInterface()
@@ -16,7 +30,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy
             var result = subject.UnsafeCast<IManagedInterface>();
             Assert.IsType<ManagedInterfaceProxy>(result);
         }
-        
+
         [JsiiInterface(typeof(IManagedInterface), "test.IManagedInterface")]
         private interface IManagedInterface
         {
@@ -30,7 +44,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy
             {
                 BooleanProperty = true;
             }
-            
+
             public bool BooleanProperty { get; }
         }
     }
