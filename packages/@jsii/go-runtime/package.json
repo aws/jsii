@@ -23,9 +23,9 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.49",
+    "@types/node": "^10.17.50",
     "codemaker": "^0.0.0",
-    "eslint": "^7.16.0",
+    "eslint": "^7.17.0",
     "fs-extra": "^9.0.1",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",

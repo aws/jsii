@@ -167,4 +167,8 @@ Methods that are `static` cannot feature the `overrides` attribute, as `static` 
 Properties that are `const` must have a `name` that is `UPPER_SNAKE_CASED`. They represent constants similar to [Enum
 Members], which can be proactively resolved by the `jsii` runtimes.
 
-Properties that are `static` cannot feature the `overrides` attribute, as `static` members are not inherited.
+!!! danger
+    Properties and methods that are `static` **can** feature the `overrides` attribute, as `static` members are
+    inherited with the prototype in **JavaScript** (as part of the ES6 specification). Not all target languages have
+    this capability (most, like **C#** and **Java**, only support *hiding* static declarations), and consequently code
+    generators may ignore this (or explicitly hide parent declarations) instead.
