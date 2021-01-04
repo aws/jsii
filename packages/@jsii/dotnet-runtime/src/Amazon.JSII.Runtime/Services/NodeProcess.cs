@@ -79,7 +79,12 @@ namespace Amazon.JSII.Runtime.Services
                     // The process didn't exit in time... Let's kill it.
                     _process.Kill(true);
                 }
-            } catch (SystemException)
+            }
+            catch (InvalidOperationException)
+            {
+                // The process has already died, we're good!
+            }
+            catch (SystemException)
             {
                 // The process has already died, we're good!
             }
