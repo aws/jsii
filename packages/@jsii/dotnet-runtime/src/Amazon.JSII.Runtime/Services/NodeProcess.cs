@@ -71,7 +71,7 @@ namespace Amazon.JSII.Runtime.Services
 
         void IDisposable.Dispose()
         {
-            StandardInput.Dispose();
+            StandardInput.Close();
             try
             {
                 if (!_process.WaitForExit(5_000))
