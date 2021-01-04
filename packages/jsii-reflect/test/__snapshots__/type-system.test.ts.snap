@@ -125,6 +125,8 @@ Array [
   "jsii-calc.SomeTypeJsii976",
   "jsii-calc.StableClass",
   "jsii-calc.StaticContext",
+  "jsii-calc.StaticHelloChild",
+  "jsii-calc.StaticHelloParent",
   "jsii-calc.Statics",
   "jsii-calc.StripInternal",
   "jsii-calc.StructPassing",
