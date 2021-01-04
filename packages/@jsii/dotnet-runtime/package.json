@@ -31,9 +31,9 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "bash ./generate.sh",
-    "build": "npm run gen && tsc --build && dotnet build --force -c Release src/Amazon.JSII.Runtime.sln -nodereuse:false",
-    "dist-clean": "rm -rf dist && dotnet clean -c Release src/Amazon.JSII.Runtime.sln -nodereuse:false",
-    "test": "dotnet test -c Release src/Amazon.JSII.Runtime.sln -nodereuse:false",
+    "build": "npm run gen && tsc --build && dotnet build --force -c Release src/Amazon.JSII.Runtime.sln",
+    "dist-clean": "rm -rf dist && dotnet clean -c Release src/Amazon.JSII.Runtime.sln",
+    "test": "dotnet test -c Release src/Amazon.JSII.Runtime.sln",
     "test:update": "UPDATE_DIFF=1 npm run test",
     "package": "package-dotnet src/Amazon.JSII.Runtime.sln && package-private"
   },

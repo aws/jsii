@@ -8,7 +8,9 @@ on:
     branches: [main, release]
 
 env:
-  DOTNET_NOLOGO: true
+  DOTNET_NOLOGO: true # Suppress logo & telemetry message from first run
+  DOTNET_CLI_TELEMETRY_OPTOUT: true # Disable dotnet CLI telemetry
+  MSBUILDDISABLENODEREUSE: 1 # Disables msbuild node reuse, which can cause hangs
 
 # This workflows currently has the following jobs:
 # - build                   : Builds the source tree as-is
