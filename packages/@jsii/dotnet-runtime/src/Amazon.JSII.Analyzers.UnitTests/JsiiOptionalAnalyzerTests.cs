@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Xunit;
@@ -10,15 +11,15 @@ namespace Amazon.JSII.Analyzers.UnitTests
     public class JsiiOptionalAnalyzerTests : DiagnosticVerifier
     {
         [Fact]
-        public void TestGivenSomeEmptyCodeThenRoslynDoesNotComplain()
+        public async Task TestGivenSomeEmptyCodeThenRoslynDoesNotComplain()
         {
             var test = @"";
 
-            VerifyCSharpDiagnostic(test);
+            await VerifyCSharpDiagnostic(test);
         }
         
         [Fact]
-        public void TestGivenSomeCodeWithAMissingRequiredPropertyThenRoslynComplains()
+        public async Task TestGivenSomeCodeWithAMissingRequiredPropertyThenRoslynComplains()
         {
             var test = @"
             using System;
@@ -163,7 +164,7 @@ namespace Amazon.JSII.Analyzers.UnitTests
                 }
             };
 
-            VerifyCSharpDiagnostic(test, expected.ToArray());
+            await VerifyCSharpDiagnostic(test, expected.ToArray());
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
