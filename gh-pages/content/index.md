@@ -23,7 +23,7 @@ Consider the following **TypeScript** class:
 
 ```ts
 /**
- * A siple greeter, hello world style.
+ * A simple greeter, hello world style.
  */
 export class Greeter {
   /**

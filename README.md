@@ -27,12 +27,17 @@ Here's a collection of blog posts (in chronological order) related to `jsii`:
 - **2020-01-11:** <a id="blog-mbonig" /> [How to Create CDK Constructs][mbonig-2020-01-11], by [Matthew Bonig][@mbonig]
 - **2020-05-27:** <a id="blog-floydpink" /> [Generate Python, Java, and .NET software libraries from a TypeScript
   source][floydpink-2020-05-27], by [Hari Pachuveetil][@floydpink]
+- **2020-12-23:** <a id="blog-romainmuller" /> [How the jsii open source framework meets developers where they are
+  ][romain-2020-12-23], by [Romain Marcadier][@RomainMuller]
 
 [mbonig-2020-01-11]: https://www.matthewbonig.com/2020/01/11/creating-constructs/
 [floydpink-2020-05-27]:
   https://aws.amazon.com/fr/blogs/opensource/generate-python-java-dotnet-software-libraries-from-typescript-source/
+[romain-2020-12-23]:
+  https://aws.amazon.com/blogs/opensource/how-the-jsii-open-source-framework-meets-developers-where-they-are/
 [@mbonig]: http://www.matthewbonig.com/
 [@floydpink]: https://harimenon.com/
+[@romainmuller]: https://github.com/RomainMuller
 
 > :information_source: If you wrote blog posts about `jsii` and would like to have them referenced here, do not hesitate
 > to file a pull request to add the links here!
@@ -136,7 +141,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Pidz-b"><img src="https://avatars3.githubusercontent.com/u/47750432?v=4" width="100px;" alt=""/><br /><sub><b>PIDZ - Bart </b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3APidz-b+label%3Afeature-request" title="Feature requests">🤔</a></td>
     <td align="center"><a href="https://github.com/richardhboyd"><img src="https://avatars0.githubusercontent.com/u/58230111?v=4" width="100px;" alt=""/><br /><sub><b>Richard H Boyd</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Arichardhboyd+label%3Abug" title="Bug reports">🐛</a></td>
     <td align="center"><a href="http://rix0r.nl/"><img src="https://avatars2.githubusercontent.com/u/524162?v=4" width="100px;" alt=""/><br /><sub><b>Rico Huijbers</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Arix0rrr+label%3Abug" title="Bug reports">🐛</a> <a href="https://github.com/aws/jsii/commits?author=rix0rrr" title="Code">💻</a> <a href="https://github.com/aws/jsii/issues?q=author%3Arix0rrr+label%3Afeature-request" title="Feature requests">🤔</a> <a href="https://github.com/aws/jsii/pulls?q=is%3Apr+author%3Arix0rrr" title="Maintenance">🚧</a> <a href="https://github.com/aws/jsii/commits?author=rix0rrr" title="Python Bindings">🐍</a> <a href="https://github.com/aws/jsii/pulls?q=is%3Apr+reviewed-by%3Arix0rrr" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://keybase.io/romainmuller"><img src="https://avatars2.githubusercontent.com/u/411689?v=4" width="100px;" alt=""/><br /><sub><b>Romain Marcadier</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3ARomainMuller+label%3Abug" title="Bug reports">🐛</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Code">💻</a> <a href="#design-RomainMuller" title="Design">🎨</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title=".NET Bindings">🥅</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Go Bindings">🚶‍♀️</a> <a href="https://github.com/aws/jsii/issues?q=author%3ARomainMuller+label%3Afeature-request" title="Feature requests">🤔</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Java Bindings">☕️</a> <a href="https://github.com/aws/jsii/pulls?q=is%3Apr+author%3ARomainMuller" title="Maintenance">🚧</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Python Bindings">🐍</a> <a href="https://github.com/aws/jsii/pulls?q=is%3Apr+reviewed-by%3ARomainMuller" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://keybase.io/romainmuller"><img src="https://avatars2.githubusercontent.com/u/411689?v=4" width="100px;" alt=""/><br /><sub><b>Romain Marcadier</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3ARomainMuller+label%3Abug" title="Bug reports">🐛</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Code">💻</a> <a href="#design-RomainMuller" title="Design">🎨</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title=".NET Bindings">🥅</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Go Bindings">🚶‍♀️</a> <a href="https://github.com/aws/jsii/issues?q=author%3ARomainMuller+label%3Afeature-request" title="Feature requests">🤔</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Java Bindings">☕️</a> <a href="https://github.com/aws/jsii/pulls?q=is%3Apr+author%3ARomainMuller" title="Maintenance">🚧</a> <a href="https://github.com/aws/jsii/commits?author=RomainMuller" title="Python Bindings">🐍</a> <a href="https://github.com/aws/jsii/pulls?q=is%3Apr+reviewed-by%3ARomainMuller" title="Reviewed Pull Requests">👀</a> <a href="#blog-RomainMuller" title="Blogposts">📝</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/sadikkuzu/"><img src="https://avatars2.githubusercontent.com/u/23168063?v=4" width="100px;" alt=""/><br /><sub><b>SADIK KUZU</b></sub></a><br /><a href="https://github.com/aws/jsii/pulls?q=is%3Apr+reviewed-by%3Asadikkuzu" title="Reviewed Pull Requests">👀</a></td>
   </tr>
   <tr>
@@ -177,6 +182,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/MohamadSoufan"><img src="https://avatars3.githubusercontent.com/u/28849417?v=4" width="100px;" alt=""/><br /><sub><b>Mohamad Soufan</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=MohamadSoufan" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://rybicki.io/"><img src="https://avatars2.githubusercontent.com/u/5008987?v=4" width="100px;" alt=""/><br /><sub><b>Christopher Rybicki</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=Chriscbr" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://macher.dev"><img src="https://avatars0.githubusercontent.com/u/32685580?v=4" width="100px;" alt=""/><br /><sub><b>Benjamin Macher</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=bmacher" title="Documentation">📖</a></td>
   </tr>
 </table>
 
