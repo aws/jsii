@@ -26,7 +26,7 @@
   "scripts": {
     "gen": "bash ./generate.sh",
     "build": "npm run gen && tsc --build && dotnet build --force -c Release ./test/Amazon.JSII.Runtime.IntegrationTests.sln",
-    "test": "dotnet test ./test/Amazon.JSII.Runtime.IntegrationTests.sln",
+    "test": "dotnet test -c Release ./test/Amazon.JSII.Runtime.IntegrationTests.sln",
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {

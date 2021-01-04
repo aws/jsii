@@ -22,19 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--
-      The xunit runner is susceptible to deadlocks on systems with a low amount of CPUs (e.g: CI systems). This file
-      completely disables parallel execution of tests, so we do not run the risk of exausting the thread pool and
-      getting stuck there forever.
-
-      See: https://github.com/dotnet/aspnetcore/issues/3443
-    -->
-    <None Update="xunit.runner.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj" />
   </ItemGroup>
 
