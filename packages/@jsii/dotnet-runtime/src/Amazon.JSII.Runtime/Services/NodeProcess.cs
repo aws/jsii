@@ -72,9 +72,21 @@ namespace Amazon.JSII.Runtime.Services
         void IDisposable.Dispose()
         {
             StandardInput.Dispose();
-            StandardOutput.Dispose();
-            StandardError.Dispose();
-            _process.Dispose();
+            try
+            {
+                if (!_process.WaitForExit(5_000))
+                {
+                    // The process didn't exit in time... Let's kill it.
+                    _process.Kill(true);
+                }
+            } catch (SystemException)
+            {
+                // The process has already died, we're good!
+            }
+            finally
+            {
+                _process.Dispose();
+            }
         }
 
         /// <summary>
