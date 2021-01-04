@@ -33,7 +33,8 @@ namespace Amazon.JSII.Runtime.Services
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "node",
-                    Arguments = $"--max-old-space-size=4096 {runtimePath}",
+                    ArgumentList = { "--max-old-space-size=4096", runtimePath },
+                    CreateNoWindow = true,
                     RedirectStandardInput = true,
                     StandardInputEncoding = utf8,
                     RedirectStandardOutput = true,
