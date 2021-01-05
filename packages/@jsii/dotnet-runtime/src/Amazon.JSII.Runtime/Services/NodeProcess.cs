@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -89,6 +90,8 @@ namespace Amazon.JSII.Runtime.Services
             finally
             {
                 _process.Dispose();
+                // Reset the Jsii assembly cache, this process can no longer be used!
+                JsiiTypeAttributeBase.Reset();
             }
         }
 
