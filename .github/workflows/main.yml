@@ -268,10 +268,6 @@ jobs:
       - name: 'Linux: Install python3-venv'
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
-      - name: 'Windows: Expose python3 command'
-        if: runner.os == 'Windows'
-        shell: bash
-        run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
@@ -321,7 +317,7 @@ jobs:
           yarn install --frozen-lockfile
       - name: Test
         run: |-
-          yarn test
+          yarn test --loglevel silly
       # Ensure working directory is clean (tests should not change checked in source code)
       - name: 'Assert clean working directory'
         if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
