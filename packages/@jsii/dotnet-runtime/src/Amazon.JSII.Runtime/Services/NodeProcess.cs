@@ -12,7 +12,6 @@ namespace Amazon.JSII.Runtime.Services
     internal sealed class NodeProcess : INodeProcess
     {
         readonly Process _process;
-        readonly ILogger _logger;
         private const string JsiiRuntime = "JSII_RUNTIME";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
@@ -21,7 +20,7 @@ namespace Amazon.JSII.Runtime.Services
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
             loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
-            _logger = loggerFactory.CreateLogger<NodeProcess>();
+            var logger = loggerFactory.CreateLogger<NodeProcess>();
 
             var runtimePath = Environment.GetEnvironmentVariable(JsiiRuntime);
             if (string.IsNullOrWhiteSpace(runtimePath))
@@ -53,12 +52,20 @@ namespace Amazon.JSII.Runtime.Services
             if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
                 _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debug);
 
-            _logger.LogDebug("Starting jsii runtime...");
-            _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
+            logger.LogDebug("Starting jsii runtime...");
+            logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
 
             // Registering shutdown hook to have JS process gracefully terminate.
             AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
-                ((IDisposable)this).Dispose();
+                try
+                {
+                    ((IDisposable)this).Dispose();
+                }
+                catch (Exception e)
+                {
+                    // If this throws, the app would crash ugly!
+                    Console.Error.WriteLine($"Error cleaning up {nameof(NodeProcess)}: {e}");
+                }
             };
 
             _process.Start();
@@ -72,6 +79,12 @@ namespace Amazon.JSII.Runtime.Services
 
         void IDisposable.Dispose()
         {
+            if (_process.HasExited)
+            {
+                // Process already cleaned up, nothing to do!
+                return;
+            }
+
             StandardInput.Close();
             try
             {
