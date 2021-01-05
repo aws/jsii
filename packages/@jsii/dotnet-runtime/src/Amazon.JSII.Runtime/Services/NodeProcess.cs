@@ -12,7 +12,8 @@ namespace Amazon.JSII.Runtime.Services
 {
     internal sealed class NodeProcess : INodeProcess
     {
-        readonly Process _process;
+        private readonly Process _process;
+        private readonly ILogger _logger;
         private const string JsiiRuntime = "JSII_RUNTIME";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
@@ -21,7 +22,7 @@ namespace Amazon.JSII.Runtime.Services
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
             loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
-            var logger = loggerFactory.CreateLogger<NodeProcess>();
+            _logger = loggerFactory.CreateLogger<NodeProcess>();
 
             var runtimePath = Environment.GetEnvironmentVariable(JsiiRuntime);
             if (string.IsNullOrWhiteSpace(runtimePath))
@@ -53,8 +54,8 @@ namespace Amazon.JSII.Runtime.Services
             if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
                 _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debug);
 
-            logger.LogDebug("Starting jsii runtime...");
-            logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
+            _logger.LogDebug("Starting jsii runtime...");
+            _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
 
             _process.Start();
         }
@@ -85,11 +86,10 @@ namespace Amazon.JSII.Runtime.Services
             catch (Exception e)
             {
                 // We won't re-throw here, pretend everything's OK
-                Console.Error.WriteLine($"Error cleaning up child process: {e}");
+                _logger.LogError(e, $"Error cleaning up child process: {e.Message}");
             }
             finally
             {
-                _process.Dispose();
                 // Reset the Jsii assembly cache, this process can no longer be used!
                 JsiiTypeAttributeBase.Reset();
             }
