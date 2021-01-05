@@ -36,7 +36,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 serviceCollection.AddSingleton<IClient>(Substitute.For<IClient>());
                 serviceCollection.AddTransient<IClient>(sp => Substitute.For<IClient>());
 
-                IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+                ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
                 ServiceContainer.ServiceProviderOverride = serviceProvider;
 
                 _typeCache.TryGetClassType("myClassFqn").Returns(typeof(TestClass));
@@ -223,7 +223,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 TestClass myClass = new TestClass(byRef);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, myClass, out object? actual);
-                
+
                 Assert.True(success);
                 Assert.Equal(JObject.FromObject(byRef), actual);
                 _referenceMap.Received().AddNativeReference(byRef, myClass);
@@ -240,7 +240,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                
+
                 var expected = new JObject {
                     new JProperty("$jsii.enum", "myEnumFqn/MyMember2")
                 };
@@ -311,7 +311,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                         ""myKey2"": ""myValue2""
                     }
                 }");
-                
+
                 Assert.True(JToken.DeepEquals(expected, actual as JObject),
                     $"Expected: {expected}\nActual:   {actual}");
             }
@@ -423,7 +423,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     }
                 );
             }
-            
+
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElementsWithMapOfAny))]
             public void RecursivelyConvertsMapElementsWithMapOfAny()
             {
@@ -468,7 +468,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 Assert.True(JToken.DeepEquals(expected, actual as JObject),
                     $"Expected: {expected}\nActual:   {actual}");
             }
-            
+
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElementsWithArrayOfAny))]
             public void RecursivelyConvertsMapElementsWithArrayOfAny()
             {
@@ -503,7 +503,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                         ""key2"": [false]
                     }
                 }");
-                
+
                 Assert.True(JToken.DeepEquals(expected, actual as JObject),
                     $"Expected: {expected}\nActual:   {actual}");
             }

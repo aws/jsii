@@ -8,8 +8,8 @@ namespace Amazon.JSII.Runtime.Services
 {
     internal sealed class ResourceExtractor : IResourceExtractor
     {
-        readonly IDictionary<string, string> _bags = new Dictionary<string, string>();
-        readonly IFileSystem _fileSystem;
+        private readonly IDictionary<string, string> _bags = new Dictionary<string, string>();
+        private readonly IFileSystem _fileSystem;
 
         public ResourceExtractor(IFileSystem fileSystem)
         {

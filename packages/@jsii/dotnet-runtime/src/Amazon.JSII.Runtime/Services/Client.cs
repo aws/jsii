@@ -29,12 +29,12 @@ namespace Amazon.JSII.Runtime.Services
 
     internal sealed class Client : IClient
     {
-        readonly IFileSystem _fileSystem;
-        readonly IRuntime _runtime;
-        readonly IReferenceMap _referenceMap;
-        readonly IFrameworkToJsiiConverter _frameworkToJsiiConverter;
-        readonly ILoadedPackageSet _loadedPackages;
-        readonly ILogger _logger;
+        private readonly IFileSystem _fileSystem;
+        private readonly IRuntime _runtime;
+        private readonly IReferenceMap _referenceMap;
+        private readonly IFrameworkToJsiiConverter _frameworkToJsiiConverter;
+        private readonly ILoadedPackageSet _loadedPackages;
+        private readonly ILogger _logger;
 
         public Client
         (

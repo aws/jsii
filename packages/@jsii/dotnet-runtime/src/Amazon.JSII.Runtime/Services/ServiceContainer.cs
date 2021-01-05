@@ -9,16 +9,16 @@ namespace Amazon.JSII.Runtime.Services
 {
     public static class ServiceContainer
     {
-        private static readonly Lazy<IServiceProvider> _serviceProvider = new Lazy<IServiceProvider>(
+        private static readonly Lazy<ServiceProvider> _serviceProvider = new Lazy<ServiceProvider>(
             () => BuildServiceProvider(),
             LazyThreadSafetyMode.ExecutionAndPublication
         );
 
-        public static IServiceProvider? ServiceProviderOverride { get; set; }
+        public static ServiceProvider? ServiceProviderOverride { get; set; }
 
-        internal static IServiceProvider ServiceProvider => ServiceProviderOverride ?? _serviceProvider.Value;
+        internal static ServiceProvider ServiceProvider => ServiceProviderOverride ?? _serviceProvider.Value;
 
-        public static IServiceProvider BuildServiceProvider(ILoggerFactory? loggerFactoryOverride = null)
+        public static ServiceProvider BuildServiceProvider(ILoggerFactory? loggerFactoryOverride = null, bool disposeOnProcessExit = true)
         {
             IServiceCollection serviceCollection = new ServiceCollection();
 
@@ -41,11 +41,27 @@ namespace Amazon.JSII.Runtime.Services
             serviceCollection.AddSingleton<INodeProcess, NodeProcess>();
             serviceCollection.AddSingleton<IRuntime, Runtime>();
             serviceCollection.AddSingleton<IResourceExtractor, ResourceExtractor>();
-            serviceCollection.AddTransient<IClient, Client>();
+            serviceCollection.AddSingleton<IClient, Client>();
 
-            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-            IClient client = serviceProvider.GetRequiredService<IClient>();
-            client.Hello();
+            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
+            if (disposeOnProcessExit)
+            {
+                // Registering shutdown hook to have JS process gracefully terminate.
+                AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
+                    try
+                    {
+                        serviceProvider.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        // If this throws, the app would crash ugly!
+                        Console.Error.WriteLine($"Error cleaning up {nameof(ServiceProvider)}: {e}");
+                    }
+                };
+            }
+
+            serviceProvider.GetRequiredService<IClient>().Hello();
 
             return serviceProvider;
         }

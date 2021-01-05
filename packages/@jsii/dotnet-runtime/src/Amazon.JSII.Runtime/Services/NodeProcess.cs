@@ -55,19 +55,6 @@ namespace Amazon.JSII.Runtime.Services
             logger.LogDebug("Starting jsii runtime...");
             logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
 
-            // Registering shutdown hook to have JS process gracefully terminate.
-            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
-                try
-                {
-                    ((IDisposable)this).Dispose();
-                }
-                catch (Exception e)
-                {
-                    // If this throws, the app would crash ugly!
-                    Console.Error.WriteLine($"Error cleaning up {nameof(NodeProcess)}: {e}");
-                }
-            };
-
             _process.Start();
         }
 
@@ -85,22 +72,19 @@ namespace Amazon.JSII.Runtime.Services
                 return;
             }
 
-            StandardInput.Close();
             try
             {
+                StandardInput.Close();
                 if (!_process.WaitForExit(5_000))
                 {
                     // The process didn't exit in time... Let's kill it.
                     _process.Kill(true);
                 }
             }
-            catch (InvalidOperationException)
+            catch (Exception e)
             {
-                // The process has already died, we're good!
-            }
-            catch (SystemException)
-            {
-                // The process has already died, we're good!
+                // We won't re-throw here, pretend everything's OK
+                Console.Error.WriteLine($"Error cleaning up child process: {e}");
             }
             finally
             {

@@ -14,6 +14,8 @@ namespace Amazon.JSII.Runtime.Services
     [GeneratedCode("${path.basename(__filename)}", "${version}")]
     internal sealed class JsiiRuntimeProvider : IJsiiRuntimeProvider
     {
+        private const string BAG_NAME = "jsii-runtime";
+
         public JsiiRuntimeProvider(IResourceExtractor resourceExtractor)
         {
             // deploy embedded resources to the temp directory
@@ -55,7 +57,7 @@ function extractResource(name) {
   // Resource names are "."-delimited (and not "/"-delimited)
   const resourceName = `Amazon.JSII.Runtime.jsii_runtime.${parts.join('.')}`;
 
-  const extract = `resourceExtractor.ExtractResource(assembly, "${resourceName}", "jsii-runtime", "${name}");`;
+  const extract = `resourceExtractor.ExtractResource(assembly, "${resourceName}", BAG_NAME, "${name}");`;
 
   if (name === entryPoint) {
     return `JsiiRuntimePath = ${extract}`;

@@ -10,17 +10,18 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy
     {
         const string Prefix = "Runtime.Deputy." + nameof(DeputyBase) + ".";
 
-        private readonly IServiceProvider _serviceProvider;
+        private readonly ServiceProvider _serviceProvider;
 
         public DeputyBaseTests()
         {
-            _serviceProvider = ServiceContainer.BuildServiceProvider();
+            _serviceProvider = ServiceContainer.BuildServiceProvider(disposeOnProcessExit: false);
             ServiceContainer.ServiceProviderOverride = _serviceProvider;
         }
 
         void IDisposable.Dispose()
         {
-            _serviceProvider.GetRequiredService<INodeProcess>().Dispose();
+            ServiceContainer.ServiceProviderOverride = null;
+            _serviceProvider.Dispose();
         }
 
         [Fact(DisplayName = Prefix + nameof(CanCastToAnyInterface))]

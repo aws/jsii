@@ -32,7 +32,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 serviceCollection.AddSingleton<IReferenceMap>(_referenceMap);
                 serviceCollection.AddSingleton<IJsiiToFrameworkConverter>(_converter);
 
-                IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+                ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
                 ServiceContainer.ServiceProviderOverride = serviceProvider;
 
                 _typeCache.GetFrameworkType(Arg.Is<TypeReference>(r => r.Primitive == PrimitiveType.Any), Arg.Any<Boolean>())
