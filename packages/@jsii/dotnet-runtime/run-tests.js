@@ -9,10 +9,6 @@ let nodeOptions = process.allowedNodeEnvironmentFlags.has(FLAG)
   ? `${process.env.NODE_OPTIONS || ''} ${FLAG}`.trim()
   : process.env.NODE_OPTIONS;
 
-if (process.platform === 'win32') {
-  cp.spawnSync('tasklist', ['/v'], { stdio: 'inherit' });
-}
-
 const result = cp.spawnSync(
   'dotnet',
   [
@@ -27,24 +23,21 @@ const result = cp.spawnSync(
       ...process.env,
       NODE_OPTIONS: nodeOptions,
     },
-    shell: false,
-    stdio: 'inherit',
-    windowsHide: true,
+    shell: true,
+    stdio: ['ignore', 'inherit', 'inherit'],
   },
 );
 
 console.error(`dotnet CLI returned: ${JSON.stringify(result, null, 2)}`);
-
-if (process.platform === 'win32') {
-  cp.spawnSync('tasklist', ['/v'], { stdio: 'inherit' });
-}
 
 if (result.error) {
   throw result.error;
 }
 
 if (result.signal) {
-  process.exit(-os.constants.signals[result.signal]);
+  const exitCode = -os.constants.signals[result.signal];
+  console.error(`Exiting with code ${exitCode} due to signal ${result.signal}`);
+  process.exit(exitCode);
 }
 
 process.exit(result.status);
