@@ -6,7 +6,7 @@ const process = require('process');
 const FLAG = '--experimental-worker';
 
 let nodeOptions = process.allowedNodeEnvironmentFlags.has(FLAG)
-  ? `${process.env.NODE_OPTIONS ?? ''} ${FLAG}`.trim()
+  ? `${process.env.NODE_OPTIONS || ''} ${FLAG}`.trim()
   : process.env.NODE_OPTIONS;
 
 if (process.platform === 'win32') {
