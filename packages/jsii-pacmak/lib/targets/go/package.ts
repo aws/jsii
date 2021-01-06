@@ -221,7 +221,13 @@ export class RootPackage extends Package {
     code.line(`go ${GO_VERSION}`);
     code.line();
     code.open('require (');
-    code.line(`${JSII_RT_MODULE_NAME} v${this.assembly.jsiiVersion}`);
+    // Strip " (build abcdef)" from the jsii version
+    code.line(
+      `${JSII_RT_MODULE_NAME} v${this.assembly.jsiiVersion.replace(
+        / .*$/,
+        '',
+      )}`,
+    );
     for (const dep of this.packageDependencies) {
       code.line(`${dep.goModuleName} v${dep.version}`);
     }
