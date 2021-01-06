@@ -34,7 +34,12 @@ namespace Amazon.JSII.Runtime.Services
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "node",
-                    ArgumentList = { "--max-old-space-size=4096", runtimePath },
+                    // Always pass --experimental-worker; the flag is ignored by recent node releases (> 12) where the
+                    // feature is no longer flagged, so this ought to be safe to do. If it changes in the future, we
+                    // can check for whether the option is acceptable or not by consulting the output of the following:
+                    // `node -p "process.allowedNodeEnvironmentFlags.has('--experimental-worker')"`. Deciding not to do
+                    // this now because the overhead seems excessive.
+                    ArgumentList = { "--experimental-worker", "--max-old-space-size=4096", runtimePath },
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardInput = true,
