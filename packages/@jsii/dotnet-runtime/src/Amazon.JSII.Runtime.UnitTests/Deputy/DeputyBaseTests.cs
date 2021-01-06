@@ -2,11 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 using System;
 using Amazon.JSII.Runtime.Services;
 using Microsoft.Extensions.DependencyInjection;
+using NSubstitute;
 using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.Deputy
 {
-    public sealed class DeputyBaseTests: IDisposable
+    public sealed class DeputyBaseTests
     {
         const string Prefix = "Runtime.Deputy." + nameof(DeputyBase) + ".";
 
@@ -14,14 +15,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy
 
         public DeputyBaseTests()
         {
-            _serviceProvider = ServiceContainer.BuildServiceProvider(disposeOnProcessExit: false);
-            ServiceContainer.ServiceProviderOverride = _serviceProvider;
-        }
-
-        void IDisposable.Dispose()
-        {
-            ServiceContainer.ServiceProviderOverride = null;
-            _serviceProvider.Dispose();
+            ServiceContainer.ServiceProviderOverride = _serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton<IReferenceMap, ReferenceMap>()
+                .AddSingleton<ITypeCache, TypeCache>()
+                .BuildServiceProvider();
         }
 
         [Fact(DisplayName = Prefix + nameof(CanCastToAnyInterface))]
