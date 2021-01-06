@@ -13,9 +13,8 @@ const result = cp.spawnSync(
   'dotnet',
   [
     'test',
-    '--no-restore',
-    '-c',
-    'Release',
+    '--no-build',
+    '--configuration=Release',
     path.join(__dirname, 'src', 'Amazon.JSII.Runtime.sln'),
   ],
   {

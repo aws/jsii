@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazon.JSII.Runtime.UnitTests", "Amazon.JSII.Runtime.UnitTests\Amazon.JSII.Runtime.UnitTests.csproj", "{96CC0C0B-1D90-448F-9BFC-07CE93D2CE29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.JsonModel", "Amazon.JSII.JsonModel\Amazon.JSII.JsonModel.csproj", "{7F452D41-33A6-4C58-A7CB-4030142EE1F2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Analyzers", "Amazon.JSII.Analyzers\Amazon.JSII.Analyzers.csproj", "{0BD8DC3F-CB0A-4299-93E4-1496181F054E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Analyzers.UnitTests", "Amazon.JSII.Analyzers.UnitTests\Amazon.JSII.Analyzers.UnitTests.csproj", "{17D77476-5C95-4C13-8023-08664AA5F801}"

@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -10,10 +11,12 @@ namespace Amazon.JSII.Runtime.Services
     {
         private readonly IDictionary<string, string> _bags = new Dictionary<string, string>();
         private readonly IFileSystem _fileSystem;
+        private readonly ILogger _logger;
 
-        public ResourceExtractor(IFileSystem fileSystem)
+        public ResourceExtractor(IFileSystem fileSystem, ILogger logger)
         {
             _fileSystem = fileSystem;
+            _logger = logger;
         }
 
         public string ExtractResource(Assembly assembly, string resourceName, string bag, string? fileName)
@@ -51,7 +54,14 @@ namespace Amazon.JSII.Runtime.Services
         {
             foreach (var workdir in _bags.Values)
             {
-                Directory.Delete(workdir, true);
+                try
+                {
+                    Directory.Delete(workdir, true);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, $"Error cleaning up working directory {workdir}: {e.Message}");
+                }
             }
         }
     }
