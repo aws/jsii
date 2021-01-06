@@ -9,7 +9,6 @@
  */
 
 import * as child from 'child_process';
-import * as os from 'os';
 import * as process from 'process';
 
 try {
@@ -33,23 +32,12 @@ try {
     process.exit(-1);
   }
 
-  const result = child.spawnSync(
+  // Will throw if non-0 exit is encountered.
+  child.execFileSync(
     process.execPath,
     ['--experimental-worker', ...process.execArgv, ...process.argv.slice(1)],
-    {
-      argv0: process.argv0,
-      shell: process.platform === 'win32',
-      stdio: 'inherit',
-      windowsHide: true,
-    },
+    { stdio: 'inherit' },
   );
 
-  if (result.error) {
-    throw result.error;
-  } else if (result.signal != null) {
-    // Convention is that a process killed by signal exits with 128+signal
-    process.exit(os.constants.signals[result.signal as NodeJS.Signals] + 128);
-  } else {
-    process.exit(result.status ?? -1);
-  }
+  process.exit(0);
 }
