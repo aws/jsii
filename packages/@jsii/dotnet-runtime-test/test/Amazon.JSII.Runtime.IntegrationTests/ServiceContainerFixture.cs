@@ -1,5 +1,6 @@
-using System;
 using Amazon.JSII.Runtime.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using Xunit.Abstractions;
 
 namespace Amazon.JSII.Runtime.IntegrationTests
@@ -11,11 +12,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Environment.SetEnvironmentVariable("JSII_DEBUG", "true");
         }
 
+        private ServiceProvider? _serviceProvider = null;
+
         public void SetOverride(ITestOutputHelper outputHelper)
         {
             if (ServiceContainer.ServiceProviderOverride == null)
             {
-                ServiceContainer.ServiceProviderOverride = ServiceContainer.BuildServiceProvider(
+                _serviceProvider = ServiceContainer.ServiceProviderOverride = ServiceContainer.BuildServiceProvider(
                     new XUnitLoggerFactory(outputHelper),
                     disposeOnProcessExit: false
                 );
@@ -24,7 +27,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
         void IDisposable.Dispose()
         {
-            ServiceContainer.ServiceProviderOverride?.Dispose();
+            _serviceProvider?.Dispose();
             ServiceContainer.ServiceProviderOverride = null;
         }
     }

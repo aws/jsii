@@ -74,39 +74,13 @@ namespace Amazon.JSII.Runtime.Services
 
         void IDisposable.Dispose()
         {
-            if (_process.HasExited)
-            {
-                // Process already cleaned up, nothing to do!
-                return;
-            }
+            StandardInput.Dispose();
+            StandardOutput.Dispose();
+            StandardError.Dispose();
+            _process.Dispose();
 
-            try
-            {
-                try
-                {
-                    StandardInput.Close();
-                }
-                finally
-                {
-                    // Give the child process a chance to exit...
-                    _process.WaitForExit(5_000);
-                }
-            }
-            catch (Exception e)
-            {
-                // We won't re-throw here, pretend everything's OK
-                _logger.LogError(e, $"Error cleaning up child process: {e.Message}");
-            }
-            finally
-            {
-                // Reset the Jsii assembly cache, this process can no longer be used!
-                JsiiTypeAttributeBase.Reset();
-
-                StandardInput.Dispose();
-                StandardOutput.Dispose();
-                StandardError.Dispose();
-                _process.Dispose();
-            }
+            // Reset the Jsii assembly cache, this process can no longer be used!
+            JsiiTypeAttributeBase.Reset();
         }
 
         /// <summary>
