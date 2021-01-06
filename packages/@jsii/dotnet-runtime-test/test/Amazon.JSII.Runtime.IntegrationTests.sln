@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Runtime.Integra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Runtime", "..\..\dotnet-runtime\src\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj", "{CA2CBE1C-5435-416B-B4E6-22D1FABA8AFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.JsonModel", "..\..\dotnet-runtime\src\Amazon.JSII.JsonModel\Amazon.JSII.JsonModel.csproj", "{1E0BFD79-D221-425D-ADFF-1DF939BCFC58}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Amazon.JSII.Runtime.IntegrationTests.FSharp", "Amazon.JSII.Runtime.IntegrationTests.FSharp\Amazon.JSII.Runtime.IntegrationTests.FSharp.fsproj", "{224406B0-12D5-408C-91E9-7420F72C2855}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "generated", "generated", "{5B76E4C5-B66F-4263-87A4-111E944AB744}"
