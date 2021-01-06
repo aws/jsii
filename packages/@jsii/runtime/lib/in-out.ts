@@ -14,7 +14,7 @@ export type Input =
   | { complete: api.CompleteRequest };
 
 export interface IInputOutput {
-  read(): Input | undefined;
+  read(): Input | { exit: number } | undefined;
   write(obj: Output): void;
 }
 

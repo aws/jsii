@@ -21,7 +21,7 @@ describe(`replay records in ${recordsDir}`, () => {
       const inout = new PlaybackInputOutput(record);
       const host = new KernelHost(inout, { noStack: true, debug: false });
 
-      host.on('exit', () => {
+      host.once('exit', () => {
         done(inout.expectCompleted());
       });
 

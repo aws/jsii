@@ -27,7 +27,7 @@ test('can load libraries from within a callback', () => {
   ]);
   const host = new KernelHost(inout, { noStack: true, debug: false });
   return new Promise<void>((ok) => {
-    host.on('exit', () => ok(inout.expectCompleted()));
+    host.once('exit', () => ok(inout.expectCompleted()));
     host.run();
   });
 });

@@ -20,4 +20,7 @@ const host = new KernelHost(inout, { debug, noStack });
 inout.write({ hello: `${name}@${version}` });
 inout.debug = debug; // we don't want "hello" emitted
 
+// Wire exit handler to run `process.exit(exitCode)`.
+host.once('exit', (code) => process.exit(code));
+
 host.run();

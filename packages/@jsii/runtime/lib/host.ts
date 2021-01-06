@@ -16,8 +16,9 @@ export class KernelHost {
 
   public run() {
     const req = this.inout.read();
-    if (!req) {
-      this.eventEmitter.emit('exit');
+    if (!req || 'exit' in req) {
+      const exitCode = req?.exit ?? 0;
+      this.eventEmitter.emit('exit', exitCode);
       return; // done
     }
 
@@ -28,8 +29,8 @@ export class KernelHost {
     });
   }
 
-  public on(event: 'exit', listener: () => void) {
-    this.eventEmitter.on(event, listener);
+  public once(event: 'exit', listener: (code: number) => void) {
+    this.eventEmitter.once(event, listener);
   }
 
   private callbackHandler(callback: api.Callback) {
@@ -42,7 +43,7 @@ export class KernelHost {
 
     function completeCallback(this: KernelHost): void {
       const req = this.inout.read();
-      if (!req) {
+      if (!req || 'exit' in req) {
         throw new Error('Interrupted before callback returned');
       }
 
