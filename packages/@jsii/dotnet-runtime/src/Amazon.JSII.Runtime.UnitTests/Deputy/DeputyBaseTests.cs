@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.Deputy
 {
-    public sealed class DeputyBaseTests
+    public sealed class DeputyBaseTests: IDisposable
     {
         const string Prefix = "Runtime.Deputy." + nameof(DeputyBase) + ".";
 
@@ -20,6 +20,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy
                 .AddSingleton<IReferenceMap, ReferenceMap>()
                 .AddSingleton<ITypeCache, TypeCache>()
                 .BuildServiceProvider();
+        }
+
+        void IDisposable.Dispose()
+        {
+            ServiceContainer.ServiceProviderOverride = null;
         }
 
         [Fact(DisplayName = Prefix + nameof(CanCastToAnyInterface))]

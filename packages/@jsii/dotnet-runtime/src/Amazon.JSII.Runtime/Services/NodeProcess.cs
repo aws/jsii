@@ -36,6 +36,7 @@ namespace Amazon.JSII.Runtime.Services
                     FileName = "node",
                     ArgumentList = { "--max-old-space-size=4096", runtimePath },
                     CreateNoWindow = true,
+                    UseShellExecute = false,
                     RedirectStandardInput = true,
                     StandardInputEncoding = utf8,
                     RedirectStandardOutput = true,
@@ -76,11 +77,17 @@ namespace Amazon.JSII.Runtime.Services
 
             try
             {
-                StandardInput.Close();
-                if (!_process.WaitForExit(5_000))
+                try
                 {
-                    // The process didn't exit in time... Let's kill it.
-                    _process.Kill(true);
+                    StandardInput.Close();
+                }
+                finally
+                {
+                    if (!_process.WaitForExit(5_000))
+                    {
+                        // The process didn't exit in time... Let's kill it.
+                        _process.Kill(true);
+                    }
                 }
             }
             catch (Exception e)
