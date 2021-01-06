@@ -13,10 +13,10 @@ namespace Amazon.JSII.Runtime.Services
         private readonly IFileSystem _fileSystem;
         private readonly ILogger _logger;
 
-        public ResourceExtractor(IFileSystem fileSystem, ILogger logger)
+        public ResourceExtractor(IFileSystem fileSystem, ILoggerFactory loggerFactory)
         {
             _fileSystem = fileSystem;
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<ResourceExtractor>();
         }
 
         public string ExtractResource(Assembly assembly, string resourceName, string bag, string? fileName)
