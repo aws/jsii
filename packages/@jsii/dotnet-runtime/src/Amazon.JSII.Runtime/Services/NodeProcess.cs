@@ -77,6 +77,9 @@ namespace Amazon.JSII.Runtime.Services
             StandardInput.Dispose();
             StandardOutput.Dispose();
             StandardError.Dispose();
+
+            _process.WaitForExit();
+
             _process.Dispose();
 
             // Reset the Jsii assembly cache, this process can no longer be used!
