@@ -23,7 +23,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
 
         void IDisposable.Dispose()
-    {
+        {
             ServiceContainer.ServiceProviderOverride?.Dispose();
             ServiceContainer.ServiceProviderOverride = null;
         }

@@ -83,11 +83,8 @@ namespace Amazon.JSII.Runtime.Services
                 }
                 finally
                 {
-                    if (!_process.WaitForExit(5_000))
-                    {
-                        // The process didn't exit in time... Let's kill it.
-                        _process.Kill(true);
-                    }
+                    // Give the child process a chance to exit...
+                    _process.WaitForExit(5_000);
                 }
             }
             catch (Exception e)
@@ -99,6 +96,11 @@ namespace Amazon.JSII.Runtime.Services
             {
                 // Reset the Jsii assembly cache, this process can no longer be used!
                 JsiiTypeAttributeBase.Reset();
+
+                StandardInput.Dispose();
+                StandardOutput.Dispose();
+                StandardError.Dispose();
+                _process.Dispose();
             }
         }
 
