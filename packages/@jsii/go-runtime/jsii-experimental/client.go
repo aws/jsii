@@ -132,7 +132,12 @@ func newClient() (*client, error) {
 		// garbage collection (the kernel API only allows the host library to report object deleting,
 		// but in order to be effective, the jsii kernel needs to also have a way to signal objects it
 		// no longer has a reference to).
-		clientinstance.process = exec.Command("node", "--max-old-space-size=4069", entrypoint)
+		//
+		// --experimental-worker enables the worker_threads module on node < 12. It is silently ignore
+		// on nodes >= 12. If a future node was to no longer accept the option, one could inspect the
+		// result of `node -p "process.allowedNodeEnvironmentFlags.has('--experimental-worker')"` to
+		// termine if the option is accepted or not.
+		clientinstance.process = exec.Command("node", "--experimental-worker", "--max-old-space-size=4069", entrypoint)
 	}
 
 	clientinstance.process.Env = append(
@@ -250,6 +255,7 @@ func (c *client) sset(request staticSetRequest) (setResponse, error) {
 
 func (c *client) close() {
 	if c.process != nil {
+		c.stdin.Write([]byte("{\"exit\":0}\n"))
 		c.stdin.Close()
 		c.process.Wait()
 	}
