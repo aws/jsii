@@ -9,6 +9,7 @@ import * as vm from 'vm';
 import * as api from './api';
 import { TOKEN_REF } from './api';
 import { ObjectTable, tagJsiiConstructor } from './objects';
+import * as onExit from './on-exit';
 import * as wire from './serialization';
 
 export class Kernel {
@@ -531,12 +532,7 @@ export class Kernel {
       fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
       this._debug('creating jsii-kernel modules workdir:', this.installDir);
 
-      process.on('exit', () => {
-        if (this.installDir) {
-          this._debug('removing install dir', this.installDir);
-          fs.removeSync(this.installDir); // can't use async version during exit
-        }
-      });
+      onExit.removeSync(this.installDir);
     }
     return path.join(this.installDir, 'node_modules', pkgname);
   }
