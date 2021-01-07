@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -47,8 +48,6 @@ namespace Amazon.JSII.Runtime.Services
                     StandardInputEncoding = utf8,
                     RedirectStandardOutput = true,
                     StandardOutputEncoding = utf8,
-                    RedirectStandardError = true,
-                    StandardErrorEncoding = utf8
                 }
             };
 
@@ -62,17 +61,24 @@ namespace Amazon.JSII.Runtime.Services
                 _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debug);
 
             _logger.LogDebug("Starting jsii runtime...");
-            _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
+            _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.ArgumentList}");
 
             _process.Start();
+
+            // Registering shutdown hook to have JS process gracefully terminate.
+            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
+                ((IDisposable)this).Dispose();
+            };
+
+            StandardInput = _process.StandardInput;
+            StandardOutput = _process.StandardOutput;
         }
 
-        public TextWriter StandardInput => _process.StandardInput;
+        public TextWriter StandardInput { get; }
 
-        public TextReader StandardOutput => _process.StandardOutput;
+        public TextReader StandardOutput { get; }
 
-        public TextReader StandardError => _process.StandardError;
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void IDisposable.Dispose()
         {
             if (_disposed)
@@ -90,7 +96,6 @@ namespace Amazon.JSII.Runtime.Services
             _process.WaitForExit(5_000);
 
             StandardOutput.Dispose();
-            StandardError.Dispose();
 
             if (!_process.HasExited)
             {
