@@ -18,6 +18,7 @@ namespace Amazon.JSII.Runtime.Services
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
         private const string JsiiAgentVersionString = "DotNet/{0}/{1}/{2}";
+        private bool _disposed = false;
 
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
@@ -74,9 +75,39 @@ namespace Amazon.JSII.Runtime.Services
 
         void IDisposable.Dispose()
         {
+            if (_disposed)
+            {
+                return;
+            }
+
             StandardInput.WriteLine("{\"exit\":0}");
             StandardInput.Flush();
-            _process.WaitForExit();
+
+            _disposed = true;
+
+            StandardInput.Dispose();
+
+            _process.WaitForExit(5_000);
+
+            StandardOutput.Dispose();
+            StandardError.Dispose();
+
+            if (!_process.HasExited)
+            {
+                try
+                {
+                    _process.Kill(true);
+                }
+                catch (InvalidOperationException)
+                {
+                    // The process had already exited... This is the intended outcome!
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, $"Unable to terminate child process: {ex}");
+                }
+            }
+
             _process.Dispose();
 
             // Reset the Jsii assembly cache, this process can no longer be used!
