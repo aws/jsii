@@ -249,8 +249,18 @@ class _NodeProcess:
 
         jsii_runtime = environ.get("JSII_RUNTIME", self._jsii_runtime())
 
+        # We specify --experimental-worker as this flags is needed in node < 12 to have
+        # worker_threads, and is silently ignore by node >= 12 where it is not necessary. Should the
+        # flag be rejected in the future, we could inspect the result of
+        # `node -p "process.allowedNodeEnvironmentFlags.has('--experimental-worker')"` to determine
+        # support for the flag.
         self._process = subprocess.Popen(
-            ["node", jsii_runtime],
+            [
+                "node",
+                "--experimental-worker",
+                "--max-old-space-size=4069",
+                jsii_runtime,
+            ],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             env=environ,
