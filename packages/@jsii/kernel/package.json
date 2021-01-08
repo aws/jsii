@@ -33,7 +33,7 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "fs-extra": "^9.0.1",
-    "tar": "^6.0.5"
+    "tar": "^6.1.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
