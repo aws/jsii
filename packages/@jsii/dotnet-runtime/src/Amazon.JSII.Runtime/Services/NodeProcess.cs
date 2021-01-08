@@ -6,13 +6,16 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Text;
+using System.Threading;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Amazon.JSII.Runtime.Services
 {
     internal sealed class NodeProcess : INodeProcess
     {
         readonly Process _process;
+        private readonly Thread _stderrSink;
         readonly ILogger _logger;
 
         private const string JsiiRuntime = "JSII_RUNTIME";
@@ -40,6 +43,8 @@ namespace Amazon.JSII.Runtime.Services
                 StandardInputEncoding = utf8,
                 RedirectStandardOutput = true,
                 StandardOutputEncoding = utf8,
+                RedirectStandardError = true,
+                StandardErrorEncoding = utf8,
                 UseShellExecute = false,
             };
 
@@ -64,6 +69,41 @@ namespace Amazon.JSII.Runtime.Services
 
             StandardInput = _process.StandardInput;
             StandardOutput = _process.StandardOutput;
+
+            _stderrSink = new Thread(StderrSink);
+            // Background threads don't prevent the VM from exiting
+            _stderrSink.IsBackground = true;
+            _stderrSink.Start();
+
+            void StderrSink()
+            {
+                string? line;
+                using (Stream stderr = Console.OpenStandardError())
+                using (Stream stdout = Console.OpenStandardOutput())
+                {
+                    while ((line = _process.StandardError.ReadLine()) != null)
+                    {
+                        try {
+                            var entry = JsonConvert.DeserializeObject<ConsoleEntry>(line);
+                            if (entry.Stderr != null)
+                            {
+                                byte[] buffer = Convert.FromBase64String(entry.Stderr);
+                                stderr.Write(buffer, 0, buffer.Length);
+                            }
+                            if (entry.Stdout != null)
+                            {
+                                byte[] buffer = Convert.FromBase64String(entry.Stdout);
+                                stdout.Write(buffer, 0, buffer.Length);
+                            }
+                        }
+                        catch
+                        {
+                            // Could not parse line - so just coying to stderr
+                            Console.Error.WriteLine(line);
+                        }
+                    }
+                }
+            }
         }
 
         public TextWriter StandardInput { get; }
@@ -94,6 +134,9 @@ namespace Amazon.JSII.Runtime.Services
                     // Kill the child process if needed
                     _process.Kill();
                 }
+
+                // Give the STDERR sink thread 5 seconds to finish consuming outstanding buffers
+                _stderrSink.Join(5_000);
             }
             catch (InvalidOperationException)
             {
@@ -124,5 +167,11 @@ namespace Amazon.JSII.Runtime.Services
                 assemblyFileVersionAttribute?.Version ?? "Unknown"
             );
         }
+
+        private sealed class ConsoleEntry
+        {
+            public string? Stderr { get; set; }
+            public string? Stdout { get; set; }
+    }
     }
 }

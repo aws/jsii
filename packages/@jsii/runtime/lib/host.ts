@@ -1,14 +1,14 @@
 import { api, Kernel } from '@jsii/kernel';
 import { EventEmitter } from 'events';
 
-import { Input, InputOutput } from './in-out';
+import { Input, IInputOutput } from './in-out';
 
 export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));
   private readonly eventEmitter = new EventEmitter();
 
   public constructor(
-    private readonly inout: InputOutput,
+    private readonly inout: IInputOutput,
     private readonly opts: { debug?: boolean; noStack?: boolean } = {},
   ) {
     this.kernel.traceEnabled = opts.debug ? true : false;
