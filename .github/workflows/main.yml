@@ -466,3 +466,75 @@ jobs:
           path: |-
             ${{ github.workspace }}/aws-cdk/dist/
             ${{ github.workspace }}/aws-cdk/**/dist/
+  push-go-runtime:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node 12
+        uses: actions/setup-node@v2.1.4
+        with:
+          node-version: '12'
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: built-tree
+      - name: Extract Artifact
+        run: |-
+          echo "::group::Untar Archive"
+          tar Jxvf built-tree.tar.xz
+          echo "::endgroup"
+
+          rm built-tree.tar.xz
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies
+        run: |-
+          yarn install --frozen-lockfile
+      - name: Build Runtime Repo Directory
+        id: build-repo-dir
+        run: |-
+          REPO_DIR=$(mktemp -d)
+          echo "::set-output name=repodir::$REPO_DIR"
+      - name: Clone Runtime
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ secrets.JSII_RUNTIME_REPO_NAME }}
+          ref: 'main'
+          token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
+          path: ${{ steps.build-repo-dir.outputs.repodir }}
+      - name: Copy Runtime Files
+        working-directory: ${{ github.workspace }}/packages/@jsii/go-runtime
+        run: |-
+          yarn ts-node ./build-tools/build-repo-dir.ts ${{ steps.build-repo-dir.outputs.repodir }}
+      - name: Check for changes
+        id: check-for-changes
+        working-directory: ${{ steps.build-repo-dir.outputs.repodir }}
+        run: |-
+          git fetch --depth=1 --quiet origin main
+          git add .
+          # Check for modifications in tracked files
+          changed=$(git diff --name-only origin/main)
+          if [-z "$changed"]; then
+            echo "::set-output name=result::false"
+          else
+            echo "::set-output name=result::true"
+          fi
+      - name: Commit and Push
+        if: steps.check-for-changes.outputs.result == 'true'
+        run: |-
+          MESSAGE=$(git log -1 --format=%s)
+          cd ${{ steps.build-repo-dir.outputs.repodir }}
+          git config user.name ${{ secrets.JSII_RUNTIME_REPO_USERNAME }}
+          git config user.email "aws-cdk+automation@amazon.com"
+          git commit -m "$MESSAGE"
+          git push main
+      - name: Tag Release
+        if: github.ref == 'refs/head/release'
+        run: |-
+          VERSION=$(node -e 'console.log(require("./lerna.json").version)')
+          cd ${{ steps.build-repo-dir.outputs.repodir }}
+          git tag -a $VERSION -m "Release v$VERSION"
+          git push $VERSION
