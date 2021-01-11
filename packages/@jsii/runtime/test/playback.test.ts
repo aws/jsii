@@ -22,7 +22,8 @@ describe(`replay records in ${recordsDir}`, () => {
       const host = new KernelHost(inout, { noStack: true, debug: false });
 
       return new Promise<void>((ok) => {
-        host.on('exit', () => {
+        host.once('exit', (code) => {
+          expect(code).toBe(0);
           ok(inout.expectCompleted());
         });
 

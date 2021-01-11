@@ -13,6 +13,8 @@ export type Input =
   | ({ api: string } & api.KernelRequest)
   | { complete: api.CompleteRequest };
 
+export type Exit = { exit: number };
+
 /**
  * An IO provider for jsii API exchanges.
  */
@@ -29,7 +31,7 @@ export interface IInputOutput {
    * @returns the received message, or `undefined` if the API host has no more
    *          requests to send.
    */
-  read(): Input | undefined;
+  read(): Input | Exit | undefined;
 }
 
 export class InputOutput implements IInputOutput {

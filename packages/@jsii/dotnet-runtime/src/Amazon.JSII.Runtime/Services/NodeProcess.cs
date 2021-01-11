@@ -71,6 +71,7 @@ namespace Amazon.JSII.Runtime.Services
             StandardOutput = _process.StandardOutput;
 
             _stderrSink = new Thread(StderrSink);
+            _stderrSink.Name = "NodeProcess.StderrSink";
             // Background threads don't prevent the VM from exiting
             _stderrSink.IsBackground = true;
             _stderrSink.Start();
@@ -124,6 +125,8 @@ namespace Amazon.JSII.Runtime.Services
                 return;
             }
 
+            // Write "exit" message
+            StandardInput.WriteLine("{\"exit\":0}");
             // Closing the jsii Kernel's STDIN is how we instruct it to shut down
             StandardInput.Close();
 

@@ -285,6 +285,7 @@ func (c *client) sset(request staticSetRequest) (setResponse, error) {
 
 func (c *client) close() {
 	if c.process != nil {
+		c.stdin.Write([]byte("{\"exit\":0}\n"))
 		c.stdin.Close()
 		c.process.Wait()
 	}

@@ -174,8 +174,9 @@ public final class JsiiRuntime {
 
     synchronized void terminate() {
         try {
-            // The jsii Kernel process exists after having reached EOF on it's STDIN, so we close it first:
+            // The jsii Kernel process exists after having received the "exit" message
             if (stdin != null) {
+                stdin.write("{\"exit\":0}\n");
                 stdin.close();
                 stdin = null;
             }
