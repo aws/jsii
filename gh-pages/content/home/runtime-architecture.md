@@ -106,6 +106,15 @@ describing the process arrangement that achieves this:
 
 The *Wrapper* process manages the *Core* process such that:
 
+!!! info
+    It would be possible to use a single `node` process (the *`@jsii/runtime`
+    Core* process) for any platform that supposed spawning child processes with
+    additional open file descriptors. This is for example not possible in
+    **Java** and **C#**, which is why this dual-process contraption was devised.
+
+    In such cases, the *Host Application* would spawn the *Core* process and
+    directly operate on the file descriptors as described below.
+
 - Any requests received from the *Host Application* through the *Wrapper*'s
   `STDIN` stream is forwarded to the *Core* process' `FD#3`.
 - Any response written to the *Core*'s `FD#4` stream is forwarded to the *Host
