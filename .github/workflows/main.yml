@@ -490,7 +490,6 @@ jobs:
           rm built-tree.tar.xz
       - name: Get Last Commit Message
         id: get-last-commit-msg
-        if: steps.check-for-changes.outputs.result == 'true'
         working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
           message=$(git log -1 --format=%s)
