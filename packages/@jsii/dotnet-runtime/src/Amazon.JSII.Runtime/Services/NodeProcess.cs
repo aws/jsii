@@ -78,11 +78,13 @@ namespace Amazon.JSII.Runtime.Services
 
             void StderrSink()
             {
+
                 string? line;
+                using (var standardError = _process.StandardError)
                 using (Stream stderr = Console.OpenStandardError())
                 using (Stream stdout = Console.OpenStandardOutput())
                 {
-                    while ((line = _process.StandardError.ReadLine()) != null)
+                    while ((line = standardError.ReadLine()) != null)
                     {
                         try {
                             var entry = JsonConvert.DeserializeObject<ConsoleEntry>(line);
@@ -118,37 +120,37 @@ namespace Amazon.JSII.Runtime.Services
 
             Disposed = true;
 
-            // If the child process has already exited, we simply need to dispose of it
-            if (_process.HasExited)
+            using (_process)
             {
-                _process.Dispose();
-                return;
-            }
-
-            // Write "exit" message
-            StandardInput.WriteLine("{\"exit\":0}");
-            // Closing the jsii Kernel's STDIN is how we instruct it to shut down
-            StandardInput.Close();
-
-            try
-            {
-                // Give the kernel 5 seconds to clean up after itself
-                if (!_process.WaitForExit(5_000)) {
-                    // Kill the child process if needed
-                    _process.Kill();
+                if (!_process.HasExited)
+                {
+                    // Write "exit" message
+                    StandardInput.WriteLine("{\"exit\":0}");;
                 }
+
+                StandardInput.Dispose();
+                StandardOutput.Dispose();
 
                 // Give the STDERR sink thread 5 seconds to finish consuming outstanding buffers
                 _stderrSink.Join(5_000);
-            }
-            catch (InvalidOperationException)
-            {
-                // This means the process had already exited, because it was faster to clean up
-                // than we were to process it's termination. We still re-check if the process has
-                // exited and re-throw if not (meaning it was a different issue).
-                if (!_process.HasExited)
+
+                try
                 {
-                    throw;
+                    // Give the kernel 5 seconds to clean up after itself
+                    if (!_process.WaitForExit(5_000)) {
+                        // Kill the child process if needed
+                        _process.Kill(true /* entire process tree */);
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    // This means the process had already exited, because it was faster to clean up
+                    // than we were to process it's termination. We still re-check if the process has
+                    // exited and re-throw if not (meaning it was a different issue).
+                    if (!_process.HasExited)
+                    {
+                        throw;
+                    }
                 }
             }
         }
