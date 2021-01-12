@@ -510,7 +510,7 @@ jobs:
           token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
           path: ${{ steps.build-repo-dir.outputs.repodir }}
       - name: Copy Runtime Files
-        working-directory: ${{ github.workspace }}/packages/@jsii/go-runtime
+        working-directory: ${{ github.workspace }}/jsii-built-tree/packages/@jsii/go-runtime
         run: |-
           yarn ts-node ./build-tools/build-repo-dir.ts ${{ steps.build-repo-dir.outputs.repodir }}
       - name: Check for changes
