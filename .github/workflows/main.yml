@@ -479,7 +479,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: built-tree
+          path: ${{ github.workspace }}/jsii-built-tree
       - name: Extract Artifact
+        working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
           echo "::group::Untar Archive"
           tar Jxvf built-tree.tar.xz
@@ -487,16 +489,19 @@ jobs:
 
           rm built-tree.tar.xz
       - uses: actions/cache@v2
+        working-directory: ${{ github.workspace }}/jsii-built-tree
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install Dependencies
+        working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
           yarn install --frozen-lockfile
       - name: Build Runtime Repo Directory
         id: build-repo-dir
         run: |-
-          REPO_DIR=$(mktemp -d)
+          mkdir ${{ github.workspace }}/jsii-runtime-go
+          REPO_DIR=${{ github.workspace }}/jsii-runtime-go
           echo "::set-output name=repodir::$REPO_DIR"
       - name: Clone Runtime
         uses: actions/checkout@v2
