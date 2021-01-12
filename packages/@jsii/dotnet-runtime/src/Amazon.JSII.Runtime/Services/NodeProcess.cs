@@ -139,7 +139,7 @@ namespace Amazon.JSII.Runtime.Services
                     // Give the kernel 5 seconds to clean up after itself
                     if (!_process.WaitForExit(5_000)) {
                         // Kill the child process if needed
-                        _process.Kill(true /* entire process tree */);
+                        _process.Kill();
                     }
                 }
                 catch (InvalidOperationException)

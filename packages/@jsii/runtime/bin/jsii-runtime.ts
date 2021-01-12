@@ -3,7 +3,7 @@ import { error } from 'console';
 import { constants as os } from 'os';
 import { resolve } from 'path';
 import { execArgv, execPath, exit, on, stdin, stdout } from 'process';
-import { Duplex, Writable } from 'stream';
+import { Readable, Writable } from 'stream';
 
 // Spawn another node process, with the following file descriptor setup:
 // - No STDIN will be provided
@@ -78,8 +78,7 @@ const requests: Writable = (child.stdio as any)[3];
 stdin.pipe(requests);
 
 // Forwarding responses from the child's FD#4 to this process' STDOUT
-const responses: Duplex = (child.stdio as any)[4];
+const responses: Readable = (child.stdio as any)[4];
 responses.pipe(stdout);
-responses.end(); // Signals we will not be writing to this pipe
 
 //#endregion

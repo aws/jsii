@@ -28,6 +28,8 @@ const stdio = new SyncStdio({
 const inout = new InputOutput(stdio);
 const host = new KernelHost(inout, { debug, noStack });
 
+host.once('exit', process.exit.bind(process));
+
 // say hello
 inout.write({ hello: `${name}@${version}` });
 inout.debug = debug; // we don't want "hello" emitted
