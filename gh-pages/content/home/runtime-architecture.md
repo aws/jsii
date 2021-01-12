@@ -87,11 +87,11 @@ describing the process arrangement that achieves this:
 │STDOUT│                  ◀───────────────┤STDOUT│                    │
 ├──────┤                  │    Console    ├──────┤        node        │
 │STDERR│   node           ◀───────────────┤STDERR│                    │
-├──────┘                  │   Requests    ├──────┤  (Child Process)   │
-│                         ├───────────────▶ FD#3 │                    │
-│                         │   Responses   ├──────┤                    │
-│                         ◀───────────────┤ FD#4 │                    │
-├─────────────────────────┴───────────────┴──────┴────────────────────┤
+├──────┘                  │     JSON      ├──────┤  (Child Process)   │
+│                         ◀───────────────▶ FD#3 │                    │
+│                         │               ├──────┘                    │
+│                         │               │                           │
+├─────────────────────────┴───────────────┴───────────────────────────┤
 │                                                                     │
 │                          Operating System                           │
 │                                                                     │
@@ -117,7 +117,7 @@ The *Wrapper* process manages the *Core* process such that:
 
 - Any requests received from the *Host Application* through the *Wrapper*'s
   `STDIN` stream is forwarded to the *Core* process' `FD#3`.
-- Any response written to the *Core*'s `FD#4` stream is forwarded to the *Host
+- Any response written to the *Core*'s `FD#3` stream is forwarded to the *Host
   Application* though the *Wrapper*'s `STDOUT`.
 - Any data sent to the *Core*'s `STDERR` is base64-encoded and wrapped in a JSON
   object with the `"stderr"` key, then forwarded to the *Host
@@ -130,7 +130,7 @@ The *Wrapper* process manages the *Core* process such that:
     As with any file descriptor besides `FD#0` (`STDIN`), `FD#1` (`STDOUT`) and
     `FD#2` (`STDERR`) that was not opened by the application, **JavaScript**
     libraries loaded in the `@jsii/kernel` instance are not allowed to interact
-    directly with file descriptors `FD#3` and `FD#4`.
+    directly with file descriptor `FD#3`.
 
 ## Initialization Process
 

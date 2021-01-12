@@ -11,10 +11,10 @@ const version = packageInfo.version;
 const noStack = !!process.env.JSII_NOSTACK;
 const debug = !!process.env.JSII_DEBUG;
 
-// This assumes FD#3 and FD#4 are opened respectively for reading and writing.
-// This is normally performed by `bin/jsii-runtime.js`, and we will not be
-// verifying this once again... Meaning that failure to have set this up
-// correctly results in undefined behavior (likely a crash).
+// This assumes FD#3 is opened for reading and writing. This is normally
+// performed by`bin/jsii-runtime.js`, and we will not be verifying this once
+// again...Meaning that failure to have set this up correctly results in
+// undefined behavior(likely a crash).
 const stdio = new SyncStdio({
   // "process.stderr.fd" is not in @types/node definitions because it can be
   // absent in certain circumstances (for example, in `worker_threads` workers).
@@ -22,7 +22,7 @@ const stdio = new SyncStdio({
   // supposed to be happening here (we don't use `worker_threads`).
   errorFD: (process.stderr as any).fd ?? 2,
   readFD: 3,
-  writeFD: 4,
+  writeFD: 3,
 });
 
 const inout = new InputOutput(stdio);

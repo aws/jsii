@@ -3,7 +3,7 @@ import { error } from 'console';
 import { constants as os } from 'os';
 import { resolve } from 'path';
 import { execArgv, execPath, exit, on, stdin, stdout } from 'process';
-import { Readable, Writable } from 'stream';
+import { Duplex } from 'stream';
 
 // Spawn another node process, with the following file descriptor setup:
 // - No STDIN will be provided
@@ -13,7 +13,7 @@ import { Readable, Writable } from 'stream';
 const child = spawn(
   execPath,
   [...execArgv, resolve(__dirname, '..', 'lib', 'program.js')],
-  { stdio: ['ignore', 'pipe', 'pipe', 'pipe', 'pipe'] },
+  { stdio: ['ignore', 'pipe', 'pipe', 'pipe'] },
 );
 
 //#region Exit, error and signal forwarders
@@ -73,12 +73,10 @@ child.stderr.on('data', makeHandler('stderr'));
 
 //#region Piping jsii API requests & responses
 
+const commands: Duplex = (child.stdio as any)[3];
 // Forwarding requests from this process' STDIN to the child's FD#3
-const requests: Writable = (child.stdio as any)[3];
-stdin.pipe(requests);
-
-// Forwarding responses from the child's FD#4 to this process' STDOUT
-const responses: Readable = (child.stdio as any)[4];
-responses.pipe(stdout);
+stdin.pipe(commands);
+// Forwarding responses from the child's FD#3 to this process' STDOUT
+commands.pipe(stdout);
 
 //#endregion
