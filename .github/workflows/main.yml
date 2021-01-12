@@ -526,14 +526,20 @@ jobs:
           else
             echo "::set-output name=result::true"
           fi
-      - name: Commit and Push
+      - name: Get Last Commit Message
+        id: get-last-commit-msg
         if: steps.check-for-changes.outputs.result == 'true'
+        working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
           MESSAGE=$(git log -1 --format=%s)
-          cd ${{ steps.build-repo-dir.outputs.repodir }}
+          echo "::set-output name=result::$MESSAGE"
+      - name: Commit and Push
+        if: steps.check-for-changes.outputs.result == 'true'
+        working-directory: ${{ steps.build-repo-dir.outputs.repodir }}
+        run: |-
           git config user.name ${{ secrets.JSII_RUNTIME_REPO_USERNAME }}
           git config user.email "aws-cdk+automation@amazon.com"
-          git commit -m "$MESSAGE"
+          git commit -m "${{ steps.get-last-commit-msg.outputs.result }}"
           git push main
       - name: Tag Release
         if: github.ref == 'refs/head/release'
