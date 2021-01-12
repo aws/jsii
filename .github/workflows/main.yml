@@ -488,6 +488,13 @@ jobs:
           echo "::endgroup"
 
           rm built-tree.tar.xz
+      - name: Get Last Commit Message
+        id: get-last-commit-msg
+        if: steps.check-for-changes.outputs.result == 'true'
+        working-directory: ${{ github.workspace }}/jsii-built-tree
+        run: |-
+          message=$(git log -1 --format=%s)
+          echo "::set-output name=result::$message"
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
@@ -500,8 +507,8 @@ jobs:
         id: build-repo-dir
         run: |-
           mkdir ${{ github.workspace }}/jsii-runtime-go
-          REPO_DIR=${{ github.workspace }}/jsii-runtime-go
-          echo "::set-output name=repodir::$REPO_DIR"
+          repo_dir=${{ github.workspace }}/jsii-runtime-go
+          echo "::set-output name=repodir::$repo_dir"
       - name: Clone Runtime
         uses: actions/checkout@v2
         with:
@@ -526,13 +533,6 @@ jobs:
           else
             echo "::set-output name=result::true"
           fi
-      - name: Get Last Commit Message
-        id: get-last-commit-msg
-        if: steps.check-for-changes.outputs.result == 'true'
-        working-directory: ${{ github.workspace }}/jsii-built-tree
-        run: |-
-          MESSAGE=$(git log -1 --format=%s)
-          echo "::set-output name=result::$MESSAGE"
       - name: Commit and Push
         if: steps.check-for-changes.outputs.result == 'true'
         working-directory: ${{ steps.build-repo-dir.outputs.repodir }}
@@ -540,11 +540,11 @@ jobs:
           git config user.name ${{ secrets.JSII_RUNTIME_REPO_USERNAME }}
           git config user.email "aws-cdk+automation@amazon.com"
           git commit -m "${{ steps.get-last-commit-msg.outputs.result }}"
-          git push main
+          git push
       - name: Tag Release
         if: github.ref == 'refs/head/release'
         run: |-
           VERSION=$(node -e 'console.log(require("./lerna.json").version)')
           cd ${{ steps.build-repo-dir.outputs.repodir }}
-          git tag -a $VERSION -m "Release v$VERSION"
+          git tag -a $VERSION -m "v$VERSION"
           git push $VERSION
