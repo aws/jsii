@@ -25,18 +25,20 @@ ENV LANG="C.UTF-8"                                                              
 # Also upgrading anything already installed, and adding some common dependencies for included tools
 RUN yum -y upgrade                                                                                                      \
   && yum -y install deltarpm tar                                                                                        \
-                    make system-rpm-config                                                                              \
+                    make system-rpm-config yum-utils                                                                    \
                     git gzip openssl rsync unzip which zip                                                              \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install .NET Core, mono & PowerShell
 COPY gpg/mono.asc /tmp/mono.asc
 RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
-  && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
+  && rpm -Uvh "https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm"                              \
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
   && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
       | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
   && yum -y install dotnet-sdk-3.1 mono-devel powershell                                                                \
+  && yum-config-manager --disable packages-microsoft-com-prod                                                           \
+  && yum-config-manager --disable mono-centos7-stable                                                                   \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Python 3
@@ -108,10 +110,5 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
-
-# Upgrade all packages that weren't up-to-date just yet (last so it risks invalidating cache less)
-# This is the second time we do it (this layer may be empty)... It's in case we re-used a cached layer the first time
-RUN yum -y upgrade                                                                                                      \
-  && yum clean all && rm -rf /var/cache/yum
 
 CMD ["/bin/bash"]

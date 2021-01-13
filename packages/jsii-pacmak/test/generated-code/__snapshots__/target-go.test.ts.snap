@@ -17,7 +17,7 @@ module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v0.0.0
+	github.com/aws/jsii-runtime-go v0.0.0
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
 )
 
@@ -27,7 +27,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcba
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
 	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
@@ -56,7 +56,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcba
 package scopejsiicalcbase
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
@@ -186,7 +186,7 @@ module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v0.0.0
+	github.com/aws/jsii-runtime-go v0.0.0
 )
 
 `;
@@ -195,7 +195,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 )
 
@@ -219,7 +219,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 package scopejsiicalcbaseofbase
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 	"reflect"
 )
@@ -346,7 +346,7 @@ module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v0.0.0
+	github.com/aws/jsii-runtime-go v0.0.0
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
 )
@@ -357,7 +357,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
 	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
@@ -388,7 +388,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package scopejsiicalclib
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
@@ -840,7 +840,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package submodule
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 	"reflect"
 )
@@ -1094,7 +1094,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/compos
 package composition
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
@@ -1273,7 +1273,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnop
 package derivedclasshasnoproperties
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
@@ -1375,7 +1375,7 @@ module github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v0.0.0
+	github.com/aws/jsii-runtime-go v0.0.0
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib v0.0.0
@@ -1387,7 +1387,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespa
 package interfaceinnamespaceincludesclasses
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
@@ -1465,7 +1465,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespa
 package interfaceinnamespaceonlyinterface
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	"reflect"
 )
 
@@ -1498,7 +1498,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] =
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
 	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
@@ -1531,7 +1531,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc.go 1`] = 
 package jsiicalc
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
@@ -11631,6 +11631,90 @@ func StaticContext_SetStaticVariable(val bool) {
 }
 
 // Class interface
+type StaticHelloChildIface interface {
+}
+
+// Struct proxy
+type StaticHelloChild struct {
+}
+
+func StaticHelloChild_Method() {
+	_init_.Initialize()
+	var returns interface{}
+	_jsii_.InvokeStatic(
+		"jsii-calc.StaticHelloChild",
+		"method",
+		[]interface{}{},
+		false,
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+}
+
+func StaticHelloChild_Property() float64 {
+	_init_.Initialize()
+	var returns float64
+	_jsii_.StaticGet(
+		"jsii-calc.StaticHelloChild",
+		"property",
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+	return returns
+}
+
+// Class interface
+type StaticHelloParentIface interface {
+}
+
+// Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden.
+// 
+// The difference is fairly minor (for typical use-cases, the end result is the
+// same), however this has implications on what the generated code should look
+// like.
+// Struct proxy
+type StaticHelloParent struct {
+}
+
+func NewStaticHelloParent() StaticHelloParentIface {
+	_init_.Initialize()
+	self := StaticHelloParent{}
+	_jsii_.Create(
+		"jsii-calc.StaticHelloParent",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&self,
+	)
+	return &self
+}
+
+func StaticHelloParent_Method() {
+	_init_.Initialize()
+	var returns interface{}
+	_jsii_.InvokeStatic(
+		"jsii-calc.StaticHelloParent",
+		"method",
+		[]interface{}{},
+		false,
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+}
+
+func StaticHelloParent_Property() float64 {
+	_init_.Initialize()
+	var returns float64
+	_jsii_.StaticGet(
+		"jsii-calc.StaticHelloParent",
+		"property",
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+	return returns
+}
+
+// Class interface
 type StaticsIface interface {
 	GetValue() string
 	JustMethod() string
@@ -13477,7 +13561,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythons
 package pythonself
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
@@ -13616,7 +13700,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/backrefe
 package backreferences
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule"
 )
@@ -13652,7 +13736,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/child/ch
 package child
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
@@ -13874,7 +13958,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsu
 package deeplynested
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	"reflect"
 )
 
@@ -13902,7 +13986,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsu
 package nestedsubmodule
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
@@ -13953,7 +14037,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/param/pa
 package param
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	"reflect"
 )
 
@@ -13986,7 +14070,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/returnsp
 package returnsparam
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
@@ -14036,7 +14120,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/submodul
 package submodule
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"

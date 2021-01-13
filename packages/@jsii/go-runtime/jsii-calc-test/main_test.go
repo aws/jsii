@@ -6,7 +6,7 @@ import (
 	param "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
 	returnsParam "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/returnsparam"
 	calclib "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
-	"github.com/aws-cdk/jsii/jsii-experimental"
+	"github.com/aws/jsii-runtime-go"
 	"math"
 	"os"
 	"reflect"

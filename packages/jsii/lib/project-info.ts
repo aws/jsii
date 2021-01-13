@@ -52,6 +52,7 @@ export interface ProjectInfo {
   readonly excludeTypescript: string[];
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
+  readonly bin?: { readonly [name: string]: string };
 }
 
 export async function loadProjectInfo(
@@ -217,6 +218,7 @@ export async function loadProjectInfo(
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
     },
+    bin: pkg.bin,
     diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
 }

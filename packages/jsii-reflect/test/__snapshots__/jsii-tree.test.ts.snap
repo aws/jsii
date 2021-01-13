@@ -1664,6 +1664,26 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ static staticVariable property (stable)
  │   │     ├── static
  │   │     └── type: boolean
+ │   ├─┬ class StaticHelloChild (stable)
+ │   │ ├── base: StaticHelloParent
+ │   │ └─┬ members
+ │   │   ├─┬ static method() method (stable)
+ │   │   │ ├── static
+ │   │   │ └── returns: void
+ │   │   └─┬ static property property (stable)
+ │   │     ├── immutable
+ │   │     ├── static
+ │   │     └── type: number
+ │   ├─┬ class StaticHelloParent (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ static method() method (stable)
+ │   │   │ ├── static
+ │   │   │ └── returns: void
+ │   │   └─┬ static property property (stable)
+ │   │     ├── immutable
+ │   │     ├── static
+ │   │     └── type: number
  │   ├─┬ class Statics (stable)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(value) initializer (stable)
@@ -2967,6 +2987,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
+ │   ├─┬ class StaticHelloChild
+ │   │ └── base: StaticHelloParent
+ │   ├── class StaticHelloParent
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class StructPassing
@@ -3903,6 +3926,15 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── static canAccessStaticContext() method
  │   │   └── static staticVariable property
+ │   ├─┬ class StaticHelloChild
+ │   │ └─┬ members
+ │   │   ├── static method() method
+ │   │   └── static property property
+ │   ├─┬ class StaticHelloParent
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static method() method
+ │   │   └── static property property
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├── <initializer>(value) initializer
@@ -4574,6 +4606,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
+ │   ├── class StaticHelloChild
+ │   ├── class StaticHelloParent
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class StructPassing

@@ -1,3 +1,3 @@
-module github.com/aws-cdk/jsii/jsii-experimental
+module github.com/aws/jsii-runtime-go
 
 go 1.15

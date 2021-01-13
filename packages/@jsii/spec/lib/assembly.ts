@@ -143,6 +143,13 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
    * @default none
    */
   readme?: { markdown: string };
+
+  /**
+   * List of bin-scripts
+   *
+   * @default none
+   */
+  bin?: { readonly [script: string]: string };
 }
 
 /**

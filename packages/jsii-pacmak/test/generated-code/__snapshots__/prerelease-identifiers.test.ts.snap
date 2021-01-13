@@ -87,7 +87,10 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com
     <PackageReference Include="Com.Acme.Bar" Version="[2.0.0-rc.42,3.0.0)" />
   </ItemGroup>
   <PropertyGroup>
+    <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
+    <!-- Treat warnings symptomatic of code generation bugs as errors -->
+    <WarningsAsErrors>0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -128,7 +131,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 	bar v2.0.0-rc.42
 )
 
@@ -138,7 +141,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`]
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
 	bar "/bar/jsii"
@@ -457,7 +460,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -584,7 +588,10 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/
     <PackageReference Include="Com.Acme.Bar" Version="[4.5.6-pre.1337,5.0.0)" />
   </ItemGroup>
   <PropertyGroup>
+    <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
+    <!-- Treat warnings symptomatic of code generation bugs as errors -->
+    <WarningsAsErrors>0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -625,7 +632,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 	bar v4.5.6-pre.1337
 )
 
@@ -635,7 +642,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
 	bar "/bar/jsii"
@@ -954,7 +961,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -1080,7 +1088,10 @@ exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] =
     <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
   </ItemGroup>
   <PropertyGroup>
+    <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
+    <!-- Treat warnings symptomatic of code generation bugs as errors -->
+    <WarningsAsErrors>0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -1120,7 +1131,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 )
 
 `;
@@ -1129,7 +1140,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 )
 
@@ -1429,7 +1440,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -1553,7 +1565,10 @@ exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`
     <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
   </ItemGroup>
   <PropertyGroup>
+    <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
+    <!-- Treat warnings symptomatic of code generation bugs as errors -->
+    <WarningsAsErrors>0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -1593,7 +1608,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 )
 
 `;
@@ -1602,7 +1617,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 )
 
@@ -1902,7 +1917,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed"
-    ]
+    ],
+    "scripts": []
 }
 """
 )

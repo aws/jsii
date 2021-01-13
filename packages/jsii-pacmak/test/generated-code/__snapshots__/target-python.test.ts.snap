@@ -86,7 +86,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed",
         "License :: OSI Approved"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -333,7 +334,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed",
         "License :: OSI Approved"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -576,7 +578,8 @@ kwargs = json.loads(
         "Typing :: Typed",
         "Development Status :: 7 - Inactive",
         "License :: OSI Approved"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -1287,6 +1290,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┣━ 📄 __init__.py
           ┣━ 📁 _jsii
           ┃  ┣━ 📄 __init__.py
+          ┃  ┣━ 📁 bin
+          ┃  ┃  ┗━ 📄 calc
           ┃  ┗━ 📄 jsii-calc@0.0.0.jsii.tgz
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py
@@ -1429,6 +1434,9 @@ kwargs = json.loads(
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved",
         "Test :: Classifier :: Is Dummy"
+    ],
+    "scripts": [
+        "src/jsii_calc/_jsii/bin/calc"
     ]
 }
 """
@@ -7037,6 +7045,31 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
         jsii.sset(cls, "staticVariable", value)
 
 
+class StaticHelloParent(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.StaticHelloParent",
+):
+    """Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden.
+
+    The difference is fairly minor (for typical use-cases, the end result is the
+    same), however this has implications on what the generated code should look
+    like.
+    """
+
+    def __init__(self) -> None:
+        jsii.create(StaticHelloParent, self, [])
+
+    @jsii.member(jsii_name="method")
+    @builtins.classmethod
+    def method(cls) -> None:
+        return jsii.sinvoke(cls, "method", [])
+
+    @jsii.python.classproperty # type: ignore
+    @jsii.member(jsii_name="property")
+    def property(cls) -> jsii.Number:
+        return jsii.sget(cls, "property")
+
+
 class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     def __init__(self, value: builtins.str) -> None:
         """
@@ -8469,6 +8502,22 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
         return jsii.get(self, "value")
 
 
+class StaticHelloChild(
+    StaticHelloParent,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.StaticHelloChild",
+):
+    @jsii.member(jsii_name="method")
+    @builtins.classmethod
+    def method(cls) -> None:
+        return jsii.sinvoke(cls, "method", [])
+
+    @jsii.python.classproperty # type: ignore
+    @jsii.member(jsii_name="property")
+    def property(cls) -> jsii.Number:
+        return jsii.sget(cls, "property")
+
+
 class SupportsNiceJavaBuilder(
     SupportsNiceJavaBuilderWithRequiredProps,
     metaclass=jsii.JSIIMeta,
@@ -8687,6 +8736,8 @@ __all__ = [
     "StableEnum",
     "StableStruct",
     "StaticContext",
+    "StaticHelloChild",
+    "StaticHelloParent",
     "Statics",
     "StringEnum",
     "StripInternal",
@@ -8745,6 +8796,20 @@ __all__ = [
 ]
 
 publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/bin/calc 1`] = `
+#!/usr/bin/env python
+
+import jsii
+import sys
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "jsii-calc", "0.0.0", "jsii_calc", "jsii-calc@0.0.0.jsii.tgz"
+)
+
+__jsii_assembly__.invokeBinScript("jsii-calc", "calc", sys.argv[1:])
 
 `;
 

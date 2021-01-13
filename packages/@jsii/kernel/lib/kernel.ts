@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
@@ -8,6 +9,7 @@ import * as vm from 'vm';
 import * as api from './api';
 import { TOKEN_REF } from './api';
 import { ObjectTable, tagJsiiConstructor } from './objects';
+import * as onExit from './on-exit';
 import * as wire from './serialization';
 
 export class Kernel {
@@ -65,24 +67,11 @@ export class Kernel {
       );
     }
 
-    if (!this.installDir) {
-      this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
-      fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
-      this._debug('creating jsii-kernel modules workdir:', this.installDir);
-
-      process.on('exit', () => {
-        if (this.installDir) {
-          this._debug('removing install dir', this.installDir);
-          fs.removeSync(this.installDir); // can't use async version during exit
-        }
-      });
-    }
-
     const pkgname = req.name;
     const pkgver = req.version;
 
     // check if we already have such a module
-    const packageDir = path.join(this.installDir, 'node_modules', pkgname);
+    const packageDir = this._getPackageDir(pkgname);
     if (fs.pathExistsSync(packageDir)) {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
@@ -145,6 +134,50 @@ export class Kernel {
       assembly: assmSpec.name,
       types: Object.keys(assmSpec.types ?? {}).length,
     };
+  }
+
+  public invokeBinScript(
+    req: api.InvokeScriptRequest,
+  ): api.InvokeScriptResponse {
+    const packageDir = this._getPackageDir(req.assembly);
+    if (fs.pathExistsSync(packageDir)) {
+      // module exists, verify version
+      const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
+
+      if (!epkg.bin) {
+        throw new Error('There is no bin scripts defined for this package.');
+      }
+
+      const scriptPath = epkg.bin[req.script];
+
+      if (!epkg.bin) {
+        throw new Error(`Script with name ${req.script} was not defined.`);
+      }
+
+      const result = cp.spawnSync(
+        path.join(packageDir, scriptPath),
+        req.args ?? [],
+        {
+          encoding: 'utf-8',
+          env: {
+            ...process.env,
+            // Make sure the current NODE_OPTIONS are honored if we shell out to node
+            NODE_OPTIONS: process.execArgv.join(' '),
+            // Make sure "this" node is ahead of $PATH just in case
+            PATH: `${path.dirname(process.execPath)}:${process.env.PATH}`,
+          },
+          shell: true,
+        },
+      );
+
+      return {
+        stdout: result.stdout,
+        stderr: result.stderr,
+        status: result.status,
+        signal: result.signal,
+      };
+    }
+    throw new Error(`Package with name ${req.assembly} was not loaded.`);
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {
@@ -491,6 +524,17 @@ export class Kernel {
       default:
         throw new Error(`Unexpected FQN kind: ${fqn}`);
     }
+  }
+
+  private _getPackageDir(pkgname: string): string {
+    if (!this.installDir) {
+      this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
+      fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
+      this._debug('creating jsii-kernel modules workdir:', this.installDir);
+
+      onExit.removeSync(this.installDir);
+    }
+    return path.join(this.installDir, 'node_modules', pkgname);
   }
 
   // prefixed with _ to allow calling this method internally without

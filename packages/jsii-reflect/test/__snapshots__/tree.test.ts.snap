@@ -1745,6 +1745,26 @@ exports[`showAll 1`] = `
  │   │   └─┬ static staticVariable property
  │   │     ├── static
  │   │     └── type: boolean
+ │   ├─┬ class StaticHelloChild
+ │   │ ├── base: StaticHelloParent
+ │   │ └─┬ members
+ │   │   ├─┬ static method() method
+ │   │   │ ├── static
+ │   │   │ └── returns: void
+ │   │   └─┬ static property property
+ │   │     ├── immutable
+ │   │     ├── static
+ │   │     └── type: number
+ │   ├─┬ class StaticHelloParent
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ static method() method
+ │   │   │ ├── static
+ │   │   │ └── returns: void
+ │   │   └─┬ static property property
+ │   │     ├── immutable
+ │   │     ├── static
+ │   │     └── type: number
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(value) initializer
@@ -3044,6 +3064,8 @@ exports[`types 1`] = `
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
+ │   ├── class StaticHelloChild
+ │   ├── class StaticHelloParent
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class StructPassing

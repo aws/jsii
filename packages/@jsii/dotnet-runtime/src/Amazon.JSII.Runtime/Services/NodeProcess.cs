@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -13,10 +14,13 @@ namespace Amazon.JSII.Runtime.Services
     {
         readonly Process _process;
         readonly ILogger _logger;
+
         private const string JsiiRuntime = "JSII_RUNTIME";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
         private const string JsiiAgentVersionString = "DotNet/{0}/{1}/{2}";
+
+        private bool Disposed = false;
 
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
@@ -28,53 +32,79 @@ namespace Amazon.JSII.Runtime.Services
                 runtimePath = jsiiRuntimeProvider.JsiiRuntimePath;
 
             var utf8 = new UTF8Encoding(false /* no BOM */);
-            _process = new Process
+            var startInfo = new ProcessStartInfo
             {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "node",
-                    Arguments = $"--max-old-space-size=4096 {runtimePath}",
-                    RedirectStandardInput = true,
-                    StandardInputEncoding = utf8,
-                    RedirectStandardOutput = true,
-                    StandardOutputEncoding = utf8,
-                    RedirectStandardError = true,
-                    StandardErrorEncoding = utf8
-                }
+                FileName = "node",
+                Arguments = $"--max-old-space-size=4096 {runtimePath}",
+                RedirectStandardInput = true,
+                StandardInputEncoding = utf8,
+                RedirectStandardOutput = true,
+                StandardOutputEncoding = utf8,
+                UseShellExecute = false,
             };
 
             var assemblyVersion = GetAssemblyFileVersion();
-            _process.StartInfo.EnvironmentVariables.Add(JsiiAgent,
+            startInfo.EnvironmentVariables.Add(JsiiAgent,
                 string.Format(CultureInfo.InvariantCulture, JsiiAgentVersionString, Environment.Version,
                     assemblyVersion.Item1, assemblyVersion.Item2));
 
             var debug = Environment.GetEnvironmentVariable(JsiiDebug);
-            if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
-                _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debug);
+            if (!string.IsNullOrWhiteSpace(debug) && !startInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
+                startInfo.EnvironmentVariables.Add(JsiiDebug, debug);
 
             _logger.LogDebug("Starting jsii runtime...");
-            _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
+            _logger.LogDebug($"{startInfo.FileName} {startInfo.Arguments}");
 
             // Registering shutdown hook to have JS process gracefully terminate.
             AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
                 ((IDisposable)this).Dispose();
             };
 
-            _process.Start();
+            _process = Process.Start(startInfo);
+
+            StandardInput = _process.StandardInput;
+            StandardOutput = _process.StandardOutput;
         }
 
-        public TextWriter StandardInput => _process.StandardInput;
+        public TextWriter StandardInput { get; }
 
-        public TextReader StandardOutput => _process.StandardOutput;
+        public TextReader StandardOutput { get; }
 
-        public TextReader StandardError => _process.StandardError;
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void IDisposable.Dispose()
         {
-            StandardInput.Dispose();
-            StandardOutput.Dispose();
-            StandardError.Dispose();
-            _process.Dispose();
+            if (Disposed) return;
+
+            Disposed = true;
+
+            // If the child process has already exited, we simply need to dispose of it
+            if (_process.HasExited)
+            {
+                _process.Dispose();
+                return;
+            }
+
+            // Closing the jsii Kernel's STDIN is how we instruct it to shut down
+            StandardInput.Close();
+
+            try
+            {
+                // Give the kernel 5 seconds to clean up after itself
+                if (!_process.WaitForExit(5_000)) {
+                    // Kill the child process if needed
+                    _process.Kill();
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                // This means the process had already exited, because it was faster to clean up
+                // than we were to process it's termination. We still re-check if the process has
+                // exited and re-throw if not (meaning it was a different issue).
+                if (!_process.HasExited)
+                {
+                    throw;
+                }
+            }
         }
 
         /// <summary>

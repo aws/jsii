@@ -8,7 +8,6 @@ export function runCommand(
   const result = spawnSync(command, args, {
     ...opts,
     shell: process.platform === 'win32',
-    stdio: 'inherit',
   });
   if (result.error) {
     throw result.error;

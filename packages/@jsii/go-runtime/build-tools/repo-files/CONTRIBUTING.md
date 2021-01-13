@@ -1,0 +1,1 @@
+The go JSII runtime source code is managed in [the main JSII repository](https://github.com/aws/jsii). See the [contributing](https://github.com/aws/jsii/blob/main/CONTRIBUTING.md) guide for details on filing issues and PRs.

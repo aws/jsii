@@ -24,15 +24,15 @@
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "tar": "^6.0.5"
+    "tar": "^6.1.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.16",
-    "@types/node": "^10.17.48",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^10.17.50",
     "@types/tar": "^4.0.4",
-    "eslint": "^7.15.0",
+    "eslint": "^7.17.0",
     "prettier": "^2.2.1",
     "typescript": "~3.9.7"
   }

@@ -40,7 +40,7 @@
     "@jsii/spec": "^0.0.0",
     "clone": "^2.1.2",
     "codemaker": "^0.0.0",
-    "commonmark": "^0.29.2",
+    "commonmark": "^0.29.3",
     "escape-string-regexp": "^4.0.0",
     "fs-extra": "^9.0.1",
     "jsii-reflect": "^0.0.0",
@@ -48,7 +48,7 @@
     "semver": "^7.3.4",
     "spdx-license-list": "^6.3.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^16.1.1"
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
@@ -57,11 +57,11 @@
     "@types/clone": "^2.1.0",
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.16",
-    "@types/node": "^10.17.48",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^10.17.50",
     "@types/semver": "^7.3.4",
-    "@types/yargs": "^15.0.11",
-    "eslint": "^7.15.0",
+    "@types/yargs": "^15.0.12",
+    "eslint": "^7.17.0",
     "jest": "^26.6.3",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",

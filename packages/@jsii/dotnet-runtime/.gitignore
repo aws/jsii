@@ -25,3 +25,4 @@ bin/
 cli/
 obj/
 *.DotSettings.user
+.nuget/
