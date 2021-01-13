@@ -298,10 +298,7 @@ class _NodeProcess:
         try:
             self._process.wait(timeout=5)
         except subprocess.TimeoutExpired:
-            try:
-                self._process.terminate(timeout=5)
-            except subprocess.TimeoutExpired:
-                self._process.kill()
+            self._process.terminate()
 
         self._ctx_stack.close()
 
