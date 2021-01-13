@@ -41,7 +41,7 @@ export class VisualizeAstVisitor implements AstHandler<void> {
   }
 
   public stringLiteral(
-    node: ts.StringLiteral,
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     children: AstRenderer<void>,
   ): OTree {
     return this.defaultNode('stringLiteral', node, children);
@@ -288,13 +288,6 @@ export class VisualizeAstVisitor implements AstHandler<void> {
     context: AstRenderer<void>,
   ): OTree {
     return this.defaultNode('maskingVoidExpression', node, context);
-  }
-
-  public noSubstitutionTemplateLiteral(
-    node: ts.NoSubstitutionTemplateLiteral,
-    context: AstRenderer<void>,
-  ): OTree {
-    return this.defaultNode('noSubstitutionTemplateLiteral', node, context);
   }
 
   private defaultNode(
