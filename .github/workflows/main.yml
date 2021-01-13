@@ -466,6 +466,7 @@ jobs:
           path: |-
             ${{ github.workspace }}/aws-cdk/dist/
             ${{ github.workspace }}/aws-cdk/**/dist/
+
   push-go-runtime:
     needs: build
     if: github.event_name == 'push'
@@ -494,10 +495,20 @@ jobs:
         run: |-
           message=$(git log -1 --format=%s)
           echo "::set-output name=result::$message"
-      - uses: actions/cache@v2
+      - name: Locate Caches
+        id: cache-locations
+        run: |-
+          echo "::set-output name=yarn-cache::$(yarn cache dir)"
+      - name: Cache
+        uses: actions/cache@v2
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          path: |-
+            ${{ steps.cache-locations.outputs.yarn-cache }}
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/*/*/node_modules
+          key: ${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |-
+            ${{ runner.os }}-yarn-
       - name: Install Dependencies
         working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
@@ -536,7 +547,7 @@ jobs:
         if: steps.check-for-changes.outputs.result == 'true'
         working-directory: ${{ steps.build-repo-dir.outputs.repodir }}
         run: |-
-          git config user.name ${{ secrets.JSII_RUNTIME_REPO_USERNAME }}
+          git config user.name "AWS CDK Automation"
           git config user.email "aws-cdk+automation@amazon.com"
           git commit -m "${{ steps.get-last-commit-msg.outputs.result }}"
           git push
