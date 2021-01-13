@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/specification/4-standard-compliance-suite/">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.4">
     
     
       
@@ -22,10 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.3b61ea93.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.15aa0b43.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.75751829.min.css">
         
       
     
@@ -1527,12 +1527,12 @@ unambiguous description to a terse one that could be subject to interpretation.
 
 <span class="sb">```ts</span>
 <span class="c1">// GIVEN</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Foo</span> <span class="p">{</span>
   <span class="cm">/* ... */</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">().</span><span class="nx">bar</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">().</span><span class="nx">bar</span><span class="p">();</span>
 
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="nx">bar</span><span class="p">.</span><span class="nx">baz</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
@@ -1554,7 +1554,7 @@ unambiguous description to a terse one that could be subject to interpretation.
 <p>In order to be able to assert compliance of language binding libraries to the standard test suite, implementations are
 responsible for providing a test harness (typically as part of the runtime library) that can produce a standardized test
 report in the form of a JSON document that follows the following schema:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">TestReport</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">TestReport</span> <span class="p">{</span>
   <span class="cm">/** The report is broken down by test category, using the name as-is */</span>
   <span class="p">[</span><span class="nx">category</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
     <span class="cm">/** For each test in the category, using its name as-is */</span>
@@ -1567,7 +1567,7 @@ report in the form of a JSON document that follows the following schema:</p>
   <span class="p">};</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">KernelMessage</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">KernelMessage</span> <span class="p">{</span>
   <span class="cm">/** The direction the message was sent (Host -&gt; Kernel / Kernel -&gt; Host) */</span>
   <span class="nx">direction</span><span class="o">:</span> <span class="s1">&#39;FromKernel&#39;</span> <span class="o">|</span> <span class="s1">&#39;ToKernel&#39;</span><span class="p">;</span>
   <span class="cm">/** The message, as a JSON object */</span>
@@ -1595,17 +1595,17 @@ for the value. Statically typed languages however will not be satisfied with str
 correct declared type to be preserved.</p>
 <details class="example"><summary>Show test</summary><h5 id="reference-implementation">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">BluePill</span> <span class="p">{</span>
-  <span class="nx">readonly</span> <span class="nx">offeredTo</span>: <span class="kt">string</span><span class="p">;</span>
-  <span class="nx">readonly</span> <span class="nx">makesYouForgetTheMatrix?</span>: <span class="kt">boolean</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">interface</span> <span class="nx">BluePill</span> <span class="p">{</span>
+  <span class="k">readonly</span> <span class="nx">offeredTo</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="k">readonly</span> <span class="nx">makesYouForgetTheMatrix?</span>: <span class="kt">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">RedPill</span> <span class="p">{</span>
-  <span class="nx">readonly</span> <span class="nx">offeredTo</span>: <span class="kt">string</span><span class="p">;</span>
-  <span class="nx">readonly</span> <span class="nx">makesYouExitTheMatrix?</span>: <span class="kt">boolean</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">interface</span> <span class="nx">RedPill</span> <span class="p">{</span>
+  <span class="k">readonly</span> <span class="nx">offeredTo</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="k">readonly</span> <span class="nx">makesYouExitTheMatrix?</span>: <span class="kt">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Morpheus</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span> <span class="nx">pill</span> <span class="nx">is</span> <span class="nx">BluePill</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Morpheus</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span> <span class="nx">pill</span> <span class="nx">is</span> <span class="nx">BluePill</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
     <span class="k">switch</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">case</span> <span class="nx">1</span>:
         <span class="kt">return</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">);</span>
@@ -1615,8 +1615,8 @@ correct declared type to be preserved.</p>
         <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
-  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span> <span class="nx">pill</span> <span class="nx">is</span> <span class="nx">RedPill</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span> <span class="nx">pill</span> <span class="nx">is</span> <span class="nx">RedPill</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
     <span class="k">switch</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">case</span> <span class="nx">1</span>:
         <span class="kt">return</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">);</span>
@@ -1626,23 +1626,23 @@ correct declared type to be preserved.</p>
         <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
-  <span class="kr">private</span> <span class="kr">constructor</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="k">private</span> <span class="kr">constructor</span><span class="p">()</span> <span class="p">{}</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Neo</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">tookBlue</span>: <span class="kt">boolean</span><span class="p">;</span>
-  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">tookRed</span>: <span class="kt">boolean</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Neo</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">readonly</span> <span class="nx">tookBlue</span>: <span class="kt">boolean</span><span class="p">;</span>
+  <span class="k">public</span> <span class="k">readonly</span> <span class="nx">tookRed</span>: <span class="kt">boolean</span><span class="p">;</span>
 
-  <span class="kr">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="k">public</span> <span class="k">readonly</span> <span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">tookBlue</span> <span class="o">=</span> <span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span> <span class="o">==</span> <span class="s1">&#39;Neo&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">tookRed</span> <span class="o">=</span> <span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span> <span class="o">==</span> <span class="s1">&#39;Neo&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kr">const</span> <span class="nx">bluePillA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;not Neo&#39;</span> <span class="p">});</span>
-<span class="kr">const</span> <span class="nx">bluePillB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;Neo&#39;</span><span class="p">,</span> <span class="nx">makesYouForgetTheMatrix</span>: <span class="kt">true</span> <span class="p">});</span>
-<span class="kr">const</span> <span class="nx">redPillA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;not Neo&#39;</span> <span class="p">});</span>
-<span class="kr">const</span> <span class="nx">redPillB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;Neo&#39;</span><span class="p">,</span> <span class="nx">makesYouExitTheMatrix</span>: <span class="kt">true</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">bluePillA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;not Neo&#39;</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">bluePillB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;Neo&#39;</span><span class="p">,</span> <span class="nx">makesYouForgetTheMatrix</span>: <span class="kt">true</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">redPillA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;not Neo&#39;</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">redPillB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;Neo&#39;</span><span class="p">,</span> <span class="nx">makesYouExitTheMatrix</span>: <span class="kt">true</span> <span class="p">});</span>
 
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">pill</span> <span class="k">instanceof</span> <span class="nx">BluePill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
@@ -1680,25 +1680,25 @@ object hash for instances in Java (so they can be safely used with <code>HashMap
 </div>
 <details class="example"><summary>Show test</summary><h5 id="reference-implementation_1">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="kr">export</span> <span class="kr">abstract</span> <span class="kr">class</span> <span class="nx">PartiallyInitializedThisConsumer</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="kr">abstract</span> <span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">ConstructorPassesThisOut</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">abstract</span> <span class="kd">class</span> <span class="nx">PartiallyInitializedThisConsumer</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">abstract</span> <span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">ConstructorPassesThisOut</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ConstructorPassesThisOut</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="nx">consumer</span>: <span class="kt">PartiallyInitializedThisConsumer</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ConstructorPassesThisOut</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="nx">consumer</span>: <span class="kt">PartiallyInitializedThisConsumer</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">consumer</span><span class="p">.</span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kr">class</span> <span class="nx">MyConsumer</span> <span class="kr">extends</span> <span class="nx">PartiallyInitializedThisConsumer</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="nx">obj?</span>: <span class="kt">ConstructorPassesThisOut</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">class</span> <span class="nx">MyConsumer</span> <span class="k">extends</span> <span class="nx">PartiallyInitializedThisConsumer</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="nx">obj?</span>: <span class="kt">ConstructorPassesThisOut</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 
-  <span class="kr">public</span> <span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">ConstructorPassesThisOut</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">ConstructorPassesThisOut</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyConsumer</span><span class="p">();</span>
-<span class="kr">const</span> <span class="nx">object</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConstructorPassesThisOut</span><span class="p">(</span><span class="nx">consumer</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyConsumer</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">object</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConstructorPassesThisOut</span><span class="p">(</span><span class="nx">consumer</span><span class="p">);</span>
 
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">obj</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
@@ -1733,27 +1733,27 @@ the implementing class with <code>@jsii.implements("implemented-type.JsiiInterfa
 </div>
 <details class="example"><summary>Show test</summary><h5 id="reference-implementation_2">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IBehavioralInterface</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">interface</span> <span class="nx">IBehavioralInterface</span> <span class="p">{</span>
   <span class="nx">methodCall</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
-  <span class="nx">readonly</span> <span class="nx">property</span>: <span class="kt">number</span><span class="p">;</span>
+  <span class="k">readonly</span> <span class="nx">property</span>: <span class="kt">number</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">InterfaceConsumer</span> <span class="p">{</span>
-  <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">iface</span>: <span class="kt">IBehavioralInterface</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">InterfaceConsumer</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="k">private</span> <span class="k">readonly</span> <span class="nx">iface</span>: <span class="kt">IBehavioralInterface</span><span class="p">)</span> <span class="p">{}</span>
 
-  <span class="kr">public</span> <span class="nx">composeResult() {</span>
+  <span class="k">public</span> <span class="nx">composeResult</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iface</span><span class="p">.</span><span class="nx">methodCall</span><span class="p">()</span><span class="si">}</span><span class="sb"> / </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iface</span><span class="p">.</span><span class="nx">property</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kr">class</span> <span class="nx">Implementation</span> <span class="kr">implements</span> <span class="nx">IBehavioralInterface</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">property</span> <span class="o">=</span> <span class="mi">1337</span><span class="p">;</span>
-  <span class="kr">public</span> <span class="nx">methodCall() {</span>
+<span class="kd">class</span> <span class="nx">Implementation</span> <span class="k">implements</span> <span class="nx">IBehavioralInterface</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">readonly</span> <span class="nx">property</span> <span class="o">=</span> <span class="mf">1337</span><span class="p">;</span>
+  <span class="k">public</span> <span class="nx">methodCall</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="s1">&#39;Hello!&#39;</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">impl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Implementation</span><span class="p">();</span>
-<span class="kr">const</span> <span class="nx">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InterfaceConsumer</span><span class="p">(</span><span class="nx">impl</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">impl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Implementation</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InterfaceConsumer</span><span class="p">(</span><span class="nx">impl</span><span class="p">);</span>
 
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">composeResult</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello! / 1337&#39;</span><span class="p">);</span>
@@ -1781,18 +1781,18 @@ the implementing class with <code>@jsii.implements("implemented-type.JsiiInterfa
 respective values are passed in the correct parameter location when calling into the <strong>JavaScript</strong> code.</p>
 <details class="example"><summary>Show test</summary><h5 id="reference-implementation_3">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
-  <span class="nx">readonly</span> <span class="nx">foo</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
+  <span class="k">readonly</span> <span class="nx">foo</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ClassType</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">foo</span>: <span class="kt">number</span><span class="p">,</span> <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">opts</span>: <span class="kt">StructType</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ClassType</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="k">public</span> <span class="k">readonly</span> <span class="nx">foo</span>: <span class="kt">number</span><span class="p">,</span> <span class="k">public</span> <span class="k">readonly</span> <span class="nx">opts</span>: <span class="kt">StructType</span><span class="p">)</span> <span class="p">{}</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
 <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClassType</span><span class="p">(</span><span class="s1">&#39;Bazinga!&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">foo</span>: <span class="kt">1337</span> <span class="p">});</span>
 
 <span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">result</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">result</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">1337</span><span class="p">);</span>
 <span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">result</span><span class="p">.</span><span class="nx">opts</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Bazinga!&#39;</span><span class="p">);</span>
 </code></pre></div>
 <h5 id="kernel-trace_3">Kernel Trace</h5>
@@ -1817,21 +1817,21 @@ respective values are passed in the correct parameter location when calling into
 type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
 <details class="example"><summary>Show test</summary><h5 id="reference-implementation_4">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
-  <span class="nx">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
+  <span class="k">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">StructProvider</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">provide</span><span class="p">()</span><span class="o">:</span> <span class="nx">StructType</span><span class="p">[]</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">StructProvider</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nx">provide</span><span class="p">()</span><span class="o">:</span> <span class="nx">StructType</span><span class="p">[]</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">[{</span> <span class="nx">property</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">}];</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kr">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
 
 <span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">item</span> <span class="k">of</span> <span class="nx">items</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">item</span> <span class="k">of</span> <span class="nx">items</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">expect</span><span class="p">(</span><span class="nx">item</span> <span class="k">instanceof</span> <span class="nx">StructType</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1849,21 +1849,21 @@ type. This is a requirement for statically typed languages such as Java where ty
 type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
 <details class="example"><summary>Show test</summary><h5 id="reference-implementation_5">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
-  <span class="nx">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
+  <span class="k">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">StructProvider</span> <span class="p">{</span>
-  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">provide</span><span class="p">()</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">StructType</span> <span class="p">}</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">StructProvider</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nx">provide</span><span class="p">()</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">StructType</span> <span class="p">}</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="p">{</span> <span class="nx">property</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">}</span> <span class="p">};</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kr">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
 
 <span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">item</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="nx">items</span><span class="p">))</span> <span class="p">{</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">item</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="nx">items</span><span class="p">))</span> <span class="p">{</span>
   <span class="nx">expect</span><span class="p">(</span><span class="nx">item</span> <span class="k">instanceof</span> <span class="nx">StructType</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1884,7 +1884,7 @@ type. This is a requirement for statically typed languages such as Java where ty
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-01-07
+      Last update: 2021-01-13
     
   </small>
 </div>
@@ -1969,8 +1969,8 @@ type. This is a requirement for statically typed languages such as Java where ty
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.08c56446.min.js"></script>
-      <script src="../../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.93c04032.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

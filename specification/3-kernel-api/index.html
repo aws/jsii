@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/specification/3-kernel-api/">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.4">
     
     
       
@@ -22,10 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.3b61ea93.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.15aa0b43.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.75751829.min.css">
         
       
     
@@ -1176,7 +1176,7 @@ eventually be merged into <code>@jsii/kernel</code>.</p>
 runtime library to deal with such errors correctly: action retries, propagate the error to the <em>host</em> app's code, and so
 on.</p>
 <p>Error responses are signaled by the <code>error</code> key:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">ErrorResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">interface</span> <span class="nx">ErrorResponse</span> <span class="p">{</span>
   <span class="cm">/** A simple message describing what happened. */</span>
   <span class="nx">message</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** Whenever possible, the stack trace of the error. */</span>
@@ -1206,7 +1206,7 @@ application and the <code>@jsii/kernel</code>.</p>
 <h2 id="general-kernel-api">General Kernel API</h2>
 <p>Once the <code>hello</code> handshake is complete, a sequence of request and responses are exchanged with the <code>@jsii/kernel</code>.
 Requests take the form of JSON-encoded messages that all follow the following pattern:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Request</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">Request</span> <span class="p">{</span>
   <span class="cm">/**</span>
 <span class="cm">   * This field discriminates the various request types.</span>
 <span class="cm">   */</span>
@@ -1233,7 +1233,7 @@ Requests take the form of JSON-encoded messages that all follow the following pa
 dependencies of a given <em>jsii</em> module must have been loaded into the kernel before the module itself can be loaded (the
 <code>@jsii/kernel</code> does not perform any kind of dependency resolution).</p>
 <p>Loading new assemblies into the <code>@jsii/kernel</code> is done using the <code>load</code> API:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">LoadRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">LoadRequest</span> <span class="p">{</span>
   <span class="cm">/** The name of the assembly being loaded */</span>
   <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** The version of the assembly being loaded */</span>
@@ -1247,7 +1247,7 @@ dependencies of a given <em>jsii</em> module must have been loaded into the kern
 </code></pre></div>
 <p>The response to the <code>load</code> call provides some high-level information pertaining to the loaded assembly, which may be
 used by the <em>host</em> app to validate the result of the operation:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">LoadResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">LoadResponse</span> <span class="p">{</span>
   <span class="cm">/** The name of the assembly that was just loaded */</span>
   <span class="nx">assembly</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** The number of types the assembly declared */</span>
@@ -1259,7 +1259,7 @@ used by the <em>host</em> app to validate the result of the operation:</p>
 <p>In certain cases, <em>host</em> runtime libraries may need to obtain naming information from assemblies in order to determine
 the translation table from a <em>jsii</em> fully-qualified name to a <em>host</em>-native name. This can be retrieved using the
 <code>naming</code> call:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">NamingRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">interface</span> <span class="nx">NamingRequest</span> <span class="p">{</span>
   <span class="cm">/** The name of the assembly for which naming is requested */</span>
   <span class="nx">assembly</span>: <span class="kt">string</span><span class="p">;</span>
 
@@ -1269,7 +1269,7 @@ the translation table from a <em>jsii</em> fully-qualified name to a <em>host</e
 </code></pre></div>
 <p>In response to the <code>naming</code> call, the <code>@jsii/kernel</code> returns the configuration block for each language supported by the
 named <code>assembly</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">NamingResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">interface</span> <span class="nx">NamingResponse</span> <span class="p">{</span>
   <span class="cm">/** The naming information for the requested assembly. */</span>
   <span class="nx">naming</span><span class="o">:</span> <span class="p">{</span>
     <span class="cm">/**</span>
@@ -1283,13 +1283,13 @@ named <code>assembly</code>:</p>
 <h3 id="obtaining-statistics-about-the-kernel-usage">Obtaining statistics about the Kernel usage</h3>
 <p>The <code>stats</code> call can be used to obtain information about the current <code>Kernel</code> instance, which can be leveraged by unit
 tests or in order to produce metrics for tracking the health of a long-running <em>jsii</em> app.</p>
-<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StatsRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">interface</span> <span class="nx">StatsRequest</span> <span class="p">{</span>
   <span class="c1">// The discriminator</span>
   <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;stats&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The response to the <code>stats</code> call contains synthetic information about the current state of the <code>Kernel</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StatsResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">interface</span> <span class="nx">StatsResponse</span> <span class="p">{</span>
   <span class="cm">/** The number of object reference currently tracked by the Kernel */</span>
   <span class="nx">objectCount</span>: <span class="kt">number</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1299,7 +1299,7 @@ tests or in order to produce metrics for tracking the health of a long-running <
 instantiating a sub-class of some <strong>JavaScript</strong> class, or even creating a pure-<em>host</em> instance that implements a
 collection of <em>behavioral interfaces</em>.</p>
 <p>Creating objects is achieved using the <code>create</code> API, which accepts the following parameters:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CreateRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">CreateRequest</span> <span class="p">{</span>
   <span class="cm">/** The jsii fully qualified name of the class */</span>
   <span class="nx">fqn</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** Any arguments to provide to the constructor */</span>
@@ -1315,12 +1315,12 @@ collection of <em>behavioral interfaces</em>.</p>
 </code></pre></div>
 <p>The response to the object call is a decorated <code>ObjectReference</code> object (which is a common parameter to other calls in
 the <code>@jsii/kernel</code> API, used to refer to a particular instance):</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">ObjectReference</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">ObjectReference</span> <span class="p">{</span>
   <span class="cm">/** A handle that uniquely idenfies an instance */</span>
   <span class="s1">&#39;$jsii.byref&#39;</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">CreateResponse</span> <span class="kr">extends</span> <span class="nx">ObjectReference</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">CreateResponse</span> <span class="k">extends</span> <span class="nx">ObjectReference</span> <span class="p">{</span>
   <span class="cm">/** The list of interfaces implemented by the instance */</span>
   <span class="s1">&#39;$jsii.interfaces&#39;</span><span class="o">?:</span> <span class="kt">string</span><span class="p">[];</span>
 <span class="p">}</span>
@@ -1355,21 +1355,21 @@ and will be provided to the <strong>host</strong> app with any <em>callback</em>
 improve the performance of implementation lookups in the <em>host</em> app, where the necessary reflection calls would
 otherwise be prohibitively expensive.</p>
 <p>Override declarations adhere to the following schema:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">MethodOverride</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">MethodOverride</span> <span class="p">{</span>
   <span class="cm">/** The name of the overridden method */</span>
   <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** An arbitrary override cookie string */</span>
   <span class="nx">cookie?</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">PropertyOverride</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">PropertyOverride</span> <span class="p">{</span>
   <span class="cm">/** The name of the overridden property */</span>
   <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** An arbitrary override cookie string */</span>
   <span class="nx">cookie?</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="nx">type</span> <span class="nx">Override</span> <span class="o">=</span> <span class="nx">MethodOverride</span> <span class="o">|</span> <span class="nx">PropertyOverride</span><span class="p">;</span>
+<span class="kd">type</span> <span class="nx">Override</span> <span class="o">=</span> <span class="nx">MethodOverride</span> <span class="o">|</span> <span class="nx">PropertyOverride</span><span class="p">;</span>
 </code></pre></div>
 <h4 id="a-note-about-callbacks">A note about callbacks</h4>
 <p>All <code>@jsii/runtime</code> calls that interact with object instances (that is, any call except for <code>load</code>, <code>naming</code> and
@@ -1379,12 +1379,12 @@ implemented or overridden in the <em>host</em> app.</p>
 <p>Such cases will result in a callback request substituting itself to the response of the original call being made;
 execution of which will resume once the callback response is provided.</p>
 <p>A callback request is sent from the <code>@jsii/kernel</code>'s <code>node</code> process to the <em>host</em> app and has the following schema:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CallbackRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">CallbackRequest</span> <span class="p">{</span>
   <span class="cm">/** Callback requests are identified by the presence of the `callback` key */</span>
   <span class="nx">callback</span>: <span class="kt">Callback</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
   <span class="cm">/** A unique identifier for this callback request */</span>
   <span class="nx">cbid</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** The object on which the callback must be executed */</span>
@@ -1393,31 +1393,31 @@ execution of which will resume once the callback response is provided.</p>
   <span class="nx">cookie?</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">InvokeCallback</span> <span class="kr">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">InvokeCallback</span> <span class="k">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
   <span class="cm">/** The name of the host method to be invoked */</span>
   <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">GetCallback</span> <span class="kr">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">GetCallback</span> <span class="k">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
   <span class="cm">/** The name of the property to be read */</span>
   <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">SetCallback</span> <span class="kr">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">SetCallback</span> <span class="k">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
   <span class="cm">/** The name of the property to be written to */</span>
   <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** The value to be set */</span>
   <span class="nx">value</span>: <span class="kt">any</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="nx">type</span> <span class="nx">Callback</span> <span class="o">=</span> <span class="nx">InvokeCallback</span> <span class="o">|</span> <span class="nx">GetCallback</span> <span class="o">|</span> <span class="nx">SetCallback</span><span class="p">;</span>
+<span class="kd">type</span> <span class="nx">Callback</span> <span class="o">=</span> <span class="nx">InvokeCallback</span> <span class="o">|</span> <span class="nx">GetCallback</span> <span class="o">|</span> <span class="nx">SetCallback</span><span class="p">;</span>
 </code></pre></div>
 <p>In order to fulfill the callback request, the <em>host</em> app may need to perform futher API calls (loading new assemblies,
 creating new instances, invoking methods - including delegating to the <code>super</code> implementation, ...). Such calls will
 behave as they otherwise would (including the possible introduction of further callback requests).</p>
 <p>Once the <em>host</em> app has fulfilled the request, it must signal the result of that execution back to the <code>@jsii/kernel</code>
 process by using the <code>complete</code> call:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
   <span class="cm">/** The callback ID from the corresponding request */</span>
   <span class="nx">cbid</span>: <span class="kt">string</span><span class="p">;</span>
 
@@ -1425,28 +1425,28 @@ process by using the <code>complete</code> call:</p>
   <span class="nx">api</span><span class="o">:</span> <span class="sb">`complete`</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">CallbackSuccess</span> <span class="kr">extends</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">CallbackSuccess</span> <span class="k">extends</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
   <span class="cm">/** The result of the execution (`undefined` if void) */</span>
   <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">interface</span> <span class="nx">CallbackFailure</span> <span class="kr">extends</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nx">CallbackFailure</span> <span class="k">extends</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
   <span class="cm">/** The error that was raised during fulfillment */</span>
   <span class="nx">err</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="nx">type</span> <span class="nx">CompleteRequest</span> <span class="o">=</span> <span class="nx">CallbackSuccess</span> <span class="o">|</span> <span class="nx">CallbackFailure</span><span class="p">;</span>
+<span class="kd">type</span> <span class="nx">CompleteRequest</span> <span class="o">=</span> <span class="nx">CallbackSuccess</span> <span class="o">|</span> <span class="nx">CallbackFailure</span><span class="p">;</span>
 </code></pre></div>
 <p>As discussed earlier, the response to the <code>complete</code> call is the result of resuming execution of the code path that
 triggered the callback request. This may be another callback request, or the final result of that call.</p>
 <p>The <code>callbacks</code> call may be used to determine the list of all outstanding callback requests:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CallbacksRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">CallbacksRequest</span> <span class="p">{</span>
   <span class="c1">// The discriminator</span>
   <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;callbacks&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>This call results in a list of outstanding callbacks:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CallbacksResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">CallbacksResponse</span> <span class="p">{</span>
   <span class="cm">/** The list of outstanding callback requests */</span>
   <span class="nx">callbacks</span>: <span class="kt">Callback</span><span class="p">[];</span>
 <span class="p">}</span>
@@ -1455,7 +1455,7 @@ triggered the callback request. This may be another callback request, or the fin
 <p>Once the <em>host</em> app no longer needs a particular object, it can be discarded. This can happen for example when the
 <em>host</em> reference to an object is garbage collected or freed. In order to allow the <strong>JavaScript</strong> process to also
 reclaim the associated memory footprint, the <code>del</code> API must be used:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">DelRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">DelRequest</span> <span class="p">{</span>
   <span class="cm">/** The object reference that can be released */</span>
   <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
 
@@ -1481,11 +1481,11 @@ This mechanism is necessary in order to support garbage collection of resources 
 reachable from there).</p>
 </div>
 <p>Upon successfully deleting an object reference, the <code>@jsii/kernel</code> will return an empty response object:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">DelResponse</span> <span class="p">{}</span>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">interface</span> <span class="nx">DelResponse</span> <span class="p">{}</span>
 </code></pre></div>
 <h3 id="invoking-methods-and-static-methods">Invoking methods (and static methods)</h3>
 <p>Invoking methods is done via the <code>invoke</code> call:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">InvokeRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">InvokeRequest</span> <span class="p">{</span>
   <span class="cm">/** The object reference on which a method is invoked */</span>
   <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
   <span class="cm">/** The name of the method being invoked */</span>
@@ -1498,7 +1498,7 @@ reachable from there).</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>Static method invocations do not have a receiving instance, and instead are implemented by way of the <code>sinvoke</code> call:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">StaticInvokeRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">StaticInvokeRequest</span> <span class="p">{</span>
   <span class="cm">/** The jsii fully qualified name of the declaring type */</span>
   <span class="nx">fqn</span>: <span class="kt">string</span><span class="p">;</span>
   <span class="cm">/** The name of the static method being invoked */</span>
@@ -1513,7 +1513,7 @@ reachable from there).</p>
 <p>Note that, unlike in certain programming languages such as <strong>Java</strong>, it is illegal to attempt invoking a static method
 on the static type of some instance using the <code>invoke</code> call. All static invocations <em>must</em> be done using <code>sinvoke</code>.</p>
 <p>Both the <code>invoke</code> and <code>sinvoke</code> calls result in the same response:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">InvokeResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">InvokeResponse</span> <span class="p">{</span>
   <span class="cm">/** The result of the method invocation. */</span>
   <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1526,7 +1526,7 @@ such values.</p>
 <code>begin</code> and <code>end</code> calls must be used instead. Once the <em>host</em> app has entered an asynchronous workflow (after it makes
 the first <code>begin</code> call), and until it has completed all asynchronous operations (after all <code>begin</code> class are matched
 with an <code>end</code> call), no <em>synchronous</em> operation (including synchronous callbacks) may be initiated.</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">BeginRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">BeginRequest</span> <span class="p">{</span>
   <span class="cm">/** The object reference on which an asynchronous method is invoked */</span>
   <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
   <span class="cm">/** The name of the method being invoked */</span>
@@ -1543,7 +1543,7 @@ with an <code>end</code> call), no <em>synchronous</em> operation (including syn
 <p>There is no static form of this call. Should there be one?</p>
 </div>
 <p>The <code>begin</code> call results in a promise being made:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">BeginResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">BeginResponse</span> <span class="p">{</span>
   <span class="cm">/**</span>
 <span class="cm">   * An opaque string that uniquely idenfies the promised result of this</span>
 <span class="cm">   * invocation.</span>
@@ -1553,7 +1553,7 @@ with an <code>end</code> call), no <em>synchronous</em> operation (including syn
 </code></pre></div>
 <p>Whenever the <em>host</em> app needs to obtain the promised value (possibly in a blocking way), it makes the corresponding
 <code>end</code> call:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">EndRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">EndRequest</span> <span class="p">{</span>
   <span class="cm">/** The promiseid that was returned from the corresponding `begin` call. */</span>
   <span class="nx">promiseid</span>: <span class="kt">string</span><span class="p">;</span>
 
@@ -1562,7 +1562,7 @@ with an <code>end</code> call), no <em>synchronous</em> operation (including syn
 <span class="p">}</span>
 </code></pre></div>
 <p>This will result in the promise being awaited and then resolved:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">EndResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">EndResponse</span> <span class="p">{</span>
   <span class="cm">/** The resolved value of the promise */</span>
   <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1574,7 +1574,7 @@ that might cause the application to terminate in certain environments.</p>
 </div>
 <h3 id="invoking-getters-and-static-getters">Invoking getters (and static getters)</h3>
 <p>In order to obtain the value of properties, the <code>get</code> call is used:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">GetRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">GetRequest</span> <span class="p">{</span>
   <span class="cm">/** The object reference on which a poperty is read */</span>
   <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
   <span class="cm">/** The name of the property being read */</span>
@@ -1586,7 +1586,7 @@ that might cause the application to terminate in certain environments.</p>
 </code></pre></div>
 <p>When operating on static properties, or in order to obtain the value of <code>enum</code> constants, the <code>sget</code> API must be used
 instead:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">StaticGetRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">StaticGetRequest</span> <span class="p">{</span>
   <span class="cm">/** The jsii fully qualified name of the declaring type */</span>
   <span class="nx">fqn</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
   <span class="cm">/** The name of the property being read */</span>
@@ -1597,14 +1597,14 @@ instead:</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>Both the <code>get</code> and <code>sget</code> calls result in the same response:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">GetResponse</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">GetResponse</span> <span class="p">{</span>
   <span class="cm">/** The value of the property. */</span>
   <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="invoking-setters-and-static-setters">Invoking setters (and static setters)</h3>
 <p>In order to change the value of a property, the <code>set</code> call is used:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">SetRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">SetRequest</span> <span class="p">{</span>
   <span class="cm">/** The object reference on which a poperty is written to */</span>
   <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
   <span class="cm">/** The name of the property being written to */</span>
@@ -1617,7 +1617,7 @@ instead:</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>When operating on static properties, the <code>sset</code> API must be used instead:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">StaticSetRequest</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">StaticSetRequest</span> <span class="p">{</span>
   <span class="cm">/** The jsii fully qualified name of the declaring type */</span>
   <span class="nx">fqn</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
   <span class="cm">/** The name of the property being written to */</span>
@@ -1630,7 +1630,7 @@ instead:</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>Both the <code>set</code> and <code>sset</code> calls result in the same response, which is an empty object:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">SetResponse</span> <span class="p">{}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">SetResponse</span> <span class="p">{}</span>
 </code></pre></div>
                 
                   
@@ -1640,7 +1640,7 @@ instead:</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-01-07
+      Last update: 2021-01-13
     
   </small>
 </div>
@@ -1725,8 +1725,8 @@ instead:</p>
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.08c56446.min.js"></script>
-      <script src="../../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.93c04032.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
