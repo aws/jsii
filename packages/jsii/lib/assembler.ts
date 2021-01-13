@@ -876,7 +876,10 @@ export class Assembler implements Emitter {
       return allTypes;
     } else {
       this._diagnostics.push(
-        JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(node, node.kind),
+        JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
+          ts.getNameOfDeclaration(node) ?? node,
+          node.kind,
+        ),
       );
     }
 
@@ -1300,7 +1303,7 @@ export class Assembler implements Emitter {
         } else {
           this._diagnostics.push(
             JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
-              memberDecl,
+              ts.getNameOfDeclaration(memberDecl) ?? memberDecl,
               memberDecl.kind,
             ),
           );
