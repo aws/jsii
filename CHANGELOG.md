@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](https://github.com/aws/jsii/compare/v1.16.0...v1.17.0) (2021-01-13)
+
+
+### Features
+
+* add support for bin-scripts (python only) ([#1941](https://github.com/aws/jsii/issues/1941)) ([61ef5ed](https://github.com/aws/jsii/commit/61ef5edc9696c41a45984c907dc30771c675e20b))
+* **dotnet,java:** kernel process inherits host's STDERR ([#2248](https://github.com/aws/jsii/issues/2248)) ([70ce153](https://github.com/aws/jsii/commit/70ce15312d7553bc44c2e4f8981b596563b5ecd7))
+
+
+### Bug Fixes
+
+* bad working directory in go runtime push ([#2356](https://github.com/aws/jsii/issues/2356)) ([53457e2](https://github.com/aws/jsii/commit/53457e2f6063e5f0202eac7040ad03e1ed64805e))
+* **dotnet:** Use nested classes for proxies to avoid name collision ([#2368](https://github.com/aws/jsii/issues/2368)) ([90b17e2](https://github.com/aws/jsii/commit/90b17e2a7da159879a7e618ce6f2edca336f316e)), closes [#2367](https://github.com/aws/jsii/issues/2367)
+* **go:** generated code runtime dependency version ([#2399](https://github.com/aws/jsii/issues/2399)) ([f1a06e5](https://github.com/aws/jsii/commit/f1a06e5f71e599fcf6efccaa0906cee8cd93d3e1))
+* **jsii:** errors when invoking with a project root argument ([#2351](https://github.com/aws/jsii/issues/2351)) ([9c66340](https://github.com/aws/jsii/commit/9c66340d2471db36175000c6673d1d498f4ec2c5))
+* **jsii:** unknown error in Assembler._validateHeritageClauses ([#2350](https://github.com/aws/jsii/issues/2350)) ([3120bf4](https://github.com/aws/jsii/commit/3120bf448cc160cb0249aa57a0a2bd62e35c1659)), closes [#2349](https://github.com/aws/jsii/issues/2349)
+* **pacmak:** illegal static overrides in java & c# ([#2373](https://github.com/aws/jsii/issues/2373)) ([4672e4b](https://github.com/aws/jsii/commit/4672e4b5f37a83ebfe6e2296c81839af6b296d8f)), closes [#2358](https://github.com/aws/jsii/issues/2358)
+
 ## [1.16.0](https://github.com/aws/jsii/compare/v1.15.0...v1.16.0) (2020-12-07)
 
 
