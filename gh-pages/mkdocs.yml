@@ -4,7 +4,7 @@ repo_name: aws/jsii
 repo_url: https://github.com/aws/jsii
 site_url: https://aws.github.io/jsii/
 edit_uri: edit/main/gh-pages/content/
-copyright: Copyright &copy; 2020 Amazon Web Services, Inc.
+copyright: Copyright &copy; 2021 Amazon Web Services, Inc.
 
 docs_dir: content
 extra_css:
