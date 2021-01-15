@@ -2,35 +2,58 @@ import * as ts from 'typescript';
 
 import { RuntimeTypeInfoInjector } from '../lib/runtime-info';
 
-test('adds vfqn symbol at the top of each file', () => {
-  expect(transformedSource(EXAMPLE_SINGLE_CLASS)).toContain(
-    'var vfqnSym = Symbol.for("jsii.rtti");',
+test('leaves files without classes unaltered', () => {
+  expect(transformedSource(EXAMPLE_NO_CLASS, 'Foo')).not.toContain(
+    'jsiiRttiSymbol',
+  );
+});
+
+test('leaves files without classes with metadata unaltered', () => {
+  expect(transformedSource(EXAMPLE_SINGLE_CLASS)).not.toContain(
+    'jsiiRttiSymbol',
+  );
+});
+
+test('adds vfqn symbol at the top of each file when classes are present', () => {
+  expect(transformedSource(EXAMPLE_SINGLE_CLASS, 'Foo')).toContain(
+    'var jsiiRttiSymbol_1 = Symbol.for("jsii.rtti");',
   );
 });
 
 test('adds runtime info for a class', () => {
   expect(transformedSource(EXAMPLE_SINGLE_CLASS, 'Foo')).toContain(
-    'private static [vfqnSym] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
+    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
 });
 
 test('adds runtime info for each class', () => {
   const transformed = transformedSource(EXAMPLE_MULTIPLE_CLASSES, 'Foo', 'Bar');
   expect(transformed).toContain(
-    'private static [vfqnSym] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
+    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
   expect(transformed).toContain(
-    'private static [vfqnSym] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
+    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
   );
 });
 
 test('skips runtime info if not available', () => {
   const transformed = transformedSource(EXAMPLE_MULTIPLE_CLASSES, 'Foo');
   expect(transformed).toContain(
-    'private static [vfqnSym] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
+    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
   expect(transformed).not.toContain(
-    'private static [vfqnSym] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
+    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
+  );
+});
+
+test('creates a unique name if the default is taken', () => {
+  // Conflicting example has existing variable for jsiiRttiSymbol_1, so transformation should use _2.
+  const transformed = transformedSource(EXAMPLE_CONFLICTING_NAME, 'Foo');
+  expect(transformed).toContain(
+    'var jsiiRttiSymbol_2 = Symbol.for("jsii.rtti");',
+  );
+  expect(transformed).toContain(
+    'private static readonly [jsiiRttiSymbol_2] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
 });
 
@@ -78,6 +101,14 @@ function mockedTypeInfoForClasses(
  * ===============================
  */
 
+const EXAMPLE_NO_CLASS = `
+import * as ts from 'typescript';
+
+interface Foo {
+  readonly foobar: string;
+}
+`;
+
 const EXAMPLE_SINGLE_CLASS = `
 import * as ts from 'typescript';
 
@@ -109,5 +140,15 @@ class Bar {
 
 export default class {
   constructor() {}
+}
+`;
+
+const EXAMPLE_CONFLICTING_NAME = `
+import * as ts from 'typescript';
+
+const jsiiRttiSymbol_1 = 42;
+
+class Foo {
+  constructor(public readonly bar: string) {}
 }
 `;

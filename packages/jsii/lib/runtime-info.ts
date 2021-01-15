@@ -43,34 +43,50 @@ export class RuntimeTypeInfoInjector {
 
     return (context) => {
       return (sourceFile) => {
-        const rttiSymbolIdentifier = ts.createIdentifier('vfqnSym');
-        const rttiSymbol = ts.createCall(
-          ts.createPropertyAccess(
-            ts.createIdentifier('Symbol'),
-            ts.createIdentifier('for'),
-          ),
-          undefined,
-          [ts.createStringLiteral('jsii.rtti')],
-        );
-        const rttiSymbolDeclaration = ts.createVariableDeclaration(
-          rttiSymbolIdentifier,
-          undefined,
-          rttiSymbol,
-        );
+        const rttiSymbolIdentifier = ts.createUniqueName('jsiiRttiSymbol');
 
-        sourceFile = ts.updateSourceFileNode(sourceFile, [
-          ts.createVariableStatement([], [rttiSymbolDeclaration]),
-          ...sourceFile.statements,
-        ]);
-
+        let classesAnnotated = false;
         const visitor = (node: ts.Node): ts.Node => {
           if (ts.isClassDeclaration(node)) {
-            return self.addRuntimeInfoToClass(node, rttiSymbolIdentifier);
+            const fqn = this.getClassFqn(node);
+            if (fqn) {
+              classesAnnotated = true;
+              return self.addRuntimeInfoToClass(
+                node,
+                fqn,
+                rttiSymbolIdentifier,
+              );
+            }
           }
           return ts.visitEachChild(node, visitor, context);
         };
 
-        return ts.visitNode(sourceFile, visitor);
+        // Visit the source file, annotating the classes.
+        let annotatedSourceFile = ts.visitNode(sourceFile, visitor);
+
+        // Only add the symbol definition if it's actually used.
+        if (classesAnnotated) {
+          const rttiSymbol = ts.createCall(
+            ts.createPropertyAccess(
+              ts.createIdentifier('Symbol'),
+              ts.createIdentifier('for'),
+            ),
+            undefined,
+            [ts.createStringLiteral('jsii.rtti')],
+          );
+          const rttiSymbolDeclaration = ts.createVariableDeclaration(
+            rttiSymbolIdentifier,
+            undefined,
+            rttiSymbol,
+          );
+
+          annotatedSourceFile = ts.updateSourceFileNode(annotatedSourceFile, [
+            ts.createVariableStatement([], [rttiSymbolDeclaration]),
+            ...annotatedSourceFile.statements,
+          ]);
+        }
+
+        return annotatedSourceFile;
       };
     };
   }
@@ -86,13 +102,9 @@ export class RuntimeTypeInfoInjector {
    */
   private addRuntimeInfoToClass(
     node: ts.ClassDeclaration,
+    fqn: string,
     rttiSymbol: ts.Identifier,
   ): ts.ClassDeclaration {
-    const fqn = this.getClassFqn(node);
-    if (!fqn) {
-      return node;
-    }
-
     const runtimeInfo = ts.createObjectLiteral([
       ts.createPropertyAssignment(
         ts.createIdentifier('fqn'),
@@ -106,7 +118,9 @@ export class RuntimeTypeInfoInjector {
     const runtimeProperty = ts.createProperty(
       undefined,
       ts.createModifiersFromModifierFlags(
-        ts.ModifierFlags.Private | ts.ModifierFlags.Static,
+        ts.ModifierFlags.Private |
+          ts.ModifierFlags.Static |
+          ts.ModifierFlags.Readonly,
       ),
       ts.createComputedPropertyName(rttiSymbol),
       undefined,
