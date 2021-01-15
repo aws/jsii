@@ -58,7 +58,7 @@
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.20",
-    "@types/node": "^10.17.50",
+    "@types/node": "^10.17.51",
     "@types/semver": "^7.3.4",
     "@types/yargs": "^15.0.12",
     "eslint": "^7.17.0",
