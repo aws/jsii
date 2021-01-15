@@ -6,13 +6,13 @@ import * as ts from 'typescript';
  *
  * It does this by first inserting this definition at the top of each source file:
  * ```
- * var vfqnSym = Symbol.for("jsii.rtti");
+ * var jsiiRttiSymbol_1 = Symbol.for("jsii.rtti");
  * ```
  *
  * Then, for each class that has registered runtime information during assembly,
  * insert a static member to the class with its fqn and version:
  * ```
- * private static [vfqnSym] = { fqn: "ModuleName.ClassName", version: "1.2.3" }
+ * private static readonly [jsiiRttiSymbol_1] = { fqn: "ModuleName.ClassName", version: "1.2.3" }
  * ```
  */
 export class RuntimeTypeInfoInjector {
