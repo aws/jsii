@@ -38,7 +38,7 @@
     "case": "^1.6.3",
     "colors": "^1.4.0",
     "deep-equal": "^2.0.5",
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^9.1.0",
     "log4js": "^6.3.0",
     "semver": "^7.3.4",
     "semver-intersect": "^1.4.0",
