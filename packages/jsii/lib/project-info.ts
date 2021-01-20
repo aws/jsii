@@ -281,7 +281,12 @@ async function _loadDependencies(
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
       // eslint-disable-next-line no-await-in-loop
-      await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
+      await _loadDependencies(
+        assm.dependencies,
+        pkgDir,
+        transitiveAssemblies,
+        assemblyCache,
+      );
     }
   }
   return packageVersions;
