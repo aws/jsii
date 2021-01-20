@@ -453,23 +453,27 @@ class Transformation {
         (clause) => clause.token === ts.SyntaxKind.ExtendsKeyword,
       );
       return {
-        node: ts.updateClassDeclaration(
-          declaration,
-          declaration.decorators,
-          declaration.modifiers,
-          declaration.name,
-          declaration.typeParameters,
-          [
-            ...(declaration.heritageClauses ?? []).filter(
-              (clause) => clause !== existingClause,
-            ),
-            existingClause
-              ? ts.updateHeritageClause(existingClause, [newBaseClass])
-              : ts.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-                  newBaseClass,
-                ]),
-          ],
-          declaration.members,
+        node: annotate(
+          ts.updateClassDeclaration(
+            declaration,
+            declaration.decorators,
+            declaration.modifiers,
+            declaration.name,
+            declaration.typeParameters,
+            [
+              ...(declaration.heritageClauses ?? []).filter(
+                (clause) => clause !== existingClause,
+              ),
+              existingClause
+                ? ts.updateHeritageClause(existingClause, [newBaseClass])
+                : ts.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+                    newBaseClass,
+                  ]),
+            ],
+            declaration.members,
+          ),
+          'replaced @deprecated base class',
+          'leading',
         ),
         syntheticImports: syntheticImport && [syntheticImport],
       };
@@ -489,16 +493,20 @@ class Transformation {
         );
       }
       return {
-        node: ts.updateClassDeclaration(
-          declaration,
-          declaration.decorators,
-          declaration.modifiers,
-          declaration.name,
-          declaration.typeParameters,
-          declaration.heritageClauses?.filter(
-            (clause) => clause.token !== ts.SyntaxKind.ExtendsKeyword,
+        node: annotate(
+          ts.updateClassDeclaration(
+            declaration,
+            declaration.decorators,
+            declaration.modifiers,
+            declaration.name,
+            declaration.typeParameters,
+            declaration.heritageClauses?.filter(
+              (clause) => clause.token !== ts.SyntaxKind.ExtendsKeyword,
+            ),
+            declaration.members,
           ),
-          declaration.members,
+          'removed @deprecated base class',
+          'leading',
         ),
       };
     });
@@ -714,6 +722,8 @@ class DeprecationRemovalTransformer {
 
   public transform<T extends ts.Node>(node: T): T {
     let result = this.visitEachChild(node);
+
+    // If there are any synthetic imports, add them to the source file
     if (ts.isSourceFile(result) && this.syntheticImports.length > 0) {
       result = ts.updateSourceFileNode(
         result,
@@ -726,6 +736,7 @@ class DeprecationRemovalTransformer {
       ) as any;
       this.syntheticImports = new Array<ts.ImportDeclaration>();
     }
+
     return result;
   }
 
@@ -749,7 +760,7 @@ class DeprecationRemovalTransformer {
           } = transformation.apply(node);
           node = transformedNode as any;
           if (syntheticImport) {
-            this.syntheticImports.push(syntheticImport);
+            this.syntheticImports.push(annotate(syntheticImport, 'synthetic'));
           }
         }
       }
@@ -778,24 +789,78 @@ class DeprecationRemovalTransformer {
         filteredElements.length !==
         node.importClause.namedBindings.elements.length
       ) {
-        return ts.updateImportDeclaration(
-          node,
-          node.decorators,
-          node.modifiers,
-          ts.updateImportClause(
-            node.importClause,
-            node.importClause.name,
-            ts.updateNamedImports(
-              node.importClause.namedBindings,
-              filteredElements,
-            ),
-            node.importClause.isTypeOnly,
+        return annotate(
+          ts.updateImportDeclaration(
+            node,
+            node.decorators,
+            node.modifiers,
+            node.importClause.name != null || filteredElements.length > 0
+              ? ts.updateImportClause(
+                  node.importClause,
+                  node.importClause.name,
+                  ts.updateNamedImports(
+                    node.importClause.namedBindings,
+                    filteredElements,
+                  ),
+                  node.importClause.isTypeOnly,
+                )
+              : undefined,
+            node.moduleSpecifier,
           ),
-          node.moduleSpecifier,
+          'removed @deprecated elements',
         ) as any;
       }
 
       return node;
+    }
+
+    // Replace "export ... from ..." places that no longer export anything
+    // with an "import from ...", so side effects are preserved.
+    if (ts.isExportDeclaration(node) && node.moduleSpecifier) {
+      const symbol = this.typeChecker.getSymbolAtLocation(node.moduleSpecifier);
+      const moduleExports =
+        symbol &&
+        this.typeChecker
+          .getExportsOfModule(symbol)
+          ?.filter(
+            (sym) => !sym.declarations.some((decl) => this.isDeprecated(decl)),
+          );
+      if (
+        (node.exportClause == null ||
+          ts.isNamespaceExport(node.exportClause)) &&
+        moduleExports?.length === 0
+      ) {
+        return annotate(
+          ts.createImportDeclaration(
+            undefined /* decorators */,
+            undefined /* modifiers */,
+            undefined /* importClause */,
+            node.moduleSpecifier,
+          ),
+          'for side-effects',
+        ) as any;
+      }
+
+      if (node.exportClause != null && moduleExports) {
+        const bindings = node.exportClause as ts.NamedExports;
+        const exportedNames = new Set(moduleExports.map((sym) => sym.name));
+        const filteredElements = bindings.elements?.filter((elt) =>
+          exportedNames.has(elt.name.text),
+        );
+        if (filteredElements?.length !== bindings.elements?.length) {
+          return ts.updateExportDeclaration(
+            node,
+            node.decorators,
+            node.modifiers,
+            annotate(
+              ts.updateNamedExports(bindings, filteredElements),
+              'removed @deprecated elements',
+            ),
+            node.moduleSpecifier,
+            node.isTypeOnly,
+          ) as any;
+        }
+      }
     }
 
     return DeprecationRemovalTransformer.IGNORE_CHILDREN.has(node.kind)
@@ -809,4 +874,18 @@ class DeprecationRemovalTransformer {
       .getJSDocTags(original)
       .some((tag) => tag.tagName.text === 'deprecated');
   }
+}
+
+function annotate<T extends ts.Node>(
+  node: T,
+  text: string,
+  location: 'leading' | 'trailing' = 'trailing',
+): T {
+  return (location === 'leading'
+    ? ts.addSyntheticLeadingComment
+    : ts.addSyntheticTrailingComment)(
+    node,
+    ts.SyntaxKind.MultiLineCommentTrivia,
+    ` ${text} `,
+  );
 }
