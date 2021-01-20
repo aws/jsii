@@ -26,6 +26,10 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
     source.replace(/neg\.(.+)\.ts/, '$1'),
     async () => {
       const { strict } = await _getPragmas(filePath);
+
+      // Change in dir, so relative paths are processed correctly.
+      process.chdir(SOURCE_DIR);
+
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(source),
         failOnWarnings: strict,
@@ -64,6 +68,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
           promises.push(
             fs.remove(path.join(SOURCE_DIR, '.jsii')),
             fs.remove(path.join(SOURCE_DIR, 'tsconfig.json')),
+            fs.remove(path.join(SOURCE_DIR, '.build')),
           );
           return Promise.all(promises);
         }),
@@ -82,11 +87,12 @@ async function _getPragmas(file: string): Promise<{ strict: boolean }> {
 }
 
 function _makeProjectInfo(types: string): ProjectInfo {
+  const outDir = '.build';
   return {
     projectRoot: SOURCE_DIR,
     packageJson: undefined,
-    types,
-    main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
+    types: path.join(outDir, types.replace(/\.d\.ts(x?)/, '.d.ts$1')),
+    main: path.join(outDir, types.replace(/(?:\.d)?\.ts(x?)/, '.js$1')),
     name: 'jsii', // That's what package.json would tell if we look up...
     version: '0.0.1',
     jsiiVersionFormat: 'short',
@@ -99,5 +105,6 @@ function _makeProjectInfo(types: string): ProjectInfo {
     bundleDependencies: {},
     targets: {},
     excludeTypescript: [],
+    tsc: { outDir },
   };
 }

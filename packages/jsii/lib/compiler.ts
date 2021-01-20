@@ -14,7 +14,6 @@ import * as utils from './utils';
 const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
   charset: 'utf8',
-  composite: true,
   declaration: true,
   experimentalDecorators: true,
   incremental: true,
@@ -304,8 +303,13 @@ export class Compiler implements Emitter {
       compilerOptions: {
         ...pi.tsc,
         ...BASE_COMPILER_OPTIONS,
+        // Enable composite mode if project references are enabled
+        composite: this.projectReferences,
         // When incremental, configure a tsbuildinfo file
-        tsBuildInfoFile: './tsconfig.tsbuildinfo',
+        tsBuildInfoFile: path.join(
+          pi.tsc?.outDir ?? '.',
+          'tsconfig.tsbuildinfo',
+        ),
       },
       include: [
         pi.tsc?.rootDir != null
