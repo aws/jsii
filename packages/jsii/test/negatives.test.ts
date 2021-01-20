@@ -25,7 +25,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
   test(
     source.replace(/neg\.(.+)\.ts/, '$1'),
     async () => {
-      const { strict } = await _getPragmas(filePath);
+      const { strict, stripDeprecated } = await _getPragmas(filePath);
 
       // Change in dir, so relative paths are processed correctly.
       process.chdir(SOURCE_DIR);
@@ -33,6 +33,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(source),
         failOnWarnings: strict,
+        stripDeprecated,
       });
       const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
 
@@ -79,11 +80,17 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
 }
 
 const STRICT_MARKER = '///!STRICT!';
-async function _getPragmas(file: string): Promise<{ strict: boolean }> {
+const STRIP_DEPRECATED_MARKER = '///!STRIP_DEPRECATED!';
+async function _getPragmas(
+  file: string,
+): Promise<{ strict: boolean; stripDeprecated: boolean }> {
   const data = await fs.readFile(file, { encoding: 'utf8' });
   const lines = data.split('\n');
   const strict = lines.some((line) => line.startsWith(STRICT_MARKER));
-  return { strict };
+  const stripDeprecated = lines.some((line) =>
+    line.startsWith(STRIP_DEPRECATED_MARKER),
+  );
+  return { strict, stripDeprecated };
 }
 
 function _makeProjectInfo(types: string): ProjectInfo {

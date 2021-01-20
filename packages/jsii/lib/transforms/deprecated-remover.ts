@@ -1,11 +1,13 @@
 import {
   Assembly,
   ClassType,
+  Initializer,
   InterfaceType,
   isClassOrInterfaceType,
   isClassType,
   isCollectionTypeReference,
   isEnumType,
+  isMethod,
   isNamedTypeReference,
   isPrimitiveTypeReference,
   Method,
@@ -107,7 +109,11 @@ export class DeprecatedRemover {
             ? Transformation.replaceBaseClass(
                 this.typeChecker,
                 bindings.getClassRelatedNode(typeInfo)!,
-                typeInfo.base,
+                typeInfo.base in assembly.types
+                  ? bindings.getClassRelatedNode(
+                      assembly.types[typeInfo.base] as ClassType,
+                    ) ?? typeInfo.base
+                  : typeInfo.base,
               )
             : Transformation.removeBaseClass(
                 this.typeChecker,
@@ -216,11 +222,16 @@ export class DeprecatedRemover {
     const result = new Array<JsiiDiagnostic>();
 
     for (const type of Object.values(assembly.types)) {
-      if (isEnumType(type)) {
+      if (isEnumType(type) || strippedFqns.has(type.fqn)) {
         continue;
       }
+      if (isClassType(type) && type.initializer) {
+        result.push(
+          ...this.verifyCallable(assembly, strippedFqns, type.initializer),
+        );
+      }
       type.methods?.forEach((method) =>
-        result.push(...this.verifyMethod(assembly, strippedFqns, method)),
+        result.push(...this.verifyCallable(assembly, strippedFqns, method)),
       );
       type.properties?.forEach((property) =>
         result.push(...this.verifyProperty(assembly, strippedFqns, property)),
@@ -230,13 +241,14 @@ export class DeprecatedRemover {
     return result;
   }
 
-  private verifyMethod(
+  private verifyCallable(
     assembly: Assembly,
     strippedFqns: ReadonlySet<string>,
-    method: Method,
+    method: Method | Initializer,
   ): readonly JsiiDiagnostic[] {
     const diagnostics = new Array<JsiiDiagnostic>();
     const deprecatedReturnFqn =
+      isMethod(method) &&
       method.returns &&
       this.tryFindReference(method.returns.type, strippedFqns);
     if (deprecatedReturnFqn) {
@@ -312,7 +324,7 @@ export class DeprecatedRemover {
   private makeDiagnostic(
     fqn: string,
     messagePrefix: 'Method',
-    context: Method,
+    context: Method | Initializer,
     assembly: Assembly,
   ): JsiiDiagnostic;
   private makeDiagnostic(
@@ -330,7 +342,7 @@ export class DeprecatedRemover {
   private makeDiagnostic(
     fqn: string,
     messagePrefix: 'Method' | 'Property' | 'Parameter',
-    context: Method | Parameter | Property,
+    context: Method | Initializer | Parameter | Property,
     assembly: Assembly,
   ): JsiiDiagnostic {
     const node = bindings.getRelatedNode<
@@ -453,27 +465,23 @@ class Transformation {
         (clause) => clause.token === ts.SyntaxKind.ExtendsKeyword,
       );
       return {
-        node: annotate(
-          ts.updateClassDeclaration(
-            declaration,
-            declaration.decorators,
-            declaration.modifiers,
-            declaration.name,
-            declaration.typeParameters,
-            [
-              ...(declaration.heritageClauses ?? []).filter(
-                (clause) => clause !== existingClause,
-              ),
-              existingClause
-                ? ts.updateHeritageClause(existingClause, [newBaseClass])
-                : ts.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-                    newBaseClass,
-                  ]),
-            ],
-            declaration.members,
-          ),
-          'replaced @deprecated base class',
-          'leading',
+        node: ts.updateClassDeclaration(
+          declaration,
+          declaration.decorators,
+          declaration.modifiers,
+          declaration.name,
+          declaration.typeParameters,
+          [
+            ...(declaration.heritageClauses ?? []).filter(
+              (clause) => clause !== existingClause,
+            ),
+            existingClause
+              ? ts.updateHeritageClause(existingClause, [newBaseClass])
+              : ts.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+                  newBaseClass,
+                ]),
+          ],
+          declaration.members,
         ),
         syntheticImports: syntheticImport && [syntheticImport],
       };
@@ -493,20 +501,16 @@ class Transformation {
         );
       }
       return {
-        node: annotate(
-          ts.updateClassDeclaration(
-            declaration,
-            declaration.decorators,
-            declaration.modifiers,
-            declaration.name,
-            declaration.typeParameters,
-            declaration.heritageClauses?.filter(
-              (clause) => clause.token !== ts.SyntaxKind.ExtendsKeyword,
-            ),
-            declaration.members,
+        node: ts.updateClassDeclaration(
+          declaration,
+          declaration.decorators,
+          declaration.modifiers,
+          declaration.name,
+          declaration.typeParameters,
+          declaration.heritageClauses?.filter(
+            (clause) => clause.token !== ts.SyntaxKind.ExtendsKeyword,
           ),
-          'removed @deprecated base class',
-          'leading',
+          declaration.members,
         ),
       };
     });
@@ -760,7 +764,7 @@ class DeprecationRemovalTransformer {
           } = transformation.apply(node);
           node = transformedNode as any;
           if (syntheticImport) {
-            this.syntheticImports.push(annotate(syntheticImport, 'synthetic'));
+            this.syntheticImports.push(syntheticImport);
           }
         }
       }
@@ -789,25 +793,22 @@ class DeprecationRemovalTransformer {
         filteredElements.length !==
         node.importClause.namedBindings.elements.length
       ) {
-        return annotate(
-          ts.updateImportDeclaration(
-            node,
-            node.decorators,
-            node.modifiers,
-            node.importClause.name != null || filteredElements.length > 0
-              ? ts.updateImportClause(
-                  node.importClause,
-                  node.importClause.name,
-                  ts.updateNamedImports(
-                    node.importClause.namedBindings,
-                    filteredElements,
-                  ),
-                  node.importClause.isTypeOnly,
-                )
-              : undefined,
-            node.moduleSpecifier,
-          ),
-          'removed @deprecated elements',
+        return ts.updateImportDeclaration(
+          node,
+          node.decorators,
+          node.modifiers,
+          node.importClause.name != null || filteredElements.length > 0
+            ? ts.updateImportClause(
+                node.importClause,
+                node.importClause.name,
+                ts.updateNamedImports(
+                  node.importClause.namedBindings,
+                  filteredElements,
+                ),
+                node.importClause.isTypeOnly,
+              )
+            : undefined,
+          node.moduleSpecifier,
         ) as any;
       }
 
@@ -830,14 +831,11 @@ class DeprecationRemovalTransformer {
           ts.isNamespaceExport(node.exportClause)) &&
         moduleExports?.length === 0
       ) {
-        return annotate(
-          ts.createImportDeclaration(
-            undefined /* decorators */,
-            undefined /* modifiers */,
-            undefined /* importClause */,
-            node.moduleSpecifier,
-          ),
-          'for side-effects',
+        return ts.createImportDeclaration(
+          undefined /* decorators */,
+          undefined /* modifiers */,
+          undefined /* importClause */,
+          node.moduleSpecifier,
         ) as any;
       }
 
@@ -852,10 +850,7 @@ class DeprecationRemovalTransformer {
             node,
             node.decorators,
             node.modifiers,
-            annotate(
-              ts.updateNamedExports(bindings, filteredElements),
-              'removed @deprecated elements',
-            ),
+            ts.updateNamedExports(bindings, filteredElements),
             node.moduleSpecifier,
             node.isTypeOnly,
           ) as any;
@@ -874,18 +869,4 @@ class DeprecationRemovalTransformer {
       .getJSDocTags(original)
       .some((tag) => tag.tagName.text === 'deprecated');
   }
-}
-
-function annotate<T extends ts.Node>(
-  node: T,
-  text: string,
-  location: 'leading' | 'trailing' = 'trailing',
-): T {
-  return (location === 'leading'
-    ? ts.addSyntheticLeadingComment
-    : ts.addSyntheticTrailingComment)(
-    node,
-    ts.SyntaxKind.MultiLineCommentTrivia,
-    ` ${text} `,
-  );
 }

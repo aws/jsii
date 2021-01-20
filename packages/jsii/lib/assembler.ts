@@ -220,7 +220,9 @@ export class Assembler implements Emitter {
       fingerprint: '<TBD>',
     };
 
-    this.deprecatedRemover?.removeFrom(assembly);
+    if (this.deprecatedRemover) {
+      this._diagnostics.push(...this.deprecatedRemover.removeFrom(assembly));
+    }
 
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = await validator.emit();
