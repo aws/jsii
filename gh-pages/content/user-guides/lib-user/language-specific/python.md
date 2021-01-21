@@ -55,7 +55,7 @@ class MyNewClass():
     ...
 ```
 
-[jsii-type-system]: ../specification/2-type-system.md
+[jsii-type-system]: ../../../specification/2-type-system.md
 
 ## Property Overrides
 

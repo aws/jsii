@@ -56,8 +56,8 @@ implementation.
         This should generally be avoided as it can result in incoherent data serialization happening when the _jsii
         kernel_ receives and returns values.
 
-[kernel.create]: ../specification/3-kernel-api.md#creating-objects
-[kernel.create.overrides]: ../specification/3-kernel-api.md#overrides
+[kernel.create]: ../../specification/3-kernel-api.md#creating-objects
+[kernel.create.overrides]: ../../specification/3-kernel-api.md#overrides
 
 ## Invoking Overrides
 
@@ -75,7 +75,7 @@ corresponding implementation (for example, using reflection).
 When needed, the _original_ **JavaScript** implementation can be delegated to (many languages refer to this as
 `super(...)` or some similar idiom).
 
-[kernel.callback]: ../specification/3-kernel-api.md#a-note-about-callbacks
+[kernel.callback]: ../../specification/3-kernel-api.md#a-note-about-callbacks
 
 ### Example
 
@@ -153,5 +153,5 @@ The schematized exchange between the _jsii runtime library_ and the _jsii kernem
 
 ## See Also
 
-- [The _jsii_ runtime architecture](../home/runtime-architecture.md)
-- [The _jsii_ kernel API](../specification/3-kernel-api.md)
+- [The _jsii_ runtime architecture](../../overview/runtime-architecture.md)
+- [The _jsii_ kernel API](../../specification/3-kernel-api.md)
