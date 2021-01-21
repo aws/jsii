@@ -7,7 +7,7 @@ must be available. Current `node` runtime versions support status is as follows:
 
 --8<-- "partials/node-support-table.md"
 
-[runtime architecture]: ../home/runtime-architecture.md
+[runtime architecture]: ../../overview/runtime-architecture.md
 
 ## :octicons-file-code-24: Other Languages
 
