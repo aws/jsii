@@ -8,7 +8,6 @@
     "lint:fix": "lerna run lint:fix --stream --sort",
     "bump": "bash scripts/bump.sh",
     "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
-    "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "package": "bash scripts/package.sh",
     "test": "lerna run test --concurrency=1 --stream",
     "test:integ": "lerna run test:integ --stream",
