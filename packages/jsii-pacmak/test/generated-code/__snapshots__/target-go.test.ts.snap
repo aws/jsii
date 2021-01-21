@@ -396,7 +396,7 @@ import (
 )
 
 // Check that enums from \\@scoped packages can be references.
-// 
+//
 // See awslabs/jsii#138
 // Deprecated.
 type EnumFromScopedModule string
@@ -427,7 +427,7 @@ func (i *IDoublable) GetDoubleValue() float64 {
 }
 
 // Applies to classes that are considered friendly.
-// 
+//
 // These classes can be greeted with
 // a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
 // Deprecated.
@@ -453,7 +453,7 @@ func (i *IFriendly) Hello() string {
 }
 
 // Interface that inherits from packages 2 levels up the tree.
-// 
+//
 // Their presence validates that .NET/Java/jsii-reflect can track all fields
 // far enough up the tree.
 // Deprecated.
@@ -921,7 +921,7 @@ type NestedStructIface interface {
 }
 
 // This is a struct, nested within a class.
-// 
+//
 // Normal.
 // Deprecated.
 // Struct proxy
@@ -1120,7 +1120,7 @@ type CompositeOperation struct {
 	// (deprecated) The value.
 	Value float64 \`json:"value"\`
 	// The expression that this operation consists of.
-	// 
+	//
 	// Must be implemented by derived classes.
 	Expression scopejsiicalclib.NumericValueIface \`json:"expression"\`
 	// A set of postfixes to include in a decorated .toString().
@@ -1952,7 +1952,7 @@ type AllTypesIface interface {
 }
 
 // This class includes property for all types supported by jsii.
-// 
+//
 // The setters will validate
 // that the value set is of the expected type and throw otherwise.
 // Struct proxy
@@ -3016,20 +3016,20 @@ type CalculatorIface interface {
 }
 
 // A calculator which maintains a current value and allows adding operations.
-// 
+//
 // Here's how you use it:
-// 
+//
 // \`\`\`ts
 // const calculator = new calc.Calculator();
 // calculator.add(5);
 // calculator.mul(3);
 // console.log(calculator.expression.value);
 // \`\`\`
-// 
+//
 // I will repeat this example again, but in an @example tag.
-// 
+//
 // TODO: EXAMPLE
-// 
+//
 // Struct proxy
 type Calculator struct {
 	// (deprecated) The value.
@@ -3338,7 +3338,7 @@ type CalculatorPropsIface interface {
 // Struct proxy
 type CalculatorProps struct {
 	// The initial value of the calculator.
-	// 
+	//
 	// NOTE: Any number works here, it's fine.
 	InitialValue float64 \`json:"initialValue"\`
 	// The maximum value the calculator can store.
@@ -3780,13 +3780,13 @@ type ClassWithDocsIface interface {
 }
 
 // This class has docs.
-// 
+//
 // The docs are great. They're a bunch of tags.
-// 
+//
 // TODO: EXAMPLE
-// 
+//
 // See: https://aws.amazon.com/
-// 
+//
 // Struct proxy
 type ClassWithDocs struct {
 }
@@ -3969,7 +3969,7 @@ type ConfusingToJacksonIface interface {
 
 // This tries to confuse Jackson by having overloaded property setters.
 // See: https://github.com/aws/aws-cdk/issues/4080
-// 
+//
 // Struct proxy
 type ConfusingToJackson struct {
 	UnionProperty interface{} \`json:"unionProperty"\`
@@ -4249,7 +4249,7 @@ type ConsumerCanRingBellIface interface {
 }
 
 // Test calling back to consumers that implement interfaces.
-// 
+//
 // Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
 // the method on the argument that they're passed...
 // Struct proxy
@@ -4556,7 +4556,7 @@ type Demonstrate982Iface interface {
 }
 
 // 1.
-// 
+//
 // call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
 // 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
 // Struct proxy
@@ -5014,7 +5014,7 @@ type DisappointingCollectionSourceIface interface {
 }
 
 // Verifies that null/undefined can be returned for optional collections.
-// 
+//
 // This source of collections is disappointing - it'll always give you nothing :(
 // Struct proxy
 type DisappointingCollectionSource struct {
@@ -5152,10 +5152,10 @@ type DocumentedClassIface interface {
 }
 
 // Here's the first line of the TSDoc comment.
-// 
+//
 // This is the meat of the TSDoc comment. It may contain
 // multiple lines and multiple paragraphs.
-// 
+//
 // Multiple paragraphs are separated by an empty line.
 // Struct proxy
 type DocumentedClass struct {
@@ -6371,7 +6371,7 @@ type IFriendlierIface interface {
 	// Say farewell.
 	Farewell() string
 	// Say goodbye.
-	// 
+	//
 	// Returns: A goodbye blessing.
 	Goodbye() string
 }
@@ -6990,7 +6990,7 @@ func (i *IPublicInterface2) Ciao() string {
 // Generates random numbers.
 type IRandomNumberGeneratorIface interface {
 	// Returns another random number.
-	// 
+	//
 	// Returns: A random number.
 	Next() float64
 }
@@ -7441,7 +7441,7 @@ type InterfaceCollectionsIface interface {
 }
 
 // Verifies that collections of interfaces or structs are correctly handled.
-// 
+//
 // See: https://github.com/aws/jsii/issues/1196
 // Struct proxy
 type InterfaceCollections struct {
@@ -7542,7 +7542,7 @@ type IsomorphismIface interface {
 }
 
 // Checks the "same instance" isomorphism is preserved within the constructor.
-// 
+//
 // Create a subclass of this, and assert that \`this.myself()\` actually returns
 // \`this\` from within the constructor.
 // Struct proxy
@@ -8705,7 +8705,7 @@ type JsonFormatterIface interface {
 
 // Make sure structs are un-decorated on the way in.
 // See: https://github.com/aws/aws-cdk/issues/5066
-// 
+//
 // Struct proxy
 type JsonFormatter struct {
 }
@@ -9027,35 +9027,35 @@ type LoadBalancedFargateServicePropsIface interface {
 // Struct proxy
 type LoadBalancedFargateServiceProps struct {
 	// The container port of the application load balancer attached to your Fargate service.
-	// 
+	//
 	// Corresponds to container port mapping.
 	ContainerPort float64 \`json:"containerPort"\`
 	// The number of cpu units used by the task.
-	// 
+	//
 	// Valid values, which determines your range of valid values for the memory parameter:
 	// 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
 	// 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
 	// 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
 	// 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
 	// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-	// 
+	//
 	// This default is set in the underlying FargateTaskDefinition construct.
 	Cpu string \`json:"cpu"\`
 	// The amount (in MiB) of memory used by the task.
-	// 
+	//
 	// This field is required and you must use one of the following values, which determines your range of valid values
 	// for the cpu parameter:
-	// 
+	//
 	// 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-	// 
+	//
 	// 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-	// 
+	//
 	// 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-	// 
+	//
 	// Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-	// 
+	//
 	// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-	// 
+	//
 	// This default is set in the underlying FargateTaskDefinition construct.
 	MemoryMiB string \`json:"memoryMiB"\`
 	// Determines whether the Application Load Balancer will be internet-facing.
@@ -10072,7 +10072,7 @@ type OverridableProtectedMemberIface interface {
 }
 
 // See: https://github.com/aws/jsii/issues/903
-// 
+//
 // Struct proxy
 type OverridableProtectedMember struct {
 	OverrideReadOnly string \`json:"overrideReadOnly"\`
@@ -10311,7 +10311,7 @@ type Power struct {
 	// (deprecated) The value.
 	Value float64 \`json:"value"\`
 	// The expression that this operation consists of.
-	// 
+	//
 	// Must be implemented by derived classes.
 	Expression scopejsiicalclib.NumericValueIface \`json:"expression"\`
 	// A set of postfixes to include in a decorated .toString().
@@ -11082,10 +11082,10 @@ type ReturnsPrivateImplementationOfInterfaceIface interface {
 }
 
 // Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
-// 
+//
 // Returns: an instance of an un-exported class that extends \`ExportedBaseClass\`, declared as \`IPrivatelyImplemented\`.
 // See: https://github.com/aws/jsii/issues/320
-// 
+//
 // Struct proxy
 type ReturnsPrivateImplementationOfInterface struct {
 	PrivateImplementation IPrivatelyImplementedIface \`json:"privateImplementation"\`
@@ -11125,7 +11125,7 @@ type RootStructIface interface {
 }
 
 // This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
-// 
+//
 // This is cheating with the (current) declared types, but this is the "more
 // idiomatic" way for Pythonists.
 // Struct proxy
@@ -11285,7 +11285,7 @@ type SingleInstanceTwoTypesIface interface {
 }
 
 // Test that a single instance can be returned under two different FQNs.
-// 
+//
 // JSII clients can instantiate 2 different strongly-typed wrappers for the same
 // object. Unfortunately, this will break object equality, but if we didn't do
 // this it would break runtime type checks in the JVM or CLR.
@@ -11342,7 +11342,7 @@ type SingletonIntIface interface {
 }
 
 // Verifies that singleton enums are handled correctly.
-// 
+//
 // https://github.com/aws/jsii/issues/231
 // Struct proxy
 type SingletonInt struct {
@@ -11374,7 +11374,7 @@ type SingletonStringIface interface {
 }
 
 // Verifies that singleton enums are handled correctly.
-// 
+//
 // https://github.com/aws/jsii/issues/231
 // Struct proxy
 type SingletonString struct {
@@ -11590,7 +11590,7 @@ type StaticContextIface interface {
 }
 
 // This is used to validate the ability to use \`this\` from within a static context.
-// 
+//
 // https://github.com/awslabs/aws-cdk/issues/2304
 // Struct proxy
 type StaticContext struct {
@@ -11669,7 +11669,7 @@ type StaticHelloParentIface interface {
 }
 
 // Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden.
-// 
+//
 // The difference is fairly minor (for typical use-cases, the end result is the
 // same), however this has implications on what the generated code should look
 // like.
@@ -12033,7 +12033,7 @@ type StructParameterTypeIface interface {
 }
 
 // Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
-// 
+//
 // See: https://github.com/aws/aws-cdk/issues/4302
 // Struct proxy
 type StructParameterType struct {
@@ -12235,7 +12235,7 @@ type Sum struct {
 	// (deprecated) The value.
 	Value float64 \`json:"value"\`
 	// The expression that this operation consists of.
-	// 
+	//
 	// Must be implemented by derived classes.
 	Expression scopejsiicalclib.NumericValueIface \`json:"expression"\`
 	// A set of postfixes to include in a decorated .toString().
@@ -12484,7 +12484,7 @@ type SupportsNiceJavaBuilderProps struct {
 	// Some number, like 42.
 	Bar float64 \`json:"bar"\`
 	// An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
-	// 
+	//
 	// But here we are, doing it like we didn't care.
 	Id string \`json:"id"\`
 }
@@ -12948,7 +12948,7 @@ type UmaskCheckIface interface {
 
 // Checks the current file permissions are cool (no funky UMASK down-scoping happened).
 // See: https://github.com/aws/jsii/issues/1765
-// 
+//
 // Struct proxy
 type UmaskCheck struct {
 }
@@ -13461,7 +13461,7 @@ type VoidCallbackIface interface {
 }
 
 // This test is used to validate the runtimes can return correctly from a void callback.
-// 
+//
 // - Implement \`overrideMe\` (method does not have to do anything).
 // - Invoke \`callMe\`
 // - Verify that \`methodWasCalled\` is \`true\`.
@@ -13835,7 +13835,7 @@ type OuterClassIface interface {
 
 // Checks that classes can self-reference during initialization.
 // See: : https://github.com/aws/jsii/pull/1706
-// 
+//
 // Struct proxy
 type OuterClass struct {
 	InnerClass InnerClassIface \`json:"innerClass"\`

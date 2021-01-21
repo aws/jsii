@@ -55,7 +55,7 @@ export class Documentation {
 
   private emitComment(text = '') {
     for (const line of text.split('\n')) {
-      this.code.line(`// ${line}`);
+      this.code.line(`// ${line}`.trim());
     }
   }
 
