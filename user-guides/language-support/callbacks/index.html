@@ -11,21 +11,21 @@
       
       
       
-        <link rel="canonical" href="https://aws.github.io/jsii/specification/5-new-language-intake/">
+        <link rel="canonical" href="https://aws.github.io/jsii/user-guides/language-support/callbacks/">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.5">
     
     
       
-        <title>New Language Intake - The jsii reference</title>
+        <title>Callbacks and Overrides - The jsii reference</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.15aa0b43.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.15aa0b43.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.75751829.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.75751829.min.css">
         
       
     
@@ -35,9 +35,9 @@
     
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/amazon-ember-display.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/amazon-ember-display.css">
     
-      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
     
     
       
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#new-language-intake" class="md-skip">
+        <a href="#callbacks-and-overrides" class="md-skip">
           Skip to content
         </a>
       
@@ -76,7 +76,7 @@
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-header-nav__button md-logo" aria-label="The jsii reference">
       
-  <img src="../../assets/images/logo.png" alt="logo">
+  <img src="../../../assets/images/logo.png" alt="logo">
 
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -92,7 +92,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              New Language Intake
+              Callbacks and Overrides
             
           </span>
         </div>
@@ -164,24 +164,8 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         Welcome
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../user-guides/" class="md-tabs__link">
-        User guides
       </a>
     </li>
   
@@ -198,7 +182,23 @@
   
   
     <li class="md-tabs__item">
-      <a href="../1-introduction/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        User guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../specification/1-introduction/" class="md-tabs__link">
         Specification
       </a>
     </li>
@@ -214,7 +214,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../adr/introduction/" class="md-tabs__link">
+      <a href="../../../adr/introduction/" class="md-tabs__link">
         Architecture Decision Records
       </a>
     </li>
@@ -245,7 +245,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference">
       
-  <img src="../../assets/images/logo.png" alt="logo">
+  <img src="../../../assets/images/logo.png" alt="logo">
 
     </a>
     The jsii reference
@@ -297,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -331,7 +331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overview/features/" class="md-nav__link">
+      <a href="../../../overview/features/" class="md-nav__link">
         Features
       </a>
     </li>
@@ -343,7 +343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overview/toolchain/" class="md-nav__link">
+      <a href="../../../overview/toolchain/" class="md-nav__link">
         Toolchain
       </a>
     </li>
@@ -355,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overview/runtime-architecture/" class="md-nav__link">
+      <a href="../../../overview/runtime-architecture/" class="md-nav__link">
         Runtime Architecture
       </a>
     </li>
@@ -381,12 +381,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" data-md-state="indeterminate" type="checkbox" id="nav-2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
       
       <label class="md-nav__link" for="nav-2">
         User guides
@@ -405,7 +407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -439,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/lib-author/" class="md-nav__link">
+      <a href="../../lib-author/" class="md-nav__link">
         Prerequisites
       </a>
     </li>
@@ -473,7 +475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/lib-author/quick-start/set-up/" class="md-nav__link">
+      <a href="../../lib-author/quick-start/set-up/" class="md-nav__link">
         Set Up
       </a>
     </li>
@@ -485,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/lib-author/quick-start/write-code/" class="md-nav__link">
+      <a href="../../lib-author/quick-start/write-code/" class="md-nav__link">
         Write Code
       </a>
     </li>
@@ -503,7 +505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/lib-author/typescript-restrictions/" class="md-nav__link">
+      <a href="../../lib-author/typescript-restrictions/" class="md-nav__link">
         TypeScript Restrictions
       </a>
     </li>
@@ -537,7 +539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dotnet.md" class="md-nav__link">
+      <a href="../../../dotnet.md" class="md-nav__link">
         .NET
       </a>
     </li>
@@ -549,7 +551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../go.md" class="md-nav__link">
+      <a href="../../../go.md" class="md-nav__link">
         Go
       </a>
     </li>
@@ -561,7 +563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../java.md" class="md-nav__link">
+      <a href="../../../java.md" class="md-nav__link">
         Java
       </a>
     </li>
@@ -573,7 +575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python.md" class="md-nav__link">
+      <a href="../../../python.md" class="md-nav__link">
         Python
       </a>
     </li>
@@ -619,7 +621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/lib-user/" class="md-nav__link">
+      <a href="../../lib-user/" class="md-nav__link">
         Prerequisites
       </a>
     </li>
@@ -653,7 +655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/lib-user/language-specific/python/" class="md-nav__link">
+      <a href="../../lib-user/language-specific/python/" class="md-nav__link">
         Python
       </a>
     </li>
@@ -675,12 +677,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" data-md-state="indeterminate" type="checkbox" id="nav-2-4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4" checked>
       
       <label class="md-nav__link" for="nav-2-4">
         Language Implementation
@@ -699,7 +703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/language-support/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         Language Implementation
       </a>
     </li>
@@ -711,108 +715,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guides/language-support/assembly/" class="md-nav__link">
+      <a href="../assembly/" class="md-nav__link">
         .jsii Assemblies
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../user-guides/language-support/callbacks/" class="md-nav__link">
-        Callbacks and Overrides
-      </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
-      
-      <label class="md-nav__link" for="nav-3">
-        Specification
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Specification" data-md-level="1">
-        <label class="md-nav__title" for="nav-3">
-          <span class="md-nav__icon md-icon"></span>
-          Specification
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../1-introduction/" class="md-nav__link">
-        Introduction
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../2-type-system/" class="md-nav__link">
-        The jsii type system
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../3-kernel-api/" class="md-nav__link">
-        The jsii kernel API
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../4-standard-compliance-suite/" class="md-nav__link">
-        Standard Compliance Suite
       </a>
     </li>
   
@@ -832,12 +736,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          New Language Intake
+          Callbacks and Overrides
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        New Language Intake
+        Callbacks and Overrides
       </a>
       
         
@@ -854,57 +758,42 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#planning" class="md-nav__link">
-    Planning
+  <a href="#identifying-overrides" class="md-nav__link">
+    Identifying Overrides
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-generation-jsii-pacmak" class="md-nav__link">
-    Code Generation (jsii-pacmak)
+  <a href="#declaring-overrides" class="md-nav__link">
+    Declaring Overrides
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#runtime-library" class="md-nav__link">
-    Runtime Library
+  <a href="#invoking-overrides" class="md-nav__link">
+    Invoking Overrides
   </a>
+  
+    <nav class="md-nav" aria-label="Invoking Overrides">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-packaging" class="md-nav__link">
-    Building &amp; Packaging
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#compliance-tests" class="md-nav__link">
-    Compliance Tests
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
-    Documentation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#developer-preview" class="md-nav__link">
-    Developer Preview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#general-availability" class="md-nav__link">
-    General Availability
+  <a href="#see-also" class="md-nav__link">
+    See Also
   </a>
   
 </li>
@@ -913,6 +802,104 @@
   
 </nav>
       
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" data-md-state="indeterminate" type="checkbox" id="nav-3" checked>
+      
+      <label class="md-nav__link" for="nav-3">
+        Specification
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Specification" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          Specification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../specification/1-introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../specification/2-type-system/" class="md-nav__link">
+        The jsii type system
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../specification/3-kernel-api/" class="md-nav__link">
+        The jsii kernel API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../specification/4-standard-compliance-suite/" class="md-nav__link">
+        Standard Compliance Suite
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../specification/5-new-language-intake/" class="md-nav__link">
+        New Language Intake
+      </a>
     </li>
   
 
@@ -954,7 +941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/introduction/" class="md-nav__link">
+      <a href="../../../adr/introduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -992,57 +979,42 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#planning" class="md-nav__link">
-    Planning
+  <a href="#identifying-overrides" class="md-nav__link">
+    Identifying Overrides
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-generation-jsii-pacmak" class="md-nav__link">
-    Code Generation (jsii-pacmak)
+  <a href="#declaring-overrides" class="md-nav__link">
+    Declaring Overrides
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#runtime-library" class="md-nav__link">
-    Runtime Library
+  <a href="#invoking-overrides" class="md-nav__link">
+    Invoking Overrides
   </a>
+  
+    <nav class="md-nav" aria-label="Invoking Overrides">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-packaging" class="md-nav__link">
-    Building &amp; Packaging
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#compliance-tests" class="md-nav__link">
-    Compliance Tests
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
-    Documentation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#developer-preview" class="md-nav__link">
-    Developer Preview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#general-availability" class="md-nav__link">
-    General Availability
+  <a href="#see-also" class="md-nav__link">
+    See Also
   </a>
   
 </li>
@@ -1059,92 +1031,140 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/specification/5-new-language-intake.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/user-guides/language-support/callbacks.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="new-language-intake">New Language Intake</h1>
-<p>This document outlines the process to be followed when introducing a new <em>jsii</em> target language, including an estimated
-timeline (the exact timeline may vary significantly depending on the specifics of the language being added).</p>
-<p>The estimated total duration for the process is 4 to 6 months.</p>
-<h2 id="planning">Planning</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 2 weeks</p>
-<p>The first step is to study the <em>jsii</em> specification, as well as existing language implementations, in order to have the
-knowledge necessary to write a new language support proposal <a href="https://github.com/awslabs/aws-cdk-rfcs#readme">RFC</a>. The <a href="https://github.com/awslabs/aws-cdk-rfcs#readme">RFC</a> document produced will evolve and be
-polished as development of the new language support progresses, but the following elements must be present before any
-implementation begins:</p>
+                <h1 id="callbacks-and-overrides">Callbacks and Overrides</h1>
+<p>This document provides a high-level overview of the mechanisms used by <em>jsii</em> to allow <em>foreign</em> code to override
+<strong>JavaScript</strong> methods. It details the responsibilities of the <em>jsii kernel</em> and of the <em>foreign library</em>, and provides
+implementation guidelines.</p>
+<h2 id="identifying-overrides">Identifying Overrides</h2>
+<p>The <em>jsii kernel</em> allows <em>foreign</em> code to register overrides for the following use-cases:</p>
 <ul>
-<li>Identification of the language's standard package repository</li>
-<li>Proposal for the binding's configuration block</li>
-<li>Sample API representations in the proposed language</li>
-<li>In particular, any element from the <em>jsii</em> type model that does not naturally map into the proposed new language
-    needs to be represented</li>
-<li>Where several options exist, links to prior art are instrumental to validate the direction chosen</li>
-<li>Toolchain and platform requirements</li>
+<li>Overriding a class' non-static member</li>
+<li>Implementing an abstract member (including interface members)</li>
 </ul>
-<h2 id="code-generation-jsii-pacmak">Code Generation (<code>jsii-pacmak</code>)</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 4 to 6 weeks</p>
-<p>The necessary code must be added to [<code>jsii-pacmak</code>] in order to map the <em>jsii</em> assembly's declared types into the
-proposed language. While this code ought to leverage the new language's <em>host</em> runtime library, we begin with writing
-the code generator in order to ensure the appropriate developer experience is achieved in the new language before
-writing the back-end components.</p>
-<p>Code generators are authored in <strong>TypeScript</strong>.</p>
-<p>The necessary reserved words need to be registered in the <code>jsii</code> compiler, so that warnings are produced when
-identifiers are used in <strong>TypeScript</strong> code that require slugification or escaping in the target language (and will
-hence cause a degraded developer experience).</p>
-<h2 id="runtime-library">Runtime Library</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 4 to 6 weeks</p>
-<p>Now that the appropriate developer experience has been identified, the <em>host</em> runtime library supporting the generated
-code can be written. This component must be written in the new language.</p>
-<div class="admonition bug">
-<p class="admonition-title">Unimplemented</p>
-<p>A reference architecture for <em>host</em> runtime libraries is to be developed, in order to ensure consistent naming and
-behavior across all the runtimes, reducing the cost of maintaining many of those.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It is possible for <em>foreign</em> code to override a class' constructor, but those cannot be registered in the <em>jsii
+kernel</em> as it cannot trigger instantiation of a <em>foreign</em> class directly. <em>Foreign</em> constructors always delegate to
+the <strong>JavaScript</strong> constructor, which is happens via the <a href="../../../specification/3-kernel-api/#creating-objects"><code>create</code></a> operation, during which overrides
+are registered.</p>
 </div>
-<h2 id="building-packaging">Building &amp; Packaging</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 2 weeks</p>
-<p>Once code is generated and it has a <em>host</em> runtime library to rely on, [<code>jsii-pacmak</code>] needs to receive the additional
-logic required to compile and package the generated libraries as required, producing ready-to-publish artifacts.</p>
-<p>The necessary toolchain needs to be added to the [<code>jsii/superchain</code>] <em>Docker</em> image, so that <code>jsii</code> customers can rely
-on this to build artifacts for any of the supported languages.</p>
-<p>In addition to this, standardized <em>Amazon CodePipeline</em> actions need to be developed in order to support publishing to
-the relevant idiomatic package managers.</p>
-<h2 id="compliance-tests">Compliance Tests</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 6 weeks</p>
-<p>The full standard compliance suite must be implemented for the new language. Leveraging the new code generator, <em>host</em>
-runtime library and compilation logic, the tests demonstrate that the new library behaves consistently with all other
-language bindings.</p>
-<p>While it is possible to declare <em>developer preview</em> on a new language before all the tests pass, full compliance is a
-pre-requisite to declaring <em>general availability</em> of the new language.</p>
-<h2 id="documentation">Documentation</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 1 week</p>
-<p>The necessary documentation needs to be provided to support customers who want to onboard the new language. This also
-includes updating [<code>jsii-config</code>] with support for the new languages' configuration block.</p>
-<h2 id="developer-preview">Developer Preview</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" title=":alarm_clock:" /> Recommended Duration:</strong> 4 to 8 weeks</p>
-<p>It is possible to declare <em>Developer Preview</em> for a new language support as soon as the code generation and <em>host</em>
-runtime library are mature enough to be useful, and cover the majority of use-cases. While certain edge-cases may still
-be uncovered at the beginning of <em>Developer Preview</em>, a clear plan should exist that ensures a path exists to address
-any known gaps. It is required to have implemented most of the standard compliance suite prior to declaring <em>Developer
-Preview</em>.</p>
-<p>During the <em>Developer Preview</em> phase, user experience studies should be conducted to validate assumptions made during
-the code generator's design. If any significant change is dictated by the results of the user experience studies,
-fluback studies should be performed in order to confirm that the desired impact has been achieved.</p>
-<div class="admonition bug">
-<p class="admonition-title">Unimplemented</p>
-<p>A standard set of user experience study tasks will be developed, ensuring the learnings from previous experiences is
-factored into subsequent studies conducted.</p>
+<p>All cases where <em>foreign</em> code should be executed in lieu of <strong>JavaScript</strong> code must be identified and declared
+properly, as the <em>jsii kernel</em> otherwise has no way to determine a <em>foreign</em> implementation exists.</p>
+<p>Where possible, the <em>jsii runtime library</em> for the <em>foreign</em> language will use reflection APIs to transparently discover
+which API elements are overridden or implemented. In cases where reflection is expensive, the <em>jsii runtime library</em>
+will try to cache findings as appropriate in order to avoid duplication of this effort.</p>
+<p>In case the <em>foreign</em> language does not have direct support for overriding (e.g: <strong>Go</strong>), or lacks the necessary
+reflection tools to allow automatic identification of overrides, the <em>jsii runtime library</em> may expose APIs allowing
+users to register implementation overrides manually.</p>
+<h2 id="declaring-overrides">Declaring Overrides</h2>
+<p>The foreign library is responsible for declaring overrides to the <em>jsii kernel</em>. Those are declared for every object
+instance using the <a href="../../../specification/3-kernel-api/#overrides"><code>overrides</code></a> property of the <a href="../../../specification/3-kernel-api/#creating-objects"><code>kernel.create</code> request</a>. Each
+entry in the <a href="../../../specification/3-kernel-api/#overrides"><code>overrides</code></a> list declares an overriden property or method.</p>
+<p>Each override declaration may optionally include a <code>cookie</code>: this string will not be interpreted by the <em>jsii kernel</em> in
+any way, and will simply be passed back passed back with any request to invoke the overridden member's foreign
+implementation.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It is possible to register overrides to members that do not formally exist on a type. Since the <em>jsii kernel</em> has no
+type information available for those, it will handle them as follows:</p>
+<ul>
+<li>Method overrides are assumed to have the following signature:
+  <div class="highlight"><pre><span></span><code><span class="nx">overridden</span><span class="p">(...</span><span class="nx">args</span>: <span class="kt">any</span><span class="p">[])</span><span class="o">:</span> <span class="nx">any</span>
+</code></pre></div></li>
+<li>Property overrides are assumed to be <code>any</code>-valued and mutable</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This should generally be avoided as it can result in incoherent data serialization happening when the <em>jsii
+kernel</em> receives and returns values.</p>
 </div>
-<p>Finally, it is essential to give time to the community to use and vet the new language support prior to considering
-<em>General Availability</em>. A minimum of a full month without a major bug reported is advised. During this period,
-intentional hands-on usage of the product msut be performed by engineers familiar with the new language as well as
-engineers unfamilar with it. This ensures the new experience is considered holistically, in a manner unbiased by
-knowledge of the implementation.</p>
-<h2 id="general-availability">General Availability</h2>
-<p>Once the new language support has been <em>Developer Preview</em> for long enough and the engineers involved have gained
-confidence that the API is stable, covers all known use-cases reliably, and behaves consistently with other <em>Generally
-Available</em> languages, the new support can be considered for <em>General Availability</em>.</p>
+</div>
+<h2 id="invoking-overrides">Invoking Overrides</h2>
+<p>Once object instances have been created in the <em>jsii kernel</em> with overrides, execution of <strong>JavaScript</strong> code may
+require executing <em>foreign</em> code. The <em>jsii kernel</em> signals this to the <em>jsii runtime library</em> by responding with a
+<a href="../../../specification/3-kernel-api/#a-note-about-callbacks"><code>callback</code> request</a> instead of the typical response type for the original request (i.e:
+<code>InvokeResponse</code>, <code>GetResponse</code> or <code>SetResponse</code>). Several such <a href="../../../specification/3-kernel-api/#a-note-about-callbacks">callbacks</a> may be necessary in order
+to complete the original request. When the original request is finally able to complete, its response is returned.</p>
+<p>The <em>jsii runtime library</em> must respond to each <a href="../../../specification/3-kernel-api/#a-note-about-callbacks"><code>callback</code> request</a> with a <code>complete</code> response,
+allowing the <em>jsii kernel</em> to resume fulfilling the original request. In order to do this, the <em>jsii runtime library</em>
+obtains the <em>foreign</em> object corresponding to the <a href="../../../specification/3-kernel-api/#a-note-about-callbacks"><code>callback</code> request</a>'s receiver, then invokes the
+corresponding implementation (for example, using reflection).</p>
+<p>When needed, the <em>original</em> <strong>JavaScript</strong> implementation can be delegated to (many languages refer to this as
+<code>super(...)</code> or some similar idiom).</p>
+<h3 id="example">Example</h3>
+<p>Assuming we have the following <strong>TypeScript</strong> types defined:</p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="k">abstract</span> <span class="kd">class</span> <span class="nx">FooClass</span> <span class="p">{</span>
+  <span class="k">protected</span> <span class="k">abstract</span> <span class="nx">baz</span>: <span class="kt">string</span><span class="p">;</span>
+
+  <span class="k">public</span> <span class="nx">bar</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">reverse</span><span class="p">()</span> <span class="o">?</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">baz</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">baz</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">protected</span> <span class="nx">reverse</span><span class="p">()</span><span class="o">:</span> <span class="kr">boolean</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>And we have the following <em>Foreign</em> application (assuming <strong>Java</strong>):</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="kd">extends</span> <span class="n">FooClass</span> <span class="p">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">FooClass</span> <span class="n">self</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Main</span><span class="p">();</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="na">bar</span><span class="p">());</span>
+  <span class="p">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getBaz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">&quot;baz&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">reverse</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The schematized exchange between the <em>jsii runtime library</em> and the <em>jsii kernem</em> is the following:</p>
+<!-- Original in `callbacks.monopic`, authored using Monodraw  (https://monodraw.helftone.com) -->
+
+<div class="highlight"><pre><span></span><code>┏━━━━━━━━━━━┓                                                  ┏━━━━━━━━━━━━━━━┓
+┃  Kernel   ┃                                                  ┃Runtime Library┃
+┗━━━━━┳━━━━━┛                                                  ┗━━━━━━━┳━━━━━━━┛
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃
+      ┃◀─┤  Create(FQN: &quot;FooClass&quot;, Overrides=[&quot;baz&quot;, &quot;reverse&quot;])   ├──┃
+      ┃  └──────────────────────────────────────────────────────────┘  ┃
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃
+      ┃──┤                     OK(ObjID: &quot;Foo&quot;)                     ├─▶┃
+      ┃  └──────────────────────────────────────────────────────────┘  ┃
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃
+      ┃◀─┤        InvokeRequest(ObjID: &quot;Foo&quot;, Method: &quot;bar&quot;)        ├──┃
+      ┃  └──────────────────────────────────────────────────────────┘  ┃
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃
+      ┃──┤ CallbackRequest(ID: 1, ObjID: &quot;Foo&quot;, Invoke: &quot;reverse&quot;)  ├─▶┃────┐
+      ┃  └──────────────────────────────────────────────────────────┘  ┃    │call
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃    │obj(&quot;Foo&quot;).reverse()
+      ┃◀─┤            Complete(CallbackID: 1, OK: true)             ├──┃◀───┘
+      ┃  └──────────────────────────────────────────────────────────┘  ┃
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃
+      ┃──┤     CallbackRequest(ID: 2, ObjID: &quot;Foo&quot;, Get: &quot;baz&quot;)     ├─▶┃────┐
+      ┃  └──────────────────────────────────────────────────────────┘  ┃    │get
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃    │obj(&quot;Foo&quot;).baz
+      ┃◀─┤            Complete(CallbackID: 2, OK: &quot;baz&quot;)            ├──┃◀───┘
+      ┃  └──────────────────────────────────────────────────────────┘  ┃
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃
+      ┃──┤                InvokeResponse(OK: &quot;zab&quot;)                 ├─▶┃
+      ┃  └──────────────────────────────────────────────────────────┘  ┃
+      ┃                                                                ┃
+</code></pre></div>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../../../overview/runtime-architecture/">The <em>jsii</em> runtime architecture</a></li>
+<li><a href="../../../specification/3-kernel-api/">The <em>jsii</em> kernel API</a></li>
+</ul>
                 
                   
                     
@@ -1176,7 +1196,7 @@ Available</em> languages, the new support can be considered for <em>General Avai
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../4-standard-compliance-suite/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../assembly/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1185,13 +1205,13 @@ Available</em> languages, the new support can be considered for <em>General Avai
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Standard Compliance Suite
+                .jsii Assemblies
               </div>
             </div>
           </a>
         
         
-          <a href="../../adr/introduction/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../../specification/1-introduction/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -1238,15 +1258,15 @@ Available</em> languages, the new support can be considered for <em>General Avai
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.93c04032.min.js"></script>
-      <script src="../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../../assets/javascripts/vendor.93c04032.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
-          base: "../..",
+          base: "../../..",
           features: ['navigation.expand', 'navigation.instant', 'navigation.tabs'],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+            worker: "../../../assets/javascripts/worker/search.8c7e0a7e.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

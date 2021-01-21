@@ -167,7 +167,7 @@
   
     <li class="md-tabs__item">
       <a href="." class="md-tabs__link md-tabs__link--active">
-        Home
+        Welcome
       </a>
     </li>
   
@@ -182,40 +182,8 @@
   
   
     <li class="md-tabs__item">
-      <a href="dev-guide/" class="md-tabs__link">
-        Author Guide
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="consumer-guide/" class="md-tabs__link">
-        Consumer Guide
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="language-support/" class="md-tabs__link">
-        Language Implementation
+      <a href="user-guides/" class="md-tabs__link">
+        User guides
       </a>
     </li>
   
@@ -232,6 +200,22 @@
     <li class="md-tabs__item">
       <a href="specification/1-introduction/" class="md-tabs__link">
         Specification
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="adr/introduction/" class="md-tabs__link">
+        Architecture Decision Records
       </a>
     </li>
   
@@ -299,13 +283,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" checked>
       
       <label class="md-nav__link" for="nav-1">
-        Home
+        Welcome
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <nav class="md-nav" aria-label="Welcome" data-md-level="1">
         <label class="md-nav__title" for="nav-1">
           <span class="md-nav__icon md-icon"></span>
-          Home
+          Welcome
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -378,8 +362,30 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1-2" data-md-state="indeterminate" type="checkbox" id="nav-1-2" checked>
+      
+      <label class="md-nav__link" for="nav-1-2">
+        Overview
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Overview" data-md-level="2">
+        <label class="md-nav__title" for="nav-1-2">
+          <span class="md-nav__icon md-icon"></span>
+          Overview
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
     <li class="md-nav__item">
-      <a href="home/features/" class="md-nav__link">
+      <a href="overview/features/" class="md-nav__link">
         Features
       </a>
     </li>
@@ -391,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="home/toolchain/" class="md-nav__link">
+      <a href="overview/toolchain/" class="md-nav__link">
         Toolchain
       </a>
     </li>
@@ -403,9 +409,15 @@
   
   
     <li class="md-nav__item">
-      <a href="home/runtime-architecture/" class="md-nav__link">
+      <a href="overview/runtime-architecture/" class="md-nav__link">
         Runtime Architecture
       </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -431,13 +443,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" data-md-state="indeterminate" type="checkbox" id="nav-2" checked>
       
       <label class="md-nav__link" for="nav-2">
-        Author Guide
+        User guides
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Author Guide" data-md-level="1">
+      <nav class="md-nav" aria-label="User guides" data-md-level="1">
         <label class="md-nav__title" for="nav-2">
           <span class="md-nav__icon md-icon"></span>
-          Author Guide
+          User guides
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -447,8 +459,8 @@
   
   
     <li class="md-nav__item">
-      <a href="dev-guide/" class="md-nav__link">
-        Prerequisites
+      <a href="user-guides/" class="md-nav__link">
+        Introduction
       </a>
     </li>
   
@@ -465,13 +477,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" data-md-state="indeterminate" type="checkbox" id="nav-2-2" checked>
       
       <label class="md-nav__link" for="nav-2-2">
-        Quick Start
+        Library Author Guide
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Quick Start" data-md-level="2">
+      <nav class="md-nav" aria-label="Library Author Guide" data-md-level="2">
         <label class="md-nav__title" for="nav-2-2">
           <span class="md-nav__icon md-icon"></span>
-          Quick Start
+          Library Author Guide
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -481,7 +493,41 @@
   
   
     <li class="md-nav__item">
-      <a href="dev-guide/set-up/" class="md-nav__link">
+      <a href="user-guides/lib-author/" class="md-nav__link">
+        Prerequisites
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2-2" data-md-state="indeterminate" type="checkbox" id="nav-2-2-2" checked>
+      
+      <label class="md-nav__link" for="nav-2-2-2">
+        Quick start
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Quick start" data-md-level="3">
+        <label class="md-nav__title" for="nav-2-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          Quick start
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user-guides/lib-author/quick-start/set-up/" class="md-nav__link">
         Set Up
       </a>
     </li>
@@ -493,7 +539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dev-guide/write-code/" class="md-nav__link">
+      <a href="user-guides/lib-author/quick-start/write-code/" class="md-nav__link">
         Write Code
       </a>
     </li>
@@ -511,9 +557,171 @@
   
   
     <li class="md-nav__item">
-      <a href="dev-guide/typescript-restrictions/" class="md-nav__link">
+      <a href="user-guides/lib-author/typescript-restrictions/" class="md-nav__link">
         TypeScript Restrictions
       </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2-4" data-md-state="indeterminate" type="checkbox" id="nav-2-2-4" checked>
+      
+      <label class="md-nav__link" for="nav-2-2-4">
+        Configuration Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Configuration Reference" data-md-level="3">
+        <label class="md-nav__title" for="nav-2-2-4">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dotnet.md" class="md-nav__link">
+        .NET
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="go.md" class="md-nav__link">
+        Go
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="java.md" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="python.md" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" data-md-state="indeterminate" type="checkbox" id="nav-2-3" checked>
+      
+      <label class="md-nav__link" for="nav-2-3">
+        Library Consumer Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Library Consumer Guide" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-3">
+          <span class="md-nav__icon md-icon"></span>
+          Library Consumer Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user-guides/lib-user/" class="md-nav__link">
+        Prerequisites
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3-2" data-md-state="indeterminate" type="checkbox" id="nav-2-3-2" checked>
+      
+      <label class="md-nav__link" for="nav-2-3-2">
+        Language Specific
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Language Specific" data-md-level="3">
+        <label class="md-nav__title" for="nav-2-3-2">
+          <span class="md-nav__icon md-icon"></span>
+          Language Specific
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user-guides/lib-user/language-specific/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -529,13 +737,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" data-md-state="indeterminate" type="checkbox" id="nav-2-4" checked>
       
       <label class="md-nav__link" for="nav-2-4">
-        Configuration Reference
+        Language Implementation
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Configuration Reference" data-md-level="2">
+      <nav class="md-nav" aria-label="Language Implementation" data-md-level="2">
         <label class="md-nav__title" for="nav-2-4">
           <span class="md-nav__icon md-icon"></span>
-          Configuration Reference
+          Language Implementation
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -545,42 +753,8 @@
   
   
     <li class="md-nav__item">
-      <a href="dev-guide/configuration/" class="md-nav__link">
-        Overview
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4-2" data-md-state="indeterminate" type="checkbox" id="nav-2-4-2" checked>
-      
-      <label class="md-nav__link" for="nav-2-4-2">
-        Targets
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Targets" data-md-level="3">
-        <label class="md-nav__title" for="nav-2-4-2">
-          <span class="md-nav__icon md-icon"></span>
-          Targets
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="dev-guide/configuration/targets/dotnet/" class="md-nav__link">
-        .NET
+      <a href="user-guides/language-support/" class="md-nav__link">
+        Language Implementation
       </a>
     </li>
   
@@ -591,8 +765,8 @@
   
   
     <li class="md-nav__item">
-      <a href="dev-guide/configuration/targets/go/" class="md-nav__link">
-        Go
+      <a href="user-guides/language-support/assembly/" class="md-nav__link">
+        .jsii Assemblies
       </a>
     </li>
   
@@ -603,27 +777,9 @@
   
   
     <li class="md-nav__item">
-      <a href="dev-guide/configuration/targets/java/" class="md-nav__link">
-        Java
+      <a href="user-guides/language-support/callbacks/" class="md-nav__link">
+        Callbacks and Overrides
       </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="dev-guide/configuration/targets/python/" class="md-nav__link">
-        Python
-      </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -655,163 +811,11 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" data-md-state="indeterminate" type="checkbox" id="nav-3" checked>
       
       <label class="md-nav__link" for="nav-3">
-        Consumer Guide
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Consumer Guide" data-md-level="1">
-        <label class="md-nav__title" for="nav-3">
-          <span class="md-nav__icon md-icon"></span>
-          Consumer Guide
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="consumer-guide/" class="md-nav__link">
-        Prerequisites
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" data-md-state="indeterminate" type="checkbox" id="nav-3-2" checked>
-      
-      <label class="md-nav__link" for="nav-3-2">
-        Language Specifics
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Language Specifics" data-md-level="2">
-        <label class="md-nav__title" for="nav-3-2">
-          <span class="md-nav__icon md-icon"></span>
-          Language Specifics
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="consumer-guide/python/" class="md-nav__link">
-        Python
-      </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" data-md-state="indeterminate" type="checkbox" id="nav-4" checked>
-      
-      <label class="md-nav__link" for="nav-4">
-        Language Implementation
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Language Implementation" data-md-level="1">
-        <label class="md-nav__title" for="nav-4">
-          <span class="md-nav__icon md-icon"></span>
-          Language Implementation
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="language-support/" class="md-nav__link">
-        Language Implementation
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="language-support/assembly/" class="md-nav__link">
-        .jsii Assemblies
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="language-support/callbacks/" class="md-nav__link">
-        Callbacks and Overrides
-      </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" data-md-state="indeterminate" type="checkbox" id="nav-5" checked>
-      
-      <label class="md-nav__link" for="nav-5">
         Specification
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Specification" data-md-level="1">
-        <label class="md-nav__title" for="nav-5">
+        <label class="md-nav__title" for="nav-3">
           <span class="md-nav__icon md-icon"></span>
           Specification
         </label>
@@ -873,6 +877,50 @@
     <li class="md-nav__item">
       <a href="specification/5-new-language-intake/" class="md-nav__link">
         New Language Intake
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" data-md-state="indeterminate" type="checkbox" id="nav-4" checked>
+      
+      <label class="md-nav__link" for="nav-4">
+        Architecture Decision Records
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Architecture Decision Records" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture Decision Records
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adr/introduction/" class="md-nav__link">
+        Introduction
       </a>
     </li>
   
@@ -956,7 +1004,7 @@ languages will be added in the future!</p>
 <p class="admonition-title">Warning</p>
 <p>Due to <em>JSON</em> marshaling costs and the absence of a distributed garbage collector feature, <code>jsii</code> modules are best
 suited for development and build tools, as opposed to performance-sensitive or resource-constrained applications.</p>
-<p>See <a href="home/runtime-architecture/">Runtime Architecture</a> for more information.</p>
+<p>See <a href="overview/runtime-architecture/">Runtime Architecture</a> for more information.</p>
 </div>
 <h2 id="an-example-is-worth-a-thousand-words">An example is worth a thousand words</h2>
 <p>Consider the following <strong>TypeScript</strong> class:</p>
@@ -1006,16 +1054,26 @@ any other native type:</p>
 </div>
 </div>
 <h2 id="how-to-use-this-website">How to use this website</h2>
-<p>The documentation in this website is separated in four different topics, which are intended for different audiences:</p>
+<p>The documentation in this website is separated in different topics, which can be navigated using links in the site's
+header bar:</p>
 <ul>
-<li>The <a href="dev-guide/">Author Guide</a> is intended for developers who are looking to author libraries using <em>jsii</em>
-  to enable polyglot support for their work.</li>
-<li>The <a href="consumer-guide/">Consumer Guide</a> is intended for developers who are consuming libraries generated by
-  <em>jsii</em> in the various supported target languages.</li>
-<li>The <a href="language-support/">Language Implementation</a> is intended for developers who are looking to add support for
-  a new <em>target language</em> in <em>jsii</em>.</li>
-<li>The <a href="specification/1-introduction/">Specification</a> provides detailed information on the internal components of
-  <em>jsii</em>.</li>
+<li>The <a href=".">Welcome</a> section provides a high level overview of  *jsii.</li>
+<li>
+<p>The <a href="./user-guides">User Guides</a> section includes the following:</p>
+<ul>
+<li>The <a href="user-guides/lib-author">Library Author Guide</a> is intended for developers who are looking to author libraries
+  using <em>jsii</em> to enable polyglot support for their work.</li>
+<li>The <a href="user-guides/lib-user">Library Consumer Guide</a> is intended for developers who are consuming libraries
+  generated by <em>jsii</em> in the various supported target languages.</li>
+<li>The <a href="user-guides/language-support">Language Implementation</a> is intended for developers who are looking to add
+  support for a new <em>target language</em> in <em>jsii</em>.</li>
+</ul>
+</li>
+<li>
+<p>The <a href="specification">Specification</a> provides detailed information on the internal components of <em>jsii</em>.</p>
+</li>
+<li>The <a href="adrs">Architecture Decision Records</a> contains the log of all architectural decisions made while developing the
+  <em>jsii</em> project.</li>
 </ul>
 <h2 id="how-to-contribute">How to contribute</h2>
 <p>The <a href="https://github.com/aws/jsii"><em>jsii project</em></a> welcomes all kind of contributions. You can refer to the
@@ -1035,7 +1093,7 @@ editor for the source of the page in question.</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-01-20
+      Last update: 2021-01-21
     
   </small>
 </div>
@@ -1059,7 +1117,7 @@ editor for the source of the page in question.</p>
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
         
-          <a href="home/features/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="overview/features/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
