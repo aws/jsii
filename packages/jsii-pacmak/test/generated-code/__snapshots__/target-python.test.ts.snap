@@ -3272,12 +3272,14 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
     def greet(self, *, name: typing.Optional[builtins.str] = None) -> jsii.Number:
         """Greet the indicated person.
 
-        This will print out a friendly greeting intended for
-        the indicated person.
+        This will print out a friendly greeting intended for the indicated person.
 
         :param name: The name of the greetee. Default: world
 
-        :return: A number that everyone knows very well
+        :return:
+
+        A number that everyone knows very well and represents the answer
+        to the ultimate question
         """
         greetee = Greetee(name=name)
 
@@ -6138,7 +6140,10 @@ class ObjectWithPropertyProvider(
 class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
     """(deprecated) Old class.
 
-    :deprecated: Use the new class
+    :deprecated:
+
+    Use the new class or the old class whatever you want because
+    whatever you like is always the best
 
     :stability: deprecated
     """
