@@ -155,16 +155,16 @@ declared _Generally Available_. At this point, breaking changes are no longer po
 
 <!-- ######################### External References ######################### -->
 
-[jsii type system]: ../specification/2-type-system.md
-[specification]: ../specification/1-introduction.md
-[new language intake]: ../specification/5-new-language-intake.md
+[jsii type system]: ../../specification/2-type-system.md
+[specification]: ../../specification/1-introduction.md
+[new language intake]: ../../specification/5-new-language-intake.md
 [cdk rfc repository]: https://github.com/awslabs/aws-cdk-rfcs#readme
 [`jsii`]: ../../packages/jsii
 [`jsii-calc`]: ../../packages/jsii-calc
 [`jsii-config`]: ../../packages/jsii-config
 [`jsii-pacmak`]: ../../packages/jsii-pacmak
 [`jsii-rosetta`]: ../../packages/jsii-rosetta
-[standard compliance suite]: ../specification/4-standard-compliance-suite.md
+[standard compliance suite]: ../../specification/4-standard-compliance-suite.md
 [`jsii/superchain`]: ../../superchain
 [`aws-delivlib`]: https://github.com/awslabs/aws-delivlib
 [aws cdk]: https://github.com/aws/aws-cdk
