@@ -4163,8 +4163,8 @@
       "methods": [
         {
           "docs": {
-            "remarks": "This will print out a friendly greeting intended for\nthe indicated person.",
-            "returns": "A number that everyone knows very well",
+            "remarks": "This will print out a friendly greeting intended for the indicated person.",
+            "returns": "A number that everyone knows very well and represents the answer\nto the ultimate question",
             "stability": "stable",
             "summary": "Greet the indicated person."
           },
@@ -9379,7 +9379,7 @@
     "jsii-calc.Old": {
       "assembly": "jsii-calc",
       "docs": {
-        "deprecated": "Use the new class",
+        "deprecated": "Use the new class or the old class whatever you want because\nwhatever you like is always the best",
         "stability": "deprecated",
         "summary": "Old class."
       },
@@ -9392,7 +9392,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 53
+        "line": 54
       },
       "methods": [
         {
@@ -9402,7 +9402,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 57
+            "line": 58
           },
           "name": "doAThing"
         }
@@ -14441,5 +14441,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "8y6c87ScX7dJInuohtU3oLM8TCUz8yoYZ+j14fnHG9s="
+  "fingerprint": "4fJXgLfvFXFeZPUflIUswNxZKtt1vgIANXs/lWot+qg="
 }
