@@ -3027,9 +3027,9 @@ type CalculatorIface interface {
 // \`\`\`
 // 
 // I will repeat this example again, but in an @example tag.
-//
+// 
 // TODO: EXAMPLE
-//
+// 
 // Struct proxy
 type Calculator struct {
 	// (deprecated) The value.
@@ -3782,11 +3782,11 @@ type ClassWithDocsIface interface {
 // This class has docs.
 // 
 // The docs are great. They're a bunch of tags.
-//
+// 
 // TODO: EXAMPLE
-//
+// 
 // See: https://aws.amazon.com/
-//
+// 
 // Struct proxy
 type ClassWithDocs struct {
 }
@@ -3969,7 +3969,7 @@ type ConfusingToJacksonIface interface {
 
 // This tries to confuse Jackson by having overloaded property setters.
 // See: https://github.com/aws/aws-cdk/issues/4080
-//
+// 
 // Struct proxy
 type ConfusingToJackson struct {
 	UnionProperty interface{} \`json:"unionProperty"\`
@@ -6371,7 +6371,7 @@ type IFriendlierIface interface {
 	// Say farewell.
 	Farewell() string
 	// Say goodbye.
-	//
+	// 
 	// Returns: A goodbye blessing.
 	Goodbye() string
 }
@@ -6990,7 +6990,7 @@ func (i *IPublicInterface2) Ciao() string {
 // Generates random numbers.
 type IRandomNumberGeneratorIface interface {
 	// Returns another random number.
-	//
+	// 
 	// Returns: A random number.
 	Next() float64
 }
@@ -8705,7 +8705,7 @@ type JsonFormatterIface interface {
 
 // Make sure structs are un-decorated on the way in.
 // See: https://github.com/aws/aws-cdk/issues/5066
-//
+// 
 // Struct proxy
 type JsonFormatter struct {
 }
@@ -9853,7 +9853,8 @@ type OldIface interface {
 }
 
 // Old class.
-// Deprecated: Use the new class
+// Deprecated: Use the new class or the old class whatever you want because
+// whatever you like is always the best
 // Struct proxy
 type Old struct {
 }
@@ -10071,7 +10072,7 @@ type OverridableProtectedMemberIface interface {
 }
 
 // See: https://github.com/aws/jsii/issues/903
-//
+// 
 // Struct proxy
 type OverridableProtectedMember struct {
 	OverrideReadOnly string \`json:"overrideReadOnly"\`
@@ -11081,10 +11082,10 @@ type ReturnsPrivateImplementationOfInterfaceIface interface {
 }
 
 // Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
-//
+// 
 // Returns: an instance of an un-exported class that extends \`ExportedBaseClass\`, declared as \`IPrivatelyImplemented\`.
 // See: https://github.com/aws/jsii/issues/320
-//
+// 
 // Struct proxy
 type ReturnsPrivateImplementationOfInterface struct {
 	PrivateImplementation IPrivatelyImplementedIface \`json:"privateImplementation"\`
@@ -12947,7 +12948,7 @@ type UmaskCheckIface interface {
 
 // Checks the current file permissions are cool (no funky UMASK down-scoping happened).
 // See: https://github.com/aws/jsii/issues/1765
-//
+// 
 // Struct proxy
 type UmaskCheck struct {
 }
@@ -13834,7 +13835,7 @@ type OuterClassIface interface {
 
 // Checks that classes can self-reference during initialization.
 // See: : https://github.com/aws/jsii/pull/1706
-//
+// 
 // Struct proxy
 type OuterClass struct {
 	InnerClass InnerClassIface \`json:"innerClass"\`
