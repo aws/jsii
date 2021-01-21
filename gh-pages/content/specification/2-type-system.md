@@ -382,7 +382,7 @@ general schema is described in the [configuration] document.
     `export * as ns from './module';` syntax would then be able to define _submodule_-local configuration using the
     `./module/.jsiirc.json` file.
 
-[configuration]: ../dev-guide/configuration/index.md
+[configuration]: ../user-guides/lib-author/configuration/index.md
 
 ## References
 
