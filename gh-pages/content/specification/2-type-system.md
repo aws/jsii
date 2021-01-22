@@ -369,9 +369,10 @@ _submodules_ nested under it.
 
 ## Code Generation
 
-In order to generate code in various programming languages, [`jsii-pacmak`] needs configuration that provides naming
-directives (e.g: **Java** package names, **C#** namespaces, **Python** module names, ...). This configuration is
-language-specific and each language implementation specifies and documents its own configuration schema.
+In order to generate code in various programming languages, [`jsii-pacmak`][jsii-pacmak] needs configuration that
+provides naming directives (e.g: **Java** package names, **C#** namespaces, **Python** module names, ...). This
+configuration is language-specific and each language implementation specifies and documents its own configuration
+schema.
 
 Configuration is sourced in the `package.json` file at the root of the npm package, under the special `jsii` key. The
 general schema is described in the [configuration] document.
