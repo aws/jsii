@@ -1863,9 +1863,10 @@ configuration resides in <code>foo/bar/module-name/.jsiirc.json</code>.</p>
 <p>Since <em>submodules</em> are hierarchical, the configuration of a given <em>submodule</em> defines the default configuration of
 <em>submodules</em> nested under it.</p>
 <h2 id="code-generation">Code Generation</h2>
-<p>In order to generate code in various programming languages, [<code>jsii-pacmak</code>] needs configuration that provides naming
-directives (e.g: <strong>Java</strong> package names, <strong>C#</strong> namespaces, <strong>Python</strong> module names, ...). This configuration is
-language-specific and each language implementation specifies and documents its own configuration schema.</p>
+<p>In order to generate code in various programming languages, <a href="https://github.com/aws/jsii/tree/main/packages/jsii-pacmak"><code>jsii-pacmak</code></a> needs configuration that
+provides naming directives (e.g: <strong>Java</strong> package names, <strong>C#</strong> namespaces, <strong>Python</strong> module names, ...). This
+configuration is language-specific and each language implementation specifies and documents its own configuration
+schema.</p>
 <p>Configuration is sourced in the <code>package.json</code> file at the root of the npm package, under the special <code>jsii</code> key. The
 general schema is described in the <a href="../../user-guides/lib-author/configuration/">configuration</a> document.</p>
 <div class="admonition bug">
@@ -1887,7 +1888,7 @@ basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</s
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-01-21
+      Last update: 2021-01-22
     
   </small>
 </div>
