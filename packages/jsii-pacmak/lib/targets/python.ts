@@ -855,7 +855,7 @@ class Interface extends BasePythonClassType {
   ) => {
     code.line('@builtins.staticmethod');
     code.openBlock(
-      `def __jsii_proxy_class__() -> typing.Type[${this.getProxyClassName()}]`,
+      `def __jsii_proxy_class__() -> typing.Type["${this.getProxyClassName()}"]`,
     );
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
@@ -1256,7 +1256,7 @@ class Class extends BasePythonClassType implements ISortableType {
     return (code: CodeMaker, _context: EmitContext) => {
       code.line('@builtins.staticmethod');
       code.openBlock(
-        `def __jsii_proxy_class__() -> typing.Type[${this.getProxyClassName()}]`,
+        `def __jsii_proxy_class__() -> typing.Type["${this.getProxyClassName()}"]`,
       );
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
