@@ -36,7 +36,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
 
-const pythonBuildTools = ['setuptools~=49.3', 'wheel~=0.34'];
+const pythonBuildTools = ['setuptools~=52.0', 'wheel~=0.36'];
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
@@ -74,7 +74,7 @@ export default class Python extends Target {
     // Install the necessary things
     await shell(
       python,
-      ['-m', 'pip', 'install', '--no-input', ...pythonBuildTools, 'twine~=3.2'],
+      ['-m', 'pip', 'install', '--no-input', ...pythonBuildTools, 'twine~=3.3'],
       {
         cwd: sourceDir,
         env,

@@ -29,7 +29,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/README.md 1
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=49.3", "wheel~=0.34"]
+requires = ["setuptools~=52.0", "wheel~=0.36"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -123,7 +123,7 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
     """A base class."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_BaseProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_BaseProxy"]:
         return _BaseProxy
 
     def __init__(self) -> None:
@@ -192,7 +192,7 @@ class IBaseInterface(
     typing_extensions.Protocol,
 ):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IBaseInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IBaseInterfaceProxy"]:
         return _IBaseInterfaceProxy
 
     @jsii.member(jsii_name="bar")
@@ -284,7 +284,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/REA
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=49.3", "wheel~=0.34"]
+requires = ["setuptools~=52.0", "wheel~=0.36"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -374,7 +374,7 @@ from ._jsii import *
 @jsii.interface(jsii_type="@scope/jsii-calc-base-of-base.IVeryBaseInterface")
 class IVeryBaseInterface(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IVeryBaseInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IVeryBaseInterfaceProxy"]:
         return _IVeryBaseInterfaceProxy
 
     @jsii.member(jsii_name="foo")
@@ -530,7 +530,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/README.md 1`
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=49.3", "wheel~=0.34"]
+requires = ["setuptools~=52.0", "wheel~=0.36"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -650,7 +650,7 @@ class IDoublable(typing_extensions.Protocol):
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IDoublableProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IDoublableProxy"]:
         return _IDoublableProxy
 
     @builtins.property
@@ -690,7 +690,7 @@ class IFriendly(typing_extensions.Protocol):
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IFriendlyProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IFriendlyProxy"]:
         return _IFriendlyProxy
 
     @jsii.member(jsii_name="hello")
@@ -736,7 +736,7 @@ class IThreeLevelsInterface(
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IThreeLevelsInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IThreeLevelsInterfaceProxy"]:
         return _IThreeLevelsInterfaceProxy
 
     @jsii.member(jsii_name="baz")
@@ -849,7 +849,7 @@ class NumericValue(
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_NumericValueProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_NumericValueProxy"]:
         return _NumericValueProxy
 
     def __init__(self) -> None:
@@ -896,7 +896,7 @@ class Operation(
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_OperationProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_OperationProxy"]:
         return _OperationProxy
 
     def __init__(self) -> None:
@@ -1102,7 +1102,7 @@ class IReflectable(typing_extensions.Protocol):
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IReflectableProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IReflectableProxy"]:
         return _IReflectableProxy
 
     @builtins.property
@@ -1375,7 +1375,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=49.3", "wheel~=0.34"]
+requires = ["setuptools~=52.0", "wheel~=0.36"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1522,7 +1522,7 @@ class AbstractClassBase(
     jsii_type="jsii-calc.AbstractClassBase",
 ):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_AbstractClassBaseProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_AbstractClassBaseProxy"]:
         return _AbstractClassBaseProxy
 
     def __init__(self) -> None:
@@ -1570,7 +1570,7 @@ class AbstractSuite(
     """Ensures abstract members implementations correctly register overrides in various languages."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_AbstractSuiteProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_AbstractSuiteProxy"]:
         return _AbstractSuiteProxy
 
     def __init__(self) -> None:
@@ -1988,7 +1988,7 @@ class BinaryOperation(
     """Represents an operation with two operands."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_BinaryOperationProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_BinaryOperationProxy"]:
         return _BinaryOperationProxy
 
     def __init__(
@@ -2035,7 +2035,7 @@ class BurriedAnonymousObject(
     """See https://github.com/aws/aws-cdk/issues/7977."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_BurriedAnonymousObjectProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_BurriedAnonymousObjectProxy"]:
         return _BurriedAnonymousObjectProxy
 
     def __init__(self) -> None:
@@ -3395,7 +3395,7 @@ class Entropy(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Entropy"):
     """This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either)."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_EntropyProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_EntropyProxy"]:
         return _EntropyProxy
 
     def __init__(self, clock: "IWallClock") -> None:
@@ -3953,7 +3953,7 @@ class IAnonymousImplementationProvider(typing_extensions.Protocol):
     """We can return an anonymous interface implementation from an override without losing the interface declarations."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IAnonymousImplementationProviderProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IAnonymousImplementationProviderProxy"]:
         return _IAnonymousImplementationProviderProxy
 
     @jsii.member(jsii_name="provideAsClass")
@@ -3982,7 +3982,7 @@ class _IAnonymousImplementationProviderProxy:
 @jsii.interface(jsii_type="jsii-calc.IAnonymouslyImplementMe")
 class IAnonymouslyImplementMe(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IAnonymouslyImplementMeProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IAnonymouslyImplementMeProxy"]:
         return _IAnonymouslyImplementMeProxy
 
     @builtins.property
@@ -4011,7 +4011,7 @@ class _IAnonymouslyImplementMeProxy:
 @jsii.interface(jsii_type="jsii-calc.IAnotherPublicInterface")
 class IAnotherPublicInterface(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IAnotherPublicInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IAnotherPublicInterfaceProxy"]:
         return _IAnotherPublicInterfaceProxy
 
     @builtins.property
@@ -4040,7 +4040,7 @@ class _IAnotherPublicInterfaceProxy:
 @jsii.interface(jsii_type="jsii-calc.IBell")
 class IBell(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IBellProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IBellProxy"]:
         return _IBellProxy
 
     @jsii.member(jsii_name="ring")
@@ -4061,7 +4061,7 @@ class IBellRinger(typing_extensions.Protocol):
     """Takes the object parameter as an interface."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IBellRingerProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IBellRingerProxy"]:
         return _IBellRingerProxy
 
     @jsii.member(jsii_name="yourTurn")
@@ -4090,7 +4090,7 @@ class IConcreteBellRinger(typing_extensions.Protocol):
     """Takes the object parameter as a calss."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IConcreteBellRingerProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IConcreteBellRingerProxy"]:
         return _IConcreteBellRingerProxy
 
     @jsii.member(jsii_name="yourTurn")
@@ -4123,7 +4123,7 @@ class IDeprecatedInterface(typing_extensions.Protocol):
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IDeprecatedInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IDeprecatedInterfaceProxy"]:
         return _IDeprecatedInterfaceProxy
 
     @builtins.property
@@ -4190,7 +4190,7 @@ class IExperimentalInterface(typing_extensions.Protocol):
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IExperimentalInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IExperimentalInterfaceProxy"]:
         return _IExperimentalInterfaceProxy
 
     @builtins.property
@@ -4243,7 +4243,7 @@ class _IExperimentalInterfaceProxy:
 @jsii.interface(jsii_type="jsii-calc.IExtendsPrivateInterface")
 class IExtendsPrivateInterface(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IExtendsPrivateInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IExtendsPrivateInterfaceProxy"]:
         return _IExtendsPrivateInterfaceProxy
 
     @builtins.property
@@ -4286,7 +4286,7 @@ class IExternalInterface(typing_extensions.Protocol):
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IExternalInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IExternalInterfaceProxy"]:
         return _IExternalInterfaceProxy
 
     @builtins.property
@@ -4341,7 +4341,7 @@ class IFriendlier(scope.jsii_calc_lib.IFriendly, typing_extensions.Protocol):
     """Even friendlier classes can implement this interface."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IFriendlierProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IFriendlierProxy"]:
         return _IFriendlierProxy
 
     @jsii.member(jsii_name="farewell")
@@ -4382,7 +4382,7 @@ class IInterfaceImplementedByAbstractClass(typing_extensions.Protocol):
     """awslabs/jsii#220 Abstract return type."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceImplementedByAbstractClassProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceImplementedByAbstractClassProxy"]:
         return _IInterfaceImplementedByAbstractClassProxy
 
     @builtins.property
@@ -4405,7 +4405,7 @@ class _IInterfaceImplementedByAbstractClassProxy:
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithInternal")
 class IInterfaceWithInternal(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceWithInternalProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceWithInternalProxy"]:
         return _IInterfaceWithInternalProxy
 
     @jsii.member(jsii_name="visible")
@@ -4424,7 +4424,7 @@ class _IInterfaceWithInternalProxy:
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithMethods")
 class IInterfaceWithMethods(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceWithMethodsProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceWithMethodsProxy"]:
         return _IInterfaceWithMethodsProxy
 
     @builtins.property
@@ -4455,7 +4455,7 @@ class IInterfaceWithOptionalMethodArguments(typing_extensions.Protocol):
     """awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceWithOptionalMethodArgumentsProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceWithOptionalMethodArgumentsProxy"]:
         return _IInterfaceWithOptionalMethodArgumentsProxy
 
     @jsii.member(jsii_name="hello")
@@ -4492,7 +4492,7 @@ class _IInterfaceWithOptionalMethodArgumentsProxy:
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithProperties")
 class IInterfaceWithProperties(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceWithPropertiesProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceWithPropertiesProxy"]:
         return _IInterfaceWithPropertiesProxy
 
     @builtins.property
@@ -4534,7 +4534,7 @@ class IInterfaceWithPropertiesExtension(
     typing_extensions.Protocol,
 ):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceWithPropertiesExtensionProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceWithPropertiesExtensionProxy"]:
         return _IInterfaceWithPropertiesExtensionProxy
 
     @builtins.property
@@ -4563,7 +4563,7 @@ class _IInterfaceWithPropertiesExtensionProxy(jsii.proxy_for(IInterfaceWithPrope
 @jsii.interface(jsii_type="jsii-calc.IJSII417PublicBaseOfBase")
 class IJSII417PublicBaseOfBase(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IJSII417PublicBaseOfBaseProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IJSII417PublicBaseOfBaseProxy"]:
         return _IJSII417PublicBaseOfBaseProxy
 
     @builtins.property
@@ -4592,7 +4592,7 @@ class _IJSII417PublicBaseOfBaseProxy:
 @jsii.interface(jsii_type="jsii-calc.IJsii487External")
 class IJsii487External(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IJsii487ExternalProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IJsii487ExternalProxy"]:
         return _IJsii487ExternalProxy
 
 
@@ -4604,7 +4604,7 @@ class _IJsii487ExternalProxy:
 @jsii.interface(jsii_type="jsii-calc.IJsii487External2")
 class IJsii487External2(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IJsii487External2Proxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IJsii487External2Proxy"]:
         return _IJsii487External2Proxy
 
 
@@ -4616,7 +4616,7 @@ class _IJsii487External2Proxy:
 @jsii.interface(jsii_type="jsii-calc.IJsii496")
 class IJsii496(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IJsii496Proxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IJsii496Proxy"]:
         return _IJsii496Proxy
 
 
@@ -4628,7 +4628,7 @@ class _IJsii496Proxy:
 @jsii.interface(jsii_type="jsii-calc.IMutableObjectLiteral")
 class IMutableObjectLiteral(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IMutableObjectLiteralProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IMutableObjectLiteralProxy"]:
         return _IMutableObjectLiteralProxy
 
     @builtins.property
@@ -4657,7 +4657,7 @@ class _IMutableObjectLiteralProxy:
 @jsii.interface(jsii_type="jsii-calc.INonInternalInterface")
 class INonInternalInterface(IAnotherPublicInterface, typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_INonInternalInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_INonInternalInterfaceProxy"]:
         return _INonInternalInterfaceProxy
 
     @builtins.property
@@ -4706,7 +4706,7 @@ class IObjectWithProperty(typing_extensions.Protocol):
     """Make sure that setters are properly called on objects with interfaces."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IObjectWithPropertyProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IObjectWithPropertyProxy"]:
         return _IObjectWithPropertyProxy
 
     @builtins.property
@@ -4747,7 +4747,7 @@ class IOptionalMethod(typing_extensions.Protocol):
     """Checks that optional result from interface method code generates correctly."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IOptionalMethodProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IOptionalMethodProxy"]:
         return _IOptionalMethodProxy
 
     @jsii.member(jsii_name="optional")
@@ -4768,7 +4768,7 @@ class _IOptionalMethodProxy:
 @jsii.interface(jsii_type="jsii-calc.IPrivatelyImplemented")
 class IPrivatelyImplemented(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IPrivatelyImplementedProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IPrivatelyImplementedProxy"]:
         return _IPrivatelyImplementedProxy
 
     @builtins.property
@@ -4789,7 +4789,7 @@ class _IPrivatelyImplementedProxy:
 @jsii.interface(jsii_type="jsii-calc.IPublicInterface")
 class IPublicInterface(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IPublicInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IPublicInterfaceProxy"]:
         return _IPublicInterfaceProxy
 
     @jsii.member(jsii_name="bye")
@@ -4808,7 +4808,7 @@ class _IPublicInterfaceProxy:
 @jsii.interface(jsii_type="jsii-calc.IPublicInterface2")
 class IPublicInterface2(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IPublicInterface2Proxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IPublicInterface2Proxy"]:
         return _IPublicInterface2Proxy
 
     @jsii.member(jsii_name="ciao")
@@ -4829,7 +4829,7 @@ class IRandomNumberGenerator(typing_extensions.Protocol):
     """Generates random numbers."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IRandomNumberGeneratorProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IRandomNumberGeneratorProxy"]:
         return _IRandomNumberGeneratorProxy
 
     @jsii.member(jsii_name="next")
@@ -4860,7 +4860,7 @@ class IReturnJsii976(typing_extensions.Protocol):
     """Returns a subclass of a known class which implements an interface."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IReturnJsii976Proxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IReturnJsii976Proxy"]:
         return _IReturnJsii976Proxy
 
     @builtins.property
@@ -4883,7 +4883,7 @@ class _IReturnJsii976Proxy:
 @jsii.interface(jsii_type="jsii-calc.IReturnsNumber")
 class IReturnsNumber(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IReturnsNumberProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IReturnsNumberProxy"]:
         return _IReturnsNumberProxy
 
     @builtins.property
@@ -4912,7 +4912,7 @@ class _IReturnsNumberProxy:
 @jsii.interface(jsii_type="jsii-calc.IStableInterface")
 class IStableInterface(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IStableInterfaceProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IStableInterfaceProxy"]:
         return _IStableInterfaceProxy
 
     @builtins.property
@@ -4951,7 +4951,7 @@ class IStructReturningDelegate(typing_extensions.Protocol):
     """Verifies that a "pure" implementation of an interface works correctly."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IStructReturningDelegateProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IStructReturningDelegateProxy"]:
         return _IStructReturningDelegateProxy
 
     @jsii.member(jsii_name="returnStruct")
@@ -4974,7 +4974,7 @@ class IWallClock(typing_extensions.Protocol):
     """Implement this interface."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IWallClockProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IWallClockProxy"]:
         return _IWallClockProxy
 
     @jsii.member(jsii_name="iso8601Now")
@@ -5167,7 +5167,7 @@ class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorp
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IsomorphismProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IsomorphismProxy"]:
         return _IsomorphismProxy
 
     def __init__(self) -> None:
@@ -6370,7 +6370,7 @@ class PartiallyInitializedThisConsumer(
     jsii_type="jsii-calc.PartiallyInitializedThisConsumer",
 ):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_PartiallyInitializedThisConsumerProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_PartiallyInitializedThisConsumerProxy"]:
         return _PartiallyInitializedThisConsumerProxy
 
     def __init__(self) -> None:
@@ -7799,7 +7799,7 @@ class UnaryOperation(
     """An operation on a single operand."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_UnaryOperationProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_UnaryOperationProxy"]:
         return _UnaryOperationProxy
 
     def __init__(self, operand: scope.jsii_calc_lib.NumericValue) -> None:
@@ -8042,7 +8042,7 @@ class VoidCallback(
     """
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_VoidCallbackProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_VoidCallbackProxy"]:
         return _VoidCallbackProxy
 
     def __init__(self) -> None:
@@ -8094,7 +8094,7 @@ class AbstractClass(
     jsii_type="jsii-calc.AbstractClass",
 ):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_AbstractClassProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_AbstractClassProxy"]:
         return _AbstractClassProxy
 
     def __init__(self) -> None:
@@ -8362,7 +8362,7 @@ class IFriendlyRandomGenerator(
     typing_extensions.Protocol,
 ):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IFriendlyRandomGeneratorProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IFriendlyRandomGeneratorProxy"]:
         return _IFriendlyRandomGeneratorProxy
 
 
@@ -8382,7 +8382,7 @@ class IInterfaceThatShouldNotBeADataType(
     """Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceThatShouldNotBeADataTypeProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceThatShouldNotBeADataTypeProxy"]:
         return _IInterfaceThatShouldNotBeADataTypeProxy
 
     @builtins.property
@@ -8405,7 +8405,7 @@ class _IInterfaceThatShouldNotBeADataTypeProxy(jsii.proxy_for(IInterfaceWithMeth
 @jsii.interface(jsii_type="jsii-calc.IJSII417Derived")
 class IJSII417Derived(IJSII417PublicBaseOfBase, typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IJSII417DerivedProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IJSII417DerivedProxy"]:
         return _IJSII417DerivedProxy
 
     @builtins.property
@@ -8858,7 +8858,7 @@ class CompositeOperation(
     """Abstract operation composed from an expression of other operations."""
 
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_CompositeOperationProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_CompositeOperationProxy"]:
         return _CompositeOperationProxy
 
     def __init__(self) -> None:
@@ -9199,7 +9199,7 @@ class ClassWithSelfKwarg(
 @jsii.interface(jsii_type="jsii-calc.PythonSelf.IInterfaceWithSelf")
 class IInterfaceWithSelf(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_IInterfaceWithSelfProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_IInterfaceWithSelfProxy"]:
         return _IInterfaceWithSelfProxy
 
     @jsii.member(jsii_name="method")
@@ -9675,7 +9675,7 @@ class Namespaced(
     jsii_type="jsii-calc.submodule.nested_submodule.Namespaced",
 ):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_NamespacedProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_NamespacedProxy"]:
         return _NamespacedProxy
 
     @builtins.property
@@ -9727,7 +9727,7 @@ from ...._jsii import *
 )
 class INamespaced(typing_extensions.Protocol):
     @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type[_INamespacedProxy]:
+    def __jsii_proxy_class__() -> typing.Type["_INamespacedProxy"]:
         return _INamespacedProxy
 
     @builtins.property
