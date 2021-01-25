@@ -475,9 +475,6 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
-# type: ignore[misc]
-# type: ignore[no-any-return]
-
 import abc
 import builtins
 import datetime
@@ -979,9 +976,6 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
-# type: ignore[misc]
-# type: ignore[no-any-return]
-
 import abc
 import builtins
 import datetime
@@ -1461,9 +1455,6 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
-# type: ignore[misc]
-# type: ignore[no-any-return]
-
 import abc
 import builtins
 import datetime
@@ -1941,9 +1932,6 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
-# type: ignore[misc]
-# type: ignore[no-any-return]
-
 import abc
 import builtins
 import datetime

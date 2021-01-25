@@ -3,7 +3,7 @@ import os
 
 import attr
 
-from typing import Any, Callable, ClassVar, List, Mapping, Optional, Type, TypeVar
+from typing import cast, Any, Callable, ClassVar, List, Optional, Mapping, Type, TypeVar
 
 from . import _reference_map
 from ._compat import importlib_resources
@@ -54,7 +54,14 @@ class JSIIAssembly:
 
 
 class JSIIMeta(_ClassPropertyMeta, type):
-    def __new__(cls, name, bases, attrs, *, jsii_type=None) -> Any:
+    def __new__(
+        cls: Type["JSIIMeta"],
+        name: str,
+        bases: tuple,
+        attrs: dict,
+        *,
+        jsii_type: Optional[str] = None,
+    ) -> "JSIIMeta":
         # We want to ensure that subclasses of a JSII class do not require setting the
         # jsii_type keyword argument. They should be able to subclass it as normal.
         # Since their parent class will have the __jsii_type__ variable defined, they
@@ -70,9 +77,9 @@ class JSIIMeta(_ClassPropertyMeta, type):
         if jsii_type is not None:
             _reference_map.register_type(obj)
 
-        return obj
+        return cast("JSIIMeta", obj)
 
-    def __call__(cls, *args, **kwargs) -> Any:
+    def __call__(cls: Type[Any], *args: Any, **kwargs) -> Any:
         inst = super().__call__(*args, **kwargs)
 
         # Register this instance with our reference map.
