@@ -27,7 +27,7 @@ class JSIIAssembly:
     filename: str
 
     @classmethod
-    def load(cls, *args, _kernel=kernel, **kwargs) -> JSIIAssembly:
+    def load(cls, *args, _kernel=kernel, **kwargs) -> "JSIIAssembly":
         # Our object here really just acts as a record for our JSIIAssembly, it doesn't
         # offer any functionality itself, besides this class method that will trigger
         # the loading of the given assembly in the JSII Kernel.
