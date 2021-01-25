@@ -1,0 +1,7 @@
+---
+title: Library Author Guide
+nav:
+  - index.md
+  - quick-start
+  - typescript-restrictions.md
+  - configuration

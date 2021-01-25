@@ -7,7 +7,7 @@ must be available. Current `node` runtime versions support status is as follows:
 
 --8<-- "partials/node-support-table.md"
 
-[runtime architecture]: ../home/runtime-architecture.md
+[runtime architecture]: ../../overview/runtime-architecture.md
 
 ## :octicons-file-code-24: Other Languages
 
@@ -25,7 +25,7 @@ to produce releasable artifacts.
 ## :octicons-desktop-download-24: Download Locations
 
 This table provides typical download locations for the prerequisites mentioned in this document. Most of these tools can
-also be installed using traidtional package managers (standard for the operating system and platform).
+also be installed using traditional package managers (standard for the operating system and platform).
 
 | Tool            | Description                              | Location                |
 | --------------- | ---------------------------------------- | ------------------------|

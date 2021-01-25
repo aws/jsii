@@ -7402,10 +7402,10 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     /**
      * Greet the indicated person.
      * <p>
-     * This will print out a friendly greeting intended for
-     * the indicated person.
+     * This will print out a friendly greeting intended for the indicated person.
      * <p>
-     * @return A number that everyone knows very well
+     * @return A number that everyone knows very well and represents the answer
+     * to the ultimate question
      * @param greetee The person to be greeted.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -7416,10 +7416,10 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     /**
      * Greet the indicated person.
      * <p>
-     * This will print out a friendly greeting intended for
-     * the indicated person.
+     * This will print out a friendly greeting intended for the indicated person.
      * <p>
-     * @return A number that everyone knows very well
+     * @return A number that everyone knows very well and represents the answer
+     * to the ultimate question
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Number greet() {
@@ -14455,7 +14455,8 @@ package software.amazon.jsii.tests.calculator;
 /**
  * (deprecated) Old class.
  * <p>
- * @deprecated Use the new class
+ * @deprecated Use the new class or the old class whatever you want because
+ * whatever you like is always the best
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
