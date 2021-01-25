@@ -199,6 +199,7 @@ async function runMypy(pythonRoot: string): Promise<void> {
         '--pretty', // Output in readable form, with source excerpts and problem markers
         '--show-error-codes', // Show the "standard" error codes to make it easier to google around
         '--strict', // Enable all optional checks -- let's be pedantic about everything!
+        '--no-warn-unused-ignores', // Ignore extraneous "# type: ignore" comments, they're too hard to avoid.
         JSON.stringify(pythonRoot),
       ],
       { env },

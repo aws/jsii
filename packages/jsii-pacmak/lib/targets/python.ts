@@ -737,7 +737,7 @@ abstract class BaseProperty implements PythonBase {
     const pythonType = toTypeName(this.type).pythonType(context);
 
     // # type: ignore is needed because mypy cannot check decorated things
-    code.line(`@${this.decorator} # type: ignore`);
+    code.line(`@${this.decorator}`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
@@ -767,8 +767,7 @@ abstract class BaseProperty implements PythonBase {
 
     if (!this.immutable) {
       code.line();
-      // # type: ignore is required because mypy cannot check decorated things
-      code.line(`@${this.pythonName}.setter # type: ignore`);
+      code.line(`@${this.pythonName}.setter`);
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
@@ -813,7 +812,7 @@ class Interface extends BasePythonClassType {
         `jsii.proxy_for(${toTypeName(b).pythonType({
           ...context,
           typeAnnotation: false,
-        })}) # type: ignore`,
+        })})`,
     );
     openSignature(code, 'class', this.getProxyClassName(), proxyBases);
     this.generator.emitDocString(code, this.docs, {
@@ -855,7 +854,9 @@ class Interface extends BasePythonClassType {
     _context: EmitContext,
   ) => {
     code.line('@builtins.staticmethod');
-    code.openBlock('def __jsii_proxy_class__()');
+    code.openBlock(
+      `def __jsii_proxy_class__() -> typing.Type[${this.getProxyClassName()}]`,
+    );
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
   };
@@ -1216,7 +1217,7 @@ class Class extends BasePythonClassType implements ISortableType {
           `jsii.proxy_for(${toTypeName(base).pythonType({
             ...context,
             typeAnnotation: false,
-          })}) # type: ignore`,
+          })})`,
         );
       }
 
@@ -1254,7 +1255,9 @@ class Class extends BasePythonClassType implements ISortableType {
     if (!this.abstract) return undefined;
     return (code: CodeMaker, _context: EmitContext) => {
       code.line('@builtins.staticmethod');
-      code.openBlock('def __jsii_proxy_class__()');
+      code.openBlock(
+        `def __jsii_proxy_class__() -> typing.Type[${this.getProxyClassName()}]`,
+      );
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
     };
@@ -1696,6 +1699,26 @@ class Package {
       );
 
       code.openFile(filename);
+
+      // We're adding a couple of file-wide "type: misc" ignores, because these
+      // are otherwise pretty difficult to apply without risking causing "unused
+      // 'type: ignore' comment" as a retaliation. They should be relatively
+      // safe to globally ignore, because of the nature of what they check
+      // against. Still, those ignores might be unused themselves, and it would
+      // be wise to apply `--no-warn-unused-ignores`. This otherwise only
+      // reduces the count of offenses.
+
+      // "misc" is typically caused "unsupported" stuff, such as decorators
+      // applied to an already-decorated declaration.
+      code.line('# type: ignore[misc]');
+      // "no-any-return" is caused when a Kernel provided "Any" value is
+      // returned through something that has better type information. In
+      // particular, any type that fails to resolve during the `mypy` run will
+      // be considered to be "Any", which causes MANY false positives here when
+      // checking source without dependencies available.
+      code.line('# type: ignore[no-any-return]');
+      code.line();
+
       mod.emit(code, context);
       code.closeFile(filename);
 
