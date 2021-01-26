@@ -96,7 +96,9 @@ export function checkTree(
       expect({ [TARBALL]: relativeFile }).toMatchSnapshot(snapshotName);
     } else {
       expect({
-        [FILE]: fs.readFileSync(file, { encoding: 'utf-8' }),
+        [FILE]: normalizeLocalReferences(
+          fs.readFileSync(file, { encoding: 'utf-8' }),
+        ),
       }).toMatchSnapshot(snapshotName);
     }
     return path.basename(file);
@@ -231,4 +233,16 @@ function formatTree(tree: TreeStructure): string {
       return `${box}━ 📁 ${name}\n${subtree}`;
     })
     .join('\n');
+}
+
+/**
+ * Replaces any string that represents the absolute path of the
+ * jsii root directory with `<jsiiRoot>` to maintain deterministic
+ * output across environments.
+ */
+function normalizeLocalReferences(s: string) {
+  return s.replace(
+    path.resolve(__dirname, '..', '..', '..', '..'),
+    '<jsiiRoot>',
+  );
 }
