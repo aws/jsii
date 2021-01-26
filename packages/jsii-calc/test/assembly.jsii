@@ -217,6 +217,9 @@
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 10
+      },
+      "readme": {
+        "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule` module.\n"
       }
     },
     "jsii-calc.submodule.back_references": {
@@ -235,6 +238,9 @@
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
         "line": 2
+      },
+      "readme": {
+        "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule.isolated` module.\n"
       }
     },
     "jsii-calc.submodule.nested_submodule": {
@@ -14441,5 +14447,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "4fJXgLfvFXFeZPUflIUswNxZKtt1vgIANXs/lWot+qg="
+  "fingerprint": "8UaXORZ9jgOVFn8xkRQ92Bwa07zXPr7PNjQ3QIhj1BI="
 }
