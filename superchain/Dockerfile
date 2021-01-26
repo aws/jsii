@@ -25,18 +25,20 @@ ENV LANG="C.UTF-8"                                                              
 # Also upgrading anything already installed, and adding some common dependencies for included tools
 RUN yum -y upgrade                                                                                                      \
   && yum -y install deltarpm tar                                                                                        \
-                    make system-rpm-config                                                                              \
+                    make system-rpm-config yum-utils                                                                    \
                     git gzip openssl rsync unzip which zip                                                              \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install .NET Core, mono & PowerShell
 COPY gpg/mono.asc /tmp/mono.asc
 RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
-  && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
+  && rpm -Uvh "https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm"                              \
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
   && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
       | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
   && yum -y install dotnet-sdk-3.1 mono-devel powershell                                                                \
+  && yum-config-manager --disable packages-microsoft-com-prod                                                           \
+  && yum-config-manager --disable mono-centos7-stable                                                                   \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Python 3

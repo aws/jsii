@@ -152,7 +152,7 @@ include any special boilerplate code.
 The two processes exchange messages over a designated communication channel (for example, using pipes), using a _kernel
 API_ that is standardized in the _jsii specification_.
 
-[runtime-architecture]: ../home/runtime-architecture.md
+[runtime-architecture]: ../overview/runtime-architecture.md
 
 ## Components
 

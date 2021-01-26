@@ -1,0 +1,7 @@
+---
+title: Configuration Reference
+nav:
+  - .NET: dotnet.md
+  - Go: go.md
+  - Java: java.md
+  - Python: python.md

@@ -4891,10 +4891,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Greet the indicated person.</summary>
         /// <param name="greetee">The person to be greeted.</param>
-        /// <returns>A number that everyone knows very well</returns>
+        /// <returns>A number that everyone knows very well and represents the answer
+        /// to the ultimate question</returns>
         /// <remarks>
-        /// This will print out a friendly greeting intended for
-        /// the indicated person.
+        /// This will print out a friendly greeting intended for the indicated person.
         /// </remarks>
         [JsiiMethod(name: "greet", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"The person to be greeted.\\"},\\"name\\":\\"greetee\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.Greetee\\"}}]")]
         public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee? greetee = null)
@@ -11339,7 +11339,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Old), fullyQualifiedName: "jsii-calc.Old")]
-    [System.Obsolete("Use the new class")]
+    [System.Obsolete("Use the new class or the old class whatever you want because whatever you like is always the best")]
     public class Old : DeputyBase
     {
         public Old(): base(new DeputyProps(System.Array.Empty<object?>()))

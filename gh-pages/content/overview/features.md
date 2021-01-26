@@ -22,7 +22,7 @@ You can then refer to the [TypeScript] documentation to determine which language
     exported by a *jsii module*, in order to ensure those APIs can be consistently represented in other languages. For
     more information, refer to the [TypeScript Restrictions page][restrictions].
 
-    [restrictions]: ../dev-guide/typescript-restrictions.md
+    [restrictions]: ../user-guides/lib-author/typescript-restrictions.md
 
 [typescript]: https://www.typescriptlang.org
 
