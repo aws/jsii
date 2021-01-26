@@ -49,10 +49,17 @@ updates:
       - language/python
 
   - package-ecosystem: pip
-    directory: '/packages/jsii-pacmak/test'
+    directory: '/packages/jsii-pacmak/test/generated-code'
     schedule:
       interval: daily
+    labels:
+      - dependencies
+      - language/python
 
+  - package-ecosystem: pip
+    directory: '/packages/jsii-pacmak/lib/targets/python'
+    schedule:
+      interval: daily
     labels:
       - dependencies
       - language/python
