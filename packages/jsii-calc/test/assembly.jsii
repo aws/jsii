@@ -177,12 +177,6 @@
   },
   "schema": "jsii/0.10.0",
   "submodules": {
-    "@scope/jsii-calc-lib.submodule": {
-      "locationInModule": {
-        "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
-        "line": 157
-      }
-    },
     "jsii-calc.DerivedClassHasNoProperties": {
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -14441,5 +14435,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "4fJXgLfvFXFeZPUflIUswNxZKtt1vgIANXs/lWot+qg="
+  "fingerprint": "2KFlnOkWR5oOwLlri+7JlkA0BsYvnRkpBrk4nPWnJfw="
 }
