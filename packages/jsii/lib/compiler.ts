@@ -16,6 +16,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   charset: 'utf8',
   declaration: true,
   experimentalDecorators: true,
+  incremental: true,
   inlineSourceMap: true,
   inlineSources: true,
   lib: ['lib.es2018.d.ts'],
@@ -49,6 +50,8 @@ export interface CompilerOptions {
   projectReferences?: boolean;
   /** Whether to fail when a warning is emitted */
   failOnWarnings?: boolean;
+  /** Whether to strip deprecated members from emitted artifacts */
+  stripDeprecated?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -230,7 +233,9 @@ export class Compiler implements Emitter {
 
     // Do the "Assembler" part first because we need some of the analysis done in there
     // to post-process the AST
-    const assembler = new Assembler(this.options.projectInfo, program, stdlib);
+    const assembler = new Assembler(this.options.projectInfo, program, stdlib, {
+      stripDeprecated: this.options.stripDeprecated,
+    });
 
     try {
       const assmEmit = await assembler.emit();
@@ -256,11 +261,11 @@ export class Compiler implements Emitter {
     // Do the emit, but add in transformers which are going to replace real
     // comments with synthetic ones.
     const emit = program.emit(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      assembler.commentReplacer.makeTransformers(),
+      undefined, // targetSourceFile
+      undefined, // writeFile
+      undefined, // cancellationToken
+      undefined, // emitOnlyDtsFiles
+      assembler.customTransformers,
     );
     diagnostics.push(...emit.diagnostics);
 
@@ -288,12 +293,8 @@ export class Compiler implements Emitter {
    */
   private async buildTypeScriptConfig() {
     let references: string[] | undefined;
-    let composite: boolean | undefined;
-    let incremental: boolean | undefined;
     if (this.projectReferences) {
       references = await this.findProjectReferences();
-      composite = true;
-      incremental = true;
     }
 
     const pi = this.options.projectInfo;
@@ -302,10 +303,13 @@ export class Compiler implements Emitter {
       compilerOptions: {
         ...pi.tsc,
         ...BASE_COMPILER_OPTIONS,
-        composite,
-        incremental,
+        // Enable composite mode if project references are enabled
+        composite: this.projectReferences,
         // When incremental, configure a tsbuildinfo file
-        tsBuildInfoFile: incremental ? './tsconfig.tsbuildinfo' : undefined,
+        tsBuildInfoFile: path.join(
+          pi.tsc?.outDir ?? '.',
+          'tsconfig.tsbuildinfo',
+        ),
       },
       include: [
         pi.tsc?.rootDir != null

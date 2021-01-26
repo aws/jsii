@@ -176,7 +176,8 @@ async function runMypy(pythonRoot: string): Promise<void> {
         'pip',
         'install',
         '--no-input',
-        '"mypy>=0.782"',
+        '-r',
+        path.resolve(__dirname, 'requirements-dev.txt'),
         // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
         JSON.stringify(
           path.resolve(

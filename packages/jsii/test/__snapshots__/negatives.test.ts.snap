@@ -619,6 +619,56 @@ error JSII8002: Method and property (unless they are static readonly) names must
 
 `;
 
+exports[`stripped-deprecated 1`] = `
+neg.stripped-deprecated.ts:11:25 - error JSII3999: Parameter has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
+
+11   public bad(parameter: DeprecatedInterface): DeprecatedInterface {
+                           ~~~~~~~~~~~~~~~~~~~
+
+  neg.stripped-deprecated.ts:4:18
+    4 export interface DeprecatedInterface {}
+                       ~~~~~~~~~~~~~~~~~~~
+    The @deprecated type is declared here
+neg.stripped-deprecated.ts:11:47 - error JSII3999: Method has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
+
+11   public bad(parameter: DeprecatedInterface): DeprecatedInterface {
+                                                 ~~~~~~~~~~~~~~~~~~~
+
+  neg.stripped-deprecated.ts:4:18
+    4 export interface DeprecatedInterface {}
+                       ~~~~~~~~~~~~~~~~~~~
+    The @deprecated type is declared here
+neg.stripped-deprecated.ts:7:17 - error JSII3999: Property has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
+
+7   public ouch?: DeprecatedInterface;
+                  ~~~~~~~~~~~~~~~~~~~
+
+  neg.stripped-deprecated.ts:4:18
+    4 export interface DeprecatedInterface {}
+                       ~~~~~~~~~~~~~~~~~~~
+    The @deprecated type is declared here
+neg.stripped-deprecated.ts:9:42 - error JSII3999: Parameter has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
+
+9   public constructor(public readonly no: DeprecatedInterface) {}
+                                           ~~~~~~~~~~~~~~~~~~~
+
+  neg.stripped-deprecated.ts:4:18
+    4 export interface DeprecatedInterface {}
+                       ~~~~~~~~~~~~~~~~~~~
+    The @deprecated type is declared here
+neg.stripped-deprecated.ts:9:42 - error JSII3999: Property has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
+
+9   public constructor(public readonly no: DeprecatedInterface) {}
+                                           ~~~~~~~~~~~~~~~~~~~
+
+  neg.stripped-deprecated.ts:4:18
+    4 export interface DeprecatedInterface {}
+                       ~~~~~~~~~~~~~~~~~~~
+    The @deprecated type is declared here
+error JSII3000: Exported APIs cannot use un-exported type "jsii.DeprecatedInterface"
+
+`;
+
 exports[`struct-extends-interface 1`] = `
 neg.struct-extends-interface.ts:6:18 - error JSII8007: Interface contains behavior. Rename "Struct" to "IStruct"
 

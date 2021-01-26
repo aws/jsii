@@ -12,8 +12,9 @@ import * as os from 'os';
 import * as path from 'path';
 import { DiagnosticCategory } from 'typescript';
 
-import { Compiler } from './compiler';
+import { Compiler, CompilerOptions } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';
+import { formatDiagnostic } from './utils';
 
 /**
  * Compile a piece of source and return the JSII assembly for it
@@ -52,6 +53,7 @@ export interface HelperCompilationResult {
 export async function compileJsiiForTest(
   source: string | { 'index.ts': string; [name: string]: string },
   cb?: (obj: PackageInfo) => void,
+  compilerOptions?: Omit<CompilerOptions, 'projectInfo' | 'watch'>,
 ): Promise<HelperCompilationResult> {
   if (typeof source === 'string') {
     source = { 'index.ts': source };
@@ -65,8 +67,10 @@ export async function compileJsiiForTest(
         fs.writeFile(fileName, content, { encoding: 'utf-8' }),
       ),
     );
+    const projectInfo = await makeProjectInfo('index.ts', cb);
     const compiler = new Compiler({
-      projectInfo: await makeProjectInfo('index.ts', cb),
+      projectInfo,
+      ...compilerOptions,
     });
     const emitResult = await compiler.emit();
 
@@ -74,7 +78,7 @@ export async function compileJsiiForTest(
       (d) => d.category === DiagnosticCategory.Error,
     );
     for (const error of errors) {
-      console.error(error.messageText);
+      console.error(formatDiagnostic(error, projectInfo.projectRoot));
       // logDiagnostic() doesn't work out of the box, so console.error() it is.
     }
     if (errors.length > 0 || emitResult.emitSkipped) {
