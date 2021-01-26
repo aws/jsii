@@ -43,7 +43,7 @@
     "semver": "^7.3.4",
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.0",
-    "spdx-license-list": "^6.3.0",
+    "spdx-license-list": "^6.4.0",
     "typescript": "~3.9.7",
     "yargs": "^16.2.0"
   },
