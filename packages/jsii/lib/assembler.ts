@@ -201,9 +201,7 @@ export class Assembler implements Emitter {
       ),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
-      submodules: noEmptyDict(
-        toSubmoduleDeclarations(this.mySubmodules()),
-      ),
+      submodules: noEmptyDict(toSubmoduleDeclarations(this.mySubmodules())),
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
       docs,
@@ -2570,7 +2568,9 @@ export class Assembler implements Emitter {
    * assembly.
    */
   private mySubmodules() {
-    return Array.from(this._submodules.values()).filter(m => m.fqn.startsWith(`${this.projectInfo.name}.`));
+    return Array.from(this._submodules.values()).filter((m) =>
+      m.fqn.startsWith(`${this.projectInfo.name}.`),
+    );
   }
 }
 
