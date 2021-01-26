@@ -11,21 +11,21 @@
       
       
       
-        <link rel="canonical" href="https://aws.github.io/jsii/adr/introduction/">
+        <link rel="canonical" href="https://aws.github.io/jsii/decisions/_README/">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.6">
     
     
       
-        <title>Introduction - The jsii reference</title>
+        <title>Format - The jsii reference</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.15aa0b43.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.75751829.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
         
       
     
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#format" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Format
             
           </span>
         </div>
@@ -206,16 +206,14 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="./" class="md-tabs__link md-tabs__link--active">
-        Architecture Decision Records
+      <a href="../introduction/" class="md-tabs__link">
+        Architecture Decisions
       </a>
     </li>
   
@@ -269,7 +267,6 @@
       
       
       
-
 
   
   
@@ -377,7 +374,6 @@
       
       
       
-
 
   
   
@@ -586,6 +582,46 @@
   
 
           
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2-5" data-md-state="indeterminate" type="checkbox" id="nav-2-2-5" checked>
+      
+      <label class="md-nav__link" for="nav-2-2-5">
+        Toolchain
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Toolchain" data-md-level="3">
+        <label class="md-nav__title" for="nav-2-2-5">
+          <span class="md-nav__icon md-icon"></span>
+          Toolchain
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guides/lib-author/toolchain/jsii/" class="md-nav__link">
+        jsii
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -746,7 +782,6 @@
       
       
 
-
   
   
   
@@ -838,26 +873,23 @@
       
       
 
-
   
-  
-    
   
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" data-md-state="indeterminate" type="checkbox" id="nav-4" checked>
       
       <label class="md-nav__link" for="nav-4">
-        Architecture Decision Records
+        Architecture Decisions
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Architecture Decision Records" data-md-level="1">
+      <nav class="md-nav" aria-label="Architecture Decisions" data-md-level="1">
         <label class="md-nav__title" for="nav-4">
           <span class="md-nav__icon md-icon"></span>
-          Architecture Decision Records
+          Architecture Decisions
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -865,20 +897,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
         Introduction
       </a>
-      
     </li>
   
 
@@ -907,6 +930,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-new-document" class="md-nav__link">
+    Create a new document
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    Template
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -917,15 +962,23 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/adr/introduction.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/decisions/_README.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="introduction">Introduction</h1>
-<p>This section of the <em>jsii reference</em> is a log of all <em>Architectural Decisions</em>
-taken during the development of the <em>jsii</em> project. The <em>Records</em> are presented
-in reverse-chronological order (most recent decisions are listed first).</p>
+                <h1 id="format">Format</h1>
+<p>So you want to add a new Architecture Decision Record to this section. This
+document highlights how to proceed in order to achieve a consistent look and
+feel, and that we capture sufficient information.</p>
+<h2 id="create-a-new-document">Create a new document</h2>
+<p>Each ADR document should be named using the following format:
+<code>YYYY-MM-DD-short-name.md</code>. This allows ensuring the documents are rendered in
+the correct order on the website. If is recommended to prefix the file name
+with the date at which the decision has been made, in ISO-8601 format.</p>
+<h2 id="template">Template</h2>
+<p>The following template is to be used:
+<a href="https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_madr.md">https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_madr.md</a></p>
                 
                   
                     
@@ -934,7 +987,7 @@ in reverse-chronological order (most recent decisions are listed first).</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-01-22
+      Last update: 2021-01-26
     
   </small>
 </div>
@@ -957,7 +1010,7 @@ in reverse-chronological order (most recent decisions are listed first).</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../../specification/5-new-language-intake/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../.." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -966,11 +1019,25 @@ in reverse-chronological order (most recent decisions are listed first).</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                New Language Intake
+                None
               </div>
             </div>
           </a>
         
+        
+          <a href="../introduction/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Introduction
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
         
       </nav>
     </div>
@@ -1005,15 +1072,15 @@ in reverse-chronological order (most recent decisions are listed first).</p>
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.93c04032.min.js"></script>
-      <script src="../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.53cc9318.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: ['navigation.expand', 'navigation.instant', 'navigation.tabs'],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
