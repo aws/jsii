@@ -17,9 +17,12 @@ import {
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import * as literate from './literate';
+import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
-import { TsCommentReplacer } from './ts-comment-replacer';
+import { DeprecatedRemover } from './transforms/deprecated-remover';
+import { TsCommentReplacer } from './transforms/ts-comment-replacer';
+import { combinedTransformers } from './transforms/utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
@@ -33,7 +36,8 @@ const LOG = log4js.getLogger('jsii/assembler');
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
 export class Assembler implements Emitter {
-  public readonly commentReplacer = new TsCommentReplacer();
+  private readonly commentReplacer = new TsCommentReplacer();
+  private readonly deprecatedRemover?: DeprecatedRemover;
 
   private readonly mainFile: string;
 
@@ -63,7 +67,12 @@ export class Assembler implements Emitter {
     public readonly projectInfo: ProjectInfo,
     public readonly program: ts.Program,
     public readonly stdlib: string,
+    options: AssemblerOptions = {},
   ) {
+    if (options.stripDeprecated) {
+      this.deprecatedRemover = new DeprecatedRemover(this._typeChecker);
+    }
+
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
 
@@ -83,6 +92,13 @@ export class Assembler implements Emitter {
     }
 
     this.mainFile = path.resolve(projectInfo.projectRoot, mainFile);
+  }
+
+  public get customTransformers(): ts.CustomTransformers {
+    return combinedTransformers(
+      this.deprecatedRemover?.customTransformers ?? {},
+      this.commentReplacer.makeTransformers(),
+    );
   }
 
   private get _typeChecker(): ts.TypeChecker {
@@ -210,6 +226,10 @@ export class Assembler implements Emitter {
       bin: this.projectInfo.bin,
       fingerprint: '<TBD>',
     };
+
+    if (this.deprecatedRemover) {
+      this._diagnostics.push(...this.deprecatedRemover.removeFrom(assembly));
+    }
 
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = await validator.emit();
@@ -1090,14 +1110,18 @@ export class Assembler implements Emitter {
       type.symbol.name
     }`;
 
-    const jsiiType: spec.ClassType = {
-      assembly: this.projectInfo.name,
-      fqn,
-      kind: spec.TypeKind.Class,
-      name: type.symbol.name,
-      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-      docs: this._visitDocumentation(type.symbol, ctx),
-    };
+    const jsiiType: spec.ClassType = bindings.setClassRelatedNode(
+      {
+        assembly: this.projectInfo.name,
+        fqn,
+        kind: spec.TypeKind.Class,
+        name: type.symbol.name,
+        namespace:
+          ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+        docs: this._visitDocumentation(type.symbol, ctx),
+      },
+      type.symbol.valueDeclaration as ts.ClassDeclaration,
+    );
 
     if (_isAbstract(type.symbol, jsiiType)) {
       jsiiType.abstract = true;
@@ -1612,21 +1636,25 @@ export class Assembler implements Emitter {
     const typeContext = ctx.replaceStability(docs?.stability);
     const members = type.isUnion() ? type.types : [type];
 
-    const jsiiType: spec.EnumType = {
-      assembly: this.projectInfo.name,
-      fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
-        symbol.name
-      }`,
-      kind: spec.TypeKind.Enum,
-      members: members.map((m) => {
-        const docs = this._visitDocumentation(m.symbol, typeContext);
-        this.overrideDocComment(m.symbol, docs);
-        return { name: m.symbol.name, docs };
-      }),
-      name: symbol.name,
-      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-      docs,
-    };
+    const jsiiType: spec.EnumType = bindings.setEnumRelatedNode(
+      {
+        assembly: this.projectInfo.name,
+        fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
+          symbol.name
+        }`,
+        kind: spec.TypeKind.Enum,
+        members: members.map((m) => {
+          const docs = this._visitDocumentation(m.symbol, typeContext);
+          this.overrideDocComment(m.symbol, docs);
+          return { name: m.symbol.name, docs };
+        }),
+        name: symbol.name,
+        namespace:
+          ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+        docs,
+      },
+      decl as ts.EnumDeclaration,
+    );
 
     this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
@@ -1706,14 +1734,18 @@ export class Assembler implements Emitter {
       type.symbol.name
     }`;
 
-    const jsiiType: spec.InterfaceType = {
-      assembly: this.projectInfo.name,
-      fqn,
-      kind: spec.TypeKind.Interface,
-      name: type.symbol.name,
-      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-      docs: this._visitDocumentation(type.symbol, ctx),
-    };
+    const jsiiType: spec.InterfaceType = bindings.setInterfaceRelatedNode(
+      {
+        assembly: this.projectInfo.name,
+        fqn,
+        kind: spec.TypeKind.Interface,
+        name: type.symbol.name,
+        namespace:
+          ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+        docs: this._visitDocumentation(type.symbol, ctx),
+      },
+      type.symbol.declarations[0] as ts.InterfaceDeclaration,
+    );
 
     const { interfaces, erasedBases } = await this._processBaseInterfaces(
       fqn,
@@ -1953,22 +1985,25 @@ export class Assembler implements Emitter {
     );
 
     const returnType = signature.getReturnType();
-    const method: spec.Method = {
-      abstract: _isAbstract(symbol, type) || undefined,
-      name: symbol.name,
-      parameters: parameters.length > 0 ? parameters : undefined,
-      protected: _isProtected(symbol) || undefined,
-      returns: _isVoid(returnType)
-        ? undefined
-        : await this._optionalValue(
-            returnType,
-            declaration.name,
-            'return type',
-          ),
-      async: _isPromise(returnType) || undefined,
-      static: _isStatic(symbol) || undefined,
-      locationInModule: this.declarationLocation(declaration),
-    };
+    const method: spec.Method = bindings.setMethodRelatedNode(
+      {
+        abstract: _isAbstract(symbol, type) || undefined,
+        name: symbol.name,
+        parameters: parameters.length > 0 ? parameters : undefined,
+        protected: _isProtected(symbol) || undefined,
+        returns: _isVoid(returnType)
+          ? undefined
+          : await this._optionalValue(
+              returnType,
+              declaration.name,
+              'return type',
+            ),
+        async: _isPromise(returnType) || undefined,
+        static: _isStatic(symbol) || undefined,
+        locationInModule: this.declarationLocation(declaration),
+      },
+      declaration,
+    );
     method.variadic =
       method.parameters?.some((p) => !!p.variadic) === true ? true : undefined;
 
@@ -2102,18 +2137,21 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(symbol);
 
-    const property: spec.Property = {
-      ...(await this._optionalValue(
-        this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),
-        signature.name,
-        'property type',
-      )),
-      abstract: _isAbstract(symbol, type) || undefined,
-      name: symbol.name,
-      protected: _isProtected(symbol) || undefined,
-      static: _isStatic(symbol) || undefined,
-      locationInModule: this.declarationLocation(signature),
-    };
+    const property: spec.Property = bindings.setPropertyRelatedNode(
+      {
+        ...(await this._optionalValue(
+          this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),
+          signature.name,
+          'property type',
+        )),
+        abstract: _isAbstract(symbol, type) || undefined,
+        name: symbol.name,
+        protected: _isProtected(symbol) || undefined,
+        static: _isStatic(symbol) || undefined,
+        locationInModule: this.declarationLocation(signature),
+      },
+      signature,
+    );
 
     if (ts.isGetAccessor(signature)) {
       const decls = symbol.getDeclarations() ?? [];
@@ -2169,15 +2207,18 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(paramSymbol);
 
-    const parameter: spec.Parameter = {
-      ...(await this._optionalValue(
-        this._typeChecker.getTypeAtLocation(paramDeclaration),
-        paramDeclaration.name,
-        'parameter type',
-      )),
-      name: paramSymbol.name,
-      variadic: paramDeclaration.dotDotDotToken && true,
-    };
+    const parameter: spec.Parameter = bindings.setParameterRelatedNode(
+      {
+        ...(await this._optionalValue(
+          this._typeChecker.getTypeAtLocation(paramDeclaration),
+          paramDeclaration.name,
+          'parameter type',
+        )),
+        name: paramSymbol.name,
+        variadic: paramDeclaration.dotDotDotToken && true,
+      },
+      paramDeclaration,
+    );
 
     if (parameter.variadic && spec.isCollectionTypeReference(parameter.type)) {
       // TypeScript types variadic parameters as an array, but JSII uses the item-type instead.
@@ -2572,6 +2613,15 @@ export class Assembler implements Emitter {
       m.fqn.startsWith(`${this.projectInfo.name}.`),
     );
   }
+}
+
+export interface AssemblerOptions {
+  /**
+   * Whether to remove `@deprecated` members from the generated assembly.
+   *
+   * @default false
+   */
+  readonly stripDeprecated?: boolean;
 }
 
 interface SubmoduleSpec {

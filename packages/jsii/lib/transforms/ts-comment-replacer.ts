@@ -95,11 +95,9 @@ export class TsCommentReplacer {
     const lines = text.trim().split('\n');
 
     // eslint-disable-next-line prettier/prettier
-    const commentContents = [
-      '*\n',
-      ...lines.map((l) => ` * ${l}\n`),
-      ` `,
-    ].join('');
+    const commentContents = ['*\n', ...lines.map((l) => ` * ${l}\n`), ` `].join(
+      '',
+    );
 
     ts.addSyntheticLeadingComment(
       node,

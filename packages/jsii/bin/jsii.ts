@@ -54,6 +54,12 @@ const warningTypes = Object.keys(enabledWarnings);
             desc: `List of warnings to silence (warnings: ${warningTypes.join(
               ',',
             )})`,
+          })
+          .option('strip-deprecated', {
+            type: 'boolean',
+            default: false,
+            desc:
+              '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
           }),
     )
     .option('verbose', {
@@ -97,6 +103,7 @@ const warningTypes = Object.keys(enabledWarnings);
     projectInfo,
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
+    stripDeprecated: argv['strip-deprecated'],
   });
 
   const result = argv.watch ? compiler.watch() : compiler.emit();
