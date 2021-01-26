@@ -36,7 +36,11 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
 
-const pythonBuildTools = ['setuptools~=49.3', 'wheel~=0.34'];
+const requirementsFile = path.resolve(
+  __dirname,
+  'python',
+  'requirements-dev.txt',
+);
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
@@ -74,7 +78,7 @@ export default class Python extends Target {
     // Install the necessary things
     await shell(
       python,
-      ['-m', 'pip', 'install', '--no-input', ...pythonBuildTools, 'twine~=3.2'],
+      ['-m', 'pip', 'install', '--no-input', '-r', requirementsFile],
       {
         cwd: sourceDir,
         env,
@@ -1873,9 +1877,15 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line(
-      `requires = [${pythonBuildTools.map((x) => `"${x}"`).join(', ')}]`,
-    );
+    const buildTools = fs
+      .readFileSync(requirementsFile, { encoding: 'utf-8' })
+      .split('\n')
+      .map((line) => /^\s*(.+)\s*#\s*build-system\s*$/.exec(line)?.[1]?.trim())
+      .reduce(
+        (buildTools, entry) => (entry ? [...buildTools, entry] : buildTools),
+        new Array<string>(),
+      );
+    code.line(`requires = [${buildTools.map((x) => `"${x}"`).join(', ')}]`);
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
