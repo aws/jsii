@@ -262,7 +262,7 @@ export class AstRenderer<C> {
         this,
       );
     }
-    if (ts.isStringLiteral(tree)) {
+    if (ts.isStringLiteral(tree) || ts.isNoSubstitutionTemplateLiteral(tree)) {
       return visitor.stringLiteral(tree, this);
     }
     if (ts.isFunctionDeclaration(tree)) {
@@ -294,9 +294,6 @@ export class AstRenderer<C> {
     }
     if (ts.isExpressionStatement(tree)) {
       return visitor.expressionStatement(tree, this);
-    }
-    if (ts.isNoSubstitutionTemplateLiteral(tree)) {
-      return visitor.noSubstitutionTemplateLiteral(tree, this);
     }
     if (ts.isToken(tree)) {
       return visitor.token(tree, this);
@@ -480,7 +477,10 @@ export interface AstHandler<C> {
   sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree;
   commentRange(node: CommentSyntax, context: AstRenderer<C>): OTree;
   importStatement(node: ImportStatement, context: AstRenderer<C>): OTree;
-  stringLiteral(node: ts.StringLiteral, children: AstRenderer<C>): OTree;
+  stringLiteral(
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
+    children: AstRenderer<C>,
+  ): OTree;
   functionDeclaration(
     node: ts.FunctionDeclaration,
     children: AstRenderer<C>,
@@ -570,10 +570,6 @@ export interface AstHandler<C> {
   ): OTree;
   maskingVoidExpression(
     node: ts.VoidExpression,
-    context: AstRenderer<C>,
-  ): OTree;
-  noSubstitutionTemplateLiteral(
-    node: ts.NoSubstitutionTemplateLiteral,
     context: AstRenderer<C>,
   ): OTree;
 
