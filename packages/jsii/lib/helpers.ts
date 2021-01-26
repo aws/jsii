@@ -61,9 +61,10 @@ export async function compileJsiiForTest(
   // I guess we could make an in-memory compiler host but that seems like work...
   return inTempDir(async () => {
     await Promise.all(
-      Object.entries(source).map(([fileName, content]) =>
-        fs.writeFile(fileName, content, { encoding: 'utf-8' }),
-      ),
+      Object.entries(source).map(async ([fileName, content]) => {
+        await fs.mkdirp(path.dirname(fileName));
+        return fs.writeFile(fileName, content, { encoding: 'utf-8' });
+      }),
     );
     const compiler = new Compiler({
       projectInfo: await makeProjectInfo('index.ts', cb),
