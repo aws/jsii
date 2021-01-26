@@ -43,6 +43,15 @@ export class Assembler implements Emitter {
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
+
+  /**
+   * Submodule information
+   *
+   * Contains submodule information for all namespaces that have been seen
+   * across all assemblies (this and dependencies).
+   *
+   * Filtered to local submodules only at time of writing the assembly out to disk.
+   */
   private readonly _submodules = new Map<ts.Symbol, SubmoduleSpec>();
 
   /**
@@ -192,9 +201,7 @@ export class Assembler implements Emitter {
       ),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
-      submodules: noEmptyDict(
-        toSubmoduleDeclarations(this._submodules.values()),
-      ),
+      submodules: noEmptyDict(toSubmoduleDeclarations(this.mySubmodules())),
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
       docs,
@@ -2555,6 +2562,16 @@ export class Assembler implements Emitter {
     }
     return docs;
   }
+
+  /**
+   * Return only those submodules from the submodules list that are submodules inside this
+   * assembly.
+   */
+  private mySubmodules() {
+    return Array.from(this._submodules.values()).filter((m) =>
+      m.fqn.startsWith(`${this.projectInfo.name}.`),
+    );
+  }
 }
 
 interface SubmoduleSpec {
@@ -2875,7 +2892,7 @@ function toDependencyClosure(
 }
 
 function toSubmoduleDeclarations(
-  submodules: IterableIterator<SubmoduleSpec>,
+  submodules: Iterable<SubmoduleSpec>,
 ): spec.Assembly['submodules'] {
   const result: spec.Assembly['submodules'] = {};
 
