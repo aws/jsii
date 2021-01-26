@@ -37,4 +37,7 @@ runCommand(join(venv.bin, 'python'), [
   ...readdirSync(join(genRoot, 'python'))
     .filter((file) => file.endsWith('.whl'))
     .map((file) => join(genRoot, 'python', file)),
+  // Avoid a PyPI published release of jsii replaces the local one:
+  '-e',
+  '.',
 ]);
