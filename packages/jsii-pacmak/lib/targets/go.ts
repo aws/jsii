@@ -45,8 +45,8 @@ export class Golang extends Target {
 
     // create a copy of `go.mod` so we can later restore
     const modFile = path.join(pkgout, GOMOD_FILENAME);
-    const modFileCopy = path.join(pkgout, `${GOMOD_FILENAME}.orig`);
-    await fs.copyFile(modFile, modFileCopy);
+    const modFileBackup = path.join(pkgout, `${GOMOD_FILENAME}.orig`);
+    await fs.copyFile(modFile, modFileBackup);
 
     // append a "replace" directive for local dependencies to `go.mod`.
     await this.replaceLocalDeps(outDir);
@@ -55,9 +55,9 @@ export class Golang extends Target {
     await shell('go', ['fmt'], { cwd: pkgout });
     await shell('go', ['build'], { cwd: pkgout });
 
-    // restore original go.mod
-    await fs.copyFile(modFileCopy, modFile);
-    await fs.unlink(modFileCopy);
+    // restore original `go.mod`.
+    await fs.copyFile(modFileBackup, modFile);
+    await fs.unlink(modFileBackup);
   }
 
   /**
@@ -200,15 +200,19 @@ class GoGenerator implements IGenerator {
   }
 }
 
-function isLocalModule(distdir: string, dep: RootPackage) {
-  const gomodCandidate = path.join(distdir, dep.packageName, GOMOD_FILENAME);
+/**
+ * Checks if `distdir` includes generated go code for the specified `pkg`.
+ * @returns `undefined` if not or the module directory otherwise.
+ */
+function isLocalModule(distdir: string, pkg: RootPackage) {
+  const gomodCandidate = path.join(distdir, pkg.packageName, GOMOD_FILENAME);
   if (!fs.pathExistsSync(gomodCandidate)) {
     return undefined;
   }
 
   const lines = fs.readFileSync(gomodCandidate, 'utf-8').split('\n');
   const isModule = lines.find(
-    (line) => line.trim() === `module ${dep.goModuleName}`,
+    (line) => line.trim() === `module ${pkg.goModuleName}`,
   );
 
   if (!isModule) {
