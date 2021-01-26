@@ -11,8 +11,8 @@ export class Submodule extends ModuleLike {
   public constructor(
     system: TypeSystem,
     public readonly fqn: string,
-    public readonly submodules: readonly Submodule[],
-    public readonly types: readonly Type[],
+    protected readonly submoduleMap: Readonly<Record<string, Submodule>>,
+    protected readonly typeMap: Readonly<Record<string, Type>>,
   ) {
     super(system);
 

@@ -10,8 +10,8 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export class Assembly extends ModuleLike {
-  private _typeCache?: { [fqn: string]: Type };
-  private _submoduleCache?: { [fqn: string]: Submodule };
+  protected _typeCache?: { [fqn: string]: Type };
+  protected _submoduleCache?: { [fqn: string]: Submodule };
   private _dependencyCache?: { [name: string]: Dependency };
 
   public constructor(system: TypeSystem, public readonly spec: jsii.Assembly) {
@@ -151,19 +151,6 @@ export class Assembly extends ModuleLike {
     return this.spec.readme;
   }
 
-  public get submodules(): readonly Submodule[] {
-    const { submodules } = this._types;
-    return Object.values(submodules);
-  }
-
-  /**
-   * All types in the assembly
-   */
-  public get types(): readonly Type[] {
-    const { types } = this._types;
-    return Object.values(types);
-  }
-
   public findType(fqn: string) {
     const type = this.tryFindType(fqn);
     if (!type) {
@@ -180,6 +167,19 @@ export class Assembly extends ModuleLike {
    */
   public validate() {
     jsii.validateAssembly(this.spec);
+  }
+
+  protected get submoduleMap(): Readonly<Record<string, Submodule>> {
+    this._analyzeTypes();
+    return this._submoduleCache;
+  }
+
+  /**
+   * All types in the root of the assembly
+   */
+  protected get typeMap(): Readonly<Record<string, Type>> {
+    this._analyzeTypes();
+    return this._typeCache;
   }
 
   private get _dependencies() {
@@ -199,7 +199,11 @@ export class Assembly extends ModuleLike {
     return this._dependencyCache;
   }
 
-  private get _types() {
+  private _analyzeTypes(): asserts this is InitializedAssembly {
+    if (this._typeCache && this._submoduleCache) {
+      return;
+    }
+
     if (!this._typeCache || !this._submoduleCache) {
       this._typeCache = {};
 
@@ -243,7 +247,7 @@ export class Assembly extends ModuleLike {
               part
             ] ?? { submodules: {}, types: [] };
           }
-          container.types.push(type);
+          container.types[fqn] = type;
         } else {
           this._typeCache[fqn] = type;
         }
@@ -258,14 +262,12 @@ export class Assembly extends ModuleLike {
         );
       }
     }
-
-    return { types: this._typeCache, submodules: this._submoduleCache };
   }
 }
 
 interface SubmoduleMap {
   readonly submodules: { [fullName: string]: SubmoduleMap };
-  readonly types: Type[];
+  readonly types: { [fqn: string]: Type };
 }
 
 function makeSubmodule(
@@ -273,12 +275,15 @@ function makeSubmodule(
   map: SubmoduleMap,
   fullName: string,
 ): Submodule {
-  return new Submodule(
-    system,
-    fullName,
-    Object.entries(map.submodules).map(([name, subMap]) =>
-      makeSubmodule(system, subMap, `${fullName}.${name}`),
-    ),
-    map.types,
-  );
+  const submodules: { [fullName: string]: Submodule } = {};
+  for (const [name, subMap] of Object.entries(map.submodules)) {
+    submodules[name] = makeSubmodule(system, subMap, `${fullName}.${name}`);
+  }
+
+  return new Submodule(system, fullName, submodules, map.types);
 }
+
+type InitializedAssembly = Assembly & {
+  _typeCache: NonNullable<Assembly['_typeCache']>;
+  _submoduleCache: NonNullable<Assembly['_submoduleCache']>;
+};
