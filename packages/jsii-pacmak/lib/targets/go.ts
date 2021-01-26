@@ -41,20 +41,32 @@ export class Golang extends Target {
 
     // resolve symlinks
     outDir = await fs.realpath(outDir);
+    const pkgout = path.resolve(outDir, this.goPackageName);
 
-    // append a "replace" directive for local dependencies
+    // create a copy of `go.mod` so we can later restore
+    const modFile = path.join(pkgout, GOMOD_FILENAME);
+    const modFileCopy = path.join(pkgout, `${GOMOD_FILENAME}.orig`);
+    await fs.copyFile(modFile, modFileCopy);
+
+    // append a "replace" directive for local dependencies to `go.mod`.
     await this.replaceLocalDeps(outDir);
 
     // run `go fmt` and `go build` in outdir to format and compile
-    const pkgout = path.resolve(outDir, this.goPackageName);
     await shell('go', ['fmt'], { cwd: pkgout });
     await shell('go', ['build'], { cwd: pkgout });
+
+    // restore original go.mod
+    await fs.copyFile(modFileCopy, modFile);
+    await fs.unlink(modFileCopy);
   }
 
   /**
    * Appends a `replace` directive in the generated `go.mod` for local
    * dependencies.
    * @param outDir The dist output directory (e.g. `<packageRoot>/dist/go`).
+   * @returns the name of an alternative `go.mod` file which includes `replace`
+   * directives. This files should be later erased from the output directory. If
+   * `undefined` is returned, use the original `go.mod` file.
    */
   private async replaceLocalDeps(outDir: string) {
     const rootPackage = this.goGenerator.rootPackage;
@@ -62,15 +74,16 @@ export class Golang extends Target {
       throw new Error(`assertion failed: "rootPackage" is undefined`);
     }
 
+    // map of "replace" directives
+    const replace: { [from: string]: string } = {};
+
     // find local deps by check if `<jsii.outdir>/go` exists for dependencies
     // and also consider _out_ output directory in case pacmak is executed using
     // `--outdir` (in which case all go code will be generated there).
-    const localDeps = [
+    const distDirs = [
       outDir,
       ...(await this.findLocalDepsOutput(this.packageDir)),
     ];
-
-    const replace: { [from: string]: string } = {};
 
     // try to resolve @jsii/go-runtime (only exists as a devDependency)
     const localRuntime = tryFindLocalRuntime();
@@ -80,35 +93,42 @@ export class Golang extends Target {
 
     // iterate over all local directories and try to match them with one this
     // module's deps.
-    for (const localDep of localDeps) {
+    for (const distgo of distDirs) {
       for (const dep of rootPackage.packageDependencies) {
-        const localpath = path.join(localDep, goPackageName(dep.packageName));
-        if (fs.existsSync(localpath)) {
-          replace[dep.goModuleName] = localpath;
+        const localdir = isLocalModule(distgo, dep);
+        if (localdir) {
+          replace[dep.goModuleName] = localdir;
         }
       }
     }
 
     // emit "replace" directive (if relevant)
-    if (Object.keys(replace).length > 0) {
-      const pkgOut = path.join(outDir, this.goPackageName);
-      const lines = new Array<string>();
-
-      lines.push('replace (');
-
-      for (const [from, to] of Object.entries(replace)) {
-        const rel = path.relative(pkgOut, to);
-        logging.debug(`Local dependency: ${from} => ${rel} (${to})`);
-        lines.push(`\t${from} => ${rel}`);
-      }
-
-      lines.push(')');
-
-      await fs.appendFile(
-        path.join(pkgOut, GOMOD_FILENAME),
-        `\n${lines.join('\n')}`,
-      );
+    if (Object.keys(replace).length === 0) {
+      return;
     }
+
+    const pkgOut = path.join(outDir, this.goPackageName);
+    const lines: string[] = [];
+
+    lines.push();
+    lines.push('replace (');
+
+    for (const [from, to] of Object.entries(replace)) {
+      const rel = path.relative(pkgOut, to);
+      logging.info(`Local dependency: ${from} => ${rel} (${to})`);
+      lines.push(`\t${from} => ${rel}`);
+    }
+
+    lines.push(')');
+
+    logging.debug(
+      `Appending "replace" directives for local deps to "go.mod" (original saved under "go.mod.orig")`,
+    );
+
+    await fs.appendFile(
+      path.join(pkgOut, GOMOD_FILENAME),
+      `\n${lines.join('\n')}`,
+    );
   }
 }
 
@@ -178,6 +198,24 @@ class GoGenerator implements IGenerator {
     this.code.close('}');
     this.code.closeFile(file);
   }
+}
+
+function isLocalModule(distdir: string, dep: RootPackage) {
+  const gomodCandidate = path.join(distdir, dep.packageName, GOMOD_FILENAME);
+  if (!fs.pathExistsSync(gomodCandidate)) {
+    return undefined;
+  }
+
+  const lines = fs.readFileSync(gomodCandidate, 'utf-8').split('\n');
+  const isModule = lines.find(
+    (line) => line.trim() === `module ${dep.goModuleName}`,
+  );
+
+  if (!isModule) {
+    return undefined;
+  }
+
+  return path.dirname(gomodCandidate);
 }
 
 /**
