@@ -12,7 +12,7 @@ const EMBEDDED_RUNTIME_ROOT = resolve(
   'webpack',
 );
 
-const OUTPUT_DIR = resolve(__dirname, '..', 'jsii-experimental');
+const OUTPUT_DIR = resolve(__dirname, '..', 'jsii-runtime-go');
 
 const RUNTIME_FILE = 'embeddedruntime.generated.go';
 const VERSION_FILE = 'version.generated.go';
