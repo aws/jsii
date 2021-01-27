@@ -43,12 +43,10 @@
   "dependencies": {
     "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "peerDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
