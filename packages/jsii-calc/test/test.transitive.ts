@@ -30,3 +30,5 @@ const transitiveDepName = JSON.parse(
 const message = `Do not directly take a dependency on "${transitiveDepName}". It is meant to only be declared as a transitive dependency through @scope/jsii-calc-base. Sorry!`;
 assert.ok(!(transitiveDepName in pkgjson.dependencies), message);
 assert.ok(!(transitiveDepName in pkgjson.peerDependencies), message);
+
+console.log('ok', __filename);

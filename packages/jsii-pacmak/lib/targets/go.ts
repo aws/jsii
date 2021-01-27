@@ -3,31 +3,26 @@ import * as fs from 'fs-extra';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
+import { getJSDocThisTag } from 'typescript';
 
 import { IGenerator } from '../generator';
 import * as logging from '../logging';
-import { Target, TargetOptions } from '../target';
-import { Scratch, shell } from '../util';
+import { findLocalBuildDirs, Target, TargetOptions } from '../target';
+import { shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
 import { JSII_RT_MODULE_NAME } from './go/runtime/constants';
 import { goPackageName } from './go/util';
 
-export class Golang extends Target {
-  private readonly goGenerator: GoGenerator;
+const LOCAL_GOMOD_FILENAME = 'local.go.mod';
 
-  private readonly goPackageName: string;
+export class Golang extends Target {
+  public readonly generator: IGenerator;
 
   public constructor(options: TargetOptions) {
     super(options);
-
-    this.goPackageName = goPackageName(this.assembly.name);
-    this.goGenerator = new GoGenerator(options.rosetta);
-  }
-
-  public get generator(): IGenerator {
-    return this.goGenerator;
+    this.generator = new GoGenerator(options.rosetta);
   }
 
   /**
@@ -37,120 +32,37 @@ export class Golang extends Target {
    * @param outDir    the directory where the publishable artifact should be placed.
    */
   public async build(sourceDir: string, outDir: string): Promise<void> {
-    await this.goBuild(sourceDir);
+    // copy generated sources to the output directory
     await this.copyFiles(sourceDir, outDir);
-  }
 
-  /**
-   * Copies the sources to a scratch directory and runs `go build` in there to ensure
-   * generated code compiles successfully.
-   */
-  private async goBuild(sourceDir: string) {
-    const buildScratch = await Scratch.make(async (buildDir) => {
-      buildDir = await fs.realpath(buildDir); // resolve symlinks
-      await this.copyFiles(sourceDir, buildDir);
+    const pkgDir = path.join(outDir, goPackageName(this.assembly.name));
 
-      // resolve symlinks
-      const pkgout = path.resolve(buildDir, this.goPackageName);
+    // run `go build`
+    await go('build', { cwd: pkgDir });
 
-      // append a "replace" directive for local dependencies to `go.mod`.
-      await this.replaceLocalDeps(buildDir);
-
-      // run `go build` to make sure the generated code compiles
-      await shell('go', ['build'], { cwd: pkgout });
-    });
-
-    await buildScratch.cleanup();
-  }
-
-  /**
-   * Appends a `replace` directive in the generated `go.mod` for local
-   * dependencies.
-   * @param outDir The dist output directory (e.g. `<packageRoot>/dist/go`).
-   * @returns the name of an alternative `go.mod` file which includes `replace`
-   * directives. This files should be later erased from the output directory. If
-   * `undefined` is returned, use the original `go.mod` file.
-   */
-  private async replaceLocalDeps(outDir: string) {
-    const rootPackage = this.goGenerator.rootPackage;
-    if (!rootPackage) {
-      throw new Error(`assertion failed: "rootPackage" is undefined`);
-    }
-
-    // map of "replace" directives
-    const replace: { [from: string]: string } = {};
-
-    // find local deps by check if `<jsii.outdir>/go` exists for dependencies
-    // and also consider _out_ output directory in case pacmak is executed using
-    // `--outdir` (in which case all go code will be generated there).
-    const distDirs = [
-      outDir,
-      ...(await this.findLocalDepsOutput(this.packageDir)),
-    ];
-
-    // try to resolve @jsii/go-runtime (only exists as a devDependency)
-    const localRuntime = tryFindLocalRuntime();
-    if (localRuntime) {
-      replace[JSII_RT_MODULE_NAME] = localRuntime;
-    }
-
-    // iterate over all local directories and try to match them with one this
-    // module's deps.
-    for (const distgo of distDirs) {
-      for (const dep of rootPackage.packageDependencies) {
-        const localdir = isLocalModule(distgo, dep);
-        if (localdir) {
-          replace[dep.goModuleName] = localdir;
-        }
-      }
-    }
-
-    // emit "replace" directive (if relevant)
-    if (Object.keys(replace).length === 0) {
-      return;
-    }
-
-    const pkgOut = path.join(outDir, this.goPackageName);
-    const lines: string[] = [];
-
-    lines.push();
-    lines.push('replace (');
-
-    for (const [from, to] of Object.entries(replace)) {
-      const rel = path.relative(pkgOut, to);
-      logging.info(`Local dependency: ${from} => ${rel} (${to})`);
-      lines.push(`\t${from} => ${rel}`);
-    }
-
-    lines.push(')');
-
-    logging.debug(
-      `Appending "replace" directives for local deps to "go.mod" (original saved under "go.mod.orig")`,
-    );
-
-    await fs.appendFile(
-      path.join(pkgOut, GOMOD_FILENAME),
-      `\n${lines.join('\n')}`,
-    );
+    // delete local.go.mod from the output directory so it doesn't get published
+    await fs.unlink(path.join(pkgDir, LOCAL_GOMOD_FILENAME));
   }
 }
 
 class GoGenerator implements IGenerator {
   private assembly!: Assembly;
+  private packageDir!: string;
+  private rootPackage!: RootPackage;
+
   private readonly code = new CodeMaker({
     indentCharacter: '\t',
     indentationLevel: 1,
   });
   private readonly documenter: Documentation;
 
-  public rootPackage: RootPackage | undefined;
-
   public constructor(private readonly rosetta: Rosetta) {
     this.documenter = new Documentation(this.code, this.rosetta);
   }
 
-  public async load(_: string, assembly: Assembly): Promise<void> {
+  public async load(packageDir: string, assembly: Assembly): Promise<void> {
     this.assembly = assembly;
+    this.packageDir = packageDir;
     return Promise.resolve();
   }
 
@@ -172,6 +84,12 @@ class GoGenerator implements IGenerator {
 
     const output = path.join(outDir, goPackageName(this.assembly.name));
     await this.code.save(output);
+
+    // create a `local.go.mod` file with `replace` directives for local modules.
+    await this.generateLocalGoMod(output);
+
+    // run `go fmt` on the sources
+    await go('fmt', { cwd: output });
   }
 
   private async embedTarball(source: string) {
@@ -201,28 +119,94 @@ class GoGenerator implements IGenerator {
     this.code.close('}');
     this.code.closeFile(file);
   }
+
+  /**
+   * Creates a copy of the `go.mod` file called `local.go.mod` with added
+   * `replace` directives for local mono-repo dependencies. This is required in
+   * order to run `go fmt` and `go build`.
+   *
+   * @param pkgDir The directory which contains the generated go code
+   */
+  private async generateLocalGoMod(pkgDir: string) {
+    const goModFile = path.join(pkgDir, GOMOD_FILENAME);
+    const contents = (await fs.readFile(goModFile, 'utf-8')).split('\n');
+    const replaced = new Set<string>();
+
+    // adds a `replace` directive for a module
+    const replace = (fromModule: string, toDir: string) => {
+      if (replaced.has(fromModule)) {
+        return;
+      }
+      logging.info(`Local replace: ${fromModule} => ${toDir}`);
+      contents.push(`replace ${fromModule} => ${toDir}`);
+      replaced.add(fromModule);
+    };
+
+    // find local deps by check if `<jsii.outdir>/go` exists for dependencies
+    // and also consider `outDir` in case pacmak is executed using `--outdir
+    // --recurse` (in which case all go code will be generated there).
+    const dirs = [
+      path.dirname(pkgDir),
+      ...(await findLocalBuildDirs(this.packageDir, 'go')),
+    ];
+
+    // try to resolve @jsii/go-runtime (only exists as a devDependency)
+    const jsiiRuntimeDir = tryFindLocalRuntime();
+    if (jsiiRuntimeDir) {
+      replace(JSII_RT_MODULE_NAME, jsiiRuntimeDir);
+    }
+
+    // iterate (recursively) on all package dependencies and check if we have a
+    // local build directory (under ~/.jsii/go-build-cache) for this module. if
+    // we do, add a "replace" directive to point to it instead of download from
+    // the network.
+    const visit = (pkg: RootPackage) => {
+      for (const dep of pkg.packageDependencies) {
+        for (const baseDir of dirs) {
+          const moduleDir = tryFindModuleForPackage(baseDir, dep);
+          if (moduleDir) {
+            replace(dep.goModuleName, moduleDir);
+          }
+        }
+
+        // recurse to transitive deps
+        visit(dep);
+      }
+    };
+
+    visit(this.rootPackage);
+
+    // write `local.go.mod`
+    await fs.writeFile(
+      path.join(pkgDir, LOCAL_GOMOD_FILENAME),
+      contents.join('\n'),
+    );
+  }
 }
 
 /**
- * Checks if `distdir` includes generated go code for the specified `pkg`.
+ * Checks if `buildDir` includes a local go build version (with "replace"
+ * directives).
+ * @param baseDir the `dist/go` directory
  * @returns `undefined` if not or the module directory otherwise.
  */
-function isLocalModule(distdir: string, pkg: RootPackage) {
-  const gomodCandidate = path.join(distdir, pkg.packageName, GOMOD_FILENAME);
-  if (!fs.pathExistsSync(gomodCandidate)) {
+function tryFindModuleForPackage(baseDir: string, pkg: RootPackage) {
+  const gomodPath = path.join(baseDir, pkg.packageName, GOMOD_FILENAME);
+  if (!fs.pathExistsSync(gomodPath)) {
     return undefined;
   }
 
-  const lines = fs.readFileSync(gomodCandidate, 'utf-8').split('\n');
-  const isModule = lines.find(
+  // read `go.mod` and check that it is for the correct module
+  const gomod = fs.readFileSync(gomodPath, 'utf-8').split('\n');
+  const isExpectedModule = gomod.find(
     (line) => line.trim() === `module ${pkg.goModuleName}`,
   );
 
-  if (!isModule) {
+  if (!isExpectedModule) {
     return undefined;
   }
 
-  return path.dirname(gomodCandidate);
+  return path.dirname(gomodPath);
 }
 
 /**
@@ -237,5 +221,37 @@ function tryFindLocalRuntime() {
     return dir;
   } catch {
     return undefined;
+  }
+}
+
+/**
+ * Executes a go CLI command against a `local.go.mod` file.
+ *
+ * Since not all `go` commands support specifying an alternative `go.mod` file,
+ * we will copy `local.go.mod` over it and then restore the original version
+ * after execution.
+ *
+ * @param command The `go` command to execute (e.g. `build`)
+ * @param options Options
+ */
+async function go(command: string, options: { cwd: string }) {
+  const { cwd } = options;
+
+  const goMod = path.join(cwd, GOMOD_FILENAME);
+  const localGoMod = path.join(cwd, LOCAL_GOMOD_FILENAME);
+  const goModBak = path.join(cwd, `${GOMOD_FILENAME}.bak`);
+
+  // create a backup
+  await fs.copyFile(goMod, goModBak);
+  try {
+    // copy `local.go.mod` to `go.mod`
+    await fs.copyFile(localGoMod, goMod);
+
+    // run our command
+    await shell('go', [command], { cwd });
+  } finally {
+    // restore original `go.mod`
+    await fs.copyFile(goModBak, goMod);
+    await fs.unlink(goModBak);
   }
 }
