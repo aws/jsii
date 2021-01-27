@@ -3,7 +3,6 @@ import * as fs from 'fs-extra';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
-import { getJSDocThisTag } from 'typescript';
 
 import { IGenerator } from '../generator';
 import * as logging from '../logging';
