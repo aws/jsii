@@ -20,8 +20,8 @@ func TestClient(t *testing.T) {
 	}
 
 	t.Run("Client Load Error", func(t *testing.T) {
-		request := LoadRequest{
-			Api:     "load",
+		request := loadRequest{
+			API:     "load",
 			Name:    "jsii-calc",
 			Version: "0.0.0",
 			Tarball: "jsii-calc-tarball.tgz",
