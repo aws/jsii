@@ -8,8 +8,6 @@ exports[`jsii-tree --all 1`] = `
  │ │ ├── @scope/jsii-calc-base-of-base
  │ │ └── @scope/jsii-calc-lib
  │ ├─┬ submodules
- │ │ ├─┬ submodule
- │ │ │ └── types
  │ │ ├─┬ DerivedClassHasNoProperties
  │ │ │ └─┬ types
  │ │ │   ├─┬ class Base (stable)
@@ -2803,8 +2801,6 @@ exports[`jsii-tree --inheritance 1`] = `
 "assemblies
  ├─┬ jsii-calc
  │ ├─┬ submodules
- │ │ ├─┬ submodule
- │ │ │ └── types
  │ │ ├─┬ DerivedClassHasNoProperties
  │ │ │ └─┬ types
  │ │ │   ├── class Base
@@ -3171,8 +3167,6 @@ exports[`jsii-tree --members 1`] = `
 "assemblies
  ├─┬ jsii-calc
  │ ├─┬ submodules
- │ │ ├─┬ submodule
- │ │ │ └── types
  │ │ ├─┬ DerivedClassHasNoProperties
  │ │ │ └─┬ types
  │ │ │   ├─┬ class Base
@@ -4430,7 +4424,6 @@ exports[`jsii-tree --signatures 1`] = `
 "assemblies
  ├─┬ jsii-calc
  │ └─┬ submodules
- │   ├── submodule
  │   ├── DerivedClassHasNoProperties
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
@@ -4458,8 +4451,6 @@ exports[`jsii-tree --types 1`] = `
 "assemblies
  ├─┬ jsii-calc
  │ ├─┬ submodules
- │ │ ├─┬ submodule
- │ │ │ └── types
  │ │ ├─┬ DerivedClassHasNoProperties
  │ │ │ └─┬ types
  │ │ │   ├── class Base
@@ -4754,7 +4745,6 @@ exports[`jsii-tree 1`] = `
 "assemblies
  ├─┬ jsii-calc
  │ └─┬ submodules
- │   ├── submodule
  │   ├── DerivedClassHasNoProperties
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
