@@ -563,6 +563,14 @@ export class Assembler implements Emitter {
       return;
     }
     if (ts.isModuleDeclaration(declaration)) {
+      // Looks like:
+      //
+      //    export some_namespace {
+      //       ...
+      //    }
+      //
+      // No way to configure targets
+
       const { fqn, fqnResolutionPrefix } = await qualifiedNameOf.call(
         this,
         symbol,
@@ -644,11 +652,13 @@ export class Assembler implements Emitter {
         symbol,
       );
       const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
+      const readme = await loadSubmoduleReadMe(sourceFile.fileName);
 
       this._submodules.set(symbol, {
         fqn,
         fqnResolutionPrefix,
         targets,
+        readme,
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, sourceModule, packageRoot);
@@ -689,6 +699,31 @@ export class Assembler implements Emitter {
       }
       const data = await fs.readJson(jsiirc);
       return data.targets;
+    }
+
+    /**
+     * Load the README for the given submodule
+     *
+     * If the submodule is loaded from a complete directory (determined by the 'main'
+     * file ending in `index.[d.]ts`, then we load `README.md` in that same directory.
+     *
+     * If the submodule is loaded from a file, like `mymodule.[d.]ts`, we will load
+     * `mymodule.README.md`.
+     */
+    async function loadSubmoduleReadMe(
+      submoduleMain: string,
+    ): Promise<SubmoduleSpec['readme']> {
+      const fileBase = path.basename(submoduleMain).replace(/(\.d)?\.ts$/, '');
+      const readMeName =
+        fileBase === 'index' ? `README.md` : `${fileBase}.README.md`;
+      const fullPath = path.join(path.dirname(submoduleMain), readMeName);
+
+      if (!(await fs.pathExists(fullPath))) {
+        return undefined;
+      }
+      return {
+        markdown: await fs.readFile(fullPath, { encoding: 'utf-8' }),
+      };
     }
   }
 
@@ -2646,6 +2681,11 @@ interface SubmoduleSpec {
    * Any customized configuration for the currentl submodule.
    */
   readonly targets?: spec.AssemblyTargets;
+
+  /**
+   * Readme for this submodule (if found)
+   */
+  readonly readme?: spec.ReadMe;
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
@@ -2950,6 +2990,7 @@ function toSubmoduleDeclarations(
     result[submodule.fqn] = {
       locationInModule: submodule.locationInModule,
       targets: submodule.targets,
+      readme: submodule.readme,
     };
   }
 
