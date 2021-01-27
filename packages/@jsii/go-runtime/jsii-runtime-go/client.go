@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -20,8 +19,6 @@ var (
 	clientInstanceMutex sync.Mutex
 	clientOnce          sync.Once
 )
-
-type Any interface{}
 
 // The client struct owns the jsii child process and its io interfaces. It also
 // owns a map (objects) that tracks all object references by ID. This is used
@@ -38,12 +35,6 @@ type client struct {
 	tmpdir string
 
 	objects map[interface{}]string
-}
-
-func CheckFatalError(e error) {
-	if e != nil {
-		log.Fatal(e)
-	}
 }
 
 // getClient returns a singleton client instance, initializing one the first
@@ -170,7 +161,7 @@ func newClient() (*client, error) {
 	return clientinstance, nil
 }
 
-func (c *client) request(req KernelRequest, res KernelResponse) error {
+func (c *client) request(req kernelRequest, res kernelResponse) error {
 	err := c.writer.Encode(req)
 	if err != nil {
 		return err
@@ -179,7 +170,7 @@ func (c *client) request(req KernelRequest, res KernelResponse) error {
 	return c.response(res)
 }
 
-func (c *client) response(res KernelResponse) error {
+func (c *client) response(res kernelResponse) error {
 	if c.reader.More() {
 		return c.reader.Decode(res)
 	}
@@ -189,7 +180,7 @@ func (c *client) response(res KernelResponse) error {
 }
 
 func (c *client) processHello() (string, error) {
-	response := InitOkResponse{}
+	response := initOKResponse{}
 
 	if err := c.response(&response); err != nil {
 		return "", err
@@ -205,8 +196,8 @@ func (c *client) findObjectRef(obj interface{}) (refid string, ok bool) {
 	return
 }
 
-func (c *client) load(request LoadRequest) (LoadResponse, error) {
-	response := LoadResponse{}
+func (c *client) load(request loadRequest) (loadResponse, error) {
+	response := loadResponse{}
 	return response, c.request(request, &response)
 }
 
