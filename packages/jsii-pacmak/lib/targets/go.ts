@@ -7,7 +7,7 @@ import * as path from 'path';
 import { IGenerator } from '../generator';
 import * as logging from '../logging';
 import { Target, TargetOptions } from '../target';
-import { shell } from '../util';
+import { Scratch, shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
@@ -37,27 +37,29 @@ export class Golang extends Target {
    * @param outDir    the directory where the publishable artifact should be placed.
    */
   public async build(sourceDir: string, outDir: string): Promise<void> {
+    await this.goBuild(sourceDir);
     await this.copyFiles(sourceDir, outDir);
+  }
 
-    // resolve symlinks
-    outDir = await fs.realpath(outDir);
-    const pkgout = path.resolve(outDir, this.goPackageName);
+  /**
+   * Copies the sources to a scratch directory and runs `go build` in there to ensure
+   * generated code compiles successfully.
+   */
+  private async goBuild(sourceDir: string) {
+    const buildScratch = await Scratch.make(async (buildDir) => {
+      await this.copyFiles(sourceDir, buildDir);
 
-    // create a copy of `go.mod` so we can later restore
-    const modFile = path.join(pkgout, GOMOD_FILENAME);
-    const modFileBackup = path.join(pkgout, `${GOMOD_FILENAME}.orig`);
-    await fs.copyFile(modFile, modFileBackup);
+      // resolve symlinks
+      const pkgout = path.resolve(buildDir, this.goPackageName);
 
-    // append a "replace" directive for local dependencies to `go.mod`.
-    await this.replaceLocalDeps(outDir);
+      // append a "replace" directive for local dependencies to `go.mod`.
+      await this.replaceLocalDeps(buildDir);
 
-    // run `go fmt` and `go build` in outdir to format and compile
-    await shell('go', ['fmt'], { cwd: pkgout });
-    await shell('go', ['build'], { cwd: pkgout });
+      // run `go build` to make sure the generated code compiles
+      await shell('go', ['build'], { cwd: pkgout });
+    });
 
-    // restore original `go.mod`.
-    await fs.copyFile(modFileBackup, modFile);
-    await fs.unlink(modFileBackup);
+    await buildScratch.cleanup();
   }
 
   /**
