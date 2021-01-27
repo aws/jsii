@@ -215,7 +215,7 @@ function tryFindModuleForPackage(baseDir: string, pkg: RootPackage) {
  */
 function tryFindLocalRuntime() {
   try {
-    const p = require.resolve('@jsii/go-runtime/jsii-experimental/go.mod');
+    const p = require.resolve('@jsii/go-runtime/jsii-runtime-go/go.mod');
     const dir = path.dirname(p);
     logging.debug(`Using @jsii/go-runtime from ${dir}`);
     return dir;
