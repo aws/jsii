@@ -528,16 +528,28 @@ abstract class BaseMethod implements PythonBase {
       pythonParams.push(`*${paramName}: ${paramType}`);
     }
 
+    const decorators = new Array<string>();
+
     if (this.jsName !== undefined) {
-      code.line(`@jsii.member(jsii_name="${this.jsName}")`);
+      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
+      decorators.push(`@jsii.member(jsii_name="${this.jsName}")`);
     }
 
     if (this.decorator !== undefined) {
-      code.line(`@${this.decorator}`);
+      decorators.push(`@${this.decorator}`);
     }
 
     if (renderAbstract && this.abstract) {
-      code.line('@abc.abstractmethod');
+      decorators.push('@abc.abstractmethod');
+    }
+
+    if (decorators.length > 0) {
+      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
+      for (const decorator of decorators
+        .join(' # type: ignore[misc]\n')
+        .split('\n')) {
+        code.line(decorator);
+      }
     }
 
     pythonParams.unshift(
@@ -566,6 +578,7 @@ abstract class BaseMethod implements PythonBase {
       forceEmitBody,
       liftedPropNames,
       pythonParams[0],
+      returnType,
     );
     code.closeBlock();
   }
@@ -577,6 +590,7 @@ abstract class BaseMethod implements PythonBase {
     forceEmitBody: boolean,
     liftedPropNames: Set<string>,
     implicitParameter: string,
+    returnType: string,
   ) {
     if (
       (!this.shouldEmitBody && !forceEmitBody) ||
@@ -593,6 +607,7 @@ abstract class BaseMethod implements PythonBase {
         context,
         liftedPropNames,
         implicitParameter,
+        returnType,
       );
     }
   }
@@ -627,6 +642,7 @@ abstract class BaseMethod implements PythonBase {
     context: EmitContext,
     liftedPropNames: Set<string>,
     implicitParameter: string,
+    returnType: string,
   ) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
 
@@ -657,10 +673,15 @@ abstract class BaseMethod implements PythonBase {
       params.push(expr);
     }
 
+    const value = `jsii.${this.jsiiMethod}(${jsiiMethodParams.join(
+      ', ',
+    )}, [${params.join(', ')}])`;
     code.line(
-      `${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(
-        ', ',
-      )}, [${params.join(', ')}])`,
+      `${methodPrefix}${
+        this.returnFromJSIIMethod && returnType
+          ? `typing.cast(${returnType}, ${value})`
+          : value
+      }`,
     );
   }
 
@@ -695,6 +716,7 @@ abstract class BaseMethod implements PythonBase {
 interface BasePropertyOpts {
   abstract?: boolean;
   immutable?: boolean;
+  isStatic?: boolean;
   parent: spec.NamedTypeReference;
 }
 
@@ -705,6 +727,7 @@ interface BasePropertyEmitOpts {
 
 abstract class BaseProperty implements PythonBase {
   public readonly abstract: boolean;
+  public readonly isStatic: boolean;
 
   protected abstract readonly decorator: string;
   protected abstract readonly implicitParameter: string;
@@ -722,10 +745,11 @@ abstract class BaseProperty implements PythonBase {
     private readonly docs: spec.Docs | undefined,
     opts: BasePropertyOpts,
   ) {
-    const { abstract = false, immutable = false } = opts;
+    const { abstract = false, immutable = false, isStatic = false } = opts;
 
     this.abstract = abstract;
     this.immutable = immutable;
+    this.isStatic = isStatic;
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -740,8 +764,8 @@ abstract class BaseProperty implements PythonBase {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType(context);
 
-    // # type: ignore is needed because mypy cannot check decorated things
-    code.line(`@${this.decorator} # type: ignore`);
+    // "# type: ignore[misc]" is needed because mypy cannot check decorated things
+    code.line(`@${this.decorator} # type: ignore[misc]`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
@@ -762,7 +786,7 @@ abstract class BaseProperty implements PythonBase {
       (!renderAbstract || !this.abstract)
     ) {
       code.line(
-        `return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`,
+        `return typing.cast(${pythonType}, jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}"))`,
       );
     } else {
       code.line('...');
@@ -771,8 +795,11 @@ abstract class BaseProperty implements PythonBase {
 
     if (!this.immutable) {
       code.line();
-      // # type: ignore is required because mypy cannot check decorated things
-      code.line(`@${this.pythonName}.setter # type: ignore`);
+      code.line(
+        `@${this.pythonName}.setter${
+          this.isStatic ? ' # type: ignore[no-redef]' : ''
+        }`,
+      );
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
@@ -813,11 +840,11 @@ class Interface extends BasePythonClassType {
     // Then, we have to emit a Proxy class which implements our proxy interface.
     const proxyBases: string[] = this.bases.map(
       (b) =>
-        // MyPy cannot check dynamic base classes (naturally)
+        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
         `jsii.proxy_for(${toTypeName(b).pythonType({
           ...context,
           typeAnnotation: false,
-        })}) # type: ignore`,
+        })}) # type: ignore[misc]`,
     );
     openSignature(code, 'class', this.getProxyClassName(), proxyBases);
     this.generator.emitDocString(code, this.docs, {
@@ -859,7 +886,9 @@ class Interface extends BasePythonClassType {
     _context: EmitContext,
   ) => {
     code.line('@builtins.staticmethod');
-    code.openBlock('def __jsii_proxy_class__()');
+    code.openBlock(
+      `def __jsii_proxy_class__() -> typing.Type["${this.getProxyClassName()}"]`,
+    );
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
   };
@@ -1018,15 +1047,10 @@ class Struct extends BasePythonClassType {
     code: CodeMaker,
     context: EmitContext,
   ) {
+    const pythonType = member.typeAnnotation(context);
+
     code.line('@builtins.property');
-    openSignature(
-      code,
-      'def',
-      member.pythonName,
-      ['self'],
-      true,
-      member.typeAnnotation(context),
-    );
+    openSignature(code, 'def', member.pythonName, ['self'], true, pythonType);
     member.emitDocString(code);
     code.line(
       `result = self._values.get(${JSON.stringify(member.pythonName)})`,
@@ -1037,7 +1061,7 @@ class Struct extends BasePythonClassType {
         `assert result is not None, "Required property '${member.pythonName}' is missing"`,
       );
     }
-    code.line('return result');
+    code.line(`return typing.cast(${pythonType}, result)`);
     code.closeBlock();
   }
 
@@ -1215,12 +1239,12 @@ class Class extends BasePythonClassType implements ISortableType {
 
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
-        // MyPy cannot check dynamic base types (naturally)
+        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
         proxyBases.push(
           `jsii.proxy_for(${toTypeName(base).pythonType({
             ...context,
             typeAnnotation: false,
-          })}) # type: ignore`,
+          })}) # type: ignore[misc]`,
         );
       }
 
@@ -1258,7 +1282,9 @@ class Class extends BasePythonClassType implements ISortableType {
     if (!this.abstract) return undefined;
     return (code: CodeMaker, _context: EmitContext) => {
       code.line('@builtins.staticmethod');
-      code.openBlock('def __jsii_proxy_class__()');
+      code.openBlock(
+        `def __jsii_proxy_class__() -> typing.Type["${this.getProxyClassName()}"]`,
+      );
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
     };
@@ -2345,7 +2371,12 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        { abstract: prop.abstract, immutable: prop.immutable, parent: cls },
+        {
+          abstract: prop.abstract,
+          immutable: prop.immutable,
+          isStatic: prop.static,
+          parent: cls,
+        },
       ),
     );
   }
@@ -2396,7 +2427,12 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        { abstract: prop.abstract, immutable: prop.immutable, parent: cls },
+        {
+          abstract: prop.abstract,
+          immutable: prop.immutable,
+          isStatic: prop.static,
+          parent: cls,
+        },
       ),
     );
   }
@@ -2465,7 +2501,7 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        { immutable: prop.immutable, parent: ifc },
+        { immutable: prop.immutable, isStatic: prop.static, parent: ifc },
       );
     }
 
