@@ -400,7 +400,7 @@ defineTest(
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
       go: {
-        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/go',
+        moduleName: 'github.com/aws/jsii/jsii-calc/go',
       },
       java: {
         package: 'software.amazon.jsii.tests.calculator',
@@ -424,7 +424,7 @@ defineTest(
           versionSuffix: '-devpreview',
         },
         go: {
-          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/go',
+          moduleName: 'github.com/aws/jsii/jsii-calc/go',
         },
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',

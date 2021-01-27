@@ -490,7 +490,8 @@
       "profile": "https://github.com/jsteinich",
       "contributions": [
         "bug",
-        "ideas"
+        "ideas",
+        "code"
       ]
     },
     {
@@ -742,7 +743,8 @@
         "java",
         "maintenance",
         "python",
-        "review"
+        "review",
+        "blog"
       ]
     },
     {
@@ -1034,6 +1036,42 @@
       "name": "Mohamad Soufan",
       "avatar_url": "https://avatars3.githubusercontent.com/u/28849417?v=4",
       "profile": "https://github.com/MohamadSoufan",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Chriscbr",
+      "name": "Christopher Rybicki",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5008987?v=4",
+      "profile": "https://rybicki.io/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "bmacher",
+      "name": "Benjamin Macher",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/32685580?v=4",
+      "profile": "http://macher.dev",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "camilobermudez85",
+      "name": "Camilo Bermúdez",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7834055?v=4",
+      "profile": "https://camilobermudez85.github.io/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "benfarr",
+      "name": "Ben Farr",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/10361379?v=4",
+      "profile": "https://github.com/benfarr",
       "contributions": [
         "doc"
       ]

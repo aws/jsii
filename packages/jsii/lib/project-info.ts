@@ -127,16 +127,19 @@ export async function loadProjectInfo(
   }
 
   const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
+  const assemblyCache = new Map<string, spec.Assembly>();
   const dependencies = await _loadDependencies(
     pkg.dependencies,
     projectRoot,
     transitiveAssemblies,
+    assemblyCache,
     new Set<string>(Object.keys(bundleDependencies ?? {})),
   );
   const peerDependencies = await _loadDependencies(
     pkg.peerDependencies,
     projectRoot,
     transitiveAssemblies,
+    assemblyCache,
   );
 
   const transitiveDependencies = Object.values(transitiveAssemblies);
@@ -240,6 +243,7 @@ async function _loadDependencies(
   dependencies: { [name: string]: string } | undefined,
   searchPath: string,
   transitiveAssemblies: { [name: string]: spec.Assembly },
+  assemblyCache: Map<string, spec.Assembly>,
   bundled = new Set<string>(),
 ): Promise<{ [name: string]: string }> {
   if (!dependencies) {
@@ -263,7 +267,7 @@ async function _loadDependencies(
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
-    const assm = await loadAndValidateAssembly(pkg);
+    const assm = await loadAndValidateAssembly(pkg, assemblyCache);
     if (!semver.satisfies(assm.version, version)) {
       throw new Error(
         `Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`,
@@ -277,28 +281,32 @@ async function _loadDependencies(
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
       // eslint-disable-next-line no-await-in-loop
-      await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
+      await _loadDependencies(
+        assm.dependencies,
+        pkgDir,
+        transitiveAssemblies,
+        assemblyCache,
+      );
     }
   }
   return packageVersions;
 }
-
-const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
 
 /**
  * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
  */
 async function loadAndValidateAssembly(
   jsiiFileName: string,
+  cache: Map<string, spec.Assembly>,
 ): Promise<spec.Assembly> {
-  if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
+  if (!cache.has(jsiiFileName)) {
     try {
-      ASSEMBLY_CACHE.set(jsiiFileName, await fs.readJson(jsiiFileName));
+      cache.set(jsiiFileName, await fs.readJson(jsiiFileName));
     } catch (e) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
   }
-  return ASSEMBLY_CACHE.get(jsiiFileName)!;
+  return cache.get(jsiiFileName)!;
 }
 
 function _required<T>(value: T, message: string): T {

@@ -1,0 +1,6 @@
+---
+title: Architecture Decisions
+order: desc
+nav:
+  - introduction.md
+  - ... | regex=\d{4}-\d{2}-\d{2}-.+.md
