@@ -46,15 +46,8 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public stringLiteral(
-    node: ts.StringLiteral,
-    _children: AstRenderer<C>,
-  ): OTree {
-    return new OTree([JSON.stringify(node.text)]);
-  }
-
-  public noSubstitutionTemplateLiteral(
-    node: ts.NoSubstitutionTemplateLiteral,
-    _context: AstRenderer<C>,
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
+    _renderer: AstRenderer<C>,
   ): OTree {
     return new OTree([JSON.stringify(node.text)]);
   }

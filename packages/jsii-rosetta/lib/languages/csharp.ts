@@ -109,7 +109,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public identifier(
-    node: ts.Identifier | ts.StringLiteral,
+    node: ts.Identifier | ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     renderer: CSharpRenderer,
   ) {
     let text = node.text;
@@ -339,11 +339,15 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public stringLiteral(
-    node: ts.StringLiteral,
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     renderer: CSharpRenderer,
   ): OTree {
     if (renderer.currentContext.stringAsIdentifier) {
       return this.identifier(node, renderer);
+    }
+    if (node.text.includes('\n')) {
+      // Multi-line string literals (@"string") in C# do not do escaping. Only " needs to be doubled.
+      return new OTree(['@"', node.text.replace(/"/g, '""'), '"']);
     }
     return new OTree([JSON.stringify(node.text)]);
   }
@@ -740,19 +744,32 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     node: ts.TemplateExpression,
     context: CSharpRenderer,
   ): OTree {
-    const parts = ['$"'];
+    // If this is a multi-line string literal, we need not quote much, as @"string" literals in C#
+    // do not perform any quoting. The literal quotes in the text however must be doubled.
+    const isMultiLine =
+      !!node.head.rawText?.includes('\n') ||
+      node.templateSpans.some((span) => span.literal.rawText?.includes('\n'));
+
+    const parts = new Array<string>();
     if (node.head.rawText) {
-      parts.push(quoteStringLiteral(node.head.rawText));
+      parts.push(
+        isMultiLine
+          ? node.head.rawText.replace(/"/g, '""')
+          : quoteStringLiteral(node.head.rawText),
+      );
     }
     for (const span of node.templateSpans) {
       parts.push(`{${context.textOf(span.expression)}}`);
       if (span.literal.rawText) {
-        parts.push(quoteStringLiteral(span.literal.rawText));
+        parts.push(
+          isMultiLine
+            ? span.literal.rawText.replace(/"/g, '""')
+            : quoteStringLiteral(span.literal.rawText),
+        );
       }
     }
-    parts.push('"');
 
-    return new OTree([parts.join('')]);
+    return new OTree([isMultiLine ? '$@"' : '$"', ...parts, '"']);
   }
 
   protected argumentList(
