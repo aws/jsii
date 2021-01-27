@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 // Constants
-const RUNTIME_DIR = path.resolve(__dirname, '..', 'jsii-experimental');
+const RUNTIME_DIR = path.resolve(__dirname, '..', 'jsii-runtime-go');
 
 // Always preserve these files/paths from the cloned repo
 const PRESERVE = ['.git', '.gitignore'];
