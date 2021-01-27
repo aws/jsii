@@ -36,16 +36,16 @@ export function diagnosticsLogger(
       }
       return logger.warn.bind(logger);
     case ts.DiagnosticCategory.Message:
-      if (!logger.isInfoEnabled()) {
-        return undefined;
-      }
-      return logger.info.bind(logger);
-    case ts.DiagnosticCategory.Suggestion:
-    default:
       if (!logger.isDebugEnabled()) {
         return undefined;
       }
       return logger.debug.bind(logger);
+    case ts.DiagnosticCategory.Suggestion:
+    default:
+      if (!logger.isTraceEnabled()) {
+        return undefined;
+      }
+      return logger.trace.bind(logger);
   }
 }
 
