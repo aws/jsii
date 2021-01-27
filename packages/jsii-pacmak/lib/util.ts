@@ -259,9 +259,7 @@ export class Scratch<A> {
   ): Promise<Scratch<A>>;
   public static async make<A>(factory: (dir: string) => A): Promise<Scratch<A>>;
   public static async make<A>(factory: (dir: string) => A | Promise<A>) {
-    const tmpdir = await fs.realpath(
-      await fs.mkdtemp(path.join(os.tmpdir(), 'npm-pack')),
-    );
+    const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), 'npm-pack'));
     return new Scratch(tmpdir, await factory(tmpdir), false);
   }
 

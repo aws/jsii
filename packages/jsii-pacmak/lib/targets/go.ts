@@ -47,6 +47,7 @@ export class Golang extends Target {
    */
   private async goBuild(sourceDir: string) {
     const buildScratch = await Scratch.make(async (buildDir) => {
+      buildDir = await fs.realpath(buildDir); // resolve symlinks
       await this.copyFiles(sourceDir, buildDir);
 
       // resolve symlinks
