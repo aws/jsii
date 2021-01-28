@@ -53,6 +53,7 @@
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
     "@jsii/java-runtime": "^0.0.0",
+    "@jsii/go-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/clone": "^2.1.0",
     "@types/commonmark": "^0.27.4",

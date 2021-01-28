@@ -14,6 +14,7 @@ Array [
   "@scope/jsii-calc-base-of-base.StaticConsumer",
   "@scope/jsii-calc-base-of-base.Very",
   "@scope/jsii-calc-base.Base",
+  "@scope/jsii-calc-base.StaticConsumer",
   "@scope/jsii-calc-lib.Number",
   "@scope/jsii-calc-lib.NumericValue",
   "@scope/jsii-calc-lib.Operation",
