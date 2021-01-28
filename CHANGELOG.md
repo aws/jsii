@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/aws/jsii/compare/v1.17.1...v1.18.0) (2021-01-28)
+
+
+### Features
+
+* add support for bin-scripts (python only) ([#1941](https://github.com/aws/jsii/issues/1941)) ([61ef5ed](https://github.com/aws/jsii/commit/61ef5edc9696c41a45984c907dc30771c675e20b))
+* **dotnet,java:** kernel process inherits host's STDERR ([#2248](https://github.com/aws/jsii/issues/2248)) ([70ce153](https://github.com/aws/jsii/commit/70ce15312d7553bc44c2e4f8981b596563b5ecd7))
+* **go:** runtime release tagging ([#2417](https://github.com/aws/jsii/issues/2417)) ([9ffd204](https://github.com/aws/jsii/commit/9ffd20481bd804ff288ab4bf91b9f394d52d3d90))
+* **jsii:** experimental --strip-deprecated feature ([#2437](https://github.com/aws/jsii/issues/2437)) ([f958f5a](https://github.com/aws/jsii/commit/f958f5a9603da990146ed6fe3674094fee227079))
+* submodules expose readmes and targets via `jsii-reflect` ([#2482](https://github.com/aws/jsii/issues/2482)) ([33f41eb](https://github.com/aws/jsii/commit/33f41eb7f1e5acddcf505070ecb3f8dee6f9f4b1))
+
+
+### Bug Fixes
+
+* **dotnet:** Use nested classes for proxies to avoid name collision ([#2368](https://github.com/aws/jsii/issues/2368)) ([90b17e2](https://github.com/aws/jsii/commit/90b17e2a7da159879a7e618ce6f2edca336f316e)), closes [#2367](https://github.com/aws/jsii/issues/2367)
+* **go:** generated code runtime dependency version ([#2399](https://github.com/aws/jsii/issues/2399)) ([f1a06e5](https://github.com/aws/jsii/commit/f1a06e5f71e599fcf6efccaa0906cee8cd93d3e1))
+* **go:** invalid output for multi-line [@return](https://github.com/return) and [@deprecated](https://github.com/deprecated) comments ([#2462](https://github.com/aws/jsii/issues/2462)) ([590681a](https://github.com/aws/jsii/commit/590681a4adc672345febdc274e1aa45658a8d7a5)), closes [#2457](https://github.com/aws/jsii/issues/2457)
+* **jsii:** errors when invoking with a project root argument ([#2351](https://github.com/aws/jsii/issues/2351)) ([9c66340](https://github.com/aws/jsii/commit/9c66340d2471db36175000c6673d1d498f4ec2c5))
+* **jsii:** submodules of dependencies show up in assembly ([#2481](https://github.com/aws/jsii/issues/2481)) ([2630a80](https://github.com/aws/jsii/commit/2630a8046dc5f9c799546248e783d24ed58a6783))
+* **jsii:** unknown error in Assembler._validateHeritageClauses ([#2350](https://github.com/aws/jsii/issues/2350)) ([3120bf4](https://github.com/aws/jsii/commit/3120bf448cc160cb0249aa57a0a2bd62e35c1659)), closes [#2349](https://github.com/aws/jsii/issues/2349)
+* bad working directory in go runtime push ([#2356](https://github.com/aws/jsii/issues/2356)) ([53457e2](https://github.com/aws/jsii/commit/53457e2f6063e5f0202eac7040ad03e1ed64805e))
+* **pacmak:** illegal static overrides in java & c# ([#2373](https://github.com/aws/jsii/issues/2373)) ([4672e4b](https://github.com/aws/jsii/commit/4672e4b5f37a83ebfe6e2296c81839af6b296d8f)), closes [#2358](https://github.com/aws/jsii/issues/2358)
+* **python:** mypy validation errors ([#2472](https://github.com/aws/jsii/issues/2472)) ([2b2e9a8](https://github.com/aws/jsii/commit/2b2e9a86e80a8a608b0ff5f0c4114e2a7b43883e)), closes [#2464](https://github.com/aws/jsii/issues/2464) [#2476](https://github.com/aws/jsii/issues/2476)
+* **python:** pin mypy to the exact version ([#2476](https://github.com/aws/jsii/issues/2476)) ([01a46d6](https://github.com/aws/jsii/commit/01a46d64fe30d81913b58c27d81899e1529715a3)), closes [#2464](https://github.com/aws/jsii/issues/2464)
+* **rosetta:** correctly emit multi-line string literals ([#2419](https://github.com/aws/jsii/issues/2419)) ([a30a996](https://github.com/aws/jsii/commit/a30a996479f961c93523ce9e378ededa39424948))
+
 ## [1.17.1](https://github.com/aws/jsii/compare/v1.17.0...v1.17.1) (2021-01-13)
 
 ### Bug Fixes
