@@ -208,8 +208,8 @@ function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
  */
 function tryFindLocalRuntime() {
   try {
-    const p = require.resolve('@jsii/go-runtime/jsii-runtime-go/go.mod');
-    const dir = path.dirname(p);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports, import/no-extraneous-dependencies
+    const dir = require('@jsii/go-runtime').runtimePath;
     logging.debug(`Using @jsii/go-runtime from ${dir}`);
     return dir;
   } catch {
