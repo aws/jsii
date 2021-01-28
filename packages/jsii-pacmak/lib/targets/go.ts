@@ -117,7 +117,6 @@ class GoGenerator implements IGenerator {
     indentCharacter: '\t',
     indentationLevel: 1,
   });
-
   private readonly documenter: Documentation;
 
   public constructor(private readonly rosetta: Rosetta) {
