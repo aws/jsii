@@ -1,5 +1,4 @@
-import { CodeMaker } from "codemaker";
-
+import { CodeMaker } from 'codemaker';
 
 /**
  * Represents the version of the go module. This is needed because the version is not
@@ -9,7 +8,7 @@ export class VersionFile {
 
   private static readonly NAME = 'version';
 
-  constructor(private readonly version: string) {}
+  public constructor(private readonly version: string) {}
 
   public emit(code: CodeMaker) {
     code.openFile(VersionFile.NAME);
