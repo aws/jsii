@@ -207,10 +207,29 @@ class _IBaseInterfaceProxy(
         return typing.cast(None, jsii.invoke(self, "bar", []))
 
 
+class StaticConsumer(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-base.StaticConsumer",
+):
+    """Hides the transitive dependency of base-of-base."""
+
+    def __init__(self) -> None:
+        jsii.create(StaticConsumer, self, [])
+
+    @jsii.member(jsii_name="consume") # type: ignore[misc]
+    @builtins.classmethod
+    def consume(cls, *args: typing.Any) -> None:
+        """
+        :param args: -
+        """
+        return typing.cast(None, jsii.sinvoke(cls, "consume", [*args]))
+
+
 __all__ = [
     "Base",
     "BaseProps",
     "IBaseInterface",
+    "StaticConsumer",
 ]
 
 publication.publish()
@@ -1417,7 +1436,6 @@ kwargs = json.loads(
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
-        "scope.jsii-calc-base-of-base<0.0.1",
         "scope.jsii-calc-base<0.0.1",
         "scope.jsii-calc-lib<0.0.1"
     ],
@@ -8789,7 +8807,6 @@ import publication
 import typing_extensions
 
 import scope.jsii_calc_base._jsii
-import scope.jsii_calc_base_of_base._jsii
 import scope.jsii_calc_lib._jsii
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(

@@ -13,9 +13,10 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┃              ┣━ 📄 BaseProps.cs
        ┃              ┣━ 📄 IBaseInterface.cs
        ┃              ┣━ 📄 IBaseProps.cs
-       ┃              ┗━ 📁 Internal
-       ┃                 ┗━ 📁 DependencyResolution
-       ┃                    ┗━ 📄 Anchor.cs
+       ┃              ┣━ 📁 Internal
+       ┃              ┃  ┗━ 📁 DependencyResolution
+       ┃              ┃     ┗━ 📄 Anchor.cs
+       ┃              ┗━ 📄 StaticConsumer.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.BasePackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
        ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
@@ -229,6 +230,45 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Internal.Dependenc
         public Anchor()
         {
             new Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Internal.DependencyResolution.Anchor();
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/Amazon/JSII/Tests/CalculatorNamespace/BaseNamespace/StaticConsumer.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
+{
+    /// <summary>Hides the transitive dependency of base-of-base.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.StaticConsumer), fullyQualifiedName: "@scope/jsii-calc-base.StaticConsumer")]
+    public class StaticConsumer : DeputyBase
+    {
+        public StaticConsumer(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticConsumer(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticConsumer(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "consume", parametersJson: "[{\\"name\\":\\"args\\",\\"type\\":{\\"primitive\\":\\"any\\"},\\"variadic\\":true}]")]
+        public static void Consume(params object[] args)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.StaticConsumer), new System.Type[]{typeof(object[])}, new object[]{args});
         }
     }
 }
@@ -2044,7 +2084,6 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="(,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="(,0.0.1)" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="[0.0.0-devpreview,0.0.1)" />
   </ItemGroup>
   <PropertyGroup>
@@ -9660,7 +9699,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Internal.DependencyResolution
         public Anchor()
         {
             new Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Internal.DependencyResolution.Anchor();
-            new Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Internal.DependencyResolution.Anchor();
             new Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Internal.DependencyResolution.Anchor();
         }
     }

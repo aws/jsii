@@ -93,7 +93,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 6
+        "line": 10
       },
       "methods": [
         {
@@ -102,7 +102,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 14
           },
           "name": "typeName",
           "returns": {
@@ -124,7 +124,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 19
       },
       "name": "BaseProps",
       "properties": [
@@ -133,7 +133,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 16
+            "line": 20
           },
           "name": "bar",
           "type": {
@@ -151,21 +151,55 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 19
+        "line": 23
       },
       "methods": [
         {
           "abstract": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 20
+            "line": 24
           },
           "name": "bar"
         }
       ],
       "name": "IBaseInterface"
+    },
+    "@scope/jsii-calc-base.StaticConsumer": {
+      "assembly": "@scope/jsii-calc-base",
+      "docs": {
+        "summary": "Hides the transitive dependency of base-of-base."
+      },
+      "fqn": "@scope/jsii-calc-base.StaticConsumer",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 30
+      },
+      "methods": [
+        {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 31
+          },
+          "name": "consume",
+          "parameters": [
+            {
+              "name": "args",
+              "type": {
+                "primitive": "any"
+              },
+              "variadic": true
+            }
+          ],
+          "static": true,
+          "variadic": true
+        }
+      ],
+      "name": "StaticConsumer"
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Ajk3MslkfbYCrArr+xpk4fCqUsDaJMcCWIRdaVGDWDo="
+  "fingerprint": "nk3lZyZihw8+X5KKk4nmX16b78gkSh2KmOCC72ZlkYk="
 }

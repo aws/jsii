@@ -166,6 +166,41 @@ func (i *IBaseInterface) Bar() {
 	)
 }
 
+// Class interface
+type StaticConsumerIface interface {
+}
+
+// Hides the transitive dependency of base-of-base.
+// Struct proxy
+type StaticConsumer struct {
+}
+
+func NewStaticConsumer() StaticConsumerIface {
+	_init_.Initialize()
+	self := StaticConsumer{}
+	_jsii_.Create(
+		"@scope/jsii-calc-base.StaticConsumer",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&self,
+	)
+	return &self
+}
+
+func StaticConsumer_Consume(args interface{}) {
+	_init_.Initialize()
+	var returns interface{}
+	_jsii_.InvokeStatic(
+		"@scope/jsii-calc-base.StaticConsumer",
+		"consume",
+		[]interface{}{args},
+		false,
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+}
+
 
 `;
 
@@ -1377,7 +1412,6 @@ go 1.15
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
-	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0
 )
 
@@ -1502,7 +1536,6 @@ import (
 	"sync"
 	// Initialization endpoints of dependencies
 	scopejsiicalcbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
-	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 	scopejsiicalclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
@@ -1514,7 +1547,6 @@ func Initialize() {
 	once.Do(func(){
 		// Ensure all dependencies are initialized
 		scopejsiicalcbase.Initialize()
-		scopejsiicalcbaseofbase.Initialize()
 		scopejsiicalclib.Initialize()
 
 		// Load this library into the kernel
