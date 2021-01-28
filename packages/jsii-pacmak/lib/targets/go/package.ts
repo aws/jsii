@@ -13,6 +13,7 @@ import {
 } from './runtime';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
+import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
 export const GO_VERSION = '1.15';
@@ -181,6 +182,7 @@ export class RootPackage extends Package {
   public readonly assembly: Assembly;
   public readonly version: string;
   private readonly readme?: ReadmeFile;
+  private readonly versionFile: VersionFile;
 
   public constructor(assembly: Assembly) {
     const packageName = goPackageName(assembly.name);
@@ -197,6 +199,7 @@ export class RootPackage extends Package {
 
     this.assembly = assembly;
     this.version = assembly.version;
+    this.versionFile = new VersionFile(this.version);
 
     if (this.assembly.readme?.markdown) {
       this.readme = new ReadmeFile(
@@ -212,6 +215,7 @@ export class RootPackage extends Package {
     this.readme?.emit(context);
 
     this.emitGomod(context.code);
+    this.versionFile.emit(context.code);
   }
 
   private emitGomod(code: CodeMaker) {
