@@ -1,59 +1,59 @@
 import * as ts from 'typescript';
 
-import { RuntimeTypeInfoInjector } from '../lib/runtime-info';
+import { RuntimeTypeInfoInjector } from '../../lib/transforms/runtime-info';
 
 test('leaves files without classes unaltered', () => {
   expect(transformedSource(EXAMPLE_NO_CLASS, 'Foo')).not.toContain(
-    'jsiiRttiSymbol',
+    'JSII_RTTI_SYMBOL',
   );
 });
 
 test('leaves files without classes with metadata unaltered', () => {
   expect(transformedSource(EXAMPLE_SINGLE_CLASS)).not.toContain(
-    'jsiiRttiSymbol',
+    'JSII_RTTI_SYMBOL',
   );
 });
 
-test('adds vfqn symbol at the top of each file when classes are present', () => {
+test('adds jsii.rtti symbol at the top of each file when classes are present', () => {
   expect(transformedSource(EXAMPLE_SINGLE_CLASS, 'Foo')).toContain(
-    'var jsiiRttiSymbol_1 = Symbol.for("jsii.rtti");',
+    'const JSII_RTTI_SYMBOL_1 = Symbol.for("jsii.rtti");',
   );
 });
 
 test('adds runtime info for a class', () => {
   expect(transformedSource(EXAMPLE_SINGLE_CLASS, 'Foo')).toContain(
-    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
+    'private static readonly [JSII_RTTI_SYMBOL_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
 });
 
 test('adds runtime info for each class', () => {
   const transformed = transformedSource(EXAMPLE_MULTIPLE_CLASSES, 'Foo', 'Bar');
   expect(transformed).toContain(
-    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
+    'private static readonly [JSII_RTTI_SYMBOL_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
   expect(transformed).toContain(
-    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
+    'private static readonly [JSII_RTTI_SYMBOL_1] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
   );
 });
 
 test('skips runtime info if not available', () => {
   const transformed = transformedSource(EXAMPLE_MULTIPLE_CLASSES, 'Foo');
   expect(transformed).toContain(
-    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
+    'private static readonly [JSII_RTTI_SYMBOL_1] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
   expect(transformed).not.toContain(
-    'private static readonly [jsiiRttiSymbol_1] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
+    'private static readonly [JSII_RTTI_SYMBOL_1] = { fqn: "RuntimeInfoTest.Bar", version: "1.2.3" }',
   );
 });
 
 test('creates a unique name if the default is taken', () => {
-  // Conflicting example has existing variable for jsiiRttiSymbol_1, so transformation should use _2.
+  // Conflicting example has existing variable for JSII_RTTI_SYMBOL_1, so transformation should use _2.
   const transformed = transformedSource(EXAMPLE_CONFLICTING_NAME, 'Foo');
   expect(transformed).toContain(
-    'var jsiiRttiSymbol_2 = Symbol.for("jsii.rtti");',
+    'const JSII_RTTI_SYMBOL_2 = Symbol.for("jsii.rtti");',
   );
   expect(transformed).toContain(
-    'private static readonly [jsiiRttiSymbol_2] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
+    'private static readonly [JSII_RTTI_SYMBOL_2] = { fqn: "RuntimeInfoTest.Foo", version: "1.2.3" }',
   );
 });
 
@@ -146,7 +146,7 @@ export default class {
 const EXAMPLE_CONFLICTING_NAME = `
 import * as ts from 'typescript';
 
-const jsiiRttiSymbol_1 = 42;
+const JSII_RTTI_SYMBOL_1 = 42;
 
 class Foo {
   constructor(public readonly bar: string) {}

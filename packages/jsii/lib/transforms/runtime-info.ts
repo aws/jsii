@@ -6,13 +6,13 @@ import * as ts from 'typescript';
  *
  * It does this by first inserting this definition at the top of each source file:
  * ```
- * var jsiiRttiSymbol_1 = Symbol.for("jsii.rtti");
+ * var JSII_RTTI_SYMBOL_1 = Symbol.for("jsii.rtti");
  * ```
  *
  * Then, for each class that has registered runtime information during assembly,
  * insert a static member to the class with its fqn and version:
  * ```
- * private static readonly [jsiiRttiSymbol_1] = { fqn: "ModuleName.ClassName", version: "1.2.3" }
+ * private static readonly [JSII_RTTI_SYMBOL_1] = { fqn: "ModuleName.ClassName", version: "1.2.3" }
  * ```
  */
 export class RuntimeTypeInfoInjector {
@@ -43,7 +43,7 @@ export class RuntimeTypeInfoInjector {
 
     return (context) => {
       return (sourceFile) => {
-        const rttiSymbolIdentifier = ts.createUniqueName('jsiiRttiSymbol');
+        const rttiSymbolIdentifier = ts.createUniqueName('JSII_RTTI_SYMBOL');
 
         let classesAnnotated = false;
         const visitor = (node: ts.Node): ts.Node => {
@@ -79,9 +79,16 @@ export class RuntimeTypeInfoInjector {
             undefined,
             rttiSymbol,
           );
+          const variableDeclaration = ts.createVariableStatement(
+            [],
+            ts.createVariableDeclarationList(
+              [rttiSymbolDeclaration],
+              ts.NodeFlags.Const,
+            ),
+          );
 
           annotatedSourceFile = ts.updateSourceFileNode(annotatedSourceFile, [
-            ts.createVariableStatement([], [rttiSymbolDeclaration]),
+            variableDeclaration,
             ...annotatedSourceFile.statements,
           ]);
         }
