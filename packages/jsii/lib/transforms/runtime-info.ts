@@ -38,9 +38,6 @@ export class RuntimeTypeInfoInjector {
   }
 
   public runtimeTypeTransformer(): ts.TransformerFactory<ts.SourceFile> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this;
-
     return (context) => {
       return (sourceFile) => {
         const rttiSymbolIdentifier = ts.createUniqueName('JSII_RTTI_SYMBOL');
@@ -51,7 +48,7 @@ export class RuntimeTypeInfoInjector {
             const fqn = this.getClassFqn(node);
             if (fqn) {
               classesAnnotated = true;
-              return self.addRuntimeInfoToClass(
+              return this.addRuntimeInfoToClass(
                 node,
                 fqn,
                 rttiSymbolIdentifier,
