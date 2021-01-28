@@ -218,7 +218,7 @@ function tryFindLocalRuntime() {
 }
 
 /**
- * Executes a go CLI command against a `local.go.mod` file.
+ * Executes a go CLI command.
  *
  * Since not all `go` commands support specifying an alternative `go.mod` file,
  * we will copy `local.go.mod` over it and then restore the original version
