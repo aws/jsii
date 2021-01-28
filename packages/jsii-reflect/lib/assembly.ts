@@ -10,8 +10,8 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export class Assembly extends ModuleLike {
-  protected _typeCache?: { [fqn: string]: Type };
-  protected _submoduleCache?: { [fqn: string]: Submodule };
+  private _typeCache?: { [fqn: string]: Type };
+  private _submoduleCache?: { [fqn: string]: Submodule };
   private _dependencyCache?: { [name: string]: Dependency };
 
   public constructor(system: TypeSystem, public readonly spec: jsii.Assembly) {
@@ -155,8 +155,8 @@ export class Assembly extends ModuleLike {
    * Return the those submodules nested directly under the assembly
    */
   public get submodules(): readonly Submodule[] {
-    this._analyzeTypes();
-    return Object.entries(this._submoduleCache)
+    const { submodules } = this._analyzeTypes();
+    return Object.entries(submodules)
       .filter(([name, _]) => name.split('.').length === 2)
       .map(([_, submodule]) => submodule);
   }
@@ -165,16 +165,8 @@ export class Assembly extends ModuleLike {
    * Return all submodules, even those transtively nested
    */
   public get allSubmodules(): readonly Submodule[] {
-    this._analyzeTypes();
-    return Object.values(this._submoduleCache);
-  }
-
-  /**
-   * All types in the assembly
-   */
-  public get types(): readonly Type[] {
-    this._analyzeTypes();
-    return Object.values(this._typeCache);
+    const { submodules } = this._analyzeTypes();
+    return Object.values(submodules);
   }
 
   public findType(fqn: string) {
@@ -196,16 +188,14 @@ export class Assembly extends ModuleLike {
   }
 
   protected get submoduleMap(): Readonly<Record<string, Submodule>> {
-    this._analyzeTypes();
-    return this._submoduleCache;
+    return this._analyzeTypes().submodules;
   }
 
   /**
    * All types in the root of the assembly
    */
   protected get typeMap(): Readonly<Record<string, Type>> {
-    this._analyzeTypes();
-    return this._typeCache;
+    return this._analyzeTypes().types;
   }
 
   private get _dependencies() {
@@ -225,11 +215,7 @@ export class Assembly extends ModuleLike {
     return this._dependencyCache;
   }
 
-  private _analyzeTypes(): asserts this is InitializedAssembly {
-    if (this._typeCache && this._submoduleCache) {
-      return;
-    }
-
+  private _analyzeTypes() {
     if (!this._typeCache || !this._submoduleCache) {
       this._typeCache = {};
 
@@ -272,6 +258,7 @@ export class Assembly extends ModuleLike {
 
       this._submoduleCache = mapValues(submoduleBuilders, (b) => b.build());
     }
+    return { types: this._typeCache, submodules: this._submoduleCache };
   }
 
   /**
@@ -367,8 +354,3 @@ function mapValues<A, B>(
   }
   return ret;
 }
-
-type InitializedAssembly = Assembly & {
-  _typeCache: NonNullable<Assembly['_typeCache']>;
-  _submoduleCache: NonNullable<Assembly['_submoduleCache']>;
-};
