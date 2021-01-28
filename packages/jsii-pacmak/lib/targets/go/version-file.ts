@@ -5,7 +5,6 @@ import { CodeMaker } from 'codemaker';
  * available in standard go module files.
  */
 export class VersionFile {
-
   private static readonly NAME = 'version';
 
   public constructor(private readonly version: string) {}
@@ -13,6 +12,6 @@ export class VersionFile {
   public emit(code: CodeMaker) {
     code.openFile(VersionFile.NAME);
     code.line(this.version);
-    code.closeFile(VersionFile.NAME)
+    code.closeFile(VersionFile.NAME);
   }
 }

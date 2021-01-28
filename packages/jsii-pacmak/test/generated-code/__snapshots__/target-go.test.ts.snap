@@ -8,7 +8,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 tarball.embedded.go
-       ┗━ 📄 scopejsiicalcbase.go
+       ┣━ 📄 scopejsiicalcbase.go
+       ┗━ 📄 version
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/go.mod 1`] = `
@@ -204,6 +205,11 @@ func StaticConsumer_Consume(args interface{}) {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/version 1`] = `
+0.0.0
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
@@ -212,7 +218,8 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 tarball.embedded.go
-       ┗━ 📄 scopejsiicalcbaseofbase.go
+       ┣━ 📄 scopejsiicalcbaseofbase.go
+       ┗━ 📄 version
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/go.mod 1`] = `
@@ -362,6 +369,11 @@ func (v *VeryBaseProps) GetFoo() VeryIface {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/version 1`] = `
+0.0.0
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
@@ -371,8 +383,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 tarball.embedded.go
        ┣━ 📄 scopejsiicalclib.go
-       ┗━ 📁 submodule
-          ┗━ 📄 submodule.go
+       ┣━ 📁 submodule
+       ┃  ┗━ 📄 submodule.go
+       ┗━ 📄 version
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
@@ -1057,6 +1070,11 @@ func (r *Reflector) AsMap(reflectable IReflectableIface) map[string]interface{} 
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/version 1`] = `
+0.0.0
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
@@ -1077,22 +1095,23 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📁 pythonself
        ┃  ┗━ 📄 pythonself.go
        ┣━ 📄 README.md
-       ┗━ 📁 submodule
-          ┣━ 📁 backreferences
-          ┃  ┗━ 📄 backreferences.go
-          ┣━ 📁 child
-          ┃  ┗━ 📄 child.go
-          ┣━ 📁 isolated
-          ┃  ┗━ 📄 isolated.go
-          ┣━ 📁 nestedsubmodule
-          ┃  ┣━ 📁 deeplynested
-          ┃  ┃  ┗━ 📄 deeplynested.go
-          ┃  ┗━ 📄 nestedsubmodule.go
-          ┣━ 📁 param
-          ┃  ┗━ 📄 param.go
-          ┣━ 📁 returnsparam
-          ┃  ┗━ 📄 returnsparam.go
-          ┗━ 📄 submodule.go
+       ┣━ 📁 submodule
+       ┃  ┣━ 📁 backreferences
+       ┃  ┃  ┗━ 📄 backreferences.go
+       ┃  ┣━ 📁 child
+       ┃  ┃  ┗━ 📄 child.go
+       ┃  ┣━ 📁 isolated
+       ┃  ┃  ┗━ 📄 isolated.go
+       ┃  ┣━ 📁 nestedsubmodule
+       ┃  ┃  ┣━ 📁 deeplynested
+       ┃  ┃  ┃  ┗━ 📄 deeplynested.go
+       ┃  ┃  ┗━ 📄 nestedsubmodule.go
+       ┃  ┣━ 📁 param
+       ┃  ┃  ┗━ 📄 param.go
+       ┃  ┣━ 📁 returnsparam
+       ┃  ┃  ┗━ 📄 returnsparam.go
+       ┃  ┗━ 📄 submodule.go
+       ┗━ 📄 version
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/README.md 1`] = `
@@ -14281,5 +14300,10 @@ func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameterIface) stri
 	return returns
 }
 
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/version 1`] = `
+0.0.0
 
 `;
