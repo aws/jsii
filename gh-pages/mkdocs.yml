@@ -4,7 +4,7 @@ repo_name: aws/jsii
 repo_url: https://github.com/aws/jsii
 site_url: https://aws.github.io/jsii/
 edit_uri: edit/main/gh-pages/content/
-copyright: Copyright &copy; 2020 Amazon Web Services, Inc.
+copyright: Copyright &copy; 2021 Amazon Web Services, Inc.
 
 docs_dir: content
 extra_css:
@@ -12,38 +12,13 @@ extra_css:
   - assets/stylesheets/extra.css
 
 nav:
-  - Home:
+  - Welcome:
       - index.md
-      - home/features.md
-      - home/toolchain.md
-      - home/runtime-architecture.md
-  - Author Guide:
-      - dev-guide/index.md
-      - Quick Start:
-          - dev-guide/set-up.md
-          - dev-guide/write-code.md
-      - dev-guide/typescript-restrictions.md
-      - Configuration Reference:
-          - dev-guide/configuration/index.md
-          - Targets:
-              - .NET: dev-guide/configuration/targets/dotnet.md
-              - Go: dev-guide/configuration/targets/go.md
-              - Java: dev-guide/configuration/targets/java.md
-              - Python: dev-guide/configuration/targets/python.md
-  - Consumer Guide:
-      - consumer-guide/index.md
-      - Language Specifics:
-          - Python: consumer-guide/python.md
-  - Language Implementation:
-      - language-support/index.md
-      - .jsii Assemblies: language-support/assembly.md
-      - language-support/callbacks.md
-  - Specification:
-      - specification/1-introduction.md
-      - The jsii type system: specification/2-type-system.md
-      - The jsii kernel API: specification/3-kernel-api.md
-      - specification/4-standard-compliance-suite.md
-      - specification/5-new-language-intake.md
+      - Overview:
+          - overview/features.md
+          - overview/toolchain.md
+          - overview/runtime-architecture.md
+  - ...
 
 extra:
   social:
@@ -71,6 +46,12 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.inlinehilite
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      repo_url_shortener: true
+      provider: github
+      user: aws
+      repo: jsii
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.tabbed
@@ -79,5 +60,7 @@ markdown_extensions:
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
 plugins:
+  - awesome-pages:
+      filename: .pages.yml
   - git-revision-date
   - search

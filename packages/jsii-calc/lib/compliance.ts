@@ -1,5 +1,4 @@
 import * as base from '@scope/jsii-calc-base';
-import { StaticConsumer } from '@scope/jsii-calc-base-of-base';
 import {
   EnumFromScopedModule,
   IDoublable,
@@ -291,7 +290,7 @@ export class RuntimeTypeChecking {
    * Used to verify verification of number of method arguments.
    */
   public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-    StaticConsumer.consume(arg1, arg2, arg3);
+    base.StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithDefaultedArguments(
@@ -299,11 +298,11 @@ export class RuntimeTypeChecking {
     arg2?: string,
     arg3: Date = new Date(),
   ) {
-    StaticConsumer.consume(arg1, arg2, arg3);
+    base.StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithOptionalAnyArgument(arg?: any) {
-    StaticConsumer.consume(arg);
+    base.StaticConsumer.consume(arg);
   }
 }
 

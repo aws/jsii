@@ -12,13 +12,13 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/go.mod 1`] = `
-module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase
+module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase
 
 go 1.15
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
-	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
+	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
 )
 
 `;
@@ -30,7 +30,7 @@ import (
 	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
-	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
+	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 )
 
 var once sync.Once
@@ -57,9 +57,9 @@ package scopejsiicalcbase
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 )
 
 // Class interface
@@ -166,6 +166,41 @@ func (i *IBaseInterface) Bar() {
 	)
 }
 
+// Class interface
+type StaticConsumerIface interface {
+}
+
+// Hides the transitive dependency of base-of-base.
+// Struct proxy
+type StaticConsumer struct {
+}
+
+func NewStaticConsumer() StaticConsumerIface {
+	_init_.Initialize()
+	self := StaticConsumer{}
+	_jsii_.Create(
+		"@scope/jsii-calc-base.StaticConsumer",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&self,
+	)
+	return &self
+}
+
+func StaticConsumer_Consume(args interface{}) {
+	_init_.Initialize()
+	var returns interface{}
+	_jsii_.InvokeStatic(
+		"@scope/jsii-calc-base.StaticConsumer",
+		"consume",
+		[]interface{}{args},
+		false,
+		&returns,
+		map[reflect.Type]reflect.Type{},
+	)
+}
+
 
 `;
 
@@ -181,7 +216,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/go.mod 1`] = `
-module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
+module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase
 
 go 1.15
 
@@ -220,7 +255,7 @@ package scopejsiicalcbaseofbase
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 	"reflect"
 )
 
@@ -341,14 +376,14 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
-module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib
+module github.com/aws/jsii/jsii-calc/go/scopejsiicalclib
 
 go 1.15
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
-	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
-	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
+	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
+	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
 )
 
 `;
@@ -360,8 +395,8 @@ import (
 	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
-	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
-	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
+	scopejsiicalcbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 )
 
 var once sync.Once
@@ -389,14 +424,14 @@ package scopejsiicalclib
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
 )
 
 // Check that enums from \\@scoped packages can be references.
-// 
+//
 // See awslabs/jsii#138
 // Deprecated.
 type EnumFromScopedModule string
@@ -427,7 +462,7 @@ func (i *IDoublable) GetDoubleValue() float64 {
 }
 
 // Applies to classes that are considered friendly.
-// 
+//
 // These classes can be greeted with
 // a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
 // Deprecated.
@@ -453,7 +488,7 @@ func (i *IFriendly) Hello() string {
 }
 
 // Interface that inherits from packages 2 levels up the tree.
-// 
+//
 // Their presence validates that .NET/Java/jsii-reflect can track all fields
 // far enough up the tree.
 // Deprecated.
@@ -841,7 +876,7 @@ package submodule
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 	"reflect"
 )
 
@@ -921,7 +956,7 @@ type NestedStructIface interface {
 }
 
 // This is a struct, nested within a class.
-// 
+//
 // Normal.
 // Deprecated.
 // Struct proxy
@@ -1095,9 +1130,9 @@ package composition
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 // Class interface
@@ -1120,7 +1155,7 @@ type CompositeOperation struct {
 	// (deprecated) The value.
 	Value float64 \`json:"value"\`
 	// The expression that this operation consists of.
-	// 
+	//
 	// Must be implemented by derived classes.
 	Expression scopejsiicalclib.NumericValueIface \`json:"expression"\`
 	// A set of postfixes to include in a decorated .toString().
@@ -1274,7 +1309,7 @@ package derivedclasshasnoproperties
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
 
@@ -1370,15 +1405,14 @@ func (d *Derived) SetProp(val string) {
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/go.mod 1`] = `
-module github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc
+module github.com/aws/jsii/jsii-calc/go/jsiicalc
 
 go 1.15
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
-	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
-	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase v0.0.0
-	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib v0.0.0
+	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
+	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0
 )
 
 `;
@@ -1388,7 +1422,7 @@ package interfaceinnamespaceincludesclasses
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
 
@@ -1501,9 +1535,8 @@ import (
 	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
-	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
-	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
-	scopejsiicalclib "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	scopejsiicalcbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	scopejsiicalclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 var once sync.Once
@@ -1514,7 +1547,6 @@ func Initialize() {
 	once.Do(func(){
 		// Ensure all dependencies are initialized
 		scopejsiicalcbase.Initialize()
-		scopejsiicalcbaseofbase.Initialize()
 		scopejsiicalclib.Initialize()
 
 		// Load this library into the kernel
@@ -1532,13 +1564,13 @@ package jsiicalc
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/composition"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/submodule"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/composition"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
 )
 
 // Class interface
@@ -1952,7 +1984,7 @@ type AllTypesIface interface {
 }
 
 // This class includes property for all types supported by jsii.
-// 
+//
 // The setters will validate
 // that the value set is of the expected type and throw otherwise.
 // Struct proxy
@@ -3016,16 +3048,16 @@ type CalculatorIface interface {
 }
 
 // A calculator which maintains a current value and allows adding operations.
-// 
+//
 // Here's how you use it:
-// 
+//
 // \`\`\`ts
 // const calculator = new calc.Calculator();
 // calculator.add(5);
 // calculator.mul(3);
 // console.log(calculator.expression.value);
 // \`\`\`
-// 
+//
 // I will repeat this example again, but in an @example tag.
 //
 // TODO: EXAMPLE
@@ -3338,7 +3370,7 @@ type CalculatorPropsIface interface {
 // Struct proxy
 type CalculatorProps struct {
 	// The initial value of the calculator.
-	// 
+	//
 	// NOTE: Any number works here, it's fine.
 	InitialValue float64 \`json:"initialValue"\`
 	// The maximum value the calculator can store.
@@ -3780,7 +3812,7 @@ type ClassWithDocsIface interface {
 }
 
 // This class has docs.
-// 
+//
 // The docs are great. They're a bunch of tags.
 //
 // TODO: EXAMPLE
@@ -4249,7 +4281,7 @@ type ConsumerCanRingBellIface interface {
 }
 
 // Test calling back to consumers that implement interfaces.
-// 
+//
 // Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
 // the method on the argument that they're passed...
 // Struct proxy
@@ -4556,7 +4588,7 @@ type Demonstrate982Iface interface {
 }
 
 // 1.
-// 
+//
 // call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
 // 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
 // Struct proxy
@@ -5014,7 +5046,7 @@ type DisappointingCollectionSourceIface interface {
 }
 
 // Verifies that null/undefined can be returned for optional collections.
-// 
+//
 // This source of collections is disappointing - it'll always give you nothing :(
 // Struct proxy
 type DisappointingCollectionSource struct {
@@ -5152,10 +5184,10 @@ type DocumentedClassIface interface {
 }
 
 // Here's the first line of the TSDoc comment.
-// 
+//
 // This is the meat of the TSDoc comment. It may contain
 // multiple lines and multiple paragraphs.
-// 
+//
 // Multiple paragraphs are separated by an empty line.
 // Struct proxy
 type DocumentedClass struct {
@@ -7441,7 +7473,7 @@ type InterfaceCollectionsIface interface {
 }
 
 // Verifies that collections of interfaces or structs are correctly handled.
-// 
+//
 // See: https://github.com/aws/jsii/issues/1196
 // Struct proxy
 type InterfaceCollections struct {
@@ -7542,7 +7574,7 @@ type IsomorphismIface interface {
 }
 
 // Checks the "same instance" isomorphism is preserved within the constructor.
-// 
+//
 // Create a subclass of this, and assert that \`this.myself()\` actually returns
 // \`this\` from within the constructor.
 // Struct proxy
@@ -9027,35 +9059,35 @@ type LoadBalancedFargateServicePropsIface interface {
 // Struct proxy
 type LoadBalancedFargateServiceProps struct {
 	// The container port of the application load balancer attached to your Fargate service.
-	// 
+	//
 	// Corresponds to container port mapping.
 	ContainerPort float64 \`json:"containerPort"\`
 	// The number of cpu units used by the task.
-	// 
+	//
 	// Valid values, which determines your range of valid values for the memory parameter:
 	// 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
 	// 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
 	// 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
 	// 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
 	// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-	// 
+	//
 	// This default is set in the underlying FargateTaskDefinition construct.
 	Cpu string \`json:"cpu"\`
 	// The amount (in MiB) of memory used by the task.
-	// 
+	//
 	// This field is required and you must use one of the following values, which determines your range of valid values
 	// for the cpu parameter:
-	// 
+	//
 	// 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-	// 
+	//
 	// 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-	// 
+	//
 	// 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-	// 
+	//
 	// Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-	// 
+	//
 	// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-	// 
+	//
 	// This default is set in the underlying FargateTaskDefinition construct.
 	MemoryMiB string \`json:"memoryMiB"\`
 	// Determines whether the Application Load Balancer will be internet-facing.
@@ -9853,7 +9885,8 @@ type OldIface interface {
 }
 
 // Old class.
-// Deprecated: Use the new class
+// Deprecated: Use the new class or the old class whatever you want because
+// whatever you like is always the best
 // Struct proxy
 type Old struct {
 }
@@ -10310,7 +10343,7 @@ type Power struct {
 	// (deprecated) The value.
 	Value float64 \`json:"value"\`
 	// The expression that this operation consists of.
-	// 
+	//
 	// Must be implemented by derived classes.
 	Expression scopejsiicalclib.NumericValueIface \`json:"expression"\`
 	// A set of postfixes to include in a decorated .toString().
@@ -11124,7 +11157,7 @@ type RootStructIface interface {
 }
 
 // This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
-// 
+//
 // This is cheating with the (current) declared types, but this is the "more
 // idiomatic" way for Pythonists.
 // Struct proxy
@@ -11284,7 +11317,7 @@ type SingleInstanceTwoTypesIface interface {
 }
 
 // Test that a single instance can be returned under two different FQNs.
-// 
+//
 // JSII clients can instantiate 2 different strongly-typed wrappers for the same
 // object. Unfortunately, this will break object equality, but if we didn't do
 // this it would break runtime type checks in the JVM or CLR.
@@ -11341,7 +11374,7 @@ type SingletonIntIface interface {
 }
 
 // Verifies that singleton enums are handled correctly.
-// 
+//
 // https://github.com/aws/jsii/issues/231
 // Struct proxy
 type SingletonInt struct {
@@ -11373,7 +11406,7 @@ type SingletonStringIface interface {
 }
 
 // Verifies that singleton enums are handled correctly.
-// 
+//
 // https://github.com/aws/jsii/issues/231
 // Struct proxy
 type SingletonString struct {
@@ -11589,7 +11622,7 @@ type StaticContextIface interface {
 }
 
 // This is used to validate the ability to use \`this\` from within a static context.
-// 
+//
 // https://github.com/awslabs/aws-cdk/issues/2304
 // Struct proxy
 type StaticContext struct {
@@ -11668,7 +11701,7 @@ type StaticHelloParentIface interface {
 }
 
 // Static methods that override parent class are technically overrides (the inheritance of statics is part of the ES6 specification), but certain other languages such as Java do not carry statics in the inheritance chain at all, so they cannot be overridden, only hidden.
-// 
+//
 // The difference is fairly minor (for typical use-cases, the end result is the
 // same), however this has implications on what the generated code should look
 // like.
@@ -12032,7 +12065,7 @@ type StructParameterTypeIface interface {
 }
 
 // Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
-// 
+//
 // See: https://github.com/aws/aws-cdk/issues/4302
 // Struct proxy
 type StructParameterType struct {
@@ -12234,7 +12267,7 @@ type Sum struct {
 	// (deprecated) The value.
 	Value float64 \`json:"value"\`
 	// The expression that this operation consists of.
-	// 
+	//
 	// Must be implemented by derived classes.
 	Expression scopejsiicalclib.NumericValueIface \`json:"expression"\`
 	// A set of postfixes to include in a decorated .toString().
@@ -12483,7 +12516,7 @@ type SupportsNiceJavaBuilderProps struct {
 	// Some number, like 42.
 	Bar float64 \`json:"bar"\`
 	// An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
-	// 
+	//
 	// But here we are, doing it like we didn't care.
 	Id string \`json:"id"\`
 }
@@ -13460,7 +13493,7 @@ type VoidCallbackIface interface {
 }
 
 // This test is used to validate the runtimes can return correctly from a void callback.
-// 
+//
 // - Implement \`overrideMe\` (method does not have to do anything).
 // - Invoke \`callMe\`
 // - Verify that \`methodWasCalled\` is \`true\`.
@@ -13562,7 +13595,7 @@ package pythonself
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
 
@@ -13702,7 +13735,7 @@ package backreferences
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule"
 )
 
 // MyClassReferenceIface is the public interface for the custom type MyClassReference
@@ -13737,7 +13770,7 @@ package child
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
 )
 
@@ -13988,8 +14021,8 @@ package nestedsubmodule
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/child"
 )
 
 // Class interface
@@ -14071,9 +14104,9 @@ package returnsparam
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/param"
 )
 
 // Class interface
@@ -14121,12 +14154,12 @@ package submodule
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/jsii"
 	"reflect"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/child"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/param"
 )
 
 // Class interface

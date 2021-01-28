@@ -35,12 +35,12 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
-    "@types/node": "^10.17.50",
-    "eslint": "^7.17.0",
+    "@types/node": "^10.17.51",
+    "eslint": "^7.18.0",
     "jest": "^26.6.3",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.2.1",
     "typescript": "~3.9.7",
-    "typescript-json-schema": "^0.47.0"
+    "typescript-json-schema": "^0.48.0"
   }
 }

@@ -32,14 +32,14 @@
   },
   "dependencies": {
     "camelcase": "^6.2.0",
-    "decamelize": "^4.0.0",
-    "fs-extra": "^9.0.1"
+    "decamelize": "^5.0.0",
+    "fs-extra": "^9.1.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.20",
-    "@types/node": "^10.17.50",
-    "eslint": "^7.17.0",
+    "@types/node": "^10.17.51",
+    "eslint": "^7.18.0",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "typescript": "~3.9.7"
