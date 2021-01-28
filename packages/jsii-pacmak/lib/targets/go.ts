@@ -73,7 +73,7 @@ export class Golang extends Target {
     }
 
     // iterate (recursively) on all package dependencies and check if we have a
-    // local build directory (under ~/.jsii/go-build-cache) for this module. if
+    // local build directory for this module. if
     // we do, add a "replace" directive to point to it instead of download from
     // the network.
     const visit = (pkg: RootPackage) => {
