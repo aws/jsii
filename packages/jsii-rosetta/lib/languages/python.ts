@@ -700,11 +700,30 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return context.convert(node.expression);
   }
 
+  public stringLiteral(
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
+    _context: PythonVisitorContext,
+  ): OTree {
+    const rawText = node.text;
+    if (rawText.includes('\n')) {
+      return new OTree([
+        '"""',
+        rawText
+          // Escape all occurrences of back-slash once more
+          .replace(/\\/g, '\\\\')
+          // Escape only the first one in triple-quotes
+          .replace(/"""/g, '\\"""'),
+        '"""',
+      ]);
+    }
+    return new OTree([JSON.stringify(rawText)]);
+  }
+
   public templateExpression(
     node: ts.TemplateExpression,
     context: PythonVisitorContext,
   ): OTree {
-    const parts = ['f"'];
+    const parts = new Array<string>();
     if (node.head.rawText) {
       parts.push(quoteStringLiteral(node.head.rawText));
     }
@@ -714,9 +733,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         parts.push(quoteStringLiteral(span.literal.rawText));
       }
     }
-    parts.push('"');
 
-    return new OTree([parts.join('')]);
+    const quote = parts.some((part) => part.includes('\n')) ? '"""' : '"';
+
+    return new OTree([`f${quote}`, ...parts, quote]);
   }
 
   public maskingVoidExpression(

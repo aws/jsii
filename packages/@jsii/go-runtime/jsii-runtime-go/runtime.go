@@ -31,8 +31,8 @@ func Load(name string, version string, tarball []byte) {
 	}
 	tmpfile.Close()
 
-	_, err = client.load(LoadRequest{
-		Api:     "load",
+	_, err = client.load(loadRequest{
+		API:     "load",
 		Name:    name,
 		Version: version,
 		Tarball: tmpfile.Name(),
@@ -48,9 +48,9 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 	client := getClient()
 
 	res, err := client.create(createRequest{
-		Api:        "create",
-		Fqn:        fqn,
-		Args:       castPtrsToRef(args),
+		API:        "create",
+		FQN:        fqn,
+		Arguments:  castPtrsToRef(args),
 		Interfaces: interfaces,
 		Overrides:  overrides,
 	})
@@ -59,7 +59,7 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 		panic(err)
 	}
 
-	client.objects[ret] = res.JsiiInstanceId
+	client.objects[ret] = res.InstanceID
 }
 
 // Invoke will call a method on a jsii class instance. The response should be
@@ -75,11 +75,11 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 	}
 
 	res, err := client.invoke(invokeRequest{
-		Api:    "invoke",
-		Method: method,
-		Args:   castPtrsToRef(args),
-		Objref: objref{
-			JsiiInstanceId: refid,
+		API:       "invoke",
+		Method:    method,
+		Arguments: castPtrsToRef(args),
+		ObjRef: objref{
+			InstanceID: refid,
 		},
 	})
 
@@ -92,14 +92,16 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 	}
 }
 
+// InvokeStatic will call a static method on a given jsii class. The response
+// should be decoded into the expected return type for the method being called.
 func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}, implMap implementationMap) {
 	client := getClient()
 
 	res, err := client.sinvoke(staticInvokeRequest{
-		Api:    "sinvoke",
-		Fqn:    fqn,
-		Method: method,
-		Args:   castPtrsToRef(args),
+		API:       "sinvoke",
+		FQN:       fqn,
+		Method:    method,
+		Arguments: castPtrsToRef(args),
 	})
 
 	if err != nil {
@@ -111,6 +113,8 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, re
 	}
 }
 
+// Get reads a property value on a given jsii class instance. The response
+// should be decoded into the expected type of the property being read.
 func Get(obj interface{}, property string, ret interface{}, implMap implementationMap) {
 	client := getClient()
 
@@ -122,10 +126,10 @@ func Get(obj interface{}, property string, ret interface{}, implMap implementati
 	}
 
 	res, err := client.get(getRequest{
-		Api:      "get",
+		API:      "get",
 		Property: property,
-		Objref: objref{
-			JsiiInstanceId: refid,
+		ObjRef: objref{
+			InstanceID: refid,
 		},
 	})
 
@@ -136,12 +140,14 @@ func Get(obj interface{}, property string, ret interface{}, implMap implementati
 	castAndSetToPtr(ret, res.Value, implMap)
 }
 
+// StaticGet reads a static property value on a given jsii class. The response
+// should be decoded into the expected type of the property being read.
 func StaticGet(fqn FQN, property string, ret interface{}, implMap implementationMap) {
 	client := getClient()
 
 	res, err := client.sget(staticGetRequest{
-		Api:      "sget",
-		Fqn:      fqn,
+		API:      "sget",
+		FQN:      fqn,
 		Property: property,
 	})
 
@@ -152,6 +158,8 @@ func StaticGet(fqn FQN, property string, ret interface{}, implMap implementation
 	castAndSetToPtr(ret, res.Value, implMap)
 }
 
+// Set writes a property on a given jsii class instance. The value should match
+// the type of the property being written, or the jsii kernel will crash.
 func Set(obj interface{}, property string, value interface{}) {
 	client := getClient()
 
@@ -163,11 +171,11 @@ func Set(obj interface{}, property string, value interface{}) {
 	}
 
 	_, err := client.set(setRequest{
-		Api:      "set",
+		API:      "set",
 		Property: property,
 		Value:    castPtrToRef(value),
-		Objref: objref{
-			JsiiInstanceId: refid,
+		ObjRef: objref{
+			InstanceID: refid,
 		},
 	})
 
@@ -176,12 +184,14 @@ func Set(obj interface{}, property string, value interface{}) {
 	}
 }
 
+// StaticSet writes a static property on a given jsii class. The value should
+// match the type of the property being written, or the jsii kernel will crash.
 func StaticSet(fqn FQN, property string, value interface{}) {
 	client := getClient()
 
 	_, err := client.sset(staticSetRequest{
-		Api:      "sset",
-		Fqn:      fqn,
+		API:      "sset",
+		FQN:      fqn,
 		Property: property,
 		Value:    value,
 	})
@@ -203,7 +213,7 @@ func castValToRef(data interface{}) (objref, bool) {
 			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
 
 			if k.Kind() == reflect.String && k.String() == "$jsii.byref" && v.Kind() == reflect.String {
-				ref.JsiiInstanceId = v.String()
+				ref.InstanceID = v.String()
 				ok = true
 			}
 
@@ -224,7 +234,7 @@ func castPtrToRef(data interface{}) interface{} {
 	if dataVal.Kind() == reflect.Ptr {
 		valref, valHasRef := client.findObjectRef(data)
 		if valHasRef {
-			return objref{JsiiInstanceId: valref}
+			return objref{InstanceID: valref}
 		}
 	} else if dataVal.Kind() == reflect.Slice {
 		refs := make([]interface{}, dataVal.Len())
@@ -274,7 +284,7 @@ func castAndSetToPtr(ptr interface{}, data interface{}, implMap implementationMa
 		concreteType := implMap[ptrVal.Type()]
 		ptrVal.Set(reflect.New(concreteType))
 		client := getClient()
-		client.objects[ptrVal.Interface()] = ref.JsiiInstanceId
+		client.objects[ptrVal.Interface()] = ref.InstanceID
 	} else {
 		val := reflect.ValueOf(data)
 		ptrVal.Set(val)

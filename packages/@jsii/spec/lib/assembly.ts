@@ -138,13 +138,6 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
   types?: { [fqn: string]: Type };
 
   /**
-   * The top-level readme document for this assembly (if any).
-   *
-   * @default none
-   */
-  readme?: { markdown: string };
-
-  /**
    * List of bin-scripts
    *
    * @default none
@@ -161,21 +154,15 @@ export interface AssemblyConfiguration extends Targetable {
    *
    * @default none
    */
-  submodules?: { [fqn: string]: SourceLocatable & Targetable };
+  submodules?: { [fqn: string]: Submodule };
 }
 
 /**
- * An entity on which targets may be configured.
+ * A targetable module-like thing
+ *
+ * Has targets and a readme. Used for Assemblies and Submodules.
  */
 export interface Targetable {
-  /**
-   * Submodules defined in this assembly, if any, associated with their
-   * designated targets configuration.
-   *
-   * @default none
-   */
-  submodules?: { [fqn: string]: { targets?: AssemblyTargets } };
-
   /**
    * A map of target name to configuration, which is used when generating
    * packages for various languages.
@@ -183,7 +170,29 @@ export interface Targetable {
    * @default none
    */
   targets?: AssemblyTargets;
+
+  /**
+   * The readme document for this module (if any).
+   *
+   * @default none
+   */
+  readme?: ReadMe;
 }
+
+/**
+ * README information
+ */
+export interface ReadMe {
+  markdown: string;
+}
+
+/**
+ * A submodule
+ *
+ * The difference between a top-level module (the assembly) and a submodule is
+ * that the submodule is annotated with its location in the repository.
+ */
+export type Submodule = SourceLocatable & Targetable;
 
 /**
  * Versions of the JSII Assembly Specification.

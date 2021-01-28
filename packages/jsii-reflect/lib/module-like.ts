@@ -1,3 +1,5 @@
+import * as jsii from '@jsii/spec';
+
 import { ClassType } from './class';
 import { EnumType } from './enum';
 import { InterfaceType } from './interface';
@@ -7,6 +9,14 @@ import { TypeSystem } from './type-system';
 
 export abstract class ModuleLike {
   public declare abstract readonly fqn: string;
+
+  /**
+   * A map of target name to configuration, which is used when generating packages for
+   * various languages.
+   */
+  public declare abstract readonly targets?: jsii.AssemblyTargets;
+  public declare abstract readonly readme?: jsii.ReadMe;
+
   protected declare abstract readonly submoduleMap: Readonly<
     Record<string, Submodule>
   >;

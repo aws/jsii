@@ -476,12 +476,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
 
     if (parameters.length === 0) {
-      return new OTree([`"${quoteStringLiteral(template)}"`]);
+      return new OTree([JSON.stringify(quoteStringLiteral(template))]);
     }
 
     return new OTree([
       'String.format(',
-      `"${quoteStringLiteral(template)}"`,
+      `"${quoteStringLiteral(template)
+        // Java does not have multiline string literals, so we must replace literal newlines with %n
+        .replace(/\n/g, '%n')}"`,
       ...parameters.reduce(
         (list, element) => list.concat(', ', element),
         new Array<string | OTree>(),
@@ -677,14 +679,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(parts);
   }
 
-  public stringLiteral(node: ts.StringLiteral, renderer: JavaRenderer): OTree {
-    return renderer.currentContext.stringLiteralAsIdentifier
-      ? this.identifier(node, renderer)
-      : super.stringLiteral(node, renderer);
+  public stringLiteral(
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
+    renderer: JavaRenderer,
+  ): OTree {
+    if (renderer.currentContext.stringLiteralAsIdentifier) {
+      return this.identifier(node, renderer);
+    }
+    // Java does not have multiline string literals, so we must replace literal newlines with \n
+    return new OTree([JSON.stringify(node.text).replace(/\n/g, '\\n')]);
   }
 
   public identifier(
-    node: ts.Identifier | ts.StringLiteral,
+    node: ts.Identifier | ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     renderer: JavaRenderer,
   ): OTree {
     const nodeText = node.text;

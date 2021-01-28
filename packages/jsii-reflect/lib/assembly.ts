@@ -151,6 +151,32 @@ export class Assembly extends ModuleLike {
     return this.spec.readme;
   }
 
+  /**
+   * Return the those submodules nested directly under the assembly
+   */
+  public get submodules(): readonly Submodule[] {
+    this._analyzeTypes();
+    return Object.entries(this._submoduleCache)
+      .filter(([name, _]) => name.split('.').length === 2)
+      .map(([_, submodule]) => submodule);
+  }
+
+  /**
+   * Return all submodules, even those transtively nested
+   */
+  public get allSubmodules(): readonly Submodule[] {
+    this._analyzeTypes();
+    return Object.values(this._submoduleCache);
+  }
+
+  /**
+   * All types in the assembly
+   */
+  public get types(): readonly Type[] {
+    this._analyzeTypes();
+    return Object.values(this._typeCache);
+  }
+
   public findType(fqn: string) {
     const type = this.tryFindType(fqn);
     if (!type) {
@@ -207,17 +233,10 @@ export class Assembly extends ModuleLike {
     if (!this._typeCache || !this._submoduleCache) {
       this._typeCache = {};
 
-      const submodules: { [fullName: string]: SubmoduleMap } = {};
+      const submoduleBuilders = this.discoverSubmodules();
 
       const ts = this.spec.types ?? {};
-      for (const fqn of Object.keys(ts)) {
-        const typeSpec = ts[fqn];
-
-        let submodule = typeSpec.namespace;
-        while (submodule != null && `${this.spec.name}.${submodule}` in ts) {
-          submodule = ts[`${this.spec.name}.${submodule}`].namespace;
-        }
-
+      for (const [fqn, typeSpec] of Object.entries(ts)) {
         let type: Type;
         switch (typeSpec.kind) {
           case jsii.TypeKind.Class:
@@ -236,51 +255,117 @@ export class Assembly extends ModuleLike {
             throw new Error('Unknown type kind');
         }
 
+        // Find containing submodule (potentially through containing nested classes,
+        // which DO count as namespaces but don't count as modules)
+        let submodule = typeSpec.namespace;
+        while (submodule != null && `${this.spec.name}.${submodule}` in ts) {
+          submodule = ts[`${this.spec.name}.${submodule}`].namespace;
+        }
+
         if (submodule != null) {
-          const [root, ...parts] = submodule.split('.');
-          let container = (submodules[root] = submodules[root] ?? {
-            submodules: {},
-            types: [],
-          });
-          for (const part of parts) {
-            container = container.submodules[part] = container.submodules[
-              part
-            ] ?? { submodules: {}, types: [] };
-          }
-          container.types[fqn] = type;
+          const moduleName = `${this.spec.name}.${submodule}`;
+          submoduleBuilders[moduleName].addType(type);
         } else {
           this._typeCache[fqn] = type;
         }
       }
 
-      this._submoduleCache = {};
-      for (const [name, map] of Object.entries(submodules)) {
-        this._submoduleCache[name] = makeSubmodule(
-          this.system,
-          map,
-          `${this.name}.${name}`,
-        );
-      }
+      this._submoduleCache = mapValues(submoduleBuilders, (b) => b.build());
     }
   }
+
+  /**
+   * Return a builder for all submodules in this assembly (so that we can
+   * add types into the objects).
+   */
+  private discoverSubmodules(): Record<string, SubmoduleBuilder> {
+    const system = this.system;
+
+    const ret: Record<string, SubmoduleBuilder> = {};
+    for (const [submoduleName, submoduleSpec] of Object.entries(
+      this.spec.submodules ?? {},
+    )) {
+      ret[submoduleName] = new SubmoduleBuilder(
+        system,
+        submoduleSpec,
+        submoduleName,
+        ret,
+      );
+    }
+    return ret;
+  }
 }
 
-interface SubmoduleMap {
-  readonly submodules: { [fullName: string]: SubmoduleMap };
-  readonly types: { [fqn: string]: Type };
-}
+/**
+ * Mutable Submodule builder
+ *
+ * Allows adding Types before the submodule is frozen to a Submodule class.
+ *
+ * Takes a reference to the full map of submodule builders, so that come time
+ * to translate
+ */
+class SubmoduleBuilder {
+  private readonly types: Record<string, Type> = {};
 
-function makeSubmodule(
-  system: TypeSystem,
-  map: SubmoduleMap,
-  fullName: string,
-): Submodule {
-  const submodules: { [fullName: string]: Submodule } = {};
-  for (const [name, subMap] of Object.entries(map.submodules)) {
-    submodules[name] = makeSubmodule(system, subMap, `${fullName}.${name}`);
+  private _built?: Submodule;
+
+  public constructor(
+    private readonly system: TypeSystem,
+    private readonly spec: jsii.Submodule,
+    private readonly fullName: string,
+    private readonly allModuleBuilders: Record<string, SubmoduleBuilder>,
+  ) {}
+
+  /**
+   * Whether this submodule is a direct child of another submodule
+   */
+  public isChildOf(other: SubmoduleBuilder) {
+    return (
+      this.fullName.startsWith(`${other.fullName}.`) &&
+      this.fullName.split('.').length === other.fullName.split('.').length + 1
+    );
   }
 
-  return new Submodule(system, fullName, submodules, map.types);
+  public build(): Submodule {
+    if (!this._built) {
+      this._built = new Submodule(
+        this.system,
+        this.spec,
+        this.fullName,
+        mapValues(this.findSubmoduleBuilders(), (b) => b.build()),
+        this.types,
+      );
+    }
+    return this._built;
+  }
+
+  /**
+   * Return all the builders from the map that are nested underneath ourselves.
+   */
+  private findSubmoduleBuilders() {
+    const ret: Record<string, SubmoduleBuilder> = {};
+    for (const [k, child] of Object.entries(this.allModuleBuilders)) {
+      if (child.isChildOf(this)) {
+        ret[k] = child;
+      }
+    }
+    return ret;
+  }
+
+  public addType(type: Type) {
+    this.types[type.fqn] = type;
+  }
+}
+
+function mapValues<A, B>(
+  xs: Record<string, A>,
+  fn: (x: A) => B,
+): Record<string, B> {
+  const ret: Record<string, B> = {};
+  for (const [k, v] of Object.entries(xs)) {
+    ret[k] = fn(v);
+  }
+  return ret;
 }
 
 type InitializedAssembly = Assembly & {
