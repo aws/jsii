@@ -85,7 +85,7 @@ export class Golang extends Target {
           }
         }
 
-        // recurse to transitive deps
+        // recurse to transitive deps ("replace" is only considered at the top level go.mod)
         visit(dep);
       }
     };
