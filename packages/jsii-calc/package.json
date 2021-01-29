@@ -37,18 +37,16 @@
     "watch": "jsii --project-references -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
+    "test": "(ls test/test.*.js | xargs -n1 node) && diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
     "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "peerDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {

@@ -86,7 +86,6 @@ exports[`showAll 1`] = `
  ├─┬ jsii-calc
  │ ├─┬ dependencies
  │ │ ├── @scope/jsii-calc-base
- │ │ ├── @scope/jsii-calc-base-of-base
  │ │ └── @scope/jsii-calc-lib
  │ ├─┬ submodules
  │ │ ├─┬ DerivedClassHasNoProperties
@@ -2706,6 +2705,17 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ typeName() method
  │   │     └── returns: any
+ │   ├─┬ class StaticConsumer
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ static consume(args) method
+ │   │     ├── static
+ │   │     ├── variadic
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ args
+ │   │     │   ├── type: any
+ │   │     │   └── variadic
+ │   │     └── returns: void
  │   ├─┬ interface BaseProps
  │   │ ├─┬ interfaces
  │   │ │ └── VeryBaseProps
@@ -3168,6 +3178,7 @@ exports[`types 1`] = `
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├── class Base
+ │   ├── class StaticConsumer
  │   ├── interface BaseProps
  │   └── interface IBaseInterface
  ├─┬ @scope/jsii-calc-base-of-base
