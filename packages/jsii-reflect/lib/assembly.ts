@@ -155,7 +155,7 @@ export class Assembly extends ModuleLike {
    * Return the those submodules nested directly under the assembly
    */
   public get submodules(): readonly Submodule[] {
-    const { submodules } = this._types;
+    const { submodules } = this._analyzeTypes();
     return Object.entries(submodules)
       .filter(([name, _]) => name.split('.').length === 2)
       .map(([_, submodule]) => submodule);
@@ -165,16 +165,8 @@ export class Assembly extends ModuleLike {
    * Return all submodules, even those transtively nested
    */
   public get allSubmodules(): readonly Submodule[] {
-    const { submodules } = this._types;
+    const { submodules } = this._analyzeTypes();
     return Object.values(submodules);
-  }
-
-  /**
-   * All types in the assembly
-   */
-  public get types(): readonly Type[] {
-    const { types } = this._types;
-    return Object.values(types);
   }
 
   public findType(fqn: string) {
@@ -195,6 +187,17 @@ export class Assembly extends ModuleLike {
     jsii.validateAssembly(this.spec);
   }
 
+  protected get submoduleMap(): Readonly<Record<string, Submodule>> {
+    return this._analyzeTypes().submodules;
+  }
+
+  /**
+   * All types in the root of the assembly
+   */
+  protected get typeMap(): Readonly<Record<string, Type>> {
+    return this._analyzeTypes().types;
+  }
+
   private get _dependencies() {
     if (!this._dependencyCache) {
       this._dependencyCache = {};
@@ -212,7 +215,7 @@ export class Assembly extends ModuleLike {
     return this._dependencyCache;
   }
 
-  private get _types() {
+  private _analyzeTypes() {
     if (!this._typeCache || !this._submoduleCache) {
       this._typeCache = {};
 
@@ -255,7 +258,6 @@ export class Assembly extends ModuleLike {
 
       this._submoduleCache = mapValues(submoduleBuilders, (b) => b.build());
     }
-
     return { types: this._typeCache, submodules: this._submoduleCache };
   }
 
@@ -290,7 +292,7 @@ export class Assembly extends ModuleLike {
  * to translate
  */
 class SubmoduleBuilder {
-  private readonly types = new Array<Type>();
+  private readonly types: Record<string, Type> = {};
 
   private _built?: Submodule;
 
@@ -317,7 +319,7 @@ class SubmoduleBuilder {
         this.system,
         this.spec,
         this.fullName,
-        this.findSubmoduleBuilders().map((b) => b.build()),
+        mapValues(this.findSubmoduleBuilders(), (b) => b.build()),
         this.types,
       );
     }
@@ -328,13 +330,17 @@ class SubmoduleBuilder {
    * Return all the builders from the map that are nested underneath ourselves.
    */
   private findSubmoduleBuilders() {
-    return Object.values(this.allModuleBuilders).filter((child) =>
-      child.isChildOf(this),
-    );
+    const ret: Record<string, SubmoduleBuilder> = {};
+    for (const [k, child] of Object.entries(this.allModuleBuilders)) {
+      if (child.isChildOf(this)) {
+        ret[k] = child;
+      }
+    }
+    return ret;
   }
 
   public addType(type: Type) {
-    this.types.push(type);
+    this.types[type.fqn] = type;
   }
 }
 
