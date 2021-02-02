@@ -144,7 +144,7 @@ import (
 	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
-	bar "/bar/jsii"
+	bar "bar/v2/jsii"
 )
 
 var once sync.Once
@@ -645,7 +645,7 @@ import (
 	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
-	bar "/bar/jsii"
+	bar "bar/v4/jsii"
 )
 
 var once sync.Once

@@ -289,7 +289,7 @@ export class RootPackage extends Package {
       code.line('// Initialization endpoints of dependencies');
       for (const pkg of dependencies) {
         code.line(
-          `${pkg.packageName} "${pkg.root.moduleName}/${pkg.root.packageName}/${JSII_INIT_PACKAGE}"`,
+          `${pkg.packageName} "${pkg.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
         );
       }
     }
