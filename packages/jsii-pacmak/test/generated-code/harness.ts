@@ -176,7 +176,8 @@ async function runMypy(pythonRoot: string): Promise<void> {
         'pip',
         'install',
         '--no-input',
-        '"mypy>=0.782"',
+        '-r',
+        path.resolve(__dirname, 'requirements-dev.txt'),
         // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
         JSON.stringify(
           path.resolve(
@@ -195,10 +196,24 @@ async function runMypy(pythonRoot: string): Promise<void> {
       [
         '-m',
         'mypy',
-        '--ignore-missing-imports', // We may not have the package's dependencies in scope. Let's just ignore that for now.
-        '--pretty', // Output in readable form, with source excerpts and problem markers
-        '--show-error-codes', // Show the "standard" error codes to make it easier to google around
-        '--strict', // Enable all optional checks -- let's be pedantic about everything!
+        // We may not have the package's dependencies in scope. Let's just ignore that for now.
+        '--ignore-missing-imports',
+        // Output in readable form, with source excerpts and problem markers
+        '--pretty',
+        // Show the "standard" error codes to make it easier to google around
+        '--show-error-codes',
+        // Enable all optional checks -- let's be pedantic about everything! (except what we disable next)
+        '--strict',
+        // Ignore extraneous "# type: ignore" comments, they're too hard to avoid.
+        '--no-warn-unused-ignores',
+        // Ignore miscellaneous errors, typically due to unsupported stuff
+        '--disable-error-code=misc',
+        // Allow references to nested types within their nesting parent (this cannot statically type-check, as sub-types
+        // could override the nested one, so mypy does not even try).
+        // For more info => https://github.com/python/mypy/issues/8482
+        '--disable-error-code=name-defined',
+        // Ignore subclassing types that did not resolve because we don't have dependencies
+        '--allow-subclassing-any',
         JSON.stringify(pythonRoot),
       ],
       { env },

@@ -1,8 +1,0 @@
----
-extends: ../../../../eslint-config.yaml
-rules:
-  'import/no-extraneous-dependencies':
-    - error
-    - devDependencies: ['**/build-tools/**'] # Only allow importing devDependencies from tests
-      optionalDependencies: false     # Disallow importing optional dependencies (those shouldn't be used here)
-      peerDependencies: false         # Disallow importing peer dependencies (those shouldn't be used here)

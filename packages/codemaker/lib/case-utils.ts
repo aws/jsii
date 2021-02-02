@@ -16,14 +16,14 @@ const ABBREV_RE = new RegExp(
   `(^|[^A-Z])(${COMMON_ABBREVIATIONS.map(regexQuote).join('|')})($|[^a-z])`,
   'g',
 );
-export function toSnakeCase(s: string, sep = '_'): string {
+export function toSnakeCase(s: string, separator = '_'): string {
   // Save common abbrevations
   s = s.replace(
     ABBREV_RE,
     (_, before: string, abbr: string, after: string) =>
       before + ucfirst(abbr.toLowerCase()) + after,
   );
-  return decamelize(s, sep);
+  return decamelize(s, { separator });
 
   function ucfirst(str: string) {
     return str.substr(0, 1).toUpperCase() + str.substr(1).toLowerCase();

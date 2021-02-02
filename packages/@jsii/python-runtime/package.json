@@ -37,7 +37,7 @@
     "@jsii/runtime": "^0.0.0"
   },
   "devDependencies": {
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^9.1.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",

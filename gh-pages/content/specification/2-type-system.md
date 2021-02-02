@@ -360,7 +360,7 @@ using that.
 By default, _submodule_ names are rendered appropriately in the target language (this typically involves adjusting the
 case of _submodule_ name fragments to the idiomatic form in the language). In certain cases however, a developer can
 choose to use a different configuration by defining the _submodule_ using the namespaced-export syntax
-(`export * as namespace from './module-name';`) ny placing a `.jsiirc.json` file next to the entry point of the
+(`export * as namespace from './module-name';`) by placing a `.jsiirc.json` file next to the entry point of the
 namespaced module. For example, if `./module-name`'s entry point is `foo/bar/module-name/index.ts`, the _submodule_
 configuration resides in `foo/bar/module-name/.jsiirc.json`.
 
@@ -369,9 +369,10 @@ _submodules_ nested under it.
 
 ## Code Generation
 
-In order to generate code in various programming languages, [`jsii-pacmak`] needs configuration that provides naming
-directives (e.g: **Java** package names, **C#** namespaces, **Python** module names, ...). This configuration is
-language-specific and each language implementation specifies and documents its own configuration schema.
+In order to generate code in various programming languages, [`jsii-pacmak`][jsii-pacmak] needs configuration that
+provides naming directives (e.g: **Java** package names, **C#** namespaces, **Python** module names, ...). This
+configuration is language-specific and each language implementation specifies and documents its own configuration
+schema.
 
 Configuration is sourced in the `package.json` file at the root of the npm package, under the special `jsii` key. The
 general schema is described in the [configuration] document.
@@ -382,7 +383,7 @@ general schema is described in the [configuration] document.
     `export * as ns from './module';` syntax would then be able to define _submodule_-local configuration using the
     `./module/.jsiirc.json` file.
 
-[configuration]: ../dev-guide/configuration/index.md
+[configuration]: ../user-guides/lib-author/configuration/index.md
 
 ## References
 

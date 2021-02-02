@@ -37,23 +37,21 @@
     "watch": "jsii --project-references -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
+    "test": "(ls test/test.*.js | xargs -n1 node) && diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
     "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "peerDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.50",
-    "eslint": "^7.17.0",
+    "@types/node": "^10.17.51",
+    "eslint": "^7.19.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
@@ -63,7 +61,7 @@
     "outdir": "dist",
     "targets": {
       "go": {
-        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/go"
+        "moduleName": "github.com/aws/jsii/jsii-calc/go"
       },
       "java": {
         "package": "software.amazon.jsii.tests.calculator",

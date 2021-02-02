@@ -1,0 +1,9 @@
+# All entries with "# build-system" at the end of the line will be hoisted as
+# part of the build-system declaration of generated packages. Others will only
+# be installed in the virtual environment used for building the distribution
+# package (wheel, sdist), but not declared as build-system dependencies.
+
+setuptools~=52.0.0 # build-system
+wheel~=0.36.2      # build-system
+
+twine~=3.3.0

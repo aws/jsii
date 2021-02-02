@@ -16,7 +16,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
           ┃                    ┣━ 📄 $Module.java
           ┃                    ┣━ 📄 Base.java
           ┃                    ┣━ 📄 BaseProps.java
-          ┃                    ┗━ 📄 IBaseInterface.java
+          ┃                    ┣━ 📄 IBaseInterface.java
+          ┃                    ┗━ 📄 StaticConsumer.java
           ┗━ 📁 resources
              ┗━ 📁 software
                 ┗━ 📁 amazon
@@ -469,10 +470,41 @@ public interface IBaseInterface extends software.amazon.jsii.JsiiSerializable, s
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/base/StaticConsumer.java 1`] = `
+package software.amazon.jsii.tests.calculator.base;
+
+/**
+ * Hides the transitive dependency of base-of-base.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.base.$Module.class, fqn = "@scope/jsii-calc-base.StaticConsumer")
+public class StaticConsumer extends software.amazon.jsii.JsiiObject {
+
+    protected StaticConsumer(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected StaticConsumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    public StaticConsumer() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    public static void consume(final @org.jetbrains.annotations.NotNull java.lang.Object... args) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.base.StaticConsumer.class, "consume", software.amazon.jsii.NativeType.VOID, java.util.Arrays.<Object>stream(args).toArray(Object[]::new));
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/base/$Module.txt 1`] = `
 @scope/jsii-calc-base.Base=software.amazon.jsii.tests.calculator.base.Base
 @scope/jsii-calc-base.BaseProps=software.amazon.jsii.tests.calculator.base.BaseProps
 @scope/jsii-calc-base.IBaseInterface=software.amazon.jsii.tests.calculator.base.IBaseInterface
+@scope/jsii-calc-base.StaticConsumer=software.amazon.jsii.tests.calculator.base.StaticConsumer
 
 `;
 
@@ -2821,11 +2853,6 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
-      <artifactId>calculator-base-of-base</artifactId>
-      <version>(,0.0.1)</version>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-lib</artifactId>
       <version>(,0.0.1.DEVPREVIEW)</version>
     </dependency>
@@ -2994,7 +3021,7 @@ public final class $Module extends JsiiModule {
 
     @Override
     public List<Class<? extends JsiiModule>> getDependencies() {
-        return asList(software.amazon.jsii.tests.calculator.base.$Module.class, software.amazon.jsii.tests.calculator.baseofbase.$Module.class, software.amazon.jsii.tests.calculator.lib.$Module.class);
+        return asList(software.amazon.jsii.tests.calculator.base.$Module.class, software.amazon.jsii.tests.calculator.lib.$Module.class);
     }
 
     @Override
@@ -7402,10 +7429,10 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     /**
      * Greet the indicated person.
      * <p>
-     * This will print out a friendly greeting intended for
-     * the indicated person.
+     * This will print out a friendly greeting intended for the indicated person.
      * <p>
-     * @return A number that everyone knows very well
+     * @return A number that everyone knows very well and represents the answer
+     * to the ultimate question
      * @param greetee The person to be greeted.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -7416,10 +7443,10 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     /**
      * Greet the indicated person.
      * <p>
-     * This will print out a friendly greeting intended for
-     * the indicated person.
+     * This will print out a friendly greeting intended for the indicated person.
      * <p>
-     * @return A number that everyone knows very well
+     * @return A number that everyone knows very well and represents the answer
+     * to the ultimate question
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Number greet() {
@@ -14455,7 +14482,8 @@ package software.amazon.jsii.tests.calculator;
 /**
  * (deprecated) Old class.
  * <p>
- * @deprecated Use the new class
+ * @deprecated Use the new class or the old class whatever you want because
+ * whatever you like is always the best
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

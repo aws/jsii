@@ -1,6 +1,6 @@
 # JSII Go Runtime
 
-This is a go module used for communicating between jsii-pacmak generated go code and the JSII node process. JSII modules, when compiled into go modules, depend on this package and call the various functions in `jsii-experimental/runtime.go` to setup and communicate with the JSII kernel process.
+This is a go module used for communicating between jsii-pacmak generated go code and the JSII node process. JSII modules, when compiled into go modules, depend on this package and call the various functions in `jsii-runtime-go/runtime.go` to setup and communicate with the JSII kernel process.
 
 To see what this looks like in practice you can perform the following steps:
 1. Clone the repository and build all packages with `yarn install && yarn build` from the root
@@ -11,7 +11,7 @@ This will run code generation against all of the jsii-calc modules and place the
 
 ## Development Workflow
 
-Unit tests are run with `go test`. New unit test files can be added in the `jsii-experimental` directory.
+Unit tests are run with `go test`. New unit test files can be added in the `jsii-runtime-go` directory.
 
 The `jsii-calc-test` module contains the integration test suite.
 
