@@ -348,6 +348,20 @@ export class InternalPackage extends Package {
   }
 }
 
+/**
+ * Go requires that when a module major version is v2.0 and above, the module
+ * name will have a `/vNN` suffix (where `NN` is the major version).
+ *
+ * > Starting with major version 2, module paths must have a major version
+ * > suffix like /v2 that matches the major version. For example, if a module
+ * > has the path example.com/mod at v1.0.0, it must have the path
+ * > example.com/mod/v2 at version v2.0.0.
+ *
+ * @see https://golang.org/ref/mod#major-version-suffixes
+ * @param version The module version (e.g. `2.3.0`)
+ * @returns a suffix to append to the module name in the form (`/vNN`). If the
+ * module version is `0.x` or `1.x`, returns an empty string.
+ */
 function determineMajorVersionSuffix(version: string) {
   const sv = semver.parse(version);
   if (!sv) {
@@ -361,5 +375,5 @@ function determineMajorVersionSuffix(version: string) {
     return '';
   }
 
-  return `/v${sv.major.toString()}`;
+  return `/v${sv.major}`;
 }
