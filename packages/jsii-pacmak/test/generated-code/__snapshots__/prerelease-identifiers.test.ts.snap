@@ -132,7 +132,7 @@ go 1.15
 
 require (
 	github.com/aws/jsii-runtime-go v1337.42.1337
-	bar v2.0.0-rc.42
+	bar/v2 v2.0.0-rc.42
 )
 
 `;
@@ -633,7 +633,7 @@ go 1.15
 
 require (
 	github.com/aws/jsii-runtime-go v1337.42.1337
-	bar v4.5.6-pre.1337
+	bar/v4 v4.5.6-pre.1337
 )
 
 `;
@@ -1126,7 +1126,7 @@ import (
 `;
 
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
-module foo
+module foo/v2
 
 go 1.15
 
@@ -1603,7 +1603,7 @@ import (
 `;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
-module foo
+module foo/v4
 
 go 1.15
 

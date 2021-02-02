@@ -1,6 +1,7 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { join } from 'path';
+import * as semver from 'semver';
 
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
@@ -32,6 +33,7 @@ export abstract class Package {
     public readonly packageName: string,
     public readonly filePath: string,
     public readonly moduleName: string,
+    public readonly version: string,
     // If no root is provided, this module is the root
     root?: Package,
   ) {
@@ -77,7 +79,8 @@ export abstract class Package {
     const prefix = moduleName !== '' ? `${moduleName}/` : '';
     const rootPackageName = this.root.packageName;
     const suffix = this.filePath !== '' ? `/${this.filePath}` : ``;
-    return `${prefix}${rootPackageName}${suffix}`;
+    const versionSuffix = determineMajorVersionSuffix(this.version);
+    return `${prefix}${rootPackageName}${suffix}${versionSuffix}`;
   }
 
   /*
@@ -193,6 +196,7 @@ export class RootPackage extends Package {
       packageName,
       filePath,
       moduleName,
+      assembly.version,
     );
 
     this.assembly = assembly;
@@ -336,9 +340,26 @@ export class InternalPackage extends Package {
       packageName,
       filePath,
       root.moduleName,
+      root.version,
       root,
     );
 
     this.parent = parent;
   }
+}
+
+function determineMajorVersionSuffix(version: string) {
+  const sv = semver.parse(version);
+  if (!sv) {
+    throw new Error(
+      `Unable to parse version "${version}" as a semantic version`,
+    );
+  }
+
+  // suffix is only needed for 2.0 and above
+  if (sv.major <= 1) {
+    return '';
+  }
+
+  return `/v${sv.major.toString()}`;
 }
