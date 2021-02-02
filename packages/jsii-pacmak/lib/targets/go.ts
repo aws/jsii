@@ -44,8 +44,10 @@ export class Golang extends Target {
     // run `go build` with local.go.mod
     await go('build', ['-modfile', localGoMod], { cwd: pkgDir });
 
-    // delete local.go.mod from the output directory so it doesn't get published
-    await fs.unlink(path.join(pkgDir, localGoMod));
+    // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
+    const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;
+    await fs.remove(path.join(pkgDir, localGoMod));
+    await fs.remove(path.join(pkgDir, localGoSum));
   }
 
   /**
