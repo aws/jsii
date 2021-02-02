@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/specification/3-kernel-api/">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.6">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
     
     
       
@@ -881,6 +881,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#teardown-the-exit-message" class="md-nav__link">
+    Teardown - the exit message
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#general-kernel-api" class="md-nav__link">
     General Kernel API
   </a>
@@ -1109,6 +1116,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#teardown-the-exit-message" class="md-nav__link">
+    Teardown - the exit message
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#general-kernel-api" class="md-nav__link">
     General Kernel API
   </a>
@@ -1274,6 +1288,22 @@ process it, ensuring forward compatibility of this message, if and when new attr
 <p class="admonition-title">Note</p>
 <p>In the future, this message may be augmented with additional keys to enable feature negotiation between the <em>host</em>
 application and the <code>@jsii/kernel</code>.</p>
+</div>
+<h2 id="teardown-the-exit-message">Teardown - the <code>exit</code> message</h2>
+<p>The <em>host</em> library should send the <code>exit</code> message when it no longer needs the <code>@jsii/kernel</code>. This message enables the
+<code>@jsii/kernel</code> to trigger clean-up operations, such as getting rid of temporary directories, in order to avoid littering
+the temporary directory with leftover files.</p>
+<p>The <code>exit</code> message has the following schema:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nx">Exit</span> <span class="p">{</span>
+  <span class="cm">/** The exit code the `@jsii/kernel` process should return. Typically `0`. */</span>
+  <span class="k">readonly</span> <span class="nx">exit</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Important</p>
+<p>Once the <code>exit</code> message has been sent, no more data should be sent through to the <code>@jsii/kernel</code> process. The
+request stream should be closed as soon as the <code>exit</code> message was sent. Additional data may however be received from
+the <code>@jsii/kernel</code> that is intended to the <code>STDOUT</code> or <code>STDERR</code> console streams.</p>
 </div>
 <h2 id="general-kernel-api">General Kernel API</h2>
 <p>Once the <code>hello</code> handshake is complete, a sequence of request and responses are exchanged with the <code>@jsii/kernel</code>.
@@ -1712,7 +1742,7 @@ instead:</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-01-27
+      Last update: 2021-02-02
     
   </small>
 </div>

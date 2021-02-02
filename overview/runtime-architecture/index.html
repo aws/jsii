@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/overview/runtime-architecture/">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.6">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
     
     
       
@@ -403,8 +403,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#serialization-strategy" class="md-nav__link">
-    Serialization Strategy
+  <a href="#communication-protocol" class="md-nav__link">
+    Communication Protocol
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization-process" class="md-nav__link">
+    Initialization Process
   </a>
   
 </li>
@@ -1009,8 +1016,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#serialization-strategy" class="md-nav__link">
-    Serialization Strategy
+  <a href="#communication-protocol" class="md-nav__link">
+    Communication Protocol
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization-process" class="md-nav__link">
+    Initialization Process
   </a>
   
 </li>
@@ -1041,35 +1055,120 @@ needs to be available in order to execute code that depends on <em>jsii</em> lib
 <p>The generated libraries have a dependency on a <em>Runtime client</em> library for the
 language, which contains the necessary logic to start a child <code>node</code> process
 with the <code>jsii-runtime</code>. The <code>jsii-runtime</code> manages JSON-based inter-process
-communication over its <code>STDIN</code> and <code>STDOUT</code>, and manages a <code>@jsii/kernel</code>
-instance that acts as a container for the <strong>Javascript</strong> code that backs the
-<em>jsii</em> libraries.</p>
+communication over its <code>STDIN</code>, <code>STDOUT</code> and <code>STDERR</code>, and manages a
+<code>@jsii/kernel</code> instance that acts as a container for the <strong>Javascript</strong> code
+that backs the <em>jsii</em> libraries.</p>
 <h2 id="architecture-overview">Architecture Overview</h2>
-<p>A simplified representation of the execution environment of an application using
-<em>jsii</em> libraries from a different language follows:</p>
-<div class="highlight"><pre><span></span><code>┌────────────────────────┐             ┌────────────┬────┬────┬───┐
-│                        │             │            │    │    │   │
-│   User&#39;s Application   │             │@jsii/kernel│LibA│LibB│...│
-│                        │             │            │    │    │   │
-│     ┌──────────────────┤             ├────────────┴────┴────┴───┤
-│     │                  │             │                          │
-│     │Generated Bindings│             │      @jsii/runtime       │
-│     │                  │             │                          │
-│     ├──────────────────┤             ├────────┬─────────────────┤
-│     │                  ├────────────▶│ STDIN  │                 │
-│     │Host jsii Runtime │    JSON     ├────────┤                 │
-│     │                  │◀────────────┤ STDOUT │   node          │
-├─────┴──────────────────┤             ├────────┘                 │
-│                        │             │     (Child Process)      │
-│    JVM / .NET / ...    │             │                          │
-│                        │             │                          │
-├────────────────────────┴─────────────┴──────────────────────────┤
-│                                                                 │
-│                        Operating System                         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+<p>A representation of the execution environment of an application using <em>jsii</em>
+libraries from a different language follows:</p>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────┐               ┌────────────┬────┬────┬────┐
+│                         │               │            │    │    │    │
+│    Host Application     │               │@jsii/kernel│LibA│LibB│... │
+│                         │               │            │    │    │    │
+│      ┌──────────────────┤               ├────────────┴────┴────┴────┤
+│      │                  │               │                           │
+│      │Generated Bindings│               │       @jsii/runtime       │
+│      │                  │               │                           │
+│      ├──────────────────┤   Requests    ├──────┬────────────────────┤
+│      │                  ├───────────────▶STDIN │                    │
+│      │Host jsii Runtime │   Responses   ├──────┤                    │
+│      │     Library      ◀───────────────┤STDOUT│                    │
+│      │                  │    Console    ├──────┤    node            │
+│      │                  ◀───────────────┤STDERR│                    │
+├──────┴──────────────────┤               ├──────┘                    │
+│      Host Runtime       │               │      (Child Process)      │
+│  (JVM, .NET Core, ...)  │               │                           │
+│                         │               │                           │
+├─────────────────────────┴───────────────┴───────────────────────────┤
+│                                                                     │
+│                          Operating System                           │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
 </code></pre></div>
-<h2 id="serialization-strategy">Serialization Strategy</h2>
+<h2 id="communication-protocol">Communication Protocol</h2>
+<p>As shown in the <a href="#architecture-overview">architecture overview</a> diagram, the
+<code>@jsii/runtime</code> process receives requests via its <code>STDIN</code> stream, sends
+responses via its <code>STDOUT</code> stream, and sends console output through the <code>STDERR</code>
+stream.</p>
+<p>All those messages are sent in JSON-encoded objects. On <code>STDIN</code> and <code>STDOUT</code>,
+the request-response protocol is defined by the <a href="../../specification/3-kernel-api/">kernel api specification</a>. On
+<code>STDERR</code> messages are encoded in the following way:</p>
+<ul>
+<li><code class="highlight"><span class="p">{</span> <span class="nt">&quot;stderr&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;base64-encoded data&gt;&quot;</span> <span class="p">}</span></code> when the console data is to be
+  written on the <em>Host Application</em>'s <code>STDERR</code> stream.</li>
+<li><code class="highlight"><span class="p">{</span> <span class="nt">&quot;stdout&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;base64-encoded data&gt;&quot;</span> <span class="p">}</span></code> when the console data is to be
+  written on the <em>Host Application</em>'s <code>STDOUT</code> stream.</li>
+<li>Any data that is not valid JSON, or that does not match either of the formats
+  described avove must be written as-is on the <em>Host Application</em>'s <code>STDERR</code>
+  stream.</li>
+</ul>
+<p>In order to allow the hosted original <strong>JavaScript</strong> libraries to naturally
+interact with <code>process.stdout</code>, <code>process.stderr</code> and all other APIs that make
+use of those streams (such as <code>console.log</code> and <code>console.error</code>), the
+<code>@jsii/runtime</code> process does in fact spawn a second <code>node</code> process to allow
+intercepting the console data to properly encode it. Below is a diagram
+describing the process arrangement that achieves this:</p>
+<div class="highlight"><pre><span></span><code>                                          ┌────────────┬────┬────┬────┐
+                                          │            │    │    │    │
+                                          │@jsii/kernel│LibA│LibB│... │
+                                          │            │    │    │    │
+┌─────────────────────────┐               ├────────────┴────┴────┴────┤
+│                         │               │                           │
+│  @jsii/runtime Wrapper  │               │    @jsii/runtime Core     │
+│                         │               │                           │
+├──────┬──────────────────┤               ├──────┬────────────────────┤
+│STDIN │                  │        X──────▶STDIN │                    │
+├──────┤                  │    Console    ├──────┤                    │
+│STDOUT│                  ◀───────────────┤STDOUT│                    │
+├──────┤                  │    Console    ├──────┤        node        │
+│STDERR│   node           ◀───────────────┤STDERR│                    │
+├──────┘                  │     JSON      ├──────┤  (Child Process)   │
+│                         ◀───────────────▶ FD#3 │                    │
+│                         │               ├──────┘                    │
+│                         │               │                           │
+├─────────────────────────┴───────────────┴───────────────────────────┤
+│                                                                     │
+│                          Operating System                           │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<div class="admonition bug">
+<p class="admonition-title">Missing Feature</p>
+<p>As shown on the diagram above, there is nothing connected to the <em>Core</em>
+process' <code>FD#0</code> (<code>STDIN</code>). This feature will be added in the future, but
+currently this means <em>jsii</em> libraries have no way of accepting input though
+<code>STDIN</code>.</p>
+</div>
+<p>The <em>Wrapper</em> process manages the <em>Core</em> process such that:</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It would be possible to use a single <code>node</code> process (the <em><code>@jsii/runtime</code>
+Core</em> process) for any platform that supposed spawning child processes with
+additional open file descriptors. This is for example not possible in
+<strong>Java</strong> and <strong>C#</strong>, which is why this dual-process contraption was devised.</p>
+<p>In such cases, the <em>Host Application</em> would spawn the <em>Core</em> process and
+directly operate on the file descriptors as described below.</p>
+</div>
+<ul>
+<li>Any requests received from the <em>Host Application</em> through the <em>Wrapper</em>'s
+  <code>STDIN</code> stream is forwarded to the <em>Core</em> process' <code>FD#3</code>.</li>
+<li>Any response written to the <em>Core</em>'s <code>FD#3</code> stream is forwarded to the <em>Host
+  Application</em> though the <em>Wrapper</em>'s <code>STDOUT</code>.</li>
+<li>Any data sent to the <em>Core</em>'s <code>STDERR</code> is base64-encoded and wrapped in a JSON
+  object with the <code>"stderr"</code> key, then forwarded to the <em>Host
+  Application</em> through the <em>Wrapper</em>'s <code>STDERR</code></li>
+<li>Any data sent to the <em>Core</em>'s <code>STDOUT</code> is base64-encoded and wrapped in a JSON
+  object with the <code>"stdout"</code> key, then forwarded to the <em>Host
+  Application</em> through the <em>Wrapper</em>'s <code>STDERR</code></li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>As with any file descriptor besides <code>FD#0</code> (<code>STDIN</code>), <code>FD#1</code> (<code>STDOUT</code>) and
+<code>FD#2</code> (<code>STDERR</code>) that was not opened by the application, <strong>JavaScript</strong>
+libraries loaded in the <code>@jsii/kernel</code> instance are not allowed to interact
+directly with file descriptor <code>FD#3</code>.</p>
+</div>
+<h2 id="initialization-process">Initialization Process</h2>
 <p>The initialization workflow can be described as:</p>
 <ol>
 <li>The <em>host</em> (<strong>Java</strong>, <strong>.NET</strong>, ...) application starts on its own runtime
@@ -1081,7 +1180,9 @@ instance that acts as a container for the <strong>Javascript</strong> code that 
     version that is bundled in the <em>runtime client library</em>)</li>
 <li>The <em>runtime client library</em>  interacts with the child <code>node</code> process by
     exchanging JSON-encoded messages through the <code>node</code> process' <em>STDIN</em> and
-    <em>STDOUT</em></li>
+    <code>STDOUT</code>. It maintains a thread (or equivalent) that decodes messages from
+    the child's <code>STDERR</code> stream, and forwards the decoded data to it's host
+    process' <code>STDERR</code> and <code>STDOUT</code> as needed.</li>
 <li>The <em>runtime client library</em> automatically loads the <strong>Javascript</strong> modules
     bundled within the <em>generated bindings</em> (and their depedencies, bundled in
     other <em>generated bindings</em>) into the <code>node</code> process when needed.</li>
@@ -1099,7 +1200,7 @@ instance that acts as a container for the <strong>Javascript</strong> code that 
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-01-27
+      Last update: 2021-02-02
     
   </small>
 </div>
