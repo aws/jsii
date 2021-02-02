@@ -1,37 +1,46 @@
 import * as fs from 'fs';
 
-// Note: the `process.std{in,out,err}.fd` is not part of the `@types/node` declarations, because
-// those cannot model how those fields are guaranteed to be absent within the context of worker
-// threads. The should be present here, but since we must resort to `as any`, we take the extra
-// precaution of defaulting if those values are not present.
-
-const STDIN_FD: number = (process.stdin as any).fd ?? 0;
-const STDOUT_FD: number = (process.stdout as any).fd ?? 1;
-const STDERR_FD: number = (process.stderr as any).fd ?? 2;
-
 const INPUT_BUFFER_SIZE = 1_048_576; // 1MiB (aka: 1024 * 1024), not related to max line length
 
 export class SyncStdio {
   private bufferedData = Buffer.alloc(0);
 
+  private readonly stderr: number;
+  private readonly stdin: number;
+  private readonly stdout: number;
+
+  // A buffer that will be used for all reading operations.
+  private readonly readBuffer = Buffer.alloc(INPUT_BUFFER_SIZE);
+
+  public constructor({ errorFD, readFD, writeFD }: SyncStdioOptions) {
+    this.stderr = errorFD;
+    this.stdin = readFD;
+    this.stdout = writeFD;
+  }
+
   public writeErrorLine(line: string) {
-    this.writeBuffer(Buffer.from(`${line}\n`), STDERR_FD);
+    this.writeBuffer(Buffer.from(`${line}\n`), this.stderr);
   }
 
   public writeLine(line: string) {
-    this.writeBuffer(Buffer.from(`${line}\n`), STDOUT_FD);
+    this.writeBuffer(Buffer.from(`${line}\n`), this.stdout);
   }
 
   public readLine(): string | undefined {
-    const buff = Buffer.alloc(INPUT_BUFFER_SIZE);
     while (!this.bufferedData.includes('\n', 0, 'utf-8')) {
-      const read = readSync(STDIN_FD, buff, 0, buff.length);
+      const read = fs.readSync(
+        this.stdin,
+        this.readBuffer,
+        0,
+        this.readBuffer.length,
+        null,
+      );
 
       if (read === 0) {
         return undefined;
       }
 
-      const newData = buff.slice(0, read);
+      const newData = this.readBuffer.slice(0, read);
       this.bufferedData = Buffer.concat([this.bufferedData, newData]);
     }
 
@@ -48,66 +57,34 @@ export class SyncStdio {
       try {
         offset += fs.writeSync(fd, buffer, offset);
       } catch (e) {
+        // We might get EAGAIN if the file descriptor was not opened for
+        // blocking (O_SYNC) writes. In such cases, we'll keep trying until it
+        // succeeds. This shouldn't take long as the process on the other side
+        // is expected to actively wait for data on those pipes.
         if (e.code !== 'EAGAIN') {
           throw e;
         }
-        // We'll retry immediately, and possibly thrash the CPU until the buffer was drained. We
-        // do not currently have a better way around.
       }
     }
   }
 }
 
-/**
- * A patched up implementation of `fs.readSync` that works around the quirks associated with
- * synchronous I/O involving `STDIN`, `STDOUT` and `STDERR` on NodeJS, where this is all expected
- * to be asynchronous and hence has some "interesting" behavior in certain particular cases.
- *
- * @param fd        the file descriptor to read from (typically 0 / STDIN)
- * @param buffer    the buffer in which to place the read data
- * @param offset    the offset in the buffer at which to place the read data
- * @param length    the number of bytes to be read
- * @param position  where to begin reading from the file (defaults to the current read location)
- *
- * @returns the amount of bytes read, or `0` if EOF has been reached.
- */
-function readSync(
-  fd: number,
-  buffer: Buffer,
-  offset: number,
-  length: number,
-  position: number | null = null,
-): number {
-  // We are using a `while (true)` here to avoid recursively re-entering the function, in order to
-  // avoid thrashing memory with stack frames, when we are more likely to face `EAGAIN` on systems
-  // with low resources (near memory limit and/or high load).
-  //
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    try {
-      return fs.readSync(fd, buffer, offset, length, position);
-    } catch (error) {
-      switch (error.code) {
-        // HACK: node may set O_NONBLOCK on it's STDIN depending on what kind of input it is made
-        // of (see https://github.com/nodejs/help/issues/2663). When STDIN has O_NONBLOCK, calls may
-        // result in EAGAIN. In such cases, the call should be retried until it succeeds. This kind
-        // of polling could result in horrible CPU thrashing: while we can sleep between two
-        // attempts, sleeping too much would slow everything to a crawl, and not enough would cause
-        // significant wasting of CPU cycles.
-        case 'EAGAIN':
-          // Thrashing the CPU as previously discussed...
-          break;
+export interface SyncStdioOptions {
+  /**
+   * The file descriptor from which data is to be read. This MUST be opened for
+   * blocking (O_SYNC) reading.
+   */
+  readonly readFD: number;
 
-        // HACK: in Windows, when STDIN (aka FD#0) is wired to a socket (as is the case when started
-        // as a subprocess with piped IO), `fs.readSync` will throw "Error: EOF: end of file, read"
-        // instead of returning 0 (which is what the documentation suggests it would do). This is
-        // currently believed to be a bug in `node`: https://github.com/nodejs/node/issues/35997
-        case 'EOF':
-          return 0;
+  /**
+   * The file descriptor to which data is to be written. This SHOULD be opened
+   * for blocking (O_SYNC) writing.
+   */
+  readonly writeFD: number;
 
-        default:
-          throw error;
-      }
-    }
-  }
+  /**
+   * The file descriptor to which errors data is to be written. This SHOULD be
+   * opened for blocking (O_SYNC) writing.
+   */
+  readonly errorFD: number;
 }

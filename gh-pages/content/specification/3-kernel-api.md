@@ -51,6 +51,26 @@ process it, ensuring forward compatibility of this message, if and when new attr
     In the future, this message may be augmented with additional keys to enable feature negotiation between the _host_
     application and the `@jsii/kernel`.
 
+## Teardown - the `exit` message
+
+The _host_ library should send the `exit` message when it no longer needs the `@jsii/kernel`. This message enables the
+`@jsii/kernel` to trigger clean-up operations, such as getting rid of temporary directories, in order to avoid littering
+the temporary directory with leftover files.
+
+The `exit` message has the following schema:
+
+```ts
+interface Exit {
+  /** The exit code the `@jsii/kernel` process should return. Typically `0`. */
+  readonly exit: number;
+}
+```
+
+!!! danger "Important"
+    Once the `exit` message has been sent, no more data should be sent through to the `@jsii/kernel` process. The
+    request stream should be closed as soon as the `exit` message was sent. Additional data may however be received from
+    the `@jsii/kernel` that is intended to the `STDOUT` or `STDERR` console streams.
+
 ## General Kernel API
 
 Once the `hello` handshake is complete, a sequence of request and responses are exchanged with the `@jsii/kernel`.

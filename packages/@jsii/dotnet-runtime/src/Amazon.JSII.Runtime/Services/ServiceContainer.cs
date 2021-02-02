@@ -18,7 +18,7 @@ namespace Amazon.JSII.Runtime.Services
 
         internal static IServiceProvider ServiceProvider => ServiceProviderOverride ?? _serviceProvider.Value;
 
-        public static IServiceProvider BuildServiceProvider(ILoggerFactory? loggerFactoryOverride = null)
+        public static ServiceProvider BuildServiceProvider(ILoggerFactory? loggerFactoryOverride = null)
         {
             IServiceCollection serviceCollection = new ServiceCollection();
 
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Runtime.Services
             serviceCollection.AddSingleton<IResourceExtractor, ResourceExtractor>();
             serviceCollection.AddTransient<IClient, Client>();
 
-            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
             IClient client = serviceProvider.GetRequiredService<IClient>();
             client.Hello();
 

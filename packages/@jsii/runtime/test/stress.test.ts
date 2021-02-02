@@ -1,10 +1,9 @@
 import { KernelHost } from '../lib/host';
-import { InputOutput, Input, Output } from '../lib/in-out';
+import { IInputOutput, Input, Output } from '../lib/in-out';
 
 const requestCount = 250_000;
 
-class FakeInputOutput extends InputOutput {
-  public debug = false;
+class FakeInputOutput implements IInputOutput {
   private count = 0;
 
   public write(_: Output) {

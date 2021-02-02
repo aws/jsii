@@ -22,8 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="jsii-runtime\jsii-runtime.js" />
-    <EmbeddedResource Include="jsii-runtime\jsii-runtime.js.map" />
+    <EmbeddedResource Include="jsii-runtime\**" />
     <None Include="../../../../../logo/png/128x128.png" Pack="true" PackagePath="icon.png" />
   </ItemGroup>
 </Project>
