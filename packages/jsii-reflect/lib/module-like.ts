@@ -11,19 +11,25 @@ export abstract class ModuleLike {
   public declare abstract readonly fqn: string;
 
   /**
-   * Return direct submodules
-   */
-  public declare abstract readonly submodules: readonly Submodule[];
-  public declare abstract readonly types: readonly Type[];
-
-  /**
    * A map of target name to configuration, which is used when generating packages for
    * various languages.
    */
   public declare abstract readonly targets?: jsii.AssemblyTargets;
   public declare abstract readonly readme?: jsii.ReadMe;
 
+  protected declare abstract readonly submoduleMap: Readonly<
+    Record<string, Submodule>
+  >;
+  protected declare abstract readonly typeMap: Readonly<Record<string, Type>>;
+
   protected constructor(public readonly system: TypeSystem) {}
+
+  public get submodules(): readonly Submodule[] {
+    return Object.values(this.submoduleMap);
+  }
+  public get types(): readonly Type[] {
+    return Object.values(this.typeMap);
+  }
 
   public get classes(): readonly ClassType[] {
     return this.types
@@ -44,7 +50,7 @@ export abstract class ModuleLike {
   }
 
   public tryFindType(fqn: string): Type | undefined {
-    const ownType = this.types.find((type) => type.fqn === fqn);
+    const ownType = this.typeMap[fqn];
     if (ownType != null) {
       return ownType;
     }
@@ -58,7 +64,7 @@ export abstract class ModuleLike {
       .split('.')
       .slice(0, myFqnLength + 1)
       .join('.');
-    const sub = this.submodules.find((sub) => sub.fqn === subFqn);
+    const sub = this.submoduleMap[subFqn];
     return sub?.tryFindType(fqn);
   }
 }

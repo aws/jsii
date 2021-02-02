@@ -1,6 +1,7 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { join } from 'path';
+import * as semver from 'semver';
 
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
@@ -13,6 +14,7 @@ import {
 } from './runtime';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
+import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
 export const GO_VERSION = '1.15';
@@ -32,6 +34,7 @@ export abstract class Package {
     public readonly packageName: string,
     public readonly filePath: string,
     public readonly moduleName: string,
+    public readonly version: string,
     // If no root is provided, this module is the root
     root?: Package,
   ) {
@@ -77,7 +80,8 @@ export abstract class Package {
     const prefix = moduleName !== '' ? `${moduleName}/` : '';
     const rootPackageName = this.root.packageName;
     const suffix = this.filePath !== '' ? `/${this.filePath}` : ``;
-    return `${prefix}${rootPackageName}${suffix}`;
+    const versionSuffix = determineMajorVersionSuffix(this.version);
+    return `${prefix}${rootPackageName}${suffix}${versionSuffix}`;
   }
 
   /*
@@ -181,6 +185,7 @@ export class RootPackage extends Package {
   public readonly assembly: Assembly;
   public readonly version: string;
   private readonly readme?: ReadmeFile;
+  private readonly versionFile: VersionFile;
 
   public constructor(assembly: Assembly) {
     const packageName = goPackageName(assembly.name);
@@ -193,10 +198,12 @@ export class RootPackage extends Package {
       packageName,
       filePath,
       moduleName,
+      assembly.version,
     );
 
     this.assembly = assembly;
     this.version = assembly.version;
+    this.versionFile = new VersionFile(this.version);
 
     if (this.assembly.readme?.markdown) {
       this.readme = new ReadmeFile(
@@ -212,6 +219,7 @@ export class RootPackage extends Package {
     this.readme?.emit(context);
 
     this.emitGomod(context.code);
+    this.versionFile.emit(context.code);
   }
 
   private emitGomod(code: CodeMaker) {
@@ -285,7 +293,7 @@ export class RootPackage extends Package {
       code.line('// Initialization endpoints of dependencies');
       for (const pkg of dependencies) {
         code.line(
-          `${pkg.packageName} "${pkg.root.moduleName}/${pkg.root.packageName}/${JSII_INIT_PACKAGE}"`,
+          `${pkg.packageName} "${pkg.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
         );
       }
     }
@@ -336,9 +344,40 @@ export class InternalPackage extends Package {
       packageName,
       filePath,
       root.moduleName,
+      root.version,
       root,
     );
 
     this.parent = parent;
   }
+}
+
+/**
+ * Go requires that when a module major version is v2.0 and above, the module
+ * name will have a `/vNN` suffix (where `NN` is the major version).
+ *
+ * > Starting with major version 2, module paths must have a major version
+ * > suffix like /v2 that matches the major version. For example, if a module
+ * > has the path example.com/mod at v1.0.0, it must have the path
+ * > example.com/mod/v2 at version v2.0.0.
+ *
+ * @see https://golang.org/ref/mod#major-version-suffixes
+ * @param version The module version (e.g. `2.3.0`)
+ * @returns a suffix to append to the module name in the form (`/vNN`). If the
+ * module version is `0.x` or `1.x`, returns an empty string.
+ */
+function determineMajorVersionSuffix(version: string) {
+  const sv = semver.parse(version);
+  if (!sv) {
+    throw new Error(
+      `Unable to parse version "${version}" as a semantic version`,
+    );
+  }
+
+  // suffix is only needed for 2.0 and above
+  if (sv.major <= 1) {
+    return '';
+  }
+
+  return `/v${sv.major}`;
 }
