@@ -46,8 +46,8 @@ export class Golang extends Target {
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;
-    await tryUnlink(path.join(pkgDir, localGoMod));
-    await tryUnlink(path.join(pkgDir, localGoSum));
+    await fs.remove(path.join(pkgDir, localGoMod));
+    await fs.remove(path.join(pkgDir, localGoSum));
   }
 
   /**
@@ -230,12 +230,4 @@ function tryFindLocalRuntime() {
 async function go(command: string, args: string[], options: { cwd: string }) {
   const { cwd } = options;
   return shell('go', [command, ...args], { cwd });
-}
-
-async function tryUnlink(filePath: string) {
-  if (!(await fs.pathExists(filePath))) {
-    return;
-  }
-
-  await fs.unlink(filePath);
 }
