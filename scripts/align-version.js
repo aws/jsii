@@ -6,24 +6,23 @@ const fs = require('fs');
 
 const marker = require('./get-version-marker');
 const repoVersion = require('./get-version');
-const exclude = [
-  '@fixtures/jsii-calc-bundled',
-  'jsii-calc', // tests major version >2 for go
-];
 
 for (const file of process.argv.splice(2)) {
   const pkg = JSON.parse(fs.readFileSync(file).toString());
 
   // Ignore fixture packages
-  if (exclude.includes(pkg.name)) {
+  if (pkg.name === '@fixtures/jsii-calc-bundled') {
     continue;
   }
 
-  if (pkg.version !== marker) {
-    throw new Error(`unexpected - all package.json files in this repo should have a version of ${marker}: ${file}`);
-  }
+  // we keep jsii-calc as 3.2.120 to test go major version suffix
+  if (pkg.name !== 'jsii-calc') {
+    if (pkg.version !== marker) {
+      throw new Error(`unexpected - all package.json files in this repo should have a version of ${marker}: ${file}`);
+    }
 
-  pkg.version = repoVersion;
+    pkg.version = repoVersion;
+  }
 
   processSection(pkg.dependencies || { }, file);
   processSection(pkg.devDependencies || { }, file);
