@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0"
+    "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base": {
@@ -776,5 +776,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "mkucsthH8x3P091hrbSKScb4He4QUc1ukov38vWDTn8="
+  "fingerprint": "7STgxc8/b+pajng4R4fEptbcOF2aQJBiQkO4bMAWpI4="
 }
