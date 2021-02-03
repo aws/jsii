@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "0.0.0",
+  "version": "2.1.1",
   "private": true,
   "description": "An example transitive dependency for jsii-calc.",
   "license": "Apache-2.0",

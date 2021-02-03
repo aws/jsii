@@ -68,7 +68,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] =
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base-of-base</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[2.1.1,3.0.0)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
@@ -536,7 +536,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
                          ┗━ 📁 calculator
                             ┗━ 📁 baseofbase
                                ┣━ 📄 $Module.txt
-                               ┗━ 📄 jsii-calc-base-of-base@0.0.0.jsii.tgz
+                               ┗━ 📄 jsii-calc-base-of-base@2.1.1.jsii.tgz
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.xml 1`] = `
@@ -569,7 +569,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.x
   </scm>
   <groupId>software.amazon.jsii.tests</groupId>
   <artifactId>calculator-base-of-base</artifactId>
-  <version>0.0.0</version>
+  <version>2.1.1</version>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -732,7 +732,7 @@ public final class $Module extends JsiiModule {
     private final Map<String, Class<?>> cache = new HashMap<>();
 
     public $Module() {
-        super("@scope/jsii-calc-base-of-base", "0.0.0", $Module.class, "jsii-calc-base-of-base@0.0.0.jsii.tgz");
+        super("@scope/jsii-calc-base-of-base", "2.1.1", $Module.class, "jsii-calc-base-of-base@2.1.1.jsii.tgz");
     }
 
     @Override
@@ -973,7 +973,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/m
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@0.0.0.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@0.0.0.jsii.tgz is a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@2.1.1.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@2.1.1.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
@@ -1059,7 +1059,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base-of-base</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[2.1.1,3.0.0)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
@@ -2786,7 +2786,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
                       ┗━ 📁 tests
                          ┗━ 📁 calculator
                             ┣━ 📄 $Module.txt
-                            ┗━ 📄 jsii-calc@0.0.0.jsii.tgz
+                            ┗━ 📄 jsii-calc@3.20.120.jsii.tgz
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
@@ -2840,7 +2840,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
   </scm>
   <groupId>software.amazon.jsii.tests</groupId>
   <artifactId>calculator</artifactId>
-  <version>0.0.0</version>
+  <version>3.20.120</version>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -3016,7 +3016,7 @@ public final class $Module extends JsiiModule {
     private final Map<String, Class<?>> cache = new HashMap<>();
 
     public $Module() {
-        super("jsii-calc", "0.0.0", $Module.class, "jsii-calc@0.0.0.jsii.tgz");
+        super("jsii-calc", "3.20.120", $Module.class, "jsii-calc@3.20.120.jsii.tgz");
     }
 
     @Override
@@ -21545,4 +21545,4 @@ jsii-calc.submodule.returnsparam.ReturnsSpecialParameter=software.amazon.jsii.te
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@0.0.0.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@0.0.0.jsii.tgz is a tarball`;
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@3.20.120.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@3.20.120.jsii.tgz is a tarball`;

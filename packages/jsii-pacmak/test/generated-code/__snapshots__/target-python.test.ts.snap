@@ -73,7 +73,7 @@ kwargs = json.loads(
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
-        "scope.jsii-calc-base-of-base<0.0.1"
+        "scope.jsii-calc-base-of-base>=2.1.1, <3.0.0"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -281,7 +281,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
              ┣━ 📄 __init__.py
              ┣━ 📁 _jsii
              ┃  ┣━ 📄 __init__.py
-             ┃  ┗━ 📄 jsii-calc-base-of-base@0.0.0.jsii.tgz
+             ┃  ┗━ 📄 jsii-calc-base-of-base@2.1.1.jsii.tgz
              ┗━ 📄 py.typed
 `;
 
@@ -310,7 +310,7 @@ kwargs = json.loads(
     """
 {
     "name": "scope.jsii-calc-base-of-base",
-    "version": "0.0.0",
+    "version": "2.1.1",
     "description": "An example transitive dependency for jsii-calc.",
     "license": "Apache-2.0",
     "url": "https://github.com/aws/jsii",
@@ -331,7 +331,7 @@ kwargs = json.loads(
     ],
     "package_data": {
         "scope.jsii_calc_base_of_base._jsii": [
-            "jsii-calc-base-of-base@0.0.0.jsii.tgz"
+            "jsii-calc-base-of-base@2.1.1.jsii.tgz"
         ],
         "scope.jsii_calc_base_of_base": [
             "py.typed"
@@ -486,9 +486,9 @@ import typing_extensions
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "@scope/jsii-calc-base-of-base",
-    "0.0.0",
+    "2.1.1",
     __name__[0:-6],
-    "jsii-calc-base-of-base@0.0.0.jsii.tgz",
+    "jsii-calc-base-of-base@2.1.1.jsii.tgz",
 )
 
 __all__ = [
@@ -499,7 +499,7 @@ publication.publish()
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/src/scope/jsii_calc_base_of_base/_jsii/jsii-calc-base-of-base@0.0.0.jsii.tgz 1`] = `python/src/scope/jsii_calc_base_of_base/_jsii/jsii-calc-base-of-base@0.0.0.jsii.tgz is a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/src/scope/jsii_calc_base_of_base/_jsii/jsii-calc-base-of-base@2.1.1.jsii.tgz 1`] = `python/src/scope/jsii_calc_base_of_base/_jsii/jsii-calc-base-of-base@2.1.1.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/src/scope/jsii_calc_base_of_base/py.typed 1`] = `
 
@@ -582,7 +582,7 @@ kwargs = json.loads(
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
-        "scope.jsii-calc-base-of-base<0.0.1",
+        "scope.jsii-calc-base-of-base>=2.1.1, <3.0.0",
         "scope.jsii-calc-base<0.0.1"
     ],
     "classifiers": [
@@ -1311,7 +1311,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┣━ 📄 __init__.py
           ┃  ┣━ 📁 bin
           ┃  ┃  ┗━ 📄 calc
-          ┃  ┗━ 📄 jsii-calc@0.0.0.jsii.tgz
+          ┃  ┗━ 📄 jsii-calc@3.20.120.jsii.tgz
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 derived_class_has_no_properties
@@ -1392,7 +1392,7 @@ kwargs = json.loads(
     """
 {
     "name": "jsii-calc",
-    "version": "0.0.0",
+    "version": "3.20.120",
     "description": "A simple calcuator built on JSII.",
     "license": "Apache-2.0",
     "url": "https://github.com/aws/jsii",
@@ -1426,7 +1426,7 @@ kwargs = json.loads(
     ],
     "package_data": {
         "jsii_calc._jsii": [
-            "jsii-calc@0.0.0.jsii.tgz"
+            "jsii-calc@3.20.120.jsii.tgz"
         ],
         "jsii_calc": [
             "py.typed"
@@ -8810,7 +8810,7 @@ import scope.jsii_calc_base._jsii
 import scope.jsii_calc_lib._jsii
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
-    "jsii-calc", "0.0.0", __name__[0:-6], "jsii-calc@0.0.0.jsii.tgz"
+    "jsii-calc", "3.20.120", __name__[0:-6], "jsii-calc@3.20.120.jsii.tgz"
 )
 
 __all__ = [
@@ -8828,14 +8828,14 @@ import jsii
 import sys
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
-    "jsii-calc", "0.0.0", "jsii_calc", "jsii-calc@0.0.0.jsii.tgz"
+    "jsii-calc", "3.20.120", "jsii_calc", "jsii-calc@3.20.120.jsii.tgz"
 )
 
 __jsii_assembly__.invokeBinScript("jsii-calc", "calc", sys.argv[1:])
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/jsii-calc@0.0.0.jsii.tgz 1`] = `python/src/jsii_calc/_jsii/jsii-calc@0.0.0.jsii.tgz is a tarball`;
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/jsii-calc@3.20.120.jsii.tgz 1`] = `python/src/jsii_calc/_jsii/jsii-calc@3.20.120.jsii.tgz is a tarball`;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/composition/__init__.py 1`] = `
 import abc

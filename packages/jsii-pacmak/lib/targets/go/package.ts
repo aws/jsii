@@ -79,9 +79,9 @@ export abstract class Package {
     const moduleName = this.root.moduleName;
     const prefix = moduleName !== '' ? `${moduleName}/` : '';
     const rootPackageName = this.root.packageName;
-    const suffix = this.filePath !== '' ? `/${this.filePath}` : ``;
     const versionSuffix = determineMajorVersionSuffix(this.version);
-    return `${prefix}${rootPackageName}${suffix}${versionSuffix}`;
+    const suffix = this.filePath !== '' ? `/${this.filePath}` : ``;
+    return `${prefix}${rootPackageName}${versionSuffix}${suffix}`;
   }
 
   /*
@@ -150,7 +150,7 @@ export abstract class Package {
 
     if (this.usesInitPackage) {
       code.line(
-        `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
+        `${JSII_INIT_ALIAS} "${this.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
       );
     }
 

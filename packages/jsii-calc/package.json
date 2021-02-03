@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.0.0",
+  "version": "3.20.120",
   "private": true,
   "description": "A simple calcuator built on JSII.",
   "stability": "stable",
