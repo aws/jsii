@@ -14304,6 +14304,6 @@ func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameterIface) stri
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/version 1`] = `
-0.0.0
+3.20.120
 
 `;
