@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/aws/jsii/compare/v1.18.0...v1.19.0) (2021-02-02)
+
+
+### Features
+
+* add runtime type info (fqn and version) to compiled sources ([481e7a4](https://github.com/aws/jsii/commit/481e7a47a8f4dd7348ba4aba683902b869d11c84)), closes [/github.com/aws/aws-cdk-rfcs/blob/master/text/0253-cdk-metadata-v2.md#appendix-1](https://github.com/aws//github.com/aws/aws-cdk-rfcs/blob/master/text/0253-cdk-metadata-v2.md/issues/appendix-1)
+* **go:** version file in the generated module directory ([#2492](https://github.com/aws/jsii/issues/2492)) ([da3ea25](https://github.com/aws/jsii/commit/da3ea25330a8a73f3102db1dfc8f94ea1d6eca3c))
+
+
+### Bug Fixes
+
+* **go:** major version suffix is missing in module names for >=v2 ([#2507](https://github.com/aws/jsii/issues/2507)) ([32c0add](https://github.com/aws/jsii/commit/32c0add5edd0ed57d535241b483168e2b7e731ce)), closes [#2509](https://github.com/aws/jsii/issues/2509)
+
 ## [1.18.0](https://github.com/aws/jsii/compare/v1.17.1...v1.18.0) (2021-01-28)
 
 
