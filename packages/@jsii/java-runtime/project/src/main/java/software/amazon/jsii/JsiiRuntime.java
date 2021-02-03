@@ -1,25 +1,22 @@
 package software.amazon.jsii;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.Nullable;
 import software.amazon.jsii.api.Callback;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static software.amazon.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
-import static software.amazon.jsii.Util.extractResource;
 
 /**
  * Manages the jsii-runtime child process.
@@ -177,8 +174,9 @@ public final class JsiiRuntime {
 
     synchronized void terminate() {
         try {
-            // The jsii Kernel process exists after having reached EOF on it's STDIN, so we close it first:
+            // The jsii Kernel process exists after having received the "exit" message
             if (stdin != null) {
+                stdin.write("{\"exit\":0}\n");
                 stdin.close();
                 stdin = null;
             }
@@ -236,7 +234,7 @@ public final class JsiiRuntime {
         // otherwise, we default to "jsii-runtime" from PATH.
         String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
         if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = prepareBundledRuntime();
+            jsiiRuntimeExecutable = BundledRuntime.extract(getClass());
         }
 
         if (traceEnabled) {
@@ -246,7 +244,7 @@ public final class JsiiRuntime {
         ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable)
             .redirectInput(ProcessBuilder.Redirect.PIPE)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
-            .redirectError(ProcessBuilder.Redirect.INHERIT);
+            .redirectError(ProcessBuilder.Redirect.PIPE);
 
         if (traceEnabled) {
             pb.environment().put("JSII_DEBUG", "1");
@@ -264,6 +262,8 @@ public final class JsiiRuntime {
 
         OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);
         InputStreamReader stdoutStream = new InputStreamReader(this.childProcess.getInputStream(), StandardCharsets.UTF_8);
+
+        new ErrorStreamSink(this.childProcess.getErrorStream()).start();
 
         this.stdout = new BufferedReader(stdoutStream);
         this.stdin = new BufferedWriter(stdinStream);
@@ -338,31 +338,65 @@ public final class JsiiRuntime {
         }
     }
 
-    /**
-     * Extracts all files needed for jsii-runtime.js from JAR into a temp directory.
-     * @return The full path for jsii-runtime.js
-     */
-    private String prepareBundledRuntime() {
-        try {
-            Path directory = Files.createTempDirectory("jsii-java-runtime");
-            directory.toFile().deleteOnExit();
-
-            Path entrypoint = extractResource(getClass(), "jsii-runtime.js", directory);
-            entrypoint.toFile().deleteOnExit();
-
-            extractResource(getClass(), "jsii-runtime.js.map", directory).toFile().deleteOnExit();
-
-            return entrypoint.toString();
-        } catch (IOException e) {
-            throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
-        }
-    }
-
     private static void notifyInspector(final JsonNode message, final MessageInspector.MessageType type) {
         final MessageInspector inspector = JsiiRuntime.messageInspector.get();
         if (inspector == null) {
             return;
         }
         inspector.inspect(message, type);
+    }
+
+    private static final class ErrorStreamSink extends Thread {
+        private final InputStream inputStream;
+
+        public ErrorStreamSink(final InputStream inputStream) {
+            super("JsiiRuntime.ErrorStreamSink");
+            // This is a daemon thread, shouldn't keep the VM alive.
+            this.setDaemon(true);
+
+            this.inputStream = inputStream;
+        }
+
+        public void run() {
+            try (final InputStreamReader inputStreamReader = new InputStreamReader(this.inputStream);
+                 final BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                String line;
+                final ObjectMapper objectMapper = new ObjectMapper();
+                while ((line = reader.readLine()) != null) {
+                    try {
+                        final JsonNode tree = objectMapper.readTree(line);
+                        final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
+                        if (consoleOutput.stderr != null) {
+                            System.err.write(consoleOutput.stderr, 0, consoleOutput.stderr.length);
+                        }
+                        if (consoleOutput.stdout != null) {
+                            System.out.write(consoleOutput.stdout, 0, consoleOutput.stdout.length);
+                        }
+                    } catch (final JsonParseException | JsonMappingException exception) {
+                        // If not JSON, then this goes straight to stderr without touches...
+                        System.err.println(line);
+                    }
+                }
+            } catch (final IOException error) {
+                System.err.printf("I/O Error reading jsii Kernel's STDERR: %s%n", error);
+                throw new UncheckedIOException(error);
+            }
+        }
+    }
+
+    private static final class ConsoleOutput {
+        @Nullable
+        public final byte[] stderr;
+        @Nullable
+        public final byte[] stdout;
+
+        @JsonCreator
+        public ConsoleOutput(
+                @JsonProperty("stderr") @Nullable final byte[] stderr,
+                @JsonProperty("stdout") @Nullable final byte[] stdout
+        ) {
+            this.stderr = stderr;
+            this.stdout = stdout;
+        }
     }
 }

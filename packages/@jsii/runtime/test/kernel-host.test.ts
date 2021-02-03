@@ -4,7 +4,7 @@ import * as child from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { KernelHost, InputOutput, Input, Output } from '../lib';
+import { KernelHost, IInputOutput, Input, Output } from '../lib';
 
 test('can load libraries from within a callback', () => {
   const inout = new TestInputOutput([
@@ -27,19 +27,21 @@ test('can load libraries from within a callback', () => {
   ]);
   const host = new KernelHost(inout, { noStack: true, debug: false });
   return new Promise<void>((ok) => {
-    host.on('exit', () => ok(inout.expectCompleted()));
+    host.once('exit', (code) => {
+      expect(code).toBe(0);
+      ok(inout.expectCompleted());
+    });
     host.run();
   });
 });
 
-class TestInputOutput extends InputOutput {
+class TestInputOutput implements IInputOutput {
   private readonly inputCommands: Input[];
 
   public constructor(
     inputCommands: Input[],
     private readonly allowErrors = false,
   ) {
-    super();
     this.inputCommands = inputCommands.reverse();
   }
 

@@ -7,6 +7,11 @@ const fs = require('fs');
 const marker = require('./get-version-marker');
 const repoVersion = require('./get-version');
 
+const exclude = [
+  'jsii-calc',
+  '@scope/jsii-calc-base-of-base'
+]
+
 for (const file of process.argv.splice(2)) {
   const pkg = JSON.parse(fs.readFileSync(file).toString());
 
@@ -15,11 +20,14 @@ for (const file of process.argv.splice(2)) {
     continue;
   }
 
-  if (pkg.version !== marker) {
-    throw new Error(`unexpected - all package.json files in this repo should have a version of ${marker}: ${file}`);
-  }
+  // jsii-calc have special versions to test golang major version suffix
+  if (!exclude.includes(pkg.name)) {
+    if (pkg.version !== marker) {
+      throw new Error(`unexpected - all package.json files in this repo should have a version of ${marker}: ${file}`);
+    }
 
-  pkg.version = repoVersion;
+    pkg.version = repoVersion;
+  }
 
   processSection(pkg.dependencies || { }, file);
   processSection(pkg.devDependencies || { }, file);

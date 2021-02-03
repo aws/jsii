@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.0.0"
+    "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base-of-base": {
@@ -201,5 +201,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "nk3lZyZihw8+X5KKk4nmX16b78gkSh2KmOCC72ZlkYk="
+  "fingerprint": "rKhrKvGvuY8DnHhiQFIGMiFOU8AU+S9ZVk9c3/rUJNk="
 }

@@ -1,6 +1,7 @@
 package jsii
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -110,6 +111,9 @@ func newClient() (*client, error) {
 
 		for file, data := range embeddedruntime {
 			filepath := path.Join(tmpdir, file)
+			if err := os.MkdirAll(path.Dir(filepath), 0700); err != nil {
+				return nil, err
+			}
 			if err := ioutil.WriteFile(filepath, data, 0644); err != nil {
 				return nil, err
 			}
@@ -128,9 +132,6 @@ func newClient() (*client, error) {
 		fmt.Sprintf("JSII_AGENT=%s/%s/%s", goruntime.Version(), goruntime.GOOS, goruntime.GOARCH),
 	)
 
-	// Forward child process STDERR to this process' STDERR for immediate feedback
-	clientinstance.process.Stderr = os.Stderr
-
 	// Pipe child process STDIN from a JSON encoder
 	in, err := clientinstance.process.StdinPipe()
 	if err != nil {
@@ -145,6 +146,43 @@ func newClient() (*client, error) {
 		return nil, err
 	}
 	clientinstance.reader = json.NewDecoder(out)
+
+	stderr, err := clientinstance.process.StderrPipe()
+	if err != nil {
+		return nil, err
+	}
+
+	// Start a gorouting to process what comes in on that StderrPipe
+	go func() {
+		reader := bufio.NewReader(stderr)
+
+		type consoleMessage struct {
+			Stderr []byte `json:"stderr"`
+			Stdout []byte `json:"stdout"`
+		}
+
+		eof := false
+		for !eof {
+			line, err := reader.ReadBytes('\n')
+			if len(line) == 0 || err == io.EOF {
+				eof = true
+			}
+			if len(line) > 0 {
+				result := consoleMessage{}
+				err := json.Unmarshal(line, &result)
+				if (err != nil) {
+					fmt.Fprintf(os.Stderr, "%s\n", line)
+				} else {
+					if (result.Stderr != nil) {
+						os.Stderr.Write(result.Stderr)
+					}
+					if (result.Stdout != nil) {
+						os.Stdout.Write(result.Stdout)
+					}
+				}
+			}
+		}
+	}()
 
 	// Start process
 	if err := clientinstance.process.Start(); err != nil {
@@ -238,6 +276,7 @@ func (c *client) sset(request staticSetRequest) (setResponse, error) {
 
 func (c *client) close() {
 	if c.process != nil {
+		c.stdin.Write([]byte("{\"exit\":0}\n"))
 		c.stdin.Close()
 		c.process.Wait()
 	}

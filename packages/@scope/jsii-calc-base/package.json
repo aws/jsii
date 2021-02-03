@@ -29,10 +29,10 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.0.0"
+    "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.0.0"
+    "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "devDependencies": {
     "@types/node": "^10.17.51",

@@ -1,16 +1,19 @@
 import atexit
+import base64
 import datetime
 import contextlib
 import enum
-import importlib.machinery
 import json
 import os
 import os.path
+import pathlib
 import platform
 import subprocess
+import sys
 import tempfile
+import threading
 
-from typing import TYPE_CHECKING, Type, Union, Mapping, Any, Optional
+from typing import TYPE_CHECKING, Type, Union, Mapping, IO, Any, AnyStr, Optional
 
 import attr
 import cattr  # type: ignore
@@ -224,48 +227,20 @@ class _NodeProcess:
     def __del__(self):
         self.stop()
 
-    def _jsii_runtime(self):
-        # We have the JSII Runtime bundled with our package and we want to extract it,
-        # however if we just blindly use importlib.resources for this, we're going to
-        # have our jsii-runtime.js existing in a *different* temporary directory from
-        # the jsii-runtime.js.map, which we don't want. We can manually set up a
-        # temporary directory and extract our resources to there, but we don't want to
-        # pay the case of setting up a a temporary directory and shuffling bytes around
-        # in the common case where these files already exist on disk side by side. So
-        # we will check what loader the embedded package used, if it's a
-        # SourceFileLoader then we'll assume it's going to be on the filesystem and
-        # just use importlib.resources.path.
+    def _jsii_runtime(self) -> str:
+        tmpdir = self._ctx_stack.enter_context(tempfile.TemporaryDirectory())
+        resources = {
+            resname: os.path.join(tmpdir, filename.replace("/", os.sep))
+            for resname, filename in jsii._embedded.jsii.EMBEDDED_FILES.items()
+        }
 
-        # jsii-runtime.js MUST be the first item in this list.
-        filenames = ["jsii-runtime.js", "jsii-runtime.js.map"]
-
-        if isinstance(
-            jsii._embedded.jsii.__loader__, importlib.machinery.SourceFileLoader
-        ):
-            paths = [
-                self._ctx_stack.enter_context(
-                    importlib_resources.path(jsii._embedded.jsii, f)
-                )
-                for f in filenames
-            ]
-        else:
-            tmpdir = self._ctx_stack.enter_context(tempfile.TemporaryDirectory())
-            paths = [os.path.join(tmpdir, filename) for filename in filenames]
-
-            for path, filename in zip(paths, filenames):
-                with open(path, "wb") as fp:
-                    fp.write(
-                        importlib_resources.read_binary(jsii._embedded.jsii, filename)
-                    )
-
-        # Ensure that our jsii-runtime.js is the first entry in our paths, and that all
-        # of our paths, are in a commmon directory, and we didn't get them split into
-        # multiple directories somehow.
-        assert os.path.basename(paths[0]) == filenames[0]
-        assert os.path.commonpath(paths) == os.path.dirname(paths[0])
+        for resname, filename in resources.items():
+            pathlib.Path(os.path.dirname(filename)).mkdir(exist_ok=True)
+            with open(filename, "wb") as fp:
+                fp.write(importlib_resources.read_binary(jsii._embedded.jsii, resname))
 
         # Return our first path, which should be the path for jsii-runtime.js
-        return str(paths[0])
+        return resources[jsii._embedded.jsii.ENTRYPOINT]
 
     def _next_message(self) -> Mapping[Any, Any]:
         return json.loads(self._process.stdout.readline(), object_hook=ohook)
@@ -277,11 +252,26 @@ class _NodeProcess:
         jsii_runtime = environ.get("JSII_RUNTIME", self._jsii_runtime())
 
         self._process = subprocess.Popen(
-            ["node", jsii_runtime],
+            [
+                "node",
+                "--max-old-space-size=4069",
+                jsii_runtime,
+            ],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             env=environ,
         )
+
+        self.sink_thread = threading.Thread(
+            name="process.stderr_sink",
+            target=stderr_sink,
+            # Trailing comma here is important (this is a 1-value tuple, not a value between parentheses)
+            args=(self._process.stderr,),
+            # Thread is a daemon so it does not hold the VM from shutting down
+            daemon=True,
+        )
+        self.sink_thread.start()
 
         # Clean this process up at exit, so it terminates "gracefully"
         atexit.register(self.stop)
@@ -292,13 +282,17 @@ class _NodeProcess:
         # This process is closing already, un-registering the hook to not fire twice
         atexit.unregister(self.stop)
 
-        # Close the process' STDIN, singalling we are done with it
+        self._process.stdin.write(b'{"exit":0}\n')
+        # Close the process' STDIN, singaling we are done with it
         self._process.stdin.close()
 
         try:
             self._process.wait(timeout=5)
         except subprocess.TimeoutExpired:
             self._process.terminate()
+
+        if self.sink_thread.is_alive():
+            self.sink_thread.join(timeout=5)
 
         self._ctx_stack.close()
 
@@ -395,3 +389,18 @@ class ProcessProvider(BaseProvider):
         if request is None:
             request = StatsRequest()
         return self._process.send(request, StatsResponse)
+
+
+def stderr_sink(reader: IO[AnyStr]) -> None:
+    # An empty string is used to signal EOF...
+    for line in iter(reader.readline, b""):
+        if line == b"":
+            break
+        try:
+            console = json.loads(line)
+            if console.get("stderr") is not None:
+                sys.stderr.buffer.write(base64.b64decode(console["stderr"]))
+            if console.get("stdout") is not None:
+                sys.stdout.buffer.write(base64.b64decode(console["stdout"]))
+        except:
+            print(line, file=sys.stderr)
