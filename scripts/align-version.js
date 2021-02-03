@@ -6,12 +6,16 @@ const fs = require('fs');
 
 const marker = require('./get-version-marker');
 const repoVersion = require('./get-version');
+const exclude = [
+  '@fixtures/jsii-calc-bundled',
+  'jsii-calc', // tests major version >2 for go
+];
 
 for (const file of process.argv.splice(2)) {
   const pkg = JSON.parse(fs.readFileSync(file).toString());
 
   // Ignore fixture packages
-  if (pkg.name === '@fixtures/jsii-calc-bundled') {
+  if (exclude.includes(pkg.name)) {
     continue;
   }
 

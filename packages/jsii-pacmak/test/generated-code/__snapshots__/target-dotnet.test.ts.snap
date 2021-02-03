@@ -2049,7 +2049,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┗━ 📄 WithPrivatePropertyInConstructor.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
-       ┗━ 📄 jsii-calc-0.0.0.tgz
+       ┗━ 📄 jsii-calc-3.20.120.tgz
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon.JSII.Tests.CalculatorPackageId.csproj 1`] = `
@@ -2060,7 +2060,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageVersion>0.0.0</PackageVersion>
+    <PackageVersion>3.20.120</PackageVersion>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -2079,7 +2079,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="jsii-calc-0.0.0.tgz" />
+    <EmbeddedResource Include="jsii-calc-3.20.120.tgz" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
@@ -15117,8 +15117,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/AssemblyInfo.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
-[assembly: JsiiAssembly("jsii-calc", "0.0.0", "jsii-calc-0.0.0.tgz")]
+[assembly: JsiiAssembly("jsii-calc", "3.20.120", "jsii-calc-3.20.120.tgz")]
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-0.0.0.tgz is a tarball`;
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz is a tarball`;
