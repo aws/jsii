@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/aws/jsii/compare/v1.19.0...v1.20.0) (2021-02-03)
+
+
+### Features
+
+* **runtime:** use a dedicated file descriptor for sync IPC ([#2411](https://github.com/aws/jsii/issues/2411)) ([0413081](https://github.com/aws/jsii/commit/0413081583df52fd42ab378a88a0ddb7c9b9200d))
+
+
+### Bug Fixes
+
+* **go:** invalid major version suffix for submodules and jsii init ([#2519](https://github.com/aws/jsii/issues/2519)) ([12e9b27](https://github.com/aws/jsii/commit/12e9b27373bdfce70456fddb9f38df0be6dbd511)), closes [#2507](https://github.com/aws/jsii/issues/2507) [#2507](https://github.com/aws/jsii/issues/2507)
+
 ## [1.19.0](https://github.com/aws/jsii/compare/v1.18.0...v1.19.0) (2021-02-02)
 
 
