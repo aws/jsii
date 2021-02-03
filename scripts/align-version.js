@@ -21,7 +21,7 @@ for (const file of process.argv.splice(2)) {
   }
 
   // jsii-calc have special versions to test golang major version suffix
-  if (exclude.includes(pkg.name)) {
+  if (!exclude.includes(pkg.name)) {
     if (pkg.version !== marker) {
       throw new Error(`unexpected - all package.json files in this repo should have a version of ${marker}: ${file}`);
     }
