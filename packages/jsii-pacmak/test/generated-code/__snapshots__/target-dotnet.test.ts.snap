@@ -51,7 +51,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[2.1.1,3.0.0)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
@@ -303,7 +303,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┃              ┗━ 📄 VeryBaseProps.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
-       ┗━ 📄 scope-jsii-calc-base-of-base-0.0.0.tgz
+       ┗━ 📄 scope-jsii-calc-base-of-base-2.1.1.tgz
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId.csproj 1`] = `
@@ -313,7 +313,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <Description>An example transitive dependency for jsii-calc.</Description>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageVersion>0.0.0</PackageVersion>
+    <PackageVersion>2.1.1</PackageVersion>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -331,7 +331,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-base-of-base-0.0.0.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-base-of-base-2.1.1.tgz" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
@@ -532,11 +532,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/AssemblyInfo.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
-[assembly: JsiiAssembly("@scope/jsii-calc-base-of-base", "0.0.0", "scope-jsii-calc-base-of-base-0.0.0.tgz")]
+[assembly: JsiiAssembly("@scope/jsii-calc-base-of-base", "2.1.1", "scope-jsii-calc-base-of-base-2.1.1.tgz")]
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-0.0.0.tgz is a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-2.1.1.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-2.1.1.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
@@ -602,7 +602,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="(,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[2.1.1,3.0.0)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
