@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/aws/jsii-runtime-go"
-	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc"
-	param "github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/param"
-	returnsParam "github.com/aws/jsii/jsii-calc/go/jsiicalc/submodule/returnsparam"
+	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+	param "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
+	returnsParam "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/returnsparam"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
