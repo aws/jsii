@@ -166,3 +166,8 @@ func TestReturnsSpecialParam(t *testing.T) {
 		t.Errorf("Expected type: %s; Actual: %s", expected, actual)
 	}
 }
+
+func TestEnum(t *testing.T) {
+	allTypes := calc.NewAllTypes()
+	allTypes.EnumMethod(calc.StringEnumA)
+}
