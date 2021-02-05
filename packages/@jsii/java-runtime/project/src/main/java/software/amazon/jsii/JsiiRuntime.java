@@ -362,7 +362,8 @@ public final class JsiiRuntime {
                  final BufferedReader reader = new BufferedReader(inputStreamReader)) {
                 String line;
                 final ObjectMapper objectMapper = new ObjectMapper();
-                while ((line = reader.readLine()) != null) {
+                // Thread.interrupted() signals we should exit (the VM is asking us to terminate)
+                while (!Thread.interrupted() && (line = reader.readLine()) != null) {
                     try {
                         final JsonNode tree = objectMapper.readTree(line);
                         final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
