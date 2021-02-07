@@ -89,6 +89,11 @@ type objref struct {
 	InstanceID string `json:"$jsii.byref"`
 }
 
+// EnumRef is a reference to a jsii enum member
+type EnumRef struct {
+	MemberFqn string `json:"$jsii.enum"`
+}
+
 type loadRequest struct {
 	kernelRequester
 

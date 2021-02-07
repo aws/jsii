@@ -436,6 +436,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package scopejsiicalclib
 
 import (
+	"encoding/json"
+	"fmt"
+	"errors"
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 	"reflect"
@@ -453,6 +456,30 @@ const (
 	EnumFromScopedModuleValue1 EnumFromScopedModule = "VALUE1"
 	EnumFromScopedModuleValue2 EnumFromScopedModule = "VALUE2"
 )
+
+func (member EnumFromScopedModule) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("@scope/jsii-calc-lib.EnumFromScopedModule/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *EnumFromScopedModule) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "@scope/jsii-calc-lib.EnumFromScopedModule/VALUE1":
+		*s = EnumFromScopedModuleValue1
+		return nil
+
+	case "@scope/jsii-calc-lib.EnumFromScopedModule/VALUE2":
+		*s = EnumFromScopedModuleValue2
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum '@scope/jsii-calc-lib.EnumFromScopedModule'", ref.MemberFqn))
+}
 
 // The general contract for a concrete number.
 // Deprecated.
@@ -1148,6 +1175,9 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/compos
 package composition
 
 import (
+	"encoding/json"
+	"fmt"
+	"errors"
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 	"reflect"
@@ -1319,6 +1349,30 @@ const (
 	CompositionStringStyleNormal CompositionStringStyle = "NORMAL"
 	CompositionStringStyleDecorated CompositionStringStyle = "DECORATED"
 )
+
+func (member CompositionStringStyle) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.composition.CompositeOperation.CompositionStringStyle/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *CompositionStringStyle) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.composition.CompositeOperation.CompositionStringStyle/NORMAL":
+		*s = CompositionStringStyleNormal
+		return nil
+
+	case "jsii-calc.composition.CompositeOperation.CompositionStringStyle/DECORATED":
+		*s = CompositionStringStyleDecorated
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.composition.CompositeOperation.CompositionStringStyle'", ref.MemberFqn))
+}
 
 
 `;
@@ -1582,6 +1636,9 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc.go 1`] = 
 package jsiicalc
 
 import (
+	"encoding/json"
+	"fmt"
+	"errors"
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 	"reflect"
@@ -2463,6 +2520,34 @@ const (
 	AllTypesEnumYourEnumValue AllTypesEnum = "YOUR_ENUM_VALUE"
 	AllTypesEnumThisIsGreat AllTypesEnum = "THIS_IS_GREAT"
 )
+
+func (member AllTypesEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.AllTypesEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *AllTypesEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.AllTypesEnum/MY_ENUM_VALUE":
+		*s = AllTypesEnumMyEnumValue
+		return nil
+
+	case "jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE":
+		*s = AllTypesEnumYourEnumValue
+		return nil
+
+	case "jsii-calc.AllTypesEnum/THIS_IS_GREAT":
+		*s = AllTypesEnumThisIsGreat
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.AllTypesEnum'", ref.MemberFqn))
+}
 
 // Class interface
 type AllowedMethodNamesIface interface {
@@ -4740,6 +4825,30 @@ const (
 	DeprecatedEnumOptionB DeprecatedEnum = "OPTION_B"
 )
 
+func (member DeprecatedEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.DeprecatedEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *DeprecatedEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.DeprecatedEnum/OPTION_A":
+		*s = DeprecatedEnumOptionA
+		return nil
+
+	case "jsii-calc.DeprecatedEnum/OPTION_B":
+		*s = DeprecatedEnumOptionB
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.DeprecatedEnum'", ref.MemberFqn))
+}
+
 // DeprecatedStructIface is the public interface for the custom type DeprecatedStruct
 // Deprecated: it just wraps a string
 type DeprecatedStructIface interface {
@@ -5771,6 +5880,30 @@ const (
 	ExperimentalEnumOptionB ExperimentalEnum = "OPTION_B"
 )
 
+func (member ExperimentalEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.ExperimentalEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *ExperimentalEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.ExperimentalEnum/OPTION_A":
+		*s = ExperimentalEnumOptionA
+		return nil
+
+	case "jsii-calc.ExperimentalEnum/OPTION_B":
+		*s = ExperimentalEnumOptionB
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.ExperimentalEnum'", ref.MemberFqn))
+}
+
 // ExperimentalStructIface is the public interface for the custom type ExperimentalStruct
 // Experimental.
 type ExperimentalStructIface interface {
@@ -5942,6 +6075,30 @@ const (
 	ExternalEnumOptionA ExternalEnum = "OPTION_A"
 	ExternalEnumOptionB ExternalEnum = "OPTION_B"
 )
+
+func (member ExternalEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.ExternalEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *ExternalEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.ExternalEnum/OPTION_A":
+		*s = ExternalEnumOptionA
+		return nil
+
+	case "jsii-calc.ExternalEnum/OPTION_B":
+		*s = ExternalEnumOptionB
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.ExternalEnum'", ref.MemberFqn))
+}
 
 // ExternalStructIface is the public interface for the custom type ExternalStruct
 type ExternalStructIface interface {
@@ -11419,6 +11576,26 @@ const (
 	SingletonIntEnumSingletonInt SingletonIntEnum = "SINGLETON_INT"
 )
 
+func (member SingletonIntEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.SingletonIntEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *SingletonIntEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.SingletonIntEnum/SINGLETON_INT":
+		*s = SingletonIntEnumSingletonInt
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.SingletonIntEnum'", ref.MemberFqn))
+}
+
 // Class interface
 type SingletonStringIface interface {
 	IsSingletonString(value string) bool
@@ -11450,6 +11627,26 @@ type SingletonStringEnum string
 const (
 	SingletonStringEnumSingletonString SingletonStringEnum = "SINGLETON_STRING"
 )
+
+func (member SingletonStringEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.SingletonStringEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *SingletonStringEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.SingletonStringEnum/SINGLETON_STRING":
+		*s = SingletonStringEnumSingletonString
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.SingletonStringEnum'", ref.MemberFqn))
+}
 
 // SmellyStructIface is the public interface for the custom type SmellyStruct
 type SmellyStructIface interface {
@@ -11613,6 +11810,30 @@ const (
 	StableEnumOptionA StableEnum = "OPTION_A"
 	StableEnumOptionB StableEnum = "OPTION_B"
 )
+
+func (member StableEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.StableEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *StableEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.StableEnum/OPTION_A":
+		*s = StableEnumOptionA
+		return nil
+
+	case "jsii-calc.StableEnum/OPTION_B":
+		*s = StableEnumOptionB
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.StableEnum'", ref.MemberFqn))
+}
 
 // StableStructIface is the public interface for the custom type StableStruct
 type StableStructIface interface {
@@ -11932,6 +12153,34 @@ const (
 	StringEnumB StringEnum = "B"
 	StringEnumC StringEnum = "C"
 )
+
+func (member StringEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.StringEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *StringEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.StringEnum/A":
+		*s = StringEnumA
+		return nil
+
+	case "jsii-calc.StringEnum/B":
+		*s = StringEnumB
+		return nil
+
+	case "jsii-calc.StringEnum/C":
+		*s = StringEnumC
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.StringEnum'", ref.MemberFqn))
+}
 
 // Class interface
 type StripInternalIface interface {
@@ -13788,6 +14037,9 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/child/ch
 package child
 
 import (
+	"encoding/json"
+	"fmt"
+	"errors"
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 	"reflect"
@@ -13799,6 +14051,26 @@ const (
 	AwesomenessAwesome Awesomeness = "AWESOME"
 )
 
+func (member Awesomeness) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.submodule.child.Awesomeness/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *Awesomeness) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.submodule.child.Awesomeness/AWESOME":
+		*s = AwesomenessAwesome
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.submodule.child.Awesomeness'", ref.MemberFqn))
+}
+
 type Goodness string
 
 const (
@@ -13806,6 +14078,34 @@ const (
 	GoodnessReallyGood Goodness = "REALLY_GOOD"
 	GoodnessAmazinglyGood Goodness = "AMAZINGLY_GOOD"
 )
+
+func (member Goodness) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.submodule.child.Goodness/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *Goodness) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.submodule.child.Goodness/PRETTY_GOOD":
+		*s = GoodnessPrettyGood
+		return nil
+
+	case "jsii-calc.submodule.child.Goodness/REALLY_GOOD":
+		*s = GoodnessReallyGood
+		return nil
+
+	case "jsii-calc.submodule.child.Goodness/AMAZINGLY_GOOD":
+		*s = GoodnessAmazinglyGood
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.submodule.child.Goodness'", ref.MemberFqn))
+}
 
 // Class interface
 type InnerClassIface interface {
@@ -13924,6 +14224,26 @@ type SomeEnum string
 const (
 	SomeEnumSome SomeEnum = "SOME"
 )
+
+func (member SomeEnum) MarshalJSON() ([]byte, error) {
+	fqn := fmt.Sprintf("jsii-calc.submodule.child.SomeEnum/%s", member)
+	return json.Marshal(_jsii_.EnumRef{MemberFqn: fqn})
+}
+
+func (s *SomeEnum) UnmarshalJSON(data []byte) error {
+	var ref _jsii_.EnumRef
+	err := json.Unmarshal(data, &ref)
+	if err != nil {
+		return err
+	}
+	switch ref.MemberFqn {
+	case "jsii-calc.submodule.child.SomeEnum/SOME":
+		*s = SomeEnumSome
+		return nil
+
+	}
+	return errors.New(fmt.Sprintf("Invalid enum member FQN '%s' for enum 'jsii-calc.submodule.child.SomeEnum'", ref.MemberFqn))
+}
 
 // SomeStructIface is the public interface for the custom type SomeStruct
 type SomeStructIface interface {

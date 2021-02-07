@@ -142,8 +142,27 @@ export abstract class Package {
     );
   }
 
+  /**
+   * Returns all standard library imports required by all types in this package.
+   */
+  protected get stdImports(): string[] {
+    const stdImports = new Set<string>();
+    for (const t of this.types) {
+      for (const imp of t.stdImports) {
+        stdImports.add(imp);
+      }
+    }
+    return Array.from(stdImports);
+  }
+
   private emitImports(code: CodeMaker) {
     code.open('import (');
+
+    // add imports from stdlib
+    for (const imp of this.stdImports) {
+      code.line(`"${imp}"`);
+    }
+
     if (this.usesRuntimePackage) {
       code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
     }

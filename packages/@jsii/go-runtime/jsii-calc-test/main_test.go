@@ -167,7 +167,22 @@ func TestReturnsSpecialParam(t *testing.T) {
 	}
 }
 
-func TestEnum(t *testing.T) {
+func TestEnumUnmarshal(t *testing.T) {
+	actual := calc.EnumDispenser_RandomStringLikeEnum()
+	if actual != calc.StringEnumB {
+		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
+	}
+}
+
+func TestEnumRoundtrip(t *testing.T) {
 	allTypes := calc.NewAllTypes()
-	allTypes.EnumMethod(calc.StringEnumA)
+	actual := allTypes.EnumMethod(calc.StringEnumA)
+	if actual != calc.StringEnumA {
+		t.Errorf("Expected StringEnum.A. Actual: %s", actual)
+	}
+
+	actual = allTypes.EnumMethod(calc.StringEnumC)
+	if actual != calc.StringEnumC {
+		t.Errorf("Expected StringEnum.C. Actual: %s", actual)
+	}
 }

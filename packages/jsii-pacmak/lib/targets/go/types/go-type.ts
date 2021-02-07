@@ -15,6 +15,11 @@ export abstract class GoType {
   public readonly fqn: string;
   public readonly interfaceName: string;
 
+  /**
+   * Set of standard library imports.
+   */
+  public readonly stdImports = new Set<string>();
+
   public constructor(public pkg: Package, public type: Type) {
     this.name = toPascalCase(type.name);
     this.interfaceName = this.name;

@@ -1,6 +1,7 @@
 package jsii
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -286,8 +287,18 @@ func castAndSetToPtr(ptr interface{}, data interface{}, implMap implementationMa
 		client := getClient()
 		client.objects[ptrVal.Interface()] = ref.InstanceID
 	} else {
-		val := reflect.ValueOf(data)
-		ptrVal.Set(val)
+		// Attempt to unmarshal (again) with the concrete return type. This gives
+		// custom unmarshal logic (e.g. for $jsii.enums) an opportunity to be discovered
+		// based on the actual return type.
+		bytes, err := json.Marshal(data)
+		if err != nil {
+			panic(err)
+		}
+
+		err = json.Unmarshal(bytes, ptr)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
