@@ -258,10 +258,10 @@ public final class JsiiRuntime {
 
         try {
             final Pipe stdin = Pipe.open();
-            this.stdin = Channels.newWriter(stdin.sink(), StandardCharsets.UTF_8);
+            this.stdin = Channels.newWriter(stdin.sink(), StandardCharsets.UTF_8.newEncoder(), -1);
 
             final Pipe stdout = Pipe.open();
-            this.stdout = new BufferedReader(Channels.newReader(stdout.source(), StandardCharsets.UTF_8));
+            this.stdout = new BufferedReader(Channels.newReader(stdout.source(), StandardCharsets.UTF_8.newDecoder(), -1));
 
             final ProcessExecutor executor = new ProcessExecutor(jsiiRuntimeCommand)
                     .environment("JSII_AGENT", String.format("Java/%s", System.getProperty("java.version")))
