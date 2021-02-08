@@ -1,4 +1,4 @@
-FROM amazonlinux:2
+FROM public.ecr.aws/amazonlinux/amazonlinux:2
 
 # Set locale and some other interesting environment variables
 ENV LANG="C.UTF-8"                                                                                                      \
