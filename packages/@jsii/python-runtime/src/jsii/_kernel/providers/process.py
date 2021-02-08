@@ -282,9 +282,10 @@ class _NodeProcess:
         # This process is closing already, un-registering the hook to not fire twice
         atexit.unregister(self.stop)
 
-        self._process.stdin.write(b'{"exit":0}\n')
-        # Close the process' STDIN, singaling we are done with it
-        self._process.stdin.close()
+        if not self._process.stdin.closed:
+            self._process.stdin.write(b'{"exit":0}\n')
+            # Close the process' STDIN, singaling we are done with it
+            self._process.stdin.close()
 
         try:
             self._process.wait(timeout=5)

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.1](https://github.com/aws/jsii/compare/v1.20.0...v1.20.1) (2021-02-05)
+
+
+### Bug Fixes
+
+* **python:** ValueError: write to closed file ([#2541](https://github.com/aws/jsii/issues/2541)) ([64c6853](https://github.com/aws/jsii/commit/64c68535a3ef16b85f2eedc7997fb4404846e003))
+
 ## [1.20.0](https://github.com/aws/jsii/compare/v1.19.0...v1.20.0) (2021-02-03)
 
 
