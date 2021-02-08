@@ -76,7 +76,7 @@ jobs:
           yarn build
       - name: Prepare Artifact
         run: |-
-          tar jcvf ${{ runner.temp }}/built-tree.tar.bz2                        \
+          tar zcvf ${{ runner.temp }}/built-tree.tgz                            \
             --exclude='**/.env'                                                 \
             --exclude='**/.nuget'                                               \
             --exclude='**/node_modules'                                         \
@@ -89,7 +89,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: built-tree
-          path: ${{ runner.temp }}/built-tree.tar.bz2
+          path: ${{ runner.temp }}/built-tree.tgz
       # Ensure working directory is clean (build should not change checked in source code)
       - name: 'Assert clean working directory'
         if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
@@ -274,10 +274,10 @@ jobs:
       - name: Extract Artifact
         run: |-
           echo "::group::Untar Archive"
-          tar jxvf built-tree.tar.bz2
+          tar zxvf built-tree.tgz
           echo "::endgroup"
 
-          rm built-tree.tar.bz2
+          rm built-tree.tgz
       - name: Locate Caches
         id: cache-locations
         run: |-
@@ -475,10 +475,10 @@ jobs:
         working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
           echo "::group::Untar Archive"
-          tar jxvf built-tree.tar.bz2
+          tar zxvf built-tree.tgz
           echo "::endgroup"
 
-          rm built-tree.tar.bz2
+          rm built-tree.tgz
       - name: Get Last Commit Message
         id: get-last-commit-msg
         working-directory: ${{ github.workspace }}/jsii-built-tree
