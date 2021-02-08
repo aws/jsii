@@ -1,5 +1,5 @@
 import { CodeMaker } from 'codemaker';
-import * as fs from 'fs-extra';
+import { promises as fs } from 'fs';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
@@ -46,8 +46,16 @@ export class Golang extends Target {
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;
-    await fs.remove(path.join(pkgDir, localGoMod));
-    await fs.remove(path.join(pkgDir, localGoSum));
+    await fs.unlink(path.join(pkgDir, localGoMod)).catch((err) =>
+      err.code === 'ENOENT'
+        ? void undefined // ENOENT means the file did not exist, so we're good!
+        : Promise.reject(err),
+    );
+    await fs.unlink(path.join(pkgDir, localGoSum)).catch((err) =>
+      err.code === 'ENOENT'
+        ? void undefined // ENOENT means the file did not exist, so we're good!
+        : Promise.reject(err),
+    );
   }
 
   /**
@@ -78,27 +86,34 @@ export class Golang extends Target {
     // local build directory for this module. if
     // we do, add a "replace" directive to point to it instead of download from
     // the network.
-    const visit = (pkg: RootPackage) => {
-      for (const dep of pkg.packageDependencies) {
-        for (const baseDir of dirs) {
-          const moduleDir = tryFindLocalModule(baseDir, dep);
-          if (moduleDir) {
-            replace[dep.goModuleName] = moduleDir;
-          }
-        }
-
-        // recurse to transitive deps ("replace" is only considered at the top level go.mod)
-        visit(dep);
-      }
+    const visit = async (pkg: RootPackage): Promise<void> => {
+      return Promise.all(
+        pkg.packageDependencies.map((dep) =>
+          Promise.all(
+            dirs.map((baseDir) =>
+              tryFindLocalModule(baseDir, dep).then((moduleDir) => {
+                if (moduleDir) {
+                  replace[dep.goModuleName] = moduleDir;
+                }
+              }),
+            ),
+          ).then(() =>
+            // recurse to transitive deps ("replace" is only considered at the top level go.mod)
+            visit(dep),
+          ),
+        ),
+      ).then(() => void undefined);
     };
 
-    visit(this.goGenerator.rootPackage);
+    await visit(this.goGenerator.rootPackage);
 
     // write `local.go.mod`
 
     // read existing content
     const goMod = path.join(pkgDir, GOMOD_FILENAME);
-    const lines = (await fs.readFile(goMod, 'utf-8')).split('\n');
+    const lines = await fs
+      .readFile(goMod, 'utf8')
+      .then((text) => text.split('\n'));
 
     for (const [from, to] of Object.entries(replace)) {
       logging.info(`Local replace: ${from} => ${to}`);
@@ -185,14 +200,24 @@ class GoGenerator implements IGenerator {
  * @param baseDir the `dist/go` directory
  * @returns `undefined` if not or the module directory otherwise.
  */
-function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
+async function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
   const gomodPath = path.join(baseDir, pkg.packageName, GOMOD_FILENAME);
-  if (!fs.pathExistsSync(gomodPath)) {
+  if (
+    !(await fs.stat(gomodPath).then(
+      () => true, // File exists - we could stat it!
+      (err) =>
+        err.code === 'ENOENT'
+          ? false // ENOENT means the file does not exist...
+          : Promise.reject(err), // Re-throw the error!
+    ))
+  ) {
     return undefined;
   }
 
   // read `go.mod` and check that it is for the correct module
-  const gomod = fs.readFileSync(gomodPath, 'utf-8').split('\n');
+  const gomod = await fs
+    .readFile(gomodPath, 'utf8')
+    .then((text) => text.split('\n'));
   const isExpectedModule = gomod.find(
     (line) => line.trim() === `module ${pkg.goModuleName}`,
   );
