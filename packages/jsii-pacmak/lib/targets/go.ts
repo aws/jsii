@@ -46,16 +46,19 @@ export class Golang extends Target {
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;
-    await fs.unlink(path.join(pkgDir, localGoMod)).catch((err) =>
-      err.code === 'ENOENT'
-        ? void undefined // ENOENT means the file did not exist, so we're good!
-        : Promise.reject(err),
-    );
-    await fs.unlink(path.join(pkgDir, localGoSum)).catch((err) =>
-      err.code === 'ENOENT'
-        ? void undefined // ENOENT means the file did not exist, so we're good!
-        : Promise.reject(err),
-    );
+    await unlink(path.join(pkgDir, localGoMod));
+    await unlink(path.join(pkgDir, localGoSum));
+
+    async function unlink(file: string): Promise<void> {
+      try {
+        await fs.unlink(file);
+      } catch (err) {
+        // Ignore ENOENT, as this means the file already does not exist
+        if (err.code !== 'ENOENT') {
+          throw err;
+        }
+      }
+    }
   }
 
   /**
@@ -87,9 +90,9 @@ export class Golang extends Target {
     // we do, add a "replace" directive to point to it instead of download from
     // the network.
     const visit = async (pkg: RootPackage): Promise<void> => {
-      return Promise.all(
-        pkg.packageDependencies.map((dep) =>
-          Promise.all(
+      await Promise.all(
+        pkg.packageDependencies.map(async (dep) => {
+          await Promise.all(
             dirs.map((baseDir) =>
               tryFindLocalModule(baseDir, dep).then((moduleDir) => {
                 if (moduleDir) {
@@ -97,12 +100,11 @@ export class Golang extends Target {
                 }
               }),
             ),
-          ).then(() =>
-            // recurse to transitive deps ("replace" is only considered at the top level go.mod)
-            visit(dep),
-          ),
-        ),
-      ).then(() => void undefined);
+          );
+          // recurse to transitive deps ("replace" is only considered at the top level go.mod)
+          return visit(dep);
+        }),
+      );
     };
 
     await visit(this.goGenerator.rootPackage);
