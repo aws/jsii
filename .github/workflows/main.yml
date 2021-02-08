@@ -76,7 +76,7 @@ jobs:
           yarn build
       - name: Prepare Artifact
         run: |-
-          tar Jcvf ${{ runner.temp }}/built-tree.tar.xz                         \
+          tar jcvf ${{ runner.temp }}/built-tree.tar.bz2                        \
             --exclude='**/.env'                                                 \
             --exclude='**/.nuget'                                               \
             --exclude='**/node_modules'                                         \
@@ -89,7 +89,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: built-tree
-          path: ${{ runner.temp }}/built-tree.tar.xz
+          path: ${{ runner.temp }}/built-tree.tar.bz2
       # Ensure working directory is clean (build should not change checked in source code)
       - name: 'Assert clean working directory'
         if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
@@ -267,27 +267,17 @@ jobs:
       - name: 'Linux: Install python3-venv'
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
-      - name: 'Windows: Expose python3 command'
-        if: runner.os == 'Windows'
-        shell: bash
-        run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
           name: built-tree
-      # Put GitBash ahead of $PATH, so we avoid surprises due to bad tar, etc...
-      # (technically a hack around https://github.com/actions/virtual-environments/issues/282)
-      - name: 'Windows: Put GitBash ahead of $PATH'
-        if: runner.os == 'Windows'
-        run: |-
-          echo "C:\Program Files\Git\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Extract Artifact
         run: |-
           echo "::group::Untar Archive"
-          tar Jxvf built-tree.tar.xz
+          tar jxvf built-tree.tar.bz2
           echo "::endgroup"
 
-          rm built-tree.tar.xz
+          rm built-tree.tar.bz2
       - name: Locate Caches
         id: cache-locations
         run: |-
@@ -485,10 +475,10 @@ jobs:
         working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
           echo "::group::Untar Archive"
-          tar Jxvf built-tree.tar.xz
+          tar jxvf built-tree.tar.bz2
           echo "::endgroup"
 
-          rm built-tree.tar.xz
+          rm built-tree.tar.bz2
       - name: Get Last Commit Message
         id: get-last-commit-msg
         working-directory: ${{ github.workspace }}/jsii-built-tree
