@@ -34,6 +34,6 @@
     "@types/tar": "^4.0.4",
     "eslint": "^7.19.0",
     "prettier": "^2.2.1",
-    "typescript": "~3.9.7"
+    "typescript": "~3.9.8"
   }
 }

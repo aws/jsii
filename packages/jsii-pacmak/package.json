@@ -69,7 +69,7 @@
     "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.0",
-    "typescript": "~3.9.7"
+    "typescript": "~3.9.8"
   },
   "keywords": [
     "jsii",
