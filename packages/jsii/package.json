@@ -44,7 +44,7 @@
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.4.0",
-    "typescript": "~3.9.7",
+    "typescript": "~3.9.8",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
