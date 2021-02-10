@@ -30,7 +30,7 @@
     "lerna": "^3.22.1",
     "prettier": "^2.2.1",
     "standard-version": "^9.1.0",
-    "ts-jest": "^26.5.0",
+    "ts-jest": "^26.5.1",
     "ts-node": "^9.1.1",
     "typescript": "~3.9.8"
   },
