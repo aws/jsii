@@ -50,6 +50,6 @@
     "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.1",
-    "typescript": "~3.9.8"
+    "typescript": "~3.9.9"
   }
 }
