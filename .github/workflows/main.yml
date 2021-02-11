@@ -480,8 +480,6 @@ jobs:
         working-directory: ${{ github.workspace }}/jsii-built-tree
         # if: github.ref == 'refs/head/release'
         run: |-
-          ls -la
-          exit 1
           VERSION=$(node -e 'console.log(require("./lerna.json").version)')
           echo ${VERSION} > version
           DRYRUN=true npx -p jsii-release@latest jsii-release-golang .
