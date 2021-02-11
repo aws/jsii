@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main, release]
   push:
-    branches: [main, release, epolon/publish-go-runtime-with-jsii-release]
+    branches: [main, release]
 
 env:
   DOTNET_NOLOGO: true
@@ -478,7 +478,7 @@ jobs:
           rm built-tree.tgz
       - name: Release
         working-directory: ${{ github.workspace }}/jsii-built-tree
-        # if: github.ref == 'refs/head/release'
+        if: github.ref == 'refs/head/release'
         run: |-
           VERSION=$(node -p 'require("./lerna.json").version')
           cd ./packages/@jsii/go-runtime/jsii-runtime-go
