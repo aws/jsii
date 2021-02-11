@@ -483,7 +483,7 @@ jobs:
           exit 1
           VERSION=$(node -e 'console.log(require("./lerna.json").version)')
           echo ${VERSION} > version
-          npx -p jsii-release@latest jsii-release-golang .
+          DRYRUN=true npx -p jsii-release@latest jsii-release-golang .
         env:
           GIT_USER_NAME: AWS CDK Team
           GIT_USER_EMAIL: aws-cdk-dev@amazon.com
