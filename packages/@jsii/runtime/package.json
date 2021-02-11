@@ -49,7 +49,7 @@
     "prettier": "^2.2.1",
     "source-map-loader": "^2.0.1",
     "ts-jest": "^26.5.1",
-    "typescript": "~3.9.8",
+    "typescript": "~3.9.9",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
   }

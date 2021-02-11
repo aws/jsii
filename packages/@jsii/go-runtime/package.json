@@ -31,6 +31,6 @@
     "jsii-pacmak": "^0.0.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
-    "typescript": "~3.9.8"
+    "typescript": "~3.9.9"
   }
 }

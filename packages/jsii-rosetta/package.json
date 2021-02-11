@@ -34,7 +34,7 @@
     "@jsii/spec": "^0.0.0",
     "commonmark": "^0.29.3",
     "fs-extra": "^9.1.0",
-    "typescript": "~3.9.8",
+    "typescript": "~3.9.9",
     "xmldom": "^0.4.0",
     "yargs": "^16.2.0"
   },
