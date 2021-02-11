@@ -477,12 +477,12 @@ jobs:
           tar zxvf built-tree.tgz
           rm built-tree.tgz
       - name: Release
-        working-directory: ${{ github.workspace }}/jsii-built-tree
+        working-directory: ${{ github.workspace }}/jsii-built-tree/packages/@jsii/go-runtime/jsii-runtime-go
         # if: github.ref == 'refs/head/release'
         run: |-
           VERSION=$(node -p 'require("./lerna.json").version')
           echo ${VERSION} > version
-          DRYRUN=true npx -p jsii-release@latest jsii-release-golang ./packages/@jsii/go-runtime/jsii-runtime-go
+          DRYRUN=true npx -p jsii-release@latest jsii-release-golang .
         env:
           GIT_USER_NAME: AWS CDK Team
           GIT_USER_EMAIL: aws-cdk-dev@amazon.com
