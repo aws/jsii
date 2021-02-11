@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main, release]
   push:
-    branches: [main, release]
+    branches: [main, release, epolon/publish-go-runtime-with-jsii-release]
 
 env:
   DOTNET_NOLOGO: true
@@ -474,77 +474,17 @@ jobs:
       - name: Extract Artifact
         working-directory: ${{ github.workspace }}/jsii-built-tree
         run: |-
-          echo "::group::Untar Archive"
           tar zxvf built-tree.tgz
-          echo "::endgroup"
-
           rm built-tree.tgz
-      - name: Get Last Commit Message
-        id: get-last-commit-msg
-        working-directory: ${{ github.workspace }}/jsii-built-tree
-        run: |-
-          message=$(git log -1 --format=%s)
-          echo "::set-output name=result::$message"
-      - name: Locate Caches
-        id: cache-locations
-        run: |-
-          echo "::set-output name=yarn-cache::$(yarn cache dir)"
-      - name: Cache
-        uses: actions/cache@v2.1.4
-        with:
-          path: |-
-            ${{ steps.cache-locations.outputs.yarn-cache }}
-            ${{ github.workspace }}/node_modules
-            ${{ github.workspace }}/*/*/node_modules
-          key: ${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |-
-            ${{ runner.os }}-yarn-
-      - name: Install Dependencies
-        working-directory: ${{ github.workspace }}/jsii-built-tree
-        run: |-
-          yarn install --frozen-lockfile
-      - name: Build Runtime Repo Directory
-        id: build-repo-dir
-        run: |-
-          mkdir ${{ github.workspace }}/jsii-runtime-go
-          repo_dir=${{ github.workspace }}/jsii-runtime-go
-          echo "::set-output name=repodir::$repo_dir"
-      - name: Clone Runtime
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ secrets.JSII_RUNTIME_REPO_NAME }}
-          ref: 'main'
-          token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
-          path: ${{ steps.build-repo-dir.outputs.repodir }}
-      - name: Copy Runtime Files
-        working-directory: ${{ github.workspace }}/jsii-built-tree/packages/@jsii/go-runtime
-        run: |-
-          yarn ts-node ./build-tools/build-repo-dir.ts ${{ steps.build-repo-dir.outputs.repodir }}
-      - name: Check for changes
-        id: check-for-changes
-        working-directory: ${{ steps.build-repo-dir.outputs.repodir }}
-        run: |-
-          git fetch --depth=1 --quiet origin main
-          git add .
-          # Check for modifications in tracked files
-          changed=$(git diff --name-only origin/main)
-          if [-z "$changed"]; then
-            echo "::set-output name=result::false"
-          else
-            echo "::set-output name=result::true"
-          fi
-      - name: Commit and Push
-        if: steps.check-for-changes.outputs.result == 'true'
-        working-directory: ${{ steps.build-repo-dir.outputs.repodir }}
-        run: |-
-          git config user.name "AWS CDK Automation"
-          git config user.email "aws-cdk+automation@amazon.com"
-          git commit -m "${{ steps.get-last-commit-msg.outputs.result }}"
-          git push
-      - name: Tag Release
+      - name: Release
         if: github.ref == 'refs/head/release'
         run: |-
+          ls -la
+          exit 1
           VERSION=$(node -e 'console.log(require("./lerna.json").version)')
-          cd ${{ steps.build-repo-dir.outputs.repodir }}
-          git tag -a $VERSION -m "v$VERSION"
-          git push $VERSION
+          echo ${VERSION} > version
+          npx -p jsii-release@latest jsii-release-golang .
+        env:
+          GIT_USER_NAME: AWS CDK Team
+          GIT_USER_EMAIL: aws-cdk-dev@amazon.com
+
