@@ -487,4 +487,5 @@ jobs:
         env:
           GIT_USER_NAME: AWS CDK Team
           GIT_USER_EMAIL: aws-cdk-dev@amazon.com
+          GITHUB_TOKEN: ${{ secrets.GO_PUBLISHING_TOKEN }}
 
