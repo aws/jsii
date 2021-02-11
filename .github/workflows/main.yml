@@ -480,9 +480,9 @@ jobs:
         working-directory: ${{ github.workspace }}/jsii-built-tree
         # if: github.ref == 'refs/head/release'
         run: |-
-          VERSION=$(node -e 'console.log(require("./lerna.json").version)')
+          VERSION=$(node -p 'require("./lerna.json").version')
           echo ${VERSION} > version
-          DRYRUN=true npx -p jsii-release@latest jsii-release-golang .
+          DRYRUN=true npx -p jsii-release@latest jsii-release-golang ./packages/@jsii/go-runtime/jsii-runtime-go
         env:
           GIT_USER_NAME: AWS CDK Team
           GIT_USER_EMAIL: aws-cdk-dev@amazon.com
