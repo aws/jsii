@@ -483,7 +483,7 @@ jobs:
           VERSION=$(node -p 'require("./lerna.json").version')
           cd ./packages/@jsii/go-runtime/jsii-runtime-go
           echo ${VERSION} > version
-          DRYRUN=true npx -p jsii-release@latest jsii-release-golang .
+          npx -p jsii-release@latest jsii-release-golang .
         env:
           GIT_USER_NAME: AWS CDK Team
           GIT_USER_EMAIL: aws-cdk-dev@amazon.com
