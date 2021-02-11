@@ -477,6 +477,7 @@ jobs:
           tar zxvf built-tree.tgz
           rm built-tree.tgz
       - name: Release
+        working-directory: ${{ github.workspace }}/jsii-built-tree
         # if: github.ref == 'refs/head/release'
         run: |-
           ls -la
