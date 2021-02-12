@@ -22,7 +22,7 @@
     "@jsii/runtime": "^0.0.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.1.1",
+    "@types/fs-extra": "^9.0.7",
     "@types/node": "^10.17.51",
     "codemaker": "^0.0.0",
     "eslint": "^7.19.0",
