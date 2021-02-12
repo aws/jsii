@@ -8,11 +8,6 @@ import (
 	"regexp"
 )
 
-// Maps interface types to their concrete implementation structs. Used by
-// `castAndSetToPtr` to instantiate a concrete type that implements the
-// the interface as dictated by the type of the ret value.
-type implementationMap = map[reflect.Type]reflect.Type
-
 // Load ensures a npm package is loaded in the jsii kernel.
 func Load(name string, version string, tarball []byte) {
 	client := getClient()
@@ -42,6 +37,42 @@ func Load(name string, version string, tarball []byte) {
 	}
 }
 
+// RegisterClass associates a class fully qualified name to the specified
+// struct type, and class interface.
+func RegisterClass(fqn FQN, class reflect.Type, iface reflect.Type) {
+	client := getClient()
+	if err := client.types.registerClass(fqn, class, iface); err != nil {
+		panic(err)
+	}
+}
+
+// RegisterEnum associates an enum's fully qualified name to the specified
+// enum type, and members.
+func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
+	client := getClient()
+	if err := client.types.registerEnum(fqn, enum, members); err != nil {
+		panic(err)
+	}
+}
+
+// RegisterInterface associates an interface's fully qualified name to the
+// specified interface type, and proxy struct.
+func RegisterInterface(fqn FQN, iface reflect.Type, proxy reflect.Type) {
+	client := getClient()
+	if err := client.types.registerInterface(fqn, iface, proxy); err != nil {
+		panic(err)
+	}
+}
+
+// RegisterStruct associates a struct's fully qualified name to the specified
+// struct type, and struct interface.
+func RegisterStruct(fqn FQN, strct reflect.Type, iface reflect.Type) {
+	client := getClient()
+	if err := client.types.registerStruct(fqn, strct, iface); err != nil {
+		panic(err)
+	}
+}
+
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
 func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, ret interface{}) {
@@ -64,7 +95,7 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 
 // Invoke will call a method on a jsii class instance. The response should be
 // decoded into the expected return type for the method being called.
-func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, ret interface{}, implMap implementationMap) {
+func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, ret interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -88,13 +119,13 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 	}
 
 	if hasReturn {
-		castAndSetToPtr(ret, res.Result, implMap)
+		client.castAndSetToPtr(ret, res.Result)
 	}
 }
 
 // InvokeStatic will call a static method on a given jsii class. The response
 // should be decoded into the expected return type for the method being called.
-func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}, implMap implementationMap) {
+func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}) {
 	client := getClient()
 
 	res, err := client.sinvoke(staticInvokeRequest{
@@ -109,13 +140,13 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, re
 	}
 
 	if hasReturn {
-		castAndSetToPtr(ret, res.Result, implMap)
+		client.castAndSetToPtr(ret, res.Result)
 	}
 }
 
 // Get reads a property value on a given jsii class instance. The response
 // should be decoded into the expected type of the property being read.
-func Get(obj interface{}, property string, ret interface{}, implMap implementationMap) {
+func Get(obj interface{}, property string, ret interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -137,12 +168,12 @@ func Get(obj interface{}, property string, ret interface{}, implMap implementati
 		panic(err)
 	}
 
-	castAndSetToPtr(ret, res.Value, implMap)
+	client.castAndSetToPtr(ret, res.Value)
 }
 
 // StaticGet reads a static property value on a given jsii class. The response
 // should be decoded into the expected type of the property being read.
-func StaticGet(fqn FQN, property string, ret interface{}, implMap implementationMap) {
+func StaticGet(fqn FQN, property string, ret interface{}) {
 	client := getClient()
 
 	res, err := client.sget(staticGetRequest{
@@ -155,7 +186,7 @@ func StaticGet(fqn FQN, property string, ret interface{}, implMap implementation
 		panic(err)
 	}
 
-	castAndSetToPtr(ret, res.Value, implMap)
+	client.castAndSetToPtr(ret, res.Value)
 }
 
 // Set writes a property on a given jsii class instance. The value should match
@@ -264,7 +295,7 @@ func castPtrsToRef(args []interface{}) []interface{} {
 // argument to be the same type. Then it sets the value of the pointer element
 // to be the newly cast data. This is used to cast payloads from JSII to
 // expected return types for Get and Invoke functions.
-func castAndSetToPtr(ptr interface{}, data interface{}, implMap implementationMap) {
+func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
 	dataVal := reflect.ValueOf(data)
 
@@ -276,15 +307,17 @@ func castAndSetToPtr(ptr interface{}, data interface{}, implMap implementationMa
 			innerType := ptrVal.Type().Elem()
 			inner := reflect.New(innerType)
 
-			castAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface(), implMap)
+			c.castAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface())
 			ptrVal.Set(reflect.Append(ptrVal, inner.Elem()))
 		}
 	} else if isRef {
 		// If return data is JSII object references, add to objects table.
-		concreteType := implMap[ptrVal.Type()]
+		concreteType, ok := c.types.concreteTypeFor(ptrVal.Type())
+		if !ok {
+			panic(fmt.Errorf("unable to determine concrete type for %v", ptrVal.Type()))
+		}
 		ptrVal.Set(reflect.New(concreteType))
-		client := getClient()
-		client.objects[ptrVal.Interface()] = ref.InstanceID
+		c.objects[ptrVal.Interface()] = ref.InstanceID
 	} else {
 		val := reflect.ValueOf(data)
 		ptrVal.Set(val)

@@ -42,14 +42,6 @@ type TypeMap =
   | { readonly type: 'interface'; readonly value: GoTypeRef }
   | { readonly type: 'void' };
 
-/**
- * Maps interface to concrete struct for use in implementation maps
- */
-export interface ImplementationMap {
-  interfaceName: string;
-  structName: string;
-}
-
 /*
  * Accepts a JSII TypeReference and Go Package and can resolve the GoType within the module tree.
  */
@@ -139,26 +131,6 @@ export class GoTypeRef {
     }
 
     return { type: 'interface', value: ref };
-  }
-
-  /**
-   * Builds a map of interface to concrete types. This is passed to the runtime
-   * so that return types of interfaces can correctly be constructucted.
-   */
-  public scopedImplMap(scope: Package): ImplementationMap | void {
-    if (
-      this.typeMap.type === 'array' ||
-      this.typeMap.type === 'map' ||
-      this.typeMap.type === 'interface'
-    ) {
-      const { value } = this.typeMap;
-      return {
-        interfaceName: value.scopedInterfaceName(scope),
-        structName: value.scopedName(scope),
-      };
-    }
-
-    return undefined;
   }
 
   private scopedTypeName(

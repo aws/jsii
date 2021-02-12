@@ -107,6 +107,25 @@ export abstract class Package {
     this.emitTypes(context);
     code.closeFile(this.file);
 
+    if (this.types.length > 0) {
+      const initFile = this.file.replace(/(\.go)$/, '.init$1');
+      code.openFile(initFile);
+      code.line(`package ${this.packageName}`);
+      code.line();
+      code.open('import (');
+      code.line('"reflect"');
+      code.line();
+      code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+      code.close(')');
+      code.line();
+      code.openBlock('func init()');
+      for (const type of this.types) {
+        type.emitRegistration(code);
+      }
+      code.closeBlock();
+      code.closeFile(initFile);
+    }
+
     this.emitInternalPackages(context);
   }
 
@@ -135,13 +154,6 @@ export abstract class Package {
     );
   }
 
-  protected get usesReflectionPackage(): boolean {
-    return (
-      this.types.some((type) => type.usesReflectionPackage) ||
-      this.submodules.some((sub) => sub.usesReflectionPackage)
-    );
-  }
-
   private emitImports(code: CodeMaker) {
     code.open('import (');
     if (this.usesRuntimePackage) {
@@ -152,10 +164,6 @@ export abstract class Package {
       code.line(
         `${JSII_INIT_ALIAS} "${this.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
       );
-    }
-
-    if (this.usesReflectionPackage) {
-      code.line(`"reflect"`);
     }
 
     for (const packageName of this.dependencyImports) {

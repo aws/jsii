@@ -28,7 +28,6 @@ export class MethodCall extends FunctionCall {
     code.line(`${this.argsString},`);
     code.line(`${this.returnsVal ? 'true' : 'false'},`);
     code.line(`&${this.returnVarName},`);
-    this.emitImplMapVal(code);
 
     code.close(`)`);
 
@@ -48,7 +47,6 @@ export class MethodCall extends FunctionCall {
     code.line(`${this.argsString},`);
     code.line(`${this.returnsVal ? 'true' : 'false'},`);
     code.line(`&${this.returnVarName},`);
-    this.emitImplMapVal(code);
 
     code.close(`)`);
 

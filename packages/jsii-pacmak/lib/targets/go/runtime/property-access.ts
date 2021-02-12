@@ -23,7 +23,6 @@ export class GetProperty extends FunctionCall {
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.property.name}",`);
     code.line(`&${resultVar},`);
-    this.emitImplMapVal(code);
     code.close(`)`);
 
     code.line(`return ${resultVar}`);
@@ -56,7 +55,6 @@ export class StaticGetProperty extends FunctionCall {
     code.line(`"${this.parent.parent.fqn}",`);
     code.line(`"${this.parent.property.name}",`);
     code.line(`&${resultVar},`);
-    this.emitImplMapVal(code);
     code.close(`)`);
 
     code.line(`return ${resultVar}`);

@@ -35,6 +35,7 @@ type client struct {
 	stdin  io.WriteCloser
 	tmpdir string
 
+	types   *typeRegistry
 	objects map[interface{}]string
 }
 
@@ -86,6 +87,7 @@ func newClient() (*client, error) {
 
 	clientinstance := &client{
 		objects: objmap,
+		types:   newTypeRegistry(),
 	}
 
 	// Register a finalizer to call Close()
