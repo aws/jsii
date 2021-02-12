@@ -63,7 +63,6 @@ const mainKey = JSON.stringify(
   Object.keys(fileInfo).find((f) => f.endsWith('jsii-runtime.js')),
 )!;
 code.line(`const embeddedruntimeMain = ${mainKey}`);
-code.line();
 code.closeFile(RUNTIME_FILE);
 
 // This allows us to sanity-check we've generated correct data
