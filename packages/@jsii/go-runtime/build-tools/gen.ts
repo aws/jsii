@@ -94,7 +94,7 @@ for (const [file, { size, hash }] of Object.entries(fileInfo)) {
   code.open('checkEmbeddedFile(');
   code.line('t,');
   code.line(`"${file}",`);
-  code.line(`${size},`);
+  code.line(`${readableNumber(size)},`);
   code.open('[sha512.Size]byte{');
   formatBytes(code, hash);
   code.close('},');
@@ -162,4 +162,31 @@ function formatBytes(
     const line = byteSlice.slice(i, i + bytesPerLine);
     code.line(`${line.join(', ')},`);
   }
+}
+
+/**
+ * Turns a integer into a "human-readable" format, adding an `_` thousand
+ * separator.
+ *
+ * @param val an integer to be formatted.
+ *
+ * @returns the formatted number with thousand separators.
+ */
+function readableNumber(val: number): string {
+  return val.toFixed(0).replace(
+    // This regex can be a little jarring, so it is annotated below with the
+    // corresponding explanation. It can also be explained in plain english:
+    // matches the position before any sequence of N consecutive digits (0-9)
+    // where N is a multiple of 3.
+    /**/ /\B(?=(\d{3})+(?!\d))/g,
+    //    \B                      -- not a word boundary (i.e: not start of input)
+    //      (?=              )    -- positive lookahead (does not consume input)
+    //         (     )+           -- repeated one or more times
+    //          \d                -- any digit (0-9)
+    //            {3}             -- repeated exactly 3 times
+    //                 (?!  )     -- negative lookahead (does not consume input)
+    //                    \d      -- any digit (0-9), negated by surrounding group
+    //
+    '_',
+  );
 }
