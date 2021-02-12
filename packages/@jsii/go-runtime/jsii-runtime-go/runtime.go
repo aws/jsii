@@ -37,8 +37,10 @@ func Load(name string, version string, tarball []byte) {
 	}
 }
 
-// RegisterClass associates a class fully qualified name to the specified
-// struct type, and class interface.
+// RegisterClass associates a class fully qualified name to the specified struct
+// type, and class interface. Panics if class is not a struct, iface is not an
+// interface, or if the provided fqn was already used to register a different
+// type.
 func RegisterClass(fqn FQN, class reflect.Type, iface reflect.Type) {
 	client := getClient()
 	if err := client.types.registerClass(fqn, class, iface); err != nil {
@@ -46,8 +48,10 @@ func RegisterClass(fqn FQN, class reflect.Type, iface reflect.Type) {
 	}
 }
 
-// RegisterEnum associates an enum's fully qualified name to the specified
-// enum type, and members.
+// RegisterEnum associates an enum's fully qualified name to the specified enum
+// type, and members. Panics if enum is not a reflect.String type, any value in
+// the provided members map is of a type ofther than enum, or if the provided
+// fqn was already used to register a different type.
 func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
 	client := getClient()
 	if err := client.types.registerEnum(fqn, enum, members); err != nil {
@@ -56,7 +60,9 @@ func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
 }
 
 // RegisterInterface associates an interface's fully qualified name to the
-// specified interface type, and proxy struct.
+// specified interface type, and proxy struct. Panics if iface is not an
+// interface, proxy is not a struct, or if the provided fqn was already used to
+// register a different type.
 func RegisterInterface(fqn FQN, iface reflect.Type, proxy reflect.Type) {
 	client := getClient()
 	if err := client.types.registerInterface(fqn, iface, proxy); err != nil {
@@ -65,7 +71,9 @@ func RegisterInterface(fqn FQN, iface reflect.Type, proxy reflect.Type) {
 }
 
 // RegisterStruct associates a struct's fully qualified name to the specified
-// struct type, and struct interface.
+// struct type, and struct interface. Panics if strct is not a struct, iface is
+// not an interface, or if the provided fqn was already used to register a
+// different type.
 func RegisterStruct(fqn FQN, strct reflect.Type, iface reflect.Type) {
 	client := getClient()
 	if err := client.types.registerStruct(fqn, strct, iface); err != nil {
@@ -123,9 +131,9 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 	}
 }
 
-// InvokeStatic will call a static method on a given jsii class. The response
+// StaticInvoke will call a static method on a given jsii class. The response
 // should be decoded into the expected return type for the method being called.
-func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}) {
+func StaticInvoke(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}) {
 	client := getClient()
 
 	res, err := client.sinvoke(staticInvokeRequest{

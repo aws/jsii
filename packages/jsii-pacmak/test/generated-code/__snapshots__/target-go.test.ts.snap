@@ -185,7 +185,7 @@ func NewStaticConsumer() StaticConsumerIface {
 func StaticConsumer_Consume(args interface{}) {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"@scope/jsii-calc-base.StaticConsumer",
 		"consume",
 		[]interface{}{args},
@@ -320,7 +320,7 @@ type StaticConsumer struct {
 func StaticConsumer_Consume(_args interface{}) {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"@scope/jsii-calc-base-of-base.StaticConsumer",
 		"consume",
 		[]interface{}{_args},
@@ -3803,7 +3803,7 @@ func (c *ClassWithCollections) SetMap(val map[string]string) {
 func ClassWithCollections_CreateAList() []string {
 	_init_.Initialize()
 	var returns []string
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ClassWithCollections",
 		"createAList",
 		[]interface{}{},
@@ -3816,7 +3816,7 @@ func ClassWithCollections_CreateAList() []string {
 func ClassWithCollections_CreateAMap() map[string]string {
 	_init_.Initialize()
 	var returns map[string]string
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ClassWithCollections",
 		"createAMap",
 		[]interface{}{},
@@ -4032,7 +4032,7 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(v
 func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString string, readWriteString string) ClassWithPrivateConstructorAndAutomaticPropertiesIface {
 	_init_.Initialize()
 	var returns ClassWithPrivateConstructorAndAutomaticPropertiesIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
 		"create",
 		[]interface{}{readOnlyString, readWriteString},
@@ -4078,7 +4078,7 @@ func (c *ConfusingToJackson) SetUnionProperty(val interface{}) {
 func ConfusingToJackson_MakeInstance() ConfusingToJacksonIface {
 	_init_.Initialize()
 	var returns ConfusingToJacksonIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ConfusingToJackson",
 		"makeInstance",
 		[]interface{}{},
@@ -4091,7 +4091,7 @@ func ConfusingToJackson_MakeInstance() ConfusingToJacksonIface {
 func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStructIface {
 	_init_.Initialize()
 	var returns ConfusingToJacksonStructIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ConfusingToJackson",
 		"makeStructInstance",
 		[]interface{}{},
@@ -4167,7 +4167,7 @@ func NewConstructors() ConstructorsIface {
 func Constructors_HiddenInterface() IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns IPublicInterfaceIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Constructors",
 		"hiddenInterface",
 		[]interface{}{},
@@ -4180,7 +4180,7 @@ func Constructors_HiddenInterface() IPublicInterfaceIface {
 func Constructors_HiddenInterfaces() []IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns []IPublicInterfaceIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Constructors",
 		"hiddenInterfaces",
 		[]interface{}{},
@@ -4193,7 +4193,7 @@ func Constructors_HiddenInterfaces() []IPublicInterfaceIface {
 func Constructors_HiddenSubInterfaces() []IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns []IPublicInterfaceIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Constructors",
 		"hiddenSubInterfaces",
 		[]interface{}{},
@@ -4206,7 +4206,7 @@ func Constructors_HiddenSubInterfaces() []IPublicInterfaceIface {
 func Constructors_MakeClass() PublicClassIface {
 	_init_.Initialize()
 	var returns PublicClassIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Constructors",
 		"makeClass",
 		[]interface{}{},
@@ -4219,7 +4219,7 @@ func Constructors_MakeClass() PublicClassIface {
 func Constructors_MakeInterface() IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns IPublicInterfaceIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Constructors",
 		"makeInterface",
 		[]interface{}{},
@@ -4232,7 +4232,7 @@ func Constructors_MakeInterface() IPublicInterfaceIface {
 func Constructors_MakeInterface2() IPublicInterface2Iface {
 	_init_.Initialize()
 	var returns IPublicInterface2Iface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Constructors",
 		"makeInterface2",
 		[]interface{}{},
@@ -4245,7 +4245,7 @@ func Constructors_MakeInterface2() IPublicInterface2Iface {
 func Constructors_MakeInterfaces() []IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns []IPublicInterfaceIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Constructors",
 		"makeInterfaces",
 		[]interface{}{},
@@ -4321,7 +4321,7 @@ func NewConsumerCanRingBell() ConsumerCanRingBellIface {
 func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticImplementedByObjectLiteral",
 		[]interface{}{ringer},
@@ -4334,7 +4334,7 @@ func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRingerIfac
 func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticImplementedByPrivateClass",
 		[]interface{}{ringer},
@@ -4347,7 +4347,7 @@ func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRingerIface
 func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticImplementedByPublicClass",
 		[]interface{}{ringer},
@@ -4360,7 +4360,7 @@ func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRingerIface)
 func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticWhenTypedAsClass",
 		[]interface{}{ringer},
@@ -4612,7 +4612,7 @@ func NewDemonstrate982() Demonstrate982Iface {
 func Demonstrate982_TakeThis() ChildStruct982Iface {
 	_init_.Initialize()
 	var returns ChildStruct982Iface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Demonstrate982",
 		"takeThis",
 		[]interface{}{},
@@ -4625,7 +4625,7 @@ func Demonstrate982_TakeThis() ChildStruct982Iface {
 func Demonstrate982_TakeThisToo() ParentStruct982Iface {
 	_init_.Initialize()
 	var returns ParentStruct982Iface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Demonstrate982",
 		"takeThisToo",
 		[]interface{}{},
@@ -5482,7 +5482,7 @@ type EnumDispenser struct {
 func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
 	_init_.Initialize()
 	var returns AllTypesEnum
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.EnumDispenser",
 		"randomIntegerLikeEnum",
 		[]interface{}{},
@@ -5495,7 +5495,7 @@ func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
 func EnumDispenser_RandomStringLikeEnum() StringEnum {
 	_init_.Initialize()
 	var returns StringEnum
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.EnumDispenser",
 		"randomStringLikeEnum",
 		[]interface{}{},
@@ -5529,7 +5529,7 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
 func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptionsIface, key string) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.EraseUndefinedHashValues",
 		"doesKeyExist",
 		[]interface{}{opts, key},
@@ -5542,7 +5542,7 @@ func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptionsI
 func EraseUndefinedHashValues_Prop1IsNull() map[string]interface{} {
 	_init_.Initialize()
 	var returns map[string]interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.EraseUndefinedHashValues",
 		"prop1IsNull",
 		[]interface{}{},
@@ -5555,7 +5555,7 @@ func EraseUndefinedHashValues_Prop1IsNull() map[string]interface{} {
 func EraseUndefinedHashValues_Prop2IsUndefined() map[string]interface{} {
 	_init_.Initialize()
 	var returns map[string]interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.EraseUndefinedHashValues",
 		"prop2IsUndefined",
 		[]interface{}{},
@@ -7303,7 +7303,7 @@ type InterfaceCollections struct {
 func InterfaceCollections_ListOfInterfaces() []IBellIface {
 	_init_.Initialize()
 	var returns []IBellIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.InterfaceCollections",
 		"listOfInterfaces",
 		[]interface{}{},
@@ -7316,7 +7316,7 @@ func InterfaceCollections_ListOfInterfaces() []IBellIface {
 func InterfaceCollections_ListOfStructs() []StructAIface {
 	_init_.Initialize()
 	var returns []StructAIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.InterfaceCollections",
 		"listOfStructs",
 		[]interface{}{},
@@ -7329,7 +7329,7 @@ func InterfaceCollections_ListOfStructs() []StructAIface {
 func InterfaceCollections_MapOfInterfaces() map[string]IBellIface {
 	_init_.Initialize()
 	var returns map[string]IBellIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.InterfaceCollections",
 		"mapOfInterfaces",
 		[]interface{}{},
@@ -7342,7 +7342,7 @@ func InterfaceCollections_MapOfInterfaces() map[string]IBellIface {
 func InterfaceCollections_MapOfStructs() map[string]StructAIface {
 	_init_.Initialize()
 	var returns map[string]StructAIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.InterfaceCollections",
 		"mapOfStructs",
 		[]interface{}{},
@@ -7364,7 +7364,7 @@ type InterfacesMaker struct {
 func InterfacesMaker_MakeInterfaces(count float64) []scopejsiicalclib.IDoublableIface {
 	_init_.Initialize()
 	var returns []scopejsiicalclib.IDoublableIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.InterfacesMaker",
 		"makeInterfaces",
 		[]interface{}{count},
@@ -7464,7 +7464,7 @@ func NewJsii417Derived(property string) Jsii417DerivedIface {
 func Jsii417Derived_MakeInstance() Jsii417PublicBaseOfBaseIface {
 	_init_.Initialize()
 	var returns Jsii417PublicBaseOfBaseIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JSII417Derived",
 		"makeInstance",
 		[]interface{}{},
@@ -7545,7 +7545,7 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
 func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBaseIface {
 	_init_.Initialize()
 	var returns Jsii417PublicBaseOfBaseIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JSII417PublicBaseOfBase",
 		"makeInstance",
 		[]interface{}{},
@@ -8470,7 +8470,7 @@ type JsonFormatter struct {
 func JsonFormatter_AnyArray() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyArray",
 		[]interface{}{},
@@ -8483,7 +8483,7 @@ func JsonFormatter_AnyArray() interface{} {
 func JsonFormatter_AnyBooleanFalse() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyBooleanFalse",
 		[]interface{}{},
@@ -8496,7 +8496,7 @@ func JsonFormatter_AnyBooleanFalse() interface{} {
 func JsonFormatter_AnyBooleanTrue() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyBooleanTrue",
 		[]interface{}{},
@@ -8509,7 +8509,7 @@ func JsonFormatter_AnyBooleanTrue() interface{} {
 func JsonFormatter_AnyDate() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyDate",
 		[]interface{}{},
@@ -8522,7 +8522,7 @@ func JsonFormatter_AnyDate() interface{} {
 func JsonFormatter_AnyEmptyString() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyEmptyString",
 		[]interface{}{},
@@ -8535,7 +8535,7 @@ func JsonFormatter_AnyEmptyString() interface{} {
 func JsonFormatter_AnyFunction() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyFunction",
 		[]interface{}{},
@@ -8548,7 +8548,7 @@ func JsonFormatter_AnyFunction() interface{} {
 func JsonFormatter_AnyHash() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyHash",
 		[]interface{}{},
@@ -8561,7 +8561,7 @@ func JsonFormatter_AnyHash() interface{} {
 func JsonFormatter_AnyNull() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyNull",
 		[]interface{}{},
@@ -8574,7 +8574,7 @@ func JsonFormatter_AnyNull() interface{} {
 func JsonFormatter_AnyNumber() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyNumber",
 		[]interface{}{},
@@ -8587,7 +8587,7 @@ func JsonFormatter_AnyNumber() interface{} {
 func JsonFormatter_AnyRef() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyRef",
 		[]interface{}{},
@@ -8600,7 +8600,7 @@ func JsonFormatter_AnyRef() interface{} {
 func JsonFormatter_AnyString() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyString",
 		[]interface{}{},
@@ -8613,7 +8613,7 @@ func JsonFormatter_AnyString() interface{} {
 func JsonFormatter_AnyUndefined() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyUndefined",
 		[]interface{}{},
@@ -8626,7 +8626,7 @@ func JsonFormatter_AnyUndefined() interface{} {
 func JsonFormatter_AnyZero() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"anyZero",
 		[]interface{}{},
@@ -8639,7 +8639,7 @@ func JsonFormatter_AnyZero() interface{} {
 func JsonFormatter_Stringify(value interface{}) string {
 	_init_.Initialize()
 	var returns string
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.JsonFormatter",
 		"stringify",
 		[]interface{}{value},
@@ -9166,7 +9166,7 @@ type NestedClassInstance struct {
 func NestedClassInstance_MakeInstance() submodule.NestedClassIface {
 	_init_.Initialize()
 	var returns submodule.NestedClassIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.NestedClassInstance",
 		"makeInstance",
 		[]interface{}{},
@@ -9515,7 +9515,7 @@ type ObjectWithPropertyProvider struct {
 func ObjectWithPropertyProvider_Provide() IObjectWithPropertyIface {
 	_init_.Initialize()
 	var returns IObjectWithPropertyIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.ObjectWithPropertyProvider",
 		"provide",
 		[]interface{}{},
@@ -10761,7 +10761,7 @@ type RootStructValidator struct {
 func RootStructValidator_Validate(struct_ RootStructIface) {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.RootStructValidator",
 		"validate",
 		[]interface{}{struct_},
@@ -11033,7 +11033,7 @@ func NewSomeTypeJsii976() SomeTypeJsii976Iface {
 func SomeTypeJsii976_ReturnAnonymous() interface{} {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.SomeTypeJsii976",
 		"returnAnonymous",
 		[]interface{}{},
@@ -11046,7 +11046,7 @@ func SomeTypeJsii976_ReturnAnonymous() interface{} {
 func SomeTypeJsii976_ReturnReturn() IReturnJsii976Iface {
 	_init_.Initialize()
 	var returns IReturnJsii976Iface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.SomeTypeJsii976",
 		"returnReturn",
 		[]interface{}{},
@@ -11165,7 +11165,7 @@ type StaticContext struct {
 func StaticContext_CanAccessStaticContext() bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.StaticContext",
 		"canAccessStaticContext",
 		[]interface{}{},
@@ -11206,7 +11206,7 @@ type StaticHelloChild struct {
 func StaticHelloChild_Method() {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.StaticHelloChild",
 		"method",
 		[]interface{}{},
@@ -11255,7 +11255,7 @@ func NewStaticHelloParent() StaticHelloParentIface {
 func StaticHelloParent_Method() {
 	_init_.Initialize()
 	var returns interface{}
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.StaticHelloParent",
 		"method",
 		[]interface{}{},
@@ -11313,7 +11313,7 @@ func NewStatics(value string) StaticsIface {
 func Statics_StaticMethod(name string) string {
 	_init_.Initialize()
 	var returns string
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.Statics",
 		"staticMethod",
 		[]interface{}{name},
@@ -11623,7 +11623,7 @@ func NewStructPassing() StructPassingIface {
 func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStructIface) float64 {
 	_init_.Initialize()
 	var returns float64
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.StructPassing",
 		"howManyVarArgsDidIPass",
 		[]interface{}{_positional, inputs},
@@ -11636,7 +11636,7 @@ func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelSt
 func StructPassing_RoundTrip(_positional float64, input TopLevelStructIface) TopLevelStructIface {
 	_init_.Initialize()
 	var returns TopLevelStructIface
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.StructPassing",
 		"roundTrip",
 		[]interface{}{_positional, input},
@@ -11657,7 +11657,7 @@ type StructUnionConsumer struct {
 func StructUnionConsumer_IsStructA(struct_ interface{}) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.StructUnionConsumer",
 		"isStructA",
 		[]interface{}{struct_},
@@ -11670,7 +11670,7 @@ func StructUnionConsumer_IsStructA(struct_ interface{}) bool {
 func StructUnionConsumer_IsStructB(struct_ interface{}) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.StructUnionConsumer",
 		"isStructB",
 		[]interface{}{struct_},
@@ -12431,7 +12431,7 @@ type UmaskCheck struct {
 func UmaskCheck_Mode() float64 {
 	_init_.Initialize()
 	var returns float64
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.UmaskCheck",
 		"mode",
 		[]interface{}{},
@@ -14507,7 +14507,7 @@ type Kwargs struct {
 func Kwargs_Method(props child.KwargsPropsIface) bool {
 	_init_.Initialize()
 	var returns bool
-	_jsii_.InvokeStatic(
+	_jsii_.StaticInvoke(
 		"jsii-calc.submodule.isolated.Kwargs",
 		"method",
 		[]interface{}{props},
