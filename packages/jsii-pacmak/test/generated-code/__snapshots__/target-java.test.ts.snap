@@ -7404,6 +7404,15 @@ package software.amazon.jsii.tests.calculator;
  * multiple lines and multiple paragraphs.
  * <p>
  * Multiple paragraphs are separated by an empty line.
+ * <p>
+ * Example:
+ * <p>
+ * <blockquote><pre>{@code
+ * // Example automatically generated. See https://github.com/aws/jsii/issues/826
+ * Number x = 12 + 44;
+ * String s1 = "string";
+ * String s2 = "string \\nwith new newlines";// see https://github.com/aws/jsii/issues/2569
+ * String s3 = "string\\n            with\\n            new lines";}</pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)

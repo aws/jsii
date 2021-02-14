@@ -42,6 +42,10 @@ const requirementsFile = path.resolve(
   'requirements-dev.txt',
 );
 
+// we use single-quotes for multi-line strings to allow examples within the
+// docstrings themselves to include double-quotes (see https://github.com/aws/jsii/issues/2569)
+const DOCSTRING_QUOTES = "'''";
+
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
 
@@ -1571,9 +1575,9 @@ class PythonModule implements PythonType {
       this.fqn === this.assembly.name &&
       this.package.convertedReadme.trim().length > 0
     ) {
-      code.line('"""');
+      code.line(DOCSTRING_QUOTES);
       code.line(this.package.convertedReadme);
-      code.line('"""');
+      code.line(DOCSTRING_QUOTES);
     }
   }
 
@@ -2189,16 +2193,16 @@ class PythonGenerator extends Generator {
     }
 
     if (lines.length === 1) {
-      code.line(`"""${lines[0]}"""`);
+      code.line(`${DOCSTRING_QUOTES}${lines[0]}${DOCSTRING_QUOTES}`);
     } else {
-      code.line(`"""${lines[0]}`);
+      code.line(`${DOCSTRING_QUOTES}${lines[0]}`);
       lines.splice(0, 1);
 
       for (const line of lines) {
         code.line(line);
       }
 
-      code.line('"""');
+      code.line(DOCSTRING_QUOTES);
     }
     if (options.trailingNewLine) {
       code.line();
