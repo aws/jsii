@@ -1,12 +1,14 @@
 import * as ts from 'typescript';
-import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
+
 import {
   isStructType,
   propertiesOfStruct,
   StructProperty,
   structPropertyAcceptsUndefined,
 } from '../jsii/jsii-utils';
+import { jsiiTargetParam } from '../jsii/packages';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
+import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
 import {
   matchAst,
   nodeOfType,
@@ -15,10 +17,9 @@ import {
   quoteStringLiteral,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
+import { parameterAcceptsUndefined } from '../typescript/types';
 import { startsWithUppercase, flat } from '../util';
 import { DefaultVisitor } from './default';
-import { jsiiTargetParam } from '../jsii/packages';
-import { parameterAcceptsUndefined } from '../typescript/types';
 
 interface StructVar {
   variableName: string;
@@ -497,13 +498,9 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     node: ts.PropertyAssignment,
     context: PythonVisitorContext,
   ): OTree {
-    let before = '"';
-    let mid = '": ';
-
-    if (context.currentContext.renderObjectLiteralAsKeywords) {
-      before = '';
-      mid = '=';
-    }
+    const mid = context.currentContext.renderObjectLiteralAsKeywords
+      ? '='
+      : ': ';
 
     // node.name is either an identifier or a string literal. The string literal
     // needs to be converted differently.
@@ -516,9 +513,16 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       },
     );
 
+    // If this isn't a computed property, we must quote the key (unless it's rendered as a keyword)
+    if (
+      !context.currentContext.renderObjectLiteralAsKeywords &&
+      !ts.isComputedPropertyName(node.name)
+    ) {
+      name = new OTree(['"', name, '"']);
+    }
+
     return new OTree(
       [
-        before,
         name,
         mid,
         context
@@ -696,11 +700,30 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return context.convert(node.expression);
   }
 
+  public stringLiteral(
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
+    _context: PythonVisitorContext,
+  ): OTree {
+    const rawText = node.text;
+    if (rawText.includes('\n')) {
+      return new OTree([
+        '"""',
+        rawText
+          // Escape all occurrences of back-slash once more
+          .replace(/\\/g, '\\\\')
+          // Escape only the first one in triple-quotes
+          .replace(/"""/g, '\\"""'),
+        '"""',
+      ]);
+    }
+    return new OTree([JSON.stringify(rawText)]);
+  }
+
   public templateExpression(
     node: ts.TemplateExpression,
     context: PythonVisitorContext,
   ): OTree {
-    const parts = ['f"'];
+    const parts = new Array<string>();
     if (node.head.rawText) {
       parts.push(quoteStringLiteral(node.head.rawText));
     }
@@ -710,9 +733,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         parts.push(quoteStringLiteral(span.literal.rawText));
       }
     }
-    parts.push('"');
 
-    return new OTree([parts.join('')]);
+    const quote = parts.some((part) => part.includes('\n')) ? '"""' : '"';
+
+    return new OTree([`f${quote}`, ...parts, quote]);
   }
 
   public maskingVoidExpression(

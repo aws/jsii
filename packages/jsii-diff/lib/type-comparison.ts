@@ -1,6 +1,9 @@
-import * as log4js from 'log4js';
 import { Stability } from '@jsii/spec';
 import * as reflect from 'jsii-reflect';
+import * as log4js from 'log4js';
+
+import { validateStabilities } from './stability';
+import { isStructuralSuperType, Analysis } from './type-analysis';
 import {
   describeInterfaceType,
   describeType,
@@ -9,7 +12,7 @@ import {
   apiElementIdentifier,
   IReport,
 } from './types';
-import { validateStabilities } from './stability';
+import { RecursionBreaker } from './util';
 import {
   validateBaseTypeAssignability,
   validateNotMadeAbstract,
@@ -32,8 +35,6 @@ import {
   validatePropertyTypeSame,
   validateExistingMembers,
 } from './validations';
-import { isStructuralSuperType, Analysis } from './type-analysis';
-import { RecursionBreaker } from './util';
 
 const LOG = log4js.getLogger('jsii-diff');
 
@@ -427,9 +428,7 @@ export abstract class ComparableReferenceType<
   }
 }
 
-export class ComparableClassType extends ComparableReferenceType<
-  reflect.ClassType
-> {
+export class ComparableClassType extends ComparableReferenceType<reflect.ClassType> {
   /**
    * Perform the reference type comparison and include class-specific checks
    */
@@ -467,9 +466,7 @@ export class ComparableClassType extends ComparableReferenceType<
  *
  * (Actually just plain reference type comparison)
  */
-export class ComparableInterfaceType extends ComparableReferenceType<
-  reflect.InterfaceType
-> {}
+export class ComparableInterfaceType extends ComparableReferenceType<reflect.InterfaceType> {}
 
 /**
  * Struct type comparison
@@ -477,9 +474,7 @@ export class ComparableInterfaceType extends ComparableReferenceType<
  * Most notably: does no-strengthening/no-weakening checks based on whether
  * structs appear in input/output positions.
  */
-export class ComparableStructType extends ComparableType<
-  reflect.InterfaceType
-> {
+export class ComparableStructType extends ComparableType<reflect.InterfaceType> {
   public compare() {
     validateStabilities(this.oldType, this.newType, this.mismatches);
     validateBaseTypeAssignability(this.oldType, this.newType, this.mismatches);

@@ -1,18 +1,23 @@
 import { toPascalCase } from 'codemaker';
 import { Method, Parameter, Property } from 'jsii-reflect';
+
 import { EmitContext } from '../emit-context';
-import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
-import { emitInitialization } from '../runtime';
+import { GetProperty, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
+
+import { GoClass, GoType, Interface, GoTypeRef } from './index';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution
  */
 export interface GoTypeMember {
   name: string;
-  parent: GoClass | Interface | Struct;
+  parent: GoType;
   reference?: GoTypeRef;
   returnType: string;
+
+  usesInitPackage: boolean;
+  usesRuntimePackage: boolean;
 }
 
 /*
@@ -23,24 +28,42 @@ export class GoProperty implements GoTypeMember {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
+  public readonly immutable: boolean;
 
   public constructor(
-    public parent: GoStruct,
+    public parent: GoType,
     public readonly property: Property,
   ) {
     this.name = toPascalCase(this.property.name);
     this.getter = `Get${this.name}`;
+    this.immutable = property.immutable;
 
     if (property.type) {
       this.reference = new GoTypeRef(parent.pkg.root, property.type);
     }
   }
 
+  public get usesInitPackage() {
+    return this.static;
+  }
+
+  public get usesRuntimePackage() {
+    return true;
+  }
+
+  public get static(): boolean {
+    return !!this.property.static;
+  }
+
   public get returnType(): string {
     return (
-      this.reference?.scopedName(this.parent.pkg) ??
+      this.reference?.scopedInterfaceName(this.parent.pkg) ??
       this.property.type.toString()
     );
+  }
+
+  public get instanceArg(): string {
+    return this.parent.name.substring(0, 1).toLowerCase();
   }
 
   public emitStructMember(context: EmitContext) {
@@ -49,12 +72,13 @@ export class GoProperty implements GoTypeMember {
       context.documenter.emit(docs);
     }
     const { code } = context;
-    // If struct property is type of parent struct, use a pointer as type to avoid recursive struct type error
-    if (this.reference?.type?.name === this.parent.name) {
-      code.line(`${this.name} *${this.returnType}`);
-    } else {
-      code.line(`${this.name} ${this.returnType}`);
-    }
+    const memberType =
+      this.reference?.type?.name === this.parent.name
+        ? `*${this.returnType}`
+        : this.returnType;
+
+    // Adds json tags for easy deserialization
+    code.line(`${this.name} ${memberType} \`json:"${this.property.name}"\``);
     // TODO add newline if not the last member
   }
 
@@ -65,7 +89,7 @@ export class GoProperty implements GoTypeMember {
 
   public emitSetterDecl(context: EmitContext) {
     const { code } = context;
-    if (!this.property.protected) {
+    if (!this.property.protected && !this.immutable) {
       code.line(`Set${this.name}(val ${this.returnType})`);
     }
   }
@@ -82,39 +106,27 @@ export class GoProperty implements GoTypeMember {
       }()${` ${this.returnType}`}`,
     );
 
-    if (this.property.static) {
-      emitInitialization(code);
-    }
+    new GetProperty(this).emit(code);
 
-    if (this.parent.name === this.returnType) {
-      code.line(`return *${instanceArg}.${this.name}`);
-    } else {
-      code.line(`return ${instanceArg}.${this.name}`);
-    }
     code.closeBlock();
     code.line();
   }
 
   public emitSetterImpl(context: EmitContext) {
-    const { code } = context;
-    const receiver = this.parent.name;
-    const instanceArg = receiver.substring(0, 1).toLowerCase();
+    if (!this.immutable) {
+      const { code } = context;
+      const receiver = this.parent.name;
+      const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-    code.openBlock(
-      `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
-    );
+      code.openBlock(
+        `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
+      );
 
-    if (this.property.static) {
-      emitInitialization(code);
+      new SetProperty(this).emit(code);
+
+      code.closeBlock();
+      code.line();
     }
-
-    if (this.parent.name === this.returnType) {
-      code.line(`${instanceArg}.${this.name} = &val`);
-    } else {
-      code.line(`${instanceArg}.${this.name} = val`);
-    }
-    code.closeBlock();
-    code.line();
   }
 }
 
@@ -138,15 +150,43 @@ export abstract class GoMethod implements GoTypeMember {
   }
 
   public abstract emit(context: EmitContext): void;
+  public abstract get usesInitPackage(): boolean;
+  public abstract get usesRuntimePackage(): boolean;
+
+  public get returnsRef(): boolean {
+    if (
+      this.reference?.type?.type.isClassType() ||
+      this.reference?.type?.type.isInterfaceType()
+    ) {
+      return true;
+    }
+
+    return false;
+  }
 
   public get returnType(): string {
-    const ret = this.method.returns.type.void
-      ? ''
-      : this.reference?.scopedName(this.parent.pkg) ?? this.method.toString();
-    if (ret !== '') {
-      return ` ${ret}`;
+    return (
+      this.reference?.scopedInterfaceName(this.parent.pkg) ??
+      this.method.toString()
+    );
+  }
+
+  public get concreteReturnType(): string {
+    if (this.returnsRef) {
+      return (
+        this.reference?.scopedReferenceName(this.parent.pkg) ??
+        this.method.toString()
+      );
     }
-    return ret;
+
+    return (
+      this.reference?.scopedInterfaceName(this.parent.pkg) ??
+      this.method.toString()
+    );
+  }
+
+  public get instanceArg(): string {
+    return this.parent.name.substring(0, 1).toLowerCase();
   }
 
   public paramString(): string {
@@ -159,6 +199,7 @@ export abstract class GoMethod implements GoTypeMember {
 export class GoParameter {
   public readonly name: string;
   public readonly reference: GoTypeRef;
+
   public constructor(
     public parent: GoClass | Interface,
     public readonly parameter: Parameter,
@@ -166,10 +207,9 @@ export class GoParameter {
     this.name = substituteReservedWords(parameter.name);
     this.reference = new GoTypeRef(parent.pkg.root, parameter.type);
   }
+
   public toString(): string {
-    const paramType = this.reference.scopedName(this.parent.pkg);
+    const paramType = this.reference.scopedInterfaceName(this.parent.pkg);
     return `${this.name} ${paramType}`;
   }
-
-  // return parameters.length === 0 ? '' : parameters.join(', ');
 }

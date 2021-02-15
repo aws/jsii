@@ -1,9 +1,10 @@
+import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import * as spec from '@jsii/spec';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
+
 import { Generator } from '../../generator';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
@@ -15,9 +16,6 @@ import { DotNetNameUtils } from './nameutils';
  * CODE GENERATOR V2
  */
 export class DotNetGenerator extends Generator {
-  // The path of the original jsii input model.
-  private jsiiFilePath!: string;
-
   // Flags that tracks if we have already wrote the first member of the class
   private firstMemberWritten = false;
 
@@ -47,7 +45,6 @@ export class DotNetGenerator extends Generator {
     assembly: reflect.Assembly,
   ): Promise<void> {
     await super.load(packageRoot, assembly);
-    this.jsiiFilePath = path.join(packageRoot, spec.SPEC_FILE_NAME);
   }
 
   /**
@@ -65,7 +62,11 @@ export class DotNetGenerator extends Generator {
       this.code,
       this.typeresolver,
     );
-    this.dotnetDocGenerator = new DotNetDocGenerator(this.code, this.rosetta);
+    this.dotnetDocGenerator = new DotNetDocGenerator(
+      this.code,
+      this.rosetta,
+      this.assembly,
+    );
 
     this.emitNamespaceDocs();
 
@@ -99,12 +100,6 @@ export class DotNetGenerator extends Generator {
 
     // Create an anchor file for the current model
     this.generateDependencyAnchorFile();
-
-    // Copying the .jsii file
-    await fs.copyFile(
-      this.jsiiFilePath,
-      path.join(outdir, packageId, spec.SPEC_FILE_NAME),
-    );
 
     // Saving the generated code.
     return this.code.save(outdir);
@@ -168,13 +163,13 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onEndInterface(ifc: spec.InterfaceType) {
+    // emit interface proxy class
+    this.emitInterfaceProxy(ifc);
+
     const interfaceName = this.nameutils.convertInterfaceName(ifc);
     this.code.closeBlock();
     const namespace = this.namespaceFor(this.assembly, ifc);
     this.closeFileIfNeeded(interfaceName, namespace, this.isNested(ifc));
-
-    // emit interface proxy class
-    this.emitInterfaceProxy(ifc);
 
     // emit implementation class
     // TODO: If datatype then we may not need the interface proxy to be created, We could do with just the interface impl?
@@ -366,14 +361,14 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onEndClass(cls: spec.ClassType) {
+    if (cls.abstract) {
+      this.emitInterfaceProxy(cls);
+    }
+
     this.code.closeBlock();
     const className = this.nameutils.convertClassName(cls);
     const namespace = this.namespaceFor(this.assembly, cls);
     this.closeFileIfNeeded(className, namespace, this.isNested(cls));
-
-    if (cls.abstract) {
-      this.emitInterfaceProxy(cls);
-    }
   }
 
   protected onField(
@@ -481,33 +476,34 @@ export class DotNetGenerator extends Generator {
     const returnType = method.returns
       ? this.typeresolver.toDotNetType(method.returns.type)
       : 'void';
-    let staticKeyWord = '';
+    const staticKeyWord = method.static ? 'static ' : '';
     let overrideKeyWord = '';
     let virtualKeyWord = '';
 
     let definedOnAncestor = false;
     // In the case of the source being a class, we check if it is already defined on an ancestor
-    if (cls.kind === spec.TypeKind.Class) {
+    if (spec.isClassType(cls)) {
       definedOnAncestor = this.isMemberDefinedOnAncestor(cls, method);
     }
     // The method is an override if it's defined on the ancestor, or if the parent is a class and we are generating a proxy or datatype class
     let overrides =
-      definedOnAncestor ||
-      (cls.kind === spec.TypeKind.Class && emitForProxyOrDatatype);
+      definedOnAncestor || (spec.isClassType(cls) && emitForProxyOrDatatype);
     // We also inspect the jsii model to see if it overrides a class member.
     if (method.overrides) {
       const overrideType = this.findType(method.overrides);
-      if (overrideType.kind === spec.TypeKind.Class) {
+      if (spec.isClassType(overrideType)) {
         // Overrides a class, needs overrides keyword
         overrides = true;
       }
     }
-    if (method.static) {
-      staticKeyWord = 'static ';
-    } else if (overrides) {
-      // Add the override key word if the method is emitted for a proxy or data type or is defined on an ancestor
-      overrideKeyWord = 'override ';
+    if (overrides) {
+      // Add the override key word if the method is emitted for a proxy or data type or is defined on an ancestor. If
+      // the member is static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor
+      // declaration (as C# does not inherit statics, they can be hidden but not overridden). The "new" keyword is
+      // optional in this context, but helps clarify intention.
+      overrideKeyWord = method.static ? 'new ' : 'override ';
     } else if (
+      !method.static &&
       (method.abstract || !definedOnAncestor) &&
       !emitForProxyOrDatatype
     ) {
@@ -515,8 +511,10 @@ export class DotNetGenerator extends Generator {
       // Methods should always be virtual when possible
       virtualKeyWord = 'virtual ';
     }
+
     const access = this.renderAccessLevel(method);
     const methodName = this.nameutils.convertMethodName(method.name);
+
     const isOptional = method.returns && method.returns.optional ? '?' : '';
     const signature = `${returnType}${isOptional} ${methodName}(${this.renderMethodParameters(
       method,
@@ -641,20 +639,24 @@ export class DotNetGenerator extends Generator {
    * Emits an interface proxy for an interface or an abstract class.
    */
   private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType): void {
-    // No need to slugify for a proxy
-    const name = `${this.nameutils.convertTypeName(ifc.name)}Proxy`;
+    const name = '_Proxy';
     const namespace = this.namespaceFor(this.assembly, ifc);
-    const isNested = this.isNested(ifc);
+    const isNested = true;
     this.openFileIfNeeded(name, namespace, isNested);
 
+    this.code.line();
     this.dotnetDocGenerator.emitDocs(ifc);
     this.dotnetRuntimeGenerator.emitAttributesForInterfaceProxy(ifc);
+
     const interfaceFqn = this.typeresolver.toNativeFqn(ifc.fqn);
-    const suffix =
-      ifc.kind === spec.TypeKind.Interface
-        ? `: DeputyBase, ${interfaceFqn}`
-        : `: ${interfaceFqn}`;
-    this.code.openBlock(`internal sealed class ${name} ${suffix}`);
+    const suffix = spec.isInterfaceType(ifc)
+      ? `: DeputyBase, ${interfaceFqn}`
+      : `: ${interfaceFqn}`;
+    const newModifier = this.proxyMustUseNewModifier(ifc) ? 'new ' : '';
+
+    this.code.openBlock(
+      `${newModifier}internal sealed class ${name} ${suffix}`,
+    );
 
     // Create the private constructor
     this.code.openBlock(
@@ -671,6 +673,46 @@ export class DotNetGenerator extends Generator {
 
     this.code.closeBlock();
     this.closeFileIfNeeded(name, namespace, isNested);
+  }
+
+  /**
+   * Determines whether any ancestor of the given type must use the `new`
+   * modifier when introducing it's own proxy.
+   *
+   * If the type is a `class`, then it must use `new` if it extends another
+   * abstract class defined in the same assembly (since proxies are internal,
+   * external types' proxies are not visible in that context).
+   *
+   * If the type is an `interface`, then it must use `new` if it extends another
+   * interface from the same assembly.
+   *
+   * @param type the tested proxy-able type (an abstract class or an interface).
+   *
+   * @returns true if any ancestor of this type has a visible proxy.
+   */
+  private proxyMustUseNewModifier(
+    type: spec.ClassType | spec.InterfaceType,
+  ): boolean {
+    if (spec.isClassType(type)) {
+      if (type.base == null) {
+        return false;
+      }
+
+      const base = this.findType(type.base) as spec.ClassType;
+      return (
+        base.assembly === type.assembly &&
+        (base.abstract
+          ? true
+          : // An abstract class could extend a concrete class... We must walk up the inheritance tree in this case...
+            this.proxyMustUseNewModifier(base))
+      );
+    }
+
+    return (
+      type.interfaces?.find(
+        (fqn) => this.findType(fqn).assembly === type.assembly,
+      ) != null
+    );
   }
 
   /**
@@ -760,7 +802,7 @@ export class DotNetGenerator extends Generator {
       bases.push(
         ...(currentType.interfaces ?? []).map((iface) => this.findType(iface)),
       );
-      if (currentType.kind === spec.TypeKind.Class && currentType.base) {
+      if (spec.isClassType(currentType) && currentType.base) {
         bases.push(this.findType(currentType.base));
       }
       for (const base of bases) {
@@ -833,14 +875,17 @@ export class DotNetGenerator extends Generator {
     let isAbstractKeyword = '';
 
     // If the prop parent is a class
-    if (cls.kind === spec.TypeKind.Class) {
+    if (spec.isClassType(cls)) {
       const implementedInBase = this.isMemberDefinedOnAncestor(
         cls as spec.ClassType,
         prop,
       );
       if (implementedInBase || datatype || proxy) {
-        // Override if the property is in a datatype or proxy class or declared in a parent class
-        isOverrideKeyWord = 'override ';
+        // Override if the property is in a datatype or proxy class or declared in a parent class. If the member is
+        // static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor declaration (as
+        // C# does not inherit statics, they can be hidden but not overridden).The "new" keyword is optional in this
+        // context, but helps clarify intention.
+        isOverrideKeyWord = prop.static ? 'new ' : 'override ';
       } else if (prop.abstract) {
         // Abstract members get decorated as such
         isAbstractKeyword = 'abstract ';
@@ -852,7 +897,7 @@ export class DotNetGenerator extends Generator {
 
     const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
     const isOptional = prop.optional ? '?' : '';
-    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptional} ${propName}`;
+    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${staticKeyWord}${isOverrideKeyWord}${propTypeFQN}${isOptional} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters

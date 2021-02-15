@@ -1,9 +1,14 @@
 import { EnumType } from 'jsii-reflect';
-import { GoType } from './go-type';
-import { Package } from '../package';
+
 import { EmitContext } from '../emit-context';
+import { Package } from '../package';
+import { GoType } from './go-type';
 
 export class Enum extends GoType {
+  public readonly usesInitPackage = false;
+  public readonly usesRuntimePackage = false;
+  public readonly usesReflectionPackage = false;
+
   public constructor(pkg: Package, public type: EnumType) {
     super(pkg, type);
   }

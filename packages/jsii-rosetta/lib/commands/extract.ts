@@ -1,13 +1,14 @@
-import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
-import * as logging from '../logging';
 import * as os from 'os';
 import * as path from 'path';
 import * as ts from 'typescript';
+
+import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
+import * as logging from '../logging';
+import { TypeScriptSnippet } from '../snippet';
+import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { Translator } from '../translate';
-import { TypeScriptSnippet } from '../snippet';
 import { divideEvenly } from '../util';
-import { snippetKey } from '../tablets/key';
 
 export interface ExtractResult {
   diagnostics: ts.Diagnostic[];
@@ -17,6 +18,7 @@ export interface ExtractResult {
 export interface ExtractOptions {
   outputFile: string;
   includeCompilerDiagnostics: boolean;
+  validateAssemblies: boolean;
   only?: string[];
 }
 
@@ -27,10 +29,13 @@ export async function extractSnippets(
   assemblyLocations: string[],
   options: ExtractOptions,
 ): Promise<ExtractResult> {
-  const only = options.only || [];
+  const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(assemblyLocations);
+  const assemblies = await loadAssemblies(
+    assemblyLocations,
+    options.validateAssemblies,
+  );
 
   let snippets = allTypeScriptSnippets(assemblies);
   if (only.length > 0) {
@@ -94,7 +99,7 @@ async function translateAll(
   try {
     const worker = await import('worker_threads');
 
-    return workerBasedTranslateAll(
+    return await workerBasedTranslateAll(
       worker,
       snippets,
       includeCompilerDiagnostics,

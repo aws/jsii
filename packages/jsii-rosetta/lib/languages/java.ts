@@ -1,12 +1,9 @@
 import * as ts from 'typescript';
-import { DefaultVisitor } from './default';
-import { AstRenderer } from '../renderer';
+
+import { isStructType } from '../jsii/jsii-utils';
+import { jsiiTargetParam } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
-import {
-  builtInTypeName,
-  mapElementType,
-  typeWithoutUndefinedUnion,
-} from '../typescript/types';
+import { AstRenderer } from '../renderer';
 import {
   isReadOnly,
   matchAst,
@@ -15,8 +12,12 @@ import {
   visibility,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { jsiiTargetParam } from '../jsii/packages';
-import { isStructType } from '../jsii/jsii-utils';
+import {
+  builtInTypeName,
+  mapElementType,
+  typeWithoutUndefinedUnion,
+} from '../typescript/types';
+import { DefaultVisitor } from './default';
 
 interface JavaContext {
   /**
@@ -71,6 +72,15 @@ interface JavaContext {
    * @default false
    */
   readonly stringLiteralAsIdentifier?: boolean;
+
+  /**
+   * Used to denote that a type is being rendered in a position where a generic
+   * type parameter is expected, so only reference types are valid (not
+   * primitives).
+   *
+   * @default false
+   */
+  readonly requiresReferenceType?: boolean;
 }
 
 /**
@@ -341,16 +351,17 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
     const renderedType = type
-      ? this.renderType(node, type, renderer, 'var')
-      : 'var';
+      ? this.renderType(node, type, renderer, 'Object')
+      : 'Object';
 
     return new OTree(
       [
         renderedType,
         ' ',
         renderer.convert(node.name),
-        ' = ',
-        renderer.convert(node.initializer),
+        ...(node.initializer
+          ? [' = ', renderer.convert(node.initializer)]
+          : []),
         ';',
       ],
       [],
@@ -442,23 +453,43 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     node: ts.TemplateExpression,
     renderer: JavaRenderer,
   ): OTree {
-    const result = new Array<string>();
-    let first = true;
+    let template = '';
+    const parameters = new Array<OTree>();
 
     if (node.head.rawText) {
-      result.push(`"${quoteStringLiteral(node.head.rawText)}"`);
-      first = false;
+      template += node.head.rawText;
     }
 
     for (const span of node.templateSpans) {
-      result.push(`${first ? '' : ' + '}${renderer.textOf(span.expression)}`);
-      first = false;
+      template += '%s';
+      parameters.push(
+        renderer
+          .updateContext({
+            convertPropertyToGetter: true,
+            identifierAsString: false,
+          })
+          .convert(span.expression),
+      );
       if (span.literal.rawText) {
-        result.push(` + "${quoteStringLiteral(span.literal.rawText)}"`);
+        template += span.literal.rawText;
       }
     }
 
-    return new OTree(result);
+    if (parameters.length === 0) {
+      return new OTree([JSON.stringify(quoteStringLiteral(template))]);
+    }
+
+    return new OTree([
+      'String.format(',
+      `"${quoteStringLiteral(template)
+        // Java does not have multiline string literals, so we must replace literal newlines with %n
+        .replace(/\n/g, '%n')}"`,
+      ...parameters.reduce(
+        (list, element) => list.concat(', ', element),
+        new Array<string | OTree>(),
+      ),
+      ')',
+    ]);
   }
 
   public asExpression(node: ts.AsExpression, renderer: JavaRenderer): OTree {
@@ -648,14 +679,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(parts);
   }
 
-  public stringLiteral(node: ts.StringLiteral, renderer: JavaRenderer): OTree {
-    return renderer.currentContext.stringLiteralAsIdentifier
-      ? this.identifier(node, renderer)
-      : super.stringLiteral(node, renderer);
+  public stringLiteral(
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
+    renderer: JavaRenderer,
+  ): OTree {
+    if (renderer.currentContext.stringLiteralAsIdentifier) {
+      return this.identifier(node, renderer);
+    }
+    // Java does not have multiline string literals, so we must replace literal newlines with \n
+    return new OTree([JSON.stringify(node.text).replace(/\n/g, '\\n')]);
   }
 
   public identifier(
-    node: ts.Identifier | ts.StringLiteral,
+    node: ts.Identifier | ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     renderer: JavaRenderer,
   ): OTree {
     const nodeText = node.text;
@@ -693,7 +729,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(
       [],
       [
-        renderer.updateContext({ identifierAsString: true }).convert(name),
+        renderer
+          .updateContext({
+            identifierAsString: !ts.isComputedPropertyName(name),
+          })
+          .convert(name),
         ', ',
         renderer.updateContext({ inKeyValueList: false }).convert(initializer),
       ],
@@ -793,7 +833,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     heritageKeyword: ts.SyntaxKind,
     outputKeyword: string,
   ): Array<OTree | string | undefined> {
-    const heritageClause = (node.heritageClauses || []).find(
+    const heritageClause = (node.heritageClauses ?? []).find(
       (hc) => hc.token === heritageKeyword,
     );
     const superTypes = heritageClause
@@ -810,7 +850,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     fallback?: string,
   ): string {
     fallback =
-      fallback ||
+      fallback ??
       (typeNode
         ? lastElement(renderer.textOf(typeNode).split('.')) // remove any namespace prefixes
         : 'Object');
@@ -850,7 +890,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       return `Map<String, ${this.renderType(
         owningNode,
         mapValuesType,
-        renderer,
+        renderer.updateContext({ requiresReferenceType: true }),
         'Object',
       )}>`;
     }
@@ -869,10 +909,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
 
     switch (typeScriptBuiltInType) {
+      case 'boolean':
+        return renderer.currentContext.requiresReferenceType
+          ? 'Boolean'
+          : 'boolean';
+      case 'number':
+        return 'Number';
       case 'string':
         return 'String';
-      case 'number':
-        return 'int';
       case 'any':
         return 'Object';
       default:

@@ -91,7 +91,7 @@ export class OTree implements OTree {
     }
 
     const popIndent = sink.requestIndentChange(
-      meVisible ? this.options.indent || 0 : 0,
+      meVisible ? this.options.indent ?? 0 : 0,
     );
     let mark = sink.mark();
     for (const child of this.children ?? []) {

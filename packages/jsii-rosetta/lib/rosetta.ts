@@ -1,21 +1,22 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as spec from '@jsii/spec';
+import { isError } from 'util';
+
+import { allTypeScriptSnippets } from './jsii/assemblies';
+import { TargetLanguage } from './languages';
+import { transformMarkdown } from './markdown/markdown';
+import { MarkdownRenderer } from './markdown/markdown-renderer';
+import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
+import { CodeBlock } from './markdown/types';
+import { TypeScriptSnippet } from './snippet';
 import {
   DEFAULT_TABLET_NAME,
   LanguageTablet,
   Translation,
 } from './tablets/tablets';
-import { allTypeScriptSnippets } from './jsii/assemblies';
-import { TargetLanguage } from './languages';
 import { Translator } from './translate';
-import { isError } from 'util';
-import { transformMarkdown } from './markdown/markdown';
-import { MarkdownRenderer } from './markdown/markdown-renderer';
-import { CodeBlock } from './markdown/types';
-import { TypeScriptSnippet } from './snippet';
 import { printDiagnostics } from './util';
-import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
 
 export interface RosettaOptions {
   /**
@@ -156,12 +157,13 @@ export class Rosetta {
   public translateSnippetsInMarkdown(
     markdown: string,
     targetLang: TargetLanguage,
+    strict: boolean,
     translationToCodeBlock: (x: Translation) => CodeBlock = id,
   ): string {
     return transformMarkdown(
       markdown,
       new MarkdownRenderer(),
-      new ReplaceTypeScriptTransform('markdown', (tsSnip) => {
+      new ReplaceTypeScriptTransform('markdown', strict, (tsSnip) => {
         const translated = this.translateSnippet(tsSnip, targetLang);
         if (!translated) {
           return undefined;

@@ -4,7 +4,7 @@ pull_request_rules:
   - name: label core
     actions:
       label:
-        add: [ contribution/core ]
+        add: [contribution/core]
     conditions:
       - author~=^(eladb|RomainMuller|garnaat|nija-at|shivlaks|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch)$
       - -label~="contribution/core"
@@ -25,13 +25,13 @@ pull_request_rules:
       - -merged
       - -closed
       - -approved-reviews-by~=author
-      - "#approved-reviews-by>=1"
-      - "#review-requested=0"
-      - "#changes-requested-reviews-by=0"
+      - '#approved-reviews-by>=1'
+      - '#review-requested=0'
+      - '#changes-requested-reviews-by=0'
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
-      - status-success=Docker Images / jsii/superchain
+      - status-success=jsii/superchain
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
@@ -42,13 +42,17 @@ pull_request_rules:
       - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6, 3.7, and 3.8
+      # One test for Python 3.6 through 3.9
       - status-success~=^Test \(.* python 3\.6[ )].*$
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -56,7 +60,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
       merge:
-        strict: smart
+        strict: smart+fasttrack
         method: squash
         strict_method: merge
         commit_message: title+body
@@ -73,13 +77,13 @@ pull_request_rules:
       - -merged
       - -closed
       - -approved-reviews-by~=author
-      - "#approved-reviews-by>=1"
-      - "#review-requested=0"
-      - "#changes-requested-reviews-by=0"
+      - '#approved-reviews-by>=1'
+      - '#review-requested=0'
+      - '#changes-requested-reviews-by=0'
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
-      - status-success=Docker Images / jsii/superchain
+      - status-success=jsii/superchain
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
@@ -90,13 +94,17 @@ pull_request_rules:
       - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6, 3.7, and 3.8
+      # One test for Python 3.6 through 3.9
       - status-success~=^Test \(.* python 3\.6[ )].*$
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -104,7 +112,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
       merge:
-        strict: smart
+        strict: smart+fasttrack
         method: merge
         strict_method: merge
         commit_message: title+body
@@ -121,13 +129,13 @@ pull_request_rules:
       - -merged
       - -closed
       - -approved-reviews-by~=author
-      - "#approved-reviews-by>=1"
-      - "#review-requested=0"
-      - "#changes-requested-reviews-by=0"
+      - '#approved-reviews-by>=1'
+      - '#review-requested=0'
+      - '#changes-requested-reviews-by=0'
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
-      - status-success=Docker Images / jsii/superchain
+      - status-success=jsii/superchain
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
@@ -138,13 +146,17 @@ pull_request_rules:
       - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6, 3.7, and 3.8
+      # One test for Python 3.6 through 3.9
       - status-success~=^Test \(.* python 3\.6[ )].*$
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
 
   - name: Clean branch up
     actions:
@@ -165,7 +177,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
     conditions:
-      - base=master
+      - base=main
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - label!=contribution/core

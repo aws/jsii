@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
-    "@scope/jsii-calc-base-of-base": "^0.0.0"
+    "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base": {
@@ -19,7 +19,7 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
         "go": {
-          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+          "moduleName": "github.com/aws/jsii/jsii-calc/go"
         },
         "java": {
           "maven": {
@@ -44,7 +44,7 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
         "go": {
-          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+          "moduleName": "github.com/aws/jsii/jsii-calc/go"
         },
         "java": {
           "maven": {
@@ -71,6 +71,16 @@
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": true
+      },
+      "rosetta": {
+        "strict": true
+      }
+    }
+  },
   "name": "@scope/jsii-calc-lib",
   "repository": {
     "directory": "packages/@scope/jsii-calc-lib",
@@ -104,7 +114,7 @@
       "versionSuffix": "-devpreview"
     },
     "go": {
-      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      "moduleName": "github.com/aws/jsii/jsii-calc/go"
     },
     "java": {
       "maven": {
@@ -766,5 +776,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA="
+  "fingerprint": "7STgxc8/b+pajng4R4fEptbcOF2aQJBiQkO4bMAWpI4="
 }

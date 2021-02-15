@@ -2,6 +2,171 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/aws/jsii/compare/v1.20.1...v1.21.0) (2021-02-15)
+
+
+### Bug Fixes
+
+* **pacmak:** examples with multi-line strings produce invalid python docstrings ([#2571](https://github.com/aws/jsii/issues/2571)) ([d5c2e3a](https://github.com/aws/jsii/commit/d5c2e3aeb89524462fd4544df5aacea379cf9dd7)), closes [#2569](https://github.com/aws/jsii/issues/2569)
+* **pacmak:** TypeError when operating with Worker threads ([#2550](https://github.com/aws/jsii/issues/2550)) ([5822e48](https://github.com/aws/jsii/commit/5822e48f53e49e8116a57ed4b2da7e30b483f289)), closes [isaacs/node-graceful-fs#204](https://github.com/isaacs/node-graceful-fs/issues/204) [isaacs/node-graceful-fs#205](https://github.com/isaacs/node-graceful-fs/issues/205)
+* **rosetta,pacmak:** TypeError in node 10 with --experimental-worker ([#2554](https://github.com/aws/jsii/issues/2554)) ([4728e86](https://github.com/aws/jsii/commit/4728e866956c238a0fabe1a9d8c4b270ed05a990)), closes [isaacs/node-graceful-fs#204](https://github.com/isaacs/node-graceful-fs/issues/204)
+
+## [1.20.1](https://github.com/aws/jsii/compare/v1.20.0...v1.20.1) (2021-02-05)
+
+
+### Bug Fixes
+
+* **python:** ValueError: write to closed file ([#2541](https://github.com/aws/jsii/issues/2541)) ([64c6853](https://github.com/aws/jsii/commit/64c68535a3ef16b85f2eedc7997fb4404846e003))
+
+## [1.20.0](https://github.com/aws/jsii/compare/v1.19.0...v1.20.0) (2021-02-03)
+
+
+### Features
+
+* **runtime:** use a dedicated file descriptor for sync IPC ([#2411](https://github.com/aws/jsii/issues/2411)) ([0413081](https://github.com/aws/jsii/commit/0413081583df52fd42ab378a88a0ddb7c9b9200d))
+
+
+### Bug Fixes
+
+* **go:** invalid major version suffix for submodules and jsii init ([#2519](https://github.com/aws/jsii/issues/2519)) ([12e9b27](https://github.com/aws/jsii/commit/12e9b27373bdfce70456fddb9f38df0be6dbd511)), closes [#2507](https://github.com/aws/jsii/issues/2507) [#2507](https://github.com/aws/jsii/issues/2507)
+
+## [1.19.0](https://github.com/aws/jsii/compare/v1.18.0...v1.19.0) (2021-02-02)
+
+
+### Features
+
+* add runtime type info (fqn and version) to compiled sources ([481e7a4](https://github.com/aws/jsii/commit/481e7a47a8f4dd7348ba4aba683902b869d11c84)), closes [/github.com/aws/aws-cdk-rfcs/blob/master/text/0253-cdk-metadata-v2.md#appendix-1](https://github.com/aws//github.com/aws/aws-cdk-rfcs/blob/master/text/0253-cdk-metadata-v2.md/issues/appendix-1)
+* **go:** version file in the generated module directory ([#2492](https://github.com/aws/jsii/issues/2492)) ([da3ea25](https://github.com/aws/jsii/commit/da3ea25330a8a73f3102db1dfc8f94ea1d6eca3c))
+
+
+### Bug Fixes
+
+* **go:** major version suffix is missing in module names for >=v2 ([#2507](https://github.com/aws/jsii/issues/2507)) ([32c0add](https://github.com/aws/jsii/commit/32c0add5edd0ed57d535241b483168e2b7e731ce)), closes [#2509](https://github.com/aws/jsii/issues/2509)
+
+## [1.18.0](https://github.com/aws/jsii/compare/v1.17.1...v1.18.0) (2021-01-28)
+
+
+### Features
+
+* add support for bin-scripts (python only) ([#1941](https://github.com/aws/jsii/issues/1941)) ([61ef5ed](https://github.com/aws/jsii/commit/61ef5edc9696c41a45984c907dc30771c675e20b))
+* **dotnet,java:** kernel process inherits host's STDERR ([#2248](https://github.com/aws/jsii/issues/2248)) ([70ce153](https://github.com/aws/jsii/commit/70ce15312d7553bc44c2e4f8981b596563b5ecd7))
+* submodules expose readmes and targets via `jsii-reflect` ([#2482](https://github.com/aws/jsii/issues/2482)) ([33f41eb](https://github.com/aws/jsii/commit/33f41eb7f1e5acddcf505070ecb3f8dee6f9f4b1))
+* **go:** run "go build" on generated code ([#2485](https://github.com/aws/jsii/issues/2485)) ([d3602ec](https://github.com/aws/jsii/commit/d3602ece2fb7fa329557cef6043106669fd22608)), closes [#2463](https://github.com/aws/jsii/issues/2463)
+* **go:** runtime release tagging ([#2417](https://github.com/aws/jsii/issues/2417)) ([9ffd204](https://github.com/aws/jsii/commit/9ffd20481bd804ff288ab4bf91b9f394d52d3d90))
+* **jsii:** experimental --strip-deprecated feature ([#2437](https://github.com/aws/jsii/issues/2437)) ([f958f5a](https://github.com/aws/jsii/commit/f958f5a9603da990146ed6fe3674094fee227079))
+
+
+### Bug Fixes
+
+* **dotnet:** Use nested classes for proxies to avoid name collision ([#2368](https://github.com/aws/jsii/issues/2368)) ([90b17e2](https://github.com/aws/jsii/commit/90b17e2a7da159879a7e618ce6f2edca336f316e)), closes [#2367](https://github.com/aws/jsii/issues/2367)
+* **go:** generated code runtime dependency version ([#2399](https://github.com/aws/jsii/issues/2399)) ([f1a06e5](https://github.com/aws/jsii/commit/f1a06e5f71e599fcf6efccaa0906cee8cd93d3e1))
+* **go:** invalid output for multi-line [@return](https://github.com/return) and [@deprecated](https://github.com/deprecated) comments ([#2462](https://github.com/aws/jsii/issues/2462)) ([590681a](https://github.com/aws/jsii/commit/590681a4adc672345febdc274e1aa45658a8d7a5)), closes [#2457](https://github.com/aws/jsii/issues/2457)
+* **jsii:** errors when invoking with a project root argument ([#2351](https://github.com/aws/jsii/issues/2351)) ([9c66340](https://github.com/aws/jsii/commit/9c66340d2471db36175000c6673d1d498f4ec2c5))
+* **jsii:** submodules of dependencies show up in assembly ([#2481](https://github.com/aws/jsii/issues/2481)) ([2630a80](https://github.com/aws/jsii/commit/2630a8046dc5f9c799546248e783d24ed58a6783))
+* **jsii:** unknown error in Assembler._validateHeritageClauses ([#2350](https://github.com/aws/jsii/issues/2350)) ([3120bf4](https://github.com/aws/jsii/commit/3120bf448cc160cb0249aa57a0a2bd62e35c1659)), closes [#2349](https://github.com/aws/jsii/issues/2349)
+* bad working directory in go runtime push ([#2356](https://github.com/aws/jsii/issues/2356)) ([53457e2](https://github.com/aws/jsii/commit/53457e2f6063e5f0202eac7040ad03e1ed64805e))
+* **pacmak:** illegal static overrides in java & c# ([#2373](https://github.com/aws/jsii/issues/2373)) ([4672e4b](https://github.com/aws/jsii/commit/4672e4b5f37a83ebfe6e2296c81839af6b296d8f)), closes [#2358](https://github.com/aws/jsii/issues/2358)
+* **python:** mypy validation errors ([#2472](https://github.com/aws/jsii/issues/2472)) ([2b2e9a8](https://github.com/aws/jsii/commit/2b2e9a86e80a8a608b0ff5f0c4114e2a7b43883e)), closes [#2464](https://github.com/aws/jsii/issues/2464) [#2476](https://github.com/aws/jsii/issues/2476)
+* **python:** pin mypy to the exact version ([#2476](https://github.com/aws/jsii/issues/2476)) ([01a46d6](https://github.com/aws/jsii/commit/01a46d64fe30d81913b58c27d81899e1529715a3)), closes [#2464](https://github.com/aws/jsii/issues/2464)
+* **rosetta:** correctly emit multi-line string literals ([#2419](https://github.com/aws/jsii/issues/2419)) ([a30a996](https://github.com/aws/jsii/commit/a30a996479f961c93523ce9e378ededa39424948))
+
+## [1.17.1](https://github.com/aws/jsii/compare/v1.17.0...v1.17.1) (2021-01-13)
+
+### Bug Fixes
+
+* **python:** process.terminate() got an unexpected keyword argument 'timeout' ([#2421](https://github.com/aws/jsii/issues/2421)), closes [#2398](https://github.com/aws/jsii/issues/2398)
+
+
+## [1.17.0](https://github.com/aws/jsii/compare/v1.16.0...v1.17.0) (2021-01-13)
+
+
+### Features
+
+* add support for bin-scripts (python only) ([#1941](https://github.com/aws/jsii/issues/1941)) ([61ef5ed](https://github.com/aws/jsii/commit/61ef5edc9696c41a45984c907dc30771c675e20b))
+* **dotnet,java:** kernel process inherits host's STDERR ([#2248](https://github.com/aws/jsii/issues/2248)) ([70ce153](https://github.com/aws/jsii/commit/70ce15312d7553bc44c2e4f8981b596563b5ecd7))
+
+
+### Bug Fixes
+
+* bad working directory in go runtime push ([#2356](https://github.com/aws/jsii/issues/2356)) ([53457e2](https://github.com/aws/jsii/commit/53457e2f6063e5f0202eac7040ad03e1ed64805e))
+* **dotnet:** Use nested classes for proxies to avoid name collision ([#2368](https://github.com/aws/jsii/issues/2368)) ([90b17e2](https://github.com/aws/jsii/commit/90b17e2a7da159879a7e618ce6f2edca336f316e)), closes [#2367](https://github.com/aws/jsii/issues/2367)
+* **go:** generated code runtime dependency version ([#2399](https://github.com/aws/jsii/issues/2399)) ([f1a06e5](https://github.com/aws/jsii/commit/f1a06e5f71e599fcf6efccaa0906cee8cd93d3e1))
+* **jsii:** errors when invoking with a project root argument ([#2351](https://github.com/aws/jsii/issues/2351)) ([9c66340](https://github.com/aws/jsii/commit/9c66340d2471db36175000c6673d1d498f4ec2c5))
+* **jsii:** unknown error in Assembler._validateHeritageClauses ([#2350](https://github.com/aws/jsii/issues/2350)) ([3120bf4](https://github.com/aws/jsii/commit/3120bf448cc160cb0249aa57a0a2bd62e35c1659)), closes [#2349](https://github.com/aws/jsii/issues/2349)
+* **pacmak:** illegal static overrides in java & c# ([#2373](https://github.com/aws/jsii/issues/2373)) ([4672e4b](https://github.com/aws/jsii/commit/4672e4b5f37a83ebfe6e2296c81839af6b296d8f)), closes [#2358](https://github.com/aws/jsii/issues/2358)
+
+## [1.16.0](https://github.com/aws/jsii/compare/v1.15.0...v1.16.0) (2020-12-07)
+
+
+### Bug Fixes
+
+* **java:** exception is logged when Java VM is shutting down ([#2305](https://github.com/aws/jsii/issues/2305)) ([8e1e7bd](https://github.com/aws/jsii/commit/8e1e7bd2a038dc0e3eb6f0b3f9c616da4caa464d)), closes [#2303](https://github.com/aws/jsii/issues/2303)
+* **runtime:** excessive latency introduced by sleep ([#2298](https://github.com/aws/jsii/issues/2298)) ([1a94b85](https://github.com/aws/jsii/commit/1a94b859dbde4e002b4b3c04dfedf3ba97804962)), closes [#2284](https://github.com/aws/jsii/issues/2284)
+
+## [1.15.0](https://github.com/aws/jsii/compare/v1.14.1...v1.15.0) (2020-11-25)
+
+
+### Features
+
+* **dotnet,java:** finalize kernel process on VM shutdown ([#2247](https://github.com/aws/jsii/issues/2247)) ([29b2262](https://github.com/aws/jsii/commit/29b226281c71e62049f72a9418011925e17dc615)), closes [#2100](https://github.com/aws/jsii/issues/2100)
+* **go:** generate go.mod files ([#2265](https://github.com/aws/jsii/issues/2265)) ([4164eb5](https://github.com/aws/jsii/commit/4164eb53e8b5dbbe54e6a727ad77b92f3a325196)), closes [#2090](https://github.com/aws/jsii/issues/2090)
+* **go:** Runtime arg type casting ([8ba6aa9](https://github.com/aws/jsii/commit/8ba6aa90e7e45743da5deac70bb05ccabe58a403))
+* **go:** Runtime interface type casting ([bfce93d](https://github.com/aws/jsii/commit/bfce93d9d3552591e96f7dc2a687ee636b451c95))
+* **jsii:** configure diagnostics in package.json ([#2233](https://github.com/aws/jsii/issues/2233)) ([2bbef1f](https://github.com/aws/jsii/commit/2bbef1fb13efe27261b85a8bcc445f4c2e7caf3a))
+* **rosetta:** hoist imports above fixtures ([#2211](https://github.com/aws/jsii/issues/2211)) ([66e2ac8](https://github.com/aws/jsii/commit/66e2ac874295db7a25b2aa414da7f34047c14741))
+* **rosetta:** make assembly validation opt-in ([#2252](https://github.com/aws/jsii/issues/2252)) ([302dbb9](https://github.com/aws/jsii/commit/302dbb9d07d13823f24dd4b27f3cba7421038c53))
+* **rosetta:** support "strict" assemblies ([#2253](https://github.com/aws/jsii/issues/2253)) ([6cbde78](https://github.com/aws/jsii/commit/6cbde789fb02e77bac645e8d4091789eb778e829))
+* **rosetta:** support computed properties ([#2230](https://github.com/aws/jsii/issues/2230)) ([80b3aae](https://github.com/aws/jsii/commit/80b3aae22c5fae5963d79aeb915317357cc363f6))
+
+
+### Bug Fixes
+
+* **go:** generate concrete structs for behavioral interfaces ([#2257](https://github.com/aws/jsii/issues/2257)) ([6da0870](https://github.com/aws/jsii/commit/6da0870844ec9d37131e7727e408af34d32e1c32))
+* **go:** Method call return reference an implMap ([af5b27b](https://github.com/aws/jsii/commit/af5b27bdd387acd9076a1649a55f2a1f6808b0dc))
+* **python:** update `cattrs` dependency specification ([#2212](https://github.com/aws/jsii/issues/2212)) ([4f2836b](https://github.com/aws/jsii/commit/4f2836bed7c72d5e502f352ec4c0df232f9c5d69)), closes [aws/aws-cdk#11219](https://github.com/aws/aws-cdk/issues/11219)
+* **runtime:** "Error: EOF: end of file, read" on Windows ([#2238](https://github.com/aws/jsii/issues/2238)) ([1453ed3](https://github.com/aws/jsii/commit/1453ed34736917b54cfc212b2fa5e381714d1654))
+
+## [1.14.1](https://github.com/aws/jsii/compare/v1.14.0...v1.14.1) (2020-11-04)
+
+
+### Bug Fixes
+
+* **python:** update `cattrs` dependency specification ([#2212](https://github.com/aws/jsii/issues/2212)) ([d7731f9](https://github.com/aws/jsii/commit/d7731f997a95ec2e41d4fcf027695bb5267a7514)), closes [aws/aws-cdk#11219](https://github.com/aws/aws-cdk/issues/11219)
+
+## [1.14.0](https://github.com/aws/jsii/compare/v1.13.0...v1.14.0) (2020-10-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `jsii/superchain` Docker image no longer includes `ruby` and `gcc`. Users who need those should install them as part of their initialization script.
+
+### Features
+
+* **dotnet:** introduce `UnsafeCast<T>()` method ([#2192](https://github.com/aws/jsii/issues/2192)) ([5e22e81](https://github.com/aws/jsii/commit/5e22e8182516c17757f857f8a4d50feca9a79b42)), closes [aws/aws-cdk#3284](https://github.com/aws/aws-cdk/issues/3284) [aws/aws-cdk-rfcs#193](https://github.com/aws/aws-cdk-rfcs/issues/193)
+* **go:** dynamically load npm packages as needed ([#2067](https://github.com/aws/jsii/issues/2067)) ([7dbdbeb](https://github.com/aws/jsii/commit/7dbdbebe336bde2d02de598dc21d86d469a6abf0))
+* **go:** embed jsii runtime application ([#2066](https://github.com/aws/jsii/issues/2066)) ([85764de](https://github.com/aws/jsii/commit/85764deffd70af92333363bf38478440351654da))
+* **go:** Runtime method and static invoke support ([#2145](https://github.com/aws/jsii/issues/2145)) ([ff882c1](https://github.com/aws/jsii/commit/ff882c12defd6b703a32efe77cd3979b5cd2de9c))
+* **go:** runtime object creation ([#2117](https://github.com/aws/jsii/issues/2117)) ([977a063](https://github.com/aws/jsii/commit/977a063013601d70cc7a66e0a4cc6dce64789976))
+* **pacmak:** prerelease identifier support ([#2146](https://github.com/aws/jsii/issues/2146)) ([1338fc2](https://github.com/aws/jsii/commit/1338fc2492295f683381d00a04fb88517f3c4d55)), closes [#2114](https://github.com/aws/jsii/issues/2114)
+* **pacmak/java:** emit default interface implementations ([#2076](https://github.com/aws/jsii/issues/2076)) ([c618de3](https://github.com/aws/jsii/commit/c618de3940085847bf0a0b44acc758b57508a842)), closes [#2014](https://github.com/aws/jsii/issues/2014)
+
+
+### Bug Fixes
+
+* **dotnet:** abundant nullability warnings in generated code ([#2061](https://github.com/aws/jsii/issues/2061)) ([01a2951](https://github.com/aws/jsii/commit/01a295105b9d60edaf0ee0a3133e4b5942a971f2))
+* **go:** fix generation of readonly and static properties ([#2133](https://github.com/aws/jsii/issues/2133)) ([57b7d56](https://github.com/aws/jsii/commit/57b7d566bffb3516863308c4eb33d71a50b065bd)), closes [#2093](https://github.com/aws/jsii/issues/2093)
+* **go:** runtime api json invalid tags ([#2115](https://github.com/aws/jsii/issues/2115)) ([a9d96db](https://github.com/aws/jsii/commit/a9d96db055b6b48797eaf0dad41c238807a75015))
+* **go:** Submodule File Paths ([#2147](https://github.com/aws/jsii/issues/2147)) ([8863493](https://github.com/aws/jsii/commit/886349335778b89ba57191a9b747940382df9497))
+* **jsii:** annotation '[@internal](https://github.com/internal)' causes missing type declarations downstream ([#2172](https://github.com/aws/jsii/issues/2172)) ([e80a4f7](https://github.com/aws/jsii/commit/e80a4f7869d11bcd9de8078e86fe137ac4d54237)), closes [#1947](https://github.com/aws/jsii/issues/1947) [#1830](https://github.com/aws/jsii/issues/1830)
+* **jsii:** TypeError: Cannot read property 'getJsDocTags' of undefined ([#2163](https://github.com/aws/jsii/issues/2163)) ([5d87101](https://github.com/aws/jsii/commit/5d87101941ea71555927f5354a8f1da58df2d6d5)), closes [#2098](https://github.com/aws/jsii/issues/2098)
+* **jsii-diff:** external structs returned from methods cannot be changed ([#2070](https://github.com/aws/jsii/issues/2070)) ([11e9389](https://github.com/aws/jsii/commit/11e9389c0fa2444502e2c8e232e7ac549dc13f04)), closes [#2064](https://github.com/aws/jsii/issues/2064)
+* **pacmak/python:** escape character escapes in python docs ([#2138](https://github.com/aws/jsii/issues/2138)) ([1578899](https://github.com/aws/jsii/commit/1578899b524494b11f39faf9764fa17b854b51d1)), closes [#2137](https://github.com/aws/jsii/issues/2137)
+* **python:** leftover jsii-kernel-* directories in TMPDIR ([#2100](https://github.com/aws/jsii/issues/2100)) ([c119994](https://github.com/aws/jsii/commit/c11999499e6f9679da0272d96a1422025bbc0502))
+* **rosetta:** duplicated problem markers ([#2130](https://github.com/aws/jsii/issues/2130)) ([21c6fb5](https://github.com/aws/jsii/commit/21c6fb5df90751323a0e71a205a4f71185d1e8f4))
+
+
+* removes unused software from superchain to reduce image size ([#2092](https://github.com/aws/jsii/issues/2092)) ([fe2c597](https://github.com/aws/jsii/commit/fe2c5972a4c5c867b21cfa5c7d37a428f271296b))
+
 ## [1.13.0](https://github.com/aws/jsii/compare/v1.12.0...v1.13.0) (2020-09-29)
 
 

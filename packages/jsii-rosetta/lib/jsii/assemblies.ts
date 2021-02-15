@@ -1,14 +1,16 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+
+import { fixturize } from '../fixtures';
+import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import {
   TypeScriptSnippet,
   typeScriptSnippetFromSource,
   updateParameters,
   SnippetParameters,
 } from '../snippet';
-import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
-import { fixturize } from '../fixtures';
+import { enforcesStrictMode } from '../strict';
 
 export interface LoadedAssembly {
   assembly: spec.Assembly;
@@ -18,28 +20,32 @@ export interface LoadedAssembly {
 /**
  * Load assemblies by filename or directory
  */
-export async function loadAssemblies(assemblyLocations: string[]) {
-  const ret: LoadedAssembly[] = [];
-  for (const loc of assemblyLocations) {
-    const stat = await fs.stat(loc); // eslint-disable-line no-await-in-loop
+export async function loadAssemblies(
+  assemblyLocations: readonly string[],
+  validateAssemblies: boolean,
+): Promise<readonly LoadedAssembly[]> {
+  return Promise.all(assemblyLocations.map(loadAssembly));
+
+  async function loadAssembly(location: string): Promise<LoadedAssembly> {
+    const stat = await fs.stat(location);
     if (stat.isDirectory()) {
-      ret.push({
-        assembly: await loadAssemblyFromFile(path.join(loc, '.jsii')), // eslint-disable-line no-await-in-loop
-        directory: loc,
-      });
-    } else {
-      ret.push({
-        assembly: await loadAssemblyFromFile(loc), // eslint-disable-line no-await-in-loop
-        directory: path.dirname(loc),
-      });
+      return loadAssembly(path.join(location, '.jsii'));
     }
+    return {
+      assembly: await loadAssemblyFromFile(location, validateAssemblies),
+      directory: path.dirname(location),
+    };
   }
-  return ret;
 }
 
-async function loadAssemblyFromFile(filename: string) {
+async function loadAssemblyFromFile(
+  filename: string,
+  validate: boolean,
+): Promise<spec.Assembly> {
   const contents = await fs.readJSON(filename, { encoding: 'utf-8' });
-  return spec.validateAssembly(contents);
+  return validate
+    ? spec.validateAssembly(contents)
+    : (contents as spec.Assembly);
 }
 
 export type AssemblySnippetSource =
@@ -115,16 +121,17 @@ function removeSlashes(x: string) {
 }
 
 export function* allTypeScriptSnippets(
-  assemblies: Array<{ assembly: spec.Assembly; directory: string }>,
+  assemblies: readonly LoadedAssembly[],
 ): IterableIterator<TypeScriptSnippet> {
-  for (const assembly of assemblies) {
-    for (const source of allSnippetSources(assembly.assembly)) {
+  for (const { assembly, directory } of assemblies) {
+    const strict = enforcesStrictMode(assembly);
+    for (const source of allSnippetSources(assembly)) {
       switch (source.type) {
         case 'literal':
           const snippet = updateParameters(
-            typeScriptSnippetFromSource(source.source, source.where),
+            typeScriptSnippetFromSource(source.source, source.where, strict),
             {
-              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
+              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
             },
           );
           yield fixturize(snippet);
@@ -133,9 +140,10 @@ export function* allTypeScriptSnippets(
           for (const snippet of extractTypescriptSnippetsFromMarkdown(
             source.markdown,
             source.where,
+            strict,
           )) {
             const withDirectory = updateParameters(snippet, {
-              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
+              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
             });
             yield fixturize(withDirectory);
           }

@@ -1,10 +1,12 @@
 import * as ts from 'typescript';
-import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
-import { OTree, NO_SYNTAX } from '../o-tree';
-import { ImportStatement } from '../typescript/imports';
+
 import { isStructInterface, isStructType } from '../jsii/jsii-utils';
-import { mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
+import { OTree, NO_SYNTAX } from '../o-tree';
+import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
+import { ImportStatement } from '../typescript/imports';
+import { mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
+
 import { TargetLanguage } from '.';
 
 /**
@@ -44,15 +46,8 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public stringLiteral(
-    node: ts.StringLiteral,
-    _children: AstRenderer<C>,
-  ): OTree {
-    return new OTree([JSON.stringify(node.text)]);
-  }
-
-  public noSubstitutionTemplateLiteral(
-    node: ts.NoSubstitutionTemplateLiteral,
-    _context: AstRenderer<C>,
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
+    _renderer: AstRenderer<C>,
   ): OTree {
     return new OTree([JSON.stringify(node.text)]);
   }
@@ -319,6 +314,13 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     context: AstRenderer<C>,
   ): OTree {
     return this.notImplemented(node, context);
+  }
+
+  public computedPropertyName(
+    node: ts.Expression,
+    context: AstRenderer<C>,
+  ): OTree {
+    return context.convert(node);
   }
 
   public methodDeclaration(

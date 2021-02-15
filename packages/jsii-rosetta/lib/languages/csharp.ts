@@ -1,16 +1,8 @@
 import * as ts from 'typescript';
-import { DefaultVisitor } from './default';
-import { AstRenderer, nimpl } from '../renderer';
+
+import { jsiiTargetParam } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
-import {
-  typeWithoutUndefinedUnion,
-  builtInTypeName,
-  typeContainsUndefined,
-  parameterAcceptsUndefined,
-  mapElementType,
-  inferMapElementType,
-} from '../typescript/types';
-import { flat, partition, setExtend } from '../util';
+import { AstRenderer, nimpl } from '../renderer';
 import {
   matchAst,
   nodeOfType,
@@ -21,7 +13,16 @@ import {
   privatePropertyNames,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { jsiiTargetParam } from '../jsii/packages';
+import {
+  typeWithoutUndefinedUnion,
+  builtInTypeName,
+  typeContainsUndefined,
+  parameterAcceptsUndefined,
+  mapElementType,
+  inferMapElementType,
+} from '../typescript/types';
+import { flat, partition, setExtend } from '../util';
+import { DefaultVisitor } from './default';
 
 interface CSharpLanguageContext {
   /**
@@ -108,7 +109,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public identifier(
-    node: ts.Identifier | ts.StringLiteral,
+    node: ts.Identifier | ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     renderer: CSharpRenderer,
   ) {
     let text = node.text;
@@ -217,7 +218,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     opts: { isConstructor?: boolean } = {},
   ): OTree {
     const methodName = opts.isConstructor
-      ? renderer.currentContext.currentClassName || 'MyClass'
+      ? renderer.currentContext.currentClassName ?? 'MyClass'
       : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
     const returnType = opts.isConstructor
       ? ''
@@ -338,11 +339,15 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public stringLiteral(
-    node: ts.StringLiteral,
+    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     renderer: CSharpRenderer,
   ): OTree {
     if (renderer.currentContext.stringAsIdentifier) {
       return this.identifier(node, renderer);
+    }
+    if (node.text.includes('\n')) {
+      // Multi-line string literals (@"string") in C# do not do escaping. Only " needs to be doubled.
+      return new OTree(['@"', node.text.replace(/"/g, '""'), '"']);
     }
     return new OTree([JSON.stringify(node.text)]);
   }
@@ -611,7 +616,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
           renderer
             .updateContext({
               propertyOrMethod: false,
-              identifierAsString: true,
+              identifierAsString: !ts.isComputedPropertyName(key),
             })
             .convert(key),
           ', ',
@@ -739,19 +744,32 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     node: ts.TemplateExpression,
     context: CSharpRenderer,
   ): OTree {
-    const parts = ['$"'];
+    // If this is a multi-line string literal, we need not quote much, as @"string" literals in C#
+    // do not perform any quoting. The literal quotes in the text however must be doubled.
+    const isMultiLine =
+      !!node.head.rawText?.includes('\n') ||
+      node.templateSpans.some((span) => span.literal.rawText?.includes('\n'));
+
+    const parts = new Array<string>();
     if (node.head.rawText) {
-      parts.push(quoteStringLiteral(node.head.rawText));
+      parts.push(
+        isMultiLine
+          ? node.head.rawText.replace(/"/g, '""')
+          : quoteStringLiteral(node.head.rawText),
+      );
     }
     for (const span of node.templateSpans) {
       parts.push(`{${context.textOf(span.expression)}}`);
       if (span.literal.rawText) {
-        parts.push(quoteStringLiteral(span.literal.rawText));
+        parts.push(
+          isMultiLine
+            ? span.literal.rawText.replace(/"/g, '""')
+            : quoteStringLiteral(span.literal.rawText),
+        );
       }
     }
-    parts.push('"');
 
-    return new OTree([parts.join('')]);
+    return new OTree([isMultiLine ? '$@"' : '$"', ...parts, '"']);
   }
 
   protected argumentList(
@@ -840,7 +858,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     renderer: CSharpRenderer,
   ) {
     const heritage = flat(
-      Array.from(node.heritageClauses || []).map((h) => Array.from(h.types)),
+      Array.from(node.heritageClauses ?? []).map((h) => Array.from(h.types)),
     ).map((t) => renderer.convert(t.expression));
 
     return heritage.length > 0

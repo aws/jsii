@@ -107,7 +107,7 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
 
   /**
    * Direct dependencies on other assemblies (with semver), the key is the JSII
-   * assembly name, and the value is a SemVer expression..
+   * assembly name, and the value is a SemVer expression.
    *
    * @default none
    */
@@ -138,11 +138,11 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
   types?: { [fqn: string]: Type };
 
   /**
-   * The top-level readme document for this assembly (if any).
+   * List of bin-scripts
    *
    * @default none
    */
-  readme?: { markdown: string };
+  bin?: { readonly [script: string]: string };
 }
 
 /**
@@ -154,21 +154,15 @@ export interface AssemblyConfiguration extends Targetable {
    *
    * @default none
    */
-  submodules?: { [fqn: string]: SourceLocatable & Targetable };
+  submodules?: { [fqn: string]: Submodule };
 }
 
 /**
- * An entity on which targets may be configured.
+ * A targetable module-like thing
+ *
+ * Has targets and a readme. Used for Assemblies and Submodules.
  */
 export interface Targetable {
-  /**
-   * Submodules defined in this assembly, if any, associated with their
-   * designated targets configuration.
-   *
-   * @default none
-   */
-  submodules?: { [fqn: string]: { targets?: AssemblyTargets } };
-
   /**
    * A map of target name to configuration, which is used when generating
    * packages for various languages.
@@ -176,7 +170,29 @@ export interface Targetable {
    * @default none
    */
   targets?: AssemblyTargets;
+
+  /**
+   * The readme document for this module (if any).
+   *
+   * @default none
+   */
+  readme?: ReadMe;
 }
+
+/**
+ * README information
+ */
+export interface ReadMe {
+  markdown: string;
+}
+
+/**
+ * A submodule
+ *
+ * The difference between a top-level module (the assembly) and a submodule is
+ * that the submodule is annotated with its location in the repository.
+ */
+export type Submodule = SourceLocatable & Targetable;
 
 /**
  * Versions of the JSII Assembly Specification.

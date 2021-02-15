@@ -1,7 +1,15 @@
 import * as calcLib from '@scope/jsii-calc-lib';
 import * as assert from 'assert';
-import { Add, Calculator, Multiply, Negate, Power, Sum } from '../lib';
-import { composition } from '../lib';
+
+import {
+  Add,
+  Calculator,
+  Multiply,
+  Negate,
+  Power,
+  Sum,
+  composition,
+} from '../lib';
 
 //
 // * Constructors
@@ -116,4 +124,4 @@ assert.equal(calc3.readUnionValue(), 9 * 3);
 // All primitive types
 //
 
-console.log('ok');
+console.log('ok', __filename);

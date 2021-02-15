@@ -6,17 +6,24 @@
  *
  * Multiple paragraphs are separated by an empty line.
  *
+ * @example
+ * const x = 12 + 44;
+ * const s1 = "string";
+ * const s2 = "string \nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
+ * const s3 = `string
+ *             with
+ *             new lines`;
  * @stable
  */
 export class DocumentedClass {
   /**
    * Greet the indicated person.
    *
-   * This will print out a friendly greeting intended for
-   * the indicated person.
+   * This will print out a friendly greeting intended for the indicated person.
    *
    * @param greetee The person to be greeted.
-   * @returns A number that everyone knows very well
+   * @returns A number that everyone knows very well and represents the answer
+   * to the ultimate question
    */
   public greet(greetee: Greetee = {}): number {
     process.stdout.write(`Hello, ${greetee.name ?? 'world'}\n`);
@@ -48,7 +55,8 @@ export interface Greetee {
 /**
  * Old class
  *
- * @deprecated Use the new class
+ * @deprecated Use the new class or the old class whatever you want because
+ * whatever you like is always the best
  */
 export class Old {
   /**

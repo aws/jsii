@@ -1,24 +1,22 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
+import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
+import {
+  Translation,
+  Rosetta,
+  enforcesStrictMode,
+  typeScriptSnippetFromSource,
+} from 'jsii-rosetta';
+import * as path from 'path';
+
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
-import {
-  Translation,
-  Rosetta,
-  typeScriptSnippetFromSource,
-} from 'jsii-rosetta';
-import { toPythonVersionRange } from './version-utils';
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-} from '.';
+import { renderSummary } from './_utils';
 import {
   NamingContext,
   toTypeName,
@@ -27,12 +25,26 @@ import {
   toPackageName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
-import { renderSummary } from './_utils';
+import { toPythonVersionRange, toReleaseVersion } from './version-utils';
+
+import {
+  INCOMPLETE_DISCLAIMER_COMPILING,
+  INCOMPLETE_DISCLAIMER_NONCOMPILING,
+  TargetName,
+} from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
 
-const pythonBuildTools = ['setuptools~=49.3', 'wheel~=0.34'];
+const requirementsFile = path.resolve(
+  __dirname,
+  'python',
+  'requirements-dev.txt',
+);
+
+// we use single-quotes for multi-line strings to allow examples within the
+// docstrings themselves to include double-quotes (see https://github.com/aws/jsii/issues/2569)
+const DOCSTRING_QUOTES = "'''";
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
@@ -70,7 +82,7 @@ export default class Python extends Target {
     // Install the necessary things
     await shell(
       python,
-      ['-m', 'pip', 'install', '--no-input', ...pythonBuildTools, 'twine~=3.2'],
+      ['-m', 'pip', 'install', '--no-input', '-r', requirementsFile],
       {
         cwd: sourceDir,
         env,
@@ -520,16 +532,28 @@ abstract class BaseMethod implements PythonBase {
       pythonParams.push(`*${paramName}: ${paramType}`);
     }
 
+    const decorators = new Array<string>();
+
     if (this.jsName !== undefined) {
-      code.line(`@jsii.member(jsii_name="${this.jsName}")`);
+      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
+      decorators.push(`@jsii.member(jsii_name="${this.jsName}")`);
     }
 
     if (this.decorator !== undefined) {
-      code.line(`@${this.decorator}`);
+      decorators.push(`@${this.decorator}`);
     }
 
     if (renderAbstract && this.abstract) {
-      code.line('@abc.abstractmethod');
+      decorators.push('@abc.abstractmethod');
+    }
+
+    if (decorators.length > 0) {
+      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
+      for (const decorator of decorators
+        .join(' # type: ignore[misc]\n')
+        .split('\n')) {
+        code.line(decorator);
+      }
     }
 
     pythonParams.unshift(
@@ -558,6 +582,7 @@ abstract class BaseMethod implements PythonBase {
       forceEmitBody,
       liftedPropNames,
       pythonParams[0],
+      returnType,
     );
     code.closeBlock();
   }
@@ -569,6 +594,7 @@ abstract class BaseMethod implements PythonBase {
     forceEmitBody: boolean,
     liftedPropNames: Set<string>,
     implicitParameter: string,
+    returnType: string,
   ) {
     if (
       (!this.shouldEmitBody && !forceEmitBody) ||
@@ -585,6 +611,7 @@ abstract class BaseMethod implements PythonBase {
         context,
         liftedPropNames,
         implicitParameter,
+        returnType,
       );
     }
   }
@@ -619,6 +646,7 @@ abstract class BaseMethod implements PythonBase {
     context: EmitContext,
     liftedPropNames: Set<string>,
     implicitParameter: string,
+    returnType: string,
   ) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
 
@@ -649,10 +677,15 @@ abstract class BaseMethod implements PythonBase {
       params.push(expr);
     }
 
+    const value = `jsii.${this.jsiiMethod}(${jsiiMethodParams.join(
+      ', ',
+    )}, [${params.join(', ')}])`;
     code.line(
-      `${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(
-        ', ',
-      )}, [${params.join(', ')}])`,
+      `${methodPrefix}${
+        this.returnFromJSIIMethod && returnType
+          ? `typing.cast(${returnType}, ${value})`
+          : value
+      }`,
     );
   }
 
@@ -687,6 +720,7 @@ abstract class BaseMethod implements PythonBase {
 interface BasePropertyOpts {
   abstract?: boolean;
   immutable?: boolean;
+  isStatic?: boolean;
   parent: spec.NamedTypeReference;
 }
 
@@ -697,6 +731,7 @@ interface BasePropertyEmitOpts {
 
 abstract class BaseProperty implements PythonBase {
   public readonly abstract: boolean;
+  public readonly isStatic: boolean;
 
   protected abstract readonly decorator: string;
   protected abstract readonly implicitParameter: string;
@@ -714,10 +749,11 @@ abstract class BaseProperty implements PythonBase {
     private readonly docs: spec.Docs | undefined,
     opts: BasePropertyOpts,
   ) {
-    const { abstract = false, immutable = false } = opts;
+    const { abstract = false, immutable = false, isStatic = false } = opts;
 
     this.abstract = abstract;
     this.immutable = immutable;
+    this.isStatic = isStatic;
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -732,8 +768,8 @@ abstract class BaseProperty implements PythonBase {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType(context);
 
-    // # type: ignore is needed because mypy cannot check decorated things
-    code.line(`@${this.decorator} # type: ignore`);
+    // "# type: ignore[misc]" is needed because mypy cannot check decorated things
+    code.line(`@${this.decorator} # type: ignore[misc]`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
@@ -754,7 +790,7 @@ abstract class BaseProperty implements PythonBase {
       (!renderAbstract || !this.abstract)
     ) {
       code.line(
-        `return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`,
+        `return typing.cast(${pythonType}, jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}"))`,
       );
     } else {
       code.line('...');
@@ -763,8 +799,11 @@ abstract class BaseProperty implements PythonBase {
 
     if (!this.immutable) {
       code.line();
-      // # type: ignore is required because mypy cannot check decorated things
-      code.line(`@${this.pythonName}.setter # type: ignore`);
+      code.line(
+        `@${this.pythonName}.setter${
+          this.isStatic ? ' # type: ignore[no-redef]' : ''
+        }`,
+      );
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
@@ -805,11 +844,11 @@ class Interface extends BasePythonClassType {
     // Then, we have to emit a Proxy class which implements our proxy interface.
     const proxyBases: string[] = this.bases.map(
       (b) =>
-        // MyPy cannot check dynamic base classes (naturally)
+        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
         `jsii.proxy_for(${toTypeName(b).pythonType({
           ...context,
           typeAnnotation: false,
-        })}) # type: ignore`,
+        })}) # type: ignore[misc]`,
     );
     openSignature(code, 'class', this.getProxyClassName(), proxyBases);
     this.generator.emitDocString(code, this.docs, {
@@ -851,7 +890,9 @@ class Interface extends BasePythonClassType {
     _context: EmitContext,
   ) => {
     code.line('@builtins.staticmethod');
-    code.openBlock('def __jsii_proxy_class__()');
+    code.openBlock(
+      `def __jsii_proxy_class__() -> typing.Type["${this.getProxyClassName()}"]`,
+    );
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
   };
@@ -1010,15 +1051,10 @@ class Struct extends BasePythonClassType {
     code: CodeMaker,
     context: EmitContext,
   ) {
+    const pythonType = member.typeAnnotation(context);
+
     code.line('@builtins.property');
-    openSignature(
-      code,
-      'def',
-      member.pythonName,
-      ['self'],
-      true,
-      member.typeAnnotation(context),
-    );
+    openSignature(code, 'def', member.pythonName, ['self'], true, pythonType);
     member.emitDocString(code);
     code.line(
       `result = self._values.get(${JSON.stringify(member.pythonName)})`,
@@ -1029,7 +1065,7 @@ class Struct extends BasePythonClassType {
         `assert result is not None, "Required property '${member.pythonName}' is missing"`,
       );
     }
-    code.line('return result');
+    code.line(`return typing.cast(${pythonType}, result)`);
     code.closeBlock();
   }
 
@@ -1207,12 +1243,12 @@ class Class extends BasePythonClassType implements ISortableType {
 
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
-        // MyPy cannot check dynamic base types (naturally)
+        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
         proxyBases.push(
           `jsii.proxy_for(${toTypeName(base).pythonType({
             ...context,
             typeAnnotation: false,
-          })}) # type: ignore`,
+          })}) # type: ignore[misc]`,
         );
       }
 
@@ -1250,7 +1286,9 @@ class Class extends BasePythonClassType implements ISortableType {
     if (!this.abstract) return undefined;
     return (code: CodeMaker, _context: EmitContext) => {
       code.line('@builtins.staticmethod');
-      code.openBlock('def __jsii_proxy_class__()');
+      code.openBlock(
+        `def __jsii_proxy_class__() -> typing.Type["${this.getProxyClassName()}"]`,
+      );
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
     };
@@ -1479,6 +1517,56 @@ class PythonModule implements PythonType {
   }
 
   /**
+   * Emit the bin scripts if bin section defined.
+   */
+  public emitBinScripts(code: CodeMaker): string[] {
+    const scripts = new Array<string>();
+    if (this.loadAssembly) {
+      if (this.assembly.bin != null) {
+        for (const name of Object.keys(this.assembly.bin)) {
+          const script_file = path.join(
+            'src',
+            pythonModuleNameToFilename(this.pythonName),
+            'bin',
+            name,
+          );
+          code.openFile(script_file);
+          code.line('#!/usr/bin/env python');
+          code.line();
+          code.line('import jsii');
+          code.line('import sys');
+          code.line();
+          emitList(
+            code,
+            '__jsii_assembly__ = jsii.JSIIAssembly.load(',
+            [
+              JSON.stringify(this.assembly.name),
+              JSON.stringify(this.assembly.version),
+              JSON.stringify(this.pythonName.replace('._jsii', '')),
+              `${JSON.stringify(this.assemblyFilename)}`,
+            ],
+            ')',
+          );
+          code.line();
+          emitList(
+            code,
+            '__jsii_assembly__.invokeBinScript(',
+            [
+              JSON.stringify(this.assembly.name),
+              JSON.stringify(name),
+              'sys.argv[1:]',
+            ],
+            ')',
+          );
+          code.closeFile(script_file);
+          scripts.push(script_file.replace(/\\/g, '/'));
+        }
+      }
+    }
+    return scripts;
+  }
+
+  /**
    * Emit the README as module docstring if this is the entry point module (it loads the assembly)
    */
   private emitModuleDocumentation(code: CodeMaker) {
@@ -1487,9 +1575,9 @@ class PythonModule implements PythonType {
       this.fqn === this.assembly.name &&
       this.package.convertedReadme.trim().length > 0
     ) {
-      code.line('"""');
+      code.line(DOCSTRING_QUOTES);
       code.line(this.package.convertedReadme);
-      code.line('"""');
+      code.line(DOCSTRING_QUOTES);
     }
   }
 
@@ -1631,6 +1719,8 @@ class Package {
       a.pythonName.localeCompare(b.pythonName),
     );
 
+    const scripts = new Array<string>();
+
     // Iterate over all of our modules, and write them out to disk.
     for (const mod of modules) {
       const filename = path.join(
@@ -1642,6 +1732,8 @@ class Package {
       code.openFile(filename);
       mod.emit(code, context);
       code.closeFile(filename);
+
+      scripts.push(...mod.emitBinScripts(code));
     }
 
     // Handle our package data.
@@ -1718,8 +1810,10 @@ class Package {
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Typing :: Typed',
       ],
+      scripts,
     };
 
     switch (this.metadata.docs?.stability) {
@@ -1813,9 +1907,15 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line(
-      `requires = [${pythonBuildTools.map((x) => `"${x}"`).join(', ')}]`,
-    );
+    const buildTools = fs
+      .readFileSync(requirementsFile, { encoding: 'utf-8' })
+      .split('\n')
+      .map((line) => /^\s*(.+)\s*#\s*build-system\s*$/.exec(line)?.[1]?.trim())
+      .reduce(
+        (buildTools, entry) => (entry ? [...buildTools, entry] : buildTools),
+        new Array<string>(),
+      );
+    code.line(`requires = [${buildTools.map((x) => `"${x}"`).join(', ')}]`);
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
@@ -2093,16 +2193,16 @@ class PythonGenerator extends Generator {
     }
 
     if (lines.length === 1) {
-      code.line(`"""${lines[0]}"""`);
+      code.line(`${DOCSTRING_QUOTES}${lines[0]}${DOCSTRING_QUOTES}`);
     } else {
-      code.line(`"""${lines[0]}`);
+      code.line(`${DOCSTRING_QUOTES}${lines[0]}`);
       lines.splice(0, 1);
 
       for (const line of lines) {
         code.line(line);
       }
 
-      code.line('"""');
+      code.line(DOCSTRING_QUOTES);
     }
     if (options.trailingNewLine) {
       code.line();
@@ -2110,7 +2210,11 @@ class PythonGenerator extends Generator {
   }
 
   public convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const snippet = typeScriptSnippetFromSource(
+      example,
+      'example',
+      enforcesStrictMode(this.assembly),
+    );
     const translated = this.rosetta.translateSnippet(snippet, 'python');
     if (!translated) {
       return example;
@@ -2122,6 +2226,7 @@ class PythonGenerator extends Generator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'python',
+      enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),
@@ -2160,7 +2265,7 @@ class PythonGenerator extends Generator {
     this.package = new Package(
       this,
       assm.targets!.python!.distName,
-      assm.version,
+      toReleaseVersion(assm.version, TargetName.PYTHON),
       assm,
     );
 
@@ -2270,7 +2375,12 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        { abstract: prop.abstract, immutable: prop.immutable, parent: cls },
+        {
+          abstract: prop.abstract,
+          immutable: prop.immutable,
+          isStatic: prop.static,
+          parent: cls,
+        },
       ),
     );
   }
@@ -2321,7 +2431,12 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        { abstract: prop.abstract, immutable: prop.immutable, parent: cls },
+        {
+          abstract: prop.abstract,
+          immutable: prop.immutable,
+          isStatic: prop.static,
+          parent: cls,
+        },
       ),
     );
   }
@@ -2390,7 +2505,7 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        { immutable: prop.immutable, parent: ifc },
+        { immutable: prop.immutable, isStatic: prop.static, parent: ifc },
       );
     }
 

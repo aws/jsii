@@ -1,4 +1,5 @@
 import * as ts from 'typescript';
+
 import { Span } from '../o-tree';
 import { AstRenderer } from '../renderer';
 
@@ -13,7 +14,7 @@ export function calculateVisibleSpans(source: string): Span[] {
 }
 
 export function calculateMarkedSpans(source: string): MarkedSpan[] {
-  const regEx = /\/\/\/ (.*)(\r?\n)?$/gm;
+  const regEx = /[/]{3}[ \t]*(!(?:show|hide))[ \t]*$/gm;
 
   const ret = new Array<MarkedSpan>();
   let match;
@@ -37,7 +38,7 @@ export function calculateMarkedSpans(source: string): MarkedSpan[] {
   }
 
   // Add the remainder under the last visibility
-  ret.push({ start: spanStart || 0, end: source.length, visible });
+  ret.push({ start: spanStart ?? 0, end: source.length, visible });
 
   // Filter empty spans and return
   return ret.filter((s) => s.start !== s.end);
@@ -55,7 +56,7 @@ export function stripCommentMarkers(comment: string, multiline: boolean) {
       .replace(/^[ \t]*\*[ \t]?/gm, ''); // Strip "* " from start of line
   }
   // The text *must* start with '//'
-  return comment.replace(/^\/\/[ \t]?/gm, '');
+  return comment.replace(/^[/]{2}[ \t]?/gm, '');
 }
 
 export function stringFromLiteral(expr: ts.Expression) {
@@ -132,7 +133,7 @@ export function nodeOfType<
   const capturing = typeof syntaxKindOrCaptureName === 'string'; // Determine which overload we're in (SyntaxKind is a number)
 
   const realNext =
-    (capturing ? children : (nodeTypeOrChildren as AstMatcher<A>)) || DONE;
+    (capturing ? children : (nodeTypeOrChildren as AstMatcher<A>)) ?? DONE;
   const realCapture = capturing ? (syntaxKindOrCaptureName as N) : undefined;
   const realSyntaxKind = capturing
     ? nodeTypeOrChildren
@@ -163,7 +164,7 @@ export function anyNode<A>(children: AstMatcher<A>): AstMatcher<A>;
 export function anyNode<A>(
   children?: AstMatcher<A>,
 ): AstMatcher<A> | AstMatcher<any> {
-  const realNext = children || DONE;
+  const realNext = children ?? DONE;
   return (nodes) => {
     for (const node of nodes ?? []) {
       const m = realNext(nodeChildren(node));
@@ -183,7 +184,7 @@ export function allOfType<S extends keyof CapturableNodes, N extends string, A>(
 ): AstMatcher<{ [key in N]: Array<CapturableNodes[S]> }> {
   type ArrayType = Array<CapturableNodes[S]>;
   type ReturnType = { [key in N]: ArrayType };
-  const realNext = children || DONE;
+  const realNext = children ?? DONE;
 
   return (nodes) => {
     let ret: ReturnType | undefined;

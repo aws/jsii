@@ -6,9 +6,6 @@ phases:
       # Temporarily - install yarn if it's not there already
       - yarn --version || npm install --global yarn
       - yarn install --frozen-lockfile
-  pre_build:
-    commands:
-      - yarn fetch-dotnet-snk
   build:
     commands:
       - yarn build && yarn test

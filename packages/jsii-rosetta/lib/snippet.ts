@@ -21,6 +21,13 @@ export interface TypeScriptSnippet {
    * Parameters for the conversion
    */
   readonly parameters?: Record<string, string>;
+
+  /**
+   * Whether this snippet must be processed as if `--strict` was always supplied.
+   *
+   * @default false
+   */
+  readonly strict?: boolean;
 }
 
 /**
@@ -31,8 +38,9 @@ export interface TypeScriptSnippet {
 export function typeScriptSnippetFromSource(
   typeScriptSource: string,
   where: string,
+  strict: boolean,
   parameters: Record<string, string> = {},
-) {
+): TypeScriptSnippet {
   const [source, sourceParameters] = parametersFromSourceDirectives(
     typeScriptSource,
   );
@@ -40,6 +48,7 @@ export function typeScriptSnippetFromSource(
     visibleSource: source.trimRight(),
     where,
     parameters: Object.assign({}, parameters, sourceParameters),
+    strict,
   };
 }
 
@@ -57,7 +66,7 @@ export function updateParameters(
  * Get the complete (compilable) source of a snippet
  */
 export function completeSource(snippet: TypeScriptSnippet) {
-  return snippet.completeSource || snippet.visibleSource;
+  return snippet.completeSource ?? snippet.visibleSource;
 }
 
 /**
@@ -66,16 +75,16 @@ export function completeSource(snippet: TypeScriptSnippet) {
 function parametersFromSourceDirectives(
   source: string,
 ): [string, Record<string, string>] {
-  const [firstLine, rest] = source.split('\n', 2);
+  const [firstLine, ...rest] = source.split('\n');
   // Also extract parameters from an initial line starting with '/// ' (getting rid of that line).
-  const m = /\/\/\/(.*)$/.exec(firstLine);
+  const m = /[/]{3}(.*)$/.exec(firstLine);
   if (m) {
     const paramClauses = m[1]
       .trim()
       .split(' ')
       .map((s) => s.trim())
       .filter((s) => s !== '');
-    return [rest, parseKeyValueList(paramClauses)];
+    return [rest.join('\n'), parseKeyValueList(paramClauses)];
   }
 
   return [source, {}];

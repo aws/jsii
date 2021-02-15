@@ -1,5 +1,6 @@
-import * as inquirer from 'inquirer';
 import { PackageJson } from '@jsii/spec';
+import * as inquirer from 'inquirer';
+
 import getQuestions from './questions';
 import { BasePackageJson } from './schema';
 import { getNestedValue, removeEmptyValues } from './util';

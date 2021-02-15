@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+
 import { Kernel } from '../lib';
 
 export async function closeRecording(kernel: Kernel): Promise<void> {
@@ -30,12 +31,11 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
   const logfile = fs.createWriteStream(inputOutputLogPath);
   (kernel as any).logfile = logfile;
 
-  Object.getOwnPropertyNames(Kernel.prototype)
-    .filter((p) => !p.startsWith('_'))
-    .forEach((api) => {
-      const old = Object.getOwnPropertyDescriptor(Kernel.prototype, api)!;
-
+  Object.entries(Object.getOwnPropertyDescriptors(Kernel.prototype))
+    .filter(([p, v]) => !p.startsWith('_') && typeof v.value === 'function')
+    .forEach(([api, old]) => {
       Object.defineProperty(kernel, api, {
+        ...old,
         value(...args: any[]) {
           logInput({ api, ...args[0] });
           try {
@@ -67,12 +67,10 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
     });
 
   function logInput(obj: any) {
-    const inputLine = `${JSON.stringify(obj)}\n`;
-    logfile.write(`> ${inputLine}`);
+    logfile.write(`> ${JSON.stringify(obj)}\n`);
   }
 
   function logOutput(obj: any) {
-    const outputLine = `${JSON.stringify(obj)}\n`;
-    logfile.write(`< ${outputLine}`);
+    logfile.write(`< ${JSON.stringify(obj)}\n`);
   }
 }

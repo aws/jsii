@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.0.0"
+    "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base-of-base": {
@@ -18,7 +18,7 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
         "go": {
-          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+          "moduleName": "github.com/aws/jsii/jsii-calc/go"
         },
         "java": {
           "maven": {
@@ -41,6 +41,16 @@
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": false
+      },
+      "rosetta": {
+        "strict": true
+      }
+    }
+  },
   "name": "@scope/jsii-calc-base",
   "repository": {
     "directory": "packages/@scope/jsii-calc-base",
@@ -54,7 +64,7 @@
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
     },
     "go": {
-      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      "moduleName": "github.com/aws/jsii/jsii-calc/go"
     },
     "java": {
       "maven": {
@@ -83,7 +93,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 6
+        "line": 10
       },
       "methods": [
         {
@@ -92,7 +102,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 14
           },
           "name": "typeName",
           "returns": {
@@ -114,7 +124,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 19
       },
       "name": "BaseProps",
       "properties": [
@@ -123,7 +133,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 16
+            "line": 20
           },
           "name": "bar",
           "type": {
@@ -141,21 +151,55 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 19
+        "line": 23
       },
       "methods": [
         {
           "abstract": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 20
+            "line": 24
           },
           "name": "bar"
         }
       ],
       "name": "IBaseInterface"
+    },
+    "@scope/jsii-calc-base.StaticConsumer": {
+      "assembly": "@scope/jsii-calc-base",
+      "docs": {
+        "summary": "Hides the transitive dependency of base-of-base."
+      },
+      "fqn": "@scope/jsii-calc-base.StaticConsumer",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 30
+      },
+      "methods": [
+        {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 31
+          },
+          "name": "consume",
+          "parameters": [
+            {
+              "name": "args",
+              "type": {
+                "primitive": "any"
+              },
+              "variadic": true
+            }
+          ],
+          "static": true,
+          "variadic": true
+        }
+      ],
+      "name": "StaticConsumer"
     }
   },
   "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "fingerprint": "rKhrKvGvuY8DnHhiQFIGMiFOU8AU+S9ZVk9c3/rUJNk="
 }

@@ -1,13 +1,14 @@
+import * as spec from '@jsii/spec';
 import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
 import * as fs from 'fs-extra';
-import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
+
 import {
   getReferencedDocParams,
   parseSymbolDocumentation,
@@ -16,13 +17,16 @@ import {
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import * as literate from './literate';
+import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { DeprecatedRemover } from './transforms/deprecated-remover';
+import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
+import { TsCommentReplacer } from './transforms/ts-comment-replacer';
+import { combinedTransformers } from './transforms/utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
-import { TsCommentReplacer } from './ts-comment-replacer';
-import { Docs, Parameter } from '@jsii/spec';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -33,7 +37,9 @@ const LOG = log4js.getLogger('jsii/assembler');
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
 export class Assembler implements Emitter {
-  public readonly commentReplacer = new TsCommentReplacer();
+  private readonly commentReplacer = new TsCommentReplacer();
+  private readonly runtimeTypeInfoInjector: RuntimeTypeInfoInjector;
+  private readonly deprecatedRemover?: DeprecatedRemover;
 
   private readonly mainFile: string;
 
@@ -43,6 +49,15 @@ export class Assembler implements Emitter {
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
+
+  /**
+   * Submodule information
+   *
+   * Contains submodule information for all namespaces that have been seen
+   * across all assemblies (this and dependencies).
+   *
+   * Filtered to local submodules only at time of writing the assembly out to disk.
+   */
   private readonly _submodules = new Map<ts.Symbol, SubmoduleSpec>();
 
   /**
@@ -54,7 +69,12 @@ export class Assembler implements Emitter {
     public readonly projectInfo: ProjectInfo,
     public readonly program: ts.Program,
     public readonly stdlib: string,
+    options: AssemblerOptions = {},
   ) {
+    if (options.stripDeprecated) {
+      this.deprecatedRemover = new DeprecatedRemover(this._typeChecker);
+    }
+
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
 
@@ -74,6 +94,17 @@ export class Assembler implements Emitter {
     }
 
     this.mainFile = path.resolve(projectInfo.projectRoot, mainFile);
+    this.runtimeTypeInfoInjector = new RuntimeTypeInfoInjector(
+      projectInfo.version,
+    );
+  }
+
+  public get customTransformers(): ts.CustomTransformers {
+    return combinedTransformers(
+      this.deprecatedRemover?.customTransformers ?? {},
+      this.runtimeTypeInfoInjector.makeTransformers(),
+      this.commentReplacer.makeTransformers(),
+    );
   }
 
   private get _typeChecker(): ts.TypeChecker {
@@ -174,10 +205,10 @@ export class Assembler implements Emitter {
       schema: spec.SchemaVersion.LATEST,
       name: this.projectInfo.name,
       version: this.projectInfo.version,
-      description: this.projectInfo.description || this.projectInfo.name,
+      description: this.projectInfo.description ?? this.projectInfo.name,
       license: this.projectInfo.license,
       keywords: this.projectInfo.keywords,
-      homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
+      homepage: this.projectInfo.homepage ?? this.projectInfo.repository.url,
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [
         ...this.projectInfo.contributors,
@@ -192,16 +223,19 @@ export class Assembler implements Emitter {
       ),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
-      submodules: noEmptyDict(
-        toSubmoduleDeclarations(this._submodules.values()),
-      ),
+      submodules: noEmptyDict(toSubmoduleDeclarations(this.mySubmodules())),
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
       docs,
       readme,
       jsiiVersion,
+      bin: this.projectInfo.bin,
       fingerprint: '<TBD>',
     };
+
+    if (this.deprecatedRemover) {
+      this._diagnostics.push(...this.deprecatedRemover.removeFrom(assembly));
+    }
 
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = await validator.emit();
@@ -535,6 +569,14 @@ export class Assembler implements Emitter {
       return;
     }
     if (ts.isModuleDeclaration(declaration)) {
+      // Looks like:
+      //
+      //    export some_namespace {
+      //       ...
+      //    }
+      //
+      // No way to configure targets
+
       const { fqn, fqnResolutionPrefix } = await qualifiedNameOf.call(
         this,
         symbol,
@@ -616,11 +658,13 @@ export class Assembler implements Emitter {
         symbol,
       );
       const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
+      const readme = await loadSubmoduleReadMe(sourceFile.fileName);
 
       this._submodules.set(symbol, {
         fqn,
         fqnResolutionPrefix,
         targets,
+        readme,
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, sourceModule, packageRoot);
@@ -662,6 +706,31 @@ export class Assembler implements Emitter {
       const data = await fs.readJson(jsiirc);
       return data.targets;
     }
+
+    /**
+     * Load the README for the given submodule
+     *
+     * If the submodule is loaded from a complete directory (determined by the 'main'
+     * file ending in `index.[d.]ts`, then we load `README.md` in that same directory.
+     *
+     * If the submodule is loaded from a file, like `mymodule.[d.]ts`, we will load
+     * `mymodule.README.md`.
+     */
+    async function loadSubmoduleReadMe(
+      submoduleMain: string,
+    ): Promise<SubmoduleSpec['readme']> {
+      const fileBase = path.basename(submoduleMain).replace(/(\.d)?\.ts$/, '');
+      const readMeName =
+        fileBase === 'index' ? `README.md` : `${fileBase}.README.md`;
+      const fullPath = path.join(path.dirname(submoduleMain), readMeName);
+
+      if (!(await fs.pathExists(fullPath))) {
+        return undefined;
+      }
+      return {
+        markdown: await fs.readFile(fullPath, { encoding: 'utf-8' }),
+      };
+    }
   }
 
   /**
@@ -697,8 +766,7 @@ export class Assembler implements Emitter {
 
           this._diagnostics.push(
             JsiiDiagnostic.JSII_3003_SYMBOL_IS_EXPORTED_TWICE.create(
-              (symbol.valueDeclaration as { name?: ts.Node }).name ??
-                symbol.valueDeclaration,
+              _nameOrDeclarationNode(symbol),
               refs[0].name,
               refs[1].name,
             )
@@ -829,6 +897,9 @@ export class Assembler implements Emitter {
         this._typeChecker.getTypeAtLocation(node),
         context,
       );
+      if (jsiiType) {
+        this.registerExportedClassFqn(node, jsiiType.fqn);
+      }
     } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
       // export interface Name { ... }
       this._validateHeritageClauses(node.heritageClauses);
@@ -876,7 +947,10 @@ export class Assembler implements Emitter {
       return allTypes;
     } else {
       this._diagnostics.push(
-        JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(node, node.kind),
+        JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
+          ts.getNameOfDeclaration(node) ?? node,
+          node.kind,
+        ),
       );
     }
 
@@ -899,13 +973,10 @@ export class Assembler implements Emitter {
         (name) => `${this.projectInfo.name}.${name}` === jsiiType!.fqn,
       );
       if (colliding != null) {
-        const submoduleDecl =
-          submodule.valueDeclaration ?? submodule.declarations[0];
-        const submoduleDeclName =
-          (submoduleDecl as { name?: ts.Node }).name ?? submoduleDecl;
+        const submoduleDeclName = _nameOrDeclarationNode(submodule);
         this._diagnostics.push(
           JsiiDiagnostic.JSII_5011_SUBMODULE_NAME_CONFLICT.create(
-            (node as { name?: ts.Node }).name ?? node,
+            ts.getNameOfDeclaration(node) ?? node,
             submodule.name,
             jsiiType.name,
             candidates,
@@ -941,7 +1012,7 @@ export class Assembler implements Emitter {
           if (nestedType.namespace !== nestedContext.namespace.join('.')) {
             this._diagnostics.push(
               JsiiDiagnostic.JSII_5012_NAMESPACE_IN_TYPE.create(
-                (node as { name?: ts.Node }).name ?? node,
+                ts.getNameOfDeclaration(node) ?? node,
                 jsiiType.fqn,
                 nestedType.namespace!,
               ),
@@ -962,6 +1033,12 @@ export class Assembler implements Emitter {
     for (const clause of clauses) {
       for (const node of clause.types) {
         const parentType = this._typeChecker.getTypeAtLocation(node);
+        if (parentType.symbol == null) {
+          // The parent type won't have a symbol if it's an "error type" inserted by the type checker when the original
+          // code contains a compilation error. In such cases, the TypeScript compiler will already have reported about
+          // the incoherent declarations, so we'll just not re-validate it there (we'd fail anyway).
+          continue;
+        }
         // For some reason, we cannot trust parentType.isClassOrInterface()
         const badDecl = parentType.symbol.declarations.find(
           (decl) =>
@@ -1077,14 +1154,18 @@ export class Assembler implements Emitter {
       type.symbol.name
     }`;
 
-    const jsiiType: spec.ClassType = {
-      assembly: this.projectInfo.name,
-      fqn,
-      kind: spec.TypeKind.Class,
-      name: type.symbol.name,
-      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-      docs: this._visitDocumentation(type.symbol, ctx),
-    };
+    const jsiiType: spec.ClassType = bindings.setClassRelatedNode(
+      {
+        assembly: this.projectInfo.name,
+        fqn,
+        kind: spec.TypeKind.Class,
+        name: type.symbol.name,
+        namespace:
+          ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+        docs: this._visitDocumentation(type.symbol, ctx),
+      },
+      type.symbol.valueDeclaration as ts.ClassDeclaration,
+    );
 
     if (_isAbstract(type.symbol, jsiiType)) {
       jsiiType.abstract = true;
@@ -1167,7 +1248,7 @@ export class Assembler implements Emitter {
           continue;
         } else if (clause.token !== ts.SyntaxKind.ImplementsKeyword) {
           this._diagnostics.push(
-            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
+            JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
               clause,
               `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`,
             ),
@@ -1240,10 +1321,18 @@ export class Assembler implements Emitter {
       }
 
       for (const memberDecl of classDecl.members) {
-        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there..)
-        const member =
-          this._typeChecker.getSymbolAtLocation(memberDecl.name!) ??
-          ((memberDecl as any).symbol as ts.Symbol);
+        if (ts.isSemicolonClassElement(memberDecl)) {
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_9996_UNNECESSARY_TOKEN.create(memberDecl),
+          );
+          continue;
+        }
+
+        const member: ts.Symbol = ts.isConstructorDeclaration(memberDecl)
+          ? (memberDecl as any).symbol
+          : this._typeChecker.getSymbolAtLocation(
+              ts.getNameOfDeclaration(memberDecl)!,
+            )!;
 
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
@@ -1288,8 +1377,8 @@ export class Assembler implements Emitter {
           );
         } else {
           this._diagnostics.push(
-            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
-              memberDecl,
+            JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
+              ts.getNameOfDeclaration(memberDecl) ?? memberDecl,
               memberDecl.kind,
             ),
           );
@@ -1503,7 +1592,7 @@ export class Assembler implements Emitter {
    */
   private _isPrivateOrInternal(
     symbol: ts.Symbol,
-    validateDeclaration?: ts.Declaration & { name?: ts.Node },
+    validateDeclaration?: ts.Declaration,
   ): boolean {
     const hasInternalJsDocTag = _hasInternalJsDocTag(symbol);
     const hasUnderscorePrefix =
@@ -1527,7 +1616,7 @@ export class Assembler implements Emitter {
       if (!hasUnderscorePrefix) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_8005_INTERNAL_UNDERSCORE.create(
-            validateDeclaration.name ?? validateDeclaration,
+            ts.getNameOfDeclaration(validateDeclaration) ?? validateDeclaration,
             symbol.name,
           ),
         );
@@ -1536,7 +1625,7 @@ export class Assembler implements Emitter {
       if (!hasInternalJsDocTag) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_8006_UNDERSCORE_INTERNAL.create(
-            validateDeclaration.name ?? validateDeclaration,
+            ts.getNameOfDeclaration(validateDeclaration) ?? validateDeclaration,
             symbol.name,
           ),
         );
@@ -1591,21 +1680,25 @@ export class Assembler implements Emitter {
     const typeContext = ctx.replaceStability(docs?.stability);
     const members = type.isUnion() ? type.types : [type];
 
-    const jsiiType: spec.EnumType = {
-      assembly: this.projectInfo.name,
-      fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
-        symbol.name
-      }`,
-      kind: spec.TypeKind.Enum,
-      members: members.map((m) => {
-        const docs = this._visitDocumentation(m.symbol, typeContext);
-        this.overrideDocComment(m.symbol, docs);
-        return { name: m.symbol.name, docs };
-      }),
-      name: symbol.name,
-      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-      docs,
-    };
+    const jsiiType: spec.EnumType = bindings.setEnumRelatedNode(
+      {
+        assembly: this.projectInfo.name,
+        fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
+          symbol.name
+        }`,
+        kind: spec.TypeKind.Enum,
+        members: members.map((m) => {
+          const docs = this._visitDocumentation(m.symbol, typeContext);
+          this.overrideDocComment(m.symbol, docs);
+          return { name: m.symbol.name, docs };
+        }),
+        name: symbol.name,
+        namespace:
+          ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+        docs,
+      },
+      decl as ts.EnumDeclaration,
+    );
 
     this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
@@ -1685,14 +1778,18 @@ export class Assembler implements Emitter {
       type.symbol.name
     }`;
 
-    const jsiiType: spec.InterfaceType = {
-      assembly: this.projectInfo.name,
-      fqn,
-      kind: spec.TypeKind.Interface,
-      name: type.symbol.name,
-      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-      docs: this._visitDocumentation(type.symbol, ctx),
-    };
+    const jsiiType: spec.InterfaceType = bindings.setInterfaceRelatedNode(
+      {
+        assembly: this.projectInfo.name,
+        fqn,
+        kind: spec.TypeKind.Interface,
+        name: type.symbol.name,
+        namespace:
+          ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+        docs: this._visitDocumentation(type.symbol, ctx),
+      },
+      type.symbol.declarations[0] as ts.InterfaceDeclaration,
+    );
 
     const { interfaces, erasedBases } = await this._processBaseInterfaces(
       fqn,
@@ -1745,11 +1842,10 @@ export class Assembler implements Emitter {
               type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else {
-          const declaration = member.valueDeclaration ?? member.declarations[0];
           this._diagnostics.push(
-            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
-              declaration,
-              declaration.kind,
+            JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
+              _nameOrDeclarationNode(member),
+              (member.valueDeclaration ?? member.declarations[0]).kind,
             ),
           );
         }
@@ -1781,7 +1877,7 @@ export class Assembler implements Emitter {
         if (!jsiiType.datatype && !interfaceName) {
           this._diagnostics.push(
             JsiiDiagnostic.JSII_8007_BEHAVIORAL_INTERFACE_NAME.create(
-              (declaration as { name?: ts.Node }).name ?? declaration,
+              ts.getNameOfDeclaration(declaration) ?? declaration,
               jsiiType.name,
             ),
           );
@@ -1797,11 +1893,9 @@ export class Assembler implements Emitter {
           for (const prop of jsiiType.properties ?? []) {
             if (!prop.immutable) {
               const p = type.getProperty(prop.name)!;
-              const declaration: ts.Node & { name?: ts.Node } =
-                p.valueDeclaration ?? p.declarations[0];
               this._diagnostics.push(
                 JsiiDiagnostic.JSII_3008_STRUCT_PROPS_MUST_BE_READONLY.create(
-                  declaration.name ?? declaration,
+                  _nameOrDeclarationNode(p),
                   p.name,
                   jsiiType,
                 ),
@@ -1935,23 +2029,27 @@ export class Assembler implements Emitter {
     );
 
     const returnType = signature.getReturnType();
-    const method: spec.Method = {
-      abstract: _isAbstract(symbol, type) || undefined,
-      name: symbol.name,
-      parameters: parameters.length > 0 ? parameters : undefined,
-      protected: _isProtected(symbol) || undefined,
-      returns: _isVoid(returnType)
-        ? undefined
-        : await this._optionalValue(
-            returnType,
-            declaration.name,
-            'return type',
-          ),
-      async: _isPromise(returnType) || undefined,
-      static: _isStatic(symbol) || undefined,
-      locationInModule: this.declarationLocation(declaration),
-    };
-    method.variadic = method.parameters?.some((p) => !!p.variadic) || undefined;
+    const method: spec.Method = bindings.setMethodRelatedNode(
+      {
+        abstract: _isAbstract(symbol, type) || undefined,
+        name: symbol.name,
+        parameters: parameters.length > 0 ? parameters : undefined,
+        protected: _isProtected(symbol) || undefined,
+        returns: _isVoid(returnType)
+          ? undefined
+          : await this._optionalValue(
+              returnType,
+              declaration.name,
+              'return type',
+            ),
+        async: _isPromise(returnType) || undefined,
+        static: _isStatic(symbol) || undefined,
+        locationInModule: this.declarationLocation(declaration),
+      },
+      declaration,
+    );
+    method.variadic =
+      method.parameters?.some((p) => !!p.variadic) === true ? true : undefined;
 
     this._verifyConsecutiveOptionals(declaration, method.parameters);
 
@@ -2019,8 +2117,7 @@ export class Assembler implements Emitter {
     if (reservingLanguages) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_5018_RESERVED_WORD.create(
-          ts.getNameOfDeclaration(symbol.valueDeclaration) ||
-            symbol.valueDeclaration,
+          _nameOrDeclarationNode(symbol),
           symbol.name,
           reservingLanguages,
         ),
@@ -2084,18 +2181,21 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(symbol);
 
-    const property: spec.Property = {
-      ...(await this._optionalValue(
-        this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),
-        signature.name,
-        'property type',
-      )),
-      abstract: _isAbstract(symbol, type) || undefined,
-      name: symbol.name,
-      protected: _isProtected(symbol) || undefined,
-      static: _isStatic(symbol) || undefined,
-      locationInModule: this.declarationLocation(signature),
-    };
+    const property: spec.Property = bindings.setPropertyRelatedNode(
+      {
+        ...(await this._optionalValue(
+          this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),
+          signature.name,
+          'property type',
+        )),
+        abstract: _isAbstract(symbol, type) || undefined,
+        name: symbol.name,
+        protected: _isProtected(symbol) || undefined,
+        static: _isStatic(symbol) || undefined,
+        locationInModule: this.declarationLocation(signature),
+      },
+      signature,
+    );
 
     if (ts.isGetAccessor(signature)) {
       const decls = symbol.getDeclarations() ?? [];
@@ -2151,15 +2251,18 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(paramSymbol);
 
-    const parameter: spec.Parameter = {
-      ...(await this._optionalValue(
-        this._typeChecker.getTypeAtLocation(paramDeclaration),
-        paramDeclaration.name,
-        'parameter type',
-      )),
-      name: paramSymbol.name,
-      variadic: paramDeclaration.dotDotDotToken && true,
-    };
+    const parameter: spec.Parameter = bindings.setParameterRelatedNode(
+      {
+        ...(await this._optionalValue(
+          this._typeChecker.getTypeAtLocation(paramDeclaration),
+          paramDeclaration.name,
+          'parameter type',
+        )),
+        name: paramSymbol.name,
+        variadic: paramDeclaration.dotDotDotToken && true,
+      },
+      paramDeclaration,
+    );
 
     if (parameter.variadic && spec.isCollectionTypeReference(parameter.type)) {
       // TypeScript types variadic parameters as an array, but JSII uses the item-type instead.
@@ -2481,6 +2584,14 @@ export class Assembler implements Emitter {
   }
 
   /**
+   * Updates the runtime type info with the fully-qualified name for the current class definition.
+   * Used by the runtime type info injector to add this information to the compiled file.
+   */
+  private registerExportedClassFqn(clazz: ts.ClassDeclaration, fqn: string) {
+    this.runtimeTypeInfoInjector.registerClassFqn(clazz, fqn);
+  }
+
+  /**
    * From the given JSIIDocs, re-render the TSDoc comment for the Node
    *
    * We may change the documentation a little, so that the doc comment that gets
@@ -2496,8 +2607,8 @@ export class Assembler implements Emitter {
    */
   private overrideDocComment(
     symbol?: ts.Symbol,
-    docs?: Docs,
-    parameters?: Record<string, Docs>,
+    docs?: spec.Docs,
+    parameters?: Record<string, spec.Docs>,
   ) {
     if (!docs || !symbol) {
       return;
@@ -2528,7 +2639,7 @@ export class Assembler implements Emitter {
    * We put the "(experimental)"/"(deprecated)" status into the doc
    * comment summary, so that it's presented front and center.
    */
-  private docCommentDocs(docs: Readonly<Docs>): Docs {
+  private docCommentDocs(docs: Readonly<spec.Docs>): spec.Docs {
     // Modify the summary if this API element has a special stability
     if (docs.stability === spec.Stability.Experimental && docs.summary) {
       return {
@@ -2544,6 +2655,25 @@ export class Assembler implements Emitter {
     }
     return docs;
   }
+
+  /**
+   * Return only those submodules from the submodules list that are submodules inside this
+   * assembly.
+   */
+  private mySubmodules() {
+    return Array.from(this._submodules.values()).filter((m) =>
+      m.fqn.startsWith(`${this.projectInfo.name}.`),
+    );
+  }
+}
+
+export interface AssemblerOptions {
+  /**
+   * Whether to remove `@deprecated` members from the generated assembly.
+   *
+   * @default false
+   */
+  readonly stripDeprecated?: boolean;
 }
 
 interface SubmoduleSpec {
@@ -2568,6 +2698,11 @@ interface SubmoduleSpec {
    * Any customized configuration for the currentl submodule.
    */
   readonly targets?: spec.AssemblyTargets;
+
+  /**
+   * Readme for this submodule (if found)
+   */
+  readonly readme?: spec.ReadMe;
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
@@ -2864,7 +2999,7 @@ function toDependencyClosure(
 }
 
 function toSubmoduleDeclarations(
-  submodules: IterableIterator<SubmoduleSpec>,
+  submodules: Iterable<SubmoduleSpec>,
 ): spec.Assembly['submodules'] {
   const result: spec.Assembly['submodules'] = {};
 
@@ -2872,6 +3007,7 @@ function toSubmoduleDeclarations(
     result[submodule.fqn] = {
       locationInModule: submodule.locationInModule,
       targets: submodule.targets,
+      readme: submodule.readme,
     };
   }
 
@@ -3026,8 +3162,10 @@ async function findPackageInfo(fromDir: string): Promise<any> {
   return findPackageInfo(parent);
 }
 
-function paramDocs(params?: Parameter[]): Record<string, Docs> {
-  const ret: Record<string, Docs> = {};
+function paramDocs(
+  params?: readonly spec.Parameter[],
+): Record<string, spec.Docs> {
+  const ret: Record<string, spec.Docs> = {};
   for (const param of params ?? []) {
     if (param.docs) {
       ret[param.name] = param.docs;
@@ -3046,6 +3184,19 @@ function paramDocs(params?: Parameter[]): Record<string, Docs> {
  */
 function _isThisType(type: ts.Type, typeChecker: ts.TypeChecker): boolean {
   return typeChecker.typeToTypeNode(type)?.kind === ts.SyntaxKind.ThisKeyword;
+}
+
+/**
+ * Gets the name node for a given symbol; or it's first declaration if no name can be found. This is
+ * intended for use in placing problem markers on the right location.
+ *
+ * @param symbol the symbol for which the name node is needed.
+ *
+ * @returns the name node for the symbol, or the symbol's first declaration.
+ */
+function _nameOrDeclarationNode(symbol: ts.Symbol): ts.Node {
+  const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
+  return ts.getNameOfDeclaration(declaration) ?? declaration;
 }
 
 /**

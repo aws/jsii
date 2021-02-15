@@ -1,5 +1,12 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import {
+  createSourceFile,
+  ScriptKind,
+  ScriptTarget,
+  SyntaxKind,
+} from 'typescript';
+
 import { TypeScriptSnippet, SnippetParameters } from './snippet';
 
 /**
@@ -74,10 +81,71 @@ function loadAndSubFixture(
     encoding: 'utf-8',
   });
 
-  const subRegex = /\/\/\/ here/i;
+  const subRegex = /[/]{3}[ \t]*here[ \t]*$/im;
   if (!subRegex.test(fixtureContents)) {
     throw new Error(`Fixture does not contain '/// here': ${fixtureFileName}`);
   }
 
-  return fixtureContents.replace(subRegex, `/// !show\n${source}\n/// !hide`);
+  const { imports, statements } = sidelineImports(source);
+  const show = '/// !show';
+  const hide = '/// !hide';
+
+  const result = fixtureContents.replace(
+    subRegex,
+    [
+      '// Code snippet begins after !show marker below',
+      show,
+      statements,
+      hide,
+      '// Code snippet ended before !hide marker above',
+    ].join('\n'),
+  );
+
+  return imports
+    ? [
+        '// Hoisted imports begin after !show marker below',
+        show,
+        imports,
+        hide,
+        '// Hoisted imports ended before !hide marker above',
+        result,
+      ].join('\n')
+    : result;
+}
+
+/**
+ * When embedding code fragments in a fixture, "import" statements must be
+ * hoisted up to the top of the resulting document, as TypeScript only allows
+ * those to be present in the top-level context of an ESM.
+ *
+ * @param source a block of TypeScript source
+ *
+ * @returns an object containing the import statements on one end, and the rest
+ *          on the other hand.
+ */
+function sidelineImports(
+  source: string,
+): { imports: string; statements: string } {
+  let imports = '';
+  let statements = '';
+
+  const sourceFile = createSourceFile(
+    'index.ts',
+    source,
+    ScriptTarget.Latest,
+    true,
+    ScriptKind.TS,
+  );
+  for (const statement of sourceFile.statements) {
+    switch (statement.kind) {
+      case SyntaxKind.ImportDeclaration:
+      case SyntaxKind.ImportEqualsDeclaration:
+        imports += statement.getFullText(sourceFile);
+        break;
+      default:
+        statements += statement.getFullText(sourceFile);
+    }
+  }
+
+  return { imports, statements };
 }

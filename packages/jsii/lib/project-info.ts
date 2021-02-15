@@ -1,9 +1,11 @@
-import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
 import { intersect } from 'semver-intersect';
+import * as ts from 'typescript';
+
 import { parsePerson, parseRepository } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
@@ -43,12 +45,14 @@ export interface ProjectInfo {
   readonly targets: spec.AssemblyTargets;
   readonly metadata?: { [key: string]: any };
   readonly jsiiVersionFormat: 'short' | 'full';
+  readonly diagnostics?: { readonly [code: string]: ts.DiagnosticCategory };
   readonly description?: string;
   readonly homepage?: string;
   readonly contributors?: readonly spec.Person[];
   readonly excludeTypescript: string[];
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
+  readonly bin?: { readonly [name: string]: string };
 }
 
 export async function loadProjectInfo(
@@ -123,19 +127,34 @@ export async function loadProjectInfo(
   }
 
   const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
+  const assemblyCache = new Map<string, spec.Assembly>();
   const dependencies = await _loadDependencies(
     pkg.dependencies,
     projectRoot,
     transitiveAssemblies,
+    assemblyCache,
     new Set<string>(Object.keys(bundleDependencies ?? {})),
   );
   const peerDependencies = await _loadDependencies(
     pkg.peerDependencies,
     projectRoot,
     transitiveAssemblies,
+    assemblyCache,
   );
 
   const transitiveDependencies = Object.values(transitiveAssemblies);
+
+  const metadata = mergeMetadata(
+    {
+      jsii: {
+        pacmak: {
+          // When `true`, `jsii-pacmak` will use the `Jsii$Default` implementation in code generation even for dependencies.
+          hasDefaultInterfaces: true,
+        },
+      },
+    },
+    pkg.jsii?.metadata,
+  );
 
   return {
     projectRoot,
@@ -187,7 +206,7 @@ export async function loadProjectInfo(
       ).targets,
       js: { npm: pkg.name },
     },
-    metadata: pkg.jsii?.metadata,
+    metadata,
     jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat ?? 'full'),
 
     description: pkg.description,
@@ -202,6 +221,8 @@ export async function loadProjectInfo(
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
     },
+    bin: pkg.bin,
+    diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
 }
 
@@ -222,6 +243,7 @@ async function _loadDependencies(
   dependencies: { [name: string]: string } | undefined,
   searchPath: string,
   transitiveAssemblies: { [name: string]: spec.Assembly },
+  assemblyCache: Map<string, spec.Assembly>,
   bundled = new Set<string>(),
 ): Promise<{ [name: string]: string }> {
   if (!dependencies) {
@@ -245,7 +267,7 @@ async function _loadDependencies(
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
-    const assm = await loadAndValidateAssembly(pkg);
+    const assm = await loadAndValidateAssembly(pkg, assemblyCache);
     if (!semver.satisfies(assm.version, version)) {
       throw new Error(
         `Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`,
@@ -259,28 +281,32 @@ async function _loadDependencies(
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
       // eslint-disable-next-line no-await-in-loop
-      await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
+      await _loadDependencies(
+        assm.dependencies,
+        pkgDir,
+        transitiveAssemblies,
+        assemblyCache,
+      );
     }
   }
   return packageVersions;
 }
-
-const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
 
 /**
  * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
  */
 async function loadAndValidateAssembly(
   jsiiFileName: string,
+  cache: Map<string, spec.Assembly>,
 ): Promise<spec.Assembly> {
-  if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
+  if (!cache.has(jsiiFileName)) {
     try {
-      ASSEMBLY_CACHE.set(jsiiFileName, await fs.readJson(jsiiFileName));
+      cache.set(jsiiFileName, await fs.readJson(jsiiFileName));
     } catch (e) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
   }
-  return ASSEMBLY_CACHE.get(jsiiFileName)!;
+  return cache.get(jsiiFileName)!;
 }
 
 function _required<T>(value: T, message: string): T {
@@ -408,4 +434,81 @@ function _resolveVersion(
     version: `^${require(path.join(localPackage, 'package.json')).version}`,
     localPackage,
   };
+}
+
+/**
+ * Merges two metadata blocks together.
+ *
+ * @param base the base values
+ * @param user the user-supplied values, which can override the `base` values
+ *
+ * @returns the merged metadata block
+ */
+function mergeMetadata(
+  base: NonNullable<ProjectInfo['metadata']>,
+  user: ProjectInfo['metadata'],
+): ProjectInfo['metadata'] {
+  if (user == null) {
+    return base;
+  }
+  return mergeObjects(base, user);
+
+  function mergeObjects(
+    base: Record<string, any>,
+    override: Record<string, any>,
+  ): Record<string, any> {
+    const result: Record<string, any> = {};
+    const allKeys = Array.from(
+      new Set([...Object.keys(base), ...Object.keys(override)]),
+    ).sort();
+    for (const key of allKeys) {
+      const baseValue = base[key];
+      const overrideValue = override[key];
+
+      if (typeof baseValue === 'object' && typeof overrideValue === 'object') {
+        if (overrideValue != null) {
+          result[key] = mergeObjects(baseValue, overrideValue);
+        }
+      } else {
+        result[key] = overrideValue ?? baseValue;
+      }
+    }
+    return result;
+  }
+}
+
+function _loadDiagnostics(entries?: {
+  [key: string]: string;
+}):
+  | {
+      [key: string]: ts.DiagnosticCategory;
+    }
+  | undefined {
+  if (entries === undefined || Object.keys(entries).length === 0) {
+    return undefined;
+  }
+  const result: { [key: string]: ts.DiagnosticCategory } = {};
+  for (const code of Object.keys(entries)) {
+    let category: ts.DiagnosticCategory;
+    switch (entries[code].trim().toLowerCase()) {
+      case 'error':
+        category = ts.DiagnosticCategory.Error;
+        break;
+      case 'warning':
+        category = ts.DiagnosticCategory.Warning;
+        break;
+      case 'suggestion':
+        category = ts.DiagnosticCategory.Suggestion;
+        break;
+      case 'message':
+        category = ts.DiagnosticCategory.Message;
+        break;
+      default:
+        throw new Error(
+          `Invalid category '${entries[code]}' for code '${code}'`,
+        );
+    }
+    result[code] = category;
+  }
+  return result;
 }

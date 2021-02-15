@@ -4,7 +4,7 @@ import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
 
-import { InputOutput, KernelHost, Input, Output } from '../lib';
+import { IInputOutput, Input, KernelHost, Output } from '../lib';
 
 const recordsDir = createRecords();
 const records = fs
@@ -22,7 +22,8 @@ describe(`replay records in ${recordsDir}`, () => {
       const host = new KernelHost(inout, { noStack: true, debug: false });
 
       return new Promise<void>((ok) => {
-        host.on('exit', () => {
+        host.once('exit', (code) => {
+          expect(code).toBe(0);
           ok(inout.expectCompleted());
         });
 
@@ -41,17 +42,19 @@ function createRecords(): string {
     [
       ...process.execArgv,
       require.resolve('jest/bin/jest'),
-      '--coverage=false',
+      '--no-coverage',
+      '--runInBand',
       'test/kernel.test.ts',
     ],
     {
-      env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },
-      stdio: ['inherit', 'pipe', 'pipe'],
       cwd: path.resolve(
         require.resolve('@jsii/kernel/test/kernel.test.js'),
         '..',
         '..',
       ),
+      env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },
+      stdio: ['inherit', 'pipe', 'pipe'],
+      timeout: 300_000, // 5 minutes
     },
   );
 
@@ -87,12 +90,11 @@ function createRecords(): string {
   return records;
 }
 
-class PlaybackInputOutput extends InputOutput {
+class PlaybackInputOutput implements IInputOutput {
   public readonly inputCommands: Input[];
   public readonly expectedOutputs: Output[];
 
   public constructor(recordPath: string) {
-    super();
     const inputLines = fs
       .readFileSync(recordPath, { encoding: 'utf-8' })
       .split('\n');

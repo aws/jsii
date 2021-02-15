@@ -2,49 +2,69 @@ version: 2
 
 updates:
   - package-ecosystem: npm
-    directory: "/"
+    directory: '/'
     schedule:
       interval: daily
-    open-pull-requests-limit: 10
     labels:
       - dependencies
     versioning-strategy: increase
     ignore:
       - dependency-name: typescript
         versions:
-          - ">= 3.10.a"
-      - dependency-name: "@types/node"
+          - '>= 3.10.a'
+      - dependency-name: '@types/node'
         versions:
-          - ">= 11.a"
+          - '>= 11.a'
 
   - package-ecosystem: nuget
-    directory: "/packages/@jsii/dotnet-runtime/src"
+    directory: '/packages/@jsii/dotnet-runtime/src'
     schedule:
       interval: daily
-    open-pull-requests-limit: 10
     labels:
       - dependencies
       - language/dotnet
 
   - package-ecosystem: nuget
-    directory: "/packages/@jsii/dotnet-runtime-test/test"
+    directory: '/packages/@jsii/dotnet-runtime-test/test'
     schedule:
       interval: daily
-    open-pull-requests-limit: 10
     labels:
       - dependencies
       - language/dotnet
 
   - package-ecosystem: pip
-    directory: "/packages/@jsii/python-runtime"
+    directory: '/packages/@jsii/python-runtime'
     schedule:
       interval: daily
-    open-pull-requests-limit: 10
     labels:
       - dependencies
       - language/python
-    
+
+  - package-ecosystem: pip
+    directory: '/gh-pages'
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - language/python
+
+  - package-ecosystem: pip
+    directory: '/packages/jsii-pacmak/test/generated-code'
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - language/python
+
+  - package-ecosystem: pip
+    directory: '/packages/jsii-pacmak/lib/targets/python'
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - language/python
+
   - package-ecosystem: github-actions
-    directory: "/"
+    directory: '/'
     schedule:
       interval: daily

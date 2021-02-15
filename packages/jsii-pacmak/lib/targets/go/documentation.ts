@@ -1,7 +1,7 @@
-import { Docs } from 'jsii-reflect';
 import { Stability } from '@jsii/spec';
-import { Rosetta } from 'jsii-rosetta';
 import { CodeMaker } from 'codemaker';
+import { Docs } from 'jsii-reflect';
+import { Rosetta } from 'jsii-rosetta';
 
 export class Documentation {
   public constructor(private readonly code: CodeMaker, _rosetta: Rosetta) {}
@@ -19,27 +19,24 @@ export class Documentation {
    */
   public emit(docs: Docs): void {
     if (docs.toString() !== '') {
-      const lines = docs.toString().split('\n');
-      for (const line of lines) {
-        this.code.line(`// ${line}`);
-      }
+      this.emitComment(docs.toString());
     }
 
     if (docs.returns !== '') {
-      this.code.line(`//`);
-      this.code.line(`// Returns: ${docs.returns}`);
+      this.emitComment();
+      this.emitComment(`Returns: ${docs.returns}`);
     }
 
     if (docs.example !== '') {
-      this.code.line(`//`);
+      this.emitComment();
       // TODO: Translate code examples to Go with Rosetta (not implemented there yet)
-      this.code.line('// TODO: EXAMPLE');
-      this.code.line(`//`);
+      this.emitComment('TODO: EXAMPLE');
+      this.emitComment();
     }
 
     if (docs.link !== '') {
-      this.code.line(`// See: ${docs.link}`);
-      this.code.line(`//`);
+      this.emitComment(`See: ${docs.link}`);
+      this.emitComment();
     }
 
     this.emitStability(docs);
@@ -49,10 +46,16 @@ export class Documentation {
     const stability = docs.stability;
     if (stability && this.shouldMentionStability(docs)) {
       if (docs.deprecated) {
-        this.code.line(`// Deprecated: ${docs.deprecationReason}`);
+        this.emitComment(`Deprecated: ${docs.deprecationReason}`);
       } else {
-        this.code.line(`// ${this.code.toPascalCase(stability)}.`);
+        this.emitComment(`${this.code.toPascalCase(stability)}.`);
       }
+    }
+  }
+
+  private emitComment(text = '') {
+    for (const line of text.split('\n')) {
+      this.code.line(`// ${line}`.trim());
     }
   }
 

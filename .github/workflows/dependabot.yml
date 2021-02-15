@@ -4,13 +4,15 @@ name: Dependabot Pull Requests
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - "!**"                         # <-- Excludes everything by default
       - "**/package.json"             # <-- Allows modfying any package.json
       - "**/*.csproj"                 # <-- Allows modifying any .csproj file
       - "**/Directory.Build.targets"  # <-- Allows modifying any Directory.Build.targets file
       - "yarn.lock"                   # <-- Allows modifying yarn.lock
+    types:
+      - opened
 
 jobs:
   approve:

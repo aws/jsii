@@ -1,6 +1,7 @@
 import { mkdtemp, remove, writeFile, readFile } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
+
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
 
@@ -27,7 +28,7 @@ describe(Compiler, () => {
       let firstCompilation = true;
       let onWatchClosed: () => void;
       let onWatchFailed: (err: Error) => void;
-      const watchClosed = new Promise((ok, ko) => {
+      const watchClosed = new Promise<void>((ok, ko) => {
         onWatchClosed = ok;
         onWatchFailed = ko;
       });

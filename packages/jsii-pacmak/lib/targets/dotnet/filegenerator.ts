@@ -1,11 +1,13 @@
-import { CodeMaker } from 'codemaker';
 import { Assembly } from '@jsii/spec';
+import { CodeMaker } from 'codemaker';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
-import { DotNetNameUtils } from './nameutils';
+
+import { TargetName } from '..';
 import * as logging from '../../logging';
 import { TARGET_FRAMEWORK } from '../dotnet';
-import { toNuGetVersionRange } from '../version-utils';
+import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
+import { DotNetNameUtils } from './nameutils';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
@@ -133,9 +135,21 @@ export class FileGenerator {
       }
     });
 
+    const warnings = rootNode.ele('PropertyGroup');
     // Suppress warnings about [Obsolete] members, this is the author's choice!
-    rootNode.ele('PropertyGroup').ele('NoWarn').text('0612,0618');
-
+    warnings.comment('Silence [Obsolete] warnings');
+    warnings.ele('NoWarn').text('0612,0618');
+    // Treat select warnings as errors, as these are likely codegen bugs:
+    warnings.comment(
+      'Treat warnings symptomatic of code generation bugs as errors',
+    );
+    warnings.ele(
+      'WarningsAsErrors',
+      [
+        '0108', // 'member1' hides inherited member 'member2'. Use the new keyword if hiding was intended.
+        '0109', // The member 'member' does not hide an inherited member. The new keyword is not required.
+      ].join(','),
+    );
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
 
     // Sending the xml content to the codemaker to ensure the file is written
@@ -182,6 +196,6 @@ export class FileGenerator {
       // suffix is guaranteed to start with a leading `-`
       return `${assembly.version}${suffix}`;
     }
-    return assembly.version;
+    return toReleaseVersion(assembly.version, TargetName.DOTNET);
   }
 }

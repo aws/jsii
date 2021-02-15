@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import * as path from 'path';
+
 import { TypeSystem } from '../lib';
 import { typeSystemFromSource } from './util';
 
@@ -179,6 +180,27 @@ describe('@deprecated', () => {
     const method = klass.getMethods().doAThing;
     expect(method.docs.deprecated).toBeTruthy();
   });
+});
+
+/**
+ * This test is actually testing the combination of `jsii`, `jsii-calc` and `jsii-reflect`.
+ */
+test('Submodules can have a README', () => {
+  const jsiiCalc = typesys.findAssembly('jsii-calc');
+
+  const submodule = jsiiCalc.submodules.find(
+    (m) => m.fqn === 'jsii-calc.submodule',
+  );
+  const isolated = submodule?.submodules.find(
+    (m) => m.fqn === 'jsii-calc.submodule.isolated',
+  );
+
+  expect(submodule?.readme?.markdown).toMatch(
+    /This is the readme.*jsii-calc.submodule/,
+  );
+  expect(isolated?.readme?.markdown).toMatch(
+    /This is the readme.*jsii-calc.submodule.isolated/,
+  );
 });
 
 test('overridden member knows about both parent types', async () => {

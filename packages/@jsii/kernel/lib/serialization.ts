@@ -27,6 +27,7 @@
  */
 
 import * as spec from '@jsii/spec';
+
 import {
   isObjRef,
   isWireDate,
@@ -42,6 +43,7 @@ import {
   TOKEN_STRUCT,
 } from './api';
 import { jsiiTypeFqn, objectReference, ObjectTable } from './objects';
+
 import { api } from '.';
 
 /**
@@ -517,7 +519,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         ? [expectedType.fqn]
         : undefined;
       const jsiiType =
-        jsiiTypeFqn(value) ||
+        jsiiTypeFqn(value) ??
         (spec.isClassType(expectedType) ? expectedType.fqn : 'Object');
 
       return host.objects.registerObject(value, jsiiType, interfaces);

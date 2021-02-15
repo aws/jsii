@@ -3,6 +3,9 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
 
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
@@ -27,7 +30,6 @@
         <PackageReference Include="xunit" />
         <PackageReference Include="xunit.runner.visualstudio" />
         <PackageReference Include="XunitXml.TestLogger" />
-        <DotNetCliToolReference Include="dotnet-xunit" />
     </ItemGroup>
 
     <ItemGroup>

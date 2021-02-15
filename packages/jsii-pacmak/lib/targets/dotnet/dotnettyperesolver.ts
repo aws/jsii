@@ -1,5 +1,6 @@
 import * as spec from '@jsii/spec';
 import { toPascalCase } from 'codemaker';
+
 import { DotNetDependency } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
 

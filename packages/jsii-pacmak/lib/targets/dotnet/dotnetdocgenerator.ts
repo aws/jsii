@@ -1,18 +1,20 @@
-import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
-import * as xmlbuilder from 'xmlbuilder';
-import { DotNetNameUtils } from './nameutils';
+import { CodeMaker } from 'codemaker';
 import {
   Rosetta,
   Translation,
+  enforcesStrictMode,
   typeScriptSnippetFromSource,
   markDownToXmlDoc,
 } from 'jsii-rosetta';
+import * as xmlbuilder from 'xmlbuilder';
+
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
 } from '..';
 import { renderSummary } from '../_utils';
+import { DotNetNameUtils } from './nameutils';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -23,7 +25,11 @@ export class DotNetDocGenerator {
   private readonly code: CodeMaker;
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  public constructor(code: CodeMaker, private readonly rosetta: Rosetta) {
+  public constructor(
+    code: CodeMaker,
+    private readonly rosetta: Rosetta,
+    private readonly assembly: spec.Assembly,
+  ) {
     this.code = code;
   }
 
@@ -51,7 +57,7 @@ export class DotNetDocGenerator {
         const paramName = this.nameutils
           .convertParameterName(param.name)
           .replace(/^@/, '');
-        this.emitXmlDoc('param', param.docs?.summary || '', {
+        this.emitXmlDoc('param', param.docs?.summary ?? '', {
           attributes: { name: paramName },
         });
       });
@@ -131,7 +137,7 @@ export class DotNetDocGenerator {
     if (docs.subclassable) {
       emitDocAttribute('subclassable', '');
     }
-    for (const [k, v] of Object.entries(docs.custom || {})) {
+    for (const [k, v] of Object.entries(docs.custom ?? {})) {
       const extraSpace = k === 'link' ? ' ' : ''; // Extra space for '@link' to keep unit tests happy
       emitDocAttribute(k, v + extraSpace);
     }
@@ -155,7 +161,11 @@ export class DotNetDocGenerator {
   }
 
   private convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const snippet = typeScriptSnippetFromSource(
+      example,
+      'example',
+      enforcesStrictMode(this.assembly),
+    );
     const translated = this.rosetta.translateSnippet(snippet, 'csharp');
     if (!translated) {
       return example;
@@ -167,6 +177,7 @@ export class DotNetDocGenerator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'csharp',
+      enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),

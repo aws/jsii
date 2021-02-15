@@ -3,7 +3,7 @@ import os
 
 import attr
 
-from typing import ClassVar
+from typing import cast, Any, Callable, ClassVar, List, Optional, Mapping, Type, TypeVar
 
 from . import _reference_map
 from ._compat import importlib_resources
@@ -27,7 +27,7 @@ class JSIIAssembly:
     filename: str
 
     @classmethod
-    def load(cls, *args, _kernel=kernel, **kwargs):
+    def load(cls, *args, _kernel=kernel, **kwargs) -> "JSIIAssembly":
         # Our object here really just acts as a record for our JSIIAssembly, it doesn't
         # offer any functionality itself, besides this class method that will trigger
         # the loading of the given assembly in the JSII Kernel.
@@ -45,9 +45,23 @@ class JSIIAssembly:
         # Give our record of the assembly back to the caller.
         return assembly
 
+    @classmethod
+    def invokeBinScript(
+        cls, pkgname: str, script: str, *args: str, _kernel=kernel
+    ) -> None:
+        response = _kernel.invokeBinScript(pkgname, script, *args)
+        print(response.stdout)
+
 
 class JSIIMeta(_ClassPropertyMeta, type):
-    def __new__(cls, name, bases, attrs, *, jsii_type=None):
+    def __new__(
+        cls: Type["JSIIMeta"],
+        name: str,
+        bases: tuple,
+        attrs: dict,
+        *,
+        jsii_type: Optional[str] = None,
+    ) -> "JSIIMeta":
         # We want to ensure that subclasses of a JSII class do not require setting the
         # jsii_type keyword argument. They should be able to subclass it as normal.
         # Since their parent class will have the __jsii_type__ variable defined, they
@@ -63,9 +77,9 @@ class JSIIMeta(_ClassPropertyMeta, type):
         if jsii_type is not None:
             _reference_map.register_type(obj)
 
-        return obj
+        return cast("JSIIMeta", obj)
 
-    def __call__(cls, *args, **kwargs):
+    def __call__(cls: Type[Any], *args: Any, **kwargs) -> Any:
         inst = super().__call__(*args, **kwargs)
 
         # Register this instance with our reference map.
@@ -78,7 +92,11 @@ class JSIIAbstractClass(abc.ABCMeta, JSIIMeta):
     pass
 
 
-def enum(*, jsii_type):
+F = TypeVar("F", bound=Callable[..., Any])
+T = TypeVar("T", bound=Type[Any])
+
+
+def enum(*, jsii_type: str) -> Callable[[T], T]:
     def deco(cls):
         cls.__jsii_type__ = jsii_type
         _reference_map.register_enum(cls)
@@ -87,7 +105,12 @@ def enum(*, jsii_type):
     return deco
 
 
-def data_type(*, jsii_type, jsii_struct_bases, name_mapping):
+def data_type(
+    *,
+    jsii_type: str,
+    jsii_struct_bases: List[Type[Any]],
+    name_mapping: Mapping[str, str],
+) -> Callable[[T], T]:
     def deco(cls):
         cls.__jsii_type__ = jsii_type
         cls.__jsii_struct_bases__ = jsii_struct_bases
@@ -98,7 +121,7 @@ def data_type(*, jsii_type, jsii_struct_bases, name_mapping):
     return deco
 
 
-def member(*, jsii_name):
+def member(*, jsii_name: str) -> Callable[[F], F]:
     def deco(fn):
         fn.__jsii_name__ = jsii_name
         return fn
@@ -106,7 +129,7 @@ def member(*, jsii_name):
     return deco
 
 
-def implements(*interfaces):
+def implements(*interfaces: Type[Any]) -> Callable[[T], T]:
     def deco(cls):
         cls.__jsii_type__ = getattr(cls, "__jsii_type__", None)
         cls.__jsii_ifaces__ = getattr(cls, "__jsii_ifaces__", []) + list(interfaces)
@@ -115,7 +138,7 @@ def implements(*interfaces):
     return deco
 
 
-def interface(*, jsii_type):
+def interface(*, jsii_type: str) -> Callable[[T], T]:
     def deco(iface):
         iface.__jsii_type__ = jsii_type
         _reference_map.register_interface(iface)
@@ -124,12 +147,12 @@ def interface(*, jsii_type):
     return deco
 
 
-def proxy_for(abstract_class):
+def proxy_for(abstract_class: Type[Any]) -> Type[Any]:
     if not hasattr(abstract_class, "__jsii_proxy_class__"):
         raise TypeError(f"{abstract_class} is not a JSII Abstract class.")
 
     return abstract_class.__jsii_proxy_class__()
 
 
-def python_jsii_mapping(cls):
+def python_jsii_mapping(cls: Type[Any]) -> Optional[Mapping[str, str]]:
     return getattr(cls, "__jsii_name_mapping__", None)

@@ -1,21 +1,23 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly } from 'jsii-reflect';
+import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { join } from 'path';
-import { ReadmeFile } from './readme-file';
-import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+import * as semver from 'semver';
+
 import { EmitContext } from './emit-context';
+import { ReadmeFile } from './readme-file';
+import {
+  JSII_RT_ALIAS,
+  JSII_RT_MODULE_NAME,
+  JSII_INIT_PACKAGE,
+  JSII_INIT_FUNC,
+  JSII_INIT_ALIAS,
+} from './runtime';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
+import { VersionFile } from './version-file';
 
-// JSII go runtime module name
-const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii-experimental';
-
-// Jsii initializer package name
-export const JSII_INIT_PACKAGE = 'jsii';
-// Function to initialize a jsii-generated module
-export const JSII_INIT_FUNC = 'Initialize';
-// Alias used for the jsii init
-export const JSII_INIT_ALIAS = '_init_';
+export const GOMOD_FILENAME = 'go.mod';
+export const GO_VERSION = '1.15';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -32,6 +34,7 @@ export abstract class Package {
     public readonly packageName: string,
     public readonly filePath: string,
     public readonly moduleName: string,
+    public readonly version: string,
     // If no root is provided, this module is the root
     root?: Package,
   ) {
@@ -69,18 +72,23 @@ export abstract class Package {
   }
 
   /*
-   * The module names of this modules dependencies. Used for import statements
+   * goModuleName returns the full path to the module name.
+   * Used for import statements and go.mod generation
+   */
+  public get goModuleName(): string {
+    const moduleName = this.root.moduleName;
+    const prefix = moduleName !== '' ? `${moduleName}/` : '';
+    const rootPackageName = this.root.packageName;
+    const versionSuffix = determineMajorVersionSuffix(this.version);
+    const suffix = this.filePath !== '' ? `/${this.filePath}` : ``;
+    return `${prefix}${rootPackageName}${versionSuffix}${suffix}`;
+  }
+
+  /*
+   * The module names of this module's dependencies. Used for import statements.
    */
   public get dependencyImports(): Set<string> {
-    return new Set(
-      this.dependencies.map((pack) => {
-        const moduleName = pack.root.moduleName;
-        const prefix = moduleName !== '' ? `${moduleName}/` : '';
-        const rootPackageName = pack.root.packageName;
-        const suffix = pack.filePath !== '' ? `/${pack.filePath}` : '';
-        return `${prefix}${rootPackageName}${suffix}`;
-      }),
-    );
+    return new Set(this.dependencies.map((pkg) => pkg.goModuleName));
   }
 
   /*
@@ -92,6 +100,7 @@ export abstract class Package {
 
   public emit(context: EmitContext): void {
     const { code } = context;
+
     code.openFile(this.file);
     this.emitHeader(code);
     this.emitImports(code);
@@ -112,9 +121,42 @@ export abstract class Package {
     code.line();
   }
 
+  protected get usesRuntimePackage(): boolean {
+    return (
+      this.types.some((type) => type.usesRuntimePackage) ||
+      this.submodules.some((sub) => sub.usesRuntimePackage)
+    );
+  }
+
+  protected get usesInitPackage(): boolean {
+    return (
+      this.types.some((type) => type.usesInitPackage) ||
+      this.submodules.some((sub) => sub.usesInitPackage)
+    );
+  }
+
+  protected get usesReflectionPackage(): boolean {
+    return (
+      this.types.some((type) => type.usesReflectionPackage) ||
+      this.submodules.some((sub) => sub.usesReflectionPackage)
+    );
+  }
+
   private emitImports(code: CodeMaker) {
     code.open('import (');
-    code.line(`"${JSII_MODULE_NAME}"`);
+    if (this.usesRuntimePackage) {
+      code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+    }
+
+    if (this.usesInitPackage) {
+      code.line(
+        `${JSII_INIT_ALIAS} "${this.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
+      );
+    }
+
+    if (this.usesReflectionPackage) {
+      code.line(`"reflect"`);
+    }
 
     for (const packageName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
@@ -122,10 +164,6 @@ export abstract class Package {
         code.line(`"${packageName}"`);
       }
     }
-
-    code.line(
-      `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
-    );
 
     code.close(')');
     code.line();
@@ -145,7 +183,9 @@ export abstract class Package {
  */
 export class RootPackage extends Package {
   public readonly assembly: Assembly;
+  public readonly version: string;
   private readonly readme?: ReadmeFile;
+  private readonly versionFile: VersionFile;
 
   public constructor(assembly: Assembly) {
     const packageName = goPackageName(assembly.name);
@@ -158,9 +198,12 @@ export class RootPackage extends Package {
       packageName,
       filePath,
       moduleName,
+      assembly.version,
     );
 
     this.assembly = assembly;
+    this.version = assembly.version;
+    this.versionFile = new VersionFile(this.version);
 
     if (this.assembly.readme?.markdown) {
       this.readme = new ReadmeFile(
@@ -174,6 +217,30 @@ export class RootPackage extends Package {
     super.emit(context);
     this.emitJsiiPackage(context);
     this.readme?.emit(context);
+
+    this.emitGomod(context.code);
+    this.versionFile.emit(context.code);
+  }
+
+  private emitGomod(code: CodeMaker) {
+    code.openFile(GOMOD_FILENAME);
+    code.line(`module ${this.goModuleName}`);
+    code.line();
+    code.line(`go ${GO_VERSION}`);
+    code.line();
+    code.open('require (');
+    // Strip " (build abcdef)" from the jsii version
+    code.line(
+      `${JSII_RT_MODULE_NAME} v${this.assembly.jsiiVersion.replace(
+        / .*$/,
+        '',
+      )}`,
+    );
+    for (const dep of this.packageDependencies) {
+      code.line(`${dep.goModuleName} v${dep.version}`);
+    }
+    code.close(')');
+    code.closeFile(GOMOD_FILENAME);
   }
 
   /*
@@ -220,20 +287,22 @@ export class RootPackage extends Package {
     code.line('package jsii');
     code.line();
     code.open('import (');
-    code.line(`rt "${JSII_MODULE_NAME}"`);
+    code.line(`rt "${JSII_RT_MODULE_NAME}"`);
     code.line('"sync"');
     if (dependencies.length > 0) {
       code.line('// Initialization endpoints of dependencies');
       for (const pkg of dependencies) {
         code.line(
-          `${pkg.packageName} "${pkg.root.moduleName}/${pkg.root.packageName}/${JSII_INIT_PACKAGE}"`,
+          `${pkg.packageName} "${pkg.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
         );
       }
     }
+
     code.close(')');
     code.line();
     code.line('var once sync.Once');
     code.line();
+
     code.line(
       `// ${JSII_INIT_FUNC} performs the necessary work for the enclosing`,
     );
@@ -253,6 +322,7 @@ export class RootPackage extends Package {
     );
     code.close('})');
     code.close('}');
+
     code.closeFile(file);
   }
 }
@@ -261,11 +331,12 @@ export class RootPackage extends Package {
  * InternalPackage refers to any go package within a given JSII module.
  */
 export class InternalPackage extends Package {
-  public readonly pkg: Package;
+  public readonly parent: Package;
 
-  public constructor(root: Package, pkg: Package, assembly: JsiiSubmodule) {
+  public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
     const packageName = goPackageName(assembly.name);
-    const filePath = pkg === root ? packageName : pkg.filePath;
+    const filePath =
+      parent === root ? packageName : `${parent.filePath}/${packageName}`;
 
     super(
       assembly.types,
@@ -273,9 +344,40 @@ export class InternalPackage extends Package {
       packageName,
       filePath,
       root.moduleName,
+      root.version,
       root,
     );
 
-    this.pkg = pkg;
+    this.parent = parent;
   }
+}
+
+/**
+ * Go requires that when a module major version is v2.0 and above, the module
+ * name will have a `/vNN` suffix (where `NN` is the major version).
+ *
+ * > Starting with major version 2, module paths must have a major version
+ * > suffix like /v2 that matches the major version. For example, if a module
+ * > has the path example.com/mod at v1.0.0, it must have the path
+ * > example.com/mod/v2 at version v2.0.0.
+ *
+ * @see https://golang.org/ref/mod#major-version-suffixes
+ * @param version The module version (e.g. `2.3.0`)
+ * @returns a suffix to append to the module name in the form (`/vNN`). If the
+ * module version is `0.x` or `1.x`, returns an empty string.
+ */
+function determineMajorVersionSuffix(version: string) {
+  const sv = semver.parse(version);
+  if (!sv) {
+    throw new Error(
+      `Unable to parse version "${version}" as a semantic version`,
+    );
+  }
+
+  // suffix is only needed for 2.0 and above
+  if (sv.major <= 1) {
+    return '';
+  }
+
+  return `/v${sv.major}`;
 }

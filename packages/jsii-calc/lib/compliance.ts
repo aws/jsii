@@ -1,3 +1,4 @@
+import * as base from '@scope/jsii-calc-base';
 import {
   EnumFromScopedModule,
   IDoublable,
@@ -7,11 +8,12 @@ import {
   StructWithOnlyOptionals,
   NumericValue,
 } from '@scope/jsii-calc-lib';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as os from 'os';
 import * as crypto from 'crypto';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 import { promisify } from 'util';
+
 import {
   IFriendlyRandomGenerator,
   IRandomNumberGenerator,
@@ -25,7 +27,6 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const bundled = require('@fixtures/jsii-calc-bundled');
-import * as base from '@scope/jsii-calc-base';
 
 const readFile = promisify(fs.readFile);
 
@@ -289,7 +290,7 @@ export class RuntimeTypeChecking {
    * Used to verify verification of number of method arguments.
    */
   public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-    StaticConsumer.consume(arg1, arg2, arg3);
+    base.StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithDefaultedArguments(
@@ -297,11 +298,11 @@ export class RuntimeTypeChecking {
     arg2?: string,
     arg3: Date = new Date(),
   ) {
-    StaticConsumer.consume(arg1, arg2, arg3);
+    base.StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithOptionalAnyArgument(arg?: any) {
-    StaticConsumer.consume(arg);
+    base.StaticConsumer.consume(arg);
   }
 }
 
@@ -730,7 +731,7 @@ export class Statics {
   }
 
   /**
-   *Jsdocs for static setter.
+   * Jsdocs for static setter.
    */
   public static set instance(val: Statics) {
     this._instance = val;
@@ -2786,8 +2787,6 @@ export abstract class BurriedAnonymousObject {
   public abstract giveItBack(value: any): any;
 }
 
-import { StaticConsumer } from '@scope/jsii-calc-base-of-base';
-
 /**
  * Ensures we can override a dynamic property that was inherited.
  */
@@ -2838,5 +2837,38 @@ export namespace LevelOne {
 
   export interface PropBooleanValue {
     readonly value: boolean;
+  }
+}
+
+/**
+ * Static methods that override parent class are technically overrides (the
+ * inheritance of statics is part of the ES6 specification), but certain other
+ * languages such as Java do not carry statics in the inheritance chain at all,
+ * so they cannot be overridden, only hidden.
+ *
+ * The difference is fairly minor (for typical use-cases, the end result is the
+ * same), however this has implications on what the generated code should look
+ * like.
+ */
+export class StaticHelloParent {
+  public static get property(): number {
+    return 1337;
+  }
+
+  public static method(): void {
+    /* A static method */
+  }
+}
+export class StaticHelloChild extends StaticHelloParent {
+  public static get property(): number {
+    return 42;
+  }
+
+  public static method(): void {
+    /* An ES6 Override */
+  }
+
+  private constructor() {
+    super();
   }
 }

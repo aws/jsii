@@ -1,1 +1,1 @@
-System.out.println((int)3);
+System.out.println((Number)3);

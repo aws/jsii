@@ -3,17 +3,20 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
 {
     internal sealed class ResourceExtractor : IResourceExtractor
     {
-        readonly IDictionary<string, string> _bags = new Dictionary<string, string>();
-        readonly IFileSystem _fileSystem;
+        private readonly IDictionary<string, string> _bags = new Dictionary<string, string>();
+        private readonly IFileSystem _fileSystem;
+        private readonly ILogger _logger;
 
-        public ResourceExtractor(IFileSystem fileSystem) 
+        public ResourceExtractor(IFileSystem fileSystem, ILoggerFactory loggerFactory)
         {
             _fileSystem = fileSystem;
+            _logger = loggerFactory.CreateLogger<ResourceExtractor>();
         }
 
         public string ExtractResource(Assembly assembly, string resourceName, string bag, string? fileName)
@@ -26,12 +29,19 @@ namespace Amazon.JSII.Runtime.Services
             }
 
             var outputPath = Path.Combine(workingDirectory, fileName ?? resourceName);
+
+            // In case the fileName included path delimiters...
+            var outputDir = Path.GetDirectoryName(outputPath);
+            if (outputDir != null && !_fileSystem.Directory.Exists(outputDir))
+            {
+                _fileSystem.Directory.CreateDirectory(outputDir);
+            }
             using (var output = _fileSystem.File.Create(outputPath))
             {
                 using var stream = assembly.GetManifestResourceStream(resourceName);
                 if (stream == null)
                 {
-                    throw new JsiiException("Cannot find embedded resource: " + resourceName + " in assembly " + assembly.GetName(), null);
+                    throw new JsiiException($"Cannot find embedded resource: {resourceName} in {String.Join(", ", assembly.GetManifestResourceNames())}", null);
                 }
 
                 stream.CopyTo(output);
@@ -44,7 +54,14 @@ namespace Amazon.JSII.Runtime.Services
         {
             foreach (var workdir in _bags.Values)
             {
-                Directory.Delete(workdir, true);
+                try
+                {
+                    Directory.Delete(workdir, true);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, $"Error cleaning up working directory {workdir}: {e.Message}");
+                }
             }
         }
     }

@@ -1,67 +1,83 @@
-import * as mockfs from 'mock-fs';
+import { mkdirp, mkdtemp, remove, writeJson } from 'fs-extra';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
 import { findJsiiModules } from '../lib/npm-modules';
 
 describe(findJsiiModules, () => {
-  afterEach((done) => {
-    mockfs.restore();
-    done();
+  let workDir = tmpdir();
+
+  beforeEach(() =>
+    mkdtemp(join(tmpdir(), 'jsii-pacmak.npm-modules.test.')).then((dir) => {
+      workDir = dir;
+    }),
+  );
+
+  afterEach(async () => {
+    // Be extra cautious to avoid deleting this we shouldn't delete...
+    if (workDir !== tmpdir()) {
+      await remove(workDir);
+    }
   });
 
-  // Increase the timeout - those are crazy slow on CI/CI for some reason.
-  jest.setTimeout(30_000);
-
   test('is sorted topologically', async () => {
-    mockfs({
-      '/packageA/package.json': JSON.stringify({
-        name: 'packageA',
-        jsii: {
-          outdir: 'dist',
-          targets: {
-            python: {},
-          },
+    await mkdirp(join(workDir, 'packageA'));
+    await writeJson(join(workDir, 'packageA', 'package.json'), {
+      name: 'packageA',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
         },
-        dependencies: {
-          packageB: '*',
+      },
+      dependencies: {
+        packageB: '*',
+      },
+    });
+    await mkdirp(join(workDir, 'packageB'));
+    await writeJson(join(workDir, 'packageB', 'package.json'), {
+      name: 'packageB',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
         },
-      }),
-      '/packageB/package.json': JSON.stringify({
-        name: 'packageB',
-        jsii: {
-          outdir: 'dist',
-          targets: {
-            python: {},
-          },
-        },
-      }),
+      },
     });
 
-    const mods = await findJsiiModules(['/packageA', '/packageB'], false);
+    const mods = await findJsiiModules(
+      [join(workDir, 'packageA'), join(workDir, 'packageB')],
+      false,
+    );
     expect(mods.map((m) => m.name)).toEqual(['packageB', 'packageA']);
   });
 
   test('without deps loads packages in given order', async () => {
-    mockfs({
-      '/packageA/package.json': JSON.stringify({
-        name: 'packageA',
-        jsii: {
-          outdir: 'dist',
-          targets: {
-            python: {},
-          },
+    await mkdirp(join(workDir, 'packageA'));
+    await writeJson(join(workDir, 'packageA', 'package.json'), {
+      name: 'packageA',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
         },
-      }),
-      '/packageB/package.json': JSON.stringify({
-        name: 'packageB',
-        jsii: {
-          outdir: 'dist',
-          targets: {
-            python: {},
-          },
+      },
+    });
+    await mkdirp(join(workDir, 'packageB'));
+    await writeJson(join(workDir, 'packageB', 'package.json'), {
+      name: 'packageB',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
         },
-      }),
+      },
     });
 
-    const mods = await findJsiiModules(['/packageA', '/packageB'], false);
+    const mods = await findJsiiModules(
+      [join(workDir, 'packageA'), join(workDir, 'packageB')],
+      false,
+    );
     expect(mods.map((m) => m.name)).toEqual(['packageA', 'packageB']);
   });
 });

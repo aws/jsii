@@ -1,37 +1,32 @@
 package software.amazon.jsii;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.Nullable;
 import software.amazon.jsii.api.Callback;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
 import static software.amazon.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
-import static software.amazon.jsii.Util.extractResource;
 
 /**
  * Manages the jsii-runtime child process.
  */
+@Internal
 public final class JsiiRuntime {
     /**
      * Extract the "+<sha>" postfix from a full version number.
      */
     private static final String VERSION_BUILD_PART_REGEX = "\\+[a-z0-9]+$";
-
-    /**
-     * True to print server traces to STDERR.
-     */
-    private static boolean traceEnabled = false;
 
     /**
      *
@@ -49,11 +44,6 @@ public final class JsiiRuntime {
     private Process childProcess;
 
     /**
-     * Child's standard error.
-     */
-    private BufferedReader stderr;
-
-    /**
      * Child's standard output.
      */
     private BufferedReader stdout;
@@ -67,6 +57,11 @@ public final class JsiiRuntime {
      * Handler for synchronous callbacks. Must be set using setCallbackHandler.
      */
     private JsiiCallbackHandler callbackHandler;
+
+    /**
+     * The JVM shutdown hook registered by this instance, if any.
+     */
+    private Thread shutdownHook;
 
     /**
      * The main API of this class. Sends a JSON request to jsii-runtime and returns the JSON response.
@@ -177,58 +172,79 @@ public final class JsiiRuntime {
         }
     }
 
-    public void terminate() throws InterruptedException, IOException {
-        if (stderr != null) {
-            stderr.close();
-            stderr = null;
-        }
+    synchronized void terminate() {
+        try {
+            // The jsii Kernel process exists after having received the "exit" message
+            if (stdin != null) {
+                stdin.write("{\"exit\":0}\n");
+                stdin.close();
+                stdin = null;
+            }
 
-        if (stdout != null) {
-            stdout.close();
-            stdout = null;
-        }
+            if (childProcess != null) {
+                // Wait for the child process to complete
+                try {
+                    // Giving the process up to 5 seconds to clean up and exit
+                    if (!childProcess.waitFor(5, TimeUnit.SECONDS)) {
+                        // If it's still not done, forcibly terminate it at this point.
+                        childProcess.destroy();
+                    }
+                } catch (final InterruptedException ie) {
+                    throw new RuntimeException(ie);
+                }
+                childProcess = null;
+            }
 
-        if (stdin != null) {
-            stdin.close();
-            stdin = null;
-        }
+            // Cleaning up stdout (ensuring buffers are flushed, etc...)
+            if (stdout != null) {
+                stdout.close();
+                stdout = null;
+            }
 
-        if (childProcess != null) {
-            // Wait for the child process to complete
-            childProcess.waitFor();
-            childProcess = null;
+            // We shut down already, no need for the shutdown hook anymore
+            if (this.shutdownHook != null) {
+                try {
+                    Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+                } catch (final IllegalStateException ise) {
+                    // VM Shutdown is in progress, removal is now impossible (and unnecessary)
+                }
+                this.shutdownHook = null;
+            }
+        } catch (final IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 
     /**
      * Starts jsii-server as a child process if it is not already started.
      */
-    private void startRuntimeIfNeeded() {
+    private synchronized void startRuntimeIfNeeded() {
         if (childProcess != null) {
             return;
         }
 
         // If JSII_DEBUG is set, enable traces.
         String jsiiDebug = System.getenv("JSII_DEBUG");
-        if (jsiiDebug != null
+        boolean traceEnabled = jsiiDebug != null
                 && !jsiiDebug.isEmpty()
                 && !jsiiDebug.equalsIgnoreCase("false")
-                && !jsiiDebug.equalsIgnoreCase("0")) {
-            traceEnabled = true;
-        }
+                && !jsiiDebug.equalsIgnoreCase("0");
 
         // If JSII_RUNTIME is set, use it to find the jsii-server executable
         // otherwise, we default to "jsii-runtime" from PATH.
         String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
         if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = prepareBundledRuntime();
+            jsiiRuntimeExecutable = BundledRuntime.extract(getClass());
         }
 
         if (traceEnabled) {
             System.err.println("jsii-runtime: " + jsiiRuntimeExecutable);
         }
 
-        ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable);
+        ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable)
+            .redirectInput(ProcessBuilder.Redirect.PIPE)
+            .redirectOutput(ProcessBuilder.Redirect.PIPE)
+            .redirectError(ProcessBuilder.Redirect.PIPE);
 
         if (traceEnabled) {
             pb.environment().put("JSII_DEBUG", "1");
@@ -238,27 +254,23 @@ public final class JsiiRuntime {
 
         try {
             this.childProcess = pb.start();
+            this.shutdownHook = new Thread(this::terminate, "Terminate jsii client");
+            Runtime.getRuntime().addShutdownHook(this.shutdownHook);
         } catch (IOException e) {
-            throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)");
+            throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)", e);
         }
 
         OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);
         InputStreamReader stdoutStream = new InputStreamReader(this.childProcess.getInputStream(), StandardCharsets.UTF_8);
-        InputStreamReader stderrStream = new InputStreamReader(this.childProcess.getErrorStream(), StandardCharsets.UTF_8);
 
-        this.stderr = new BufferedReader(stderrStream);
+        new ErrorStreamSink(this.childProcess.getErrorStream()).start();
+
         this.stdout = new BufferedReader(stdoutStream);
         this.stdin = new BufferedWriter(stdinStream);
 
         handshake();
 
         this.client = new JsiiClient(this);
-
-        // if trace is enabled, start a thread that continuously reads from the child process's
-        // STDERR and prints to my STDERR.
-        if (traceEnabled) {
-            startPipeErrorStreamThread();
-        }
     }
 
     /**
@@ -285,8 +297,7 @@ public final class JsiiRuntime {
         try {
             String responseLine = this.stdout.readLine();
             if (responseLine == null) {
-                String error = this.stderr.lines().collect(Collectors.joining("\n\t"));
-                throw new JsiiException("Child process exited unexpectedly: " + error);
+                throw new JsiiException("Child process exited unexpectedly!");
             }
             final JsonNode response = JsiiObjectMapper.INSTANCE.readTree(responseLine);
             JsiiRuntime.notifyInspector(response, MessageInspector.MessageType.Response);
@@ -294,28 +305,6 @@ public final class JsiiRuntime {
         } catch (IOException e) {
             throw new JsiiException("Unable to read reply from jsii-runtime: " + e.toString(), e);
         }
-    }
-
-    /**
-     * Starts a thread that pipes STDERR from the child process to our STDERR.
-     */
-    private void startPipeErrorStreamThread() {
-        Thread daemon = new Thread(() -> {
-            while (true) {
-                try {
-                    String line = stderr.readLine();
-                    System.err.println(line);
-                    if (line == null) {
-                        break;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        daemon.setDaemon(true);
-        daemon.start();
     }
 
     /**
@@ -328,13 +317,6 @@ public final class JsiiRuntime {
             throw new JsiiException("Client not created");
         }
         return this.client;
-    }
-
-    /**
-     * Prints jsii-server traces to STDERR.
-     */
-    public static void enableTrace() {
-        traceEnabled = true;
     }
 
     /**
@@ -356,31 +338,65 @@ public final class JsiiRuntime {
         }
     }
 
-    /**
-     * Extracts all files needed for jsii-runtime.js from JAR into a temp directory.
-     * @return The full path for jsii-runtime.js
-     */
-    private String prepareBundledRuntime() {
-        try {
-            Path directory = Files.createTempDirectory("jsii-java-runtime");
-            directory.toFile().deleteOnExit();
-
-            Path entrypoint = extractResource(getClass(), "jsii-runtime.js", directory);
-            entrypoint.toFile().deleteOnExit();
-
-            extractResource(getClass(), "jsii-runtime.js.map", directory).toFile().deleteOnExit();
-
-            return entrypoint.toString();
-        } catch (IOException e) {
-            throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
-        }
-    }
-
     private static void notifyInspector(final JsonNode message, final MessageInspector.MessageType type) {
         final MessageInspector inspector = JsiiRuntime.messageInspector.get();
         if (inspector == null) {
             return;
         }
         inspector.inspect(message, type);
+    }
+
+    private static final class ErrorStreamSink extends Thread {
+        private final InputStream inputStream;
+
+        public ErrorStreamSink(final InputStream inputStream) {
+            super("JsiiRuntime.ErrorStreamSink");
+            // This is a daemon thread, shouldn't keep the VM alive.
+            this.setDaemon(true);
+
+            this.inputStream = inputStream;
+        }
+
+        public void run() {
+            try (final InputStreamReader inputStreamReader = new InputStreamReader(this.inputStream);
+                 final BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                String line;
+                final ObjectMapper objectMapper = new ObjectMapper();
+                while ((line = reader.readLine()) != null) {
+                    try {
+                        final JsonNode tree = objectMapper.readTree(line);
+                        final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
+                        if (consoleOutput.stderr != null) {
+                            System.err.write(consoleOutput.stderr, 0, consoleOutput.stderr.length);
+                        }
+                        if (consoleOutput.stdout != null) {
+                            System.out.write(consoleOutput.stdout, 0, consoleOutput.stdout.length);
+                        }
+                    } catch (final JsonParseException | JsonMappingException exception) {
+                        // If not JSON, then this goes straight to stderr without touches...
+                        System.err.println(line);
+                    }
+                }
+            } catch (final IOException error) {
+                System.err.printf("I/O Error reading jsii Kernel's STDERR: %s%n", error);
+                throw new UncheckedIOException(error);
+            }
+        }
+    }
+
+    private static final class ConsoleOutput {
+        @Nullable
+        public final byte[] stderr;
+        @Nullable
+        public final byte[] stdout;
+
+        @JsonCreator
+        public ConsoleOutput(
+                @JsonProperty("stderr") @Nullable final byte[] stderr,
+                @JsonProperty("stdout") @Nullable final byte[] stdout
+        ) {
+            this.stderr = stderr;
+            this.stdout = stdout;
+        }
     }
 }
