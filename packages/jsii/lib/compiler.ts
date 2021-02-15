@@ -318,8 +318,12 @@ export class Compiler implements Emitter {
       ],
       exclude: [
         'node_modules',
-        ...pi.excludeTypescript,
-        ...(pi.tsc?.outDir != null
+        ...(pi.excludeTypescript ?? []),
+        ...(pi.tsc?.outDir != null &&
+        (pi.tsc?.rootDir == null ||
+          path
+            .resolve(pi.tsc.outDir)
+            .startsWith(path.resolve(pi.tsc.rootDir) + path.sep))
           ? [path.join(pi.tsc.outDir, '**', '*.ts')]
           : []),
       ],
