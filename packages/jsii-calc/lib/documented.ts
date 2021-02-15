@@ -6,6 +6,13 @@
  *
  * Multiple paragraphs are separated by an empty line.
  *
+ * @example
+ * const x = 12 + 44;
+ * const s1 = "string";
+ * const s2 = "string \nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
+ * const s3 = `string
+ *             with
+ *             new lines`;
  * @stable
  */
 export class DocumentedClass {
