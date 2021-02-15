@@ -4144,6 +4144,7 @@
     "jsii-calc.DocumentedClass": {
       "assembly": "jsii-calc",
       "docs": {
+        "example": "const x = 12 + 44;\nconst s1 = \"string\";\nconst s2 = \"string \\nwith new newlines\"; // see https://github.com/aws/jsii/issues/2569\nconst s3 = `string\n            with\n            new lines`;",
         "remarks": "This is the meat of the TSDoc comment. It may contain\nmultiple lines and multiple paragraphs.\n\nMultiple paragraphs are separated by an empty line.",
         "stability": "stable",
         "summary": "Here's the first line of the TSDoc comment."
@@ -4157,7 +4158,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 11
+        "line": 18
       },
       "methods": [
         {
@@ -4169,7 +4170,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 21
+            "line": 28
           },
           "name": "greet",
           "parameters": [
@@ -4197,7 +4198,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 31
+            "line": 38
           },
           "name": "hola"
         }
@@ -5239,7 +5240,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 39
+        "line": 46
       },
       "name": "Greetee",
       "properties": [
@@ -5253,7 +5254,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 45
+            "line": 52
           },
           "name": "name",
           "optional": true,
@@ -9391,7 +9392,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 54
+        "line": 61
       },
       "methods": [
         {
@@ -9401,7 +9402,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 58
+            "line": 65
           },
           "name": "doAThing"
         }
@@ -14440,5 +14441,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "Qv5CJVZ6t7cfQmCSHOLrbefAuLKX9JUbhUCSh+mD+po="
+  "fingerprint": "DELAKIDgUwCEVXhZflQBdllcDRnscledlYW0UXrjzbM="
 }

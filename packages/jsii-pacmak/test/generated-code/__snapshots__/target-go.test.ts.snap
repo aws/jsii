@@ -5208,6 +5208,9 @@ type DocumentedClassIface interface {
 // multiple lines and multiple paragraphs.
 //
 // Multiple paragraphs are separated by an empty line.
+//
+// TODO: EXAMPLE
+//
 // Struct proxy
 type DocumentedClass struct {
 }

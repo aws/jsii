@@ -20,26 +20,6 @@
       "symbol": "🚧",
       "description": "Maintenance",
       "link": "https://github.com/aws/jsii/pulls?q=is%3Apr+author%3A<%= contributor.login %>"
-    },
-    "dotnet": {
-      "symbol": "🥅",
-      "description": ".NET Bindings",
-      "link": "https://github.com/aws/jsii/commits?author=<%= contributor.login %>"
-    },
-    "go": {
-      "symbol": "🚶‍♀️",
-      "description": "Go Bindings",
-      "link": "https://github.com/aws/jsii/commits?author=<%= contributor.login %>"
-    },
-    "java": {
-      "symbol": "☕️",
-      "description": "Java Bindings",
-      "link": "https://github.com/aws/jsii/commits?author=<%= contributor.login %>"
-    },
-    "python": {
-      "symbol": "🐍",
-      "description": "Python Bindings",
-      "link": "https://github.com/aws/jsii/commits?author=<%= contributor.login %>"
     }
   },
   "contributors": [
@@ -105,7 +85,6 @@
       "contributions": [
         "bug",
         "code",
-        "dotnet",
         "ideas",
         "review"
       ]
@@ -173,8 +152,7 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/11984923?v=4",
       "profile": "https://github.com/campionfellin",
       "contributions": [
-        "code",
-        "java"
+        "code"
       ]
     },
     {
@@ -213,7 +191,6 @@
       "contributions": [
         "bug",
         "code",
-        "dotnet",
         "ideas",
         "review"
       ]
@@ -235,7 +212,6 @@
       "profile": "https://github.com/dagnir",
       "contributions": [
         "code",
-        "java",
         "review"
       ]
     },
@@ -295,7 +271,6 @@
         "bug",
         "code",
         "ideas",
-        "python",
         "review"
       ]
     },
@@ -317,7 +292,6 @@
         "bug",
         "code",
         "ideas",
-        "java",
         "maintenance",
         "review",
         "talk"
@@ -370,7 +344,6 @@
         "bug",
         "code",
         "ideas",
-        "python",
         "review"
       ]
     },
@@ -441,7 +414,6 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/961963?v=4",
       "profile": "https://github.com/jasdel",
       "contributions": [
-        "go",
         "ideas",
         "review"
       ]
@@ -509,7 +481,7 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/4661536?v=4",
       "profile": "https://github.com/kiiadi",
       "contributions": [
-        "java",
+        "code",
         "review"
       ]
     },
@@ -602,7 +574,6 @@
       "profile": "https://github.com/mpiroc",
       "contributions": [
         "code",
-        "dotnet",
         "ideas",
         "review"
       ]
@@ -615,7 +586,6 @@
       "contributions": [
         "bug",
         "code",
-        "go",
         "ideas",
         "maintenance",
         "review"
@@ -724,7 +694,6 @@
         "code",
         "ideas",
         "maintenance",
-        "python",
         "review"
       ]
     },
@@ -737,12 +706,8 @@
         "bug",
         "code",
         "design",
-        "dotnet",
-        "go",
         "ideas",
-        "java",
         "maintenance",
-        "python",
         "review",
         "blog"
       ]
@@ -837,7 +802,6 @@
       "contributions": [
         "code",
         "doc",
-        "go",
         "ideas",
         "review"
       ]
@@ -1072,6 +1036,33 @@
       "name": "Ben Farr",
       "avatar_url": "https://avatars0.githubusercontent.com/u/10361379?v=4",
       "profile": "https://github.com/benfarr",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "JKCT",
+      "name": "James Kelley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24870481?v=4",
+      "profile": "https://github.com/JKCT",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "aniljava",
+      "name": "aniljava",
+      "avatar_url": "https://avatars.githubusercontent.com/u/412569?v=4",
+      "profile": "https://github.com/aniljava",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mattBrzezinski",
+      "name": "mattBrzezinski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4356074?v=4",
+      "profile": "https://github.com/mattBrzezinski",
       "contributions": [
         "doc"
       ]
