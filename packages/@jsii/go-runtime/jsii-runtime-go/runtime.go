@@ -320,9 +320,9 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 		}
 	} else if isRef {
 		// If return data is JSII object references, add to objects table.
-		concreteType, ok := c.types.concreteTypeFor(ptrVal.Type())
-		if !ok {
-			panic(fmt.Errorf("unable to determine concrete type for %v", ptrVal.Type()))
+		concreteType, err := c.types.concreteTypeFor(ptrVal.Type())
+		if err != nil {
+			panic(err)
 		}
 		ptrVal.Set(reflect.New(concreteType))
 		c.objects[ptrVal.Interface()] = ref.InstanceID
