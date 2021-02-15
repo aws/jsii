@@ -54,7 +54,7 @@ function createRecords(): string {
       ),
       env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },
       stdio: ['inherit', 'pipe', 'pipe'],
-      timeout: 5 * 60_000, // 5 minutes
+      timeout: 300_000, // 5 minutes
     },
   );
 
