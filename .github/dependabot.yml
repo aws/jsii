@@ -7,7 +7,6 @@ updates:
       interval: weekly
     labels:
       - dependencies
-      - pr/auto-approve
       - language/dotnet
 
   - package-ecosystem: nuget
