@@ -1,6 +1,6 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
-import { join } from 'path';
+import { basename, dirname, join } from 'path';
 import * as semver from 'semver';
 
 import { EmitContext } from './emit-context';
@@ -107,24 +107,7 @@ export abstract class Package {
     this.emitTypes(context);
     code.closeFile(this.file);
 
-    if (this.types.length > 0) {
-      const initFile = this.file.replace(/(\.go)$/, '.init$1');
-      code.openFile(initFile);
-      code.line(`package ${this.packageName}`);
-      code.line();
-      code.open('import (');
-      code.line('"reflect"');
-      code.line();
-      code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
-      code.close(')');
-      code.line();
-      code.openBlock('func init()');
-      for (const type of this.types) {
-        type.emitRegistration(code);
-      }
-      code.closeBlock();
-      code.closeFile(initFile);
-    }
+    this.emitGoInitFunction(context);
 
     this.emitInternalPackages(context);
   }
@@ -154,26 +137,58 @@ export abstract class Package {
     );
   }
 
+  /**
+   * Emits a `func init() { ... }` in a dedicated file (so we don't have to
+   * worry about what needs to be imported and whatnot). This function is
+   * responsible for correctly initializing the module, including registering
+   * the declared types with the jsii runtime for go.
+   */
+  private emitGoInitFunction({ code }: EmitContext): void {
+    // We don't emit anything if there are not types in this (sub)module. This
+    // avoids registering an `init` function that does nothing, which is poor
+    // form. It also saves us from "imported but unused" errors that would arise
+    // as a consequence.
+    if (this.types.length > 0) {
+      const initFile = join(
+        dirname(this.file),
+        `${basename(this.file, '.go')}.init.go`,
+      );
+      code.openFile(initFile);
+      code.line(`package ${this.packageName}`);
+      code.line();
+      importGoModules(code, [GO_REFLECT, JSII_RT_MODULE]);
+      code.line();
+      code.openBlock('func init()');
+      for (const type of this.types) {
+        type.emitRegistration(code);
+      }
+      code.closeBlock();
+      code.closeFile(initFile);
+    }
+  }
+
   private emitImports(code: CodeMaker) {
-    code.open('import (');
+    const toImport = new Array<ImportedModule>();
+
     if (this.usesRuntimePackage) {
-      code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+      toImport.push(JSII_RT_MODULE);
     }
 
     if (this.usesInitPackage) {
-      code.line(
-        `${JSII_INIT_ALIAS} "${this.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
-      );
+      toImport.push({
+        alias: JSII_INIT_ALIAS,
+        module: `${this.root.goModuleName}/${JSII_INIT_PACKAGE}`,
+      });
     }
 
     for (const packageName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
       if (packageName !== this.packageName) {
-        code.line(`"${packageName}"`);
+        toImport.push({ module: packageName });
       }
     }
 
-    code.close(')');
+    importGoModules(code, toImport);
     code.line();
   }
 
@@ -294,19 +309,18 @@ export class RootPackage extends Package {
     code.openFile(file);
     code.line('package jsii');
     code.line();
-    code.open('import (');
-    code.line(`rt "${JSII_RT_MODULE_NAME}"`);
-    code.line('"sync"');
+
+    const toImport: ImportedModule[] = [JSII_RT_MODULE, { module: 'sync' }];
     if (dependencies.length > 0) {
-      code.line('// Initialization endpoints of dependencies');
       for (const pkg of dependencies) {
-        code.line(
-          `${pkg.packageName} "${pkg.root.goModuleName}/${JSII_INIT_PACKAGE}"`,
-        );
+        toImport.push({
+          alias: pkg.packageName,
+          module: `${pkg.root.goModuleName}/${JSII_INIT_PACKAGE}`,
+        });
       }
     }
+    importGoModules(code, toImport);
 
-    code.close(')');
     code.line();
     code.line('var once sync.Once');
     code.line();
@@ -326,7 +340,7 @@ export class RootPackage extends Package {
     }
     code.line('// Load this library into the kernel');
     code.line(
-      `rt.Load("${this.assembly.name}", "${this.assembly.version}", tarball)`,
+      `${JSII_RT_ALIAS}.Load("${this.assembly.name}", "${this.assembly.version}", tarball)`,
     );
     code.close('})');
     code.close('}');
@@ -388,4 +402,80 @@ function determineMajorVersionSuffix(version: string) {
   }
 
   return `/v${sv.major}`;
+}
+
+interface ImportedModule {
+  readonly alias?: string;
+  readonly module: string;
+}
+
+const JSII_RT_MODULE: ImportedModule = {
+  alias: JSII_RT_ALIAS,
+  module: JSII_RT_MODULE_NAME,
+};
+const GO_REFLECT: ImportedModule = { module: 'reflect' };
+
+function importGoModules(code: CodeMaker, modules: readonly ImportedModule[]) {
+  if (modules.length === 0) {
+    return;
+  }
+
+  const aliasSize = Math.max(...modules.map((mod) => mod.alias?.length ?? 0));
+  code.open('import (');
+  const sortedModules = Array.from(modules).sort(compareImportedModules);
+  for (let i = 0; i < sortedModules.length; i++) {
+    const mod = sortedModules[i];
+    // Separate module categories from each other modules with a blank line.
+    if (
+      i > 0 &&
+      (isBuiltIn(mod) !== isBuiltIn(sortedModules[i - 1]) ||
+        isSpecial(mod) !== isSpecial(sortedModules[i - 1]))
+    ) {
+      code.line();
+    }
+    if (mod.alias) {
+      code.line(`${mod.alias.padEnd(aliasSize, ' ')} "${mod.module}"`);
+    } else {
+      code.line(`"${mod.module}"`);
+    }
+  }
+  code.close(')');
+
+  /**
+   * A comparator for `ImportedModule` instances such that built-in modules
+   * always appear first, followed by the rest. Then within these two groups,
+   * aliased imports appear first, followed by the rest.
+   */
+  function compareImportedModules(
+    l: ImportedModule,
+    r: ImportedModule,
+  ): number {
+    const lBuiltIn = isBuiltIn(l);
+    const rBuiltIn = isBuiltIn(r);
+    if (lBuiltIn && !rBuiltIn) {
+      return -1;
+    }
+    if (!lBuiltIn && rBuiltIn) {
+      return 1;
+    }
+
+    const lSpecial = isSpecial(l);
+    const rSpecial = isSpecial(r);
+    if (lSpecial && !rSpecial) {
+      return -1;
+    }
+    if (!lSpecial && rSpecial) {
+      return 1;
+    }
+
+    return l.module.localeCompare(r.module);
+  }
+
+  function isBuiltIn(mod: ImportedModule): boolean {
+    return !mod.module.includes('/');
+  }
+
+  function isSpecial(mod: ImportedModule): boolean {
+    return mod.alias === JSII_RT_ALIAS || mod.alias === JSII_INIT_ALIAS;
+  }
 }

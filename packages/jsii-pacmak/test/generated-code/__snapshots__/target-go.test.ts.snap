@@ -29,9 +29,10 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcba
 package jsii
 
 import (
-	rt "github.com/aws/jsii-runtime-go"
 	"sync"
-	// Initialization endpoints of dependencies
+
+	_jsii_                  "github.com/aws/jsii-runtime-go"
+
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
 
@@ -45,7 +46,7 @@ func Initialize() {
 		scopejsiicalcbaseofbase.Initialize()
 
 		// Load this library into the kernel
-		rt.Load("@scope/jsii-calc-base", "0.0.0", tarball)
+		_jsii_.Load("@scope/jsii-calc-base", "0.0.0", tarball)
 	})
 }
 
@@ -60,6 +61,7 @@ package scopejsiicalcbase
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
 
@@ -264,8 +266,9 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 package jsii
 
 import (
-	rt "github.com/aws/jsii-runtime-go"
 	"sync"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
 var once sync.Once
@@ -275,7 +278,7 @@ var once sync.Once
 func Initialize() {
 	once.Do(func(){
 		// Load this library into the kernel
-		rt.Load("@scope/jsii-calc-base-of-base", "2.1.1", tarball)
+		_jsii_.Load("@scope/jsii-calc-base-of-base", "2.1.1", tarball)
 	})
 }
 
@@ -461,10 +464,11 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package jsii
 
 import (
-	rt "github.com/aws/jsii-runtime-go"
 	"sync"
-	// Initialization endpoints of dependencies
-	scopejsiicalcbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+
+	_jsii_                  "github.com/aws/jsii-runtime-go"
+
+	scopejsiicalcbase       "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
 
@@ -479,7 +483,7 @@ func Initialize() {
 		scopejsiicalcbaseofbase.Initialize()
 
 		// Load this library into the kernel
-		rt.Load("@scope/jsii-calc-lib", "0.0.0", tarball)
+		_jsii_.Load("@scope/jsii-calc-lib", "0.0.0", tarball)
 	})
 }
 
@@ -494,8 +498,9 @@ package scopejsiicalclib
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
+
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
 
 // Check that enums from \\@scoped packages can be references.
@@ -1291,6 +1296,7 @@ package composition
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
@@ -1762,11 +1768,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] =
 package jsii
 
 import (
-	rt "github.com/aws/jsii-runtime-go"
 	"sync"
-	// Initialization endpoints of dependencies
+
+	_jsii_            "github.com/aws/jsii-runtime-go"
+
 	scopejsiicalcbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
-	scopejsiicalclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	scopejsiicalclib  "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 var once sync.Once
@@ -1780,7 +1787,7 @@ func Initialize() {
 		scopejsiicalclib.Initialize()
 
 		// Load this library into the kernel
-		rt.Load("jsii-calc", "3.20.120", tarball)
+		_jsii_.Load("jsii-calc", "3.20.120", tarball)
 	})
 }
 
@@ -1795,10 +1802,11 @@ package jsiicalc
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
 )
 
@@ -14206,6 +14214,7 @@ package backreferences
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
+
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule"
 )
 
@@ -14492,8 +14501,6 @@ func init() {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated.go 1`] = `
 package isolated
 
-import (
-)
 
 // Class interface
 type KwargsIface interface {
@@ -14589,8 +14596,9 @@ package nestedsubmodule
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
+
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
 )
 
 // Class interface
@@ -14705,6 +14713,7 @@ package returnsparam
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
 )
 
@@ -14770,9 +14779,10 @@ package submodule
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
+
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
 )
 
