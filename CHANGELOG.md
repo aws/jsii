@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/aws/jsii/compare/v1.20.1...v1.21.0) (2021-02-15)
+
+
+### Bug Fixes
+
+* **pacmak:** examples with multi-line strings produce invalid python docstrings ([#2571](https://github.com/aws/jsii/issues/2571)) ([d5c2e3a](https://github.com/aws/jsii/commit/d5c2e3aeb89524462fd4544df5aacea379cf9dd7)), closes [#2569](https://github.com/aws/jsii/issues/2569)
+* **pacmak:** TypeError when operating with Worker threads ([#2550](https://github.com/aws/jsii/issues/2550)) ([5822e48](https://github.com/aws/jsii/commit/5822e48f53e49e8116a57ed4b2da7e30b483f289)), closes [isaacs/node-graceful-fs#204](https://github.com/isaacs/node-graceful-fs/issues/204) [isaacs/node-graceful-fs#205](https://github.com/isaacs/node-graceful-fs/issues/205)
+* **rosetta,pacmak:** TypeError in node 10 with --experimental-worker ([#2554](https://github.com/aws/jsii/issues/2554)) ([4728e86](https://github.com/aws/jsii/commit/4728e866956c238a0fabe1a9d8c4b270ed05a990)), closes [isaacs/node-graceful-fs#204](https://github.com/isaacs/node-graceful-fs/issues/204)
+
 ## [1.20.1](https://github.com/aws/jsii/compare/v1.20.0...v1.20.1) (2021-02-05)
 
 
