@@ -1,51 +1,40 @@
 version: 2
 
 updates:
-  - package-ecosystem: npm
-    directory: '/'
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-    versioning-strategy: increase
-    ignore:
-      - dependency-name: typescript
-        versions:
-          - '>= 3.10.a'
-      - dependency-name: '@types/node'
-        versions:
-          - '>= 11.a'
-
   - package-ecosystem: nuget
     directory: '/packages/@jsii/dotnet-runtime/src'
     schedule:
-      interval: daily
+      interval: weekly
     labels:
       - dependencies
+      - pr/auto-approve
       - language/dotnet
 
   - package-ecosystem: nuget
     directory: '/packages/@jsii/dotnet-runtime-test/test'
     schedule:
-      interval: daily
+      interval: weekly
     labels:
       - dependencies
+      - pr/auto-approve
       - language/dotnet
 
   - package-ecosystem: pip
     directory: '/packages/@jsii/python-runtime'
     schedule:
-      interval: daily
+      interval: weekly
     labels:
       - dependencies
+      - pr/auto-approve
       - language/python
 
   - package-ecosystem: pip
     directory: '/gh-pages'
     schedule:
-      interval: daily
+      interval: weekly
     labels:
       - dependencies
+      - pr/auto-approve
       - language/python
 
   - package-ecosystem: pip
@@ -54,6 +43,7 @@ updates:
       interval: daily
     labels:
       - dependencies
+      - pr/auto-approve
       - language/python
 
   - package-ecosystem: pip
@@ -62,9 +52,13 @@ updates:
       interval: daily
     labels:
       - dependencies
+      - pr/auto-approve
       - language/python
 
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
       interval: daily
+    labels:
+      - dependencies
+      - pr/auto-approve
