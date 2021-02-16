@@ -84,6 +84,9 @@ export class Golang extends Target {
           const moduleDir = tryFindLocalModule(baseDir, dep);
           if (moduleDir) {
             replace[dep.goModuleName] = moduleDir;
+
+            // we found a replacement for this dep, we can stop searching
+            break;
           }
         }
 
