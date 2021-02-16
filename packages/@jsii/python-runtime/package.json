@@ -42,6 +42,6 @@
     "jsii-calc": "^3.20.120",
     "jsii-pacmak": "^0.0.0",
     "ts-node": "^9.1.1",
-    "typescript": "~3.9.7"
+    "typescript": "~3.9.9"
   }
 }

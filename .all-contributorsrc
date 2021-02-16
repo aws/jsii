@@ -1057,6 +1057,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mattBrzezinski",
+      "name": "mattBrzezinski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4356074?v=4",
+      "profile": "https://github.com/mattBrzezinski",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoType": "github",

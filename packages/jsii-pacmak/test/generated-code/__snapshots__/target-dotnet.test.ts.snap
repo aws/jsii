@@ -4907,6 +4907,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// 
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
+    /// <example>
+    /// <code>// Example automatically generated. See https://github.com/aws/jsii/issues/826
+    /// int x = 12 + 44;
+    /// string s1 = "string";
+    /// string s2 = @"string
+    /// with new newlines";// see https://github.com/aws/jsii/issues/2569
+    /// string s3 = @"string
+    /// with
+    /// new lines";</code>
+    /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
     {
