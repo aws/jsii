@@ -230,10 +230,10 @@ value:
 
 In **JavaScript**, `enum` entries are represented by their value equivalent. In order to support statically typed
 representations in other languages, these are serialized using a dedicated wrapper object, using a single key
-(`$jsii.enum`) with the fully qualified name of the `enum` entry:
+(`$jsii.enum`) with the fully qualified name of the `enum` entry (formatted as `<enum type fqn>/<entry name>`):
 
 ```json
-{ "$jsii.enum": "@scope/module.EnumType.ENTRY_NAME" }
+{ "$jsii.enum": "@scope/module.EnumType/ENTRY_NAME" }
 ```
 
 ### Identity Serialization
