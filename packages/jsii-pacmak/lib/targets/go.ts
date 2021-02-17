@@ -11,7 +11,6 @@ import { shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
-import { JSII_RT_MODULE_NAME } from './go/runtime/constants';
 import { goPackageName } from './go/util';
 
 export class Golang extends Target {
@@ -69,9 +68,8 @@ export class Golang extends Target {
     ];
 
     // try to resolve @jsii/go-runtime (only exists as a devDependency)
-    const jsiiRuntimeDir = tryFindLocalRuntime();
-    if (jsiiRuntimeDir) {
-      replace[JSII_RT_MODULE_NAME] = jsiiRuntimeDir;
+    for (const localModule of tryFindLocalRuntime()) {
+      replace[localModule.moduleName] = localModule.localPath;
     }
 
     // iterate (recursively) on all package dependencies and check if we have a
@@ -210,16 +208,52 @@ function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
 /**
  * Check if we are running from inside the jsii repository, and then we want to
  * use the local runtime instead of download from a released version.
+ *
+ * This is a generator that procudes an entry for each local module that
+ * is identified under the local module path exposed by `@jsii/go-runtime` .
  */
-function tryFindLocalRuntime() {
+function* tryFindLocalRuntime(): Generator<LocalModule, void> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports, import/no-extraneous-dependencies
-    const dir = require('@jsii/go-runtime').runtimePath;
+    const dir: string = require('@jsii/go-runtime').runtimePath;
     logging.debug(`Using @jsii/go-runtime from ${dir}`);
-    return dir;
+
+    // See https://golang.org/ref/mod#go-mod-file-ident for what's valid in a module identifiercd
+    const moduleRegexp = /^\s*module\s+([a-z0-9._~/-]+)\s/i;
+    for (const goModFile of findModules(dir)) {
+      const content = fs.readFileSync(goModFile, 'utf8');
+      const match = moduleRegexp.exec(content);
+      if (match == null) {
+        throw new Error(`Could not identify module in ${goModFile}`);
+      }
+      yield {
+        moduleName: match[1],
+        localPath: path.dirname(goModFile),
+      };
+    }
   } catch {
-    return undefined;
+    return;
   }
+
+  function* findModules(dir: string): Generator<string, void> {
+    for (const name of fs.readdirSync(dir)) {
+      const fullPath = path.join(dir, name);
+      if (fs.statSync(fullPath).isDirectory()) {
+        for (const mod of findModules(fullPath)) {
+          yield mod;
+        }
+        continue;
+      }
+      if (name === 'go.mod') {
+        yield fullPath;
+      }
+    }
+  }
+}
+
+interface LocalModule {
+  readonly moduleName: string;
+  readonly localPath: string;
 }
 
 /**
