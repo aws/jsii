@@ -3,7 +3,6 @@ package api
 // FQN represents a fully-qualified type name in the jsii type system.
 type FQN string
 
-
 // Override is a public interface implementing a private method `isOverride`
 // implemented by the private custom type `override`. This is embedded by
 // MethodOverride and PropertyOverride to simulate the union type of Override =

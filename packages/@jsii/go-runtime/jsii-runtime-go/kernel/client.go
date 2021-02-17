@@ -62,8 +62,8 @@ func GetClient() *client {
 // CloseClient finalizes the runtime process, signalling the end of the
 // execution to the jsii kernel process, and waiting for graceful termination.
 //
-// If a jsii client is used *after* closeClient was called, a new jsii kernel
-// process will be initialized, and closeClient should be called again to
+// If a jsii client is used *after* CloseClient was called, a new jsii kernel
+// process will be initialized, and CloseClient should be called again to
 // correctly finalize that, too.
 func CloseClient() {
 	// Locking early to be safe with a concurrent getClient execution
