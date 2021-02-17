@@ -117,7 +117,7 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 		API:       "invoke",
 		Method:    method,
 		Arguments: castPtrsToRef(args),
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -167,7 +167,7 @@ func Get(obj interface{}, property string, ret interface{}) {
 	res, err := client.get(getRequest{
 		API:      "get",
 		Property: property,
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -213,7 +213,7 @@ func Set(obj interface{}, property string, value interface{}) {
 		API:      "set",
 		Property: property,
 		Value:    castPtrToRef(value),
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -240,8 +240,8 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 	}
 }
 
-func castValToRef(data interface{}) (objref, bool) {
-	ref := objref{}
+func castValToRef(data interface{}) (objectRef, bool) {
+	ref := objectRef{}
 	ok := false
 	dataVal := reflect.ValueOf(data)
 
@@ -262,6 +262,27 @@ func castValToRef(data interface{}) (objref, bool) {
 	return ref, ok
 }
 
+func castValToEnumRef(data interface{}) (enum enumRef, ok bool) {
+	dataVal := reflect.ValueOf(data)
+	ok = false
+
+	if dataVal.Kind() == reflect.Map {
+		for _, k := range dataVal.MapKeys() {
+			// Finding values type requires extracting from reflect.Value
+			// otherwise .Kind() returns `interface{}`
+			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
+
+			if k.Kind() == reflect.String && k.String() == "$jsii.enum" && v.Kind() == reflect.String {
+				enum.MemberFQN = v.String()
+				ok = true
+				return
+			}
+		}
+	}
+
+	return
+}
+
 // Accepts pointers to structs that implement interfaces and searches for an
 // existing object reference in the client. If it exists, it casts it to an
 // objref for the runtime. Recursively casts types that may contain nested
@@ -273,7 +294,11 @@ func castPtrToRef(data interface{}) interface{} {
 	if dataVal.Kind() == reflect.Ptr {
 		valref, valHasRef := client.findObjectRef(data)
 		if valHasRef {
-			return objref{InstanceID: valref}
+			return objectRef{InstanceID: valref}
+		}
+	} else if dataVal.Kind() == reflect.String {
+		if enumRef, isEnumRef := client.types.tryRenderEnumRef(dataVal); isEnumRef {
+			return enumRef
 		}
 	} else if dataVal.Kind() == reflect.Slice {
 		refs := make([]interface{}, dataVal.Len())
@@ -308,7 +333,28 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 	dataVal := reflect.ValueOf(data)
 
 	ref, isRef := castValToRef(data)
+	if isRef {
+		// If return data is JSII object references, add to objects table.
+		if concreteType, err := c.types.concreteTypeFor(ptrVal.Type()); err == nil {
+			ptrVal.Set(reflect.New(concreteType))
+			c.objects[ptrVal.Interface()] = ref.InstanceID
+		} else {
+			panic(err)
+		}
+		return
+	}
 
+	if enumref, isEnum := castValToEnumRef(data); isEnum {
+		member, err := c.types.enumMemberForEnumRef(enumref)
+		if err != nil {
+			panic(err)
+		}
+
+		ptrVal.Set(reflect.ValueOf(member))
+		return
+	}
+
+	// arrays
 	if ptrVal.Kind() == reflect.Slice && dataVal.Kind() == reflect.Slice {
 		// If return type is a slice, recursively cast elements
 		for i := 0; i < dataVal.Len(); i++ {
@@ -318,15 +364,13 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 			c.castAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface())
 			ptrVal.Set(reflect.Append(ptrVal, inner.Elem()))
 		}
-	} else if isRef {
-		// If return data is JSII object references, add to objects table.
-		concreteType, err := c.types.concreteTypeFor(ptrVal.Type())
-		if err != nil {
-			panic(err)
-		}
-		ptrVal.Set(reflect.New(concreteType))
-		c.objects[ptrVal.Interface()] = ref.InstanceID
-	} else {
+
+		return
+	}
+
+	// TODO: maps
+
+	if data != nil {
 		val := reflect.ValueOf(data)
 		ptrVal.Set(val)
 	}

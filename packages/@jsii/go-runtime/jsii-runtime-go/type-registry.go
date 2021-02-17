@@ -13,6 +13,7 @@ type typeRegistry struct {
 	// qualified type name. The kind of type being returned depends on what the
 	// FQN represents... This will be the second argument of provided to a
 	// register* function.
+	// enums are not included
 	fqnToType map[FQN]reflect.Type
 
 	// ifaceToStruct provides the go struct that should be used to build a proxy
@@ -20,17 +21,22 @@ type typeRegistry struct {
 	// conversion.
 	ifaceToStruct map[reflect.Type]reflect.Type
 
-	// enumMembers has enum constants for each registered enum type, supporting
-	// correct conversion of enum values received from JavaScript.
-	enumMembers map[reflect.Type]map[string]interface{}
+	// map enum member FQNs (e.g. "jsii-calc.StringEnum/A") to the corresponding
+	// go const for this member.
+	fqnToEnumMember map[string]interface{}
+
+	// maps Go enum type ("StringEnum") to the corresponding jsii enum FQN (e.g.
+	// "jsii-calc.StringEnum")
+	typeToEnumFQN map[reflect.Type]FQN
 }
 
 // newTypeRegistry creates a new type registry.
 func newTypeRegistry() *typeRegistry {
 	return &typeRegistry{
-		fqnToType:     make(map[FQN]reflect.Type),
-		ifaceToStruct: make(map[reflect.Type]reflect.Type),
-		enumMembers:   make(map[reflect.Type]map[string]interface{}),
+		fqnToType:       make(map[FQN]reflect.Type),
+		ifaceToStruct:   make(map[reflect.Type]reflect.Type),
+		fqnToEnumMember: make(map[string]interface{}),
+		typeToEnumFQN:   make(map[reflect.Type]FQN),
 	}
 }
 
@@ -66,20 +72,23 @@ func (t *typeRegistry) registerEnum(fqn FQN, enm reflect.Type, members map[strin
 	if enm.Kind() != reflect.String {
 		return fmt.Errorf("the provided enum is not a string derivative: %v", enm)
 	}
-
-	for k, v := range members {
-		vt := reflect.ValueOf(v).Type()
-		if vt != enm {
-			return fmt.Errorf("the enum entry for key %s has incorrect type %v", k, vt)
-		}
-	}
-
 	if existing, exists := t.fqnToType[fqn]; exists && existing != enm {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
+	for memberName, memberVal := range members {
+		vt := reflect.ValueOf(memberVal).Type()
+		if vt != enm {
+			return fmt.Errorf("the enum entry for key %s has incorrect type %v", memberName, vt)
+		}
+		// Not setting in t.fqnToEnumMember here so we don't cause any side-effects
+		// if the pre-condition fails at any point. This is done in a second loop.
+	}
 
-	t.fqnToType[fqn] = enm
-	t.enumMembers[enm] = members
+	t.typeToEnumFQN[enm] = fqn
+	for memberName, memberVal := range members {
+		memberFQN := fmt.Sprintf("%s/%s", fqn, memberName)
+		t.fqnToEnumMember[memberFQN] = memberVal
+	}
 
 	return nil
 }
@@ -143,12 +152,45 @@ func (t *typeRegistry) concreteTypeFor(typ reflect.Type) (structType reflect.Typ
 		err = nil
 	} else if typ.Kind() == reflect.Interface {
 		var ok bool
-		structType, ok = t.ifaceToStruct[typ]
-		if !ok {
+		if structType, ok = t.ifaceToStruct[typ]; !ok {
 			err = fmt.Errorf("no concrete type was registered for interface: %v", typ)
 		}
 	} else {
 		err = fmt.Errorf("invalid argument: expected a struct or interface type, but got %v", typ)
 	}
+	return
+}
+
+// enumMemberForEnumRef returns the go enum member corresponding to a jsii fully
+// qualified enum member name (e.g: "jsii-calc.StringEnum/A"). If no enum member
+// was registered (via registerEnum) for the provided enumref, an error is
+// returned.
+func (t *typeRegistry) enumMemberForEnumRef(ref enumRef) (interface{}, error) {
+	if member, ok := t.fqnToEnumMember[ref.MemberFQN]; ok {
+		return member, nil
+	}
+	return nil, fmt.Errorf("no enum member registered for %s", ref.MemberFQN)
+}
+
+// tryRenderEnumRef returns an enumref if the provided value corresponds to a
+// registered enum type. The returned enumref is nil if the provided enum value
+// is a zero-value (i.e: "").
+func (t *typeRegistry) tryRenderEnumRef(value reflect.Value) (ref *enumRef, isEnumRef bool) {
+	if value.Kind() != reflect.String {
+		isEnumRef = false
+		return
+	}
+
+	if enumFQN, ok := t.typeToEnumFQN[value.Type()]; ok {
+		isEnumRef = true
+		if memberName := value.String(); memberName != "" {
+			ref = &enumRef{MemberFQN: fmt.Sprintf("%s/%s", enumFQN, memberName)}
+		} else {
+			ref = nil
+		}
+	} else {
+		isEnumRef = false
+	}
+
 	return
 }
