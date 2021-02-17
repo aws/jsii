@@ -1,5 +1,6 @@
 /jsii-calc/
 *.generated.go
+*.generated_test.go
 
 *.js
 *.d.ts
