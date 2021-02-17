@@ -117,7 +117,7 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 		API:       "invoke",
 		Method:    method,
 		Arguments: castPtrsToRef(args),
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -167,7 +167,7 @@ func Get(obj interface{}, property string, ret interface{}) {
 	res, err := client.get(getRequest{
 		API:      "get",
 		Property: property,
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -213,7 +213,7 @@ func Set(obj interface{}, property string, value interface{}) {
 		API:      "set",
 		Property: property,
 		Value:    castPtrToRef(value),
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -240,8 +240,8 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 	}
 }
 
-func castValToRef(data interface{}) (objref, bool) {
-	ref := objref{}
+func castValToRef(data interface{}) (objectRef, bool) {
+	ref := objectRef{}
 	ok := false
 	dataVal := reflect.ValueOf(data)
 
@@ -262,7 +262,7 @@ func castValToRef(data interface{}) (objref, bool) {
 	return ref, ok
 }
 
-func castValToEnumRef(data interface{}) (enum enumref, ok bool) {
+func castValToEnumRef(data interface{}) (enum enumRef, ok bool) {
 	dataVal := reflect.ValueOf(data)
 	ok = false
 
@@ -294,11 +294,10 @@ func castPtrToRef(data interface{}) interface{} {
 	if dataVal.Kind() == reflect.Ptr {
 		valref, valHasRef := client.findObjectRef(data)
 		if valHasRef {
-			return objref{InstanceID: valref}
+			return objectRef{InstanceID: valref}
 		}
 	} else if dataVal.Kind() == reflect.String {
-		enumRef, isEnumRef := client.types.tryRenderEnumRef(dataVal)
-		if isEnumRef {
+		if enumRef, isEnumRef := client.types.tryRenderEnumRef(dataVal); isEnumRef {
 			return enumRef
 		}
 	} else if dataVal.Kind() == reflect.Slice {
@@ -336,17 +335,16 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 	ref, isRef := castValToRef(data)
 	if isRef {
 		// If return data is JSII object references, add to objects table.
-		concreteType, err := c.types.concreteTypeFor(ptrVal.Type())
-		if err != nil {
+		if concreteType, err := c.types.concreteTypeFor(ptrVal.Type()); err == nil {
+			ptrVal.Set(reflect.New(concreteType))
+			c.objects[ptrVal.Interface()] = ref.InstanceID
+		} else {
 			panic(err)
 		}
-		ptrVal.Set(reflect.New(concreteType))
-		c.objects[ptrVal.Interface()] = ref.InstanceID
 		return
 	}
 
-	enumref, isEnum := castValToEnumRef(data)
-	if isEnum {
+	if enumref, isEnum := castValToEnumRef(data); isEnum {
 		member, err := c.types.enumMemberForEnumRef(enumref)
 		if err != nil {
 			panic(err)
