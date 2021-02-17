@@ -6,11 +6,21 @@ import (
 	"os"
 	"reflect"
 	"regexp"
+
+	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/kernel"
 )
+
+// FQN represents a fully-qualified type name in the jsii type system.
+type FQN api.FQN
+
+type Override api.Override
+type MethodOverride api.MethodOverride
+type PropertyOverride api.PropertyOverride
 
 // Load ensures a npm package is loaded in the jsii kernel.
 func Load(name string, version string, tarball []byte) {
-	client := getClient()
+	c := kernel.GetClient()
 
 	tmpfile, err := ioutil.TempFile("", fmt.Sprintf(
 		"%s-%s.*.tgz",
@@ -26,7 +36,7 @@ func Load(name string, version string, tarball []byte) {
 	}
 	tmpfile.Close()
 
-	_, err = client.load(loadRequest{
+	_, err = c.Load(kernel.LoadRequest{
 		API:     "load",
 		Name:    name,
 		Version: version,
@@ -42,8 +52,8 @@ func Load(name string, version string, tarball []byte) {
 // interface, or if the provided fqn was already used to register a different
 // type.
 func RegisterClass(fqn FQN, class reflect.Type, iface reflect.Type) {
-	client := getClient()
-	if err := client.types.registerClass(fqn, class, iface); err != nil {
+	client := kernel.GetClient()
+	if err := client.Types().RegisterClass(api.FQN(fqn), class, iface); err != nil {
 		panic(err)
 	}
 }
@@ -53,8 +63,8 @@ func RegisterClass(fqn FQN, class reflect.Type, iface reflect.Type) {
 // the provided members map is of a type ofther than enum, or if the provided
 // fqn was already used to register a different type.
 func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
-	client := getClient()
-	if err := client.types.registerEnum(fqn, enum, members); err != nil {
+	client := kernel.GetClient()
+	if err := client.Types().RegisterEnum(api.FQN(fqn), enum, members); err != nil {
 		panic(err)
 	}
 }
@@ -64,8 +74,8 @@ func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
 // interface, proxy is not a struct, or if the provided fqn was already used to
 // register a different type.
 func RegisterInterface(fqn FQN, iface reflect.Type, proxy reflect.Type) {
-	client := getClient()
-	if err := client.types.registerInterface(fqn, iface, proxy); err != nil {
+	client := kernel.GetClient()
+	if err := client.Types().RegisterInterface(api.FQN(fqn), iface, proxy); err != nil {
 		panic(err)
 	}
 }
@@ -75,8 +85,8 @@ func RegisterInterface(fqn FQN, iface reflect.Type, proxy reflect.Type) {
 // not an interface, or if the provided fqn was already used to register a
 // different type.
 func RegisterStruct(fqn FQN, strct reflect.Type, iface reflect.Type) {
-	client := getClient()
-	if err := client.types.registerStruct(fqn, strct, iface); err != nil {
+	client := kernel.GetClient()
+	if err := client.Types().RegisterStruct(api.FQN(fqn), strct, iface); err != nil {
 		panic(err)
 	}
 }
@@ -84,40 +94,51 @@ func RegisterStruct(fqn FQN, strct reflect.Type, iface reflect.Type) {
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
 func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, ret interface{}) {
-	client := getClient()
+	client := kernel.GetClient()
 
-	res, err := client.create(createRequest{
+	var interfaceFQNs []api.FQN
+	for _, iface := range interfaces {
+		interfaceFQNs = append(interfaceFQNs, api.FQN(iface))
+	}
+	var apiOverrides []api.Override
+	for _, override := range overrides {
+		apiOverrides = append(apiOverrides, override)
+	}
+
+	res, err := client.Create(kernel.CreateRequest{
 		API:        "create",
-		FQN:        fqn,
+		FQN:        api.FQN(fqn),
 		Arguments:  castPtrsToRef(args),
-		Interfaces: interfaces,
-		Overrides:  overrides,
+		Interfaces: interfaceFQNs,
+		Overrides:  apiOverrides,
 	})
 
 	if err != nil {
 		panic(err)
 	}
 
-	client.objects[ret] = res.InstanceID
+	if err = client.RegisterInstance(ret, res.InstanceID); err != nil {
+		panic(err)
+	}
 }
 
 // Invoke will call a method on a jsii class instance. The response should be
 // decoded into the expected return type for the method being called.
 func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, ret interface{}) {
-	client := getClient()
+	client := kernel.GetClient()
 
 	// Find reference to class instance in client
-	refid, found := client.findObjectRef(obj)
+	refid, found := client.FindObjectRef(obj)
 
 	if !found {
 		panic("No Object Found")
 	}
 
-	res, err := client.invoke(invokeRequest{
+	res, err := client.Invoke(kernel.InvokeRequest{
 		API:       "invoke",
 		Method:    method,
 		Arguments: castPtrsToRef(args),
-		ObjRef: objectRef{
+		ObjRef: api.ObjectRef{
 			InstanceID: refid,
 		},
 	})
@@ -127,18 +148,18 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 	}
 
 	if hasReturn {
-		client.castAndSetToPtr(ret, res.Result)
+		client.CastAndSetToPtr(ret, res.Result)
 	}
 }
 
 // StaticInvoke will call a static method on a given jsii class. The response
 // should be decoded into the expected return type for the method being called.
 func StaticInvoke(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}) {
-	client := getClient()
+	client := kernel.GetClient()
 
-	res, err := client.sinvoke(staticInvokeRequest{
+	res, err := client.SInvoke(kernel.StaticInvokeRequest{
 		API:       "sinvoke",
-		FQN:       fqn,
+		FQN:       api.FQN(fqn),
 		Method:    method,
 		Arguments: castPtrsToRef(args),
 	})
@@ -148,26 +169,26 @@ func StaticInvoke(fqn FQN, method string, args []interface{}, hasReturn bool, re
 	}
 
 	if hasReturn {
-		client.castAndSetToPtr(ret, res.Result)
+		client.CastAndSetToPtr(ret, res.Result)
 	}
 }
 
 // Get reads a property value on a given jsii class instance. The response
 // should be decoded into the expected type of the property being read.
 func Get(obj interface{}, property string, ret interface{}) {
-	client := getClient()
+	client := kernel.GetClient()
 
 	// Find reference to class instance in client
-	refid, found := client.findObjectRef(obj)
+	refid, found := client.FindObjectRef(obj)
 
 	if !found {
 		panic("No Object Found")
 	}
 
-	res, err := client.get(getRequest{
+	res, err := client.Get(kernel.GetRequest{
 		API:      "get",
 		Property: property,
-		ObjRef: objectRef{
+		ObjRef: api.ObjectRef{
 			InstanceID: refid,
 		},
 	})
@@ -176,17 +197,17 @@ func Get(obj interface{}, property string, ret interface{}) {
 		panic(err)
 	}
 
-	client.castAndSetToPtr(ret, res.Value)
+	client.CastAndSetToPtr(ret, res.Value)
 }
 
 // StaticGet reads a static property value on a given jsii class. The response
 // should be decoded into the expected type of the property being read.
 func StaticGet(fqn FQN, property string, ret interface{}) {
-	client := getClient()
+	client := kernel.GetClient()
 
-	res, err := client.sget(staticGetRequest{
+	res, err := client.SGet(kernel.StaticGetRequest{
 		API:      "sget",
-		FQN:      fqn,
+		FQN:      api.FQN(fqn),
 		Property: property,
 	})
 
@@ -194,26 +215,26 @@ func StaticGet(fqn FQN, property string, ret interface{}) {
 		panic(err)
 	}
 
-	client.castAndSetToPtr(ret, res.Value)
+	client.CastAndSetToPtr(ret, res.Value)
 }
 
 // Set writes a property on a given jsii class instance. The value should match
 // the type of the property being written, or the jsii kernel will crash.
 func Set(obj interface{}, property string, value interface{}) {
-	client := getClient()
+	client := kernel.GetClient()
 
 	// Find reference to class instance in client
-	refid, found := client.findObjectRef(obj)
+	refid, found := client.FindObjectRef(obj)
 
 	if !found {
 		panic("No Object Found")
 	}
 
-	_, err := client.set(setRequest{
+	_, err := client.Set(kernel.SetRequest{
 		API:      "set",
 		Property: property,
 		Value:    castPtrToRef(value),
-		ObjRef: objectRef{
+		ObjRef: api.ObjectRef{
 			InstanceID: refid,
 		},
 	})
@@ -226,11 +247,11 @@ func Set(obj interface{}, property string, value interface{}) {
 // StaticSet writes a static property on a given jsii class. The value should
 // match the type of the property being written, or the jsii kernel will crash.
 func StaticSet(fqn FQN, property string, value interface{}) {
-	client := getClient()
+	client := kernel.GetClient()
 
-	_, err := client.sset(staticSetRequest{
+	_, err := client.SSet(kernel.StaticSetRequest{
 		API:      "sset",
-		FQN:      fqn,
+		FQN:      api.FQN(fqn),
 		Property: property,
 		Value:    value,
 	})
@@ -240,64 +261,21 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 	}
 }
 
-func castValToRef(data interface{}) (objectRef, bool) {
-	ref := objectRef{}
-	ok := false
-	dataVal := reflect.ValueOf(data)
-
-	if dataVal.Kind() == reflect.Map {
-		for _, k := range dataVal.MapKeys() {
-			// Finding values type requires extracting from reflect.Value
-			// otherwise .Kind() returns `interface{}`
-			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
-
-			if k.Kind() == reflect.String && k.String() == "$jsii.byref" && v.Kind() == reflect.String {
-				ref.InstanceID = v.String()
-				ok = true
-			}
-
-		}
-	}
-
-	return ref, ok
-}
-
-func castValToEnumRef(data interface{}) (enum enumRef, ok bool) {
-	dataVal := reflect.ValueOf(data)
-	ok = false
-
-	if dataVal.Kind() == reflect.Map {
-		for _, k := range dataVal.MapKeys() {
-			// Finding values type requires extracting from reflect.Value
-			// otherwise .Kind() returns `interface{}`
-			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
-
-			if k.Kind() == reflect.String && k.String() == "$jsii.enum" && v.Kind() == reflect.String {
-				enum.MemberFQN = v.String()
-				ok = true
-				return
-			}
-		}
-	}
-
-	return
-}
-
 // Accepts pointers to structs that implement interfaces and searches for an
-// existing object reference in the client. If it exists, it casts it to an
+// existing object reference in the kernel. If it exists, it casts it to an
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func castPtrToRef(data interface{}) interface{} {
-	client := getClient()
+	client := kernel.GetClient()
 	dataVal := reflect.ValueOf(data)
 
 	if dataVal.Kind() == reflect.Ptr {
-		valref, valHasRef := client.findObjectRef(data)
+		valref, valHasRef := client.FindObjectRef(data)
 		if valHasRef {
-			return objectRef{InstanceID: valref}
+			return api.ObjectRef{InstanceID: valref}
 		}
 	} else if dataVal.Kind() == reflect.String {
-		if enumRef, isEnumRef := client.types.tryRenderEnumRef(dataVal); isEnumRef {
+		if enumRef, isEnumRef := client.Types().TryRenderEnumRef(dataVal); isEnumRef {
 			return enumRef
 		}
 	} else if dataVal.Kind() == reflect.Slice {
@@ -324,58 +302,6 @@ func castPtrsToRef(args []interface{}) []interface{} {
 	return argRefs
 }
 
-// castAndSetToPtr accepts a pointer to any type and attempts to cast the value
-// argument to be the same type. Then it sets the value of the pointer element
-// to be the newly cast data. This is used to cast payloads from JSII to
-// expected return types for Get and Invoke functions.
-func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
-	ptrVal := reflect.ValueOf(ptr).Elem()
-	dataVal := reflect.ValueOf(data)
-
-	ref, isRef := castValToRef(data)
-	if isRef {
-		// If return data is JSII object references, add to objects table.
-		if concreteType, err := c.types.concreteTypeFor(ptrVal.Type()); err == nil {
-			ptrVal.Set(reflect.New(concreteType))
-			c.objects[ptrVal.Interface()] = ref.InstanceID
-		} else {
-			panic(err)
-		}
-		return
-	}
-
-	if enumref, isEnum := castValToEnumRef(data); isEnum {
-		member, err := c.types.enumMemberForEnumRef(enumref)
-		if err != nil {
-			panic(err)
-		}
-
-		ptrVal.Set(reflect.ValueOf(member))
-		return
-	}
-
-	// arrays
-	if ptrVal.Kind() == reflect.Slice && dataVal.Kind() == reflect.Slice {
-		// If return type is a slice, recursively cast elements
-		for i := 0; i < dataVal.Len(); i++ {
-			innerType := ptrVal.Type().Elem()
-			inner := reflect.New(innerType)
-
-			c.castAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface())
-			ptrVal.Set(reflect.Append(ptrVal, inner.Elem()))
-		}
-
-		return
-	}
-
-	// TODO: maps
-
-	if data != nil {
-		val := reflect.ValueOf(data)
-		ptrVal.Set(val)
-	}
-}
-
 // Close finalizes the runtime process, signalling the end of the execution to
 // the jsii kernel process, and waiting for graceful termination. The best
 // practice is to defer call thins at the beginning of the "main" function.
@@ -384,5 +310,5 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 // will be initialized, and Close should be called again to correctly finalize
 // that, too. This behavior is intended for use in unit/integration tests.
 func Close() {
-	closeClient()
+	kernel.CloseClient()
 }
