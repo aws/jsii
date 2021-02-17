@@ -262,15 +262,14 @@ func castValToRef(data interface{}) (objectRef, bool) {
 	return ref, ok
 }
 
-func castValToEnumRef(data interface{}) (enum enumRef, ok bool) {
-	dataVal := reflect.ValueOf(data)
+func castValToEnumRef(data reflect.Value) (enum enumRef, ok bool) {
 	ok = false
 
-	if dataVal.Kind() == reflect.Map {
-		for _, k := range dataVal.MapKeys() {
+	if data.Kind() == reflect.Map {
+		for _, k := range data.MapKeys() {
 			// Finding values type requires extracting from reflect.Value
 			// otherwise .Kind() returns `interface{}`
-			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
+			v := reflect.ValueOf(data.MapIndex(k).Interface())
 
 			if k.Kind() == reflect.String && k.String() == "$jsii.enum" && v.Kind() == reflect.String {
 				enum.MemberFQN = v.String()
@@ -283,31 +282,99 @@ func castValToEnumRef(data interface{}) (enum enumRef, ok bool) {
 	return
 }
 
+// castValToMap attempts converting the provided jsii wire value to a
+// go map. This recognizes the "$jsii.map" object and does the necessary
+// recursive value conversion.
+func (c *client) castValToMap(data reflect.Value, mapType reflect.Type) (m reflect.Value, ok bool) {
+	ok = false
+
+	if data.Kind() != reflect.Map || data.Type().Key().Kind() != reflect.String {
+		return
+	}
+
+	if mapType.Kind() == reflect.Map && mapType.Key().Kind() != reflect.String {
+		return
+	}
+	anyType := reflect.TypeOf((*interface{})(nil)).Elem()
+	if mapType == anyType {
+		mapType = reflect.TypeOf((map[string]interface{})(nil))
+	}
+
+	dataIter := data.MapRange()
+	for dataIter.Next() {
+		key := dataIter.Key().String()
+		if key != "$jsii.map" {
+			continue
+		}
+
+		// Finding value type requries extracting from reflect.Value
+		// otherwise .Kind() returns `interface{}`
+		val := reflect.ValueOf(dataIter.Value().Interface())
+		if val.Kind() != reflect.Map {
+			return
+		}
+
+		ok = true
+
+		m = reflect.MakeMap(mapType)
+
+		iter := val.MapRange()
+		for iter.Next() {
+			val := iter.Value().Interface()
+			// Note: reflect.New(t) returns a pointer to a newly allocated t
+			convertedVal := reflect.New(mapType.Elem())
+			c.castAndSetToPtr(convertedVal.Interface(), val)
+
+			m.SetMapIndex(iter.Key(), convertedVal.Elem())
+		}
+		return
+	}
+	return
+}
+
 // Accepts pointers to structs that implement interfaces and searches for an
 // existing object reference in the client. If it exists, it casts it to an
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func castPtrToRef(data interface{}) interface{} {
+	if data == nil {
+		return data
+	}
+
 	client := getClient()
 	dataVal := reflect.ValueOf(data)
 
-	if dataVal.Kind() == reflect.Ptr {
+	switch dataVal.Kind() {
+	case reflect.Map:
+		result := wireMap{MapData: make(map[string]interface{})}
+
+		iter := dataVal.MapRange()
+		for iter.Next() {
+			key := iter.Key().String()
+			val := iter.Value().Interface()
+			result.MapData[key] = castPtrToRef(val)
+		}
+
+		return result
+
+	case reflect.Ptr:
 		valref, valHasRef := client.findObjectRef(data)
 		if valHasRef {
 			return objectRef{InstanceID: valref}
 		}
-	} else if dataVal.Kind() == reflect.String {
-		if enumRef, isEnumRef := client.types.tryRenderEnumRef(dataVal); isEnumRef {
-			return enumRef
-		}
-	} else if dataVal.Kind() == reflect.Slice {
+
+	case reflect.Slice:
 		refs := make([]interface{}, dataVal.Len())
 		for i := 0; i < dataVal.Len(); i++ {
 			refs[i] = dataVal.Index(i).Interface()
 		}
 		return refs
-	}
 
+	case reflect.String:
+		if enumRef, isEnumRef := client.types.tryRenderEnumRef(dataVal); isEnumRef {
+			return enumRef
+		}
+	}
 	return data
 }
 
@@ -332,8 +399,8 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
 	dataVal := reflect.ValueOf(data)
 
-	ref, isRef := castValToRef(data)
-	if isRef {
+	// object refs
+	if ref, isRef := castValToRef(data); isRef {
 		// If return data is JSII object references, add to objects table.
 		if concreteType, err := c.types.concreteTypeFor(ptrVal.Type()); err == nil {
 			ptrVal.Set(reflect.New(concreteType))
@@ -344,13 +411,20 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 		return
 	}
 
-	if enumref, isEnum := castValToEnumRef(data); isEnum {
+	// enums
+	if enumref, isEnum := castValToEnumRef(dataVal); isEnum {
 		member, err := c.types.enumMemberForEnumRef(enumref)
 		if err != nil {
 			panic(err)
 		}
 
 		ptrVal.Set(reflect.ValueOf(member))
+		return
+	}
+
+	// maps
+	if m, isMap := c.castValToMap(dataVal, ptrVal.Type()); isMap {
+		ptrVal.Set(m)
 		return
 	}
 
@@ -367,8 +441,6 @@ func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 
 		return
 	}
-
-	// TODO: maps
 
 	if data != nil {
 		val := reflect.ValueOf(data)
