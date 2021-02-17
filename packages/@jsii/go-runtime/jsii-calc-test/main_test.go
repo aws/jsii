@@ -157,6 +157,46 @@ func TestAllTypes(t *testing.T) {
 	})
 }
 
+func TestEnumUnmarshal(t *testing.T) {
+	actual := calc.EnumDispenser_RandomStringLikeEnum()
+	if actual != calc.StringEnumB {
+		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
+	}
+}
+
+func TestEnumRoundtrip(t *testing.T) {
+	allTypes := calc.NewAllTypes()
+	actual := allTypes.EnumMethod(calc.StringEnumA)
+	if actual != calc.StringEnumA {
+		t.Errorf("Expected StringEnum.A. Actual: %s", actual)
+	}
+
+	actual = allTypes.EnumMethod(calc.StringEnumC)
+	if actual != calc.StringEnumC {
+		t.Errorf("Expected StringEnum.C. Actual: %s", actual)
+	}
+}
+
+func TestOptionalEnums(t *testing.T) {
+	allTypes := calc.NewAllTypes()
+	actual := allTypes.GetOptionalEnumValue()
+	if actual != "" {
+		t.Error("Expected value to be nil")
+	}
+
+	allTypes.SetOptionalEnumValue(calc.StringEnumB)
+	actual = allTypes.GetOptionalEnumValue()
+	if actual != calc.StringEnumB {
+		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
+	}
+
+	allTypes.SetOptionalEnumValue("")
+	actual = allTypes.GetOptionalEnumValue()
+	if actual != "" {
+		t.Error("Expected value to be nil")
+	}
+}
+
 func TestReturnsSpecialParam(t *testing.T) {
 	retSpecialParam := returnsParam.NewReturnsSpecialParameter()
 	val := retSpecialParam.ReturnsSpecialParam()

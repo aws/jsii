@@ -89,6 +89,10 @@ type objref struct {
 	InstanceID string `json:"$jsii.byref"`
 }
 
+type enumref struct {
+	MemberFQN string `json:"$jsii.enum"`
+}
+
 type loadRequest struct {
 	kernelRequester
 
