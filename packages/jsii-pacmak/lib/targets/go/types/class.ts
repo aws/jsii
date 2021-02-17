@@ -1,10 +1,11 @@
-import { toPascalCase } from 'codemaker';
+import { CodeMaker, toPascalCase } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import {
   ClassConstructor,
+  JSII_RT_ALIAS,
   MethodCall,
   StaticGetProperty,
   StaticSetProperty,
@@ -68,6 +69,14 @@ export class GoClass extends GoStruct {
     }
   }
 
+  public emitRegistration(code: CodeMaker): void {
+    code.open(`${JSII_RT_ALIAS}.RegisterClass(`);
+    code.line(`"${this.fqn}",`);
+    code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
+    code.line(`reflect.TypeOf((*${this.interfaceName})(nil)).Elem(),`);
+    code.close(')');
+  }
+
   public get usesInitPackage() {
     return (
       this.initializer != null ||
@@ -82,10 +91,6 @@ export class GoClass extends GoStruct {
       this.methods.length > 0 ||
       this.properties.length > 0
     );
-  }
-
-  public get usesReflectionPackage(): boolean {
-    return this.properties.length > 0 || this.methods.length > 0;
   }
 
   protected emitInterface(context: EmitContext): void {

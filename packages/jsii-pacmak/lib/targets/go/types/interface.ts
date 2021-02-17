@@ -1,8 +1,9 @@
+import { CodeMaker } from 'codemaker';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
-import { MethodCall } from '../runtime';
+import { JSII_RT_ALIAS, MethodCall } from '../runtime';
 import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType, INTERFACE_TYPE_SUFFIX } from './go-type';
 import { GoTypeRef } from './go-type-reference';
@@ -74,6 +75,14 @@ export class Interface extends GoType {
     }
   }
 
+  public emitRegistration(code: CodeMaker): void {
+    code.open(`${JSII_RT_ALIAS}.RegisterInterface(`);
+    code.line(`"${this.fqn}",`);
+    code.line(`reflect.TypeOf((*${this.interfaceName})(nil)).Elem(),`);
+    code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
+    code.close(')');
+  }
+
   public get usesInitPackage() {
     return (
       this.properties.some((p) => p.usesInitPackage) ||
@@ -86,10 +95,6 @@ export class Interface extends GoType {
       this.properties.some((p) => p.usesRuntimePackage) ||
       this.methods.some((m) => m.usesRuntimePackage)
     );
-  }
-
-  public get usesReflectionPackage(): boolean {
-    return this.properties.length > 0 || this.methods.length > 0;
   }
 
   public get extends(): GoTypeRef[] {

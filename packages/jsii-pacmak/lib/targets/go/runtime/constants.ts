@@ -8,15 +8,13 @@ export const JSII_INIT_PACKAGE = 'jsii';
 export const JSII_INIT_FUNC = 'Initialize';
 // Alias used for the jsii init
 export const JSII_INIT_ALIAS = '_init_';
-// Type of global implementation map
-export const JSII_IMPL_MAP_TYPE = `map[reflect.Type]reflect.Type`;
 
 // Function to make create request
 export const JSII_CREATE_FUNC = `${JSII_RT_ALIAS}.Create`;
 // JSII invoke request
 export const JSII_INVOKE_FUNC = `${JSII_RT_ALIAS}.Invoke`;
 // JSII static invoke
-export const JSII_SINVOKE_FUNC = `${JSII_RT_ALIAS}.InvokeStatic`;
+export const JSII_SINVOKE_FUNC = `${JSII_RT_ALIAS}.StaticInvoke`;
 
 // JSII get request
 export const JSII_GET_FUNC = `${JSII_RT_ALIAS}.Get`;
