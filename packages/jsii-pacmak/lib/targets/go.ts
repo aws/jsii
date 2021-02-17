@@ -68,8 +68,11 @@ export class Golang extends Target {
     ];
 
     // try to resolve @jsii/go-runtime (only exists as a devDependency)
-    for (const localModule of tryFindLocalRuntime()) {
-      replace[localModule.moduleName] = localModule.localPath;
+    const localModules = tryFindLocalRuntime();
+    if (localModules != null) {
+      for (const [name, localPath] of Object.entries(localModules)) {
+        replace[name] = localPath;
+      }
     }
 
     // iterate (recursively) on all package dependencies and check if we have a
@@ -212,48 +215,18 @@ function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
  * This is a generator that procudes an entry for each local module that
  * is identified under the local module path exposed by `@jsii/go-runtime` .
  */
-function* tryFindLocalRuntime(): Generator<LocalModule, void> {
+function tryFindLocalRuntime():
+  | { readonly [name: string]: string }
+  | undefined {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports, import/no-extraneous-dependencies
-    const dir: string = require('@jsii/go-runtime').runtimePath;
-    logging.debug(`Using @jsii/go-runtime from ${dir}`);
+    const localRuntime = require('@jsii/go-runtime');
+    logging.debug(`Using @jsii/go-runtime from ${localRuntime.runtimePath}`);
 
-    // See https://golang.org/ref/mod#go-mod-file-ident for what's valid in a module identifiercd
-    const moduleRegexp = /^\s*module\s+([a-z0-9._~/-]+)\s/i;
-    for (const goModFile of findModules(dir)) {
-      const content = fs.readFileSync(goModFile, 'utf8');
-      const match = moduleRegexp.exec(content);
-      if (match == null) {
-        throw new Error(`Could not identify module in ${goModFile}`);
-      }
-      yield {
-        moduleName: match[1],
-        localPath: path.dirname(goModFile),
-      };
-    }
+    return localRuntime.runtimeModules;
   } catch {
-    return;
+    return undefined;
   }
-
-  function* findModules(dir: string): Generator<string, void> {
-    for (const name of fs.readdirSync(dir)) {
-      const fullPath = path.join(dir, name);
-      if (fs.statSync(fullPath).isDirectory()) {
-        for (const mod of findModules(fullPath)) {
-          yield mod;
-        }
-        continue;
-      }
-      if (name === 'go.mod') {
-        yield fullPath;
-      }
-    }
-  }
-}
-
-interface LocalModule {
-  readonly moduleName: string;
-  readonly localPath: string;
 }
 
 /**
