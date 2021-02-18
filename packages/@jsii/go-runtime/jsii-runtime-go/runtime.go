@@ -266,26 +266,44 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func castPtrToRef(data interface{}) interface{} {
+	if data == nil {
+		return data
+	}
+
 	client := kernel.GetClient()
 	dataVal := reflect.ValueOf(data)
 
-	if dataVal.Kind() == reflect.Ptr {
+	switch dataVal.Kind() {
+	case reflect.Map:
+		result := api.WireMap{MapData: make(map[string]interface{})}
+
+		iter := dataVal.MapRange()
+		for iter.Next() {
+			key := iter.Key().String()
+			val := iter.Value().Interface()
+			result.MapData[key] = castPtrToRef(val)
+		}
+
+		return result
+
+	case reflect.Ptr:
 		valref, valHasRef := client.FindObjectRef(data)
 		if valHasRef {
 			return api.ObjectRef{InstanceID: valref}
 		}
-	} else if dataVal.Kind() == reflect.String {
-		if enumRef, isEnumRef := client.Types().TryRenderEnumRef(dataVal); isEnumRef {
-			return enumRef
-		}
-	} else if dataVal.Kind() == reflect.Slice {
+
+	case reflect.Slice:
 		refs := make([]interface{}, dataVal.Len())
 		for i := 0; i < dataVal.Len(); i++ {
 			refs[i] = dataVal.Index(i).Interface()
 		}
 		return refs
-	}
 
+	case reflect.String:
+		if enumRef, isEnumRef := client.Types().TryRenderEnumRef(dataVal); isEnumRef {
+			return enumRef
+		}
+	}
 	return data
 }
 

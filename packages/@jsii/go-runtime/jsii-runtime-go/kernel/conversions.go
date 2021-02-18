@@ -14,8 +14,7 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
 	dataVal := reflect.ValueOf(data)
 
-	ref, isRef := castValToRef(data)
-	if isRef {
+	if ref, isRef := castValToRef(data); isRef {
 		// If return data is JSII object references, add to objects table.
 		if concreteType, err := c.Types().ConcreteTypeFor(ptrVal.Type()); err == nil {
 			ptrVal.Set(reflect.New(concreteType))
@@ -35,6 +34,12 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 		}
 
 		ptrVal.Set(reflect.ValueOf(member))
+		return
+	}
+
+	// maps
+	if m, isMap := c.castValToMap(dataVal, ptrVal.Type()); isMap {
+		ptrVal.Set(m)
 		return
 	}
 
@@ -100,5 +105,55 @@ func castValToEnumRef(data interface{}) (enum api.EnumRef, ok bool) {
 		}
 	}
 
+	return
+}
+
+// castValToMap attempts converting the provided jsii wire value to a
+// go map. This recognizes the "$jsii.map" object and does the necessary
+// recursive value conversion.
+func (c *client) castValToMap(data reflect.Value, mapType reflect.Type) (m reflect.Value, ok bool) {
+	ok = false
+
+	if data.Kind() != reflect.Map || data.Type().Key().Kind() != reflect.String {
+		return
+	}
+
+	if mapType.Kind() == reflect.Map && mapType.Key().Kind() != reflect.String {
+		return
+	}
+	anyType := reflect.TypeOf((*interface{})(nil)).Elem()
+	if mapType == anyType {
+		mapType = reflect.TypeOf((map[string]interface{})(nil))
+	}
+
+	dataIter := data.MapRange()
+	for dataIter.Next() {
+		key := dataIter.Key().String()
+		if key != "$jsii.map" {
+			continue
+		}
+
+		// Finding value type requries extracting from reflect.Value
+		// otherwise .Kind() returns `interface{}`
+		val := reflect.ValueOf(dataIter.Value().Interface())
+		if val.Kind() != reflect.Map {
+			return
+		}
+
+		ok = true
+
+		m = reflect.MakeMap(mapType)
+
+		iter := val.MapRange()
+		for iter.Next() {
+			val := iter.Value().Interface()
+			// Note: reflect.New(t) returns a pointer to a newly allocated t
+			convertedVal := reflect.New(mapType.Elem())
+			c.CastAndSetToPtr(convertedVal.Interface(), val)
+
+			m.SetMapIndex(iter.Key(), convertedVal.Elem())
+		}
+		return
+	}
 	return
 }

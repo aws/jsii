@@ -61,6 +61,10 @@ type EnumRef struct {
 	MemberFQN string `json:"$jsii.enum"`
 }
 
+type WireMap struct {
+	MapData map[string]interface{} `json:"$jsii.map"`
+}
+
 type Callback struct {
 	CallbackID *string        `json:"cbid"`
 	Cookie     *string        `json:"cookie"`
