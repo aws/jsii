@@ -415,7 +415,7 @@ jobs:
 
       - name: Integration Test (build)
         run: |-
-          npx lerna run build --concurrency=2 --stream 2>&1 > ${{ runner.temp }}/build.log
+          npx lerna run build --concurrency=1 --stream 2>&1 > ${{ runner.temp }}/build.log
         working-directory: aws-cdk
         env:
           # Make lots of memory available, aws-cdk-lib is __large__
