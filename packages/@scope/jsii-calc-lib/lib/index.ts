@@ -110,3 +110,4 @@ export interface IThreeLevelsInterface extends base.IBaseInterface {
 }
 
 export * as submodule from './submodule';
+export * from './duplicate-inherited-prop';

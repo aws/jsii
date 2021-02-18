@@ -209,7 +209,7 @@
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 10
+        "line": 11
       },
       "readme": {
         "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule` module.\n"
@@ -3817,6 +3817,42 @@
               },
               "kind": "array"
             }
+          }
+        }
+      ]
+    },
+    "jsii-calc.DiamondBottom": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.DiamondBottom",
+      "interfaces": [
+        "@scope/jsii-calc-lib.DiamondLeft",
+        "@scope/jsii-calc-lib.DiamondRight"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/duplicate-inherited-prop.ts",
+        "line": 7
+      },
+      "name": "DiamondBottom",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/duplicate-inherited-prop.ts",
+            "line": 8
+          },
+          "name": "bottom",
+          "optional": true,
+          "type": {
+            "primitive": "date"
           }
         }
       ]
@@ -14441,5 +14477,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "DELAKIDgUwCEVXhZflQBdllcDRnscledlYW0UXrjzbM="
+  "fingerprint": "DPUvV1cBxUeRNl5GK1DVzpU7/802/Hb8znpxKRttRUk="
 }
