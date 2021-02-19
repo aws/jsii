@@ -885,6 +885,9 @@ class JavaGenerator extends Generator {
     this.addJavaDocs(prop);
     this.emitStabilityAnnotations(prop);
     if (prop.optional) {
+      if (prop.overrides) {
+        this.code.line('@Override');
+      }
       this.code.openBlock(`default ${getterType} get${propName}()`);
       this.code.line('return null;');
       this.code.closeBlock();
@@ -898,6 +901,9 @@ class JavaGenerator extends Generator {
         this.code.line();
         this.addJavaDocs(prop);
         if (prop.optional) {
+          if (prop.overrides) {
+            this.code.line('@Override');
+          }
           this.code.line('@software.amazon.jsii.Optional');
           this.code.openBlock(
             `default void set${propName}(final ${type} value)`,
@@ -951,7 +957,8 @@ class JavaGenerator extends Generator {
       const type = this.findType(fqn) as spec.InterfaceType;
       const result: Record<string, spec.Property> = {};
       for (const prop of type.properties ?? []) {
-        result[prop.name] = prop;
+        // Adding artifical "overrides" here for code-gen quality's sake.
+        result[prop.name] = { ...prop, overrides: type.fqn };
       }
       for (const base of type.interfaces ?? []) {
         for (const [name, prop] of Object.entries(

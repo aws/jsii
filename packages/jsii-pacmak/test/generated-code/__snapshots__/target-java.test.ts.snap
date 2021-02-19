@@ -7001,6 +7001,7 @@ public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, so
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @Override
     default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
         return null;
     }
