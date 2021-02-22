@@ -11,7 +11,6 @@ import { shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
-import { JSII_RT_MODULE_NAME } from './go/runtime/constants';
 import { goPackageName } from './go/util';
 
 export class Golang extends Target {
@@ -69,9 +68,11 @@ export class Golang extends Target {
     ];
 
     // try to resolve @jsii/go-runtime (only exists as a devDependency)
-    const jsiiRuntimeDir = tryFindLocalRuntime();
-    if (jsiiRuntimeDir) {
-      replace[JSII_RT_MODULE_NAME] = jsiiRuntimeDir;
+    const localModules = tryFindLocalRuntime();
+    if (localModules != null) {
+      for (const [name, localPath] of Object.entries(localModules)) {
+        replace[name] = localPath;
+      }
     }
 
     // iterate (recursively) on all package dependencies and check if we have a
@@ -210,13 +211,19 @@ function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
 /**
  * Check if we are running from inside the jsii repository, and then we want to
  * use the local runtime instead of download from a released version.
+ *
+ * This is a generator that procudes an entry for each local module that
+ * is identified under the local module path exposed by `@jsii/go-runtime` .
  */
-function tryFindLocalRuntime() {
+function tryFindLocalRuntime():
+  | { readonly [name: string]: string }
+  | undefined {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports, import/no-extraneous-dependencies
-    const dir = require('@jsii/go-runtime').runtimePath;
-    logging.debug(`Using @jsii/go-runtime from ${dir}`);
-    return dir;
+    const localRuntime = require('@jsii/go-runtime');
+    logging.debug(`Using @jsii/go-runtime from ${localRuntime.runtimePath}`);
+
+    return localRuntime.runtimeModules;
   } catch {
     return undefined;
   }

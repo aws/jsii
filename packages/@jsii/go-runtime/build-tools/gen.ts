@@ -13,7 +13,7 @@ const EMBEDDED_RUNTIME_ROOT = resolve(
   'webpack',
 );
 
-const OUTPUT_DIR = resolve(__dirname, '..', 'jsii-runtime-go');
+const OUTPUT_DIR = resolve(__dirname, '..', 'jsii-runtime-go', 'kernel');
 
 const RUNTIME_FILE = 'embeddedruntime.generated.go';
 const RUNTIME_TEST_FILE = 'embeddedruntime.generated_test.go';
@@ -22,7 +22,7 @@ const VERSION_FILE = 'version.generated.go';
 const code = new CodeMaker({ indentationLevel: 1, indentCharacter: '\t' });
 
 code.openFile(RUNTIME_FILE);
-code.line('package jsii');
+code.line('package kernel');
 code.line();
 code.open('var embeddedruntime = map[string][]byte{');
 const fileInfo: Record<
@@ -67,7 +67,7 @@ code.closeFile(RUNTIME_FILE);
 
 // This allows us to sanity-check we've generated correct data
 code.openFile(RUNTIME_TEST_FILE);
-code.line('package jsii');
+code.line('package kernel');
 code.line();
 code.open('import (');
 code.line('"crypto/sha512"');
@@ -125,7 +125,7 @@ code.closeBlock();
 code.closeFile(RUNTIME_TEST_FILE);
 
 code.openFile(VERSION_FILE);
-code.line('package jsii');
+code.line('package kernel');
 code.line();
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
