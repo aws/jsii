@@ -24,7 +24,7 @@ func TestMain(m *testing.M) {
 
 // Only uses first argument as initial value. This is just a convenience for
 // tests that want to assert against the initialValue
-func initCalculator(initialValue float64) calc.CalculatorIface {
+func initCalculator(initialValue float64) calc.Calculator {
 	return calc.NewCalculator(calc.CalculatorProps{
 		InitialValue: initialValue,
 		MaximumValue: math.MaxFloat64,
@@ -43,7 +43,7 @@ func TestCalculator(t *testing.T) {
 	t.Run("Property access", func(t *testing.T) {
 		expected := float64(10)
 		calculator := initCalculator(expected)
-		actual := calculator.GetValue()
+		actual := calculator.Value()
 		if actual != expected {
 			t.Errorf("Expected: %f; Actual %f;", expected, actual)
 		}
@@ -54,7 +54,7 @@ func TestCalculator(t *testing.T) {
 		var newVal float64 = 12345
 		currentProps := calclib.NewNumber(newVal)
 		calculator.SetCurr(currentProps)
-		actual := calculator.GetValue()
+		actual := calculator.Value()
 		if newVal != actual {
 			t.Errorf("Expected: %f; Actual %f;", newVal, actual)
 		}
@@ -65,7 +65,7 @@ func TestCalculator(t *testing.T) {
 		calculator := initCalculator(initial)
 		calculator.Mul(factor)
 		expectedProduct := initial * factor
-		actualProduct := calculator.GetValue()
+		actualProduct := calculator.Value()
 		if actualProduct != expectedProduct {
 			t.Errorf("Expected quotient: %f; Actual %f;", expectedProduct, actualProduct)
 		}
@@ -108,7 +108,7 @@ func TestUpcasingReflectable(t *testing.T) {
 	key, val := "key1", "value1"
 	delegate[key] = val
 	upReflectable := calc.NewUpcasingReflectable(delegate)
-	entries := upReflectable.GetEntries()
+	entries := upReflectable.Entries()
 
 	if len(entries) != 1 {
 		t.Errorf("Entries expected to have length of: 1; Actual: %d", len(entries))
@@ -127,7 +127,7 @@ func TestAllTypes(t *testing.T) {
 	t.Run("Array property", func(t *testing.T) {
 		expected1, expected2 := "val1", "val2"
 		allTypes.SetArrayProperty([]string{expected1, expected2})
-		actual := allTypes.GetArrayProperty()
+		actual := allTypes.ArrayProperty()
 		actual1, actual2 := actual[0], actual[1]
 
 		if actual1 != expected1 || actual2 != expected2 {
@@ -141,7 +141,7 @@ func TestAllTypes(t *testing.T) {
 		expected[key] = val
 		allTypes.SetAnyProperty(expected)
 
-		actual := allTypes.GetAnyProperty()
+		actual := allTypes.AnyProperty()
 		actualVal := reflect.ValueOf(actual)
 		switch actualVal.Kind() {
 		case reflect.Map:
@@ -177,19 +177,19 @@ func TestEnumRoundtrip(t *testing.T) {
 
 func TestOptionalEnums(t *testing.T) {
 	allTypes := calc.NewAllTypes()
-	actual := allTypes.GetOptionalEnumValue()
+	actual := allTypes.OptionalEnumValue()
 	if actual != "" {
 		t.Error("Expected value to be nil")
 	}
 
 	allTypes.SetOptionalEnumValue(calc.StringEnum_B)
-	actual = allTypes.GetOptionalEnumValue()
+	actual = allTypes.OptionalEnumValue()
 	if actual != calc.StringEnum_B {
 		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
 	}
 
 	allTypes.SetOptionalEnumValue("")
-	actual = allTypes.GetOptionalEnumValue()
+	actual = allTypes.OptionalEnumValue()
 	if actual != "" {
 		t.Error("Expected value to be nil")
 	}
@@ -207,21 +207,21 @@ func TestReturnsSpecialParam(t *testing.T) {
 
 func TestMaps(t *testing.T) {
 	allTypes := calc.NewAllTypes()
-	actual := allTypes.GetMapProperty()
+	actual := allTypes.MapProperty()
 	if len(actual) != 0 {
 		t.Errorf("Expected length of empty map to be 0. Got: %d", len(actual))
 	}
 
 	question := "The answer to the ultimate question of life, the universe, and everything"
 	answer := calclib.NewNumber(42)
-	allTypes.SetMapProperty(map[string]calclib.NumberIface{
+	allTypes.SetMapProperty(map[string]calclib.Number{
 		question: answer,
 	})
-	actual = allTypes.GetMapProperty()
+	actual = allTypes.MapProperty()
 	if len(actual) != 1 {
 		t.Errorf("Expected length of empty map to be 1. Got: %d", len(actual))
 	}
-	if actual[question].GetValue() != answer.GetValue() {
+	if actual[question].Value() != answer.Value() {
 		t.Errorf("Expected to have the value %v in there, got: %v", answer, actual[question])
 	}
 }

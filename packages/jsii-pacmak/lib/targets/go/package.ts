@@ -13,7 +13,7 @@ import {
   JSII_INIT_FUNC,
   JSII_INIT_ALIAS,
 } from './runtime';
-import { GoClass, GoType, Enum, Interface, Struct } from './types';
+import { GoClass, GoType, Enum, GoInterface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap, tarballName } from './util';
 import { VersionFile } from './version-file';
 
@@ -50,7 +50,7 @@ export abstract class Package {
         if (type.isInterfaceType() && type.datatype) {
           return new Struct(this, type);
         } else if (type.isInterfaceType()) {
-          return new Interface(this, type);
+          return new GoInterface(this, type);
         } else if (type.isClassType()) {
           return new GoClass(this, type);
         } else if (type.isEnumType()) {
@@ -217,7 +217,7 @@ export class RootPackage extends Package {
     const moduleName = assembly.targets?.go?.moduleName ?? '';
 
     super(
-      Object.values(assembly.types),
+      assembly.types,
       assembly.submodules,
       packageName,
       filePath,
