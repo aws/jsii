@@ -133,6 +133,102 @@
     }
   },
   "types": {
+    "@scope/jsii-calc-lib.DiamondLeft": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.DiamondLeft",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/duplicate-inherited-prop.ts",
+        "line": 13
+      },
+      "name": "DiamondLeft",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/duplicate-inherited-prop.ts",
+            "line": 10
+          },
+          "name": "hoistedTop",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/duplicate-inherited-prop.ts",
+            "line": 14
+          },
+          "name": "left",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.DiamondRight": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.DiamondRight",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/duplicate-inherited-prop.ts",
+        "line": 17
+      },
+      "name": "DiamondRight",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/duplicate-inherited-prop.ts",
+            "line": 10
+          },
+          "name": "hoistedTop",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/duplicate-inherited-prop.ts",
+            "line": 18
+          },
+          "name": "right",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "@scope/jsii-calc-lib.EnumFromScopedModule": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
@@ -776,5 +872,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "7STgxc8/b+pajng4R4fEptbcOF2aQJBiQkO4bMAWpI4="
+  "fingerprint": "YlmxPtOusVTgKe2YUzZDpB4UnmnU3zZ0UUdXwSDcgOo="
 }

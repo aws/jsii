@@ -994,6 +994,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                 ┃  ┗━ 📄 Reflector.java
           ┃                 ┗━ 📁 lib
           ┃                    ┣━ 📄 $Module.java
+          ┃                    ┣━ 📄 DiamondLeft.java
+          ┃                    ┣━ 📄 DiamondRight.java
           ┃                    ┣━ 📄 EnumFromScopedModule.java
           ┃                    ┣━ 📄 IDoublable.java
           ┃                    ┣━ 📄 IFriendly.java
@@ -1681,6 +1683,338 @@ public final class $Module extends JsiiModule {
         }
         catch (final ClassNotFoundException exception) {
             throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/DiamondLeft.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.DiamondLeft")
+@software.amazon.jsii.Jsii.Proxy(DiamondLeft.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+public interface DiamondLeft extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
+        return null;
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.Number getLeft() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link DiamondLeft}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DiamondLeft}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondLeft> {
+        private java.lang.String hoistedTop;
+        private java.lang.Number left;
+
+        /**
+         * Sets the value of {@link DiamondLeft#getHoistedTop}
+         * @param hoistedTop the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder hoistedTop(java.lang.String hoistedTop) {
+            this.hoistedTop = hoistedTop;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondLeft#getLeft}
+         * @param left the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder left(java.lang.Number left) {
+            this.left = left;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DiamondLeft}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        public DiamondLeft build() {
+            return new Jsii$Proxy(hoistedTop, left);
+        }
+    }
+
+    /**
+     * An implementation for {@link DiamondLeft}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DiamondLeft {
+        private final java.lang.String hoistedTop;
+        private final java.lang.Number left;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.hoistedTop = software.amazon.jsii.Kernel.get(this, "hoistedTop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.left = software.amazon.jsii.Kernel.get(this, "left", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final java.lang.String hoistedTop, final java.lang.Number left) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.hoistedTop = hoistedTop;
+            this.left = left;
+        }
+
+        @Override
+        public final java.lang.String getHoistedTop() {
+            return this.hoistedTop;
+        }
+
+        @Override
+        public final java.lang.Number getLeft() {
+            return this.left;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getHoistedTop() != null) {
+                data.set("hoistedTop", om.valueToTree(this.getHoistedTop()));
+            }
+            if (this.getLeft() != null) {
+                data.set("left", om.valueToTree(this.getLeft()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("@scope/jsii-calc-lib.DiamondLeft"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DiamondLeft.Jsii$Proxy that = (DiamondLeft.Jsii$Proxy) o;
+
+            if (this.hoistedTop != null ? !this.hoistedTop.equals(that.hoistedTop) : that.hoistedTop != null) return false;
+            return this.left != null ? this.left.equals(that.left) : that.left == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.hoistedTop != null ? this.hoistedTop.hashCode() : 0;
+            result = 31 * result + (this.left != null ? this.left.hashCode() : 0);
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/DiamondRight.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.DiamondRight")
+@software.amazon.jsii.Jsii.Proxy(DiamondRight.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+public interface DiamondRight extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
+        return null;
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getRight() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link DiamondRight}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DiamondRight}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondRight> {
+        private java.lang.String hoistedTop;
+        private java.lang.Boolean right;
+
+        /**
+         * Sets the value of {@link DiamondRight#getHoistedTop}
+         * @param hoistedTop the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder hoistedTop(java.lang.String hoistedTop) {
+            this.hoistedTop = hoistedTop;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondRight#getRight}
+         * @param right the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder right(java.lang.Boolean right) {
+            this.right = right;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DiamondRight}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        public DiamondRight build() {
+            return new Jsii$Proxy(hoistedTop, right);
+        }
+    }
+
+    /**
+     * An implementation for {@link DiamondRight}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DiamondRight {
+        private final java.lang.String hoistedTop;
+        private final java.lang.Boolean right;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.hoistedTop = software.amazon.jsii.Kernel.get(this, "hoistedTop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.right = software.amazon.jsii.Kernel.get(this, "right", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final java.lang.String hoistedTop, final java.lang.Boolean right) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.hoistedTop = hoistedTop;
+            this.right = right;
+        }
+
+        @Override
+        public final java.lang.String getHoistedTop() {
+            return this.hoistedTop;
+        }
+
+        @Override
+        public final java.lang.Boolean getRight() {
+            return this.right;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getHoistedTop() != null) {
+                data.set("hoistedTop", om.valueToTree(this.getHoistedTop()));
+            }
+            if (this.getRight() != null) {
+                data.set("right", om.valueToTree(this.getRight()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("@scope/jsii-calc-lib.DiamondRight"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DiamondRight.Jsii$Proxy that = (DiamondRight.Jsii$Proxy) o;
+
+            if (this.hoistedTop != null ? !this.hoistedTop.equals(that.hoistedTop) : that.hoistedTop != null) return false;
+            return this.right != null ? this.right.equals(that.right) : that.right == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.hoistedTop != null ? this.hoistedTop.hashCode() : 0;
+            result = 31 * result + (this.right != null ? this.right.hashCode() : 0);
+            return result;
         }
     }
 }
@@ -2508,6 +2842,8 @@ package software.amazon.jsii.tests.calculator.lib;
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/lib/$Module.txt 1`] = `
+@scope/jsii-calc-lib.DiamondLeft=software.amazon.jsii.tests.calculator.lib.DiamondLeft
+@scope/jsii-calc-lib.DiamondRight=software.amazon.jsii.tests.calculator.lib.DiamondRight
 @scope/jsii-calc-lib.EnumFromScopedModule=software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule
 @scope/jsii-calc-lib.IDoublable=software.amazon.jsii.tests.calculator.lib.IDoublable
 @scope/jsii-calc-lib.IFriendly=software.amazon.jsii.tests.calculator.lib.IFriendly
@@ -2586,6 +2922,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┣━ 📄 Base.java
           ┃                 ┃  ┗━ 📄 Derived.java
           ┃                 ┣━ 📄 DerivedStruct.java
+          ┃                 ┣━ 📄 DiamondBottom.java
           ┃                 ┣━ 📄 DiamondInheritanceBaseLevelStruct.java
           ┃                 ┣━ 📄 DiamondInheritanceFirstMidLevelStruct.java
           ┃                 ┣━ 📄 DiamondInheritanceSecondMidLevelStruct.java
@@ -6642,6 +6979,218 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DiamondBottom.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DiamondBottom")
+@software.amazon.jsii.Jsii.Proxy(DiamondBottom.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.DiamondLeft, software.amazon.jsii.tests.calculator.lib.DiamondRight {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    default @org.jetbrains.annotations.Nullable java.time.Instant getBottom() {
+        return null;
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @Override
+    default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link DiamondBottom}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DiamondBottom}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondBottom> {
+        private java.time.Instant bottom;
+        private java.lang.String hoistedTop;
+        private java.lang.Number left;
+        private java.lang.Boolean right;
+
+        /**
+         * Sets the value of {@link DiamondBottom#getBottom}
+         * @param bottom the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder bottom(java.time.Instant bottom) {
+            this.bottom = bottom;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondBottom#getHoistedTop}
+         * @param hoistedTop the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder hoistedTop(java.lang.String hoistedTop) {
+            this.hoistedTop = hoistedTop;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondBottom#getLeft}
+         * @param left the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder left(java.lang.Number left) {
+            this.left = left;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondBottom#getRight}
+         * @param right the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder right(java.lang.Boolean right) {
+            this.right = right;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DiamondBottom}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public DiamondBottom build() {
+            return new Jsii$Proxy(bottom, hoistedTop, left, right);
+        }
+    }
+
+    /**
+     * An implementation for {@link DiamondBottom}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DiamondBottom {
+        private final java.time.Instant bottom;
+        private final java.lang.String hoistedTop;
+        private final java.lang.Number left;
+        private final java.lang.Boolean right;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.bottom = software.amazon.jsii.Kernel.get(this, "bottom", software.amazon.jsii.NativeType.forClass(java.time.Instant.class));
+            this.hoistedTop = software.amazon.jsii.Kernel.get(this, "hoistedTop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.left = software.amazon.jsii.Kernel.get(this, "left", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.right = software.amazon.jsii.Kernel.get(this, "right", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final java.time.Instant bottom, final java.lang.String hoistedTop, final java.lang.Number left, final java.lang.Boolean right) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.bottom = bottom;
+            this.hoistedTop = hoistedTop;
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public final java.time.Instant getBottom() {
+            return this.bottom;
+        }
+
+        @Override
+        public final java.lang.String getHoistedTop() {
+            return this.hoistedTop;
+        }
+
+        @Override
+        public final java.lang.Number getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public final java.lang.Boolean getRight() {
+            return this.right;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getBottom() != null) {
+                data.set("bottom", om.valueToTree(this.getBottom()));
+            }
+            if (this.getHoistedTop() != null) {
+                data.set("hoistedTop", om.valueToTree(this.getHoistedTop()));
+            }
+            if (this.getLeft() != null) {
+                data.set("left", om.valueToTree(this.getLeft()));
+            }
+            if (this.getRight() != null) {
+                data.set("right", om.valueToTree(this.getRight()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.DiamondBottom"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DiamondBottom.Jsii$Proxy that = (DiamondBottom.Jsii$Proxy) o;
+
+            if (this.bottom != null ? !this.bottom.equals(that.bottom) : that.bottom != null) return false;
+            if (this.hoistedTop != null ? !this.hoistedTop.equals(that.hoistedTop) : that.hoistedTop != null) return false;
+            if (this.left != null ? !this.left.equals(that.left) : that.left != null) return false;
+            return this.right != null ? this.right.equals(that.right) : that.right == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.bottom != null ? this.bottom.hashCode() : 0;
+            result = 31 * result + (this.hoistedTop != null ? this.hoistedTop.hashCode() : 0);
+            result = 31 * result + (this.left != null ? this.left.hashCode() : 0);
+            result = 31 * result + (this.right != null ? this.right.hashCode() : 0);
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DiamondInheritanceBaseLevelStruct.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -7066,6 +7615,11 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getTopLevelProperty();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getBaseLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceTopLevelStruct}
@@ -21366,6 +21920,7 @@ jsii-calc.DeprecatedStruct=software.amazon.jsii.tests.calculator.DeprecatedStruc
 jsii-calc.DerivedClassHasNoProperties.Base=software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Base
 jsii-calc.DerivedClassHasNoProperties.Derived=software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Derived
 jsii-calc.DerivedStruct=software.amazon.jsii.tests.calculator.DerivedStruct
+jsii-calc.DiamondBottom=software.amazon.jsii.tests.calculator.DiamondBottom
 jsii-calc.DiamondInheritanceBaseLevelStruct=software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct
 jsii-calc.DiamondInheritanceFirstMidLevelStruct=software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct
 jsii-calc.DiamondInheritanceSecondMidLevelStruct=software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct

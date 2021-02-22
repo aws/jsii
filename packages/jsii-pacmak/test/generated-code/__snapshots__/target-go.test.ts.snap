@@ -503,6 +503,80 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
 
+// DiamondLeftIface is the public interface for the custom type DiamondLeft
+// Deprecated.
+type DiamondLeftIface interface {
+	GetHoistedTop() string
+	GetLeft() float64
+}
+
+// Deprecated.
+// Struct proxy
+type DiamondLeft struct {
+	// Deprecated.
+	HoistedTop string \`json:"hoistedTop"\`
+	// Deprecated.
+	Left float64 \`json:"left"\`
+}
+
+func (d *DiamondLeft) GetHoistedTop() string {
+	var returns string
+	_jsii_.Get(
+		d,
+		"hoistedTop",
+		&returns,
+	)
+	return returns
+}
+
+func (d *DiamondLeft) GetLeft() float64 {
+	var returns float64
+	_jsii_.Get(
+		d,
+		"left",
+		&returns,
+	)
+	return returns
+}
+
+
+// DiamondRightIface is the public interface for the custom type DiamondRight
+// Deprecated.
+type DiamondRightIface interface {
+	GetHoistedTop() string
+	GetRight() bool
+}
+
+// Deprecated.
+// Struct proxy
+type DiamondRight struct {
+	// Deprecated.
+	HoistedTop string \`json:"hoistedTop"\`
+	// Deprecated.
+	Right bool \`json:"right"\`
+}
+
+func (d *DiamondRight) GetHoistedTop() string {
+	var returns string
+	_jsii_.Get(
+		d,
+		"hoistedTop",
+		&returns,
+	)
+	return returns
+}
+
+func (d *DiamondRight) GetRight() bool {
+	var returns bool
+	_jsii_.Get(
+		d,
+		"right",
+		&returns,
+	)
+	return returns
+}
+
+
 // Check that enums from \\@scoped packages can be references.
 //
 // See awslabs/jsii#138
@@ -931,6 +1005,16 @@ import (
 )
 
 func init() {
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.DiamondLeft",
+		reflect.TypeOf((*DiamondLeft)(nil)).Elem(),
+		reflect.TypeOf((*DiamondLeftIface)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.DiamondRight",
+		reflect.TypeOf((*DiamondRight)(nil)).Elem(),
+		reflect.TypeOf((*DiamondRightIface)(nil)).Elem(),
+	)
 	_jsii_.RegisterEnum(
 		"@scope/jsii-calc-lib.EnumFromScopedModule",
 		reflect.TypeOf((*EnumFromScopedModule)(nil)).Elem(),
@@ -4864,6 +4948,66 @@ func (d *DerivedStruct) GetOptionalArray() []string {
 	_jsii_.Get(
 		d,
 		"optionalArray",
+		&returns,
+	)
+	return returns
+}
+
+
+// DiamondBottomIface is the public interface for the custom type DiamondBottom
+type DiamondBottomIface interface {
+	GetHoistedTop() string
+	GetLeft() float64
+	GetRight() bool
+	GetBottom() string
+}
+
+// Struct proxy
+type DiamondBottom struct {
+	// Deprecated.
+	HoistedTop string \`json:"hoistedTop"\`
+	// Deprecated.
+	Left float64 \`json:"left"\`
+	// Deprecated.
+	Right bool \`json:"right"\`
+	Bottom string \`json:"bottom"\`
+}
+
+func (d *DiamondBottom) GetHoistedTop() string {
+	var returns string
+	_jsii_.Get(
+		d,
+		"hoistedTop",
+		&returns,
+	)
+	return returns
+}
+
+func (d *DiamondBottom) GetLeft() float64 {
+	var returns float64
+	_jsii_.Get(
+		d,
+		"left",
+		&returns,
+	)
+	return returns
+}
+
+func (d *DiamondBottom) GetRight() bool {
+	var returns bool
+	_jsii_.Get(
+		d,
+		"right",
+		&returns,
+	)
+	return returns
+}
+
+func (d *DiamondBottom) GetBottom() string {
+	var returns string
+	_jsii_.Get(
+		d,
+		"bottom",
 		&returns,
 	)
 	return returns
@@ -13220,6 +13364,11 @@ func init() {
 		"jsii-calc.DerivedStruct",
 		reflect.TypeOf((*DerivedStruct)(nil)).Elem(),
 		reflect.TypeOf((*DerivedStructIface)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.DiamondBottom",
+		reflect.TypeOf((*DiamondBottom)(nil)).Elem(),
+		reflect.TypeOf((*DiamondBottomIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.DiamondInheritanceBaseLevelStruct",
