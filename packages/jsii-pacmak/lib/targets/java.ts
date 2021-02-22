@@ -960,6 +960,7 @@ class JavaGenerator extends Generator {
         // Adding artifical "overrides" here for code-gen quality's sake.
         result[prop.name] = { ...prop, overrides: type.fqn };
       }
+      // Include optional properties of all super interfaces in the result
       for (const base of type.interfaces ?? []) {
         for (const [name, prop] of Object.entries(
           allOptionalProps.call(this, base),
