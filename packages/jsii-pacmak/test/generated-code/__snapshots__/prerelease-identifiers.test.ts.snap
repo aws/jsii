@@ -130,7 +130,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws/jsii-runtime-go v1337.42.1337
+	github.com/aws/jsii-runtime-go v0.0.0
 	bar/v2 v2.0.0-rc.42
 )
 
@@ -636,7 +636,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws/jsii-runtime-go v1337.42.1337
+	github.com/aws/jsii-runtime-go v0.0.0
 	bar/v4 v4.5.6-pre.1337
 )
 
@@ -1140,7 +1140,7 @@ module foo/v2
 go 1.15
 
 require (
-	github.com/aws/jsii-runtime-go v1337.42.1337
+	github.com/aws/jsii-runtime-go v0.0.0
 )
 
 `;
@@ -1622,7 +1622,7 @@ module foo/v4
 go 1.15
 
 require (
-	github.com/aws/jsii-runtime-go v1337.42.1337
+	github.com/aws/jsii-runtime-go v0.0.0
 )
 
 `;

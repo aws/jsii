@@ -3,6 +3,7 @@ import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { basename, dirname, join } from 'path';
 import * as semver from 'semver';
 
+import { VERSION } from '../../version';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
 import {
@@ -253,17 +254,38 @@ export class RootPackage extends Package {
     code.line();
     code.open('require (');
     // Strip " (build abcdef)" from the jsii version
-    code.line(
-      `${JSII_RT_MODULE_NAME} v${this.assembly.jsiiVersion.replace(
-        / .*$/,
-        '',
-      )}`,
-    );
-    for (const dep of this.packageDependencies) {
+    code.line(`${JSII_RT_MODULE_NAME} v${VERSION}`);
+    const dependencies = this.packageDependencies;
+    for (const dep of dependencies) {
       code.line(`${dep.goModuleName} v${dep.version}`);
     }
+    indirectDependencies(
+      dependencies,
+      new Set(dependencies.map((dep) => dep.goModuleName)),
+    );
     code.close(')');
     code.closeFile(GOMOD_FILENAME);
+
+    /**
+     * Emits indirect dependency declarations, which are helpful to make IDEs at
+     * ease with the codebase.
+     */
+    function indirectDependencies(
+      pkgs: RootPackage[],
+      alreadyEmitted: Set<string>,
+    ): void {
+      for (const pkg of pkgs) {
+        const deps = pkg.packageDependencies;
+        for (const dep of deps) {
+          if (alreadyEmitted.has(dep.goModuleName)) {
+            continue;
+          }
+          alreadyEmitted.add(dep.goModuleName);
+          code.line(`${dep.goModuleName} v${dep.version} // indirect`);
+        }
+        indirectDependencies(deps, alreadyEmitted);
+      }
+    }
   }
 
   /*
