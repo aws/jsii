@@ -35,6 +35,7 @@ type client struct {
 	stdin  io.WriteCloser
 	tmpdir string
 
+	types   *typeRegistry
 	objects map[interface{}]string
 }
 
@@ -86,6 +87,7 @@ func newClient() (*client, error) {
 
 	clientinstance := &client{
 		objects: objmap,
+		types:   newTypeRegistry(),
 	}
 
 	// Register a finalizer to call Close()
@@ -170,13 +172,13 @@ func newClient() (*client, error) {
 			if len(line) > 0 {
 				result := consoleMessage{}
 				err := json.Unmarshal(line, &result)
-				if (err != nil) {
+				if err != nil {
 					fmt.Fprintf(os.Stderr, "%s\n", line)
 				} else {
-					if (result.Stderr != nil) {
+					if result.Stderr != nil {
 						os.Stderr.Write(result.Stderr)
 					}
-					if (result.Stdout != nil) {
+					if result.Stdout != nil {
 						os.Stdout.Write(result.Stdout)
 					}
 				}

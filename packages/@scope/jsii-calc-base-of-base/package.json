@@ -21,8 +21,8 @@
   "engines": {
     "node": ">= 10.3.0"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "build/lib/index.js",
+  "types": "build/lib/index.d.ts",
   "scripts": {
     "build": "jsii --project-references && jsii-rosetta",
     "pacmak": "jsii-pacmak",
@@ -30,7 +30,7 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@types/node": "^10.17.51",
+    "@types/node": "^10.17.52",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
@@ -57,6 +57,10 @@
         "distName": "scope.jsii-calc-base-of-base",
         "module": "scope.jsii_calc_base_of_base"
       }
+    },
+    "tsc": {
+      "outDir": "./build",
+      "rootDir": "."
     },
     "versionFormat": "short",
     "metadata": {

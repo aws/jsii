@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0](https://github.com/aws/jsii/compare/v1.21.0...v1.22.0) (2021-02-18)
+
+
+### Bug Fixes
+
+* **go:** map values incorrectly handled though de/serialization ([#2587](https://github.com/aws/jsii/issues/2587)) ([0359928](https://github.com/aws/jsii/commit/035992887b3346e6cb1e66d0bb66c3029de2917f))
+* **go-runtime:** enums are not encoded/decoded correctly ([#2585](https://github.com/aws/jsii/issues/2585)) ([4731aeb](https://github.com/aws/jsii/commit/4731aeb6ad85c04160b30232e85e3f8a43c712a6)), closes [#2534](https://github.com/aws/jsii/issues/2534)
+* **jsii:** excessive "exclude" in "tsconfig.json" ([#1736](https://github.com/aws/jsii/issues/1736)) ([ecffb9f](https://github.com/aws/jsii/commit/ecffb9f9dd7f02643fb2af30d9c0052f7465691d))
+* **pacmak:** go local replace do not respect `--outdir` in some cases ([#2584](https://github.com/aws/jsii/issues/2584)) ([b9b9b4c](https://github.com/aws/jsii/commit/b9b9b4ca9dbb535b714df4ba506a31a5fc56c773))
+
 ## [1.21.0](https://github.com/aws/jsii/compare/v1.20.1...v1.21.0) (2021-02-15)
 
 

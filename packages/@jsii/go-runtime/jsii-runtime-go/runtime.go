@@ -8,11 +8,6 @@ import (
 	"regexp"
 )
 
-// Maps interface types to their concrete implementation structs. Used by
-// `castAndSetToPtr` to instantiate a concrete type that implements the
-// the interface as dictated by the type of the ret value.
-type implementationMap = map[reflect.Type]reflect.Type
-
 // Load ensures a npm package is loaded in the jsii kernel.
 func Load(name string, version string, tarball []byte) {
 	client := getClient()
@@ -42,6 +37,50 @@ func Load(name string, version string, tarball []byte) {
 	}
 }
 
+// RegisterClass associates a class fully qualified name to the specified struct
+// type, and class interface. Panics if class is not a struct, iface is not an
+// interface, or if the provided fqn was already used to register a different
+// type.
+func RegisterClass(fqn FQN, class reflect.Type, iface reflect.Type) {
+	client := getClient()
+	if err := client.types.registerClass(fqn, class, iface); err != nil {
+		panic(err)
+	}
+}
+
+// RegisterEnum associates an enum's fully qualified name to the specified enum
+// type, and members. Panics if enum is not a reflect.String type, any value in
+// the provided members map is of a type ofther than enum, or if the provided
+// fqn was already used to register a different type.
+func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
+	client := getClient()
+	if err := client.types.registerEnum(fqn, enum, members); err != nil {
+		panic(err)
+	}
+}
+
+// RegisterInterface associates an interface's fully qualified name to the
+// specified interface type, and proxy struct. Panics if iface is not an
+// interface, proxy is not a struct, or if the provided fqn was already used to
+// register a different type.
+func RegisterInterface(fqn FQN, iface reflect.Type, proxy reflect.Type) {
+	client := getClient()
+	if err := client.types.registerInterface(fqn, iface, proxy); err != nil {
+		panic(err)
+	}
+}
+
+// RegisterStruct associates a struct's fully qualified name to the specified
+// struct type, and struct interface. Panics if strct is not a struct, iface is
+// not an interface, or if the provided fqn was already used to register a
+// different type.
+func RegisterStruct(fqn FQN, strct reflect.Type, iface reflect.Type) {
+	client := getClient()
+	if err := client.types.registerStruct(fqn, strct, iface); err != nil {
+		panic(err)
+	}
+}
+
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
 func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, ret interface{}) {
@@ -64,7 +103,7 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 
 // Invoke will call a method on a jsii class instance. The response should be
 // decoded into the expected return type for the method being called.
-func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, ret interface{}, implMap implementationMap) {
+func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, ret interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -78,7 +117,7 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 		API:       "invoke",
 		Method:    method,
 		Arguments: castPtrsToRef(args),
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -88,13 +127,13 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 	}
 
 	if hasReturn {
-		castAndSetToPtr(ret, res.Result, implMap)
+		client.castAndSetToPtr(ret, res.Result)
 	}
 }
 
-// InvokeStatic will call a static method on a given jsii class. The response
+// StaticInvoke will call a static method on a given jsii class. The response
 // should be decoded into the expected return type for the method being called.
-func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}, implMap implementationMap) {
+func StaticInvoke(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}) {
 	client := getClient()
 
 	res, err := client.sinvoke(staticInvokeRequest{
@@ -109,13 +148,13 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, hasReturn bool, re
 	}
 
 	if hasReturn {
-		castAndSetToPtr(ret, res.Result, implMap)
+		client.castAndSetToPtr(ret, res.Result)
 	}
 }
 
 // Get reads a property value on a given jsii class instance. The response
 // should be decoded into the expected type of the property being read.
-func Get(obj interface{}, property string, ret interface{}, implMap implementationMap) {
+func Get(obj interface{}, property string, ret interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -128,7 +167,7 @@ func Get(obj interface{}, property string, ret interface{}, implMap implementati
 	res, err := client.get(getRequest{
 		API:      "get",
 		Property: property,
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -137,12 +176,12 @@ func Get(obj interface{}, property string, ret interface{}, implMap implementati
 		panic(err)
 	}
 
-	castAndSetToPtr(ret, res.Value, implMap)
+	client.castAndSetToPtr(ret, res.Value)
 }
 
 // StaticGet reads a static property value on a given jsii class. The response
 // should be decoded into the expected type of the property being read.
-func StaticGet(fqn FQN, property string, ret interface{}, implMap implementationMap) {
+func StaticGet(fqn FQN, property string, ret interface{}) {
 	client := getClient()
 
 	res, err := client.sget(staticGetRequest{
@@ -155,7 +194,7 @@ func StaticGet(fqn FQN, property string, ret interface{}, implMap implementation
 		panic(err)
 	}
 
-	castAndSetToPtr(ret, res.Value, implMap)
+	client.castAndSetToPtr(ret, res.Value)
 }
 
 // Set writes a property on a given jsii class instance. The value should match
@@ -174,7 +213,7 @@ func Set(obj interface{}, property string, value interface{}) {
 		API:      "set",
 		Property: property,
 		Value:    castPtrToRef(value),
-		ObjRef: objref{
+		ObjRef: objectRef{
 			InstanceID: refid,
 		},
 	})
@@ -201,8 +240,8 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 	}
 }
 
-func castValToRef(data interface{}) (objref, bool) {
-	ref := objref{}
+func castValToRef(data interface{}) (objectRef, bool) {
+	ref := objectRef{}
 	ok := false
 	dataVal := reflect.ValueOf(data)
 
@@ -223,27 +262,119 @@ func castValToRef(data interface{}) (objref, bool) {
 	return ref, ok
 }
 
+func castValToEnumRef(data reflect.Value) (enum enumRef, ok bool) {
+	ok = false
+
+	if data.Kind() == reflect.Map {
+		for _, k := range data.MapKeys() {
+			// Finding values type requires extracting from reflect.Value
+			// otherwise .Kind() returns `interface{}`
+			v := reflect.ValueOf(data.MapIndex(k).Interface())
+
+			if k.Kind() == reflect.String && k.String() == "$jsii.enum" && v.Kind() == reflect.String {
+				enum.MemberFQN = v.String()
+				ok = true
+				return
+			}
+		}
+	}
+
+	return
+}
+
+// castValToMap attempts converting the provided jsii wire value to a
+// go map. This recognizes the "$jsii.map" object and does the necessary
+// recursive value conversion.
+func (c *client) castValToMap(data reflect.Value, mapType reflect.Type) (m reflect.Value, ok bool) {
+	ok = false
+
+	if data.Kind() != reflect.Map || data.Type().Key().Kind() != reflect.String {
+		return
+	}
+
+	if mapType.Kind() == reflect.Map && mapType.Key().Kind() != reflect.String {
+		return
+	}
+	anyType := reflect.TypeOf((*interface{})(nil)).Elem()
+	if mapType == anyType {
+		mapType = reflect.TypeOf((map[string]interface{})(nil))
+	}
+
+	dataIter := data.MapRange()
+	for dataIter.Next() {
+		key := dataIter.Key().String()
+		if key != "$jsii.map" {
+			continue
+		}
+
+		// Finding value type requries extracting from reflect.Value
+		// otherwise .Kind() returns `interface{}`
+		val := reflect.ValueOf(dataIter.Value().Interface())
+		if val.Kind() != reflect.Map {
+			return
+		}
+
+		ok = true
+
+		m = reflect.MakeMap(mapType)
+
+		iter := val.MapRange()
+		for iter.Next() {
+			val := iter.Value().Interface()
+			// Note: reflect.New(t) returns a pointer to a newly allocated t
+			convertedVal := reflect.New(mapType.Elem())
+			c.castAndSetToPtr(convertedVal.Interface(), val)
+
+			m.SetMapIndex(iter.Key(), convertedVal.Elem())
+		}
+		return
+	}
+	return
+}
+
 // Accepts pointers to structs that implement interfaces and searches for an
 // existing object reference in the client. If it exists, it casts it to an
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func castPtrToRef(data interface{}) interface{} {
+	if data == nil {
+		return data
+	}
+
 	client := getClient()
 	dataVal := reflect.ValueOf(data)
 
-	if dataVal.Kind() == reflect.Ptr {
+	switch dataVal.Kind() {
+	case reflect.Map:
+		result := wireMap{MapData: make(map[string]interface{})}
+
+		iter := dataVal.MapRange()
+		for iter.Next() {
+			key := iter.Key().String()
+			val := iter.Value().Interface()
+			result.MapData[key] = castPtrToRef(val)
+		}
+
+		return result
+
+	case reflect.Ptr:
 		valref, valHasRef := client.findObjectRef(data)
 		if valHasRef {
-			return objref{InstanceID: valref}
+			return objectRef{InstanceID: valref}
 		}
-	} else if dataVal.Kind() == reflect.Slice {
+
+	case reflect.Slice:
 		refs := make([]interface{}, dataVal.Len())
 		for i := 0; i < dataVal.Len(); i++ {
 			refs[i] = dataVal.Index(i).Interface()
 		}
 		return refs
-	}
 
+	case reflect.String:
+		if enumRef, isEnumRef := client.types.tryRenderEnumRef(dataVal); isEnumRef {
+			return enumRef
+		}
+	}
 	return data
 }
 
@@ -264,28 +395,54 @@ func castPtrsToRef(args []interface{}) []interface{} {
 // argument to be the same type. Then it sets the value of the pointer element
 // to be the newly cast data. This is used to cast payloads from JSII to
 // expected return types for Get and Invoke functions.
-func castAndSetToPtr(ptr interface{}, data interface{}, implMap implementationMap) {
+func (c *client) castAndSetToPtr(ptr interface{}, data interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
 	dataVal := reflect.ValueOf(data)
 
-	ref, isRef := castValToRef(data)
+	// object refs
+	if ref, isRef := castValToRef(data); isRef {
+		// If return data is JSII object references, add to objects table.
+		if concreteType, err := c.types.concreteTypeFor(ptrVal.Type()); err == nil {
+			ptrVal.Set(reflect.New(concreteType))
+			c.objects[ptrVal.Interface()] = ref.InstanceID
+		} else {
+			panic(err)
+		}
+		return
+	}
 
+	// enums
+	if enumref, isEnum := castValToEnumRef(dataVal); isEnum {
+		member, err := c.types.enumMemberForEnumRef(enumref)
+		if err != nil {
+			panic(err)
+		}
+
+		ptrVal.Set(reflect.ValueOf(member))
+		return
+	}
+
+	// maps
+	if m, isMap := c.castValToMap(dataVal, ptrVal.Type()); isMap {
+		ptrVal.Set(m)
+		return
+	}
+
+	// arrays
 	if ptrVal.Kind() == reflect.Slice && dataVal.Kind() == reflect.Slice {
 		// If return type is a slice, recursively cast elements
 		for i := 0; i < dataVal.Len(); i++ {
 			innerType := ptrVal.Type().Elem()
 			inner := reflect.New(innerType)
 
-			castAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface(), implMap)
+			c.castAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface())
 			ptrVal.Set(reflect.Append(ptrVal, inner.Elem()))
 		}
-	} else if isRef {
-		// If return data is JSII object references, add to objects table.
-		concreteType := implMap[ptrVal.Type()]
-		ptrVal.Set(reflect.New(concreteType))
-		client := getClient()
-		client.objects[ptrVal.Interface()] = ref.InstanceID
-	} else {
+
+		return
+	}
+
+	if data != nil {
 		val := reflect.ValueOf(data)
 		ptrVal.Set(val)
 	}

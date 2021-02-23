@@ -15,6 +15,7 @@ runCommand(
     '-t',
     'go',
     '-v',
+    '-c',
     '-o',
     genRoot,
     '--recurse',

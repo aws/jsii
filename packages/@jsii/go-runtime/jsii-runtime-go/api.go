@@ -85,8 +85,16 @@ func (r kernelResponder) isResponse() {
 	return
 }
 
-type objref struct {
+type objectRef struct {
 	InstanceID string `json:"$jsii.byref"`
+}
+
+type enumRef struct {
+	MemberFQN string `json:"$jsii.enum"`
+}
+
+type wireMap struct {
+	MapData map[string]interface{} `json:"$jsii.map"`
 }
 
 type loadRequest struct {
@@ -125,8 +133,8 @@ type createResponse struct {
 type delRequest struct {
 	kernelRequester
 
-	API    string `json:"api"`
-	ObjRef objref `json:"objref"`
+	API    string    `json:"api"`
+	ObjRef objectRef `json:"objref"`
 }
 
 type delResponse struct {
@@ -136,9 +144,9 @@ type delResponse struct {
 type getRequest struct {
 	kernelRequester
 
-	API      string `json:"api"`
-	Property string `json:"property"`
-	ObjRef   objref `json:"objref"`
+	API      string    `json:"api"`
+	Property string    `json:"property"`
+	ObjRef   objectRef `json:"objref"`
 }
 
 type staticGetRequest struct {
@@ -161,7 +169,7 @@ type setRequest struct {
 	API      string      `json:"api"`
 	Property string      `json:"property"`
 	Value    interface{} `json:"value"`
-	ObjRef   objref      `json:"objref"`
+	ObjRef   objectRef   `json:"objref"`
 }
 
 type staticSetRequest struct {
@@ -192,7 +200,7 @@ type invokeRequest struct {
 	API       string        `json:"api"`
 	Method    string        `json:"method"`
 	Arguments []interface{} `json:"args"`
-	ObjRef    objref        `json:"objref"`
+	ObjRef    objectRef     `json:"objref"`
 }
 
 type invokeResponse struct {
@@ -207,7 +215,7 @@ type beginRequest struct {
 	API       string        `json:"api"`
 	Method    *string       `json:"method"`
 	Arguments []interface{} `json:"args"`
-	ObjRef    objref        `json:"objref"`
+	ObjRef    objectRef     `json:"objref"`
 }
 
 type beginResponse struct {
