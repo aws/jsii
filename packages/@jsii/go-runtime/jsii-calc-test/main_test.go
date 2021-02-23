@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
 	"math"
 	"os"
 	"reflect"
@@ -14,6 +13,7 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
 	returnsParam "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/returnsparam"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
 )
 
 func TestMain(m *testing.M) {
