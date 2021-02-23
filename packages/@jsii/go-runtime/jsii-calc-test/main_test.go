@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
 	"math"
 	"os"
 	"reflect"
@@ -10,7 +11,7 @@ import (
 
 	"github.com/aws/jsii-runtime-go"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
-	param "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
 	returnsParam "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/returnsparam"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
@@ -24,8 +25,10 @@ func TestMain(m *testing.M) {
 // Only uses first argument as initial value. This is just a convenience for
 // tests that want to assert against the initialValue
 func initCalculator(initialValue float64) calc.CalculatorIface {
-	calculatorProps := calc.CalculatorProps{InitialValue: initialValue, MaximumValue: math.MaxFloat64}
-	return calc.NewCalculator(&calculatorProps)
+	return calc.NewCalculator(calc.CalculatorProps{
+		InitialValue: initialValue,
+		MaximumValue: math.MaxFloat64,
+	})
 }
 
 func TestCalculator(t *testing.T) {
@@ -111,15 +114,10 @@ func TestUpcasingReflectable(t *testing.T) {
 		t.Errorf("Entries expected to have length of: 1; Actual: %d", len(entries))
 	}
 
-	entry := entries[0]
-	upperKey := strings.ToUpper(key)
-	actualKey, actualVal := entry.GetKey(), entry.GetValue()
-	if actualKey != upperKey {
-		t.Errorf("Expected Key: %s; Received Key: %s", upperKey, actualKey)
-	}
-
-	if actualVal != val {
-		t.Errorf("Expected Value: %s; Received Value: %s", val, actualVal)
+	actual := entries[0]
+	expected := submodule.ReflectableEntry{Key: strings.ToUpper(key), Value: val}
+	if actual != expected {
+		t.Errorf("Expected %v; Received: %v", expected, actual)
 	}
 }
 
@@ -200,7 +198,7 @@ func TestOptionalEnums(t *testing.T) {
 func TestReturnsSpecialParam(t *testing.T) {
 	retSpecialParam := returnsParam.NewReturnsSpecialParameter()
 	val := retSpecialParam.ReturnsSpecialParam()
-	expected := reflect.TypeOf(&param.SpecialParameter{})
+	expected := reflect.TypeOf(param.SpecialParameter{})
 	actual := reflect.TypeOf(val)
 	if actual != expected {
 		t.Errorf("Expected type: %s; Actual: %s", expected, actual)

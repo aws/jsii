@@ -15,17 +15,14 @@ export class GetProperty extends FunctionCall {
     super(parent);
   }
 
-  public emit(code: CodeMaker) {
-    const resultVar = slugify('returns', [this.parent.instanceArg]);
-    code.line(`var ${resultVar} ${this.returnType}`);
-
+  public emit(code: CodeMaker, resultVar: string) {
     code.open(`${JSII_GET_FUNC}(`);
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.property.name}",`);
     code.line(`&${resultVar},`);
     code.close(`)`);
 
-    code.line(`return ${resultVar}`);
+    code.line('return');
   }
 }
 

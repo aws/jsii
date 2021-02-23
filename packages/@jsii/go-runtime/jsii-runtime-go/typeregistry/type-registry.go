@@ -12,6 +12,9 @@ import (
 type TypeRegistry interface {
 	TypeRegisterer
 
+	// StructFields returns the list of fields that make a registered jsii struct.
+	StructFields(typ reflect.Type) (fields []reflect.StructField, found bool)
+
 	// ConcreteTypeFor returns the concrete implementation of the provided struct
 	// or interface type. If typ is a struct, returns typ without futher effort. If
 	// it is an interface, returns the struct associated to this interface type.
@@ -54,6 +57,9 @@ type typeRegistry struct {
 	// maps Go enum type ("StringEnum") to the corresponding jsii enum FQN (e.g.
 	// "jsii-calc.StringEnum")
 	typeToEnumFQN map[reflect.Type]api.FQN
+
+	// maps registered struct types to all their fields.
+	structFields map[reflect.Type][]reflect.StructField
 }
 
 // NewTypeRegistry creates a new type registry.
@@ -63,10 +69,21 @@ func NewTypeRegistry() TypeRegistry {
 		ifaceToStruct:   make(map[reflect.Type]reflect.Type),
 		fqnToEnumMember: make(map[string]interface{}),
 		typeToEnumFQN:   make(map[reflect.Type]api.FQN),
+		structFields:    make(map[reflect.Type][]reflect.StructField),
 	}
 }
 
-// concreteTypeFor returns the concrete implementation of the provided struct
+// IsStruct returns true if the provided type is a registered jsii struct.
+func (t *typeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructField, ok bool) {
+	var found []reflect.StructField
+	found, ok = t.structFields[typ]
+	if ok {
+		fields = append(fields, found...)
+	}
+	return
+}
+
+// ConcreteTypeFor returns the concrete implementation of the provided struct
 // or interface type. If typ is a struct, returns typ without futher effort. If
 // it is an interface, returns the struct associated to this interface type.
 // Returns an error if the argument is an interface, and no struct was
@@ -86,7 +103,7 @@ func (t *typeRegistry) ConcreteTypeFor(typ reflect.Type) (structType reflect.Typ
 	return
 }
 
-// enumMemberForEnumRef returns the go enum member corresponding to a jsii fully
+// EnumMemberForEnumRef returns the go enum member corresponding to a jsii fully
 // qualified enum member name (e.g: "jsii-calc.StringEnum/A"). If no enum member
 // was registered (via registerEnum) for the provided enumref, an error is
 // returned.
@@ -97,7 +114,7 @@ func (t *typeRegistry) EnumMemberForEnumRef(ref api.EnumRef) (interface{}, error
 	return nil, fmt.Errorf("no enum member registered for %s", ref.MemberFQN)
 }
 
-// tryRenderEnumRef returns an enumref if the provided value corresponds to a
+// TryRenderEnumRef returns an enumref if the provided value corresponds to a
 // registered enum type. The returned enumref is nil if the provided enum value
 // is a zero-value (i.e: "").
 func (t *typeRegistry) TryRenderEnumRef(value reflect.Value) (ref *api.EnumRef, isEnumRef bool) {

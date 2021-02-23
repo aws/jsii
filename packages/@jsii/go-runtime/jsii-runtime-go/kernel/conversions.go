@@ -15,7 +15,24 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 	dataVal := reflect.ValueOf(data)
 
 	if ref, isRef := castValToRef(data); isRef {
-		// If return data is JSII object references, add to objects table.
+		// If return data is a jsii struct passed by reference, de-reference it all.
+		if fields, isStruct := c.Types().StructFields(ptrVal.Type()); isStruct {
+			for _, field := range fields {
+				got, err := c.Get(GetRequest{
+					API:             "get",
+					Property:        field.Tag.Get("json"),
+					ObjRef:          ref,
+				})
+				if err != nil {
+					panic(err)
+				}
+				fieldVal := ptrVal.FieldByIndex(field.Index)
+				c.CastAndSetToPtr(fieldVal.Addr().Interface(), got.Value)
+			}
+			return
+		}
+
+		// If return data is jsii object references, add to objects table.
 		if concreteType, err := c.Types().ConcreteTypeFor(ptrVal.Type()); err == nil {
 			ptrVal.Set(reflect.New(concreteType))
 			if err = c.RegisterInstance(ptrVal.Interface(), ref.InstanceID); err != nil {

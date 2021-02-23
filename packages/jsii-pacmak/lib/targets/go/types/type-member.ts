@@ -2,7 +2,7 @@ import { toPascalCase } from 'codemaker';
 import { Method, Parameter, Property } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
-import { GetProperty, SetProperty } from '../runtime';
+import { GetProperty, SetProperty, slugify } from '../runtime';
 import { substituteReservedWords } from '../util';
 
 import { GoClass, GoType, Interface, GoTypeRef } from './index';
@@ -99,14 +99,15 @@ export class GoProperty implements GoTypeMember {
     const { code } = context;
     const receiver = this.parent.name;
     const instanceArg = receiver.substring(0, 1).toLowerCase();
+    const resultVar = slugify('r', [instanceArg]);
 
     code.openBlock(
       `func (${instanceArg} *${receiver}) ${
         this.getter
-      }()${` ${this.returnType}`}`,
+      }()${` (${resultVar} ${this.returnType})`}`,
     );
 
-    new GetProperty(this).emit(code);
+    new GetProperty(this).emit(code, resultVar);
 
     code.closeBlock();
     code.line();
