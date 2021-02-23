@@ -55,6 +55,7 @@ for (const localPath of Object.values(genModules)) {
     [
       goMod.trim(),
       '',
+      '// Injected by "yarn gen:calc", aka build-tools/gen-calc.ts',
       'replace (',
       ...replaces
         .map(
