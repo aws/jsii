@@ -10,6 +10,7 @@
     "gen:calc": "node build-tools/gen-calc.js",
     "gen:rt": "node build-tools/gen.js",
     "generate": "npm run gen:rt && npm run gen:calc",
+    "package": "build-tools/package.sh",
     "lint": "node build-tools/all-go.js vet ./...",
     "test": "npm run gen:calc && node build-tools/all-go.js test ./..."
   },
