@@ -46,11 +46,35 @@ export interface IGenerator {
 
   /**
    * Determine if the generated artifacts for this generator are already up-to-date.
+   *
    * @param outDir the directory where generated artifacts would be placed.
+   * @param tarball the tarball of the bundled node library
+   * @param legalese the license and notice file contents (if any)
+   *
    * @return ``true`` if no generation is necessary
    */
   upToDate(outDir: string): Promise<boolean>;
-  save(outdir: string, tarball: string): Promise<any>;
+
+  /**
+   * Saves the generated code in the provided output directory.
+   *
+   * @param outdir the directory in which to place generated code.
+   * @param tarball the bundled npm library backing the generated code.
+   * @param legalese the LICENSE & NOTICE contents for this package.
+   */
+  save(outdir: string, tarball: string, legalese: Legalese): Promise<any>;
+}
+
+export interface Legalese {
+  /**
+   * The text of the SPDX license associated with this package, if any.
+   */
+  readonly license?: string;
+
+  /**
+   * The contents of the NOTICE file for this package, if any.
+   */
+  readonly notice?: string;
 }
 
 /**
