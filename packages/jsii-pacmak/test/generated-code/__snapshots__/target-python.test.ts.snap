@@ -627,6 +627,110 @@ from ._jsii import *
 import scope.jsii_calc_base
 
 
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-lib.DiamondLeft",
+    jsii_struct_bases=[],
+    name_mapping={"hoisted_top": "hoistedTop", "left": "left"},
+)
+class DiamondLeft:
+    def __init__(
+        self,
+        *,
+        hoisted_top: typing.Optional[builtins.str] = None,
+        left: typing.Optional[jsii.Number] = None,
+    ) -> None:
+        '''
+        :param hoisted_top: 
+        :param left: 
+
+        :stability: deprecated
+        '''
+        self._values: typing.Dict[str, typing.Any] = {}
+        if hoisted_top is not None:
+            self._values["hoisted_top"] = hoisted_top
+        if left is not None:
+            self._values["left"] = left
+
+    @builtins.property
+    def hoisted_top(self) -> typing.Optional[builtins.str]:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("hoisted_top")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def left(self) -> typing.Optional[jsii.Number]:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("left")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "DiamondLeft(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-lib.DiamondRight",
+    jsii_struct_bases=[],
+    name_mapping={"hoisted_top": "hoistedTop", "right": "right"},
+)
+class DiamondRight:
+    def __init__(
+        self,
+        *,
+        hoisted_top: typing.Optional[builtins.str] = None,
+        right: typing.Optional[builtins.bool] = None,
+    ) -> None:
+        '''
+        :param hoisted_top: 
+        :param right: 
+
+        :stability: deprecated
+        '''
+        self._values: typing.Dict[str, typing.Any] = {}
+        if hoisted_top is not None:
+            self._values["hoisted_top"] = hoisted_top
+        if right is not None:
+            self._values["right"] = right
+
+    @builtins.property
+    def hoisted_top(self) -> typing.Optional[builtins.str]:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("hoisted_top")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def right(self) -> typing.Optional[builtins.bool]:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("right")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "DiamondRight(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")
 class EnumFromScopedModule(enum.Enum):
     '''(deprecated) Check that enums from @scoped packages can be references.
@@ -1042,6 +1146,8 @@ class Number(
 
 
 __all__ = [
+    "DiamondLeft",
+    "DiamondRight",
     "EnumFromScopedModule",
     "IDoublable",
     "IFriendly",
@@ -2994,6 +3100,84 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     def __repr__(self) -> str:
         return "DerivedStruct(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.DiamondBottom",
+    jsii_struct_bases=[
+        scope.jsii_calc_lib.DiamondLeft, scope.jsii_calc_lib.DiamondRight
+    ],
+    name_mapping={
+        "hoisted_top": "hoistedTop",
+        "left": "left",
+        "right": "right",
+        "bottom": "bottom",
+    },
+)
+class DiamondBottom(scope.jsii_calc_lib.DiamondLeft, scope.jsii_calc_lib.DiamondRight):
+    def __init__(
+        self,
+        *,
+        hoisted_top: typing.Optional[builtins.str] = None,
+        left: typing.Optional[jsii.Number] = None,
+        right: typing.Optional[builtins.bool] = None,
+        bottom: typing.Optional[datetime.datetime] = None,
+    ) -> None:
+        '''
+        :param hoisted_top: 
+        :param left: 
+        :param right: 
+        :param bottom: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {}
+        if hoisted_top is not None:
+            self._values["hoisted_top"] = hoisted_top
+        if left is not None:
+            self._values["left"] = left
+        if right is not None:
+            self._values["right"] = right
+        if bottom is not None:
+            self._values["bottom"] = bottom
+
+    @builtins.property
+    def hoisted_top(self) -> typing.Optional[builtins.str]:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("hoisted_top")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def left(self) -> typing.Optional[jsii.Number]:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("left")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def right(self) -> typing.Optional[builtins.bool]:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("right")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    @builtins.property
+    def bottom(self) -> typing.Optional[datetime.datetime]:
+        result = self._values.get("bottom")
+        return typing.cast(typing.Optional[datetime.datetime], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "DiamondBottom(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -8641,6 +8825,7 @@ __all__ = [
     "DeprecatedEnum",
     "DeprecatedStruct",
     "DerivedStruct",
+    "DiamondBottom",
     "DiamondInheritanceBaseLevelStruct",
     "DiamondInheritanceFirstMidLevelStruct",
     "DiamondInheritanceSecondMidLevelStruct",

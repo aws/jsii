@@ -41,16 +41,16 @@ OPTS="--dotnet-nuget-global-packages-folder=${NUGET_CACHE}"
 # Single target, recursive build to a certain location
 clean_dists
 echo "Testing SINGLE TARGET, RECURSIVE build."
-../bin/jsii-pacmak ${OPTS} -o ${outdir} --recurse ../../jsii-calc
+../bin/jsii-pacmak ${OPTS} -v -o ${outdir} --recurse ../../jsii-calc
 
 # Multiple targets, build one-by-one into own directory
 clean_dists
 echo "Testing ONE-BY-ONE build."
 for dir in $packagedirs; do
-    ../bin/jsii-pacmak ${OPTS} $dir
+    ../bin/jsii-pacmak ${OPTS} -v $dir
 done
 
 # Multiple targets, build all at once into own directory
 clean_dists
 echo "Testing ALL-AT-ONCE build."
-../bin/jsii-pacmak ${OPTS} --no-parallel $packagedirs
+../bin/jsii-pacmak ${OPTS} -v --no-parallel $packagedirs

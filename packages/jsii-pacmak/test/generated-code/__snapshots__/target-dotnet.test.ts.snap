@@ -547,7 +547,11 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃     ┗━ 📁 Tests
        ┃        ┣━ 📁 CalculatorNamespace
        ┃        ┃  ┗━ 📁 LibNamespace
+       ┃        ┃     ┣━ 📄 DiamondLeft.cs
+       ┃        ┃     ┣━ 📄 DiamondRight.cs
        ┃        ┃     ┣━ 📄 EnumFromScopedModule.cs
+       ┃        ┃     ┣━ 📄 IDiamondLeft.cs
+       ┃        ┃     ┣━ 📄 IDiamondRight.cs
        ┃        ┃     ┣━ 📄 IDoublable.cs
        ┃        ┃     ┣━ 📄 IFriendly.cs
        ┃        ┃     ┣━ 📄 IMyFirstStruct.cs
@@ -615,6 +619,88 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/DiamondLeft.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiByValue(fqn: "@scope/jsii-calc-lib.DiamondLeft")]
+    public class DiamondLeft : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDiamondLeft
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [System.Obsolete()]
+        public string? HoistedTop
+        {
+            get;
+            set;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [System.Obsolete()]
+        public double? Left
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/DiamondRight.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiByValue(fqn: "@scope/jsii-calc-lib.DiamondRight")]
+    public class DiamondRight : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDiamondRight
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [System.Obsolete()]
+        public string? HoistedTop
+        {
+            get;
+            set;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [System.Obsolete()]
+        public bool? Right
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/EnumFromScopedModule.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -622,6 +708,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
+
     /// <summary>(deprecated) Check that enums from \\@scoped packages can be references.</summary>
     /// <remarks>
     /// See awslabs/jsii#138
@@ -644,6 +731,166 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiEnumMember(name: "VALUE2")]
         [System.Obsolete()]
         VALUE2
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/IDiamondLeft.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiInterface(nativeType: typeof(IDiamondLeft), fullyQualifiedName: "@scope/jsii-calc-lib.DiamondLeft")]
+    [System.Obsolete()]
+    public interface IDiamondLeft
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        [System.Obsolete()]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        string? HoistedTop
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+        [System.Obsolete()]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        double? Left
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiTypeProxy(nativeType: typeof(IDiamondLeft), fullyQualifiedName: "@scope/jsii-calc-lib.DiamondLeft")]
+        [System.Obsolete()]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDiamondLeft
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+            [System.Obsolete()]
+            public string? HoistedTop
+            {
+                get => GetInstanceProperty<string?>();
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+            [System.Obsolete()]
+            public double? Left
+            {
+                get => GetInstanceProperty<double?>();
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/IDiamondRight.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiInterface(nativeType: typeof(IDiamondRight), fullyQualifiedName: "@scope/jsii-calc-lib.DiamondRight")]
+    [System.Obsolete()]
+    public interface IDiamondRight
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        [System.Obsolete()]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        string? HoistedTop
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
+        [System.Obsolete()]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        bool? Right
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiTypeProxy(nativeType: typeof(IDiamondRight), fullyQualifiedName: "@scope/jsii-calc-lib.DiamondRight")]
+        [System.Obsolete()]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDiamondRight
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+            [System.Obsolete()]
+            public string? HoistedTop
+            {
+                get => GetInstanceProperty<string?>();
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
+            [System.Obsolete()]
+            public bool? Right
+            {
+                get => GetInstanceProperty<bool?>();
+            }
+        }
     }
 }
 
@@ -1811,6 +2058,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 Base.cs
        ┃           ┃  ┗━ 📄 Derived.cs
        ┃           ┣━ 📄 DerivedStruct.cs
+       ┃           ┣━ 📄 DiamondBottom.cs
        ┃           ┣━ 📄 DiamondInheritanceBaseLevelStruct.cs
        ┃           ┣━ 📄 DiamondInheritanceFirstMidLevelStruct.cs
        ┃           ┣━ 📄 DiamondInheritanceSecondMidLevelStruct.cs
@@ -1850,6 +2098,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IDeprecatedInterface.cs
        ┃           ┣━ 📄 IDeprecatedStruct.cs
        ┃           ┣━ 📄 IDerivedStruct.cs
+       ┃           ┣━ 📄 IDiamondBottom.cs
        ┃           ┣━ 📄 IDiamondInheritanceBaseLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceFirstMidLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceSecondMidLevelStruct.cs
@@ -4623,6 +4872,64 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DiamondBottom.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiByValue(fqn: "jsii-calc.DiamondBottom")]
+    public class DiamondBottom : Amazon.JSII.Tests.CalculatorNamespace.IDiamondBottom
+    {
+        [JsiiOptional]
+        [JsiiProperty(name: "bottom", typeJson: "{\\"primitive\\":\\"date\\"}", isOptional: true, isOverride: true)]
+        public System.DateTime? Bottom
+        {
+            get;
+            set;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [System.Obsolete()]
+        public string? HoistedTop
+        {
+            get;
+            set;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [System.Obsolete()]
+        public double? Left
+        {
+            get;
+            set;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [System.Obsolete()]
+        public bool? Right
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DiamondInheritanceBaseLevelStruct.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -6420,6 +6727,78 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             public string[]? FirstOptional
             {
                 get => GetInstanceProperty<string[]?>();
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IDiamondBottom.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IDiamondBottom), fullyQualifiedName: "jsii-calc.DiamondBottom")]
+    public interface IDiamondBottom : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDiamondLeft, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDiamondRight
+    {
+        [JsiiProperty(name: "bottom", typeJson: "{\\"primitive\\":\\"date\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        System.DateTime? Bottom
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IDiamondBottom), fullyQualifiedName: "jsii-calc.DiamondBottom")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDiamondBottom
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiOptional]
+            [JsiiProperty(name: "bottom", typeJson: "{\\"primitive\\":\\"date\\"}", isOptional: true)]
+            public System.DateTime? Bottom
+            {
+                get => GetInstanceProperty<System.DateTime?>();
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+            [System.Obsolete()]
+            public string? HoistedTop
+            {
+                get => GetInstanceProperty<string?>();
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+            [System.Obsolete()]
+            public double? Left
+            {
+                get => GetInstanceProperty<double?>();
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
+            [System.Obsolete()]
+            public bool? Right
+            {
+                get => GetInstanceProperty<bool?>();
             }
         }
     }

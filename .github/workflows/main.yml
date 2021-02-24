@@ -31,7 +31,7 @@ jobs:
         with:
           java-version: '8'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.1.4
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: '12'
       - name: Set up Python 3.6
@@ -118,7 +118,7 @@ jobs:
         with:
           java-version: '8'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.1.4
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: '12'
       - name: Set up Python 3.6
@@ -257,7 +257,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Set up Node ${{ matrix.node }}
-        uses: actions/setup-node@v2.1.4
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
@@ -341,7 +341,7 @@ jobs:
         with:
           java-version: '8'
       - name: Set up Node 10
-        uses: actions/setup-node@v2.1.4
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: '10'
       - name: Set up Python 3.6
@@ -415,7 +415,7 @@ jobs:
 
       - name: Integration Test (build)
         run: |-
-          npx lerna run build --concurrency=2 --stream 2>&1 > ${{ runner.temp }}/build.log
+          npx lerna run build --concurrency=1 --stream 2>&1 > ${{ runner.temp }}/build.log
         working-directory: aws-cdk
         env:
           # Make lots of memory available, aws-cdk-lib is __large__
@@ -456,36 +456,3 @@ jobs:
           path: |-
             ${{ github.workspace }}/aws-cdk/dist/
             ${{ github.workspace }}/aws-cdk/**/dist/
-
-  push-go-runtime:
-    needs: build
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Node 12
-        uses: actions/setup-node@v2.1.4
-        with:
-          node-version: '12'
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: built-tree
-          path: ${{ github.workspace }}/jsii-built-tree
-      - name: Extract Artifact
-        working-directory: ${{ github.workspace }}/jsii-built-tree
-        run: |-
-          tar zxvf built-tree.tgz
-          rm built-tree.tgz
-      - name: Release
-        working-directory: ${{ github.workspace }}/jsii-built-tree
-        if: github.ref == 'refs/head/release'
-        run: |-
-          VERSION=$(node -p 'require("./lerna.json").version')
-          cd ./packages/@jsii/go-runtime/jsii-runtime-go
-          echo ${VERSION} > version
-          npx -p jsii-release@latest jsii-release-golang .
-        env:
-          GIT_USER_NAME: AWS CDK Team
-          GIT_USER_EMAIL: aws-cdk-dev@amazon.com
-          GITHUB_TOKEN: ${{ secrets.GO_PUBLISHING_TOKEN }}
-

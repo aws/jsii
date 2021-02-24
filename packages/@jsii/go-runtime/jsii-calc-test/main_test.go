@@ -157,6 +157,46 @@ func TestAllTypes(t *testing.T) {
 	})
 }
 
+func TestEnumUnmarshal(t *testing.T) {
+	actual := calc.EnumDispenser_RandomStringLikeEnum()
+	if actual != calc.StringEnumB {
+		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
+	}
+}
+
+func TestEnumRoundtrip(t *testing.T) {
+	allTypes := calc.NewAllTypes()
+	actual := allTypes.EnumMethod(calc.StringEnumA)
+	if actual != calc.StringEnumA {
+		t.Errorf("Expected StringEnum.A. Actual: %s", actual)
+	}
+
+	actual = allTypes.EnumMethod(calc.StringEnumC)
+	if actual != calc.StringEnumC {
+		t.Errorf("Expected StringEnum.C. Actual: %s", actual)
+	}
+}
+
+func TestOptionalEnums(t *testing.T) {
+	allTypes := calc.NewAllTypes()
+	actual := allTypes.GetOptionalEnumValue()
+	if actual != "" {
+		t.Error("Expected value to be nil")
+	}
+
+	allTypes.SetOptionalEnumValue(calc.StringEnumB)
+	actual = allTypes.GetOptionalEnumValue()
+	if actual != calc.StringEnumB {
+		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
+	}
+
+	allTypes.SetOptionalEnumValue("")
+	actual = allTypes.GetOptionalEnumValue()
+	if actual != "" {
+		t.Error("Expected value to be nil")
+	}
+}
+
 func TestReturnsSpecialParam(t *testing.T) {
 	retSpecialParam := returnsParam.NewReturnsSpecialParameter()
 	val := retSpecialParam.ReturnsSpecialParam()
@@ -164,5 +204,26 @@ func TestReturnsSpecialParam(t *testing.T) {
 	actual := reflect.TypeOf(val)
 	if actual != expected {
 		t.Errorf("Expected type: %s; Actual: %s", expected, actual)
+	}
+}
+
+func TestMaps(t *testing.T) {
+	allTypes := calc.NewAllTypes()
+	actual := allTypes.GetMapProperty()
+	if len(actual) != 0 {
+		t.Errorf("Expected length of empty map to be 0. Got: %d", len(actual))
+	}
+
+	question := "The answer to the ultimate question of life, the universe, and everything"
+	answer := calclib.NewNumber(42)
+	allTypes.SetMapProperty(map[string]calclib.NumberIface{
+		question: answer,
+	})
+	actual = allTypes.GetMapProperty()
+	if len(actual) != 1 {
+		t.Errorf("Expected length of empty map to be 1. Got: %d", len(actual))
+	}
+	if actual[question].GetValue() != answer.GetValue() {
+		t.Errorf("Expected to have the value %v in there, got: %v", answer, actual[question])
 	}
 }

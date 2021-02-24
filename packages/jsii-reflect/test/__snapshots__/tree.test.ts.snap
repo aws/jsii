@@ -2145,6 +2145,15 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<Array<string>>
+ │   ├─┬ interface DiamondBottom
+ │   │ ├─┬ interfaces
+ │   │ │ ├── DiamondLeft
+ │   │ │ └── DiamondRight
+ │   │ └─┬ members
+ │   │   └─┬ bottom property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<date>
  │   ├─┬ interface DiamondInheritanceBaseLevelStruct
  │   │ └─┬ members
  │   │   └─┬ baseLevelProperty property
@@ -2836,6 +2845,26 @@ exports[`showAll 1`] = `
      │   └─┬ toString() method
      │     ├── abstract
      │     └── returns: string
+     ├─┬ interface DiamondLeft
+     │ └─┬ members
+     │   ├─┬ hoistedTop property
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ left property
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<number>
+     ├─┬ interface DiamondRight
+     │ └─┬ members
+     │   ├─┬ hoistedTop property
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ right property
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<boolean>
      ├─┬ interface IDoublable
      │ └─┬ members
      │   └─┬ doubleValue property
@@ -3101,6 +3130,7 @@ exports[`types 1`] = `
  │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
+ │   ├── interface DiamondBottom
  │   ├── interface DiamondInheritanceBaseLevelStruct
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
@@ -3201,6 +3231,8 @@ exports[`types 1`] = `
      ├── class Number
      ├── class NumericValue
      ├── class Operation
+     ├── interface DiamondLeft
+     ├── interface DiamondRight
      ├── interface IDoublable
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface

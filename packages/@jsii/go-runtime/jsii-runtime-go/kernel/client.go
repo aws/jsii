@@ -1,4 +1,4 @@
-package jsii
+package kernel
 
 import (
 	"bufio"
@@ -10,9 +10,10 @@ import (
 	"os"
 	"os/exec"
 	"path"
-	"regexp"
-	goruntime "runtime"
+	"runtime"
 	"sync"
+
+	"github.com/aws/jsii-runtime-go/typeregistry"
 )
 
 var (
@@ -35,12 +36,13 @@ type client struct {
 	stdin  io.WriteCloser
 	tmpdir string
 
+	types   typeregistry.TypeRegistry
 	objects map[interface{}]string
 }
 
-// getClient returns a singleton client instance, initializing one the first
+// GetClient returns a singleton client instance, initializing one the first
 // time it is called.
-func getClient() *client {
+func GetClient() *client {
 	clientOnce.Do(func() {
 		// Locking early to be safe with a concurrent Close execution
 		clientInstanceMutex.Lock()
@@ -57,13 +59,13 @@ func getClient() *client {
 	return clientInstance
 }
 
-// closeClient finalizes the runtime process, signalling the end of the
+// CloseClient finalizes the runtime process, signalling the end of the
 // execution to the jsii kernel process, and waiting for graceful termination.
 //
-// If a jsii client is used *after* closeClient was called, a new jsii kernel
-// process will be initialized, and closeClient should be called again to
+// If a jsii client is used *after* CloseClient was called, a new jsii kernel
+// process will be initialized, and CloseClient should be called again to
 // correctly finalize that, too.
-func closeClient() {
+func CloseClient() {
 	// Locking early to be safe with a concurrent getClient execution
 	clientInstanceMutex.Lock()
 	defer clientInstanceMutex.Unlock()
@@ -86,10 +88,11 @@ func newClient() (*client, error) {
 
 	clientinstance := &client{
 		objects: objmap,
+		types:   typeregistry.NewTypeRegistry(),
 	}
 
 	// Register a finalizer to call Close()
-	goruntime.SetFinalizer(clientinstance, func(c *client) {
+	runtime.SetFinalizer(clientinstance, func(c *client) {
 		c.close()
 	})
 
@@ -129,7 +132,7 @@ func newClient() (*client, error) {
 
 	clientinstance.process.Env = append(
 		os.Environ(),
-		fmt.Sprintf("JSII_AGENT=%s/%s/%s", goruntime.Version(), goruntime.GOOS, goruntime.GOARCH),
+		fmt.Sprintf("JSII_AGENT=%s/%s/%s", runtime.Version(), runtime.GOOS, runtime.GOARCH),
 	)
 
 	// Pipe child process STDIN from a JSON encoder
@@ -152,7 +155,7 @@ func newClient() (*client, error) {
 		return nil, err
 	}
 
-	// Start a gorouting to process what comes in on that StderrPipe
+	// Start a goroutine to process what comes in on that StderrPipe
 	go func() {
 		reader := bufio.NewReader(stderr)
 
@@ -170,13 +173,13 @@ func newClient() (*client, error) {
 			if len(line) > 0 {
 				result := consoleMessage{}
 				err := json.Unmarshal(line, &result)
-				if (err != nil) {
+				if err != nil {
 					fmt.Fprintf(os.Stderr, "%s\n", line)
 				} else {
-					if (result.Stderr != nil) {
+					if result.Stderr != nil {
 						os.Stderr.Write(result.Stderr)
 					}
-					if (result.Stdout != nil) {
+					if result.Stdout != nil {
 						os.Stdout.Write(result.Stdout)
 					}
 				}
@@ -199,6 +202,18 @@ func newClient() (*client, error) {
 	return clientinstance, nil
 }
 
+func (c *client) Types() typeregistry.TypeRegistry {
+	return c.types
+}
+
+func (c *client) RegisterInstance(instance interface{}, instanceID string) error {
+	if existing, found := c.objects[instance]; found && existing != instanceID {
+		return fmt.Errorf("attempted to register %v as %s, but it was already registered as %s", instance, instanceID, existing)
+	}
+	c.objects[instance] = instanceID
+	return nil
+}
+
 func (c *client) request(req kernelRequest, res kernelResponse) error {
 	err := c.writer.Encode(req)
 	if err != nil {
@@ -217,61 +232,9 @@ func (c *client) response(res kernelResponse) error {
 
 }
 
-func (c *client) processHello() (string, error) {
-	response := initOKResponse{}
-
-	if err := c.response(&response); err != nil {
-		return "", err
-	}
-
-	parts := regexp.MustCompile("@").Split(response.Hello, 3)
-	version := parts[len(parts)-1]
-	return version, nil
-}
-
-func (c *client) findObjectRef(obj interface{}) (refid string, ok bool) {
+func (c *client) FindObjectRef(obj interface{}) (refid string, ok bool) {
 	refid, ok = c.objects[obj]
 	return
-}
-
-func (c *client) load(request loadRequest) (loadResponse, error) {
-	response := loadResponse{}
-	return response, c.request(request, &response)
-}
-
-func (c *client) create(request createRequest) (createResponse, error) {
-	response := createResponse{}
-	return response, c.request(request, &response)
-}
-
-func (c *client) invoke(request invokeRequest) (invokeResponse, error) {
-	response := invokeResponse{}
-	return response, c.request(request, &response)
-}
-
-func (c *client) sinvoke(request staticInvokeRequest) (invokeResponse, error) {
-	response := invokeResponse{}
-	return response, c.request(request, &response)
-}
-
-func (c *client) get(request getRequest) (getResponse, error) {
-	response := getResponse{}
-	return response, c.request(request, &response)
-}
-
-func (c *client) sget(request staticGetRequest) (getResponse, error) {
-	response := getResponse{}
-	return response, c.request(request, &response)
-}
-
-func (c *client) set(request setRequest) (setResponse, error) {
-	response := setResponse{}
-	return response, c.request(request, &response)
-}
-
-func (c *client) sset(request staticSetRequest) (setResponse, error) {
-	response := setResponse{}
-	return response, c.request(request, &response)
 }
 
 func (c *client) close() {
@@ -285,5 +248,5 @@ func (c *client) close() {
 	}
 
 	// We no longer need a finalizer to run
-	goruntime.SetFinalizer(c, nil)
+	runtime.SetFinalizer(c, nil)
 }
