@@ -3,6 +3,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
+import * as spdx from 'spdx-license-list/full';
 
 import { traverseDependencyGraph } from './dependency-graph';
 import { IGenerator } from './generator';
@@ -39,7 +40,18 @@ export abstract class Target {
 
     if (this.force || !(await this.generator.upToDate(outDir))) {
       this.generator.generate(this.fingerprint);
-      await this.generator.save(outDir, tarball);
+
+      const licenseFile = path.join(this.packageDir, 'LICENSE');
+      const license = (await fs.pathExists(licenseFile))
+        ? await fs.readFile(licenseFile, 'utf8')
+        : spdx[this.assembly.license]?.licenseText;
+
+      const noticeFile = path.join(this.packageDir, 'NOTICE');
+      const notice = (await fs.pathExists(noticeFile))
+        ? await fs.readFile(noticeFile, 'utf8')
+        : undefined;
+
+      await this.generator.save(outDir, tarball, { license, notice });
     } else {
       logging.info(
         `Generated code for ${this.targetName} was already up-to-date in ${outDir} (use --force to re-generate)`,

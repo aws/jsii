@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 
-import { Generator } from '../generator';
+import { Generator, Legalese } from '../generator';
 import { PackageInfo, Target } from '../target';
 import { toReleaseVersion } from './version-utils';
 
@@ -62,6 +62,11 @@ export default class JavaScript extends Target {
 // ##################
 
 class PackOnly extends Generator {
+  public async save(outdir: string, tarball: string, _: Legalese) {
+    // Intentionally ignore the Legalese field here... it's not useful here.
+    return super.save(outdir, tarball, {});
+  }
+
   protected getAssemblyOutputDir(_mod: spec.Assembly) {
     return '.';
   }
