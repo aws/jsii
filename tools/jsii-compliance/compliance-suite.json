@@ -3,7 +3,7 @@
   "description": "JSII standard compliance test suite. These tests must be implemented in each language binding.",
   "bindings": {
     "java": {
-      "report": "packages/@jsii/java-runtime-test/project/compliance-report.json"
+      "report": "packages/@jsii/java-runtime-test/project/compliance-report.json2"
     },
     "golang": {
       "report": "packages/@jsii/golang-runtime-test/compliance-report.json"

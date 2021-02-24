@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const tablemark = require('tablemark')
 
+console.log('Creating compliance report');
+
 const suite = JSON.parse(fs.readFileSync(path.join(`${__dirname}`, 'compliance-suite.json')));
 const aggregatedReport = {};
 
@@ -70,3 +72,5 @@ const header = `# Compliance Report
 This section detailed the current state of each language binding with respect to our standard compliance suite.`
 
 fs.writeFileSync(target, `${header}\n\n${tablemark(rows)}`);
+
+console.log('Done')
