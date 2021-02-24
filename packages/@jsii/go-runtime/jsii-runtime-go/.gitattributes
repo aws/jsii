@@ -1,0 +1,5 @@
+*.generated.go      linguist-generated
+*.generated_test.go linguist-generated
+*.tgz               linguist-generated
+
+doc.go              linguist-documentation
