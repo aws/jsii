@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.22.0](https://github.com/aws/jsii/compare/v1.21.0...v1.22.0) (2021-02-18)
 
-
 ### Bug Fixes
 
 * **go:** map values incorrectly handled though de/serialization ([#2587](https://github.com/aws/jsii/issues/2587)) ([0359928](https://github.com/aws/jsii/commit/035992887b3346e6cb1e66d0bb66c3029de2917f))
