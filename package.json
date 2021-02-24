@@ -9,9 +9,10 @@
     "bump": "bash scripts/bump.sh",
     "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
     "package": "bash scripts/package.sh",
-    "test": "lerna run test --concurrency=1 --stream",
+    "test": "lerna run test --concurrency=1 --stream && yarn compliance",
     "test:integ": "lerna run test:integ --stream",
-    "test:update": "lerna run test:update --concurrency=1 --stream"
+    "test:update": "lerna run test:update --concurrency=1 --stream",
+    "compliance": "tools/jsii-compliance/report.js"
   },
   "devDependencies": {
     "@jest/types": "^26.6.2",
@@ -27,6 +28,7 @@
     "jest-circus": "^26.6.3",
     "jest-config": "^26.6.3",
     "jest-expect-message": "^1.0.2",
+    "tablemark": "^2.0.0",
     "lerna": "^3.22.1",
     "prettier": "^2.2.1",
     "standard-version": "^9.1.0",
