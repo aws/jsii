@@ -18,8 +18,8 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/ 1`] = `
  ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
- ┃     ┃  ┣━ 📄 jsii.go
- ┃     ┃  ┗━ 📄 tarball.embedded.go
+ ┃     ┃  ┣━ 📄 foo-1.2.3.tgz
+ ┃     ┃  ┗━ 📄 jsii.go
  ┃     ┗━ 📄 version
  ┣━ 📁 java
  ┃  ┣━ 📄 pom.xml
@@ -127,7 +127,7 @@ package foo
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
 module foo
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -136,10 +136,13 @@ require (
 
 `;
 
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/foo-1.2.3.tgz 1`] = `go/foo/jsii/foo-1.2.3.tgz is a tarball`;
+
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
+	_      "embed"
 	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
@@ -147,7 +150,9 @@ import (
 	bar    "bar/v2/jsii"
 )
 
-var once sync.Once
+//go:embed foo-1.2.3.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -162,8 +167,6 @@ func Initialize() {
 }
 
 `;
-
-exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/version 1`] = `
 1.2.3
@@ -524,8 +527,8 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/ 1`] = `
  ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
- ┃     ┃  ┣━ 📄 jsii.go
- ┃     ┃  ┗━ 📄 tarball.embedded.go
+ ┃     ┃  ┣━ 📄 foo-1.2.3.tgz
+ ┃     ┃  ┗━ 📄 jsii.go
  ┃     ┗━ 📄 version
  ┣━ 📁 java
  ┃  ┣━ 📄 pom.xml
@@ -633,7 +636,7 @@ package foo
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
 module foo
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -642,10 +645,13 @@ require (
 
 `;
 
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/foo-1.2.3.tgz 1`] = `go/foo/jsii/foo-1.2.3.tgz is a tarball`;
+
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
+	_      "embed"
 	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
@@ -653,7 +659,9 @@ import (
 	bar    "bar/v4/jsii"
 )
 
-var once sync.Once
+//go:embed foo-1.2.3.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -668,8 +676,6 @@ func Initialize() {
 }
 
 `;
-
-exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/version 1`] = `
 1.2.3
@@ -1030,8 +1036,8 @@ exports[`foo@2.0.0-rc.42: <outDir>/ 1`] = `
  ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
- ┃     ┃  ┣━ 📄 jsii.go
- ┃     ┃  ┗━ 📄 tarball.embedded.go
+ ┃     ┃  ┣━ 📄 foo-2.0.0-rc.42.tgz
+ ┃     ┃  ┗━ 📄 jsii.go
  ┃     ┗━ 📄 version
  ┣━ 📁 java
  ┃  ┣━ 📄 pom.xml
@@ -1137,7 +1143,7 @@ package foo
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
 module foo/v2
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -1145,16 +1151,21 @@ require (
 
 `;
 
+exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/foo-2.0.0-rc.42.tgz 1`] = `go/foo/jsii/foo-2.0.0-rc.42.tgz is a tarball`;
+
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
+	_      "embed"
 	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
-var once sync.Once
+//go:embed foo-2.0.0-rc.42.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -1166,8 +1177,6 @@ func Initialize() {
 }
 
 `;
-
-exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
 
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/version 1`] = `
 2.0.0-rc.42
@@ -1512,8 +1521,8 @@ exports[`foo@4.5.6-pre.1337: <outDir>/ 1`] = `
  ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
- ┃     ┃  ┣━ 📄 jsii.go
- ┃     ┃  ┗━ 📄 tarball.embedded.go
+ ┃     ┃  ┣━ 📄 foo-4.5.6-pre.1337.tgz
+ ┃     ┃  ┗━ 📄 jsii.go
  ┃     ┗━ 📄 version
  ┣━ 📁 java
  ┃  ┣━ 📄 pom.xml
@@ -1619,7 +1628,7 @@ package foo
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
 module foo/v4
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -1627,16 +1636,21 @@ require (
 
 `;
 
+exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/foo-4.5.6-pre.1337.tgz 1`] = `go/foo/jsii/foo-4.5.6-pre.1337.tgz is a tarball`;
+
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
+	_      "embed"
 	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
-var once sync.Once
+//go:embed foo-4.5.6-pre.1337.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -1648,8 +1662,6 @@ func Initialize() {
 }
 
 `;
-
-exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/version 1`] = `
 4.5.6-pre.1337

@@ -7,7 +7,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
        ┣━ 📄 scopejsiicalcbase.go
        ┣━ 📄 scopejsiicalcbase.init.go
        ┗━ 📄 version
@@ -16,7 +16,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -29,6 +29,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcba
 package jsii
 
 import (
+	_                       "embed"
 	"sync"
 
 	_jsii_                  "github.com/aws/jsii-runtime-go"
@@ -36,7 +37,9 @@ import (
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
 
-var once sync.Once
+//go:embed scope-jsii-calc-base-0.0.0.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -52,7 +55,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/tarball.embedded.go 1`] = `go/scopejsiicalcbase/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/scope-jsii-calc-base-0.0.0.tgz 1`] = `go/scopejsiicalcbase/jsii/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/scopejsiicalcbase.go 1`] = `
 // An example direct dependency for jsii-calc.
@@ -245,7 +248,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┗━ 📄 scope-jsii-calc-base-of-base-2.1.1.tgz
        ┣━ 📄 scopejsiicalcbaseofbase.go
        ┣━ 📄 scopejsiicalcbaseofbase.init.go
        ┗━ 📄 version
@@ -254,7 +257,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -266,12 +269,15 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 package jsii
 
 import (
+	_      "embed"
 	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
-var once sync.Once
+//go:embed scope-jsii-calc-base-of-base-2.1.1.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -284,7 +290,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/tarball.embedded.go 1`] = `go/scopejsiicalcbaseofbase/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/scope-jsii-calc-base-of-base-2.1.1.tgz 1`] = `go/scopejsiicalcbaseofbase/jsii/scope-jsii-calc-base-of-base-2.1.1.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase.go 1`] = `
 // An example transitive dependency for jsii-calc.
@@ -438,7 +444,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┗━ 📄 scope-jsii-calc-lib-0.0.0.tgz
        ┣━ 📄 scopejsiicalclib.go
        ┣━ 📄 scopejsiicalclib.init.go
        ┣━ 📁 submodule
@@ -450,7 +456,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalclib
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -464,6 +470,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package jsii
 
 import (
+	_                       "embed"
 	"sync"
 
 	_jsii_                  "github.com/aws/jsii-runtime-go"
@@ -472,7 +479,9 @@ import (
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
 
-var once sync.Once
+//go:embed scope-jsii-calc-lib-0.0.0.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -489,7 +498,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/tarball.embedded.go 1`] = `go/scopejsiicalclib/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz 1`] = `go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib.go 1`] = `
 // A simple calcuator library built on JSII.
@@ -1309,8 +1318,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 interfaceinnamespaceonlyinterface.go
        ┃  ┗━ 📄 interfaceinnamespaceonlyinterface.init.go
        ┣━ 📁 jsii
-       ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┣━ 📄 jsii-calc-3.20.120.tgz
+       ┃  ┗━ 📄 jsii.go
        ┣━ 📄 jsiicalc.go
        ┣━ 📄 jsiicalc.init.go
        ┣━ 📁 pythonself
@@ -1689,7 +1698,7 @@ func init() {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/jsiicalc/v3
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -1853,6 +1862,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] =
 package jsii
 
 import (
+	_                 "embed"
 	"sync"
 
 	_jsii_            "github.com/aws/jsii-runtime-go"
@@ -1861,7 +1871,9 @@ import (
 	scopejsiicalclib  "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
-var once sync.Once
+//go:embed jsii-calc-3.20.120.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -1878,7 +1890,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/tarball.embedded.go 1`] = `go/jsiicalc/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii-calc-3.20.120.tgz 1`] = `go/jsiicalc/jsii/jsii-calc-3.20.120.tgz is a tarball`;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc.go 1`] = `
 // A simple calcuator built on JSII.

@@ -11,7 +11,7 @@ import { shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
-import { goPackageName } from './go/util';
+import { goPackageName, tarballName } from './go/util';
 
 export class Golang extends Target {
   private readonly goGenerator: GoGenerator;
@@ -148,38 +148,12 @@ class GoGenerator implements IGenerator {
   }
 
   public async save(outDir: string, tarball: string): Promise<any> {
-    await this.embedTarball(tarball);
-
     const output = path.join(outDir, goPackageName(this.assembly.name));
     await this.code.save(output);
-  }
-
-  private async embedTarball(source: string) {
-    const data = await fs.readFile(source);
-    const bytesPerLine = 16;
-
-    const file = path.join(JSII_INIT_PACKAGE, 'tarball.embedded.go');
-    this.code.openFile(file);
-    this.code.line(`package ${JSII_INIT_PACKAGE}`);
-    this.code.line();
-    this.code.open('var tarball = []byte{');
-    for (let i = 0; i < data.byteLength; i += bytesPerLine) {
-      const encoded = Array.from(data.slice(i, i + bytesPerLine))
-        .map((byte) => `0x${byte.toString(16).padStart(2, '0')}`)
-        .join(', ');
-      this.code.line(`${encoded},`);
-    }
-    this.code.close('}');
-    this.code.line();
-    // Check the byte slice has the expect size
-    this.code.open('func init() {');
-    this.code.open(`if len(tarball) != ${data.byteLength} {`);
-    this.code.line(
-      `panic("Tarball data does not have expected length (${data.byteLength} bytes)")`,
+    await fs.copyFile(
+      tarball,
+      path.join(output, JSII_INIT_PACKAGE, tarballName(this.assembly)),
     );
-    this.code.close('}');
-    this.code.close('}');
-    this.code.closeFile(file);
   }
 }
 
