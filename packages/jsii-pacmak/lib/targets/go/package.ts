@@ -2,6 +2,7 @@ import { CodeMaker } from 'codemaker';
 import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { basename, dirname, join } from 'path';
 import * as semver from 'semver';
+import * as spdx from 'spdx-license-list/full';
 
 import { VERSION } from '../../version';
 import { EmitContext } from './emit-context';
@@ -210,6 +211,7 @@ export class RootPackage extends Package {
   public readonly version: string;
   private readonly readme?: ReadmeFile;
   private readonly versionFile: VersionFile;
+  private readonly licenseFile?: LicenseFile;
 
   public constructor(assembly: Assembly) {
     const packageName = goPackageName(assembly.name);
@@ -228,6 +230,7 @@ export class RootPackage extends Package {
     this.assembly = assembly;
     this.version = assembly.version;
     this.versionFile = new VersionFile(this.version);
+    this.licenseFile = LicenseFile.from(assembly.license);
 
     if (this.assembly.readme?.markdown) {
       this.readme = new ReadmeFile(
@@ -244,6 +247,7 @@ export class RootPackage extends Package {
 
     this.emitGomod(context.code);
     this.versionFile.emit(context.code);
+    this.licenseFile?.emit(context.code);
   }
 
   private emitGomod(code: CodeMaker) {
@@ -499,5 +503,25 @@ function importGoModules(code: CodeMaker, modules: readonly ImportedModule[]) {
 
   function isSpecial(mod: ImportedModule): boolean {
     return mod.alias === JSII_RT_ALIAS || mod.alias === JSII_INIT_ALIAS;
+  }
+}
+
+class LicenseFile {
+  public static from(spdxId: string): LicenseFile | undefined {
+    if (spdxId in spdx) {
+      return new LicenseFile(spdx[spdxId].licenseText);
+    }
+    return undefined;
+  }
+
+  private constructor(private readonly licenseText: string) {}
+
+  public emit(code: CodeMaker): void {
+    const licenseFileName = 'LICENSE';
+    code.openFile(licenseFileName);
+    for (const line of this.licenseText.split('\n')) {
+      code.line(line);
+    }
+    code.closeFile(licenseFileName);
   }
 }
