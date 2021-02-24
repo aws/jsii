@@ -40,6 +40,8 @@ for (const language of Object.keys(suite.bindings)) {
         throw new Error(`Test '${test}' from ${language} report does not exist in the compliance suite. Please add it to the suite definition.`);
       }
     }
+  } else if (!binding.excluded) {
+    console.log(`Warning: report at ${reportFile} could not be found and the binding for ${language} is not excluded. All tests will be considered as failed.`)
   }
 
   for (const test of suite.tests) {
