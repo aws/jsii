@@ -164,7 +164,11 @@ export abstract class Generator implements IGenerator {
   /**
    * Saves all generated files to an output directory, creating any subdirs if needed.
    */
-  public async save(outdir: string, tarball: string) {
+  public async save(
+    outdir: string,
+    tarball: string,
+    { license, notice }: Legalese,
+  ) {
     const assemblyDir = this.getAssemblyOutputDir(this.assembly);
     if (assemblyDir) {
       const fullPath = path.resolve(
@@ -172,6 +176,17 @@ export abstract class Generator implements IGenerator {
       );
       await fs.mkdirp(path.dirname(fullPath));
       await fs.copy(tarball, fullPath, { overwrite: true });
+
+      if (license) {
+        await fs.writeFile(path.resolve(outdir, 'LICENSE'), license, {
+          encoding: 'utf8',
+        });
+      }
+      if (notice) {
+        await fs.writeFile(path.resolve(outdir, 'NOTICE'), notice, {
+          encoding: 'utf8',
+        });
+      }
     }
 
     return this.code.save(outdir);
