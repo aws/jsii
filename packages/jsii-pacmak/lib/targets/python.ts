@@ -475,7 +475,10 @@ abstract class BaseMethod implements PythonBase {
         liftedPropNames,
       );
 
-      const paramType = toTypeName(param).pythonType(context);
+      const paramType = toTypeName(param).pythonType({
+        ...context,
+        parameterType: true,
+      });
       const paramDefault = param.optional ? ' = None' : '';
 
       pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
@@ -507,7 +510,10 @@ abstract class BaseMethod implements PythonBase {
         // Iterate over all of our props, and reflect them into our params.
         for (const prop of liftedProperties) {
           const paramName = toPythonParameterName(prop.name);
-          const paramType = toTypeName(prop).pythonType(context);
+          const paramType = toTypeName(prop).pythonType({
+            ...context,
+            parameterType: true,
+          });
           const paramDefault = prop.optional ? ' = None' : '';
 
           pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
@@ -1133,7 +1139,10 @@ class StructField implements PythonBase {
 
   public constructorDecl(context: EmitContext) {
     const opt = this.optional ? ' = None' : '';
-    return `${this.pythonName}: ${this.typeAnnotation(context)}${opt}`;
+    return `${this.pythonName}: ${this.typeAnnotation({
+      ...context,
+      parameterType: true,
+    })}${opt}`;
   }
 
   /**

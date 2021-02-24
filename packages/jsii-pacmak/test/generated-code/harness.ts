@@ -67,7 +67,7 @@ export function verifyGeneratedCodeFor(
 
       expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
 
-      if (targetName !== TargetName.PYTHON) {
+      if (targetName !== TargetName.PYTHON || process.env.SKIP_MYPY_CHECK) {
         return Promise.resolve();
       }
       return runMypy(path.join(outDir, targetName));
