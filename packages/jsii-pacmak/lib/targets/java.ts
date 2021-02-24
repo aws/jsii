@@ -833,6 +833,8 @@ class JavaGenerator extends Generator {
   }
 
   protected onEndInterface(ifc: spec.InterfaceType) {
+    this.emitMultiplyInheritedOptionalProperties(ifc);
+
     if (ifc.datatype) {
       this.emitDataType(ifc);
     } else {
@@ -883,6 +885,9 @@ class JavaGenerator extends Generator {
     this.addJavaDocs(prop);
     this.emitStabilityAnnotations(prop);
     if (prop.optional) {
+      if (prop.overrides) {
+        this.code.line('@Override');
+      }
       this.code.openBlock(`default ${getterType} get${propName}()`);
       this.code.line('return null;');
       this.code.closeBlock();
@@ -896,6 +901,9 @@ class JavaGenerator extends Generator {
         this.code.line();
         this.addJavaDocs(prop);
         if (prop.optional) {
+          if (prop.overrides) {
+            this.code.line('@Override');
+          }
           this.code.line('@software.amazon.jsii.Optional');
           this.code.openBlock(
             `default void set${propName}(final ${type} value)`,
@@ -908,6 +916,61 @@ class JavaGenerator extends Generator {
           this.code.line(`void set${propName}(final ${type} value);`);
         }
       }
+    }
+  }
+
+  /**
+   * Emits a local default implementation for optional properties inherited from
+   * multiple distinct parent types. This remvoes the default method dispatch
+   * ambiguity that would otherwise exist.
+   *
+   * @param ifc            the interface to be processed.
+
+   *
+   * @see https://github.com/aws/jsii/issues/2256
+   */
+  private emitMultiplyInheritedOptionalProperties(ifc: spec.InterfaceType) {
+    if (ifc.interfaces == null || ifc.interfaces.length <= 1) {
+      // Nothing to do if we don't have parent interfaces, or if we have exactly one
+      return;
+    }
+    const inheritedOptionalProps = ifc.interfaces
+      .map(allOptionalProps.bind(this))
+      // Calculate how many direct parents brought a given optional property
+      .reduce((histogram, entry) => {
+        for (const [name, spec] of Object.entries(entry)) {
+          histogram[name] = histogram[name] ?? { spec, count: 0 };
+          histogram[name].count += 1;
+        }
+        return histogram;
+      }, {} as Record<string, { readonly spec: spec.Property; count: number }>);
+
+    const localProps = new Set(ifc.properties?.map((prop) => prop.name) ?? []);
+    for (const { spec, count } of Object.values(inheritedOptionalProps)) {
+      if (count < 2 || localProps.has(spec.name)) {
+        continue;
+      }
+      this.onInterfaceProperty(ifc, spec);
+    }
+
+    function allOptionalProps(this: JavaGenerator, fqn: string) {
+      const type = this.findType(fqn) as spec.InterfaceType;
+      const result: Record<string, spec.Property> = {};
+      for (const prop of type.properties ?? []) {
+        // Adding artifical "overrides" here for code-gen quality's sake.
+        result[prop.name] = { ...prop, overrides: type.fqn };
+      }
+      // Include optional properties of all super interfaces in the result
+      for (const base of type.interfaces ?? []) {
+        for (const [name, prop] of Object.entries(
+          allOptionalProps.call(this, base),
+        )) {
+          if (!(name in result)) {
+            result[name] = prop;
+          }
+        }
+      }
+      return result;
     }
   }
 

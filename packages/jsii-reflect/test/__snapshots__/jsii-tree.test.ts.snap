@@ -2064,6 +2064,15 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<Array<string>>
+ │   ├─┬ interface DiamondBottom (stable)
+ │   │ ├─┬ interfaces
+ │   │ │ ├── DiamondLeft
+ │   │ │ └── DiamondRight
+ │   │ └─┬ members
+ │   │   └─┬ bottom property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<date>
  │   ├─┬ interface DiamondInheritanceBaseLevelStruct (stable)
  │   │ └─┬ members
  │   │   └─┬ baseLevelProperty property (stable)
@@ -2755,6 +2764,26 @@ exports[`jsii-tree --all 1`] = `
      │   └─┬ toString() method (deprecated)
      │     ├── abstract
      │     └── returns: string
+     ├─┬ interface DiamondLeft (deprecated)
+     │ └─┬ members
+     │   ├─┬ hoistedTop property (deprecated)
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ left property (deprecated)
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<number>
+     ├─┬ interface DiamondRight (deprecated)
+     │ └─┬ members
+     │   ├─┬ hoistedTop property (deprecated)
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ right property (deprecated)
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<boolean>
      ├─┬ interface IDoublable (deprecated)
      │ └─┬ members
      │   └─┬ doubleValue property (deprecated)
@@ -3033,6 +3062,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
  │   │   └── MyFirstStruct
+ │   ├─┬ interface DiamondBottom
+ │   │ └─┬ interfaces
+ │   │   ├── DiamondLeft
+ │   │   └── DiamondRight
  │   ├── interface DiamondInheritanceBaseLevelStruct
  │   ├─┬ interface DiamondInheritanceFirstMidLevelStruct
  │   │ └─┬ interfaces
@@ -3163,6 +3196,8 @@ exports[`jsii-tree --inheritance 1`] = `
      │ └── base: Base
      ├─┬ class Operation
      │ └── base: NumericValue
+     ├── interface DiamondLeft
+     ├── interface DiamondRight
      ├── interface IDoublable
      ├── interface IFriendly
      ├─┬ interface IThreeLevelsInterface
@@ -4084,6 +4119,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
+ │   ├─┬ interface DiamondBottom
+ │   │ └─┬ members
+ │   │   └── bottom property
  │   ├─┬ interface DiamondInheritanceBaseLevelStruct
  │   │ └─┬ members
  │   │   └── baseLevelProperty property
@@ -4410,6 +4448,14 @@ exports[`jsii-tree --members 1`] = `
      │ └─┬ members
      │   ├── <initializer>() initializer
      │   └── toString() method
+     ├─┬ interface DiamondLeft
+     │ └─┬ members
+     │   ├── hoistedTop property
+     │   └── left property
+     ├─┬ interface DiamondRight
+     │ └─┬ members
+     │   ├── hoistedTop property
+     │   └── right property
      ├─┬ interface IDoublable
      │ └─┬ members
      │   └── doubleValue property
@@ -4648,6 +4694,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
+ │   ├── interface DiamondBottom
  │   ├── interface DiamondInheritanceBaseLevelStruct
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
@@ -4748,6 +4795,8 @@ exports[`jsii-tree --types 1`] = `
      ├── class Number
      ├── class NumericValue
      ├── class Operation
+     ├── interface DiamondLeft
+     ├── interface DiamondRight
      ├── interface IDoublable
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface
