@@ -157,20 +157,20 @@ func TestAllTypes(t *testing.T) {
 
 func TestEnumUnmarshal(t *testing.T) {
 	actual := calc.EnumDispenser_RandomStringLikeEnum()
-	if actual != calc.StringEnumB {
+	if actual != calc.StringEnum_B {
 		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
 	}
 }
 
 func TestEnumRoundtrip(t *testing.T) {
 	allTypes := calc.NewAllTypes()
-	actual := allTypes.EnumMethod(calc.StringEnumA)
-	if actual != calc.StringEnumA {
+	actual := allTypes.EnumMethod(calc.StringEnum_A)
+	if actual != calc.StringEnum_A {
 		t.Errorf("Expected StringEnum.A. Actual: %s", actual)
 	}
 
-	actual = allTypes.EnumMethod(calc.StringEnumC)
-	if actual != calc.StringEnumC {
+	actual = allTypes.EnumMethod(calc.StringEnum_C)
+	if actual != calc.StringEnum_C {
 		t.Errorf("Expected StringEnum.C. Actual: %s", actual)
 	}
 }
@@ -182,9 +182,9 @@ func TestOptionalEnums(t *testing.T) {
 		t.Error("Expected value to be nil")
 	}
 
-	allTypes.SetOptionalEnumValue(calc.StringEnumB)
+	allTypes.SetOptionalEnumValue(calc.StringEnum_B)
 	actual = allTypes.GetOptionalEnumValue()
-	if actual != calc.StringEnumB {
+	if actual != calc.StringEnum_B {
 		t.Errorf("Expected StringEnum.B. Actual: %s", actual)
 	}
 
