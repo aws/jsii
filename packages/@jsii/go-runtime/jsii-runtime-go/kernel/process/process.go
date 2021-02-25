@@ -14,6 +14,8 @@ import (
 	"github.com/aws/jsii-runtime-go/embedded"
 )
 
+const JSII_RUNTIME string = "JSII_RUNTIME"
+
 // Process is a simple interface over the child process hosting the
 // @jsii/kernel process. It only exposes a very straight-forward
 // request/response interface.
@@ -71,7 +73,7 @@ func NewProcess(compatibleVersions string) (Process, error) {
 		p.compatibleVersions = constraints
 	}
 
-	if custom := os.Getenv("JSII_RUNTIME"); custom != "" {
+	if custom := os.Getenv(JSII_RUNTIME); custom != "" {
 		var (
 			command string
 			args    []string
