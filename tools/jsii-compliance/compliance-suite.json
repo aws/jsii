@@ -3,603 +3,609 @@
   "description": "JSII standard compliance test suite. These tests must be implemented in each language binding.",
   "bindings": {
     "java": {
-      "report": "packages/@jsii/java-runtime-test/project/compliance-report.json2"
+      "report": "packages/@jsii/java-runtime-test/project/compliance-report.json"
     },
     "golang": {
-      "report": "packages/@jsii/golang-runtime-test/compliance-report.json"
+      "report": "packages/@jsii/go-runtime-test/project/compliance-report.json"
     },
     "dotnet": {
-      "report": "packages/@jsii/dotnet-runtime-test/compliance-report.json",
-      "excluded": true
+      "report": "packages/@jsii/dotnet-runtime-test/compliance-report.json"
     },
     "python": {
-      "report": "packages/@jsii/python-runtime-test/compliance-report.json",
-      "excluded": true
+      "report": "packages/@jsii/python-runtime-test/compliance-report.json"
     }
   },
-  "tests": [
+  "exclusions": {
+    "dotnet": {
+      "reason": "Underwent a different compliance process. Will be aligned in the future."
+    },
+    "python": {
+      "reason": "Underwent a different compliance process. Will be aligned in the future."
+    }
+  },
+  "testCases": [
     {
-      "name": "ComplianceTest.asyncOverrides_overrideCallsSuper",
+      "name": "asyncOverrides_overrideCallsSuper",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.arrayReturnedByMethodCanBeRead",
+      "name": "arrayReturnedByMethodCanBeRead",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.unionProperties",
+      "name": "unionProperties",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.syncOverrides",
+      "name": "syncOverrides",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.useEnumFromScopedModule",
+      "name": "useEnumFromScopedModule",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.createObjectAndCtorOverloads",
+      "name": "createObjectAndCtorOverloads",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.fail_syncOverrides_callsDoubleAsync_method",
+      "name": "fail_syncOverrides_callsDoubleAsync_method",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.collectionOfInterfaces_MapOfStructs",
+      "name": "collectionOfInterfaces_MapOfStructs",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.asyncOverrides_overrideAsyncMethod",
+      "name": "asyncOverrides_overrideAsyncMethod",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.statics",
+      "name": "statics",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_returnedLiteralEqualsNativeBuilt",
+      "name": "structs_returnedLiteralEqualsNativeBuilt",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.classesCanSelfReferenceDuringClassInitialization",
+      "name": "classesCanSelfReferenceDuringClassInitialization",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canObtainStructReferenceWithOverloadedSetter",
+      "name": "canObtainStructReferenceWithOverloadedSetter",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.callbacksCorrectlyDeserializeArguments",
+      "name": "callbacksCorrectlyDeserializeArguments",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canUseInterfaceSetters",
+      "name": "canUseInterfaceSetters",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.propertyOverrides_interfaces",
+      "name": "propertyOverrides_interfaces",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.syncOverrides_callsSuper",
+      "name": "syncOverrides_callsSuper",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testJsiiAgent",
+      "name": "testJsiiAgent",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.doNotOverridePrivates_method_private",
+      "name": "doNotOverridePrivates_method_private",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.pureInterfacesCanBeUsedTransparently",
+      "name": "pureInterfacesCanBeUsedTransparently",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.nullShouldBeTreatedAsUndefined",
+      "name": "nullShouldBeTreatedAsUndefined",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.primitiveTypes",
+      "name": "primitiveTypes",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.reservedKeywordsAreSlugifiedInClassProperties",
+      "name": "reservedKeywordsAreSlugifiedInClassProperties",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut",
+      "name": "objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.interfaceBuilder",
+      "name": "interfaceBuilder",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.unionTypes",
+      "name": "unionTypes",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.arrays",
+      "name": "arrays",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.staticMapInClassCannotBeModified",
+      "name": "staticMapInClassCannotBeModified",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.consts",
+      "name": "consts",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.pureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing",
+      "name": "pureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.reservedKeywordsAreSlugifiedInMethodNames",
+      "name": "reservedKeywordsAreSlugifiedInMethodNames",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.exceptions",
+      "name": "exceptions",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testLiteralInterface",
+      "name": "testLiteralInterface",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_nonOptionalhashCode",
+      "name": "structs_nonOptionalhashCode",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.propertyOverrides_set_throws",
+      "name": "propertyOverrides_set_throws",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canLeverageIndirectInterfacePolymorphism",
+      "name": "canLeverageIndirectInterfacePolymorphism",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.fluentApi",
+      "name": "fluentApi",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.staticListInClassCanBeReadCorrectly",
+      "name": "staticListInClassCanBeReadCorrectly",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.mapReturnedByMethodCannotBeModified",
+      "name": "mapReturnedByMethodCannotBeModified",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.receiveInstanceOfPrivateClass",
+      "name": "receiveInstanceOfPrivateClass",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.staticMapInClassCanBeReadCorrectly",
+      "name": "staticMapInClassCanBeReadCorrectly",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testNativeObjectsWithInterfaces",
+      "name": "testNativeObjectsWithInterfaces",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.doNotOverridePrivates_property_getter_public",
+      "name": "doNotOverridePrivates_property_getter_public",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.equalsIsResistantToPropertyShadowingResultVariable",
+      "name": "equalsIsResistantToPropertyShadowingResultVariable",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.listInClassCanBeReadCorrectly",
+      "name": "listInClassCanBeReadCorrectly",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.useNestedStruct",
+      "name": "useNestedStruct",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testFluentApiWithDerivedClasses",
+      "name": "testFluentApiWithDerivedClasses",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.interfacesCanBeUsedTransparently_WhenAddedToJsiiType",
+      "name": "interfacesCanBeUsedTransparently_WhenAddedToJsiiType",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canOverrideProtectedGetter",
+      "name": "canOverrideProtectedGetter",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.getAndSetEnumValues",
+      "name": "getAndSetEnumValues",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_nonOptionalequals",
+      "name": "structs_nonOptionalequals",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testInterfaceParameter",
+      "name": "testInterfaceParameter",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.liftedKwargWithSameNameAsPositionalArg",
+      "name": "liftedKwargWithSameNameAsPositionalArg",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.creationOfNativeObjectsFromJavaScriptObjects",
+      "name": "creationOfNativeObjectsFromJavaScriptObjects",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canOverrideProtectedMethod",
+      "name": "canOverrideProtectedMethod",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canLoadEnumValues",
+      "name": "canLoadEnumValues",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.eraseUnsetDataValues",
+      "name": "eraseUnsetDataValues",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.maps",
+      "name": "maps",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_containsNullChecks",
+      "name": "structs_containsNullChecks",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canOverrideProtectedSetter",
+      "name": "canOverrideProtectedSetter",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.asyncOverrides_callAsyncMethod",
+      "name": "asyncOverrides_callAsyncMethod",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.nodeStandardLibrary",
+      "name": "nodeStandardLibrary",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.dates",
+      "name": "dates",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.collectionOfInterfaces_ListOfStructs",
+      "name": "collectionOfInterfaces_ListOfStructs",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.objRefsAreLabelledUsingWithTheMostCorrectType",
+      "name": "objRefsAreLabelledUsingWithTheMostCorrectType",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.unionPropertiesWithBuilder",
+      "name": "unionPropertiesWithBuilder",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.doNotOverridePrivates_property_getter_private",
+      "name": "doNotOverridePrivates_property_getter_private",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_withDiamondInheritance_correctlyDedupeProperties",
+      "name": "structs_withDiamondInheritance_correctlyDedupeProperties",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.abstractMembersAreCorrectlyHandled",
+      "name": "abstractMembersAreCorrectlyHandled",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.doNotOverridePrivates_property_by_name_private",
+      "name": "doNotOverridePrivates_property_by_name_private",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testNullIsAValidOptionalMap",
+      "name": "testNullIsAValidOptionalMap",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.mapReturnedByMethodCanBeRead",
+      "name": "mapReturnedByMethodCanBeRead",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_multiplePropertiesEquals",
+      "name": "structs_multiplePropertiesEquals",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.mapInClassCanBeReadCorrectly",
+      "name": "mapInClassCanBeReadCorrectly",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.staticListInClassCannotBeModified",
+      "name": "staticListInClassCannotBeModified",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.collectionOfInterfaces_MapOfInterfaces",
+      "name": "collectionOfInterfaces_MapOfInterfaces",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.asyncOverrides_overrideThrows",
+      "name": "asyncOverrides_overrideThrows",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.callMethods",
+      "name": "callMethods",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.returnAbstract",
+      "name": "returnAbstract",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.dynamicTypes",
+      "name": "dynamicTypes",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.hashCodeIsResistantToPropertyShadowingResultVariable",
+      "name": "hashCodeIsResistantToPropertyShadowingResultVariable",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.returnSubclassThatImplementsInterface976",
+      "name": "returnSubclassThatImplementsInterface976",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_optionalEquals",
+      "name": "structs_optionalEquals",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.propertyOverrides_get_calls_super",
+      "name": "propertyOverrides_get_calls_super",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.unmarshallIntoAbstractType",
+      "name": "unmarshallIntoAbstractType",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_multiplePropertiesHashCode",
+      "name": "structs_multiplePropertiesHashCode",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.fail_syncOverrides_callsDoubleAsync_propertyGetter",
+      "name": "fail_syncOverrides_callsDoubleAsync_propertyGetter",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.propertyOverrides_get_set",
+      "name": "propertyOverrides_get_set",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.variadicMethodCanBeInvoked",
+      "name": "variadicMethodCanBeInvoked",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.collectionTypes",
+      "name": "collectionTypes",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.asyncOverrides_overrideAsyncMethodByParentClass",
+      "name": "asyncOverrides_overrideAsyncMethodByParentClass",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_optionalHashCode",
+      "name": "structs_optionalHashCode",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testStructsCanBeDowncastedToParentType",
+      "name": "testStructsCanBeDowncastedToParentType",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.propertyOverrides_get_throws",
+      "name": "propertyOverrides_get_throws",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.getSetPrimitiveProperties",
+      "name": "getSetPrimitiveProperties",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.getAndSetNonPrimitiveProperties",
+      "name": "getAndSetNonPrimitiveProperties",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.reservedKeywordsAreSlugifiedInStructProperties",
+      "name": "reservedKeywordsAreSlugifiedInStructProperties",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.fail_syncOverrides_callsDoubleAsync_propertySetter",
+      "name": "fail_syncOverrides_callsDoubleAsync_propertySetter",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.doNotOverridePrivates_method_public",
+      "name": "doNotOverridePrivates_method_public",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testNullIsAValidOptionalList",
+      "name": "testNullIsAValidOptionalList",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.mapInClassCannotBeModified",
+      "name": "mapInClassCannotBeModified",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.doNotOverridePrivates_property_by_name_public",
+      "name": "doNotOverridePrivates_property_by_name_public",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.asyncOverrides_twoOverrides",
+      "name": "asyncOverrides_twoOverrides",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.propertyOverrides_set_calls_super",
+      "name": "propertyOverrides_set_calls_super",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.iso8601DoesNotDeserializeToDate",
+      "name": "iso8601DoesNotDeserializeToDate",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.collectionOfInterfaces_ListOfInterfaces",
+      "name": "collectionOfInterfaces_ListOfInterfaces",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.undefinedAndNull",
+      "name": "undefinedAndNull",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_serializeToJsii",
+      "name": "structs_serializeToJsii",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structsAreUndecoratedOntheWayToKernel",
+      "name": "structsAreUndecoratedOntheWayToKernel",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.canObtainReferenceWithOverloadedSetter",
+      "name": "canObtainReferenceWithOverloadedSetter",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testJSObjectLiteralToNative",
+      "name": "testJSObjectLiteralToNative",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.structs_stepBuilders",
+      "name": "structs_stepBuilders",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.classWithPrivateConstructorAndAutomaticProperties",
+      "name": "classWithPrivateConstructorAndAutomaticProperties",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.arrayReturnedByMethodCannotBeModified",
+      "name": "arrayReturnedByMethodCannotBeModified",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.correctlyDeserializesStructUnions",
+      "name": "correctlyDeserializesStructUnions",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.subclassing",
+      "name": "subclassing",
       "description": "",
       "exclusions": {}
     },
     {
-      "name": "ComplianceTest.testInterfaces",
+      "name": "testInterfaces",
       "description": "",
       "exclusions": {}
     }

@@ -1,0 +1,22 @@
+{
+  "name": "@jsii/go-runtime-test",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "build": "(yarn gen:calc && cd project && go build ./...)",
+    "fmt": "(cd project && go fmt ./...)",
+    "lint": "(cd project && go vet ./...)",
+    "test": "(cd project && go test ./...)",
+    "lint:fix": "yarn lint --fix",
+    "gen:calc": "node build-tools/gen-calc.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@jsii/go-runtime": "^0.0.0",
+    "jsii-pacmak": "^0.0.0"
+  }
+
+}

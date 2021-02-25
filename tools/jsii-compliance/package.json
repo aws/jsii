@@ -5,19 +5,14 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc --build && npm run gen:rt && (cd ./jsii-runtime-go && go build)",
-    "fmt": "go fmt ./... && (cd ./jsii-runtime-go && go fmt)",
-    "gen:rt": "node build-tools/gen.js",
-    "generate": "npm run gen:rt",
-    "lint": "go vet ./... && (cd ./jsii-runtime-go && go vet)",
-    "lint:fix": "yarn lint --fix",
-    "test": "(cd ./jsii-runtime-go && go test)"
+    "report": "ts-node ./report.ts"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@jsii/runtime": "^0.0.0"
+    "@jsii/runtime": "^0.0.0",
+    "tablemark": "^2.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",

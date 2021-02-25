@@ -1,4 +1,4 @@
-package main
+package tests
 
 import (
 	"fmt"
@@ -204,26 +204,5 @@ func TestReturnsSpecialParam(t *testing.T) {
 	actual := reflect.TypeOf(val)
 	if actual != expected {
 		t.Errorf("Expected type: %s; Actual: %s", expected, actual)
-	}
-}
-
-func TestMaps(t *testing.T) {
-	allTypes := calc.NewAllTypes()
-	actual := allTypes.GetMapProperty()
-	if len(actual) != 0 {
-		t.Errorf("Expected length of empty map to be 0. Got: %d", len(actual))
-	}
-
-	question := "The answer to the ultimate question of life, the universe, and everything"
-	answer := calclib.NewNumber(42)
-	allTypes.SetMapProperty(map[string]calclib.NumberIface{
-		question: answer,
-	})
-	actual = allTypes.GetMapProperty()
-	if len(actual) != 1 {
-		t.Errorf("Expected length of empty map to be 1. Got: %d", len(actual))
-	}
-	if actual[question].GetValue() != answer.GetValue() {
-		t.Errorf("Expected to have the value %v in there, got: %v", answer, actual[question])
 	}
 }
