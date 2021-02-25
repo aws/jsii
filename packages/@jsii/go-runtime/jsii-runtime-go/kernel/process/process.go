@@ -14,6 +14,9 @@ import (
 	"github.com/aws/jsii-runtime-go/embedded"
 )
 
+// Process is a simple interface over the child process hosting the
+// @jsii/kernel process. It only exposes a very straight-forward
+// request/response interface.
 type Process interface {
 	// Request starts the child process if that has not happened yet, then
 	// encodes the supplied request and sends it to the child process
@@ -49,6 +52,16 @@ type process struct {
 // NewProcess prepares a new child process, but does not start it yet. It will
 // be automatically started whenever the client attempts to send a request
 // to it.
+//
+// If the JSII_RUNTIME environment variable is set, this command will be used
+// to start the child process, in a sub-shell (using %COMSPEC% or cmd.exe on
+// Windows; $SHELL or /bin/sh on other OS'es). Otherwise, the embedded runtime
+// application will be extracted into a temporary directory, and used.
+//
+// The current process' environment is inherited by the child process. Additional
+// environment may be injected into the child process' environment - all of which
+// with lower precedence than the launching process' environment, with the notable
+// exception of JSII_AGENT, which is reserved.
 func NewProcess(compatibleVersions string) (Process, error) {
 	p := process{}
 
@@ -237,6 +250,7 @@ func (p *process) Close() {
 		if err := os.RemoveAll(p.tmpdir); err != nil {
 			fmt.Fprintf(os.Stderr, "could not clean up temporary directory: %v\n", err)
 		}
+		p.tmpdir = ""
 	}
 
 	p.closed = true
