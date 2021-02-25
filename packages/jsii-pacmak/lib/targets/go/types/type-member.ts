@@ -2,7 +2,7 @@ import { toPascalCase } from 'codemaker';
 import { Method, Parameter, Property } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
-import { GetProperty, SetProperty, slugify } from '../runtime';
+import { GetProperty, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
 
 import { GoClass, GoType, Interface, GoTypeRef } from './index';
@@ -66,12 +66,8 @@ export class GoProperty implements GoTypeMember {
     return this.parent.name.substring(0, 1).toLowerCase();
   }
 
-  public emitStructMember(context: EmitContext) {
-    const docs = this.property.docs;
-    if (docs) {
-      context.documenter.emit(docs);
-    }
-    const { code } = context;
+  public emitStructMember({ code, documenter }: EmitContext) {
+    documenter.emit(this.property.docs);
     const memberType =
       this.reference?.type?.name === this.parent.name
         ? `*${this.returnType}`
@@ -99,15 +95,12 @@ export class GoProperty implements GoTypeMember {
     const { code } = context;
     const receiver = this.parent.name;
     const instanceArg = receiver.substring(0, 1).toLowerCase();
-    const resultVar = slugify('r', [instanceArg]);
 
     code.openBlock(
-      `func (${instanceArg} *${receiver}) ${
-        this.getter
-      }()${` (${resultVar} ${this.returnType})`}`,
+      `func (${instanceArg} *${receiver}) ${this.getter}() ${this.returnType}`,
     );
 
-    new GetProperty(this).emit(code, resultVar);
+    new GetProperty(this).emit(code);
 
     code.closeBlock();
     code.line();

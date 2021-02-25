@@ -46,7 +46,6 @@ export class Struct extends GoType {
     documenter.emit(this.type.docs);
     code.openBlock(`type ${this.name} struct`);
     for (const property of this.properties) {
-      documenter.emit(property.property.docs);
       property.emitStructMember(context);
     }
     code.closeBlock();

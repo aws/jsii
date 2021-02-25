@@ -1105,9 +1105,7 @@ import (
 // Deprecated.
 type DiamondLeft struct {
 	// Deprecated.
-	// Deprecated.
 	HoistedTop string \`json:"hoistedTop"\`
-	// Deprecated.
 	// Deprecated.
 	Left float64 \`json:"left"\`
 }
@@ -1115,9 +1113,7 @@ type DiamondLeft struct {
 // Deprecated.
 type DiamondRight struct {
 	// Deprecated.
-	// Deprecated.
 	HoistedTop string \`json:"hoistedTop"\`
-	// Deprecated.
 	// Deprecated.
 	Right bool \`json:"right"\`
 }
@@ -1142,13 +1138,14 @@ type IDoublableIface interface {
 
 type IDoublable struct {}
 
-func (i *IDoublable) GetDoubleValue() (r float64) {
+func (i *IDoublable) GetDoubleValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"doubleValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 // Applies to classes that are considered friendly.
@@ -1228,15 +1225,10 @@ func (i *IThreeLevelsInterface) Baz() {
 type MyFirstStruct struct {
 	// An awesome number value.
 	// Deprecated.
-	// An awesome number value.
-	// Deprecated.
 	Anumber float64 \`json:"anumber"\`
 	// A string value.
 	// Deprecated.
-	// A string value.
-	// Deprecated.
 	Astring string \`json:"astring"\`
-	// Deprecated.
 	// Deprecated.
 	FirstOptional []string \`json:"firstOptional"\`
 }
@@ -1262,22 +1254,24 @@ type Number struct {
 	DoubleValue float64 \`json:"doubleValue"\`
 }
 
-func (n *Number) GetValue() (r float64) {
+func (n *Number) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		n,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (n *Number) GetDoubleValue() (r float64) {
+func (n *Number) GetDoubleValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		n,
 		"doubleValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -1335,13 +1329,14 @@ type NumericValue struct {
 	Value float64 \`json:"value"\`
 }
 
-func (n *NumericValue) GetValue() (r float64) {
+func (n *NumericValue) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		n,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -1398,13 +1393,14 @@ type Operation struct {
 	Value float64 \`json:"value"\`
 }
 
-func (o *Operation) GetValue() (r float64) {
+func (o *Operation) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		o,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -1450,13 +1446,9 @@ func (o *Operation) ToString() string {
 type StructWithOnlyOptionals struct {
 	// The first optional!
 	// Deprecated.
-	// The first optional!
-	// Deprecated.
 	Optional1 string \`json:"optional1"\`
 	// Deprecated.
-	// Deprecated.
 	Optional2 float64 \`json:"optional2"\`
-	// Deprecated.
 	// Deprecated.
 	Optional3 bool \`json:"optional3"\`
 }
@@ -1548,13 +1540,14 @@ type IReflectableIface interface {
 
 type IReflectable struct {}
 
-func (i *IReflectable) GetEntries() (r []ReflectableEntry) {
+func (i *IReflectable) GetEntries() []ReflectableEntry {
+	var returns []ReflectableEntry
 	_jsii_.Get(
 		i,
 		"entries",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 // Class interface
@@ -1580,13 +1573,14 @@ type NestedClass struct {
 	Property string \`json:"property"\`
 }
 
-func (n *NestedClass) GetProperty() (r string) {
+func (n *NestedClass) GetProperty() string {
+	var returns string
 	_jsii_.Get(
 		n,
 		"property",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -1609,16 +1603,13 @@ func NewNestedClass() NestedClassIface {
 // Deprecated.
 type NestedStruct struct {
 	// Deprecated.
-	// Deprecated.
 	Name string \`json:"name"\`
 }
 
 // Deprecated.
 type ReflectableEntry struct {
 	// Deprecated.
-	// Deprecated.
 	Key string \`json:"key"\`
-	// Deprecated.
 	// Deprecated.
 	Value interface{} \`json:"value"\`
 }
@@ -2045,49 +2036,54 @@ type CompositeOperation struct {
 	StringStyle CompositionStringStyle \`json:"stringStyle"\`
 }
 
-func (c *CompositeOperation) GetValue() (r float64) {
+func (c *CompositeOperation) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		c,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *CompositeOperation) GetExpression() (r scopejsiicalclib.NumericValueIface) {
+func (c *CompositeOperation) GetExpression() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		c,
 		"expression",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *CompositeOperation) GetDecorationPostfixes() (r []string) {
+func (c *CompositeOperation) GetDecorationPostfixes() []string {
+	var returns []string
 	_jsii_.Get(
 		c,
 		"decorationPostfixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *CompositeOperation) GetDecorationPrefixes() (r []string) {
+func (c *CompositeOperation) GetDecorationPrefixes() []string {
+	var returns []string
 	_jsii_.Get(
 		c,
 		"decorationPrefixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *CompositeOperation) GetStringStyle() (r CompositionStringStyle) {
+func (c *CompositeOperation) GetStringStyle() CompositionStringStyle {
+	var returns CompositionStringStyle
 	_jsii_.Get(
 		c,
 		"stringStyle",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2209,13 +2205,14 @@ type Base struct {
 	Prop string \`json:"prop"\`
 }
 
-func (b *Base) GetProp() (r string) {
+func (b *Base) GetProp() string {
+	var returns string
 	_jsii_.Get(
 		b,
 		"prop",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2251,13 +2248,14 @@ type Derived struct {
 	Prop string \`json:"prop"\`
 }
 
-func (d *Derived) GetProp() (r string) {
+func (d *Derived) GetProp() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"prop",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2342,13 +2340,14 @@ type Foo struct {
 	Bar string \`json:"bar"\`
 }
 
-func (f *Foo) GetBar() (r string) {
+func (f *Foo) GetBar() string {
+	var returns string
 	_jsii_.Get(
 		f,
 		"bar",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2493,22 +2492,24 @@ type AbstractClass struct {
 	PropFromInterface string \`json:"propFromInterface"\`
 }
 
-func (a *AbstractClass) GetAbstractProperty() (r string) {
+func (a *AbstractClass) GetAbstractProperty() string {
+	var returns string
 	_jsii_.Get(
 		a,
 		"abstractProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AbstractClass) GetPropFromInterface() (r string) {
+func (a *AbstractClass) GetPropFromInterface() string {
+	var returns string
 	_jsii_.Get(
 		a,
 		"propFromInterface",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2559,13 +2560,14 @@ type AbstractClassBase struct {
 	AbstractProperty string \`json:"abstractProperty"\`
 }
 
-func (a *AbstractClassBase) GetAbstractProperty() (r string) {
+func (a *AbstractClassBase) GetAbstractProperty() string {
+	var returns string
 	_jsii_.Get(
 		a,
 		"abstractProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2594,13 +2596,14 @@ type AbstractClassReturner struct {
 	ReturnAbstractFromProperty AbstractClassBaseIface \`json:"returnAbstractFromProperty"\`
 }
 
-func (a *AbstractClassReturner) GetReturnAbstractFromProperty() (r AbstractClassBaseIface) {
+func (a *AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBaseIface {
+	var returns AbstractClassBaseIface
 	_jsii_.Get(
 		a,
 		"returnAbstractFromProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2654,13 +2657,14 @@ type AbstractSuite struct {
 	Property string \`json:"property"\`
 }
 
-func (a *AbstractSuite) GetProperty() (r string) {
+func (a *AbstractSuite) GetProperty() string {
+	var returns string
 	_jsii_.Get(
 		a,
 		"property",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2731,31 +2735,34 @@ type Add struct {
 	Rhs scopejsiicalclib.NumericValueIface \`json:"rhs"\`
 }
 
-func (a *Add) GetValue() (r float64) {
+func (a *Add) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		a,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *Add) GetLhs() (r scopejsiicalclib.NumericValueIface) {
+func (a *Add) GetLhs() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		a,
 		"lhs",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *Add) GetRhs() (r scopejsiicalclib.NumericValueIface) {
+func (a *Add) GetRhs() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		a,
 		"rhs",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -2880,175 +2887,194 @@ type AllTypes struct {
 	OptionalEnumValue StringEnum \`json:"optionalEnumValue"\`
 }
 
-func (a *AllTypes) GetEnumPropertyValue() (r float64) {
+func (a *AllTypes) GetEnumPropertyValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		a,
 		"enumPropertyValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetAnyArrayProperty() (r []interface{}) {
+func (a *AllTypes) GetAnyArrayProperty() []interface{} {
+	var returns []interface{}
 	_jsii_.Get(
 		a,
 		"anyArrayProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetAnyMapProperty() (r map[string]interface{}) {
+func (a *AllTypes) GetAnyMapProperty() map[string]interface{} {
+	var returns map[string]interface{}
 	_jsii_.Get(
 		a,
 		"anyMapProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetAnyProperty() (r interface{}) {
+func (a *AllTypes) GetAnyProperty() interface{} {
+	var returns interface{}
 	_jsii_.Get(
 		a,
 		"anyProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetArrayProperty() (r []string) {
+func (a *AllTypes) GetArrayProperty() []string {
+	var returns []string
 	_jsii_.Get(
 		a,
 		"arrayProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetBooleanProperty() (r bool) {
+func (a *AllTypes) GetBooleanProperty() bool {
+	var returns bool
 	_jsii_.Get(
 		a,
 		"booleanProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetDateProperty() (r string) {
+func (a *AllTypes) GetDateProperty() string {
+	var returns string
 	_jsii_.Get(
 		a,
 		"dateProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetEnumProperty() (r AllTypesEnum) {
+func (a *AllTypes) GetEnumProperty() AllTypesEnum {
+	var returns AllTypesEnum
 	_jsii_.Get(
 		a,
 		"enumProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetJsonProperty() (r map[string]interface{}) {
+func (a *AllTypes) GetJsonProperty() map[string]interface{} {
+	var returns map[string]interface{}
 	_jsii_.Get(
 		a,
 		"jsonProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetMapProperty() (r map[string]scopejsiicalclib.NumberIface) {
+func (a *AllTypes) GetMapProperty() map[string]scopejsiicalclib.NumberIface {
+	var returns map[string]scopejsiicalclib.NumberIface
 	_jsii_.Get(
 		a,
 		"mapProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetNumberProperty() (r float64) {
+func (a *AllTypes) GetNumberProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		a,
 		"numberProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetStringProperty() (r string) {
+func (a *AllTypes) GetStringProperty() string {
+	var returns string
 	_jsii_.Get(
 		a,
 		"stringProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetUnionArrayProperty() (r []interface{}) {
+func (a *AllTypes) GetUnionArrayProperty() []interface{} {
+	var returns []interface{}
 	_jsii_.Get(
 		a,
 		"unionArrayProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetUnionMapProperty() (r map[string]interface{}) {
+func (a *AllTypes) GetUnionMapProperty() map[string]interface{} {
+	var returns map[string]interface{}
 	_jsii_.Get(
 		a,
 		"unionMapProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetUnionProperty() (r interface{}) {
+func (a *AllTypes) GetUnionProperty() interface{} {
+	var returns interface{}
 	_jsii_.Get(
 		a,
 		"unionProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetUnknownArrayProperty() (r []interface{}) {
+func (a *AllTypes) GetUnknownArrayProperty() []interface{} {
+	var returns []interface{}
 	_jsii_.Get(
 		a,
 		"unknownArrayProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetUnknownMapProperty() (r map[string]interface{}) {
+func (a *AllTypes) GetUnknownMapProperty() map[string]interface{} {
+	var returns map[string]interface{}
 	_jsii_.Get(
 		a,
 		"unknownMapProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetUnknownProperty() (r interface{}) {
+func (a *AllTypes) GetUnknownProperty() interface{} {
+	var returns interface{}
 	_jsii_.Get(
 		a,
 		"unknownProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AllTypes) GetOptionalEnumValue() (r StringEnum) {
+func (a *AllTypes) GetOptionalEnumValue() StringEnum {
+	var returns StringEnum
 	_jsii_.Get(
 		a,
 		"optionalEnumValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -3334,22 +3360,24 @@ type AmbiguousParameters struct {
 	Scope BellIface \`json:"scope"\`
 }
 
-func (a *AmbiguousParameters) GetProps() (r StructParameterType) {
+func (a *AmbiguousParameters) GetProps() StructParameterType {
+	var returns StructParameterType
 	_jsii_.Get(
 		a,
 		"props",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (a *AmbiguousParameters) GetScope() (r BellIface) {
+func (a *AmbiguousParameters) GetScope() BellIface {
+	var returns BellIface
 	_jsii_.Get(
 		a,
 		"scope",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -3592,13 +3620,14 @@ type Bell struct {
 	Rung bool \`json:"rung"\`
 }
 
-func (b *Bell) GetRung() (r bool) {
+func (b *Bell) GetRung() bool {
+	var returns bool
 	_jsii_.Get(
 		b,
 		"rung",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -3657,31 +3686,34 @@ type BinaryOperation struct {
 	Rhs scopejsiicalclib.NumericValueIface \`json:"rhs"\`
 }
 
-func (b *BinaryOperation) GetValue() (r float64) {
+func (b *BinaryOperation) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		b,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (b *BinaryOperation) GetLhs() (r scopejsiicalclib.NumericValueIface) {
+func (b *BinaryOperation) GetLhs() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		b,
 		"lhs",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (b *BinaryOperation) GetRhs() (r scopejsiicalclib.NumericValueIface) {
+func (b *BinaryOperation) GetRhs() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		b,
 		"rhs",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -3849,94 +3881,104 @@ type Calculator struct {
 	UnionProperty interface{} \`json:"unionProperty"\`
 }
 
-func (c *Calculator) GetValue() (r float64) {
+func (c *Calculator) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		c,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetExpression() (r scopejsiicalclib.NumericValueIface) {
+func (c *Calculator) GetExpression() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		c,
 		"expression",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetDecorationPostfixes() (r []string) {
+func (c *Calculator) GetDecorationPostfixes() []string {
+	var returns []string
 	_jsii_.Get(
 		c,
 		"decorationPostfixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetDecorationPrefixes() (r []string) {
+func (c *Calculator) GetDecorationPrefixes() []string {
+	var returns []string
 	_jsii_.Get(
 		c,
 		"decorationPrefixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetStringStyle() (r composition.CompositionStringStyle) {
+func (c *Calculator) GetStringStyle() composition.CompositionStringStyle {
+	var returns composition.CompositionStringStyle
 	_jsii_.Get(
 		c,
 		"stringStyle",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetOperationsLog() (r []scopejsiicalclib.NumericValueIface) {
+func (c *Calculator) GetOperationsLog() []scopejsiicalclib.NumericValueIface {
+	var returns []scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		c,
 		"operationsLog",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetOperationsMap() (r map[string][]scopejsiicalclib.NumericValueIface) {
+func (c *Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericValueIface {
+	var returns map[string][]scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		c,
 		"operationsMap",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetCurr() (r scopejsiicalclib.NumericValueIface) {
+func (c *Calculator) GetCurr() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		c,
 		"curr",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetMaxValue() (r float64) {
+func (c *Calculator) GetMaxValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		c,
 		"maxValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *Calculator) GetUnionProperty() (r interface{}) {
+func (c *Calculator) GetUnionProperty() interface{} {
+	var returns interface{}
 	_jsii_.Get(
 		c,
 		"unionProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -4087,11 +4129,7 @@ type CalculatorProps struct {
 	// The initial value of the calculator.
 	//
 	// NOTE: Any number works here, it's fine.
-	// The initial value of the calculator.
-	//
-	// NOTE: Any number works here, it's fine.
 	InitialValue float64 \`json:"initialValue"\`
-	// The maximum value the calculator can store.
 	// The maximum value the calculator can store.
 	MaximumValue float64 \`json:"maximumValue"\`
 }
@@ -4130,40 +4168,44 @@ type ClassThatImplementsTheInternalInterface struct {
 	D string \`json:"d"\`
 }
 
-func (c *ClassThatImplementsTheInternalInterface) GetA() (r string) {
+func (c *ClassThatImplementsTheInternalInterface) GetA() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"a",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassThatImplementsTheInternalInterface) GetB() (r string) {
+func (c *ClassThatImplementsTheInternalInterface) GetB() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"b",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassThatImplementsTheInternalInterface) GetC() (r string) {
+func (c *ClassThatImplementsTheInternalInterface) GetC() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"c",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassThatImplementsTheInternalInterface) GetD() (r string) {
+func (c *ClassThatImplementsTheInternalInterface) GetD() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"d",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -4234,40 +4276,44 @@ type ClassThatImplementsThePrivateInterface struct {
 	E string \`json:"e"\`
 }
 
-func (c *ClassThatImplementsThePrivateInterface) GetA() (r string) {
+func (c *ClassThatImplementsThePrivateInterface) GetA() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"a",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassThatImplementsThePrivateInterface) GetB() (r string) {
+func (c *ClassThatImplementsThePrivateInterface) GetB() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"b",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassThatImplementsThePrivateInterface) GetC() (r string) {
+func (c *ClassThatImplementsThePrivateInterface) GetC() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"c",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassThatImplementsThePrivateInterface) GetE() (r string) {
+func (c *ClassThatImplementsThePrivateInterface) GetE() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"e",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -4330,22 +4376,24 @@ type ClassWithCollections struct {
 	Map map[string]string \`json:"map"\`
 }
 
-func (c *ClassWithCollections) GetArray() (r []string) {
+func (c *ClassWithCollections) GetArray() []string {
+	var returns []string
 	_jsii_.Get(
 		c,
 		"array",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassWithCollections) GetMap() (r map[string]string) {
+func (c *ClassWithCollections) GetMap() map[string]string {
+	var returns map[string]string
 	_jsii_.Get(
 		c,
 		"map",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -4484,13 +4532,14 @@ type ClassWithJavaReservedWords struct {
 	Int string \`json:"int"\`
 }
 
-func (c *ClassWithJavaReservedWords) GetInt() (r string) {
+func (c *ClassWithJavaReservedWords) GetInt() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"int",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -4530,13 +4579,14 @@ type ClassWithMutableObjectLiteralProperty struct {
 	MutableObject IMutableObjectLiteralIface \`json:"mutableObject"\`
 }
 
-func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() (r IMutableObjectLiteralIface) {
+func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteralIface {
+	var returns IMutableObjectLiteralIface
 	_jsii_.Get(
 		c,
 		"mutableObject",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -4576,22 +4626,24 @@ type ClassWithPrivateConstructorAndAutomaticProperties struct {
 	ReadWriteString string \`json:"readWriteString"\`
 }
 
-func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() (r string) {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"readOnlyString",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() (r string) {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"readWriteString",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -4630,13 +4682,14 @@ type ConfusingToJackson struct {
 	UnionProperty interface{} \`json:"unionProperty"\`
 }
 
-func (c *ConfusingToJackson) GetUnionProperty() (r interface{}) {
+func (c *ConfusingToJackson) GetUnionProperty() interface{} {
+	var returns interface{}
 	_jsii_.Get(
 		c,
 		"unionProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -5096,31 +5149,34 @@ type DefaultedConstructorArgument struct {
 	Arg2 string \`json:"arg2"\`
 }
 
-func (d *DefaultedConstructorArgument) GetArg1() (r float64) {
+func (d *DefaultedConstructorArgument) GetArg1() float64 {
+	var returns float64
 	_jsii_.Get(
 		d,
 		"arg1",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (d *DefaultedConstructorArgument) GetArg3() (r string) {
+func (d *DefaultedConstructorArgument) GetArg3() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"arg3",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (d *DefaultedConstructorArgument) GetArg2() (r string) {
+func (d *DefaultedConstructorArgument) GetArg2() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"arg2",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -5205,22 +5261,24 @@ type DeprecatedClass struct {
 	MutableProperty float64 \`json:"mutableProperty"\`
 }
 
-func (d *DeprecatedClass) GetReadonlyProperty() (r string) {
+func (d *DeprecatedClass) GetReadonlyProperty() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"readonlyProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (d *DeprecatedClass) GetMutableProperty() (r float64) {
+func (d *DeprecatedClass) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		d,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -5267,7 +5325,6 @@ const (
 // Deprecated: it just wraps a string
 type DeprecatedStruct struct {
 	// Deprecated: well, yeah
-	// Deprecated: well, yeah
 	ReadonlyProperty string \`json:"readonlyProperty"\`
 }
 
@@ -5275,23 +5332,16 @@ type DeprecatedStruct struct {
 type DerivedStruct struct {
 	// An awesome number value.
 	// Deprecated.
-	// An awesome number value.
-	// Deprecated.
 	Anumber float64 \`json:"anumber"\`
 	// A string value.
 	// Deprecated.
-	// A string value.
-	// Deprecated.
 	Astring string \`json:"astring"\`
-	// Deprecated.
 	// Deprecated.
 	FirstOptional []string \`json:"firstOptional"\`
 	AnotherRequired string \`json:"anotherRequired"\`
 	Bool bool \`json:"bool"\`
 	// An example of a non primitive property.
-	// An example of a non primitive property.
 	NonPrimitive DoubleTroubleIface \`json:"nonPrimitive"\`
-	// This is optional.
 	// This is optional.
 	AnotherOptional map[string]scopejsiicalclib.NumericValueIface \`json:"anotherOptional"\`
 	OptionalAny interface{} \`json:"optionalAny"\`
@@ -5309,12 +5359,9 @@ func (d *DerivedStruct) ToMyFirstStruct() scopejsiicalclib.MyFirstStruct {
 
 type DiamondBottom struct {
 	// Deprecated.
-	// Deprecated.
 	HoistedTop string \`json:"hoistedTop"\`
 	// Deprecated.
-	// Deprecated.
 	Left float64 \`json:"left"\`
-	// Deprecated.
 	// Deprecated.
 	Right bool \`json:"right"\`
 	Bottom string \`json:"bottom"\`
@@ -5674,22 +5721,24 @@ type DynamicPropertyBearer struct {
 	ValueStore string \`json:"valueStore"\`
 }
 
-func (d *DynamicPropertyBearer) GetDynamicProperty() (r string) {
+func (d *DynamicPropertyBearer) GetDynamicProperty() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"dynamicProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (d *DynamicPropertyBearer) GetValueStore() (r string) {
+func (d *DynamicPropertyBearer) GetValueStore() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"valueStore",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -5739,31 +5788,34 @@ type DynamicPropertyBearerChild struct {
 	OriginalValue string \`json:"originalValue"\`
 }
 
-func (d *DynamicPropertyBearerChild) GetDynamicProperty() (r string) {
+func (d *DynamicPropertyBearerChild) GetDynamicProperty() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"dynamicProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (d *DynamicPropertyBearerChild) GetValueStore() (r string) {
+func (d *DynamicPropertyBearerChild) GetValueStore() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"valueStore",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (d *DynamicPropertyBearerChild) GetOriginalValue() (r string) {
+func (d *DynamicPropertyBearerChild) GetOriginalValue() string {
+	var returns string
 	_jsii_.Get(
 		d,
 		"originalValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -5973,22 +6025,24 @@ type ExperimentalClass struct {
 	MutableProperty float64 \`json:"mutableProperty"\`
 }
 
-func (e *ExperimentalClass) GetReadonlyProperty() (r string) {
+func (e *ExperimentalClass) GetReadonlyProperty() string {
+	var returns string
 	_jsii_.Get(
 		e,
 		"readonlyProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (e *ExperimentalClass) GetMutableProperty() (r float64) {
+func (e *ExperimentalClass) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		e,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -6035,7 +6089,6 @@ const (
 // Experimental.
 type ExperimentalStruct struct {
 	// Experimental.
-	// Experimental.
 	ReadonlyProperty string \`json:"readonlyProperty"\`
 }
 
@@ -6049,13 +6102,14 @@ type ExportedBaseClass struct {
 	Success bool \`json:"success"\`
 }
 
-func (e *ExportedBaseClass) GetSuccess() (r bool) {
+func (e *ExportedBaseClass) GetSuccess() bool {
+	var returns bool
 	_jsii_.Get(
 		e,
 		"success",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -6091,22 +6145,24 @@ type ExternalClass struct {
 	MutableProperty float64 \`json:"mutableProperty"\`
 }
 
-func (e *ExternalClass) GetReadonlyProperty() (r string) {
+func (e *ExternalClass) GetReadonlyProperty() string {
+	var returns string
 	_jsii_.Get(
 		e,
 		"readonlyProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (e *ExternalClass) GetMutableProperty() (r float64) {
+func (e *ExternalClass) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		e,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -6166,13 +6222,14 @@ type GiveMeStructs struct {
 	StructLiteral scopejsiicalclib.StructWithOnlyOptionals \`json:"structLiteral"\`
 }
 
-func (g *GiveMeStructs) GetStructLiteral() (r scopejsiicalclib.StructWithOnlyOptionals) {
+func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals {
+	var returns scopejsiicalclib.StructWithOnlyOptionals
 	_jsii_.Get(
 		g,
 		"structLiteral",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -6227,7 +6284,6 @@ func (g *GiveMeStructs) ReadFirstNumber(first scopejsiicalclib.MyFirstStruct) fl
 
 // These are some arguments you can pass to a method.
 type Greetee struct {
-	// The name of the greetee.
 	// The name of the greetee.
 	Name string \`json:"name"\`
 }
@@ -6317,13 +6373,14 @@ func (i *IAnonymouslyImplementMe) Verb() string {
 	return returns
 }
 
-func (i *IAnonymouslyImplementMe) GetValue() (r float64) {
+func (i *IAnonymouslyImplementMe) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 type IAnotherPublicInterfaceIface interface {
@@ -6332,13 +6389,14 @@ type IAnotherPublicInterfaceIface interface {
 
 type IAnotherPublicInterface struct {}
 
-func (i *IAnotherPublicInterface) GetA() (r string) {
+func (i *IAnotherPublicInterface) GetA() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"a",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IAnotherPublicInterface) SetA(val string) {
@@ -6423,13 +6481,14 @@ func (i *IDeprecatedInterface) Method() {
 	)
 }
 
-func (i *IDeprecatedInterface) GetMutableProperty() (r float64) {
+func (i *IDeprecatedInterface) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IDeprecatedInterface) SetMutableProperty(val float64) {
@@ -6461,13 +6520,14 @@ func (i *IExperimentalInterface) Method() {
 	)
 }
 
-func (i *IExperimentalInterface) GetMutableProperty() (r float64) {
+func (i *IExperimentalInterface) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IExperimentalInterface) SetMutableProperty(val float64) {
@@ -6485,22 +6545,24 @@ type IExtendsPrivateInterfaceIface interface {
 
 type IExtendsPrivateInterface struct {}
 
-func (i *IExtendsPrivateInterface) GetMoreThings() (r []string) {
+func (i *IExtendsPrivateInterface) GetMoreThings() []string {
+	var returns []string
 	_jsii_.Get(
 		i,
 		"moreThings",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (i *IExtendsPrivateInterface) GetPrivate() (r string) {
+func (i *IExtendsPrivateInterface) GetPrivate() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"private",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IExtendsPrivateInterface) SetPrivate(val string) {
@@ -6529,13 +6591,14 @@ func (i *IExternalInterface) Method() {
 	)
 }
 
-func (i *IExternalInterface) GetMutableProperty() (r float64) {
+func (i *IExternalInterface) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IExternalInterface) SetMutableProperty(val float64) {
@@ -6633,13 +6696,14 @@ type IInterfaceImplementedByAbstractClassIface interface {
 
 type IInterfaceImplementedByAbstractClass struct {}
 
-func (i *IInterfaceImplementedByAbstractClass) GetPropFromInterface() (r string) {
+func (i *IInterfaceImplementedByAbstractClass) GetPropFromInterface() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"propFromInterface",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 // Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
@@ -6661,22 +6725,24 @@ func (i *IInterfaceThatShouldNotBeADataType) DoThings() {
 	)
 }
 
-func (i *IInterfaceThatShouldNotBeADataType) GetValue() (r string) {
+func (i *IInterfaceThatShouldNotBeADataType) GetValue() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (i *IInterfaceThatShouldNotBeADataType) GetOtherValue() (r string) {
+func (i *IInterfaceThatShouldNotBeADataType) GetOtherValue() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"otherValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 type IInterfaceWithInternalIface interface {
@@ -6714,13 +6780,14 @@ func (i *IInterfaceWithMethods) DoThings() {
 	)
 }
 
-func (i *IInterfaceWithMethods) GetValue() (r string) {
+func (i *IInterfaceWithMethods) GetValue() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 // awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
@@ -6748,22 +6815,24 @@ type IInterfaceWithPropertiesIface interface {
 
 type IInterfaceWithProperties struct {}
 
-func (i *IInterfaceWithProperties) GetReadOnlyString() (r string) {
+func (i *IInterfaceWithProperties) GetReadOnlyString() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"readOnlyString",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (i *IInterfaceWithProperties) GetReadWriteString() (r string) {
+func (i *IInterfaceWithProperties) GetReadWriteString() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"readWriteString",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IInterfaceWithProperties) SetReadWriteString(val string) {
@@ -6781,22 +6850,24 @@ type IInterfaceWithPropertiesExtensionIface interface {
 
 type IInterfaceWithPropertiesExtension struct {}
 
-func (i *IInterfaceWithPropertiesExtension) GetReadOnlyString() (r string) {
+func (i *IInterfaceWithPropertiesExtension) GetReadOnlyString() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"readOnlyString",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (i *IInterfaceWithPropertiesExtension) GetReadWriteString() (r string) {
+func (i *IInterfaceWithPropertiesExtension) GetReadWriteString() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"readWriteString",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IInterfaceWithPropertiesExtension) SetReadWriteString(val string) {
@@ -6807,13 +6878,14 @@ func (i *IInterfaceWithPropertiesExtension) SetReadWriteString(val string) {
 	)
 }
 
-func (i *IInterfaceWithPropertiesExtension) GetFoo() (r float64) {
+func (i *IInterfaceWithPropertiesExtension) GetFoo() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"foo",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IInterfaceWithPropertiesExtension) SetFoo(val float64) {
@@ -6866,22 +6938,24 @@ func (i *Ijsii417Derived) Baz() {
 	)
 }
 
-func (i *Ijsii417Derived) GetHasRoot() (r bool) {
+func (i *Ijsii417Derived) GetHasRoot() bool {
+	var returns bool
 	_jsii_.Get(
 		i,
 		"hasRoot",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (i *Ijsii417Derived) GetProperty() (r string) {
+func (i *Ijsii417Derived) GetProperty() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"property",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 type Ijsii417PublicBaseOfBaseIface interface {
@@ -6902,13 +6976,14 @@ func (i *Ijsii417PublicBaseOfBase) Foo() {
 	)
 }
 
-func (i *Ijsii417PublicBaseOfBase) GetHasRoot() (r bool) {
+func (i *Ijsii417PublicBaseOfBase) GetHasRoot() bool {
+	var returns bool
 	_jsii_.Get(
 		i,
 		"hasRoot",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 type IJsii487ExternalIface interface {
@@ -6932,13 +7007,14 @@ type IMutableObjectLiteralIface interface {
 
 type IMutableObjectLiteral struct {}
 
-func (i *IMutableObjectLiteral) GetValue() (r string) {
+func (i *IMutableObjectLiteral) GetValue() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IMutableObjectLiteral) SetValue(val string) {
@@ -6957,13 +7033,14 @@ type INonInternalInterfaceIface interface {
 
 type INonInternalInterface struct {}
 
-func (i *INonInternalInterface) GetA() (r string) {
+func (i *INonInternalInterface) GetA() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"a",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *INonInternalInterface) SetA(val string) {
@@ -6974,13 +7051,14 @@ func (i *INonInternalInterface) SetA(val string) {
 	)
 }
 
-func (i *INonInternalInterface) GetB() (r string) {
+func (i *INonInternalInterface) GetB() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"b",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *INonInternalInterface) SetB(val string) {
@@ -6991,13 +7069,14 @@ func (i *INonInternalInterface) SetB(val string) {
 	)
 }
 
-func (i *INonInternalInterface) GetC() (r string) {
+func (i *INonInternalInterface) GetC() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"c",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *INonInternalInterface) SetC(val string) {
@@ -7028,13 +7107,14 @@ func (i *IObjectWithProperty) WasSet() bool {
 	return returns
 }
 
-func (i *IObjectWithProperty) GetProperty() (r string) {
+func (i *IObjectWithProperty) GetProperty() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"property",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IObjectWithProperty) SetProperty(val string) {
@@ -7070,13 +7150,14 @@ type IPrivatelyImplementedIface interface {
 
 type IPrivatelyImplemented struct {}
 
-func (i *IPrivatelyImplemented) GetSuccess() (r bool) {
+func (i *IPrivatelyImplemented) GetSuccess() bool {
+	var returns bool
 	_jsii_.Get(
 		i,
 		"success",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 type IPublicInterfaceIface interface {
@@ -7144,13 +7225,14 @@ type IReturnJsii976Iface interface {
 
 type IReturnJsii976 struct {}
 
-func (i *IReturnJsii976) GetFoo() (r float64) {
+func (i *IReturnJsii976) GetFoo() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"foo",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 type IReturnsNumberIface interface {
@@ -7172,13 +7254,14 @@ func (i *IReturnsNumber) ObtainNumber() scopejsiicalclib.IDoublableIface {
 	return returns
 }
 
-func (i *IReturnsNumber) GetNumberProp() (r scopejsiicalclib.NumberIface) {
+func (i *IReturnsNumber) GetNumberProp() scopejsiicalclib.NumberIface {
+	var returns scopejsiicalclib.NumberIface
 	_jsii_.Get(
 		i,
 		"numberProp",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 type IStableInterfaceIface interface {
@@ -7199,13 +7282,14 @@ func (i *IStableInterface) Method() {
 	)
 }
 
-func (i *IStableInterface) GetMutableProperty() (r float64) {
+func (i *IStableInterface) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 func (i *IStableInterface) SetMutableProperty(val float64) {
@@ -7266,13 +7350,14 @@ type ImplementInternalInterface struct {
 	Prop string \`json:"prop"\`
 }
 
-func (i *ImplementInternalInterface) GetProp() (r string) {
+func (i *ImplementInternalInterface) GetProp() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"prop",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -7307,13 +7392,14 @@ type Implementation struct {
 	Value float64 \`json:"value"\`
 }
 
-func (i *Implementation) GetValue() (r float64) {
+func (i *Implementation) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		i,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -7409,13 +7495,14 @@ type ImplementsPrivateInterface struct {
 	Private string \`json:"private"\`
 }
 
-func (i *ImplementsPrivateInterface) GetPrivate() (r string) {
+func (i *ImplementsPrivateInterface) GetPrivate() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"private",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -7646,22 +7733,24 @@ type Jsii417Derived struct {
 	Property string \`json:"property"\`
 }
 
-func (j *Jsii417Derived) GetHasRoot() (r bool) {
+func (j *Jsii417Derived) GetHasRoot() bool {
+	var returns bool
 	_jsii_.Get(
 		j,
 		"hasRoot",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (j *Jsii417Derived) GetProperty() (r string) {
+func (j *Jsii417Derived) GetProperty() string {
+	var returns string
 	_jsii_.Get(
 		j,
 		"property",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -7735,13 +7824,14 @@ type Jsii417PublicBaseOfBase struct {
 	HasRoot bool \`json:"hasRoot"\`
 }
 
-func (j *Jsii417PublicBaseOfBase) GetHasRoot() (r bool) {
+func (j *Jsii417PublicBaseOfBase) GetHasRoot() bool {
+	var returns bool
 	_jsii_.Get(
 		j,
 		"hasRoot",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -7877,22 +7967,24 @@ type JsObjectLiteralToNativeClass struct {
 	PropB float64 \`json:"propB"\`
 }
 
-func (j *JsObjectLiteralToNativeClass) GetPropA() (r string) {
+func (j *JsObjectLiteralToNativeClass) GetPropA() string {
+	var returns string
 	_jsii_.Get(
 		j,
 		"propA",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (j *JsObjectLiteralToNativeClass) GetPropB() (r float64) {
+func (j *JsObjectLiteralToNativeClass) GetPropB() float64 {
+	var returns float64
 	_jsii_.Get(
 		j,
 		"propB",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -7988,13 +8080,14 @@ type JavaReservedWords struct {
 	While string \`json:"while"\`
 }
 
-func (j *JavaReservedWords) GetWhile() (r string) {
+func (j *JavaReservedWords) GetWhile() string {
+	var returns string
 	_jsii_.Get(
 		j,
 		"while",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -8873,13 +8966,14 @@ type LevelOne struct {
 	Props LevelOneProps \`json:"props"\`
 }
 
-func (l *LevelOne) GetProps() (r LevelOneProps) {
+func (l *LevelOne) GetProps() LevelOneProps {
+	var returns LevelOneProps
 	_jsii_.Get(
 		l,
 		"props",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -8913,20 +9007,7 @@ type LoadBalancedFargateServiceProps struct {
 	// The container port of the application load balancer attached to your Fargate service.
 	//
 	// Corresponds to container port mapping.
-	// The container port of the application load balancer attached to your Fargate service.
-	//
-	// Corresponds to container port mapping.
 	ContainerPort float64 \`json:"containerPort"\`
-	// The number of cpu units used by the task.
-	//
-	// Valid values, which determines your range of valid values for the memory parameter:
-	// 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-	// 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-	// 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-	// 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-	// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-	//
-	// This default is set in the underlying FargateTaskDefinition construct.
 	// The number of cpu units used by the task.
 	//
 	// Valid values, which determines your range of valid values for the memory parameter:
@@ -8954,27 +9035,9 @@ type LoadBalancedFargateServiceProps struct {
 	// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
-	// The amount (in MiB) of memory used by the task.
-	//
-	// This field is required and you must use one of the following values, which determines your range of valid values
-	// for the cpu parameter:
-	//
-	// 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-	//
-	// 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-	//
-	// 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-	//
-	// Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-	//
-	// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-	//
-	// This default is set in the underlying FargateTaskDefinition construct.
 	MemoryMiB string \`json:"memoryMiB"\`
 	// Determines whether the Application Load Balancer will be internet-facing.
-	// Determines whether the Application Load Balancer will be internet-facing.
 	PublicLoadBalancer bool \`json:"publicLoadBalancer"\`
-	// Determines whether your Fargate Service will be assigned a public IP address.
 	// Determines whether your Fargate Service will be assigned a public IP address.
 	PublicTasks bool \`json:"publicTasks"\`
 }
@@ -8990,13 +9053,14 @@ type MethodNamedProperty struct {
 	Elite float64 \`json:"elite"\`
 }
 
-func (m *MethodNamedProperty) GetElite() (r float64) {
+func (m *MethodNamedProperty) GetElite() float64 {
+	var returns float64
 	_jsii_.Get(
 		m,
 		"elite",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9053,31 +9117,34 @@ type Multiply struct {
 	Rhs scopejsiicalclib.NumericValueIface \`json:"rhs"\`
 }
 
-func (m *Multiply) GetValue() (r float64) {
+func (m *Multiply) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		m,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (m *Multiply) GetLhs() (r scopejsiicalclib.NumericValueIface) {
+func (m *Multiply) GetLhs() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		m,
 		"lhs",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (m *Multiply) GetRhs() (r scopejsiicalclib.NumericValueIface) {
+func (m *Multiply) GetRhs() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		m,
 		"rhs",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9188,22 +9255,24 @@ type Negate struct {
 	Operand scopejsiicalclib.NumericValueIface \`json:"operand"\`
 }
 
-func (n *Negate) GetValue() (r float64) {
+func (n *Negate) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		n,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (n *Negate) GetOperand() (r scopejsiicalclib.NumericValueIface) {
+func (n *Negate) GetOperand() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		n,
 		"operand",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9303,7 +9372,6 @@ func NestedClassInstance_MakeInstance() submodule.NestedClassIface {
 
 type NestedStruct struct {
 	// When provided, must be > 0.
-	// When provided, must be > 0.
 	NumberProp float64 \`json:"numberProp"\`
 }
 
@@ -9322,13 +9390,14 @@ type NodeStandardLibrary struct {
 	OsPlatform string \`json:"osPlatform"\`
 }
 
-func (n *NodeStandardLibrary) GetOsPlatform() (r string) {
+func (n *NodeStandardLibrary) GetOsPlatform() string {
+	var returns string
 	_jsii_.Get(
 		n,
 		"osPlatform",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9396,13 +9465,14 @@ type NullShouldBeTreatedAsUndefined struct {
 	ChangeMeToUndefined string \`json:"changeMeToUndefined"\`
 }
 
-func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() (r string) {
+func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
+	var returns string
 	_jsii_.Get(
 		n,
 		"changeMeToUndefined",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9479,13 +9549,14 @@ type NumberGenerator struct {
 	Generator IRandomNumberGeneratorIface \`json:"generator"\`
 }
 
-func (n *NumberGenerator) GetGenerator() (r IRandomNumberGeneratorIface) {
+func (n *NumberGenerator) GetGenerator() IRandomNumberGeneratorIface {
+	var returns IRandomNumberGeneratorIface
 	_jsii_.Get(
 		n,
 		"generator",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9698,31 +9769,34 @@ type OptionalConstructorArgument struct {
 	Arg3 string \`json:"arg3"\`
 }
 
-func (o *OptionalConstructorArgument) GetArg1() (r float64) {
+func (o *OptionalConstructorArgument) GetArg1() float64 {
+	var returns float64
 	_jsii_.Get(
 		o,
 		"arg1",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (o *OptionalConstructorArgument) GetArg2() (r string) {
+func (o *OptionalConstructorArgument) GetArg2() string {
+	var returns string
 	_jsii_.Get(
 		o,
 		"arg2",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (o *OptionalConstructorArgument) GetArg3() (r string) {
+func (o *OptionalConstructorArgument) GetArg3() string {
+	var returns string
 	_jsii_.Get(
 		o,
 		"arg3",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9755,22 +9829,24 @@ type OptionalStructConsumer struct {
 	FieldValue string \`json:"fieldValue"\`
 }
 
-func (o *OptionalStructConsumer) GetParameterWasUndefined() (r bool) {
+func (o *OptionalStructConsumer) GetParameterWasUndefined() bool {
+	var returns bool
 	_jsii_.Get(
 		o,
 		"parameterWasUndefined",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (o *OptionalStructConsumer) GetFieldValue() (r string) {
+func (o *OptionalStructConsumer) GetFieldValue() string {
+	var returns string
 	_jsii_.Get(
 		o,
 		"fieldValue",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -9804,22 +9880,24 @@ type OverridableProtectedMember struct {
 	OverrideReadWrite string \`json:"overrideReadWrite"\`
 }
 
-func (o *OverridableProtectedMember) GetOverrideReadOnly() (r string) {
+func (o *OverridableProtectedMember) GetOverrideReadOnly() string {
+	var returns string
 	_jsii_.Get(
 		o,
 		"overrideReadOnly",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (o *OverridableProtectedMember) GetOverrideReadWrite() (r string) {
+func (o *OverridableProtectedMember) GetOverrideReadWrite() string {
+	var returns string
 	_jsii_.Get(
 		o,
 		"overrideReadWrite",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -10023,67 +10101,74 @@ type Power struct {
 	Pow scopejsiicalclib.NumericValueIface \`json:"pow"\`
 }
 
-func (p *Power) GetValue() (r float64) {
+func (p *Power) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		p,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (p *Power) GetExpression() (r scopejsiicalclib.NumericValueIface) {
+func (p *Power) GetExpression() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		p,
 		"expression",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (p *Power) GetDecorationPostfixes() (r []string) {
+func (p *Power) GetDecorationPostfixes() []string {
+	var returns []string
 	_jsii_.Get(
 		p,
 		"decorationPostfixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (p *Power) GetDecorationPrefixes() (r []string) {
+func (p *Power) GetDecorationPrefixes() []string {
+	var returns []string
 	_jsii_.Get(
 		p,
 		"decorationPrefixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (p *Power) GetStringStyle() (r composition.CompositionStringStyle) {
+func (p *Power) GetStringStyle() composition.CompositionStringStyle {
+	var returns composition.CompositionStringStyle
 	_jsii_.Get(
 		p,
 		"stringStyle",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (p *Power) GetBase() (r scopejsiicalclib.NumericValueIface) {
+func (p *Power) GetBase() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		p,
 		"base",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (p *Power) GetPow() (r scopejsiicalclib.NumericValueIface) {
+func (p *Power) GetPow() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		p,
 		"pow",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -10162,22 +10247,24 @@ type PropertyNamedProperty struct {
 	YetAnoterOne bool \`json:"yetAnoterOne"\`
 }
 
-func (p *PropertyNamedProperty) GetProperty() (r string) {
+func (p *PropertyNamedProperty) GetProperty() string {
+	var returns string
 	_jsii_.Get(
 		p,
 		"property",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (p *PropertyNamedProperty) GetYetAnoterOne() (r bool) {
+func (p *PropertyNamedProperty) GetYetAnoterOne() bool {
+	var returns bool
 	_jsii_.Get(
 		p,
 		"yetAnoterOne",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -10646,13 +10733,14 @@ type ReferenceEnumFromScopedPackage struct {
 	Foo scopejsiicalclib.EnumFromScopedModule \`json:"foo"\`
 }
 
-func (r *ReferenceEnumFromScopedPackage) GetFoo() (r_ scopejsiicalclib.EnumFromScopedModule) {
+func (r *ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScopedModule {
+	var returns scopejsiicalclib.EnumFromScopedModule
 	_jsii_.Get(
 		r,
 		"foo",
-		&r_,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -10715,13 +10803,14 @@ type ReturnsPrivateImplementationOfInterface struct {
 	PrivateImplementation IPrivatelyImplementedIface \`json:"privateImplementation"\`
 }
 
-func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() (r_ IPrivatelyImplementedIface) {
+func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplementedIface {
+	var returns IPrivatelyImplementedIface
 	_jsii_.Get(
 		r,
 		"privateImplementation",
-		&r_,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -10743,7 +10832,6 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
 // This is cheating with the (current) declared types, but this is the "more
 // idiomatic" way for Pythonists.
 type RootStruct struct {
-	// May not be empty.
 	// May not be empty.
 	StringProp string \`json:"stringProp"\`
 	NestedStruct NestedStruct \`json:"nestedStruct"\`
@@ -10828,9 +10916,7 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments(arg1 float64, arg2 str
 
 type SecondLevelStruct struct {
 	// It's long and required.
-	// It's long and required.
 	DeeperRequiredProp string \`json:"deeperRequiredProp"\`
-	// It's long, but you'll almost never pass it.
 	// It's long, but you'll almost never pass it.
 	DeeperOptionalProp string \`json:"deeperOptionalProp"\`
 }
@@ -11015,22 +11101,24 @@ type StableClass struct {
 	MutableProperty float64 \`json:"mutableProperty"\`
 }
 
-func (s *StableClass) GetReadonlyProperty() (r string) {
+func (s *StableClass) GetReadonlyProperty() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"readonlyProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *StableClass) GetMutableProperty() (r float64) {
+func (s *StableClass) GetMutableProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"mutableProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -11212,13 +11300,14 @@ type Statics struct {
 	Value string \`json:"value"\`
 }
 
-func (s *Statics) GetValue() (r string) {
+func (s *Statics) GetValue() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -11363,13 +11452,14 @@ type StripInternal struct {
 	YouSeeMe string \`json:"youSeeMe"\`
 }
 
-func (s *StripInternal) GetYouSeeMe() (r string) {
+func (s *StripInternal) GetYouSeeMe() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"youSeeMe",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -11540,58 +11630,64 @@ type Sum struct {
 	Parts []scopejsiicalclib.NumericValueIface \`json:"parts"\`
 }
 
-func (s *Sum) GetValue() (r float64) {
+func (s *Sum) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *Sum) GetExpression() (r scopejsiicalclib.NumericValueIface) {
+func (s *Sum) GetExpression() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		s,
 		"expression",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *Sum) GetDecorationPostfixes() (r []string) {
+func (s *Sum) GetDecorationPostfixes() []string {
+	var returns []string
 	_jsii_.Get(
 		s,
 		"decorationPostfixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *Sum) GetDecorationPrefixes() (r []string) {
+func (s *Sum) GetDecorationPrefixes() []string {
+	var returns []string
 	_jsii_.Get(
 		s,
 		"decorationPrefixes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *Sum) GetStringStyle() (r composition.CompositionStringStyle) {
+func (s *Sum) GetStringStyle() composition.CompositionStringStyle {
+	var returns composition.CompositionStringStyle
 	_jsii_.Get(
 		s,
 		"stringStyle",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *Sum) GetParts() (r []scopejsiicalclib.NumericValueIface) {
+func (s *Sum) GetParts() []scopejsiicalclib.NumericValueIface {
+	var returns []scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		s,
 		"parts",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -11681,40 +11777,44 @@ type SupportsNiceJavaBuilder struct {
 	Rest []string \`json:"rest"\`
 }
 
-func (s *SupportsNiceJavaBuilder) GetBar() (r float64) {
+func (s *SupportsNiceJavaBuilder) GetBar() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"bar",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SupportsNiceJavaBuilder) GetId() (r float64) {
+func (s *SupportsNiceJavaBuilder) GetId() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"id",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SupportsNiceJavaBuilder) GetPropId() (r string) {
+func (s *SupportsNiceJavaBuilder) GetPropId() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"propId",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SupportsNiceJavaBuilder) GetRest() (r []string) {
+func (s *SupportsNiceJavaBuilder) GetRest() []string {
+	var returns []string
 	_jsii_.Get(
 		s,
 		"rest",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -11733,11 +11833,7 @@ func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNi
 
 type SupportsNiceJavaBuilderProps struct {
 	// Some number, like 42.
-	// Some number, like 42.
 	Bar float64 \`json:"bar"\`
-	// An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
-	//
-	// But here we are, doing it like we didn't care.
 	// An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
 	//
 	// But here we are, doing it like we didn't care.
@@ -11760,31 +11856,34 @@ type SupportsNiceJavaBuilderWithRequiredProps struct {
 	PropId string \`json:"propId"\`
 }
 
-func (s *SupportsNiceJavaBuilderWithRequiredProps) GetBar() (r float64) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"bar",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SupportsNiceJavaBuilderWithRequiredProps) GetId() (r float64) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"id",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() (r string) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"propId",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -11836,58 +11935,64 @@ type SyncVirtualMethods struct {
 	ValueOfOtherProperty string \`json:"valueOfOtherProperty"\`
 }
 
-func (s *SyncVirtualMethods) GetReadonlyProperty() (r string) {
+func (s *SyncVirtualMethods) GetReadonlyProperty() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"readonlyProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SyncVirtualMethods) GetA() (r float64) {
+func (s *SyncVirtualMethods) GetA() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"a",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SyncVirtualMethods) GetCallerIsProperty() (r float64) {
+func (s *SyncVirtualMethods) GetCallerIsProperty() float64 {
+	var returns float64
 	_jsii_.Get(
 		s,
 		"callerIsProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SyncVirtualMethods) GetOtherProperty() (r string) {
+func (s *SyncVirtualMethods) GetOtherProperty() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"otherProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SyncVirtualMethods) GetTheProperty() (r string) {
+func (s *SyncVirtualMethods) GetTheProperty() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"theProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (s *SyncVirtualMethods) GetValueOfOtherProperty() (r string) {
+func (s *SyncVirtualMethods) GetValueOfOtherProperty() string {
+	var returns string
 	_jsii_.Get(
 		s,
 		"valueOfOtherProperty",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -12096,12 +12201,9 @@ func (t *Thrower) ThrowError() {
 
 type TopLevelStruct struct {
 	// This is a required field.
-	// This is a required field.
 	Required string \`json:"required"\`
 	// A union to really stress test our serialization.
-	// A union to really stress test our serialization.
 	SecondLevel interface{} \`json:"secondLevel"\`
-	// You don't have to pass this.
 	// You don't have to pass this.
 	Optional string \`json:"optional"\`
 }
@@ -12147,22 +12249,24 @@ type UnaryOperation struct {
 	Operand scopejsiicalclib.NumericValueIface \`json:"operand"\`
 }
 
-func (u *UnaryOperation) GetValue() (r float64) {
+func (u *UnaryOperation) GetValue() float64 {
+	var returns float64
 	_jsii_.Get(
 		u,
 		"value",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (u *UnaryOperation) GetOperand() (r scopejsiicalclib.NumericValueIface) {
+func (u *UnaryOperation) GetOperand() scopejsiicalclib.NumericValueIface {
+	var returns scopejsiicalclib.NumericValueIface
 	_jsii_.Get(
 		u,
 		"operand",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -12220,13 +12324,14 @@ type UpcasingReflectable struct {
 	Entries []submodule.ReflectableEntry \`json:"entries"\`
 }
 
-func (u *UpcasingReflectable) GetEntries() (r []submodule.ReflectableEntry) {
+func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
+	var returns []submodule.ReflectableEntry
 	_jsii_.Get(
 		u,
 		"entries",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -12336,13 +12441,14 @@ type UsesInterfaceWithProperties struct {
 	Obj IInterfaceWithPropertiesIface \`json:"obj"\`
 }
 
-func (u *UsesInterfaceWithProperties) GetObj() (r IInterfaceWithPropertiesIface) {
+func (u *UsesInterfaceWithProperties) GetObj() IInterfaceWithPropertiesIface {
+	var returns IInterfaceWithPropertiesIface
 	_jsii_.Get(
 		u,
 		"obj",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -12566,13 +12672,14 @@ type VoidCallback struct {
 	MethodWasCalled bool \`json:"methodWasCalled"\`
 }
 
-func (v *VoidCallback) GetMethodWasCalled() (r bool) {
+func (v *VoidCallback) GetMethodWasCalled() bool {
+	var returns bool
 	_jsii_.Get(
 		v,
 		"methodWasCalled",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -12622,13 +12729,14 @@ type WithPrivatePropertyInConstructor struct {
 	Success bool \`json:"success"\`
 }
 
-func (w *WithPrivatePropertyInConstructor) GetSuccess() (r bool) {
+func (w *WithPrivatePropertyInConstructor) GetSuccess() bool {
+	var returns bool
 	_jsii_.Get(
 		w,
 		"success",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -13680,13 +13788,14 @@ type ClassWithSelf struct {
 	Self string \`json:"self"\`
 }
 
-func (c *ClassWithSelf) GetSelf() (r string) {
+func (c *ClassWithSelf) GetSelf() string {
+	var returns string
 	_jsii_.Get(
 		c,
 		"self",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -13725,13 +13834,14 @@ type ClassWithSelfKwarg struct {
 	Props StructWithSelf \`json:"props"\`
 }
 
-func (c *ClassWithSelfKwarg) GetProps() (r StructWithSelf) {
+func (c *ClassWithSelfKwarg) GetProps() StructWithSelf {
+	var returns StructWithSelf
 	_jsii_.Get(
 		c,
 		"props",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -13917,13 +14027,14 @@ type OuterClass struct {
 	InnerClass InnerClassIface \`json:"innerClass"\`
 }
 
-func (o *OuterClass) GetInnerClass() (r InnerClassIface) {
+func (o *OuterClass) GetInnerClass() InnerClassIface {
+	var returns InnerClassIface
 	_jsii_.Get(
 		o,
 		"innerClass",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -14077,13 +14188,14 @@ type INamespacedIface interface {
 
 type INamespaced struct {}
 
-func (i *INamespaced) GetDefinedAt() (r string) {
+func (i *INamespaced) GetDefinedAt() string {
+	var returns string
 	_jsii_.Get(
 		i,
 		"definedAt",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -14131,22 +14243,24 @@ type Namespaced struct {
 	Goodness child.Goodness \`json:"goodness"\`
 }
 
-func (n *Namespaced) GetDefinedAt() (r string) {
+func (n *Namespaced) GetDefinedAt() string {
+	var returns string
 	_jsii_.Get(
 		n,
 		"definedAt",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (n *Namespaced) GetGoodness() (r child.Goodness) {
+func (n *Namespaced) GetGoodness() child.Goodness {
+	var returns child.Goodness
 	_jsii_.Get(
 		n,
 		"goodness",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
@@ -14301,49 +14415,54 @@ type MyClass struct {
 	AllTypes jsiicalc.AllTypesIface \`json:"allTypes"\`
 }
 
-func (m *MyClass) GetAwesomeness() (r child.Awesomeness) {
+func (m *MyClass) GetAwesomeness() child.Awesomeness {
+	var returns child.Awesomeness
 	_jsii_.Get(
 		m,
 		"awesomeness",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (m *MyClass) GetDefinedAt() (r string) {
+func (m *MyClass) GetDefinedAt() string {
+	var returns string
 	_jsii_.Get(
 		m,
 		"definedAt",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (m *MyClass) GetGoodness() (r child.Goodness) {
+func (m *MyClass) GetGoodness() child.Goodness {
+	var returns child.Goodness
 	_jsii_.Get(
 		m,
 		"goodness",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (m *MyClass) GetProps() (r child.SomeStruct) {
+func (m *MyClass) GetProps() child.SomeStruct {
+	var returns child.SomeStruct
 	_jsii_.Get(
 		m,
 		"props",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
-func (m *MyClass) GetAllTypes() (r jsiicalc.AllTypesIface) {
+func (m *MyClass) GetAllTypes() jsiicalc.AllTypesIface {
+	var returns jsiicalc.AllTypesIface
 	_jsii_.Get(
 		m,
 		"allTypes",
-		&r,
+		&returns,
 	)
-	return
+	return returns
 }
 
 
