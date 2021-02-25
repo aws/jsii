@@ -59,7 +59,7 @@
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.20",
-    "@types/node": "^10.17.52",
+    "@types/node": "^10.17.54",
     "@types/semver": "^7.3.4",
     "@types/yargs": "^16.0.0",
     "eslint": "^7.20.0",
@@ -67,7 +67,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
-    "ts-jest": "^26.5.1",
+    "ts-jest": "^26.5.2",
     "typescript": "~3.9.9"
   },
   "keywords": [
