@@ -71,7 +71,7 @@ RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/ap
 COPY m2-settings.xml /root/.m2/settings.xml
 
 # Install Go
-RUN curl -sL https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
+RUN curl -sL https://golang.org/dl/go1.16.linux-amd64.tar.gz -o /tmp/go.tar.gz                                          \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
 
