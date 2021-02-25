@@ -4,15 +4,14 @@ import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
-import { IGenerator } from '../generator';
+import { IGenerator, Legalese } from '../generator';
 import * as logging from '../logging';
 import { findLocalBuildDirs, Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
-import { JSII_RT_MODULE_NAME } from './go/runtime/constants';
-import { goPackageName } from './go/util';
+import { goPackageName, tarballName } from './go/util';
 
 export class Golang extends Target {
   private readonly goGenerator: GoGenerator;
@@ -69,9 +68,11 @@ export class Golang extends Target {
     ];
 
     // try to resolve @jsii/go-runtime (only exists as a devDependency)
-    const jsiiRuntimeDir = tryFindLocalRuntime();
-    if (jsiiRuntimeDir) {
-      replace[JSII_RT_MODULE_NAME] = jsiiRuntimeDir;
+    const localModules = tryFindLocalRuntime();
+    if (localModules != null) {
+      for (const [name, localPath] of Object.entries(localModules)) {
+        replace[name] = localPath;
+      }
     }
 
     // iterate (recursively) on all package dependencies and check if we have a
@@ -146,39 +147,29 @@ class GoGenerator implements IGenerator {
     });
   }
 
-  public async save(outDir: string, tarball: string): Promise<any> {
-    await this.embedTarball(tarball);
-
+  public async save(
+    outDir: string,
+    tarball: string,
+    { license, notice }: Legalese,
+  ): Promise<any> {
     const output = path.join(outDir, goPackageName(this.assembly.name));
     await this.code.save(output);
-  }
-
-  private async embedTarball(source: string) {
-    const data = await fs.readFile(source);
-    const bytesPerLine = 16;
-
-    const file = path.join(JSII_INIT_PACKAGE, 'tarball.embedded.go');
-    this.code.openFile(file);
-    this.code.line(`package ${JSII_INIT_PACKAGE}`);
-    this.code.line();
-    this.code.open('var tarball = []byte{');
-    for (let i = 0; i < data.byteLength; i += bytesPerLine) {
-      const encoded = Array.from(data.slice(i, i + bytesPerLine))
-        .map((byte) => `0x${byte.toString(16).padStart(2, '0')}`)
-        .join(', ');
-      this.code.line(`${encoded},`);
-    }
-    this.code.close('}');
-    this.code.line();
-    // Check the byte slice has the expect size
-    this.code.open('func init() {');
-    this.code.open(`if len(tarball) != ${data.byteLength} {`);
-    this.code.line(
-      `panic("Tarball data does not have expected length (${data.byteLength} bytes)")`,
+    await fs.copyFile(
+      tarball,
+      path.join(output, JSII_INIT_PACKAGE, tarballName(this.assembly)),
     );
-    this.code.close('}');
-    this.code.close('}');
-    this.code.closeFile(file);
+
+    if (license) {
+      await fs.writeFile(path.join(output, 'LICENSE'), license, {
+        encoding: 'utf8',
+      });
+    }
+
+    if (notice) {
+      await fs.writeFile(path.join(output, 'NOTICE'), notice, {
+        encoding: 'utf8',
+      });
+    }
   }
 }
 
@@ -210,13 +201,19 @@ function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
 /**
  * Check if we are running from inside the jsii repository, and then we want to
  * use the local runtime instead of download from a released version.
+ *
+ * This is a generator that procudes an entry for each local module that
+ * is identified under the local module path exposed by `@jsii/go-runtime` .
  */
-function tryFindLocalRuntime() {
+function tryFindLocalRuntime():
+  | { readonly [name: string]: string }
+  | undefined {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports, import/no-extraneous-dependencies
-    const dir = require('@jsii/go-runtime').runtimePath;
-    logging.debug(`Using @jsii/go-runtime from ${dir}`);
-    return dir;
+    const localRuntime = require('@jsii/go-runtime');
+    logging.debug(`Using @jsii/go-runtime from ${localRuntime.runtimePath}`);
+
+    return localRuntime.runtimeModules;
   } catch {
     return undefined;
   }

@@ -3,6 +3,8 @@
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 java
+    ┣━ 📄 LICENSE
+    ┣━ 📄 NOTICE
     ┣━ 📄 pom.xml
     ┗━ 📁 src
        ┗━ 📁 main
@@ -27,6 +29,217 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
                             ┗━ 📁 base
                                ┣━ 📄 $Module.txt
                                ┗━ 📄 jsii-calc-base@0.0.0.jsii.tgz
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/LICENSE 1`] = `
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/NOTICE 1`] = `
+jsii
+Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] = `
@@ -513,6 +726,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/src/main/reso
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 java
+    ┣━ 📄 LICENSE
+    ┣━ 📄 NOTICE
     ┣━ 📄 pom.xml
     ┗━ 📁 src
        ┗━ 📁 main
@@ -537,6 +752,217 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
                             ┗━ 📁 baseofbase
                                ┣━ 📄 $Module.txt
                                ┗━ 📄 jsii-calc-base-of-base@2.1.1.jsii.tgz
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/LICENSE 1`] = `
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/NOTICE 1`] = `
+jsii
+Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.xml 1`] = `
@@ -978,6 +1404,8 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/m
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 java
+    ┣━ 📄 LICENSE
+    ┣━ 📄 NOTICE
     ┣━ 📄 pom.xml
     ┗━ 📁 src
        ┗━ 📁 main
@@ -994,6 +1422,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                 ┃  ┗━ 📄 Reflector.java
           ┃                 ┗━ 📁 lib
           ┃                    ┣━ 📄 $Module.java
+          ┃                    ┣━ 📄 DiamondLeft.java
+          ┃                    ┣━ 📄 DiamondRight.java
           ┃                    ┣━ 📄 EnumFromScopedModule.java
           ┃                    ┣━ 📄 IDoublable.java
           ┃                    ┣━ 📄 IFriendly.java
@@ -1013,6 +1443,217 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
                             ┗━ 📁 lib
                                ┣━ 📄 $Module.txt
                                ┗━ 📄 jsii-calc-lib@0.0.0.jsii.tgz
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/LICENSE 1`] = `
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/NOTICE 1`] = `
+jsii
+Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = `
@@ -1681,6 +2322,338 @@ public final class $Module extends JsiiModule {
         }
         catch (final ClassNotFoundException exception) {
             throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/DiamondLeft.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.DiamondLeft")
+@software.amazon.jsii.Jsii.Proxy(DiamondLeft.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+public interface DiamondLeft extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
+        return null;
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.Number getLeft() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link DiamondLeft}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DiamondLeft}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondLeft> {
+        private java.lang.String hoistedTop;
+        private java.lang.Number left;
+
+        /**
+         * Sets the value of {@link DiamondLeft#getHoistedTop}
+         * @param hoistedTop the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder hoistedTop(java.lang.String hoistedTop) {
+            this.hoistedTop = hoistedTop;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondLeft#getLeft}
+         * @param left the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder left(java.lang.Number left) {
+            this.left = left;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DiamondLeft}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        public DiamondLeft build() {
+            return new Jsii$Proxy(hoistedTop, left);
+        }
+    }
+
+    /**
+     * An implementation for {@link DiamondLeft}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DiamondLeft {
+        private final java.lang.String hoistedTop;
+        private final java.lang.Number left;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.hoistedTop = software.amazon.jsii.Kernel.get(this, "hoistedTop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.left = software.amazon.jsii.Kernel.get(this, "left", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final java.lang.String hoistedTop, final java.lang.Number left) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.hoistedTop = hoistedTop;
+            this.left = left;
+        }
+
+        @Override
+        public final java.lang.String getHoistedTop() {
+            return this.hoistedTop;
+        }
+
+        @Override
+        public final java.lang.Number getLeft() {
+            return this.left;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getHoistedTop() != null) {
+                data.set("hoistedTop", om.valueToTree(this.getHoistedTop()));
+            }
+            if (this.getLeft() != null) {
+                data.set("left", om.valueToTree(this.getLeft()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("@scope/jsii-calc-lib.DiamondLeft"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DiamondLeft.Jsii$Proxy that = (DiamondLeft.Jsii$Proxy) o;
+
+            if (this.hoistedTop != null ? !this.hoistedTop.equals(that.hoistedTop) : that.hoistedTop != null) return false;
+            return this.left != null ? this.left.equals(that.left) : that.left == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.hoistedTop != null ? this.hoistedTop.hashCode() : 0;
+            result = 31 * result + (this.left != null ? this.left.hashCode() : 0);
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/DiamondRight.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.DiamondRight")
+@software.amazon.jsii.Jsii.Proxy(DiamondRight.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+public interface DiamondRight extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
+        return null;
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getRight() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link DiamondRight}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DiamondRight}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondRight> {
+        private java.lang.String hoistedTop;
+        private java.lang.Boolean right;
+
+        /**
+         * Sets the value of {@link DiamondRight#getHoistedTop}
+         * @param hoistedTop the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder hoistedTop(java.lang.String hoistedTop) {
+            this.hoistedTop = hoistedTop;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondRight#getRight}
+         * @param right the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder right(java.lang.Boolean right) {
+            this.right = right;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DiamondRight}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        public DiamondRight build() {
+            return new Jsii$Proxy(hoistedTop, right);
+        }
+    }
+
+    /**
+     * An implementation for {@link DiamondRight}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DiamondRight {
+        private final java.lang.String hoistedTop;
+        private final java.lang.Boolean right;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.hoistedTop = software.amazon.jsii.Kernel.get(this, "hoistedTop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.right = software.amazon.jsii.Kernel.get(this, "right", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final java.lang.String hoistedTop, final java.lang.Boolean right) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.hoistedTop = hoistedTop;
+            this.right = right;
+        }
+
+        @Override
+        public final java.lang.String getHoistedTop() {
+            return this.hoistedTop;
+        }
+
+        @Override
+        public final java.lang.Boolean getRight() {
+            return this.right;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getHoistedTop() != null) {
+                data.set("hoistedTop", om.valueToTree(this.getHoistedTop()));
+            }
+            if (this.getRight() != null) {
+                data.set("right", om.valueToTree(this.getRight()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("@scope/jsii-calc-lib.DiamondRight"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DiamondRight.Jsii$Proxy that = (DiamondRight.Jsii$Proxy) o;
+
+            if (this.hoistedTop != null ? !this.hoistedTop.equals(that.hoistedTop) : that.hoistedTop != null) return false;
+            return this.right != null ? this.right.equals(that.right) : that.right == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.hoistedTop != null ? this.hoistedTop.hashCode() : 0;
+            result = 31 * result + (this.right != null ? this.right.hashCode() : 0);
+            return result;
         }
     }
 }
@@ -2508,6 +3481,8 @@ package software.amazon.jsii.tests.calculator.lib;
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/lib/$Module.txt 1`] = `
+@scope/jsii-calc-lib.DiamondLeft=software.amazon.jsii.tests.calculator.lib.DiamondLeft
+@scope/jsii-calc-lib.DiamondRight=software.amazon.jsii.tests.calculator.lib.DiamondRight
 @scope/jsii-calc-lib.EnumFromScopedModule=software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule
 @scope/jsii-calc-lib.IDoublable=software.amazon.jsii.tests.calculator.lib.IDoublable
 @scope/jsii-calc-lib.IFriendly=software.amazon.jsii.tests.calculator.lib.IFriendly
@@ -2531,6 +3506,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 java
+    ┣━ 📄 LICENSE
+    ┣━ 📄 NOTICE
     ┣━ 📄 pom.xml
     ┗━ 📁 src
        ┗━ 📁 main
@@ -2586,6 +3563,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┣━ 📄 Base.java
           ┃                 ┃  ┗━ 📄 Derived.java
           ┃                 ┣━ 📄 DerivedStruct.java
+          ┃                 ┣━ 📄 DiamondBottom.java
           ┃                 ┣━ 📄 DiamondInheritanceBaseLevelStruct.java
           ┃                 ┣━ 📄 DiamondInheritanceFirstMidLevelStruct.java
           ┃                 ┣━ 📄 DiamondInheritanceSecondMidLevelStruct.java
@@ -2787,6 +3765,217 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
                          ┗━ 📁 calculator
                             ┣━ 📄 $Module.txt
                             ┗━ 📄 jsii-calc@3.20.120.jsii.tgz
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/LICENSE 1`] = `
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/NOTICE 1`] = `
+jsii
+Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
@@ -6642,6 +7831,218 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DiamondBottom.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DiamondBottom")
+@software.amazon.jsii.Jsii.Proxy(DiamondBottom.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.DiamondLeft, software.amazon.jsii.tests.calculator.lib.DiamondRight {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    default @org.jetbrains.annotations.Nullable java.time.Instant getBottom() {
+        return null;
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @Override
+    default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link DiamondBottom}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DiamondBottom}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondBottom> {
+        private java.time.Instant bottom;
+        private java.lang.String hoistedTop;
+        private java.lang.Number left;
+        private java.lang.Boolean right;
+
+        /**
+         * Sets the value of {@link DiamondBottom#getBottom}
+         * @param bottom the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder bottom(java.time.Instant bottom) {
+            this.bottom = bottom;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondBottom#getHoistedTop}
+         * @param hoistedTop the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder hoistedTop(java.lang.String hoistedTop) {
+            this.hoistedTop = hoistedTop;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondBottom#getLeft}
+         * @param left the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder left(java.lang.Number left) {
+            this.left = left;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link DiamondBottom#getRight}
+         * @param right the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public Builder right(java.lang.Boolean right) {
+            this.right = right;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DiamondBottom}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public DiamondBottom build() {
+            return new Jsii$Proxy(bottom, hoistedTop, left, right);
+        }
+    }
+
+    /**
+     * An implementation for {@link DiamondBottom}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DiamondBottom {
+        private final java.time.Instant bottom;
+        private final java.lang.String hoistedTop;
+        private final java.lang.Number left;
+        private final java.lang.Boolean right;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.bottom = software.amazon.jsii.Kernel.get(this, "bottom", software.amazon.jsii.NativeType.forClass(java.time.Instant.class));
+            this.hoistedTop = software.amazon.jsii.Kernel.get(this, "hoistedTop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.left = software.amazon.jsii.Kernel.get(this, "left", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.right = software.amazon.jsii.Kernel.get(this, "right", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final java.time.Instant bottom, final java.lang.String hoistedTop, final java.lang.Number left, final java.lang.Boolean right) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.bottom = bottom;
+            this.hoistedTop = hoistedTop;
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public final java.time.Instant getBottom() {
+            return this.bottom;
+        }
+
+        @Override
+        public final java.lang.String getHoistedTop() {
+            return this.hoistedTop;
+        }
+
+        @Override
+        public final java.lang.Number getLeft() {
+            return this.left;
+        }
+
+        @Override
+        public final java.lang.Boolean getRight() {
+            return this.right;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getBottom() != null) {
+                data.set("bottom", om.valueToTree(this.getBottom()));
+            }
+            if (this.getHoistedTop() != null) {
+                data.set("hoistedTop", om.valueToTree(this.getHoistedTop()));
+            }
+            if (this.getLeft() != null) {
+                data.set("left", om.valueToTree(this.getLeft()));
+            }
+            if (this.getRight() != null) {
+                data.set("right", om.valueToTree(this.getRight()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.DiamondBottom"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DiamondBottom.Jsii$Proxy that = (DiamondBottom.Jsii$Proxy) o;
+
+            if (this.bottom != null ? !this.bottom.equals(that.bottom) : that.bottom != null) return false;
+            if (this.hoistedTop != null ? !this.hoistedTop.equals(that.hoistedTop) : that.hoistedTop != null) return false;
+            if (this.left != null ? !this.left.equals(that.left) : that.left != null) return false;
+            return this.right != null ? this.right.equals(that.right) : that.right == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.bottom != null ? this.bottom.hashCode() : 0;
+            result = 31 * result + (this.hoistedTop != null ? this.hoistedTop.hashCode() : 0);
+            result = 31 * result + (this.left != null ? this.left.hashCode() : 0);
+            result = 31 * result + (this.right != null ? this.right.hashCode() : 0);
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DiamondInheritanceBaseLevelStruct.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -7066,6 +8467,11 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getTopLevelProperty();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getBaseLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceTopLevelStruct}
@@ -21366,6 +22772,7 @@ jsii-calc.DeprecatedStruct=software.amazon.jsii.tests.calculator.DeprecatedStruc
 jsii-calc.DerivedClassHasNoProperties.Base=software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Base
 jsii-calc.DerivedClassHasNoProperties.Derived=software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Derived
 jsii-calc.DerivedStruct=software.amazon.jsii.tests.calculator.DerivedStruct
+jsii-calc.DiamondBottom=software.amazon.jsii.tests.calculator.DiamondBottom
 jsii-calc.DiamondInheritanceBaseLevelStruct=software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct
 jsii-calc.DiamondInheritanceFirstMidLevelStruct=software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct
 jsii-calc.DiamondInheritanceSecondMidLevelStruct=software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct

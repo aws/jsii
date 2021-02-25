@@ -1,7 +1,6 @@
-package jsii
+package kernel
 
 import (
-	"encoding/json"
 	"fmt"
 	"testing"
 )
@@ -15,19 +14,18 @@ func TestClient(t *testing.T) {
 	defer client.close()
 
 	if client.RuntimeVersion == "" {
-		clientstr, _ := json.Marshal(&client)
-		t.Errorf("No client runtime version found\nClient: %s", string(clientstr))
+		t.Errorf("No client runtime version found. Client: %v", client)
 	}
 
 	t.Run("Client Load Error", func(t *testing.T) {
-		request := loadRequest{
+		request := LoadRequest{
 			API:     "load",
 			Name:    "jsii-calc",
 			Version: "0.0.0",
 			Tarball: "jsii-calc-tarball.tgz",
 		}
 
-		res, err := client.load(request)
+		res, err := client.Load(request)
 
 		t.Log(res)
 		if err != nil {
