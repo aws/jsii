@@ -66,12 +66,8 @@ export class GoProperty implements GoTypeMember {
     return this.parent.name.substring(0, 1).toLowerCase();
   }
 
-  public emitStructMember(context: EmitContext) {
-    const docs = this.property.docs;
-    if (docs) {
-      context.documenter.emit(docs);
-    }
-    const { code } = context;
+  public emitStructMember({ code, documenter }: EmitContext) {
+    documenter.emit(this.property.docs);
     const memberType =
       this.reference?.type?.name === this.parent.name
         ? `*${this.returnType}`
@@ -101,9 +97,7 @@ export class GoProperty implements GoTypeMember {
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
     code.openBlock(
-      `func (${instanceArg} *${receiver}) ${
-        this.getter
-      }()${` ${this.returnType}`}`,
+      `func (${instanceArg} *${receiver}) ${this.getter}() ${this.returnType}`,
     );
 
     new GetProperty(this).emit(code);

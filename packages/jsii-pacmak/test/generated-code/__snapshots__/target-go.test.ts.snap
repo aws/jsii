@@ -316,38 +316,17 @@ func (b *Base) TypeName() interface{} {
 	return returns
 }
 
-// BasePropsIface is the public interface for the custom type BaseProps
-type BasePropsIface interface {
-	GetFoo() scopejsiicalcbaseofbase.VeryIface
-	GetBar() string
-}
-
-// Struct proxy
 type BaseProps struct {
 	Foo scopejsiicalcbaseofbase.VeryIface \`json:"foo"\`
 	Bar string \`json:"bar"\`
 }
 
-func (b *BaseProps) GetFoo() scopejsiicalcbaseofbase.VeryIface {
-	var returns scopejsiicalcbaseofbase.VeryIface
-	_jsii_.Get(
-		b,
-		"foo",
-		&returns,
-	)
-	return returns
+// ToVeryBaseProps is a convenience function to obtain a new scopejsiicalcbaseofbase.VeryBaseProps from this BaseProps.
+func (b *BaseProps) ToVeryBaseProps() scopejsiicalcbaseofbase.VeryBaseProps {
+	return scopejsiicalcbaseofbase.VeryBaseProps {
+		Foo: b.Foo,
+	}
 }
-
-func (b *BaseProps) GetBar() string {
-	var returns string
-	_jsii_.Get(
-		b,
-		"bar",
-		&returns,
-	)
-	return returns
-}
-
 
 type IBaseInterfaceIface interface {
 	scopejsiicalcbaseofbase.IVeryBaseInterfaceIface
@@ -433,7 +412,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-base.BaseProps",
 		reflect.TypeOf((*BaseProps)(nil)).Elem(),
-		reflect.TypeOf((*BasePropsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterInterface(
 		"@scope/jsii-calc-base.IBaseInterface",
@@ -800,26 +778,9 @@ func (v *Very) Hey() float64 {
 	return returns
 }
 
-// VeryBasePropsIface is the public interface for the custom type VeryBaseProps
-type VeryBasePropsIface interface {
-	GetFoo() VeryIface
-}
-
-// Struct proxy
 type VeryBaseProps struct {
 	Foo VeryIface \`json:"foo"\`
 }
-
-func (v *VeryBaseProps) GetFoo() VeryIface {
-	var returns VeryIface
-	_jsii_.Get(
-		v,
-		"foo",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -852,7 +813,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-base-of-base.VeryBaseProps",
 		reflect.TypeOf((*VeryBaseProps)(nil)).Elem(),
-		reflect.TypeOf((*VeryBasePropsIface)(nil)).Elem(),
 	)
 }
 
@@ -1151,15 +1111,7 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
 
-// DiamondLeftIface is the public interface for the custom type DiamondLeft
 // Deprecated.
-type DiamondLeftIface interface {
-	GetHoistedTop() string
-	GetLeft() float64
-}
-
-// Deprecated.
-// Struct proxy
 type DiamondLeft struct {
 	// Deprecated.
 	HoistedTop string \`json:"hoistedTop"\`
@@ -1167,63 +1119,13 @@ type DiamondLeft struct {
 	Left float64 \`json:"left"\`
 }
 
-func (d *DiamondLeft) GetHoistedTop() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"hoistedTop",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DiamondLeft) GetLeft() float64 {
-	var returns float64
-	_jsii_.Get(
-		d,
-		"left",
-		&returns,
-	)
-	return returns
-}
-
-
-// DiamondRightIface is the public interface for the custom type DiamondRight
 // Deprecated.
-type DiamondRightIface interface {
-	GetHoistedTop() string
-	GetRight() bool
-}
-
-// Deprecated.
-// Struct proxy
 type DiamondRight struct {
 	// Deprecated.
 	HoistedTop string \`json:"hoistedTop"\`
 	// Deprecated.
 	Right bool \`json:"right"\`
 }
-
-func (d *DiamondRight) GetHoistedTop() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"hoistedTop",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DiamondRight) GetRight() bool {
-	var returns bool
-	_jsii_.Get(
-		d,
-		"right",
-		&returns,
-	)
-	return returns
-}
-
 
 // Check that enums from \\@scoped packages can be references.
 //
@@ -1327,17 +1229,8 @@ func (i *IThreeLevelsInterface) Baz() {
 	)
 }
 
-// MyFirstStructIface is the public interface for the custom type MyFirstStruct
-// Deprecated.
-type MyFirstStructIface interface {
-	GetAnumber() float64
-	GetAstring() string
-	GetFirstOptional() []string
-}
-
 // This is the first struct we have created in jsii.
 // Deprecated.
-// Struct proxy
 type MyFirstStruct struct {
 	// An awesome number value.
 	// Deprecated.
@@ -1348,37 +1241,6 @@ type MyFirstStruct struct {
 	// Deprecated.
 	FirstOptional []string \`json:"firstOptional"\`
 }
-
-func (m *MyFirstStruct) GetAnumber() float64 {
-	var returns float64
-	_jsii_.Get(
-		m,
-		"anumber",
-		&returns,
-	)
-	return returns
-}
-
-func (m *MyFirstStruct) GetAstring() string {
-	var returns string
-	_jsii_.Get(
-		m,
-		"astring",
-		&returns,
-	)
-	return returns
-}
-
-func (m *MyFirstStruct) GetFirstOptional() []string {
-	var returns []string
-	_jsii_.Get(
-		m,
-		"firstOptional",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type NumberIface interface {
@@ -1588,17 +1450,8 @@ func (o *Operation) ToString() string {
 	return returns
 }
 
-// StructWithOnlyOptionalsIface is the public interface for the custom type StructWithOnlyOptionals
-// Deprecated.
-type StructWithOnlyOptionalsIface interface {
-	GetOptional1() string
-	GetOptional2() float64
-	GetOptional3() bool
-}
-
 // This is a struct with only optional properties.
 // Deprecated.
-// Struct proxy
 type StructWithOnlyOptionals struct {
 	// The first optional!
 	// Deprecated.
@@ -1608,37 +1461,6 @@ type StructWithOnlyOptionals struct {
 	// Deprecated.
 	Optional3 bool \`json:"optional3"\`
 }
-
-func (s *StructWithOnlyOptionals) GetOptional1() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"optional1",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructWithOnlyOptionals) GetOptional2() float64 {
-	var returns float64
-	_jsii_.Get(
-		s,
-		"optional2",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructWithOnlyOptionals) GetOptional3() bool {
-	var returns bool
-	_jsii_.Get(
-		s,
-		"optional3",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -1656,12 +1478,10 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.DiamondLeft",
 		reflect.TypeOf((*DiamondLeft)(nil)).Elem(),
-		reflect.TypeOf((*DiamondLeftIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.DiamondRight",
 		reflect.TypeOf((*DiamondRight)(nil)).Elem(),
-		reflect.TypeOf((*DiamondRightIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterEnum(
 		"@scope/jsii-calc-lib.EnumFromScopedModule",
@@ -1689,7 +1509,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.MyFirstStruct",
 		reflect.TypeOf((*MyFirstStruct)(nil)).Elem(),
-		reflect.TypeOf((*MyFirstStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"@scope/jsii-calc-lib.Number",
@@ -1709,7 +1528,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.StructWithOnlyOptionals",
 		reflect.TypeOf((*StructWithOnlyOptionals)(nil)).Elem(),
-		reflect.TypeOf((*StructWithOnlyOptionalsIface)(nil)).Elem(),
 	)
 }
 
@@ -1726,13 +1544,13 @@ import (
 // Deprecated.
 type IReflectableIface interface {
 	// Deprecated.
-	GetEntries() []ReflectableEntryIface
+	GetEntries() []ReflectableEntry
 }
 
 type IReflectable struct {}
 
-func (i *IReflectable) GetEntries() []ReflectableEntryIface {
-	var returns []ReflectableEntryIface
+func (i *IReflectable) GetEntries() []ReflectableEntry {
+	var returns []ReflectableEntry
 	_jsii_.Get(
 		i,
 		"entries",
@@ -1788,69 +1606,22 @@ func NewNestedClass() NestedClassIface {
 	return &self
 }
 
-// NestedStructIface is the public interface for the custom type NestedStruct
-// Deprecated.
-type NestedStructIface interface {
-	GetName() string
-}
-
 // This is a struct, nested within a class.
 //
 // Normal.
 // Deprecated.
-// Struct proxy
 type NestedStruct struct {
 	// Deprecated.
 	Name string \`json:"name"\`
 }
 
-func (n *NestedStruct) GetName() string {
-	var returns string
-	_jsii_.Get(
-		n,
-		"name",
-		&returns,
-	)
-	return returns
-}
-
-
-// ReflectableEntryIface is the public interface for the custom type ReflectableEntry
 // Deprecated.
-type ReflectableEntryIface interface {
-	GetKey() string
-	GetValue() interface{}
-}
-
-// Deprecated.
-// Struct proxy
 type ReflectableEntry struct {
 	// Deprecated.
 	Key string \`json:"key"\`
 	// Deprecated.
 	Value interface{} \`json:"value"\`
 }
-
-func (r *ReflectableEntry) GetKey() string {
-	var returns string
-	_jsii_.Get(
-		r,
-		"key",
-		&returns,
-	)
-	return returns
-}
-
-func (r *ReflectableEntry) GetValue() interface{} {
-	var returns interface{}
-	_jsii_.Get(
-		r,
-		"value",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type ReflectorIface interface {
@@ -1918,12 +1689,10 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
 		reflect.TypeOf((*NestedStruct)(nil)).Elem(),
-		reflect.TypeOf((*NestedStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.submodule.ReflectableEntry",
 		reflect.TypeOf((*ReflectableEntry)(nil)).Elem(),
-		reflect.TypeOf((*ReflectableEntryIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"@scope/jsii-calc-lib.submodule.Reflector",
@@ -2612,26 +2381,9 @@ func (f *Foo) SetBar(val string) {
 	)
 }
 
-// HelloIface is the public interface for the custom type Hello
-type HelloIface interface {
-	GetFoo() float64
-}
-
-// Struct proxy
 type Hello struct {
 	Foo float64 \`json:"foo"\`
 }
-
-func (h *Hello) GetFoo() float64 {
-	var returns float64
-	_jsii_.Get(
-		h,
-		"foo",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -2654,7 +2406,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.InterfaceInNamespaceIncludesClasses.Hello",
 		reflect.TypeOf((*Hello)(nil)).Elem(),
-		reflect.TypeOf((*HelloIface)(nil)).Elem(),
 	)
 }
 
@@ -2663,30 +2414,10 @@ func init() {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespaceonlyinterface/interfaceinnamespaceonlyinterface.go 1`] = `
 package interfaceinnamespaceonlyinterface
 
-import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
-)
 
-// HelloIface is the public interface for the custom type Hello
-type HelloIface interface {
-	GetFoo() float64
-}
-
-// Struct proxy
 type Hello struct {
 	Foo float64 \`json:"foo"\`
 }
-
-func (h *Hello) GetFoo() float64 {
-	var returns float64
-	_jsii_.Get(
-		h,
-		"foo",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -2704,7 +2435,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.InterfaceInNamespaceOnlyInterface.Hello",
 		reflect.TypeOf((*Hello)(nil)).Elem(),
-		reflect.TypeOf((*HelloIface)(nil)).Elem(),
 	)
 }
 
@@ -3632,18 +3362,18 @@ func (a *AllowedMethodNames) SetFoo(_x string, _y float64) {
 
 // Class interface
 type AmbiguousParametersIface interface {
-	GetProps() StructParameterTypeIface
+	GetProps() StructParameterType
 	GetScope() BellIface
 }
 
 // Struct proxy
 type AmbiguousParameters struct {
-	Props StructParameterTypeIface \`json:"props"\`
+	Props StructParameterType \`json:"props"\`
 	Scope BellIface \`json:"scope"\`
 }
 
-func (a *AmbiguousParameters) GetProps() StructParameterTypeIface {
-	var returns StructParameterTypeIface
+func (a *AmbiguousParameters) GetProps() StructParameterType {
+	var returns StructParameterType
 	_jsii_.Get(
 		a,
 		"props",
@@ -3663,7 +3393,7 @@ func (a *AmbiguousParameters) GetScope() BellIface {
 }
 
 
-func NewAmbiguousParameters(scope BellIface, props StructParameterTypeIface) AmbiguousParametersIface {
+func NewAmbiguousParameters(scope BellIface, props StructParameterType) AmbiguousParametersIface {
 	_init_.Initialize()
 	self := AmbiguousParameters{}
 	_jsii_.Create(
@@ -4265,7 +3995,7 @@ func (c *Calculator) GetUnionProperty() interface{} {
 
 
 // Creates a Calculator object.
-func NewCalculator(props CalculatorPropsIface) CalculatorIface {
+func NewCalculator(props CalculatorProps) CalculatorIface {
 	_init_.Initialize()
 	self := Calculator{}
 	_jsii_.Create(
@@ -4406,14 +4136,7 @@ func (c *Calculator) ReadUnionValue() float64 {
 	return returns
 }
 
-// CalculatorPropsIface is the public interface for the custom type CalculatorProps
-type CalculatorPropsIface interface {
-	GetInitialValue() float64
-	GetMaximumValue() float64
-}
-
 // Properties for Calculator.
-// Struct proxy
 type CalculatorProps struct {
 	// The initial value of the calculator.
 	//
@@ -4423,59 +4146,17 @@ type CalculatorProps struct {
 	MaximumValue float64 \`json:"maximumValue"\`
 }
 
-func (c *CalculatorProps) GetInitialValue() float64 {
-	var returns float64
-	_jsii_.Get(
-		c,
-		"initialValue",
-		&returns,
-	)
-	return returns
-}
-
-func (c *CalculatorProps) GetMaximumValue() float64 {
-	var returns float64
-	_jsii_.Get(
-		c,
-		"maximumValue",
-		&returns,
-	)
-	return returns
-}
-
-
-// ChildStruct982Iface is the public interface for the custom type ChildStruct982
-type ChildStruct982Iface interface {
-	GetFoo() string
-	GetBar() float64
-}
-
-// Struct proxy
 type ChildStruct982 struct {
 	Foo string \`json:"foo"\`
 	Bar float64 \`json:"bar"\`
 }
 
-func (c *ChildStruct982) GetFoo() string {
-	var returns string
-	_jsii_.Get(
-		c,
-		"foo",
-		&returns,
-	)
-	return returns
+// ToParentStruct982 is a convenience function to obtain a new ParentStruct982 from this ChildStruct982.
+func (c *ChildStruct982) ToParentStruct982() ParentStruct982 {
+	return ParentStruct982 {
+		Foo: c.Foo,
+	}
 }
-
-func (c *ChildStruct982) GetBar() float64 {
-	var returns float64
-	_jsii_.Get(
-		c,
-		"bar",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type ClassThatImplementsTheInternalInterfaceIface interface {
@@ -5045,9 +4726,9 @@ func ConfusingToJackson_MakeInstance() ConfusingToJacksonIface {
 	return returns
 }
 
-func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStructIface {
+func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStruct {
 	_init_.Initialize()
-	var returns ConfusingToJacksonStructIface
+	var returns ConfusingToJacksonStruct
 	_jsii_.StaticInvoke(
 		"jsii-calc.ConfusingToJackson",
 		"makeStructInstance",
@@ -5058,26 +4739,9 @@ func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStructIface {
 	return returns
 }
 
-// ConfusingToJacksonStructIface is the public interface for the custom type ConfusingToJacksonStruct
-type ConfusingToJacksonStructIface interface {
-	GetUnionProperty() interface{}
-}
-
-// Struct proxy
 type ConfusingToJacksonStruct struct {
 	UnionProperty interface{} \`json:"unionProperty"\`
 }
-
-func (c *ConfusingToJacksonStruct) GetUnionProperty() interface{} {
-	var returns interface{}
-	_jsii_.Get(
-		c,
-		"unionProperty",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type ConstructorPassesThisOutIface interface {
@@ -5214,7 +4878,7 @@ func Constructors_MakeInterfaces() []IPublicInterfaceIface {
 
 // Class interface
 type ConsumePureInterfaceIface interface {
-	WorkItBaby() StructBIface
+	WorkItBaby() StructB
 }
 
 // Struct proxy
@@ -5234,8 +4898,8 @@ func NewConsumePureInterface(delegate IStructReturningDelegateIface) ConsumePure
 	return &self
 }
 
-func (c *ConsumePureInterface) WorkItBaby() StructBIface {
-	var returns StructBIface
+func (c *ConsumePureInterface) WorkItBaby() StructB {
+	var returns StructB
 	_jsii_.Invoke(
 		c,
 		"workItBaby",
@@ -5424,7 +5088,7 @@ func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(obj INonInt
 
 // Class interface
 type DataRendererIface interface {
-	Render(data scopejsiicalclib.MyFirstStructIface) string
+	Render(data scopejsiicalclib.MyFirstStruct) string
 	RenderArbitrary(data map[string]interface{}) string
 	RenderMap(map_ map[string]interface{}) string
 }
@@ -5447,7 +5111,7 @@ func NewDataRenderer() DataRendererIface {
 	return &self
 }
 
-func (d *DataRenderer) Render(data scopejsiicalclib.MyFirstStructIface) string {
+func (d *DataRenderer) Render(data scopejsiicalclib.MyFirstStruct) string {
 	var returns string
 	_jsii_.Invoke(
 		d,
@@ -5566,9 +5230,9 @@ func NewDemonstrate982() Demonstrate982Iface {
 	return &self
 }
 
-func Demonstrate982_TakeThis() ChildStruct982Iface {
+func Demonstrate982_TakeThis() ChildStruct982 {
 	_init_.Initialize()
-	var returns ChildStruct982Iface
+	var returns ChildStruct982
 	_jsii_.StaticInvoke(
 		"jsii-calc.Demonstrate982",
 		"takeThis",
@@ -5579,9 +5243,9 @@ func Demonstrate982_TakeThis() ChildStruct982Iface {
 	return returns
 }
 
-func Demonstrate982_TakeThisToo() ParentStruct982Iface {
+func Demonstrate982_TakeThisToo() ParentStruct982 {
 	_init_.Initialize()
-	var returns ParentStruct982Iface
+	var returns ParentStruct982
 	_jsii_.StaticInvoke(
 		"jsii-calc.Demonstrate982",
 		"takeThisToo",
@@ -5670,45 +5334,13 @@ const (
 	DeprecatedEnum_OPTION_B DeprecatedEnum = "OPTION_B"
 )
 
-// DeprecatedStructIface is the public interface for the custom type DeprecatedStruct
 // Deprecated: it just wraps a string
-type DeprecatedStructIface interface {
-	GetReadonlyProperty() string
-}
-
-// Deprecated: it just wraps a string
-// Struct proxy
 type DeprecatedStruct struct {
 	// Deprecated: well, yeah
 	ReadonlyProperty string \`json:"readonlyProperty"\`
 }
 
-func (d *DeprecatedStruct) GetReadonlyProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"readonlyProperty",
-		&returns,
-	)
-	return returns
-}
-
-
-// DerivedStructIface is the public interface for the custom type DerivedStruct
-type DerivedStructIface interface {
-	GetAnumber() float64
-	GetAstring() string
-	GetFirstOptional() []string
-	GetAnotherRequired() string
-	GetBool() bool
-	GetNonPrimitive() DoubleTroubleIface
-	GetAnotherOptional() map[string]scopejsiicalclib.NumericValueIface
-	GetOptionalAny() interface{}
-	GetOptionalArray() []string
-}
-
 // A struct which derives from another struct.
-// Struct proxy
 type DerivedStruct struct {
 	// An awesome number value.
 	// Deprecated.
@@ -5728,106 +5360,15 @@ type DerivedStruct struct {
 	OptionalArray []string \`json:"optionalArray"\`
 }
 
-func (d *DerivedStruct) GetAnumber() float64 {
-	var returns float64
-	_jsii_.Get(
-		d,
-		"anumber",
-		&returns,
-	)
-	return returns
+// ToMyFirstStruct is a convenience function to obtain a new scopejsiicalclib.MyFirstStruct from this DerivedStruct.
+func (d *DerivedStruct) ToMyFirstStruct() scopejsiicalclib.MyFirstStruct {
+	return scopejsiicalclib.MyFirstStruct {
+		Anumber: d.Anumber,
+		Astring: d.Astring,
+		FirstOptional: d.FirstOptional,
+	}
 }
 
-func (d *DerivedStruct) GetAstring() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"astring",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DerivedStruct) GetFirstOptional() []string {
-	var returns []string
-	_jsii_.Get(
-		d,
-		"firstOptional",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DerivedStruct) GetAnotherRequired() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"anotherRequired",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DerivedStruct) GetBool() bool {
-	var returns bool
-	_jsii_.Get(
-		d,
-		"bool",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DerivedStruct) GetNonPrimitive() DoubleTroubleIface {
-	var returns DoubleTroubleIface
-	_jsii_.Get(
-		d,
-		"nonPrimitive",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.NumericValueIface {
-	var returns map[string]scopejsiicalclib.NumericValueIface
-	_jsii_.Get(
-		d,
-		"anotherOptional",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DerivedStruct) GetOptionalAny() interface{} {
-	var returns interface{}
-	_jsii_.Get(
-		d,
-		"optionalAny",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DerivedStruct) GetOptionalArray() []string {
-	var returns []string
-	_jsii_.Get(
-		d,
-		"optionalArray",
-		&returns,
-	)
-	return returns
-}
-
-
-// DiamondBottomIface is the public interface for the custom type DiamondBottom
-type DiamondBottomIface interface {
-	GetHoistedTop() string
-	GetLeft() float64
-	GetRight() bool
-	GetBottom() string
-}
-
-// Struct proxy
 type DiamondBottom struct {
 	// Deprecated.
 	HoistedTop string \`json:"hoistedTop"\`
@@ -5838,143 +5379,50 @@ type DiamondBottom struct {
 	Bottom string \`json:"bottom"\`
 }
 
-func (d *DiamondBottom) GetHoistedTop() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"hoistedTop",
-		&returns,
-	)
-	return returns
+// ToDiamondLeft is a convenience function to obtain a new scopejsiicalclib.DiamondLeft from this DiamondBottom.
+func (d *DiamondBottom) ToDiamondLeft() scopejsiicalclib.DiamondLeft {
+	return scopejsiicalclib.DiamondLeft {
+		HoistedTop: d.HoistedTop,
+		Left: d.Left,
+	}
 }
 
-func (d *DiamondBottom) GetLeft() float64 {
-	var returns float64
-	_jsii_.Get(
-		d,
-		"left",
-		&returns,
-	)
-	return returns
+// ToDiamondRight is a convenience function to obtain a new scopejsiicalclib.DiamondRight from this DiamondBottom.
+func (d *DiamondBottom) ToDiamondRight() scopejsiicalclib.DiamondRight {
+	return scopejsiicalclib.DiamondRight {
+		HoistedTop: d.HoistedTop,
+		Right: d.Right,
+	}
 }
 
-func (d *DiamondBottom) GetRight() bool {
-	var returns bool
-	_jsii_.Get(
-		d,
-		"right",
-		&returns,
-	)
-	return returns
-}
-
-func (d *DiamondBottom) GetBottom() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"bottom",
-		&returns,
-	)
-	return returns
-}
-
-
-// DiamondInheritanceBaseLevelStructIface is the public interface for the custom type DiamondInheritanceBaseLevelStruct
-type DiamondInheritanceBaseLevelStructIface interface {
-	GetBaseLevelProperty() string
-}
-
-// Struct proxy
 type DiamondInheritanceBaseLevelStruct struct {
 	BaseLevelProperty string \`json:"baseLevelProperty"\`
 }
 
-func (d *DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"baseLevelProperty",
-		&returns,
-	)
-	return returns
-}
-
-
-// DiamondInheritanceFirstMidLevelStructIface is the public interface for the custom type DiamondInheritanceFirstMidLevelStruct
-type DiamondInheritanceFirstMidLevelStructIface interface {
-	GetBaseLevelProperty() string
-	GetFirstMidLevelProperty() string
-}
-
-// Struct proxy
 type DiamondInheritanceFirstMidLevelStruct struct {
 	BaseLevelProperty string \`json:"baseLevelProperty"\`
 	FirstMidLevelProperty string \`json:"firstMidLevelProperty"\`
 }
 
-func (d *DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"baseLevelProperty",
-		&returns,
-	)
-	return returns
+// ToDiamondInheritanceBaseLevelStruct is a convenience function to obtain a new DiamondInheritanceBaseLevelStruct from this DiamondInheritanceFirstMidLevelStruct.
+func (d *DiamondInheritanceFirstMidLevelStruct) ToDiamondInheritanceBaseLevelStruct() DiamondInheritanceBaseLevelStruct {
+	return DiamondInheritanceBaseLevelStruct {
+		BaseLevelProperty: d.BaseLevelProperty,
+	}
 }
 
-func (d *DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"firstMidLevelProperty",
-		&returns,
-	)
-	return returns
-}
-
-
-// DiamondInheritanceSecondMidLevelStructIface is the public interface for the custom type DiamondInheritanceSecondMidLevelStruct
-type DiamondInheritanceSecondMidLevelStructIface interface {
-	GetBaseLevelProperty() string
-	GetSecondMidLevelProperty() string
-}
-
-// Struct proxy
 type DiamondInheritanceSecondMidLevelStruct struct {
 	BaseLevelProperty string \`json:"baseLevelProperty"\`
 	SecondMidLevelProperty string \`json:"secondMidLevelProperty"\`
 }
 
-func (d *DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"baseLevelProperty",
-		&returns,
-	)
-	return returns
+// ToDiamondInheritanceBaseLevelStruct is a convenience function to obtain a new DiamondInheritanceBaseLevelStruct from this DiamondInheritanceSecondMidLevelStruct.
+func (d *DiamondInheritanceSecondMidLevelStruct) ToDiamondInheritanceBaseLevelStruct() DiamondInheritanceBaseLevelStruct {
+	return DiamondInheritanceBaseLevelStruct {
+		BaseLevelProperty: d.BaseLevelProperty,
+	}
 }
 
-func (d *DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"secondMidLevelProperty",
-		&returns,
-	)
-	return returns
-}
-
-
-// DiamondInheritanceTopLevelStructIface is the public interface for the custom type DiamondInheritanceTopLevelStruct
-type DiamondInheritanceTopLevelStructIface interface {
-	GetBaseLevelProperty() string
-	GetFirstMidLevelProperty() string
-	GetSecondMidLevelProperty() string
-	GetTopLevelProperty() string
-}
-
-// Struct proxy
 type DiamondInheritanceTopLevelStruct struct {
 	BaseLevelProperty string \`json:"baseLevelProperty"\`
 	FirstMidLevelProperty string \`json:"firstMidLevelProperty"\`
@@ -5982,46 +5430,28 @@ type DiamondInheritanceTopLevelStruct struct {
 	TopLevelProperty string \`json:"topLevelProperty"\`
 }
 
-func (d *DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"baseLevelProperty",
-		&returns,
-	)
-	return returns
+// ToDiamondInheritanceBaseLevelStruct is a convenience function to obtain a new DiamondInheritanceBaseLevelStruct from this DiamondInheritanceTopLevelStruct.
+func (d *DiamondInheritanceTopLevelStruct) ToDiamondInheritanceBaseLevelStruct() DiamondInheritanceBaseLevelStruct {
+	return DiamondInheritanceBaseLevelStruct {
+		BaseLevelProperty: d.BaseLevelProperty,
+	}
 }
 
-func (d *DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"firstMidLevelProperty",
-		&returns,
-	)
-	return returns
+// ToDiamondInheritanceFirstMidLevelStruct is a convenience function to obtain a new DiamondInheritanceFirstMidLevelStruct from this DiamondInheritanceTopLevelStruct.
+func (d *DiamondInheritanceTopLevelStruct) ToDiamondInheritanceFirstMidLevelStruct() DiamondInheritanceFirstMidLevelStruct {
+	return DiamondInheritanceFirstMidLevelStruct {
+		BaseLevelProperty: d.BaseLevelProperty,
+		FirstMidLevelProperty: d.FirstMidLevelProperty,
+	}
 }
 
-func (d *DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"secondMidLevelProperty",
-		&returns,
-	)
-	return returns
+// ToDiamondInheritanceSecondMidLevelStruct is a convenience function to obtain a new DiamondInheritanceSecondMidLevelStruct from this DiamondInheritanceTopLevelStruct.
+func (d *DiamondInheritanceTopLevelStruct) ToDiamondInheritanceSecondMidLevelStruct() DiamondInheritanceSecondMidLevelStruct {
+	return DiamondInheritanceSecondMidLevelStruct {
+		BaseLevelProperty: d.BaseLevelProperty,
+		SecondMidLevelProperty: d.SecondMidLevelProperty,
+	}
 }
-
-func (d *DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
-	var returns string
-	_jsii_.Get(
-		d,
-		"topLevelProperty",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type DisappointingCollectionSourceIface interface {
@@ -6151,7 +5581,7 @@ func (d *DoNotRecognizeAnyAsOptional) Method(_requiredAny interface{}, _optional
 
 // Class interface
 type DocumentedClassIface interface {
-	Greet(greetee GreeteeIface) float64
+	Greet(greetee Greetee) float64
 	Hola()
 }
 
@@ -6181,7 +5611,7 @@ func NewDocumentedClass() DocumentedClassIface {
 	return &self
 }
 
-func (d *DocumentedClass) Greet(greetee GreeteeIface) float64 {
+func (d *DocumentedClass) Greet(greetee Greetee) float64 {
 	var returns float64
 	_jsii_.Invoke(
 		d,
@@ -6546,7 +5976,7 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
 	return &self
 }
 
-func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptionsIface, key string) bool {
+func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptions, key string) bool {
 	_init_.Initialize()
 	var returns bool
 	_jsii_.StaticInvoke(
@@ -6585,38 +6015,10 @@ func EraseUndefinedHashValues_Prop2IsUndefined() map[string]interface{} {
 	return returns
 }
 
-// EraseUndefinedHashValuesOptionsIface is the public interface for the custom type EraseUndefinedHashValuesOptions
-type EraseUndefinedHashValuesOptionsIface interface {
-	GetOption1() string
-	GetOption2() string
-}
-
-// Struct proxy
 type EraseUndefinedHashValuesOptions struct {
 	Option1 string \`json:"option1"\`
 	Option2 string \`json:"option2"\`
 }
-
-func (e *EraseUndefinedHashValuesOptions) GetOption1() string {
-	var returns string
-	_jsii_.Get(
-		e,
-		"option1",
-		&returns,
-	)
-	return returns
-}
-
-func (e *EraseUndefinedHashValuesOptions) GetOption2() string {
-	var returns string
-	_jsii_.Get(
-		e,
-		"option2",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type ExperimentalClassIface interface {
@@ -6696,29 +6098,11 @@ const (
 	ExperimentalEnum_OPTION_B ExperimentalEnum = "OPTION_B"
 )
 
-// ExperimentalStructIface is the public interface for the custom type ExperimentalStruct
 // Experimental.
-type ExperimentalStructIface interface {
-	GetReadonlyProperty() string
-}
-
-// Experimental.
-// Struct proxy
 type ExperimentalStruct struct {
 	// Experimental.
 	ReadonlyProperty string \`json:"readonlyProperty"\`
 }
-
-func (e *ExperimentalStruct) GetReadonlyProperty() string {
-	var returns string
-	_jsii_.Get(
-		e,
-		"readonlyProperty",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type ExportedBaseClassIface interface {
@@ -6754,38 +6138,10 @@ func NewExportedBaseClass(success bool) ExportedBaseClassIface {
 	return &self
 }
 
-// ExtendsInternalInterfaceIface is the public interface for the custom type ExtendsInternalInterface
-type ExtendsInternalInterfaceIface interface {
-	GetBoom() bool
-	GetProp() string
-}
-
-// Struct proxy
 type ExtendsInternalInterface struct {
 	Boom bool \`json:"boom"\`
 	Prop string \`json:"prop"\`
 }
-
-func (e *ExtendsInternalInterface) GetBoom() bool {
-	var returns bool
-	_jsii_.Get(
-		e,
-		"boom",
-		&returns,
-	)
-	return returns
-}
-
-func (e *ExtendsInternalInterface) GetProp() string {
-	var returns string
-	_jsii_.Get(
-		e,
-		"prop",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type ExternalClassIface interface {
@@ -6861,42 +6217,25 @@ const (
 	ExternalEnum_OPTION_B ExternalEnum = "OPTION_B"
 )
 
-// ExternalStructIface is the public interface for the custom type ExternalStruct
-type ExternalStructIface interface {
-	GetReadonlyProperty() string
-}
-
-// Struct proxy
 type ExternalStruct struct {
 	ReadonlyProperty string \`json:"readonlyProperty"\`
 }
 
-func (e *ExternalStruct) GetReadonlyProperty() string {
-	var returns string
-	_jsii_.Get(
-		e,
-		"readonlyProperty",
-		&returns,
-	)
-	return returns
-}
-
-
 // Class interface
 type GiveMeStructsIface interface {
-	GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionalsIface
-	DerivedToFirst(derived DerivedStructIface) scopejsiicalclib.MyFirstStructIface
-	ReadDerivedNonPrimitive(derived DerivedStructIface) DoubleTroubleIface
-	ReadFirstNumber(first scopejsiicalclib.MyFirstStructIface) float64
+	GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals
+	DerivedToFirst(derived DerivedStruct) scopejsiicalclib.MyFirstStruct
+	ReadDerivedNonPrimitive(derived DerivedStruct) DoubleTroubleIface
+	ReadFirstNumber(first scopejsiicalclib.MyFirstStruct) float64
 }
 
 // Struct proxy
 type GiveMeStructs struct {
-	StructLiteral scopejsiicalclib.StructWithOnlyOptionalsIface \`json:"structLiteral"\`
+	StructLiteral scopejsiicalclib.StructWithOnlyOptionals \`json:"structLiteral"\`
 }
 
-func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionalsIface {
-	var returns scopejsiicalclib.StructWithOnlyOptionalsIface
+func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals {
+	var returns scopejsiicalclib.StructWithOnlyOptionals
 	_jsii_.Get(
 		g,
 		"structLiteral",
@@ -6919,8 +6258,8 @@ func NewGiveMeStructs() GiveMeStructsIface {
 	return &self
 }
 
-func (g *GiveMeStructs) DerivedToFirst(derived DerivedStructIface) scopejsiicalclib.MyFirstStructIface {
-	var returns scopejsiicalclib.MyFirstStructIface
+func (g *GiveMeStructs) DerivedToFirst(derived DerivedStruct) scopejsiicalclib.MyFirstStruct {
+	var returns scopejsiicalclib.MyFirstStruct
 	_jsii_.Invoke(
 		g,
 		"derivedToFirst",
@@ -6931,7 +6270,7 @@ func (g *GiveMeStructs) DerivedToFirst(derived DerivedStructIface) scopejsiicalc
 	return returns
 }
 
-func (g *GiveMeStructs) ReadDerivedNonPrimitive(derived DerivedStructIface) DoubleTroubleIface {
+func (g *GiveMeStructs) ReadDerivedNonPrimitive(derived DerivedStruct) DoubleTroubleIface {
 	var returns DoubleTroubleIface
 	_jsii_.Invoke(
 		g,
@@ -6943,7 +6282,7 @@ func (g *GiveMeStructs) ReadDerivedNonPrimitive(derived DerivedStructIface) Doub
 	return returns
 }
 
-func (g *GiveMeStructs) ReadFirstNumber(first scopejsiicalclib.MyFirstStructIface) float64 {
+func (g *GiveMeStructs) ReadFirstNumber(first scopejsiicalclib.MyFirstStruct) float64 {
 	var returns float64
 	_jsii_.Invoke(
 		g,
@@ -6955,28 +6294,11 @@ func (g *GiveMeStructs) ReadFirstNumber(first scopejsiicalclib.MyFirstStructIfac
 	return returns
 }
 
-// GreeteeIface is the public interface for the custom type Greetee
-type GreeteeIface interface {
-	GetName() string
-}
-
 // These are some arguments you can pass to a method.
-// Struct proxy
 type Greetee struct {
 	// The name of the greetee.
 	Name string \`json:"name"\`
 }
-
-func (g *Greetee) GetName() string {
-	var returns string
-	_jsii_.Get(
-		g,
-		"name",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type GreetingAugmenterIface interface {
@@ -7992,13 +7314,13 @@ func (i *IStableInterface) SetMutableProperty(val float64) {
 
 // Verifies that a "pure" implementation of an interface works correctly.
 type IStructReturningDelegateIface interface {
-	ReturnStruct() StructBIface
+	ReturnStruct() StructB
 }
 
 type IStructReturningDelegate struct {}
 
-func (i *IStructReturningDelegate) ReturnStruct() StructBIface {
-	var returns StructBIface
+func (i *IStructReturningDelegate) ReturnStruct() StructB {
+	var returns StructB
 	_jsii_.Invoke(
 		i,
 		"returnStruct",
@@ -8217,50 +7539,26 @@ func (i *ImplementsPrivateInterface) SetPrivate(val string) {
 	)
 }
 
-// ImplictBaseOfBaseIface is the public interface for the custom type ImplictBaseOfBase
-type ImplictBaseOfBaseIface interface {
-	GetFoo() scopejsiicalcbaseofbase.VeryIface
-	GetBar() string
-	GetGoo() string
-}
-
-// Struct proxy
 type ImplictBaseOfBase struct {
 	Foo scopejsiicalcbaseofbase.VeryIface \`json:"foo"\`
 	Bar string \`json:"bar"\`
 	Goo string \`json:"goo"\`
 }
 
-func (i *ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.VeryIface {
-	var returns scopejsiicalcbaseofbase.VeryIface
-	_jsii_.Get(
-		i,
-		"foo",
-		&returns,
-	)
-	return returns
+// ToVeryBaseProps is a convenience function to obtain a new scopejsiicalcbaseofbase.VeryBaseProps from this ImplictBaseOfBase.
+func (i *ImplictBaseOfBase) ToVeryBaseProps() scopejsiicalcbaseofbase.VeryBaseProps {
+	return scopejsiicalcbaseofbase.VeryBaseProps {
+		Foo: i.Foo,
+	}
 }
 
-func (i *ImplictBaseOfBase) GetBar() string {
-	var returns string
-	_jsii_.Get(
-		i,
-		"bar",
-		&returns,
-	)
-	return returns
+// ToBaseProps is a convenience function to obtain a new scopejsiicalcbase.BaseProps from this ImplictBaseOfBase.
+func (i *ImplictBaseOfBase) ToBaseProps() scopejsiicalcbase.BaseProps {
+	return scopejsiicalcbase.BaseProps {
+		Foo: i.Foo,
+		Bar: i.Bar,
+	}
 }
-
-func (i *ImplictBaseOfBase) GetGoo() string {
-	var returns string
-	_jsii_.Get(
-		i,
-		"goo",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type InbetweenClassIface interface {
@@ -8333,9 +7631,9 @@ func InterfaceCollections_ListOfInterfaces() []IBellIface {
 	return returns
 }
 
-func InterfaceCollections_ListOfStructs() []StructAIface {
+func InterfaceCollections_ListOfStructs() []StructA {
 	_init_.Initialize()
-	var returns []StructAIface
+	var returns []StructA
 	_jsii_.StaticInvoke(
 		"jsii-calc.InterfaceCollections",
 		"listOfStructs",
@@ -8359,9 +7657,9 @@ func InterfaceCollections_MapOfInterfaces() map[string]IBellIface {
 	return returns
 }
 
-func InterfaceCollections_MapOfStructs() map[string]StructAIface {
+func InterfaceCollections_MapOfStructs() map[string]StructA {
 	_init_.Initialize()
-	var returns map[string]StructAIface
+	var returns map[string]StructA
 	_jsii_.StaticInvoke(
 		"jsii-calc.InterfaceCollections",
 		"mapOfStructs",
@@ -9671,17 +8969,17 @@ func JsonFormatter_Stringify(value interface{}) string {
 
 // Class interface
 type LevelOneIface interface {
-	GetProps() LevelOnePropsIface
+	GetProps() LevelOneProps
 }
 
 // Validates that nested classes get correct code generation for the occasional forward reference.
 // Struct proxy
 type LevelOne struct {
-	Props LevelOnePropsIface \`json:"props"\`
+	Props LevelOneProps \`json:"props"\`
 }
 
-func (l *LevelOne) GetProps() LevelOnePropsIface {
-	var returns LevelOnePropsIface
+func (l *LevelOne) GetProps() LevelOneProps {
+	var returns LevelOneProps
 	_jsii_.Get(
 		l,
 		"props",
@@ -9691,7 +8989,7 @@ func (l *LevelOne) GetProps() LevelOnePropsIface {
 }
 
 
-func NewLevelOne(props LevelOnePropsIface) LevelOneIface {
+func NewLevelOne(props LevelOneProps) LevelOneIface {
 	_init_.Initialize()
 	self := LevelOne{}
 	_jsii_.Create(
@@ -9704,80 +9002,19 @@ func NewLevelOne(props LevelOnePropsIface) LevelOneIface {
 	return &self
 }
 
-// PropBooleanValueIface is the public interface for the custom type PropBooleanValue
-type PropBooleanValueIface interface {
-	GetValue() bool
-}
-
-// Struct proxy
 type PropBooleanValue struct {
 	Value bool \`json:"value"\`
 }
 
-func (p *PropBooleanValue) GetValue() bool {
-	var returns bool
-	_jsii_.Get(
-		p,
-		"value",
-		&returns,
-	)
-	return returns
-}
-
-
-// PropPropertyIface is the public interface for the custom type PropProperty
-type PropPropertyIface interface {
-	GetProp() PropBooleanValueIface
-}
-
-// Struct proxy
 type PropProperty struct {
-	Prop PropBooleanValueIface \`json:"prop"\`
+	Prop PropBooleanValue \`json:"prop"\`
 }
 
-func (p *PropProperty) GetProp() PropBooleanValueIface {
-	var returns PropBooleanValueIface
-	_jsii_.Get(
-		p,
-		"prop",
-		&returns,
-	)
-	return returns
-}
-
-
-// LevelOnePropsIface is the public interface for the custom type LevelOneProps
-type LevelOnePropsIface interface {
-	GetProp() PropPropertyIface
-}
-
-// Struct proxy
 type LevelOneProps struct {
-	Prop PropPropertyIface \`json:"prop"\`
-}
-
-func (l *LevelOneProps) GetProp() PropPropertyIface {
-	var returns PropPropertyIface
-	_jsii_.Get(
-		l,
-		"prop",
-		&returns,
-	)
-	return returns
-}
-
-
-// LoadBalancedFargateServicePropsIface is the public interface for the custom type LoadBalancedFargateServiceProps
-type LoadBalancedFargateServicePropsIface interface {
-	GetContainerPort() float64
-	GetCpu() string
-	GetMemoryMiB() string
-	GetPublicLoadBalancer() bool
-	GetPublicTasks() bool
+	Prop PropProperty \`json:"prop"\`
 }
 
 // jsii#298: show default values in sphinx documentation, and respect newlines.
-// Struct proxy
 type LoadBalancedFargateServiceProps struct {
 	// The container port of the application load balancer attached to your Fargate service.
 	//
@@ -9816,57 +9053,6 @@ type LoadBalancedFargateServiceProps struct {
 	// Determines whether your Fargate Service will be assigned a public IP address.
 	PublicTasks bool \`json:"publicTasks"\`
 }
-
-func (l *LoadBalancedFargateServiceProps) GetContainerPort() float64 {
-	var returns float64
-	_jsii_.Get(
-		l,
-		"containerPort",
-		&returns,
-	)
-	return returns
-}
-
-func (l *LoadBalancedFargateServiceProps) GetCpu() string {
-	var returns string
-	_jsii_.Get(
-		l,
-		"cpu",
-		&returns,
-	)
-	return returns
-}
-
-func (l *LoadBalancedFargateServiceProps) GetMemoryMiB() string {
-	var returns string
-	_jsii_.Get(
-		l,
-		"memoryMiB",
-		&returns,
-	)
-	return returns
-}
-
-func (l *LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
-	var returns bool
-	_jsii_.Get(
-		l,
-		"publicLoadBalancer",
-		&returns,
-	)
-	return returns
-}
-
-func (l *LoadBalancedFargateServiceProps) GetPublicTasks() bool {
-	var returns bool
-	_jsii_.Get(
-		l,
-		"publicTasks",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type MethodNamedPropertyIface interface {
@@ -10196,27 +9382,10 @@ func NestedClassInstance_MakeInstance() submodule.NestedClassIface {
 	return returns
 }
 
-// NestedStructIface is the public interface for the custom type NestedStruct
-type NestedStructIface interface {
-	GetNumberProp() float64
-}
-
-// Struct proxy
 type NestedStruct struct {
 	// When provided, must be > 0.
 	NumberProp float64 \`json:"numberProp"\`
 }
-
-func (n *NestedStruct) GetNumberProp() float64 {
-	var returns float64
-	_jsii_.Get(
-		n,
-		"numberProp",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type NodeStandardLibraryIface interface {
@@ -10298,7 +9467,7 @@ type NullShouldBeTreatedAsUndefinedIface interface {
 	GetChangeMeToUndefined() string
 	SetChangeMeToUndefined(val string)
 	GiveMeUndefined(value interface{})
-	GiveMeUndefinedInsideAnObject(input NullShouldBeTreatedAsUndefinedDataIface)
+	GiveMeUndefinedInsideAnObject(input NullShouldBeTreatedAsUndefinedData)
 	VerifyPropertyIsUndefined()
 }
 
@@ -10351,7 +9520,7 @@ func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined(value interface{}) {
 	)
 }
 
-func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject(input NullShouldBeTreatedAsUndefinedDataIface) {
+func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject(input NullShouldBeTreatedAsUndefinedData) {
 	var returns interface{}
 	_jsii_.Invoke(
 		n,
@@ -10373,38 +9542,10 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
 	)
 }
 
-// NullShouldBeTreatedAsUndefinedDataIface is the public interface for the custom type NullShouldBeTreatedAsUndefinedData
-type NullShouldBeTreatedAsUndefinedDataIface interface {
-	GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []interface{}
-	GetThisShouldBeUndefined() interface{}
-}
-
-// Struct proxy
 type NullShouldBeTreatedAsUndefinedData struct {
 	ArrayWithThreeElementsAndUndefinedAsSecondArgument []interface{} \`json:"arrayWithThreeElementsAndUndefinedAsSecondArgument"\`
 	ThisShouldBeUndefined interface{} \`json:"thisShouldBeUndefined"\`
 }
-
-func (n *NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []interface{} {
-	var returns []interface{}
-	_jsii_.Get(
-		n,
-		"arrayWithThreeElementsAndUndefinedAsSecondArgument",
-		&returns,
-	)
-	return returns
-}
-
-func (n *NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() interface{} {
-	var returns interface{}
-	_jsii_.Get(
-		n,
-		"thisShouldBeUndefined",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type NumberGeneratorIface interface {
@@ -10684,26 +9825,9 @@ func NewOptionalConstructorArgument(arg1 float64, arg2 string, arg3 string) Opti
 	return &self
 }
 
-// OptionalStructIface is the public interface for the custom type OptionalStruct
-type OptionalStructIface interface {
-	GetField() string
-}
-
-// Struct proxy
 type OptionalStruct struct {
 	Field string \`json:"field"\`
 }
-
-func (o *OptionalStruct) GetField() string {
-	var returns string
-	_jsii_.Get(
-		o,
-		"field",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type OptionalStructConsumerIface interface {
@@ -10738,7 +9862,7 @@ func (o *OptionalStructConsumer) GetFieldValue() string {
 }
 
 
-func NewOptionalStructConsumer(optionalStruct OptionalStructIface) OptionalStructConsumerIface {
+func NewOptionalStructConsumer(optionalStruct OptionalStruct) OptionalStructConsumerIface {
 	_init_.Initialize()
 	self := OptionalStructConsumer{}
 	_jsii_.Create(
@@ -10879,27 +10003,10 @@ func (o *OverrideReturnsObject) Test(obj IReturnsNumberIface) float64 {
 	return returns
 }
 
-// ParentStruct982Iface is the public interface for the custom type ParentStruct982
-type ParentStruct982Iface interface {
-	GetFoo() string
-}
-
 // https://github.com/aws/jsii/issues/982.
-// Struct proxy
 type ParentStruct982 struct {
 	Foo string \`json:"foo"\`
 }
-
-func (p *ParentStruct982) GetFoo() string {
-	var returns string
-	_jsii_.Get(
-		p,
-		"foo",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type PartiallyInitializedThisConsumerIface interface {
@@ -11732,43 +10839,15 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
 	return &self
 }
 
-// RootStructIface is the public interface for the custom type RootStruct
-type RootStructIface interface {
-	GetStringProp() string
-	GetNestedStruct() NestedStructIface
-}
-
 // This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
 //
 // This is cheating with the (current) declared types, but this is the "more
 // idiomatic" way for Pythonists.
-// Struct proxy
 type RootStruct struct {
 	// May not be empty.
 	StringProp string \`json:"stringProp"\`
-	NestedStruct NestedStructIface \`json:"nestedStruct"\`
+	NestedStruct NestedStruct \`json:"nestedStruct"\`
 }
-
-func (r *RootStruct) GetStringProp() string {
-	var returns string
-	_jsii_.Get(
-		r,
-		"stringProp",
-		&returns,
-	)
-	return returns
-}
-
-func (r *RootStruct) GetNestedStruct() NestedStructIface {
-	var returns NestedStructIface
-	_jsii_.Get(
-		r,
-		"nestedStruct",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type RootStructValidatorIface interface {
@@ -11778,7 +10857,7 @@ type RootStructValidatorIface interface {
 type RootStructValidator struct {
 }
 
-func RootStructValidator_Validate(struct_ RootStructIface) {
+func RootStructValidator_Validate(struct_ RootStruct) {
 	_init_.Initialize()
 	var returns interface{}
 	_jsii_.StaticInvoke(
@@ -11847,40 +10926,12 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments(arg1 float64, arg2 str
 	)
 }
 
-// SecondLevelStructIface is the public interface for the custom type SecondLevelStruct
-type SecondLevelStructIface interface {
-	GetDeeperRequiredProp() string
-	GetDeeperOptionalProp() string
-}
-
-// Struct proxy
 type SecondLevelStruct struct {
 	// It's long and required.
 	DeeperRequiredProp string \`json:"deeperRequiredProp"\`
 	// It's long, but you'll almost never pass it.
 	DeeperOptionalProp string \`json:"deeperOptionalProp"\`
 }
-
-func (s *SecondLevelStruct) GetDeeperRequiredProp() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"deeperRequiredProp",
-		&returns,
-	)
-	return returns
-}
-
-func (s *SecondLevelStruct) GetDeeperOptionalProp() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"deeperOptionalProp",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type SingleInstanceTwoTypesIface interface {
@@ -11996,38 +11047,10 @@ const (
 	SingletonStringEnum_SINGLETON_STRING SingletonStringEnum = "SINGLETON_STRING"
 )
 
-// SmellyStructIface is the public interface for the custom type SmellyStruct
-type SmellyStructIface interface {
-	GetProperty() string
-	GetYetAnoterOne() bool
-}
-
-// Struct proxy
 type SmellyStruct struct {
 	Property string \`json:"property"\`
 	YetAnoterOne bool \`json:"yetAnoterOne"\`
 }
-
-func (s *SmellyStruct) GetProperty() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"property",
-		&returns,
-	)
-	return returns
-}
-
-func (s *SmellyStruct) GetYetAnoterOne() bool {
-	var returns bool
-	_jsii_.Get(
-		s,
-		"yetAnoterOne",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type SomeTypeJsii976Iface interface {
@@ -12150,26 +11173,9 @@ const (
 	StableEnum_OPTION_B StableEnum = "OPTION_B"
 )
 
-// StableStructIface is the public interface for the custom type StableStruct
-type StableStructIface interface {
-	GetReadonlyProperty() string
-}
-
-// Struct proxy
 type StableStruct struct {
 	ReadonlyProperty string \`json:"readonlyProperty"\`
 }
-
-func (s *StableStruct) GetReadonlyProperty() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"readonlyProperty",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type StaticContextIface interface {
@@ -12490,133 +11496,27 @@ func (s *StripInternal) SetYouSeeMe(val string) {
 	)
 }
 
-// StructAIface is the public interface for the custom type StructA
-type StructAIface interface {
-	GetRequiredString() string
-	GetOptionalNumber() float64
-	GetOptionalString() string
-}
-
 // We can serialize and deserialize structs without silently ignoring optional fields.
-// Struct proxy
 type StructA struct {
 	RequiredString string \`json:"requiredString"\`
 	OptionalNumber float64 \`json:"optionalNumber"\`
 	OptionalString string \`json:"optionalString"\`
 }
 
-func (s *StructA) GetRequiredString() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"requiredString",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructA) GetOptionalNumber() float64 {
-	var returns float64
-	_jsii_.Get(
-		s,
-		"optionalNumber",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructA) GetOptionalString() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"optionalString",
-		&returns,
-	)
-	return returns
-}
-
-
-// StructBIface is the public interface for the custom type StructB
-type StructBIface interface {
-	GetRequiredString() string
-	GetOptionalBoolean() bool
-	GetOptionalStructA() StructAIface
-}
-
 // This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
-// Struct proxy
 type StructB struct {
 	RequiredString string \`json:"requiredString"\`
 	OptionalBoolean bool \`json:"optionalBoolean"\`
-	OptionalStructA StructAIface \`json:"optionalStructA"\`
-}
-
-func (s *StructB) GetRequiredString() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"requiredString",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructB) GetOptionalBoolean() bool {
-	var returns bool
-	_jsii_.Get(
-		s,
-		"optionalBoolean",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructB) GetOptionalStructA() StructAIface {
-	var returns StructAIface
-	_jsii_.Get(
-		s,
-		"optionalStructA",
-		&returns,
-	)
-	return returns
-}
-
-
-// StructParameterTypeIface is the public interface for the custom type StructParameterType
-type StructParameterTypeIface interface {
-	GetScope() string
-	GetProps() bool
+	OptionalStructA StructA \`json:"optionalStructA"\`
 }
 
 // Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
 //
 // See: https://github.com/aws/aws-cdk/issues/4302
-// Struct proxy
 type StructParameterType struct {
 	Scope string \`json:"scope"\`
 	Props bool \`json:"props"\`
 }
-
-func (s *StructParameterType) GetScope() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"scope",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructParameterType) GetProps() bool {
-	var returns bool
-	_jsii_.Get(
-		s,
-		"props",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type StructPassingIface interface {
@@ -12640,7 +11540,7 @@ func NewStructPassing() StructPassingIface {
 	return &self
 }
 
-func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStructIface) float64 {
+func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStruct) float64 {
 	_init_.Initialize()
 	var returns float64
 	_jsii_.StaticInvoke(
@@ -12653,9 +11553,9 @@ func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelSt
 	return returns
 }
 
-func StructPassing_RoundTrip(_positional float64, input TopLevelStructIface) TopLevelStructIface {
+func StructPassing_RoundTrip(_positional float64, input TopLevelStruct) TopLevelStruct {
 	_init_.Initialize()
-	var returns TopLevelStructIface
+	var returns TopLevelStruct
 	_jsii_.StaticInvoke(
 		"jsii-calc.StructPassing",
 		"roundTrip",
@@ -12700,62 +11600,12 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) bool {
 	return returns
 }
 
-// StructWithJavaReservedWordsIface is the public interface for the custom type StructWithJavaReservedWords
-type StructWithJavaReservedWordsIface interface {
-	GetDefault() string
-	GetAssert() string
-	GetResult() string
-	GetThat() string
-}
-
-// Struct proxy
 type StructWithJavaReservedWords struct {
 	Default string \`json:"default"\`
 	Assert string \`json:"assert"\`
 	Result string \`json:"result"\`
 	That string \`json:"that"\`
 }
-
-func (s *StructWithJavaReservedWords) GetDefault() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"default",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructWithJavaReservedWords) GetAssert() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"assert",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructWithJavaReservedWords) GetResult() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"result",
-		&returns,
-	)
-	return returns
-}
-
-func (s *StructWithJavaReservedWords) GetThat() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"that",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type SumIface interface {
@@ -12980,7 +11830,7 @@ func (s *SupportsNiceJavaBuilder) GetRest() []string {
 }
 
 
-func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNiceJavaBuilderPropsIface, rest string) SupportsNiceJavaBuilderIface {
+func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNiceJavaBuilderProps, rest string) SupportsNiceJavaBuilderIface {
 	_init_.Initialize()
 	self := SupportsNiceJavaBuilder{}
 	_jsii_.Create(
@@ -12993,13 +11843,6 @@ func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNi
 	return &self
 }
 
-// SupportsNiceJavaBuilderPropsIface is the public interface for the custom type SupportsNiceJavaBuilderProps
-type SupportsNiceJavaBuilderPropsIface interface {
-	GetBar() float64
-	GetId() string
-}
-
-// Struct proxy
 type SupportsNiceJavaBuilderProps struct {
 	// Some number, like 42.
 	Bar float64 \`json:"bar"\`
@@ -13008,27 +11851,6 @@ type SupportsNiceJavaBuilderProps struct {
 	// But here we are, doing it like we didn't care.
 	Id string \`json:"id"\`
 }
-
-func (s *SupportsNiceJavaBuilderProps) GetBar() float64 {
-	var returns float64
-	_jsii_.Get(
-		s,
-		"bar",
-		&returns,
-	)
-	return returns
-}
-
-func (s *SupportsNiceJavaBuilderProps) GetId() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"id",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
@@ -13077,7 +11899,7 @@ func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
 }
 
 
-func NewSupportsNiceJavaBuilderWithRequiredProps(id float64, props SupportsNiceJavaBuilderPropsIface) SupportsNiceJavaBuilderWithRequiredPropsIface {
+func NewSupportsNiceJavaBuilderWithRequiredProps(id float64, props SupportsNiceJavaBuilderProps) SupportsNiceJavaBuilderWithRequiredPropsIface {
 	_init_.Initialize()
 	self := SupportsNiceJavaBuilderWithRequiredProps{}
 	_jsii_.Create(
@@ -13389,14 +12211,6 @@ func (t *Thrower) ThrowError() {
 	)
 }
 
-// TopLevelStructIface is the public interface for the custom type TopLevelStruct
-type TopLevelStructIface interface {
-	GetRequired() string
-	GetSecondLevel() interface{}
-	GetOptional() string
-}
-
-// Struct proxy
 type TopLevelStruct struct {
 	// This is a required field.
 	Required string \`json:"required"\`
@@ -13405,37 +12219,6 @@ type TopLevelStruct struct {
 	// You don't have to pass this.
 	Optional string \`json:"optional"\`
 }
-
-func (t *TopLevelStruct) GetRequired() string {
-	var returns string
-	_jsii_.Get(
-		t,
-		"required",
-		&returns,
-	)
-	return returns
-}
-
-func (t *TopLevelStruct) GetSecondLevel() interface{} {
-	var returns interface{}
-	_jsii_.Get(
-		t,
-		"secondLevel",
-		&returns,
-	)
-	return returns
-}
-
-func (t *TopLevelStruct) GetOptional() string {
-	var returns string
-	_jsii_.Get(
-		t,
-		"optional",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type UmaskCheckIface interface {
@@ -13536,53 +12319,25 @@ func (u *UnaryOperation) ToString() string {
 	return returns
 }
 
-// UnionPropertiesIface is the public interface for the custom type UnionProperties
-type UnionPropertiesIface interface {
-	GetBar() interface{}
-	GetFoo() interface{}
-}
-
-// Struct proxy
 type UnionProperties struct {
 	Bar interface{} \`json:"bar"\`
 	Foo interface{} \`json:"foo"\`
 }
 
-func (u *UnionProperties) GetBar() interface{} {
-	var returns interface{}
-	_jsii_.Get(
-		u,
-		"bar",
-		&returns,
-	)
-	return returns
-}
-
-func (u *UnionProperties) GetFoo() interface{} {
-	var returns interface{}
-	_jsii_.Get(
-		u,
-		"foo",
-		&returns,
-	)
-	return returns
-}
-
-
 // Class interface
 type UpcasingReflectableIface interface {
 	submodule.IReflectableIface
-	GetEntries() []submodule.ReflectableEntryIface
+	GetEntries() []submodule.ReflectableEntry
 }
 
 // Ensures submodule-imported types from dependencies can be used correctly.
 // Struct proxy
 type UpcasingReflectable struct {
-	Entries []submodule.ReflectableEntryIface \`json:"entries"\`
+	Entries []submodule.ReflectableEntry \`json:"entries"\`
 }
 
-func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntryIface {
-	var returns []submodule.ReflectableEntryIface
+func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
+	var returns []submodule.ReflectableEntry
 	_jsii_.Get(
 		u,
 		"entries",
@@ -14115,12 +12870,10 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.CalculatorProps",
 		reflect.TypeOf((*CalculatorProps)(nil)).Elem(),
-		reflect.TypeOf((*CalculatorPropsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.ChildStruct982",
 		reflect.TypeOf((*ChildStruct982)(nil)).Elem(),
-		reflect.TypeOf((*ChildStruct982Iface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.ClassThatImplementsTheInternalInterface",
@@ -14165,7 +12918,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.ConfusingToJacksonStruct",
 		reflect.TypeOf((*ConfusingToJacksonStruct)(nil)).Elem(),
-		reflect.TypeOf((*ConfusingToJacksonStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.ConstructorPassesThisOut",
@@ -14223,37 +12975,30 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.DeprecatedStruct",
 		reflect.TypeOf((*DeprecatedStruct)(nil)).Elem(),
-		reflect.TypeOf((*DeprecatedStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.DerivedStruct",
 		reflect.TypeOf((*DerivedStruct)(nil)).Elem(),
-		reflect.TypeOf((*DerivedStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.DiamondBottom",
 		reflect.TypeOf((*DiamondBottom)(nil)).Elem(),
-		reflect.TypeOf((*DiamondBottomIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.DiamondInheritanceBaseLevelStruct",
 		reflect.TypeOf((*DiamondInheritanceBaseLevelStruct)(nil)).Elem(),
-		reflect.TypeOf((*DiamondInheritanceBaseLevelStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.DiamondInheritanceFirstMidLevelStruct",
 		reflect.TypeOf((*DiamondInheritanceFirstMidLevelStruct)(nil)).Elem(),
-		reflect.TypeOf((*DiamondInheritanceFirstMidLevelStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.DiamondInheritanceSecondMidLevelStruct",
 		reflect.TypeOf((*DiamondInheritanceSecondMidLevelStruct)(nil)).Elem(),
-		reflect.TypeOf((*DiamondInheritanceSecondMidLevelStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.DiamondInheritanceTopLevelStruct",
 		reflect.TypeOf((*DiamondInheritanceTopLevelStruct)(nil)).Elem(),
-		reflect.TypeOf((*DiamondInheritanceTopLevelStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.DisappointingCollectionSource",
@@ -14313,7 +13058,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.EraseUndefinedHashValuesOptions",
 		reflect.TypeOf((*EraseUndefinedHashValuesOptions)(nil)).Elem(),
-		reflect.TypeOf((*EraseUndefinedHashValuesOptionsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.ExperimentalClass",
@@ -14331,7 +13075,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.ExperimentalStruct",
 		reflect.TypeOf((*ExperimentalStruct)(nil)).Elem(),
-		reflect.TypeOf((*ExperimentalStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.ExportedBaseClass",
@@ -14341,7 +13084,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.ExtendsInternalInterface",
 		reflect.TypeOf((*ExtendsInternalInterface)(nil)).Elem(),
-		reflect.TypeOf((*ExtendsInternalInterfaceIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.ExternalClass",
@@ -14359,7 +13101,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.ExternalStruct",
 		reflect.TypeOf((*ExternalStruct)(nil)).Elem(),
-		reflect.TypeOf((*ExternalStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.GiveMeStructs",
@@ -14369,7 +13110,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.Greetee",
 		reflect.TypeOf((*Greetee)(nil)).Elem(),
-		reflect.TypeOf((*GreeteeIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.GreetingAugmenter",
@@ -14589,7 +13329,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.ImplictBaseOfBase",
 		reflect.TypeOf((*ImplictBaseOfBase)(nil)).Elem(),
-		reflect.TypeOf((*ImplictBaseOfBaseIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.InbetweenClass",
@@ -14669,22 +13408,18 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.LevelOne.PropBooleanValue",
 		reflect.TypeOf((*PropBooleanValue)(nil)).Elem(),
-		reflect.TypeOf((*PropBooleanValueIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.LevelOne.PropProperty",
 		reflect.TypeOf((*PropProperty)(nil)).Elem(),
-		reflect.TypeOf((*PropPropertyIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.LevelOneProps",
 		reflect.TypeOf((*LevelOneProps)(nil)).Elem(),
-		reflect.TypeOf((*LevelOnePropsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.LoadBalancedFargateServiceProps",
 		reflect.TypeOf((*LoadBalancedFargateServiceProps)(nil)).Elem(),
-		reflect.TypeOf((*LoadBalancedFargateServicePropsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.MethodNamedProperty",
@@ -14709,7 +13444,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.NestedStruct",
 		reflect.TypeOf((*NestedStruct)(nil)).Elem(),
-		reflect.TypeOf((*NestedStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.NodeStandardLibrary",
@@ -14724,7 +13458,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.NullShouldBeTreatedAsUndefinedData",
 		reflect.TypeOf((*NullShouldBeTreatedAsUndefinedData)(nil)).Elem(),
-		reflect.TypeOf((*NullShouldBeTreatedAsUndefinedDataIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.NumberGenerator",
@@ -14759,7 +13492,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.OptionalStruct",
 		reflect.TypeOf((*OptionalStruct)(nil)).Elem(),
-		reflect.TypeOf((*OptionalStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.OptionalStructConsumer",
@@ -14779,7 +13511,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.ParentStruct982",
 		reflect.TypeOf((*ParentStruct982)(nil)).Elem(),
-		reflect.TypeOf((*ParentStruct982Iface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.PartiallyInitializedThisConsumer",
@@ -14824,7 +13555,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.RootStruct",
 		reflect.TypeOf((*RootStruct)(nil)).Elem(),
-		reflect.TypeOf((*RootStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.RootStructValidator",
@@ -14839,7 +13569,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.SecondLevelStruct",
 		reflect.TypeOf((*SecondLevelStruct)(nil)).Elem(),
-		reflect.TypeOf((*SecondLevelStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.SingleInstanceTwoTypes",
@@ -14873,7 +13602,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.SmellyStruct",
 		reflect.TypeOf((*SmellyStruct)(nil)).Elem(),
-		reflect.TypeOf((*SmellyStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.SomeTypeJsii976",
@@ -14896,7 +13624,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.StableStruct",
 		reflect.TypeOf((*StableStruct)(nil)).Elem(),
-		reflect.TypeOf((*StableStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.StaticContext",
@@ -14935,17 +13662,14 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.StructA",
 		reflect.TypeOf((*StructA)(nil)).Elem(),
-		reflect.TypeOf((*StructAIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.StructB",
 		reflect.TypeOf((*StructB)(nil)).Elem(),
-		reflect.TypeOf((*StructBIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.StructParameterType",
 		reflect.TypeOf((*StructParameterType)(nil)).Elem(),
-		reflect.TypeOf((*StructParameterTypeIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.StructPassing",
@@ -14960,7 +13684,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.StructWithJavaReservedWords",
 		reflect.TypeOf((*StructWithJavaReservedWords)(nil)).Elem(),
-		reflect.TypeOf((*StructWithJavaReservedWordsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.Sum",
@@ -14975,7 +13698,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.SupportsNiceJavaBuilderProps",
 		reflect.TypeOf((*SupportsNiceJavaBuilderProps)(nil)).Elem(),
-		reflect.TypeOf((*SupportsNiceJavaBuilderPropsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
@@ -14995,7 +13717,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.TopLevelStruct",
 		reflect.TypeOf((*TopLevelStruct)(nil)).Elem(),
-		reflect.TypeOf((*TopLevelStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.UmaskCheck",
@@ -15010,7 +13731,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.UnionProperties",
 		reflect.TypeOf((*UnionProperties)(nil)).Elem(),
-		reflect.TypeOf((*UnionPropertiesIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.UpcasingReflectable",
@@ -15118,16 +13838,16 @@ func (c *ClassWithSelf) Method(self float64) string {
 
 // Class interface
 type ClassWithSelfKwargIface interface {
-	GetProps() StructWithSelfIface
+	GetProps() StructWithSelf
 }
 
 // Struct proxy
 type ClassWithSelfKwarg struct {
-	Props StructWithSelfIface \`json:"props"\`
+	Props StructWithSelf \`json:"props"\`
 }
 
-func (c *ClassWithSelfKwarg) GetProps() StructWithSelfIface {
-	var returns StructWithSelfIface
+func (c *ClassWithSelfKwarg) GetProps() StructWithSelf {
+	var returns StructWithSelf
 	_jsii_.Get(
 		c,
 		"props",
@@ -15137,7 +13857,7 @@ func (c *ClassWithSelfKwarg) GetProps() StructWithSelfIface {
 }
 
 
-func NewClassWithSelfKwarg(props StructWithSelfIface) ClassWithSelfKwargIface {
+func NewClassWithSelfKwarg(props StructWithSelf) ClassWithSelfKwargIface {
 	_init_.Initialize()
 	self := ClassWithSelfKwarg{}
 	_jsii_.Create(
@@ -15168,26 +13888,9 @@ func (i *IInterfaceWithSelf) Method(self float64) string {
 	return returns
 }
 
-// StructWithSelfIface is the public interface for the custom type StructWithSelf
-type StructWithSelfIface interface {
-	GetSelf() string
-}
-
-// Struct proxy
 type StructWithSelf struct {
 	Self string \`json:"self"\`
 }
-
-func (s *StructWithSelf) GetSelf() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"self",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -15220,7 +13923,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.PythonSelf.StructWithSelf",
 		reflect.TypeOf((*StructWithSelf)(nil)).Elem(),
-		reflect.TypeOf((*StructWithSelfIface)(nil)).Elem(),
 	)
 }
 
@@ -15230,31 +13932,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/backrefe
 package backreferences
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
-
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule"
 )
 
-// MyClassReferenceIface is the public interface for the custom type MyClassReference
-type MyClassReferenceIface interface {
-	GetReference() submodule.MyClassIface
-}
-
-// Struct proxy
 type MyClassReference struct {
 	Reference submodule.MyClassIface \`json:"reference"\`
 }
-
-func (m *MyClassReference) GetReference() submodule.MyClassIface {
-	var returns submodule.MyClassIface
-	_jsii_.Get(
-		m,
-		"reference",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -15272,7 +13955,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.submodule.back_references.MyClassReference",
 		reflect.TypeOf((*MyClassReference)(nil)).Elem(),
-		reflect.TypeOf((*MyClassReferenceIface)(nil)).Elem(),
 	)
 }
 
@@ -15321,9 +14003,9 @@ func NewInnerClass() InnerClassIface {
 	return &self
 }
 
-func InnerClass_StaticProp() SomeStructIface {
+func InnerClass_StaticProp() SomeStruct {
 	_init_.Initialize()
-	var returns SomeStructIface
+	var returns SomeStruct
 	_jsii_.StaticGet(
 		"jsii-calc.submodule.child.InnerClass",
 		"staticProp",
@@ -15332,38 +14014,17 @@ func InnerClass_StaticProp() SomeStructIface {
 	return returns
 }
 
-// KwargsPropsIface is the public interface for the custom type KwargsProps
-type KwargsPropsIface interface {
-	GetProp() SomeEnum
-	GetExtra() string
-}
-
-// Struct proxy
 type KwargsProps struct {
 	Prop SomeEnum \`json:"prop"\`
 	Extra string \`json:"extra"\`
 }
 
-func (k *KwargsProps) GetProp() SomeEnum {
-	var returns SomeEnum
-	_jsii_.Get(
-		k,
-		"prop",
-		&returns,
-	)
-	return returns
+// ToSomeStruct is a convenience function to obtain a new SomeStruct from this KwargsProps.
+func (k *KwargsProps) ToSomeStruct() SomeStruct {
+	return SomeStruct {
+		Prop: k.Prop,
+	}
 }
-
-func (k *KwargsProps) GetExtra() string {
-	var returns string
-	_jsii_.Get(
-		k,
-		"extra",
-		&returns,
-	)
-	return returns
-}
-
 
 // Class interface
 type OuterClassIface interface {
@@ -15408,47 +14069,13 @@ const (
 	SomeEnum_SOME SomeEnum = "SOME"
 )
 
-// SomeStructIface is the public interface for the custom type SomeStruct
-type SomeStructIface interface {
-	GetProp() SomeEnum
-}
-
-// Struct proxy
 type SomeStruct struct {
 	Prop SomeEnum \`json:"prop"\`
 }
 
-func (s *SomeStruct) GetProp() SomeEnum {
-	var returns SomeEnum
-	_jsii_.Get(
-		s,
-		"prop",
-		&returns,
-	)
-	return returns
-}
-
-
-// StructureIface is the public interface for the custom type Structure
-type StructureIface interface {
-	GetBool() bool
-}
-
-// Struct proxy
 type Structure struct {
 	Bool bool \`json:"bool"\`
 }
-
-func (s *Structure) GetBool() bool {
-	var returns bool
-	_jsii_.Get(
-		s,
-		"bool",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -15487,7 +14114,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.submodule.child.KwargsProps",
 		reflect.TypeOf((*KwargsProps)(nil)).Elem(),
-		reflect.TypeOf((*KwargsPropsIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.submodule.child.OuterClass",
@@ -15504,12 +14130,10 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.submodule.child.SomeStruct",
 		reflect.TypeOf((*SomeStruct)(nil)).Elem(),
-		reflect.TypeOf((*SomeStructIface)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.submodule.child.Structure",
 		reflect.TypeOf((*Structure)(nil)).Elem(),
-		reflect.TypeOf((*StructureIface)(nil)).Elem(),
 	)
 }
 
@@ -15528,7 +14152,7 @@ type KwargsIface interface {
 type Kwargs struct {
 }
 
-func Kwargs_Method(props child.KwargsPropsIface) bool {
+func Kwargs_Method(props child.KwargsProps) bool {
 	_init_.Initialize()
 	var returns bool
 	_jsii_.StaticInvoke(
@@ -15677,30 +14301,10 @@ func init() {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/param/param.go 1`] = `
 package param
 
-import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
-)
 
-// SpecialParameterIface is the public interface for the custom type SpecialParameter
-type SpecialParameterIface interface {
-	GetValue() string
-}
-
-// Struct proxy
 type SpecialParameter struct {
 	Value string \`json:"value"\`
 }
-
-func (s *SpecialParameter) GetValue() string {
-	var returns string
-	_jsii_.Get(
-		s,
-		"value",
-		&returns,
-	)
-	return returns
-}
-
 
 
 `;
@@ -15718,7 +14322,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.submodule.param.SpecialParameter",
 		reflect.TypeOf((*SpecialParameter)(nil)).Elem(),
-		reflect.TypeOf((*SpecialParameterIface)(nil)).Elem(),
 	)
 }
 
@@ -15736,7 +14339,7 @@ import (
 
 // Class interface
 type ReturnsSpecialParameterIface interface {
-	ReturnsSpecialParam() param.SpecialParameterIface
+	ReturnsSpecialParam() param.SpecialParameter
 }
 
 // Struct proxy
@@ -15756,8 +14359,8 @@ func NewReturnsSpecialParameter() ReturnsSpecialParameterIface {
 	return &self
 }
 
-func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameterIface {
-	var returns param.SpecialParameterIface
+func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameter {
+	var returns param.SpecialParameter
 	_jsii_.Invoke(
 		r,
 		"returnsSpecialParam",
@@ -15809,10 +14412,10 @@ type MyClassIface interface {
 	GetAwesomeness() child.Awesomeness
 	GetDefinedAt() string
 	GetGoodness() child.Goodness
-	GetProps() child.SomeStructIface
+	GetProps() child.SomeStruct
 	GetAllTypes() jsiicalc.AllTypesIface
 	SetAllTypes(val jsiicalc.AllTypesIface)
-	MethodWithSpecialParam(param param.SpecialParameterIface) string
+	MethodWithSpecialParam(param param.SpecialParameter) string
 }
 
 // Struct proxy
@@ -15820,7 +14423,7 @@ type MyClass struct {
 	Awesomeness child.Awesomeness \`json:"awesomeness"\`
 	DefinedAt string \`json:"definedAt"\`
 	Goodness child.Goodness \`json:"goodness"\`
-	Props child.SomeStructIface \`json:"props"\`
+	Props child.SomeStruct \`json:"props"\`
 	AllTypes jsiicalc.AllTypesIface \`json:"allTypes"\`
 }
 
@@ -15854,8 +14457,8 @@ func (m *MyClass) GetGoodness() child.Goodness {
 	return returns
 }
 
-func (m *MyClass) GetProps() child.SomeStructIface {
-	var returns child.SomeStructIface
+func (m *MyClass) GetProps() child.SomeStruct {
+	var returns child.SomeStruct
 	_jsii_.Get(
 		m,
 		"props",
@@ -15875,7 +14478,7 @@ func (m *MyClass) GetAllTypes() jsiicalc.AllTypesIface {
 }
 
 
-func NewMyClass(props child.SomeStructIface) MyClassIface {
+func NewMyClass(props child.SomeStruct) MyClassIface {
 	_init_.Initialize()
 	self := MyClass{}
 	_jsii_.Create(
@@ -15896,7 +14499,7 @@ func (m *MyClass) SetAllTypes(val jsiicalc.AllTypesIface) {
 	)
 }
 
-func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameterIface) string {
+func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameter) string {
 	var returns string
 	_jsii_.Invoke(
 		m,

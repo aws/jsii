@@ -29,7 +29,7 @@ type TypeRegisterer interface {
 	// RegisterStruct maps the given FQN to the provided struct type, and struct
 	// interface. Returns an error if the provided struct type is not a go struct,
 	// or the provided iface not a go interface.
-	RegisterStruct(fqn api.FQN, strct reflect.Type, iface reflect.Type) error
+	RegisterStruct(fqn api.FQN, strct reflect.Type) error
 }
 
 // RegisterClass maps the given FQN to the provided class type, and interface
@@ -112,23 +112,33 @@ func (t *typeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, proxy 
 // RegisterStruct maps the given FQN to the provided struct type, and struct
 // interface. Returns an error if the provided struct type is not a go struct,
 // or the provided iface not a go interface.
-func (t *typeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type, iface reflect.Type) error {
+func (t *typeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 	if strct.Kind() != reflect.Struct {
 		return fmt.Errorf("the provided struct is not a struct: %v", strct)
-	}
-	if iface.Kind() != reflect.Interface {
-		return fmt.Errorf("the provided interface is not an interface: %v", iface)
 	}
 
 	if existing, exists := t.fqnToType[fqn]; exists && existing != strct {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
-	if existing, exists := t.ifaceToStruct[iface]; exists && existing != strct {
-		return fmt.Errorf("another struct was already registered with %v: %v", iface, existing)
+
+	fields := []reflect.StructField{}
+	numField := strct.NumField()
+	for i := 0 ; i < numField ; i++ {
+		field := strct.Field(i)
+		if field.Anonymous {
+			return fmt.Errorf("unexpected anonymous field %v in struct %s (%v)", field, fqn, strct)
+		}
+		if field.PkgPath != "" {
+			return fmt.Errorf("unexpected un-exported field %v in struct %s (%v)", field, fqn, strct)
+		}
+		if field.Tag.Get("json") == "" {
+			return fmt.Errorf("missing json tag on struct field %v of %s (%v)", field, fqn, strct)
+		}
+		fields = append(fields, field)
 	}
 
 	t.fqnToType[fqn] = strct
-	t.ifaceToStruct[iface] = strct
+	t.structFields[strct] = fields
 
 	return nil
 }

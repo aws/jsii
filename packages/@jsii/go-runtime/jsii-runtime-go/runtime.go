@@ -81,12 +81,11 @@ func RegisterInterface(fqn FQN, iface reflect.Type, proxy reflect.Type) {
 }
 
 // RegisterStruct associates a struct's fully qualified name to the specified
-// struct type, and struct interface. Panics if strct is not a struct, iface is
-// not an interface, or if the provided fqn was already used to register a
-// different type.
-func RegisterStruct(fqn FQN, strct reflect.Type, iface reflect.Type) {
+// struct type. Panics if strct is not a struct, or if the provided fqn was
+// already used to register a different type.
+func RegisterStruct(fqn FQN, strct reflect.Type) {
 	client := kernel.GetClient()
-	if err := client.Types().RegisterStruct(api.FQN(fqn), strct, iface); err != nil {
+	if err := client.Types().RegisterStruct(api.FQN(fqn), strct); err != nil {
 		panic(err)
 	}
 }
