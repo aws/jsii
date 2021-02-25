@@ -4,7 +4,7 @@ import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
-import { IGenerator } from '../generator';
+import { IGenerator, Legalese } from '../generator';
 import * as logging from '../logging';
 import { findLocalBuildDirs, Target, TargetOptions } from '../target';
 import { shell } from '../util';
@@ -147,13 +147,29 @@ class GoGenerator implements IGenerator {
     });
   }
 
-  public async save(outDir: string, tarball: string): Promise<any> {
+  public async save(
+    outDir: string,
+    tarball: string,
+    { license, notice }: Legalese,
+  ): Promise<any> {
     const output = path.join(outDir, goPackageName(this.assembly.name));
     await this.code.save(output);
     await fs.copyFile(
       tarball,
       path.join(output, JSII_INIT_PACKAGE, tarballName(this.assembly)),
     );
+
+    if (license) {
+      await fs.writeFile(path.join(output, 'LICENSE'), license, {
+        encoding: 'utf8',
+      });
+    }
+
+    if (notice) {
+      await fs.writeFile(path.join(output, 'NOTICE'), notice, {
+        encoding: 'utf8',
+      });
+    }
   }
 }
 
