@@ -160,7 +160,7 @@ for (const [i, testCase] of suite.testCases.entries()) {
 
     if (status === SUCCESS) {
       successes[language] =
-        successes[language] === undefined ? 0 : successes[language] + 1;
+        successes[language] === undefined ? 1 : successes[language] + 1;
     }
   }
 
