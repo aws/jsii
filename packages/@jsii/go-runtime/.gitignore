@@ -1,6 +1,6 @@
 /jsii-calc/
-*.generated.go
-*.generated_test.go
+/jsii-runtime-go/embedded/resources/
+*.generated.*
 
 *.js
 *.d.ts

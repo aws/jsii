@@ -7,7 +7,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
        ┣━ 📄 scopejsiicalcbase.go
@@ -229,7 +229,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -242,6 +242,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcba
 package jsii
 
 import (
+	_                       "embed"
 	"sync"
 
 	_jsii_                  "github.com/aws/jsii-runtime-go"
@@ -249,7 +250,9 @@ import (
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
 
-var once sync.Once
+//go:embed scope-jsii-calc-base-0.0.0.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -265,7 +268,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/tarball.embedded.go 1`] = `go/scopejsiicalcbase/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/scope-jsii-calc-base-0.0.0.tgz 1`] = `go/scopejsiicalcbase/jsii/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/scopejsiicalcbase.go 1`] = `
 // An example direct dependency for jsii-calc.
@@ -458,7 +461,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┗━ 📄 scope-jsii-calc-base-of-base-2.1.1.tgz
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
        ┣━ 📄 scopejsiicalcbaseofbase.go
@@ -680,7 +683,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -692,12 +695,15 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 package jsii
 
 import (
+	_      "embed"
 	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
-var once sync.Once
+//go:embed scope-jsii-calc-base-of-base-2.1.1.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -710,7 +716,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/tarball.embedded.go 1`] = `go/scopejsiicalcbaseofbase/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/scope-jsii-calc-base-of-base-2.1.1.tgz 1`] = `go/scopejsiicalcbaseofbase/jsii/scope-jsii-calc-base-of-base-2.1.1.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase.go 1`] = `
 // An example transitive dependency for jsii-calc.
@@ -864,7 +870,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┗━ 📄 scope-jsii-calc-lib-0.0.0.tgz
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
        ┣━ 📄 scopejsiicalclib.go
@@ -1089,7 +1095,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalclib
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -1103,6 +1109,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package jsii
 
 import (
+	_                       "embed"
 	"sync"
 
 	_jsii_                  "github.com/aws/jsii-runtime-go"
@@ -1111,7 +1118,9 @@ import (
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
 
-var once sync.Once
+//go:embed scope-jsii-calc-lib-0.0.0.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -1128,7 +1137,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/tarball.embedded.go 1`] = `go/scopejsiicalclib/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz 1`] = `go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib.go 1`] = `
 // A simple calcuator library built on JSII.
@@ -1223,8 +1232,8 @@ func (d *DiamondRight) GetRight() bool {
 type EnumFromScopedModule string
 
 const (
-	EnumFromScopedModuleValue1 EnumFromScopedModule = "VALUE1"
-	EnumFromScopedModuleValue2 EnumFromScopedModule = "VALUE2"
+	EnumFromScopedModule_VALUE1 EnumFromScopedModule = "VALUE1"
+	EnumFromScopedModule_VALUE2 EnumFromScopedModule = "VALUE2"
 )
 
 // The general contract for a concrete number.
@@ -1658,8 +1667,8 @@ func init() {
 		"@scope/jsii-calc-lib.EnumFromScopedModule",
 		reflect.TypeOf((*EnumFromScopedModule)(nil)).Elem(),
 		map[string]interface{}{
-			"VALUE1": EnumFromScopedModuleValue1,
-			"VALUE2": EnumFromScopedModuleValue2,
+			"VALUE1": EnumFromScopedModule_VALUE1,
+			"VALUE2": EnumFromScopedModule_VALUE2,
 		},
 	)
 	_jsii_.RegisterInterface(
@@ -1948,8 +1957,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 interfaceinnamespaceonlyinterface.go
        ┃  ┗━ 📄 interfaceinnamespaceonlyinterface.init.go
        ┣━ 📁 jsii
-       ┃  ┣━ 📄 jsii.go
-       ┃  ┗━ 📄 tarball.embedded.go
+       ┃  ┣━ 📄 jsii-calc-3.20.120.tgz
+       ┃  ┗━ 📄 jsii.go
        ┣━ 📄 jsiicalc.go
        ┣━ 📄 jsiicalc.init.go
        ┣━ 📄 LICENSE
@@ -2383,8 +2392,8 @@ func (c *CompositeOperation) ToString() string {
 type CompositionStringStyle string
 
 const (
-	CompositionStringStyleNormal CompositionStringStyle = "NORMAL"
-	CompositionStringStyleDecorated CompositionStringStyle = "DECORATED"
+	CompositionStringStyle_NORMAL CompositionStringStyle = "NORMAL"
+	CompositionStringStyle_DECORATED CompositionStringStyle = "DECORATED"
 )
 
 
@@ -2409,8 +2418,8 @@ func init() {
 		"jsii-calc.composition.CompositeOperation.CompositionStringStyle",
 		reflect.TypeOf((*CompositionStringStyle)(nil)).Elem(),
 		map[string]interface{}{
-			"NORMAL": CompositionStringStyleNormal,
-			"DECORATED": CompositionStringStyleDecorated,
+			"NORMAL": CompositionStringStyle_NORMAL,
+			"DECORATED": CompositionStringStyle_DECORATED,
 		},
 	)
 }
@@ -2541,7 +2550,7 @@ func init() {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/jsiicalc/v3
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -2705,6 +2714,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] =
 package jsii
 
 import (
+	_                 "embed"
 	"sync"
 
 	_jsii_            "github.com/aws/jsii-runtime-go"
@@ -2713,7 +2723,9 @@ import (
 	scopejsiicalclib  "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
-var once sync.Once
+//go:embed jsii-calc-3.20.120.tgz
+var tarball []byte
+var once    sync.Once
 
 // Initialize performs the necessary work for the enclosing
 // module to be loaded in the jsii kernel.
@@ -2730,7 +2742,7 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/tarball.embedded.go 1`] = `go/jsiicalc/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii-calc-3.20.120.tgz 1`] = `go/jsiicalc/jsii/jsii-calc-3.20.120.tgz is a tarball`;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc.go 1`] = `
 // A simple calcuator built on JSII.
@@ -3543,9 +3555,9 @@ func (a *AllTypes) EnumMethod(value StringEnum) StringEnum {
 type AllTypesEnum string
 
 const (
-	AllTypesEnumMyEnumValue AllTypesEnum = "MY_ENUM_VALUE"
-	AllTypesEnumYourEnumValue AllTypesEnum = "YOUR_ENUM_VALUE"
-	AllTypesEnumThisIsGreat AllTypesEnum = "THIS_IS_GREAT"
+	AllTypesEnum_MY_ENUM_VALUE AllTypesEnum = "MY_ENUM_VALUE"
+	AllTypesEnum_YOUR_ENUM_VALUE AllTypesEnum = "YOUR_ENUM_VALUE"
+	AllTypesEnum_THIS_IS_GREAT AllTypesEnum = "THIS_IS_GREAT"
 )
 
 // Class interface
@@ -5654,8 +5666,8 @@ func (d *DeprecatedClass) Method() {
 type DeprecatedEnum string
 
 const (
-	DeprecatedEnumOptionA DeprecatedEnum = "OPTION_A"
-	DeprecatedEnumOptionB DeprecatedEnum = "OPTION_B"
+	DeprecatedEnum_OPTION_A DeprecatedEnum = "OPTION_A"
+	DeprecatedEnum_OPTION_B DeprecatedEnum = "OPTION_B"
 )
 
 // DeprecatedStructIface is the public interface for the custom type DeprecatedStruct
@@ -6680,8 +6692,8 @@ func (e *ExperimentalClass) Method() {
 type ExperimentalEnum string
 
 const (
-	ExperimentalEnumOptionA ExperimentalEnum = "OPTION_A"
-	ExperimentalEnumOptionB ExperimentalEnum = "OPTION_B"
+	ExperimentalEnum_OPTION_A ExperimentalEnum = "OPTION_A"
+	ExperimentalEnum_OPTION_B ExperimentalEnum = "OPTION_B"
 )
 
 // ExperimentalStructIface is the public interface for the custom type ExperimentalStruct
@@ -6845,8 +6857,8 @@ func (e *ExternalClass) Method() {
 type ExternalEnum string
 
 const (
-	ExternalEnumOptionA ExternalEnum = "OPTION_A"
-	ExternalEnumOptionB ExternalEnum = "OPTION_B"
+	ExternalEnum_OPTION_A ExternalEnum = "OPTION_A"
+	ExternalEnum_OPTION_B ExternalEnum = "OPTION_B"
 )
 
 // ExternalStructIface is the public interface for the custom type ExternalStruct
@@ -11950,7 +11962,7 @@ func (s *SingletonInt) IsSingletonInt(value float64) bool {
 type SingletonIntEnum string
 
 const (
-	SingletonIntEnumSingletonInt SingletonIntEnum = "SINGLETON_INT"
+	SingletonIntEnum_SINGLETON_INT SingletonIntEnum = "SINGLETON_INT"
 )
 
 // Class interface
@@ -11981,7 +11993,7 @@ func (s *SingletonString) IsSingletonString(value string) bool {
 type SingletonStringEnum string
 
 const (
-	SingletonStringEnumSingletonString SingletonStringEnum = "SINGLETON_STRING"
+	SingletonStringEnum_SINGLETON_STRING SingletonStringEnum = "SINGLETON_STRING"
 )
 
 // SmellyStructIface is the public interface for the custom type SmellyStruct
@@ -12134,8 +12146,8 @@ func (s *StableClass) Method() {
 type StableEnum string
 
 const (
-	StableEnumOptionA StableEnum = "OPTION_A"
-	StableEnumOptionB StableEnum = "OPTION_B"
+	StableEnum_OPTION_A StableEnum = "OPTION_A"
+	StableEnum_OPTION_B StableEnum = "OPTION_B"
 )
 
 // StableStructIface is the public interface for the custom type StableStruct
@@ -12430,9 +12442,9 @@ func (s *Statics) JustMethod() string {
 type StringEnum string
 
 const (
-	StringEnumA StringEnum = "A"
-	StringEnumB StringEnum = "B"
-	StringEnumC StringEnum = "C"
+	StringEnum_A StringEnum = "A"
+	StringEnum_B StringEnum = "B"
+	StringEnum_C StringEnum = "C"
 )
 
 // Class interface
@@ -14045,9 +14057,9 @@ func init() {
 		"jsii-calc.AllTypesEnum",
 		reflect.TypeOf((*AllTypesEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"MY_ENUM_VALUE": AllTypesEnumMyEnumValue,
-			"YOUR_ENUM_VALUE": AllTypesEnumYourEnumValue,
-			"THIS_IS_GREAT": AllTypesEnumThisIsGreat,
+			"MY_ENUM_VALUE": AllTypesEnum_MY_ENUM_VALUE,
+			"YOUR_ENUM_VALUE": AllTypesEnum_YOUR_ENUM_VALUE,
+			"THIS_IS_GREAT": AllTypesEnum_THIS_IS_GREAT,
 		},
 	)
 	_jsii_.RegisterClass(
@@ -14204,8 +14216,8 @@ func init() {
 		"jsii-calc.DeprecatedEnum",
 		reflect.TypeOf((*DeprecatedEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"OPTION_A": DeprecatedEnumOptionA,
-			"OPTION_B": DeprecatedEnumOptionB,
+			"OPTION_A": DeprecatedEnum_OPTION_A,
+			"OPTION_B": DeprecatedEnum_OPTION_B,
 		},
 	)
 	_jsii_.RegisterStruct(
@@ -14312,8 +14324,8 @@ func init() {
 		"jsii-calc.ExperimentalEnum",
 		reflect.TypeOf((*ExperimentalEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"OPTION_A": ExperimentalEnumOptionA,
-			"OPTION_B": ExperimentalEnumOptionB,
+			"OPTION_A": ExperimentalEnum_OPTION_A,
+			"OPTION_B": ExperimentalEnum_OPTION_B,
 		},
 	)
 	_jsii_.RegisterStruct(
@@ -14340,8 +14352,8 @@ func init() {
 		"jsii-calc.ExternalEnum",
 		reflect.TypeOf((*ExternalEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"OPTION_A": ExternalEnumOptionA,
-			"OPTION_B": ExternalEnumOptionB,
+			"OPTION_A": ExternalEnum_OPTION_A,
+			"OPTION_B": ExternalEnum_OPTION_B,
 		},
 	)
 	_jsii_.RegisterStruct(
@@ -14843,7 +14855,7 @@ func init() {
 		"jsii-calc.SingletonIntEnum",
 		reflect.TypeOf((*SingletonIntEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"SINGLETON_INT": SingletonIntEnumSingletonInt,
+			"SINGLETON_INT": SingletonIntEnum_SINGLETON_INT,
 		},
 	)
 	_jsii_.RegisterClass(
@@ -14855,7 +14867,7 @@ func init() {
 		"jsii-calc.SingletonStringEnum",
 		reflect.TypeOf((*SingletonStringEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"SINGLETON_STRING": SingletonStringEnumSingletonString,
+			"SINGLETON_STRING": SingletonStringEnum_SINGLETON_STRING,
 		},
 	)
 	_jsii_.RegisterStruct(
@@ -14877,8 +14889,8 @@ func init() {
 		"jsii-calc.StableEnum",
 		reflect.TypeOf((*StableEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"OPTION_A": StableEnumOptionA,
-			"OPTION_B": StableEnumOptionB,
+			"OPTION_A": StableEnum_OPTION_A,
+			"OPTION_B": StableEnum_OPTION_B,
 		},
 	)
 	_jsii_.RegisterStruct(
@@ -14910,9 +14922,9 @@ func init() {
 		"jsii-calc.StringEnum",
 		reflect.TypeOf((*StringEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"A": StringEnumA,
-			"B": StringEnumB,
-			"C": StringEnumC,
+			"A": StringEnum_A,
+			"B": StringEnum_B,
+			"C": StringEnum_C,
 		},
 	)
 	_jsii_.RegisterClass(
@@ -15277,15 +15289,15 @@ import (
 type Awesomeness string
 
 const (
-	AwesomenessAwesome Awesomeness = "AWESOME"
+	Awesomeness_AWESOME Awesomeness = "AWESOME"
 )
 
 type Goodness string
 
 const (
-	GoodnessPrettyGood Goodness = "PRETTY_GOOD"
-	GoodnessReallyGood Goodness = "REALLY_GOOD"
-	GoodnessAmazinglyGood Goodness = "AMAZINGLY_GOOD"
+	Goodness_PRETTY_GOOD Goodness = "PRETTY_GOOD"
+	Goodness_REALLY_GOOD Goodness = "REALLY_GOOD"
+	Goodness_AMAZINGLY_GOOD Goodness = "AMAZINGLY_GOOD"
 )
 
 // Class interface
@@ -15393,7 +15405,7 @@ func NewOuterClass() OuterClassIface {
 type SomeEnum string
 
 const (
-	SomeEnumSome SomeEnum = "SOME"
+	SomeEnum_SOME SomeEnum = "SOME"
 )
 
 // SomeStructIface is the public interface for the custom type SomeStruct
@@ -15455,16 +15467,16 @@ func init() {
 		"jsii-calc.submodule.child.Awesomeness",
 		reflect.TypeOf((*Awesomeness)(nil)).Elem(),
 		map[string]interface{}{
-			"AWESOME": AwesomenessAwesome,
+			"AWESOME": Awesomeness_AWESOME,
 		},
 	)
 	_jsii_.RegisterEnum(
 		"jsii-calc.submodule.child.Goodness",
 		reflect.TypeOf((*Goodness)(nil)).Elem(),
 		map[string]interface{}{
-			"PRETTY_GOOD": GoodnessPrettyGood,
-			"REALLY_GOOD": GoodnessReallyGood,
-			"AMAZINGLY_GOOD": GoodnessAmazinglyGood,
+			"PRETTY_GOOD": Goodness_PRETTY_GOOD,
+			"REALLY_GOOD": Goodness_REALLY_GOOD,
+			"AMAZINGLY_GOOD": Goodness_AMAZINGLY_GOOD,
 		},
 	)
 	_jsii_.RegisterClass(
@@ -15486,7 +15498,7 @@ func init() {
 		"jsii-calc.submodule.child.SomeEnum",
 		reflect.TypeOf((*SomeEnum)(nil)).Elem(),
 		map[string]interface{}{
-			"SOME": SomeEnumSome,
+			"SOME": SomeEnum_SOME,
 		},
 	)
 	_jsii_.RegisterStruct(

@@ -14,11 +14,11 @@ import {
   JSII_INIT_ALIAS,
 } from './runtime';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
-import { findTypeInTree, goPackageName, flatMap } from './util';
+import { findTypeInTree, goPackageName, flatMap, tarballName } from './util';
 import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
-export const GO_VERSION = '1.15';
+export const GO_VERSION = '1.16';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -332,7 +332,11 @@ export class RootPackage extends Package {
     code.line('package jsii');
     code.line();
 
-    const toImport: ImportedModule[] = [JSII_RT_MODULE, { module: 'sync' }];
+    const toImport: ImportedModule[] = [
+      JSII_RT_MODULE,
+      { module: 'embed', alias: '_' },
+      { module: 'sync' },
+    ];
     if (dependencies.length > 0) {
       for (const pkg of dependencies) {
         toImport.push({
@@ -344,7 +348,9 @@ export class RootPackage extends Package {
     importGoModules(code, toImport);
 
     code.line();
-    code.line('var once sync.Once');
+    code.line(`//go:embed ${tarballName(this.assembly)}`);
+    code.line('var tarball []byte');
+    code.line('var once    sync.Once');
     code.line();
 
     code.line(

@@ -91,7 +91,7 @@ export function checkTree(
   }
 
   if (stat.isFile()) {
-    if (file.endsWith('.tgz') || file.endsWith('.embedded.go')) {
+    if (file.endsWith('.tgz')) {
       // Special-cased to avoid binary differences being annoying
       expect({ [TARBALL]: relativeFile }).toMatchSnapshot(snapshotName);
     } else {

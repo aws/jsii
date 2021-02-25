@@ -2,10 +2,12 @@ package software.amazon.jsii;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.Nullable;
+import org.zeroturnaround.exec.ProcessExecutor;
+import org.zeroturnaround.exec.StartedProcess;
+import org.zeroturnaround.exec.stream.LogOutputStream;
 import software.amazon.jsii.api.Callback;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -13,7 +15,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.channels.Channels;
+import java.nio.channels.Pipe;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static software.amazon.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
@@ -41,7 +48,7 @@ public final class JsiiRuntime {
     /**
      * The child procesds.
      */
-    private Process childProcess;
+    private StartedProcess childProcess;
 
     /**
      * Child's standard output.
@@ -51,7 +58,7 @@ public final class JsiiRuntime {
     /**
      * Child's standard input.
      */
-    private BufferedWriter stdin;
+    private Writer stdin;
 
     /**
      * Handler for synchronous callbacks. Must be set using setCallbackHandler.
@@ -173,45 +180,53 @@ public final class JsiiRuntime {
     }
 
     synchronized void terminate() {
-        try {
-            // The jsii Kernel process exists after having received the "exit" message
-            if (stdin != null) {
+        // The jsii Kernel process exists after having received the "exit" message
+        if (stdin != null) {
+            try {
                 stdin.write("{\"exit\":0}\n");
                 stdin.close();
+            } catch (final IOException ioe) {
+                // Ignore - the stream might have already been closed, if the child exited already.
+            } finally {
                 stdin = null;
             }
+        }
 
-            if (childProcess != null) {
-                // Wait for the child process to complete
-                try {
-                    // Giving the process up to 5 seconds to clean up and exit
-                    if (!childProcess.waitFor(5, TimeUnit.SECONDS)) {
-                        // If it's still not done, forcibly terminate it at this point.
-                        childProcess.destroy();
-                    }
-                } catch (final InterruptedException ie) {
-                    throw new RuntimeException(ie);
+        if (childProcess != null) {
+            // Wait for the child process to complete
+            try {
+                // Giving the process up to 5 seconds to clean up and exit
+                if (!childProcess.getProcess().waitFor(5, TimeUnit.SECONDS)) {
+                    // If it's still not done, forcibly terminate it at this point.
+                    childProcess.getProcess().destroyForcibly();
                 }
+            } catch (final InterruptedException ie) {
+                throw new RuntimeException(ie);
+            } finally {
                 childProcess = null;
             }
+        }
 
-            // Cleaning up stdout (ensuring buffers are flushed, etc...)
-            if (stdout != null) {
+        // Cleaning up stdout (ensuring buffers are flushed, etc...)
+        if (stdout != null) {
+            try {
                 stdout.close();
+            } catch (final IOException ioe) {
+                // Ignore - the stream might have already been closed.
+            } finally {
                 stdout = null;
             }
+        }
 
-            // We shut down already, no need for the shutdown hook anymore
-            if (this.shutdownHook != null) {
-                try {
-                    Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
-                } catch (final IllegalStateException ise) {
-                    // VM Shutdown is in progress, removal is now impossible (and unnecessary)
-                }
+        // We shut down already, no need for the shutdown hook anymore
+        if (this.shutdownHook != null) {
+            try {
+                Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+            } catch (final IllegalStateException ise) {
+                // VM Shutdown is in progress, removal is now impossible (and unnecessary)
+            } finally {
                 this.shutdownHook = null;
             }
-        } catch (final IOException ioe) {
-            throw new UncheckedIOException(ioe);
         }
     }
 
@@ -224,49 +239,44 @@ public final class JsiiRuntime {
         }
 
         // If JSII_DEBUG is set, enable traces.
-        String jsiiDebug = System.getenv("JSII_DEBUG");
-        boolean traceEnabled = jsiiDebug != null
+        final String jsiiDebug = System.getenv("JSII_DEBUG");
+        final boolean traceEnabled = jsiiDebug != null
                 && !jsiiDebug.isEmpty()
                 && !jsiiDebug.equalsIgnoreCase("false")
                 && !jsiiDebug.equalsIgnoreCase("0");
 
         // If JSII_RUNTIME is set, use it to find the jsii-server executable
         // otherwise, we default to "jsii-runtime" from PATH.
-        String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
-        if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = BundledRuntime.extract(getClass());
-        }
+        final String jsiiRuntimeEnv = System.getenv("JSII_RUNTIME");
+        final List<String> jsiiRuntimeCommand = jsiiRuntimeEnv == null
+                ? Arrays.asList("node", BundledRuntime.extract(getClass()))
+                : Collections.singletonList(jsiiRuntimeEnv);
 
         if (traceEnabled) {
-            System.err.println("jsii-runtime: " + jsiiRuntimeExecutable);
+            System.err.println("jsii-runtime: " + String.join(" ", jsiiRuntimeCommand));
         }
-
-        ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable)
-            .redirectInput(ProcessBuilder.Redirect.PIPE)
-            .redirectOutput(ProcessBuilder.Redirect.PIPE)
-            .redirectError(ProcessBuilder.Redirect.PIPE);
-
-        if (traceEnabled) {
-            pb.environment().put("JSII_DEBUG", "1");
-        }
-
-        pb.environment().put("JSII_AGENT", "Java/" + System.getProperty("java.version"));
 
         try {
-            this.childProcess = pb.start();
-            this.shutdownHook = new Thread(this::terminate, "Terminate jsii client");
-            Runtime.getRuntime().addShutdownHook(this.shutdownHook);
-        } catch (IOException e) {
-            throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)", e);
+            final Pipe stdin = Pipe.open();
+            this.stdin = Channels.newWriter(stdin.sink(), StandardCharsets.UTF_8.newEncoder(), -1);
+
+            final Pipe stdout = Pipe.open();
+            this.stdout = new BufferedReader(Channels.newReader(stdout.source(), StandardCharsets.UTF_8.newDecoder(), -1));
+
+            final ProcessExecutor executor = new ProcessExecutor(jsiiRuntimeCommand)
+                    .environment("JSII_AGENT", String.format("Java/%s", System.getProperty("java.version")))
+                    .environment("JSII_DEBUG", jsiiDebug)
+                    .redirectInput(Channels.newInputStream(stdin.source()))
+                    .redirectOutput(Channels.newOutputStream(stdout.sink()))
+                    .redirectError(new ErrorStreamSink());
+
+            this.childProcess = executor.start();
+        } catch (final IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
 
-        OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);
-        InputStreamReader stdoutStream = new InputStreamReader(this.childProcess.getInputStream(), StandardCharsets.UTF_8);
-
-        new ErrorStreamSink(this.childProcess.getErrorStream()).start();
-
-        this.stdout = new BufferedReader(stdoutStream);
-        this.stdin = new BufferedWriter(stdinStream);
+        this.shutdownHook = new Thread(this::terminate, "Terminate jsii client");
+        Runtime.getRuntime().addShutdownHook(this.shutdownHook);
 
         handshake();
 
@@ -346,40 +356,22 @@ public final class JsiiRuntime {
         inspector.inspect(message, type);
     }
 
-    private static final class ErrorStreamSink extends Thread {
-        private final InputStream inputStream;
+    private static final class ErrorStreamSink extends LogOutputStream {
+        private final ObjectMapper objectMapper = new ObjectMapper();
 
-        public ErrorStreamSink(final InputStream inputStream) {
-            super("JsiiRuntime.ErrorStreamSink");
-            // This is a daemon thread, shouldn't keep the VM alive.
-            this.setDaemon(true);
-
-            this.inputStream = inputStream;
-        }
-
-        public void run() {
-            try (final InputStreamReader inputStreamReader = new InputStreamReader(this.inputStream);
-                 final BufferedReader reader = new BufferedReader(inputStreamReader)) {
-                String line;
-                final ObjectMapper objectMapper = new ObjectMapper();
-                while ((line = reader.readLine()) != null) {
-                    try {
-                        final JsonNode tree = objectMapper.readTree(line);
-                        final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
-                        if (consoleOutput.stderr != null) {
-                            System.err.write(consoleOutput.stderr, 0, consoleOutput.stderr.length);
-                        }
-                        if (consoleOutput.stdout != null) {
-                            System.out.write(consoleOutput.stdout, 0, consoleOutput.stdout.length);
-                        }
-                    } catch (final JsonParseException | JsonMappingException exception) {
-                        // If not JSON, then this goes straight to stderr without touches...
-                        System.err.println(line);
-                    }
+        public void processLine(final String line) {
+            try {
+                final JsonNode tree = objectMapper.readTree(line);
+                final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
+                if (consoleOutput.stderr != null) {
+                    System.err.write(consoleOutput.stderr, 0, consoleOutput.stderr.length);
                 }
-            } catch (final IOException error) {
-                System.err.printf("I/O Error reading jsii Kernel's STDERR: %s%n", error);
-                throw new UncheckedIOException(error);
+                if (consoleOutput.stdout != null) {
+                    System.out.write(consoleOutput.stdout, 0, consoleOutput.stdout.length);
+                }
+            } catch (final JsonProcessingException exception) {
+                // If not JSON, then this goes straight to stderr without touches...
+                System.err.println(line);
             }
         }
     }

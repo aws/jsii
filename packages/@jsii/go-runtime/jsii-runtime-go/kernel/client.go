@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/aws/jsii-runtime-go/embedded"
 	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"path"
 	"runtime"
 	"sync"
 
@@ -112,17 +112,11 @@ func newClient() (*client, error) {
 		}
 		clientinstance.tmpdir = tmpdir
 
-		for file, data := range embeddedruntime {
-			filepath := path.Join(tmpdir, file)
-			if err := os.MkdirAll(path.Dir(filepath), 0700); err != nil {
-				return nil, err
-			}
-			if err := ioutil.WriteFile(filepath, data, 0644); err != nil {
-				return nil, err
-			}
+		entrypoint, err := embedded.ExtractRuntime(tmpdir)
+		if err != nil {
+			panic(err)
 		}
 
-		entrypoint := path.Join(tmpdir, embeddedruntimeMain)
 		// --max-old-space-size is recommended to be set because `jsii` currently does not quite do
 		// garbage collection (the kernel API only allows the host library to report object deleting,
 		// but in order to be effective, the jsii kernel needs to also have a way to signal objects it
