@@ -1,3 +1,5 @@
+import { Assembly } from 'jsii-reflect';
+
 import { Package } from './package';
 import { GoMethod, GoTypeMember, GoType } from './types';
 
@@ -88,9 +90,22 @@ const RESERVED_WORDS: { [word: string]: string } = {
   return: 'return_',
   var: 'var_',
 };
+
 /*
  * Sanitize reserved words
  */
 export function substituteReservedWords(name: string): string {
   return RESERVED_WORDS[name] || name;
+}
+
+/**
+ * Computes a safe tarball name for the provided assembly.
+ *
+ * @param assm the assembly.
+ *
+ * @returns a tarball name.
+ */
+export function tarballName(assm: Assembly): string {
+  const name = assm.name.replace(/^@/, '').replace(/\//g, '-');
+  return `${name}-${assm.version}.tgz`;
 }
