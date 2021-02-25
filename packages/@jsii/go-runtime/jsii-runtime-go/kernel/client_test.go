@@ -13,10 +13,6 @@ func TestClient(t *testing.T) {
 	}
 	defer client.close()
 
-	if client.RuntimeVersion == "" {
-		t.Errorf("No client runtime version found. Client: %v", client)
-	}
-
 	t.Run("Client Load Error", func(t *testing.T) {
 		request := LoadRequest{
 			API:     "load",
