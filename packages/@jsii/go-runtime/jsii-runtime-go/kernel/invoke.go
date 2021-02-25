@@ -2,37 +2,38 @@ package kernel
 
 import "github.com/aws/jsii-runtime-go/api"
 
-type InvokeRequest struct {
-	kernelRequester
-
-	API       string        `json:"api"`
+type InvokeProps struct {
 	Method    string        `json:"method"`
 	Arguments []interface{} `json:"args"`
 	ObjRef    api.ObjectRef `json:"objref"`
 }
 
-type StaticInvokeRequest struct {
-	kernelRequester
-
-	API       string        `json:"api"`
+type StaticInvokeProps struct {
 	FQN       api.FQN       `json:"fqn"`
 	Method    string        `json:"method"`
 	Arguments []interface{} `json:"args"`
 }
 
 type InvokeResponse struct {
-	kernelResponder
-
+	kernelResponse
 	Result interface{} `json:"result"`
 }
 
-func (c *client) Invoke(request InvokeRequest) (response InvokeResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Invoke(props InvokeProps) (response InvokeResponse, err error) {
+	type request struct {
+		kernelRequest
+		InvokeProps
+	}
+	err = c.request(request{kernelRequest{"invoke"}, props}, &response)
 	return
 }
 
-func (c *client) SInvoke(request StaticInvokeRequest) (response InvokeResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) SInvoke(props StaticInvokeProps) (response InvokeResponse, err error) {
+	type request struct {
+		kernelRequest
+		StaticInvokeProps
+	}
+	err = c.request(request{kernelRequest{"sinvoke"}, props}, &response)
 	return
 }
 

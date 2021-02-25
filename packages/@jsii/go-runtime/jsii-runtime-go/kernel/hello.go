@@ -3,7 +3,7 @@ package kernel
 import "regexp"
 
 type HelloMessage struct {
-	kernelResponder
+	kernelResponse
 
 	Hello string `json:"hello"`
 }

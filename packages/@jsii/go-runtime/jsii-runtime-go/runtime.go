@@ -36,8 +36,7 @@ func Load(name string, version string, tarball []byte) {
 	}
 	tmpfile.Close()
 
-	_, err = c.Load(kernel.LoadRequest{
-		API:     "load",
+	_, err = c.Load(kernel.LoadProps{
 		Name:    name,
 		Version: version,
 		Tarball: tmpfile.Name(),
@@ -105,8 +104,7 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 		apiOverrides = append(apiOverrides, override)
 	}
 
-	res, err := client.Create(kernel.CreateRequest{
-		API:        "create",
+	res, err := client.Create(kernel.CreateProps{
 		FQN:        api.FQN(fqn),
 		Arguments:  castPtrsToRef(args),
 		Interfaces: interfaceFQNs,
@@ -134,8 +132,7 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 		panic("No Object Found")
 	}
 
-	res, err := client.Invoke(kernel.InvokeRequest{
-		API:       "invoke",
+	res, err := client.Invoke(kernel.InvokeProps{
 		Method:    method,
 		Arguments: castPtrsToRef(args),
 		ObjRef: api.ObjectRef{
@@ -157,8 +154,7 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 func StaticInvoke(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}) {
 	client := kernel.GetClient()
 
-	res, err := client.SInvoke(kernel.StaticInvokeRequest{
-		API:       "sinvoke",
+	res, err := client.SInvoke(kernel.StaticInvokeProps{
 		FQN:       api.FQN(fqn),
 		Method:    method,
 		Arguments: castPtrsToRef(args),
@@ -185,8 +181,7 @@ func Get(obj interface{}, property string, ret interface{}) {
 		panic("No Object Found")
 	}
 
-	res, err := client.Get(kernel.GetRequest{
-		API:      "get",
+	res, err := client.Get(kernel.GetProps{
 		Property: property,
 		ObjRef: api.ObjectRef{
 			InstanceID: refid,
@@ -205,8 +200,7 @@ func Get(obj interface{}, property string, ret interface{}) {
 func StaticGet(fqn FQN, property string, ret interface{}) {
 	client := kernel.GetClient()
 
-	res, err := client.SGet(kernel.StaticGetRequest{
-		API:      "sget",
+	res, err := client.SGet(kernel.StaticGetProps{
 		FQN:      api.FQN(fqn),
 		Property: property,
 	})
@@ -230,8 +224,7 @@ func Set(obj interface{}, property string, value interface{}) {
 		panic("No Object Found")
 	}
 
-	_, err := client.Set(kernel.SetRequest{
-		API:      "set",
+	_, err := client.Set(kernel.SetProps{
 		Property: property,
 		Value:    castPtrToRef(value),
 		ObjRef: api.ObjectRef{
@@ -249,8 +242,7 @@ func Set(obj interface{}, property string, value interface{}) {
 func StaticSet(fqn FQN, property string, value interface{}) {
 	client := kernel.GetClient()
 
-	_, err := client.SSet(kernel.StaticSetRequest{
-		API:      "sset",
+	_, err := client.SSet(kernel.StaticSetProps{
 		FQN:      api.FQN(fqn),
 		Property: property,
 		Value:    value,
