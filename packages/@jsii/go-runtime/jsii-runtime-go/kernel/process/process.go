@@ -15,7 +15,16 @@ import (
 )
 
 type Process interface {
+	// Request starts the child process if that has not happened yet, then
+	// encodes the supplied request and sends it to the child process
+	// via the requests channel, then decodes the response into the provided
+	// response pointer. If the process is not in a usable state, or if the
+	// encoding fails, an error is returned.
 	Request(request interface{}, response interface{}) error
+
+	// Close cleans up any resources associated to this Process.
+	// The Process can no longer be used for sending requests after
+	// Close has been called.
 	Close()
 }
 
@@ -37,6 +46,9 @@ type process struct {
 	closed  bool
 }
 
+// NewProcess prepares a new child process, but does not start it yet. It will
+// be automatically started whenever the client attempts to send a request
+// to it.
 func NewProcess(compatibleVersions string) (Process, error) {
 	p := process{}
 
@@ -128,7 +140,7 @@ func (p *process) ensureStarted() error {
 	}
 	p.started = true
 
-	done := make(chan bool)
+	done := make(chan bool, 1)
 	go p.consumeStderr(done)
 	p.stderrDone = done
 
@@ -153,6 +165,11 @@ func (p *process) ensureStarted() error {
 	return nil
 }
 
+// Request starts the child process if that has not happened yet, then
+// encodes the supplied request and sends it to the child process
+// via the requests channel, then decodes the response into the provided
+// response pointer. If the process is not in a usable state, or if the
+// encoding fails, an error is returned.
 func (p *process) Request(request interface{}, response interface{}) error {
 	if err := p.ensureStarted(); err != nil {
 		return err
@@ -177,6 +194,10 @@ func (p *process) Close() {
 	}
 
 	if p.stdin != nil {
+		// Try to send the exit message, this might fail, but we can ignore that.
+		p.stdin.Write([]byte("{\"exit\":0}\n"))
+
+		// Close STDIN for the child process now.
 		if err := p.stdin.Close(); err != nil {
 			fmt.Fprintf(os.Stderr, "could not close child process' stdin: %v\n", err)
 		}
@@ -184,6 +205,7 @@ func (p *process) Close() {
 	}
 
 	if p.stdout != nil {
+		// Close STDOUT for the child process now, as we don't expect to receive responses anymore.
 		if err := p.stdout.Close(); err != nil {
 			fmt.Fprintf(os.Stderr, "could not close child process' stdout: %v\n", err)
 		}
@@ -191,11 +213,13 @@ func (p *process) Close() {
 	}
 
 	if p.stderrDone != nil {
+		// Wait for the stderr sink goroutine to have finished
 		<-p.stderrDone
 		p.stderrDone = nil
 	}
 
 	if p.stderr != nil {
+		// Close STDERR for the child process now, as we're no longer consuming it anyway.
 		if err := p.stderr.Close(); err != nil {
 			fmt.Fprintf(os.Stderr, "could not close child process' stderr: %v\n", err)
 		}
@@ -203,6 +227,7 @@ func (p *process) Close() {
 	}
 
 	if p.tmpdir != "" {
+		// Clean up any temporary directory we provisioned.
 		if err := os.RemoveAll(p.tmpdir); err != nil {
 			fmt.Fprintf(os.Stderr, "could not clean up temporary directory: %v\n", err)
 		}

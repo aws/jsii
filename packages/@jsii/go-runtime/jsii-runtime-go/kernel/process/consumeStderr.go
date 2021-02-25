@@ -12,6 +12,12 @@ type consoleMessage struct {
 	Stdout []byte `json:"stdout"`
 }
 
+// consumeStderr is intended to be used as a goroutine, and
+// will consume this process' stderr stream until it reaches
+// EOF. It reads the stream line-by-line and will decode any
+// console messages per the jsii wire protocol specification.
+// Once EOF has been reached, true will be sent to the done
+// channel, allowing other goroutines to check whether the
 func (p *process) consumeStderr(done chan bool) {
 	reader := bufio.NewReader(p.stderr)
 
