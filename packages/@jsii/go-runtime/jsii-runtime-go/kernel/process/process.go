@@ -226,6 +226,12 @@ func (p *process) Close() {
 		p.stderr = nil
 	}
 
+	if p.cmd != nil {
+		// Wait for the child process to be dead and gone (should already be)
+		p.cmd.Wait()
+		p.cmd = nil
+	}
+
 	if p.tmpdir != "" {
 		// Clean up any temporary directory we provisioned.
 		if err := os.RemoveAll(p.tmpdir); err != nil {
