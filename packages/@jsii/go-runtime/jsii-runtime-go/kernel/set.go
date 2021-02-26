@@ -38,5 +38,5 @@ func (c *client) SSet(request StaticSetRequest) (response SetResponse, err error
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *SetResponse) UnmarshalJSON(data []byte) error {
 	type response SetResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

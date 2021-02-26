@@ -29,5 +29,5 @@ func (c *client) Load(request LoadRequest) (response LoadResponse, err error) {
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	type response LoadResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

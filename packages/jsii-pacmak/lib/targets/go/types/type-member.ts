@@ -2,7 +2,7 @@ import { toPascalCase } from 'codemaker';
 import { Method, Parameter, Property } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
-import { GetProperty, SetProperty } from '../runtime';
+import { GetProperty, JSII_RT_ALIAS, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
 
 import { GoClass, GoType, GoInterface, GoTypeRef } from './index';
@@ -62,6 +62,10 @@ export class GoProperty implements GoTypeMember {
 
   public get instanceArg(): string {
     return this.parent.proxyName.substring(0, 1).toLowerCase();
+  }
+
+  public get override(): string {
+    return `${JSII_RT_ALIAS}.MemberProperty{JsiiProperty: "${this.property.name}", GoGetter: "${this.name}"}`;
   }
 
   public emitStructMember({ code, documenter }: EmitContext) {
@@ -191,6 +195,10 @@ export abstract class GoMethod implements GoTypeMember {
 
   public get instanceArg(): string {
     return this.parent.name.substring(0, 1).toLowerCase();
+  }
+
+  public get override(): string {
+    return `${JSII_RT_ALIAS}.MemberMethod{JsiiMethod: "${this.method.name}", GoMethod: "${this.name}"}`;
   }
 
   public paramString(): string {

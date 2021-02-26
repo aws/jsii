@@ -38,5 +38,5 @@ func (c *client) SGet(request StaticGetRequest) (response GetResponse, err error
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *GetResponse) UnmarshalJSON(data []byte) error {
 	type response GetResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

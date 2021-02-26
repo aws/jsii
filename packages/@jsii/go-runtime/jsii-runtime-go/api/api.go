@@ -22,8 +22,8 @@ func (o override) isOverride() {
 type MethodOverride struct {
 	override
 
-	Method *string `json:"method"`
-	Cookie *string `json:"cookie"`
+	JsiiMethod string `json:"method"`
+	GoMethod   string `json:"cookie"`
 }
 
 // PropertyOverride is used to register a "go-native" implementation to be
@@ -31,8 +31,8 @@ type MethodOverride struct {
 type PropertyOverride struct {
 	override
 
-	Property *string `json:"property"`
-	Cookie   *string `json:"cookie"`
+	JsiiProperty string `json:"property"`
+	GoGetter     string `json:"cookie"`
 }
 
 func IsMethodOverride(value Override) bool {
@@ -63,29 +63,4 @@ type EnumRef struct {
 
 type WireMap struct {
 	MapData map[string]interface{} `json:"$jsii.map"`
-}
-
-type Callback struct {
-	CallbackID *string        `json:"cbid"`
-	Cookie     *string        `json:"cookie"`
-	Invoke     InvokeCallback `json:"invoke"`
-	Get        GetCallback    `json:"get"`
-	Set        SetCallback    `json:"set"`
-}
-
-type InvokeCallback struct {
-	Method    string        `json:"method"`
-	Arguments []interface{} `json:"args"`
-	ObjRef    ObjectRef     `json:"objref"`
-}
-
-type GetCallback struct {
-	Property string    `json:"property"`
-	ObjRef   ObjectRef `json:"objref"`
-}
-
-type SetCallback struct {
-	Property string      `json:"property"`
-	Value    interface{} `json:"value"`
-	ObjRef   ObjectRef   `json:"objref"`
 }

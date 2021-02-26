@@ -40,5 +40,5 @@ func (c *client) SInvoke(request StaticInvokeRequest) (response InvokeResponse, 
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *InvokeResponse) UnmarshalJSON(data []byte) error {
 	type response InvokeResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

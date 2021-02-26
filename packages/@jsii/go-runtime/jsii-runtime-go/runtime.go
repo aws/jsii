@@ -14,9 +14,24 @@ import (
 // FQN represents a fully-qualified type name in the jsii type system.
 type FQN api.FQN
 
-type Override api.Override
-type MethodOverride api.MethodOverride
-type PropertyOverride api.PropertyOverride
+// Member is a runtime descriptor for a class or interface member
+type Member interface {
+	toOverride() api.Override
+}
+
+// MemberMethod is a runtime descriptor for a class method (implementation of Member)
+type MemberMethod api.MethodOverride
+
+func (m MemberMethod) toOverride() api.Override {
+	return api.MethodOverride(m)
+}
+
+// MemberProperty is a runtime descriptor for a class or interface property (implementation of Member)
+type MemberProperty api.PropertyOverride
+
+func (m MemberProperty) toOverride() api.Override {
+	return api.PropertyOverride(m)
+}
 
 // Load ensures a npm package is loaded in the jsii kernel.
 func Load(name string, version string, tarball []byte) {
@@ -48,12 +63,17 @@ func Load(name string, version string, tarball []byte) {
 }
 
 // RegisterClass associates a class fully qualified name to the specified class
-// interface, and proxy struct. Panics if class is not an go interface, proxy is
-// not a go struct, or if the provided fqn was already used to register a different
-// type.
-func RegisterClass(fqn FQN, class reflect.Type, maker func() interface{}) {
+// interface, member list, and proxy maker function. Panics if class is not a go
+// interface, or if the provided fqn was already used to register a different type.
+func RegisterClass(fqn FQN, class reflect.Type, members []Member, maker func() interface{}) {
 	client := kernel.GetClient()
-	if err := client.Types().RegisterClass(api.FQN(fqn), class, maker); err != nil {
+
+	overrides := make([]api.Override, len(members))
+	for i, m := range members {
+		overrides[i] = m.toOverride()
+	}
+
+	if err := client.Types().RegisterClass(api.FQN(fqn), class, overrides, maker); err != nil {
 		panic(err)
 	}
 }
@@ -70,11 +90,17 @@ func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
 }
 
 // RegisterInterface associates an interface's fully qualified name to the
-// specified interface type, and proxy maker function. Panics if iface is not an
-// interface, or if the provided fqn was already used to register a different type.
-func RegisterInterface(fqn FQN, iface reflect.Type, maker func() interface{}) {
+// specified interface type, member list, and proxy maker function. Panics if iface is not
+// an interface, or if the provided fqn was already used to register a different type.
+func RegisterInterface(fqn FQN, iface reflect.Type, members []Member, maker func() interface{}) {
 	client := kernel.GetClient()
-	if err := client.Types().RegisterInterface(api.FQN(fqn), iface, maker); err != nil {
+
+	overrides := make([]api.Override, len(members))
+	for i, m := range members {
+		overrides[i] = m.toOverride()
+	}
+
+	if err := client.Types().RegisterInterface(api.FQN(fqn), iface, overrides, maker); err != nil {
 		panic(err)
 	}
 }
@@ -101,11 +127,12 @@ func InitJsiiProxy(ptr interface{}) {
 
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
-func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, inst interface{}) {
+func Create(fqn FQN, args interface{}, interfaces []FQN, overriddenMembers []Member, inst interface{}) {
 	client := kernel.GetClient()
 
-	instVal := reflect.ValueOf(inst).Elem()
-	instType := instVal.Type()
+	instVal := reflect.ValueOf(inst)
+	structVal := instVal.Elem()
+	instType := structVal.Type()
 	numField := instType.NumField()
 	for i := 0; i < numField; i++ {
 		field := instType.Field(i)
@@ -114,7 +141,7 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 		}
 		switch field.Type.Kind() {
 		case reflect.Interface:
-			fieldVal := instVal.Field(i)
+			fieldVal := structVal.Field(i)
 			if !fieldVal.IsNil() {
 				continue
 			}
@@ -123,7 +150,7 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 			}
 
 		case reflect.Struct:
-			fieldVal := instVal.Field(i)
+			fieldVal := structVal.Field(i)
 			if !fieldVal.IsZero() {
 				continue
 			}
@@ -137,17 +164,17 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 	for _, iface := range interfaces {
 		interfaceFQNs = append(interfaceFQNs, api.FQN(iface))
 	}
-	var apiOverrides []api.Override
-	for _, override := range overrides {
-		apiOverrides = append(apiOverrides, override)
+	overrides := make([]api.Override, len(overriddenMembers))
+	for i, member := range overriddenMembers {
+		overrides[i] = member.toOverride()
 	}
 
 	res, err := client.Create(kernel.CreateRequest{
 		API:        "create",
 		FQN:        api.FQN(fqn),
-		Arguments:  castPtrsToRef(args),
+		Arguments:  convertArguments(args),
 		Interfaces: interfaceFQNs,
-		Overrides:  apiOverrides,
+		Overrides:  overrides,
 	})
 
 	if err != nil {
@@ -159,9 +186,9 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 	}
 }
 
-// Invoke will call a method on a jsii class instance. The response should be
+// Invoke will call a method on a jsii class instance. The response will be
 // decoded into the expected return type for the method being called.
-func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, ret interface{}) {
+func Invoke(obj interface{}, method string, args interface{}, ret interface{}) {
 	client := kernel.GetClient()
 
 	// Find reference to class instance in client
@@ -174,7 +201,7 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 	res, err := client.Invoke(kernel.InvokeRequest{
 		API:       "invoke",
 		Method:    method,
-		Arguments: castPtrsToRef(args),
+		Arguments: convertArguments(args),
 		ObjRef: api.ObjectRef{
 			InstanceID: refid,
 		},
@@ -184,29 +211,66 @@ func Invoke(obj interface{}, method string, args []interface{}, hasReturn bool, 
 		panic(err)
 	}
 
-	if hasReturn {
-		client.CastAndSetToPtr(ret, res.Result)
+	client.CastAndSetToPtr(ret, res.Result)
+}
+
+// InvokeVoid will call a void method on a jsii class instance.
+func InvokeVoid(obj interface{}, method string, args interface{}) {
+	client := kernel.GetClient()
+
+	// Find reference to class instance in client
+	refid, found := client.FindObjectRef(reflect.ValueOf(obj))
+
+	if !found {
+		panic("No Object Found")
+	}
+
+	_, err := client.Invoke(kernel.InvokeRequest{
+		API:       "invoke",
+		Method:    method,
+		Arguments: convertArguments(args),
+		ObjRef: api.ObjectRef{
+			InstanceID: refid,
+		},
+	})
+
+	if err != nil {
+		panic(err)
 	}
 }
 
 // StaticInvoke will call a static method on a given jsii class. The response
-// should be decoded into the expected return type for the method being called.
-func StaticInvoke(fqn FQN, method string, args []interface{}, hasReturn bool, ret interface{}) {
+// will be decoded into the expected return type for the method being called.
+func StaticInvoke(fqn FQN, method string, args interface{}, ret interface{}) {
 	client := kernel.GetClient()
 
 	res, err := client.SInvoke(kernel.StaticInvokeRequest{
 		API:       "sinvoke",
 		FQN:       api.FQN(fqn),
 		Method:    method,
-		Arguments: castPtrsToRef(args),
+		Arguments: convertArguments(args),
 	})
 
 	if err != nil {
 		panic(err)
 	}
 
-	if hasReturn {
-		client.CastAndSetToPtr(ret, res.Result)
+	client.CastAndSetToPtr(ret, res.Result)
+}
+
+// StaticInvokeVoid will call a static void method on a given jsii class.
+func StaticInvokeVoid(fqn FQN, method string, args interface{}) {
+	client := kernel.GetClient()
+
+	_, err := client.SInvoke(kernel.StaticInvokeRequest{
+		API:       "sinvoke",
+		FQN:       api.FQN(fqn),
+		Method:    method,
+		Arguments: convertArguments(args),
+	})
+
+	if err != nil {
+		panic(err)
 	}
 }
 
@@ -270,7 +334,7 @@ func Set(obj interface{}, property string, value interface{}) {
 	_, err := client.Set(kernel.SetRequest{
 		API:      "set",
 		Property: property,
-		Value:    castPtrToRef(value),
+		Value:    client.CastPtrToRef(reflect.ValueOf(value)),
 		ObjRef: api.ObjectRef{
 			InstanceID: refid,
 		},
@@ -290,7 +354,7 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 		API:      "sset",
 		FQN:      api.FQN(fqn),
 		Property: property,
-		Value:    value,
+		Value:    client.CastPtrToRef(reflect.ValueOf(value)),
 	})
 
 	if err != nil {
@@ -298,63 +362,29 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 	}
 }
 
-// Accepts pointers to structs that implement interfaces and searches for an
-// existing object reference in the kernel. If it exists, it casts it to an
-// objref for the runtime. Recursively casts types that may contain nested
-// object references.
-func castPtrToRef(data interface{}) interface{} {
-	if data == nil {
-		return data
+// convertArguments turns an argument struct and produces a list of values
+// ready for inclusion in an invoke or create request.
+func convertArguments(args interface{}) []interface{} {
+	if args == nil {
+		return []interface{}{}
 	}
 
+	val := reflect.ValueOf(args)
+	if val.Kind() == reflect.Ptr {
+		val = val.Elem()
+	}
+
+	if val.Kind() != reflect.Struct {
+		panic(fmt.Errorf("illegal argument, struct expected: %v", val))
+	}
+	numField := val.NumField()
+	result := make([]interface{}, numField)
 	client := kernel.GetClient()
-	dataVal := reflect.ValueOf(data)
-
-	switch dataVal.Kind() {
-	case reflect.Map:
-		result := api.WireMap{MapData: make(map[string]interface{})}
-
-		iter := dataVal.MapRange()
-		for iter.Next() {
-			key := iter.Key().String()
-			val := iter.Value().Interface()
-			result.MapData[key] = castPtrToRef(val)
-		}
-
-		return result
-
-	case reflect.Ptr:
-		valref, valHasRef := client.FindObjectRef(reflect.ValueOf(data))
-		if valHasRef {
-			return api.ObjectRef{InstanceID: valref}
-		}
-
-	case reflect.Slice:
-		refs := make([]interface{}, dataVal.Len())
-		for i := 0; i < dataVal.Len(); i++ {
-			refs[i] = dataVal.Index(i).Interface()
-		}
-		return refs
-
-	case reflect.String:
-		if enumRef, isEnumRef := client.Types().TryRenderEnumRef(dataVal); isEnumRef {
-			return enumRef
-		}
-	}
-	return data
-}
-
-// Casts slice of data into new slice of data with pointers to interfaces
-// converted to objrefs. This is useful for casting arguments to methods and
-// constructors to data that can be serialized before being passed over the
-// wire.
-func castPtrsToRef(args []interface{}) []interface{} {
-	argRefs := make([]interface{}, len(args))
-	for i, arg := range args {
-		argRefs[i] = castPtrToRef(arg)
+	for i := 0; i < numField; i++ {
+		result[i] = client.CastPtrToRef(val.Field(i))
 	}
 
-	return argRefs
+	return result
 }
 
 // Close finalizes the runtime process, signalling the end of the execution to

@@ -13,7 +13,9 @@ import (
 	"runtime"
 	"sync"
 
+	"github.com/aws/jsii-runtime-go/api"
 	"github.com/aws/jsii-runtime-go/embedded"
+	"github.com/aws/jsii-runtime-go/objectstore"
 	"github.com/aws/jsii-runtime-go/typeregistry"
 )
 
@@ -37,8 +39,9 @@ type client struct {
 	stdin  io.WriteCloser
 	tmpdir string
 
-	types   typeregistry.TypeRegistry
-	objects map[reflect.Value]string
+	types typeregistry.TypeRegistry
+
+	objects objectstore.ObjectStore
 }
 
 // GetClient returns a singleton client instance, initializing one the first
@@ -85,7 +88,7 @@ func CloseClient() {
 // was correct.
 func newClient() (*client, error) {
 	clientinstance := &client{
-		objects: make(map[reflect.Value]string),
+		objects: objectstore.NewObjectStore(),
 		types:   typeregistry.NewTypeRegistry(),
 	}
 
@@ -199,53 +202,7 @@ func (c *client) Types() typeregistry.TypeRegistry {
 }
 
 func (c *client) RegisterInstance(instance reflect.Value, instanceID string) error {
-	instance = reflect.Indirect(instance)
-	if instance.Kind() == reflect.Interface {
-		instance = reflect.ValueOf(instance.Interface()).Elem()
-	}
-
-	if existing, found := c.objects[instance]; found && existing != instanceID {
-		return fmt.Errorf("attempted to register %v as %s, but it was already registered as %s", instance, instanceID, existing)
-	}
-
-	var findAliases func(v reflect.Value) []reflect.Value
-	findAliases = func(v reflect.Value) (res []reflect.Value) {
-		v = reflect.Indirect(v)
-		t := v.Type()
-		numField := t.NumField()
-		for i := 0; i < numField; i++ {
-			f := t.Field(i)
-			if f.Name == "_" {
-				// Ignore any padding
-				continue
-			}
-			if !f.Anonymous {
-				// Ignore any non-anonymous field
-				continue
-			}
-			fv := reflect.Indirect(v.Field(i))
-			if fv.Kind() == reflect.Interface {
-				fv = reflect.ValueOf(fv.Interface()).Elem()
-			}
-
-			res = append(res, fv)
-			res = append(res, findAliases(fv)...)
-		}
-		return
-	}
-
-	aliases := findAliases(instance)
-	for _, alias := range aliases {
-		if existing, found := c.objects[alias]; found && existing != instanceID {
-			return fmt.Errorf("value %v is embedded in %s, but was already assigned %s", alias, instanceID, existing)
-		}
-	}
-
-	c.objects[instance] = instanceID
-	for _, alias := range aliases {
-		c.objects[alias] = instanceID
-	}
-	return nil
+	return c.objects.Register(instance, instanceID)
 }
 
 func (c *client) request(req kernelRequest, res kernelResponse) error {
@@ -266,13 +223,29 @@ func (c *client) response(res kernelResponse) error {
 
 }
 
-func (c *client) FindObjectRef(obj reflect.Value) (refid string, ok bool) {
-	obj = reflect.Indirect(obj)
-	if obj.Kind() == reflect.Interface {
-		obj = reflect.ValueOf(obj.Interface()).Elem()
+func (c *client) FindObjectRef(obj reflect.Value) (string, bool) {
+	switch obj.Kind() {
+	case reflect.Struct:
+		// Structs can be checked only if they are addressable, meaning
+		// they are obtained from fields of an addressable struct.
+		if !obj.CanAddr() {
+			return "", false
+		}
+		obj = obj.Addr()
+		fallthrough
+	case reflect.Interface, reflect.Ptr:
+		return c.objects.InstanceID(obj)
+	default:
+		// Ohter types cannot possibly be object references!
+		return "", false
 	}
-	refid, ok = c.objects[obj]
-	return
+}
+
+func (c *client) GetObject(objref api.ObjectRef) interface{} {
+	if obj, ok := c.objects.GetObject(objref.InstanceID); ok {
+		return obj.Interface()
+	}
+	panic(fmt.Errorf("no object found for ObjectRef %v", objref))
 }
 
 func (c *client) close() {

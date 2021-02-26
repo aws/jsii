@@ -11,6 +11,7 @@ import (
 // go as well as methods to work with registered types.
 type TypeRegistry interface {
 	TypeRegisterer
+	DiscoverImplementationer
 
 	// StructFields returns the list of fields that make a registered jsii struct.
 	StructFields(typ reflect.Type) (fields []reflect.StructField, found bool)
@@ -41,7 +42,7 @@ type typeRegistry struct {
 	// FQN represents... This will be the second argument of provided to a
 	// register* function.
 	// enums are not included
-	fqnToType map[api.FQN]reflect.Type
+	fqnToType map[api.FQN]registeredType
 
 	// map enum member FQNs (e.g. "jsii-calc.StringEnum/A") to the corresponding
 	// go const for this member.
@@ -56,16 +57,21 @@ type typeRegistry struct {
 
 	// map registered interface types to a proxy maker function
 	proxyMakers map[reflect.Type]func() interface{}
+
+	// typeMembers maps each class or interface FQN to the set of members it implements
+	// in the form of api.Override values.
+	typeMembers map[api.FQN][]api.Override
 }
 
 // NewTypeRegistry creates a new type registry.
 func NewTypeRegistry() TypeRegistry {
 	return &typeRegistry{
-		fqnToType:       make(map[api.FQN]reflect.Type),
+		fqnToType:       make(map[api.FQN]registeredType),
 		fqnToEnumMember: make(map[string]interface{}),
 		typeToEnumFQN:   make(map[reflect.Type]api.FQN),
 		structFields:    make(map[reflect.Type][]reflect.StructField),
 		proxyMakers:     make(map[reflect.Type]func() interface{}),
+		typeMembers:     make(map[api.FQN][]api.Override),
 	}
 }
 

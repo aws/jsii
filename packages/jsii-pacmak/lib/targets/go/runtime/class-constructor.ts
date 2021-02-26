@@ -1,7 +1,8 @@
 import { CodeMaker } from 'codemaker';
 
 import { GoClassConstructor } from '../types';
-import { JSII_CREATE_FUNC, JSII_OVERRIDE, JSII_FQN } from './constants';
+import { emitArgumentObject } from './arguments';
+import { JSII_CREATE_FUNC, JSII_FQN } from './constants';
 import { slugify, emitInitialization } from './util';
 
 export class ClassConstructor {
@@ -9,6 +10,7 @@ export class ClassConstructor {
 
   public emit(code: CodeMaker) {
     emitInitialization(code);
+    code.line();
 
     const resultVar = slugify(
       this.parent.parent.proxyName[0],
@@ -21,13 +23,14 @@ export class ClassConstructor {
     code.open(`${JSII_CREATE_FUNC}(`);
 
     code.line(`"${this.parent.parent.fqn}",`);
-    code.line(`${this.argsString},`);
+    emitArgumentObject(code, this.parent);
     code.line(`${this.interfacesString},`);
-    code.line(`[]${JSII_OVERRIDE}{},`);
+    code.line('nil, // no overrides');
     code.line(`&${resultVar},`);
 
     code.close(`)`);
 
+    code.line();
     code.line(`return &${resultVar}`);
   }
 
@@ -36,12 +39,5 @@ export class ClassConstructor {
       .map((iFace) => `"${iFace}"`)
       .join(', ');
     return `[]${JSII_FQN}{${iFaceList}}`;
-  }
-
-  public get argsString(): string {
-    const argsList = this.parent.parameters
-      .map((param) => param.name)
-      .join(', ');
-    return `[]interface{}{${argsList}}`;
   }
 }

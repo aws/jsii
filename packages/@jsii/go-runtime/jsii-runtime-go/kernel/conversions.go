@@ -32,7 +32,13 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 			return
 		}
 
-		// If return data is jsii object references, add to objects table.
+		// If it's currently tracked, return the current instance
+		if object, ok := c.objects.GetObject(ref.InstanceID); ok {
+			ptrVal.Set(object)
+			return
+		}
+
+		// Otherwise, add to objects table.
 		if err := c.Types().InitJsiiProxy(ptrVal); err == nil {
 			if err = c.RegisterInstance(ptrVal, ref.InstanceID); err != nil {
 				panic(err)
@@ -79,6 +85,59 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 		val := reflect.ValueOf(data)
 		ptrVal.Set(val)
 	}
+}
+
+// Accepts pointers to structs that implement interfaces and searches for an
+// existing object reference in the kernel. If it exists, it casts it to an
+// objref for the runtime. Recursively casts types that may contain nested
+// object references.
+func (c *client) CastPtrToRef(dataVal reflect.Value) interface{} {
+	if (dataVal.Kind() == reflect.Interface || dataVal.Kind() == reflect.Ptr) && dataVal.IsNil() {
+		return nil
+	}
+
+	switch dataVal.Kind() {
+	case reflect.Map:
+		result := api.WireMap{MapData: make(map[string]interface{})}
+
+		iter := dataVal.MapRange()
+		for iter.Next() {
+			key := iter.Key().String()
+			val := iter.Value()
+			result.MapData[key] = c.CastPtrToRef(val)
+		}
+
+		return result
+
+	case reflect.Interface, reflect.Ptr:
+		if valref, valHasRef := c.FindObjectRef(dataVal); valHasRef {
+			return api.ObjectRef{InstanceID: valref}
+		}
+
+		// In case we got a pointer to a map, slice, enum, ...
+		if elem := reflect.Indirect(dataVal.Elem()); elem.Kind() != reflect.Struct {
+			return c.CastPtrToRef(elem)
+		}
+
+		if ref, err := c.ManageObject(dataVal); err != nil {
+			panic(err)
+		} else {
+			return ref
+		}
+
+	case reflect.Slice:
+		refs := make([]interface{}, dataVal.Len())
+		for i := 0; i < dataVal.Len(); i++ {
+			refs[i] = dataVal.Index(i).Interface()
+		}
+		return refs
+
+	case reflect.String:
+		if enumRef, isEnumRef := c.Types().TryRenderEnumRef(dataVal); isEnumRef {
+			return enumRef
+		}
+	}
+	return dataVal.Interface()
 }
 
 func castValToRef(data interface{}) (api.ObjectRef, bool) {
