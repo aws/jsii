@@ -19,9 +19,9 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 		if fields, isStruct := c.Types().StructFields(ptrVal.Type()); isStruct {
 			for _, field := range fields {
 				got, err := c.Get(GetRequest{
-					API:             "get",
-					Property:        field.Tag.Get("json"),
-					ObjRef:          ref,
+					API:      "get",
+					Property: field.Tag.Get("json"),
+					ObjRef:   ref,
 				})
 				if err != nil {
 					panic(err)
@@ -33,9 +33,8 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 		}
 
 		// If return data is jsii object references, add to objects table.
-		if concreteType, err := c.Types().ConcreteTypeFor(ptrVal.Type()); err == nil {
-			ptrVal.Set(reflect.New(concreteType))
-			if err = c.RegisterInstance(ptrVal.Interface(), ref.InstanceID); err != nil {
+		if err := c.Types().InitJsiiProxy(ptrVal); err == nil {
+			if err = c.RegisterInstance(ptrVal, ref.InstanceID); err != nil {
 				panic(err)
 			}
 		} else {

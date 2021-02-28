@@ -23,14 +23,9 @@ export class Docs {
    * Returns docstring of summary and remarks
    */
   public toString() {
-    const ret = new Array<string>();
-    if (this.docs.summary) {
-      ret.push(this.docs.summary);
-    }
-    if (this.docs.remarks) {
-      ret.push('', this.docs.remarks);
-    }
-    return ret.join('\n');
+    return [this.docs.summary, this.docs.remarks]
+      .filter((txt) => !!txt)
+      .join('\n\n');
   }
 
   public get subclassable(): boolean {

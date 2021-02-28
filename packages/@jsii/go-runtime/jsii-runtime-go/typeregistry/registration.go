@@ -10,10 +10,9 @@ import (
 // TypeRegisterer exposes the methods to register types with the jsii runtime
 // for go.
 type TypeRegisterer interface {
-	// RegisterClass maps the given FQN to the provided class type, and interface
-	// type. This returns an error if the class type is not a go struct, or if the
-	// interface type is not a go interface.
-	RegisterClass(fqn api.FQN, class reflect.Type, iface reflect.Type) error
+	// RegisterClass maps the given FQN to the provided class interface, and proxy
+	// maker function. This returns an error if the class type is not a go interface.
+	RegisterClass(fqn api.FQN, class reflect.Type, maker func() interface{}) error
 
 	// RegisterEnum maps the given FQN to the provided enum type, and records the
 	// provided members map (jsii member name => go value). This returns an error
@@ -22,36 +21,28 @@ type TypeRegisterer interface {
 	RegisterEnum(fqn api.FQN, enm reflect.Type, members map[string]interface{}) error
 
 	// RegisterInterface maps the given FQN to the provided interface type, and
-	// proxy struct. Returns an error if the provided interface is not a go
-	// interface, or the provided proxy type not a go struct.
-	RegisterInterface(fqn api.FQN, iface reflect.Type, proxy reflect.Type) error
+	// proxy maker function. Returns an error if the provided interface is not a go
+	// interface.
+	RegisterInterface(fqn api.FQN, iface reflect.Type, maker func() interface{}) error
 
 	// RegisterStruct maps the given FQN to the provided struct type, and struct
-	// interface. Returns an error if the provided struct type is not a go struct,
-	// or the provided iface not a go interface.
+	// interface. Returns an error if the provided struct type is not a go struct.
 	RegisterStruct(fqn api.FQN, strct reflect.Type) error
 }
 
-// RegisterClass maps the given FQN to the provided class type, and interface
-// type. This returns an error if the class type is not a go struct, or if the
-// interface type is not a go interface.
-func (t *typeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, iface reflect.Type) error {
-	if class.Kind() != reflect.Struct {
-		return fmt.Errorf("the provided class is not a struct: %v", class)
-	}
-	if iface.Kind() != reflect.Interface {
-		return fmt.Errorf("the provided interface is not an interface: %v", iface)
+// RegisterClass maps the given FQN to the provided class interface, and proxy
+// maker function. This returns an error if the class type is not a go interface.
+func (t *typeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, maker func() interface{}) error {
+	if class.Kind() != reflect.Interface {
+		return fmt.Errorf("the provided class is not an interface: %v", class)
 	}
 
 	if existing, exists := t.fqnToType[fqn]; exists && existing != class {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
-	if existing, exists := t.ifaceToStruct[iface]; exists && existing != class {
-		return fmt.Errorf("another struct was already registered with %v: %v", iface, existing)
-	}
 
 	t.fqnToType[fqn] = class
-	t.ifaceToStruct[iface] = class
+	t.proxyMakers[class] = maker
 
 	return nil
 }
@@ -86,25 +77,19 @@ func (t *typeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 }
 
 // RegisterInterface maps the given FQN to the provided interface type, and
-// proxy struct. Returns an error if the provided interface is not a go
-// interface, or the provided proxy type not a go struct.
-func (t *typeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, proxy reflect.Type) error {
+// proxy maker function. Returns an error if the provided interface is not a go
+// interface.
+func (t *typeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, maker func() interface{}) error {
 	if iface.Kind() != reflect.Interface {
 		return fmt.Errorf("the provided interface is not an interface: %v", iface)
-	}
-	if proxy.Kind() != reflect.Struct {
-		return fmt.Errorf("the provided proxy is not a struct: %v", proxy)
 	}
 
 	if existing, exists := t.fqnToType[fqn]; exists && existing != iface {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
-	if existing, exists := t.ifaceToStruct[iface]; exists && existing != proxy {
-		return fmt.Errorf("another struct was already registered with %v: %v", iface, existing)
-	}
 
 	t.fqnToType[fqn] = iface
-	t.ifaceToStruct[iface] = proxy
+	t.proxyMakers[iface] = maker
 
 	return nil
 }
@@ -123,7 +108,7 @@ func (t *typeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 
 	fields := []reflect.StructField{}
 	numField := strct.NumField()
-	for i := 0 ; i < numField ; i++ {
+	for i := 0; i < numField; i++ {
 		field := strct.Field(i)
 		if field.Anonymous {
 			return fmt.Errorf("unexpected anonymous field %v in struct %s (%v)", field, fqn, strct)
