@@ -15,8 +15,6 @@ Note that if you add a compliance test to a specific language binding only, i.e 
 
 ```
 
-
-
 ### Compliance Report
 
 Each language binding is responsible for creating a language specific report during the `test` phase of our build.
