@@ -1,26 +1,22 @@
 {
-  "name": "@jsii/compliance",
+  "name": "jsii-compliance",
   "version": "0.0.0",
   "private": true,
   "description": "",
-  "main": "lib/index.js",
   "scripts": {
-    "report": "ts-node ./report.ts"
+    "report": "./report.ts",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "yarn lint --fix"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@jsii/runtime": "^0.0.0",
     "tablemark": "^2.0.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.1.1",
     "@types/node": "^10.17.52",
-    "codemaker": "^0.0.0",
     "eslint": "^7.20.0",
-    "fs-extra": "^9.1.0",
-    "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "~3.9.9"

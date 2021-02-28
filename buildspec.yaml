@@ -6,6 +6,7 @@ phases:
       # Temporarily - install yarn if it's not there already
       - yarn --version || npm install --global yarn
       - yarn install --frozen-lockfile
+      - yum -y install gcc
   build:
     commands:
       - yarn build && yarn test
