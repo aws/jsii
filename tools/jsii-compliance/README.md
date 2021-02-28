@@ -9,10 +9,10 @@ Language specific exclusions may be added to each test separately, or to the ent
 
 > See [compliance-suite.json](./compliance-suite.json).
 
-Note that if you add a compliance test to a specific language binding only, i.e without adding it to the suite definition, the build will fail:
+Note that if you add a compliance test to a specific language binding only, i.e without adding it to the suite definition, the build will fail. For example:
 
 ```console
-
+Test 'REMOVEME' from golang report does not exist in the compliance suite. Please add it to the suite definition.
 ```
 
 ### Compliance Report

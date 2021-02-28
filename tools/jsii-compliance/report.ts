@@ -102,9 +102,10 @@ function validateReport(
   // this prevents us from adding tests only to a specific language.
   for (const test of testsInReport) {
     if (!testsInSuite.includes(test)) {
-      throw new Error(
+      console.error(
         `Test '${test}' from ${language} report does not exist in the compliance suite. Please add it to the suite definition.`,
       );
+      process.exit(1);
     }
   }
 }
