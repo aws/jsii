@@ -215,13 +215,13 @@
     "jsii-calc.nodirect.sub1": {
       "locationInModule": {
         "filename": "lib/no-direct-types/index.ts",
-        "line": 1
+        "line": 3
       }
     },
     "jsii-calc.nodirect.sub2": {
       "locationInModule": {
         "filename": "lib/no-direct-types/index.ts",
-        "line": 2
+        "line": 4
       }
     },
     "jsii-calc.onlystatic": {
@@ -14606,5 +14606,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "OjwPQu8+FarcGsPLFcftqebPEhukVgoOvYXAsIbeCzM="
+  "fingerprint": "JMTvoEnsqFjh72kI95PtIx01MmNxAbZV41K/nIgoZ4Q="
 }
