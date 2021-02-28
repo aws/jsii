@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/aws/jsii-runtime-go/embedded"
 	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"reflect"
 	"runtime"
 	"sync"
 
+	"github.com/aws/jsii-runtime-go/embedded"
 	"github.com/aws/jsii-runtime-go/typeregistry"
 )
 
@@ -37,7 +38,7 @@ type client struct {
 	tmpdir string
 
 	types   typeregistry.TypeRegistry
-	objects map[interface{}]string
+	objects map[reflect.Value]string
 }
 
 // GetClient returns a singleton client instance, initializing one the first
@@ -83,11 +84,8 @@ func CloseClient() {
 // newClient starts the kernel child process and verifies the "hello" message
 // was correct.
 func newClient() (*client, error) {
-	// Initialize map of object instances
-	objmap := make(map[interface{}]string)
-
 	clientinstance := &client{
-		objects: objmap,
+		objects: make(map[reflect.Value]string),
 		types:   typeregistry.NewTypeRegistry(),
 	}
 
@@ -200,11 +198,53 @@ func (c *client) Types() typeregistry.TypeRegistry {
 	return c.types
 }
 
-func (c *client) RegisterInstance(instance interface{}, instanceID string) error {
+func (c *client) RegisterInstance(instance reflect.Value, instanceID string) error {
+	instance = reflect.Indirect(instance)
+	if instance.Kind() == reflect.Interface {
+		instance = reflect.ValueOf(instance.Interface()).Elem()
+	}
+
 	if existing, found := c.objects[instance]; found && existing != instanceID {
 		return fmt.Errorf("attempted to register %v as %s, but it was already registered as %s", instance, instanceID, existing)
 	}
+
+	var findAliases func(v reflect.Value) []reflect.Value
+	findAliases = func(v reflect.Value) (res []reflect.Value) {
+		v = reflect.Indirect(v)
+		t := v.Type()
+		numField := t.NumField()
+		for i := 0; i < numField; i++ {
+			f := t.Field(i)
+			if f.Name == "_" {
+				// Ignore any padding
+				continue
+			}
+			if !f.Anonymous {
+				// Ignore any non-anonymous field
+				continue
+			}
+			fv := reflect.Indirect(v.Field(i))
+			if fv.Kind() == reflect.Interface {
+				fv = reflect.ValueOf(fv.Interface()).Elem()
+			}
+
+			res = append(res, fv)
+			res = append(res, findAliases(fv)...)
+		}
+		return
+	}
+
+	aliases := findAliases(instance)
+	for _, alias := range aliases {
+		if existing, found := c.objects[alias]; found && existing != instanceID {
+			return fmt.Errorf("value %v is embedded in %s, but was already assigned %s", alias, instanceID, existing)
+		}
+	}
+
 	c.objects[instance] = instanceID
+	for _, alias := range aliases {
+		c.objects[alias] = instanceID
+	}
 	return nil
 }
 
@@ -226,7 +266,11 @@ func (c *client) response(res kernelResponse) error {
 
 }
 
-func (c *client) FindObjectRef(obj interface{}) (refid string, ok bool) {
+func (c *client) FindObjectRef(obj reflect.Value) (refid string, ok bool) {
+	obj = reflect.Indirect(obj)
+	if obj.Kind() == reflect.Interface {
+		obj = reflect.ValueOf(obj.Interface()).Elem()
+	}
 	refid, ok = c.objects[obj]
 	return
 }
