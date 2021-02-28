@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
-    "report": "./report.ts",
+    "report": "ts-node report.ts",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "yarn lint --fix"
   },
