@@ -188,8 +188,22 @@ const target = path.join(
 );
 const header = `# Compliance Report
 
-This section detailed the current state of each language binding with respect to our standard compliance suite.`;
+This section details the current state of each language binding with respect to our standard compliance suite.`;
 
-fs.writeFileSync(target, `${header}\n\n${tablemark(rows, { columns })}`);
+let exclusions = undefined;
+
+if (suite.exclusions) {
+  exclusions = `!!! Note
+    The following languages are currently excluded from the tests and are marked as N/A:`;
+  for (const language of Object.keys(suite.exclusions ?? {})) {
+    exclusions = `${exclusions}\n\n    **${language}**: ${suite.exclusions[language].reason}`;
+  }
+  exclusions = `${exclusions}\n\n`;
+}
+
+fs.writeFileSync(
+  target,
+  `${header}\n\n${exclusions}${tablemark(rows, { columns })}`,
+);
 
 console.log(`Report written to ${target}`);

@@ -1,6 +1,6 @@
-# JSII Compliance
+# jsii Compliance
 
-This directory contains scripts and resources to create and validate the JSII compliance suite.
+This directory contains scripts and resources to create and validate the jsii compliance suite.
 
 ### Compliance Suite
 
@@ -9,14 +9,42 @@ Language specific exclusions may be added to each test separately, or to the ent
 
 > See [compliance-suite.json](./compliance-suite.json).
 
+Note that if you add a compliance test to a specific language binding only, i.e without adding it to the suite definition, the build will fail:
+
+```console
+
+```
+
+
+
 ### Compliance Report
 
 Each language binding is responsible for creating a language specific report during the `test` phase of our build.
 
+The report takes the following form:
+
+```json
+{
+  "<test-case-name>": {
+    "status": "success | failure"
+  }
+}
+```
+
+The `<test-case-name>` must match to the test case name in the suite definition. For example, the following test case definition:
+
+```json
+```
+
+Requires that each language report to include an entry with a key called `maps`.
+
+> Note that matching is **not case sensitive**, which means you can and should adhere to the
+> conventions of your specific language when writing the tests.
+
 These reports are then aggregated into a single multi-language compliance report. It is generated during build time,
 and should be checked into [source control](../../gh-pages/content/specification/6-compliance-report.md).
 
-> To directly generate the report, run `yarn compliance` from the top level direcotry.
+> The report is generated automatically as part of the global `test` phase of the repository. You can also directly generate the report by running `yarn compliance` from the top level direcotry of the repo, or `yarn report` from this package directory.
 
 Note that if you add a test and don't re-generate the report, the build will fail:
 

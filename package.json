@@ -12,7 +12,7 @@
     "test": "lerna run test --concurrency=1 --stream && yarn compliance",
     "test:integ": "lerna run test:integ --stream",
     "test:update": "lerna run test:update --concurrency=1 --stream",
-    "compliance": "tools/jsii-compliance/report.js"
+    "compliance": "(cd tools/jsii-compliance && yarn report)"
   },
   "devDependencies": {
     "@jest/types": "^26.6.2",

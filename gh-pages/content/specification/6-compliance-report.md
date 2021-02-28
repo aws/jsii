@@ -1,6 +1,13 @@
 # Compliance Report
 
-This section detailed the current state of each language binding with respect to our standard compliance suite.
+This section details the current state of each language binding with respect to our standard compliance suite.
+
+!!! Note
+    The following languages are currently excluded from the tests and are marked as N/A:
+
+    **dotnet**: Underwent a different compliance process. Will be aligned in the future.
+
+    **python**: Underwent a different compliance process. Will be aligned in the future.
 
 | number | test                                                              | description | java (100.00%) | golang (0.85%) | Dotnet | Python |
 | ------ | ----------------------------------------------------------------- | ----------- | -------------- | -------------- | ------ | ------ |
