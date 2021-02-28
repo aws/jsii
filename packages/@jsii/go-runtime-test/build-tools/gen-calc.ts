@@ -3,7 +3,6 @@
 import { readFileSync, removeSync, writeFileSync } from 'fs-extra';
 import { join, relative, resolve } from 'path';
 
-import { runtimeModules } from '../lib';
 import { localRuntimeModules } from '../lib/local-runtime-modules';
 import { runCommand } from './_constants';
 
@@ -30,7 +29,6 @@ runCommand(
 const genModules = localRuntimeModules(genRoot);
 const localModules = {
   ...genModules,
-  ...runtimeModules,
 };
 for (const localPath of Object.values(genModules)) {
   const goModFile = join(localPath, 'go.mod');

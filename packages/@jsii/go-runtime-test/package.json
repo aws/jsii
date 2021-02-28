@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build": "(yarn gen:calc && cd project && go build ./...)",
+    "build": "tsc --build && yarn gen:calc && cd project && go build ./...",
     "fmt": "(cd project && go fmt ./...)",
     "lint": "(cd project && go vet ./...)",
     "test": "(cd project && go test ./...)",
@@ -17,6 +17,9 @@
   "devDependencies": {
     "@jsii/go-runtime": "^0.0.0",
     "jsii-pacmak": "^0.0.0"
+  },
+  "dependencies": {
+    "fs-extra": "^9.1.0"
   }
 
 }
