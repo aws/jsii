@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build": "tsc --build && yarn gen:calc && cd project && go mod tidy && go build ./...",
+    "build": "tsc --build && yarn gen:calc",
     "fmt": "(cd project && go fmt ./...)",
     "lint": "(cd project && go vet ./...)",
     "test": "(cd project && go test ./...)",
