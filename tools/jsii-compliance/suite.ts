@@ -1,5 +1,3 @@
-#!/usr/bin/env npx ts-node
-
 import * as schema from './schema';
 
 export const suite: schema.Suite = {
