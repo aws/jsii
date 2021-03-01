@@ -9,6 +9,11 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -36,6 +41,11 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -63,6 +73,11 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -183,6 +198,30 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       └─┬ sub1() method
+ │ │ │ │ │         └── returns: string
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer
+ │ │ │ │         └─┬ sub2() method
+ │ │ │ │           └── returns: string
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods
+ │ │ │     └─┬ members
+ │ │ │       └─┬ static staticMethod() method
+ │ │ │         ├── static
+ │ │ │         └── returns: string
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -2145,6 +2184,15 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<Array<string>>
+ │   ├─┬ interface DiamondBottom
+ │   │ ├─┬ interfaces
+ │   │ │ ├── DiamondLeft
+ │   │ │ └── DiamondRight
+ │   │ └─┬ members
+ │   │   └─┬ bottom property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<date>
  │   ├─┬ interface DiamondInheritanceBaseLevelStruct
  │   │ └─┬ members
  │   │   └─┬ baseLevelProperty property
@@ -2836,6 +2884,26 @@ exports[`showAll 1`] = `
      │   └─┬ toString() method
      │     ├── abstract
      │     └── returns: string
+     ├─┬ interface DiamondLeft
+     │ └─┬ members
+     │   ├─┬ hoistedTop property
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ left property
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<number>
+     ├─┬ interface DiamondRight
+     │ └─┬ members
+     │   ├─┬ hoistedTop property
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ right property
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<boolean>
      ├─┬ interface IDoublable
      │ └─┬ members
      │   └─┬ doubleValue property
@@ -2897,6 +2965,11 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -2940,6 +3013,18 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -3101,6 +3186,7 @@ exports[`types 1`] = `
  │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
+ │   ├── interface DiamondBottom
  │   ├── interface DiamondInheritanceBaseLevelStruct
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
@@ -3201,6 +3287,8 @@ exports[`types 1`] = `
      ├── class Number
      ├── class NumericValue
      ├── class Operation
+     ├── interface DiamondLeft
+     ├── interface DiamondRight
      ├── interface IDoublable
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface

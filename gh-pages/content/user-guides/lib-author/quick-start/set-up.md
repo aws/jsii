@@ -51,6 +51,11 @@ points, such as _Maven Central_):
 }
 ```
 
+!!! important
+    Before publishing your work, be sure to review the [Important License Information][license-info] documentation.
+
+    [license-info]: ../configuration/index.md#important-license-information
+
 ## Setting up the _jsii_ configuration
 
 Finish up the configuration by running `jsii-config`, and letting the assistant guide you through the process:

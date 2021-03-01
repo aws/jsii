@@ -5,7 +5,7 @@ import { EmitContext } from '../emit-context';
 import { GetProperty, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
 
-import { GoClass, GoType, Interface, GoTypeRef } from './index';
+import { GoClass, GoType, GoInterface, GoTypeRef } from './index';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution
@@ -26,7 +26,6 @@ export interface GoTypeMember {
 */
 export class GoProperty implements GoTypeMember {
   public readonly name: string;
-  public readonly getter: string;
   public readonly reference?: GoTypeRef;
   public readonly immutable: boolean;
 
@@ -35,7 +34,6 @@ export class GoProperty implements GoTypeMember {
     public readonly property: Property,
   ) {
     this.name = toPascalCase(this.property.name);
-    this.getter = `Get${this.name}`;
     this.immutable = property.immutable;
 
     if (property.type) {
@@ -63,15 +61,11 @@ export class GoProperty implements GoTypeMember {
   }
 
   public get instanceArg(): string {
-    return this.parent.name.substring(0, 1).toLowerCase();
+    return this.parent.proxyName.substring(0, 1).toLowerCase();
   }
 
-  public emitStructMember(context: EmitContext) {
-    const docs = this.property.docs;
-    if (docs) {
-      context.documenter.emit(docs);
-    }
-    const { code } = context;
+  public emitStructMember({ code, documenter }: EmitContext) {
+    documenter.emit(this.property.docs);
     const memberType =
       this.reference?.type?.name === this.parent.name
         ? `*${this.returnType}`
@@ -84,7 +78,19 @@ export class GoProperty implements GoTypeMember {
 
   public emitGetterDecl(context: EmitContext) {
     const { code } = context;
-    code.line(`${this.getter}() ${this.returnType}`);
+    code.line(`${this.name}() ${this.returnType}`);
+  }
+
+  public emitGetter({ code, documenter }: EmitContext): void {
+    const receiver = this.parent.name;
+    const instanceArg = receiver.substring(0, 1).toLowerCase();
+
+    documenter.emit(this.property.docs);
+    code.openBlock(
+      `func (${instanceArg} *${receiver}) Get${this.name}() ${this.returnType}`,
+    );
+    code.line(`return ${instanceArg}.${this.name}`);
+    code.closeBlock();
   }
 
   public emitSetterDecl(context: EmitContext) {
@@ -95,15 +101,13 @@ export class GoProperty implements GoTypeMember {
   }
 
   // Emits getter methods on the struct for each property
-  public emitGetterImpl(context: EmitContext) {
+  public emitGetterProxy(context: EmitContext) {
     const { code } = context;
-    const receiver = this.parent.name;
+    const receiver = this.parent.proxyName;
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
     code.openBlock(
-      `func (${instanceArg} *${receiver}) ${
-        this.getter
-      }()${` ${this.returnType}`}`,
+      `func (${instanceArg} *${receiver}) ${this.name}() ${this.returnType}`,
     );
 
     new GetProperty(this).emit(code);
@@ -112,10 +116,10 @@ export class GoProperty implements GoTypeMember {
     code.line();
   }
 
-  public emitSetterImpl(context: EmitContext) {
+  public emitSetterProxy(context: EmitContext) {
     if (!this.immutable) {
       const { code } = context;
-      const receiver = this.parent.name;
+      const receiver = this.parent.proxyName;
       const instanceArg = receiver.substring(0, 1).toLowerCase();
 
       code.openBlock(
@@ -136,7 +140,7 @@ export abstract class GoMethod implements GoTypeMember {
   public readonly parameters: GoParameter[];
 
   public constructor(
-    public readonly parent: GoClass | Interface,
+    public readonly parent: GoClass | GoInterface,
     public readonly method: Method,
   ) {
     this.name = toPascalCase(method.name);
@@ -144,7 +148,7 @@ export abstract class GoMethod implements GoTypeMember {
     if (method.returns.type) {
       this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
     }
-    this.parameters = Object.values(this.method.parameters).map(
+    this.parameters = this.method.parameters.map(
       (param) => new GoParameter(parent, param),
     );
   }
@@ -201,7 +205,7 @@ export class GoParameter {
   public readonly reference: GoTypeRef;
 
   public constructor(
-    public parent: GoClass | Interface,
+    public parent: GoClass | GoInterface,
     public readonly parameter: Parameter,
   ) {
     this.name = substituteReservedWords(parameter.name);

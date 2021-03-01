@@ -5,7 +5,7 @@ import * as reflect from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
-import { Generator } from '../../generator';
+import { Generator, Legalese } from '../../generator';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
@@ -75,7 +75,11 @@ export class DotNetGenerator extends Generator {
     super.generate(fingerprint);
   }
 
-  public async save(outdir: string, tarball: string): Promise<string[]> {
+  public async save(
+    outdir: string,
+    tarball: string,
+    { license, notice }: Legalese,
+  ): Promise<string[]> {
     // Generating the csproj and AssemblyInfo.cs files
     const tarballFileName = path.basename(tarball);
     const filegen = new FileGenerator(
@@ -100,6 +104,17 @@ export class DotNetGenerator extends Generator {
 
     // Create an anchor file for the current model
     this.generateDependencyAnchorFile();
+
+    if (license) {
+      await fs.writeFile(path.join(outdir, packageId, 'LICENSE'), license, {
+        encoding: 'utf8',
+      });
+    }
+    if (notice) {
+      await fs.writeFile(path.join(outdir, packageId, 'NOTICE'), notice, {
+        encoding: 'utf8',
+      });
+    }
 
     // Saving the generated code.
     return this.code.save(outdir);

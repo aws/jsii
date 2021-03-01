@@ -102,6 +102,30 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1 (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       └─┬ sub1() method (stable)
+ │ │ │ │ │         └── returns: string
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2 (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer (stable)
+ │ │ │ │         └─┬ sub2() method (stable)
+ │ │ │ │           └── returns: string
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ static staticMethod() method (stable)
+ │ │ │         ├── static
+ │ │ │         └── returns: string
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -2064,6 +2088,15 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<Array<string>>
+ │   ├─┬ interface DiamondBottom (stable)
+ │   │ ├─┬ interfaces
+ │   │ │ ├── DiamondLeft
+ │   │ │ └── DiamondRight
+ │   │ └─┬ members
+ │   │   └─┬ bottom property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<date>
  │   ├─┬ interface DiamondInheritanceBaseLevelStruct (stable)
  │   │ └─┬ members
  │   │   └─┬ baseLevelProperty property (stable)
@@ -2755,6 +2788,26 @@ exports[`jsii-tree --all 1`] = `
      │   └─┬ toString() method (deprecated)
      │     ├── abstract
      │     └── returns: string
+     ├─┬ interface DiamondLeft (deprecated)
+     │ └─┬ members
+     │   ├─┬ hoistedTop property (deprecated)
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ left property (deprecated)
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<number>
+     ├─┬ interface DiamondRight (deprecated)
+     │ └─┬ members
+     │   ├─┬ hoistedTop property (deprecated)
+     │   │ ├── abstract
+     │   │ ├── immutable
+     │   │ └── type: Optional<string>
+     │   └─┬ right property (deprecated)
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: Optional<boolean>
      ├─┬ interface IDoublable (deprecated)
      │ └─┬ members
      │   └─┬ doubleValue property (deprecated)
@@ -2834,6 +2887,18 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -3033,6 +3098,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
  │   │   └── MyFirstStruct
+ │   ├─┬ interface DiamondBottom
+ │   │ └─┬ interfaces
+ │   │   ├── DiamondLeft
+ │   │   └── DiamondRight
  │   ├── interface DiamondInheritanceBaseLevelStruct
  │   ├─┬ interface DiamondInheritanceFirstMidLevelStruct
  │   │ └─┬ interfaces
@@ -3163,6 +3232,8 @@ exports[`jsii-tree --inheritance 1`] = `
      │ └── base: Base
      ├─┬ class Operation
      │ └── base: NumericValue
+     ├── interface DiamondLeft
+     ├── interface DiamondRight
      ├── interface IDoublable
      ├── interface IFriendly
      ├─┬ interface IThreeLevelsInterface
@@ -3232,6 +3303,26 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       └── sub1() method
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer
+ │ │ │ │         └── sub2() method
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods
+ │ │ │     └─┬ members
+ │ │ │       └── static staticMethod() method
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -4084,6 +4175,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
+ │   ├─┬ interface DiamondBottom
+ │   │ └─┬ members
+ │   │   └── bottom property
  │   ├─┬ interface DiamondInheritanceBaseLevelStruct
  │   │ └─┬ members
  │   │   └── baseLevelProperty property
@@ -4410,6 +4504,14 @@ exports[`jsii-tree --members 1`] = `
      │ └─┬ members
      │   ├── <initializer>() initializer
      │   └── toString() method
+     ├─┬ interface DiamondLeft
+     │ └─┬ members
+     │   ├── hoistedTop property
+     │   └── left property
+     ├─┬ interface DiamondRight
+     │ └─┬ members
+     │   ├── hoistedTop property
+     │   └── right property
      ├─┬ interface IDoublable
      │ └─┬ members
      │   └── doubleValue property
@@ -4444,6 +4546,11 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -4487,6 +4594,18 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -4648,6 +4767,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
+ │   ├── interface DiamondBottom
  │   ├── interface DiamondInheritanceBaseLevelStruct
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
@@ -4748,6 +4868,8 @@ exports[`jsii-tree --types 1`] = `
      ├── class Number
      ├── class NumericValue
      ├── class Operation
+     ├── interface DiamondLeft
+     ├── interface DiamondRight
      ├── interface IDoublable
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface
@@ -4766,6 +4888,11 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references

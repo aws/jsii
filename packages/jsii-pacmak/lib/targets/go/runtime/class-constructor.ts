@@ -11,11 +11,13 @@ export class ClassConstructor {
     emitInitialization(code);
 
     const resultVar = slugify(
-      'self',
+      this.parent.parent.proxyName[0],
       this.parent.parameters.map((p) => p.name),
     );
 
-    code.line(`${resultVar} := ${this.parent.parent.name}{}`);
+    code.line(`${resultVar} := ${this.parent.parent.proxyName}{}`);
+    code.line();
+
     code.open(`${JSII_CREATE_FUNC}(`);
 
     code.line(`"${this.parent.parent.fqn}",`);

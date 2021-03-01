@@ -206,10 +206,34 @@
         "line": 142
       }
     },
+    "jsii-calc.nodirect": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 13
+      }
+    },
+    "jsii-calc.nodirect.sub1": {
+      "locationInModule": {
+        "filename": "lib/no-direct-types/index.ts",
+        "line": 3
+      }
+    },
+    "jsii-calc.nodirect.sub2": {
+      "locationInModule": {
+        "filename": "lib/no-direct-types/index.ts",
+        "line": 4
+      }
+    },
+    "jsii-calc.onlystatic": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 12
+      }
+    },
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 10
+        "line": 11
       },
       "readme": {
         "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule` module.\n"
@@ -3817,6 +3841,42 @@
               },
               "kind": "array"
             }
+          }
+        }
+      ]
+    },
+    "jsii-calc.DiamondBottom": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.DiamondBottom",
+      "interfaces": [
+        "@scope/jsii-calc-lib.DiamondLeft",
+        "@scope/jsii-calc-lib.DiamondRight"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/duplicate-inherited-prop.ts",
+        "line": 7
+      },
+      "name": "DiamondBottom",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/duplicate-inherited-prop.ts",
+            "line": 8
+          },
+          "name": "bottom",
+          "optional": true,
+          "type": {
+            "primitive": "date"
           }
         }
       ]
@@ -13824,6 +13884,111 @@
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation"
     },
+    "jsii-calc.nodirect.sub1.TypeFromSub1": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.nodirect.sub1.TypeFromSub1",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/no-direct-types/sub1/index.ts",
+        "line": 1
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/no-direct-types/sub1/index.ts",
+            "line": 2
+          },
+          "name": "sub1",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "TypeFromSub1",
+      "namespace": "nodirect.sub1"
+    },
+    "jsii-calc.nodirect.sub2.TypeFromSub2": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.nodirect.sub2.TypeFromSub2",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/no-direct-types/sub2/index.ts",
+        "line": 1
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/no-direct-types/sub2/index.ts",
+            "line": 2
+          },
+          "name": "sub2",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "TypeFromSub2",
+      "namespace": "nodirect.sub2"
+    },
+    "jsii-calc.onlystatic.OnlyStaticMethods": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Test for https://github.com/aws/jsii/issues/2617."
+      },
+      "fqn": "jsii-calc.onlystatic.OnlyStaticMethods",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/only-static/index.ts",
+        "line": 4
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/only-static/index.ts",
+            "line": 5
+          },
+          "name": "staticMethod",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "OnlyStaticMethods",
+      "namespace": "onlystatic"
+    },
     "jsii-calc.submodule.MyClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14441,5 +14606,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "DELAKIDgUwCEVXhZflQBdllcDRnscledlYW0UXrjzbM="
+  "fingerprint": "JMTvoEnsqFjh72kI95PtIx01MmNxAbZV41K/nIgoZ4Q="
 }

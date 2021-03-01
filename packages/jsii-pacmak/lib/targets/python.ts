@@ -1503,12 +1503,15 @@ class PythonModule implements PythonType {
       code.line();
     }
     code.line();
-    code.indent('__all__ = [');
-    for (const member of exportedMembers.sort()) {
-      // Writing one by line might be _a lot_ of lines, but it'll make reviewing changes to the list easier. Trust me.
-      code.line(`${member},`);
+
+    if (exportedMembers.length > 0) {
+      code.indent('__all__ = [');
+      for (const member of exportedMembers.sort()) {
+        // Writing one by line might be _a lot_ of lines, but it'll make reviewing changes to the list easier. Trust me.
+        code.line(`${member},`);
+      }
+      code.unindent(']');
     }
-    code.unindent(']');
 
     // Finally, we'll use publication to ensure that all of the non-public names
     // get hidden from dir(), tab-complete, etc.

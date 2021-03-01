@@ -1,3 +1,5 @@
+import { Assembly } from 'jsii-reflect';
+
 import { Package } from './package';
 import { GoMethod, GoTypeMember, GoType } from './types';
 
@@ -38,7 +40,9 @@ export function flatMap<T, R>(
 /*
  * Return module dependencies of a class or interface members
  */
-export function getMemberDependencies(members: GoTypeMember[]): Package[] {
+export function getMemberDependencies(
+  members: readonly GoTypeMember[],
+): Package[] {
   return members.reduce((accum: Package[], member) => {
     return member.reference?.type?.pkg
       ? [...accum, member.reference?.type.pkg]
@@ -86,9 +90,22 @@ const RESERVED_WORDS: { [word: string]: string } = {
   return: 'return_',
   var: 'var_',
 };
+
 /*
  * Sanitize reserved words
  */
 export function substituteReservedWords(name: string): string {
   return RESERVED_WORDS[name] || name;
+}
+
+/**
+ * Computes a safe tarball name for the provided assembly.
+ *
+ * @param assm the assembly.
+ *
+ * @returns a tarball name.
+ */
+export function tarballName(assm: Assembly): string {
+  const name = assm.name.replace(/^@/, '').replace(/\//g, '-');
+  return `${name}-${assm.version}.tgz`;
 }

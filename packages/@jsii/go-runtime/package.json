@@ -5,15 +5,14 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc --build && npm run gen:rt && (cd ./jsii-runtime-go && go build)",
-    "fmt": "go fmt ./... && (cd ./jsii-runtime-go && go fmt)",
+    "build": "tsc --build && npm run gen:rt",
+    "fmt": "node build-tools/all-go.js fmt ./...",
     "gen:calc": "node build-tools/gen-calc.js",
     "gen:rt": "node build-tools/gen.js",
     "generate": "npm run gen:rt && npm run gen:calc",
-    "lint": "go vet ./... && (cd ./jsii-runtime-go && go vet)",
-    "lint:fix": "yarn lint --fix",
-    "test": "(cd ./jsii-runtime-go && go test) && npm run test:calc",
-    "test:calc": "npm run gen:calc && go test ./jsii-calc-test"
+    "package": "build-tools/package.sh",
+    "lint": "node build-tools/all-go.js vet ./...",
+    "test": "npm run gen:calc && node build-tools/all-go.js test ./..."
   },
   "keywords": [],
   "author": "",
@@ -23,7 +22,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.52",
+    "@types/node": "^10.17.54",
     "codemaker": "^0.0.0",
     "eslint": "^7.20.0",
     "fs-extra": "^9.1.0",

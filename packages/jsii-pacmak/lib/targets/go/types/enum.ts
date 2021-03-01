@@ -1,4 +1,4 @@
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { CodeMaker } from 'codemaker';
 import { EnumType, EnumMember } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
@@ -59,7 +59,7 @@ class GoEnumMember {
   public readonly rawValue: string;
 
   public constructor(private readonly parent: Enum, entry: EnumMember) {
-    this.name = `${parent.name}${toPascalCase(entry.name)}`;
+    this.name = `${parent.name}_${entry.name}`;
     this.rawValue = entry.name;
   }
 
