@@ -41,6 +41,8 @@ func (suite *ComplianceSuite) AfterTest(suiteName, testName string) {
 	if suite.T().Skipped() {
 		status = "skipped"
 	}
+
+	// remove the 'Test' prefix to make it more comparable with other languages who don't require it.
 	suite.report[strings.Replace(testName, "Test", "", 1)] = map[string]interface{}{"status": status}
 }
 
