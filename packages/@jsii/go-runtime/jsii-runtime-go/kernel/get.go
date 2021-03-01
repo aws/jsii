@@ -17,7 +17,7 @@ type GetResponse struct {
 	Value interface{} `json:"value"`
 }
 
-func (c *client) Get(props GetProps) (response GetResponse, err error) {
+func (c *Client) Get(props GetProps) (response GetResponse, err error) {
 	type request struct {
 		kernelRequest
 		GetProps
@@ -26,7 +26,7 @@ func (c *client) Get(props GetProps) (response GetResponse, err error) {
 	return
 }
 
-func (c *client) SGet(props StaticGetProps) (response GetResponse, err error) {
+func (c *Client) SGet(props StaticGetProps) (response GetResponse, err error) {
 	type request struct {
 		kernelRequest
 		StaticGetProps

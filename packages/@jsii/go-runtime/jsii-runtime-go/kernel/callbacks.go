@@ -94,7 +94,7 @@ func (s *setCallback) handle(cookie string) (retval reflect.Value, err error) {
 	return client.invoke(method, []interface{}{s.Value})
 }
 
-func (c *client) invoke(method reflect.Value, args []interface{}) (retval reflect.Value, err error) {
+func (c *Client) invoke(method reflect.Value, args []interface{}) (retval reflect.Value, err error) {
 	if !method.IsValid() {
 		err = fmt.Errorf("invalid method")
 		return

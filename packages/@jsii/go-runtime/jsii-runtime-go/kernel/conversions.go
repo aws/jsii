@@ -10,7 +10,7 @@ import (
 // argument to be the same type. Then it sets the value of the pointer element
 // to be the newly cast data. This is used to cast payloads from JSII to
 // expected return types for Get and Invoke functions.
-func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
+func (c *Client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
 	dataVal := reflect.ValueOf(data)
 
@@ -19,7 +19,7 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 
 // castAndSetToPtr is the same as CastAndSetToPtr except it operates on the
 // reflect.Value representation of the pointer and data.
-func (c *client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
+func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 	if !data.IsValid() {
 		// data will not be valid if was made from a nil value, as there would
 		// not have been enough type information available to build a valid
@@ -103,7 +103,7 @@ func (c *client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 // existing object reference in the kernel. If it exists, it casts it to an
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
-func (c *client) CastPtrToRef(dataVal reflect.Value) interface{} {
+func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 	if (dataVal.Kind() == reflect.Interface || dataVal.Kind() == reflect.Ptr) && dataVal.IsNil() {
 		return nil
 	}
@@ -196,7 +196,7 @@ func castValToEnumRef(data reflect.Value) (enum api.EnumRef, ok bool) {
 // castValToMap attempts converting the provided jsii wire value to a
 // go map. This recognizes the "$jsii.map" object and does the necessary
 // recursive value conversion.
-func (c *client) castValToMap(data reflect.Value, mapType reflect.Type) (m reflect.Value, ok bool) {
+func (c *Client) castValToMap(data reflect.Value, mapType reflect.Type) (m reflect.Value, ok bool) {
 	ok = false
 
 	if data.Kind() != reflect.Map || data.Type().Key().Kind() != reflect.String {

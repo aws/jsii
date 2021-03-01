@@ -10,7 +10,7 @@ type DelResponse struct {
 	kernelResponse
 }
 
-func (c *client) Del(props DelProps) (response DelResponse, err error) {
+func (c *Client) Del(props DelProps) (response DelResponse, err error) {
 	type request struct {
 		kernelRequest
 		DelProps

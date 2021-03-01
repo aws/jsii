@@ -15,7 +15,7 @@ type CreateResponse struct {
 	InstanceID string `json:"$jsii.byref"`
 }
 
-func (c *client) Create(props CreateProps) (response CreateResponse, err error) {
+func (c *Client) Create(props CreateProps) (response CreateResponse, err error) {
 	type request struct {
 		kernelRequest
 		CreateProps

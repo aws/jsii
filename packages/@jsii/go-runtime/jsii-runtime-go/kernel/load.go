@@ -16,7 +16,7 @@ type LoadResponse struct {
 	Types    float64 `json:"types"`
 }
 
-func (c *client) Load(props LoadProps) (response LoadResponse, err error) {
+func (c *Client) Load(props LoadProps) (response LoadResponse, err error) {
 	type request struct {
 		kernelRequest
 		LoadProps

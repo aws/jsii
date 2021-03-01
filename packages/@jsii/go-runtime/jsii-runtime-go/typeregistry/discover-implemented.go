@@ -6,13 +6,9 @@ import (
 	"github.com/aws/jsii-runtime-go/api"
 )
 
-type DiscoverImplementationer interface {
-	// DiscoverImplementation determines the list of registered interfaces that
-	// are implemented by the provided type, and returns the list of their FQNs
-	// and overrides for all their combined methods and properties.
-	DiscoverImplementation(t reflect.Type) ([]api.FQN, []api.Override)
-}
-
+// DiscoverImplementation determines the list of registered interfaces that are
+// implemented by the provided type, and returns the list of their FQNs and
+// overrides for all their combined methods and properties.
 func (t *TypeRegistry) DiscoverImplementation(vt reflect.Type) (interfaces []api.FQN, overrides []api.Override) {
 	registeredOverrides := make(map[string]bool)
 

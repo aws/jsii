@@ -11,7 +11,7 @@ type NamingResponse struct {
 	// };
 }
 
-func (c *client) Naming(props NamingProps) (response NamingResponse, err error) {
+func (c *Client) Naming(props NamingProps) (response NamingResponse, err error) {
 	type request struct {
 		kernelRequest
 		NamingProps

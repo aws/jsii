@@ -13,24 +13,24 @@ import (
 )
 
 var (
-	clientInstance      *client
+	clientInstance      *Client
 	clientInstanceMutex sync.Mutex
 	clientOnce          sync.Once
 )
 
-// The client struct owns the jsii child process and its io interfaces. It also
+// The Client struct owns the jsii child process and its io interfaces. It also
 // owns a map (objects) that tracks all object references by ID. This is used
 // to call methods and access properties on objects passed by the runtime
 // process by reference.
-type client struct {
+type Client struct {
 	process *process.Process
 	types   *typeregistry.TypeRegistry
 	objects *objectstore.ObjectStore
 }
 
-// GetClient returns a singleton client instance, initializing one the first
+// GetClient returns a singleton Client instance, initializing one the first
 // time it is called.
-func GetClient() *client {
+func GetClient() *Client {
 	clientOnce.Do(func() {
 		// Locking early to be safe with a concurrent Close execution
 		clientInstanceMutex.Lock()
@@ -50,7 +50,7 @@ func GetClient() *client {
 // CloseClient finalizes the runtime process, signalling the end of the
 // execution to the jsii kernel process, and waiting for graceful termination.
 //
-// If a jsii client is used *after* CloseClient was called, a new jsii kernel
+// If a jsii Client is used *after* CloseClient was called, a new jsii kernel
 // process will be initialized, and CloseClient should be called again to
 // correctly finalize that, too.
 func CloseClient() {
@@ -58,11 +58,11 @@ func CloseClient() {
 	clientInstanceMutex.Lock()
 	defer clientInstanceMutex.Unlock()
 
-	// Reset the "once" so a new client would get initialized next time around
+	// Reset the "once" so a new Client would get initialized next time around
 	clientOnce = sync.Once{}
 
 	if clientInstance != nil {
-		// Close the client & reset it
+		// Close the Client & reset it
 		clientInstance.close()
 		clientInstance = nil
 	}
@@ -70,18 +70,18 @@ func CloseClient() {
 
 // newClient starts the kernel child process and verifies the "hello" message
 // was correct.
-func newClient() (*client, error) {
+func newClient() (*Client, error) {
 	if process, err := process.NewProcess(fmt.Sprintf("^%s", version)); err != nil {
 		return nil, err
 	} else {
-		result := &client{
+		result := &Client{
 			process: process,
 			objects: objectstore.NewObjectStore(),
 			types:   typeregistry.NewTypeRegistry(),
 		}
 
 		// Register a finalizer to call Close()
-		runtime.SetFinalizer(result, func(c *client) {
+		runtime.SetFinalizer(result, func(c *Client) {
 			c.close()
 		})
 
@@ -89,19 +89,19 @@ func newClient() (*client, error) {
 	}
 }
 
-func (c *client) Types() *typeregistry.TypeRegistry {
+func (c *Client) Types() *typeregistry.TypeRegistry {
 	return c.types
 }
 
-func (c *client) RegisterInstance(instance reflect.Value, instanceID string) error {
+func (c *Client) RegisterInstance(instance reflect.Value, instanceID string) error {
 	return c.objects.Register(instance, instanceID)
 }
 
-func (c *client) request(req kernelRequester, res kernelResponder) error {
+func (c *Client) request(req kernelRequester, res kernelResponder) error {
 	return c.process.Request(req, res)
 }
 
-func (c *client) FindObjectRef(obj reflect.Value) (string, bool) {
+func (c *Client) FindObjectRef(obj reflect.Value) (string, bool) {
 	switch obj.Kind() {
 	case reflect.Struct:
 		// Structs can be checked only if they are addressable, meaning
@@ -119,14 +119,14 @@ func (c *client) FindObjectRef(obj reflect.Value) (string, bool) {
 	}
 }
 
-func (c *client) GetObject(objref api.ObjectRef) interface{} {
+func (c *Client) GetObject(objref api.ObjectRef) interface{} {
 	if obj, ok := c.objects.GetObject(objref.InstanceID); ok {
 		return obj.Interface()
 	}
 	panic(fmt.Errorf("no object found for ObjectRef %v", objref))
 }
 
-func (c *client) close() {
+func (c *Client) close() {
 	c.process.Close()
 
 	// We no longer need a finalizer to run
