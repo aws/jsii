@@ -70,6 +70,7 @@ func (suite *ComplianceSuite) TestMaps() {
 	}
 }
 
+// required to make `go test` recognize the suite.
 func TestComplianceSuite(t *testing.T) {
 	suite.Run(t, new(ComplianceSuite))
 }
