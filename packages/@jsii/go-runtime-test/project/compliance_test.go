@@ -26,9 +26,7 @@ func (suite *ComplianceSuite) TearDownSuite() {
 	if err != nil {
 		suite.FailNowf("Failed marshalling report: %s", err.Error())
 	}
-
 	err = ioutil.WriteFile("./compliance-report.json", report, 0644)
-
 	if err != nil {
 		suite.FailNowf("Failed writing report: %s", err.Error())
 	}
