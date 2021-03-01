@@ -49,6 +49,22 @@ updates:
       - dependencies
       - language/python
 
+  - package-ecosystem: gomod
+    directory: '/packages/@jsii/go-runtime'
+    schedule:
+      interfval: daily
+    labels:
+      - dependencies
+      - language/go
+
+  - package-ecosystem: gomod
+    directory: '/packages/@jsii/go-runtime/jsii-runtime-go'
+    schedule:
+      interfval: daily
+    labels:
+      - dependencies
+      - language/go
+
   - package-ecosystem: github-actions
     directory: '/'
     schedule:

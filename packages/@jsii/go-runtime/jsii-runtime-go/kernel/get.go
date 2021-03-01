@@ -2,35 +2,36 @@ package kernel
 
 import "github.com/aws/jsii-runtime-go/api"
 
-type GetRequest struct {
-	kernelRequester
-
-	API      string        `json:"api"`
+type GetProps struct {
 	Property string        `json:"property"`
 	ObjRef   api.ObjectRef `json:"objref"`
 }
 
-type StaticGetRequest struct {
-	kernelRequester
-
-	API      string  `json:"api"`
+type StaticGetProps struct {
 	FQN      api.FQN `json:"fqn"`
 	Property string  `json:"property"`
 }
 
 type GetResponse struct {
-	kernelResponder
-
+	kernelResponse
 	Value interface{} `json:"value"`
 }
 
-func (c *client) Get(request GetRequest) (response GetResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Get(props GetProps) (response GetResponse, err error) {
+	type request struct {
+		kernelRequest
+		GetProps
+	}
+	err = c.request(request{kernelRequest{"get"}, props}, &response)
 	return
 }
 
-func (c *client) SGet(request StaticGetRequest) (response GetResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) SGet(props StaticGetProps) (response GetResponse, err error) {
+	type request struct {
+		kernelRequest
+		StaticGetProps
+	}
+	err = c.request(request{kernelRequest{"sget"}, props}, &response)
 	return
 }
 

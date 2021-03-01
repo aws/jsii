@@ -14,8 +14,7 @@ func (c *client) ManageObject(v reflect.Value) (ref api.ObjectRef, err error) {
 	interfaces, overrides := c.Types().DiscoverImplementation(vt)
 
 	var resp CreateResponse
-	resp, err = c.Create(CreateRequest{
-		API:        "create",
+	resp, err = c.Create(CreateProps{
 		FQN:        objectFQN,
 		Interfaces: interfaces,
 		Overrides:  overrides,

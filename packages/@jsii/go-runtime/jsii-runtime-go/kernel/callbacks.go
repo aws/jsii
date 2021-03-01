@@ -15,7 +15,7 @@ type callback struct {
 	Set        *setCallback    `json:"set"`
 }
 
-func (c *callback) handle(result kernelResponse) error {
+func (c *callback) handle(result kernelResponder) error {
 	var (
 		retval reflect.Value
 		err    error

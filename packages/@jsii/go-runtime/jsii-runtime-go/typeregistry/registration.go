@@ -22,30 +22,6 @@ type registeredType struct {
 	Kind typeKind
 }
 
-// TypeRegisterer exposes the methods to register types with the jsii runtime
-// for go.
-type TypeRegisterer interface {
-	// RegisterClass maps the given FQN to the provided class interface, list of
-	// overrides, and proxy maker function. This returns an error if the class
-	// type is not a go interface.
-	RegisterClass(fqn api.FQN, class reflect.Type, overrides []api.Override, maker func() interface{}) error
-
-	// RegisterEnum maps the given FQN to the provided enum type, and records the
-	// provided members map (jsii member name => go value). This returns an error
-	// if the provided enum is not a string derivative, or of any of the provided
-	// member values has a type other than enm.
-	RegisterEnum(fqn api.FQN, enm reflect.Type, members map[string]interface{}) error
-
-	// RegisterInterface maps the given FQN to the provided interface type, list of
-	// overrides, and proxy maker function. Returns an error if the provided interface
-	// is not a go interface.
-	RegisterInterface(fqn api.FQN, iface reflect.Type, overrides []api.Override, maker func() interface{}) error
-
-	// RegisterStruct maps the given FQN to the provided struct type, and struct
-	// interface. Returns an error if the provided struct type is not a go struct.
-	RegisterStruct(fqn api.FQN, strct reflect.Type) error
-}
-
 // RegisterClass maps the given FQN to the provided class interface, list of
 // overrides, and proxy maker function. This returns an error if the class
 // type is not a go interface.

@@ -12,7 +12,7 @@ import (
 // UnmarshalJSON function, it must be a type alias (otherwise, this will recurse into itself until the stack is full).
 // The result parameter must point to the original result (with the original type). This unfortunate duplication is
 // necessary for the proper handling of in-line callbacks.
-func unmarshalKernelResponse(data []byte, uresult kernelResponse, result kernelResponse) error {
+func unmarshalKernelResponse(data []byte, uresult kernelResponder, result kernelResponder) error {
 	datacopy := make([]byte, len(data))
 	copy(datacopy, data)
 

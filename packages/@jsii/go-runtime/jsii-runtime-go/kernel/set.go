@@ -2,35 +2,37 @@ package kernel
 
 import "github.com/aws/jsii-runtime-go/api"
 
-type SetRequest struct {
-	kernelRequester
-
-	API      string        `json:"api"`
+type SetProps struct {
 	Property string        `json:"property"`
 	Value    interface{}   `json:"value"`
 	ObjRef   api.ObjectRef `json:"objref"`
 }
 
-type StaticSetRequest struct {
-	kernelRequester
-
-	API      string      `json:"api"`
+type StaticSetProps struct {
 	FQN      api.FQN     `json:"fqn"`
 	Property string      `json:"property"`
 	Value    interface{} `json:"value"`
 }
 
 type SetResponse struct {
-	kernelResponder
+	kernelResponse
 }
 
-func (c *client) Set(request SetRequest) (response SetResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Set(props SetProps) (response SetResponse, err error) {
+	type request struct {
+		kernelRequest
+		SetProps
+	}
+	err = c.request(request{kernelRequest{"set"}, props}, &response)
 	return
 }
 
-func (c *client) SSet(request StaticSetRequest) (response SetResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) SSet(props StaticSetProps) (response SetResponse, err error) {
+	type request struct {
+		kernelRequest
+		StaticSetProps
+	}
+	err = c.request(request{kernelRequest{"sset"}, props}, &response)
 	return
 }
 

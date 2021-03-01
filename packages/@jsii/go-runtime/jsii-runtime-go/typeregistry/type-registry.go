@@ -7,7 +7,7 @@ import (
 	"github.com/aws/jsii-runtime-go/api"
 )
 
-// typeRegistry is used to record runtime type information about the loaded
+// TypeRegistry is used to record runtime type information about the loaded
 // modules, which is later used to correctly convert objects received from the
 // JavaScript process into native go values.
 type TypeRegistry struct {

@@ -2,18 +2,19 @@ package kernel
 
 import "github.com/aws/jsii-runtime-go/api"
 
-type DelRequest struct {
-	kernelRequester
-
-	API    string        `json:"api"`
+type DelProps struct {
 	ObjRef api.ObjectRef `json:"objref"`
 }
 
 type DelResponse struct {
-	kernelResponder
+	kernelResponse
 }
 
-func (c *client) Del(request DelRequest) (response DelResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Del(props DelProps) (response DelResponse, err error) {
+	type request struct {
+		kernelRequest
+		DelProps
+	}
+	err = c.request(request{kernelRequest{"del"}, props}, &response)
 	return
 }

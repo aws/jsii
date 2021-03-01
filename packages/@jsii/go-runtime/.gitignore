@@ -1,6 +1,9 @@
 /jsii-calc/
 /jsii-runtime-go/embedded/resources/
+
 *.generated.*
 
 *.js
 *.d.ts
+
+!jsii-runtime-go/kernel/process/jsii-mock-runtime.js
