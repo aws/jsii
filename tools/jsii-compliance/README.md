@@ -7,7 +7,7 @@ This directory contains scripts and resources to create and validate the jsii co
 The compliance suite is defined as a collection of abstract test cases, that each language binding must implement individualy.
 Language specific exclusions may be added to each test separately, or to the entire suite.
 
-> See [compliance-suite.json](./compliance-suite.json).
+> See [suite.ts](./suite.ts).
 
 Note that if you add a compliance test to a specific language binding only, i.e without adding it to the suite definition, the build will fail. For example:
 
