@@ -6,3 +6,7 @@ cd ${scriptdir}/..
 rm -fr dist
 mkdir -p dist/go
 rsync -av jsii-runtime-go/* dist/go/
+
+# create a "version" file which is needed by jsii-release
+version=$(node -p "require('./package.json').version")
+echo ${version} > dist/go/version
