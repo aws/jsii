@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import * as schema from './schema';
+import { suite } from './suite';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const tablemark = require('tablemark');
@@ -129,11 +130,6 @@ function collectReports(suite: schema.Suite): Record<string, schema.Report> {
   }
   return reports;
 }
-
-console.log('Creating compliance report');
-
-const suiteFile = path.join(`${__dirname}`, 'compliance-suite.json');
-const suite: schema.Suite = JSON.parse(fs.readFileSync(suiteFile).toString());
 
 console.log('Collecting individual lanaguage binding reports');
 const reports = collectReports(suite);

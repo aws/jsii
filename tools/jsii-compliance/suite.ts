@@ -1,11 +1,8 @@
 #!/usr/bin/env npx ts-node
 
-import * as fs from 'fs';
-import * as path from 'path';
-
 import * as schema from './schema';
 
-const suite: schema.Suite = {
+export const suite: schema.Suite = {
   name: 'standard',
   description:
     'JSII standard compliance test suite. These tests must be implemented in each language binding.',
@@ -621,7 +618,3 @@ const suite: schema.Suite = {
     },
   ],
 };
-
-const target = path.join(`${__dirname}`, 'compliance-suite.json');
-
-fs.writeFileSync(target, JSON.stringify(suite, null, 2), { mode: 0o444 });
