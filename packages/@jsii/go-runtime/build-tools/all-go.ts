@@ -28,10 +28,10 @@ function visit(dir: string): void {
       continue;
     }
     if (file === 'go.mod') {
-      const args = process.argv.slice(2);
-      console.error(`$ go ${args.join(' ')} # ${path}`);
+      const [cmd, ...args] = process.argv.slice(2);
+      console.error(`$ ${cmd} ${args.join(' ')} # ${path}`);
       try {
-        runCommand('go', args, { cwd: dir, stdio: 'inherit' });
+        runCommand(cmd, args, { cwd: dir, stdio: 'inherit' });
       } catch (e) {
         console.error(e.message);
         process.exit(-1);

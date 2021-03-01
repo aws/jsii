@@ -13,7 +13,7 @@ type DiscoverImplementationer interface {
 	DiscoverImplementation(t reflect.Type) ([]api.FQN, []api.Override)
 }
 
-func (t *typeRegistry) DiscoverImplementation(vt reflect.Type) (interfaces []api.FQN, overrides []api.Override) {
+func (t *TypeRegistry) DiscoverImplementation(vt reflect.Type) (interfaces []api.FQN, overrides []api.Override) {
 	registeredOverrides := make(map[string]bool)
 
 	for fqn, members := range t.typeMembers {

@@ -5,46 +5,44 @@ import (
 	"reflect"
 )
 
-// ObjectStore tracks object instances for which an identifier
-// has been associated.
-type ObjectStore interface {
-	// Register adds a new value to this ObjectStore, with the given
-	// instanceID. An error will be returned if the value is not
-	// addressable (meaning if is not already a reflect.Ptr, and
-	// value.CanAddr() returns false), if it was already registered
-	// with a different instanceID, or if the provided instanceID has
-	// already be used by another value.
-	//
-	// All anonymous embedded fields will be registered as aliases
-	// with the same instanceID (so that InstanceID returns the wrapper
-	// object's instanceID correctly (ensuring jsii proxies can properly
-	// trigger inherited method calls).
-	Register(value reflect.Value, instanceID string) error
-
-	// InstanceID returns the instanceID associated with a given object,
-	// if any exists. Always returns false if the provided value is not
-	// valid through the Register call.
-	InstanceID(value reflect.Value) (instanceID string, found bool)
-
-	// GetObject returns the value associated with the provided instanceID,
-	// if any.
-	GetObject(instanceID string) (value reflect.Value, found bool)
-}
-
-type objectStore struct {
+// ObjectStore tracks object instances for which an identifier has been
+// associated. Object to instanceID association is tracked using the object
+// memory address (aka pointer value) in order to not have issues with go's
+// standard object equality rules (we need distinct - but possibly equal) object
+// instances to be considered as separate entities for our purposes.
+type ObjectStore struct {
+	// objectToID associates an object's memory address (pointer value) with an
+	// instanceID. This includes aliases (anonymous embedded values) of objects
+	// passed to the Register method.
 	objectToID map[uintptr]string
+
+	// idToObject associates an instanceID with the reflect.Value that
+	// represents the top-level object that was registered with the instanceID
+	// via the Register method.
 	idToObject map[string]reflect.Value
 }
 
-// NewObjectStore initializes a new ObjectStore value.
-func NewObjectStore() ObjectStore {
-	return &objectStore{
+// NewObjectStore initializes a new ObjectStore.
+func NewObjectStore() *ObjectStore {
+	return &ObjectStore{
 		objectToID: make(map[uintptr]string),
 		idToObject: make(map[string]reflect.Value),
 	}
 }
 
-func (o *objectStore) Register(value reflect.Value, instanceID string) error {
+// Register associates the provided value with the given instanceID. It also
+// registers any anonymously embedded value (transitively) against the same
+// instanceID, so that methods promoted from those resolve the correct
+// instanceID, too.
+//
+// Returns an error if the provided value is not a pointer value; if the value
+// or any of it's (transitively) anonymous embeds have already been registered
+// against a different instanceID; of if the provided instanceID was already
+// associated to a different value.
+//
+// The call is idempotent: calling Register again with the same value and
+// instanceID does not result in an error.
+func (o *ObjectStore) Register(value reflect.Value, instanceID string) error {
 	var err error
 	if value, err = canonicalValue(value); err != nil {
 		return err
@@ -81,7 +79,13 @@ func (o *objectStore) Register(value reflect.Value, instanceID string) error {
 	return nil
 }
 
-func (o *objectStore) InstanceID(value reflect.Value) (instanceID string, found bool) {
+// InstanceID attempts to determine the instanceID associated with the provided
+// value, if any. Returns the existing instanceID and a boolean informing
+// whether an instanceID was already found or not.
+//
+// The InstanceID method is safe to call with values that are not track-able in
+// an ObjectStore (i.e: non-pointer values, primitive values, etc...).
+func (o *ObjectStore) InstanceID(value reflect.Value) (instanceID string, found bool) {
 	var err error
 	if value, err = canonicalValue(value); err == nil {
 		ptr := value.Pointer()
@@ -90,15 +94,20 @@ func (o *objectStore) InstanceID(value reflect.Value) (instanceID string, found 
 	return
 }
 
-func (o *objectStore) GetObject(instanceID string) (value reflect.Value, found bool) {
+// GetObject attempts to retrieve the object value associated with the given
+// instanceID. Returns the existing value and a boolean informing whether a
+// value was associated with this instanceID or not.
+//
+// The GetObject method is safe to call with an instanceID that was never
+// registered with the ObjectStore.
+func (o *ObjectStore) GetObject(instanceID string) (value reflect.Value, found bool) {
 	value, found = o.idToObject[instanceID]
 	return
 }
 
-// canonicalValue ensures the same reference is always considered
-// for object identity (especially in maps), so that we don't get
-// surprised by pointer to struct versus struct value versus opaque
-// interface value, etc...
+// canonicalValue ensures the same reference is always considered for object
+// identity (especially in maps), so that we don't get surprised by pointer to
+// struct versus struct value versus opaque interface value, etc...
 func canonicalValue(value reflect.Value) (reflect.Value, error) {
 	if value.Kind() == reflect.Ptr && value.Elem().Kind() == reflect.Struct {
 		return value, nil
@@ -113,6 +122,14 @@ func canonicalValue(value reflect.Value) (reflect.Value, error) {
 	return result, nil
 }
 
+// findAliases traverses the provided object value to recursively identify all
+// anonymous embedded values, which will then be registered against the same
+// instanceID as the embedding value.
+//
+// This function assumes the provided value is either a reflect.Struct or a
+// pointer to a reflect.Struct (possibly as a reflect.Interface). Calling with
+// a nil value, or a value that is not ultimately a reflect.Struct may result
+// in panic.
 func findAliases(value reflect.Value) []reflect.Value {
 	result := []reflect.Value{}
 

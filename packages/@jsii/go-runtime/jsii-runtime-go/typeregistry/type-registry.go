@@ -7,36 +7,10 @@ import (
 	"github.com/aws/jsii-runtime-go/api"
 )
 
-// TypeRegistry exposes the methods to register types with the jsii runtime for
-// go as well as methods to work with registered types.
-type TypeRegistry interface {
-	TypeRegisterer
-	DiscoverImplementationer
-
-	// StructFields returns the list of fields that make a registered jsii struct.
-	StructFields(typ reflect.Type) (fields []reflect.StructField, found bool)
-
-	// InitJsiiProxy initializes a jsii proxy value at the provided pointer. It
-	// returns an error if the pointer does not have a value of a registered
-	// proxyable type (that is, a class or interface type).
-	InitJsiiProxy(val reflect.Value) error
-
-	// EnumMemberForEnumRef returns the go enum member corresponding to a jsii fully
-	// qualified enum member name (e.g: "jsii-calc.StringEnum/A"). If no enum member
-	// was registered (via registerEnum) for the provided enumref, an error is
-	// returned.
-	EnumMemberForEnumRef(ref api.EnumRef) (interface{}, error)
-
-	// TryRenderEnumRef returns an enumref if the provided value corresponds to a
-	// registered enum type. The returned enumref is nil if the provided enum value
-	// is a zero-value (i.e: "").
-	TryRenderEnumRef(value reflect.Value) (ref *api.EnumRef, isEnumRef bool)
-}
-
 // typeRegistry is used to record runtime type information about the loaded
 // modules, which is later used to correctly convert objects received from the
 // JavaScript process into native go values.
-type typeRegistry struct {
+type TypeRegistry struct {
 	// fqnToType is used to obtain the native go type for a given jsii fully
 	// qualified type name. The kind of type being returned depends on what the
 	// FQN represents... This will be the second argument of provided to a
@@ -64,8 +38,8 @@ type typeRegistry struct {
 }
 
 // NewTypeRegistry creates a new type registry.
-func NewTypeRegistry() TypeRegistry {
-	return &typeRegistry{
+func NewTypeRegistry() *TypeRegistry {
+	return &TypeRegistry{
 		fqnToType:       make(map[api.FQN]registeredType),
 		fqnToEnumMember: make(map[string]interface{}),
 		typeToEnumFQN:   make(map[reflect.Type]api.FQN),
@@ -76,7 +50,7 @@ func NewTypeRegistry() TypeRegistry {
 }
 
 // IsStruct returns true if the provided type is a registered jsii struct.
-func (t *typeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructField, ok bool) {
+func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructField, ok bool) {
 	var found []reflect.StructField
 	found, ok = t.structFields[typ]
 	if ok {
@@ -89,7 +63,7 @@ func (t *typeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructFi
 // InitJsiiProxy initializes a jsii proxy value at the provided pointer. It
 // returns an error if the pointer does not have a value of a registered
 // proxyable type (that is, a class or interface type).
-func (t *typeRegistry) InitJsiiProxy(val reflect.Value) error {
+func (t *TypeRegistry) InitJsiiProxy(val reflect.Value) error {
 	valType := val.Type()
 
 	switch valType.Kind() {
@@ -130,7 +104,7 @@ func (t *typeRegistry) InitJsiiProxy(val reflect.Value) error {
 // qualified enum member name (e.g: "jsii-calc.StringEnum/A"). If no enum member
 // was registered (via registerEnum) for the provided enumref, an error is
 // returned.
-func (t *typeRegistry) EnumMemberForEnumRef(ref api.EnumRef) (interface{}, error) {
+func (t *TypeRegistry) EnumMemberForEnumRef(ref api.EnumRef) (interface{}, error) {
 	if member, ok := t.fqnToEnumMember[ref.MemberFQN]; ok {
 		return member, nil
 	}
@@ -140,7 +114,7 @@ func (t *typeRegistry) EnumMemberForEnumRef(ref api.EnumRef) (interface{}, error
 // TryRenderEnumRef returns an enumref if the provided value corresponds to a
 // registered enum type. The returned enumref is nil if the provided enum value
 // is a zero-value (i.e: "").
-func (t *typeRegistry) TryRenderEnumRef(value reflect.Value) (ref *api.EnumRef, isEnumRef bool) {
+func (t *TypeRegistry) TryRenderEnumRef(value reflect.Value) (ref *api.EnumRef, isEnumRef bool) {
 	if value.Kind() != reflect.String {
 		isEnumRef = false
 		return

@@ -49,7 +49,7 @@ type TypeRegisterer interface {
 // RegisterClass maps the given FQN to the provided class interface, list of
 // overrides, and proxy maker function. This returns an error if the class
 // type is not a go interface.
-func (t *typeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, overrides []api.Override, maker func() interface{}) error {
+func (t *TypeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, overrides []api.Override, maker func() interface{}) error {
 	if class.Kind() != reflect.Interface {
 		return fmt.Errorf("the provided class is not an interface: %v", class)
 	}
@@ -73,7 +73,7 @@ func (t *typeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, overrides 
 // provided members map (jsii member name => go value). This returns an error
 // if the provided enum is not a string derivative, or of any of the provided
 // member values has a type other than enm.
-func (t *typeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[string]interface{}) error {
+func (t *TypeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[string]interface{}) error {
 	if enm.Kind() != reflect.String {
 		return fmt.Errorf("the provided enum is not a string derivative: %v", enm)
 	}
@@ -102,7 +102,7 @@ func (t *typeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 // RegisterInterface maps the given FQN to the provided interface type, list of
 // overrides, and proxy maker function. Returns an error if the provided interface
 // is not a go interface.
-func (t *typeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overrides []api.Override, maker func() interface{}) error {
+func (t *TypeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overrides []api.Override, maker func() interface{}) error {
 	if iface.Kind() != reflect.Interface {
 		return fmt.Errorf("the provided interface is not an interface: %v", iface)
 	}
@@ -125,7 +125,7 @@ func (t *typeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overri
 // RegisterStruct maps the given FQN to the provided struct type, and struct
 // interface. Returns an error if the provided struct type is not a go struct,
 // or the provided iface not a go interface.
-func (t *typeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
+func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 	if strct.Kind() != reflect.Struct {
 		return fmt.Errorf("the provided struct is not a struct: %v", strct)
 	}

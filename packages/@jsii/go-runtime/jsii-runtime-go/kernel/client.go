@@ -39,9 +39,8 @@ type client struct {
 	stdin  io.WriteCloser
 	tmpdir string
 
-	types typeregistry.TypeRegistry
-
-	objects objectstore.ObjectStore
+	types   *typeregistry.TypeRegistry
+	objects *objectstore.ObjectStore
 }
 
 // GetClient returns a singleton client instance, initializing one the first
@@ -197,7 +196,7 @@ func newClient() (*client, error) {
 	return clientinstance, nil
 }
 
-func (c *client) Types() typeregistry.TypeRegistry {
+func (c *client) Types() *typeregistry.TypeRegistry {
 	return c.types
 }
 
