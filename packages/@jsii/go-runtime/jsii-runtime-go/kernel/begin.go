@@ -1,23 +1,25 @@
 package kernel
 
-import "github.com/aws/jsii-runtime-go/api"
+import (
+	"github.com/aws/jsii-runtime-go/api"
+)
 
-type BeginRequest struct {
-	kernelRequester
-
-	API       string        `json:"api"`
+type BeginProps struct {
 	Method    *string       `json:"method"`
 	Arguments []interface{} `json:"args"`
 	ObjRef    api.ObjectRef `json:"objref"`
 }
 
 type BeginResponse struct {
-	kernelResponder
-
+	kernelResponse
 	PromiseID *string `json:"promise_id"`
 }
 
-func (c *client) Begin(request BeginRequest) (response BeginResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Begin(props BeginProps) (response BeginResponse, err error) {
+	type request struct {
+		kernelRequest
+		BeginProps
+	}
+	err = c.request(request{kernelRequest{"begin"}, props}, &response)
 	return
 }

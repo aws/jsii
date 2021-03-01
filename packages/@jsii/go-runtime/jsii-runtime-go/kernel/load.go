@@ -1,11 +1,8 @@
 package kernel
 
-// LoadRequest holds the necessary information to load a library into the
+// LoadProps holds the necessary information to load a library into the
 // @jsii/kernel process through the Load method.
-type LoadRequest struct {
-	kernelRequester
-
-	API     string `json:"api"`
+type LoadProps struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 	Tarball string `json:"tarball"`
@@ -14,14 +11,17 @@ type LoadRequest struct {
 // LoadResponse contains the data returned by the @jsii/kernel process in
 // response to a load request.
 type LoadResponse struct {
-	kernelResponder
-
+	kernelResponse
 	Assembly string  `json:"assembly"`
 	Types    float64 `json:"types"`
 }
 
-func (c *client) Load(request LoadRequest) (response LoadResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Load(props LoadProps) (response LoadResponse, err error) {
+	type request struct {
+		kernelRequest
+		LoadProps
+	}
+	err = c.request(request{kernelRequest{"load"}, props}, &response)
 	return
 }
 

@@ -2,10 +2,7 @@ package kernel
 
 import "github.com/aws/jsii-runtime-go/api"
 
-type CreateRequest struct {
-	kernelRequester
-
-	API        string         `json:"api"`
+type CreateProps struct {
 	FQN        api.FQN        `json:"fqn"`
 	Interfaces []api.FQN      `json:"interfaces"`
 	Arguments  []interface{}  `json:"args"`
@@ -14,13 +11,16 @@ type CreateRequest struct {
 
 // TODO extends AnnotatedObjRef?
 type CreateResponse struct {
-	kernelResponder
-
+	kernelResponse
 	InstanceID string `json:"$jsii.byref"`
 }
 
-func (c *client) Create(request CreateRequest) (response CreateResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Create(props CreateProps) (response CreateResponse, err error) {
+	type request struct {
+		kernelRequest
+		CreateProps
+	}
+	err = c.request(request{kernelRequest{"create"}, props}, &response)
 	return
 }
 

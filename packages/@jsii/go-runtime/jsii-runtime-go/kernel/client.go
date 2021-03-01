@@ -248,7 +248,7 @@ func (c *client) RegisterInstance(instance reflect.Value, instanceID string) err
 	return nil
 }
 
-func (c *client) request(req kernelRequest, res kernelResponse) error {
+func (c *client) request(req kernelRequester, res kernelResponder) error {
 	err := c.writer.Encode(req)
 	if err != nil {
 		return err
@@ -257,7 +257,7 @@ func (c *client) request(req kernelRequest, res kernelResponse) error {
 	return c.response(res)
 }
 
-func (c *client) response(res kernelResponse) error {
+func (c *client) response(res kernelResponder) error {
 	if c.reader.More() {
 		return c.reader.Decode(res)
 	}
