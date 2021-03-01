@@ -26,10 +26,8 @@ function isExcluded(
   suite: schema.Suite,
   language: string,
 ) {
-  const testExcluded =
-    testCase.exclusions && testCase.exclusions[language] ? true : false;
-  const bindingExcluded =
-    suite.exclusions && suite.exclusions[language] ? true : false;
+  const testExcluded = !!testCase.exclusions?.[language];
+  const bindingExcluded = !!suite.exclusions?.[language];
   return testExcluded || bindingExcluded;
 }
 
@@ -46,9 +44,7 @@ function determineTestStatus(
   reports: Record<string, schema.Report>,
 ) {
   const report = reports[language];
-  const testResult = report
-    ? report[normalizeTestName(testCase.name)]
-    : undefined;
+  const testResult = report?.[normalizeTestName(testCase.name)];
 
   if (!testResult) return FAILURE;
   return testResult.status === 'success' ? SUCCESS : FAILURE;
@@ -71,9 +67,9 @@ function normalizeTestName(testName: string): string {
  */
 function normalizeReport(report: schema.Report): schema.Report {
   const normalized: schema.Report = {};
-  Object.keys(report).forEach((k) => {
-    normalized[normalizeTestName(k)] = report[k];
-  });
+  for (const [testName, _report] of Object.entries(report)) {
+    normalized[normalizeTestName(testName)] = _report;
+  }
   return normalized;
 }
 
@@ -87,28 +83,33 @@ function normalizeReport(report: schema.Report): schema.Report {
  * @param report the report.
  * @param language the language.
  * @param suite the suite.
+ *
+ * @returns A list of validation errors.
  */
 function validateReport(
   report: schema.Report,
   language: string,
   suite: schema.Suite,
-) {
+): string[] {
   const testsInReport = Object.keys(report);
 
   const testsInSuite = suite.testCases.map((t: schema.TestCase) =>
     normalizeTestName(t.name),
   );
 
+  const errors: string[] = [];
+
   // make sure every test in the language report exist in the suite.
   // this prevents us from adding tests only to a specific language.
   for (const test of testsInReport) {
     if (!testsInSuite.includes(test)) {
-      console.error(
+      errors.push(
         `Test '${test}' from ${language} report does not exist in the compliance suite. Please add it to the suite definition.`,
       );
-      process.exit(1);
     }
   }
+
+  return errors;
 }
 
 /**
@@ -118,13 +119,12 @@ function validateReport(
  */
 function collectReports(suite: schema.Suite): Record<string, schema.Report> {
   const reports: Record<string, schema.Report> = {};
-  for (const language of Object.keys(suite.bindings)) {
-    const binding = suite.bindings[language];
-    const reportFile = path.join(`${__dirname}`, '..', '..', binding.report);
+  for (const [language, binding] of Object.entries(suite.bindings)) {
+    const reportFile = path.join(__dirname, '..', '..', binding.report);
     console.log(`Collecting ${language} report from: ${reportFile}`);
     if (fs.existsSync(reportFile)) {
       reports[language] = normalizeReport(
-        JSON.parse(fs.readFileSync(reportFile).toString()),
+        JSON.parse(fs.readFileSync(reportFile, 'utf-8')),
       );
     }
   }
@@ -135,11 +135,22 @@ console.log('Collecting individual lanaguage binding reports');
 const reports = collectReports(suite);
 
 console.log('Validating reports');
-Object.keys(reports).forEach((k) => validateReport(reports[k], k, suite));
+const errors = [];
+for (const [language, report] of Object.entries(reports)) {
+  errors.push(...validateReport(report, language, suite));
+}
+
+if (errors.length > 0) {
+  console.error('Found multiple validation errors:');
+  for (const error of errors) {
+    console.error(error);
+  }
+  process.exit(1);
+}
 
 console.log('Creating aggregated report');
 
-const rows: Array<Record<string, string>> = [];
+const rows = new Array<Record<string, string>>();
 const successes: Record<string, number> = {};
 
 for (const [i, testCase] of suite.testCases.entries()) {
@@ -175,7 +186,7 @@ for (const language of Object.keys(reports)) {
 }
 
 const target = path.join(
-  `${__dirname}`,
+  __dirname,
   '..',
   '..',
   'gh-pages',
