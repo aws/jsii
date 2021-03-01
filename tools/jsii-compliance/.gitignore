@@ -1,2 +1,4 @@
 *.js
 *.d.ts
+
+compliance-suite.json
