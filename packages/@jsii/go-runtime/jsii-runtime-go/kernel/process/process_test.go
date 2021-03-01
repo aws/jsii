@@ -122,5 +122,5 @@ func makeCustomRuntime(mockVersion string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%s %s \"%s\"", node, mockRuntime, mockVersion), nil
+	return fmt.Sprintf("%s %s %s", node, mockRuntime, mockVersion), nil
 }
