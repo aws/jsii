@@ -1726,7 +1726,18 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc.go
        ┣━ 📄 jsiicalc.init.go
        ┣━ 📄 LICENSE
+       ┣━ 📁 nodirect
+       ┃  ┣━ 📄 nodirect.go
+       ┃  ┣━ 📁 sub1
+       ┃  ┃  ┣━ 📄 sub1.go
+       ┃  ┃  ┗━ 📄 sub1.init.go
+       ┃  ┗━ 📁 sub2
+       ┃     ┣━ 📄 sub2.go
+       ┃     ┗━ 📄 sub2.init.go
        ┣━ 📄 NOTICE
+       ┣━ 📁 onlystatic
+       ┃  ┣━ 📄 onlystatic.go
+       ┃  ┗━ 📄 onlystatic.init.go
        ┣━ 📁 pythonself
        ┃  ┣━ 📄 pythonself.go
        ┃  ┗━ 📄 pythonself.init.go
@@ -13666,6 +13677,201 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/nodirect/nodirect.go 1`] = `
+package nodirect
+
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/nodirect/sub1/sub1.go 1`] = `
+package sub1
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type TypeFromSub1 interface {
+	Sub1() string
+}
+
+// The jsii proxy struct for TypeFromSub1
+type typeFromSub1 struct {
+	_ byte // padding
+}
+
+func NewTypeFromSub1() TypeFromSub1 {
+	_init_.Initialize()
+	t := typeFromSub1{}
+
+	_jsii_.Create(
+		"jsii-calc.nodirect.sub1.TypeFromSub1",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&t,
+	)
+	return &t
+}
+
+func (t *typeFromSub1) Sub1() string {
+	var returns string
+	_jsii_.Invoke(
+		t,
+		"sub1",
+		[]interface{}{},
+		true,
+		&returns,
+	)
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/nodirect/sub1/sub1.init.go 1`] = `
+package sub1
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.nodirect.sub1.TypeFromSub1",
+		reflect.TypeOf((*TypeFromSub1)(nil)).Elem(),
+		func() interface{} {
+			return &typeFromSub1{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/nodirect/sub2/sub2.go 1`] = `
+package sub2
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type TypeFromSub2 interface {
+	Sub2() string
+}
+
+// The jsii proxy struct for TypeFromSub2
+type typeFromSub2 struct {
+	_ byte // padding
+}
+
+func NewTypeFromSub2() TypeFromSub2 {
+	_init_.Initialize()
+	t := typeFromSub2{}
+
+	_jsii_.Create(
+		"jsii-calc.nodirect.sub2.TypeFromSub2",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&t,
+	)
+	return &t
+}
+
+func (t *typeFromSub2) Sub2() string {
+	var returns string
+	_jsii_.Invoke(
+		t,
+		"sub2",
+		[]interface{}{},
+		true,
+		&returns,
+	)
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/nodirect/sub2/sub2.init.go 1`] = `
+package sub2
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.nodirect.sub2.TypeFromSub2",
+		reflect.TypeOf((*TypeFromSub2)(nil)).Elem(),
+		func() interface{} {
+			return &typeFromSub2{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/onlystatic/onlystatic.go 1`] = `
+package onlystatic
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Test for https://github.com/aws/jsii/issues/2617.
+type OnlyStaticMethods interface {
+}
+
+// The jsii proxy struct for OnlyStaticMethods
+type onlyStaticMethods struct {
+	_ byte // padding
+}
+
+func OnlyStaticMethods_StaticMethod() string {
+	_init_.Initialize()
+	var returns string
+	_jsii_.StaticInvoke(
+		"jsii-calc.onlystatic.OnlyStaticMethods",
+		"staticMethod",
+		[]interface{}{},
+		true,
+		&returns,
+	)
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/onlystatic/onlystatic.init.go 1`] = `
+package onlystatic
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.onlystatic.OnlyStaticMethods",
+		reflect.TypeOf((*OnlyStaticMethods)(nil)).Elem(),
+		func() interface{} {
+			return &onlyStaticMethods{}
+		},
+	)
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself.go 1`] = `
 package pythonself
 
@@ -14041,6 +14247,12 @@ func init() {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated.go 1`] = `
 package isolated
 
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
+)
 
 // Ensures imports are correctly registered for kwargs lifted properties from super-structs.
 type Kwargs interface {

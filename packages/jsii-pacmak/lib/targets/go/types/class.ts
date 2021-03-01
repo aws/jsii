@@ -15,7 +15,7 @@ import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { GoInterface } from './interface';
-import { GoParameter, GoMethod, GoProperty } from './type-member';
+import { GoParameter, GoMethod, GoProperty, GoTypeMember } from './type-member';
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
@@ -156,20 +156,23 @@ export class GoClass extends GoType {
     code.close(')');
   }
 
+  public get members(): GoTypeMember[] {
+    return [
+      ...this.methods,
+      ...this.properties,
+      ...this.staticMethods,
+      ...this.staticProperties,
+    ];
+  }
+
   public get usesInitPackage() {
     return (
-      this.initializer != null ||
-      this.methods.some((m) => m.usesInitPackage) ||
-      this.properties.some((p) => p.usesInitPackage)
+      this.initializer != null || this.members.some((m) => m.usesInitPackage)
     );
   }
 
   public get usesRuntimePackage() {
-    return (
-      this.initializer != null ||
-      this.methods.length > 0 ||
-      this.properties.length > 0
-    );
+    return this.initializer != null || this.members.length > 0;
   }
 
   protected emitInterface(context: EmitContext): void {
@@ -289,9 +292,8 @@ export class GoClass extends GoType {
     // need to add dependencies of method arguments and constructor arguments
     return [
       ...this.baseTypes.map((ref) => ref.pkg),
-      ...getMemberDependencies(this.properties),
-      ...getMemberDependencies(this.methods),
-      ...getParamDependencies(this.methods),
+      ...getMemberDependencies(this.members),
+      ...getParamDependencies(this.members.filter(isGoMethod)),
     ];
   }
 
@@ -411,4 +413,8 @@ export class StaticMethod extends ClassMethod {
     code.closeBlock();
     code.line();
   }
+}
+
+function isGoMethod(m: GoTypeMember): m is GoMethod {
+  return m instanceof GoMethod;
 }
