@@ -19,21 +19,7 @@ const JSII_RUNTIME string = "JSII_RUNTIME"
 // Process is a simple interface over the child process hosting the
 // @jsii/kernel process. It only exposes a very straight-forward
 // request/response interface.
-type Process interface {
-	// Request starts the child process if that has not happened yet, then
-	// encodes the supplied request and sends it to the child process
-	// via the requests channel, then decodes the response into the provided
-	// response pointer. If the process is not in a usable state, or if the
-	// encoding fails, an error is returned.
-	Request(request interface{}, response interface{}) error
-
-	// Close cleans up any resources associated to this Process.
-	// The Process can no longer be used for sending requests after
-	// Close has been called.
-	Close()
-}
-
-type process struct {
+type Process struct {
 	compatibleVersions *semver.Constraints
 
 	cmd    *exec.Cmd
@@ -64,8 +50,8 @@ type process struct {
 // environment may be injected into the child process' environment - all of which
 // with lower precedence than the launching process' environment, with the notable
 // exception of JSII_AGENT, which is reserved.
-func NewProcess(compatibleVersions string) (Process, error) {
-	p := process{}
+func NewProcess(compatibleVersions string) (*Process, error) {
+	p := Process{}
 
 	if constraints, err := semver.NewConstraint(compatibleVersions); err != nil {
 		return nil, err
@@ -142,7 +128,7 @@ func NewProcess(compatibleVersions string) (Process, error) {
 	return &p, nil
 }
 
-func (p *process) ensureStarted() error {
+func (p *Process) ensureStarted() error {
 	if p.closed {
 		return fmt.Errorf("this process has been closed")
 	}
@@ -185,7 +171,7 @@ func (p *process) ensureStarted() error {
 // via the requests channel, then decodes the response into the provided
 // response pointer. If the process is not in a usable state, or if the
 // encoding fails, an error is returned.
-func (p *process) Request(request interface{}, response interface{}) error {
+func (p *Process) Request(request interface{}, response interface{}) error {
 	if err := p.ensureStarted(); err != nil {
 		return err
 	}
@@ -196,14 +182,14 @@ func (p *process) Request(request interface{}, response interface{}) error {
 	return p.readResponse(response)
 }
 
-func (p *process) readResponse(into interface{}) error {
+func (p *Process) readResponse(into interface{}) error {
 	if !p.responses.More() {
 		return fmt.Errorf("no response received from child process")
 	}
 	return p.responses.Decode(into)
 }
 
-func (p *process) Close() {
+func (p *Process) Close() {
 	if p.closed {
 		return
 	}

@@ -43,17 +43,18 @@ func TestVersionCheck(t *testing.T) {
 
 			process, err := NewProcess(fmt.Sprintf("^4.3.2"))
 			if err != nil {
-				t.Error(err)
+				t.Fatal(err)
 				return
 			}
 			defer process.Close()
+			t.Logf("Subprocess command: %s", strings.Join(process.cmd.Args, " "))
 
 			var (
 				request  = EchoRequest{Message: "Oh, hi!"}
 				response EchoResponse
 			)
 			if err := process.Request(request, &response); err != nil {
-				t.Error(err)
+				t.Fatal(err)
 			}
 			if response.Message != request.Message {
 				t.Errorf("Expected %s, received %s", request.Message, response.Message)
@@ -71,10 +72,11 @@ func TestVersionCheck(t *testing.T) {
 
 			process, err := NewProcess(fmt.Sprintf("^4.3.2"))
 			if err != nil {
-				t.Error(err)
+				t.Fatal(err)
 				return
 			}
 			defer process.Close()
+			t.Logf("Subprocess command: %s", strings.Join(process.cmd.Args, " "))
 
 			var (
 				request  = EchoRequest{Message: "Oh, hi!"}

@@ -21,8 +21,8 @@ var (
 // to call methods and access properties on objects passed by the runtime
 // process by reference.
 type client struct {
-	process process.Process
-	types   typeregistry.TypeRegistry
+	process *process.Process
+	types   *typeregistry.TypeRegistry
 	objects map[reflect.Value]string
 }
 
@@ -87,7 +87,7 @@ func newClient() (*client, error) {
 	}
 }
 
-func (c *client) Types() typeregistry.TypeRegistry {
+func (c *client) Types() *typeregistry.TypeRegistry {
 	return c.types
 }
 

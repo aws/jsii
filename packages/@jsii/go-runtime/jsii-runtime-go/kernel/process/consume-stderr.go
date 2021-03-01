@@ -18,7 +18,7 @@ type consoleMessage struct {
 // Once EOF has been reached, true will be sent to the done channel, allowing
 // other goroutines to check whether the goroutine has reached EOF (and hence
 // finished) or not.
-func (p *process) consumeStderr(done chan bool) {
+func (p *Process) consumeStderr(done chan bool) {
 	reader := bufio.NewReader(p.stderr)
 
 	for true {
