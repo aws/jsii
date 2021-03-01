@@ -52,7 +52,7 @@ updates:
   - package-ecosystem: gomod
     directory: '/packages/@jsii/go-runtime'
     schedule:
-      interfval: daily
+      interval: daily
     labels:
       - dependencies
       - language/go
@@ -60,7 +60,7 @@ updates:
   - package-ecosystem: gomod
     directory: '/packages/@jsii/go-runtime/jsii-runtime-go'
     schedule:
-      interfval: daily
+      interval: daily
     labels:
       - dependencies
       - language/go
