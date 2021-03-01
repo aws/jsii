@@ -28,7 +28,6 @@
     "jest-circus": "^26.6.3",
     "jest-config": "^26.6.3",
     "jest-expect-message": "^1.0.2",
-    "tablemark": "^2.0.0",
     "lerna": "^3.22.1",
     "prettier": "^2.2.1",
     "standard-version": "^9.1.1",
