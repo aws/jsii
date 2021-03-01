@@ -5,19 +5,6 @@ All notable changes to this project will be documented in this file. See [standa
 ## [1.23.0](https://github.com/aws/jsii/compare/v1.22.0...v1.23.0) (2021-03-01)
 
 
-### ⚠ BREAKING CHANGES
-
-* **java:** in TypeScript, this allows us to preserve this property
-in Java, too).
-
-However, if two distinct super-interfaces declare the same property, the
-child inherits two unrelated default implementations for the same
-method, which results in dispatch ambiguity that is illegal.
-
-In order to remove the ambiguity, a new default implementation must be
-provided on the child interface, so that the dispatch is unambiguous
-again.
-
 ### Features
 
 * **go:** emit indirect dependencies in go.mod ([#2596](https://github.com/aws/jsii/issues/2596)) ([0f95a0b](https://github.com/aws/jsii/commit/0f95a0b8cd4d569d410bfad21254949c4fd90870))
