@@ -68,10 +68,6 @@ export class GoTypeRef {
     return undefined;
   }
 
-  public get interfaceName() {
-    return this.type?.interfaceName;
-  }
-
   public get name() {
     return this.type?.name;
   }
@@ -149,9 +145,7 @@ export class GoTypeRef {
       return `${prefix}${innerName}`;
     } else if (typeMap.type === 'interface') {
       const prefix = asRef ? '*' : '';
-      const baseName = asInterface
-        ? typeMap.value.interfaceName
-        : typeMap.value.name;
+      const baseName = typeMap.value.name;
       // type is defined in the same scope as the current one, no namespace required
       if (scope.packageName === typeMap.value.namespace && baseName) {
         // if the current scope is the same as the types scope, return without a namespace

@@ -1,6 +1,7 @@
 import { CodeMaker, toPascalCase } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
 
+import * as comparators from '../comparators';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import {
@@ -11,44 +12,118 @@ import {
   StaticSetProperty,
 } from '../runtime';
 import { getMemberDependencies, getParamDependencies } from '../util';
-import { GoStruct } from './go-type';
-import { GoParameter, GoMethod, GoProperty } from './type-member';
+import { GoType } from './go-type';
+import { GoTypeRef } from './go-type-reference';
+import { GoInterface } from './interface';
+import { GoParameter, GoMethod, GoProperty, GoTypeMember } from './type-member';
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
  */
-export class GoClass extends GoStruct {
-  public readonly methods: ClassMethod[] = [];
-  public readonly staticMethods: StaticMethod[] = [];
-  public readonly staticProperties: GoProperty[] = [];
+export class GoClass extends GoType {
+  public readonly methods: ClassMethod[];
+  public readonly staticMethods: StaticMethod[];
+  public readonly properties: GoProperty[];
+  public readonly staticProperties: GoProperty[];
+
+  private readonly reimplementedMethods?: readonly ClassMethod[];
+  private readonly reimplementedProperties?: readonly GoProperty[];
+
+  private _extends?: GoClass | null;
+  private _implements?: readonly GoInterface[];
 
   private readonly initializer?: GoClassConstructor;
 
   public constructor(pkg: Package, public type: ClassType) {
     super(pkg, type);
 
-    for (const method of Object.values(this.type.getMethods(true))) {
+    const methods = new Array<ClassMethod>();
+    const staticMethods = new Array<StaticMethod>();
+    for (const method of type.ownMethods) {
       if (method.static) {
-        this.staticMethods.push(new StaticMethod(this, method));
+        staticMethods.push(new StaticMethod(this, method));
       } else {
-        this.methods.push(new ClassMethod(this, method));
+        methods.push(new ClassMethod(this, method));
       }
     }
+    // Ensure consistent order, mostly cosmetic.
+    this.methods = methods.sort(comparators.byName);
+    this.staticMethods = staticMethods.sort(comparators.byName);
 
-    for (const prop of Object.values(this.type.getProperties(true))) {
+    const properties = new Array<GoProperty>();
+    const staticProperties = new Array<GoProperty>();
+    for (const prop of type.ownProperties) {
       if (prop.static) {
-        this.staticProperties.push(new GoProperty(this, prop));
+        staticProperties.push(new GoProperty(this, prop));
+      } else {
+        properties.push(new GoProperty(this, prop));
       }
     }
+    // Ensure consistent order, mostly cosmetic.
+    this.properties = properties.sort(comparators.byName);
+    this.staticProperties = staticProperties.sort(comparators.byName);
 
-    if (this.type.initializer) {
-      this.initializer = new GoClassConstructor(this, this.type.initializer);
+    // If there is more than one base, and any ancestor (including transitive)
+    // comes from a different assembly, we will re-implement all members on the
+    // proxy struct, as otherwise we run the risk of un-promotable methods
+    // caused by inheriting the same interface via multiple paths (since we have
+    // to represent those as embedded types).
+    const hasMultipleBases = type.interfaces.length > (type.base ? 0 : 1);
+    if (
+      hasMultipleBases &&
+      type
+        .getAncestors()
+        .some((ancestor) => ancestor.assembly.fqn !== type.assembly.fqn)
+    ) {
+      this.reimplementedMethods = type.allMethods
+        .filter((method) => !method.static && method.definingType !== type)
+        .map((method) => new ClassMethod(this, method))
+        .sort(comparators.byName);
+
+      this.reimplementedProperties = type.allProperties
+        .filter(
+          (property) => !property.static && property.definingType !== type,
+        )
+        .map((property) => new GoProperty(this, property))
+        .sort(comparators.byName);
+    }
+
+    if (type.initializer) {
+      this.initializer = new GoClassConstructor(this, type.initializer);
     }
   }
 
+  public get extends(): GoClass | undefined {
+    // Cannot compute in constructor, as dependencies may not have finished
+    // resolving just yet.
+    if (this._extends === undefined) {
+      this._extends = this.type.base
+        ? (this.pkg.root.findType(this.type.base.fqn) as GoClass)
+        : null;
+    }
+    return this._extends == null ? undefined : this._extends;
+  }
+
+  public get implements(): readonly GoInterface[] {
+    // Cannot compute in constructor, as dependencies may not have finished
+    // resolving just yet.
+    if (this._implements === undefined) {
+      this._implements = this.type.interfaces
+        .map((iface) => this.pkg.root.findType(iface.fqn) as GoInterface)
+        // Ensure consistent order, mostly cosmetic.
+        .sort((l, r) => l.fqn.localeCompare(r.fqn));
+    }
+    return this._implements;
+  }
+
+  public get baseTypes(): ReadonlyArray<GoClass | GoInterface> {
+    return [...(this.extends ? [this.extends] : []), ...this.implements];
+  }
+
   public emit(context: EmitContext): void {
-    // emits interface, struct proxy, and instance methods
-    super.emit(context);
+    this.emitInterface(context);
+    this.emitStruct(context);
+    this.emitGetters(context);
 
     if (this.initializer) {
       this.initializer.emit(context);
@@ -67,40 +142,59 @@ export class GoClass extends GoStruct {
     for (const method of this.methods) {
       method.emit(context);
     }
+
+    for (const method of this.reimplementedMethods ?? []) {
+      method.emit(context);
+    }
   }
 
   public emitRegistration(code: CodeMaker): void {
     code.open(`${JSII_RT_ALIAS}.RegisterClass(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
-    code.line(`reflect.TypeOf((*${this.interfaceName})(nil)).Elem(),`);
+    this.emitProxyMakerFunction(code, this.baseTypes);
     code.close(')');
+  }
+
+  public get members(): GoTypeMember[] {
+    return [
+      ...this.methods,
+      ...this.properties,
+      ...this.staticMethods,
+      ...this.staticProperties,
+    ];
   }
 
   public get usesInitPackage() {
     return (
-      this.initializer != null ||
-      this.methods.some((m) => m.usesInitPackage) ||
-      this.properties.some((p) => p.usesInitPackage)
+      this.initializer != null || this.members.some((m) => m.usesInitPackage)
     );
   }
 
   public get usesRuntimePackage() {
-    return (
-      this.initializer != null ||
-      this.methods.length > 0 ||
-      this.properties.length > 0
-    );
+    return this.initializer != null || this.members.length > 0;
   }
 
   protected emitInterface(context: EmitContext): void {
-    const { code } = context;
-    code.line('// Class interface'); // FIXME for debugging
-    code.openBlock(`type ${this.interfaceName} interface`);
+    const { code, documenter } = context;
+    documenter.emit(this.type.docs);
+    code.openBlock(`type ${this.name} interface`);
 
     // embed extended interfaces
-    for (const iface of this.extends) {
-      code.line(iface.scopedInterfaceName(this.pkg));
+    if (this.extends) {
+      code.line(
+        new GoTypeRef(
+          this.pkg.root,
+          this.extends.type.reference,
+        ).scopedInterfaceName(this.pkg),
+      );
+    }
+    for (const iface of this.implements) {
+      code.line(
+        new GoTypeRef(this.pkg.root, iface.type.reference).scopedInterfaceName(
+          this.pkg,
+        ),
+      );
     }
 
     for (const property of this.properties) {
@@ -112,6 +206,51 @@ export class GoClass extends GoStruct {
       method.emitDecl(context);
     }
 
+    code.closeBlock();
+    code.line();
+  }
+
+  private emitGetters(context: EmitContext) {
+    if (this.properties.length === 0) {
+      return;
+    }
+    for (const property of this.properties) {
+      property.emitGetterProxy(context);
+    }
+    for (const property of this.reimplementedProperties ?? []) {
+      property.emitGetterProxy(context);
+    }
+    context.code.line();
+  }
+
+  private emitStruct({ code }: EmitContext): void {
+    code.line(`// The jsii proxy struct for ${this.name}`);
+    code.openBlock(`type ${this.proxyName} struct`);
+    if (this.extends == null && this.implements.length === 0) {
+      // Make sure this is not 0-width
+      code.line('_ byte // padding');
+    } else {
+      if (this.extends) {
+        const embed =
+          this.extends.pkg === this.pkg
+            ? this.extends.proxyName
+            : new GoTypeRef(
+                this.pkg.root,
+                this.extends.type.reference,
+              ).scopedInterfaceName(this.pkg);
+        code.line(`${embed} // extends ${this.extends.fqn}`);
+      }
+      for (const iface of this.implements) {
+        const embed =
+          iface.pkg === this.pkg
+            ? iface.proxyName
+            : new GoTypeRef(
+                this.pkg.root,
+                iface.type.reference,
+              ).scopedInterfaceName(this.pkg);
+        code.line(`${embed} // implements ${iface.fqn}`);
+      }
+    }
     code.closeBlock();
     code.line();
   }
@@ -141,19 +280,20 @@ export class GoClass extends GoStruct {
 
   // emits the implementation of the setters for the struct
   private emitSetters(context: EmitContext): void {
-    if (this.properties.length !== 0) {
-      for (const property of this.properties) {
-        property.emitSetterImpl(context);
-      }
+    for (const property of this.properties) {
+      property.emitSetterProxy(context);
+    }
+    for (const property of this.reimplementedProperties ?? []) {
+      property.emitSetterProxy(context);
     }
   }
 
   public get dependencies(): Package[] {
     // need to add dependencies of method arguments and constructor arguments
     return [
-      ...super.dependencies,
-      ...getMemberDependencies(this.methods),
-      ...getParamDependencies(this.methods),
+      ...this.baseTypes.map((ref) => ref.pkg),
+      ...getMemberDependencies(this.members),
+      ...getParamDependencies(this.members.filter(isGoMethod)),
     ];
   }
 
@@ -174,7 +314,7 @@ export class GoClassConstructor {
     private readonly type: Initializer,
   ) {
     this.constructorRuntimeCall = new ClassConstructor(this);
-    this.parameters = Object.values(this.type.parameters).map(
+    this.parameters = this.type.parameters.map(
       (param) => new GoParameter(parent, param),
     );
   }
@@ -193,9 +333,7 @@ export class GoClassConstructor {
       code.line(`// ${docstring}`);
     }
 
-    code.openBlock(
-      `func ${constr}(${paramString}) ${this.parent.interfaceName}`,
-    );
+    code.openBlock(`func ${constr}(${paramString}) ${this.parent.name}`);
 
     this.constructorRuntimeCall.emit(code);
     code.closeBlock();
@@ -217,13 +355,14 @@ export class ClassMethod extends GoMethod {
   }
 
   /* emit generates method implementation on the class */
-  public emit({ code }: EmitContext) {
+  public emit({ code, documenter }: EmitContext) {
     const name = this.name;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
+    documenter.emit(this.method.docs);
     code.openBlock(
       `func (${this.instanceArg} *${
-        this.parent.name
+        this.parent.proxyName
       }) ${name}(${this.paramString()})${returnTypeString}`,
     );
 
@@ -262,10 +401,11 @@ export class StaticMethod extends ClassMethod {
     super(parent, method);
   }
 
-  public emit({ code }: EmitContext) {
+  public emit({ code, documenter }: EmitContext) {
     const name = `${this.parent.name}_${this.name}`;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
+    documenter.emit(this.method.docs);
     code.openBlock(`func ${name}(${this.paramString()})${returnTypeString}`);
 
     this.runtimeCall.emit(code);
@@ -273,4 +413,8 @@ export class StaticMethod extends ClassMethod {
     code.closeBlock();
     code.line();
   }
+}
+
+function isGoMethod(m: GoTypeMember): m is GoMethod {
+  return m instanceof GoMethod;
 }

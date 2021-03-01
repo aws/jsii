@@ -18,17 +18,25 @@ export class Documentation {
    * Stability/Deprecation description
    */
   public emit(docs: Docs): void {
+    let firstLine = true;
     if (docs.toString() !== '') {
       this.emitComment(docs.toString());
+      firstLine = false;
     }
 
     if (docs.returns !== '') {
-      this.emitComment();
+      if (!firstLine) {
+        this.emitComment();
+      }
+      firstLine = false;
       this.emitComment(`Returns: ${docs.returns}`);
     }
 
     if (docs.example !== '') {
-      this.emitComment();
+      if (!firstLine) {
+        this.emitComment();
+      }
+      firstLine = false;
       // TODO: Translate code examples to Go with Rosetta (not implemented there yet)
       this.emitComment('TODO: EXAMPLE');
       this.emitComment();
@@ -59,9 +67,10 @@ export class Documentation {
     }
   }
 
-  private shouldMentionStability(docs: Docs): boolean {
-    const s = docs.stability;
+  private shouldMentionStability({ stability }: Docs): boolean {
     // Don't render "stable" or "external", those are both stable by implication
-    return s === Stability.Deprecated || s === Stability.Experimental;
+    return (
+      stability === Stability.Deprecated || stability === Stability.Experimental
+    );
   }
 }

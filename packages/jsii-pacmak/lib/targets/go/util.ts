@@ -40,7 +40,9 @@ export function flatMap<T, R>(
 /*
  * Return module dependencies of a class or interface members
  */
-export function getMemberDependencies(members: GoTypeMember[]): Package[] {
+export function getMemberDependencies(
+  members: readonly GoTypeMember[],
+): Package[] {
   return members.reduce((accum: Package[], member) => {
     return member.reference?.type?.pkg
       ? [...accum, member.reference?.type.pkg]

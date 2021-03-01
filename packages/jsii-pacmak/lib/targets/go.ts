@@ -40,8 +40,10 @@ export class Golang extends Target {
     // write `local.go.mod` with "replace" directives for local modules
     const localGoMod = await this.writeLocalGoMod(pkgDir);
 
-    // run `go build` with local.go.mod
-    await go('build', ['-modfile', localGoMod], { cwd: pkgDir });
+    // run `go build` with local.go.mod, go 1.16 requires that we download
+    // modules explicit so go.sum is updated.
+    await go('mod', ['download', '-modfile', localGoMod], { cwd: pkgDir });
+    await go('build', ['-modfile', localGoMod, './...'], { cwd: pkgDir });
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;
@@ -229,5 +231,11 @@ function tryFindLocalRuntime():
  */
 async function go(command: string, args: string[], options: { cwd: string }) {
   const { cwd } = options;
-  return shell('go', [command, ...args], { cwd });
+  return shell('go', [command, ...args], {
+    cwd,
+    env: {
+      // disable the use of sumdb to reduce eventual consistency issues when new modules are published
+      GOSUMDB: 'off',
+    },
+  });
 }
