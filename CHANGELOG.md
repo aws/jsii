@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.23.0](https://github.com/aws/jsii/compare/v1.22.0...v1.23.0) (2021-03-01)
 
-
 ### Features
 
 * **go:** emit indirect dependencies in go.mod ([#2596](https://github.com/aws/jsii/issues/2596)) ([0f95a0b](https://github.com/aws/jsii/commit/0f95a0b8cd4d569d410bfad21254949c4fd90870))
