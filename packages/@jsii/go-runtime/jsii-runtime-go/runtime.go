@@ -126,7 +126,7 @@ func InitJsiiProxy(ptr interface{}) {
 
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
-func Create(fqn FQN, args interface{}, interfaces []FQN, overriddenMembers []Member, inst interface{}) {
+func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []Member, inst interface{}) {
 	client := kernel.GetClient()
 
 	instVal := reflect.ValueOf(inst)
@@ -186,7 +186,7 @@ func Create(fqn FQN, args interface{}, interfaces []FQN, overriddenMembers []Mem
 
 // Invoke will call a method on a jsii class instance. The response will be
 // decoded into the expected return type for the method being called.
-func Invoke(obj interface{}, method string, args interface{}, ret interface{}) {
+func Invoke(obj interface{}, method string, args []interface{}, ret interface{}) {
 	client := kernel.GetClient()
 
 	// Find reference to class instance in client
@@ -212,7 +212,7 @@ func Invoke(obj interface{}, method string, args interface{}, ret interface{}) {
 }
 
 // InvokeVoid will call a void method on a jsii class instance.
-func InvokeVoid(obj interface{}, method string, args interface{}) {
+func InvokeVoid(obj interface{}, method string, args []interface{}) {
 	client := kernel.GetClient()
 
 	// Find reference to class instance in client
@@ -235,7 +235,7 @@ func InvokeVoid(obj interface{}, method string, args interface{}) {
 
 // StaticInvoke will call a static method on a given jsii class. The response
 // will be decoded into the expected return type for the method being called.
-func StaticInvoke(fqn FQN, method string, args interface{}, ret interface{}) {
+func StaticInvoke(fqn FQN, method string, args []interface{}, ret interface{}) {
 	client := kernel.GetClient()
 
 	res, err := client.SInvoke(kernel.StaticInvokeProps{
@@ -252,7 +252,7 @@ func StaticInvoke(fqn FQN, method string, args interface{}, ret interface{}) {
 }
 
 // StaticInvokeVoid will call a static void method on a given jsii class.
-func StaticInvokeVoid(fqn FQN, method string, args interface{}) {
+func StaticInvokeVoid(fqn FQN, method string, args []interface{}) {
 	client := kernel.GetClient()
 
 	_, err := client.SInvoke(kernel.StaticInvokeProps{
@@ -352,24 +352,16 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 
 // convertArguments turns an argument struct and produces a list of values
 // ready for inclusion in an invoke or create request.
-func convertArguments(args interface{}) []interface{} {
-	if args == nil {
-		return []interface{}{}
+func convertArguments(args []interface{}) []interface{} {
+	if len(args) == 0 {
+		return make([]interface{}, 0, 0)
 	}
 
-	val := reflect.ValueOf(args)
-	if val.Kind() == reflect.Ptr {
-		val = val.Elem()
-	}
-
-	if val.Kind() != reflect.Struct {
-		panic(fmt.Errorf("illegal argument, struct expected: %v", val))
-	}
-	numField := val.NumField()
-	result := make([]interface{}, numField)
+	result := make([]interface{}, len(args), len(args))
 	client := kernel.GetClient()
-	for i := 0; i < numField; i++ {
-		result[i] = client.CastPtrToRef(val.Field(i))
+	for i, arg := range args {
+		val := reflect.ValueOf(arg)
+		result[i] = client.CastPtrToRef(val)
 	}
 
 	return result

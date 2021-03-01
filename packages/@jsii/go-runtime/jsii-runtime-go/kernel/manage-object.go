@@ -9,8 +9,8 @@ import (
 const objectFQN = "Object"
 
 func (c *client) ManageObject(v reflect.Value) (ref api.ObjectRef, err error) {
-	// Using reflect.Indirect to ensure we see pointer-receiver methods, too.
-	vt := reflect.Indirect(v).Type()
+	// Ensuring we use a pointer, so we can see pointer-receiver methods, too.
+	vt := reflect.Indirect(v).Addr().Type()
 	interfaces, overrides := c.Types().DiscoverImplementation(vt)
 
 	var resp CreateResponse

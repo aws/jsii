@@ -1,7 +1,6 @@
 import { CodeMaker } from 'codemaker';
 
 import { GoMethod } from '../types';
-import { emitArgumentObject } from './arguments';
 import {
   JSII_INVOKE_FUNC,
   JSII_INVOKE_VOID_FUNC,
@@ -36,7 +35,7 @@ export class MethodCall extends FunctionCall {
 
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.method.name}",`);
-    emitArgumentObject(code, this.parent);
+    code.line(`${this.argsString},`);
     if (this.returnsVal) {
       code.line(`&${this.returnVarName},`);
     }
@@ -63,7 +62,7 @@ export class MethodCall extends FunctionCall {
 
     code.line(`"${this.parent.parent.fqn}",`);
     code.line(`"${this.parent.method.name}",`);
-    emitArgumentObject(code, this.parent);
+    code.line(`${this.argsString},`);
     if (this.returnsVal) {
       code.line(`&${this.returnVarName},`);
     }
@@ -88,5 +87,13 @@ export class MethodCall extends FunctionCall {
 
   private get inStatic(): boolean {
     return this.parent.method.static;
+  }
+
+  private get argsString(): string {
+    const argsList = this.parent.parameters.map((param) => param.name);
+    if (argsList.length === 0) {
+      return 'nil /* no parameters */';
+    }
+    return `[]interface{}{${argsList.join(', ')}}`;
   }
 }
