@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -38,7 +40,11 @@ func TestVersionCheck(t *testing.T) {
 	for _, mockVersion := range acceptedVersions {
 		t.Run(fmt.Sprintf("accepts version %s", mockVersion), func(t *testing.T) {
 			oldJsiiRuntime := os.Getenv(JSII_RUNTIME)
-			os.Setenv(JSII_RUNTIME, makeCustomRuntime(mockVersion))
+			if runtime, err := makeCustomRuntime(mockVersion); err != nil {
+				t.Fatal(err)
+			} else {
+				os.Setenv(JSII_RUNTIME, runtime)
+			}
 			defer os.Setenv(JSII_RUNTIME, oldJsiiRuntime)
 
 			process, err := NewProcess(fmt.Sprintf("^4.3.2"))
@@ -67,7 +73,11 @@ func TestVersionCheck(t *testing.T) {
 	for _, mockVersion := range rejectedVersions {
 		t.Run(fmt.Sprintf("rejects version %s", mockVersion), func(t *testing.T) {
 			oldJsiiRuntime := os.Getenv(JSII_RUNTIME)
-			os.Setenv(JSII_RUNTIME, makeCustomRuntime(mockVersion))
+			if runtime, err := makeCustomRuntime(mockVersion); err != nil {
+				t.Fatal(err)
+			} else {
+				os.Setenv(JSII_RUNTIME, runtime)
+			}
 			defer os.Setenv(JSII_RUNTIME, oldJsiiRuntime)
 
 			process, err := NewProcess(fmt.Sprintf("^4.3.2"))
@@ -99,6 +109,18 @@ type EchoResponse struct {
 	Message string `json:"message"`
 }
 
-func makeCustomRuntime(mockVersion string) string {
-	return fmt.Sprintf("node %s \"%s\"", mockRuntime, mockVersion)
+func makeCustomRuntime(mockVersion string) (string, error) {
+	var (
+		node string
+		err  error
+	)
+	if runtime.GOOS == "windows" {
+		node, err = exec.LookPath("node.exe")
+	} else {
+		node, err = exec.LookPath("node")
+	}
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%s %s \"%s\"", node, mockRuntime, mockVersion), nil
 }
