@@ -1,4 +1,4 @@
-# jsii Compliance
+# jsii compliance
 
 This directory contains scripts and resources to create and validate the jsii compliance suite.
 
