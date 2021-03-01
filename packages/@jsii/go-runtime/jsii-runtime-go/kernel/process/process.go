@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
+	"sync"
 
 	"github.com/Masterminds/semver/v3"
 	"github.com/aws/jsii-runtime-go/embedded"
@@ -35,6 +36,8 @@ type Process struct {
 
 	started bool
 	closed  bool
+
+	mutex sync.Mutex
 }
 
 // NewProcess prepares a new child process, but does not start it yet. It will
@@ -66,8 +69,8 @@ func NewProcess(compatibleVersions string) (*Process, error) {
 		)
 		// Sub-shelling in order to avoid having to parse arguments
 		if runtime.GOOS == "windows" {
-			// On windows, we use %COMSPEC% if set, or cmd.exe
-			if cmd := os.Getenv("COMSPEC"); cmd != "" {
+			// On windows, we use %ComSpec% if set, or cmd.exe
+			if cmd := os.Getenv("ComSpec"); cmd != "" {
 				command = cmd
 			} else {
 				command = "cmd.exe"
@@ -163,6 +166,14 @@ func (p *Process) ensureStarted() error {
 		return fmt.Errorf("incompatible runtime version:\n%s", strings.Join(causes, "\n"))
 	}
 
+	go func() {
+		err := p.cmd.Wait()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Runtime process exited abnormally: %s", err.Error())
+		}
+		p.Close()
+	}()
+
 	return nil
 }
 
@@ -190,6 +201,15 @@ func (p *Process) readResponse(into interface{}) error {
 }
 
 func (p *Process) Close() {
+	if p.closed {
+		return
+	}
+
+	// Acquire the lock, so we don't try to concurrently close multiple times
+	p.mutex.Lock()
+	defer p.mutex.Unlock()
+
+	// Check again now that we own the lock, it may be a fast exit!
 	if p.closed {
 		return
 	}
