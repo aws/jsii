@@ -1,21 +1,21 @@
 package kernel
 
-type CompleteRequest struct {
-	kernelRequester
-
-	API        string      `json:"api"`
+type CompleteProps struct {
 	CallbackID *string     `json:"cbid"`
 	Error      *string     `json:"err"`
 	Result     interface{} `json:"result"`
 }
 
 type CompleteResponse struct {
-	kernelResponder
-
+	kernelResponse
 	CallbackID *string `json:"cbid"`
 }
 
-func (c *client) Complete(request CompleteRequest) (response CompleteResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Complete(props CompleteProps) (response CompleteResponse, err error) {
+	type request struct {
+		kernelRequest
+		CompleteProps
+	}
+	err = c.request(request{kernelRequest{"complete"}, props}, &response)
 	return
 }

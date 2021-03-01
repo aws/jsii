@@ -1,19 +1,19 @@
 package kernel
 
-type EndRequest struct {
-	kernelRequester
-
-	API       string  `json:"api"`
+type EndProps struct {
 	PromiseID *string `json:"promise_id"`
 }
 
 type EndResponse struct {
-	kernelResponder
-
+	kernelResponse
 	Result interface{} `json:"result"`
 }
 
-func (c *client) End(request EndRequest) (response EndResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) End(props EndProps) (response EndResponse, err error) {
+	type request struct {
+		kernelRequest
+		EndProps
+	}
+	err = c.request(request{kernelRequest{"end"}, props}, &response)
 	return
 }
