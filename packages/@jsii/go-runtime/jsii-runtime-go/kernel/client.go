@@ -114,7 +114,7 @@ func (c *client) FindObjectRef(obj reflect.Value) (string, bool) {
 	case reflect.Interface, reflect.Ptr:
 		return c.objects.InstanceID(obj)
 	default:
-		// Ohter types cannot possibly be object references!
+		// Other types cannot possibly be object references!
 		return "", false
 	}
 }
