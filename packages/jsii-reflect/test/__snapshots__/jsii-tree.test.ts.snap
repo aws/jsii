@@ -102,6 +102,30 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1 (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       └─┬ sub1() method (stable)
+ │ │ │ │ │         └── returns: string
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2 (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer (stable)
+ │ │ │ │         └─┬ sub2() method (stable)
+ │ │ │ │           └── returns: string
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ static staticMethod() method (stable)
+ │ │ │         ├── static
+ │ │ │         └── returns: string
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -2863,6 +2887,18 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -3267,6 +3303,26 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       └── sub1() method
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer
+ │ │ │ │         └── sub2() method
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods
+ │ │ │     └─┬ members
+ │ │ │       └── static staticMethod() method
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -4490,6 +4546,11 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -4533,6 +4594,18 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -4815,6 +4888,11 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references

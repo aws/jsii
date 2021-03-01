@@ -43,7 +43,7 @@ export class Golang extends Target {
     // run `go build` with local.go.mod, go 1.16 requires that we download
     // modules explicit so go.sum is updated.
     await go('mod', ['download', '-modfile', localGoMod], { cwd: pkgDir });
-    await go('build', ['-modfile', localGoMod], { cwd: pkgDir });
+    await go('build', ['-modfile', localGoMod, './...'], { cwd: pkgDir });
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;

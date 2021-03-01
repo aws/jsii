@@ -2835,12 +2835,19 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 NestedClassInstance.cs
        ┃           ┣━ 📄 NestedStruct.cs
        ┃           ┣━ 📄 NodeStandardLibrary.cs
+       ┃           ┣━ 📁 Nodirect
+       ┃           ┃  ┣━ 📁 Sub1
+       ┃           ┃  ┃  ┗━ 📄 TypeFromSub1.cs
+       ┃           ┃  ┗━ 📁 Sub2
+       ┃           ┃     ┗━ 📄 TypeFromSub2.cs
        ┃           ┣━ 📄 NullShouldBeTreatedAsUndefined.cs
        ┃           ┣━ 📄 NullShouldBeTreatedAsUndefinedData.cs
        ┃           ┣━ 📄 NumberGenerator.cs
        ┃           ┣━ 📄 ObjectRefsInCollections.cs
        ┃           ┣━ 📄 ObjectWithPropertyProvider.cs
        ┃           ┣━ 📄 Old.cs
+       ┃           ┣━ 📁 Onlystatic
+       ┃           ┃  ┗━ 📄 OnlyStaticMethods.cs
        ┃           ┣━ 📄 OptionalArgumentInvoker.cs
        ┃           ┣━ 📄 OptionalConstructorArgument.cs
        ┃           ┣━ 📄 OptionalStruct.cs
@@ -12172,6 +12179,82 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Nodirect/Sub1/TypeFromSub1.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub1
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub1.TypeFromSub1), fullyQualifiedName: "jsii-calc.nodirect.sub1.TypeFromSub1")]
+    public class TypeFromSub1 : DeputyBase
+    {
+        public TypeFromSub1(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TypeFromSub1(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TypeFromSub1(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "sub1", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string Sub1()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Nodirect/Sub2/TypeFromSub2.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub2
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub2.TypeFromSub2), fullyQualifiedName: "jsii-calc.nodirect.sub2.TypeFromSub2")]
+    public class TypeFromSub2 : DeputyBase
+    {
+        public TypeFromSub2(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TypeFromSub2(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TypeFromSub2(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "sub2", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string Sub2()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/NullShouldBeTreatedAsUndefined.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -12437,6 +12520,41 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual void DoAThing()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Onlystatic/OnlyStaticMethods.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Onlystatic
+{
+    /// <summary>Test for https://github.com/aws/jsii/issues/2617.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Onlystatic.OnlyStaticMethods), fullyQualifiedName: "jsii-calc.onlystatic.OnlyStaticMethods")]
+    public class OnlyStaticMethods : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OnlyStaticMethods(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OnlyStaticMethods(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "staticMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public static string StaticMethod()
+        {
+            return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Onlystatic.OnlyStaticMethods), new System.Type[]{}, new object[]{})!;
         }
     }
 }
