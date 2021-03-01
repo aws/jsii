@@ -25,11 +25,6 @@
   },
   "testCases": [
     {
-      "name": "removeMe",
-      "description": "",
-      "exclusions": {}
-    },
-    {
       "name": "asyncOverrides_overrideCallsSuper",
       "description": "",
       "exclusions": {}

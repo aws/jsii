@@ -70,9 +70,6 @@ func (suite *ComplianceSuite) TestMaps() {
 	}
 }
 
-func (suite *ComplianceSuite) TestRemoveMe() {
-}
-
 func TestComplianceSuite(t *testing.T) {
 	suite.Run(t, new(ComplianceSuite))
 }

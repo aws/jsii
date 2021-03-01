@@ -29,9 +29,14 @@ The report takes the following form:
 }
 ```
 
-The `<test-case-name>` must match to the test case name in the suite definition. For example, the following test case definition:
+The `<test-case-name>` must match the test case name in the suite definition. For example, the following test case definition:
 
 ```json
+{
+  "name": "maps",
+  "description": "",
+  "exclusions": {}
+},
 ```
 
 Requires that each language report to include an entry with a key called `maps`.
@@ -47,6 +52,7 @@ and should be checked into [source control](../../gh-pages/content/specification
 Note that if you add a test and don't re-generate the report, the build will fail:
 
 ```console
+gh-pages/content/specification/6-compliance-report.md: needs update
 ```
 
 The report contains the state of each test with respect to each language binding.
