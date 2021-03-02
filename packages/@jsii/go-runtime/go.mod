@@ -3,7 +3,7 @@ module github.com/aws/jsii
 go 1.15
 
 require (
-	github.com/aws/jsii-runtime-go v0.0.0
+	github.com/aws/jsii-runtime-go v0.1.0
 	github.com/aws/jsii/jsii-calc/go/jsiicalc/v3 v3.20.120
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0
 )
