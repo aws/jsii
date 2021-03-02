@@ -2894,7 +2894,7 @@ export class TestStructWithEnum {
    * Returns true if `foo` is `StringEnum.A`.
    */
   public isStringEnumA(input: StructWithEnum) {
-    return input.foo === StringEnum.A;
+    return input.foo === StringEnum.A && !input.bar;
   }
 
   /**
