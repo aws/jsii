@@ -104,7 +104,8 @@ function validateReport(
   for (const test of testsInReport) {
     if (!testsInSuite.includes(test)) {
       errors.push(
-        `Test '${test}' from ${language} report does not exist in the compliance suite. Please add it to the suite definition.`,
+        `Test '${test}' from ${language} report does not exist in the compliance suite. If this test is language specific,
+          move it out of the compliance test, otherwise, add the test to the compliance suite definition.`,
       );
     }
   }

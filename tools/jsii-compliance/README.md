@@ -24,7 +24,7 @@ The report takes the following form:
 ```json
 {
   "<test-case-name>": {
-    "status": "success | failure"
+    "status": "success | skipped"
   }
 }
 ```
