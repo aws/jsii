@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --build && npm run gen:rt",
     "doc": "yarn --silent go:run godoc",
-    "fmt": "yarn --silent go:all go fmt ./...",
+    "fmt": "yarn --silent go:all yarn --silent go:run goimports .",
     "gen:calc": "node build-tools/gen-calc.js",
     "gen:rt": "node build-tools/gen.js",
     "generate": "npm run gen:rt && npm run gen:calc",

@@ -225,7 +225,7 @@ func InvokeVoid(obj interface{}, method string, args []interface{}) {
 	_, err := client.Invoke(kernel.InvokeProps{
 		Method:    method,
 		Arguments: convertArguments(args),
-		ObjRef: api.ObjectRef{InstanceID: refid},
+		ObjRef:    api.ObjectRef{InstanceID: refid},
 	})
 
 	if err != nil {
