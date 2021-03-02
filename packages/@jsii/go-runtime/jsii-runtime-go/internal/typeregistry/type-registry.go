@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
 // typeRegistry is used to record runtime type information about the loaded
@@ -17,6 +17,10 @@ type TypeRegistry struct {
 	// register* function.
 	// enums are not included
 	fqnToType map[api.FQN]reflect.Type
+
+	// typeToFQN is sued to obtain the jsii fully qualified type name for a
+	// given native go type. Currently only tracks jsii struct types.
+	typeToFQN map[reflect.Type]api.FQN
 
 	// map enum member FQNs (e.g. "jsii-calc.StringEnum/A") to the corresponding
 	// go const for this member.
@@ -37,6 +41,7 @@ type TypeRegistry struct {
 func NewTypeRegistry() *TypeRegistry {
 	return &TypeRegistry{
 		fqnToType:       make(map[api.FQN]reflect.Type),
+		typeToFQN:       make(map[reflect.Type]api.FQN),
 		fqnToEnumMember: make(map[string]interface{}),
 		typeToEnumFQN:   make(map[reflect.Type]api.FQN),
 		structFields:    make(map[reflect.Type][]reflect.StructField),
@@ -44,11 +49,16 @@ func NewTypeRegistry() *TypeRegistry {
 	}
 }
 
-// IsStruct returns true if the provided type is a registered jsii struct.
-func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructField, ok bool) {
+// StructFields returns the list of fields associated with a jsii struct type,
+// the jsii fully qualified type name, and a boolean telling whether the
+// provided type was a registered jsii struct type.
+func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructField, fqn api.FQN, ok bool) {
+	if fqn, ok = t.typeToFQN[typ]; !ok {
+		return
+	}
+
 	var found []reflect.StructField
-	found, ok = t.structFields[typ]
-	if ok {
+	if found, ok = t.structFields[typ]; ok {
 		// Returning a copy, to ensure our storage does not get mutated.
 		fields = append(fields, found...)
 	}

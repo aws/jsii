@@ -65,6 +65,15 @@ type WireMap struct {
 	MapData map[string]interface{} `json:"$jsii.map"`
 }
 
+type WireStruct struct {
+	StructDescriptor `json:"$jsii.struct"`
+}
+
+type StructDescriptor struct {
+	FQN    FQN                    `json:"fqn"`
+	Fields map[string]interface{} `json:"data"`
+}
+
 type Callback struct {
 	CallbackID *string        `json:"cbid"`
 	Cookie     *string        `json:"cookie"`

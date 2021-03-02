@@ -3,7 +3,7 @@ package kernel
 import (
 	"reflect"
 
-	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
 // CastAndSetToPtr accepts a pointer to any type and attempts to cast the value
@@ -35,7 +35,7 @@ func (c *client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 
 	if ref, isRef := castValToRef(data); isRef {
 		// If return data is a jsii struct passed by reference, de-reference it all.
-		if fields, isStruct := c.Types().StructFields(ptr.Type()); isStruct {
+		if fields, _, isStruct := c.Types().StructFields(ptr.Type()); isStruct {
 			for _, field := range fields {
 				got, err := c.Get(GetProps{
 					Property: field.Tag.Get("json"),

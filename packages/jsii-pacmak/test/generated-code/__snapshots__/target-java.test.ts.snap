@@ -3721,6 +3721,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 StructParameterType.java
           ┃                 ┣━ 📄 StructPassing.java
           ┃                 ┣━ 📄 StructUnionConsumer.java
+          ┃                 ┣━ 📄 StructWithEnum.java
           ┃                 ┣━ 📄 StructWithJavaReservedWords.java
           ┃                 ┣━ 📁 submodule
           ┃                 ┃  ┣━ 📁 back_references
@@ -3750,6 +3751,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 SupportsNiceJavaBuilderProps.java
           ┃                 ┣━ 📄 SupportsNiceJavaBuilderWithRequiredProps.java
           ┃                 ┣━ 📄 SyncVirtualMethods.java
+          ┃                 ┣━ 📄 TestStructWithEnum.java
           ┃                 ┣━ 📄 Thrower.java
           ┃                 ┣━ 📄 TopLevelStruct.java
           ┃                 ┣━ 📄 UmaskCheck.java
@@ -19013,6 +19015,163 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/StructWithEnum.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StructWithEnum")
+@software.amazon.jsii.Jsii.Proxy(StructWithEnum.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface StructWithEnum extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     * An enum value.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StringEnum getFoo();
+
+    /**
+     * Optional enum value (of type integer).
+     * <p>
+     * Default: AllTypesEnum.YOUR_ENUM_VALUE
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    default @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.AllTypesEnum getBar() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link StructWithEnum}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link StructWithEnum}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<StructWithEnum> {
+        private software.amazon.jsii.tests.calculator.StringEnum foo;
+        private software.amazon.jsii.tests.calculator.AllTypesEnum bar;
+
+        /**
+         * Sets the value of {@link StructWithEnum#getFoo}
+         * @param foo An enum value. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder foo(software.amazon.jsii.tests.calculator.StringEnum foo) {
+            this.foo = foo;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link StructWithEnum#getBar}
+         * @param bar Optional enum value (of type integer).
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder bar(software.amazon.jsii.tests.calculator.AllTypesEnum bar) {
+            this.bar = bar;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link StructWithEnum}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public StructWithEnum build() {
+            return new Jsii$Proxy(foo, bar);
+        }
+    }
+
+    /**
+     * An implementation for {@link StructWithEnum}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements StructWithEnum {
+        private final software.amazon.jsii.tests.calculator.StringEnum foo;
+        private final software.amazon.jsii.tests.calculator.AllTypesEnum bar;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StringEnum.class));
+            this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.AllTypesEnum.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.tests.calculator.StringEnum foo, final software.amazon.jsii.tests.calculator.AllTypesEnum bar) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.bar = bar;
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.StringEnum getFoo() {
+            return this.foo;
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.AllTypesEnum getBar() {
+            return this.bar;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("foo", om.valueToTree(this.getFoo()));
+            if (this.getBar() != null) {
+                data.set("bar", om.valueToTree(this.getBar()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.StructWithEnum"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            StructWithEnum.Jsii$Proxy that = (StructWithEnum.Jsii$Proxy) o;
+
+            if (!foo.equals(that.foo)) return false;
+            return this.bar != null ? this.bar.equals(that.bar) : that.bar == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.foo.hashCode();
+            result = 31 * result + (this.bar != null ? this.bar.hashCode() : 0);
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/StructWithJavaReservedWords.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -19867,6 +20026,71 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void setValueOfOtherProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         software.amazon.jsii.Kernel.set(this, "valueOfOtherProperty", java.util.Objects.requireNonNull(value, "valueOfOtherProperty is required"));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/TestStructWithEnum.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.TestStructWithEnum")
+public class TestStructWithEnum extends software.amazon.jsii.JsiiObject {
+
+    protected TestStructWithEnum(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected TestStructWithEnum(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public TestStructWithEnum() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * Returns true if \`foo\` is \`StringEnum.A\`.
+     * <p>
+     * @param input This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean isStringEnumA(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructWithEnum input) {
+        return software.amazon.jsii.Kernel.call(this, "isStringEnumA", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(input, "input is required") });
+    }
+
+    /**
+     * Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.
+     * <p>
+     * @param input This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean isStringEnumB(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructWithEnum input) {
+        return software.amazon.jsii.Kernel.call(this, "isStringEnumB", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(input, "input is required") });
+    }
+
+    /**
+     * Returns \`foo: StringEnum.A\`.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructWithEnum getStructWithFoo() {
+        return software.amazon.jsii.Kernel.get(this, "structWithFoo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructWithEnum.class));
+    }
+
+    /**
+     * Returns \`foo: StringEnum.C\` and \`bar: AllTypesEnum.MY_ENUM_VALUE\`.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructWithEnum getStructWithFooBar() {
+        return software.amazon.jsii.Kernel.get(this, "structWithFooBar", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructWithEnum.class));
     }
 }
 
@@ -23029,12 +23253,14 @@ jsii-calc.StructB=software.amazon.jsii.tests.calculator.StructB
 jsii-calc.StructParameterType=software.amazon.jsii.tests.calculator.StructParameterType
 jsii-calc.StructPassing=software.amazon.jsii.tests.calculator.StructPassing
 jsii-calc.StructUnionConsumer=software.amazon.jsii.tests.calculator.StructUnionConsumer
+jsii-calc.StructWithEnum=software.amazon.jsii.tests.calculator.StructWithEnum
 jsii-calc.StructWithJavaReservedWords=software.amazon.jsii.tests.calculator.StructWithJavaReservedWords
 jsii-calc.Sum=software.amazon.jsii.tests.calculator.Sum
 jsii-calc.SupportsNiceJavaBuilder=software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder
 jsii-calc.SupportsNiceJavaBuilderProps=software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps
 jsii-calc.SupportsNiceJavaBuilderWithRequiredProps=software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps
 jsii-calc.SyncVirtualMethods=software.amazon.jsii.tests.calculator.SyncVirtualMethods
+jsii-calc.TestStructWithEnum=software.amazon.jsii.tests.calculator.TestStructWithEnum
 jsii-calc.Thrower=software.amazon.jsii.tests.calculator.Thrower
 jsii-calc.TopLevelStruct=software.amazon.jsii.tests.calculator.TopLevelStruct
 jsii-calc.UmaskCheck=software.amazon.jsii.tests.calculator.UmaskCheck
