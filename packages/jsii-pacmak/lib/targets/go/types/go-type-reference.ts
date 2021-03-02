@@ -91,15 +91,11 @@ export class GoTypeRef {
    * Return the name of a type for reference from the `Package` passed in
    */
   public scopedName(scope: Package): string {
-    return this.scopedTypeName(this.typeMap, scope, false);
+    return this.scopedTypeName(this.typeMap, scope);
   }
 
-  public scopedInterfaceName(scope: Package): string {
+  public scopedReference(scope: Package): string {
     return this.scopedTypeName(this.typeMap, scope, true);
-  }
-
-  public scopedReferenceName(scope: Package): string {
-    return this.scopedTypeName(this.typeMap, scope, false, true);
   }
 
   private buildTypeMap(ref: GoTypeRef): TypeMap {
@@ -129,10 +125,9 @@ export class GoTypeRef {
     return { type: 'interface', value: ref };
   }
 
-  private scopedTypeName(
+  public scopedTypeName(
     typeMap: TypeMap,
     scope: Package,
-    asInterface: boolean,
     asRef = false,
   ): string {
     if (typeMap.type === 'primitive') {
@@ -140,7 +135,7 @@ export class GoTypeRef {
     } else if (typeMap.type === 'array' || typeMap.type === 'map') {
       const prefix = typeMap.type === 'array' ? '[]' : 'map[string]';
       const innerName =
-        this.scopedTypeName(typeMap.value.typeMap, scope, asInterface, asRef) ??
+        this.scopedTypeName(typeMap.value.typeMap, scope, asRef) ??
         'interface{}';
       return `${prefix}${innerName}`;
     } else if (typeMap.type === 'interface') {
@@ -164,7 +159,7 @@ export class GoTypeRef {
 
     // type isn't handled
     throw new Error(
-      `Type ${typeMap.value?.name} does not resolve to a known Go type. It is being mapped to "interface{}".`,
+      `Type ${typeMap.value?.name} does not resolve to a known Go type.`,
     );
   }
 }

@@ -55,7 +55,7 @@ export class GoProperty implements GoTypeMember {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
+      this.reference?.scopedName(this.parent.pkg) ??
       this.property.type.toString()
     );
   }
@@ -174,22 +174,7 @@ export abstract class GoMethod implements GoTypeMember {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
-      this.method.toString()
-    );
-  }
-
-  public get concreteReturnType(): string {
-    if (this.returnsRef) {
-      return (
-        this.reference?.scopedReferenceName(this.parent.pkg) ??
-        this.method.toString()
-      );
-    }
-
-    return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
-      this.method.toString()
+      this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );
   }
 
@@ -221,7 +206,7 @@ export class GoParameter {
   }
 
   public toString(): string {
-    const paramType = this.reference.scopedInterfaceName(this.parent.pkg);
+    const paramType = this.reference.scopedName(this.parent.pkg);
     return `${this.name} ${paramType}`;
   }
 }

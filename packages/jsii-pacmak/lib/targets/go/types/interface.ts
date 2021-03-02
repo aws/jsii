@@ -61,9 +61,7 @@ export class GoInterface extends GoType {
     // embed extended interfaces
     for (const iface of this.extends) {
       code.line(
-        new GoTypeRef(this.pkg.root, iface.type.reference).scopedInterfaceName(
-          this.pkg,
-        ),
+        new GoTypeRef(this.pkg.root, iface.type.reference).scopedName(this.pkg),
       );
     }
 
@@ -88,10 +86,9 @@ export class GoInterface extends GoType {
         const embed =
           base.pkg === this.pkg
             ? base.proxyName
-            : new GoTypeRef(
-                this.pkg.root,
-                base.type.reference,
-              ).scopedInterfaceName(this.pkg);
+            : new GoTypeRef(this.pkg.root, base.type.reference).scopedName(
+                this.pkg,
+              );
         code.line(`${embed} // extends ${base.fqn}`);
       }
     }
@@ -204,7 +201,7 @@ class InterfaceProperty extends GoProperty {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
+      this.reference?.scopedName(this.parent.pkg) ??
       this.property.type.toString()
     );
   }

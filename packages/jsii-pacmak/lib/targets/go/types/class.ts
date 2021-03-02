@@ -202,17 +202,14 @@ export class GoClass extends GoType {
     // embed extended interfaces
     if (this.extends) {
       code.line(
-        new GoTypeRef(
-          this.pkg.root,
-          this.extends.type.reference,
-        ).scopedInterfaceName(this.pkg),
+        new GoTypeRef(this.pkg.root, this.extends.type.reference).scopedName(
+          this.pkg,
+        ),
       );
     }
     for (const iface of this.implements) {
       code.line(
-        new GoTypeRef(this.pkg.root, iface.type.reference).scopedInterfaceName(
-          this.pkg,
-        ),
+        new GoTypeRef(this.pkg.root, iface.type.reference).scopedName(this.pkg),
       );
     }
 
@@ -256,17 +253,16 @@ export class GoClass extends GoType {
             : new GoTypeRef(
                 this.pkg.root,
                 this.extends.type.reference,
-              ).scopedInterfaceName(this.pkg);
+              ).scopedName(this.pkg);
         code.line(`${embed} // extends ${this.extends.fqn}`);
       }
       for (const iface of this.implements) {
         const embed =
           iface.pkg === this.pkg
             ? iface.proxyName
-            : new GoTypeRef(
-                this.pkg.root,
-                iface.type.reference,
-              ).scopedInterfaceName(this.pkg);
+            : new GoTypeRef(this.pkg.root, iface.type.reference).scopedName(
+                this.pkg,
+              );
         code.line(`${embed} // implements ${iface.fqn}`);
       }
     }
@@ -395,8 +391,7 @@ export class ClassMethod extends GoMethod {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
-      this.method.toString()
+      this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );
   }
 
