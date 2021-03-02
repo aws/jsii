@@ -1,5 +1,5 @@
 /jsii-calc/
-/jsii-runtime-go/embedded/resources/
+/jsii-runtime-go/internal/embedded/resources/
 
 *.generated.*
 

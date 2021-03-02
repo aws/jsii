@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/aws/jsii-runtime-go/kernel/process"
-	"github.com/aws/jsii-runtime-go/typeregistry"
+	"github.com/aws/jsii-runtime-go/internal/kernel/process"
+	"github.com/aws/jsii-runtime-go/internal/typeregistry"
 )
 
 var (

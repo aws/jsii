@@ -12,7 +12,7 @@ import (
 	"sync"
 
 	"github.com/Masterminds/semver/v3"
-	"github.com/aws/jsii-runtime-go/embedded"
+	"github.com/aws/jsii-runtime-go/internal/embedded"
 )
 
 const JSII_RUNTIME string = "JSII_RUNTIME"

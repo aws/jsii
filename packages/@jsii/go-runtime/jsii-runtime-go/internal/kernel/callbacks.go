@@ -1,7 +1,7 @@
 package kernel
 
 import (
-	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
 type CallbacksResponse struct {

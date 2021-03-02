@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
 // RegisterClass maps the given FQN to the provided class interface, and proxy
