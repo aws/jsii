@@ -14,27 +14,45 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
 	dataVal := reflect.ValueOf(data)
 
+	c.castAndSetToPtr(ptrVal, dataVal)
+}
+
+// castAndSetToPtr is the same as CastAndSetToPtr except it operates on the
+// reflect.Value representation of the pointer and data.
+func (c *client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
+	if !data.IsValid() {
+		// data will not be valid if was made from a nil value, as there would
+		// not have been enough type information available to build a valid
+		// reflect.Value. In such cases, we must craft the correctly-typed zero
+		// value ourselves.
+		data = reflect.Zero(ptr.Type())
+	} else if data.Kind() == reflect.Interface && !data.IsNil() {
+		// If data is a non-nil interface, unwrap it to get it's dynamic value
+		// type sorted out, so that further calls in this method don't have to
+		// worry about this edge-case when reasoning on kinds.
+		data = reflect.ValueOf(data.Interface())
+	}
+
 	if ref, isRef := castValToRef(data); isRef {
 		// If return data is a jsii struct passed by reference, de-reference it all.
-		if fields, isStruct := c.Types().StructFields(ptrVal.Type()); isStruct {
+		if fields, isStruct := c.Types().StructFields(ptr.Type()); isStruct {
 			for _, field := range fields {
-				got, err := c.Get(GetRequest{
-					API:      "get",
+				got, err := c.Get(GetProps{
 					Property: field.Tag.Get("json"),
 					ObjRef:   ref,
 				})
 				if err != nil {
 					panic(err)
 				}
-				fieldVal := ptrVal.FieldByIndex(field.Index)
-				c.CastAndSetToPtr(fieldVal.Addr().Interface(), got.Value)
+				fieldVal := ptr.FieldByIndex(field.Index)
+				c.castAndSetToPtr(fieldVal, reflect.ValueOf(got.Value))
 			}
 			return
 		}
 
 		// If return data is jsii object references, add to objects table.
-		if err := c.Types().InitJsiiProxy(ptrVal); err == nil {
-			if err = c.RegisterInstance(ptrVal, ref.InstanceID); err != nil {
+		if err := c.Types().InitJsiiProxy(ptr); err == nil {
+			if err = c.RegisterInstance(ptr, ref.InstanceID); err != nil {
 				panic(err)
 			}
 		} else {
@@ -49,48 +67,41 @@ func (c *client) CastAndSetToPtr(ptr interface{}, data interface{}) {
 			panic(err)
 		}
 
-		ptrVal.Set(reflect.ValueOf(member))
+		ptr.Set(reflect.ValueOf(member))
 		return
 	}
 
 	// maps
-	if m, isMap := c.castValToMap(dataVal, ptrVal.Type()); isMap {
-		ptrVal.Set(m)
+	if m, isMap := c.castValToMap(data, ptr.Type()); isMap {
+		ptr.Set(m)
 		return
 	}
 
 	// arrays
-	if ptrVal.Kind() == reflect.Slice && dataVal.Kind() == reflect.Slice {
-		// If return type is a slice, recursively cast elements
-		for i := 0; i < dataVal.Len(); i++ {
-			innerType := ptrVal.Type().Elem()
-			inner := reflect.New(innerType)
+	if ptr.Kind() == reflect.Slice && data.Kind() == reflect.Slice {
+		len := data.Len()
+		ptr.Set(reflect.MakeSlice(ptr.Type(), len, len))
 
-			c.CastAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface())
-			ptrVal.Set(reflect.Append(ptrVal, inner.Elem()))
+		// If return type is a slice, recursively cast elements
+		for i := 0; i < len; i++ {
+			c.castAndSetToPtr(ptr.Index(i), data.Index(i))
 		}
 
 		return
 	}
 
-	// TODO: maps
-
-	if data != nil {
-		val := reflect.ValueOf(data)
-		ptrVal.Set(val)
-	}
+	ptr.Set(data)
 }
 
-func castValToRef(data interface{}) (api.ObjectRef, bool) {
+func castValToRef(data reflect.Value) (api.ObjectRef, bool) {
 	ref := api.ObjectRef{}
 	ok := false
-	dataVal := reflect.ValueOf(data)
 
-	if dataVal.Kind() == reflect.Map {
-		for _, k := range dataVal.MapKeys() {
+	if data.Kind() == reflect.Map {
+		for _, k := range data.MapKeys() {
 			// Finding values type requires extracting from reflect.Value
 			// otherwise .Kind() returns `interface{}`
-			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
+			v := reflect.ValueOf(data.MapIndex(k).Interface())
 
 			if k.Kind() == reflect.String && k.String() == "$jsii.byref" && v.Kind() == reflect.String {
 				ref.InstanceID = v.String()
@@ -103,15 +114,14 @@ func castValToRef(data interface{}) (api.ObjectRef, bool) {
 	return ref, ok
 }
 
-func castValToEnumRef(data interface{}) (enum api.EnumRef, ok bool) {
-	dataVal := reflect.ValueOf(data)
+func castValToEnumRef(data reflect.Value) (enum api.EnumRef, ok bool) {
 	ok = false
 
-	if dataVal.Kind() == reflect.Map {
-		for _, k := range dataVal.MapKeys() {
+	if data.Kind() == reflect.Map {
+		for _, k := range data.MapKeys() {
 			// Finding values type requires extracting from reflect.Value
 			// otherwise .Kind() returns `interface{}`
-			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
+			v := reflect.ValueOf(data.MapIndex(k).Interface())
 
 			if k.Kind() == reflect.String && k.String() == "$jsii.enum" && v.Kind() == reflect.String {
 				enum.MemberFQN = v.String()
@@ -162,12 +172,12 @@ func (c *client) castValToMap(data reflect.Value, mapType reflect.Type) (m refle
 
 		iter := val.MapRange()
 		for iter.Next() {
-			val := iter.Value().Interface()
+			val := iter.Value()
 			// Note: reflect.New(t) returns a pointer to a newly allocated t
-			convertedVal := reflect.New(mapType.Elem())
-			c.CastAndSetToPtr(convertedVal.Interface(), val)
+			convertedVal := reflect.New(mapType.Elem()).Elem()
+			c.castAndSetToPtr(convertedVal, val)
 
-			m.SetMapIndex(iter.Key(), convertedVal.Elem())
+			m.SetMapIndex(iter.Key(), convertedVal)
 		}
 		return
 	}

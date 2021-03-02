@@ -3662,12 +3662,19 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 NestedClassInstance.java
           ┃                 ┣━ 📄 NestedStruct.java
           ┃                 ┣━ 📄 NodeStandardLibrary.java
+          ┃                 ┣━ 📁 nodirect
+          ┃                 ┃  ┣━ 📁 sub1
+          ┃                 ┃  ┃  ┗━ 📄 TypeFromSub1.java
+          ┃                 ┃  ┗━ 📁 sub2
+          ┃                 ┃     ┗━ 📄 TypeFromSub2.java
           ┃                 ┣━ 📄 NullShouldBeTreatedAsUndefined.java
           ┃                 ┣━ 📄 NullShouldBeTreatedAsUndefinedData.java
           ┃                 ┣━ 📄 NumberGenerator.java
           ┃                 ┣━ 📄 ObjectRefsInCollections.java
           ┃                 ┣━ 📄 ObjectWithPropertyProvider.java
           ┃                 ┣━ 📄 Old.java
+          ┃                 ┣━ 📁 onlystatic
+          ┃                 ┃  ┗━ 📄 OnlyStaticMethods.java
           ┃                 ┣━ 📄 OptionalArgumentInvoker.java
           ┃                 ┣━ 📄 OptionalConstructorArgument.java
           ┃                 ┣━ 📄 OptionalStruct.java
@@ -21324,6 +21331,107 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/nodirect/sub1/TypeFromSub1.java 1`] = `
+package software.amazon.jsii.tests.calculator.nodirect.sub1;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.nodirect.sub1.TypeFromSub1")
+public class TypeFromSub1 extends software.amazon.jsii.JsiiObject {
+
+    protected TypeFromSub1(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected TypeFromSub1(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public TypeFromSub1() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String sub1() {
+        return software.amazon.jsii.Kernel.call(this, "sub1", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/nodirect/sub2/TypeFromSub2.java 1`] = `
+package software.amazon.jsii.tests.calculator.nodirect.sub2;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.nodirect.sub2.TypeFromSub2")
+public class TypeFromSub2 extends software.amazon.jsii.JsiiObject {
+
+    protected TypeFromSub2(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected TypeFromSub2(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public TypeFromSub2() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String sub2() {
+        return software.amazon.jsii.Kernel.call(this, "sub2", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/onlystatic/OnlyStaticMethods.java 1`] = `
+package software.amazon.jsii.tests.calculator.onlystatic;
+
+/**
+ * Test for https://github.com/aws/jsii/issues/2617.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.onlystatic.OnlyStaticMethods")
+public class OnlyStaticMethods extends software.amazon.jsii.JsiiObject {
+
+    protected OnlyStaticMethods(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected OnlyStaticMethods(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.String staticMethod() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.onlystatic.OnlyStaticMethods.class, "staticMethod", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/package-info.java 1`] = `
 /**
  * <h1>jsii Calculator</h1>
@@ -22943,6 +23051,9 @@ jsii-calc.VoidCallback=software.amazon.jsii.tests.calculator.VoidCallback
 jsii-calc.WithPrivatePropertyInConstructor=software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
+jsii-calc.nodirect.sub1.TypeFromSub1=software.amazon.jsii.tests.calculator.nodirect.sub1.TypeFromSub1
+jsii-calc.nodirect.sub2.TypeFromSub2=software.amazon.jsii.tests.calculator.nodirect.sub2.TypeFromSub2
+jsii-calc.onlystatic.OnlyStaticMethods=software.amazon.jsii.tests.calculator.onlystatic.OnlyStaticMethods
 jsii-calc.submodule.MyClass=software.amazon.jsii.tests.calculator.submodule.MyClass
 jsii-calc.submodule.back_references.MyClassReference=software.amazon.jsii.tests.calculator.submodule.back_references.MyClassReference
 jsii-calc.submodule.child.Awesomeness=software.amazon.jsii.tests.calculator.submodule.child.Awesomeness

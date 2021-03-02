@@ -1,20 +1,21 @@
 package kernel
 
-type NamingRequest struct {
-	kernelRequester
-
-	API      string `json:"api"`
+type NamingProps struct {
 	Assembly string `json:"assembly"`
 }
 
 type NamingResponse struct {
-	kernelResponder
+	kernelResponse
 	// readonly naming: {
 	//   readonly [language: string]: { readonly [key: string]: any } | undefined;
 	// };
 }
 
-func (c *client) Naming(request NamingRequest) (response NamingResponse, err error) {
-	err = c.request(request, &response)
+func (c *client) Naming(props NamingProps) (response NamingResponse, err error) {
+	type request struct {
+		kernelRequest
+		NamingProps
+	}
+	err = c.request(request{kernelRequest{"naming"}, props}, &response)
 	return
 }

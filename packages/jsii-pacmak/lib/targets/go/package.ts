@@ -125,17 +125,11 @@ export abstract class Package {
   }
 
   protected get usesRuntimePackage(): boolean {
-    return (
-      this.types.some((type) => type.usesRuntimePackage) ||
-      this.submodules.some((sub) => sub.usesRuntimePackage)
-    );
+    return this.types.some((type) => type.usesRuntimePackage);
   }
 
   protected get usesInitPackage(): boolean {
-    return (
-      this.types.some((type) => type.usesInitPackage) ||
-      this.submodules.some((sub) => sub.usesInitPackage)
-    );
+    return this.types.some((type) => type.usesInitPackage);
   }
 
   /**
