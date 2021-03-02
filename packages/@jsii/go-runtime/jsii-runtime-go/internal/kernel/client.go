@@ -6,10 +6,10 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/aws/jsii-runtime-go/api"
-	"github.com/aws/jsii-runtime-go/kernel/process"
-	"github.com/aws/jsii-runtime-go/objectstore"
-	"github.com/aws/jsii-runtime-go/typeregistry"
+	"github.com/aws/jsii-runtime-go/internal/api"
+	"github.com/aws/jsii-runtime-go/internal/kernel/process"
+	"github.com/aws/jsii-runtime-go/internal/objectstore"
+	"github.com/aws/jsii-runtime-go/internal/typeregistry"
 )
 
 var (

@@ -1,6 +1,6 @@
 package kernel
 
-import "github.com/aws/jsii-runtime-go/api"
+import "github.com/aws/jsii-runtime-go/internal/api"
 
 type SetProps struct {
 	Property string        `json:"property"`

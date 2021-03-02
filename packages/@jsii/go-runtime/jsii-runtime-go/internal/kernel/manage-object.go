@@ -3,7 +3,7 @@ package kernel
 import (
 	"reflect"
 
-	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
 const objectFQN = "Object"

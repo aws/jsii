@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"regexp"
 
-	"github.com/aws/jsii-runtime-go/api"
-	"github.com/aws/jsii-runtime-go/kernel"
+	"github.com/aws/jsii-runtime-go/internal/api"
+	"github.com/aws/jsii-runtime-go/internal/kernel"
 )
 
 // FQN represents a fully-qualified type name in the jsii type system.
