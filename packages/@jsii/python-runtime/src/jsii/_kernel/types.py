@@ -1,13 +1,7 @@
-from typing import Union, List, Any, Optional, Mapping
+from typing import Any, Generic, List, Optional, Mapping, TypeVar, Union
 from typing_extensions import Protocol
 
 import attr
-
-
-# TODO:
-# - HelloResponse
-# - OkayResponse
-# - ErrorResponse
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -241,6 +235,7 @@ KernelRequest = Union[
     CreateRequest,
     DeleteRequest,
     GetRequest,
+    SetRequest,
     StaticGetRequest,
     InvokeRequest,
     InvokeScriptRequest,
