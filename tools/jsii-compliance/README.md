@@ -47,7 +47,7 @@ Requires that each language report to include an entry with a key called `maps`.
 These reports are then aggregated into a single multi-language compliance report. It is generated during build time,
 and should be checked into [source control](../../gh-pages/content/specification/6-compliance-report.md).
 
-> The report is generated automatically as part of the global `test` phase of the repository. You can also directly generate the report by running `yarn compliance` from the top level direcotry of the repo, or `yarn report` from this package directory.
+> The report is generated automatically as part of the global `test` phase of the repository. You can also directly generate the report by running `yarn compliance` from the top level directory of the repo, or `yarn report` from this package directory.
 
 Note that if you add a test and don't re-generate the report, the build will fail:
 
