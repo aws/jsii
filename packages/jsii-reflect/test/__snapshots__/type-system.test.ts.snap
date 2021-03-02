@@ -136,6 +136,7 @@ Array [
   "jsii-calc.SupportsNiceJavaBuilder",
   "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
   "jsii-calc.SyncVirtualMethods",
+  "jsii-calc.TestStructWithEnum",
   "jsii-calc.Thrower",
   "jsii-calc.UmaskCheck",
   "jsii-calc.UnaryOperation",

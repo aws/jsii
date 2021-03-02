@@ -22,8 +22,8 @@ type ObjectStore struct {
 	idToObject map[string]reflect.Value
 }
 
-// NewObjectStore initializes a new ObjectStore.
-func NewObjectStore() *ObjectStore {
+// New initializes a new ObjectStore.
+func New() *ObjectStore {
 	return &ObjectStore{
 		objectToID: make(map[uintptr]string),
 		idToObject: make(map[string]reflect.Value),

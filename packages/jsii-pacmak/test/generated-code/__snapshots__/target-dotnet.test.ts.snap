@@ -2810,6 +2810,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IStructB.cs
        ┃           ┣━ 📄 IStructParameterType.cs
        ┃           ┣━ 📄 IStructReturningDelegate.cs
+       ┃           ┣━ 📄 IStructWithEnum.cs
        ┃           ┣━ 📄 IStructWithJavaReservedWords.cs
        ┃           ┣━ 📄 ISupportsNiceJavaBuilderProps.cs
        ┃           ┣━ 📄 ITopLevelStruct.cs
@@ -2894,6 +2895,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 StructParameterType.cs
        ┃           ┣━ 📄 StructPassing.cs
        ┃           ┣━ 📄 StructUnionConsumer.cs
+       ┃           ┣━ 📄 StructWithEnum.cs
        ┃           ┣━ 📄 StructWithJavaReservedWords.cs
        ┃           ┣━ 📁 Submodule
        ┃           ┃  ┣━ 📁 BackReferences
@@ -2928,6 +2930,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 SupportsNiceJavaBuilderProps.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilderWithRequiredProps.cs
        ┃           ┣━ 📄 SyncVirtualMethods.cs
+       ┃           ┣━ 📄 TestStructWithEnum.cs
        ┃           ┣━ 📄 Thrower.cs
        ┃           ┣━ 📄 TopLevelStruct.cs
        ┃           ┣━ 📄 UmaskCheck.cs
@@ -9919,6 +9922,67 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IStructWithEnum.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IStructWithEnum), fullyQualifiedName: "jsii-calc.StructWithEnum")]
+    public interface IStructWithEnum
+    {
+        /// <summary>An enum value.</summary>
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}")]
+        Amazon.JSII.Tests.CalculatorNamespace.StringEnum Foo
+        {
+            get;
+        }
+
+        /// <summary>Optional enum value (of type integer).</summary>
+        /// <remarks>
+        /// <strong>Default</strong>: AllTypesEnum.YOUR_ENUM_VALUE
+        /// </remarks>
+        [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum? Bar
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IStructWithEnum), fullyQualifiedName: "jsii-calc.StructWithEnum")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>An enum value.</summary>
+            [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}")]
+            public Amazon.JSII.Tests.CalculatorNamespace.StringEnum Foo
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>()!;
+            }
+
+            /// <summary>Optional enum value (of type integer).</summary>
+            /// <remarks>
+            /// <strong>Default</strong>: AllTypesEnum.YOUR_ENUM_VALUE
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true)]
+            public Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum? Bar
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum?>();
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IStructWithJavaReservedWords.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -14559,6 +14623,42 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithEnum.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.StructWithEnum")]
+    public class StructWithEnum : Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum
+    {
+        /// <summary>An enum value.</summary>
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}", isOverride: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.StringEnum Foo
+        {
+            get;
+            set;
+        }
+
+        /// <summary>Optional enum value (of type integer).</summary>
+        /// <remarks>
+        /// <strong>Default</strong>: AllTypesEnum.YOUR_ENUM_VALUE
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true, isOverride: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum? Bar
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithJavaReservedWords.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -15600,6 +15700,66 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<string>()!;
             set => SetInstanceProperty(value);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TestStructWithEnum.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.TestStructWithEnum), fullyQualifiedName: "jsii-calc.TestStructWithEnum")]
+    public class TestStructWithEnum : DeputyBase
+    {
+        public TestStructWithEnum(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TestStructWithEnum(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TestStructWithEnum(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Returns true if \`foo\` is \`StringEnum.A\`.</summary>
+        [JsiiMethod(name: "isStringEnumA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}}]")]
+        public virtual bool IsStringEnumA(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum input)
+        {
+            return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum)}, new object[]{input})!;
+        }
+
+        /// <summary>Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.</summary>
+        [JsiiMethod(name: "isStringEnumB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}}]")]
+        public virtual bool IsStringEnumB(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum input)
+        {
+            return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum)}, new object[]{input})!;
+        }
+
+        /// <summary>Returns \`foo: StringEnum.A\`.</summary>
+        [JsiiProperty(name: "structWithFoo", typeJson: "{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum StructWithFoo
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum>()!;
+        }
+
+        /// <summary>Returns \`foo: StringEnum.C\` and \`bar: AllTypesEnum.MY_ENUM_VALUE\`.</summary>
+        [JsiiProperty(name: "structWithFooBar", typeJson: "{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum StructWithFooBar
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum>()!;
         }
     }
 }

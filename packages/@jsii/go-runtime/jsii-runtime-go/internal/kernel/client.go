@@ -76,8 +76,8 @@ func newClient() (*Client, error) {
 	} else {
 		result := &Client{
 			process: process,
-			objects: objectstore.NewObjectStore(),
-			types:   typeregistry.NewTypeRegistry(),
+			objects: objectstore.New(),
+			types:   typeregistry.New(),
 		}
 
 		// Register a finalizer to call Close()

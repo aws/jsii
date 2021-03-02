@@ -64,3 +64,12 @@ type EnumRef struct {
 type WireMap struct {
 	MapData map[string]interface{} `json:"$jsii.map"`
 }
+
+type WireStruct struct {
+	StructDescriptor `json:"$jsii.struct"`
+}
+
+type StructDescriptor struct {
+	FQN    FQN                    `json:"fqn"`
+	Fields map[string]interface{} `json:"data"`
+}

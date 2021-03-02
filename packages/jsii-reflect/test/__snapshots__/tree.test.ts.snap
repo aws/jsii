@@ -1981,6 +1981,25 @@ exports[`showAll 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ valueOfOtherProperty property
  │   │     └── type: string
+ │   ├─┬ class TestStructWithEnum
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ isStringEnumA(input) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ isStringEnumB(input) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ structWithFoo property
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructWithEnum
+ │   │   └─┬ structWithFooBar property
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.StructWithEnum
  │   ├─┬ class Thrower
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2668,6 +2687,16 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface StructWithEnum
+ │   │ └─┬ members
+ │   │   ├─┬ foo property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StringEnum
+ │   │   └─┬ bar property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.AllTypesEnum>
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├─┬ default property
@@ -3169,6 +3198,7 @@ exports[`types 1`] = `
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
+ │   ├── class TestStructWithEnum
  │   ├── class Thrower
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
@@ -3249,6 +3279,7 @@ exports[`types 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct

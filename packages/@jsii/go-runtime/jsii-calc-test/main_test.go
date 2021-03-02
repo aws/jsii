@@ -195,6 +195,38 @@ func TestOptionalEnums(t *testing.T) {
 	}
 }
 
+func TestStructWithEnum(t *testing.T) {
+	obj := calc.NewTestStructWithEnum()
+	if !obj.IsStringEnumA(calc.StructWithEnum{Foo: calc.StringEnum_A}) {
+		t.Error("Failed")
+	}
+
+	if !obj.IsStringEnumB(calc.StructWithEnum{
+		Foo: calc.StringEnum_B,
+		Bar: calc.AllTypesEnum_THIS_IS_GREAT,
+	}) {
+		t.Error("Failed")
+	}
+
+	ret1 := obj.StructWithFoo()
+	if ret1.Foo != calc.StringEnum_A {
+		t.Error("Expecting Foo to be A")
+	}
+
+	if ret1.Bar != "" {
+		t.Error("Expecting Bar to be nil")
+	}
+
+	ret2 := obj.StructWithFooBar()
+	if ret2.Foo != calc.StringEnum_C {
+		t.Error("Expecting Foo to be C")
+	}
+
+	if ret2.Bar != calc.AllTypesEnum_MY_ENUM_VALUE {
+		t.Error("Expecting Foo to be MY_ENUM_VALUE")
+	}
+}
+
 func TestReturnsSpecialParam(t *testing.T) {
 	retSpecialParam := returnsParam.NewReturnsSpecialParameter()
 	val := retSpecialParam.ReturnsSpecialParam()

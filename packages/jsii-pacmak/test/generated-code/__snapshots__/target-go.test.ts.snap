@@ -11359,6 +11359,13 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) bool {
 	return returns
 }
 
+type StructWithEnum struct {
+	// An enum value.
+	Foo StringEnum \`json:"foo"\`
+	// Optional enum value (of type integer).
+	Bar AllTypesEnum \`json:"bar"\`
+}
+
 type StructWithJavaReservedWords struct {
 	Default string \`json:"default"\`
 	Assert string \`json:"assert"\`
@@ -11799,6 +11806,83 @@ func (s *syncVirtualMethods) WriteA(value float64) {
 		"writeA",
 		[]interface{}{value},
 	)
+}
+
+type TestStructWithEnum interface {
+	StructWithFoo() StructWithEnum
+	StructWithFooBar() StructWithEnum
+	IsStringEnumA(input StructWithEnum) bool
+	IsStringEnumB(input StructWithEnum) bool
+}
+
+// The jsii proxy struct for TestStructWithEnum
+type testStructWithEnum struct {
+	_ byte // padding
+}
+
+func (t *testStructWithEnum) StructWithFoo() StructWithEnum {
+	var returns StructWithEnum
+	_jsii_.Get(
+		t,
+		"structWithFoo",
+		&returns,
+	)
+	return returns
+}
+
+func (t *testStructWithEnum) StructWithFooBar() StructWithEnum {
+	var returns StructWithEnum
+	_jsii_.Get(
+		t,
+		"structWithFooBar",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewTestStructWithEnum() TestStructWithEnum {
+	_init_.Initialize()
+
+	t := testStructWithEnum{}
+
+	_jsii_.Create(
+		"jsii-calc.TestStructWithEnum",
+		nil /* no parameters */,
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&t,
+	)
+
+	return &t
+}
+
+// Returns true if \`foo\` is \`StringEnum.A\`.
+func (t *testStructWithEnum) IsStringEnumA(input StructWithEnum) bool {
+	var returns bool
+
+	_jsii_.Invoke(
+		t,
+		"isStringEnumA",
+		[]interface{}{input},
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.
+func (t *testStructWithEnum) IsStringEnumB(input StructWithEnum) bool {
+	var returns bool
+
+	_jsii_.Invoke(
+		t,
+		"isStringEnumB",
+		[]interface{}{input},
+		&returns,
+	)
+
+	return returns
 }
 
 type Thrower interface {
@@ -14292,6 +14376,10 @@ func init() {
 		},
 	)
 	_jsii_.RegisterStruct(
+		"jsii-calc.StructWithEnum",
+		reflect.TypeOf((*StructWithEnum)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
 		"jsii-calc.StructWithJavaReservedWords",
 		reflect.TypeOf((*StructWithJavaReservedWords)(nil)).Elem(),
 	)
@@ -14368,6 +14456,19 @@ func init() {
 		},
 		func() interface{} {
 			return &syncVirtualMethods{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.TestStructWithEnum",
+		reflect.TypeOf((*TestStructWithEnum)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "isStringEnumA", GoMethod: "IsStringEnumA"},
+			_jsii_.MemberMethod{JsiiMethod: "isStringEnumB", GoMethod: "IsStringEnumB"},
+			_jsii_.MemberProperty{JsiiProperty: "structWithFoo", GoGetter: "StructWithFoo"},
+			_jsii_.MemberProperty{JsiiProperty: "structWithFooBar", GoGetter: "StructWithFooBar"},
+		},
+		func() interface{} {
+			return &testStructWithEnum{}
 		},
 	)
 	_jsii_.RegisterClass(
