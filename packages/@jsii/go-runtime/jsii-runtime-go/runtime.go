@@ -315,10 +315,30 @@ func castPtrToRef(data interface{}) interface{} {
 
 		return result
 
-	case reflect.Ptr:
-		valref, valHasRef := client.FindObjectRef(reflect.ValueOf(data))
+	case reflect.Interface, reflect.Ptr:
+		valref, valHasRef := client.FindObjectRef(dataVal)
 		if valHasRef {
 			return api.ObjectRef{InstanceID: valref}
+		}
+
+	case reflect.Struct:
+		if fields, fqn, isStruct := client.Types().StructFields(dataVal.Type()); isStruct {
+			data := make(map[string]interface{})
+			for _, field := range fields {
+				fieldVal := dataVal.FieldByIndex(field.Index)
+				if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
+					continue
+				}
+				key := field.Tag.Get("json")
+				data[key] = castPtrToRef(fieldVal.Interface())
+			}
+
+			return api.WireStruct{
+				api.StructDescriptor{
+					FQN: fqn,
+					Fields: data,
+				},
+			}
 		}
 
 	case reflect.Slice:
@@ -333,6 +353,7 @@ func castPtrToRef(data interface{}) interface{} {
 			return enumRef
 		}
 	}
+
 	return data
 }
 
