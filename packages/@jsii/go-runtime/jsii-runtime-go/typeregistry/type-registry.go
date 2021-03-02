@@ -138,4 +138,3 @@ func (t *TypeRegistry) TryRenderEnumRef(value reflect.Value) (ref *api.EnumRef, 
 
 	return
 }
-

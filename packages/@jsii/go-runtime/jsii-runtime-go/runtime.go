@@ -334,8 +334,8 @@ func castPtrToRef(data interface{}) interface{} {
 			}
 
 			return api.WireStruct{
-				api.StructDescriptor{
-					FQN: fqn,
+				StructDescriptor: api.StructDescriptor{
+					FQN:    fqn,
 					Fields: data,
 				},
 			}

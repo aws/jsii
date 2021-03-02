@@ -7,7 +7,6 @@ import (
 	"github.com/aws/jsii-runtime-go/api"
 )
 
-
 // RegisterClass maps the given FQN to the provided class interface, and proxy
 // maker function. This returns an error if the class type is not a go interface.
 func (t *TypeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, maker func() interface{}) error {

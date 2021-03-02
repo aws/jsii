@@ -2,8 +2,9 @@ package process
 
 import (
 	"fmt"
-	"github.com/Masterminds/semver/v3"
 	"regexp"
+
+	"github.com/Masterminds/semver/v3"
 )
 
 type handshakeResponse struct {
