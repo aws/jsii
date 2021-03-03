@@ -1,4 +1,5 @@
-﻿using Amazon.JSII.JsonModel.Api;
+﻿using System;
+using Amazon.JSII.JsonModel.Api;
 using Amazon.JSII.JsonModel.Api.Request;
 using Amazon.JSII.JsonModel.Api.Response;
 using Amazon.JSII.JsonModel.FileSystem;
@@ -45,8 +46,8 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 _fileSystem.Directory.Returns(directory);
             }
 
-            internal string GetOkResponse<TResponse>(TResponse response)
-                where TResponse : IKernelResponse
+            internal static string GetOkResponse<TResponse>(TResponse response)
+                where TResponse : class, IKernelResponse
             {
                 IDictionary<string, object> okResponse = new Dictionary<string, object>
                 {
@@ -69,7 +70,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 );
             }
 
-            internal bool PlatformIndependentEqual(string expected, string actual)
+            internal static bool PlatformIndependentEqual(string expected, string actual)
             {
                 try
                 {
@@ -99,7 +100,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[]{ }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
                     license: "",
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
@@ -132,7 +133,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
                     license: "",
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
@@ -185,7 +186,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
                     license: "",
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(

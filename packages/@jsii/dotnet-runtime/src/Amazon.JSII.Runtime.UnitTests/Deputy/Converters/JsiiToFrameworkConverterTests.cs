@@ -21,7 +21,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             internal readonly IReferenceMap _referenceMap;
             internal readonly JsiiToFrameworkConverter _converter;
 
-            public TestBase()
+            protected TestBase()
             {
                 _typeCache = Substitute.For<ITypeCache>();
                 _referenceMap = Substitute.For<IReferenceMap>();
