@@ -6,15 +6,15 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc --build && npm run gen:rt",
-    "doc": "yarn --silent go:run godoc",
-    "fmt": "yarn --silent go:all yarn --silent go:run goimports .",
     "gen:rt": "node build-tools/gen.js",
     "generate": "npm run gen:rt",
     "go:all": "node build-tools/all-go.js",
     "go:run": "go mod download && node build-tools/go-run.js",
     "package": "build-tools/package.sh",
-    "lint": "yarn --silent go:all go vet ./... && yarn --silent go:all yarn --silent go:run golint ./...",
-    "test": "yarn --silent go:all go test ./..."
+    "doc": "(cd jsii-runtime-go && yarn --silent go:run godoc)",
+    "fmt": "(cd jsii-runtime-go && yarn --silent go:all yarn --silent go:run goimports .)",
+    "lint": "(cd jsii-runtime-go && go vet ./... && yarn --silent go:run golint ./...)",
+    "test": "(cd jsii-runtime-go && go test ./...)"
   },
   "keywords": [],
   "author": "",
