@@ -3373,6 +3373,38 @@
       ],
       "name": "DataRenderer"
     },
+    "jsii-calc.Default": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2637",
+        "stability": "stable",
+        "summary": "A class named \"Default\"."
+      },
+      "fqn": "jsii-calc.Default",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2953
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2954
+          },
+          "name": "pleaseCompile"
+        }
+      ],
+      "name": "Default"
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14187,6 +14219,40 @@
       "name": "OnlyStaticMethods",
       "namespace": "onlystatic"
     },
+    "jsii-calc.submodule.Default": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2637",
+        "stability": "stable",
+        "summary": "A struct named \"Default\"."
+      },
+      "fqn": "jsii-calc.submodule.Default",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/issue2637.ts",
+        "line": 6
+      },
+      "name": "Default",
+      "namespace": "submodule",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/issue2637.ts",
+            "line": 7
+          },
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.submodule.MyClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14804,5 +14870,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "WnxyYDpN1opFu5dYMKwKeo5wN3IkNe9gnovO0ro7i2U="
+  "fingerprint": "rH6rK3iHNatb4ojll7sd8rvJ4k/89Kybg89FRd96Hno="
 }

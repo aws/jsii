@@ -2944,3 +2944,14 @@ export class Issue2638B {
     return; // no docs
   }
 }
+
+/**
+ * A class named "Default"
+ *
+ * @see https://github.com/aws/jsii/issues/2637
+ */
+export class Default {
+  public pleaseCompile() {
+    return;
+  }
+}
