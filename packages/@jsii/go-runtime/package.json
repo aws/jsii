@@ -6,13 +6,16 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc --build && npm run gen:rt",
-    "fmt": "node build-tools/all-go.js fmt ./...",
+    "doc": "yarn --silent go:run godoc",
+    "fmt": "yarn --silent go:all yarn --silent go:run goimports .",
     "gen:calc": "node build-tools/gen-calc.js",
     "gen:rt": "node build-tools/gen.js",
     "generate": "npm run gen:rt && npm run gen:calc",
+    "go:all": "node build-tools/all-go.js",
+    "go:run": "go mod download && node build-tools/go-run.js",
     "package": "build-tools/package.sh",
-    "lint": "node build-tools/all-go.js vet ./...",
-    "test": "npm run gen:calc && node build-tools/all-go.js test ./..."
+    "lint": "yarn --silent go:all go vet ./... && yarn --silent go:all yarn --silent go:run golint ./...",
+    "test": "npm run gen:calc && yarn --silent go:all go test ./..."
   },
   "keywords": [],
   "author": "",

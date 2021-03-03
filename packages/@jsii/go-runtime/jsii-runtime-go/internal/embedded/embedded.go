@@ -16,7 +16,8 @@ var embeddedFS embed.FS
 var entrypointName string = path.Join("bin", "jsii-runtime.js")
 
 // ExtractRuntime extracts a copy of the embedded runtime library into
-// the designated directory.
+// the designated directory, and returns the fully qualified path to the entry
+// point to be used when starting the child process.
 func ExtractRuntime(into string) (entrypoint string, err error) {
 	err = extractRuntime(into, embeddedRootDir)
 	if err == nil {
@@ -25,8 +26,8 @@ func ExtractRuntime(into string) (entrypoint string, err error) {
 	return
 }
 
-// extractRuntime copies the contents of embeddedFS at "from" to the provided "into"
-// directory, recursively.
+// extractRuntime copies the contents of embeddedFS at "from" to the provided
+// "into" directory, recursively.
 func extractRuntime(into string, from string) error {
 	files, err := embeddedFS.ReadDir(from)
 	if err != nil {

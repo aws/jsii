@@ -11,7 +11,7 @@ type CompleteResponse struct {
 	CallbackID *string `json:"cbid"`
 }
 
-func (c *client) Complete(props CompleteProps) (response CompleteResponse, err error) {
+func (c *Client) Complete(props CompleteProps) (response CompleteResponse, err error) {
 	type request struct {
 		kernelRequest
 		CompleteProps
