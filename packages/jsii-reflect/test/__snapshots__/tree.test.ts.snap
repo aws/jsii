@@ -1142,6 +1142,12 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ myself() method
  │   │     └── returns: jsii-calc.Isomorphism
+ │   ├─┬ class Issue2638
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
+ │   ├─┬ class Issue2638B
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JSII417Derived
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
@@ -3146,6 +3152,8 @@ exports[`types 1`] = `
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
  │   ├── class Isomorphism
+ │   ├── class Issue2638
+ │   ├── class Issue2638B
  │   ├── class JSII417Derived
  │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface

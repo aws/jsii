@@ -82,6 +82,8 @@ Array [
   "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
   "jsii-calc.InterfacesMaker",
   "jsii-calc.Isomorphism",
+  "jsii-calc.Issue2638",
+  "jsii-calc.Issue2638B",
   "jsii-calc.JSII417Derived",
   "jsii-calc.JSII417PublicBaseOfBase",
   "jsii-calc.JSObjectLiteralForInterface",
