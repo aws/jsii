@@ -4,23 +4,43 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
+type typeKind uint8
 
-// RegisterClass maps the given FQN to the provided class interface, and proxy
-// maker function. This returns an error if the class type is not a go interface.
-func (t *TypeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, maker func() interface{}) error {
+const (
+	_                      = iota
+	classType     typeKind = iota
+	enumType      typeKind = iota
+	interfaceType typeKind = iota
+	structType    typeKind = iota
+)
+
+type registeredType struct {
+	Type reflect.Type
+	Kind typeKind
+}
+
+// RegisterClass maps the given FQN to the provided class interface, list of
+// overrides, and proxy maker function. This returns an error if the class
+// type is not a go interface.
+func (t *TypeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, overrides []api.Override, maker func() interface{}) error {
 	if class.Kind() != reflect.Interface {
 		return fmt.Errorf("the provided class is not an interface: %v", class)
 	}
 
-	if existing, exists := t.fqnToType[fqn]; exists && existing != class {
+	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != class {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
 
-	t.fqnToType[fqn] = class
+	t.fqnToType[fqn] = registeredType{class, classType}
 	t.proxyMakers[class] = maker
+
+	// Skipping registration if there are no members, as this would have no use.
+	if len(overrides) > 0 {
+		t.typeMembers[fqn] = append([]api.Override{}, overrides...)
+	}
 
 	return nil
 }
@@ -33,7 +53,7 @@ func (t *TypeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 	if enm.Kind() != reflect.String {
 		return fmt.Errorf("the provided enum is not a string derivative: %v", enm)
 	}
-	if existing, exists := t.fqnToType[fqn]; exists && existing != enm {
+	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != enm {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
 	for memberName, memberVal := range members {
@@ -45,6 +65,7 @@ func (t *TypeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 		// if the pre-condition fails at any point. This is done in a second loop.
 	}
 
+	t.fqnToType[fqn] = registeredType{enm, enumType}
 	t.typeToEnumFQN[enm] = fqn
 	for memberName, memberVal := range members {
 		memberFQN := fmt.Sprintf("%s/%s", fqn, memberName)
@@ -54,20 +75,25 @@ func (t *TypeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 	return nil
 }
 
-// RegisterInterface maps the given FQN to the provided interface type, and
-// proxy maker function. Returns an error if the provided interface is not a go
-// interface.
-func (t *TypeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, maker func() interface{}) error {
+// RegisterInterface maps the given FQN to the provided interface type, list of
+// overrides, and proxy maker function. Returns an error if the provided interface
+// is not a go interface.
+func (t *TypeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overrides []api.Override, maker func() interface{}) error {
 	if iface.Kind() != reflect.Interface {
 		return fmt.Errorf("the provided interface is not an interface: %v", iface)
 	}
 
-	if existing, exists := t.fqnToType[fqn]; exists && existing != iface {
+	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != iface {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
 
-	t.fqnToType[fqn] = iface
+	t.fqnToType[fqn] = registeredType{iface, interfaceType}
 	t.proxyMakers[iface] = maker
+
+	// Skipping registration if there are no members, as this would have no use.
+	if len(overrides) > 0 {
+		t.typeMembers[fqn] = append([]api.Override{}, overrides...)
+	}
 
 	return nil
 }
@@ -80,8 +106,12 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 		return fmt.Errorf("the provided struct is not a struct: %v", strct)
 	}
 
-	if existing, exists := t.fqnToType[fqn]; exists && existing != strct {
+	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != strct {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
+	}
+
+	if existing, exists := t.typeToFQN[strct]; exists && existing != fqn {
+		return fmt.Errorf("attempting to register type %s as %s, but it was already registered as: %s", strct.String(), fqn, existing)
 	}
 
 	fields := []reflect.StructField{}
@@ -100,7 +130,8 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 		fields = append(fields, field)
 	}
 
-	t.fqnToType[fqn] = strct
+	t.fqnToType[fqn] = registeredType{strct, structType}
+	t.typeToFQN[strct] = fqn
 	t.structFields[strct] = fields
 
 	return nil

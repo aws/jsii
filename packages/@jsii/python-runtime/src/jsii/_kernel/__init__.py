@@ -8,6 +8,7 @@ from typing import Any, List, Optional, Type, Union
 import functools
 
 import attr
+import enum
 
 from ..errors import JSIIError
 from .. import _reference_map
@@ -137,15 +138,20 @@ def _make_reference_for_native(kernel, d):
                 k: _make_reference_for_native(kernel, v) for k, v in d.items()
             }
         }
+
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
     if getattr(d, "__jsii_type__", None) is not None:
+        typeFqn = getattr(d, "__jsii_type__")
+
+        if isinstance(d, enum.Enum):
+            return {"$jsii.enum": f"{typeFqn}/{d.value}"}
+
         # Ugly delayed import here because I can't solve the cyclic
         # package dependency right now :(.
         from .._runtime import python_jsii_mapping
 
-        typeFqn = getattr(d, "__jsii_type__")
         mapping = python_jsii_mapping(d)
         if mapping:  # This means we are handling a data_type (aka Struct)
             return {
@@ -160,8 +166,10 @@ def _make_reference_for_native(kernel, d):
                 }
             }
         return d
+
     elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):
         return d
+
     elif isinstance(d, (FunctionType, MethodType, BuiltinFunctionType, LambdaType)):
         # Whether a given object is a function-like object.
         # We won't use iscallable() since objects may implement __call__()
@@ -170,6 +178,7 @@ def _make_reference_for_native(kernel, d):
             "Cannot pass function as argument here (did you mean to call this function?): %r"
             % d
         )
+
     else:
         kernel.create(d.__class__, d)
         _reference_map.register_reference(d)

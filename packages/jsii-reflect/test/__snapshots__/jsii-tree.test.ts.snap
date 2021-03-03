@@ -1885,6 +1885,25 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ valueOfOtherProperty property (stable)
  │   │     └── type: string
+ │   ├─┬ class TestStructWithEnum (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ isStringEnumA(input) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ isStringEnumB(input) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ structWithFoo property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructWithEnum
+ │   │   └─┬ structWithFooBar property (stable)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.StructWithEnum
  │   ├─┬ class Thrower (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -2572,6 +2591,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface StructWithEnum (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ foo property (stable)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StringEnum
+ │   │   └─┬ bar property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.AllTypesEnum>
  │   ├─┬ interface StructWithJavaReservedWords (stable)
  │   │ └─┬ members
  │   │   ├─┬ default property (stable)
@@ -3075,6 +3104,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── base: SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
+ │   ├── class TestStructWithEnum
  │   ├── class Thrower
  │   ├── class UmaskCheck
  │   ├─┬ class UnaryOperation
@@ -3186,6 +3216,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
@@ -4097,6 +4128,13 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── otherProperty property
  │   │   ├── theProperty property
  │   │   └── valueOfOtherProperty property
+ │   ├─┬ class TestStructWithEnum
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── isStringEnumA(input) method
+ │   │   ├── isStringEnumB(input) method
+ │   │   ├── structWithFoo property
+ │   │   └── structWithFooBar property
  │   ├─┬ class Thrower
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4391,6 +4429,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── scope property
  │   │   └── props property
+ │   ├─┬ interface StructWithEnum
+ │   │ └─┬ members
+ │   │   ├── foo property
+ │   │   └── bar property
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├── default property
@@ -4750,6 +4792,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
+ │   ├── class TestStructWithEnum
  │   ├── class Thrower
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
@@ -4830,6 +4873,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct

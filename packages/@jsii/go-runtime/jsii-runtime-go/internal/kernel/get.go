@@ -1,6 +1,6 @@
 package kernel
 
-import "github.com/aws/jsii-runtime-go/api"
+import "github.com/aws/jsii-runtime-go/internal/api"
 
 type GetProps struct {
 	Property string        `json:"property"`
@@ -17,7 +17,7 @@ type GetResponse struct {
 	Value interface{} `json:"value"`
 }
 
-func (c *client) Get(props GetProps) (response GetResponse, err error) {
+func (c *Client) Get(props GetProps) (response GetResponse, err error) {
 	type request struct {
 		kernelRequest
 		GetProps
@@ -26,7 +26,7 @@ func (c *client) Get(props GetProps) (response GetResponse, err error) {
 	return
 }
 
-func (c *client) SGet(props StaticGetProps) (response GetResponse, err error) {
+func (c *Client) SGet(props StaticGetProps) (response GetResponse, err error) {
 	type request struct {
 		kernelRequest
 		StaticGetProps
@@ -39,5 +39,5 @@ func (c *client) SGet(props StaticGetProps) (response GetResponse, err error) {
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *GetResponse) UnmarshalJSON(data []byte) error {
 	type response GetResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

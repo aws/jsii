@@ -9,7 +9,7 @@ type EndResponse struct {
 	Result interface{} `json:"result"`
 }
 
-func (c *client) End(props EndProps) (response EndResponse, err error) {
+func (c *Client) End(props EndProps) (response EndResponse, err error) {
 	type request struct {
 		kernelRequest
 		EndProps

@@ -127,6 +127,25 @@ export class GoInterface extends GoType {
     code.open(`${JSII_RT_ALIAS}.RegisterInterface(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
+
+    const allMembers = [
+      ...this.type.allMethods
+        .filter((method) => !method.static)
+        .map((method) => new InterfaceMethod(this, method)),
+      ...this.type.allProperties
+        .filter((property) => !property.static)
+        .map((property) => new GoProperty(this, property)),
+    ].sort(comparators.byName);
+    if (allMembers.length === 0) {
+      code.line('nil, // no members');
+    } else {
+      code.open(`[]${JSII_RT_ALIAS}.Member{`);
+      for (const member of allMembers) {
+        code.line(`${member.override},`);
+      }
+      code.close('},');
+    }
+
     this.emitProxyMakerFunction(code, this.extends);
     code.close(')');
   }

@@ -1,6 +1,6 @@
 package kernel
 
-import "github.com/aws/jsii-runtime-go/api"
+import "github.com/aws/jsii-runtime-go/internal/api"
 
 type DelProps struct {
 	ObjRef api.ObjectRef `json:"objref"`
@@ -10,7 +10,7 @@ type DelResponse struct {
 	kernelResponse
 }
 
-func (c *client) Del(props DelProps) (response DelResponse, err error) {
+func (c *Client) Del(props DelProps) (response DelResponse, err error) {
 	type request struct {
 		kernelRequest
 		DelProps

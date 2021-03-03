@@ -12,7 +12,7 @@ import (
 	"sync"
 
 	"github.com/Masterminds/semver/v3"
-	"github.com/aws/jsii-runtime-go/embedded"
+	"github.com/aws/jsii-runtime-go/internal/embedded"
 )
 
 const JSII_RUNTIME string = "JSII_RUNTIME"
@@ -218,18 +218,17 @@ func (p *Process) Close() {
 		// Try to send the exit message, this might fail, but we can ignore that.
 		p.stdin.Write([]byte("{\"exit\":0}\n"))
 
-		// Close STDIN for the child process now.
-		if err := p.stdin.Close(); err != nil {
-			fmt.Fprintf(os.Stderr, "could not close child process' stdin: %v\n", err)
-		}
+		// Close STDIN for the child process now. Ignoring errors, as it may
+		// have been closed already (e.g: if the process exited).
+		p.stdin.Close()
 		p.stdin = nil
 	}
 
 	if p.stdout != nil {
-		// Close STDOUT for the child process now, as we don't expect to receive responses anymore.
-		if err := p.stdout.Close(); err != nil {
-			fmt.Fprintf(os.Stderr, "could not close child process' stdout: %v\n", err)
-		}
+		// Close STDOUT for the child process now, as we don't expect to receive
+		// responses anymore. Ignoring errors, as it may have been closed
+		// already (e.g: if the process exited).
+		p.stdout.Close()
 		p.stdout = nil
 	}
 
@@ -240,10 +239,10 @@ func (p *Process) Close() {
 	}
 
 	if p.stderr != nil {
-		// Close STDERR for the child process now, as we're no longer consuming it anyway.
-		if err := p.stderr.Close(); err != nil {
-			fmt.Fprintf(os.Stderr, "could not close child process' stderr: %v\n", err)
-		}
+		// Close STDERR for the child process now, as we're no longer consuming
+		// it anyway. Ignoring errors, as it may havebeen closed already (e.g:
+		// if the process exited).
+		p.stderr.Close()
 		p.stderr = nil
 	}
 

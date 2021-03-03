@@ -1,6 +1,6 @@
 package kernel
 
-import "github.com/aws/jsii-runtime-go/api"
+import "github.com/aws/jsii-runtime-go/internal/api"
 
 type CreateProps struct {
 	FQN        api.FQN        `json:"fqn"`
@@ -15,7 +15,7 @@ type CreateResponse struct {
 	InstanceID string `json:"$jsii.byref"`
 }
 
-func (c *client) Create(props CreateProps) (response CreateResponse, err error) {
+func (c *Client) Create(props CreateProps) (response CreateResponse, err error) {
 	type request struct {
 		kernelRequest
 		CreateProps
@@ -28,5 +28,5 @@ func (c *client) Create(props CreateProps) (response CreateResponse, err error) 
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *CreateResponse) UnmarshalJSON(data []byte) error {
 	type response CreateResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

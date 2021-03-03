@@ -12178,6 +12178,56 @@
       ],
       "name": "StructUnionConsumer"
     },
+    "jsii-calc.StructWithEnum": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.StructWithEnum",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2879
+      },
+      "name": "StructWithEnum",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable",
+            "summary": "An enum value."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2883
+          },
+          "name": "foo",
+          "type": {
+            "fqn": "jsii-calc.StringEnum"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "default": "AllTypesEnum.YOUR_ENUM_VALUE",
+            "stability": "stable",
+            "summary": "Optional enum value (of type integer)."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2889
+          },
+          "name": "bar",
+          "optional": true,
+          "type": {
+            "fqn": "jsii-calc.AllTypesEnum"
+          }
+        }
+      ]
+    },
     "jsii-calc.StructWithJavaReservedWords": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -12825,6 +12875,106 @@
           "name": "valueOfOtherProperty",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.TestStructWithEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.TestStructWithEnum",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2892
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Returns true if `foo` is `StringEnum.A`."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2896
+          },
+          "name": "isStringEnumA",
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "fqn": "jsii-calc.StructWithEnum"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Returns true if `foo` is `StringEnum.B` and `bar` is `AllTypesEnum.THIS_IS_GREAT`."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2903
+          },
+          "name": "isStringEnumB",
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "fqn": "jsii-calc.StructWithEnum"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        }
+      ],
+      "name": "TestStructWithEnum",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Returns `foo: StringEnum.A`."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2922
+          },
+          "name": "structWithFoo",
+          "type": {
+            "fqn": "jsii-calc.StructWithEnum"
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Returns `foo: StringEnum.C` and `bar: AllTypesEnum.MY_ENUM_VALUE`."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2912
+          },
+          "name": "structWithFooBar",
+          "type": {
+            "fqn": "jsii-calc.StructWithEnum"
           }
         }
       ]
@@ -14606,5 +14756,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "JMTvoEnsqFjh72kI95PtIx01MmNxAbZV41K/nIgoZ4Q="
+  "fingerprint": "GfueSeyZdyEIZp4V4lbddw+TnoCel74KSDMPxp2phmw="
 }

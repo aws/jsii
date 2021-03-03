@@ -1,7 +1,7 @@
 package kernel
 
 import (
-	"github.com/aws/jsii-runtime-go/api"
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
 type BeginProps struct {
@@ -15,7 +15,7 @@ type BeginResponse struct {
 	PromiseID *string `json:"promise_id"`
 }
 
-func (c *client) Begin(props BeginProps) (response BeginResponse, err error) {
+func (c *Client) Begin(props BeginProps) (response BeginResponse, err error) {
 	type request struct {
 		kernelRequest
 		BeginProps
