@@ -1,4 +1,7 @@
+using System;
 using System.Runtime.CompilerServices;
+
+[assembly:CLSCompliant(true)]
 
 // All the types were folded into Amazon.JSII.Runtime now, so here's a bunch of type
 // forwarders to maintain backwards compatibility with previous versions.

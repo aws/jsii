@@ -37,12 +37,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (optionalValue.Type.Collection != null)
             {
-                return TryConvertCollection(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Collection, out result);
+                return TryConvertCollection(referenceMap, value, optionalValue.Type.Collection, out result);
             }
 
             if (optionalValue.Type.Union != null)
             {
-                return TryConvertUnion(type, referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Union, out result);
+                return TryConvertUnion(type, referenceMap, value, optionalValue.Type.Union, out result);
             }
 
             throw new ArgumentException("Invalid type reference", nameof(optionalValue));
@@ -93,7 +93,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             {
                 if (!TryConvertClass(type, referenceMap, value, out var anonResult))
                 {
-                    throw new Exception("Unable to convert AnonymousObject instance!");
+                    throw new NotSupportedException("Unable to convert AnonymousObject instance!");
                 }
                 return anonResult;
             }
@@ -159,7 +159,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
         }
 
-        bool TryConvertCollection(IReferenceMap referenceMap, object? value, bool isOptional, CollectionTypeReference collectionType, out object? result)
+        bool TryConvertCollection(IReferenceMap referenceMap, object? value, CollectionTypeReference collectionType, out object? result)
         {
             switch (collectionType.Kind)
             {
@@ -172,7 +172,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
         }
 
-        bool TryConvertUnion(System.Type type, IReferenceMap referenceMap, object? value, bool isOptional, UnionTypeReference unionType, out object? result)
+        bool TryConvertUnion(System.Type type, IReferenceMap referenceMap, object? value, UnionTypeReference unionType, out object? result)
         {
             foreach (var candidateType in unionType.Types)
             {

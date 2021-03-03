@@ -49,7 +49,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
 
         public override int GetHashCode()
         {
-            return Path.GetHashCode()
+            return Path.GetHashCode(StringComparison.InvariantCulture)
                    ^ Line.GetHashCode()
                    ^ Column.GetHashCode();
         }
@@ -70,13 +70,13 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
     /// </summary>
     public struct DiagnosticResult : IEquatable<DiagnosticResult>
     {
-        private IReadOnlyList<DiagnosticResultLocation> _locations;
+        private IReadOnlyList<DiagnosticResultLocation>? _locations;
 
         public IReadOnlyList<DiagnosticResultLocation> Locations
         {
             get
             {
-                _locations ??= new DiagnosticResultLocation[] { };
+                _locations ??= Array.Empty<DiagnosticResultLocation>();
                 return _locations;
             }
 
@@ -108,10 +108,10 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
         public override int GetHashCode()
         {
             return Locations.GetHashCode()
-                   ^ Id.GetHashCode()
+                   ^ Id.GetHashCode(StringComparison.InvariantCulture)
                    ^ Severity.GetHashCode()
-                   ^ Message.GetHashCode()
-                   ^ Path.GetHashCode()
+                   ^ Message.GetHashCode(StringComparison.InvariantCulture)
+                   ^ Path.GetHashCode(StringComparison.InvariantCulture)
                    ^ Line.GetHashCode()
                    ^ Column.GetHashCode();
         }

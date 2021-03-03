@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using System.Linq;
@@ -87,7 +88,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
                 }
                 else
                 {
-                    VerifyDiagnosticLocation(analyzer, actual, actual.Location, expected.Locations.First());
+                    VerifyDiagnosticLocation(analyzer, actual, actual.Location, expected.Locations[0]);
                     var additionalLocations = actual.AdditionalLocations.ToArray();
 
                     if (additionalLocations.Length != expected.Locations.Count - 1)
@@ -133,7 +134,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
         {
             var actualSpan = actual.GetLineSpan();
 
-            Assert.True(actualSpan.Path == expected.Path || (actualSpan.Path != null && actualSpan.Path.Contains("Test0.") && expected.Path.Contains("Test.")),
+            Assert.True(actualSpan.Path == expected.Path || (actualSpan.Path != null && actualSpan.Path.Contains("Test0.", StringComparison.InvariantCulture) && expected.Path.Contains("Test.", StringComparison.InvariantCulture)),
                 $"Expected diagnostic to be in file \"{expected.Path}\" was actually in file \"{actualSpan.Path}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, diagnostic)}\r\n");
 
             var actualLinePosition = actualSpan.StartLinePosition;
@@ -187,18 +188,18 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
                     var location = diagnostics[i].Location;
                     if (location == Location.None)
                     {
-                        builder.AppendFormat("GetGlobalResult({0}.{1})", analyzerType.Name, rule.Id);
+                        builder.AppendFormat(CultureInfo.InvariantCulture, "GetGlobalResult({0}.{1})", analyzerType.Name, rule.Id);
                     }
                     else
                     {
                         Assert.True(location.IsInSource,
                             $"Test base does not currently handle diagnostics in metadata locations. Diagnostic in metadata: {diagnostics[i]}\r\n");
 
-                        var fileIsCSharp = diagnostics[i].Location.SourceTree?.FilePath.EndsWith(".cs") ?? false;
+                        var fileIsCSharp = diagnostics[i].Location.SourceTree?.FilePath.EndsWith(".cs", StringComparison.InvariantCulture) ?? false;
                         var resultMethodName = fileIsCSharp ? "GetCSharpResultAt" : "GetBasicResultAt";
                         var linePosition = diagnostics[i].Location.GetLineSpan().StartLinePosition;
 
-                        builder.AppendFormat("{0}({1}, {2}, {3}.{4})",
+                        builder.AppendFormat(CultureInfo.InvariantCulture, "{0}({1}, {2}, {3}.{4})",
                             resultMethodName,
                             linePosition.Line + 1,
                             linePosition.Character + 1,
