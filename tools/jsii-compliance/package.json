@@ -1,0 +1,24 @@
+{
+  "name": "jsii-compliance",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "report": "ts-node report.ts",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "yarn lint --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "tablemark": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.17.52",
+    "eslint": "^7.20.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "~3.9.9"
+  }
+}

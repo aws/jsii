@@ -1,0 +1,7 @@
+/jsii-calc/
+
+*.js
+*.d.ts
+
+# Ignore our test files
+project/compliance-report.json

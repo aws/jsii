@@ -39,8 +39,7 @@ public final class ComplianceSuiteHarness implements BeforeEachCallback, AfterEa
     @Override
     public void afterEach(final ExtensionContext extensionContext) {
         JsiiRuntime.messageInspector.remove();
-        final ObjectNode entry = result.putObject(String.format("%s.%s",
-                extensionContext.getRequiredTestClass().getSimpleName(), extensionContext.getRequiredTestMethod().getName()));
+        final ObjectNode entry = result.putObject(extensionContext.getRequiredTestMethod().getName());
         entry.put("status", extensionContext.getExecutionException().isPresent() ? "failure" : "success");
         entry.putPOJO("kernelTrace", kernelTraces.remove(extensionContext.getUniqueId()));
     }

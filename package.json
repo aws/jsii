@@ -9,9 +9,10 @@
     "bump": "bash scripts/bump.sh",
     "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
     "package": "bash scripts/package.sh",
-    "test": "lerna run test --concurrency=1 --stream",
+    "test": "lerna run test --concurrency=1 --stream && yarn compliance",
     "test:integ": "lerna run test:integ --stream",
-    "test:update": "lerna run test:update --concurrency=1 --stream"
+    "test:update": "lerna run test:update --concurrency=1 --stream",
+    "compliance": "(cd tools/jsii-compliance && yarn report)"
   },
   "devDependencies": {
     "@jest/types": "^26.6.2",
