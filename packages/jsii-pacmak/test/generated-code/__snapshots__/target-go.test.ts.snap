@@ -7777,15 +7777,17 @@ type issue2638 struct {
 // Second sentence. Third sentence.
 func NewIssue2638() Issue2638 {
 	_init_.Initialize()
+
 	i := issue2638{}
 
 	_jsii_.Create(
 		"jsii-calc.Issue2638",
-		[]interface{}{},
+		nil /* no parameters */,
 		[]_jsii_.FQN{},
-		[]_jsii_.Override{},
+		nil, // no overrides
 		&i,
 	)
+
 	return &i
 }
 
@@ -7799,15 +7801,17 @@ type issue2638B struct {
 
 func NewIssue2638B() Issue2638B {
 	_init_.Initialize()
+
 	i := issue2638B{}
 
 	_jsii_.Create(
 		"jsii-calc.Issue2638B",
-		[]interface{}{},
+		nil /* no parameters */,
 		[]_jsii_.FQN{},
-		[]_jsii_.Override{},
+		nil, // no overrides
 		&i,
 	)
+
 	return &i
 }
 
@@ -13736,6 +13740,7 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.Issue2638",
 		reflect.TypeOf((*Issue2638)(nil)).Elem(),
+		nil, // no members
 		func() interface{} {
 			return &issue2638{}
 		},
@@ -13743,6 +13748,7 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.Issue2638B",
 		reflect.TypeOf((*Issue2638B)(nil)).Elem(),
+		nil, // no members
 		func() interface{} {
 			return &issue2638B{}
 		},
