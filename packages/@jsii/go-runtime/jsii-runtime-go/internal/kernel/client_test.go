@@ -17,10 +17,9 @@ func TestClient(t *testing.T) {
 		request := LoadProps{
 			Name:    "jsii-calc",
 			Version: "0.0.0",
-			Tarball: "jsii-calc-tarball.tgz",
 		}
 
-		res, err := client.Load(request)
+		res, err := client.Load(request, nil)
 
 		t.Log(res)
 		if err != nil {
