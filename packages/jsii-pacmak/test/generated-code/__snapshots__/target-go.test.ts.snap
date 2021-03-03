@@ -759,6 +759,7 @@ type very struct {
 	_ byte // padding
 }
 
+// Experimental.
 func NewVery() Very {
 	_init_.Initialize()
 	v := very{}
@@ -1278,6 +1279,7 @@ func (n *number) Value() float64 {
 
 
 // Creates a Number object.
+// Deprecated.
 func NewNumber(value float64) Number {
 	_init_.Initialize()
 	n := number{}
@@ -1344,6 +1346,7 @@ func (n *numericValue) Value() float64 {
 }
 
 
+// Deprecated.
 func NewNumericValue() NumericValue {
 	_init_.Initialize()
 	n := numericValue{}
@@ -1384,6 +1387,7 @@ type operation struct {
 	numericValue // extends @scope/jsii-calc-lib.NumericValue
 }
 
+// Deprecated.
 func NewOperation() Operation {
 	_init_.Initialize()
 	o := operation{}
@@ -1577,6 +1581,7 @@ func (n *nestedClass) Property() string {
 }
 
 
+// Deprecated.
 func NewNestedClass() NestedClass {
 	_init_.Initialize()
 	n := nestedClass{}
@@ -1618,6 +1623,7 @@ type reflector struct {
 	_ byte // padding
 }
 
+// Deprecated.
 func NewReflector() Reflector {
 	_init_.Initialize()
 	r := reflector{}
@@ -5110,6 +5116,7 @@ func (d *deprecatedClass) ReadonlyProperty() string {
 }
 
 
+// Deprecated: this constructor is "just" okay
 func NewDeprecatedClass(readonlyString string, mutableNumber float64) DeprecatedClass {
 	_init_.Initialize()
 	d := deprecatedClass{}
@@ -5860,6 +5867,7 @@ func (e *experimentalClass) ReadonlyProperty() string {
 }
 
 
+// Experimental.
 func NewExperimentalClass(readonlyString string, mutableNumber float64) ExperimentalClass {
 	_init_.Initialize()
 	e := experimentalClass{}
@@ -7529,6 +7537,56 @@ func (i *isomorphism) Myself() Isomorphism {
 		&returns,
 	)
 	return returns
+}
+
+// Docstrings with period.
+// See: https://github.com/aws/jsii/issues/2638
+//
+type Issue2638 interface {
+}
+
+// The jsii proxy struct for Issue2638
+type issue2638 struct {
+	_ byte // padding
+}
+
+// First sentence.
+//
+// Second sentence. Third sentence.
+func NewIssue2638() Issue2638 {
+	_init_.Initialize()
+	i := issue2638{}
+
+	_jsii_.Create(
+		"jsii-calc.Issue2638",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&i,
+	)
+	return &i
+}
+
+type Issue2638B interface {
+}
+
+// The jsii proxy struct for Issue2638B
+type issue2638B struct {
+	_ byte // padding
+}
+
+func NewIssue2638B() Issue2638B {
+	_init_.Initialize()
+	i := issue2638B{}
+
+	_jsii_.Create(
+		"jsii-calc.Issue2638B",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&i,
+	)
+	return &i
 }
 
 type Jsii417Derived interface {
@@ -9479,6 +9537,8 @@ type old struct {
 	_ byte // padding
 }
 
+// Deprecated: Use the new class or the old class whatever you want because
+// whatever you like is always the best
 func NewOld() Old {
 	_init_.Initialize()
 	o := old{}
@@ -13170,6 +13230,20 @@ func init() {
 		reflect.TypeOf((*Isomorphism)(nil)).Elem(),
 		func() interface{} {
 			return &isomorphism{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.Issue2638",
+		reflect.TypeOf((*Issue2638)(nil)).Elem(),
+		func() interface{} {
+			return &issue2638{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.Issue2638B",
+		reflect.TypeOf((*Issue2638B)(nil)).Elem(),
+		func() interface{} {
+			return &issue2638B{}
 		},
 	)
 	_jsii_.RegisterClass(

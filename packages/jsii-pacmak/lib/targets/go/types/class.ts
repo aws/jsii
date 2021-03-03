@@ -327,12 +327,7 @@ export class GoClassConstructor {
         ? ''
         : this.parameters.map((p) => p.toString()).join(', ');
 
-    let docstring = '';
-    if (this.type.docs.summary) {
-      docstring = this.type.docs.toString();
-      code.line(`// ${docstring}`);
-    }
-
+    context.documenter.emit(this.type.docs);
     code.openBlock(`func ${constr}(${paramString}) ${this.parent.name}`);
 
     this.constructorRuntimeCall.emit(code);
