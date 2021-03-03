@@ -227,32 +227,38 @@ exports[`jsii-tree --all 1`] = `
  │ │   │         └─┬ returnsSpecialParam() method (stable)
  │ │   │           └── returns: jsii-calc.submodule.param.SpecialParameter
  │ │   └─┬ types
- │ │     └─┬ class MyClass (stable)
- │ │       ├── interfaces: INamespaced
+ │ │     ├─┬ class MyClass (stable)
+ │ │     │ ├── interfaces: INamespaced
+ │ │     │ └─┬ members
+ │ │     │   ├─┬ <initializer>(props) initializer (stable)
+ │ │     │   │ └─┬ parameters
+ │ │     │   │   └─┬ props
+ │ │     │   │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   ├─┬ methodWithSpecialParam(param) method (stable)
+ │ │     │   │ ├─┬ parameters
+ │ │     │   │ │ └─┬ param
+ │ │     │   │ │   └── type: jsii-calc.submodule.param.SpecialParameter
+ │ │     │   │ └── returns: string
+ │ │     │   ├─┬ awesomeness property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Awesomeness
+ │ │     │   ├─┬ definedAt property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: string
+ │ │     │   ├─┬ goodness property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Goodness
+ │ │     │   ├─┬ props property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   └─┬ allTypes property (stable)
+ │ │     │     └── type: Optional<jsii-calc.AllTypes>
+ │ │     └─┬ interface Default (stable)
  │ │       └─┬ members
- │ │         ├─┬ <initializer>(props) initializer (stable)
- │ │         │ └─┬ parameters
- │ │         │   └─┬ props
- │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
- │ │         ├─┬ methodWithSpecialParam(param) method (stable)
- │ │         │ ├─┬ parameters
- │ │         │ │ └─┬ param
- │ │         │ │   └── type: jsii-calc.submodule.param.SpecialParameter
- │ │         │ └── returns: string
- │ │         ├─┬ awesomeness property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
- │ │         ├─┬ definedAt property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: string
- │ │         ├─┬ goodness property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Goodness
- │ │         ├─┬ props property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.SomeStruct
- │ │         └─┬ allTypes property (stable)
- │ │           └── type: Optional<jsii-calc.AllTypes>
+ │ │         └─┬ foo property (stable)
+ │ │           ├── abstract
+ │ │           ├── immutable
+ │ │           └── type: number
  │ └─┬ types
  │   ├─┬ class AbstractClass (stable)
  │   │ ├── base: AbstractClassBase
@@ -745,6 +751,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ map
  │   │     │   └── type: Map<string => any>
  │   │     └── returns: string
+ │   ├─┬ class Default (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   └─┬ pleaseCompile() method (stable)
+ │   │     └── returns: void
  │   ├─┬ class DefaultedConstructorArgument (stable)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer (stable)
@@ -1046,6 +1057,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ myself() method (stable)
  │   │     └── returns: jsii-calc.Isomorphism
+ │   ├─┬ class Issue2638 (stable)
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (stable)
+ │   ├─┬ class Issue2638B (stable)
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (stable)
  │   ├─┬ class JSII417Derived (stable)
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
@@ -2963,8 +2980,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │   └─┬ types
  │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
- │ │     └─┬ class MyClass
- │ │       └── interfaces: INamespaced
+ │ │     ├─┬ class MyClass
+ │ │     │ └── interfaces: INamespaced
+ │ │     └── interface Default
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -3007,6 +3025,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
+ │   ├── class Default
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
@@ -3041,6 +3060,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
  │   ├── class Isomorphism
+ │   ├── class Issue2638
+ │   ├── class Issue2638B
  │   ├─┬ class JSII417Derived
  │   │ └── base: JSII417PublicBaseOfBase
  │   ├── class JSII417PublicBaseOfBase
@@ -3417,15 +3438,18 @@ exports[`jsii-tree --members 1`] = `
  │ │   │         ├── <initializer>() initializer
  │ │   │         └── returnsSpecialParam() method
  │ │   └─┬ types
- │ │     └─┬ class MyClass
+ │ │     ├─┬ class MyClass
+ │ │     │ └─┬ members
+ │ │     │   ├── <initializer>(props) initializer
+ │ │     │   ├── methodWithSpecialParam(param) method
+ │ │     │   ├── awesomeness property
+ │ │     │   ├── definedAt property
+ │ │     │   ├── goodness property
+ │ │     │   ├── props property
+ │ │     │   └── allTypes property
+ │ │     └─┬ interface Default
  │ │       └─┬ members
- │ │         ├── <initializer>(props) initializer
- │ │         ├── methodWithSpecialParam(param) method
- │ │         ├── awesomeness property
- │ │         ├── definedAt property
- │ │         ├── goodness property
- │ │         ├── props property
- │ │         └── allTypes property
+ │ │         └── foo property
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ └─┬ members
@@ -3627,6 +3651,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── render(data) method
  │   │   ├── renderArbitrary(data) method
  │   │   └── renderMap(map) method
+ │   ├─┬ class Default
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── pleaseCompile() method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) initializer
@@ -3760,6 +3788,12 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── myself() method
+ │   ├─┬ class Issue2638
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
+ │   ├─┬ class Issue2638B
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JSII417Derived
  │   │ └─┬ members
  │   │   ├── <initializer>(property) initializer
@@ -4680,7 +4714,8 @@ exports[`jsii-tree --types 1`] = `
  │ │   │   └─┬ types
  │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
- │ │     └── class MyClass
+ │ │     ├── class MyClass
+ │ │     └── interface Default
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
@@ -4712,6 +4747,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
+ │   ├── class Default
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
@@ -4740,6 +4776,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
  │   ├── class Isomorphism
+ │   ├── class Issue2638
+ │   ├── class Issue2638B
  │   ├── class JSII417Derived
  │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface

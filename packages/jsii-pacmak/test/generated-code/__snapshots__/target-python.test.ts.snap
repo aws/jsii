@@ -3659,6 +3659,20 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         return typing.cast(builtins.str, jsii.invoke(self, "renderMap", [map]))
 
 
+class Default(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Default"):
+    '''A class named "Default".
+
+    :see: https://github.com/aws/jsii/issues/2637
+    '''
+
+    def __init__(self) -> None:
+        jsii.create(Default, self, [])
+
+    @jsii.member(jsii_name="pleaseCompile")
+    def please_compile(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "pleaseCompile", []))
+
+
 class DefaultedConstructorArgument(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.DefaultedConstructorArgument",
@@ -6244,6 +6258,25 @@ class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorp
 
 class _IsomorphismProxy(Isomorphism):
     pass
+
+
+class Issue2638(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638"):
+    '''Docstrings with period.
+
+    :see: https://github.com/aws/jsii/issues/2638
+    '''
+
+    def __init__(self) -> None:
+        '''First sentence.
+
+        Second sentence. Third sentence.
+        '''
+        jsii.create(Issue2638, self, [])
+
+
+class Issue2638B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638B"):
+    def __init__(self) -> None:
+        jsii.create(Issue2638B, self, [])
 
 
 class JSII417PublicBaseOfBase(
@@ -9785,6 +9818,7 @@ __all__ = [
     "ConsumerCanRingBell",
     "ConsumersOfThisCrazyTypeSystem",
     "DataRenderer",
+    "Default",
     "DefaultedConstructorArgument",
     "Demonstrate982",
     "DeprecatedClass",
@@ -9866,6 +9900,8 @@ __all__ = [
     "InterfaceCollections",
     "InterfacesMaker",
     "Isomorphism",
+    "Issue2638",
+    "Issue2638B",
     "JSII417Derived",
     "JSII417PublicBaseOfBase",
     "JSObjectLiteralForInterface",
@@ -10563,6 +10599,41 @@ from .nested_submodule.deeply_nested import INamespaced as _INamespaced_e2f386ad
 from .param import SpecialParameter as _SpecialParameter_5bbf34a2
 
 
+@jsii.data_type(
+    jsii_type="jsii-calc.submodule.Default",
+    jsii_struct_bases=[],
+    name_mapping={"foo": "foo"},
+)
+class Default:
+    def __init__(self, *, foo: jsii.Number) -> None:
+        '''A struct named "Default".
+
+        :param foo: 
+
+        :see: https://github.com/aws/jsii/issues/2637
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "foo": foo,
+        }
+
+    @builtins.property
+    def foo(self) -> jsii.Number:
+        result = self._values.get("foo")
+        assert result is not None, "Required property 'foo' is missing"
+        return typing.cast(jsii.Number, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Default(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
 @jsii.implements(_INamespaced_e2f386ad)
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     def __init__(self, *, prop: _SomeEnum_b2e41d92) -> None:
@@ -10613,6 +10684,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 
 
 __all__ = [
+    "Default",
     "MyClass",
 ]
 
