@@ -2925,3 +2925,22 @@ export class TestStructWithEnum {
     };
   }
 }
+
+/**
+ * Docstrings with period
+ * @see https://github.com/aws/jsii/issues/2638
+ */
+export class Issue2638 {
+  /**
+   * First sentence. Second sentence. Third sentence.
+   */
+  public constructor() {
+    return;
+  }
+}
+
+export class Issue2638B {
+  public constructor() {
+    return; // no docs
+  }
+}

@@ -2804,6 +2804,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ISecondLevelStruct.cs
        ┃           ┣━ 📄 ISmellyStruct.cs
        ┃           ┣━ 📄 Isomorphism.cs
+       ┃           ┣━ 📄 Issue2638.cs
+       ┃           ┣━ 📄 Issue2638B.cs
        ┃           ┣━ 📄 IStableInterface.cs
        ┃           ┣━ 📄 IStableStruct.cs
        ┃           ┣━ 📄 IStructA.cs
@@ -10857,6 +10859,78 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             private _Proxy(ByRefValue reference): base(reference)
             {
             }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Issue2638.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Docstrings with period.</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2638
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Issue2638), fullyQualifiedName: "jsii-calc.Issue2638")]
+    public class Issue2638 : DeputyBase
+    {
+        /// <summary>First sentence.</summary>
+        /// <remarks>
+        /// Second sentence. Third sentence.
+        /// </remarks>
+        public Issue2638(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Issue2638B.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Issue2638B), fullyQualifiedName: "jsii-calc.Issue2638B")]
+    public class Issue2638B : DeputyBase
+    {
+        public Issue2638B(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638B(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638B(DeputyProps props): base(props)
+        {
         }
     }
 }

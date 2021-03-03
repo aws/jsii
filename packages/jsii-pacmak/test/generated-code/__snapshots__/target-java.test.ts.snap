@@ -3640,6 +3640,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 IReturnJsii976.java
           ┃                 ┣━ 📄 IReturnsNumber.java
           ┃                 ┣━ 📄 Isomorphism.java
+          ┃                 ┣━ 📄 Issue2638.java
+          ┃                 ┣━ 📄 Issue2638B.java
           ┃                 ┣━ 📄 IStableInterface.java
           ┃                 ┣━ 📄 IStructReturningDelegate.java
           ┃                 ┣━ 📄 IWallClock.java
@@ -13490,6 +13492,70 @@ public abstract class Isomorphism extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Issue2638.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Docstrings with period.
+ * <p>
+ * @see https://github.com/aws/jsii/issues/2638
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Issue2638")
+public class Issue2638 extends software.amazon.jsii.JsiiObject {
+
+    protected Issue2638(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Issue2638(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * First sentence.
+     * <p>
+     * Second sentence. Third sentence.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Issue2638() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Issue2638B.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Issue2638B")
+public class Issue2638B extends software.amazon.jsii.JsiiObject {
+
+    protected Issue2638B(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Issue2638B(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Issue2638B() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/JSII417Derived.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -23182,6 +23248,8 @@ jsii-calc.InterfaceInNamespaceIncludesClasses.Hello=software.amazon.jsii.tests.c
 jsii-calc.InterfaceInNamespaceOnlyInterface.Hello=software.amazon.jsii.tests.calculator.interface_in_namespace_only_interface.Hello
 jsii-calc.InterfacesMaker=software.amazon.jsii.tests.calculator.InterfacesMaker
 jsii-calc.Isomorphism=software.amazon.jsii.tests.calculator.Isomorphism
+jsii-calc.Issue2638=software.amazon.jsii.tests.calculator.Issue2638
+jsii-calc.Issue2638B=software.amazon.jsii.tests.calculator.Issue2638B
 jsii-calc.JSII417Derived=software.amazon.jsii.tests.calculator.JSII417Derived
 jsii-calc.JSII417PublicBaseOfBase=software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase
 jsii-calc.JSObjectLiteralForInterface=software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface

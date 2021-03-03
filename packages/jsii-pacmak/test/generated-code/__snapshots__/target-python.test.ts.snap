@@ -6246,6 +6246,25 @@ class _IsomorphismProxy(Isomorphism):
     pass
 
 
+class Issue2638(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638"):
+    '''Docstrings with period.
+
+    :see: https://github.com/aws/jsii/issues/2638
+    '''
+
+    def __init__(self) -> None:
+        '''First sentence.
+
+        Second sentence. Third sentence.
+        '''
+        jsii.create(Issue2638, self, [])
+
+
+class Issue2638B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638B"):
+    def __init__(self) -> None:
+        jsii.create(Issue2638B, self, [])
+
+
 class JSII417PublicBaseOfBase(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.JSII417PublicBaseOfBase",
@@ -9866,6 +9885,8 @@ __all__ = [
     "InterfaceCollections",
     "InterfacesMaker",
     "Isomorphism",
+    "Issue2638",
+    "Issue2638B",
     "JSII417Derived",
     "JSII417PublicBaseOfBase",
     "JSObjectLiteralForInterface",

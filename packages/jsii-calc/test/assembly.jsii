@@ -7219,6 +7219,54 @@
       ],
       "name": "Isomorphism"
     },
+    "jsii-calc.Issue2638": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2638",
+        "stability": "stable",
+        "summary": "Docstrings with period."
+      },
+      "fqn": "jsii-calc.Issue2638",
+      "initializer": {
+        "docs": {
+          "remarks": "Second sentence. Third sentence.",
+          "stability": "stable",
+          "summary": "First sentence."
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2937
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2933
+      },
+      "name": "Issue2638"
+    },
+    "jsii-calc.Issue2638B": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.Issue2638B",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2943
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2942
+      },
+      "name": "Issue2638B"
+    },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.JSII417PublicBaseOfBase",
@@ -14756,5 +14804,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "GfueSeyZdyEIZp4V4lbddw+TnoCel74KSDMPxp2phmw="
+  "fingerprint": "WnxyYDpN1opFu5dYMKwKeo5wN3IkNe9gnovO0ro7i2U="
 }
