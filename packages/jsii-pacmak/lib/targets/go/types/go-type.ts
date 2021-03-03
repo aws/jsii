@@ -14,9 +14,9 @@ export abstract class GoType {
 
   public constructor(public pkg: Package, public type: Type) {
     this.name = toPascalCase(type.name);
-    // add "_jsiiClass" postfix to private struct name to avoid keyword
+    // add "_jsiiProxy" postfix to private struct name to avoid keyword
     // conflicts such as "default". see https://github.com/aws/jsii/issues/2637
-    this.proxyName = `${toCamelCase(type.name)}_jsiiClass`;
+    this.proxyName = `${toCamelCase(type.name)}_jsiiProxy`;
     this.fqn = type.fqn;
   }
 
