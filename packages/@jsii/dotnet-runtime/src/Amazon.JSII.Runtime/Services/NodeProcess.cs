@@ -23,7 +23,7 @@ namespace Amazon.JSII.Runtime.Services
         private const string JsiiAgent = "JSII_AGENT";
         private const string JsiiAgentVersionString = "DotNet/{0}/{1}/{2}";
 
-        private bool Disposed = false;
+        private bool Disposed;
 
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
