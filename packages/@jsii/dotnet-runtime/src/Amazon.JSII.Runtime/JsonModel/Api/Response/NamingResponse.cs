@@ -18,7 +18,7 @@ namespace Amazon.JSII.JsonModel.Api.Response
         [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
         public class NamingData
         {
-            public NamingData(DotNetNaming dotnet, IDictionary<string, object>? others = null)
+            public NamingData(DotNetNaming dotnet)
             {
                 DotNet = dotnet ?? throw new ArgumentNullException(nameof(dotnet));
             }
