@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
-    public class EnumMemberTests
+    public static class EnumMemberTests
     {
         const string RootPrefix = nameof(JsonModel) + "." + nameof(EnumMember) + ".";
 

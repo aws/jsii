@@ -17,6 +17,10 @@ namespace Amazon.JSII.JsonModel.Converters
 
         public override bool CanConvert(System.Type objectType)
         {
+            if (objectType == null)
+            {
+                throw new ArgumentNullException(nameof(objectType));
+            }
             return objectType.IsAssignableFrom(typeof(EnumType)) || objectType.IsAssignableFrom(typeof(ClassType));
         }
 
