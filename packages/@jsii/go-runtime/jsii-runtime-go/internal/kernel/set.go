@@ -18,7 +18,7 @@ type SetResponse struct {
 	kernelResponse
 }
 
-func (c *client) Set(props SetProps) (response SetResponse, err error) {
+func (c *Client) Set(props SetProps) (response SetResponse, err error) {
 	type request struct {
 		kernelRequest
 		SetProps
@@ -27,7 +27,7 @@ func (c *client) Set(props SetProps) (response SetResponse, err error) {
 	return
 }
 
-func (c *client) SSet(props StaticSetProps) (response SetResponse, err error) {
+func (c *Client) SSet(props StaticSetProps) (response SetResponse, err error) {
 	type request struct {
 		kernelRequest
 		StaticSetProps
@@ -40,5 +40,5 @@ func (c *client) SSet(props StaticSetProps) (response SetResponse, err error) {
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *SetResponse) UnmarshalJSON(data []byte) error {
 	type response SetResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

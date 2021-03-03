@@ -15,7 +15,7 @@ type BeginResponse struct {
 	PromiseID *string `json:"promise_id"`
 }
 
-func (c *client) Begin(props BeginProps) (response BeginResponse, err error) {
+func (c *Client) Begin(props BeginProps) (response BeginResponse, err error) {
 	type request struct {
 		kernelRequest
 		BeginProps

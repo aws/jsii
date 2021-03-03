@@ -19,7 +19,7 @@ type InvokeResponse struct {
 	Result interface{} `json:"result"`
 }
 
-func (c *client) Invoke(props InvokeProps) (response InvokeResponse, err error) {
+func (c *Client) Invoke(props InvokeProps) (response InvokeResponse, err error) {
 	type request struct {
 		kernelRequest
 		InvokeProps
@@ -28,7 +28,7 @@ func (c *client) Invoke(props InvokeProps) (response InvokeResponse, err error) 
 	return
 }
 
-func (c *client) SInvoke(props StaticInvokeProps) (response InvokeResponse, err error) {
+func (c *Client) SInvoke(props StaticInvokeProps) (response InvokeResponse, err error) {
 	type request struct {
 		kernelRequest
 		StaticInvokeProps
@@ -41,5 +41,5 @@ func (c *client) SInvoke(props StaticInvokeProps) (response InvokeResponse, err 
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *InvokeResponse) UnmarshalJSON(data []byte) error {
 	type response InvokeResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }

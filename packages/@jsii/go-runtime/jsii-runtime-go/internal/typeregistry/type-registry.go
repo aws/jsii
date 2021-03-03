@@ -7,7 +7,7 @@ import (
 	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
-// typeRegistry is used to record runtime type information about the loaded
+// TypeRegistry is used to record runtime type information about the loaded
 // modules, which is later used to correctly convert objects received from the
 // JavaScript process into native go values.
 type TypeRegistry struct {
@@ -16,7 +16,7 @@ type TypeRegistry struct {
 	// FQN represents... This will be the second argument of provided to a
 	// register* function.
 	// enums are not included
-	fqnToType map[api.FQN]reflect.Type
+	fqnToType map[api.FQN]registeredType
 
 	// typeToFQN is sued to obtain the jsii fully qualified type name for a
 	// given native go type. Currently only tracks jsii struct types.
@@ -35,17 +35,22 @@ type TypeRegistry struct {
 
 	// map registered interface types to a proxy maker function
 	proxyMakers map[reflect.Type]func() interface{}
+
+	// typeMembers maps each class or interface FQN to the set of members it implements
+	// in the form of api.Override values.
+	typeMembers map[api.FQN][]api.Override
 }
 
-// NewTypeRegistry creates a new type registry.
-func NewTypeRegistry() *TypeRegistry {
+// New creates a new type registry.
+func New() *TypeRegistry {
 	return &TypeRegistry{
-		fqnToType:       make(map[api.FQN]reflect.Type),
+		fqnToType:       make(map[api.FQN]registeredType),
 		typeToFQN:       make(map[reflect.Type]api.FQN),
 		fqnToEnumMember: make(map[string]interface{}),
 		typeToEnumFQN:   make(map[reflect.Type]api.FQN),
 		structFields:    make(map[reflect.Type][]reflect.StructField),
 		proxyMakers:     make(map[reflect.Type]func() interface{}),
+		typeMembers:     make(map[api.FQN][]api.Override),
 	}
 }
 

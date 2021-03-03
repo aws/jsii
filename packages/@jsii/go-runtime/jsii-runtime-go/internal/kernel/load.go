@@ -16,7 +16,7 @@ type LoadResponse struct {
 	Types    float64 `json:"types"`
 }
 
-func (c *client) Load(props LoadProps) (response LoadResponse, err error) {
+func (c *Client) Load(props LoadProps) (response LoadResponse, err error) {
 	type request struct {
 		kernelRequest
 		LoadProps
@@ -29,5 +29,5 @@ func (c *client) Load(props LoadProps) (response LoadResponse, err error) {
 // structs. Creating new types is required in order to avoid infinite recursion.
 func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	type response LoadResponse
-	return unmarshalKernelResponse(data, (*response)(r))
+	return unmarshalKernelResponse(data, (*response)(r), r)
 }
