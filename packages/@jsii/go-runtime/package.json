@@ -8,7 +8,6 @@
     "build": "tsc --build && npm run gen:rt",
     "gen:rt": "node build-tools/gen.js",
     "generate": "npm run gen:rt",
-    "go:all": "node build-tools/all-go.js",
     "go:run": "go mod download && node build-tools/go-run.js",
     "package": "build-tools/package.sh",
     "doc": "(cd jsii-runtime-go && yarn --silent go:run godoc)",
