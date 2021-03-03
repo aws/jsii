@@ -1,5 +1,7 @@
 ﻿using System.IO;
 
+#pragma warning disable CA1724
+
 namespace Amazon.JSII.JsonModel.FileSystem
 {
     public sealed class FileSystem : IFileSystem

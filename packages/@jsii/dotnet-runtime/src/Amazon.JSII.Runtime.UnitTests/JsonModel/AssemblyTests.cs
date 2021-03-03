@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
-    public class AssemblyTests
+    public static class AssemblyTests
     {
         const string RootPrefix = nameof(JsonModel) + "." + nameof(Assembly) + ".";
 
@@ -113,7 +113,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
                     version: "",
                     license: "",
@@ -140,7 +140,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
 #pragma warning disable CS8625
                     version: null,
@@ -169,7 +169,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
                     version: "",
                     license: "",
@@ -229,7 +229,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
                     version: "",
                     license: "",
@@ -289,7 +289,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
+                    author: new Person(name: "", roles: Array.Empty<string>()),
                     fingerprint: "",
                     version: "",
                     license: "",

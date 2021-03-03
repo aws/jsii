@@ -9,7 +9,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
             DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
-        protected string ToJson(object obj)
+        protected static string ToJson(object obj)
         {
             return JsonConvert.SerializeObject(obj, Formatting.Indented, SerializerSettings);
         }
