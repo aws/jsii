@@ -2688,6 +2688,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ConsumerCanRingBell.cs
        ┃           ┣━ 📄 ConsumersOfThisCrazyTypeSystem.cs
        ┃           ┣━ 📄 DataRenderer.cs
+       ┃           ┣━ 📄 Default.cs
        ┃           ┣━ 📄 DefaultedConstructorArgument.cs
        ┃           ┣━ 📄 Demonstrate982.cs
        ┃           ┣━ 📄 DeprecatedClass.cs
@@ -2804,12 +2805,15 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ISecondLevelStruct.cs
        ┃           ┣━ 📄 ISmellyStruct.cs
        ┃           ┣━ 📄 Isomorphism.cs
+       ┃           ┣━ 📄 Issue2638.cs
+       ┃           ┣━ 📄 Issue2638B.cs
        ┃           ┣━ 📄 IStableInterface.cs
        ┃           ┣━ 📄 IStableStruct.cs
        ┃           ┣━ 📄 IStructA.cs
        ┃           ┣━ 📄 IStructB.cs
        ┃           ┣━ 📄 IStructParameterType.cs
        ┃           ┣━ 📄 IStructReturningDelegate.cs
+       ┃           ┣━ 📄 IStructWithEnum.cs
        ┃           ┣━ 📄 IStructWithJavaReservedWords.cs
        ┃           ┣━ 📄 ISupportsNiceJavaBuilderProps.cs
        ┃           ┣━ 📄 ITopLevelStruct.cs
@@ -2894,6 +2898,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 StructParameterType.cs
        ┃           ┣━ 📄 StructPassing.cs
        ┃           ┣━ 📄 StructUnionConsumer.cs
+       ┃           ┣━ 📄 StructWithEnum.cs
        ┃           ┣━ 📄 StructWithJavaReservedWords.cs
        ┃           ┣━ 📁 Submodule
        ┃           ┃  ┣━ 📁 BackReferences
@@ -2911,6 +2916,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┃  ┣━ 📄 SomeEnum.cs
        ┃           ┃  ┃  ┣━ 📄 SomeStruct.cs
        ┃           ┃  ┃  ┗━ 📄 Structure.cs
+       ┃           ┃  ┣━ 📄 Default.cs
+       ┃           ┃  ┣━ 📄 IDefault.cs
        ┃           ┃  ┣━ 📁 Isolated
        ┃           ┃  ┃  ┗━ 📄 Kwargs.cs
        ┃           ┃  ┣━ 📄 MyClass.cs
@@ -2928,6 +2935,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 SupportsNiceJavaBuilderProps.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilderWithRequiredProps.cs
        ┃           ┣━ 📄 SyncVirtualMethods.cs
+       ┃           ┣━ 📄 TestStructWithEnum.cs
        ┃           ┣━ 📄 Thrower.cs
        ┃           ┣━ 📄 TopLevelStruct.cs
        ┃           ┣━ 📄 UmaskCheck.cs
@@ -5105,6 +5113,48 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual string RenderMap(System.Collections.Generic.IDictionary<string, object> map)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{map})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Default.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>A class named "Default".</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2637
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Default), fullyQualifiedName: "jsii-calc.Default")]
+    public class Default : DeputyBase
+    {
+        public Default(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Default(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Default(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "pleaseCompile")]
+        public virtual void PleaseCompile()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
     }
 }
@@ -9919,6 +9969,67 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IStructWithEnum.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IStructWithEnum), fullyQualifiedName: "jsii-calc.StructWithEnum")]
+    public interface IStructWithEnum
+    {
+        /// <summary>An enum value.</summary>
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}")]
+        Amazon.JSII.Tests.CalculatorNamespace.StringEnum Foo
+        {
+            get;
+        }
+
+        /// <summary>Optional enum value (of type integer).</summary>
+        /// <remarks>
+        /// <strong>Default</strong>: AllTypesEnum.YOUR_ENUM_VALUE
+        /// </remarks>
+        [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum? Bar
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IStructWithEnum), fullyQualifiedName: "jsii-calc.StructWithEnum")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>An enum value.</summary>
+            [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}")]
+            public Amazon.JSII.Tests.CalculatorNamespace.StringEnum Foo
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>()!;
+            }
+
+            /// <summary>Optional enum value (of type integer).</summary>
+            /// <remarks>
+            /// <strong>Default</strong>: AllTypesEnum.YOUR_ENUM_VALUE
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true)]
+            public Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum? Bar
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum?>();
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IStructWithJavaReservedWords.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -10793,6 +10904,78 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             private _Proxy(ByRefValue reference): base(reference)
             {
             }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Issue2638.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Docstrings with period.</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2638
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Issue2638), fullyQualifiedName: "jsii-calc.Issue2638")]
+    public class Issue2638 : DeputyBase
+    {
+        /// <summary>First sentence.</summary>
+        /// <remarks>
+        /// Second sentence. Third sentence.
+        /// </remarks>
+        public Issue2638(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Issue2638B.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Issue2638B), fullyQualifiedName: "jsii-calc.Issue2638B")]
+    public class Issue2638B : DeputyBase
+    {
+        public Issue2638B(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638B(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Issue2638B(DeputyProps props): base(props)
+        {
         }
     }
 }
@@ -14559,6 +14742,42 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithEnum.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.StructWithEnum")]
+    public class StructWithEnum : Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum
+    {
+        /// <summary>An enum value.</summary>
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}", isOverride: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.StringEnum Foo
+        {
+            get;
+            set;
+        }
+
+        /// <summary>Optional enum value (of type integer).</summary>
+        /// <remarks>
+        /// <strong>Default</strong>: AllTypesEnum.YOUR_ENUM_VALUE
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true, isOverride: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum? Bar
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithJavaReservedWords.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -14988,6 +15207,75 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Default.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
+{
+    #pragma warning disable CS8618
+
+    /// <summary>A struct named "Default".</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2637
+    /// </remarks>
+    [JsiiByValue(fqn: "jsii-calc.submodule.Default")]
+    public class Default : Amazon.JSII.Tests.CalculatorNamespace.Submodule.IDefault
+    {
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        public double Foo
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/IDefault.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
+{
+    /// <summary>A struct named "Default".</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2637
+    /// </remarks>
+    [JsiiInterface(nativeType: typeof(IDefault), fullyQualifiedName: "jsii-calc.submodule.Default")]
+    public interface IDefault
+    {
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        double Foo
+        {
+            get;
+        }
+
+        /// <summary>A struct named "Default".</summary>
+        /// <remarks>
+        /// <strong>See</strong>: https://github.com/aws/jsii/issues/2637
+        /// </remarks>
+        [JsiiTypeProxy(nativeType: typeof(IDefault), fullyQualifiedName: "jsii-calc.submodule.Default")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.IDefault
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+            public double Foo
+            {
+                get => GetInstanceProperty<double>()!;
+            }
         }
     }
 }
@@ -15600,6 +15888,66 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<string>()!;
             set => SetInstanceProperty(value);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TestStructWithEnum.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.TestStructWithEnum), fullyQualifiedName: "jsii-calc.TestStructWithEnum")]
+    public class TestStructWithEnum : DeputyBase
+    {
+        public TestStructWithEnum(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TestStructWithEnum(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TestStructWithEnum(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Returns true if \`foo\` is \`StringEnum.A\`.</summary>
+        [JsiiMethod(name: "isStringEnumA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}}]")]
+        public virtual bool IsStringEnumA(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum input)
+        {
+            return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum)}, new object[]{input})!;
+        }
+
+        /// <summary>Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.</summary>
+        [JsiiMethod(name: "isStringEnumB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}}]")]
+        public virtual bool IsStringEnumB(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum input)
+        {
+            return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum)}, new object[]{input})!;
+        }
+
+        /// <summary>Returns \`foo: StringEnum.A\`.</summary>
+        [JsiiProperty(name: "structWithFoo", typeJson: "{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum StructWithFoo
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum>()!;
+        }
+
+        /// <summary>Returns \`foo: StringEnum.C\` and \`bar: AllTypesEnum.MY_ENUM_VALUE\`.</summary>
+        [JsiiProperty(name: "structWithFooBar", typeJson: "{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum StructWithFooBar
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum>()!;
         }
     }
 }

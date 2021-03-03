@@ -2872,3 +2872,86 @@ export class StaticHelloChild extends StaticHelloParent {
     super();
   }
 }
+
+// --------------------------------------------------
+// enums within structs
+
+export interface StructWithEnum {
+  /**
+   * An enum value
+   */
+  readonly foo: StringEnum;
+
+  /**
+   * Optional enum value (of type integer)
+   * @default AllTypesEnum.YOUR_ENUM_VALUE
+   */
+  readonly bar?: AllTypesEnum;
+}
+
+export class TestStructWithEnum {
+  /**
+   * Returns true if `foo` is `StringEnum.A`.
+   */
+  public isStringEnumA(input: StructWithEnum) {
+    return input.foo === StringEnum.A && !input.bar;
+  }
+
+  /**
+   * Returns true if `foo` is `StringEnum.B` and `bar` is `AllTypesEnum.THIS_IS_GREAT`.
+   */
+  public isStringEnumB(input: StructWithEnum) {
+    return (
+      input.foo === StringEnum.B && input.bar === AllTypesEnum.THIS_IS_GREAT
+    );
+  }
+
+  /**
+   * Returns `foo: StringEnum.C` and `bar: AllTypesEnum.MY_ENUM_VALUE`.
+   */
+  public get structWithFooBar(): StructWithEnum {
+    return {
+      foo: StringEnum.C,
+      bar: AllTypesEnum.MY_ENUM_VALUE,
+    };
+  }
+
+  /**
+   * Returns `foo: StringEnum.A`.
+   */
+  public get structWithFoo(): StructWithEnum {
+    return {
+      foo: StringEnum.A,
+    };
+  }
+}
+
+/**
+ * Docstrings with period
+ * @see https://github.com/aws/jsii/issues/2638
+ */
+export class Issue2638 {
+  /**
+   * First sentence. Second sentence. Third sentence.
+   */
+  public constructor() {
+    return;
+  }
+}
+
+export class Issue2638B {
+  public constructor() {
+    return; // no docs
+  }
+}
+
+/**
+ * A class named "Default"
+ *
+ * @see https://github.com/aws/jsii/issues/2637
+ */
+export class Default {
+  public pleaseCompile() {
+    return;
+  }
+}

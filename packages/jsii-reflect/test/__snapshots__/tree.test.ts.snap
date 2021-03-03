@@ -323,32 +323,38 @@ exports[`showAll 1`] = `
  │ │   │         └─┬ returnsSpecialParam() method
  │ │   │           └── returns: jsii-calc.submodule.param.SpecialParameter
  │ │   └─┬ types
- │ │     └─┬ class MyClass
- │ │       ├── interfaces: INamespaced
+ │ │     ├─┬ class MyClass
+ │ │     │ ├── interfaces: INamespaced
+ │ │     │ └─┬ members
+ │ │     │   ├─┬ <initializer>(props) initializer
+ │ │     │   │ └─┬ parameters
+ │ │     │   │   └─┬ props
+ │ │     │   │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   ├─┬ methodWithSpecialParam(param) method
+ │ │     │   │ ├─┬ parameters
+ │ │     │   │ │ └─┬ param
+ │ │     │   │ │   └── type: jsii-calc.submodule.param.SpecialParameter
+ │ │     │   │ └── returns: string
+ │ │     │   ├─┬ awesomeness property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Awesomeness
+ │ │     │   ├─┬ definedAt property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: string
+ │ │     │   ├─┬ goodness property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Goodness
+ │ │     │   ├─┬ props property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   └─┬ allTypes property
+ │ │     │     └── type: Optional<jsii-calc.AllTypes>
+ │ │     └─┬ interface Default
  │ │       └─┬ members
- │ │         ├─┬ <initializer>(props) initializer
- │ │         │ └─┬ parameters
- │ │         │   └─┬ props
- │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
- │ │         ├─┬ methodWithSpecialParam(param) method
- │ │         │ ├─┬ parameters
- │ │         │ │ └─┬ param
- │ │         │ │   └── type: jsii-calc.submodule.param.SpecialParameter
- │ │         │ └── returns: string
- │ │         ├─┬ awesomeness property
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
- │ │         ├─┬ definedAt property
- │ │         │ ├── immutable
- │ │         │ └── type: string
- │ │         ├─┬ goodness property
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Goodness
- │ │         ├─┬ props property
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.SomeStruct
- │ │         └─┬ allTypes property
- │ │           └── type: Optional<jsii-calc.AllTypes>
+ │ │         └─┬ foo property
+ │ │           ├── abstract
+ │ │           ├── immutable
+ │ │           └── type: number
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -841,6 +847,11 @@ exports[`showAll 1`] = `
  │   │     │ └─┬ map
  │   │     │   └── type: Map<string => any>
  │   │     └── returns: string
+ │   ├─┬ class Default
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ pleaseCompile() method
+ │   │     └── returns: void
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer
@@ -1142,6 +1153,12 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ myself() method
  │   │     └── returns: jsii-calc.Isomorphism
+ │   ├─┬ class Issue2638
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
+ │   ├─┬ class Issue2638B
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JSII417Derived
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
@@ -1981,6 +1998,25 @@ exports[`showAll 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ valueOfOtherProperty property
  │   │     └── type: string
+ │   ├─┬ class TestStructWithEnum
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ isStringEnumA(input) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ isStringEnumB(input) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ structWithFoo property
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructWithEnum
+ │   │   └─┬ structWithFooBar property
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.StructWithEnum
  │   ├─┬ class Thrower
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2668,6 +2704,16 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface StructWithEnum
+ │   │ └─┬ members
+ │   │   ├─┬ foo property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StringEnum
+ │   │   └─┬ bar property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.AllTypesEnum>
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├─┬ default property
@@ -3057,7 +3103,8 @@ exports[`types 1`] = `
  │ │   │   └─┬ types
  │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
- │ │     └── class MyClass
+ │ │     ├── class MyClass
+ │ │     └── interface Default
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
@@ -3089,6 +3136,7 @@ exports[`types 1`] = `
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
+ │   ├── class Default
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
@@ -3117,6 +3165,8 @@ exports[`types 1`] = `
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
  │   ├── class Isomorphism
+ │   ├── class Issue2638
+ │   ├── class Issue2638B
  │   ├── class JSII417Derived
  │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface
@@ -3169,6 +3219,7 @@ exports[`types 1`] = `
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
+ │   ├── class TestStructWithEnum
  │   ├── class Thrower
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
@@ -3249,6 +3300,7 @@ exports[`types 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct

@@ -49,6 +49,30 @@ updates:
       - dependencies
       - language/python
 
+  - package-ecosystem: gomod
+    directory: '/packages/@jsii/go-runtime'
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - language/go
+    ignore:
+      - dependency-name: github.com/aws/jsii-runtime-go
+      - dependency-name: github.com/aws/jsii-runtime-go/*
+      - dependency-name: github.com/aws/jsii/jsii-calc/go/*
+
+  - package-ecosystem: gomod
+    directory: '/packages/@jsii/go-runtime/jsii-runtime-go'
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - language/go
+    ignore:
+      - dependency-name: github.com/aws/jsii-runtime-go
+      - dependency-name: github.com/aws/jsii-runtime-go/*
+      - dependency-name: github.com/aws/jsii/jsii-calc/go/*
+
   - package-ecosystem: github-actions
     directory: '/'
     schedule:

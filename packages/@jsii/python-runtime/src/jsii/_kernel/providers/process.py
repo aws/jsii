@@ -102,10 +102,6 @@ class _CompleteRequest:
 
 
 _ProcessResponse = Union[_OkayResponse, _ErrorRespose, _CallbackResponse]
-# Workaround for mypy#5354
-_ProcessResponse_R: Type[Any]
-if not TYPE_CHECKING:
-    _ProcessResponse_R = _ProcessResponse
 
 
 def _with_api_key(api_name, asdict):
@@ -319,7 +315,7 @@ class _NodeProcess:
         self._process.stdin.flush()
 
         resp: _ProcessResponse = self._serializer.structure(
-            self._next_message(), _ProcessResponse_R
+            self._next_message(), _ProcessResponse
         )
 
         if isinstance(resp, _OkayResponse):

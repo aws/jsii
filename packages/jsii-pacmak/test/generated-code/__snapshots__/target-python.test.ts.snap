@@ -3659,6 +3659,20 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         return typing.cast(builtins.str, jsii.invoke(self, "renderMap", [map]))
 
 
+class Default(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Default"):
+    '''A class named "Default".
+
+    :see: https://github.com/aws/jsii/issues/2637
+    '''
+
+    def __init__(self) -> None:
+        jsii.create(Default, self, [])
+
+    @jsii.member(jsii_name="pleaseCompile")
+    def please_compile(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "pleaseCompile", []))
+
+
 class DefaultedConstructorArgument(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.DefaultedConstructorArgument",
@@ -6246,6 +6260,25 @@ class _IsomorphismProxy(Isomorphism):
     pass
 
 
+class Issue2638(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638"):
+    '''Docstrings with period.
+
+    :see: https://github.com/aws/jsii/issues/2638
+    '''
+
+    def __init__(self) -> None:
+        '''First sentence.
+
+        Second sentence. Third sentence.
+        '''
+        jsii.create(Issue2638, self, [])
+
+
+class Issue2638B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638B"):
+    def __init__(self) -> None:
+        jsii.create(Issue2638B, self, [])
+
+
 class JSII417PublicBaseOfBase(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.JSII417PublicBaseOfBase",
@@ -8476,6 +8509,56 @@ class StructUnionConsumer(
 
 
 @jsii.data_type(
+    jsii_type="jsii-calc.StructWithEnum",
+    jsii_struct_bases=[],
+    name_mapping={"foo": "foo", "bar": "bar"},
+)
+class StructWithEnum:
+    def __init__(
+        self,
+        *,
+        foo: StringEnum,
+        bar: typing.Optional[AllTypesEnum] = None,
+    ) -> None:
+        '''
+        :param foo: An enum value.
+        :param bar: Optional enum value (of type integer). Default: AllTypesEnum.YOUR_ENUM_VALUE
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "foo": foo,
+        }
+        if bar is not None:
+            self._values["bar"] = bar
+
+    @builtins.property
+    def foo(self) -> StringEnum:
+        '''An enum value.'''
+        result = self._values.get("foo")
+        assert result is not None, "Required property 'foo' is missing"
+        return typing.cast(StringEnum, result)
+
+    @builtins.property
+    def bar(self) -> typing.Optional[AllTypesEnum]:
+        '''Optional enum value (of type integer).
+
+        :default: AllTypesEnum.YOUR_ENUM_VALUE
+        '''
+        result = self._values.get("bar")
+        return typing.cast(typing.Optional[AllTypesEnum], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "StructWithEnum(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
     jsii_type="jsii-calc.StructWithJavaReservedWords",
     jsii_struct_bases=[],
     name_mapping={
@@ -8770,6 +8853,58 @@ class SyncVirtualMethods(
     @value_of_other_property.setter
     def value_of_other_property(self, value: builtins.str) -> None:
         jsii.set(self, "valueOfOtherProperty", value)
+
+
+class TestStructWithEnum(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.TestStructWithEnum",
+):
+    def __init__(self) -> None:
+        jsii.create(TestStructWithEnum, self, [])
+
+    @jsii.member(jsii_name="isStringEnumA")
+    def is_string_enum_a(
+        self,
+        *,
+        foo: StringEnum,
+        bar: typing.Optional[AllTypesEnum] = None,
+    ) -> builtins.bool:
+        '''Returns true if \`\`foo\`\` is \`\`StringEnum.A\`\`.
+
+        :param foo: An enum value.
+        :param bar: Optional enum value (of type integer). Default: AllTypesEnum.YOUR_ENUM_VALUE
+        '''
+        input = StructWithEnum(foo=foo, bar=bar)
+
+        return typing.cast(builtins.bool, jsii.invoke(self, "isStringEnumA", [input]))
+
+    @jsii.member(jsii_name="isStringEnumB")
+    def is_string_enum_b(
+        self,
+        *,
+        foo: StringEnum,
+        bar: typing.Optional[AllTypesEnum] = None,
+    ) -> builtins.bool:
+        '''Returns true if \`\`foo\`\` is \`\`StringEnum.B\`\` and \`\`bar\`\` is \`\`AllTypesEnum.THIS_IS_GREAT\`\`.
+
+        :param foo: An enum value.
+        :param bar: Optional enum value (of type integer). Default: AllTypesEnum.YOUR_ENUM_VALUE
+        '''
+        input = StructWithEnum(foo=foo, bar=bar)
+
+        return typing.cast(builtins.bool, jsii.invoke(self, "isStringEnumB", [input]))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="structWithFoo")
+    def struct_with_foo(self) -> StructWithEnum:
+        '''Returns \`\`foo: StringEnum.A\`\`.'''
+        return typing.cast(StructWithEnum, jsii.get(self, "structWithFoo"))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="structWithFooBar")
+    def struct_with_foo_bar(self) -> StructWithEnum:
+        '''Returns \`\`foo: StringEnum.C\`\` and \`\`bar: AllTypesEnum.MY_ENUM_VALUE\`\`.'''
+        return typing.cast(StructWithEnum, jsii.get(self, "structWithFooBar"))
 
 
 class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
@@ -9683,6 +9818,7 @@ __all__ = [
     "ConsumerCanRingBell",
     "ConsumersOfThisCrazyTypeSystem",
     "DataRenderer",
+    "Default",
     "DefaultedConstructorArgument",
     "Demonstrate982",
     "DeprecatedClass",
@@ -9764,6 +9900,8 @@ __all__ = [
     "InterfaceCollections",
     "InterfacesMaker",
     "Isomorphism",
+    "Issue2638",
+    "Issue2638B",
     "JSII417Derived",
     "JSII417PublicBaseOfBase",
     "JSObjectLiteralForInterface",
@@ -9829,12 +9967,14 @@ __all__ = [
     "StructParameterType",
     "StructPassing",
     "StructUnionConsumer",
+    "StructWithEnum",
     "StructWithJavaReservedWords",
     "Sum",
     "SupportsNiceJavaBuilder",
     "SupportsNiceJavaBuilderProps",
     "SupportsNiceJavaBuilderWithRequiredProps",
     "SyncVirtualMethods",
+    "TestStructWithEnum",
     "Thrower",
     "TopLevelStruct",
     "UmaskCheck",
@@ -10459,6 +10599,41 @@ from .nested_submodule.deeply_nested import INamespaced as _INamespaced_e2f386ad
 from .param import SpecialParameter as _SpecialParameter_5bbf34a2
 
 
+@jsii.data_type(
+    jsii_type="jsii-calc.submodule.Default",
+    jsii_struct_bases=[],
+    name_mapping={"foo": "foo"},
+)
+class Default:
+    def __init__(self, *, foo: jsii.Number) -> None:
+        '''A struct named "Default".
+
+        :param foo: 
+
+        :see: https://github.com/aws/jsii/issues/2637
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "foo": foo,
+        }
+
+    @builtins.property
+    def foo(self) -> jsii.Number:
+        result = self._values.get("foo")
+        assert result is not None, "Required property 'foo' is missing"
+        return typing.cast(jsii.Number, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Default(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
 @jsii.implements(_INamespaced_e2f386ad)
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     def __init__(self, *, prop: _SomeEnum_b2e41d92) -> None:
@@ -10509,6 +10684,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 
 
 __all__ = [
+    "Default",
     "MyClass",
 ]
 
