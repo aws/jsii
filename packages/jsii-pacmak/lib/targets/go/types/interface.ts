@@ -201,7 +201,7 @@ class InterfaceProperty extends GoProperty {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedName(this.parent.pkg) ??
+      this.reference?.scopedReference(this.parent.pkg) ??
       this.property.type.toString()
     );
   }

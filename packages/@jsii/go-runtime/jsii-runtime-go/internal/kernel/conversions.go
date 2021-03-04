@@ -26,7 +26,15 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		// reflect.Value. In such cases, we must craft the correctly-typed zero
 		// value ourselves.
 		data = reflect.Zero(ptr.Type())
-	} else if data.Kind() == reflect.Interface && !data.IsNil() {
+	} else if ptr.Kind() == reflect.Ptr {
+                // if ptr is a Pointer type and data is valid, initialize a non-nil pointer
+                // type. Otherwise inner value is not-settable upon recursion. See third
+                // law of reflection.
+                // https://blog.golang.org/laws-of-reflection
+                ptr.Set(reflect.New(ptr.Type().Elem()))
+                c.castAndSetToPtr(ptr.Elem(), data)
+                return
+        } else if data.Kind() == reflect.Interface && !data.IsNil() {
 		// If data is a non-nil interface, unwrap it to get it's dynamic value
 		// type sorted out, so that further calls in this method don't have to
 		// worry about this edge-case when reasoning on kinds.

@@ -72,6 +72,11 @@ export class GoTypeRef {
     return this.type?.name;
   }
 
+  public get datatype() {
+    const reflectType = this.type?.type;
+    return reflectType?.isInterfaceType() && reflectType?.datatype;
+  }
+
   public get namespace() {
     return this.type?.namespace;
   }
@@ -131,15 +136,18 @@ export class GoTypeRef {
     asRef = false,
   ): string {
     if (typeMap.type === 'primitive') {
-      return typeMap.value;
+      const { value } = typeMap;
+      const prefix = asRef && value !== 'interface{}' ? '*' : '';
+      return `${prefix}${value}`;
     } else if (typeMap.type === 'array' || typeMap.type === 'map') {
-      const prefix = typeMap.type === 'array' ? '[]' : 'map[string]';
+      const prefix = asRef ? '*' : '';
+      const wrapper = typeMap.type === 'array' ? '[]' : 'map[string]';
       const innerName =
         this.scopedTypeName(typeMap.value.typeMap, scope, asRef) ??
         'interface{}';
-      return `${prefix}${innerName}`;
+      return `${prefix}${wrapper}${innerName}`;
     } else if (typeMap.type === 'interface') {
-      const prefix = asRef ? '*' : '';
+      const prefix = asRef && typeMap.value.datatype ? '*' : '';
       const baseName = typeMap.value.name;
       // type is defined in the same scope as the current one, no namespace required
       if (scope.packageName === typeMap.value.namespace && baseName) {

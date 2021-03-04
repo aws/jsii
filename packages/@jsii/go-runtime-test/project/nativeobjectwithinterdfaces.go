@@ -26,7 +26,6 @@ func (p *pureNativeFriendlyRandom) Hello() string {
 	return "I am a native!"
 }
 
-
 /*
    class SubclassNativeFriendlyRandom extends Number implements IFriendly, IRandomNumberGenerator {
 
@@ -57,4 +56,3 @@ type subclassNativeFriendlyRandom struct {
 	scopejsiicalclib.IFriendly
 	calc.IRandomNumberGenerator
 }
-
