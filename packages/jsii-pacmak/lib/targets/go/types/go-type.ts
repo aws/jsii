@@ -1,4 +1,4 @@
-import { CodeMaker, toCamelCase, toPascalCase } from 'codemaker';
+import { CodeMaker, toPascalCase } from 'codemaker';
 import { Type } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
@@ -14,9 +14,20 @@ export abstract class GoType {
 
   public constructor(public pkg: Package, public type: Type) {
     this.name = toPascalCase(type.name);
-    // add "_jsiiProxy" postfix to private struct name to avoid keyword
-    // conflicts such as "default". see https://github.com/aws/jsii/issues/2637
-    this.proxyName = `${toCamelCase(type.name)}_jsiiProxy`;
+
+    // Prefix witht he nesting parent name(s), using an _ delimiter.
+    for (
+      let parent = type.nestingParent;
+      parent != null;
+      parent = parent.nestingParent
+    ) {
+      this.name = `${toPascalCase(parent.name)}_${this.name}`;
+    }
+
+    // Add "jsiiProxy_" prefix to private struct name to avoid keyword conflicts
+    // such as "default". See https://github.com/aws/jsii/issues/2637
+    this.proxyName = `jsiiProxy_${this.name}`;
+
     this.fqn = type.fqn;
   }
 
