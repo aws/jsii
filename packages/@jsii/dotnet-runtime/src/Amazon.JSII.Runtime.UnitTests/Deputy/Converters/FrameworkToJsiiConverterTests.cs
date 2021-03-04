@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json.Converters;
 using Xunit;
@@ -122,7 +123,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 var expected = new JObject
                 {
-                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"))
+                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz", CultureInfo.InvariantCulture))
                 };
 
                 Assert.Equal(expected, actual);
@@ -144,7 +145,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 Assert.IsType<JObject>(actual);
                 var expected = new JObject
                 {
-                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"))
+                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz", CultureInfo.InvariantCulture))
                 };
                 Assert.Equal(expected, actual);
 
@@ -652,7 +653,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 var expected = new JObject
                 {
-                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"))
+                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz", CultureInfo.InvariantCulture))
                 };
                 Assert.Equal(expected, actual);
             }

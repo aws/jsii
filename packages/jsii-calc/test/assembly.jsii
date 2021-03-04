@@ -3373,6 +3373,38 @@
       ],
       "name": "DataRenderer"
     },
+    "jsii-calc.Default": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2637",
+        "stability": "stable",
+        "summary": "A class named \"Default\"."
+      },
+      "fqn": "jsii-calc.Default",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2953
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2954
+          },
+          "name": "pleaseCompile"
+        }
+      ],
+      "name": "Default"
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "docs": {
@@ -7218,6 +7250,54 @@
         }
       ],
       "name": "Isomorphism"
+    },
+    "jsii-calc.Issue2638": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2638",
+        "stability": "stable",
+        "summary": "Docstrings with period."
+      },
+      "fqn": "jsii-calc.Issue2638",
+      "initializer": {
+        "docs": {
+          "remarks": "Second sentence. Third sentence.",
+          "stability": "stable",
+          "summary": "First sentence."
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2937
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2933
+      },
+      "name": "Issue2638"
+    },
+    "jsii-calc.Issue2638B": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.Issue2638B",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2943
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2942
+      },
+      "name": "Issue2638B"
     },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
@@ -14139,6 +14219,40 @@
       "name": "OnlyStaticMethods",
       "namespace": "onlystatic"
     },
+    "jsii-calc.submodule.Default": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2637",
+        "stability": "stable",
+        "summary": "A struct named \"Default\"."
+      },
+      "fqn": "jsii-calc.submodule.Default",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/issue2637.ts",
+        "line": 6
+      },
+      "name": "Default",
+      "namespace": "submodule",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/issue2637.ts",
+            "line": 7
+          },
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.submodule.MyClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14756,5 +14870,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "GfueSeyZdyEIZp4V4lbddw+TnoCel74KSDMPxp2phmw="
+  "fingerprint": "rH6rK3iHNatb4ojll7sd8rvJ4k/89Kybg89FRd96Hno="
 }

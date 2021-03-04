@@ -22,9 +22,10 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy
                 .BuildServiceProvider();
         }
 
-        void IDisposable.Dispose()
+        public void Dispose()
         {
             ServiceContainer.ServiceProviderOverride = null;
+            _serviceProvider.Dispose();
         }
 
         [Fact(DisplayName = Prefix + nameof(CanCastToAnyInterface))]

@@ -134,24 +134,28 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
 
             var projectId = ProjectId.CreateNewId(debugName: TestProjectName);
 
-            var solution = new AdhocWorkspace()
+            using var workspace = new AdhocWorkspace();
+            var solution = workspace
                 .CurrentSolution
                 .AddProject(projectId, TestProjectName, TestProjectName, language)
                 .AddMetadataReference(projectId, CorlibReference)
                 .AddMetadataReference(projectId, SystemCoreReference)
                 .AddMetadataReference(projectId, CSharpSymbolsReference)
                 .AddMetadataReference(projectId, CodeAnalysisReference);
-
-            int count = 0;
-            foreach (var source in sources)
             {
-                var newFileName = fileNamePrefix + count + "." + fileExt;
-                var documentId = DocumentId.CreateNewId(projectId, debugName: newFileName);
-                solution = solution.AddDocument(documentId, newFileName, SourceText.From(source));
-                count++;
+                int count = 0;
+                foreach (var source in sources)
+                {
+                    var newFileName = fileNamePrefix + count + "." + fileExt;
+                    var documentId = DocumentId.CreateNewId(projectId, debugName: newFileName);
+                    solution = solution.AddDocument(documentId, newFileName, SourceText.From(source));
+                    count++;
+                }
+
+                return solution.GetProject(projectId)!;
             }
-            return solution.GetProject(projectId)!;
         }
+
         #endregion
     }
 }
