@@ -6,6 +6,7 @@ import (
 	"os"
 	"reflect"
 	"regexp"
+	"strings"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
 	"github.com/aws/jsii-runtime-go/internal/kernel"
@@ -126,8 +127,10 @@ func InitJsiiProxy(ptr interface{}) {
 
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
-func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []Member, inst interface{}) {
+func Create(fqn FQN, args []interface{}, inst interface{}) {
 	client := kernel.GetClient()
+
+	var overrides []api.Override
 
 	instVal := reflect.ValueOf(inst)
 	structVal := instVal.Elem()
@@ -148,6 +151,20 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []M
 				panic(err)
 			}
 
+			if tag := field.Tag.Get("overrides"); tag != "" {
+				if names := strings.Split(tag, ","); len(names) > 0 {
+					overrides = make([]api.Override, len(names))
+					registry := client.Types()
+					for i, name := range names {
+						if override, ok := registry.GetOverride(api.FQN(fqn), name); !ok {
+							panic(fmt.Errorf("unable to identify method or property for override %s declared by %v", name, field))
+						} else {
+							overrides[i] = override
+						}
+					}
+				}
+			}
+
 		case reflect.Struct:
 			fieldVal := structVal.Field(i)
 			if !fieldVal.IsZero() {
@@ -159,19 +176,13 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []M
 		}
 	}
 
-	interfaceFQNs := make([]api.FQN, len(interfaces))
-	for i, iface := range interfaces {
-		interfaceFQNs[i] = api.FQN(iface)
-	}
-	overrides := make([]api.Override, len(overriddenMembers))
-	for i, member := range overriddenMembers {
-		overrides[i] = member.toOverride()
-	}
+	interfaces, newOverrides := client.Types().DiscoverImplementation(instType)
+	overrides = append(overrides, newOverrides...)
 
 	res, err := client.Create(kernel.CreateProps{
 		FQN:        api.FQN(fqn),
 		Arguments:  convertArguments(args),
-		Interfaces: interfaceFQNs,
+		Interfaces: interfaces,
 		Overrides:  overrides,
 	})
 

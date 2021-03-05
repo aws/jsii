@@ -291,20 +291,14 @@ type base_jsiiProxy struct {
 	_ byte // padding
 }
 
-func NewBase() Base {
+func NewBase_Override(b Base) {
 	_init_.Initialize()
-
-	b := base_jsiiProxy{}
 
 	_jsii_.Create(
 		"@scope/jsii-calc-base.Base",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&b,
+		b,
 	)
-
-	return &b
 }
 
 // Returns: the name of the class (to verify native type names are created for derived classes).
@@ -368,12 +362,20 @@ func NewStaticConsumer() StaticConsumer {
 	_jsii_.Create(
 		"@scope/jsii-calc-base.StaticConsumer",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewStaticConsumer_Override(s StaticConsumer) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-base.StaticConsumer",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func StaticConsumer_Consume(args interface{}) {
@@ -771,12 +773,21 @@ func NewVery() Very {
 	_jsii_.Create(
 		"@scope/jsii-calc-base-of-base.Very",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&v,
 	)
 
 	return &v
+}
+
+// Experimental.
+func NewVery_Override(v Very) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-base-of-base.Very",
+		nil /* no parameters */,
+		v,
+	)
 }
 
 // Experimental.
@@ -1299,12 +1310,22 @@ func NewNumber(value float64) Number {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.Number",
 		[]interface{}{value},
-		[]_jsii_.FQN{"@scope/jsii-calc-lib.IDoublable"},
-		nil, // no overrides
 		&n,
 	)
 
 	return &n
+}
+
+// Creates a Number object.
+// Deprecated.
+func NewNumber_Override(n Number, value float64) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.Number",
+		[]interface{}{value},
+		n,
+	)
 }
 
 // String representation of the value.
@@ -1362,20 +1383,14 @@ func (n *numericValue_jsiiProxy) Value() float64 {
 
 
 // Deprecated.
-func NewNumericValue() NumericValue {
+func NewNumericValue_Override(n NumericValue) {
 	_init_.Initialize()
-
-	n := numericValue_jsiiProxy{}
 
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.NumericValue",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&n,
+		n,
 	)
-
-	return &n
 }
 
 // String representation of the value.
@@ -1406,20 +1421,14 @@ type operation_jsiiProxy struct {
 }
 
 // Deprecated.
-func NewOperation() Operation {
+func NewOperation_Override(o Operation) {
 	_init_.Initialize()
-
-	o := operation_jsiiProxy{}
 
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.Operation",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&o,
+		o,
 	)
-
-	return &o
 }
 
 // String representation of the value.
@@ -1638,12 +1647,21 @@ func NewNestedClass() NestedClass {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&n,
 	)
 
 	return &n
+}
+
+// Deprecated.
+func NewNestedClass_Override(n NestedClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
+		nil /* no parameters */,
+		n,
+	)
 }
 
 // This is a struct, nested within a class.
@@ -1682,12 +1700,21 @@ func NewReflector() Reflector {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.submodule.Reflector",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&r,
 	)
 
 	return &r
+}
+
+// Deprecated.
+func NewReflector_Override(r Reflector) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.submodule.Reflector",
+		nil /* no parameters */,
+		r,
+	)
 }
 
 // Deprecated.
@@ -2159,20 +2186,14 @@ func (c *compositeOperation_jsiiProxy) Value() float64 {
 }
 
 
-func NewCompositeOperation() CompositeOperation {
+func NewCompositeOperation_Override(c CompositeOperation) {
 	_init_.Initialize()
-
-	c := compositeOperation_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.composition.CompositeOperation",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&c,
+		c,
 	)
-
-	return &c
 }
 
 func (c *compositeOperation_jsiiProxy) SetDecorationPostfixes(val []string) {
@@ -2301,12 +2322,20 @@ func NewBase() Base {
 	_jsii_.Create(
 		"jsii-calc.DerivedClassHasNoProperties.Base",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&b,
 	)
 
 	return &b
+}
+
+func NewBase_Override(b Base) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DerivedClassHasNoProperties.Base",
+		nil /* no parameters */,
+		b,
+	)
 }
 
 func (b *base_jsiiProxy) SetProp(val string) {
@@ -2334,12 +2363,20 @@ func NewDerived() Derived {
 	_jsii_.Create(
 		"jsii-calc.DerivedClassHasNoProperties.Derived",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDerived_Override(d Derived) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DerivedClassHasNoProperties.Derived",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 
@@ -2432,12 +2469,20 @@ func NewFoo() Foo {
 	_jsii_.Create(
 		"jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&f,
 	)
 
 	return &f
+}
+
+func NewFoo_Override(f Foo) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
+		nil /* no parameters */,
+		f,
+	)
 }
 
 func (f *foo_jsiiProxy) SetBar(val string) {
@@ -2586,20 +2631,14 @@ func (a *abstractClass_jsiiProxy) PropFromInterface() string {
 }
 
 
-func NewAbstractClass() AbstractClass {
+func NewAbstractClass_Override(a AbstractClass) {
 	_init_.Initialize()
-
-	a := abstractClass_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.AbstractClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IInterfaceImplementedByAbstractClass"},
-		nil, // no overrides
-		&a,
+		a,
 	)
-
-	return &a
 }
 
 func (a *abstractClass_jsiiProxy) AbstractMethod(name string) string {
@@ -2648,20 +2687,14 @@ func (a *abstractClassBase_jsiiProxy) AbstractProperty() string {
 }
 
 
-func NewAbstractClassBase() AbstractClassBase {
+func NewAbstractClassBase_Override(a AbstractClassBase) {
 	_init_.Initialize()
-
-	a := abstractClassBase_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.AbstractClassBase",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&a,
+		a,
 	)
-
-	return &a
 }
 
 type AbstractClassReturner interface {
@@ -2694,12 +2727,20 @@ func NewAbstractClassReturner() AbstractClassReturner {
 	_jsii_.Create(
 		"jsii-calc.AbstractClassReturner",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+func NewAbstractClassReturner_Override(a AbstractClassReturner) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.AbstractClassReturner",
+		nil /* no parameters */,
+		a,
+	)
 }
 
 func (a *abstractClassReturner_jsiiProxy) GiveMeAbstract() AbstractClass {
@@ -2751,20 +2792,14 @@ func (a *abstractSuite_jsiiProxy) Property() string {
 }
 
 
-func NewAbstractSuite() AbstractSuite {
+func NewAbstractSuite_Override(a AbstractSuite) {
 	_init_.Initialize()
-
-	a := abstractSuite_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.AbstractSuite",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&a,
+		a,
 	)
-
-	return &a
 }
 
 func (a *abstractSuite_jsiiProxy) SetProperty(val string) {
@@ -2834,12 +2869,21 @@ func NewAdd(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue
 	_jsii_.Create(
 		"jsii-calc.Add",
 		[]interface{}{lhs, rhs},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+// Creates a BinaryOperation.
+func NewAdd_Override(a Add, lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Add",
+		[]interface{}{lhs, rhs},
+		a,
+	)
 }
 
 // (deprecated) String representation of the value.
@@ -3107,12 +3151,20 @@ func NewAllTypes() AllTypes {
 	_jsii_.Create(
 		"jsii-calc.AllTypes",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+func NewAllTypes_Override(a AllTypes) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.AllTypes",
+		nil /* no parameters */,
+		a,
+	)
 }
 
 func (a *allTypes_jsiiProxy) SetAnyArrayProperty(val []interface{}) {
@@ -3321,12 +3373,20 @@ func NewAllowedMethodNames() AllowedMethodNames {
 	_jsii_.Create(
 		"jsii-calc.AllowedMethodNames",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+func NewAllowedMethodNames_Override(a AllowedMethodNames) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.AllowedMethodNames",
+		nil /* no parameters */,
+		a,
+	)
 }
 
 func (a *allowedMethodNames_jsiiProxy) GetBar(_p1 string, _p2 float64) {
@@ -3407,12 +3467,20 @@ func NewAmbiguousParameters(scope Bell, props StructParameterType) AmbiguousPara
 	_jsii_.Create(
 		"jsii-calc.AmbiguousParameters",
 		[]interface{}{scope, props},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+func NewAmbiguousParameters_Override(a AmbiguousParameters, scope Bell, props StructParameterType) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.AmbiguousParameters",
+		[]interface{}{scope, props},
+		a,
+	)
 }
 
 type AnonymousImplementationProvider interface {
@@ -3434,12 +3502,20 @@ func NewAnonymousImplementationProvider() AnonymousImplementationProvider {
 	_jsii_.Create(
 		"jsii-calc.AnonymousImplementationProvider",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IAnonymousImplementationProvider"},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+func NewAnonymousImplementationProvider_Override(a AnonymousImplementationProvider) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.AnonymousImplementationProvider",
+		nil /* no parameters */,
+		a,
+	)
 }
 
 func (a *anonymousImplementationProvider_jsiiProxy) ProvideAsClass() Implementation {
@@ -3490,12 +3566,20 @@ func NewAsyncVirtualMethods() AsyncVirtualMethods {
 	_jsii_.Create(
 		"jsii-calc.AsyncVirtualMethods",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+func NewAsyncVirtualMethods_Override(a AsyncVirtualMethods) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.AsyncVirtualMethods",
+		nil /* no parameters */,
+		a,
+	)
 }
 
 func (a *asyncVirtualMethods_jsiiProxy) CallMe() float64 {
@@ -3600,12 +3684,20 @@ func NewAugmentableClass() AugmentableClass {
 	_jsii_.Create(
 		"jsii-calc.AugmentableClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&a,
 	)
 
 	return &a
+}
+
+func NewAugmentableClass_Override(a AugmentableClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.AugmentableClass",
+		nil /* no parameters */,
+		a,
+	)
 }
 
 func (a *augmentableClass_jsiiProxy) MethodOne() {
@@ -3640,12 +3732,20 @@ func NewBaseJsii976() BaseJsii976 {
 	_jsii_.Create(
 		"jsii-calc.BaseJsii976",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&b,
 	)
 
 	return &b
+}
+
+func NewBaseJsii976_Override(b BaseJsii976) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.BaseJsii976",
+		nil /* no parameters */,
+		b,
+	)
 }
 
 type Bell interface {
@@ -3679,12 +3779,20 @@ func NewBell() Bell {
 	_jsii_.Create(
 		"jsii-calc.Bell",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IBell"},
-		nil, // no overrides
 		&b,
 	)
 
 	return &b
+}
+
+func NewBell_Override(b Bell) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Bell",
+		nil /* no parameters */,
+		b,
+	)
 }
 
 func (b *bell_jsiiProxy) SetRung(val bool) {
@@ -3750,20 +3858,14 @@ func (b *binaryOperation_jsiiProxy) Value() float64 {
 
 
 // Creates a BinaryOperation.
-func NewBinaryOperation(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) BinaryOperation {
+func NewBinaryOperation_Override(b BinaryOperation, lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) {
 	_init_.Initialize()
-
-	b := binaryOperation_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.BinaryOperation",
 		[]interface{}{lhs, rhs},
-		[]_jsii_.FQN{"@scope/jsii-calc-lib.IFriendly"},
-		nil, // no overrides
-		&b,
+		b,
 	)
-
-	return &b
 }
 
 // (deprecated) Say hello!
@@ -3820,20 +3922,14 @@ type burriedAnonymousObject_jsiiProxy struct {
 	_ byte // padding
 }
 
-func NewBurriedAnonymousObject() BurriedAnonymousObject {
+func NewBurriedAnonymousObject_Override(b BurriedAnonymousObject) {
 	_init_.Initialize()
-
-	b := burriedAnonymousObject_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.BurriedAnonymousObject",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&b,
+		b,
 	)
-
-	return &b
 }
 
 func (b *burriedAnonymousObject_jsiiProxy) Check() bool {
@@ -3973,12 +4069,21 @@ func NewCalculator(props CalculatorProps) Calculator {
 	_jsii_.Create(
 		"jsii-calc.Calculator",
 		[]interface{}{props},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+// Creates a Calculator object.
+func NewCalculator_Override(c Calculator, props CalculatorProps) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Calculator",
+		[]interface{}{props},
+		c,
+	)
 }
 
 func (c *calculator_jsiiProxy) SetCurr(val scopejsiicalclib.NumericValue) {
@@ -4143,12 +4248,20 @@ func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternal
 	_jsii_.Create(
 		"jsii-calc.ClassThatImplementsTheInternalInterface",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.INonInternalInterface"},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassThatImplementsTheInternalInterface_Override(c ClassThatImplementsTheInternalInterface) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassThatImplementsTheInternalInterface",
+		nil /* no parameters */,
+		c,
+	)
 }
 
 func (c *classThatImplementsTheInternalInterface_jsiiProxy) SetA(val string) {
@@ -4249,12 +4362,20 @@ func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateIn
 	_jsii_.Create(
 		"jsii-calc.ClassThatImplementsThePrivateInterface",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.INonInternalInterface"},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassThatImplementsThePrivateInterface_Override(c ClassThatImplementsThePrivateInterface) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassThatImplementsThePrivateInterface",
+		nil /* no parameters */,
+		c,
+	)
 }
 
 func (c *classThatImplementsThePrivateInterface_jsiiProxy) SetA(val string) {
@@ -4330,12 +4451,20 @@ func NewClassWithCollections(map_ map[string]string, array []string) ClassWithCo
 	_jsii_.Create(
 		"jsii-calc.ClassWithCollections",
 		[]interface{}{map_, array},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassWithCollections_Override(c ClassWithCollections, map_ map[string]string, array []string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithCollections",
+		[]interface{}{map_, array},
+		c,
+	)
 }
 
 func (c *classWithCollections_jsiiProxy) SetArray(val []string) {
@@ -4448,12 +4577,20 @@ func NewClassWithDocs() ClassWithDocs {
 	_jsii_.Create(
 		"jsii-calc.ClassWithDocs",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassWithDocs_Override(c ClassWithDocs) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithDocs",
+		nil /* no parameters */,
+		c,
+	)
 }
 
 type ClassWithJavaReservedWords interface {
@@ -4485,12 +4622,20 @@ func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWords {
 	_jsii_.Create(
 		"jsii-calc.ClassWithJavaReservedWords",
 		[]interface{}{int},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassWithJavaReservedWords_Override(c ClassWithJavaReservedWords, int string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithJavaReservedWords",
+		[]interface{}{int},
+		c,
+	)
 }
 
 func (c *classWithJavaReservedWords_jsiiProxy) Import(assert string) string {
@@ -4535,12 +4680,20 @@ func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPro
 	_jsii_.Create(
 		"jsii-calc.ClassWithMutableObjectLiteralProperty",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassWithMutableObjectLiteralProperty_Override(c ClassWithMutableObjectLiteralProperty) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithMutableObjectLiteralProperty",
+		nil /* no parameters */,
+		c,
+	)
 }
 
 func (c *classWithMutableObjectLiteralProperty_jsiiProxy) SetMutableObject(val IMutableObjectLiteral) {
@@ -4690,12 +4843,20 @@ func NewConstructorPassesThisOut(consumer PartiallyInitializedThisConsumer) Cons
 	_jsii_.Create(
 		"jsii-calc.ConstructorPassesThisOut",
 		[]interface{}{consumer},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewConstructorPassesThisOut_Override(c ConstructorPassesThisOut, consumer PartiallyInitializedThisConsumer) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ConstructorPassesThisOut",
+		[]interface{}{consumer},
+		c,
+	)
 }
 
 type Constructors interface {
@@ -4714,12 +4875,20 @@ func NewConstructors() Constructors {
 	_jsii_.Create(
 		"jsii-calc.Constructors",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewConstructors_Override(c Constructors) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Constructors",
+		nil /* no parameters */,
+		c,
+	)
 }
 
 func Constructors_HiddenInterface() IPublicInterface {
@@ -4844,12 +5013,20 @@ func NewConsumePureInterface(delegate IStructReturningDelegate) ConsumePureInter
 	_jsii_.Create(
 		"jsii-calc.ConsumePureInterface",
 		[]interface{}{delegate},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewConsumePureInterface_Override(c ConsumePureInterface, delegate IStructReturningDelegate) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ConsumePureInterface",
+		[]interface{}{delegate},
+		c,
+	)
 }
 
 func (c *consumePureInterface_jsiiProxy) WorkItBaby() StructB {
@@ -4889,12 +5066,20 @@ func NewConsumerCanRingBell() ConsumerCanRingBell {
 	_jsii_.Create(
 		"jsii-calc.ConsumerCanRingBell",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewConsumerCanRingBell_Override(c ConsumerCanRingBell) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ConsumerCanRingBell",
+		nil /* no parameters */,
+		c,
+	)
 }
 
 // ...if the interface is implemented using an object literal.
@@ -5051,12 +5236,20 @@ func NewConsumersOfThisCrazyTypeSystem() ConsumersOfThisCrazyTypeSystem {
 	_jsii_.Create(
 		"jsii-calc.ConsumersOfThisCrazyTypeSystem",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewConsumersOfThisCrazyTypeSystem_Override(c ConsumersOfThisCrazyTypeSystem) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ConsumersOfThisCrazyTypeSystem",
+		nil /* no parameters */,
+		c,
+	)
 }
 
 func (c *consumersOfThisCrazyTypeSystem_jsiiProxy) ConsumeAnotherPublicInterface(obj IAnotherPublicInterface) string {
@@ -5105,12 +5298,20 @@ func NewDataRenderer() DataRenderer {
 	_jsii_.Create(
 		"jsii-calc.DataRenderer",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDataRenderer_Override(d DataRenderer) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DataRenderer",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 func (d *dataRenderer_jsiiProxy) Render(data scopejsiicalclib.MyFirstStruct) string {
@@ -5172,12 +5373,20 @@ func NewDefault() Default {
 	_jsii_.Create(
 		"jsii-calc.Default",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDefault_Override(d Default) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Default",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 func (d *default_jsiiProxy) PleaseCompile() {
@@ -5238,12 +5447,20 @@ func NewDefaultedConstructorArgument(arg1 float64, arg2 string, arg3 string) Def
 	_jsii_.Create(
 		"jsii-calc.DefaultedConstructorArgument",
 		[]interface{}{arg1, arg2, arg3},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDefaultedConstructorArgument_Override(d DefaultedConstructorArgument, arg1 float64, arg2 string, arg3 string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DefaultedConstructorArgument",
+		[]interface{}{arg1, arg2, arg3},
+		d,
+	)
 }
 
 // 1.
@@ -5266,12 +5483,20 @@ func NewDemonstrate982() Demonstrate982 {
 	_jsii_.Create(
 		"jsii-calc.Demonstrate982",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDemonstrate982_Override(d Demonstrate982) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Demonstrate982",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 // It's dangerous to go alone!
@@ -5349,12 +5574,21 @@ func NewDeprecatedClass(readonlyString string, mutableNumber float64) Deprecated
 	_jsii_.Create(
 		"jsii-calc.DeprecatedClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+// Deprecated: this constructor is "just" okay
+func NewDeprecatedClass_Override(d DeprecatedClass, readonlyString string, mutableNumber float64) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DeprecatedClass",
+		[]interface{}{readonlyString, mutableNumber},
+		d,
+	)
 }
 
 func (d *deprecatedClass_jsiiProxy) SetMutableProperty(val float64) {
@@ -5553,12 +5787,20 @@ func NewDoNotOverridePrivates() DoNotOverridePrivates {
 	_jsii_.Create(
 		"jsii-calc.DoNotOverridePrivates",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDoNotOverridePrivates_Override(d DoNotOverridePrivates) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DoNotOverridePrivates",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 func (d *doNotOverridePrivates_jsiiProxy) ChangePrivatePropertyValue(newValue string) {
@@ -5613,12 +5855,20 @@ func NewDoNotRecognizeAnyAsOptional() DoNotRecognizeAnyAsOptional {
 	_jsii_.Create(
 		"jsii-calc.DoNotRecognizeAnyAsOptional",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDoNotRecognizeAnyAsOptional_Override(d DoNotRecognizeAnyAsOptional) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DoNotRecognizeAnyAsOptional",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 func (d *doNotRecognizeAnyAsOptional_jsiiProxy) Method(_requiredAny interface{}, _optionalAny interface{}, _optionalString string) {
@@ -5656,12 +5906,20 @@ func NewDocumentedClass() DocumentedClass {
 	_jsii_.Create(
 		"jsii-calc.DocumentedClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDocumentedClass_Override(d DocumentedClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DocumentedClass",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 // Greet the indicated person.
@@ -5710,12 +5968,20 @@ func NewDontComplainAboutVariadicAfterOptional() DontComplainAboutVariadicAfterO
 	_jsii_.Create(
 		"jsii-calc.DontComplainAboutVariadicAfterOptional",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDontComplainAboutVariadicAfterOptional_Override(d DontComplainAboutVariadicAfterOptional) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DontComplainAboutVariadicAfterOptional",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 func (d *dontComplainAboutVariadicAfterOptional_jsiiProxy) OptionalAndVariadic(optional string, things string) string {
@@ -5750,12 +6016,20 @@ func NewDoubleTrouble() DoubleTrouble {
 	_jsii_.Create(
 		"jsii-calc.DoubleTrouble",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IFriendlyRandomGenerator"},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDoubleTrouble_Override(d DoubleTrouble) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DoubleTrouble",
+		nil /* no parameters */,
+		d,
+	)
 }
 
 // (deprecated) Say hello!
@@ -5828,12 +6102,20 @@ func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearer {
 	_jsii_.Create(
 		"jsii-calc.DynamicPropertyBearer",
 		[]interface{}{valueStore},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDynamicPropertyBearer_Override(d DynamicPropertyBearer, valueStore string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DynamicPropertyBearer",
+		[]interface{}{valueStore},
+		d,
+	)
 }
 
 func (d *dynamicPropertyBearer_jsiiProxy) SetDynamicProperty(val string) {
@@ -5882,12 +6164,20 @@ func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerCh
 	_jsii_.Create(
 		"jsii-calc.DynamicPropertyBearerChild",
 		[]interface{}{originalValue},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&d,
 	)
 
 	return &d
+}
+
+func NewDynamicPropertyBearerChild_Override(d DynamicPropertyBearerChild, originalValue string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.DynamicPropertyBearerChild",
+		[]interface{}{originalValue},
+		d,
+	)
 }
 
 // Sets \`this.dynamicProperty\` to the new value, and returns the old value.
@@ -5918,20 +6208,14 @@ type entropy_jsiiProxy struct {
 }
 
 // Creates a new instance of Entropy.
-func NewEntropy(clock IWallClock) Entropy {
+func NewEntropy_Override(e Entropy, clock IWallClock) {
 	_init_.Initialize()
-
-	e := entropy_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.Entropy",
 		[]interface{}{clock},
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&e,
+		e,
 	)
-
-	return &e
 }
 
 // Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
@@ -6020,12 +6304,20 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValues {
 	_jsii_.Create(
 		"jsii-calc.EraseUndefinedHashValues",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&e,
 	)
 
 	return &e
+}
+
+func NewEraseUndefinedHashValues_Override(e EraseUndefinedHashValues) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.EraseUndefinedHashValues",
+		nil /* no parameters */,
+		e,
+	)
 }
 
 // Returns \`true\` if \`key\` is defined in \`opts\`.
@@ -6127,12 +6419,21 @@ func NewExperimentalClass(readonlyString string, mutableNumber float64) Experime
 	_jsii_.Create(
 		"jsii-calc.ExperimentalClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&e,
 	)
 
 	return &e
+}
+
+// Experimental.
+func NewExperimentalClass_Override(e ExperimentalClass, readonlyString string, mutableNumber float64) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ExperimentalClass",
+		[]interface{}{readonlyString, mutableNumber},
+		e,
+	)
 }
 
 func (e *experimentalClass_jsiiProxy) SetMutableProperty(val float64) {
@@ -6194,12 +6495,20 @@ func NewExportedBaseClass(success bool) ExportedBaseClass {
 	_jsii_.Create(
 		"jsii-calc.ExportedBaseClass",
 		[]interface{}{success},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&e,
 	)
 
 	return &e
+}
+
+func NewExportedBaseClass_Override(e ExportedBaseClass, success bool) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ExportedBaseClass",
+		[]interface{}{success},
+		e,
+	)
 }
 
 type ExtendsInternalInterface struct {
@@ -6248,12 +6557,20 @@ func NewExternalClass(readonlyString string, mutableNumber float64) ExternalClas
 	_jsii_.Create(
 		"jsii-calc.ExternalClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&e,
 	)
 
 	return &e
+}
+
+func NewExternalClass_Override(e ExternalClass, readonlyString string, mutableNumber float64) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ExternalClass",
+		[]interface{}{readonlyString, mutableNumber},
+		e,
+	)
 }
 
 func (e *externalClass_jsiiProxy) SetMutableProperty(val float64) {
@@ -6314,12 +6631,20 @@ func NewGiveMeStructs() GiveMeStructs {
 	_jsii_.Create(
 		"jsii-calc.GiveMeStructs",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&g,
 	)
 
 	return &g
+}
+
+func NewGiveMeStructs_Override(g GiveMeStructs) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.GiveMeStructs",
+		nil /* no parameters */,
+		g,
+	)
 }
 
 // Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
@@ -6387,12 +6712,20 @@ func NewGreetingAugmenter() GreetingAugmenter {
 	_jsii_.Create(
 		"jsii-calc.GreetingAugmenter",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&g,
 	)
 
 	return &g
+}
+
+func NewGreetingAugmenter_Override(g GreetingAugmenter) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.GreetingAugmenter",
+		nil /* no parameters */,
+		g,
+	)
 }
 
 func (g *greetingAugmenter_jsiiProxy) BetterGreeting(friendly scopejsiicalclib.IFriendly) string {
@@ -7442,12 +7775,20 @@ func NewImplementInternalInterface() ImplementInternalInterface {
 	_jsii_.Create(
 		"jsii-calc.ImplementInternalInterface",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewImplementInternalInterface_Override(i ImplementInternalInterface) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ImplementInternalInterface",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 func (i *implementInternalInterface_jsiiProxy) SetProp(val string) {
@@ -7486,12 +7827,20 @@ func NewImplementation() Implementation {
 	_jsii_.Create(
 		"jsii-calc.Implementation",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewImplementation_Override(i Implementation) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Implementation",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 type ImplementsInterfaceWithInternal interface {
@@ -7512,12 +7861,20 @@ func NewImplementsInterfaceWithInternal() ImplementsInterfaceWithInternal {
 	_jsii_.Create(
 		"jsii-calc.ImplementsInterfaceWithInternal",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IInterfaceWithInternal"},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewImplementsInterfaceWithInternal_Override(i ImplementsInterfaceWithInternal) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ImplementsInterfaceWithInternal",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 func (i *implementsInterfaceWithInternal_jsiiProxy) Visible() {
@@ -7545,12 +7902,20 @@ func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInterna
 	_jsii_.Create(
 		"jsii-calc.ImplementsInterfaceWithInternalSubclass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewImplementsInterfaceWithInternalSubclass_Override(i ImplementsInterfaceWithInternalSubclass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ImplementsInterfaceWithInternalSubclass",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 type ImplementsPrivateInterface interface {
@@ -7582,12 +7947,20 @@ func NewImplementsPrivateInterface() ImplementsPrivateInterface {
 	_jsii_.Create(
 		"jsii-calc.ImplementsPrivateInterface",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewImplementsPrivateInterface_Override(i ImplementsPrivateInterface) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ImplementsPrivateInterface",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 func (i *implementsPrivateInterface_jsiiProxy) SetPrivate(val string) {
@@ -7639,12 +8012,20 @@ func NewInbetweenClass() InbetweenClass {
 	_jsii_.Create(
 		"jsii-calc.InbetweenClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IPublicInterface2"},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewInbetweenClass_Override(i InbetweenClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.InbetweenClass",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 func (i *inbetweenClass_jsiiProxy) Ciao() string {
@@ -7768,20 +8149,14 @@ type isomorphism_jsiiProxy struct {
 	_ byte // padding
 }
 
-func NewIsomorphism() Isomorphism {
+func NewIsomorphism_Override(i Isomorphism) {
 	_init_.Initialize()
-
-	i := isomorphism_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.Isomorphism",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&i,
+		i,
 	)
-
-	return &i
 }
 
 func (i *isomorphism_jsiiProxy) Myself() Isomorphism {
@@ -7819,12 +8194,23 @@ func NewIssue2638() Issue2638 {
 	_jsii_.Create(
 		"jsii-calc.Issue2638",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+// First sentence.
+//
+// Second sentence. Third sentence.
+func NewIssue2638_Override(i Issue2638) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Issue2638",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 type Issue2638B interface {
@@ -7843,12 +8229,20 @@ func NewIssue2638B() Issue2638B {
 	_jsii_.Create(
 		"jsii-calc.Issue2638B",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewIssue2638B_Override(i Issue2638B) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Issue2638B",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 type Jsii417Derived interface {
@@ -7882,12 +8276,20 @@ func NewJsii417Derived(property string) Jsii417Derived {
 	_jsii_.Create(
 		"jsii-calc.JSII417Derived",
 		[]interface{}{property},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsii417Derived_Override(j Jsii417Derived, property string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.JSII417Derived",
+		[]interface{}{property},
+		j,
+	)
 }
 
 func (j *jsii417Derived_jsiiProxy) Bar() {
@@ -7935,12 +8337,20 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBase {
 	_jsii_.Create(
 		"jsii-calc.JSII417PublicBaseOfBase",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsii417PublicBaseOfBase_Override(j Jsii417PublicBaseOfBase) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.JSII417PublicBaseOfBase",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBase {
@@ -7984,12 +8394,20 @@ func NewJsObjectLiteralForInterface() JsObjectLiteralForInterface {
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralForInterface",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsObjectLiteralForInterface_Override(j JsObjectLiteralForInterface) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.JSObjectLiteralForInterface",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 func (j *jsObjectLiteralForInterface_jsiiProxy) GiveMeFriendly() scopejsiicalclib.IFriendly {
@@ -8035,12 +8453,20 @@ func NewJsObjectLiteralToNative() JsObjectLiteralToNative {
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNative",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsObjectLiteralToNative_Override(j JsObjectLiteralToNative) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.JSObjectLiteralToNative",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 func (j *jsObjectLiteralToNative_jsiiProxy) ReturnLiteral() JsObjectLiteralToNativeClass {
@@ -8097,12 +8523,20 @@ func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClass {
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNativeClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsObjectLiteralToNativeClass_Override(j JsObjectLiteralToNativeClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.JSObjectLiteralToNativeClass",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 func (j *jsObjectLiteralToNativeClass_jsiiProxy) SetPropA(val string) {
@@ -8202,12 +8636,20 @@ func NewJavaReservedWords() JavaReservedWords {
 	_jsii_.Create(
 		"jsii-calc.JavaReservedWords",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJavaReservedWords_Override(j JavaReservedWords) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.JavaReservedWords",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 func (j *javaReservedWords_jsiiProxy) SetWhile(val string) {
@@ -8653,12 +9095,20 @@ func NewJsii487Derived() Jsii487Derived {
 	_jsii_.Create(
 		"jsii-calc.Jsii487Derived",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IJsii487External2", "jsii-calc.IJsii487External"},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsii487Derived_Override(j Jsii487Derived) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Jsii487Derived",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 type Jsii496Derived interface {
@@ -8678,12 +9128,20 @@ func NewJsii496Derived() Jsii496Derived {
 	_jsii_.Create(
 		"jsii-calc.Jsii496Derived",
 		nil /* no parameters */,
-		[]_jsii_.FQN{"jsii-calc.IJsii496"},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsii496Derived_Override(j Jsii496Derived) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Jsii496Derived",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 // Host runtime version should be set via JSII_AGENT.
@@ -8703,12 +9161,20 @@ func NewJsiiAgent() JsiiAgent {
 	_jsii_.Create(
 		"jsii-calc.JsiiAgent",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&j,
 	)
 
 	return &j
+}
+
+func NewJsiiAgent_Override(j JsiiAgent) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.JsiiAgent",
+		nil /* no parameters */,
+		j,
+	)
 }
 
 func JsiiAgent_Value() string {
@@ -8972,12 +9438,20 @@ func NewLevelOne(props LevelOneProps) LevelOne {
 	_jsii_.Create(
 		"jsii-calc.LevelOne",
 		[]interface{}{props},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&l,
 	)
 
 	return &l
+}
+
+func NewLevelOne_Override(l LevelOne, props LevelOneProps) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.LevelOne",
+		[]interface{}{props},
+		l,
+	)
 }
 
 type PropBooleanValue struct {
@@ -9061,12 +9535,20 @@ func NewMethodNamedProperty() MethodNamedProperty {
 	_jsii_.Create(
 		"jsii-calc.MethodNamedProperty",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&m,
 	)
 
 	return &m
+}
+
+func NewMethodNamedProperty_Override(m MethodNamedProperty) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.MethodNamedProperty",
+		nil /* no parameters */,
+		m,
+	)
 }
 
 func (m *methodNamedProperty_jsiiProxy) Property() string {
@@ -9141,12 +9623,21 @@ func NewMultiply(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.Numeric
 	_jsii_.Create(
 		"jsii-calc.Multiply",
 		[]interface{}{lhs, rhs},
-		[]_jsii_.FQN{"jsii-calc.IFriendlier", "jsii-calc.IRandomNumberGenerator"},
-		nil, // no overrides
 		&m,
 	)
 
 	return &m
+}
+
+// Creates a BinaryOperation.
+func NewMultiply_Override(m Multiply, lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Multiply",
+		[]interface{}{lhs, rhs},
+		m,
+	)
 }
 
 // Say farewell.
@@ -9279,12 +9770,20 @@ func NewNegate(operand scopejsiicalclib.NumericValue) Negate {
 	_jsii_.Create(
 		"jsii-calc.Negate",
 		[]interface{}{operand},
-		[]_jsii_.FQN{"jsii-calc.IFriendlier"},
-		nil, // no overrides
 		&n,
 	)
 
 	return &n
+}
+
+func NewNegate_Override(n Negate, operand scopejsiicalclib.NumericValue) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Negate",
+		[]interface{}{operand},
+		n,
+	)
 }
 
 // Say farewell.
@@ -9417,12 +9916,20 @@ func NewNodeStandardLibrary() NodeStandardLibrary {
 	_jsii_.Create(
 		"jsii-calc.NodeStandardLibrary",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&n,
 	)
 
 	return &n
+}
+
+func NewNodeStandardLibrary_Override(n NodeStandardLibrary) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.NodeStandardLibrary",
+		nil /* no parameters */,
+		n,
+	)
 }
 
 // Uses node.js "crypto" module to calculate sha256 of a string.
@@ -9506,12 +10013,20 @@ func NewNullShouldBeTreatedAsUndefined(_param1 string, optional interface{}) Nul
 	_jsii_.Create(
 		"jsii-calc.NullShouldBeTreatedAsUndefined",
 		[]interface{}{_param1, optional},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&n,
 	)
 
 	return &n
+}
+
+func NewNullShouldBeTreatedAsUndefined_Override(n NullShouldBeTreatedAsUndefined, _param1 string, optional interface{}) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.NullShouldBeTreatedAsUndefined",
+		[]interface{}{_param1, optional},
+		n,
+	)
 }
 
 func (n *nullShouldBeTreatedAsUndefined_jsiiProxy) SetChangeMeToUndefined(val string) {
@@ -9583,12 +10098,20 @@ func NewNumberGenerator(generator IRandomNumberGenerator) NumberGenerator {
 	_jsii_.Create(
 		"jsii-calc.NumberGenerator",
 		[]interface{}{generator},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&n,
 	)
 
 	return &n
+}
+
+func NewNumberGenerator_Override(n NumberGenerator, generator IRandomNumberGenerator) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.NumberGenerator",
+		[]interface{}{generator},
+		n,
+	)
 }
 
 func (n *numberGenerator_jsiiProxy) SetGenerator(val IRandomNumberGenerator) {
@@ -9644,12 +10167,20 @@ func NewObjectRefsInCollections() ObjectRefsInCollections {
 	_jsii_.Create(
 		"jsii-calc.ObjectRefsInCollections",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+func NewObjectRefsInCollections_Override(o ObjectRefsInCollections) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ObjectRefsInCollections",
+		nil /* no parameters */,
+		o,
+	)
 }
 
 // Returns the sum of all values.
@@ -9725,12 +10256,22 @@ func NewOld() Old {
 	_jsii_.Create(
 		"jsii-calc.Old",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+// Deprecated: Use the new class or the old class whatever you want because
+// whatever you like is always the best
+func NewOld_Override(o Old) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Old",
+		nil /* no parameters */,
+		o,
+	)
 }
 
 // Doo wop that thing.
@@ -9762,12 +10303,20 @@ func NewOptionalArgumentInvoker(delegate IInterfaceWithOptionalMethodArguments) 
 	_jsii_.Create(
 		"jsii-calc.OptionalArgumentInvoker",
 		[]interface{}{delegate},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+func NewOptionalArgumentInvoker_Override(o OptionalArgumentInvoker, delegate IInterfaceWithOptionalMethodArguments) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.OptionalArgumentInvoker",
+		[]interface{}{delegate},
+		o,
+	)
 }
 
 func (o *optionalArgumentInvoker_jsiiProxy) InvokeWithOptional() {
@@ -9836,12 +10385,20 @@ func NewOptionalConstructorArgument(arg1 float64, arg2 string, arg3 string) Opti
 	_jsii_.Create(
 		"jsii-calc.OptionalConstructorArgument",
 		[]interface{}{arg1, arg2, arg3},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+func NewOptionalConstructorArgument_Override(o OptionalConstructorArgument, arg1 float64, arg2 string, arg3 string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.OptionalConstructorArgument",
+		[]interface{}{arg1, arg2, arg3},
+		o,
+	)
 }
 
 type OptionalStruct struct {
@@ -9887,12 +10444,20 @@ func NewOptionalStructConsumer(optionalStruct OptionalStruct) OptionalStructCons
 	_jsii_.Create(
 		"jsii-calc.OptionalStructConsumer",
 		[]interface{}{optionalStruct},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+func NewOptionalStructConsumer_Override(o OptionalStructConsumer, optionalStruct OptionalStruct) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.OptionalStructConsumer",
+		[]interface{}{optionalStruct},
+		o,
+	)
 }
 
 // See: https://github.com/aws/jsii/issues/903
@@ -9939,12 +10504,20 @@ func NewOverridableProtectedMember() OverridableProtectedMember {
 	_jsii_.Create(
 		"jsii-calc.OverridableProtectedMember",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+func NewOverridableProtectedMember_Override(o OverridableProtectedMember) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.OverridableProtectedMember",
+		nil /* no parameters */,
+		o,
+	)
 }
 
 func (o *overridableProtectedMember_jsiiProxy) SetOverrideReadWrite(val string) {
@@ -10006,12 +10579,20 @@ func NewOverrideReturnsObject() OverrideReturnsObject {
 	_jsii_.Create(
 		"jsii-calc.OverrideReturnsObject",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+func NewOverrideReturnsObject_Override(o OverrideReturnsObject) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.OverrideReturnsObject",
+		nil /* no parameters */,
+		o,
+	)
 }
 
 func (o *overrideReturnsObject_jsiiProxy) Test(obj IReturnsNumber) float64 {
@@ -10041,20 +10622,14 @@ type partiallyInitializedThisConsumer_jsiiProxy struct {
 	_ byte // padding
 }
 
-func NewPartiallyInitializedThisConsumer() PartiallyInitializedThisConsumer {
+func NewPartiallyInitializedThisConsumer_Override(p PartiallyInitializedThisConsumer) {
 	_init_.Initialize()
-
-	p := partiallyInitializedThisConsumer_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.PartiallyInitializedThisConsumer",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&p,
+		p,
 	)
-
-	return &p
 }
 
 func (p *partiallyInitializedThisConsumer_jsiiProxy) ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt string, ev AllTypesEnum) string {
@@ -10087,12 +10662,20 @@ func NewPolymorphism() Polymorphism {
 	_jsii_.Create(
 		"jsii-calc.Polymorphism",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&p,
 	)
 
 	return &p
+}
+
+func NewPolymorphism_Override(p Polymorphism) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Polymorphism",
+		nil /* no parameters */,
+		p,
+	)
 }
 
 func (p *polymorphism_jsiiProxy) SayHello(friendly scopejsiicalclib.IFriendly) string {
@@ -10161,12 +10744,21 @@ func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericVa
 	_jsii_.Create(
 		"jsii-calc.Power",
 		[]interface{}{base, pow},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&p,
 	)
 
 	return &p
+}
+
+// Creates a Power operation.
+func NewPower_Override(p Power, base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericValue) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Power",
+		[]interface{}{base, pow},
+		p,
+	)
 }
 
 // Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.
@@ -10209,12 +10801,20 @@ func NewPropertyNamedProperty() PropertyNamedProperty {
 	_jsii_.Create(
 		"jsii-calc.PropertyNamedProperty",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&p,
 	)
 
 	return &p
+}
+
+func NewPropertyNamedProperty_Override(p PropertyNamedProperty) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.PropertyNamedProperty",
+		nil /* no parameters */,
+		p,
+	)
 }
 
 type PublicClass interface {
@@ -10234,12 +10834,20 @@ func NewPublicClass() PublicClass {
 	_jsii_.Create(
 		"jsii-calc.PublicClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&p,
 	)
 
 	return &p
+}
+
+func NewPublicClass_Override(p PublicClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.PublicClass",
+		nil /* no parameters */,
+		p,
+	)
 }
 
 func (p *publicClass_jsiiProxy) Hello() {
@@ -10298,12 +10906,20 @@ func NewPythonReservedWords() PythonReservedWords {
 	_jsii_.Create(
 		"jsii-calc.PythonReservedWords",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&p,
 	)
 
 	return &p
+}
+
+func NewPythonReservedWords_Override(p PythonReservedWords) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.PythonReservedWords",
+		nil /* no parameters */,
+		p,
+	)
 }
 
 func (p *pythonReservedWords_jsiiProxy) And() {
@@ -10594,12 +11210,20 @@ func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackage {
 	_jsii_.Create(
 		"jsii-calc.ReferenceEnumFromScopedPackage",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&r,
 	)
 
 	return &r
+}
+
+func NewReferenceEnumFromScopedPackage_Override(r ReferenceEnumFromScopedPackage) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ReferenceEnumFromScopedPackage",
+		nil /* no parameters */,
+		r,
+	)
 }
 
 func (r *referenceEnumFromScopedPackage_jsiiProxy) SetFoo(val scopejsiicalclib.EnumFromScopedModule) {
@@ -10664,12 +11288,20 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
 	_jsii_.Create(
 		"jsii-calc.ReturnsPrivateImplementationOfInterface",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&r,
 	)
 
 	return &r
+}
+
+func NewReturnsPrivateImplementationOfInterface_Override(r ReturnsPrivateImplementationOfInterface) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ReturnsPrivateImplementationOfInterface",
+		nil /* no parameters */,
+		r,
+	)
 }
 
 // This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
@@ -10719,12 +11351,20 @@ func NewRuntimeTypeChecking() RuntimeTypeChecking {
 	_jsii_.Create(
 		"jsii-calc.RuntimeTypeChecking",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&r,
 	)
 
 	return &r
+}
+
+func NewRuntimeTypeChecking_Override(r RuntimeTypeChecking) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.RuntimeTypeChecking",
+		nil /* no parameters */,
+		r,
+	)
 }
 
 func (r *runtimeTypeChecking_jsiiProxy) MethodWithDefaultedArguments(arg1 float64, arg2 string, arg3 string) {
@@ -10782,12 +11422,20 @@ func NewSingleInstanceTwoTypes() SingleInstanceTwoTypes {
 	_jsii_.Create(
 		"jsii-calc.SingleInstanceTwoTypes",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewSingleInstanceTwoTypes_Override(s SingleInstanceTwoTypes) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.SingleInstanceTwoTypes",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func (s *singleInstanceTwoTypes_jsiiProxy) Interface1() InbetweenClass {
@@ -10901,12 +11549,20 @@ func NewSomeTypeJsii976() SomeTypeJsii976 {
 	_jsii_.Create(
 		"jsii-calc.SomeTypeJsii976",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewSomeTypeJsii976_Override(s SomeTypeJsii976) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.SomeTypeJsii976",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func SomeTypeJsii976_ReturnAnonymous() interface{} {
@@ -10980,12 +11636,20 @@ func NewStableClass(readonlyString string, mutableNumber float64) StableClass {
 	_jsii_.Create(
 		"jsii-calc.StableClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewStableClass_Override(s StableClass, readonlyString string, mutableNumber float64) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.StableClass",
+		[]interface{}{readonlyString, mutableNumber},
+		s,
+	)
 }
 
 func (s *stableClass_jsiiProxy) SetMutableProperty(val float64) {
@@ -11112,12 +11776,20 @@ func NewStaticHelloParent() StaticHelloParent {
 	_jsii_.Create(
 		"jsii-calc.StaticHelloParent",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewStaticHelloParent_Override(s StaticHelloParent) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.StaticHelloParent",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func StaticHelloParent_Method() {
@@ -11170,12 +11842,20 @@ func NewStatics(value string) Statics {
 	_jsii_.Create(
 		"jsii-calc.Statics",
 		[]interface{}{value},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewStatics_Override(s Statics, value string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Statics",
+		[]interface{}{value},
+		s,
+	)
 }
 
 // Jsdocs for static method.
@@ -11328,12 +12008,20 @@ func NewStripInternal() StripInternal {
 	_jsii_.Create(
 		"jsii-calc.StripInternal",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewStripInternal_Override(s StripInternal) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.StripInternal",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func (s *stripInternal_jsiiProxy) SetYouSeeMe(val string) {
@@ -11383,12 +12071,20 @@ func NewStructPassing() StructPassing {
 	_jsii_.Create(
 		"jsii-calc.StructPassing",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewStructPassing_Override(s StructPassing) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.StructPassing",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStruct) float64 {
@@ -11515,12 +12211,20 @@ func NewSum() Sum {
 	_jsii_.Create(
 		"jsii-calc.Sum",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewSum_Override(s Sum) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Sum",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func (s *sum_jsiiProxy) SetParts(val []scopejsiicalclib.NumericValue) {
@@ -11571,12 +12275,20 @@ func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNi
 	_jsii_.Create(
 		"jsii-calc.SupportsNiceJavaBuilder",
 		[]interface{}{id, defaultBar, props, rest},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewSupportsNiceJavaBuilder_Override(s SupportsNiceJavaBuilder, id float64, defaultBar float64, props SupportsNiceJavaBuilderProps, rest string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.SupportsNiceJavaBuilder",
+		[]interface{}{id, defaultBar, props, rest},
+		s,
+	)
 }
 
 type SupportsNiceJavaBuilderProps struct {
@@ -11639,12 +12351,20 @@ func NewSupportsNiceJavaBuilderWithRequiredProps(id float64, props SupportsNiceJ
 	_jsii_.Create(
 		"jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
 		[]interface{}{id, props},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewSupportsNiceJavaBuilderWithRequiredProps_Override(s SupportsNiceJavaBuilderWithRequiredProps, id float64, props SupportsNiceJavaBuilderProps) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
+		[]interface{}{id, props},
+		s,
+	)
 }
 
 type SyncVirtualMethods interface {
@@ -11745,12 +12465,20 @@ func NewSyncVirtualMethods() SyncVirtualMethods {
 	_jsii_.Create(
 		"jsii-calc.SyncVirtualMethods",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&s,
 	)
 
 	return &s
+}
+
+func NewSyncVirtualMethods_Override(s SyncVirtualMethods) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.SyncVirtualMethods",
+		nil /* no parameters */,
+		s,
+	)
 }
 
 func (s *syncVirtualMethods_jsiiProxy) SetA(val float64) {
@@ -11949,12 +12677,20 @@ func NewTestStructWithEnum() TestStructWithEnum {
 	_jsii_.Create(
 		"jsii-calc.TestStructWithEnum",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&t,
 	)
 
 	return &t
+}
+
+func NewTestStructWithEnum_Override(t TestStructWithEnum) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.TestStructWithEnum",
+		nil /* no parameters */,
+		t,
+	)
 }
 
 // Returns true if \`foo\` is \`StringEnum.A\`.
@@ -12002,12 +12738,20 @@ func NewThrower() Thrower {
 	_jsii_.Create(
 		"jsii-calc.Thrower",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&t,
 	)
 
 	return &t
+}
+
+func NewThrower_Override(t Thrower) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Thrower",
+		nil /* no parameters */,
+		t,
+	)
 }
 
 func (t *thrower_jsiiProxy) ThrowError() {
@@ -12076,20 +12820,14 @@ func (u *unaryOperation_jsiiProxy) Operand() scopejsiicalclib.NumericValue {
 }
 
 
-func NewUnaryOperation(operand scopejsiicalclib.NumericValue) UnaryOperation {
+func NewUnaryOperation_Override(u UnaryOperation, operand scopejsiicalclib.NumericValue) {
 	_init_.Initialize()
-
-	u := unaryOperation_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.UnaryOperation",
 		[]interface{}{operand},
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&u,
+		u,
 	)
-
-	return &u
 }
 
 type UnionProperties struct {
@@ -12127,12 +12865,20 @@ func NewUpcasingReflectable(delegate map[string]interface{}) UpcasingReflectable
 	_jsii_.Create(
 		"jsii-calc.UpcasingReflectable",
 		[]interface{}{delegate},
-		[]_jsii_.FQN{"@scope/jsii-calc-lib.submodule.IReflectable"},
-		nil, // no overrides
 		&u,
 	)
 
 	return &u
+}
+
+func NewUpcasingReflectable_Override(u UpcasingReflectable, delegate map[string]interface{}) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.UpcasingReflectable",
+		[]interface{}{delegate},
+		u,
+	)
 }
 
 func UpcasingReflectable_Reflector() submodule.Reflector {
@@ -12163,12 +12909,20 @@ func NewUseBundledDependency() UseBundledDependency {
 	_jsii_.Create(
 		"jsii-calc.UseBundledDependency",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&u,
 	)
 
 	return &u
+}
+
+func NewUseBundledDependency_Override(u UseBundledDependency) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.UseBundledDependency",
+		nil /* no parameters */,
+		u,
+	)
 }
 
 func (u *useBundledDependency_jsiiProxy) Value() interface{} {
@@ -12202,12 +12956,20 @@ func NewUseCalcBase() UseCalcBase {
 	_jsii_.Create(
 		"jsii-calc.UseCalcBase",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&u,
 	)
 
 	return &u
+}
+
+func NewUseCalcBase_Override(u UseCalcBase) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.UseCalcBase",
+		nil /* no parameters */,
+		u,
+	)
 }
 
 func (u *useCalcBase_jsiiProxy) Hello() scopejsiicalcbase.Base {
@@ -12254,12 +13016,20 @@ func NewUsesInterfaceWithProperties(obj IInterfaceWithProperties) UsesInterfaceW
 	_jsii_.Create(
 		"jsii-calc.UsesInterfaceWithProperties",
 		[]interface{}{obj},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&u,
 	)
 
 	return &u
+}
+
+func NewUsesInterfaceWithProperties_Override(u UsesInterfaceWithProperties, obj IInterfaceWithProperties) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.UsesInterfaceWithProperties",
+		[]interface{}{obj},
+		u,
+	)
 }
 
 func (u *usesInterfaceWithProperties_jsiiProxy) JustRead() string {
@@ -12318,12 +13088,20 @@ func NewVariadicInvoker(method VariadicMethod) VariadicInvoker {
 	_jsii_.Create(
 		"jsii-calc.VariadicInvoker",
 		[]interface{}{method},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&v,
 	)
 
 	return &v
+}
+
+func NewVariadicInvoker_Override(v VariadicInvoker, method VariadicMethod) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.VariadicInvoker",
+		[]interface{}{method},
+		v,
+	)
 }
 
 func (v *variadicInvoker_jsiiProxy) AsArray(values float64) []float64 {
@@ -12356,12 +13134,20 @@ func NewVariadicMethod(prefix float64) VariadicMethod {
 	_jsii_.Create(
 		"jsii-calc.VariadicMethod",
 		[]interface{}{prefix},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&v,
 	)
 
 	return &v
+}
+
+func NewVariadicMethod_Override(v VariadicMethod, prefix float64) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.VariadicMethod",
+		[]interface{}{prefix},
+		v,
+	)
 }
 
 func (v *variadicMethod_jsiiProxy) AsArray(first float64, others float64) []float64 {
@@ -12398,12 +13184,20 @@ func NewVirtualMethodPlayground() VirtualMethodPlayground {
 	_jsii_.Create(
 		"jsii-calc.VirtualMethodPlayground",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&v,
 	)
 
 	return &v
+}
+
+func NewVirtualMethodPlayground_Override(v VirtualMethodPlayground) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.VirtualMethodPlayground",
+		nil /* no parameters */,
+		v,
+	)
 }
 
 func (v *virtualMethodPlayground_jsiiProxy) OverrideMeAsync(index float64) float64 {
@@ -12498,20 +13292,14 @@ func (v *voidCallback_jsiiProxy) MethodWasCalled() bool {
 }
 
 
-func NewVoidCallback() VoidCallback {
+func NewVoidCallback_Override(v VoidCallback) {
 	_init_.Initialize()
-
-	v := voidCallback_jsiiProxy{}
 
 	_jsii_.Create(
 		"jsii-calc.VoidCallback",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&v,
+		v,
 	)
-
-	return &v
 }
 
 func (v *voidCallback_jsiiProxy) CallMe() {
@@ -12559,12 +13347,20 @@ func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropert
 	_jsii_.Create(
 		"jsii-calc.WithPrivatePropertyInConstructor",
 		[]interface{}{privateField},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&w,
 	)
 
 	return &w
+}
+
+func NewWithPrivatePropertyInConstructor_Override(w WithPrivatePropertyInConstructor, privateField string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.WithPrivatePropertyInConstructor",
+		[]interface{}{privateField},
+		w,
+	)
 }
 
 
@@ -14775,12 +15571,20 @@ func NewTypeFromSub1() TypeFromSub1 {
 	_jsii_.Create(
 		"jsii-calc.nodirect.sub1.TypeFromSub1",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&t,
 	)
 
 	return &t
+}
+
+func NewTypeFromSub1_Override(t TypeFromSub1) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.nodirect.sub1.TypeFromSub1",
+		nil /* no parameters */,
+		t,
+	)
 }
 
 func (t *typeFromSub1_jsiiProxy) Sub1() string {
@@ -14848,12 +15652,20 @@ func NewTypeFromSub2() TypeFromSub2 {
 	_jsii_.Create(
 		"jsii-calc.nodirect.sub2.TypeFromSub2",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&t,
 	)
 
 	return &t
+}
+
+func NewTypeFromSub2_Override(t TypeFromSub2) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.nodirect.sub2.TypeFromSub2",
+		nil /* no parameters */,
+		t,
+	)
 }
 
 func (t *typeFromSub2_jsiiProxy) Sub2() string {
@@ -14990,12 +15802,20 @@ func NewClassWithSelf(self string) ClassWithSelf {
 	_jsii_.Create(
 		"jsii-calc.PythonSelf.ClassWithSelf",
 		[]interface{}{self},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassWithSelf_Override(c ClassWithSelf, self string) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.PythonSelf.ClassWithSelf",
+		[]interface{}{self},
+		c,
+	)
 }
 
 func (c *classWithSelf_jsiiProxy) Method(self float64) string {
@@ -15039,12 +15859,20 @@ func NewClassWithSelfKwarg(props StructWithSelf) ClassWithSelfKwarg {
 	_jsii_.Create(
 		"jsii-calc.PythonSelf.ClassWithSelfKwarg",
 		[]interface{}{props},
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&c,
 	)
 
 	return &c
+}
+
+func NewClassWithSelfKwarg_Override(c ClassWithSelfKwarg, props StructWithSelf) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.PythonSelf.ClassWithSelfKwarg",
+		[]interface{}{props},
+		c,
+	)
 }
 
 type IInterfaceWithSelf interface {
@@ -15195,12 +16023,20 @@ func NewInnerClass() InnerClass {
 	_jsii_.Create(
 		"jsii-calc.submodule.child.InnerClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&i,
 	)
 
 	return &i
+}
+
+func NewInnerClass_Override(i InnerClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.submodule.child.InnerClass",
+		nil /* no parameters */,
+		i,
+	)
 }
 
 func InnerClass_StaticProp() SomeStruct {
@@ -15257,12 +16093,20 @@ func NewOuterClass() OuterClass {
 	_jsii_.Create(
 		"jsii-calc.submodule.child.OuterClass",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&o,
 	)
 
 	return &o
+}
+
+func NewOuterClass_Override(o OuterClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.submodule.child.OuterClass",
+		nil /* no parameters */,
+		o,
+	)
 }
 
 type SomeEnum string
@@ -15589,12 +16433,20 @@ func NewReturnsSpecialParameter() ReturnsSpecialParameter {
 	_jsii_.Create(
 		"jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
 		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
 		&r,
 	)
 
 	return &r
+}
+
+func NewReturnsSpecialParameter_Override(r ReturnsSpecialParameter) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
+		nil /* no parameters */,
+		r,
+	)
 }
 
 func (r *returnsSpecialParameter_jsiiProxy) ReturnsSpecialParam() param.SpecialParameter {
@@ -15732,12 +16584,20 @@ func NewMyClass(props child.SomeStruct) MyClass {
 	_jsii_.Create(
 		"jsii-calc.submodule.MyClass",
 		[]interface{}{props},
-		[]_jsii_.FQN{"jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"},
-		nil, // no overrides
 		&m,
 	)
 
 	return &m
+}
+
+func NewMyClass_Override(m MyClass, props child.SomeStruct) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.submodule.MyClass",
+		[]interface{}{props},
+		m,
+	)
 }
 
 func (m *myClass_jsiiProxy) SetAllTypes(val jsiicalc.AllTypes) {
