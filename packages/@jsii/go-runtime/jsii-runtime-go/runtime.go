@@ -2,10 +2,7 @@ package jsii
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
 	"reflect"
-	"regexp"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
 	"github.com/aws/jsii-runtime-go/internal/kernel"
@@ -37,25 +34,10 @@ func (m MemberProperty) toOverride() api.Override {
 func Load(name string, version string, tarball []byte) {
 	c := kernel.GetClient()
 
-	tmpfile, err := ioutil.TempFile("", fmt.Sprintf(
-		"%s-%s.*.tgz",
-		regexp.MustCompile("[^a-zA-Z0-9_-]").ReplaceAllString(name, "-"),
-		version,
-	))
-	if err != nil {
-		panic(err)
-	}
-	defer os.Remove(tmpfile.Name())
-	if _, err := tmpfile.Write(tarball); err != nil {
-		panic(err)
-	}
-	tmpfile.Close()
-
-	_, err = c.Load(kernel.LoadProps{
+	_, err := c.Load(kernel.LoadProps{
 		Name:    name,
 		Version: version,
-		Tarball: tmpfile.Name(),
-	})
+	}, tarball)
 	if err != nil {
 		panic(err)
 	}
