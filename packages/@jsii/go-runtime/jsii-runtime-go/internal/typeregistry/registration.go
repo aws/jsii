@@ -39,7 +39,7 @@ func (t *TypeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, overrides 
 
 	// Skipping registration if there are no members, as this would have no use.
 	if len(overrides) > 0 {
-		t.typeMembers[fqn] = append([]api.Override{}, overrides...)
+		t.typeMembers[fqn] = append(make([]api.Override, len(overrides)), overrides...)
 	}
 
 	return nil
@@ -92,7 +92,7 @@ func (t *TypeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overri
 
 	// Skipping registration if there are no members, as this would have no use.
 	if len(overrides) > 0 {
-		t.typeMembers[fqn] = append([]api.Override{}, overrides...)
+		t.typeMembers[fqn] = append(make([]api.Override, len(overrides)), overrides...)
 	}
 
 	return nil
@@ -114,8 +114,8 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 		return fmt.Errorf("attempting to register type %s as %s, but it was already registered as: %s", strct.String(), fqn, existing)
 	}
 
-	fields := []reflect.StructField{}
 	numField := strct.NumField()
+	fields := make([]reflect.StructField, 0, numField)
 	for i := 0; i < numField; i++ {
 		field := strct.Field(i)
 		if field.Anonymous {
