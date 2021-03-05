@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.24.0](https://github.com/aws/jsii/compare/v1.23.0...v1.24.0) (2021-03-03)
+
+
+### Features
+
+* **go:** support direct implementation of jsii interfaces ([#2614](https://github.com/aws/jsii/issues/2614)) ([9da3282](https://github.com/aws/jsii/commit/9da32821676a9ed7ea6cd4744c06df4fb3551bc7)), closes [#2048](https://github.com/aws/jsii/issues/2048)
+
+
+### Bug Fixes
+
+* **go:** enums inside structs are not properly serialized ([#2636](https://github.com/aws/jsii/issues/2636)) ([19cbd25](https://github.com/aws/jsii/commit/19cbd2532e6210f034e12299c5c1b00807a91b90))
+* **go:** invalid generated code for classes a keyword name ([#2641](https://github.com/aws/jsii/issues/2641)) ([8668f13](https://github.com/aws/jsii/commit/8668f13d7b74b3f2fecc0b02d241a1a6f9e2f648)), closes [#2637](https://github.com/aws/jsii/issues/2637)
+* **go:** malformed multiline docstrings in constructors ([#2639](https://github.com/aws/jsii/issues/2639)) ([72f25af](https://github.com/aws/jsii/commit/72f25af24c47075d6faa3b624236dd0375e3acdb)), closes [#2638](https://github.com/aws/jsii/issues/2638)
+
 ## [1.23.0](https://github.com/aws/jsii/compare/v1.22.0...v1.23.0) (2021-03-01)
 
 ### Features
