@@ -17,7 +17,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@octokit/rest": "^18.2.1",
+    "@octokit/rest": "^18.3.2",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.1.0",
     "jest": "^26.6.3",
@@ -32,7 +32,7 @@
     "@types/jest": "^26.0.20",
     "@types/node": "^10.17.54",
     "@types/tar": "^4.0.4",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "prettier": "^2.2.1",
     "typescript": "~3.9.9"
   }
