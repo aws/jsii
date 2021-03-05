@@ -39,7 +39,7 @@ func (t *TypeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, overrides 
 
 	// Skipping registration if there are no members, as this would have no use.
 	if len(overrides) > 0 {
-		t.typeMembers[fqn] = append(make([]api.Override, len(overrides)), overrides...)
+		t.typeMembers[fqn] = append(make([]api.Override, 0, len(overrides)), overrides...)
 	}
 
 	return nil
@@ -92,7 +92,7 @@ func (t *TypeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overri
 
 	// Skipping registration if there are no members, as this would have no use.
 	if len(overrides) > 0 {
-		t.typeMembers[fqn] = append(make([]api.Override, len(overrides)), overrides...)
+		t.typeMembers[fqn] = append(make([]api.Override, 0, len(overrides)), overrides...)
 	}
 
 	return nil

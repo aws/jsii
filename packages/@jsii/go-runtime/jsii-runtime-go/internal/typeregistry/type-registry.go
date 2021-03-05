@@ -65,7 +65,7 @@ func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructFi
 	var found []reflect.StructField
 	if found, ok = t.structFields[typ]; ok {
 		// Returning a copy, to ensure our storage does not get mutated.
-		fields = append(make([]reflect.StructField, len(found)), found...)
+		fields = append(make([]reflect.StructField, 0, len(found)), found...)
 	}
 	return
 }
