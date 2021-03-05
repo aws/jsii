@@ -222,6 +222,6 @@ export class GoParameter {
 
   public toString(): string {
     const paramType = this.reference.scopedInterfaceName(this.parent.pkg);
-    return `${this.name} ${paramType}`;
+    return `${this.name} ${this.parameter.variadic ? '...' : ''}${paramType}`;
   }
 }
