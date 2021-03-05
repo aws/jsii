@@ -3,6 +3,11 @@ package tests
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"strings"
+	"testing"
+	"time"
+
 	"github.com/aws/jsii/go-runtime-test/internal/addTen"
 	"github.com/aws/jsii/go-runtime-test/internal/doNotOverridePrivates"
 	"github.com/aws/jsii/go-runtime-test/internal/friendlyRandom"
@@ -11,10 +16,6 @@ import (
 	"github.com/aws/jsii/go-runtime-test/internal/twoOverrides"
 	"github.com/aws/jsii/go-runtime-test/internal/wallClock"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"strings"
-	"testing"
-	"time"
 
 	"github.com/aws/jsii-runtime-go"
 
