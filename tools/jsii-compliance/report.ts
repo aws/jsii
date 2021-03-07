@@ -11,6 +11,7 @@ const tablemark = require('tablemark');
 
 const SUCCESS = '✅';
 const FAILURE = '❌';
+const SKIPPED = '🤷‍♀️';
 const NA = 'N/A';
 
 /**
@@ -47,7 +48,15 @@ function determineTestStatus(
   const testResult = report?.[normalizeTestName(testCase.name)];
 
   if (!testResult) return FAILURE;
-  return testResult.status === 'success' ? SUCCESS : FAILURE;
+
+  switch (testResult.status) {
+    case 'success':
+      return SUCCESS;
+    case 'skipped':
+      return SKIPPED;
+    default:
+      return FAILURE;
+  }
 }
 
 /**
