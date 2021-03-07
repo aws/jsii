@@ -59,10 +59,12 @@ export const suite: schema.Suite = {
     },
     {
       name: 'createObjectAndCtorOverloads',
-      description: '',
+      description:
+        'Class can be instantiated with empty and non empty constructor',
       exclusions: {
         golang: {
-          reason: 'Golang does not have overloaded functions',
+          reason:
+            'Golang does not have overloaded functions so the genearated class only has a single New function.',
         },
       },
     },
@@ -83,7 +85,8 @@ export const suite: schema.Suite = {
     },
     {
       name: 'statics',
-      description: '',
+      description:
+        'Static functions can be invoked and accept and return the correct type',
       exclusions: {},
     },
     {
@@ -143,7 +146,8 @@ export const suite: schema.Suite = {
     },
     {
       name: 'primitiveTypes',
-      description: '',
+      description:
+        'All Primitive types are set and read with their respective types',
       exclusions: {},
     },
     {
