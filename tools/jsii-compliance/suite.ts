@@ -36,12 +36,14 @@ export const suite: schema.Suite = {
     },
     {
       name: 'arrayReturnedByMethodCanBeRead',
-      description: '',
+      description:
+        'Array created in the kernel can be queried for its elements',
       exclusions: {},
     },
     {
       name: 'unionProperties',
-      description: '',
+      description:
+        'Kernal values that accept a union type can be set, and are returned with the concrete type',
       exclusions: {},
     },
     {
@@ -51,13 +53,18 @@ export const suite: schema.Suite = {
     },
     {
       name: 'useEnumFromScopedModule',
-      description: '',
+      description:
+        'Property that accepts an enum type from a third-party package can be set, and read',
       exclusions: {},
     },
     {
       name: 'createObjectAndCtorOverloads',
       description: '',
-      exclusions: {},
+      exclusions: {
+        golang: {
+          reason: 'Golang does not have overloaded functions',
+        },
+      },
     },
     {
       name: 'fail_syncOverrides_callsDoubleAsync_method',
