@@ -93,7 +93,7 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 
 	t := suite.T()
 
-	t.Skip("Dates are currently treated as strings and fail going through the wire.")
+	t.Skip("Dates are currently treated as strings and fail going through the wire. See https://github.com/aws/jsii/issues/2659")
 
 	types := calc.NewAllTypes()
 
