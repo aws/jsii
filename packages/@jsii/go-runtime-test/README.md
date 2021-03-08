@@ -21,7 +21,9 @@ Within this method, write your test.
 To indicate that a test is **not applicable** for Go, use the `suite.NotApplicableTest(reason)`:
 
 ```go
-suite.NotApplicableTest("this feature is not relevant in go")
+func (suite *ComplianceSuite) TestCreateObjectAndCtorOverloads()  {
+	suite.NotApplicableTest("Golang does not have overloaded functions so the genearated class only has a single New function")
+}
 ```
 
 To indicate that Go is **not compliant yet** in a specific case, use the

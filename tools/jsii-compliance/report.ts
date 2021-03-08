@@ -9,10 +9,10 @@ import { suite } from './suite';
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const tablemark = require('tablemark');
 
-const SUCCESS = '✅'; // test succeeded
-const FAILURE = '❌'; // test is failing
-const MISSING = ''; // test is not implemented yet
-const NOTAPPL = 'N/A'; // test is not applicable for this language
+const SUCCESS = '🟢'; // test succeeded
+const FAILURE = '🔴'; // test is failing
+const MISSING = '⭕'; // test is not implemented yet
+const NOTAPPL = '⚪'; // test is not applicable for this language
 
 /**
  * Determines the status of a specific test case with respect to a specific language.
