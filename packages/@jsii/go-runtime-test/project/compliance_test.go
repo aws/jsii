@@ -1,53 +1,13 @@
 package tests
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"strings"
-	"testing"
-
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/stretchr/testify/suite"
+	"testing"
 )
 
-type ComplianceSuite struct {
-	suite.Suite
-	report map[string]interface{}
-}
-
-func (suite *ComplianceSuite) SetupSuite() {
-	suite.report = map[string]interface{}{}
-}
-
-func (suite *ComplianceSuite) TearDownSuite() {
-	report, err := json.MarshalIndent(suite.report, "", "  ")
-
-	if err != nil {
-		suite.FailNowf("Failed marshalling report: %s", err.Error())
-	}
-	err = ioutil.WriteFile("./compliance-report.json", report, 0644)
-	if err != nil {
-		suite.FailNowf("Failed writing report: %s", err.Error())
-	}
-}
-
-func (suite *ComplianceSuite) AfterTest(suiteName, testName string) {
-
-	status := "success"
-	if suite.T().Failed() {
-		status = "failure"
-	}
-	if suite.T().Skipped() {
-		status = "skipped"
-	}
-
-	// remove the 'Test' prefix to make it more comparable with other languages who don't require it.
-	suite.report[strings.Replace(testName, "Test", "", 1)] = map[string]interface{}{"status": status}
-}
-
 func (suite *ComplianceSuite) TestMaps() {
-
 	t := suite.T()
 
 	allTypes := calc.NewAllTypes()
