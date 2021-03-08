@@ -18,26 +18,22 @@ type TypeRegistry struct {
 	// enums are not included
 	fqnToType map[api.FQN]registeredType
 
-	// typeToFQN is sued to obtain the jsii fully qualified type name for a
-	// given native go type. Currently only tracks jsii struct types.
-	typeToFQN map[reflect.Type]api.FQN
-
-	// map enum member FQNs (e.g. "jsii-calc.StringEnum/A") to the corresponding
-	// go const for this member.
+	// fqnToEnumMember maps enum member FQNs (e.g. "jsii-calc.StringEnum/A") to
+	// the corresponding go const for this member.
 	fqnToEnumMember map[string]interface{}
 
-	// maps Go enum type ("StringEnum") to the corresponding jsii enum FQN (e.g.
-	// "jsii-calc.StringEnum")
+	// typeToEnumFQN maps Go enum type ("StringEnum") to the corresponding jsii
+	// enum FQN (e.g. "jsii-calc.StringEnum")
 	typeToEnumFQN map[reflect.Type]api.FQN
 
-	// maps registered struct types to all their fields.
-	structFields map[reflect.Type][]reflect.StructField
+	// structInfo maps registered struct types to all their fields.
+	structInfo map[reflect.Type]registeredStruct
 
-	// map registered interface types to a proxy maker function
+	// proxyMakers map registered interface types to a proxy maker function.
 	proxyMakers map[reflect.Type]func() interface{}
 
-	// typeMembers maps each class or interface FQN to the set of members it implements
-	// in the form of api.Override values.
+	// typeMembers maps each class or interface FQN to the set of members it
+	// implements in the form of api.Override values.
 	typeMembers map[api.FQN][]api.Override
 }
 
@@ -45,10 +41,9 @@ type TypeRegistry struct {
 func New() *TypeRegistry {
 	return &TypeRegistry{
 		fqnToType:       make(map[api.FQN]registeredType),
-		typeToFQN:       make(map[reflect.Type]api.FQN),
 		fqnToEnumMember: make(map[string]interface{}),
 		typeToEnumFQN:   make(map[reflect.Type]api.FQN),
-		structFields:    make(map[reflect.Type][]reflect.StructField),
+		structInfo:      make(map[reflect.Type]registeredStruct),
 		proxyMakers:     make(map[reflect.Type]func() interface{}),
 		typeMembers:     make(map[api.FQN][]api.Override),
 	}
@@ -58,15 +53,12 @@ func New() *TypeRegistry {
 // the jsii fully qualified type name, and a boolean telling whether the
 // provided type was a registered jsii struct type.
 func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructField, fqn api.FQN, ok bool) {
-	if fqn, ok = t.typeToFQN[typ]; !ok {
+	var info registeredStruct
+	if info, ok = t.structInfo[typ]; !ok {
 		return
 	}
-
-	var found []reflect.StructField
-	if found, ok = t.structFields[typ]; ok {
-		// Returning a copy, to ensure our storage does not get mutated.
-		fields = append(fields, found...)
-	}
+	fqn = info.FQN
+	fields = append(fields, info.Fields...)
 	return
 }
 

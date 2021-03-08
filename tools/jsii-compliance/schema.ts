@@ -13,7 +13,7 @@ export interface Suite {
   readonly description: string;
 
   /**
-   * Language bindings the suite applies to.
+   * Language bindings the suite applies to. The key is the language.
    */
   readonly bindings: Record<string, Binding>;
 
@@ -62,11 +62,6 @@ export interface BindingExclusion {
  * Exclusion of a specific test from a specific binding.
  */
 export interface TestExclusion {
-  /**
-   * The language to exclude the test from.
-   */
-  readonly language: string;
-
   /**
    * The exclusion reason.
    */

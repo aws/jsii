@@ -25,11 +25,13 @@ export const suite: schema.Suite = {
     },
     {
       name: 'arrayReturnedByMethodCanBeRead',
-      description: '',
+      description:
+        'Array created in the kernel can be queried for its elements',
     },
     {
       name: 'unionProperties',
-      description: '',
+      description:
+        'Kernal values that accept a union type can be set, and are returned with the concrete type',
     },
     {
       name: 'syncOverrides',
@@ -37,11 +39,13 @@ export const suite: schema.Suite = {
     },
     {
       name: 'useEnumFromScopedModule',
-      description: '',
+      description:
+        'Property that accepts an enum type from a third-party package can be set, and read',
     },
     {
       name: 'createObjectAndCtorOverloads',
-      description: '',
+      description:
+        'Class can be instantiated with empty and non empty constructor',
     },
     {
       name: 'fail_syncOverrides_callsDoubleAsync_method',
@@ -57,7 +61,8 @@ export const suite: schema.Suite = {
     },
     {
       name: 'statics',
-      description: '',
+      description:
+        'Static functions can be invoked and accept and return the correct type',
     },
     {
       name: 'structs_returnedLiteralEqualsNativeBuilt',
@@ -105,7 +110,8 @@ export const suite: schema.Suite = {
     },
     {
       name: 'primitiveTypes',
-      description: '',
+      description:
+        'All Primitive types are set and read with their respective types',
     },
     {
       name: 'reservedKeywordsAreSlugifiedInClassProperties',
