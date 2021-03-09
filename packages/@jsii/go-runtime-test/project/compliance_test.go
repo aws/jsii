@@ -1,7 +1,9 @@
 package tests
 
 import (
+	"fmt"
 	"math"
+	"runtime"
 	"testing"
 
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
@@ -147,6 +149,122 @@ func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
 func (suite *ComplianceSuite) TestClassesCanSelfReferenceDuringClassInitialization() {
 	outerClass := child.NewOuterClass()
 	assert.NotNil(suite.T(), outerClass.InnerClass())
+}
+
+func (suite *ComplianceSuite) TestCanObtainStructReferenceWithOverloadedSetter() {
+	assert.NotNil(suite.T(), calc.ConfusingToJackson_MakeStructInstance())
+}
+
+func (suite *ComplianceSuite) TestCallbacksCorrectlyDeserializeArguments() {
+	renderer := TestCallbacksCorrectlyDeserializeArgumentsDataRenderer{
+		DataRenderer: calc.NewDataRenderer(),
+	}
+
+	suite.FailTest("Callbacks are currently not supported", "https://github.com/aws/jsii/issues/2048")
+	assert.Equal(suite.T(), "{\n  \"anumber\": 50,\n  \"astring\": \"50\",\n  \"firstOptional\": [],\n  \"custom\": \"value\"\n}",
+		renderer.Render(calclib.MyFirstStruct{Anumber: 50, Astring: "50"}))
+}
+
+type TestCallbacksCorrectlyDeserializeArgumentsDataRenderer struct {
+	calc.DataRenderer
+}
+
+func (r *TestCallbacksCorrectlyDeserializeArgumentsDataRenderer) RenderMap(m map[string]interface{}) string {
+	m["custom"] = "value" // this is here to make sure this override actually gets invoked.
+	return r.DataRenderer.RenderMap(m)
+}
+
+func (suite *ComplianceSuite) TestCanUseInterfaceSetters() {
+	obj := calc.ObjectWithPropertyProvider_Provide()
+
+	suite.FailTest("Setter are not generated for read-write properties", "https://github.com/aws/jsii/issues/2665")
+
+	// obj.SetProperty("New Value")
+	assert.True(suite.T(), obj.WasSet())
+}
+
+func (suite *ComplianceSuite) TestPropertyOverrides_Interfaces() {
+
+	t := suite.T()
+
+	interact := calc.NewUsesInterfaceWithProperties(&TestPropertyOverridesInterfacesIInterfaceWithProperties{})
+	assert.Equal(t, "READ_ONLY_STRING", interact.JustRead())
+
+	suite.FailTest("Not sure. Most likely related to the missing setters on interfaces", "https://github.com/aws/jsii/issues/2665")
+	assert.Equal(t, "Hello!?", interact.WriteAndRead("Hello"))
+}
+
+type TestPropertyOverridesInterfacesIInterfaceWithProperties struct {
+	x string
+}
+
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadOnlyString() string {
+	return "READ_ONLY_STRING"
+}
+
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadWriteString() string {
+	return i.x + "?"
+}
+
+// Note this method is not currently part of the generated interface for some reason (??).
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) SetReadWriteString(value string) {
+	i.x = value + "!"
+}
+
+func (suite *ComplianceSuite) TestTestJsiiAgent() {
+	assert.Equal(suite.T(), fmt.Sprintf("%s/%s/%s", runtime.Version(), runtime.GOOS, runtime.GOARCH), calc.JsiiAgent_Value())
+}
+
+func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Private() {
+	obj := &TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates{
+		DoNotOverridePrivates: calc.NewDoNotOverridePrivates(),
+	}
+
+	assert.Equal(suite.T(), "privateMethod", obj.PrivateMethodValue())
+}
+
+type TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates struct {
+	calc.DoNotOverridePrivates
+}
+
+func (d *TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates) privateMethod() string {
+	return "privateMethod-Override"
+}
+
+func (suite *ComplianceSuite) TestPureInterfacesCanBeUsedTransparently() {
+	expected := calc.StructB{
+		RequiredString: "It's Britney b**ch!",
+	}
+
+	delegate := &TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate{
+		expected: expected,
+	}
+	consumer := calc.NewConsumePureInterface(delegate)
+	assert.Equal(suite.T(), expected, consumer.WorkItBaby())
+}
+
+type TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate struct {
+	expected calc.StructB
+}
+
+func (t *TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate) ReturnStruct() calc.StructB {
+	return t.expected
+}
+
+func (suite *ComplianceSuite) TestNullShouldBeTreatedAsUndefined() {
+
+	suite.FailTest("Optionals are not supported yet so nil isn't being recognized as undefined", "https://github.com/aws/jsii/issues/2442")
+
+	obj := calc.NewNullShouldBeTreatedAsUndefined("hello", nil)
+	obj.GiveMeUndefined(nil)
+	obj.GiveMeUndefinedInsideAnObject(calc.NullShouldBeTreatedAsUndefinedData{
+		ThisShouldBeUndefined:                              nil,
+		ArrayWithThreeElementsAndUndefinedAsSecondArgument: []interface{}{"hello", nil, "boom"},
+	})
+
+	// whoops - optionals is still not supported
+	obj.SetChangeMeToUndefined("this should be nil")
+	obj.VerifyPropertyIsUndefined()
 }
 
 // required to make `go test` recognize the suite.
