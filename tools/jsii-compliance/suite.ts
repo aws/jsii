@@ -113,7 +113,8 @@ export const suite: schema.Suite = {
     },
     {
       name: 'nullShouldBeTreatedAsUndefined',
-      description: '',
+      description:
+        'Null value of target language is treated as undefined by the host',
     },
     {
       name: 'primitiveTypes',
