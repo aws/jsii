@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+	child "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -161,6 +162,28 @@ func (suite *ComplianceSuite) TestUseEnumFromScopedModule() {
 	assert.Equal(t, calclib.EnumFromScopedModule_VALUE1, obj.LoadFoo())
 	obj.SaveFoo(calclib.EnumFromScopedModule_VALUE2)
 	assert.Equal(t, calclib.EnumFromScopedModule_VALUE2, obj.Foo())
+}
+
+func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
+
+	t := suite.T()
+
+	gms := calc.NewGiveMeStructs()
+	returnedLiteral := gms.StructLiteral()
+	nativeBuilt := calclib.StructWithOnlyOptionals{
+		Optional1: "optional1FromStructLiteral",
+		Optional3: false,
+	}
+	assert.Equal(t, nativeBuilt.Optional1, returnedLiteral.Optional1)
+	assert.Equal(t, nativeBuilt.Optional2, returnedLiteral.Optional2)
+	assert.Equal(t, nativeBuilt.Optional3, returnedLiteral.Optional3)
+	assert.Equal(t, nativeBuilt, returnedLiteral)
+	assert.Equal(t, returnedLiteral, nativeBuilt)
+}
+
+func (suite *ComplianceSuite) TestClassesCanSelfReferenceDuringClassInitialization() {
+	outerClass := child.NewOuterClass()
+	assert.NotNil(suite.T(), outerClass.InnerClass())
 }
 
 // required to make `go test` recognize the suite.

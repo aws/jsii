@@ -91,12 +91,13 @@ export const suite: schema.Suite = {
     },
     {
       name: 'structs_returnedLiteralEqualsNativeBuilt',
-      description: '',
+      description:
+        'A struct returned from the kernel is not distinguishable from a struct created natively',
       exclusions: {},
     },
     {
       name: 'classesCanSelfReferenceDuringClassInitialization',
-      description: '',
+      description: 'Classes can reference other classes during initialization',
       exclusions: {},
     },
     {
