@@ -2,6 +2,7 @@ package tests
 
 import (
 	"encoding/json"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"io/ioutil"
 	"strings"
@@ -26,6 +27,10 @@ func (suite *ComplianceSuite) TearDownSuite() {
 	if err != nil {
 		suite.FailNowf("Failed writing _report: %s", err.Error())
 	}
+}
+
+func (suite *ComplianceSuite) Assert() *assert.Assertions {
+	return assert.New(suite.T())
 }
 
 func (suite* ComplianceSuite) reportForTest() map[string]string {
