@@ -239,11 +239,14 @@ require (
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_                       "embed"
-	"sync"
 
 	_jsii_                  "github.com/aws/jsii-runtime-go"
 
@@ -252,18 +255,15 @@ import (
 
 //go:embed scope-jsii-calc-base-0.0.0.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Ensure all dependencies are initialized
-		scopejsiicalcbaseofbase.Initialize()
+	// Ensure all dependencies are initialized
+	scopejsiicalcbaseofbase.Initialize()
 
-		// Load this library into the kernel
-		_jsii_.Load("@scope/jsii-calc-base", "0.0.0", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("@scope/jsii-calc-base", "0.0.0", tarball)
 }
 
 `;
@@ -681,26 +681,26 @@ require (
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_      "embed"
-	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
 //go:embed scope-jsii-calc-base-of-base-2.1.1.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Load this library into the kernel
-		_jsii_.Load("@scope/jsii-calc-base-of-base", "2.1.1", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("@scope/jsii-calc-base-of-base", "2.1.1", tarball)
 }
 
 `;
@@ -1094,11 +1094,14 @@ require (
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_                       "embed"
-	"sync"
 
 	_jsii_                  "github.com/aws/jsii-runtime-go"
 
@@ -1108,19 +1111,16 @@ import (
 
 //go:embed scope-jsii-calc-lib-0.0.0.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Ensure all dependencies are initialized
-		scopejsiicalcbase.Initialize()
-		scopejsiicalcbaseofbase.Initialize()
+	// Ensure all dependencies are initialized
+	scopejsiicalcbase.Initialize()
+	scopejsiicalcbaseofbase.Initialize()
 
-		// Load this library into the kernel
-		_jsii_.Load("@scope/jsii-calc-lib", "0.0.0", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("@scope/jsii-calc-lib", "0.0.0", tarball)
 }
 
 `;
@@ -2513,11 +2513,14 @@ func init() {
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_                 "embed"
-	"sync"
 
 	_jsii_            "github.com/aws/jsii-runtime-go"
 
@@ -2527,19 +2530,16 @@ import (
 
 //go:embed jsii-calc-3.20.120.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Ensure all dependencies are initialized
-		scopejsiicalcbase.Initialize()
-		scopejsiicalclib.Initialize()
+	// Ensure all dependencies are initialized
+	scopejsiicalcbase.Initialize()
+	scopejsiicalclib.Initialize()
 
-		// Load this library into the kernel
-		_jsii_.Load("jsii-calc", "3.20.120", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("jsii-calc", "3.20.120", tarball)
 }
 
 `;

@@ -1,10 +1,7 @@
 package tests
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"math"
-	"strings"
 	"testing"
 
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
@@ -14,43 +11,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type ComplianceSuite struct {
-	suite.Suite
-	report map[string]interface{}
-}
-
-func (suite *ComplianceSuite) SetupSuite() {
-	suite.report = map[string]interface{}{}
-}
-
-func (suite *ComplianceSuite) TearDownSuite() {
-	report, err := json.MarshalIndent(suite.report, "", "  ")
-
-	if err != nil {
-		suite.FailNowf("Failed marshalling report: %s", err.Error())
-	}
-	err = ioutil.WriteFile("./compliance-report.json", report, 0644)
-	if err != nil {
-		suite.FailNowf("Failed writing report: %s", err.Error())
-	}
-}
-
-func (suite *ComplianceSuite) AfterTest(suiteName, testName string) {
-
-	status := "success"
-	if suite.T().Failed() {
-		status = "failure"
-	}
-	if suite.T().Skipped() {
-		status = "skipped"
-	}
-
-	// remove the 'Test' prefix to make it more comparable with other languages who don't require it.
-	suite.report[strings.Replace(testName, "Test", "", 1)] = map[string]interface{}{"status": status}
-}
-
 func (suite *ComplianceSuite) TestMaps() {
-
 	t := suite.T()
 
 	allTypes := calc.NewAllTypes()
@@ -91,10 +52,7 @@ func (suite *ComplianceSuite) TestStatics() {
 }
 
 func (suite *ComplianceSuite) TestPrimitiveTypes() {
-
 	t := suite.T()
-
-	t.Skip("Dates are currently treated as strings and fail going through the wire. See https://github.com/aws/jsii/issues/2659")
 
 	types := calc.NewAllTypes()
 
@@ -110,15 +68,16 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 	types.SetNumberProperty(1234)
 	assert.Equal(t, float64(1234), types.NumberProperty())
 
-	// whoops - should accept time.Time, not string.
-	// date
-	types.SetDateProperty("12345")
-	assert.Equal(t, "12345", types.DateProperty())
-
 	// // json
 	types.SetJsonProperty(map[string]interface{}{"Foo": map[string]interface{}{"Bar": 123}})
 	assert.Equal(t, float64(123), types.JsonProperty()["Foo"].(map[string]interface{})["Bar"])
 
+	suite.FailTest("Dates are currently treated as strings and fail going through the wire", "https://github.com/aws/jsii/issues/2659")
+
+	// whoops - should accept time.Time, not string.
+	// date
+	types.SetDateProperty("12345")
+	assert.Equal(t, "12345", types.DateProperty())
 }
 
 func (suite *ComplianceSuite) TestArrayReturnedByMethodCanBeRead() {
