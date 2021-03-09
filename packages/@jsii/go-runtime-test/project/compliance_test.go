@@ -123,6 +123,10 @@ func (suite *ComplianceSuite) TestUseEnumFromScopedModule() {
 	assert.Equal(t, calclib.EnumFromScopedModule_VALUE2, obj.Foo())
 }
 
+func (suite *ComplianceSuite) TestCreateObjectAndCtorOverloads() {
+	suite.NotApplicableTest("Golang does not have overloaded functions so the genearated class only has a single New function")
+}
+
 func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
 
 	t := suite.T()
