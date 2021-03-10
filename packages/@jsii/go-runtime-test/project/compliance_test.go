@@ -157,7 +157,7 @@ func (suite *ComplianceSuite) TestNodeStandardLibrary() {
 	assert.NotEmpty(obj.OsPlatform())
 	assert.Equal("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50", obj.CryptoSha256())
 
-	suite.FailTest("Async methods are not implemented", "")
+	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	assert.Equal("Hello, resource!", obj.FsReadFile())
 }
 
@@ -220,7 +220,7 @@ func (suite* ComplianceSuite) TestDynamicTypes() {
 	// date
 	types.SetAnyProperty(time.Unix(1234, 0))
 	if types.AnyProperty() != time.Unix(1234, 0) {
-		suite.FailTest("Dates not supported", "")
+		suite.FailTest("Dates not supported", "https://github.com/aws/jsii/issues/2659")
 	}
 }
 
@@ -379,26 +379,12 @@ func (x* overridableProtectedMemberDerived) OverrideReadeWrite() string {
 }
 
 func (suite* ComplianceSuite) TestCanOverrideProtectedGetter() {
-	suite.FailTest("overrides are not supported yet", "")
+	suite.FailTest("Overrides are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
 	assert := suite.Assert()
 	overridden := newOverridableProtectedMemberDerived()
 	assert.Equal("Cthulhu Fhtagn!", overridden.ValueFromProtected())
 }
-
-/*
-   private static final class ImplementsAdditionalInterface extends AllTypes implements IStructReturningDelegate {
-       private final StructB struct;
-
-       public ImplementsAdditionalInterface(final StructB struct) {
-           this.struct = struct;
-       }
-
-       public StructB returnStruct() {
-           return this.struct;
-       }
-   }
-*/
 
 type implementsAdditionalInterface struct {
 	calc.AllTypes
@@ -417,7 +403,7 @@ func newImplementsAdditionalInterface(s calc.StructB) implementsAdditionalInterf
 }
 
 func (suite* ComplianceSuite) TestInterfacesCanBeUsedTransparently_WhenAddedToJsiiType() {
-	suite.FailTest("Overrides not supported", "")
+	suite.FailTest("Overrides not supported", "https://github.com/aws/jsii/issues/2048")
 	assert := suite.Assert()
 
 
@@ -484,7 +470,6 @@ func newMulTen(value float64) mulTen {
 
 func (suite* ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects() {
 	assert := suite.Assert()
-	suite.FailTest("failing", "")
 
 	types := calc.NewAllTypes()
 
