@@ -1,13 +1,16 @@
 package tests
 
 import (
+	"fmt"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
 	"github.com/stretchr/testify/suite"
 	"math"
+	"runtime"
 	"testing"
 	"time"
 )
@@ -273,7 +276,7 @@ func (suite *ComplianceSuite) TestUseEnumFromScopedModule() {
 	assert.Equal( calclib.EnumFromScopedModule_VALUE2, obj.Foo())
 }
 
-func (suite *ComplianceSuite) TestCreateObjectAndCtorOverloads()  {
+func (suite *ComplianceSuite) TestCreateObjectAndCtorOverloads() {
 	suite.NotApplicableTest("Golang does not have overloaded functions so the genearated class only has a single New function")
 }
 
@@ -564,7 +567,150 @@ func (suite* ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects()
 
  */
 
- // required to make `go test` recognize the suite.
+func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
+	assert := suite.Assert()
+
+	gms := calc.NewGiveMeStructs()
+	returnedLiteral := gms.StructLiteral()
+	nativeBuilt := calclib.StructWithOnlyOptionals{
+		Optional1: "optional1FromStructLiteral",
+		Optional3: false,
+	}
+	assert.Equal(nativeBuilt.Optional1, returnedLiteral.Optional1)
+	assert.Equal(nativeBuilt.Optional2, returnedLiteral.Optional2)
+	assert.Equal(nativeBuilt.Optional3, returnedLiteral.Optional3)
+	assert.Equal(nativeBuilt, returnedLiteral)
+	assert.Equal(returnedLiteral, nativeBuilt)
+}
+
+func (suite *ComplianceSuite) TestClassesCanSelfReferenceDuringClassInitialization() {
+	assert := suite.Assert()
+
+	outerClass := child.NewOuterClass()
+	assert.NotNil(outerClass.InnerClass())
+}
+
+func (suite *ComplianceSuite) TestCanObtainStructReferenceWithOverloadedSetter() {
+	assert := suite.Assert()
+	assert.NotNil(calc.ConfusingToJackson_MakeStructInstance())
+}
+
+func (suite *ComplianceSuite) TestCallbacksCorrectlyDeserializeArguments() {
+	assert := suite.Assert()
+	renderer := TestCallbacksCorrectlyDeserializeArgumentsDataRenderer{
+		DataRenderer: calc.NewDataRenderer(),
+	}
+
+	suite.FailTest("Callbacks are currently not supported", "https://github.com/aws/jsii/issues/2048")
+	assert.Equal("{\n  \"anumber\": 50,\n  \"astring\": \"50\",\n  \"firstOptional\": [],\n  \"custom\": \"value\"\n}",
+		renderer.Render(calclib.MyFirstStruct{Anumber: 50, Astring: "50"}))
+}
+
+type TestCallbacksCorrectlyDeserializeArgumentsDataRenderer struct {
+	calc.DataRenderer
+}
+
+func (r *TestCallbacksCorrectlyDeserializeArgumentsDataRenderer) RenderMap(m map[string]interface{}) string {
+	m["custom"] = "value" // this is here to make sure this override actually gets invoked.
+	return r.DataRenderer.RenderMap(m)
+}
+
+func (suite *ComplianceSuite) TestCanUseInterfaceSetters() {
+	assert := suite.Assert()
+	obj := calc.ObjectWithPropertyProvider_Provide()
+
+	suite.FailTest("Setter are not generated for read-write properties", "https://github.com/aws/jsii/issues/2665")
+
+	// obj.SetProperty("New Value")
+	assert.True(obj.WasSet())
+}
+
+func (suite *ComplianceSuite) TestPropertyOverrides_Interfaces() {
+	assert := suite.Assert()
+
+	interact := calc.NewUsesInterfaceWithProperties(&TestPropertyOverridesInterfacesIInterfaceWithProperties{})
+	assert.Equal("READ_ONLY_STRING", interact.JustRead())
+
+	suite.FailTest("Not sure. Most likely related to the missing setters on interfaces", "https://github.com/aws/jsii/issues/2665")
+	assert.Equal( "Hello!?", interact.WriteAndRead("Hello"))
+}
+
+type TestPropertyOverridesInterfacesIInterfaceWithProperties struct {
+	x string
+}
+
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadOnlyString() string {
+	return "READ_ONLY_STRING"
+}
+
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadWriteString() string {
+	return i.x + "?"
+}
+
+// Note this method is not currently part of the generated interface for some reason (??).
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) SetReadWriteString(value string) {
+	i.x = value + "!"
+}
+
+func (suite *ComplianceSuite) TestTestJsiiAgent() {
+	assert := suite.Assert()
+	assert.Equal(fmt.Sprintf("%s/%s/%s", runtime.Version(), runtime.GOOS, runtime.GOARCH), calc.JsiiAgent_Value())
+}
+
+func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Private() {
+	assert := suite.Assert()
+	obj := &TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates{
+		DoNotOverridePrivates: calc.NewDoNotOverridePrivates(),
+	}
+
+	assert.Equal("privateMethod", obj.PrivateMethodValue())
+}
+
+type TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates struct {
+	calc.DoNotOverridePrivates
+}
+
+func (d *TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates) privateMethod() string {
+	return "privateMethod-Override"
+}
+
+func (suite *ComplianceSuite) TestPureInterfacesCanBeUsedTransparently() {
+	assert := suite.Assert()
+	expected := calc.StructB{
+		RequiredString: "It's Britney b**ch!",
+	}
+
+	delegate := &TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate{
+		expected: expected,
+	}
+	consumer := calc.NewConsumePureInterface(delegate)
+	assert.Equal(expected, consumer.WorkItBaby())
+}
+
+type TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate struct {
+	expected calc.StructB
+}
+
+func (t *TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate) ReturnStruct() calc.StructB {
+	return t.expected
+}
+
+func (suite *ComplianceSuite) TestNullShouldBeTreatedAsUndefined() {
+	suite.FailTest("Optionals are not supported yet so nil isn't being recognized as undefined", "https://github.com/aws/jsii/issues/2442")
+
+	obj := calc.NewNullShouldBeTreatedAsUndefined("hello", nil)
+	obj.GiveMeUndefined(nil)
+	obj.GiveMeUndefinedInsideAnObject(calc.NullShouldBeTreatedAsUndefinedData{
+		ThisShouldBeUndefined:                              nil,
+		ArrayWithThreeElementsAndUndefinedAsSecondArgument: []interface{}{"hello", nil, "boom"},
+	})
+
+	// whoops - optionals is still not supported
+	obj.SetChangeMeToUndefined("this should be nil")
+	obj.VerifyPropertyIsUndefined()
+}
+
+// required to make `go test` recognize the suite.
 func TestComplianceSuite(t *testing.T) {
 	suite.Run(t, new(ComplianceSuite))
 }
