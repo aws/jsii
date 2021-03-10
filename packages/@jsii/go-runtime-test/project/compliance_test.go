@@ -61,7 +61,7 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 }
 
 func (suite *ComplianceSuite) TestUseNestedStruct() {
-	suite.FailTest("nested types are not namespaced", "https://github.com/aws/jsii/pull/2650")
+	suite.FailTest("Nested types are not namespaced", "https://github.com/aws/jsii/pull/2650")
 	scopejsiicalcbase.StaticConsumer_Consume(submodule.NestedStruct{
 		Name: "Bond, James Bond",
 	})
@@ -77,7 +77,7 @@ func (suite *ComplianceSuite) TestStaticMapInClassCanBeReadCorrectly() {
 }
 
 func (suite *ComplianceSuite) TestTestNativeObjectsWithInterfaces() {
-	suite.FailTest("Overrides not supported", "")
+	suite.FailTest("Overrides not supported", "https://github.com/aws/jsii/issues/2048")
 
 	assert := suite.Assert()
 
@@ -120,17 +120,16 @@ func (suite *ComplianceSuite) TestMaps() {
 }
 
 func (suite *ComplianceSuite) TestDates() {
-	suite.FailTest("Dates are represented as strings instead of date objects", "")
-	//types := calc.NewAllTypes()
+	assert := suite.Assert()
+	suite.FailTest("Dates are represented as strings instead of date objects", "https://github.com/aws/jsii/issues/2659")
+
+	types := calc.NewAllTypes()
 	//types.SetDateProperty(time.Unix(128, 0))
-	//if types.DateProperty().Unix() != 128 {
-	//	t.Fail()
-	//}
-	//
-	//// weak type
-	//types.setAnyProperty(Instant.ofEpochSecond(999));
-	//assertEquals(Instant.ofEpochSecond(999), types.getAnyProperty());
-	//
+	assert.Equal(time.Unix(128, 0), types.DateProperty())
+
+	// weak type
+	types.SetAnyProperty(time.Unix(999, 0))
+	assert.Equal(time.Unix(999, 0), types.AnyProperty())
 }
 
 func (suite *ComplianceSuite) TestCallMethods() {
