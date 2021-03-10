@@ -66,27 +66,31 @@ export const suite: schema.Suite = {
     },
     {
       name: 'structs_returnedLiteralEqualsNativeBuilt',
-      description: '',
+      description:
+        'A struct returned from the kernel is not distinguishable from a struct created natively',
     },
     {
       name: 'classesCanSelfReferenceDuringClassInitialization',
-      description: '',
+      description: 'Classes can reference other classes during initialization',
     },
     {
       name: 'canObtainStructReferenceWithOverloadedSetter',
-      description: '',
+      description:
+        'A class with a settable property of a union type can be returned from the kernel',
     },
     {
       name: 'callbacksCorrectlyDeserializeArguments',
-      description: '',
+      description:
+        'Runtime properly deserializes callback arguments from the kernel',
     },
     {
       name: 'canUseInterfaceSetters',
-      description: '',
+      description:
+        'Read-write properties generate the corresponding setters in the target language',
     },
     {
       name: 'propertyOverrides_interfaces',
-      description: '',
+      description: 'Target language can override properties of host interfaces',
     },
     {
       name: 'syncOverrides_callsSuper',
@@ -94,19 +98,23 @@ export const suite: schema.Suite = {
     },
     {
       name: 'testJsiiAgent',
-      description: '',
+      description:
+        'Asserts the correct value of the JSII_AGENT env variable for the kernel process',
     },
     {
       name: 'doNotOverridePrivates_method_private',
-      description: '',
+      description:
+        'Non public methods on the guest class do not override methods in the host class',
     },
     {
       name: 'pureInterfacesCanBeUsedTransparently',
-      description: '',
+      description:
+        'Guest implementation of a pure host interface can be used by host consumers accepting that interface',
     },
     {
       name: 'nullShouldBeTreatedAsUndefined',
-      description: '',
+      description:
+        'Null value of target language is treated as undefined by the host',
     },
     {
       name: 'primitiveTypes',
