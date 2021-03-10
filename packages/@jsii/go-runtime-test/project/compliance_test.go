@@ -151,27 +151,15 @@ func (suite *ComplianceSuite) TestCallMethods() {
 }
 
 func (suite *ComplianceSuite) TestNodeStandardLibrary() {
-	t := suite.T()
+	assert := suite.Assert()
 
 	obj := calc.NewNodeStandardLibrary()
-
-	if obj.FsReadFileSync() != "Hello, resource! SYNC!" {
-		t.Fail()
-	}
-
-	if len(obj.OsPlatform()) <= 0 {
-		t.Fail()
-	}
-
-	if obj.CryptoSha256() != "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50" {
-		t.Fail()
-	}
+	assert.Equal("Hello, resource! SYNC!", obj.FsReadFileSync())
+	assert.NotEmpty(obj.OsPlatform())
+	assert.Equal("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50", obj.CryptoSha256())
 
 	suite.FailTest("Async methods are not implemented", "")
-
-	if obj.FsReadFile() != "Hello, resource!" {
-		t.Fail()
-	}
+	assert.Equal("Hello, resource!", obj.FsReadFile())
 }
 
 func (suite* ComplianceSuite) TestDynamicTypes() {
@@ -431,73 +419,49 @@ func newImplementsAdditionalInterface(s calc.StructB) implementsAdditionalInterf
 
 func (suite* ComplianceSuite) TestInterfacesCanBeUsedTransparently_WhenAddedToJsiiType() {
 	suite.FailTest("Overrides not supported", "")
+	assert := suite.Assert()
 
-	t := suite.T()
 
 	expected := calc.StructB{RequiredString: "It's Britney b**ch!"}
 	delegate := newImplementsAdditionalInterface(expected)
 	consumer := calc.NewConsumePureInterface(delegate)
-	if consumer.WorkItBaby() != expected {
-		t.Fail()
-	}
+	assert.Equal(expected, consumer.WorkItBaby())
 }
 
 func (suite* ComplianceSuite) TestStructs_nonOptionalequals() {
-	t := suite.T()
+	assert := suite.Assert()
 
 	structA := calc.StableStruct{ReadonlyProperty: "one"}
 	structB := calc.StableStruct{ReadonlyProperty: "one"}
 	structC := calc.StableStruct{ReadonlyProperty: "two"}
-
-	if structA != structB {
-		t.Fail()
-	}
-
-	if structA == structC {
-		t.Fail()
-	}
+	assert.Equal(structB, structA)
+	assert.NotEqual(structC, structA)
 }
 
 func (suite* ComplianceSuite) TestTestInterfaceParameter() {
-	t := suite.T()
+	assert := suite.Assert()
+
 
 	obj := calc.NewJsObjectLiteralForInterface()
 	friendly := obj.GiveMeFriendly()
-	if friendly.Hello() != "I am literally friendly!" {
-		t.Fail()
-	}
+	assert.Equal("I am literally friendly!", friendly.Hello())
 
 	greetingAugmenter := calc.NewGreetingAugmenter()
 	betterGreeting := greetingAugmenter.BetterGreeting(friendly)
-	if betterGreeting != "I am literally friendly! Let me buy you a drink!" {
-		t.Fail()
-	}
+	assert.Equal("I am literally friendly! Let me buy you a drink!", betterGreeting)
 }
 
 func (suite* ComplianceSuite) TestLiftedKwargWithSameNameAsPositionalArg() {
-	t := suite.T()
+	assert := suite.Assert()
 
 	// This is a replication of a test that mostly affects languages with keyword arguments (e.g: Python, Ruby, ...)
 	bell := calc.NewBell()
 	amb := calc.NewAmbiguousParameters(bell, calc.StructParameterType{Scope: "Driiiing!"})
-	if amb.Scope() != bell {
-		t.Fail()
-	}
+	assert.Equal(bell, amb.Scope())
 
 	expected := calc.StructParameterType{Scope: "Driiiing!"}
-	if amb.Props() != expected {
-		t.Fail()
-	}
+	assert.Equal(expected, amb.Props())
 }
-
-/*
-   static class AddTen extends Add {
-       public AddTen(final int value) {
-           super(new Number(value), new Number(10));
-       }
-   }
-
- */
 
 type addTen struct {
 	calc.Add
@@ -520,52 +484,27 @@ func newMulTen(value float64) mulTen {
 }
 
 func (suite* ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects() {
+	assert := suite.Assert()
 	suite.FailTest("failing", "")
-
-	t := suite.T()
 
 	types := calc.NewAllTypes()
 
 	jsObj := calclib.NewNumber(44)
 	types.SetAnyProperty(jsObj)
 	_, ok := (types.AnyProperty()).(calclib.Number)
-	if !ok {
-		t.Fail()
-	}
+	assert.True(ok)
 
 	nativeObj := newAddTen(10)
 	types.SetAnyProperty(nativeObj)
 	result1 := types.AnyProperty()
-	if result1 != nativeObj {
-		t.Fail()
-	}
+	assert.Equal(nativeObj, result1)
 
-	nativeOb2 := newMulTen(20)
-	types.SetAnyProperty(nativeOb2)
+	nativeObj2 := newMulTen(20)
+	types.SetAnyProperty(nativeObj2)
 	unmarshalledNativeObj, ok := (types.AnyProperty()).(mulTen)
-	if !ok {
-		t.Fail()
-	}
-
-	if unmarshalledNativeObj != nativeOb2 {
-		t.Fail()
-	}
+	assert.True(ok)
+	assert.Equal(nativeObj2, unmarshalledNativeObj)
 }
-
-/*
-   @Test
-   public void canOverrideProtectedMethod() {
-       final String challenge = "Cthulhu Fhtagn!";
-       final OverridableProtectedMember overridden = new OverridableProtectedMember() {
-           @Override
-           protected String overrideMe() {
-               return challenge;
-           }
-       };
-       assertEquals(challenge, overridden.valueFromProtected());
-   }
-
- */
 
 func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
 	assert := suite.Assert()
