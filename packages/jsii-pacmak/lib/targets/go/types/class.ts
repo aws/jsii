@@ -389,11 +389,11 @@ export class ClassMethod extends GoMethod {
     code.line(`${this.name}(${this.paramString()})${returnTypeString}`);
   }
 
-  public get returnType(): string {
-    return (
-      this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
-    );
-  }
+  // public get returnType(): string {
+  //   return (
+  //     this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
+  //   );
+  // }
 
   public get instanceArg(): string {
     return this.parent.name.substring(0, 1).toLowerCase();

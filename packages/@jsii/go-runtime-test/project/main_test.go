@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 // tests that want to assert against the initialValue
 func initCalculator(initialValue float64) calc.Calculator {
 	max := math.MaxFloat64
-	return calc.NewCalculator(calc.CalculatorProps{
+	return calc.NewCalculator(&calc.CalculatorProps{
 		InitialValue: &initialValue,
 		MaximumValue: &max,
 	})
@@ -53,7 +53,7 @@ func TestCalculator(t *testing.T) {
 	t.Run("Property mutation", func(t *testing.T) {
 		calculator := initCalculator(float64(0))
 		var newVal float64 = 12345
-		currentProps := calclib.NewNumber(newVal)
+		currentProps := calclib.NewNumber(&newVal)
 		calculator.SetCurr(currentProps)
 		actual := calculator.Value()
 		if newVal != *actual {
@@ -64,7 +64,7 @@ func TestCalculator(t *testing.T) {
 	t.Run("Method with side effect", func(t *testing.T) {
 		initial, factor := float64(10), float64(3)
 		calculator := initCalculator(initial)
-		calculator.Mul(factor)
+		calculator.Mul(&factor)
 		expectedProduct := initial * factor
 		actualProduct := calculator.Value()
 		if *actualProduct != expectedProduct {
@@ -93,11 +93,11 @@ func TestCalculator(t *testing.T) {
 		calculator := initCalculator(0)
 		lhs, rhs := 10, 3
 		calculator.SetCurr(calc.NewMultiply(
-			calclib.NewNumber(float64(lhs)),
-			calclib.NewNumber(float64(rhs)),
+			calclib.NewNumber(jsii.Number(10)),
+			calclib.NewNumber(jsii.Number(3)),
 		))
 		expectedString := fmt.Sprintf("(%d * %d)", lhs, rhs)
-		actualString := calculator.ToString()
+		actualString := *calculator.ToString()
 		if actualString != expectedString {
 			t.Errorf("Expected string: %s; Actual %s;", expectedString, actualString)
 		}
@@ -108,7 +108,7 @@ func TestUpcasingReflectable(t *testing.T) {
 	delegate := make(map[string]interface{})
 	key, val := "key1", "value1"
 	delegate[key] = val
-	upReflectable := calc.NewUpcasingReflectable(delegate)
+	upReflectable := calc.NewUpcasingReflectable(&delegate)
 	entries := *upReflectable.Entries()
 
 	if len(entries) != 1 {
@@ -200,11 +200,11 @@ func TestOptionalEnums(t *testing.T) {
 
 func TestStructWithEnum(t *testing.T) {
 	obj := calc.NewTestStructWithEnum()
-	if !obj.IsStringEnumA(calc.StructWithEnum{Foo: calc.StringEnum_A}) {
+	if !*obj.IsStringEnumA(&calc.StructWithEnum{Foo: calc.StringEnum_A}) {
 		t.Error("Failed")
 	}
 
-	if !obj.IsStringEnumB(calc.StructWithEnum{
+	if !*obj.IsStringEnumB(&calc.StructWithEnum{
 		Foo: calc.StringEnum_B,
 		Bar: calc.AllTypesEnum_THIS_IS_GREAT,
 	}) {

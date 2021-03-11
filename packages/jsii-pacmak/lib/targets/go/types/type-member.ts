@@ -174,7 +174,7 @@ export abstract class GoMethod implements GoTypeMember {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
+      this.reference?.scopedReference(this.parent.pkg) ?? this.method.toString()
     );
   }
 
@@ -206,7 +206,7 @@ export class GoParameter {
   }
 
   public toString(): string {
-    const paramType = this.reference.scopedName(this.parent.pkg);
+    const paramType = this.reference.scopedReference(this.parent.pkg);
     return `${this.name} ${paramType}`;
   }
 }
