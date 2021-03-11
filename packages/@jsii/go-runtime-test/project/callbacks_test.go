@@ -10,12 +10,12 @@ func TestPureInterfacesCanBeUsedTransparently(t *testing.T) {
 	requiredstring := "It's Britney b**ch!"
 	expected := calc.StructB{RequiredString: &requiredstring}
 	delegate := StructReturningDelegate{expected: &expected}
-	calc.NewConsumePureInterface(&delegate)
-	// actual := consumer.WorkItBaby()
+	consumer := calc.NewConsumePureInterface(&delegate)
+	actual := consumer.WorkItBaby()
 
-	// if *actual.RequiredString != *expected.RequiredString {
-	// 	t.Errorf("Expected %v; actual: %v", *expected.RequiredString, *actual.RequiredString)
-	// }
+	if *actual.RequiredString != *expected.RequiredString {
+	 	t.Errorf("Expected %v; actual: %v", *expected.RequiredString, *actual.RequiredString)
+	}
 }
 
 type StructReturningDelegate struct {

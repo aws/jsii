@@ -140,10 +140,11 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 		}
 
 		if dataVal.Elem().Kind() == reflect.Struct {
-			if fields, fqn, isStruct := c.Types().StructFields(dataVal.Type()); isStruct {
+			elemVal := dataVal.Elem()
+			if fields, fqn, isStruct := c.Types().StructFields(elemVal.Type()); isStruct {
 				data := make(map[string]interface{})
 				for _, field := range fields {
-					fieldVal := dataVal.FieldByIndex(field.Index)
+					fieldVal := elemVal.FieldByIndex(field.Index)
 					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
 						continue
 					}
