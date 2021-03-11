@@ -4,7 +4,19 @@ This directory contains compliance tests for the go language bindings.
 
 ## Usage
 
-`yarn build && yarn test`
+Build & run Go compliance tests: 
+
+```shell
+$ cd packages/@jsii/go-runtime-test
+$ yarn build && yarn test
+```
+
+Produce complaince report:
+
+```shell
+$ cd tools/jsii-compliance
+$ yarn report
+```
 
 ## Writing a Test
 
