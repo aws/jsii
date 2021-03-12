@@ -34,7 +34,7 @@ for (const name of fs.readdirSync(EXAMPLES_ROOT)) {
       },
     };
 
-    const tmpdir = await fs.mkdtemp(os.tmpdir());
+    const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-examples.tests-'));
     try {
       // Create pretend source tree
       await fs.writeJson(
