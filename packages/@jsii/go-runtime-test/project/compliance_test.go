@@ -62,7 +62,7 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 
 func (suite *ComplianceSuite) TestUseNestedStruct() {
 	suite.FailTest("Nested types are not namespaced", "https://github.com/aws/jsii/pull/2650")
-	scopejsiicalcbase.StaticConsumer_Consume(submodule.NestedStruct{
+	scopejsiicalcbase.StaticConsumer_Consume(submodule.NestingClass_NestedStruct{
 		Name: "Bond, James Bond",
 	})
 }
@@ -273,10 +273,10 @@ func (suite* ComplianceSuite) TestGetAndSetEnumValues() {
 	calc := calc.NewCalculator(calc.CalculatorProps{})
 	calc.Add(9)
 	calc.Pow(3)
-	assert.Equal(composition.CompositionStringStyle_NORMAL, calc.StringStyle())
+	assert.Equal(composition.CompositeOperation_CompositionStringStyle_NORMAL, calc.StringStyle())
 
-	calc.SetStringStyle(composition.CompositionStringStyle_DECORATED)
-	assert.Equal(composition.CompositionStringStyle_DECORATED, calc.StringStyle())
+	calc.SetStringStyle(composition.CompositeOperation_CompositionStringStyle_DECORATED)
+	assert.Equal(composition.CompositeOperation_CompositionStringStyle_DECORATED, calc.StringStyle())
 	assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.ToString())
 }
 
