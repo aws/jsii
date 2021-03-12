@@ -68,7 +68,7 @@ export class DotNetGenerator extends Generator {
       this.assembly,
     );
 
-    this.emitNamespaceDocs();
+    this.emitAssemblyDocs();
 
     // We need to resolve the dependency tree
     this.typeresolver.resolveNamespacesDependencies();
@@ -149,9 +149,14 @@ export class DotNetGenerator extends Generator {
 
   /**
    * Namespaces are handled implicitly by openFileIfNeeded().
+   *
+   * Do generate docs if this is for a submodule though.
    */
-  protected onBeginNamespace(_ns: string) {
-    /* noop */
+  protected onBeginNamespace(ns: string) {
+    const submodule = this.assembly.submodules?.[ns];
+    if (submodule) {
+      this.emitNamespaceDocs(ns, submodule);
+    }
   }
 
   protected onEndNamespace(_ns: string) {
@@ -1074,6 +1079,13 @@ export class DotNetGenerator extends Generator {
     }
   }
 
+  private emitAssemblyDocs() {
+    this.emitNamespaceDocs(
+      this.assembly.targets!.dotnet!.namespace,
+      this.assembly,
+    );
+  }
+
   /**
    * Emit an unused, empty class called `NamespaceDoc` to attach the module README to
    *
@@ -1086,18 +1098,15 @@ export class DotNetGenerator extends Generator {
    * In any case, we need a place to attach the docs where they can be transported around,
    * might as well be this method.
    */
-  private emitNamespaceDocs() {
-    if (!this.assembly.readme) {
+  private emitNamespaceDocs(namespace: string, docSource: spec.Targetable) {
+    if (!docSource.readme) {
       return;
     }
 
-    const namespace = this.assembly.targets!.dotnet!.namespace;
     const className = 'NamespaceDoc';
     this.openFileIfNeeded(className, namespace, false, false);
 
-    this.dotnetDocGenerator.emitMarkdownAsRemarks(
-      this.assembly.readme.markdown,
-    );
+    this.dotnetDocGenerator.emitMarkdownAsRemarks(docSource.readme.markdown);
     this.emitHideAttribute();
     // Traditionally this class is made 'internal', but that interacts poorly with DocFX's default filters
     // which aren't overridable. So we make it public, but use attributes to hide it from users' IntelliSense,
