@@ -15,7 +15,7 @@ export abstract class GoType {
   public constructor(public pkg: Package, public type: Type) {
     this.name = toPascalCase(type.name);
 
-    // Prefix witht he nesting parent name(s), using an _ delimiter.
+    // Prefix with the nesting parent name(s), using an _ delimiter.
     for (
       let parent = type.nestingParent;
       parent != null;
