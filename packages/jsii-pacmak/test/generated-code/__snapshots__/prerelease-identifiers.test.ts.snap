@@ -410,7 +410,8 @@ include pyproject.toml
 `;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
@@ -919,7 +920,8 @@ include pyproject.toml
 `;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
@@ -1407,7 +1409,8 @@ include pyproject.toml
 `;
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
@@ -1892,7 +1895,8 @@ include pyproject.toml
 `;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
