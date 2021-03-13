@@ -609,6 +609,27 @@ error JSII8002: Method and property (unless they are static readonly) names must
 
 `;
 
+exports[`static-nested-conflict 1`] = `
+neg.static-nested-conflict.ts:5:3 - error JSII5020: The static member "ParentClass.nestedStruct" has the same PascalCased representation as nested type "ParentClass.NestedStruct". This would result in invalid code in Go.
+
+5   public static nestedStruct(): boolean {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6     return false;
+  ~~~~~~~~~~~~~~~~~
+7   }
+  ~~~
+
+  neg.static-nested-conflict.ts:13:3
+    13   export interface NestedStruct {
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    14     readonly field: number;
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    15   }
+       ~~~
+    This is the conflicting nested type declaration
+
+`;
+
 exports[`static-prop-name.1 1`] = `
 error JSII8002: Method and property (unless they are static readonly) names must use camelCase. Rename "jsii.MyClass.Prop" to "prop"
 

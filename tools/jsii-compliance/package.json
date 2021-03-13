@@ -4,6 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
+    "build": "echo 'build not needed for the jsii-compliance package'",
     "report": "ts-node report.ts",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "yarn lint --fix"
@@ -15,7 +16,7 @@
     "tablemark": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.54",
+    "@types/node": "^10.17.55",
     "eslint": "^7.21.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",

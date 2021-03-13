@@ -6,6 +6,7 @@ import * as ts from 'typescript';
 
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
+import { getRelatedNode } from './node-bindings';
 import { ProjectInfo } from './project-info';
 
 export class Validator implements Emitter {
@@ -55,6 +56,7 @@ function _defaultValidations(): ValidationFunction[] {
     _memberNamesMustNotLookLikeJavaGettersOrSetters,
     _allTypeReferencesAreValid,
     _inehritanceDoesNotChangeContracts,
+    _staticMembersAndNestedTypesMustNotSharePascalCaseName,
   ];
 
   function _typeNamesMustUsePascalCase(
@@ -510,6 +512,53 @@ function _defaultValidations(): ValidationFunction[] {
           ),
         );
       }
+    }
+  }
+
+  function _staticMembersAndNestedTypesMustNotSharePascalCaseName(
+    _: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
+    for (const nestedType of Object.values(assembly.types ?? {})) {
+      if (nestedType.namespace == null) {
+        continue;
+      }
+      const nestingType = assembly.types![
+        `${assembly.name}.${nestedType.namespace}`
+      ];
+      if (nestingType == null) {
+        continue;
+      }
+      const nestedTypeName = Case.pascal(nestedType.name);
+      for (const { name, member } of staticMembers(nestingType)) {
+        if (name === nestedTypeName) {
+          let diag = JsiiDiagnostic.JSII_5020_STATIC_MEMBER_CONFLICTS_WITH_NESTED_TYPE.create(
+            getRelatedNode(member)!,
+            nestingType,
+            member,
+            nestedType,
+          );
+          const nestedTypeNode = getRelatedNode(nestedType);
+          if (nestedTypeNode != null) {
+            diag = diag.addRelatedInformation(
+              nestedTypeNode,
+              'This is the conflicting nested type declaration',
+            );
+          }
+          diagnostic(diag);
+        }
+      }
+    }
+
+    function staticMembers(type: spec.Type) {
+      if (spec.isClassOrInterfaceType(type)) {
+        return [
+          ...(type.methods?.filter((method) => method.static) ?? []),
+          ...(type.properties?.filter((prop) => prop.static) ?? []),
+        ].map((member) => ({ name: Case.pascal(member.name), member }));
+      }
+      return type.members.map((member) => ({ name: member.name, member }));
     }
   }
 }
