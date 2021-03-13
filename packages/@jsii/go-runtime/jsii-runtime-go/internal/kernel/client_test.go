@@ -25,6 +25,7 @@ func TestClient(t *testing.T) {
 		if err != nil {
 			t.Log(err)
 		}
+
 	})
 
 	t.Run("Type registry survives CloseClient()", func(t *testing.T) {
