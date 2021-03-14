@@ -14,7 +14,12 @@ import {
   JSII_INIT_ALIAS,
 } from './runtime';
 import { GoClass, GoType, Enum, GoInterface, Struct } from './types';
-import { findTypeInTree, goPackageName, flatMap, tarballName } from './util';
+import {
+  findTypeInTree,
+  goPackageNameForAssembly,
+  flatMap,
+  tarballName,
+} from './util';
 import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
@@ -206,9 +211,11 @@ export class RootPackage extends Package {
   private readonly versionFile: VersionFile;
 
   public constructor(assembly: Assembly) {
-    const packageName = goPackageName(assembly.name);
+    const goConfig = assembly.targets?.go ?? {};
+    const packageName = goPackageNameForAssembly(assembly);
     const filePath = '';
-    const moduleName = assembly.targets?.go?.moduleName ?? '';
+    const moduleName = goConfig.moduleName ?? '';
+    const version = `${assembly.version}${goConfig.versionSuffix ?? ''}`;
 
     super(
       assembly.types,
@@ -216,11 +223,11 @@ export class RootPackage extends Package {
       packageName,
       filePath,
       moduleName,
-      assembly.version,
+      version,
     );
 
     this.assembly = assembly;
-    this.version = assembly.version;
+    this.version = version;
     this.versionFile = new VersionFile(this.version);
 
     if (this.assembly.readme?.markdown) {
@@ -384,7 +391,7 @@ export class InternalPackage extends Package {
   public readonly parent: Package;
 
   public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
-    const packageName = goPackageName(assembly.name);
+    const packageName = goPackageNameForAssembly(assembly);
     const filePath =
       parent === root ? packageName : `${parent.filePath}/${packageName}`;
 
