@@ -109,5 +109,18 @@ export interface IThreeLevelsInterface extends base.IBaseInterface {
   baz(): void;
 }
 
+/**
+ * A base class for testing #2647. The method `foo` has a parameter that uses a type
+ * from a dependent module. Since Go "reimplments" this method, it will also need
+ * to include an "import" statement for the calc-base module.
+ *
+ * @see https://github.com/aws/jsii/issues/2647
+ */
+export class BaseFor2647 {
+  public foo(obj: base.IBaseInterface): void {
+    obj.bar();
+  }
+}
+
 export * as submodule from './submodule';
 export * from './duplicate-inherited-prop';

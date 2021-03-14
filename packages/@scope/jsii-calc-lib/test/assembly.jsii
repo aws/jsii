@@ -92,7 +92,7 @@
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 112
+        "line": 125
       },
       "targets": {
         "dotnet": {
@@ -133,6 +133,47 @@
     }
   },
   "types": {
+    "@scope/jsii-calc-lib.BaseFor2647": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "remarks": "The method `foo` has a parameter that uses a type\nfrom a dependent module. Since Go \"reimplments\" this method, it will also need\nto include an \"import\" statement for the calc-base module.",
+        "see": "https://github.com/aws/jsii/issues/2647",
+        "stability": "deprecated",
+        "summary": "A base class for testing #2647."
+      },
+      "fqn": "@scope/jsii-calc-lib.BaseFor2647",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 119
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 120
+          },
+          "name": "foo",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "fqn": "@scope/jsii-calc-base.IBaseInterface"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "BaseFor2647"
+    },
     "@scope/jsii-calc-lib.DiamondLeft": {
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
@@ -872,5 +913,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "YlmxPtOusVTgKe2YUzZDpB4UnmnU3zZ0UUdXwSDcgOo="
+  "fingerprint": "pW043fHp8icTWympphJfAKrI/5PT2F1nZyyNNyEmTjM="
 }

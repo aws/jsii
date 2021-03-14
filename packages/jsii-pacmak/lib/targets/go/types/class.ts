@@ -181,6 +181,8 @@ export class GoClass extends GoType {
       ...this.properties,
       ...this.staticMethods,
       ...this.staticProperties,
+      ...(this.reimplementedMethods ?? []),
+      ...(this.reimplementedProperties ?? []),
     ];
   }
 
