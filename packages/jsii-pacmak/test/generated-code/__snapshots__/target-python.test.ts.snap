@@ -2103,6 +2103,16 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2647
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 module2689
+          ┃  ┣━ 📄 __init__.py
+          ┃  ┣━ 📁 methods
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┣━ 📁 props
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┣━ 📁 retval
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┗━ 📁 structs
+          ┃     ┗━ 📄 __init__.py
           ┣━ 📁 nodirect
           ┃  ┣━ 📄 __init__.py
           ┃  ┣━ 📁 sub1
@@ -2417,6 +2427,11 @@ kwargs = json.loads(
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
         "jsii_calc.module2647",
+        "jsii_calc.module2689",
+        "jsii_calc.module2689.methods",
+        "jsii_calc.module2689.props",
+        "jsii_calc.module2689.retval",
+        "jsii_calc.module2689.structs",
         "jsii_calc.nodirect",
         "jsii_calc.nodirect.sub1",
         "jsii_calc.nodirect.sub2",
@@ -10412,6 +10427,222 @@ class ExtendAndImplement(
 
 __all__ = [
     "ExtendAndImplement",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2689/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2689/methods/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+import scope.jsii_calc_base
+import scope.jsii_calc_lib
+
+
+class MyClass(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2689.methods.MyClass",
+):
+    def __init__(self) -> None:
+        jsii.create(MyClass, self, [])
+
+    @jsii.member(jsii_name="bar")
+    def bar(
+        self,
+        _bar: typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps],
+    ) -> None:
+        '''
+        :param _bar: -
+        '''
+        return typing.cast(None, jsii.invoke(self, "bar", [_bar]))
+
+    @jsii.member(jsii_name="foo")
+    def foo(self, _values: typing.List[scope.jsii_calc_lib.Number]) -> None:
+        '''
+        :param _values: -
+        '''
+        return typing.cast(None, jsii.invoke(self, "foo", [_values]))
+
+
+__all__ = [
+    "MyClass",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2689/props/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+import scope.jsii_calc_base
+import scope.jsii_calc_lib
+
+
+class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2689.props.MyClass"):
+    def __init__(self) -> None:
+        jsii.create(MyClass, self, [])
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps]:
+        return typing.cast(typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps], jsii.get(self, "bar"))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="foo")
+    def foo(self) -> typing.List[scope.jsii_calc_lib.Number]:
+        return typing.cast(typing.List[scope.jsii_calc_lib.Number], jsii.get(self, "foo"))
+
+
+__all__ = [
+    "MyClass",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2689/retval/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+import scope.jsii_calc_base
+import scope.jsii_calc_lib
+
+
+class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2689.retval.MyClass"):
+    def __init__(self) -> None:
+        jsii.create(MyClass, self, [])
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps]:
+        return typing.cast(typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps], jsii.invoke(self, "bar", []))
+
+    @jsii.member(jsii_name="foo")
+    def foo(self) -> typing.List[scope.jsii_calc_lib.Number]:
+        return typing.cast(typing.List[scope.jsii_calc_lib.Number], jsii.invoke(self, "foo", []))
+
+
+__all__ = [
+    "MyClass",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2689/structs/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+import scope.jsii_calc_base
+import scope.jsii_calc_lib
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module2689.structs.MyStruct",
+    jsii_struct_bases=[],
+    name_mapping={"base_map": "baseMap", "numbers": "numbers"},
+)
+class MyStruct:
+    def __init__(
+        self,
+        *,
+        base_map: typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps],
+        numbers: typing.List[scope.jsii_calc_lib.Number],
+    ) -> None:
+        '''
+        :param base_map: 
+        :param numbers: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "base_map": base_map,
+            "numbers": numbers,
+        }
+
+    @builtins.property
+    def base_map(self) -> typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps]:
+        result = self._values.get("base_map")
+        assert result is not None, "Required property 'base_map' is missing"
+        return typing.cast(typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps], result)
+
+    @builtins.property
+    def numbers(self) -> typing.List[scope.jsii_calc_lib.Number]:
+        result = self._values.get("numbers")
+        assert result is not None, "Required property 'numbers' is missing"
+        return typing.cast(typing.List[scope.jsii_calc_lib.Number], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "MyStruct(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "MyStruct",
 ]
 
 publication.publish()
