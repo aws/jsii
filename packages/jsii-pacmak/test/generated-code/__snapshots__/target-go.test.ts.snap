@@ -1347,7 +1347,7 @@ import (
 //
 // Deprecated.
 type BaseFor2647 interface {
-	Foo(obj scopejsiicalcbase.IBaseInterface)
+	Foo(obj jcb.IBaseInterface)
 }
 
 // The jsii proxy struct for BaseFor2647
@@ -1373,7 +1373,7 @@ func NewBaseFor2647(very scopejsiicalcbaseofbase.Very) BaseFor2647 {
 }
 
 // Deprecated.
-func (b *jsiiProxy_BaseFor2647) Foo(obj scopejsiicalcbase.IBaseInterface) {
+func (b *jsiiProxy_BaseFor2647) Foo(obj jcb.IBaseInterface) {
 	_jsii_.InvokeVoid(
 		b,
 		"foo",
@@ -14807,7 +14807,7 @@ import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws/jsii/jsii-calc/go/jcb"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
@@ -14873,7 +14873,7 @@ func (e *jsiiProxy_ExtendAndImplement) LocalMethod() string {
 }
 
 // Deprecated.
-func (e *jsiiProxy_ExtendAndImplement) Foo(obj scopejsiicalcbase.IBaseInterface) {
+func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
 	_jsii_.InvokeVoid(
 		e,
 		"foo",

@@ -97,7 +97,7 @@
         "@scope/jsii-calc-lib.submodule": {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 125
+            "line": 130
           },
           "targets": {
             "dotnet": {
@@ -14137,7 +14137,19 @@
       "initializer": {
         "docs": {
           "stability": "deprecated"
-        }
+        },
+        "locationInModule": {
+          "filename": "lib/index.ts",
+          "line": 121
+        },
+        "parameters": [
+          {
+            "name": "very",
+            "type": {
+              "fqn": "@scope/jsii-calc-base-of-base.Very"
+            }
+          }
+        ]
       },
       "interfaces": [
         "@scope/jsii-calc-lib.IFriendly"
@@ -14940,5 +14952,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "61fXjiesh/E+ejTgQ0gXmmToVljlc8IbNsEz4o5DDGY="
+  "fingerprint": "jhFZc5fa0gXEmH6s8wlAhaQm8CX/ZCHNvpY1jXxwMgE="
 }
