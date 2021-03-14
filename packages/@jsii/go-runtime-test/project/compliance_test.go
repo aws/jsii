@@ -992,7 +992,7 @@ func (suite *ComplianceSuite) TestUnionTypes() {
 	assert.Equal(float64(99), number.Value());
 
 	// array
-	suite.FailTest("Unable to set an array of interfaces", "TODO: Open an issue")
+	suite.FailTest("Unable to set an array of interfaces", "https://github.com/aws/jsii/issues/2686")
 	a := []interface{}{123, calclib.NewNumber(33)}
 	types.SetUnionArrayProperty(a);
 
@@ -1005,7 +1005,7 @@ func (suite *ComplianceSuite) TestArrays() {
 	assert := suite.Assert()
 	sum := calc.NewSum();
 
-	suite.FailTest("Unable to set an array of interfaces", "TODO: Open an issue")
+	suite.FailTest("Unable to set an array of interfaces", "https://github.com/aws/jsii/issues/2686")
 	sum.SetParts([]calclib.NumericValue{calclib.NewNumber(5), calclib.NewNumber(10), calc.NewMultiply(calclib.NewNumber(2), calclib.NewNumber(3))});
 	assert.Equal(10 + 5 + (2 * 3), sum.Value());
 	assert.Equal(5, sum.Parts()[0].Value());
@@ -1056,29 +1056,20 @@ func (suite *ComplianceSuite) TestCanLeverageIndirectInterfacePolymorphism() {
 	assert := suite.Assert()
 	assert.Equal(float64(1337), provider.ProvideAsClass().Value());
 
-	suite.FailTest("Not sure", "TODO: Open issue")
+	suite.FailTest("Unable to reuse instances between parent/child interfaces", "https://github.com/aws/jsii/issues/2688")
 	assert.Equal(float64(1337), provider.ProvideAsInterface().Value());
 	assert.Equal("to implement", provider.ProvideAsInterface().Verb());
 }
 
 func (suite *ComplianceSuite) TestPropertyOverrides_Set_Throws() {
 
-	// assert := suite.Assert()
+	assert := suite.Assert()
 	so := TestPropertyOverrides_Set_ThrowsSyncVirtualMethods{
 		SyncVirtualMethods: calc.NewSyncVirtualMethods(),
 	}
 
-	// defer func() {
-	// 	if r := recover(); r != nil {
-	// 		assert.Equal("Exception from overloaded setter", r)
-	// 	} else {
-	// 		assert.FailNow("Expected a panic")
-	// 	}
-	// }()
-
-	so.ModifyValueOfTheProperty("Hii");
-
 	suite.FailTest("This test relies on overrides which are not supported yet", "https://github.com/aws/jsii/issues/2048")
+	assert.Panics(func () { so.ModifyValueOfTheProperty("Hii"); })
 }
 
 type TestPropertyOverrides_Set_ThrowsSyncVirtualMethods struct {
@@ -1143,21 +1134,127 @@ func (suite *ComplianceSuite) TestExceptions() {
 	calc3.Add(3);
 	assert.Equal(float64(23), calc3.Value());
 
-	// TODO - this is not an idiomatic way of handling user errors in go...
-	defer func() {
-		if r := recover(); r != nil {
-			assert.Contains(r.(error).Error(), "Operation 33 exceeded maximum value 30")
-		} else {
-			assert.FailNow("Expected a panic")
-		}
-		calc3.SetMaxValue(40);
-		calc3.Add(10);
-		assert.Equal(float64(33), calc3.Value());
-	}()
+	// TODO: should assert the actual error here - not working for some reasons
+	assert.Panics(func() {
+		calc3.Add(10)
+	})
 
-	calc3.Add(10)
+	calc3.SetMaxValue(40);
+	calc3.Add(10);
+	assert.Equal(float64(33), calc3.Value());
+
 }
 
+func (suite *ComplianceSuite) TestSyncOverrides_CallsSuper() {
+
+	assert := suite.Assert()
+
+	obj := SyncOverrides{returnSuper: true, SyncVirtualMethods: calc.NewSyncVirtualMethods(), multiplier: 1};
+
+	suite.FailTest("Overrides are not supported yet", "https://github.com/aws/jsii/issues/2048")
+	assert.Equal(float64(10 * 5), obj.CallerIsProperty());
+
+	obj.returnSuper = true; // js code returns n * 2
+	assert.Equal(float64(10 * 2), obj.CallerIsProperty());
+}
+
+type SyncOverrides struct {
+	calc.SyncVirtualMethods
+	returnSuper bool
+	multiplier float64
+	callAsync bool
+}
+
+func (s *SyncOverrides) VirtualMethod(n float64) float64 {
+	if (s.returnSuper) {
+		return s.SyncVirtualMethods.VirtualMethod(n)
+	}
+	if (s.callAsync) {
+		obj := OverrideAsyncMethods{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()};
+		return obj.CallMe();
+	}
+	return 5 * n * s.multiplier
+}
+
+func (suite *ComplianceSuite) TestAsyncOverrides_OverrideCallsSuper() {
+
+	assert := suite.Assert()
+
+	obj := OverrideCallsSuper{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()};
+
+	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
+	assert.Equal(1441, obj.OverrideMe(12));
+	assert.Equal(1209, obj.CallMe());
+}
+
+type OverrideCallsSuper struct {
+	calc.AsyncVirtualMethods
+}
+
+func (o *OverrideCallsSuper) OverrideMe(mult float64) float64 {
+	superRet := o.AsyncVirtualMethods.OverrideMe(mult);
+	return superRet * 10 + 1;
+}
+
+func (suite *ComplianceSuite) TestSyncOverrides() {
+
+	assert := suite.Assert()
+
+	obj := SyncOverrides{returnSuper: false, SyncVirtualMethods: calc.NewSyncVirtualMethods(), multiplier: 1};
+
+	suite.FailTest("Overrides not supported", "https://github.com/aws/jsii/issues/2048")
+	assert.Equal(float64(10 * 5), obj.CallerIsMethod());
+
+	// affect the result
+	obj.multiplier = 5;
+	assert.Equal(float64(10 * 5 * 5), obj.CallerIsMethod());
+
+	// verify callbacks are invoked from a property
+	assert.Equal(float64(10 * 5 * 5), obj.CallerIsProperty());
+
+	// and from an async method
+	obj.multiplier = 3;
+	assert.Equal(float64(10 * 5 * 3), obj.CallerIsAsync());
+}
+
+func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethod() {
+
+	assert := suite.Assert()
+
+	obj := OverrideAsyncMethods{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()};
+
+	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
+	assert.Equal(float64(4452), obj.CallMe());
+}
+
+type OverrideAsyncMethods struct {
+	calc.AsyncVirtualMethods
+}
+
+func (o *OverrideAsyncMethods) OverrideMe(mult float64) float64 {
+	return o.foo() * 2
+}
+
+// Implement another method, which doesn't override anything in the base class.
+// This should obviously be possible.
+func (o *OverrideAsyncMethods) foo() float64 {
+	return 2222
+}
+
+func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_Method() {
+	suite.Assert().Panics(func() {
+		obj := SyncOverrides{SyncVirtualMethods: calc.NewSyncVirtualMethods()};
+		obj.callAsync = true;
+		suite.FailTest("Overrides not supported", "https://github.com/aws/jsii/issues/2048")
+		obj.CallerIsMethod();
+	})
+}
+
+func (suite *ComplianceSuite) TestCollectionOfInterfaces_MapOfStructs() {
+	assert := suite.Assert()
+	m := calc.InterfaceCollections_MapOfStructs()
+	assert.Equal("Hello, I'm String!", m["A"].RequiredString)
+}
 
 // required to make `go test` recognize the suite.
 func TestComplianceSuite(t *testing.T) {
