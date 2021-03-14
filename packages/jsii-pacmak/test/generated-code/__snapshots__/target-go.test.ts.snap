@@ -855,6 +855,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 scopejsiicalclib
+       ┣━ 📁 customsubmodulename
+       ┃  ┣━ 📄 customsubmodulename.go
+       ┃  ┗━ 📄 customsubmodulename.init.go
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
@@ -863,9 +866,6 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 NOTICE
        ┣━ 📄 scopejsiicalclib.go
        ┣━ 📄 scopejsiicalclib.init.go
-       ┣━ 📁 submodule
-       ┃  ┣━ 📄 submodule.go
-       ┃  ┗━ 📄 submodule.init.go
        ┗━ 📄 version
 `;
 
@@ -1077,6 +1077,205 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/NOTICE 1`] = `
 jsii
 Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/customsubmodulename.go 1`] = `
+package customsubmodulename
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+)
+
+// Deprecated.
+type IReflectable interface {
+	// Deprecated.
+	Entries() []ReflectableEntry
+}
+
+// The jsii proxy for IReflectable
+type jsiiProxy_IReflectable struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_IReflectable) Entries() []ReflectableEntry {
+	var returns []ReflectableEntry
+	_jsii_.Get(
+		j,
+		"entries",
+		&returns,
+	)
+	return returns
+}
+
+// This class is here to show we can use nested classes across module boundaries.
+// Deprecated.
+type NestingClass interface {
+}
+
+// The jsii proxy struct for NestingClass
+type jsiiProxy_NestingClass struct {
+	_ byte // padding
+}
+
+// This class is here to show we can use nested classes across module boundaries.
+// Deprecated.
+type NestingClass_NestedClass interface {
+	Property() string
+}
+
+// The jsii proxy struct for NestingClass_NestedClass
+type jsiiProxy_NestingClass_NestedClass struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_NestingClass_NestedClass) Property() string {
+	var returns string
+	_jsii_.Get(
+		j,
+		"property",
+		&returns,
+	)
+	return returns
+}
+
+
+// Deprecated.
+func NewNestingClass_NestedClass() NestingClass_NestedClass {
+	_init_.Initialize()
+
+	j := jsiiProxy_NestingClass_NestedClass{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
+		nil /* no parameters */,
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// This is a struct, nested within a class.
+//
+// Normal.
+// Deprecated.
+type NestingClass_NestedStruct struct {
+	// Deprecated.
+	Name string \`json:"name"\`
+}
+
+// Deprecated.
+type ReflectableEntry struct {
+	// Deprecated.
+	Key string \`json:"key"\`
+	// Deprecated.
+	Value interface{} \`json:"value"\`
+}
+
+// Deprecated.
+type Reflector interface {
+	AsMap(reflectable IReflectable) map[string]interface{}
+}
+
+// The jsii proxy struct for Reflector
+type jsiiProxy_Reflector struct {
+	_ byte // padding
+}
+
+// Deprecated.
+func NewReflector() Reflector {
+	_init_.Initialize()
+
+	j := jsiiProxy_Reflector{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.submodule.Reflector",
+		nil /* no parameters */,
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func (r *jsiiProxy_Reflector) AsMap(reflectable IReflectable) map[string]interface{} {
+	var returns map[string]interface{}
+
+	_jsii_.Invoke(
+		r,
+		"asMap",
+		[]interface{}{reflectable},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/customsubmodulename.init.go 1`] = `
+package customsubmodulename
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterInterface(
+		"@scope/jsii-calc-lib.submodule.IReflectable",
+		reflect.TypeOf((*IReflectable)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "entries", GoGetter: "Entries"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IReflectable{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.submodule.NestingClass",
+		reflect.TypeOf((*NestingClass)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_NestingClass{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
+		reflect.TypeOf((*NestingClass_NestedClass)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "property", GoGetter: "Property"},
+		},
+		func() interface{} {
+			return &jsiiProxy_NestingClass_NestedClass{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
+		reflect.TypeOf((*NestingClass_NestedStruct)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.submodule.ReflectableEntry",
+		reflect.TypeOf((*ReflectableEntry)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.submodule.Reflector",
+		reflect.TypeOf((*Reflector)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "asMap", GoMethod: "AsMap"},
+		},
+		func() interface{} {
+			return &jsiiProxy_Reflector{}
+		},
+	)
+}
 
 `;
 
@@ -1563,205 +1762,6 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.StructWithOnlyOptionals",
 		reflect.TypeOf((*StructWithOnlyOptionals)(nil)).Elem(),
-	)
-}
-
-`;
-
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/submodule/submodule.go 1`] = `
-package submodule
-
-import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
-)
-
-// Deprecated.
-type IReflectable interface {
-	// Deprecated.
-	Entries() []ReflectableEntry
-}
-
-// The jsii proxy for IReflectable
-type jsiiProxy_IReflectable struct {
-	_ byte // padding
-}
-
-func (j *jsiiProxy_IReflectable) Entries() []ReflectableEntry {
-	var returns []ReflectableEntry
-	_jsii_.Get(
-		j,
-		"entries",
-		&returns,
-	)
-	return returns
-}
-
-// This class is here to show we can use nested classes across module boundaries.
-// Deprecated.
-type NestingClass interface {
-}
-
-// The jsii proxy struct for NestingClass
-type jsiiProxy_NestingClass struct {
-	_ byte // padding
-}
-
-// This class is here to show we can use nested classes across module boundaries.
-// Deprecated.
-type NestingClass_NestedClass interface {
-	Property() string
-}
-
-// The jsii proxy struct for NestingClass_NestedClass
-type jsiiProxy_NestingClass_NestedClass struct {
-	_ byte // padding
-}
-
-func (j *jsiiProxy_NestingClass_NestedClass) Property() string {
-	var returns string
-	_jsii_.Get(
-		j,
-		"property",
-		&returns,
-	)
-	return returns
-}
-
-
-// Deprecated.
-func NewNestingClass_NestedClass() NestingClass_NestedClass {
-	_init_.Initialize()
-
-	j := jsiiProxy_NestingClass_NestedClass{}
-
-	_jsii_.Create(
-		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
-		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&j,
-	)
-
-	return &j
-}
-
-// This is a struct, nested within a class.
-//
-// Normal.
-// Deprecated.
-type NestingClass_NestedStruct struct {
-	// Deprecated.
-	Name string \`json:"name"\`
-}
-
-// Deprecated.
-type ReflectableEntry struct {
-	// Deprecated.
-	Key string \`json:"key"\`
-	// Deprecated.
-	Value interface{} \`json:"value"\`
-}
-
-// Deprecated.
-type Reflector interface {
-	AsMap(reflectable IReflectable) map[string]interface{}
-}
-
-// The jsii proxy struct for Reflector
-type jsiiProxy_Reflector struct {
-	_ byte // padding
-}
-
-// Deprecated.
-func NewReflector() Reflector {
-	_init_.Initialize()
-
-	j := jsiiProxy_Reflector{}
-
-	_jsii_.Create(
-		"@scope/jsii-calc-lib.submodule.Reflector",
-		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&j,
-	)
-
-	return &j
-}
-
-// Deprecated.
-func (r *jsiiProxy_Reflector) AsMap(reflectable IReflectable) map[string]interface{} {
-	var returns map[string]interface{}
-
-	_jsii_.Invoke(
-		r,
-		"asMap",
-		[]interface{}{reflectable},
-		&returns,
-	)
-
-	return returns
-}
-
-
-`;
-
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/submodule/submodule.init.go 1`] = `
-package submodule
-
-import (
-	"reflect"
-
-	_jsii_ "github.com/aws/jsii-runtime-go"
-)
-
-func init() {
-	_jsii_.RegisterInterface(
-		"@scope/jsii-calc-lib.submodule.IReflectable",
-		reflect.TypeOf((*IReflectable)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberProperty{JsiiProperty: "entries", GoGetter: "Entries"},
-		},
-		func() interface{} {
-			return &jsiiProxy_IReflectable{}
-		},
-	)
-	_jsii_.RegisterClass(
-		"@scope/jsii-calc-lib.submodule.NestingClass",
-		reflect.TypeOf((*NestingClass)(nil)).Elem(),
-		nil, // no members
-		func() interface{} {
-			return &jsiiProxy_NestingClass{}
-		},
-	)
-	_jsii_.RegisterClass(
-		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
-		reflect.TypeOf((*NestingClass_NestedClass)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberProperty{JsiiProperty: "property", GoGetter: "Property"},
-		},
-		func() interface{} {
-			return &jsiiProxy_NestingClass_NestedClass{}
-		},
-	)
-	_jsii_.RegisterStruct(
-		"@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
-		reflect.TypeOf((*NestingClass_NestedStruct)(nil)).Elem(),
-	)
-	_jsii_.RegisterStruct(
-		"@scope/jsii-calc-lib.submodule.ReflectableEntry",
-		reflect.TypeOf((*ReflectableEntry)(nil)).Elem(),
-	)
-	_jsii_.RegisterClass(
-		"@scope/jsii-calc-lib.submodule.Reflector",
-		reflect.TypeOf((*Reflector)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberMethod{JsiiMethod: "asMap", GoMethod: "AsMap"},
-		},
-		func() interface{} {
-			return &jsiiProxy_Reflector{}
-		},
 	)
 }
 
@@ -2558,7 +2558,7 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
 )
 
 type AbstractClass interface {
@@ -9365,10 +9365,10 @@ type jsiiProxy_NestedClassInstance struct {
 	_ byte // padding
 }
 
-func NestedClassInstance_MakeInstance() submodule.NestingClass_NestedClass {
+func NestedClassInstance_MakeInstance() customsubmodulename.NestingClass_NestedClass {
 	_init_.Initialize()
 
-	var returns submodule.NestingClass_NestedClass
+	var returns customsubmodulename.NestingClass_NestedClass
 
 	_jsii_.StaticInvoke(
 		"jsii-calc.NestedClassInstance",
@@ -12099,17 +12099,17 @@ type UnionProperties struct {
 
 // Ensures submodule-imported types from dependencies can be used correctly.
 type UpcasingReflectable interface {
-	submodule.IReflectable
-	Entries() []submodule.ReflectableEntry
+	customsubmodulename.IReflectable
+	Entries() []customsubmodulename.ReflectableEntry
 }
 
 // The jsii proxy struct for UpcasingReflectable
 type jsiiProxy_UpcasingReflectable struct {
-	submodule.IReflectable // implements @scope/jsii-calc-lib.submodule.IReflectable
+	customsubmodulename.IReflectable // implements @scope/jsii-calc-lib.submodule.IReflectable
 }
 
-func (j *jsiiProxy_UpcasingReflectable) Entries() []submodule.ReflectableEntry {
-	var returns []submodule.ReflectableEntry
+func (j *jsiiProxy_UpcasingReflectable) Entries() []customsubmodulename.ReflectableEntry {
+	var returns []customsubmodulename.ReflectableEntry
 	_jsii_.Get(
 		j,
 		"entries",
@@ -12135,9 +12135,9 @@ func NewUpcasingReflectable(delegate map[string]interface{}) UpcasingReflectable
 	return &j
 }
 
-func UpcasingReflectable_Reflector() submodule.Reflector {
+func UpcasingReflectable_Reflector() customsubmodulename.Reflector {
 	_init_.Initialize()
-	var returns submodule.Reflector
+	var returns customsubmodulename.Reflector
 	_jsii_.StaticGet(
 		"jsii-calc.UpcasingReflectable",
 		"reflector",
