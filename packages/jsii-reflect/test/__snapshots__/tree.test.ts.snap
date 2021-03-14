@@ -207,7 +207,10 @@ exports[`showAll 1`] = `
  │ │ │     ├── base: BaseFor2647
  │ │ │     ├── interfaces: IFriendly
  │ │ │     └─┬ members
- │ │ │       ├── <initializer>() initializer
+ │ │ │       ├─┬ <initializer>(very) initializer
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ very
+ │ │ │       │     └── type: @scope/jsii-calc-base-of-base.Very
  │ │ │       ├─┬ hello() method
  │ │ │       │ └── returns: string
  │ │ │       └─┬ localMethod() method
@@ -2915,7 +2918,10 @@ exports[`showAll 1`] = `
    └─┬ types
      ├─┬ class BaseFor2647
      │ └─┬ members
-     │   ├── <initializer>() initializer
+     │   ├─┬ <initializer>(very) initializer
+     │   │ └─┬ parameters
+     │   │   └─┬ very
+     │   │     └── type: @scope/jsii-calc-base-of-base.Very
      │   └─┬ foo(obj) method
      │     ├─┬ parameters
      │     │ └─┬ obj

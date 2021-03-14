@@ -2356,12 +2356,13 @@ public class BaseFor2647 extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * @param very This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public BaseFor2647() {
+    public BaseFor2647(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.baseofbase.Very very) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(very, "very is required") });
     }
 
     /**
@@ -21735,12 +21736,13 @@ public class ExtendAndImplement extends software.amazon.jsii.tests.calculator.li
     }
 
     /**
+     * @param very This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public ExtendAndImplement() {
+    public ExtendAndImplement(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.baseofbase.Very very) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(very, "very is required") });
     }
 
     /**

@@ -1,4 +1,5 @@
 import * as base from '@scope/jsii-calc-base';
+import { Very } from '@scope/jsii-calc-base-of-base';
 
 /**
  * Abstract class which represents a numeric value.
@@ -117,6 +118,10 @@ export interface IThreeLevelsInterface extends base.IBaseInterface {
  * @see https://github.com/aws/jsii/issues/2647
  */
 export class BaseFor2647 {
+  public constructor(very: Very) {
+    very.hey();
+  }
+
   public foo(obj: base.IBaseInterface): void {
     obj.bar();
   }

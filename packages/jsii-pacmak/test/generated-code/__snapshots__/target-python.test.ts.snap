@@ -1264,6 +1264,7 @@ import typing_extensions
 from ._jsii import *
 
 import scope.jsii_calc_base
+import scope.jsii_calc_base_of_base
 
 
 class BaseFor2647(
@@ -1280,11 +1281,13 @@ class BaseFor2647(
     :stability: deprecated
     '''
 
-    def __init__(self) -> None:
+    def __init__(self, very: scope.jsii_calc_base_of_base.Very) -> None:
         '''
+        :param very: -
+
         :stability: deprecated
         '''
-        jsii.create(BaseFor2647, self, [])
+        jsii.create(BaseFor2647, self, [very])
 
     @jsii.member(jsii_name="foo")
     def foo(self, obj: scope.jsii_calc_base.IBaseInterface) -> None:
@@ -10374,6 +10377,7 @@ import typing_extensions
 
 from .._jsii import *
 
+import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 
 
@@ -10388,11 +10392,13 @@ class ExtendAndImplement(
     :see: https://github.com/aws/jsii/issues/2647
     '''
 
-    def __init__(self) -> None:
+    def __init__(self, very: scope.jsii_calc_base_of_base.Very) -> None:
         '''
+        :param very: -
+
         :stability: deprecated
         '''
-        jsii.create(ExtendAndImplement, self, [])
+        jsii.create(ExtendAndImplement, self, [very])
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:

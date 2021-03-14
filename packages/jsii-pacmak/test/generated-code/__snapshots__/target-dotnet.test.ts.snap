@@ -1065,7 +1065,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// 
     /// <strong>See</strong>: https://github.com/aws/jsii/issues/2647
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.BaseFor2647), fullyQualifiedName: "@scope/jsii-calc-lib.BaseFor2647")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.BaseFor2647), fullyQualifiedName: "@scope/jsii-calc-lib.BaseFor2647", parametersJson: "[{\\"name\\":\\"very\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}}]")]
     [System.Obsolete()]
     public class BaseFor2647 : DeputyBase
     {
@@ -1073,7 +1073,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
-        public BaseFor2647(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public BaseFor2647(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very): base(new DeputyProps(new object?[]{very}))
         {
         }
 
@@ -12132,14 +12132,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2647
     /// <remarks>
     /// <strong>See</strong>: https://github.com/aws/jsii/issues/2647
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2647.ExtendAndImplement), fullyQualifiedName: "jsii-calc.module2647.ExtendAndImplement")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2647.ExtendAndImplement), fullyQualifiedName: "jsii-calc.module2647.ExtendAndImplement", parametersJson: "[{\\"name\\":\\"very\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}}]")]
     public class ExtendAndImplement : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.BaseFor2647, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
     {
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
-        public ExtendAndImplement(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ExtendAndImplement(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very): base(new DeputyProps(new object?[]{very}))
         {
         }
 

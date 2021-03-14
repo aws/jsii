@@ -15,7 +15,7 @@ import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { GoInterface } from './interface';
-import { GoParameter, GoMethod, GoProperty, GoTypeMember } from './type-member';
+import { GoMethod, GoProperty, GoTypeMember } from './type-member';
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
@@ -177,6 +177,7 @@ export class GoClass extends GoType {
 
   public get members(): GoTypeMember[] {
     return [
+      ...(this.initializer ? [this.initializer] : []),
       ...this.methods,
       ...this.properties,
       ...this.staticMethods,
@@ -326,18 +327,18 @@ export class GoClass extends GoType {
   }
 }
 
-export class GoClassConstructor {
+export class GoClassConstructor extends GoMethod {
+  public readonly usesInitPackage = false;
+  public readonly usesRuntimePackage = false;
+
   private readonly constructorRuntimeCall: ClassConstructor;
-  public readonly parameters: GoParameter[];
 
   public constructor(
     public readonly parent: GoClass,
     private readonly type: Initializer,
   ) {
+    super(parent, type);
     this.constructorRuntimeCall = new ClassConstructor(this);
-    this.parameters = this.type.parameters.map(
-      (param) => new GoParameter(parent, param),
-    );
   }
 
   public emit(context: EmitContext) {

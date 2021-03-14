@@ -1136,6 +1136,7 @@ import (
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
 
 // A base class for testing #2647.
@@ -1156,14 +1157,14 @@ type jsiiProxy_BaseFor2647 struct {
 }
 
 // Deprecated.
-func NewBaseFor2647() BaseFor2647 {
+func NewBaseFor2647(very scopejsiicalcbaseofbase.Very) BaseFor2647 {
 	_init_.Initialize()
 
 	j := jsiiProxy_BaseFor2647{}
 
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.BaseFor2647",
-		nil /* no parameters */,
+		[]interface{}{very},
 		[]_jsii_.FQN{},
 		nil, // no overrides
 		&j,
@@ -14807,6 +14808,7 @@ import (
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
@@ -14827,14 +14829,14 @@ type jsiiProxy_ExtendAndImplement struct {
 }
 
 // Deprecated.
-func NewExtendAndImplement() ExtendAndImplement {
+func NewExtendAndImplement(very scopejsiicalcbaseofbase.Very) ExtendAndImplement {
 	_init_.Initialize()
 
 	j := jsiiProxy_ExtendAndImplement{}
 
 	_jsii_.Create(
 		"jsii-calc.module2647.ExtendAndImplement",
-		nil /* no parameters */,
+		[]interface{}{very},
 		[]_jsii_.FQN{"@scope/jsii-calc-lib.IFriendly"},
 		nil, // no overrides
 		&j,
