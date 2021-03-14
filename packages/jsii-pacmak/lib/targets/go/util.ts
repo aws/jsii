@@ -1,4 +1,4 @@
-import { Assembly } from 'jsii-reflect';
+import { Assembly, Submodule } from 'jsii-reflect';
 
 import { Package } from './package';
 import { GoMethod, GoTypeMember, GoType } from './types';
@@ -24,8 +24,15 @@ export function findTypeInTree(
 /*
  * Format NPM package names as idiomatic Go module name
  */
-export function goPackageName(name: string): string {
-  return name.replace(/[^a-z0-9.]/gi, '').toLowerCase();
+export function goPackageNameForAssembly(
+  assembly: Assembly | Submodule,
+): string {
+  const config = assembly.targets?.go ?? {};
+  if (config.packageName) {
+    return config.packageName;
+  }
+
+  return assembly.name.replace(/[^a-z0-9.]/gi, '').toLowerCase();
 }
 
 export function flatMap<T, R>(
