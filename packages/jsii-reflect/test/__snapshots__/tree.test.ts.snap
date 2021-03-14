@@ -9,6 +9,7 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -41,6 +42,7 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -73,6 +75,7 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -198,6 +201,17 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     ├── interfaces: IFriendly
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>() initializer
+ │ │ │       ├─┬ hello() method
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ localMethod() method
+ │ │ │         └── returns: string
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -2899,6 +2913,14 @@ exports[`showAll 1`] = `
    │           ├── immutable
    │           └── type: any
    └─┬ types
+     ├─┬ class BaseFor2647
+     │ └─┬ members
+     │   ├── <initializer>() initializer
+     │   └─┬ foo(obj) method
+     │     ├─┬ parameters
+     │     │ └─┬ obj
+     │     │   └── type: @scope/jsii-calc-base.IBaseInterface
+     │     └── returns: void
      ├─┬ class Number
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -3011,6 +3033,7 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -3059,6 +3082,9 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └── class ExtendAndImplement
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3336,6 +3362,7 @@ exports[`types 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├── class Number
      ├── class NumericValue
      ├── class Operation
