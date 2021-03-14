@@ -102,6 +102,20 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement (stable)
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     ├── interfaces: IFriendly
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(very) initializer (deprecated)
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ very
+ │ │ │       │     └── type: @scope/jsii-calc-base-of-base.Very
+ │ │ │       ├─┬ hello() method (stable)
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ localMethod() method (stable)
+ │ │ │         └── returns: string
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -2803,6 +2817,17 @@ exports[`jsii-tree --all 1`] = `
    │           ├── immutable
    │           └── type: any
    └─┬ types
+     ├─┬ class BaseFor2647 (deprecated)
+     │ └─┬ members
+     │   ├─┬ <initializer>(very) initializer (deprecated)
+     │   │ └─┬ parameters
+     │   │   └─┬ very
+     │   │     └── type: @scope/jsii-calc-base-of-base.Very
+     │   └─┬ foo(obj) method (deprecated)
+     │     ├─┬ parameters
+     │     │ └─┬ obj
+     │     │   └── type: @scope/jsii-calc-base.IBaseInterface
+     │     └── returns: void
      ├─┬ class Number (deprecated)
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -2933,6 +2958,11 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     └── interfaces: IFriendly
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3277,6 +3307,7 @@ exports[`jsii-tree --inheritance 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├─┬ class Number
      │ ├── base: NumericValue
      │ └── interfaces: IDoublable
@@ -3355,6 +3386,13 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>(very) initializer
+ │ │ │       ├── hello() method
+ │ │ │       └── localMethod() method
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4566,6 +4604,10 @@ exports[`jsii-tree --members 1`] = `
    │         ├── key property
    │         └── value property
    └─┬ types
+     ├─┬ class BaseFor2647
+     │ └─┬ members
+     │   ├── <initializer>(very) initializer
+     │   └── foo(obj) method
      ├─┬ class Number
      │ └─┬ members
      │   ├── <initializer>(value) initializer
@@ -4622,6 +4664,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -4670,6 +4713,9 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └── class ExtendAndImplement
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4947,6 +4993,7 @@ exports[`jsii-tree --types 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├── class Number
      ├── class NumericValue
      ├── class Operation
@@ -4970,6 +5017,7 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1

@@ -11,7 +11,7 @@ import { shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
-import { goPackageName, tarballName } from './go/util';
+import { tarballName } from './go/util';
 
 export class Golang extends Target {
   private readonly goGenerator: GoGenerator;
@@ -35,7 +35,7 @@ export class Golang extends Target {
     // copy generated sources to the output directory
     await this.copyFiles(sourceDir, outDir);
 
-    const pkgDir = path.join(outDir, goPackageName(this.assembly.name));
+    const pkgDir = path.join(outDir, this.goGenerator.rootPackage.packageName);
 
     // write `local.go.mod` with "replace" directives for local modules
     const localGoMod = await this.writeLocalGoMod(pkgDir);
@@ -154,7 +154,7 @@ class GoGenerator implements IGenerator {
     tarball: string,
     { license, notice }: Legalese,
   ): Promise<any> {
-    const output = path.join(outDir, goPackageName(this.assembly.name));
+    const output = path.join(outDir, this.rootPackage.packageName);
     await this.code.save(output);
     await fs.copyFile(
       tarball,

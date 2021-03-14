@@ -55,7 +55,8 @@
     "outdir": "dist",
     "targets": {
       "go": {
-        "moduleName": "github.com/aws/jsii/jsii-calc/go"
+        "moduleName": "github.com/aws/jsii/jsii-calc/go",
+        "packageName": "jcb"
       },
       "java": {
         "package": "software.amazon.jsii.tests.calculator.base",

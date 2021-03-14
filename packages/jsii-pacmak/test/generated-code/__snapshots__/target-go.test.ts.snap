@@ -3,19 +3,19 @@
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
-    ┗━ 📁 scopejsiicalcbase
+    ┗━ 📁 jcb
        ┣━ 📄 go.mod
+       ┣━ 📄 jcb.go
+       ┣━ 📄 jcb.init.go
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
-       ┣━ 📄 scopejsiicalcbase.go
-       ┣━ 📄 scopejsiicalcbase.init.go
        ┗━ 📄 version
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/LICENSE 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/LICENSE 1`] = `
 
                                  Apache License
                            Version 2.0, January 2004
@@ -220,14 +220,14 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcba
    limitations under the License.
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/NOTICE 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/NOTICE 1`] = `
 jsii
 Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/go.mod 1`] = `
-module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/go.mod 1`] = `
+module github.com/aws/jsii/jsii-calc/go/jcb
 
 go 1.16
 
@@ -238,45 +238,13 @@ require (
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/jsii.go 1`] = `
-// Package jsii contains the functionaility needed for jsii packages to
-// initialize their dependencies and themselves. Users should never need to use this package
-// directly. If you find you need to - please report a bug at
-// https://github.com/aws/jsii/issues/new/choose
-package jsii
-
-import (
-	_                       "embed"
-
-	_jsii_                  "github.com/aws/jsii-runtime-go"
-
-	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
-)
-
-//go:embed scope-jsii-calc-base-0.0.0.tgz
-var tarball []byte
-
-// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
-// The implementation is idempotent (and hence safe to be called over and over).
-func Initialize() {
-	// Ensure all dependencies are initialized
-	scopejsiicalcbaseofbase.Initialize()
-
-	// Load this library into the kernel
-	_jsii_.Load("@scope/jsii-calc-base", "0.0.0", tarball)
-}
-
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/scope-jsii-calc-base-0.0.0.tgz 1`] = `go/scopejsiicalcbase/jsii/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
-
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/scopejsiicalcbase.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jcb.go 1`] = `
 // An example direct dependency for jsii-calc.
-package scopejsiicalcbase
+package jcb
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jcb/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
@@ -389,8 +357,8 @@ func StaticConsumer_Consume(args interface{}) {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/scopejsiicalcbase.init.go 1`] = `
-package scopejsiicalcbase
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jcb.init.go 1`] = `
+package jcb
 
 import (
 	"reflect"
@@ -438,7 +406,39 @@ func init() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/version 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
+package jsii
+
+import (
+	_                       "embed"
+
+	_jsii_                  "github.com/aws/jsii-runtime-go"
+
+	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
+)
+
+//go:embed scope-jsii-calc-base-0.0.0.tgz
+var tarball []byte
+
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
+func Initialize() {
+	// Ensure all dependencies are initialized
+	scopejsiicalcbaseofbase.Initialize()
+
+	// Load this library into the kernel
+	_jsii_.Load("@scope/jsii-calc-base", "0.0.0", tarball)
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jsii/scope-jsii-calc-base-0.0.0.tgz 1`] = `go/jcb/jsii/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/version 1`] = `
 0.0.0
 
 `;
@@ -855,6 +855,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 scopejsiicalclib
+       ┣━ 📁 customsubmodulename
+       ┃  ┣━ 📄 customsubmodulename.go
+       ┃  ┗━ 📄 customsubmodulename.init.go
        ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
@@ -863,9 +866,6 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 NOTICE
        ┣━ 📄 scopejsiicalclib.go
        ┣━ 📄 scopejsiicalclib.init.go
-       ┣━ 📁 submodule
-       ┃  ┣━ 📄 submodule.go
-       ┃  ┗━ 📄 submodule.init.go
        ┗━ 📄 version
 `;
 
@@ -1080,496 +1080,8 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
-module github.com/aws/jsii/jsii-calc/go/scopejsiicalclib
-
-go 1.16
-
-require (
-	github.com/aws/jsii-runtime-go v0.0.0
-	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
-	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2 v2.1.1
-)
-
-`;
-
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/jsii.go 1`] = `
-// Package jsii contains the functionaility needed for jsii packages to
-// initialize their dependencies and themselves. Users should never need to use this package
-// directly. If you find you need to - please report a bug at
-// https://github.com/aws/jsii/issues/new/choose
-package jsii
-
-import (
-	_                       "embed"
-
-	_jsii_                  "github.com/aws/jsii-runtime-go"
-
-	scopejsiicalcbase       "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
-	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
-)
-
-//go:embed scope-jsii-calc-lib-0.0.0.tgz
-var tarball []byte
-
-// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
-// The implementation is idempotent (and hence safe to be called over and over).
-func Initialize() {
-	// Ensure all dependencies are initialized
-	scopejsiicalcbase.Initialize()
-	scopejsiicalcbaseofbase.Initialize()
-
-	// Load this library into the kernel
-	_jsii_.Load("@scope/jsii-calc-lib", "0.0.0", tarball)
-}
-
-`;
-
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz 1`] = `go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz is a tarball`;
-
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib.go 1`] = `
-// A simple calcuator library built on JSII.
-package scopejsiicalclib
-
-import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
-	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
-
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
-)
-
-// Deprecated.
-type DiamondLeft struct {
-	// Deprecated.
-	HoistedTop string \`json:"hoistedTop"\`
-	// Deprecated.
-	Left float64 \`json:"left"\`
-}
-
-// Deprecated.
-type DiamondRight struct {
-	// Deprecated.
-	HoistedTop string \`json:"hoistedTop"\`
-	// Deprecated.
-	Right bool \`json:"right"\`
-}
-
-// Check that enums from \\@scoped packages can be references.
-//
-// See awslabs/jsii#138
-// Deprecated.
-type EnumFromScopedModule string
-
-const (
-	EnumFromScopedModule_VALUE1 EnumFromScopedModule = "VALUE1"
-	EnumFromScopedModule_VALUE2 EnumFromScopedModule = "VALUE2"
-)
-
-// The general contract for a concrete number.
-// Deprecated.
-type IDoublable interface {
-	// Deprecated.
-	DoubleValue() float64
-}
-
-// The jsii proxy for IDoublable
-type jsiiProxy_IDoublable struct {
-	_ byte // padding
-}
-
-func (j *jsiiProxy_IDoublable) DoubleValue() float64 {
-	var returns float64
-	_jsii_.Get(
-		j,
-		"doubleValue",
-		&returns,
-	)
-	return returns
-}
-
-// Applies to classes that are considered friendly.
-//
-// These classes can be greeted with
-// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
-// Deprecated.
-type IFriendly interface {
-	// Say hello!
-	// Deprecated.
-	Hello() string
-}
-
-// The jsii proxy for IFriendly
-type jsiiProxy_IFriendly struct {
-	_ byte // padding
-}
-
-func (i *jsiiProxy_IFriendly) Hello() string {
-	var returns string
-
-	_jsii_.Invoke(
-		i,
-		"hello",
-		nil /* no parameters */,
-		&returns,
-	)
-
-	return returns
-}
-
-// Interface that inherits from packages 2 levels up the tree.
-//
-// Their presence validates that .NET/Java/jsii-reflect can track all fields
-// far enough up the tree.
-// Deprecated.
-type IThreeLevelsInterface interface {
-	scopejsiicalcbase.IBaseInterface
-	// Deprecated.
-	Baz()
-}
-
-// The jsii proxy for IThreeLevelsInterface
-type jsiiProxy_IThreeLevelsInterface struct {
-	scopejsiicalcbase.IBaseInterface // extends @scope/jsii-calc-base.IBaseInterface
-}
-
-func (i *jsiiProxy_IThreeLevelsInterface) Baz() {
-	_jsii_.InvokeVoid(
-		i,
-		"baz",
-		nil /* no parameters */,
-	)
-}
-
-// This is the first struct we have created in jsii.
-// Deprecated.
-type MyFirstStruct struct {
-	// An awesome number value.
-	// Deprecated.
-	Anumber float64 \`json:"anumber"\`
-	// A string value.
-	// Deprecated.
-	Astring string \`json:"astring"\`
-	// Deprecated.
-	FirstOptional []string \`json:"firstOptional"\`
-}
-
-// Represents a concrete number.
-// Deprecated.
-type Number interface {
-	NumericValue
-	IDoublable
-	DoubleValue() float64
-	Value() float64
-}
-
-// The jsii proxy struct for Number
-type jsiiProxy_Number struct {
-	jsiiProxy_NumericValue // extends @scope/jsii-calc-lib.NumericValue
-	jsiiProxy_IDoublable // implements @scope/jsii-calc-lib.IDoublable
-}
-
-func (j *jsiiProxy_Number) DoubleValue() float64 {
-	var returns float64
-	_jsii_.Get(
-		j,
-		"doubleValue",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_Number) Value() float64 {
-	var returns float64
-	_jsii_.Get(
-		j,
-		"value",
-		&returns,
-	)
-	return returns
-}
-
-
-// Creates a Number object.
-// Deprecated.
-func NewNumber(value float64) Number {
-	_init_.Initialize()
-
-	j := jsiiProxy_Number{}
-
-	_jsii_.Create(
-		"@scope/jsii-calc-lib.Number",
-		[]interface{}{value},
-		[]_jsii_.FQN{"@scope/jsii-calc-lib.IDoublable"},
-		nil, // no overrides
-		&j,
-	)
-
-	return &j
-}
-
-// String representation of the value.
-// Deprecated.
-func (n *jsiiProxy_Number) ToString() string {
-	var returns string
-
-	_jsii_.Invoke(
-		n,
-		"toString",
-		nil /* no parameters */,
-		&returns,
-	)
-
-	return returns
-}
-
-// Returns: the name of the class (to verify native type names are created for derived classes).
-// Deprecated.
-func (n *jsiiProxy_Number) TypeName() interface{} {
-	var returns interface{}
-
-	_jsii_.Invoke(
-		n,
-		"typeName",
-		nil /* no parameters */,
-		&returns,
-	)
-
-	return returns
-}
-
-// Abstract class which represents a numeric value.
-// Deprecated.
-type NumericValue interface {
-	scopejsiicalcbase.Base
-	Value() float64
-	ToString() string
-}
-
-// The jsii proxy struct for NumericValue
-type jsiiProxy_NumericValue struct {
-	scopejsiicalcbase.Base // extends @scope/jsii-calc-base.Base
-}
-
-func (j *jsiiProxy_NumericValue) Value() float64 {
-	var returns float64
-	_jsii_.Get(
-		j,
-		"value",
-		&returns,
-	)
-	return returns
-}
-
-
-// Deprecated.
-func NewNumericValue() NumericValue {
-	_init_.Initialize()
-
-	j := jsiiProxy_NumericValue{}
-
-	_jsii_.Create(
-		"@scope/jsii-calc-lib.NumericValue",
-		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&j,
-	)
-
-	return &j
-}
-
-// String representation of the value.
-// Deprecated.
-func (n *jsiiProxy_NumericValue) ToString() string {
-	var returns string
-
-	_jsii_.Invoke(
-		n,
-		"toString",
-		nil /* no parameters */,
-		&returns,
-	)
-
-	return returns
-}
-
-// Represents an operation on values.
-// Deprecated.
-type Operation interface {
-	NumericValue
-	ToString() string
-}
-
-// The jsii proxy struct for Operation
-type jsiiProxy_Operation struct {
-	jsiiProxy_NumericValue // extends @scope/jsii-calc-lib.NumericValue
-}
-
-// Deprecated.
-func NewOperation() Operation {
-	_init_.Initialize()
-
-	j := jsiiProxy_Operation{}
-
-	_jsii_.Create(
-		"@scope/jsii-calc-lib.Operation",
-		nil /* no parameters */,
-		[]_jsii_.FQN{},
-		nil, // no overrides
-		&j,
-	)
-
-	return &j
-}
-
-// String representation of the value.
-// Deprecated.
-func (o *jsiiProxy_Operation) ToString() string {
-	var returns string
-
-	_jsii_.Invoke(
-		o,
-		"toString",
-		nil /* no parameters */,
-		&returns,
-	)
-
-	return returns
-}
-
-// This is a struct with only optional properties.
-// Deprecated.
-type StructWithOnlyOptionals struct {
-	// The first optional!
-	// Deprecated.
-	Optional1 string \`json:"optional1"\`
-	// Deprecated.
-	Optional2 float64 \`json:"optional2"\`
-	// Deprecated.
-	Optional3 bool \`json:"optional3"\`
-}
-
-
-`;
-
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib.init.go 1`] = `
-package scopejsiicalclib
-
-import (
-	"reflect"
-
-	_jsii_ "github.com/aws/jsii-runtime-go"
-)
-
-func init() {
-	_jsii_.RegisterStruct(
-		"@scope/jsii-calc-lib.DiamondLeft",
-		reflect.TypeOf((*DiamondLeft)(nil)).Elem(),
-	)
-	_jsii_.RegisterStruct(
-		"@scope/jsii-calc-lib.DiamondRight",
-		reflect.TypeOf((*DiamondRight)(nil)).Elem(),
-	)
-	_jsii_.RegisterEnum(
-		"@scope/jsii-calc-lib.EnumFromScopedModule",
-		reflect.TypeOf((*EnumFromScopedModule)(nil)).Elem(),
-		map[string]interface{}{
-			"VALUE1": EnumFromScopedModule_VALUE1,
-			"VALUE2": EnumFromScopedModule_VALUE2,
-		},
-	)
-	_jsii_.RegisterInterface(
-		"@scope/jsii-calc-lib.IDoublable",
-		reflect.TypeOf((*IDoublable)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberProperty{JsiiProperty: "doubleValue", GoGetter: "DoubleValue"},
-		},
-		func() interface{} {
-			return &jsiiProxy_IDoublable{}
-		},
-	)
-	_jsii_.RegisterInterface(
-		"@scope/jsii-calc-lib.IFriendly",
-		reflect.TypeOf((*IFriendly)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberMethod{JsiiMethod: "hello", GoMethod: "Hello"},
-		},
-		func() interface{} {
-			return &jsiiProxy_IFriendly{}
-		},
-	)
-	_jsii_.RegisterInterface(
-		"@scope/jsii-calc-lib.IThreeLevelsInterface",
-		reflect.TypeOf((*IThreeLevelsInterface)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberMethod{JsiiMethod: "bar", GoMethod: "Bar"},
-			_jsii_.MemberMethod{JsiiMethod: "baz", GoMethod: "Baz"},
-			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
-		},
-		func() interface{} {
-			j := jsiiProxy_IThreeLevelsInterface{}
-			_jsii_.InitJsiiProxy(&j.IBaseInterface)
-			return &j
-		},
-	)
-	_jsii_.RegisterStruct(
-		"@scope/jsii-calc-lib.MyFirstStruct",
-		reflect.TypeOf((*MyFirstStruct)(nil)).Elem(),
-	)
-	_jsii_.RegisterClass(
-		"@scope/jsii-calc-lib.Number",
-		reflect.TypeOf((*Number)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberProperty{JsiiProperty: "doubleValue", GoGetter: "DoubleValue"},
-			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
-			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
-			_jsii_.MemberProperty{JsiiProperty: "value", GoGetter: "Value"},
-		},
-		func() interface{} {
-			j := jsiiProxy_Number{}
-			_jsii_.InitJsiiProxy(&j.jsiiProxy_NumericValue)
-			_jsii_.InitJsiiProxy(&j.jsiiProxy_IDoublable)
-			return &j
-		},
-	)
-	_jsii_.RegisterClass(
-		"@scope/jsii-calc-lib.NumericValue",
-		reflect.TypeOf((*NumericValue)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
-			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
-			_jsii_.MemberProperty{JsiiProperty: "value", GoGetter: "Value"},
-		},
-		func() interface{} {
-			j := jsiiProxy_NumericValue{}
-			_jsii_.InitJsiiProxy(&j.Base)
-			return &j
-		},
-	)
-	_jsii_.RegisterClass(
-		"@scope/jsii-calc-lib.Operation",
-		reflect.TypeOf((*Operation)(nil)).Elem(),
-		[]_jsii_.Member{
-			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
-			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
-			_jsii_.MemberProperty{JsiiProperty: "value", GoGetter: "Value"},
-		},
-		func() interface{} {
-			j := jsiiProxy_Operation{}
-			_jsii_.InitJsiiProxy(&j.jsiiProxy_NumericValue)
-			return &j
-		},
-	)
-	_jsii_.RegisterStruct(
-		"@scope/jsii-calc-lib.StructWithOnlyOptionals",
-		reflect.TypeOf((*StructWithOnlyOptionals)(nil)).Elem(),
-	)
-}
-
-`;
-
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/submodule/submodule.go 1`] = `
-package submodule
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/customsubmodulename.go 1`] = `
+package customsubmodulename
 
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
@@ -1707,8 +1219,8 @@ func (r *jsiiProxy_Reflector) AsMap(reflectable IReflectable) map[string]interfa
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/submodule/submodule.init.go 1`] = `
-package submodule
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/customsubmodulename.init.go 1`] = `
+package customsubmodulename
 
 import (
 	"reflect"
@@ -1767,8 +1279,550 @@ func init() {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
+module github.com/aws/jsii/jsii-calc/go/scopejsiicalclib
+
+go 1.16
+
+require (
+	github.com/aws/jsii-runtime-go v0.0.0
+	github.com/aws/jsii/jsii-calc/go/jcb v0.0.0
+	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2 v2.1.1
+)
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
+package jsii
+
+import (
+	_                       "embed"
+
+	_jsii_                  "github.com/aws/jsii-runtime-go"
+
+	jcb                     "github.com/aws/jsii/jsii-calc/go/jcb/jsii"
+	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
+)
+
+//go:embed scope-jsii-calc-lib-0.0.0.tgz
+var tarball []byte
+
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
+func Initialize() {
+	// Ensure all dependencies are initialized
+	jcb.Initialize()
+	scopejsiicalcbaseofbase.Initialize()
+
+	// Load this library into the kernel
+	_jsii_.Load("@scope/jsii-calc-lib", "0.0.0", tarball)
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz 1`] = `go/scopejsiicalclib/jsii/scope-jsii-calc-lib-0.0.0.tgz is a tarball`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib.go 1`] = `
+// A simple calcuator library built on JSII.
+package scopejsiicalclib
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jcb"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
+)
+
+// A base class for testing #2647.
+//
+// The method \`foo\` has a parameter that uses a type
+// from a dependent module. Since Go "reimplments" this method, it will also need
+// to include an "import" statement for the calc-base module.
+// See: https://github.com/aws/jsii/issues/2647
+//
+// Deprecated.
+type BaseFor2647 interface {
+	Foo(obj jcb.IBaseInterface)
+}
+
+// The jsii proxy struct for BaseFor2647
+type jsiiProxy_BaseFor2647 struct {
+	_ byte // padding
+}
+
+// Deprecated.
+func NewBaseFor2647(very scopejsiicalcbaseofbase.Very) BaseFor2647 {
+	_init_.Initialize()
+
+	j := jsiiProxy_BaseFor2647{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.BaseFor2647",
+		[]interface{}{very},
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func (b *jsiiProxy_BaseFor2647) Foo(obj jcb.IBaseInterface) {
+	_jsii_.InvokeVoid(
+		b,
+		"foo",
+		[]interface{}{obj},
+	)
+}
+
+// Deprecated.
+type DiamondLeft struct {
+	// Deprecated.
+	HoistedTop string \`json:"hoistedTop"\`
+	// Deprecated.
+	Left float64 \`json:"left"\`
+}
+
+// Deprecated.
+type DiamondRight struct {
+	// Deprecated.
+	HoistedTop string \`json:"hoistedTop"\`
+	// Deprecated.
+	Right bool \`json:"right"\`
+}
+
+// Check that enums from \\@scoped packages can be references.
+//
+// See awslabs/jsii#138
+// Deprecated.
+type EnumFromScopedModule string
+
+const (
+	EnumFromScopedModule_VALUE1 EnumFromScopedModule = "VALUE1"
+	EnumFromScopedModule_VALUE2 EnumFromScopedModule = "VALUE2"
+)
+
+// The general contract for a concrete number.
+// Deprecated.
+type IDoublable interface {
+	// Deprecated.
+	DoubleValue() float64
+}
+
+// The jsii proxy for IDoublable
+type jsiiProxy_IDoublable struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_IDoublable) DoubleValue() float64 {
+	var returns float64
+	_jsii_.Get(
+		j,
+		"doubleValue",
+		&returns,
+	)
+	return returns
+}
+
+// Applies to classes that are considered friendly.
+//
+// These classes can be greeted with
+// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+// Deprecated.
+type IFriendly interface {
+	// Say hello!
+	// Deprecated.
+	Hello() string
+}
+
+// The jsii proxy for IFriendly
+type jsiiProxy_IFriendly struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IFriendly) Hello() string {
+	var returns string
+
+	_jsii_.Invoke(
+		i,
+		"hello",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Interface that inherits from packages 2 levels up the tree.
+//
+// Their presence validates that .NET/Java/jsii-reflect can track all fields
+// far enough up the tree.
+// Deprecated.
+type IThreeLevelsInterface interface {
+	jcb.IBaseInterface
+	// Deprecated.
+	Baz()
+}
+
+// The jsii proxy for IThreeLevelsInterface
+type jsiiProxy_IThreeLevelsInterface struct {
+	jcb.IBaseInterface // extends @scope/jsii-calc-base.IBaseInterface
+}
+
+func (i *jsiiProxy_IThreeLevelsInterface) Baz() {
+	_jsii_.InvokeVoid(
+		i,
+		"baz",
+		nil /* no parameters */,
+	)
+}
+
+// This is the first struct we have created in jsii.
+// Deprecated.
+type MyFirstStruct struct {
+	// An awesome number value.
+	// Deprecated.
+	Anumber float64 \`json:"anumber"\`
+	// A string value.
+	// Deprecated.
+	Astring string \`json:"astring"\`
+	// Deprecated.
+	FirstOptional []string \`json:"firstOptional"\`
+}
+
+// Represents a concrete number.
+// Deprecated.
+type Number interface {
+	NumericValue
+	IDoublable
+	DoubleValue() float64
+	Value() float64
+}
+
+// The jsii proxy struct for Number
+type jsiiProxy_Number struct {
+	jsiiProxy_NumericValue // extends @scope/jsii-calc-lib.NumericValue
+	jsiiProxy_IDoublable // implements @scope/jsii-calc-lib.IDoublable
+}
+
+func (j *jsiiProxy_Number) DoubleValue() float64 {
+	var returns float64
+	_jsii_.Get(
+		j,
+		"doubleValue",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Number) Value() float64 {
+	var returns float64
+	_jsii_.Get(
+		j,
+		"value",
+		&returns,
+	)
+	return returns
+}
+
+
+// Creates a Number object.
+// Deprecated.
+func NewNumber(value float64) Number {
+	_init_.Initialize()
+
+	j := jsiiProxy_Number{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.Number",
+		[]interface{}{value},
+		[]_jsii_.FQN{"@scope/jsii-calc-lib.IDoublable"},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// String representation of the value.
+// Deprecated.
+func (n *jsiiProxy_Number) ToString() string {
+	var returns string
+
+	_jsii_.Invoke(
+		n,
+		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+// Deprecated.
+func (n *jsiiProxy_Number) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		n,
+		"typeName",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Abstract class which represents a numeric value.
+// Deprecated.
+type NumericValue interface {
+	jcb.Base
+	Value() float64
+	ToString() string
+}
+
+// The jsii proxy struct for NumericValue
+type jsiiProxy_NumericValue struct {
+	jcb.Base // extends @scope/jsii-calc-base.Base
+}
+
+func (j *jsiiProxy_NumericValue) Value() float64 {
+	var returns float64
+	_jsii_.Get(
+		j,
+		"value",
+		&returns,
+	)
+	return returns
+}
+
+
+// Deprecated.
+func NewNumericValue() NumericValue {
+	_init_.Initialize()
+
+	j := jsiiProxy_NumericValue{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.NumericValue",
+		nil /* no parameters */,
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// String representation of the value.
+// Deprecated.
+func (n *jsiiProxy_NumericValue) ToString() string {
+	var returns string
+
+	_jsii_.Invoke(
+		n,
+		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Represents an operation on values.
+// Deprecated.
+type Operation interface {
+	NumericValue
+	ToString() string
+}
+
+// The jsii proxy struct for Operation
+type jsiiProxy_Operation struct {
+	jsiiProxy_NumericValue // extends @scope/jsii-calc-lib.NumericValue
+}
+
+// Deprecated.
+func NewOperation() Operation {
+	_init_.Initialize()
+
+	j := jsiiProxy_Operation{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.Operation",
+		nil /* no parameters */,
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// String representation of the value.
+// Deprecated.
+func (o *jsiiProxy_Operation) ToString() string {
+	var returns string
+
+	_jsii_.Invoke(
+		o,
+		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// This is a struct with only optional properties.
+// Deprecated.
+type StructWithOnlyOptionals struct {
+	// The first optional!
+	// Deprecated.
+	Optional1 string \`json:"optional1"\`
+	// Deprecated.
+	Optional2 float64 \`json:"optional2"\`
+	// Deprecated.
+	Optional3 bool \`json:"optional3"\`
+}
+
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib.init.go 1`] = `
+package scopejsiicalclib
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.BaseFor2647",
+		reflect.TypeOf((*BaseFor2647)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			return &jsiiProxy_BaseFor2647{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.DiamondLeft",
+		reflect.TypeOf((*DiamondLeft)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.DiamondRight",
+		reflect.TypeOf((*DiamondRight)(nil)).Elem(),
+	)
+	_jsii_.RegisterEnum(
+		"@scope/jsii-calc-lib.EnumFromScopedModule",
+		reflect.TypeOf((*EnumFromScopedModule)(nil)).Elem(),
+		map[string]interface{}{
+			"VALUE1": EnumFromScopedModule_VALUE1,
+			"VALUE2": EnumFromScopedModule_VALUE2,
+		},
+	)
+	_jsii_.RegisterInterface(
+		"@scope/jsii-calc-lib.IDoublable",
+		reflect.TypeOf((*IDoublable)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "doubleValue", GoGetter: "DoubleValue"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IDoublable{}
+		},
+	)
+	_jsii_.RegisterInterface(
+		"@scope/jsii-calc-lib.IFriendly",
+		reflect.TypeOf((*IFriendly)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "hello", GoMethod: "Hello"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IFriendly{}
+		},
+	)
+	_jsii_.RegisterInterface(
+		"@scope/jsii-calc-lib.IThreeLevelsInterface",
+		reflect.TypeOf((*IThreeLevelsInterface)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "bar", GoMethod: "Bar"},
+			_jsii_.MemberMethod{JsiiMethod: "baz", GoMethod: "Baz"},
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			j := jsiiProxy_IThreeLevelsInterface{}
+			_jsii_.InitJsiiProxy(&j.IBaseInterface)
+			return &j
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.MyFirstStruct",
+		reflect.TypeOf((*MyFirstStruct)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.Number",
+		reflect.TypeOf((*Number)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "doubleValue", GoGetter: "DoubleValue"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
+			_jsii_.MemberProperty{JsiiProperty: "value", GoGetter: "Value"},
+		},
+		func() interface{} {
+			j := jsiiProxy_Number{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_NumericValue)
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IDoublable)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.NumericValue",
+		reflect.TypeOf((*NumericValue)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
+			_jsii_.MemberProperty{JsiiProperty: "value", GoGetter: "Value"},
+		},
+		func() interface{} {
+			j := jsiiProxy_NumericValue{}
+			_jsii_.InitJsiiProxy(&j.Base)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.Operation",
+		reflect.TypeOf((*Operation)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
+			_jsii_.MemberProperty{JsiiProperty: "value", GoGetter: "Value"},
+		},
+		func() interface{} {
+			j := jsiiProxy_Operation{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_NumericValue)
+			return &j
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.StructWithOnlyOptionals",
+		reflect.TypeOf((*StructWithOnlyOptionals)(nil)).Elem(),
+	)
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/version 1`] = `
-0.0.0
+0.0.0-devpreview
 
 `;
 
@@ -1795,6 +1849,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc.go
        ┣━ 📄 jsiicalc.init.go
        ┣━ 📄 LICENSE
+       ┣━ 📁 module2647
+       ┃  ┣━ 📄 module2647.go
+       ┃  ┗━ 📄 module2647.init.go
        ┣━ 📁 nodirect
        ┃  ┣━ 📄 nodirect.go
        ┃  ┣━ 📁 sub1
@@ -2388,8 +2445,8 @@ go 1.16
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
-	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase v0.0.0
-	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0
+	github.com/aws/jsii/jsii-calc/go/jcb v0.0.0
+	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0-devpreview
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2 v2.1.1 // indirect
 )
 
@@ -2520,12 +2577,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] =
 package jsii
 
 import (
-	_                 "embed"
+	_                "embed"
 
-	_jsii_            "github.com/aws/jsii-runtime-go"
+	_jsii_           "github.com/aws/jsii-runtime-go"
 
-	scopejsiicalcbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
-	scopejsiicalclib  "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	jcb              "github.com/aws/jsii/jsii-calc/go/jcb/jsii"
+	scopejsiicalclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 //go:embed jsii-calc-3.20.120.tgz
@@ -2535,7 +2592,7 @@ var tarball []byte
 // The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
 	// Ensure all dependencies are initialized
-	scopejsiicalcbase.Initialize()
+	jcb.Initialize()
 	scopejsiicalclib.Initialize()
 
 	// Load this library into the kernel
@@ -2554,11 +2611,11 @@ import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
+	"github.com/aws/jsii/jsii-calc/go/jcb"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
 )
 
 type AbstractClass interface {
@@ -7611,9 +7668,9 @@ func (i *ImplictBaseOfBase) ToVeryBaseProps() scopejsiicalcbaseofbase.VeryBasePr
 	}
 }
 
-// ToBaseProps is a convenience function to obtain a new scopejsiicalcbase.BaseProps from this ImplictBaseOfBase.
-func (i *ImplictBaseOfBase) ToBaseProps() scopejsiicalcbase.BaseProps {
-	return scopejsiicalcbase.BaseProps {
+// ToBaseProps is a convenience function to obtain a new jcb.BaseProps from this ImplictBaseOfBase.
+func (i *ImplictBaseOfBase) ToBaseProps() jcb.BaseProps {
+	return jcb.BaseProps {
 		Foo: i.Foo,
 		Bar: i.Bar,
 	}
@@ -9365,10 +9422,10 @@ type jsiiProxy_NestedClassInstance struct {
 	_ byte // padding
 }
 
-func NestedClassInstance_MakeInstance() submodule.NestingClass_NestedClass {
+func NestedClassInstance_MakeInstance() customsubmodulename.NestingClass_NestedClass {
 	_init_.Initialize()
 
-	var returns submodule.NestingClass_NestedClass
+	var returns customsubmodulename.NestingClass_NestedClass
 
 	_jsii_.StaticInvoke(
 		"jsii-calc.NestedClassInstance",
@@ -12099,17 +12156,17 @@ type UnionProperties struct {
 
 // Ensures submodule-imported types from dependencies can be used correctly.
 type UpcasingReflectable interface {
-	submodule.IReflectable
-	Entries() []submodule.ReflectableEntry
+	customsubmodulename.IReflectable
+	Entries() []customsubmodulename.ReflectableEntry
 }
 
 // The jsii proxy struct for UpcasingReflectable
 type jsiiProxy_UpcasingReflectable struct {
-	submodule.IReflectable // implements @scope/jsii-calc-lib.submodule.IReflectable
+	customsubmodulename.IReflectable // implements @scope/jsii-calc-lib.submodule.IReflectable
 }
 
-func (j *jsiiProxy_UpcasingReflectable) Entries() []submodule.ReflectableEntry {
-	var returns []submodule.ReflectableEntry
+func (j *jsiiProxy_UpcasingReflectable) Entries() []customsubmodulename.ReflectableEntry {
+	var returns []customsubmodulename.ReflectableEntry
 	_jsii_.Get(
 		j,
 		"entries",
@@ -12135,9 +12192,9 @@ func NewUpcasingReflectable(delegate map[string]interface{}) UpcasingReflectable
 	return &j
 }
 
-func UpcasingReflectable_Reflector() submodule.Reflector {
+func UpcasingReflectable_Reflector() customsubmodulename.Reflector {
 	_init_.Initialize()
-	var returns submodule.Reflector
+	var returns customsubmodulename.Reflector
 	_jsii_.StaticGet(
 		"jsii-calc.UpcasingReflectable",
 		"reflector",
@@ -12186,7 +12243,7 @@ func (u *jsiiProxy_UseBundledDependency) Value() interface{} {
 
 // Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.
 type UseCalcBase interface {
-	Hello() scopejsiicalcbase.Base
+	Hello() jcb.Base
 }
 
 // The jsii proxy struct for UseCalcBase
@@ -12210,8 +12267,8 @@ func NewUseCalcBase() UseCalcBase {
 	return &j
 }
 
-func (u *jsiiProxy_UseCalcBase) Hello() scopejsiicalcbase.Base {
-	var returns scopejsiicalcbase.Base
+func (u *jsiiProxy_UseCalcBase) Hello() jcb.Base {
+	var returns jcb.Base
 
 	_jsii_.Invoke(
 		u,
@@ -14737,6 +14794,119 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_WithPrivatePropertyInConstructor{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647.go 1`] = `
+package module2647
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jcb"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
+
+// This class falls into the category of "multiple bases" from a different module from a go code gen perspective.
+// See: https://github.com/aws/jsii/issues/2647
+//
+type ExtendAndImplement interface {
+	scopejsiicalclib.BaseFor2647
+	scopejsiicalclib.IFriendly
+	Hello() string
+	LocalMethod() string
+}
+
+// The jsii proxy struct for ExtendAndImplement
+type jsiiProxy_ExtendAndImplement struct {
+	scopejsiicalclib.BaseFor2647 // extends @scope/jsii-calc-lib.BaseFor2647
+	scopejsiicalclib.IFriendly // implements @scope/jsii-calc-lib.IFriendly
+}
+
+// Deprecated.
+func NewExtendAndImplement(very scopejsiicalcbaseofbase.Very) ExtendAndImplement {
+	_init_.Initialize()
+
+	j := jsiiProxy_ExtendAndImplement{}
+
+	_jsii_.Create(
+		"jsii-calc.module2647.ExtendAndImplement",
+		[]interface{}{very},
+		[]_jsii_.FQN{"@scope/jsii-calc-lib.IFriendly"},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// (deprecated) Say hello!
+func (e *jsiiProxy_ExtendAndImplement) Hello() string {
+	var returns string
+
+	_jsii_.Invoke(
+		e,
+		"hello",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+func (e *jsiiProxy_ExtendAndImplement) LocalMethod() string {
+	var returns string
+
+	_jsii_.Invoke(
+		e,
+		"localMethod",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Deprecated.
+func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
+	_jsii_.InvokeVoid(
+		e,
+		"foo",
+		[]interface{}{obj},
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647.init.go 1`] = `
+package module2647
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.module2647.ExtendAndImplement",
+		reflect.TypeOf((*ExtendAndImplement)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+			_jsii_.MemberMethod{JsiiMethod: "hello", GoMethod: "Hello"},
+			_jsii_.MemberMethod{JsiiMethod: "localMethod", GoMethod: "LocalMethod"},
+		},
+		func() interface{} {
+			j := jsiiProxy_ExtendAndImplement{}
+			_jsii_.InitJsiiProxy(&j.BaseFor2647)
+			_jsii_.InitJsiiProxy(&j.IFriendly)
+			return &j
 		},
 	)
 }

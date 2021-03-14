@@ -1264,6 +1264,39 @@ import typing_extensions
 from ._jsii import *
 
 import scope.jsii_calc_base
+import scope.jsii_calc_base_of_base
+
+
+class BaseFor2647(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-lib.BaseFor2647",
+):
+    '''(deprecated) A base class for testing #2647.
+
+    The method \`\`foo\`\` has a parameter that uses a type
+    from a dependent module. Since Go "reimplments" this method, it will also need
+    to include an "import" statement for the calc-base module.
+
+    :see: https://github.com/aws/jsii/issues/2647
+    :stability: deprecated
+    '''
+
+    def __init__(self, very: scope.jsii_calc_base_of_base.Very) -> None:
+        '''
+        :param very: -
+
+        :stability: deprecated
+        '''
+        jsii.create(BaseFor2647, self, [very])
+
+    @jsii.member(jsii_name="foo")
+    def foo(self, obj: scope.jsii_calc_base.IBaseInterface) -> None:
+        '''
+        :param obj: -
+
+        :stability: deprecated
+        '''
+        return typing.cast(None, jsii.invoke(self, "foo", [obj]))
 
 
 @jsii.data_type(
@@ -1785,6 +1818,7 @@ class Number(
 
 
 __all__ = [
+    "BaseFor2647",
     "DiamondLeft",
     "DiamondRight",
     "EnumFromScopedModule",
@@ -2066,6 +2100,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┣━ 📁 interface_in_namespace_includes_classes
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_only_interface
+          ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 module2647
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 nodirect
           ┃  ┣━ 📄 __init__.py
@@ -2380,6 +2416,7 @@ kwargs = json.loads(
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
+        "jsii_calc.module2647",
         "jsii_calc.nodirect",
         "jsii_calc.nodirect.sub1",
         "jsii_calc.nodirect.sub2",
@@ -10321,6 +10358,60 @@ class Hello:
 
 __all__ = [
     "Hello",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2647/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+import scope.jsii_calc_base_of_base
+import scope.jsii_calc_lib
+
+
+@jsii.implements(scope.jsii_calc_lib.IFriendly)
+class ExtendAndImplement(
+    scope.jsii_calc_lib.BaseFor2647,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2647.ExtendAndImplement",
+):
+    '''This class falls into the category of "multiple bases" from a different module from a go code gen perspective.
+
+    :see: https://github.com/aws/jsii/issues/2647
+    '''
+
+    def __init__(self, very: scope.jsii_calc_base_of_base.Very) -> None:
+        '''
+        :param very: -
+
+        :stability: deprecated
+        '''
+        jsii.create(ExtendAndImplement, self, [very])
+
+    @jsii.member(jsii_name="hello")
+    def hello(self) -> builtins.str:
+        '''(deprecated) Say hello!'''
+        return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
+
+    @jsii.member(jsii_name="localMethod")
+    def local_method(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "localMethod", []))
+
+
+__all__ = [
+    "ExtendAndImplement",
 ]
 
 publication.publish()
