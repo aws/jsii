@@ -7,11 +7,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/aws/jsii/jsii-calc/go/jcb"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jcb"
+	"github.com/stretchr/testify/assert"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
 	"github.com/stretchr/testify/suite"
 	"github.com/stretchr/testify/assert"
