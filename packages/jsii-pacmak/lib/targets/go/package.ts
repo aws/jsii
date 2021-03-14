@@ -215,10 +215,7 @@ export class RootPackage extends Package {
     const packageName = goPackageNameForAssembly(assembly);
     const filePath = '';
     const moduleName = goConfig.moduleName ?? '';
-    let version = assembly.version;
-    if (goConfig.versionSuffix) {
-      version += goConfig.versionSuffix;
-    }
+    const version = `${assembly.version}${goConfig.versionSuffix ?? ''}`;
 
     super(
       assembly.types,
