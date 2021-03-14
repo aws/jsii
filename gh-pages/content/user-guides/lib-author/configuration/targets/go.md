@@ -8,8 +8,8 @@ To enable go package generation, add the `go` key to the jsii targets configurat
 - `packageName` (optional) - The name of the Go package name. If not specified,
   package name will be derived from the JavaScript module name by removing
   non-alphanumeric characters (e.g. `@aws-cdk/aws-s3` will be `awscdkawss3`). If
-  this is set on a submodule config file, it refers to the submodule package
-  name.
+  this is set on a submodule config file (`.jsiirc.json`), it refers to the
+  submodule package name.
 - `moduleName` (required) - The name of the **target repository** in which this
   module will be published (e.g. `github.com/foo/bar`). The module itself will
   *always* be published under a subdirectory named according to the Go package
