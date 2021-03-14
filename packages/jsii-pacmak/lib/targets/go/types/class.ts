@@ -328,8 +328,8 @@ export class GoClass extends GoType {
 }
 
 export class GoClassConstructor extends GoMethod {
-  public readonly usesInitPackage = false;
-  public readonly usesRuntimePackage = false;
+  public readonly usesInitPackage = true;
+  public readonly usesRuntimePackage = true;
 
   private readonly constructorRuntimeCall: ClassConstructor;
 
