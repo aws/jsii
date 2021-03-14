@@ -19,7 +19,8 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
         "go": {
-          "moduleName": "github.com/aws/jsii/jsii-calc/go"
+          "moduleName": "github.com/aws/jsii/jsii-calc/go",
+          "packageName": "jcb"
         },
         "java": {
           "maven": {
@@ -98,6 +99,9 @@
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
         },
+        "go": {
+          "packageName": "customsubmodulename"
+        },
         "java": {
           "package": "software.amazon.jsii.tests.calculator.custom_submodule_name"
         },
@@ -114,7 +118,8 @@
       "versionSuffix": "-devpreview"
     },
     "go": {
-      "moduleName": "github.com/aws/jsii/jsii-calc/go"
+      "moduleName": "github.com/aws/jsii/jsii-calc/go",
+      "versionSuffix": "-devpreview"
     },
     "java": {
       "maven": {
