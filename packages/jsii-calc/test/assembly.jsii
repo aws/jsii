@@ -97,7 +97,7 @@
         "@scope/jsii-calc-lib.submodule": {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 112
+            "line": 130
           },
           "targets": {
             "dotnet": {
@@ -209,6 +209,12 @@
       "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 142
+      }
+    },
+    "jsii-calc.module2647": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 14
       }
     },
     "jsii-calc.nodirect": {
@@ -14119,6 +14125,77 @@
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation"
     },
+    "jsii-calc.module2647.ExtendAndImplement": {
+      "assembly": "jsii-calc",
+      "base": "@scope/jsii-calc-lib.BaseFor2647",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2647",
+        "stability": "stable",
+        "summary": "This class falls into the category of \"multiple bases\" from a different module from a go code gen perspective."
+      },
+      "fqn": "jsii-calc.module2647.ExtendAndImplement",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        },
+        "locationInModule": {
+          "filename": "lib/index.ts",
+          "line": 121
+        },
+        "parameters": [
+          {
+            "name": "very",
+            "type": {
+              "fqn": "@scope/jsii-calc-base-of-base.Very"
+            }
+          }
+        ]
+      },
+      "interfaces": [
+        "@scope/jsii-calc-lib.IFriendly"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2647/index.ts",
+        "line": 9
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "(deprecated) Say hello!"
+          },
+          "locationInModule": {
+            "filename": "lib/module2647/index.ts",
+            "line": 14
+          },
+          "name": "hello",
+          "overrides": "@scope/jsii-calc-lib.IFriendly",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2647/index.ts",
+            "line": 10
+          },
+          "name": "localMethod",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "ExtendAndImplement",
+      "namespace": "module2647"
+    },
     "jsii-calc.nodirect.sub1.TypeFromSub1": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14875,5 +14952,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "uNidGL2tgHT8QUQRcLCiHny0p3nFE+RgNLoUqTDbHcM="
+  "fingerprint": "jhFZc5fa0gXEmH6s8wlAhaQm8CX/ZCHNvpY1jXxwMgE="
 }

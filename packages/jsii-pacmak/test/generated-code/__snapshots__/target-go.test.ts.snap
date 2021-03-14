@@ -1335,7 +1335,51 @@ import (
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
+
+// A base class for testing #2647.
+//
+// The method \`foo\` has a parameter that uses a type
+// from a dependent module. Since Go "reimplments" this method, it will also need
+// to include an "import" statement for the calc-base module.
+// See: https://github.com/aws/jsii/issues/2647
+//
+// Deprecated.
+type BaseFor2647 interface {
+	Foo(obj jcb.IBaseInterface)
+}
+
+// The jsii proxy struct for BaseFor2647
+type jsiiProxy_BaseFor2647 struct {
+	_ byte // padding
+}
+
+// Deprecated.
+func NewBaseFor2647(very scopejsiicalcbaseofbase.Very) BaseFor2647 {
+	_init_.Initialize()
+
+	j := jsiiProxy_BaseFor2647{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.BaseFor2647",
+		[]interface{}{very},
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func (b *jsiiProxy_BaseFor2647) Foo(obj jcb.IBaseInterface) {
+	_jsii_.InvokeVoid(
+		b,
+		"foo",
+		[]interface{}{obj},
+	)
+}
 
 // Deprecated.
 type DiamondLeft struct {
@@ -1661,6 +1705,16 @@ import (
 )
 
 func init() {
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.BaseFor2647",
+		reflect.TypeOf((*BaseFor2647)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			return &jsiiProxy_BaseFor2647{}
+		},
+	)
 	_jsii_.RegisterStruct(
 		"@scope/jsii-calc-lib.DiamondLeft",
 		reflect.TypeOf((*DiamondLeft)(nil)).Elem(),
@@ -1795,6 +1849,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc.go
        ┣━ 📄 jsiicalc.init.go
        ┣━ 📄 LICENSE
+       ┣━ 📁 module2647
+       ┃  ┣━ 📄 module2647.go
+       ┃  ┗━ 📄 module2647.init.go
        ┣━ 📁 nodirect
        ┃  ┣━ 📄 nodirect.go
        ┃  ┣━ 📁 sub1
@@ -14737,6 +14794,119 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_WithPrivatePropertyInConstructor{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647.go 1`] = `
+package module2647
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jcb"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
+
+// This class falls into the category of "multiple bases" from a different module from a go code gen perspective.
+// See: https://github.com/aws/jsii/issues/2647
+//
+type ExtendAndImplement interface {
+	scopejsiicalclib.BaseFor2647
+	scopejsiicalclib.IFriendly
+	Hello() string
+	LocalMethod() string
+}
+
+// The jsii proxy struct for ExtendAndImplement
+type jsiiProxy_ExtendAndImplement struct {
+	scopejsiicalclib.BaseFor2647 // extends @scope/jsii-calc-lib.BaseFor2647
+	scopejsiicalclib.IFriendly // implements @scope/jsii-calc-lib.IFriendly
+}
+
+// Deprecated.
+func NewExtendAndImplement(very scopejsiicalcbaseofbase.Very) ExtendAndImplement {
+	_init_.Initialize()
+
+	j := jsiiProxy_ExtendAndImplement{}
+
+	_jsii_.Create(
+		"jsii-calc.module2647.ExtendAndImplement",
+		[]interface{}{very},
+		[]_jsii_.FQN{"@scope/jsii-calc-lib.IFriendly"},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// (deprecated) Say hello!
+func (e *jsiiProxy_ExtendAndImplement) Hello() string {
+	var returns string
+
+	_jsii_.Invoke(
+		e,
+		"hello",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+func (e *jsiiProxy_ExtendAndImplement) LocalMethod() string {
+	var returns string
+
+	_jsii_.Invoke(
+		e,
+		"localMethod",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Deprecated.
+func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
+	_jsii_.InvokeVoid(
+		e,
+		"foo",
+		[]interface{}{obj},
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647.init.go 1`] = `
+package module2647
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.module2647.ExtendAndImplement",
+		reflect.TypeOf((*ExtendAndImplement)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+			_jsii_.MemberMethod{JsiiMethod: "hello", GoMethod: "Hello"},
+			_jsii_.MemberMethod{JsiiMethod: "localMethod", GoMethod: "LocalMethod"},
+		},
+		func() interface{} {
+			j := jsiiProxy_ExtendAndImplement{}
+			_jsii_.InitJsiiProxy(&j.BaseFor2647)
+			_jsii_.InitJsiiProxy(&j.IFriendly)
+			return &j
 		},
 	)
 }
