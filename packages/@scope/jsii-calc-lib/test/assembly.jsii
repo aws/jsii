@@ -19,7 +19,8 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
         "go": {
-          "moduleName": "github.com/aws/jsii/jsii-calc/go"
+          "moduleName": "github.com/aws/jsii/jsii-calc/go",
+          "packageName": "jcb"
         },
         "java": {
           "maven": {
@@ -92,11 +93,14 @@
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 125
+        "line": 130
       },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
+        },
+        "go": {
+          "packageName": "customsubmodulename"
         },
         "java": {
           "package": "software.amazon.jsii.tests.calculator.custom_submodule_name"
@@ -114,7 +118,8 @@
       "versionSuffix": "-devpreview"
     },
     "go": {
-      "moduleName": "github.com/aws/jsii/jsii-calc/go"
+      "moduleName": "github.com/aws/jsii/jsii-calc/go",
+      "versionSuffix": "-devpreview"
     },
     "java": {
       "maven": {
@@ -145,12 +150,24 @@
       "initializer": {
         "docs": {
           "stability": "deprecated"
-        }
+        },
+        "locationInModule": {
+          "filename": "lib/index.ts",
+          "line": 121
+        },
+        "parameters": [
+          {
+            "name": "very",
+            "type": {
+              "fqn": "@scope/jsii-calc-base-of-base.Very"
+            }
+          }
+        ]
       },
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 119
+        "line": 120
       },
       "methods": [
         {
@@ -159,7 +176,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 120
+            "line": 125
           },
           "name": "foo",
           "parameters": [
@@ -281,7 +298,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 97
+        "line": 98
       },
       "members": [
         {
@@ -309,7 +326,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 23
+        "line": 24
       },
       "name": "IDoublable",
       "properties": [
@@ -321,7 +338,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 24
+            "line": 25
           },
           "name": "doubleValue",
           "type": {
@@ -341,7 +358,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 58
+        "line": 59
       },
       "methods": [
         {
@@ -352,7 +369,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 62
+            "line": 63
           },
           "name": "hello",
           "returns": {
@@ -378,7 +395,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 108
+        "line": 109
       },
       "methods": [
         {
@@ -388,7 +405,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 109
+            "line": 110
           },
           "name": "baz"
         }
@@ -406,7 +423,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 68
+        "line": 69
       },
       "name": "MyFirstStruct",
       "properties": [
@@ -419,7 +436,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 77
+            "line": 78
           },
           "name": "anumber",
           "type": {
@@ -435,7 +452,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 72
+            "line": 73
           },
           "name": "astring",
           "type": {
@@ -450,7 +467,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 78
+            "line": 79
           },
           "name": "firstOptional",
           "optional": true,
@@ -480,7 +497,7 @@
         },
         "locationInModule": {
           "filename": "lib/index.ts",
-          "line": 35
+          "line": 36
         },
         "parameters": [
           {
@@ -500,7 +517,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 30
+        "line": 31
       },
       "name": "Number",
       "properties": [
@@ -512,7 +529,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 42
+            "line": 43
           },
           "name": "doubleValue",
           "overrides": "@scope/jsii-calc-lib.IDoublable",
@@ -528,7 +545,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 35
+            "line": 36
           },
           "name": "value",
           "overrides": "@scope/jsii-calc-lib.NumericValue",
@@ -551,7 +568,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 6
+        "line": 7
       },
       "methods": [
         {
@@ -561,7 +578,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 15
+            "line": 16
           },
           "name": "toString",
           "returns": {
@@ -582,7 +599,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 11
           },
           "name": "value",
           "type": {
@@ -604,7 +621,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 50
+        "line": 51
       },
       "methods": [
         {
@@ -615,7 +632,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 51
+            "line": 52
           },
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.NumericValue",
@@ -639,7 +656,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 84
+        "line": 85
       },
       "name": "StructWithOnlyOptionals",
       "properties": [
@@ -652,7 +669,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 88
+            "line": 89
           },
           "name": "optional1",
           "optional": true,
@@ -668,7 +685,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 89
+            "line": 90
           },
           "name": "optional2",
           "optional": true,
@@ -684,7 +701,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 90
+            "line": 91
           },
           "name": "optional3",
           "optional": true,
@@ -913,5 +930,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "pW043fHp8icTWympphJfAKrI/5PT2F1nZyyNNyEmTjM="
+  "fingerprint": "yaW4nEkJcW4ZyHTJGV9YSAtkrzeBBoXkDffMJBD8dGQ="
 }
