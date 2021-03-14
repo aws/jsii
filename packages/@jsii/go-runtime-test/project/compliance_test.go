@@ -13,7 +13,7 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -922,7 +922,7 @@ func (suite *ComplianceSuite) TestObjectIdDoesNotGetReallocatedWhenTheConstructo
 }
 
 type PartiallyInitializedThisConsumerImpl struct {
-	assert *require.Assertions
+	assert *assert.Assertions
 }
 
 func (p PartiallyInitializedThisConsumerImpl) ConsumePartiallyInitializedThis(obj calc.ConstructorPassesThisOut, dt string, ev calc.AllTypesEnum) string {
