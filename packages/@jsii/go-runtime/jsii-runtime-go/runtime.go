@@ -361,6 +361,6 @@ func Close() {
 }
 
 // Helpers to store primitives and return pointers to them
-func Bool(v bool) *bool { return &v }
+func Bool(v bool) *bool         { return &v }
 func Number(v float64) *float64 { return &v }
-func String(v string) *string { return &v }
+func String(v string) *string   { return &v }

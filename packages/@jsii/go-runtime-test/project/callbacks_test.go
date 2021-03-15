@@ -14,7 +14,7 @@ func TestPureInterfacesCanBeUsedTransparently(t *testing.T) {
 	actual := consumer.WorkItBaby()
 
 	if *actual.RequiredString != *expected.RequiredString {
-	 	t.Errorf("Expected %v; actual: %v", *expected.RequiredString, *actual.RequiredString)
+		t.Errorf("Expected %v; actual: %v", *expected.RequiredString, *actual.RequiredString)
 	}
 }
 

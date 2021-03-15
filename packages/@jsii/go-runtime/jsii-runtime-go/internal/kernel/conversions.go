@@ -112,6 +112,11 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
+	// The only case that the value is invalid is when passing `nil` explicitly
+	if !dataVal.IsValid() {
+		return nil
+	}
+
 	if (dataVal.Kind() == reflect.Interface || dataVal.Kind() == reflect.Ptr) && dataVal.IsNil() {
 		return nil
 	}

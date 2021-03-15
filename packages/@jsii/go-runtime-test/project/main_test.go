@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
 	returnsParam "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/returnsparam"
@@ -25,10 +26,10 @@ func TestMain(m *testing.M) {
 // Only uses first argument as initial value. This is just a convenience for
 // tests that want to assert against the initialValue
 func initCalculator(initialValue float64) calc.Calculator {
-	max := math.MaxFloat64
+	max := _jsii_.Number(math.MaxFloat64)
 	return calc.NewCalculator(&calc.CalculatorProps{
 		InitialValue: &initialValue,
-		MaximumValue: &max,
+		MaximumValue: max,
 	})
 }
 
@@ -128,13 +129,13 @@ func TestAllTypes(t *testing.T) {
 
 	t.Run("Array property", func(t *testing.T) {
 		expected1, expected2 := "val1", "val2"
-		arrproperty := []*string{&expected1, &expected2}
+		arrproperty := []*string{_jsii_.String(expected1), _jsii_.String(expected2)}
 		allTypes.SetArrayProperty(&arrproperty)
 		actual := *allTypes.ArrayProperty()
-		actual1, actual2 := actual[0], actual[1]
+		actual1, actual2 := *actual[0], *actual[1]
 
-		if *actual1 != expected1 || *actual2 != expected2 {
-			t.Errorf("Expected Values: %s, %s; Received: %s, %s", expected1, expected2, *actual1, *actual2)
+		if actual1 != expected1 || actual2 != expected2 {
+			t.Errorf("Expected Values: %s, %s; Received: %s, %s", expected1, expected2, actual1, actual2)
 		}
 	})
 
@@ -232,7 +233,7 @@ func TestStructWithEnum(t *testing.T) {
 
 func TestReturnsSpecialParam(t *testing.T) {
 	retSpecialParam := returnsParam.NewReturnsSpecialParameter()
-	val := retSpecialParam.ReturnsSpecialParam()
+	val := *retSpecialParam.ReturnsSpecialParam()
 	expected := reflect.TypeOf(param.SpecialParameter{})
 	actual := reflect.TypeOf(val)
 	if actual != expected {
