@@ -154,6 +154,7 @@ Array [
   "jsii-calc.VoidCallback",
   "jsii-calc.WithPrivatePropertyInConstructor",
   "jsii-calc.composition.CompositeOperation",
+  "jsii-calc.module2617.OnlyStatics",
   "jsii-calc.module2647.ExtendAndImplement",
   "jsii-calc.nodirect.sub1.TypeFromSub1",
   "jsii-calc.nodirect.sub2.TypeFromSub2",

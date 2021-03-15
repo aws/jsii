@@ -3710,6 +3710,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 LevelOneProps.java
           ┃                 ┣━ 📄 LoadBalancedFargateServiceProps.java
           ┃                 ┣━ 📄 MethodNamedProperty.java
+          ┃                 ┣━ 📁 module2617
+          ┃                 ┃  ┗━ 📄 OnlyStatics.java
           ┃                 ┣━ 📁 module2647
           ┃                 ┃  ┗━ 📄 ExtendAndImplement.java
           ┃                 ┣━ 📄 Multiply.java
@@ -21714,6 +21716,41 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2617/OnlyStatics.java 1`] = `
+package software.amazon.jsii.tests.calculator.module2617;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module2617.OnlyStatics")
+public class OnlyStatics extends software.amazon.jsii.JsiiObject {
+
+    protected OnlyStatics(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected OnlyStatics(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void bar() {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2617.OnlyStatics.class, "bar", software.amazon.jsii.NativeType.VOID);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void foo() {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2617.OnlyStatics.class, "foo", software.amazon.jsii.NativeType.VOID);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2647/ExtendAndImplement.java 1`] = `
 package software.amazon.jsii.tests.calculator.module2647;
 
@@ -23613,6 +23650,7 @@ jsii-calc.VoidCallback=software.amazon.jsii.tests.calculator.VoidCallback
 jsii-calc.WithPrivatePropertyInConstructor=software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
+jsii-calc.module2617.OnlyStatics=software.amazon.jsii.tests.calculator.module2617.OnlyStatics
 jsii-calc.module2647.ExtendAndImplement=software.amazon.jsii.tests.calculator.module2647.ExtendAndImplement
 jsii-calc.nodirect.sub1.TypeFromSub1=software.amazon.jsii.tests.calculator.nodirect.sub1.TypeFromSub1
 jsii-calc.nodirect.sub2.TypeFromSub2=software.amazon.jsii.tests.calculator.nodirect.sub2.TypeFromSub2

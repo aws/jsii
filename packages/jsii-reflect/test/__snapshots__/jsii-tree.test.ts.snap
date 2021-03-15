@@ -102,6 +102,16 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method (stable)
+ │ │ │         ├── static
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement (stable)
@@ -2958,6 +2968,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3386,6 +3399,12 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├── static bar() method
+ │ │ │       └── static foo() method
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -4664,6 +4683,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
@@ -4713,6 +4733,9 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
@@ -5017,6 +5040,7 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules

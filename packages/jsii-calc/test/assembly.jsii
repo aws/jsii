@@ -211,6 +211,12 @@
         "line": 142
       }
     },
+    "jsii-calc.module2617": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 16
+      }
+    },
     "jsii-calc.module2647": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -14125,6 +14131,44 @@
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation"
     },
+    "jsii-calc.module2617.OnlyStatics": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2617.OnlyStatics",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2617/index.ts",
+        "line": 3
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2617/index.ts",
+            "line": 7
+          },
+          "name": "bar",
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2617/index.ts",
+            "line": 4
+          },
+          "name": "foo",
+          "static": true
+        }
+      ],
+      "name": "OnlyStatics",
+      "namespace": "module2617"
+    },
     "jsii-calc.module2647.ExtendAndImplement": {
       "assembly": "jsii-calc",
       "base": "@scope/jsii-calc-lib.BaseFor2647",
@@ -14952,5 +14996,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "jhFZc5fa0gXEmH6s8wlAhaQm8CX/ZCHNvpY1jXxwMgE="
+  "fingerprint": "BknY5b4Ac0OyJjPD+Cy7kKx4HRZj/enS7zbnu8n5MsM="
 }

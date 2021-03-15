@@ -9,6 +9,7 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
@@ -42,6 +43,7 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
@@ -75,6 +77,7 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
@@ -201,6 +204,16 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method
+ │ │ │         ├── static
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3039,6 +3052,7 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ nodirect
  │   │ └─┬ submodules
@@ -3088,6 +3102,9 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
