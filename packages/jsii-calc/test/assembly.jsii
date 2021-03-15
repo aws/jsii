@@ -271,6 +271,12 @@
         "line": 2
       }
     },
+    "jsii-calc.module2700": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 18
+      }
+    },
     "jsii-calc.nodirect": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -14766,6 +14772,152 @@
         }
       ]
     },
+    "jsii-calc.module2700.Base": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2700.Base",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "interfaces": [
+        "jsii-calc.module2700.IFoo"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2700/index.ts",
+        "line": 6
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2700/index.ts",
+            "line": 8
+          },
+          "name": "bar",
+          "overrides": "jsii-calc.module2700.IFoo",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "Base",
+      "namespace": "module2700",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2700/index.ts",
+            "line": 7
+          },
+          "name": "baz",
+          "overrides": "jsii-calc.module2700.IFoo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.module2700.Derived": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.module2700.Base",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2700.Derived",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "interfaces": [
+        "jsii-calc.module2700.IFoo"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2700/index.ts",
+        "line": 13
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2700/index.ts",
+            "line": 14
+          },
+          "name": "zoo",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "Derived",
+      "namespace": "module2700"
+    },
+    "jsii-calc.module2700.IFoo": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2700.IFoo",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module2700/index.ts",
+        "line": 1
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2700/index.ts",
+            "line": 2
+          },
+          "name": "bar",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IFoo",
+      "namespace": "module2700",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2700/index.ts",
+            "line": 3
+          },
+          "name": "baz",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.nodirect.sub1.TypeFromSub1": {
       "assembly": "jsii-calc",
       "docs": {
@@ -15522,5 +15674,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "ELEXfVI6U0WtgZz/uZCYxVmrnbgWKv+bjZ55LY5pjAE="
+  "fingerprint": "tN40QG7OJMwvZrncnCWdHHQjS9MvubkL128BGefSM1A="
 }

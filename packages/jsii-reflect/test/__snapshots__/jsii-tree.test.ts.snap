@@ -213,6 +213,33 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: string
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base (stable)
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   ├─┬ bar() method (stable)
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ baz property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: number
+ │ │ │   ├─┬ class Derived (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ zoo() method (stable)
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IFoo (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ bar() method (stable)
+ │ │ │       │ ├── abstract
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ baz property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3106,6 +3133,14 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │ │         ├── Bar
  │ │ │ │         └── Bar
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3590,6 +3625,21 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ │       └─┬ members
  │ │ │ │         └── foo2 property
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── bar() method
+ │ │ │   │   └── baz property
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── zoo() method
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       ├── bar() method
+ │ │ │       └── baz property
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4881,6 +4931,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -4960,6 +5011,11 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ │     ├── interface Bar
  │ │ │ │     └── interface Foo
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -5274,6 +5330,7 @@ exports[`jsii-tree 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
