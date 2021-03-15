@@ -1,5 +1,5 @@
 import { toPascalCase } from 'codemaker';
-import { Method, Parameter, Property } from 'jsii-reflect';
+import { Callable, Method, Parameter, Property } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
 import { GetProperty, JSII_RT_ALIAS, SetProperty } from '../runtime';
@@ -145,11 +145,10 @@ export abstract class GoMethod implements GoTypeMember {
 
   public constructor(
     public readonly parent: GoClass | GoInterface,
-    public readonly method: Method,
+    public readonly method: Callable,
   ) {
     this.name = toPascalCase(method.name);
-
-    if (method.returns.type) {
+    if (Method.isMethod(method) && method.returns.type) {
       this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
     }
     this.parameters = this.method.parameters.map(

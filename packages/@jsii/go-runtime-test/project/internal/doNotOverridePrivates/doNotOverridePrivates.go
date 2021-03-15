@@ -13,9 +13,13 @@ func New() *DoNotOverridePrivates {
 }
 
 func (d *DoNotOverridePrivates) PrivateMethod() string {
-	return "privateMethod-Override"
+	panic("This should not have been called!")
 }
 
 func (d *DoNotOverridePrivates) PrivateProperty() string {
-	return "privateProperty-Override"
+	panic("This should not have been called!")
+}
+
+func (d *DoNotOverridePrivates) SetPrivateProperty(_ string) {
+	panic("This should not have been called!")
 }

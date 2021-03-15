@@ -1,0 +1,1214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nested-types.ts: <outDir>/ 1`] = `
+<root>
+ ┣━ 📁 dotnet
+ ┃  ┗━ 📁 Example.Test.Demo
+ ┃     ┣━ 📄 AssemblyInfo.cs
+ ┃     ┣━ 📁 Example
+ ┃     ┃  ┗━ 📁 Test
+ ┃     ┃     ┗━ 📁 Demo
+ ┃     ┃        ┣━ 📁 Internal
+ ┃     ┃        ┃  ┗━ 📁 DependencyResolution
+ ┃     ┃        ┃     ┗━ 📄 Anchor.cs
+ ┃     ┃        ┣━ 📄 Namespace1.cs
+ ┃     ┃        ┗━ 📄 Namespace2.cs
+ ┃     ┗━ 📄 Example.Test.Demo.csproj
+ ┣━ 📁 go
+ ┃  ┗━ 📁 testpkg
+ ┃     ┣━ 📄 go.mod
+ ┃     ┣━ 📁 jsii
+ ┃     ┃  ┗━ 📄 jsii.go
+ ┃     ┣━ 📄 testpkg.go
+ ┃     ┗━ 📄 testpkg.init.go
+ ┣━ 📁 java
+ ┃  ┣━ 📄 pom.xml
+ ┃  ┗━ 📁 src
+ ┃     ┗━ 📁 main
+ ┃        ┣━ 📁 java
+ ┃        ┃  ┗━ 📁 example
+ ┃        ┃     ┗━ 📁 test
+ ┃        ┃        ┗━ 📁 demo
+ ┃        ┃           ┣━ 📄 $Module.java
+ ┃        ┃           ┣━ 📄 Namespace1.java
+ ┃        ┃           ┗━ 📄 Namespace2.java
+ ┃        ┗━ 📁 resources
+ ┃           ┗━ 📁 example
+ ┃              ┗━ 📁 test
+ ┃                 ┗━ 📁 demo
+ ┃                    ┗━ 📄 $Module.txt
+ ┗━ 📁 python
+    ┣━ 📄 pyproject.toml
+    ┣━ 📄 setup.py
+    ┗━ 📁 src
+       ┗━ 📁 example_test_demo
+          ┣━ 📄 __init__.py
+          ┣━ 📁 _jsii
+          ┃  ┗━ 📄 __init__.py
+          ┗━ 📄 py.typed
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/AssemblyInfo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+[assembly: JsiiAssembly("testpkg", "0.0.1", "testpkg-0.0.1.tgz")]
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.csproj 1`] = `
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Package Identification -->
+    <Description>testpkg</Description>
+    <PackageId>Example.Test.Demo</PackageId>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageVersion>0.0.1</PackageVersion>
+    <!-- Additional Metadata -->
+    <Authors>John Doe</Authors>
+    <Language>en-US</Language>
+    <ProjectUrl>https://github.com/aws/jsii.git</ProjectUrl>
+    <RepositoryUrl>https://github.com/aws/jsii.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- Build Configuration -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <Nullable>enable</Nullable>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="testpkg-0.0.1.tgz" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Silence [Obsolete] warnings -->
+    <NoWarn>0612,0618</NoWarn>
+    <!-- Treat warnings symptomatic of code generation bugs as errors -->
+    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+  </PropertyGroup>
+</Project>
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Internal/DependencyResolution/Anchor.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo.Internal.DependencyResolution
+{
+    public sealed class Anchor
+    {
+        public Anchor()
+        {
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Namespace1.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    [JsiiClass(nativeType: typeof(Example.Test.Demo.Namespace1), fullyQualifiedName: "testpkg.Namespace1")]
+    public class Namespace1 : DeputyBase
+    {
+        public Namespace1(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Namespace1(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Namespace1(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "foo")]
+        public virtual void Foo()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
+        [JsiiInterface(nativeType: typeof(IFoo), fullyQualifiedName: "testpkg.Namespace1.Foo")]
+        public interface IFoo
+        {
+            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            string Bar
+            {
+                get;
+            }
+
+            [JsiiTypeProxy(nativeType: typeof(IFoo), fullyQualifiedName: "testpkg.Namespace1.Foo")]
+            internal sealed class _Proxy : DeputyBase, Example.Test.Demo.Namespace1.IFoo
+            {
+                private _Proxy(ByRefValue reference): base(reference)
+                {
+                }
+
+                [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
+                public string Bar
+                {
+                    get => GetInstanceProperty<string>()!;
+                }
+            }
+        }
+        #pragma warning disable CS8618
+
+        [JsiiByValue(fqn: "testpkg.Namespace1.Foo")]
+        public class Foo : Example.Test.Demo.Namespace1.IFoo
+        {
+            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+            public string Bar
+            {
+                get;
+                set;
+            }
+        }
+        [JsiiInterface(nativeType: typeof(IBar), fullyQualifiedName: "testpkg.Namespace1.IBar")]
+        public interface IBar
+        {
+            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            string Bar
+            {
+                get;
+            }
+            [JsiiMethod(name: "method")]
+            void Method();
+
+            [JsiiTypeProxy(nativeType: typeof(IBar), fullyQualifiedName: "testpkg.Namespace1.IBar")]
+            internal sealed class _Proxy : DeputyBase, Example.Test.Demo.Namespace1.IBar
+            {
+                private _Proxy(ByRefValue reference): base(reference)
+                {
+                }
+
+                [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
+                public string Bar
+                {
+                    get => GetInstanceProperty<string>()!;
+                }
+
+                [JsiiMethod(name: "method")]
+                public void Method()
+                {
+                    InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+                }
+            }
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Namespace2.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    [JsiiClass(nativeType: typeof(Example.Test.Demo.Namespace2), fullyQualifiedName: "testpkg.Namespace2")]
+    public class Namespace2 : DeputyBase
+    {
+        public Namespace2(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Namespace2(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Namespace2(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "foo")]
+        public virtual void Foo()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
+
+        [JsiiEnum(nativeType: typeof(Foo), fullyQualifiedName: "testpkg.Namespace2.Foo")]
+        public enum Foo
+        {
+            [JsiiEnumMember(name: "BAR")]
+            BAR,
+            [JsiiEnumMember(name: "BAZ")]
+            BAZ
+            [JsiiClass(nativeType: typeof(Example.Test.Demo.Namespace2.Foo.Final), fullyQualifiedName: "testpkg.Namespace2.Foo.Final")]
+            public class Final : DeputyBase
+            {
+                public Final(): base(new DeputyProps(System.Array.Empty<object?>()))
+                {
+                }
+
+                /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+                /// <param name="reference">The Javascript-owned object reference</param>
+                [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+                protected Final(ByRefValue reference): base(reference)
+                {
+                }
+
+                /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+                /// <param name="props">The deputy props</param>
+                [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+                protected Final(DeputyProps props): base(props)
+                {
+                }
+
+                [JsiiProperty(name: "done", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+                public virtual bool Done
+                {
+                    get => GetInstanceProperty<bool>()!;
+                }
+            }
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/go.mod 1`] = `
+module example.test/demo/testpkg
+
+go 1.16
+
+require (
+	github.com/aws/jsii-runtime-go v0.0.0
+)
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
+package jsii
+
+import (
+	_      "embed"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+//go:embed testpkg-0.0.1.tgz
+var tarball []byte
+
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
+func Initialize() {
+	// Load this library into the kernel
+	_jsii_.Load("testpkg", "0.0.1", tarball)
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/testpkg.go 1`] = `
+// testpkg
+package testpkg
+
+import (
+	_init_ "example.test/demo/testpkg/jsii"
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+type Namespace1 interface {
+	Foo()
+}
+
+// The jsii proxy struct for Namespace1
+type jsiiProxy_Namespace1 struct {
+	_ byte // padding
+}
+
+func NewNamespace1() Namespace1 {
+	_init_.Initialize()
+
+	j := jsiiProxy_Namespace1{}
+
+	_jsii_.Create(
+		"testpkg.Namespace1",
+		nil, // no parameters
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+func (n *jsiiProxy_Namespace1) Foo() {
+	_jsii_.InvokeVoid(
+		n,
+		"foo",
+		nil, // no parameters
+	)
+}
+
+type Namespace1_Foo struct {
+	Bar string \`json:"bar"\`
+}
+
+type Namespace1_IBar interface {
+	Method()
+	Bar() string
+}
+
+// The jsii proxy for Namespace1_IBar
+type jsiiProxy_Namespace1_IBar struct {
+	_ byte // padding
+}
+
+func (n *jsiiProxy_Namespace1_IBar) Method() {
+	_jsii_.InvokeVoid(
+		n,
+		"method",
+		nil, // no parameters
+	)
+}
+
+func (j *jsiiProxy_Namespace1_IBar) Bar() string {
+	var returns string
+	_jsii_.Get(
+		j,
+		"bar",
+		&returns,
+	)
+	return returns
+}
+
+type Namespace2 interface {
+	Foo()
+}
+
+// The jsii proxy struct for Namespace2
+type jsiiProxy_Namespace2 struct {
+	_ byte // padding
+}
+
+func NewNamespace2() Namespace2 {
+	_init_.Initialize()
+
+	j := jsiiProxy_Namespace2{}
+
+	_jsii_.Create(
+		"testpkg.Namespace2",
+		nil, // no parameters
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+func (n *jsiiProxy_Namespace2) Foo() {
+	_jsii_.InvokeVoid(
+		n,
+		"foo",
+		nil, // no parameters
+	)
+}
+
+type Namespace2_Foo string
+
+const (
+	Namespace2_Foo_BAR Namespace2_Foo = "BAR"
+	Namespace2_Foo_BAZ Namespace2_Foo = "BAZ"
+)
+
+type Namespace2_Foo_Final interface {
+	Done() bool
+}
+
+// The jsii proxy struct for Namespace2_Foo_Final
+type jsiiProxy_Namespace2_Foo_Final struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_Namespace2_Foo_Final) Done() bool {
+	var returns bool
+	_jsii_.Get(
+		j,
+		"done",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewNamespace2_Foo_Final() Namespace2_Foo_Final {
+	_init_.Initialize()
+
+	j := jsiiProxy_Namespace2_Foo_Final{}
+
+	_jsii_.Create(
+		"testpkg.Namespace2.Foo.Final",
+		nil, // no parameters
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/testpkg.init.go 1`] = `
+package testpkg
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"testpkg.Namespace1",
+		reflect.TypeOf((*Namespace1)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			return &jsiiProxy_Namespace1{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"testpkg.Namespace1.Foo",
+		reflect.TypeOf((*Namespace1_Foo)(nil)).Elem(),
+	)
+	_jsii_.RegisterInterface(
+		"testpkg.Namespace1.IBar",
+		reflect.TypeOf((*Namespace1_IBar)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "bar", GoGetter: "Bar"},
+			_jsii_.MemberMethod{JsiiMethod: "method", GoMethod: "Method"},
+		},
+		func() interface{} {
+			return &jsiiProxy_Namespace1_IBar{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"testpkg.Namespace2",
+		reflect.TypeOf((*Namespace2)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			return &jsiiProxy_Namespace2{}
+		},
+	)
+	_jsii_.RegisterEnum(
+		"testpkg.Namespace2.Foo",
+		reflect.TypeOf((*Namespace2_Foo)(nil)).Elem(),
+		map[string]interface{}{
+			"BAR": Namespace2_Foo_BAR,
+			"BAZ": Namespace2_Foo_BAZ,
+		},
+	)
+	_jsii_.RegisterClass(
+		"testpkg.Namespace2.Foo.Final",
+		reflect.TypeOf((*Namespace2_Foo_Final)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "done", GoGetter: "Done"},
+		},
+		func() interface{} {
+			return &jsiiProxy_Namespace2_Foo_Final{}
+		},
+	)
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>\${project.groupId}:\${project.artifactId}</name>
+  <description>testpkg</description>
+  <url>https://github.com/aws/jsii.git</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+      <comments>An OSI-approved license</comments>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>John Doe</name>
+      <roles>
+        <role>author</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/aws/jsii.git</connection>
+    <url>https://github.com/aws/jsii.git</url>
+  </scm>
+  <groupId>example.test</groupId>
+  <artifactId>demo</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>software.amazon.jsii</groupId>
+      <artifactId>jsii-runtime</artifactId>
+      <version>(,0.0.1)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>[16.0.3,20.0.0)</version>
+    </dependency>
+    <dependency>
+      <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>[1.3.2,1.4.0)</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnError>false</failOnError>
+          <show>protected</show>
+          <sourceFileExcludes>
+            <exclude>**/$Module.java</exclude>
+          </sourceFileExcludes>
+          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
+          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.8.1</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/$Module.java 1`] = `
+package example.test.demo;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import software.amazon.jsii.JsiiModule;
+
+@software.amazon.jsii.Internal
+public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("example/test/demo/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
+    public $Module() {
+        super("testpkg", "0.0.1", $Module.class, "testpkg@0.0.1.jsii.tgz");
+    }
+
+    @Override
+    protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        String className = MODULE_TYPES.get(fqn);
+        if (!this.cache.containsKey(className)) {
+            this.cache.put(className, this.findClass(className));
+        }
+        return this.cache.get(className);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/Namespace1.java 1`] = `
+package example.test.demo;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Namespace1")
+public class Namespace1 extends software.amazon.jsii.JsiiObject {
+
+    protected Namespace1(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Namespace1(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    public Namespace1() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    public void foo() {
+        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
+    }
+    @software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Namespace1.Foo")
+    @software.amazon.jsii.Jsii.Proxy(Foo.Jsii$Proxy.class)
+    public static interface Foo extends software.amazon.jsii.JsiiSerializable {
+
+        @org.jetbrains.annotations.NotNull java.lang.String getBar();
+
+        /**
+         * @return a {@link Builder} of {@link Foo}
+         */
+        static Builder builder() {
+            return new Builder();
+        }
+        /**
+         * A builder for {@link Foo}
+         */
+        public static final class Builder implements software.amazon.jsii.Builder<Foo> {
+            private java.lang.String bar;
+
+            /**
+             * Sets the value of {@link Foo#getBar}
+             * @param bar the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            public Builder bar(java.lang.String bar) {
+                this.bar = bar;
+                return this;
+            }
+
+            /**
+             * Builds the configured instance.
+             * @return a new instance of {@link Foo}
+             * @throws NullPointerException if any required attribute was not provided
+             */
+            @Override
+            public Foo build() {
+                return new Jsii$Proxy(bar);
+            }
+        }
+
+        /**
+         * An implementation for {@link Foo}
+         */
+        @software.amazon.jsii.Internal
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Foo {
+            private final java.lang.String bar;
+
+            /**
+             * Constructor that initializes the object based on values retrieved from the JsiiObject.
+             * @param objRef Reference to the JSII managed object.
+             */
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+                this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            }
+
+            /**
+             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             */
+            protected Jsii$Proxy(final java.lang.String bar) {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
+            }
+
+            @Override
+            public final java.lang.String getBar() {
+                return this.bar;
+            }
+
+            @Override
+            @software.amazon.jsii.Internal
+            public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+                final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+                data.set("bar", om.valueToTree(this.getBar()));
+
+                final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                struct.set("fqn", om.valueToTree("testpkg.Namespace1.Foo"));
+                struct.set("data", data);
+
+                final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                obj.set("$jsii.struct", struct);
+
+                return obj;
+            }
+
+            @Override
+            public final boolean equals(final Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                Foo.Jsii$Proxy that = (Foo.Jsii$Proxy) o;
+
+                return this.bar.equals(that.bar);
+            }
+
+            @Override
+            public final int hashCode() {
+                int result = this.bar.hashCode();
+                return result;
+            }
+        }
+    }
+    @software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Namespace1.IBar")
+    @software.amazon.jsii.Jsii.Proxy(IBar.Jsii$Proxy.class)
+    public static interface IBar extends software.amazon.jsii.JsiiSerializable {
+
+        @org.jetbrains.annotations.NotNull java.lang.String getBar();
+
+        void method();
+
+        /**
+         * A proxy class which represents a concrete javascript instance of this type.
+         */
+        @software.amazon.jsii.Internal
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements example.test.demo.Namespace1.IBar.Jsii$Default {
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+            }
+
+            @Override
+            public final @org.jetbrains.annotations.NotNull java.lang.String getBar() {
+                return software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            }
+
+            @Override
+            public final void method() {
+                software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
+            }
+        }
+
+        /**
+         * Internal default implementation for {@link IBar}.
+         */
+        @software.amazon.jsii.Internal
+        interface Jsii$Default extends IBar {
+
+            @Override
+            default @org.jetbrains.annotations.NotNull java.lang.String getBar() {
+                return software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            }
+
+            @Override
+            default void method() {
+                software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
+            }
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/Namespace2.java 1`] = `
+package example.test.demo;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Namespace2")
+public class Namespace2 extends software.amazon.jsii.JsiiObject {
+
+    protected Namespace2(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Namespace2(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    public Namespace2() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    public void foo() {
+        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
+    }
+    @software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Namespace2.Foo")
+    public enum Foo {
+        BAR,
+        BAZ,
+        @software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Namespace2.Foo.Final")
+        public static class Final extends software.amazon.jsii.JsiiObject {
+
+            protected Final(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+            }
+
+            protected Final(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+                super(initializationMode);
+            }
+
+            public Final() {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+            }
+
+            public @org.jetbrains.annotations.NotNull java.lang.Boolean getDone() {
+                return software.amazon.jsii.Kernel.get(this, "done", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+            }
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/resources/example/test/demo/$Module.txt 1`] = `
+testpkg.Namespace1=example.test.demo.Namespace1
+testpkg.Namespace1.Foo=example.test.demo.Namespace1$Foo
+testpkg.Namespace1.IBar=example.test.demo.Namespace1$IBar
+testpkg.Namespace2=example.test.demo.Namespace2
+testpkg.Namespace2.Foo=example.test.demo.Namespace2$Foo
+testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
+[build-system]
+requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+build-backend = "setuptools.build_meta"
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/setup.py 1`] = `
+import json
+import setuptools
+
+kwargs = json.loads(
+    """
+{
+    "name": "example-test.demo",
+    "version": "0.0.1",
+    "description": "testpkg",
+    "license": "Apache-2.0",
+    "url": "https://github.com/aws/jsii.git",
+    "long_description_content_type": "text/markdown",
+    "author": "John Doe",
+    "bdist_wheel": {
+        "universal": true
+    },
+    "project_urls": {
+        "Source": "https://github.com/aws/jsii.git"
+    },
+    "package_dir": {
+        "": "src"
+    },
+    "packages": [
+        "example_test_demo",
+        "example_test_demo._jsii"
+    ],
+    "package_data": {
+        "example_test_demo._jsii": [
+            "testpkg@0.0.1.jsii.tgz"
+        ],
+        "example_test_demo": [
+            "py.typed"
+        ]
+    },
+    "python_requires": ">=3.6",
+    "install_requires": [
+        "jsii<0.0.1",
+        "publication>=0.0.3"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Typing :: Typed",
+        "License :: OSI Approved"
+    ],
+    "scripts": []
+}
+"""
+)
+
+with open("README.md", encoding="utf8") as fp:
+    kwargs["long_description"] = fp.read()
+
+
+setuptools.setup(**kwargs)
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/src/example_test_demo/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ._jsii import *
+
+
+class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
+    def __init__(self) -> None:
+        jsii.create(Namespace1, self, [])
+
+    @jsii.member(jsii_name="foo")
+    def foo(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "foo", []))
+
+    @jsii.data_type(
+        jsii_type="testpkg.Namespace1.Foo",
+        jsii_struct_bases=[],
+        name_mapping={"bar": "bar"},
+    )
+    class Foo:
+        def __init__(self, *, bar: builtins.str) -> None:
+            '''
+            :param bar: -
+            '''
+            self._values: typing.Dict[str, typing.Any] = {
+                "bar": bar,
+            }
+
+        @builtins.property
+        def bar(self) -> builtins.str:
+            result = self._values.get("bar")
+            assert result is not None, "Required property 'bar' is missing"
+            return typing.cast(builtins.str, result)
+
+        def __eq__(self, rhs: typing.Any) -> builtins.bool:
+            return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+        def __ne__(self, rhs: typing.Any) -> builtins.bool:
+            return not (rhs == self)
+
+        def __repr__(self) -> str:
+            return "Foo(%s)" % ", ".join(
+                k + "=" + repr(v) for k, v in self._values.items()
+            )
+
+    @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
+    class IBar(typing_extensions.Protocol):
+        @builtins.staticmethod
+        def __jsii_proxy_class__() -> typing.Type["_IBarProxy"]:
+            return _IBarProxy
+
+        @builtins.property # type: ignore[misc]
+        @jsii.member(jsii_name="bar")
+        def bar(self) -> builtins.str:
+            ...
+
+        @jsii.member(jsii_name="method")
+        def method(self) -> None:
+            ...
+
+
+    class _IBarProxy:
+        __jsii_type__: typing.ClassVar[str] = "testpkg.Namespace1.IBar"
+
+        @builtins.property # type: ignore[misc]
+        @jsii.member(jsii_name="bar")
+        def bar(self) -> builtins.str:
+            return typing.cast(builtins.str, jsii.get(self, "bar"))
+
+        @jsii.member(jsii_name="method")
+        def method(self) -> None:
+            return typing.cast(None, jsii.invoke(self, "method", []))
+
+
+class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
+    def __init__(self) -> None:
+        jsii.create(Namespace2, self, [])
+
+    @jsii.member(jsii_name="foo")
+    def foo(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "foo", []))
+
+    @jsii.enum(jsii_type="testpkg.Namespace2.Foo")
+    class Foo(enum.Enum):
+        BAR = "BAR"
+        BAZ = "BAZ"
+        class Final(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2.Foo.Final"):
+            def __init__(self) -> None:
+                jsii.create(Final, self, [])
+
+            @builtins.property # type: ignore[misc]
+            @jsii.member(jsii_name="done")
+            def done(self) -> builtins.bool:
+                return typing.cast(builtins.bool, jsii.get(self, "done"))
+
+
+__all__ = [
+    "Namespace1",
+    "Namespace2",
+]
+
+publication.publish()
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/src/example_test_demo/_jsii/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "testpkg", "0.0.1", __name__[0:-6], "testpkg@0.0.1.jsii.tgz"
+)
+
+__all__ = [
+    "__jsii_assembly__",
+]
+
+publication.publish()
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/src/example_test_demo/py.typed 1`] = `
+
+
+`;
