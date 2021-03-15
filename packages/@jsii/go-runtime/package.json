@@ -11,7 +11,7 @@
     "go:run": "go mod download && node build-tools/go-run.js",
     "package": "build-tools/package.sh",
     "doc": "(cd jsii-runtime-go && yarn --silent go:run godoc)",
-    "fmt": "(cd jsii-runtime-go && yarn --silent go:all yarn --silent go:run goimports .)",
+    "fmt": "yarn --silent go:run goimports -w jsii-runtime-go",
     "lint": "(cd jsii-runtime-go && go vet ./... && yarn --silent go:run golint ./...)",
     "test": "(cd jsii-runtime-go && go test ./...)"
   },
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.54",
+    "@types/node": "^10.17.55",
     "codemaker": "^0.0.0",
     "eslint": "^7.21.0",
     "fs-extra": "^9.1.0",

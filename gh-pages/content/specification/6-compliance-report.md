@@ -4,129 +4,123 @@
 
 This section details the current state of each language binding with respect to our standard compliance suite.
 
-!!! Note
-    The following languages are currently excluded from the tests and are marked as N/A:
 
-    **dotnet**: Underwent a different compliance process. Will be aligned in the future.
-
-    **python**: Underwent a different compliance process. Will be aligned in the future.
-
-| number | test                                                              | description | java (100.00%) | golang (0.85%) | Dotnet | Python |
-| ------ | ----------------------------------------------------------------- | ----------- | -------------- | -------------- | ------ | ------ |
-| 1      | asyncOverrides_overrideCallsSuper                                 |             | ✅              | ❌              | N/A    | N/A    |
-| 2      | arrayReturnedByMethodCanBeRead                                    |             | ✅              | ❌              | N/A    | N/A    |
-| 3      | unionProperties                                                   |             | ✅              | ❌              | N/A    | N/A    |
-| 4      | syncOverrides                                                     |             | ✅              | ❌              | N/A    | N/A    |
-| 5      | useEnumFromScopedModule                                           |             | ✅              | ❌              | N/A    | N/A    |
-| 6      | createObjectAndCtorOverloads                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 7      | fail_syncOverrides_callsDoubleAsync_method                        |             | ✅              | ❌              | N/A    | N/A    |
-| 8      | collectionOfInterfaces_MapOfStructs                               |             | ✅              | ❌              | N/A    | N/A    |
-| 9      | asyncOverrides_overrideAsyncMethod                                |             | ✅              | ❌              | N/A    | N/A    |
-| 10     | statics                                                           |             | ✅              | ❌              | N/A    | N/A    |
-| 11     | structs_returnedLiteralEqualsNativeBuilt                          |             | ✅              | ❌              | N/A    | N/A    |
-| 12     | classesCanSelfReferenceDuringClassInitialization                  |             | ✅              | ❌              | N/A    | N/A    |
-| 13     | canObtainStructReferenceWithOverloadedSetter                      |             | ✅              | ❌              | N/A    | N/A    |
-| 14     | callbacksCorrectlyDeserializeArguments                            |             | ✅              | ❌              | N/A    | N/A    |
-| 15     | canUseInterfaceSetters                                            |             | ✅              | ❌              | N/A    | N/A    |
-| 16     | propertyOverrides_interfaces                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 17     | syncOverrides_callsSuper                                          |             | ✅              | ❌              | N/A    | N/A    |
-| 18     | testJsiiAgent                                                     |             | ✅              | ❌              | N/A    | N/A    |
-| 19     | doNotOverridePrivates_method_private                              |             | ✅              | ❌              | N/A    | N/A    |
-| 20     | pureInterfacesCanBeUsedTransparently                              |             | ✅              | ❌              | N/A    | N/A    |
-| 21     | nullShouldBeTreatedAsUndefined                                    |             | ✅              | ❌              | N/A    | N/A    |
-| 22     | primitiveTypes                                                    |             | ✅              | ❌              | N/A    | N/A    |
-| 23     | reservedKeywordsAreSlugifiedInClassProperties                     |             | ✅              | ❌              | N/A    | N/A    |
-| 24     | objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut      |             | ✅              | ❌              | N/A    | N/A    |
-| 25     | interfaceBuilder                                                  |             | ✅              | ❌              | N/A    | N/A    |
-| 26     | unionTypes                                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 27     | arrays                                                            |             | ✅              | ❌              | N/A    | N/A    |
-| 28     | staticMapInClassCannotBeModified                                  |             | ✅              | ❌              | N/A    | N/A    |
-| 29     | consts                                                            |             | ✅              | ❌              | N/A    | N/A    |
-| 30     | pureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing |             | ✅              | ❌              | N/A    | N/A    |
-| 31     | reservedKeywordsAreSlugifiedInMethodNames                         |             | ✅              | ❌              | N/A    | N/A    |
-| 32     | exceptions                                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 33     | testLiteralInterface                                              |             | ✅              | ❌              | N/A    | N/A    |
-| 34     | structs_nonOptionalhashCode                                       |             | ✅              | ❌              | N/A    | N/A    |
-| 35     | propertyOverrides_set_throws                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 36     | canLeverageIndirectInterfacePolymorphism                          |             | ✅              | ❌              | N/A    | N/A    |
-| 37     | fluentApi                                                         |             | ✅              | ❌              | N/A    | N/A    |
-| 38     | staticListInClassCanBeReadCorrectly                               |             | ✅              | ❌              | N/A    | N/A    |
-| 39     | mapReturnedByMethodCannotBeModified                               |             | ✅              | ❌              | N/A    | N/A    |
-| 40     | receiveInstanceOfPrivateClass                                     |             | ✅              | ❌              | N/A    | N/A    |
-| 41     | staticMapInClassCanBeReadCorrectly                                |             | ✅              | ❌              | N/A    | N/A    |
-| 42     | testNativeObjectsWithInterfaces                                   |             | ✅              | ❌              | N/A    | N/A    |
-| 43     | doNotOverridePrivates_property_getter_public                      |             | ✅              | ❌              | N/A    | N/A    |
-| 44     | equalsIsResistantToPropertyShadowingResultVariable                |             | ✅              | ❌              | N/A    | N/A    |
-| 45     | listInClassCanBeReadCorrectly                                     |             | ✅              | ❌              | N/A    | N/A    |
-| 46     | useNestedStruct                                                   |             | ✅              | ❌              | N/A    | N/A    |
-| 47     | testFluentApiWithDerivedClasses                                   |             | ✅              | ❌              | N/A    | N/A    |
-| 48     | interfacesCanBeUsedTransparently_WhenAddedToJsiiType              |             | ✅              | ❌              | N/A    | N/A    |
-| 49     | canOverrideProtectedGetter                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 50     | getAndSetEnumValues                                               |             | ✅              | ❌              | N/A    | N/A    |
-| 51     | structs_nonOptionalequals                                         |             | ✅              | ❌              | N/A    | N/A    |
-| 52     | testInterfaceParameter                                            |             | ✅              | ❌              | N/A    | N/A    |
-| 53     | liftedKwargWithSameNameAsPositionalArg                            |             | ✅              | ❌              | N/A    | N/A    |
-| 54     | creationOfNativeObjectsFromJavaScriptObjects                      |             | ✅              | ❌              | N/A    | N/A    |
-| 55     | canOverrideProtectedMethod                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 56     | canLoadEnumValues                                                 |             | ✅              | ❌              | N/A    | N/A    |
-| 57     | eraseUnsetDataValues                                              |             | ✅              | ❌              | N/A    | N/A    |
-| 58     | maps                                                              |             | ✅              | ✅              | N/A    | N/A    |
-| 59     | structs_containsNullChecks                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 60     | canOverrideProtectedSetter                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 61     | asyncOverrides_callAsyncMethod                                    |             | ✅              | ❌              | N/A    | N/A    |
-| 62     | nodeStandardLibrary                                               |             | ✅              | ❌              | N/A    | N/A    |
-| 63     | dates                                                             |             | ✅              | ❌              | N/A    | N/A    |
-| 64     | collectionOfInterfaces_ListOfStructs                              |             | ✅              | ❌              | N/A    | N/A    |
-| 65     | objRefsAreLabelledUsingWithTheMostCorrectType                     |             | ✅              | ❌              | N/A    | N/A    |
-| 66     | unionPropertiesWithBuilder                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 67     | doNotOverridePrivates_property_getter_private                     |             | ✅              | ❌              | N/A    | N/A    |
-| 68     | structs_withDiamondInheritance_correctlyDedupeProperties          |             | ✅              | ❌              | N/A    | N/A    |
-| 69     | abstractMembersAreCorrectlyHandled                                |             | ✅              | ❌              | N/A    | N/A    |
-| 70     | doNotOverridePrivates_property_by_name_private                    |             | ✅              | ❌              | N/A    | N/A    |
-| 71     | testNullIsAValidOptionalMap                                       |             | ✅              | ❌              | N/A    | N/A    |
-| 72     | mapReturnedByMethodCanBeRead                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 73     | structs_multiplePropertiesEquals                                  |             | ✅              | ❌              | N/A    | N/A    |
-| 74     | mapInClassCanBeReadCorrectly                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 75     | staticListInClassCannotBeModified                                 |             | ✅              | ❌              | N/A    | N/A    |
-| 76     | collectionOfInterfaces_MapOfInterfaces                            |             | ✅              | ❌              | N/A    | N/A    |
-| 77     | asyncOverrides_overrideThrows                                     |             | ✅              | ❌              | N/A    | N/A    |
-| 78     | callMethods                                                       |             | ✅              | ❌              | N/A    | N/A    |
-| 79     | returnAbstract                                                    |             | ✅              | ❌              | N/A    | N/A    |
-| 80     | dynamicTypes                                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 81     | hashCodeIsResistantToPropertyShadowingResultVariable              |             | ✅              | ❌              | N/A    | N/A    |
-| 82     | returnSubclassThatImplementsInterface976                          |             | ✅              | ❌              | N/A    | N/A    |
-| 83     | structs_optionalEquals                                            |             | ✅              | ❌              | N/A    | N/A    |
-| 84     | propertyOverrides_get_calls_super                                 |             | ✅              | ❌              | N/A    | N/A    |
-| 85     | unmarshallIntoAbstractType                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 86     | structs_multiplePropertiesHashCode                                |             | ✅              | ❌              | N/A    | N/A    |
-| 87     | fail_syncOverrides_callsDoubleAsync_propertyGetter                |             | ✅              | ❌              | N/A    | N/A    |
-| 88     | propertyOverrides_get_set                                         |             | ✅              | ❌              | N/A    | N/A    |
-| 89     | variadicMethodCanBeInvoked                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 90     | collectionTypes                                                   |             | ✅              | ❌              | N/A    | N/A    |
-| 91     | asyncOverrides_overrideAsyncMethodByParentClass                   |             | ✅              | ❌              | N/A    | N/A    |
-| 92     | structs_optionalHashCode                                          |             | ✅              | ❌              | N/A    | N/A    |
-| 93     | testStructsCanBeDowncastedToParentType                            |             | ✅              | ❌              | N/A    | N/A    |
-| 94     | propertyOverrides_get_throws                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 95     | getSetPrimitiveProperties                                         |             | ✅              | ❌              | N/A    | N/A    |
-| 96     | getAndSetNonPrimitiveProperties                                   |             | ✅              | ❌              | N/A    | N/A    |
-| 97     | reservedKeywordsAreSlugifiedInStructProperties                    |             | ✅              | ❌              | N/A    | N/A    |
-| 98     | fail_syncOverrides_callsDoubleAsync_propertySetter                |             | ✅              | ❌              | N/A    | N/A    |
-| 99     | doNotOverridePrivates_method_public                               |             | ✅              | ❌              | N/A    | N/A    |
-| 100    | testNullIsAValidOptionalList                                      |             | ✅              | ❌              | N/A    | N/A    |
-| 101    | mapInClassCannotBeModified                                        |             | ✅              | ❌              | N/A    | N/A    |
-| 102    | doNotOverridePrivates_property_by_name_public                     |             | ✅              | ❌              | N/A    | N/A    |
-| 103    | asyncOverrides_twoOverrides                                       |             | ✅              | ❌              | N/A    | N/A    |
-| 104    | propertyOverrides_set_calls_super                                 |             | ✅              | ❌              | N/A    | N/A    |
-| 105    | iso8601DoesNotDeserializeToDate                                   |             | ✅              | ❌              | N/A    | N/A    |
-| 106    | collectionOfInterfaces_ListOfInterfaces                           |             | ✅              | ❌              | N/A    | N/A    |
-| 107    | undefinedAndNull                                                  |             | ✅              | ❌              | N/A    | N/A    |
-| 108    | structs_serializeToJsii                                           |             | ✅              | ❌              | N/A    | N/A    |
-| 109    | structsAreUndecoratedOntheWayToKernel                             |             | ✅              | ❌              | N/A    | N/A    |
-| 110    | canObtainReferenceWithOverloadedSetter                            |             | ✅              | ❌              | N/A    | N/A    |
-| 111    | testJSObjectLiteralToNative                                       |             | ✅              | ❌              | N/A    | N/A    |
-| 112    | structs_stepBuilders                                              |             | ✅              | ❌              | N/A    | N/A    |
-| 113    | classWithPrivateConstructorAndAutomaticProperties                 |             | ✅              | ❌              | N/A    | N/A    |
-| 114    | arrayReturnedByMethodCannotBeModified                             |             | ✅              | ❌              | N/A    | N/A    |
-| 115    | correctlyDeserializesStructUnions                                 |             | ✅              | ❌              | N/A    | N/A    |
-| 116    | subclassing                                                       |             | ✅              | ❌              | N/A    | N/A    |
-| 117    | testInterfaces                                                    |             | ✅              | ❌              | N/A    | N/A    |
+| number | test                                                                                                                                           | java (100.00%) | golang (28.21%)                              | Dotnet | Python |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------------------------------------------- | ------ | ------ |
+| 1      | asyncOverrides_overrideCallsSuper                                                                                                              | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 2      | [arrayReturnedByMethodCanBeRead]("Array created in the kernel can be queried for its elements")                                                | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 3      | [unionProperties]("Kernal values that accept a union type can be set, and are returned with the concrete type")                                | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 4      | syncOverrides                                                                                                                                  | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 5      | [useEnumFromScopedModule]("Property that accepts an enum type from a third-party package can be set, and read")                                | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 6      | [createObjectAndCtorOverloads]("Class can be instantiated with empty and non empty constructor")                                               | 🟢             | ⚪                                            | ⭕      | ⭕      |
+| 7      | fail_syncOverrides_callsDoubleAsync_method                                                                                                     | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 8      | collectionOfInterfaces_MapOfStructs                                                                                                            | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 9      | asyncOverrides_overrideAsyncMethod                                                                                                             | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 10     | [statics]("Static functions can be invoked and accept and return the correct type")                                                            | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 11     | [structs_returnedLiteralEqualsNativeBuilt]("A struct returned from the kernel is not distinguishable from a struct created natively")          | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 12     | [classesCanSelfReferenceDuringClassInitialization]("Classes can reference other classes during initialization")                                | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 13     | [canObtainStructReferenceWithOverloadedSetter]("A class with a settable property of a union type can be returned from the kernel")             | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 14     | [callbacksCorrectlyDeserializeArguments]("Runtime properly deserializes callback arguments from the kernel")                                   | 🟢             | [🔴](https://github.com/aws/jsii/issues/2048) | ⭕      | ⭕      |
+| 15     | [canUseInterfaceSetters]("Read-write properties generate the corresponding setters in the target language")                                    | 🟢             | [🔴](https://github.com/aws/jsii/issues/2665) | ⭕      | ⭕      |
+| 16     | [propertyOverrides_interfaces]("Target language can override properties of host interfaces")                                                   | 🟢             | [🔴](https://github.com/aws/jsii/issues/2665) | ⭕      | ⭕      |
+| 17     | syncOverrides_callsSuper                                                                                                                       | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 18     | [testJsiiAgent]("Asserts the correct value of the JSII_AGENT env variable for the kernel process")                                             | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 19     | [doNotOverridePrivates_method_private]("Non public methods on the guest class do not override methods in the host class")                      | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 20     | [pureInterfacesCanBeUsedTransparently]("Guest implementation of a pure host interface can be used by host consumers accepting that interface") | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 21     | [nullShouldBeTreatedAsUndefined]("Null value of target language is treated as undefined by the host")                                          | 🟢             | [🔴](https://github.com/aws/jsii/issues/2442) | ⭕      | ⭕      |
+| 22     | [primitiveTypes]("All Primitive types are set and read with their respective types")                                                           | 🟢             | [🔴](https://github.com/aws/jsii/issues/2659) | ⭕      | ⭕      |
+| 23     | reservedKeywordsAreSlugifiedInClassProperties                                                                                                  | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 24     | objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut                                                                                   | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 25     | interfaceBuilder                                                                                                                               | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 26     | unionTypes                                                                                                                                     | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 27     | arrays                                                                                                                                         | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 28     | staticMapInClassCannotBeModified                                                                                                               | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 29     | consts                                                                                                                                         | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 30     | pureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing                                                                              | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 31     | reservedKeywordsAreSlugifiedInMethodNames                                                                                                      | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 32     | exceptions                                                                                                                                     | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 33     | testLiteralInterface                                                                                                                           | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 34     | structs_nonOptionalhashCode                                                                                                                    | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 35     | propertyOverrides_set_throws                                                                                                                   | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 36     | canLeverageIndirectInterfacePolymorphism                                                                                                       | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 37     | fluentApi                                                                                                                                      | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 38     | staticListInClassCanBeReadCorrectly                                                                                                            | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 39     | mapReturnedByMethodCannotBeModified                                                                                                            | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 40     | receiveInstanceOfPrivateClass                                                                                                                  | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 41     | staticMapInClassCanBeReadCorrectly                                                                                                             | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 42     | testNativeObjectsWithInterfaces                                                                                                                | 🟢             | [🔴](https://github.com/aws/jsii/issues/2048) | ⭕      | ⭕      |
+| 43     | doNotOverridePrivates_property_getter_public                                                                                                   | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 44     | equalsIsResistantToPropertyShadowingResultVariable                                                                                             | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 45     | listInClassCanBeReadCorrectly                                                                                                                  | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 46     | useNestedStruct                                                                                                                                | 🟢             | [🔴](https://github.com/aws/jsii/pull/2650)  | ⭕      | ⭕      |
+| 47     | testFluentApiWithDerivedClasses                                                                                                                | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 48     | interfacesCanBeUsedTransparently_WhenAddedToJsiiType                                                                                           | 🟢             | [🔴](https://github.com/aws/jsii/issues/2048) | ⭕      | ⭕      |
+| 49     | canOverrideProtectedGetter                                                                                                                     | 🟢             | [🔴](https://github.com/aws/jsii/issues/2048) | ⭕      | ⭕      |
+| 50     | getAndSetEnumValues                                                                                                                            | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 51     | structs_nonOptionalequals                                                                                                                      | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 52     | testInterfaceParameter                                                                                                                         | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 53     | liftedKwargWithSameNameAsPositionalArg                                                                                                         | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 54     | creationOfNativeObjectsFromJavaScriptObjects                                                                                                   | 🟢             | [🔴](??)                                     | ⭕      | ⭕      |
+| 55     | canOverrideProtectedMethod                                                                                                                     | 🟢             | [🔴](https://github.com/aws/jsii/issues/2048) | ⭕      | ⭕      |
+| 56     | canLoadEnumValues                                                                                                                              | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 57     | eraseUnsetDataValues                                                                                                                           | 🟢             | [🔴](https://github.com/aws/jsii/issues/2671) | ⭕      | ⭕      |
+| 58     | maps                                                                                                                                           | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 59     | structs_containsNullChecks                                                                                                                     | 🟢             | [🔴](https://github.com/aws/jsii/issues/2672) | ⭕      | ⭕      |
+| 60     | canOverrideProtectedSetter                                                                                                                     | 🟢             | [🔴](https://github.com/aws/jsii/issues/2673) | ⭕      | ⭕      |
+| 61     | asyncOverrides_callAsyncMethod                                                                                                                 | 🟢             | [🔴](https://github.com/aws/jsii/issues/2670) | ⭕      | ⭕      |
+| 62     | nodeStandardLibrary                                                                                                                            | 🟢             | [🔴](https://github.com/aws/jsii/issues/2670) | ⭕      | ⭕      |
+| 63     | dates                                                                                                                                          | 🟢             | [🔴](https://github.com/aws/jsii/issues/2659) | ⭕      | ⭕      |
+| 64     | collectionOfInterfaces_ListOfStructs                                                                                                           | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 65     | objRefsAreLabelledUsingWithTheMostCorrectType                                                                                                  | 🟢             | 🔴                                           | ⭕      | ⭕      |
+| 66     | unionPropertiesWithBuilder                                                                                                                     | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 67     | doNotOverridePrivates_property_getter_private                                                                                                  | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 68     | structs_withDiamondInheritance_correctlyDedupeProperties                                                                                       | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 69     | abstractMembersAreCorrectlyHandled                                                                                                             | 🟢             | [🔴](https://github.com/aws/jsii/issues/2048) | ⭕      | ⭕      |
+| 70     | doNotOverridePrivates_property_by_name_private                                                                                                 | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 71     | testNullIsAValidOptionalMap                                                                                                                    | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 72     | mapReturnedByMethodCanBeRead                                                                                                                   | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 73     | structs_multiplePropertiesEquals                                                                                                               | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 74     | mapInClassCanBeReadCorrectly                                                                                                                   | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 75     | staticListInClassCannotBeModified                                                                                                              | 🟢             | ⚪                                            | ⭕      | ⭕      |
+| 76     | collectionOfInterfaces_MapOfInterfaces                                                                                                         | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 77     | asyncOverrides_overrideThrows                                                                                                                  | 🟢             | [🔴](https://github.com/aws/jsii/issues/2670) | ⭕      | ⭕      |
+| 78     | callMethods                                                                                                                                    | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 79     | returnAbstract                                                                                                                                 | 🟢             | 🟢                                           | ⭕      | ⭕      |
+| 80     | dynamicTypes                                                                                                                                   | 🟢             | [🔴](https://github.com/aws/jsii/issues/2659) | ⭕      | ⭕      |
+| 81     | hashCodeIsResistantToPropertyShadowingResultVariable                                                                                           | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 82     | returnSubclassThatImplementsInterface976                                                                                                       | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 83     | structs_optionalEquals                                                                                                                         | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 84     | propertyOverrides_get_calls_super                                                                                                              | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 85     | unmarshallIntoAbstractType                                                                                                                     | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 86     | structs_multiplePropertiesHashCode                                                                                                             | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 87     | fail_syncOverrides_callsDoubleAsync_propertyGetter                                                                                             | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 88     | propertyOverrides_get_set                                                                                                                      | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 89     | variadicMethodCanBeInvoked                                                                                                                     | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 90     | collectionTypes                                                                                                                                | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 91     | asyncOverrides_overrideAsyncMethodByParentClass                                                                                                | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 92     | structs_optionalHashCode                                                                                                                       | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 93     | testStructsCanBeDowncastedToParentType                                                                                                         | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 94     | propertyOverrides_get_throws                                                                                                                   | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 95     | getSetPrimitiveProperties                                                                                                                      | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 96     | getAndSetNonPrimitiveProperties                                                                                                                | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 97     | reservedKeywordsAreSlugifiedInStructProperties                                                                                                 | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 98     | fail_syncOverrides_callsDoubleAsync_propertySetter                                                                                             | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 99     | doNotOverridePrivates_method_public                                                                                                            | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 100    | testNullIsAValidOptionalList                                                                                                                   | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 101    | mapInClassCannotBeModified                                                                                                                     | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 102    | doNotOverridePrivates_property_by_name_public                                                                                                  | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 103    | asyncOverrides_twoOverrides                                                                                                                    | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 104    | propertyOverrides_set_calls_super                                                                                                              | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 105    | iso8601DoesNotDeserializeToDate                                                                                                                | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 106    | collectionOfInterfaces_ListOfInterfaces                                                                                                        | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 107    | undefinedAndNull                                                                                                                               | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 108    | structs_serializeToJsii                                                                                                                        | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 109    | structsAreUndecoratedOntheWayToKernel                                                                                                          | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 110    | canObtainReferenceWithOverloadedSetter                                                                                                         | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 111    | testJSObjectLiteralToNative                                                                                                                    | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 112    | structs_stepBuilders                                                                                                                           | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 113    | classWithPrivateConstructorAndAutomaticProperties                                                                                              | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 114    | arrayReturnedByMethodCannotBeModified                                                                                                          | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 115    | correctlyDeserializesStructUnions                                                                                                              | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 116    | subclassing                                                                                                                                    | 🟢             | ⭕                                            | ⭕      | ⭕      |
+| 117    | testInterfaces                                                                                                                                 | 🟢             | ⭕                                            | ⭕      | ⭕      |

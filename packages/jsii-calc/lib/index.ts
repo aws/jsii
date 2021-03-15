@@ -11,3 +11,5 @@ export * from './submodules';
 export * as submodule from './submodule';
 export * as onlystatic from './only-static';
 export * as nodirect from './no-direct-types';
+export * as module2647 from './module2647';
+export * as module2689 from './module2689';

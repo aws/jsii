@@ -425,6 +425,7 @@ defineTest(
         },
         go: {
           moduleName: 'github.com/aws/jsii/jsii-calc/go',
+          versionSuffix: '-devpreview',
         },
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',

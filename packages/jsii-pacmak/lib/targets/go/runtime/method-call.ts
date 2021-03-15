@@ -1,4 +1,5 @@
 import { CodeMaker } from 'codemaker';
+import { Method } from 'jsii-reflect';
 
 import { GoMethod } from '../types';
 import {
@@ -86,7 +87,7 @@ export class MethodCall extends FunctionCall {
   }
 
   private get inStatic(): boolean {
-    return this.parent.method.static;
+    return Method.isMethod(this.parent.method) && this.parent.method.static;
   }
 
   private get argsString(): string {

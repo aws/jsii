@@ -102,6 +102,70 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement (stable)
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     ├── interfaces: IFriendly
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(very) initializer (deprecated)
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ very
+ │ │ │       │     └── type: @scope/jsii-calc-base-of-base.Very
+ │ │ │       ├─┬ hello() method (stable)
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ localMethod() method (stable)
+ │ │ │         └── returns: string
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar(_bar) method (stable)
+ │ │ │ │ │       │ ├─┬ parameters
+ │ │ │ │ │       │ │ └─┬ _bar
+ │ │ │ │ │       │ │   └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       │ └── returns: void
+ │ │ │ │ │       └─┬ foo(_values) method (stable)
+ │ │ │ │ │         ├─┬ parameters
+ │ │ │ │ │         │ └─┬ _values
+ │ │ │ │ │         │   └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ │         └── returns: void
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar property (stable)
+ │ │ │ │ │       │ ├── immutable
+ │ │ │ │ │       │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo property (stable)
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar() method (stable)
+ │ │ │ │ │       │ └── returns: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo() method (stable)
+ │ │ │ │ │         └── returns: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ baseMap property (stable)
+ │ │ │ │         │ ├── abstract
+ │ │ │ │         │ ├── immutable
+ │ │ │ │         │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │         └─┬ numbers property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -2803,6 +2867,17 @@ exports[`jsii-tree --all 1`] = `
    │           ├── immutable
    │           └── type: any
    └─┬ types
+     ├─┬ class BaseFor2647 (deprecated)
+     │ └─┬ members
+     │   ├─┬ <initializer>(very) initializer (deprecated)
+     │   │ └─┬ parameters
+     │   │   └─┬ very
+     │   │     └── type: @scope/jsii-calc-base-of-base.Very
+     │   └─┬ foo(obj) method (deprecated)
+     │     ├─┬ parameters
+     │     │ └─┬ obj
+     │     │   └── type: @scope/jsii-calc-base.IBaseInterface
+     │     └── returns: void
      ├─┬ class Number (deprecated)
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -2933,6 +3008,26 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     └── interfaces: IFriendly
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3277,6 +3372,7 @@ exports[`jsii-tree --inheritance 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├─┬ class Number
      │ ├── base: NumericValue
      │ └── interfaces: IDoublable
@@ -3355,6 +3451,43 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>(very) initializer
+ │ │ │       ├── hello() method
+ │ │ │       └── localMethod() method
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar(_bar) method
+ │ │ │ │ │       └── foo(_values) method
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar property
+ │ │ │ │ │       └── foo property
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar() method
+ │ │ │ │ │       └── foo() method
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── baseMap property
+ │ │ │ │         └── numbers property
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4566,6 +4699,10 @@ exports[`jsii-tree --members 1`] = `
    │         ├── key property
    │         └── value property
    └─┬ types
+     ├─┬ class BaseFor2647
+     │ └─┬ members
+     │   ├── <initializer>(very) initializer
+     │   └── foo(obj) method
      ├─┬ class Number
      │ └─┬ members
      │   ├── <initializer>(value) initializer
@@ -4622,6 +4759,13 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -4670,6 +4814,24 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └── class ExtendAndImplement
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4947,6 +5109,7 @@ exports[`jsii-tree --types 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├── class Number
      ├── class NumericValue
      ├── class Operation
@@ -4970,6 +5133,13 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1

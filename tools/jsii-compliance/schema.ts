@@ -13,14 +13,9 @@ export interface Suite {
   readonly description: string;
 
   /**
-   * Language bindings the suite applies to.
+   * Language bindings the suite applies to. The key is the language.
    */
   readonly bindings: Record<string, Binding>;
-
-  /**
-   * Language bindings exclusions.
-   */
-  readonly exclusions?: Record<string, BindingExclusion>;
 
   /**
    * A list of test cases the suite enforces.
@@ -41,11 +36,6 @@ export interface TestCase {
    * Test case description.
    */
   readonly description: string;
-
-  /**
-   * Language specific exclusions for a test case.
-   */
-  readonly exclusions?: Record<string, TestExclusion>;
 }
 
 /**
@@ -73,11 +63,6 @@ export interface BindingExclusion {
  */
 export interface TestExclusion {
   /**
-   * The language to exclude the test from.
-   */
-  readonly language: string;
-
-  /**
    * The exclusion reason.
    */
   readonly reason: string;
@@ -90,7 +75,17 @@ export interface TestResult {
   /**
    * Status of execution.
    */
-  readonly status: 'success' | 'skipped';
+  readonly status: 'success' | 'failure' | 'n/a';
+
+  /**
+   * Status reason (displayed as a tooltip if defined)
+   */
+  readonly reason?: string;
+
+  /**
+   * Optional URL of this status
+   */
+  readonly url?: string;
 }
 
 /**
