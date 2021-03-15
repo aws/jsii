@@ -101,6 +101,7 @@ const RESERVED_WORDS: { [word: string]: string } = {
   import: 'import_',
   return: 'return_',
   var: 'var_',
+  _: '_arg',
 };
 
 /*
