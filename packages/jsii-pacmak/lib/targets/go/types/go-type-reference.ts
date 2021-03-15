@@ -92,6 +92,38 @@ export class GoTypeRef {
     return this._typeMap;
   }
 
+  /**
+   * The go `import`s required in order to be able to use this type in code.
+   */
+  public get dependencies(): readonly Package[] {
+    const ret = new Array<Package>();
+
+    switch (this.typeMap.type) {
+      case 'interface':
+        if (this.type?.pkg) {
+          ret.push(this.type?.pkg);
+        }
+        break;
+
+      case 'array':
+      case 'map':
+        ret.push(...(this.typeMap.value.dependencies ?? []));
+        break;
+
+      case 'union':
+        for (const t of this.typeMap.value) {
+          ret.push(...(t.dependencies ?? []));
+        }
+        break;
+
+      case 'void':
+      case 'primitive':
+        break;
+    }
+
+    return ret;
+  }
+
   /*
    * Return the name of a type for reference from the `Package` passed in
    */

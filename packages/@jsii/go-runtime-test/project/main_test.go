@@ -14,7 +14,7 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
 	returnsParam "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/returnsparam"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
 )
 
 func TestMain(m *testing.M) {
@@ -118,7 +118,7 @@ func TestUpcasingReflectable(t *testing.T) {
 
 	actual := *entries[0]
 	keyupper := strings.ToUpper(key)
-	expected := submodule.ReflectableEntry{Key: &keyupper, Value: &val}
+	expected := customsubmodulename.ReflectableEntry{Key: &keyupper, Value: &val}
 	if *actual.Key != *expected.Key {
 		t.Errorf("Expected %v; Received: %v", *expected.Key, *actual.Key)
 	}

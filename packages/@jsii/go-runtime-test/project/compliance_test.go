@@ -2,18 +2,19 @@ package tests
 
 import (
 	"fmt"
-	_jsii_ "github.com/aws/jsii-runtime-go"
-	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbase"
-	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
-	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/submodule"
-	"github.com/stretchr/testify/suite"
 	"math"
 	"runtime"
 	"testing"
 	"time"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	"github.com/aws/jsii/jsii-calc/go/jcb"
+	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
+	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
+	"github.com/stretchr/testify/suite"
 )
 
 func (suite *ComplianceSuite) TestStatics() {
@@ -64,7 +65,7 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 
 func (suite *ComplianceSuite) TestUseNestedStruct() {
 	suite.FailTest("Nested types are not namespaced", "https://github.com/aws/jsii/pull/2650")
-	scopejsiicalcbase.StaticConsumer_Consume(submodule.NestedStruct{
+	jcb.StaticConsumer_Consume(customsubmodulename.NestingClass_NestedStruct{
 		Name: _jsii_.String("Bond, James Bond"),
 	})
 }
@@ -277,10 +278,10 @@ func (suite *ComplianceSuite) TestGetAndSetEnumValues() {
 	calc := calc.NewCalculator(&calc.CalculatorProps{})
 	calc.Add(_jsii_.Number(9))
 	calc.Pow(_jsii_.Number(3))
-	assert.Equal(composition.CompositionStringStyle_NORMAL, calc.StringStyle())
+	assert.Equal(composition.CompositeOperation_CompositionStringStyle_NORMAL, calc.StringStyle())
 
-	calc.SetStringStyle(composition.CompositionStringStyle_DECORATED)
-	assert.Equal(composition.CompositionStringStyle_DECORATED, calc.StringStyle())
+	calc.SetStringStyle(composition.CompositeOperation_CompositionStringStyle_DECORATED)
+	assert.Equal(composition.CompositeOperation_CompositionStringStyle_DECORATED, calc.StringStyle())
 	assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", *calc.ToString())
 }
 
@@ -507,9 +508,8 @@ func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
 	assert.Equal(*nativeBuilt.Optional1, *returnedLiteral.Optional1)
 	assert.Equal(nativeBuilt.Optional2, returnedLiteral.Optional2)
 	assert.Equal(*nativeBuilt.Optional3, *returnedLiteral.Optional3)
-	suite.FailTest("Pointer types breaks struct literal equality", "")
-	assert.Equal(nativeBuilt, returnedLiteral)
-	assert.Equal(returnedLiteral, nativeBuilt)
+	assert.EqualValues(nativeBuilt, *returnedLiteral)
+	assert.EqualValues(*returnedLiteral, nativeBuilt)
 }
 
 func (suite *ComplianceSuite) TestClassesCanSelfReferenceDuringClassInitialization() {
