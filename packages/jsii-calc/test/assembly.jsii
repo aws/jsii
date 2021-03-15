@@ -247,6 +247,12 @@
         "line": 7
       }
     },
+    "jsii-calc.module2702": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 16
+      }
+    },
     "jsii-calc.nodirect": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -14470,6 +14476,156 @@
         }
       ]
     },
+    "jsii-calc.module2702.Class1": {
+      "assembly": "jsii-calc",
+      "base": "@scope/jsii-calc-base.Base",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2702.Class1",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2702/index.ts",
+        "line": 6
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2702/index.ts",
+            "line": 7
+          },
+          "name": "base"
+        }
+      ],
+      "name": "Class1",
+      "namespace": "module2702"
+    },
+    "jsii-calc.module2702.Class2": {
+      "assembly": "jsii-calc",
+      "base": "@scope/jsii-calc-base.Base",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2702.Class2",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2702/index.ts",
+        "line": 12
+      },
+      "name": "Class2",
+      "namespace": "module2702",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2702/index.ts",
+            "line": 13
+          },
+          "name": "base",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.module2702.Class3": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2702.Class3",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "interfaces": [
+        "@scope/jsii-calc-base.IBaseInterface"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2702/index.ts",
+        "line": 16
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2702/index.ts",
+            "line": 17
+          },
+          "name": "bar",
+          "overrides": "@scope/jsii-calc-base.IBaseInterface"
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2702/index.ts",
+            "line": 21
+          },
+          "name": "foo",
+          "overrides": "@scope/jsii-calc-base-of-base.IVeryBaseInterface"
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2702/index.ts",
+            "line": 25
+          },
+          "name": "iBaseInterface"
+        }
+      ],
+      "name": "Class3",
+      "namespace": "module2702"
+    },
+    "jsii-calc.module2702.IFoo": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2702.IFoo",
+      "interfaces": [
+        "@scope/jsii-calc-base.IBaseInterface"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module2702/index.ts",
+        "line": 30
+      },
+      "name": "IFoo",
+      "namespace": "module2702",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2702/index.ts",
+            "line": 31
+          },
+          "name": "iBaseInterface",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.nodirect.sub1.TypeFromSub1": {
       "assembly": "jsii-calc",
       "docs": {
@@ -15226,5 +15382,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "bEIqxJjC2BFJEo5AIzysYAdDCVZcHPAm+paBHx0vvKE="
+  "fingerprint": "taY0p/QXtnduyqTg4lVfxLXdCPdqC2wkpZuLKwQs2f8="
 }

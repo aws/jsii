@@ -16,6 +16,7 @@ exports[`defaults 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -55,6 +56,7 @@ exports[`inheritance 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -94,6 +96,7 @@ exports[`members 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -283,6 +286,39 @@ exports[`showAll 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
  │ │ │ └── types
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └─┬ base() method
+ │ │ │   │     └── returns: void
+ │ │ │   ├─┬ class Class2
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └─┬ base property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: string
+ │ │ │   ├─┬ class Class3
+ │ │ │   │ ├── interfaces: IBaseInterface
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├─┬ bar() method
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   ├─┬ foo() method
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   └─┬ iBaseInterface() method
+ │ │ │   │     └── returns: void
+ │ │ │   └─┬ interface IFoo
+ │ │ │     ├─┬ interfaces
+ │ │ │     │ └── IBaseInterface
+ │ │ │     └─┬ members
+ │ │ │       └─┬ iBaseInterface property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3114,6 +3150,7 @@ exports[`signatures 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -3180,6 +3217,12 @@ exports[`types 1`] = `
  │ │ │ │   └─┬ types
  │ │ │ │     └── interface MyStruct
  │ │ │ └── types
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├── class Class1
+ │ │ │   ├── class Class2
+ │ │ │   ├── class Class3
+ │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1

@@ -2113,6 +2113,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┃  ┗━ 📄 __init__.py
           ┃  ┗━ 📁 structs
           ┃     ┗━ 📄 __init__.py
+          ┣━ 📁 module2702
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 nodirect
           ┃  ┣━ 📄 __init__.py
           ┃  ┣━ 📁 sub1
@@ -2432,6 +2434,7 @@ kwargs = json.loads(
         "jsii_calc.module2689.props",
         "jsii_calc.module2689.retval",
         "jsii_calc.module2689.structs",
+        "jsii_calc.module2702",
         "jsii_calc.nodirect",
         "jsii_calc.nodirect.sub1",
         "jsii_calc.nodirect.sub2",
@@ -10643,6 +10646,101 @@ class MyStruct:
 
 __all__ = [
     "MyStruct",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2702/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+import scope.jsii_calc_base
+
+
+class Class1(
+    scope.jsii_calc_base.Base,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2702.Class1",
+):
+    def __init__(self) -> None:
+        jsii.create(Class1, self, [])
+
+    @jsii.member(jsii_name="base")
+    def base(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "base", []))
+
+
+class Class2(
+    scope.jsii_calc_base.Base,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2702.Class2",
+):
+    def __init__(self) -> None:
+        jsii.create(Class2, self, [])
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="base")
+    def base(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "base"))
+
+
+@jsii.implements(scope.jsii_calc_base.IBaseInterface)
+class Class3(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Class3"):
+    def __init__(self) -> None:
+        jsii.create(Class3, self, [])
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "bar", []))
+
+    @jsii.member(jsii_name="foo")
+    def foo(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "foo", []))
+
+    @jsii.member(jsii_name="iBaseInterface")
+    def i_base_interface(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "iBaseInterface", []))
+
+
+@jsii.interface(jsii_type="jsii-calc.module2702.IFoo")
+class IFoo(scope.jsii_calc_base.IBaseInterface, typing_extensions.Protocol):
+    @builtins.staticmethod
+    def __jsii_proxy_class__() -> typing.Type["_IFooProxy"]:
+        return _IFooProxy
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="iBaseInterface")
+    def i_base_interface(self) -> builtins.str:
+        ...
+
+
+class _IFooProxy(
+    jsii.proxy_for(scope.jsii_calc_base.IBaseInterface) # type: ignore[misc]
+):
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2702.IFoo"
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="iBaseInterface")
+    def i_base_interface(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "iBaseInterface"))
+
+
+__all__ = [
+    "Class1",
+    "Class2",
+    "Class3",
+    "IFoo",
 ]
 
 publication.publish()

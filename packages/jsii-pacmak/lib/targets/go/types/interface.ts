@@ -5,7 +5,11 @@ import * as comparators from '../comparators';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS, MethodCall } from '../runtime';
-import { getMemberDependencies, getParamDependencies } from '../util';
+import {
+  getMemberDependencies,
+  getParamDependencies,
+  embedForBase,
+} from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { GoMethod, GoProperty } from './type-member';
@@ -78,21 +82,24 @@ export class GoInterface extends GoType {
     code.closeBlock();
     code.line();
 
+    const embeds = new Array<string>();
+    for (const base of this.extends) {
+      const alias = embedForBase(this.pkg, this.proxyName, base);
+      if (alias.original) {
+        code.line(`type ${alias.embed} = ${alias.original}`);
+        code.line();
+      }
+      embeds.push(alias.embed);
+    }
+
     code.line(`// The jsii proxy for ${this.name}`);
     code.openBlock(`type ${this.proxyName} struct`);
     if (this.extends.length === 0) {
       // Ensure this is not 0-width
       code.line('_ byte // padding');
     } else {
-      for (const base of this.extends) {
-        const embed =
-          base.pkg === this.pkg
-            ? base.proxyName
-            : new GoTypeRef(
-                this.pkg.root,
-                base.type.reference,
-              ).scopedInterfaceName(this.pkg);
-        code.line(`${embed} // extends ${base.fqn}`);
+      for (const embed of embeds) {
+        code.line(embed);
       }
     }
     code.closeBlock();
