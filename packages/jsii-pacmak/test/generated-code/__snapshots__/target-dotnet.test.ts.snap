@@ -1060,9 +1060,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// The method <c>foo</c> has a parameter that uses a type
     /// from a dependent module. Since Go "reimplments" this method, it will also need
     /// to include an "import" statement for the calc-base module.
-    /// 
+    ///
     /// <strong>Stability</strong>: Deprecated
-    /// 
+    ///
     /// <strong>See</strong>: https://github.com/aws/jsii/issues/2647
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.BaseFor2647), fullyQualifiedName: "@scope/jsii-calc-lib.BaseFor2647", parametersJson: "[{\\"name\\":\\"very\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}}]")]
