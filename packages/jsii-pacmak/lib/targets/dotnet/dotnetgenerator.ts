@@ -152,10 +152,15 @@ export class DotNetGenerator extends Generator {
    *
    * Do generate docs if this is for a submodule though.
    */
-  protected onBeginNamespace(ns: string) {
-    const submodule = this.assembly.submodules?.[ns];
+  protected onBeginNamespace(jsiiNs: string) {
+    const submodule = this.assembly.submodules?.[jsiiNs];
     if (submodule) {
-      this.emitNamespaceDocs(ns, submodule);
+      const dotnetNs = this.typeresolver.resolveNamespace(
+        this.assembly,
+        this.assembly.name,
+        jsiiNs,
+      );
+      this.emitNamespaceDocs(dotnetNs, submodule);
     }
   }
 
