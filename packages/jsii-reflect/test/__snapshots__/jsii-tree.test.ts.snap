@@ -2037,6 +2037,21 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ throwError() method (stable)
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ toIsoString() method (stable)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property (deprecated)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck (stable)
  │   │ └─┬ members
  │   │   └─┬ static mode() method (stable)
@@ -3285,6 +3300,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├─┬ class UnaryOperation
  │   │ └── base: Operation
@@ -4392,6 +4408,14 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── toIsoString() method
+ │   │   ├── toIsOString() method
+ │   │   ├── toISOString() method
+ │   │   ├── fooBar property
+ │   │   └── fooBAR property
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └── static mode() method
@@ -5098,6 +5122,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable

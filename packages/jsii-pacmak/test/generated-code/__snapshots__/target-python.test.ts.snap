@@ -9041,6 +9041,37 @@ class TopLevelStruct:
         )
 
 
+class TwoMethodsWithSimilarCapitalization(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.TwoMethodsWithSimilarCapitalization",
+):
+    '''In TypeScript it is possible to have two methods with the same name but different capitalization.
+
+    :see: https://github.com/aws/jsii/issues/2508
+    '''
+
+    def __init__(self) -> None:
+        jsii.create(TwoMethodsWithSimilarCapitalization, self, [])
+
+    @jsii.member(jsii_name="toIsoString")
+    def to_iso_string(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "toIsoString", []))
+
+    @jsii.member(jsii_name="toIsOString")
+    def to_is_o_string(self) -> builtins.str:
+        '''
+        :deprecated: python requires that all alternatives are deprecated
+
+        :stability: deprecated
+        '''
+        return typing.cast(builtins.str, jsii.invoke(self, "toIsOString", []))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="fooBar")
+    def foo_bar(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.get(self, "fooBar"))
+
+
 class UmaskCheck(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UmaskCheck"):
     '''Checks the current file permissions are cool (no funky UMASK down-scoping happened).
 
@@ -10041,6 +10072,7 @@ __all__ = [
     "TestStructWithEnum",
     "Thrower",
     "TopLevelStruct",
+    "TwoMethodsWithSimilarCapitalization",
     "UmaskCheck",
     "UnaryOperation",
     "UnionProperties",

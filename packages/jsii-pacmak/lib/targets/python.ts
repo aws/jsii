@@ -184,6 +184,61 @@ const setDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
   return result;
 };
 
+/**
+ * Prepare python members for emission.
+ *
+ * If there are multiple members of the same name, they will all map to the same python
+ * name, so we will filter all deprecated members and expect that there will be only one
+ * left.
+ *
+ * Returns the members in a sorted list.
+ */
+function prepareMembers(members: PythonBase[], resolver: TypeResolver) {
+  // create a map from python name to list of members
+  const map: { [pythonName: string]: PythonBase[] } = {};
+  for (const m of members) {
+    let list = map[m.pythonName];
+    if (!list) {
+      list = map[m.pythonName] = [];
+    }
+
+    list.push(m);
+  }
+
+  for (const [name, list] of Object.entries(map)) {
+    // if the list of members for a name is 1, we are good
+    if (list.length === 1) {
+      continue;
+    }
+
+    // we found more than one member with the same python name, filter all
+    // deprecated versions and check that we are left with exactly one.
+    // otherwise, they will overwrite each other
+    // see https://github.com/aws/jsii/issues/2508
+    const nonDeprecated = list.filter((x) => !isDeprecated(x));
+    if (nonDeprecated.length > 1) {
+      throw new Error(
+        `Multiple non-deprecated members which map to the Python name "${name}"`,
+      );
+    }
+
+    // only retain the 1 non-deprecated member
+    map[name] = nonDeprecated;
+  }
+
+  // now return all the members
+  const ret = new Array<PythonBase>();
+  for (const v of Object.values(map)) {
+    if (v.length !== 1) {
+      throw new Error('assertion failed');
+    }
+
+    ret.push(v[0]);
+  }
+
+  return sortMembers(ret, resolver);
+}
+
 const sortMembers = (
   members: PythonBase[],
   resolver: TypeResolver,
@@ -235,6 +290,7 @@ const sortMembers = (
 
 interface PythonBase {
   readonly pythonName: string;
+  readonly docs?: spec.Docs;
 
   emit(code: CodeMaker, context: EmitContext, opts?: any): void;
 
@@ -271,7 +327,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     public readonly pythonName: string,
     public readonly fqn: string | undefined,
     opts: PythonTypeOpts,
-    protected readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
   ) {
     const { bases = [] } = opts;
 
@@ -342,7 +398,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     if (this.members.length > 0) {
       const resolver = this.boundResolver(context.resolver);
       let shouldSeparate = preamble != null;
-      for (const member of sortMembers(this.members, resolver)) {
+      for (const member of prepareMembers(this.members, resolver)) {
         if (shouldSeparate) {
           code.line();
         }
@@ -405,7 +461,7 @@ abstract class BaseMethod implements PythonBase {
     private readonly jsName: string | undefined,
     private readonly parameters: spec.Parameter[],
     private readonly returns: spec.OptionalValue | undefined,
-    private readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
@@ -746,7 +802,7 @@ abstract class BaseProperty implements PythonBase {
     public readonly pythonName: string,
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
-    private readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
     opts: BasePropertyOpts,
   ) {
     const { abstract = false, immutable = false, isStatic = false } = opts;
@@ -1372,7 +1428,7 @@ class EnumMember implements PythonBase {
     private readonly generator: PythonGenerator,
     public readonly pythonName: string,
     private readonly value: string,
-    private readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
   ) {
     this.pythonName = pythonName;
     this.value = value;
@@ -1486,7 +1542,7 @@ class PythonModule implements PythonType {
     }
 
     // Emit all of our members.
-    for (const member of sortMembers(this.members, resolver)) {
+    for (const member of prepareMembers(this.members, resolver)) {
       code.line();
       code.line();
       member.emit(code, context);
@@ -2911,3 +2967,5 @@ function nestedContext(
         : context.surroundingTypeFqns,
   };
 }
+
+const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;

@@ -1,6 +1,7 @@
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { CodeMaker } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
 
+import { jsiiToPascalCase } from '../../../naming-util';
 import * as comparators from '../comparators';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
@@ -280,7 +281,7 @@ export class GoClass extends GoType {
   private emitStaticProperty({ code }: EmitContext, prop: GoProperty): void {
     const getCaller = new StaticGetProperty(prop);
 
-    const propertyName = toPascalCase(prop.name);
+    const propertyName = jsiiToPascalCase(prop.name);
     const name = `${this.name}_${propertyName}`;
 
     code.openBlock(`func ${name}() ${prop.returnType}`);

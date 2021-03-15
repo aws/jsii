@@ -13228,6 +13228,106 @@
         }
       ]
     },
+    "jsii-calc.TwoMethodsWithSimilarCapitalization": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2508",
+        "stability": "stable",
+        "summary": "In TypeScript it is possible to have two methods with the same name but different capitalization."
+      },
+      "fqn": "jsii-calc.TwoMethodsWithSimilarCapitalization",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2965
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2966
+          },
+          "name": "toIsoString",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "deprecated": "python requires that all alternatives are deprecated",
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2980
+          },
+          "name": "toIsOString",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "deprecated": "python requires that all alternatives are deprecated",
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2973
+          },
+          "name": "toISOString",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "TwoMethodsWithSimilarCapitalization",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2984
+          },
+          "name": "fooBar",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "docs": {
+            "deprecated": "YES",
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2989
+          },
+          "name": "fooBAR",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.UmaskCheck": {
       "assembly": "jsii-calc",
       "docs": {
@@ -15422,5 +15522,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "hBZRskNm0XPeSO9U+PMqKKVZ2faqmKnE9eVN2tY1Wik="
+  "fingerprint": "ELEXfVI6U0WtgZz/uZCYxVmrnbgWKv+bjZ55LY5pjAE="
 }

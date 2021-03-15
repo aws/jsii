@@ -3021,6 +3021,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 TestStructWithEnum.cs
        ┃           ┣━ 📄 Thrower.cs
        ┃           ┣━ 📄 TopLevelStruct.cs
+       ┃           ┣━ 📄 TwoMethodsWithSimilarCapitalization.cs
        ┃           ┣━ 📄 UmaskCheck.cs
        ┃           ┣━ 📄 UnaryOperation.cs
        ┃           ┣━ 📄 UnionProperties.cs
@@ -16618,6 +16619,84 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TwoMethodsWithSimilarCapitalization.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>In TypeScript it is possible to have two methods with the same name but different capitalization.</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2508
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.TwoMethodsWithSimilarCapitalization), fullyQualifiedName: "jsii-calc.TwoMethodsWithSimilarCapitalization")]
+    public class TwoMethodsWithSimilarCapitalization : DeputyBase
+    {
+        public TwoMethodsWithSimilarCapitalization(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TwoMethodsWithSimilarCapitalization(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TwoMethodsWithSimilarCapitalization(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "toIsoString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string ToIsoString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiMethod(name: "toIsOString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        [System.Obsolete("python requires that all alternatives are deprecated")]
+        public virtual string ToIsOString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiMethod(name: "toISOString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        [System.Obsolete("python requires that all alternatives are deprecated")]
+        public virtual string ToISOString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "fooBar", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public virtual double FooBar
+        {
+            get => GetInstanceProperty<double>()!;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "fooBAR", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        [System.Obsolete("YES")]
+        public virtual double FooBAR
+        {
+            get => GetInstanceProperty<double>()!;
         }
     }
 }

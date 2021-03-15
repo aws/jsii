@@ -2169,6 +2169,21 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ throwError() method
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ toIsoString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └─┬ static mode() method
@@ -3422,6 +3437,7 @@ exports[`types 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable
