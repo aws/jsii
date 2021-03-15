@@ -102,6 +102,25 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(_) initializer (stable)
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ _
+ │ │ │       │     └── type: number
+ │ │ │       ├─┬ static bar(_) method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: boolean
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ foo(_) method (stable)
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ _
+ │ │ │         │   └── type: string
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement (stable)
@@ -3036,6 +3055,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3492,6 +3514,13 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>(_) initializer
+ │ │ │       ├── static bar(_) method
+ │ │ │       └── foo(_) method
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -4816,6 +4845,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -4875,6 +4905,9 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
@@ -5204,6 +5237,7 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules

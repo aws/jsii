@@ -2101,6 +2101,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_only_interface
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 module2530
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2647
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2689
@@ -2432,6 +2434,7 @@ kwargs = json.loads(
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
+        "jsii_calc.module2530",
         "jsii_calc.module2647",
         "jsii_calc.module2689",
         "jsii_calc.module2689.methods",
@@ -10382,6 +10385,56 @@ class Hello:
 
 __all__ = [
     "Hello",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2530/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass"):
+    '''Verifies a method with parameters "_" can be generated.
+
+    :see: https://github.com/aws/jsii/issues/2530
+    '''
+
+    def __init__(self, _: jsii.Number) -> None:
+        '''
+        :param _: -
+        '''
+        jsii.create(MyClass, self, [_])
+
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @builtins.classmethod
+    def bar(cls, _: builtins.bool) -> None:
+        '''
+        :param _: -
+        '''
+        return typing.cast(None, jsii.sinvoke(cls, "bar", [_]))
+
+    @jsii.member(jsii_name="foo")
+    def foo(self, _: builtins.str) -> None:
+        '''
+        :param _: -
+        '''
+        return typing.cast(None, jsii.invoke(self, "foo", [_]))
+
+
+__all__ = [
+    "MyClass",
 ]
 
 publication.publish()

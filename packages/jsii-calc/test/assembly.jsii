@@ -211,6 +211,12 @@
         "line": 142
       }
     },
+    "jsii-calc.module2530": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 17
+      }
+    },
     "jsii-calc.module2647": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -14173,6 +14179,78 @@
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation"
     },
+    "jsii-calc.module2530.MyClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2530",
+        "stability": "stable",
+        "summary": "Verifies a method with parameters \"_\" can be generated."
+      },
+      "fqn": "jsii-calc.module2530.MyClass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/module2530/index.ts",
+          "line": 10
+        },
+        "parameters": [
+          {
+            "name": "_",
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2530/index.ts",
+        "line": 5
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2530/index.ts",
+            "line": 6
+          },
+          "name": "bar",
+          "parameters": [
+            {
+              "name": "_",
+              "type": {
+                "primitive": "boolean"
+              }
+            }
+          ],
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2530/index.ts",
+            "line": 14
+          },
+          "name": "foo",
+          "parameters": [
+            {
+              "name": "_",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "MyClass",
+      "namespace": "module2530"
+    },
     "jsii-calc.module2647.ExtendAndImplement": {
       "assembly": "jsii-calc",
       "base": "@scope/jsii-calc-lib.BaseFor2647",
@@ -15344,5 +15422,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "zzayVZr0GAzkOZJ5SHHy3UvRxdZ1DZAPChbY/MkerHU="
+  "fingerprint": "hBZRskNm0XPeSO9U+PMqKKVZ2faqmKnE9eVN2tY1Wik="
 }
