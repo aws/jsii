@@ -2101,6 +2101,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_only_interface
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 module2530
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2647
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2689
@@ -2112,6 +2114,12 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┣━ 📁 retval
           ┃  ┃  ┗━ 📄 __init__.py
           ┃  ┗━ 📁 structs
+          ┃     ┗━ 📄 __init__.py
+          ┣━ 📁 module2692
+          ┃  ┣━ 📄 __init__.py
+          ┃  ┣━ 📁 submodule1
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┗━ 📁 submodule2
           ┃     ┗━ 📄 __init__.py
           ┣━ 📁 nodirect
           ┃  ┣━ 📄 __init__.py
@@ -2426,12 +2434,16 @@ kwargs = json.loads(
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
+        "jsii_calc.module2530",
         "jsii_calc.module2647",
         "jsii_calc.module2689",
         "jsii_calc.module2689.methods",
         "jsii_calc.module2689.props",
         "jsii_calc.module2689.retval",
         "jsii_calc.module2689.structs",
+        "jsii_calc.module2692",
+        "jsii_calc.module2692.submodule1",
+        "jsii_calc.module2692.submodule2",
         "jsii_calc.nodirect",
         "jsii_calc.nodirect.sub1",
         "jsii_calc.nodirect.sub2",
@@ -10379,6 +10391,56 @@ publication.publish()
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2530/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass"):
+    '''Verifies a method with parameters "_" can be generated.
+
+    :see: https://github.com/aws/jsii/issues/2530
+    '''
+
+    def __init__(self, _: jsii.Number) -> None:
+        '''
+        :param _: -
+        '''
+        jsii.create(MyClass, self, [_])
+
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @builtins.classmethod
+    def bar(cls, _: builtins.bool) -> None:
+        '''
+        :param _: -
+        '''
+        return typing.cast(None, jsii.sinvoke(cls, "bar", [_]))
+
+    @jsii.member(jsii_name="foo")
+    def foo(self, _: builtins.str) -> None:
+        '''
+        :param _: -
+        '''
+        return typing.cast(None, jsii.invoke(self, "foo", [_]))
+
+
+__all__ = [
+    "MyClass",
+]
+
+publication.publish()
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2647/__init__.py 1`] = `
 import abc
 import builtins
@@ -10643,6 +10705,189 @@ class MyStruct:
 
 __all__ = [
     "MyStruct",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2692/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2692/submodule1/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module2692.submodule1.Bar",
+    jsii_struct_bases=[],
+    name_mapping={"bar1": "bar1"},
+)
+class Bar:
+    def __init__(self, *, bar1: builtins.str) -> None:
+        '''
+        :param bar1: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "bar1": bar1,
+        }
+
+    @builtins.property
+    def bar1(self) -> builtins.str:
+        result = self._values.get("bar1")
+        assert result is not None, "Required property 'bar1' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Bar(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "Bar",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2692/submodule2/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+from ..submodule1 import Bar as _Bar_ec7eccad
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module2692.submodule2.Bar",
+    jsii_struct_bases=[],
+    name_mapping={"bar2": "bar2"},
+)
+class Bar:
+    def __init__(self, *, bar2: builtins.str) -> None:
+        '''
+        :param bar2: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "bar2": bar2,
+        }
+
+    @builtins.property
+    def bar2(self) -> builtins.str:
+        result = self._values.get("bar2")
+        assert result is not None, "Required property 'bar2' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Bar(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module2692.submodule2.Foo",
+    jsii_struct_bases=[Bar, _Bar_ec7eccad],
+    name_mapping={"bar2": "bar2", "bar1": "bar1", "foo2": "foo2"},
+)
+class Foo(Bar, _Bar_ec7eccad):
+    def __init__(
+        self,
+        *,
+        bar2: builtins.str,
+        bar1: builtins.str,
+        foo2: builtins.str,
+    ) -> None:
+        '''
+        :param bar2: 
+        :param bar1: 
+        :param foo2: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "bar2": bar2,
+            "bar1": bar1,
+            "foo2": foo2,
+        }
+
+    @builtins.property
+    def bar2(self) -> builtins.str:
+        result = self._values.get("bar2")
+        assert result is not None, "Required property 'bar2' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def bar1(self) -> builtins.str:
+        result = self._values.get("bar1")
+        assert result is not None, "Required property 'bar1' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def foo2(self) -> builtins.str:
+        result = self._values.get("foo2")
+        assert result is not None, "Required property 'foo2' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Foo(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "Bar",
+    "Foo",
 ]
 
 publication.publish()

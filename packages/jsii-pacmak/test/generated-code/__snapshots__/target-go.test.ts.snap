@@ -294,13 +294,6 @@ type BaseProps struct {
 	Bar string \`json:"bar"\`
 }
 
-// ToVeryBaseProps is a convenience function to obtain a new scopejsiicalcbaseofbase.VeryBaseProps from this BaseProps.
-func (b *BaseProps) ToVeryBaseProps() scopejsiicalcbaseofbase.VeryBaseProps {
-	return scopejsiicalcbaseofbase.VeryBaseProps {
-		Foo: b.Foo,
-	}
-}
-
 type IBaseInterface interface {
 	scopejsiicalcbaseofbase.IVeryBaseInterface
 	Bar()
@@ -1849,6 +1842,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc.go
        ┣━ 📄 jsiicalc.init.go
        ┣━ 📄 LICENSE
+       ┣━ 📁 module2530
+       ┃  ┣━ 📄 module2530.go
+       ┃  ┗━ 📄 module2530.init.go
        ┣━ 📁 module2647
        ┃  ┣━ 📄 module2647.go
        ┃  ┗━ 📄 module2647.init.go
@@ -1866,6 +1862,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┗━ 📁 structs
        ┃     ┣━ 📄 structs.go
        ┃     ┗━ 📄 structs.init.go
+       ┣━ 📁 module2692
+       ┃  ┣━ 📄 module2692.go
+       ┃  ┣━ 📁 submodule1
+       ┃  ┃  ┣━ 📄 submodule1.go
+       ┃  ┃  ┗━ 📄 submodule1.init.go
+       ┃  ┗━ 📁 submodule2
+       ┃     ┣━ 📄 submodule2.go
+       ┃     ┗━ 📄 submodule2.init.go
        ┣━ 📁 nodirect
        ┃  ┣━ 📄 nodirect.go
        ┃  ┣━ 📁 sub1
@@ -4141,13 +4145,6 @@ type ChildStruct982 struct {
 	Bar float64 \`json:"bar"\`
 }
 
-// ToParentStruct982 is a convenience function to obtain a new ParentStruct982 from this ChildStruct982.
-func (c *ChildStruct982) ToParentStruct982() ParentStruct982 {
-	return ParentStruct982 {
-		Foo: c.Foo,
-	}
-}
-
 type ClassThatImplementsTheInternalInterface interface {
 	INonInternalInterface
 	A() string
@@ -5479,15 +5476,6 @@ type DerivedStruct struct {
 	OptionalArray []string \`json:"optionalArray"\`
 }
 
-// ToMyFirstStruct is a convenience function to obtain a new scopejsiicalclib.MyFirstStruct from this DerivedStruct.
-func (d *DerivedStruct) ToMyFirstStruct() scopejsiicalclib.MyFirstStruct {
-	return scopejsiicalclib.MyFirstStruct {
-		Anumber: d.Anumber,
-		Astring: d.Astring,
-		FirstOptional: d.FirstOptional,
-	}
-}
-
 type DiamondBottom struct {
 	// Deprecated.
 	HoistedTop string \`json:"hoistedTop"\`
@@ -5496,22 +5484,6 @@ type DiamondBottom struct {
 	// Deprecated.
 	Right bool \`json:"right"\`
 	Bottom string \`json:"bottom"\`
-}
-
-// ToDiamondLeft is a convenience function to obtain a new scopejsiicalclib.DiamondLeft from this DiamondBottom.
-func (d *DiamondBottom) ToDiamondLeft() scopejsiicalclib.DiamondLeft {
-	return scopejsiicalclib.DiamondLeft {
-		HoistedTop: d.HoistedTop,
-		Left: d.Left,
-	}
-}
-
-// ToDiamondRight is a convenience function to obtain a new scopejsiicalclib.DiamondRight from this DiamondBottom.
-func (d *DiamondBottom) ToDiamondRight() scopejsiicalclib.DiamondRight {
-	return scopejsiicalclib.DiamondRight {
-		HoistedTop: d.HoistedTop,
-		Right: d.Right,
-	}
 }
 
 type DiamondInheritanceBaseLevelStruct struct {
@@ -5523,23 +5495,9 @@ type DiamondInheritanceFirstMidLevelStruct struct {
 	FirstMidLevelProperty string \`json:"firstMidLevelProperty"\`
 }
 
-// ToDiamondInheritanceBaseLevelStruct is a convenience function to obtain a new DiamondInheritanceBaseLevelStruct from this DiamondInheritanceFirstMidLevelStruct.
-func (d *DiamondInheritanceFirstMidLevelStruct) ToDiamondInheritanceBaseLevelStruct() DiamondInheritanceBaseLevelStruct {
-	return DiamondInheritanceBaseLevelStruct {
-		BaseLevelProperty: d.BaseLevelProperty,
-	}
-}
-
 type DiamondInheritanceSecondMidLevelStruct struct {
 	BaseLevelProperty string \`json:"baseLevelProperty"\`
 	SecondMidLevelProperty string \`json:"secondMidLevelProperty"\`
-}
-
-// ToDiamondInheritanceBaseLevelStruct is a convenience function to obtain a new DiamondInheritanceBaseLevelStruct from this DiamondInheritanceSecondMidLevelStruct.
-func (d *DiamondInheritanceSecondMidLevelStruct) ToDiamondInheritanceBaseLevelStruct() DiamondInheritanceBaseLevelStruct {
-	return DiamondInheritanceBaseLevelStruct {
-		BaseLevelProperty: d.BaseLevelProperty,
-	}
 }
 
 type DiamondInheritanceTopLevelStruct struct {
@@ -5547,29 +5505,6 @@ type DiamondInheritanceTopLevelStruct struct {
 	FirstMidLevelProperty string \`json:"firstMidLevelProperty"\`
 	SecondMidLevelProperty string \`json:"secondMidLevelProperty"\`
 	TopLevelProperty string \`json:"topLevelProperty"\`
-}
-
-// ToDiamondInheritanceBaseLevelStruct is a convenience function to obtain a new DiamondInheritanceBaseLevelStruct from this DiamondInheritanceTopLevelStruct.
-func (d *DiamondInheritanceTopLevelStruct) ToDiamondInheritanceBaseLevelStruct() DiamondInheritanceBaseLevelStruct {
-	return DiamondInheritanceBaseLevelStruct {
-		BaseLevelProperty: d.BaseLevelProperty,
-	}
-}
-
-// ToDiamondInheritanceFirstMidLevelStruct is a convenience function to obtain a new DiamondInheritanceFirstMidLevelStruct from this DiamondInheritanceTopLevelStruct.
-func (d *DiamondInheritanceTopLevelStruct) ToDiamondInheritanceFirstMidLevelStruct() DiamondInheritanceFirstMidLevelStruct {
-	return DiamondInheritanceFirstMidLevelStruct {
-		BaseLevelProperty: d.BaseLevelProperty,
-		FirstMidLevelProperty: d.FirstMidLevelProperty,
-	}
-}
-
-// ToDiamondInheritanceSecondMidLevelStruct is a convenience function to obtain a new DiamondInheritanceSecondMidLevelStruct from this DiamondInheritanceTopLevelStruct.
-func (d *DiamondInheritanceTopLevelStruct) ToDiamondInheritanceSecondMidLevelStruct() DiamondInheritanceSecondMidLevelStruct {
-	return DiamondInheritanceSecondMidLevelStruct {
-		BaseLevelProperty: d.BaseLevelProperty,
-		SecondMidLevelProperty: d.SecondMidLevelProperty,
-	}
 }
 
 // Verifies that null/undefined can be returned for optional collections.
@@ -7673,21 +7608,6 @@ type ImplictBaseOfBase struct {
 	Foo scopejsiicalcbaseofbase.Very \`json:"foo"\`
 	Bar string \`json:"bar"\`
 	Goo string \`json:"goo"\`
-}
-
-// ToVeryBaseProps is a convenience function to obtain a new scopejsiicalcbaseofbase.VeryBaseProps from this ImplictBaseOfBase.
-func (i *ImplictBaseOfBase) ToVeryBaseProps() scopejsiicalcbaseofbase.VeryBaseProps {
-	return scopejsiicalcbaseofbase.VeryBaseProps {
-		Foo: i.Foo,
-	}
-}
-
-// ToBaseProps is a convenience function to obtain a new jcb.BaseProps from this ImplictBaseOfBase.
-func (i *ImplictBaseOfBase) ToBaseProps() jcb.BaseProps {
-	return jcb.BaseProps {
-		Foo: i.Foo,
-		Bar: i.Bar,
-	}
 }
 
 type InbetweenClass interface {
@@ -14814,6 +14734,87 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2530/module2530.go 1`] = `
+package module2530
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Verifies a method with parameters "_" can be generated.
+// See: https://github.com/aws/jsii/issues/2530
+//
+type MyClass interface {
+	Foo(_arg string)
+}
+
+// The jsii proxy struct for MyClass
+type jsiiProxy_MyClass struct {
+	_ byte // padding
+}
+
+func NewMyClass(_arg float64) MyClass {
+	_init_.Initialize()
+
+	j := jsiiProxy_MyClass{}
+
+	_jsii_.Create(
+		"jsii-calc.module2530.MyClass",
+		[]interface{}{_arg},
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+func MyClass_Bar(_arg bool) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.module2530.MyClass",
+		"bar",
+		[]interface{}{_arg},
+	)
+}
+
+func (m *jsiiProxy_MyClass) Foo(_arg string) {
+	_jsii_.InvokeVoid(
+		m,
+		"foo",
+		[]interface{}{_arg},
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2530/module2530.init.go 1`] = `
+package module2530
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.module2530.MyClass",
+		reflect.TypeOf((*MyClass)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			return &jsiiProxy_MyClass{}
+		},
+	)
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647.go 1`] = `
 package module2647
 
@@ -15221,6 +15222,81 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.module2689.structs.MyStruct",
 		reflect.TypeOf((*MyStruct)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/module2692.go 1`] = `
+package module2692
+
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule1/submodule1.go 1`] = `
+package submodule1
+
+
+type Bar struct {
+	Bar1 string \`json:"bar1"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule1/submodule1.init.go 1`] = `
+package submodule1
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterStruct(
+		"jsii-calc.module2692.submodule1.Bar",
+		reflect.TypeOf((*Bar)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule2/submodule2.go 1`] = `
+package submodule2
+
+
+type Bar struct {
+	Bar2 string \`json:"bar2"\`
+}
+
+type Foo struct {
+	Bar2 string \`json:"bar2"\`
+	Bar1 string \`json:"bar1"\`
+	Foo2 string \`json:"foo2"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule2/submodule2.init.go 1`] = `
+package submodule2
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterStruct(
+		"jsii-calc.module2692.submodule2.Bar",
+		reflect.TypeOf((*Bar)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.module2692.submodule2.Foo",
+		reflect.TypeOf((*Foo)(nil)).Elem(),
 	)
 }
 
@@ -15700,13 +15776,6 @@ func InnerClass_StaticProp() SomeStruct {
 type KwargsProps struct {
 	Prop SomeEnum \`json:"prop"\`
 	Extra string \`json:"extra"\`
-}
-
-// ToSomeStruct is a convenience function to obtain a new SomeStruct from this KwargsProps.
-func (k *KwargsProps) ToSomeStruct() SomeStruct {
-	return SomeStruct {
-		Prop: k.Prop,
-	}
 }
 
 // Checks that classes can self-reference during initialization.

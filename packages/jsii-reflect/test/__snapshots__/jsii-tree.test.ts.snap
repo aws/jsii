@@ -102,6 +102,25 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(_) initializer (stable)
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ _
+ │ │ │       │     └── type: number
+ │ │ │       ├─┬ static bar(_) method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: boolean
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ foo(_) method (stable)
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ _
+ │ │ │         │   └── type: string
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement (stable)
@@ -165,6 +184,34 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ │           ├── abstract
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ bar1 property (stable)
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: string
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar (stable)
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ bar2 property (stable)
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: string
+ │ │ │ │     └─┬ interface Foo (stable)
+ │ │ │ │       ├─┬ interfaces
+ │ │ │ │       │ ├── Bar
+ │ │ │ │       │ └── Bar
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ foo2 property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
  │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
@@ -3008,6 +3055,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3027,6 +3077,19 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │ │ └─┬ structs
  │ │ │ │   └─┬ types
  │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       └─┬ interfaces
+ │ │ │ │         ├── Bar
+ │ │ │ │         └── Bar
  │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
@@ -3451,6 +3514,13 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>(_) initializer
+ │ │ │       ├── static bar(_) method
+ │ │ │       └── foo(_) method
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3487,6 +3557,22 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ │       └─┬ members
  │ │ │ │         ├── baseMap property
  │ │ │ │         └── numbers property
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └── bar1 property
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── bar2 property
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       └─┬ members
+ │ │ │ │         └── foo2 property
  │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
@@ -4759,6 +4845,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -4766,6 +4853,10 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -4814,6 +4905,9 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
@@ -4831,6 +4925,16 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ │ └─┬ structs
  │ │ │ │   └─┬ types
  │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └── interface Foo
  │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
@@ -5133,6 +5237,7 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -5140,6 +5245,10 @@ exports[`jsii-tree 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
