@@ -1422,6 +1422,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                 ┃  ┗━ 📄 Reflector.java
           ┃                 ┗━ 📁 lib
           ┃                    ┣━ 📄 $Module.java
+          ┃                    ┣━ 📄 BaseFor2647.java
           ┃                    ┣━ 📄 DiamondLeft.java
           ┃                    ┣━ 📄 DiamondRight.java
           ┃                    ┣━ 📄 EnumFromScopedModule.java
@@ -2323,6 +2324,54 @@ public final class $Module extends JsiiModule {
         catch (final ClassNotFoundException exception) {
             throw new RuntimeException(exception);
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/BaseFor2647.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib;
+
+/**
+ * (deprecated) A base class for testing #2647.
+ * <p>
+ * The method <code>foo</code> has a parameter that uses a type
+ * from a dependent module. Since Go "reimplments" this method, it will also need
+ * to include an "import" statement for the calc-base module.
+ * <p>
+ * @see https://github.com/aws/jsii/issues/2647
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.BaseFor2647")
+public class BaseFor2647 extends software.amazon.jsii.JsiiObject {
+
+    protected BaseFor2647(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected BaseFor2647(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param very This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public BaseFor2647(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.baseofbase.Very very) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(very, "very is required") });
+    }
+
+    /**
+     * @param obj This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public void foo(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.base.IBaseInterface obj) {
+        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 }
 
@@ -3481,6 +3530,7 @@ package software.amazon.jsii.tests.calculator.lib;
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/lib/$Module.txt 1`] = `
+@scope/jsii-calc-lib.BaseFor2647=software.amazon.jsii.tests.calculator.lib.BaseFor2647
 @scope/jsii-calc-lib.DiamondLeft=software.amazon.jsii.tests.calculator.lib.DiamondLeft
 @scope/jsii-calc-lib.DiamondRight=software.amazon.jsii.tests.calculator.lib.DiamondRight
 @scope/jsii-calc-lib.EnumFromScopedModule=software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule
@@ -3660,6 +3710,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 LevelOneProps.java
           ┃                 ┣━ 📄 LoadBalancedFargateServiceProps.java
           ┃                 ┣━ 📄 MethodNamedProperty.java
+          ┃                 ┣━ 📁 module2647
+          ┃                 ┃  ┗━ 📄 ExtendAndImplement.java
           ┃                 ┣━ 📄 Multiply.java
           ┃                 ┣━ 📄 Negate.java
           ┃                 ┣━ 📄 NestedClassInstance.java
@@ -21662,6 +21714,56 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2647/ExtendAndImplement.java 1`] = `
+package software.amazon.jsii.tests.calculator.module2647;
+
+/**
+ * This class falls into the category of "multiple bases" from a different module from a go code gen perspective.
+ * <p>
+ * @see https://github.com/aws/jsii/issues/2647
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module2647.ExtendAndImplement")
+public class ExtendAndImplement extends software.amazon.jsii.tests.calculator.lib.BaseFor2647 implements software.amazon.jsii.tests.calculator.lib.IFriendly {
+
+    protected ExtendAndImplement(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ExtendAndImplement(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param very This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public ExtendAndImplement(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.baseofbase.Very very) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(very, "very is required") });
+    }
+
+    /**
+     * (deprecated) Say hello!
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.String hello() {
+        return software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String localMethod() {
+        return software.amazon.jsii.Kernel.call(this, "localMethod", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/nodirect/sub1/TypeFromSub1.java 1`] = `
 package software.amazon.jsii.tests.calculator.nodirect.sub1;
 
@@ -23511,6 +23613,7 @@ jsii-calc.VoidCallback=software.amazon.jsii.tests.calculator.VoidCallback
 jsii-calc.WithPrivatePropertyInConstructor=software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
+jsii-calc.module2647.ExtendAndImplement=software.amazon.jsii.tests.calculator.module2647.ExtendAndImplement
 jsii-calc.nodirect.sub1.TypeFromSub1=software.amazon.jsii.tests.calculator.nodirect.sub1.TypeFromSub1
 jsii-calc.nodirect.sub2.TypeFromSub2=software.amazon.jsii.tests.calculator.nodirect.sub2.TypeFromSub2
 jsii-calc.onlystatic.OnlyStaticMethods=software.amazon.jsii.tests.calculator.onlystatic.OnlyStaticMethods
