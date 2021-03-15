@@ -10,6 +10,12 @@ exports[`defaults 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -43,6 +49,12 @@ exports[`inheritance 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -76,6 +88,12 @@ exports[`members 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -215,6 +233,56 @@ exports[`showAll 1`] = `
  │ │ │       │ └── returns: string
  │ │ │       └─┬ localMethod() method
  │ │ │         └── returns: string
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar(_bar) method
+ │ │ │ │ │       │ ├─┬ parameters
+ │ │ │ │ │       │ │ └─┬ _bar
+ │ │ │ │ │       │ │   └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       │ └── returns: void
+ │ │ │ │ │       └─┬ foo(_values) method
+ │ │ │ │ │         ├─┬ parameters
+ │ │ │ │ │         │ └─┬ _values
+ │ │ │ │ │         │   └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ │         └── returns: void
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar property
+ │ │ │ │ │       │ ├── immutable
+ │ │ │ │ │       │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo property
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar() method
+ │ │ │ │ │       │ └── returns: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo() method
+ │ │ │ │ │         └── returns: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ baseMap property
+ │ │ │ │         │ ├── abstract
+ │ │ │ │         │ ├── immutable
+ │ │ │ │         │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │         └─┬ numbers property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3040,6 +3108,12 @@ exports[`signatures 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -3091,6 +3165,21 @@ exports[`types 1`] = `
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1

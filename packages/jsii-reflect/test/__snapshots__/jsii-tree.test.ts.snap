@@ -116,6 +116,56 @@ exports[`jsii-tree --all 1`] = `
  │ │ │       │ └── returns: string
  │ │ │       └─┬ localMethod() method (stable)
  │ │ │         └── returns: string
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar(_bar) method (stable)
+ │ │ │ │ │       │ ├─┬ parameters
+ │ │ │ │ │       │ │ └─┬ _bar
+ │ │ │ │ │       │ │   └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       │ └── returns: void
+ │ │ │ │ │       └─┬ foo(_values) method (stable)
+ │ │ │ │ │         ├─┬ parameters
+ │ │ │ │ │         │ └─┬ _values
+ │ │ │ │ │         │   └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ │         └── returns: void
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar property (stable)
+ │ │ │ │ │       │ ├── immutable
+ │ │ │ │ │       │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo property (stable)
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar() method (stable)
+ │ │ │ │ │       │ └── returns: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo() method (stable)
+ │ │ │ │ │         └── returns: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ baseMap property (stable)
+ │ │ │ │         │ ├── abstract
+ │ │ │ │         │ ├── immutable
+ │ │ │ │         │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │         └─┬ numbers property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -2963,6 +3013,21 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   └─┬ class ExtendAndImplement
  │ │ │     ├── base: BaseFor2647
  │ │ │     └── interfaces: IFriendly
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3393,6 +3458,36 @@ exports[`jsii-tree --members 1`] = `
  │ │ │       ├── <initializer>(very) initializer
  │ │ │       ├── hello() method
  │ │ │       └── localMethod() method
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar(_bar) method
+ │ │ │ │ │       └── foo(_values) method
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar property
+ │ │ │ │ │       └── foo property
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar() method
+ │ │ │ │ │       └── foo() method
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── baseMap property
+ │ │ │ │         └── numbers property
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4665,6 +4760,12 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -4716,6 +4817,21 @@ exports[`jsii-tree --types 1`] = `
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -5018,6 +5134,12 @@ exports[`jsii-tree 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
