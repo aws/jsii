@@ -1866,6 +1866,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┗━ 📁 structs
        ┃     ┣━ 📄 structs.go
        ┃     ┗━ 📄 structs.init.go
+       ┣━ 📁 module2692
+       ┃  ┣━ 📄 module2692.go
+       ┃  ┣━ 📁 submodule1
+       ┃  ┃  ┣━ 📄 submodule1.go
+       ┃  ┃  ┗━ 📄 submodule1.init.go
+       ┃  ┗━ 📁 submodule2
+       ┃     ┣━ 📄 submodule2.go
+       ┃     ┗━ 📄 submodule2.init.go
        ┣━ 📁 nodirect
        ┃  ┣━ 📄 nodirect.go
        ┃  ┣━ 📁 sub1
@@ -15221,6 +15229,95 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.module2689.structs.MyStruct",
 		reflect.TypeOf((*MyStruct)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/module2692.go 1`] = `
+package module2692
+
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule1/submodule1.go 1`] = `
+package submodule1
+
+
+type Bar struct {
+	Bar1 string \`json:"bar1"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule1/submodule1.init.go 1`] = `
+package submodule1
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterStruct(
+		"jsii-calc.module2692.submodule1.Bar",
+		reflect.TypeOf((*Bar)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule2/submodule2.go 1`] = `
+package submodule2
+
+
+type Bar struct {
+	Bar2 string \`json:"bar2"\`
+}
+
+type Foo struct {
+	Bar2 string \`json:"bar2"\`
+	Bar1 string \`json:"bar1"\`
+	Foo2 string \`json:"foo2"\`
+}
+
+// ToBar is a convenience function to obtain a new Bar from this Foo.
+func (f *Foo) ToBar() Bar {
+	return Bar {
+		Bar2: f.Bar2,
+	}
+}
+
+// ToBar is a convenience function to obtain a new submodule1.Bar from this Foo.
+func (f *Foo) ToBar() submodule1.Bar {
+	return submodule1.Bar {
+		Bar1: f.Bar1,
+	}
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2692/submodule2/submodule2.init.go 1`] = `
+package submodule2
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterStruct(
+		"jsii-calc.module2692.submodule2.Bar",
+		reflect.TypeOf((*Bar)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.module2692.submodule2.Foo",
+		reflect.TypeOf((*Foo)(nil)).Elem(),
 	)
 }
 
