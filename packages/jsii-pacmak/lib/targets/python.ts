@@ -205,35 +205,31 @@ function prepareMembers(members: PythonBase[], resolver: TypeResolver) {
     list.push(m);
   }
 
-  for (const [name, list] of Object.entries(map)) {
-    // if the list of members for a name is 1, we are good
-    if (list.length === 1) {
-      continue;
-    }
-
-    // we found more than one member with the same python name, filter all
-    // deprecated versions and check that we are left with exactly one.
-    // otherwise, they will overwrite each other
-    // see https://github.com/aws/jsii/issues/2508
-    const nonDeprecated = list.filter((x) => !isDeprecated(x));
-    if (nonDeprecated.length > 1) {
-      throw new Error(
-        `Multiple non-deprecated members which map to the Python name "${name}"`,
-      );
-    }
-
-    // only retain the 1 non-deprecated member
-    map[name] = nonDeprecated;
-  }
-
   // now return all the members
   const ret = new Array<PythonBase>();
-  for (const v of Object.values(map)) {
-    if (v.length !== 1) {
-      throw new Error('assertion failed');
+
+  for (const [name, list] of Object.entries(map)) {
+    let member;
+
+    if (list.length === 1) {
+      // if we have a single member for this normalized name, then use it
+      member = list[0];
+    } else {
+      // we found more than one member with the same python name, filter all
+      // deprecated versions and check that we are left with exactly one.
+      // otherwise, they will overwrite each other
+      // see https://github.com/aws/jsii/issues/2508
+      const nonDeprecated = list.filter((x) => !isDeprecated(x));
+      if (nonDeprecated.length > 1) {
+        throw new Error(
+          `Multiple non-deprecated members which map to the Python name "${name}"`,
+        );
+      }
+
+      member = nonDeprecated[0];
     }
 
-    ret.push(v[0]);
+    ret.push(member);
   }
 
   return sortMembers(ret, resolver);
