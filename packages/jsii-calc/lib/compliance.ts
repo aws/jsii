@@ -2955,3 +2955,36 @@ export class Default {
     return;
   }
 }
+
+/**
+ * In TypeScript it is possible to have two methods with the same name but
+ * different capitalization.
+ *
+ * @see https://github.com/aws/jsii/issues/2508
+ */
+export class TwoMethodsWithSimilarCapitalization {
+  public toIsoString() {
+    return 'toIsoString';
+  }
+
+  /**
+   * @deprecated python requires that all alternatives are deprecated
+   */
+  public toISOString() {
+    return 'toISOString';
+  }
+
+  /**
+   * @deprecated python requires that all alternatives are deprecated
+   */
+  public toIsOString() {
+    return 'toIsoString';
+  }
+
+  public readonly fooBar = 123;
+
+  /**
+   * @deprecated YES
+   */
+  public readonly fooBAR = 111;
+}
