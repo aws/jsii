@@ -236,7 +236,8 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/README.md 1`] = `
-
+scope.jsii-calc-base
+====================
 
 `;
 
@@ -717,7 +718,8 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/README.md 1`] = `
-
+scope.jsii-calc-base-of-base
+============================
 
 `;
 
@@ -1170,7 +1172,8 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/README.md 1`] = `
-
+scope.jsii-calc-lib
+===================
 
 `;
 
@@ -11296,6 +11299,11 @@ publication.publish()
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/__init__.py 1`] = `
+'''
+# Read you, read me
+
+This is the readme of the \`jsii-calc.submodule\` module.
+'''
 import abc
 import builtins
 import datetime
@@ -11659,6 +11667,11 @@ publication.publish()
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/isolated/__init__.py 1`] = `
+'''
+# Read you, read me
+
+This is the readme of the \`jsii-calc.submodule.isolated\` module.
+'''
 import abc
 import builtins
 import datetime
