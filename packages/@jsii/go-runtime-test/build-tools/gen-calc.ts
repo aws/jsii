@@ -1,11 +1,9 @@
 #!/usr/bin/env npx ts-node
 
+import { runCommand } from '@jsii/go-runtime/build-tools/_constants';
+import { localRuntimeModules } from '@jsii/go-runtime/lib/local-runtime-modules';
 import { readFileSync, removeSync, writeFileSync } from 'fs-extra';
 import { join, relative, resolve } from 'path';
-
-import { runtimeModules } from '../lib';
-import { localRuntimeModules } from '../lib/local-runtime-modules';
-import { runCommand } from './_constants';
 
 const genRoot = join(__dirname, '..', 'jsii-calc');
 
@@ -28,10 +26,6 @@ runCommand(
 
 // Inject "replaces" in the go.mod files so IDEs do not struggle too much...
 const genModules = localRuntimeModules(genRoot);
-const localModules = {
-  ...genModules,
-  ...runtimeModules,
-};
 for (const localPath of Object.values(genModules)) {
   const goModFile = join(localPath, 'go.mod');
   const goMod = readFileSync(goModFile, 'utf8');
@@ -45,8 +39,8 @@ for (const localPath of Object.values(genModules)) {
   const depRegex = /([a-z0-9._~/-]+)\s+v\d/gi;
   while ((matches = depRegex.exec(goMod)) != null) {
     const [, dep] = matches;
-    if (dep in localModules) {
-      const depPath = localModules[dep];
+    if (dep in genModules) {
+      const depPath = genModules[dep];
       replaces.push({ dep, depPath });
     }
   }

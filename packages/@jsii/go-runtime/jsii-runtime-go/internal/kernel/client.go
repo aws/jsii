@@ -16,6 +16,7 @@ var (
 	clientInstance      *Client
 	clientInstanceMutex sync.Mutex
 	clientOnce          sync.Once
+	types               *typeregistry.TypeRegistry = typeregistry.New()
 )
 
 // The Client struct owns the jsii child process and its io interfaces. It also
@@ -24,8 +25,10 @@ var (
 // process by reference.
 type Client struct {
 	process *process.Process
-	types   *typeregistry.TypeRegistry
 	objects *objectstore.ObjectStore
+
+	// Supports the idempotency of the Load method.
+	loaded map[LoadProps]LoadResponse
 }
 
 // GetClient returns a singleton Client instance, initializing one the first
@@ -68,8 +71,7 @@ func CloseClient() {
 	}
 }
 
-// newClient starts the kernel child process and verifies the "hello" message
-// was correct.
+// newClient initializes a client, making it ready for business.
 func newClient() (*Client, error) {
 	if process, err := process.NewProcess(fmt.Sprintf("^%s", version)); err != nil {
 		return nil, err
@@ -77,7 +79,7 @@ func newClient() (*Client, error) {
 		result := &Client{
 			process: process,
 			objects: objectstore.New(),
-			types:   typeregistry.New(),
+			loaded:  make(map[LoadProps]LoadResponse),
 		}
 
 		// Register a finalizer to call Close()
@@ -90,7 +92,7 @@ func newClient() (*Client, error) {
 }
 
 func (c *Client) Types() *typeregistry.TypeRegistry {
-	return c.types
+	return types
 }
 
 func (c *Client) RegisterInstance(instance reflect.Value, instanceID string) error {

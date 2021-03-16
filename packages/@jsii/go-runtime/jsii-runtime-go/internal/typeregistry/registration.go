@@ -22,6 +22,11 @@ type registeredType struct {
 	Kind typeKind
 }
 
+type registeredStruct struct {
+	FQN    api.FQN
+	Fields []reflect.StructField
+}
+
 // RegisterClass maps the given FQN to the provided class interface, list of
 // overrides, and proxy maker function. This returns an error if the class
 // type is not a go interface.
@@ -55,6 +60,9 @@ func (t *TypeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 	}
 	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != enm {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
+	}
+	if existing, exists := t.typeToEnumFQN[enm]; exists && existing != fqn {
+		return fmt.Errorf("attempted to re-register %v as %s, but it was registered as %s", enm, fqn, existing)
 	}
 	for memberName, memberVal := range members {
 		vt := reflect.ValueOf(memberVal).Type()
@@ -110,10 +118,6 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
 
-	if existing, exists := t.typeToFQN[strct]; exists && existing != fqn {
-		return fmt.Errorf("attempting to register type %s as %s, but it was already registered as: %s", strct.String(), fqn, existing)
-	}
-
 	fields := []reflect.StructField{}
 	numField := strct.NumField()
 	for i := 0; i < numField; i++ {
@@ -131,8 +135,7 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 	}
 
 	t.fqnToType[fqn] = registeredType{strct, structType}
-	t.typeToFQN[strct] = fqn
-	t.structFields[strct] = fields
+	t.structInfo[strct] = registeredStruct{FQN: fqn, Fields: fields}
 
 	return nil
 }

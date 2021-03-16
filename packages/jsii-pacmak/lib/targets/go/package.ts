@@ -14,7 +14,12 @@ import {
   JSII_INIT_ALIAS,
 } from './runtime';
 import { GoClass, GoType, Enum, GoInterface, Struct } from './types';
-import { findTypeInTree, goPackageName, flatMap, tarballName } from './util';
+import {
+  findTypeInTree,
+  goPackageNameForAssembly,
+  flatMap,
+  tarballName,
+} from './util';
 import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
@@ -206,9 +211,11 @@ export class RootPackage extends Package {
   private readonly versionFile: VersionFile;
 
   public constructor(assembly: Assembly) {
-    const packageName = goPackageName(assembly.name);
+    const goConfig = assembly.targets?.go ?? {};
+    const packageName = goPackageNameForAssembly(assembly);
     const filePath = '';
-    const moduleName = assembly.targets?.go?.moduleName ?? '';
+    const moduleName = goConfig.moduleName ?? '';
+    const version = `${assembly.version}${goConfig.versionSuffix ?? ''}`;
 
     super(
       assembly.types,
@@ -216,11 +223,11 @@ export class RootPackage extends Package {
       packageName,
       filePath,
       moduleName,
-      assembly.version,
+      version,
     );
 
     this.assembly = assembly;
-    this.version = assembly.version;
+    this.version = version;
     this.versionFile = new VersionFile(this.version);
 
     if (this.assembly.readme?.markdown) {
@@ -323,13 +330,20 @@ export class RootPackage extends Package {
 
     const file = join(JSII_INIT_PACKAGE, `${JSII_INIT_PACKAGE}.go`);
     code.openFile(file);
-    code.line('package jsii');
+    code.line(
+      `// Package ${JSII_INIT_PACKAGE} contains the functionaility needed for jsii packages to`,
+    );
+    code.line(
+      '// initialize their dependencies and themselves. Users should never need to use this package',
+    );
+    code.line('// directly. If you find you need to - please report a bug at');
+    code.line('// https://github.com/aws/jsii/issues/new/choose');
+    code.line(`package ${JSII_INIT_PACKAGE}`);
     code.line();
 
     const toImport: ImportedModule[] = [
       JSII_RT_MODULE,
       { module: 'embed', alias: '_' },
-      { module: 'sync' },
     ];
     if (dependencies.length > 0) {
       for (const pkg of dependencies) {
@@ -344,15 +358,15 @@ export class RootPackage extends Package {
     code.line();
     code.line(`//go:embed ${tarballName(this.assembly)}`);
     code.line('var tarball []byte');
-    code.line('var once    sync.Once');
     code.line();
 
     code.line(
-      `// ${JSII_INIT_FUNC} performs the necessary work for the enclosing`,
+      `// ${JSII_INIT_FUNC} loads the necessary packages in the @jsii/kernel to support the enclosing module.`,
     );
-    code.line('// module to be loaded in the jsii kernel.');
+    code.line(
+      '// The implementation is idempotent (and hence safe to be called over and over).',
+    );
     code.open(`func ${JSII_INIT_FUNC}() {`);
-    code.open('once.Do(func(){');
     if (dependencies.length > 0) {
       code.line('// Ensure all dependencies are initialized');
       for (const pkg of this.packageDependencies) {
@@ -364,7 +378,6 @@ export class RootPackage extends Package {
     code.line(
       `${JSII_RT_ALIAS}.Load("${this.assembly.name}", "${this.assembly.version}", tarball)`,
     );
-    code.close('})');
     code.close('}');
 
     code.closeFile(file);
@@ -378,7 +391,7 @@ export class InternalPackage extends Package {
   public readonly parent: Package;
 
   public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
-    const packageName = goPackageName(assembly.name);
+    const packageName = goPackageNameForAssembly(assembly);
     const filePath =
       parent === root ? packageName : `${parent.filePath}/${packageName}`;
 

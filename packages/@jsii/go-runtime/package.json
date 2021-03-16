@@ -6,16 +6,14 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc --build && npm run gen:rt",
-    "doc": "yarn --silent go:run godoc",
-    "fmt": "yarn --silent go:all yarn --silent go:run goimports .",
-    "gen:calc": "node build-tools/gen-calc.js",
     "gen:rt": "node build-tools/gen.js",
-    "generate": "npm run gen:rt && npm run gen:calc",
-    "go:all": "node build-tools/all-go.js",
+    "generate": "npm run gen:rt",
     "go:run": "go mod download && node build-tools/go-run.js",
     "package": "build-tools/package.sh",
-    "lint": "yarn --silent go:all go vet ./... && yarn --silent go:all yarn --silent go:run golint ./...",
-    "test": "npm run gen:calc && yarn --silent go:all go test ./..."
+    "doc": "(cd jsii-runtime-go && yarn --silent go:run godoc)",
+    "fmt": "yarn --silent go:run goimports -w jsii-runtime-go",
+    "lint": "(cd jsii-runtime-go && go vet ./... && yarn --silent go:run golint ./...)",
+    "test": "(cd jsii-runtime-go && go test ./...)"
   },
   "keywords": [],
   "author": "",
@@ -25,12 +23,11 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.54",
+    "@types/node": "^10.17.55",
     "codemaker": "^0.0.0",
-    "eslint": "^7.20.0",
+    "eslint": "^7.22.0",
     "fs-extra": "^9.1.0",
     "jsii-calc": "^3.20.120",
-    "jsii-pacmak": "^0.0.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "~3.9.9"

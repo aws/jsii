@@ -38,7 +38,8 @@
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "(ls test/test.*.js | xargs -n1 node) && diff-test test/assembly.jsii .jsii",
-    "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
+    "test:update": "npm run build && UPDATE_DIFF=1 npm run test",
+    "update": "./update-all.sh"
   },
   "dependencies": {
     "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
@@ -50,8 +51,8 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.54",
-    "eslint": "^7.20.0",
+    "@types/node": "^10.17.55",
+    "eslint": "^7.22.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",

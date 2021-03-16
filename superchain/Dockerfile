@@ -75,6 +75,8 @@ RUN curl -sL https://golang.org/dl/go1.16.linux-amd64.tar.gz -o /tmp/go.tar.gz  
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
 
+# Install GCC
+RUN yum -y install gcc
 
 # Install Docker
 RUN amazon-linux-extras install docker                                                                                  \
