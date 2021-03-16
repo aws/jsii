@@ -214,7 +214,13 @@
     "jsii-calc.module2530": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 18
+        "line": 19
+      }
+    },
+    "jsii-calc.module2617": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 15
       }
     },
     "jsii-calc.module2647": {
@@ -226,7 +232,7 @@
     "jsii-calc.module2689": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 16
       }
     },
     "jsii-calc.module2689.methods": {
@@ -256,7 +262,7 @@
     "jsii-calc.module2692": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 17
+        "line": 18
       }
     },
     "jsii-calc.module2692.submodule1": {
@@ -274,7 +280,7 @@
     "jsii-calc.module2702": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 16
+        "line": 17
       }
     },
     "jsii-calc.nodirect": {
@@ -14257,6 +14263,44 @@
       "name": "MyClass",
       "namespace": "module2530"
     },
+    "jsii-calc.module2617.OnlyStatics": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2617.OnlyStatics",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2617/index.ts",
+        "line": 3
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2617/index.ts",
+            "line": 7
+          },
+          "name": "bar",
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2617/index.ts",
+            "line": 4
+          },
+          "name": "foo",
+          "static": true
+        }
+      ],
+      "name": "OnlyStatics",
+      "namespace": "module2617"
+    },
     "jsii-calc.module2647.ExtendAndImplement": {
       "assembly": "jsii-calc",
       "base": "@scope/jsii-calc-lib.BaseFor2647",
@@ -15578,5 +15622,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "cx+kx1KLDEkeXaog1gpJAebFuXJNCVTkd1QElIvFg+k="
+  "fingerprint": "6bp+7710rB2d7RbRNW+jpVvxyomcbEgujLUejzMiPT8="
 }

@@ -2103,6 +2103,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2530
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 module2617
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2647
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2689
@@ -2437,6 +2439,7 @@ kwargs = json.loads(
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
         "jsii_calc.module2530",
+        "jsii_calc.module2617",
         "jsii_calc.module2647",
         "jsii_calc.module2689",
         "jsii_calc.module2689.methods",
@@ -10438,6 +10441,43 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass")
 
 __all__ = [
     "MyClass",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2617/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+class OnlyStatics(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2617.OnlyStatics",
+):
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @builtins.classmethod
+    def bar(cls) -> None:
+        return typing.cast(None, jsii.sinvoke(cls, "bar", []))
+
+    @jsii.member(jsii_name="foo") # type: ignore[misc]
+    @builtins.classmethod
+    def foo(cls) -> None:
+        return typing.cast(None, jsii.sinvoke(cls, "foo", []))
+
+
+__all__ = [
+    "OnlyStatics",
 ]
 
 publication.publish()
