@@ -58,8 +58,9 @@ gh-pages/content/specification/6-compliance-report.md: needs update
 The report contains the state of each test with respect to each language binding.
 Every test will have one of the following statuses:
 
-- ✅ - Test passes.
-- ❌ - Test is either missing or is not reporting success.
-- N/A - The test was excluded.
+- 🟢 - Test passes for this language.
+- ⚪ - Test is not applicable for this language.
+- ⭕ - Test is not implemented (yet) for this language
+- 🔴 - Test is failing for this language: missing feature or bug in language bindings.
 
 Eventually, this report lands on our [docs site](https://aws.github.io/jsii/specification/6-compliance-report/).

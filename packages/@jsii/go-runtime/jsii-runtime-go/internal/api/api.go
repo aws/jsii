@@ -12,7 +12,8 @@ type Override interface {
 	isOverride()
 }
 
-type override struct {}
+type override struct{}
+
 func (o override) isOverride() {}
 
 // MethodOverride is used to register a "go-native" implementation to be
@@ -40,7 +41,6 @@ type PropertyOverride struct {
 func (m PropertyOverride) GoName() string {
 	return m.GoGetter
 }
-
 
 func IsMethodOverride(value Override) bool {
 	switch value.(type) {

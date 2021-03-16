@@ -35,7 +35,7 @@ export interface HelperCompilationResult {
   /**
    * The generated assembly
    */
-  readonly assembly: any;
+  readonly assembly: spec.Assembly;
   /**
    * Generated .js/.d.ts file(s)
    */

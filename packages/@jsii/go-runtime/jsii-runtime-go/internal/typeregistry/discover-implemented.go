@@ -1,9 +1,10 @@
 package typeregistry
 
 import (
-	"github.com/aws/jsii-runtime-go/internal/api"
 	"reflect"
 	"strings"
+
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
 // DiscoverImplementation determines the list of registered interfaces that are
