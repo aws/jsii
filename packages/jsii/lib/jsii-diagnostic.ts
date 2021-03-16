@@ -601,6 +601,20 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'language-compatibility/member-name-conflicts-with-type-name',
   });
 
+  public static readonly JSII_5020_STATIC_MEMBER_CONFLICTS_WITH_NESTED_TYPE = Code.error(
+    {
+      code: 5020,
+      formatter: (
+        nestingType: spec.Type,
+        staticMember: spec.Property | spec.Method | spec.EnumMember,
+        nestedType: spec.Type,
+      ) =>
+        `The static member "${nestingType.name}.${staticMember.name}" has the same PascalCased representation as nested type "${nestingType.name}.${nestedType.name}". This would result in invalid code in Go.`,
+      name:
+        'language-compatibility/static-member-name-conflicts-with-nested-type',
+    },
+  );
+
   //////////////////////////////////////////////////////////////////////////////
   // 6000 => 6999 -- RESERVED
 

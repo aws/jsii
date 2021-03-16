@@ -48,7 +48,8 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
         "go": {
-          "moduleName": "github.com/aws/jsii/jsii-calc/go"
+          "moduleName": "github.com/aws/jsii/jsii-calc/go",
+          "packageName": "jcb"
         },
         "java": {
           "maven": {
@@ -96,11 +97,14 @@
         "@scope/jsii-calc-lib.submodule": {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 112
+            "line": 130
           },
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
+            },
+            "go": {
+              "packageName": "customsubmodulename"
             },
             "java": {
               "package": "software.amazon.jsii.tests.calculator.custom_submodule_name"
@@ -118,7 +122,8 @@
           "versionSuffix": "-devpreview"
         },
         "go": {
-          "moduleName": "github.com/aws/jsii/jsii-calc/go"
+          "moduleName": "github.com/aws/jsii/jsii-calc/go",
+          "versionSuffix": "-devpreview"
         },
         "java": {
           "maven": {
@@ -204,6 +209,72 @@
       "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 142
+      }
+    },
+    "jsii-calc.module2530": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 18
+      }
+    },
+    "jsii-calc.module2617": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 15
+      }
+    },
+    "jsii-calc.module2647": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 14
+      }
+    },
+    "jsii-calc.module2689": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 16
+      }
+    },
+    "jsii-calc.module2689.methods": {
+      "locationInModule": {
+        "filename": "lib/module2689/index.ts",
+        "line": 8
+      }
+    },
+    "jsii-calc.module2689.props": {
+      "locationInModule": {
+        "filename": "lib/module2689/index.ts",
+        "line": 9
+      }
+    },
+    "jsii-calc.module2689.retval": {
+      "locationInModule": {
+        "filename": "lib/module2689/index.ts",
+        "line": 10
+      }
+    },
+    "jsii-calc.module2689.structs": {
+      "locationInModule": {
+        "filename": "lib/module2689/index.ts",
+        "line": 7
+      }
+    },
+    "jsii-calc.module2692": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 17
+      }
+    },
+    "jsii-calc.module2692.submodule1": {
+      "locationInModule": {
+        "filename": "lib/module2692/index.ts",
+        "line": 1
+      }
+    },
+    "jsii-calc.module2692.submodule2": {
+      "locationInModule": {
+        "filename": "lib/module2692/index.ts",
+        "line": 2
       }
     },
     "jsii-calc.nodirect": {
@@ -14114,6 +14185,531 @@
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation"
     },
+    "jsii-calc.module2530.MyClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2530",
+        "stability": "stable",
+        "summary": "Verifies a method with parameters \"_\" can be generated."
+      },
+      "fqn": "jsii-calc.module2530.MyClass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/module2530/index.ts",
+          "line": 10
+        },
+        "parameters": [
+          {
+            "name": "_",
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2530/index.ts",
+        "line": 5
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2530/index.ts",
+            "line": 6
+          },
+          "name": "bar",
+          "parameters": [
+            {
+              "name": "_",
+              "type": {
+                "primitive": "boolean"
+              }
+            }
+          ],
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2530/index.ts",
+            "line": 14
+          },
+          "name": "foo",
+          "parameters": [
+            {
+              "name": "_",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "MyClass",
+      "namespace": "module2530"
+    },
+    "jsii-calc.module2617.OnlyStatics": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2617.OnlyStatics",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2617/index.ts",
+        "line": 3
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2617/index.ts",
+            "line": 7
+          },
+          "name": "bar",
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2617/index.ts",
+            "line": 4
+          },
+          "name": "foo",
+          "static": true
+        }
+      ],
+      "name": "OnlyStatics",
+      "namespace": "module2617"
+    },
+    "jsii-calc.module2647.ExtendAndImplement": {
+      "assembly": "jsii-calc",
+      "base": "@scope/jsii-calc-lib.BaseFor2647",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/2647",
+        "stability": "stable",
+        "summary": "This class falls into the category of \"multiple bases\" from a different module from a go code gen perspective."
+      },
+      "fqn": "jsii-calc.module2647.ExtendAndImplement",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        },
+        "locationInModule": {
+          "filename": "lib/index.ts",
+          "line": 121
+        },
+        "parameters": [
+          {
+            "name": "very",
+            "type": {
+              "fqn": "@scope/jsii-calc-base-of-base.Very"
+            }
+          }
+        ]
+      },
+      "interfaces": [
+        "@scope/jsii-calc-lib.IFriendly"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2647/index.ts",
+        "line": 9
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "(deprecated) Say hello!"
+          },
+          "locationInModule": {
+            "filename": "lib/module2647/index.ts",
+            "line": 14
+          },
+          "name": "hello",
+          "overrides": "@scope/jsii-calc-lib.IFriendly",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2647/index.ts",
+            "line": 10
+          },
+          "name": "localMethod",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "ExtendAndImplement",
+      "namespace": "module2647"
+    },
+    "jsii-calc.module2689.methods.MyClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2689.methods.MyClass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2689/methods/index.ts",
+        "line": 4
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2689/methods/index.ts",
+            "line": 9
+          },
+          "name": "bar",
+          "parameters": [
+            {
+              "name": "_bar",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "fqn": "@scope/jsii-calc-base.BaseProps"
+                  },
+                  "kind": "map"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2689/methods/index.ts",
+            "line": 5
+          },
+          "name": "foo",
+          "parameters": [
+            {
+              "name": "_values",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "fqn": "@scope/jsii-calc-lib.Number"
+                  },
+                  "kind": "array"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "name": "MyClass",
+      "namespace": "module2689.methods"
+    },
+    "jsii-calc.module2689.props.MyClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2689.props.MyClass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2689/props/index.ts",
+        "line": 4
+      },
+      "name": "MyClass",
+      "namespace": "module2689.props",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2689/props/index.ts",
+            "line": 6
+          },
+          "name": "bar",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-base.BaseProps"
+              },
+              "kind": "map"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2689/props/index.ts",
+            "line": 5
+          },
+          "name": "foo",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.Number"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
+    "jsii-calc.module2689.retval.MyClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2689.retval.MyClass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module2689/retval/index.ts",
+        "line": 4
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2689/retval/index.ts",
+            "line": 9
+          },
+          "name": "bar",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "@scope/jsii-calc-base.BaseProps"
+                },
+                "kind": "map"
+              }
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2689/retval/index.ts",
+            "line": 5
+          },
+          "name": "foo",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "@scope/jsii-calc-lib.Number"
+                },
+                "kind": "array"
+              }
+            }
+          }
+        }
+      ],
+      "name": "MyClass",
+      "namespace": "module2689.retval"
+    },
+    "jsii-calc.module2689.structs.MyStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2689.structs.MyStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module2689/structs/index.ts",
+        "line": 4
+      },
+      "name": "MyStruct",
+      "namespace": "module2689.structs",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2689/structs/index.ts",
+            "line": 6
+          },
+          "name": "baseMap",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-base.BaseProps"
+              },
+              "kind": "map"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2689/structs/index.ts",
+            "line": 5
+          },
+          "name": "numbers",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.Number"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
+    "jsii-calc.module2692.submodule1.Bar": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2692.submodule1.Bar",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module2692/submodule1/index.ts",
+        "line": 1
+      },
+      "name": "Bar",
+      "namespace": "module2692.submodule1",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2692/submodule1/index.ts",
+            "line": 2
+          },
+          "name": "bar1",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.module2692.submodule2.Bar": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2692.submodule2.Bar",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module2692/submodule2/index.ts",
+        "line": 3
+      },
+      "name": "Bar",
+      "namespace": "module2692.submodule2",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2692/submodule2/index.ts",
+            "line": 4
+          },
+          "name": "bar2",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.module2692.submodule2.Foo": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module2692.submodule2.Foo",
+      "interfaces": [
+        "jsii-calc.module2692.submodule2.Bar",
+        "jsii-calc.module2692.submodule1.Bar"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module2692/submodule2/index.ts",
+        "line": 7
+      },
+      "name": "Foo",
+      "namespace": "module2692.submodule2",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module2692/submodule2/index.ts",
+            "line": 8
+          },
+          "name": "foo2",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.nodirect.sub1.TypeFromSub1": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14870,5 +15466,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "rH6rK3iHNatb4ojll7sd8rvJ4k/89Kybg89FRd96Hno="
+  "fingerprint": "NN/7JA2G5+NzNqrZC0MowhGB3DS5OlSmsNIF8KMR7Kg="
 }
