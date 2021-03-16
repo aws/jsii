@@ -79,8 +79,14 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
    */
   public html_inline(node: cm.Node, _context: RendererContext) {
     const html = node.literal ?? '';
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return new XMLSerializer().serializeToString(doc);
+    try {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return new XMLSerializer().serializeToString(doc);
+    } catch (e) {
+      // There may be errors in parsing HTML. Don't let that stop us!
+      console.error(e.message);
+      return para(`<code><![CDATA[${e.message} in: ${html}]]></code>`);
+    }
   }
 
   /**
