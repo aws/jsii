@@ -9,6 +9,8 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -16,6 +18,10 @@ exports[`defaults 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -48,6 +54,8 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -55,6 +63,10 @@ exports[`inheritance 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -87,6 +99,8 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -94,6 +108,10 @@ exports[`members 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -219,6 +237,35 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(_) initializer
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ _
+ │ │ │       │     └── type: number
+ │ │ │       ├─┬ static bar(_) method
+ │ │ │       │ ├── static
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: boolean
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ foo(_) method
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ _
+ │ │ │         │   └── type: string
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method
+ │ │ │         ├── static
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -282,6 +329,34 @@ exports[`showAll 1`] = `
  │ │ │ │           ├── abstract
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ bar1 property
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: string
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ bar2 property
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: string
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       ├─┬ interfaces
+ │ │ │ │       │ ├── Bar
+ │ │ │ │       │ └── Bar
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ foo2 property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
  │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
@@ -3107,6 +3182,8 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -3114,6 +3191,10 @@ exports[`signatures 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -3162,6 +3243,12 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
@@ -3179,6 +3266,16 @@ exports[`types 1`] = `
  │ │ │ │ └─┬ structs
  │ │ │ │   └─┬ types
  │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └── interface Foo
  │ │ │ └── types
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
