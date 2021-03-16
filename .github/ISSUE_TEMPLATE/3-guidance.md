@@ -26,6 +26,7 @@ please leave the bux un-checked.
 - [ ] `Python`
 - [ ] `Java`
 - [ ] .NET (`C#`, `F#`, ...)
+- [ ] `Go`
 
 ### General Information
 * **JSII Version:** <!-- Output of `jsii --version` -->

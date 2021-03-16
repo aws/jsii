@@ -2,7 +2,9 @@
 # creates symlinks under node_modules for all packages in this repo
 # can be used to work against this code base.
 set -euo pipefail
-root="$(cd $(dirname $0) && pwd)"
+
+# we need the '..' here, as this script is in the scripts/ subdirectory of the repo
+root="$(cd $(dirname $0)/.. && pwd)"
 
 mkdir -p node_modules node_modules/.bin
 
@@ -17,7 +19,9 @@ for module in ${modules}; do
     link_dir=node_modules
   fi
 
-  echo "${module} => $link_dir/$(basename $module)"
+  module_dir=${link_dir}/$(basename $module)
+  echo "${module} => ${module_dir}"
+  rm -fr ${module_dir}
   ln -fs ${module} $link_dir
 
   # Symlink executable scripts into place as well. This is not completely
