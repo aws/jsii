@@ -52,8 +52,7 @@ confidential information out.
 <!-- 
 NOTE: If your bug is meets one of the following criteria, and is not recieving proper attention, please notify the team directly by commenting @TEAM-MEMBER, or messaging @TEAM-MEMBER on our [Slack](https://cdk.dev/):
 
-* Breaking change in `Stable` construct library
 * Potential security violation
 * Bug impacts large number of users
-* Bug impacts performance of entire CDK
+* Bug impacts performance of all JSII
 -->
