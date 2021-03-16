@@ -35,7 +35,7 @@
     "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "devDependencies": {
-    "@types/node": "^10.17.54",
+    "@types/node": "^10.17.55",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
@@ -55,7 +55,8 @@
     "outdir": "dist",
     "targets": {
       "go": {
-        "moduleName": "github.com/aws/jsii/jsii-calc/go"
+        "moduleName": "github.com/aws/jsii/jsii-calc/go",
+        "packageName": "jcb"
       },
       "java": {
         "package": "software.amazon.jsii.tests.calculator.base",

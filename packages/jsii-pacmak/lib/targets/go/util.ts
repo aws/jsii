@@ -1,4 +1,4 @@
-import { Assembly } from 'jsii-reflect';
+import { Assembly, Submodule } from 'jsii-reflect';
 
 import { Package } from './package';
 import { GoMethod, GoTypeMember, GoType } from './types';
@@ -24,8 +24,15 @@ export function findTypeInTree(
 /*
  * Format NPM package names as idiomatic Go module name
  */
-export function goPackageName(name: string): string {
-  return name.replace(/[^a-z0-9.]/gi, '').toLowerCase();
+export function goPackageNameForAssembly(
+  assembly: Assembly | Submodule,
+): string {
+  const config = assembly.targets?.go ?? {};
+  if (config.packageName) {
+    return config.packageName;
+  }
+
+  return assembly.name.replace(/[^a-z0-9.]/gi, '').toLowerCase();
 }
 
 export function flatMap<T, R>(
@@ -43,21 +50,19 @@ export function flatMap<T, R>(
 export function getMemberDependencies(
   members: readonly GoTypeMember[],
 ): Package[] {
-  return members.reduce((accum: Package[], member) => {
-    return member.reference?.type?.pkg
-      ? [...accum, member.reference?.type.pkg]
-      : accum;
-  }, []);
+  const deps = new Array<Package>();
+  for (const member of members) {
+    deps.push(...(member.reference?.dependencies ?? []));
+  }
+
+  return deps;
 }
 
 export function getParamDependencies(methods: GoMethod[]): Package[] {
   const dependencies: Package[] = [];
   for (const method of methods) {
     for (const param of method.parameters) {
-      const pkg = param.reference?.type?.pkg;
-      if (pkg) {
-        dependencies.push(pkg);
-      }
+      dependencies.push(...(param.reference?.dependencies ?? []));
     }
   }
   return dependencies;
@@ -89,6 +94,7 @@ const RESERVED_WORDS: { [word: string]: string } = {
   import: 'import_',
   return: 'return_',
   var: 'var_',
+  _: '_arg',
 };
 
 /*

@@ -123,15 +123,17 @@ export const suite: schema.Suite = {
     },
     {
       name: 'reservedKeywordsAreSlugifiedInClassProperties',
-      description: '',
+      description:
+        'TS code that uses reserved words as class property names get slugified so it is usable in the target language',
     },
     {
       name: 'objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut',
-      description: '',
+      description:
+        "Ensure the JSII kernel can pass 'this' out to JSII remotes from within the constructor",
     },
     {
       name: 'interfaceBuilder',
-      description: '',
+      description: "Seems to be a duplicate of 'propertyOverrides_interfaces'?",
     },
     {
       name: 'unionTypes',
