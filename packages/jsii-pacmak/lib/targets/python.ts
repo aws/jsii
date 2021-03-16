@@ -226,6 +226,12 @@ function prepareMembers(members: PythonBase[], resolver: TypeResolver) {
         );
       }
 
+      if (nonDeprecated.length === 0) {
+        throw new Error(
+          `Multiple members which map to the Python name "${name}", but all of them are deprecated`,
+        );
+      }
+
       member = nonDeprecated[0];
     }
 

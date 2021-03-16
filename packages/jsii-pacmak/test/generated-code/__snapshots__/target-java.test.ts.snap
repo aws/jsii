@@ -20576,7 +20576,7 @@ public class TwoMethodsWithSimilarCapitalization extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public @org.jetbrains.annotations.NotNull java.lang.Number getFooBar() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getFooBAR() {
         return software.amazon.jsii.Kernel.get(this, "fooBAR", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 }
