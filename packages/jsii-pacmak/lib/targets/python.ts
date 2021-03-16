@@ -1407,18 +1407,34 @@ class EnumMember implements PythonBase {
 }
 
 interface ModuleOpts {
-  assembly: spec.Assembly;
-  assemblyFilename: string;
-  loadAssembly?: boolean;
-  package?: Package;
+  readonly assembly: spec.Assembly;
+  readonly assemblyFilename: string;
+  readonly loadAssembly?: boolean;
+  readonly package?: Package;
+
+  /**
+   * The docstring to emit at the top of this module, if any.
+   */
+  readonly moduleDocumentation?: string;
 }
 
+/**
+ * Python module
+ *
+ * Will be called for jsii submodules and namespaces.
+ */
 class PythonModule implements PythonType {
+  /**
+   * Converted to put on the module
+   *
+   * The format is in markdown, with code samples converted from TS to Python.
+   */
+  public readonly moduleDocumentation?: string;
+
   private readonly assembly: spec.Assembly;
   private readonly assemblyFilename: string;
   private readonly loadAssembly: boolean;
   private readonly members = new Array<PythonBase>();
-  private readonly package?: Package;
 
   public constructor(
     public readonly pythonName: string,
@@ -1428,7 +1444,7 @@ class PythonModule implements PythonType {
     this.assembly = opts.assembly;
     this.assemblyFilename = opts.assemblyFilename;
     this.loadAssembly = !!opts.loadAssembly;
-    this.package = opts.package;
+    this.moduleDocumentation = opts.moduleDocumentation;
   }
 
   public addMember(member: PythonBase) {
@@ -1585,13 +1601,9 @@ class PythonModule implements PythonType {
    * Emit the README as module docstring if this is the entry point module (it loads the assembly)
    */
   private emitModuleDocumentation(code: CodeMaker) {
-    if (
-      this.package &&
-      this.fqn === this.assembly.name &&
-      this.package.convertedReadme.trim().length > 0
-    ) {
+    if (this.moduleDocumentation) {
       code.line(DOCSTRING_QUOTES);
-      code.line(this.package.convertedReadme);
+      code.line(this.moduleDocumentation);
       code.line(DOCSTRING_QUOTES);
     }
   }
@@ -1686,7 +1698,10 @@ interface PackageData {
 }
 
 class Package {
-  public convertedReadme = '';
+  /**
+   * The PythonModule that represents the root module of the package
+   */
+  public rootModule?: PythonModule;
 
   public readonly name: string;
   public readonly version: string;
@@ -1695,12 +1710,7 @@ class Package {
   private readonly modules = new Map<string, PythonModule>();
   private readonly data = new Map<string, PackageData[]>();
 
-  public constructor(
-    private readonly generator: PythonGenerator,
-    name: string,
-    version: string,
-    metadata: spec.Assembly,
-  ) {
+  public constructor(name: string, version: string, metadata: spec.Assembly) {
     this.name = name;
     this.version = version;
     this.metadata = metadata;
@@ -1708,6 +1718,11 @@ class Package {
 
   public addModule(module: PythonModule) {
     this.modules.set(module.pythonName, module);
+
+    // This is the module that represents the assembly
+    if (module.fqn === this.metadata.name) {
+      this.rootModule = module;
+    }
   }
 
   public addData(
@@ -1723,13 +1738,6 @@ class Package {
   }
 
   public write(code: CodeMaker, context: EmitContext) {
-    if (this.metadata.readme) {
-      // Conversion is expensive, so cache the result in a variable (we need it twice)
-      this.convertedReadme = this.generator
-        .convertMarkdown(this.metadata.readme.markdown)
-        .trim();
-    }
-
     const modules = [...this.modules.values()].sort((a, b) =>
       a.pythonName.localeCompare(b.pythonName),
     );
@@ -1782,8 +1790,13 @@ class Package {
       );
     }
 
+    // Need to always write this file as the build process depends on it.
+    // Make up some contents if we don't have anything useful to say.
     code.openFile('README.md');
-    code.line(this.convertedReadme);
+    code.line(
+      this.rootModule?.moduleDocumentation ??
+        `${this.name}\n${'='.repeat(this.name.length)}`,
+    );
     code.closeFile('README.md');
 
     // Strip " (build abcdef)" from the jsii version
@@ -2278,13 +2291,12 @@ class PythonGenerator extends Generator {
 
   protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
     this.package = new Package(
-      this,
       assm.targets!.python!.distName,
       toReleaseVersion(assm.version, TargetName.PYTHON),
       assm,
     );
 
-    // This is the '<package>._jsii' module
+    // This is the '<packagename>._jsii' module for this assembly
     const assemblyModule = new PythonModule(
       this.getAssemblyModuleName(assm),
       undefined,
@@ -2314,11 +2326,23 @@ class PythonGenerator extends Generator {
     });
   }
 
+  /**
+   * Will be called for assembly root, namespaces and submodules (anything that contains other types, based on its FQN)
+   */
   protected onBeginNamespace(ns: string) {
+    // 'ns' contains something like '@scope/jsii-calc-base-of-base'
+    const submoduleLike =
+      ns === this.assembly.name
+        ? this.assembly
+        : this.assembly.submodules?.[ns];
+
     const module = new PythonModule(toPackageName(ns, this.assembly), ns, {
       assembly: this.assembly,
       assemblyFilename: this.getAssemblyFileName(),
       package: this.package,
+      moduleDocumentation: submoduleLike?.readme
+        ? this.convertMarkdown(submoduleLike.readme?.markdown).trim()
+        : undefined,
     });
 
     this.package.addModule(module);
