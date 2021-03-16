@@ -121,6 +121,16 @@ exports[`jsii-tree --all 1`] = `
  │ │ │         │ └─┬ _
  │ │ │         │   └── type: string
  │ │ │         └── returns: void
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method (stable)
+ │ │ │         ├── static
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement (stable)
@@ -3100,6 +3110,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3572,6 +3585,12 @@ exports[`jsii-tree --members 1`] = `
  │ │ │       ├── <initializer>(_) initializer
  │ │ │       ├── static bar(_) method
  │ │ │       └── foo(_) method
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├── static bar() method
+ │ │ │       └── static foo() method
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -4920,6 +4939,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -4983,6 +5003,9 @@ exports[`jsii-tree --types 1`] = `
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
@@ -5319,6 +5342,7 @@ exports[`jsii-tree 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
