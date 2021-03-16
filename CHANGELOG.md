@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.25.0](https://github.com/aws/jsii/compare/v1.24.0...v1.25.0) (2021-03-16)
+
+
+### Features
+
+* **compliance:** Compliance suite ([#2607](https://github.com/aws/jsii/issues/2607)) ([18b2c16](https://github.com/aws/jsii/commit/18b2c167bbc47d7620e6a952e08751af28bf53a6))
+* **go:** packageName and versionSuffix ([#2687](https://github.com/aws/jsii/issues/2687)) ([9562108](https://github.com/aws/jsii/commit/95621082cb742bb8dc24e28f3bf6cb6013050c03)), closes [#2632](https://github.com/aws/jsii/issues/2632)
+
+
+### Bug Fixes
+
+* **go:** duplicate conversion functions when parent structs have the same base name ([#2697](https://github.com/aws/jsii/issues/2697)) ([52bd510](https://github.com/aws/jsii/commit/52bd510a994597cc166effde0b8c658a2a8cb0df)), closes [#2692](https://github.com/aws/jsii/issues/2692)
+* **go:** invalid code when a module only has static methods [test only] ([#2704](https://github.com/aws/jsii/issues/2704)) ([2dbe84d](https://github.com/aws/jsii/commit/2dbe84dfeff8d6f63aab19c1674fb7c9d17ea976)), closes [#2622](https://github.com/aws/jsii/issues/2622) [#2617](https://github.com/aws/jsii/issues/2617)
+* **go:** missing imports needed by base members ([#2685](https://github.com/aws/jsii/issues/2685)) ([daca06f](https://github.com/aws/jsii/commit/daca06f7c426d1fba509068ab842bd8dc7ddb62a)), closes [#2647](https://github.com/aws/jsii/issues/2647)
+* **go:** missing imports required by collection types ([#2691](https://github.com/aws/jsii/issues/2691)) ([c9a36a6](https://github.com/aws/jsii/commit/c9a36a6c0e18c44aa8e8e7e719cb9df144da5193)), closes [#2689](https://github.com/aws/jsii/issues/2689)
+* **go:** nested types are not namespaced ([#2650](https://github.com/aws/jsii/issues/2650)) ([45b527c](https://github.com/aws/jsii/commit/45b527c0b2f35a09b715c1a6c5940ec0578007fb)), closes [#2649](https://github.com/aws/jsii/issues/2649)
+
 ## [1.24.0](https://github.com/aws/jsii/compare/v1.23.0...v1.24.0) (2021-03-03)
 
 
