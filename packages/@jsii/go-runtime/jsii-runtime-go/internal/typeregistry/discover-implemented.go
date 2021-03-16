@@ -11,7 +11,7 @@ import (
 // implemented by the provided type, and returns the list of their FQNs and
 // overrides for all their combined methods and properties.
 func (t *TypeRegistry) DiscoverImplementation(vt reflect.Type) (interfaces []api.FQN, overrides []api.Override) {
-	if strings.HasSuffix(vt.Name(), "_jsiiProxy") {
+	if strings.HasPrefix(vt.Name(), "jsiiProxy_") {
 		return
 	}
 

@@ -77,6 +77,11 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		return
 	}
 
+	if date, isDate := castValToDate(data); isDate {
+		ptr.Set(reflect.ValueOf(date))
+		return
+	}
+
 	// maps
 	if m, isMap := c.castValToMap(data, ptr.Type()); isMap {
 		ptr.Set(m)
@@ -104,6 +109,11 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
+	if !dataVal.IsValid() {
+		// dataVal is a 0-value, meaning we have no value available... We return
+		// this to JavaScript as a "null" value.
+		return nil
+	}
 	if (dataVal.Kind() == reflect.Interface || dataVal.Kind() == reflect.Ptr) && dataVal.IsNil() {
 		return nil
 	}
@@ -185,12 +195,29 @@ func castValToRef(data reflect.Value) (api.ObjectRef, bool) {
 			if k.Kind() == reflect.String && k.String() == "$jsii.byref" && v.Kind() == reflect.String {
 				ref.InstanceID = v.String()
 				ok = true
+				break
 			}
 
 		}
 	}
 
 	return ref, ok
+}
+
+// TODO: This should return a time.Time instead
+func castValToDate(data reflect.Value) (date string, ok bool) {
+	if data.Kind() == reflect.Map {
+		for _, k := range data.MapKeys() {
+			v := reflect.ValueOf(data.MapIndex(k).Interface())
+			if k.Kind() == reflect.String && k.String() == "$jsii.date" && v.Kind() == reflect.String {
+				date = v.String()
+				ok = true
+				break
+			}
+		}
+	}
+
+	return
 }
 
 func castValToEnumRef(data reflect.Value) (enum api.EnumRef, ok bool) {
@@ -205,7 +232,7 @@ func castValToEnumRef(data reflect.Value) (enum api.EnumRef, ok bool) {
 			if k.Kind() == reflect.String && k.String() == "$jsii.enum" && v.Kind() == reflect.String {
 				enum.MemberFQN = v.String()
 				ok = true
-				return
+				break
 			}
 		}
 	}

@@ -30,6 +30,10 @@ func (c *callback) handle(result kernelResponder) error {
 		return fmt.Errorf("invalid callback object: %v", c)
 	}
 
+	if err != nil {
+		return err
+	}
+
 	type callbackResult struct {
 		CallbackID string      `json:"cbid"`
 		Result     interface{} `json:"result,omitempty"`
@@ -115,7 +119,12 @@ func (c *Client) invoke(method reflect.Value, args []interface{}) (retval reflec
 			return
 		}
 		callArgs[i] = reflect.New(argType)
-		c.CastAndSetToPtr(arg, callArgs[i].Interface())
+		c.CastAndSetToPtr(callArgs[i].Interface(), arg)
+		if argType.Kind() != reflect.Ptr && argType.Kind() != reflect.Interface {
+			// The result of `reflect.New` is always a pointer, so if the
+			// argument is by-value, we have to de-reference it first.
+			callArgs[i] = callArgs[i].Elem()
+		}
 	}
 
 	// Ready to catch an error if the method panics...
@@ -136,7 +145,7 @@ func (c *Client) invoke(method reflect.Value, args []interface{}) (retval reflec
 	result := method.Call(callArgs)
 	switch len(result) {
 	case 0:
-		retval = reflect.ValueOf(nil)
+		// Nothing to do, retval is already a 0-value.
 	case 1:
 		retval = result[0]
 	default:
