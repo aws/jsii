@@ -10,6 +10,7 @@ exports[`defaults 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -54,6 +55,7 @@ exports[`inheritance 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -98,6 +100,7 @@ exports[`members 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -252,6 +255,16 @@ exports[`showAll 1`] = `
  │ │ │         ├─┬ parameters
  │ │ │         │ └─┬ _
  │ │ │         │   └── type: string
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method
+ │ │ │         ├── static
  │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
@@ -3170,6 +3183,7 @@ exports[`signatures 1`] = `
  │   ├── PythonSelf
  │   ├── composition
  │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -3232,6 +3246,9 @@ exports[`types 1`] = `
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement

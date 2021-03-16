@@ -2895,6 +2895,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 MethodNamedProperty.cs
        ┃           ┣━ 📁 Module2530
        ┃           ┃  ┗━ 📄 MyClass.cs
+       ┃           ┣━ 📁 Module2617
+       ┃           ┃  ┗━ 📄 OnlyStatics.cs
        ┃           ┣━ 📁 Module2647
        ┃           ┃  ┗━ 📄 ExtendAndImplement.cs
        ┃           ┣━ 📁 Module2689
@@ -12184,6 +12186,46 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2530
         public virtual void Foo(string _)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string)}, new object[]{_});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2617/OnlyStatics.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2617
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2617.OnlyStatics), fullyQualifiedName: "jsii-calc.module2617.OnlyStatics")]
+    public class OnlyStatics : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OnlyStatics(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OnlyStatics(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "bar")]
+        public static void Bar()
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2617.OnlyStatics), new System.Type[]{}, new object[]{});
+        }
+
+        [JsiiMethod(name: "foo")]
+        public static void Foo()
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2617.OnlyStatics), new System.Type[]{}, new object[]{});
         }
     }
 }
