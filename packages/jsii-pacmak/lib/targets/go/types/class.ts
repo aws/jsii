@@ -1,6 +1,7 @@
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { CodeMaker } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
 
+import { jsiiToPascalCase } from '../../../naming-util';
 import * as comparators from '../comparators';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
@@ -26,9 +27,6 @@ export class GoClass extends GoType {
   public readonly properties: GoProperty[];
   public readonly staticProperties: GoProperty[];
 
-  private readonly reimplementedMethods?: readonly ClassMethod[];
-  private readonly reimplementedProperties?: readonly GoProperty[];
-
   private _extends?: GoClass | null;
   private _implements?: readonly GoInterface[];
 
@@ -39,7 +37,7 @@ export class GoClass extends GoType {
 
     const methods = new Array<ClassMethod>();
     const staticMethods = new Array<StaticMethod>();
-    for (const method of type.ownMethods) {
+    for (const method of type.allMethods) {
       if (method.static) {
         staticMethods.push(new StaticMethod(this, method));
       } else {
@@ -52,7 +50,7 @@ export class GoClass extends GoType {
 
     const properties = new Array<GoProperty>();
     const staticProperties = new Array<GoProperty>();
-    for (const prop of type.ownProperties) {
+    for (const prop of type.allProperties) {
       if (prop.static) {
         staticProperties.push(new GoProperty(this, prop));
       } else {
@@ -62,31 +60,6 @@ export class GoClass extends GoType {
     // Ensure consistent order, mostly cosmetic.
     this.properties = properties.sort(comparators.byName);
     this.staticProperties = staticProperties.sort(comparators.byName);
-
-    // If there is more than one base, and any ancestor (including transitive)
-    // comes from a different assembly, we will re-implement all members on the
-    // proxy struct, as otherwise we run the risk of un-promotable methods
-    // caused by inheriting the same interface via multiple paths (since we have
-    // to represent those as embedded types).
-    const hasMultipleBases = type.interfaces.length > (type.base ? 0 : 1);
-    if (
-      hasMultipleBases &&
-      type
-        .getAncestors()
-        .some((ancestor) => ancestor.assembly.fqn !== type.assembly.fqn)
-    ) {
-      this.reimplementedMethods = type.allMethods
-        .filter((method) => !method.static && method.definingType !== type)
-        .map((method) => new ClassMethod(this, method))
-        .sort(comparators.byName);
-
-      this.reimplementedProperties = type.allProperties
-        .filter(
-          (property) => !property.static && property.definingType !== type,
-        )
-        .map((property) => new GoProperty(this, property))
-        .sort(comparators.byName);
-    }
 
     if (type.initializer) {
       this.initializer = new GoClassConstructor(this, type.initializer);
@@ -142,10 +115,6 @@ export class GoClass extends GoType {
     for (const method of this.methods) {
       method.emit(context);
     }
-
-    for (const method of this.reimplementedMethods ?? []) {
-      method.emit(context);
-    }
   }
 
   public emitRegistration(code: CodeMaker): void {
@@ -182,8 +151,6 @@ export class GoClass extends GoType {
       ...this.properties,
       ...this.staticMethods,
       ...this.staticProperties,
-      ...(this.reimplementedMethods ?? []),
-      ...(this.reimplementedProperties ?? []),
     ];
   }
 
@@ -239,9 +206,6 @@ export class GoClass extends GoType {
     for (const property of this.properties) {
       property.emitGetterProxy(context);
     }
-    for (const property of this.reimplementedProperties ?? []) {
-      property.emitGetterProxy(context);
-    }
     context.code.line();
   }
 
@@ -280,7 +244,7 @@ export class GoClass extends GoType {
   private emitStaticProperty({ code }: EmitContext, prop: GoProperty): void {
     const getCaller = new StaticGetProperty(prop);
 
-    const propertyName = toPascalCase(prop.name);
+    const propertyName = jsiiToPascalCase(prop.name);
     const name = `${this.name}_${propertyName}`;
 
     code.openBlock(`func ${name}() ${prop.returnType}`);
@@ -303,9 +267,6 @@ export class GoClass extends GoType {
   // emits the implementation of the setters for the struct
   private emitSetters(context: EmitContext): void {
     for (const property of this.properties) {
-      property.emitSetterProxy(context);
-    }
-    for (const property of this.reimplementedProperties ?? []) {
       property.emitSetterProxy(context);
     }
   }
