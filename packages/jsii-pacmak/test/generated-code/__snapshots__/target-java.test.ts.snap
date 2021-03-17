@@ -3820,12 +3820,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┃  ┗━ 📄 Structure.java
           ┃                 ┃  ┣━ 📄 Default.java
           ┃                 ┃  ┣━ 📁 isolated
-          ┃                 ┃  ┃  ┗━ 📄 Kwargs.java
+          ┃                 ┃  ┃  ┣━ 📄 Kwargs.java
+          ┃                 ┃  ┃  ┗━ 📄 package-info.java
           ┃                 ┃  ┣━ 📄 MyClass.java
           ┃                 ┃  ┣━ 📁 nested_submodule
           ┃                 ┃  ┃  ┣━ 📁 deeply_nested
           ┃                 ┃  ┃  ┃  ┗━ 📄 INamespaced.java
           ┃                 ┃  ┃  ┗━ 📄 Namespaced.java
+          ┃                 ┃  ┣━ 📄 package-info.java
           ┃                 ┃  ┣━ 📁 param
           ┃                 ┃  ┃  ┗━ 📄 SpecialParameter.java
           ┃                 ┃  ┗━ 📁 returnsparam
@@ -24355,6 +24357,16 @@ public class Kwargs extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/submodule/isolated/package-info.java 1`] = `
+/**
+ * <h1>Read you, read me</h1>
+ * <p>
+ * This is the readme of the <code>jsii-calc.submodule.isolated</code> module.
+ */
+package software.amazon.jsii.tests.calculator.submodule.isolated;
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/submodule/nested_submodule/Namespaced.java 1`] = `
 package software.amazon.jsii.tests.calculator.submodule.nested_submodule;
 
@@ -24456,6 +24468,16 @@ public interface INamespaced extends software.amazon.jsii.JsiiSerializable {
         }
     }
 }
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/submodule/package-info.java 1`] = `
+/**
+ * <h1>Read you, read me</h1>
+ * <p>
+ * This is the readme of the <code>jsii-calc.submodule</code> module.
+ */
+package software.amazon.jsii.tests.calculator.submodule;
 
 `;
 
