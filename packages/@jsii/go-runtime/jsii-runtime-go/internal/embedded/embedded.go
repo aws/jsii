@@ -13,7 +13,7 @@ const embeddedRootDir string = "resources"
 var embeddedFS embed.FS
 
 // entrypointName is the path to the entry point relative to the embeddedRootDir.
-var entrypointName string = path.Join("bin", "jsii-runtime.js")
+var entrypointName = path.Join("bin", "jsii-runtime.js")
 
 // ExtractRuntime extracts a copy of the embedded runtime library into
 // the designated directory, and returns the fully qualified path to the entry
