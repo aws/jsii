@@ -426,21 +426,6 @@ type Baz struct {
 	Baz bool \`json:"baz"\`
 }
 
-// ToFoo is a convenience function to obtain a new Foo from this Baz.
-func (b *Baz) ToFoo() Foo {
-	return Foo {
-		Foo: b.Foo,
-	}
-}
-
-// ToFooBar is a convenience function to obtain a new FooBar from this Baz.
-func (b *Baz) ToFooBar() FooBar {
-	return FooBar {
-		Foo: b.Foo,
-		Bar: b.Bar,
-	}
-}
-
 type Consumer interface {
 }
 
@@ -1162,7 +1147,7 @@ testpkg.FooBar=example.test.demo.FooBar
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
