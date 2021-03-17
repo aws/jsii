@@ -44,7 +44,7 @@ class LoadResponse:
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class InvokeScriptRequest:
 
-    pkgname: str
+    assembly: str
     script: str
     args: List[Any] = attr.Factory(list)
 
@@ -55,7 +55,7 @@ class InvokeScriptResponse:
     status: int
     stdout: str
     stderr: str
-    output: List[str]
+    signal: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
