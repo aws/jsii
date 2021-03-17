@@ -131,7 +131,7 @@ func canonicalValue(value reflect.Value) (reflect.Value, error) {
 // a nil value, or a value that is not ultimately a reflect.Struct may result
 // in panic.
 func findAliases(value reflect.Value) []reflect.Value {
-	result := []reflect.Value{}
+	var result []reflect.Value
 
 	// Indirect so we always work on the pointer referree
 	value = reflect.Indirect(value)
