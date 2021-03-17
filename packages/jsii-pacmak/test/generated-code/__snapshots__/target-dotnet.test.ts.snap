@@ -2893,6 +2893,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 LevelOneProps.cs
        ┃           ┣━ 📄 LoadBalancedFargateServiceProps.cs
        ┃           ┣━ 📄 MethodNamedProperty.cs
+       ┃           ┣━ 📁 Module2530
+       ┃           ┃  ┗━ 📄 MyClass.cs
+       ┃           ┣━ 📁 Module2617
+       ┃           ┃  ┗━ 📄 OnlyStatics.cs
        ┃           ┣━ 📁 Module2647
        ┃           ┃  ┗━ 📄 ExtendAndImplement.cs
        ┃           ┣━ 📁 Module2689
@@ -2905,6 +2909,19 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┗━ 📁 Structs
        ┃           ┃     ┣━ 📄 IMyStruct.cs
        ┃           ┃     ┗━ 📄 MyStruct.cs
+       ┃           ┣━ 📁 Module2692
+       ┃           ┃  ┣━ 📁 Submodule1
+       ┃           ┃  ┃  ┣━ 📄 Bar.cs
+       ┃           ┃  ┃  ┗━ 📄 IBar.cs
+       ┃           ┃  ┗━ 📁 Submodule2
+       ┃           ┃     ┣━ 📄 Bar.cs
+       ┃           ┃     ┣━ 📄 Foo.cs
+       ┃           ┃     ┣━ 📄 IBar.cs
+       ┃           ┃     ┗━ 📄 IFoo.cs
+       ┃           ┣━ 📁 Module2700
+       ┃           ┃  ┣━ 📄 Base.cs
+       ┃           ┃  ┣━ 📄 Derived.cs
+       ┃           ┃  ┗━ 📄 IFoo.cs
        ┃           ┣━ 📄 Multiply.cs
        ┃           ┣━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 Negate.cs
@@ -3010,6 +3027,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 TestStructWithEnum.cs
        ┃           ┣━ 📄 Thrower.cs
        ┃           ┣━ 📄 TopLevelStruct.cs
+       ┃           ┣━ 📄 TwoMethodsWithSimilarCapitalization.cs
        ┃           ┣━ 📄 UmaskCheck.cs
        ┃           ┣━ 📄 UnaryOperation.cs
        ┃           ┣━ 📄 UnionProperties.cs
@@ -12131,6 +12149,94 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2530/MyClass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2530
+{
+    /// <summary>Verifies a method with parameters "_" can be generated.</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2530
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2530.MyClass), fullyQualifiedName: "jsii-calc.module2530.MyClass", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    public class MyClass : DeputyBase
+    {
+        public MyClass(double _): base(new DeputyProps(new object?[]{_}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected MyClass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected MyClass(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "bar", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"boolean\\"}}]")]
+        public static void Bar(bool _)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2530.MyClass), new System.Type[]{typeof(bool)}, new object[]{_});
+        }
+
+        [JsiiMethod(name: "foo", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public virtual void Foo(string _)
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(string)}, new object[]{_});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2617/OnlyStatics.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2617
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2617.OnlyStatics), fullyQualifiedName: "jsii-calc.module2617.OnlyStatics")]
+    public class OnlyStatics : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OnlyStatics(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OnlyStatics(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "bar")]
+        public static void Bar()
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2617.OnlyStatics), new System.Type[]{}, new object[]{});
+        }
+
+        [JsiiMethod(name: "foo")]
+        public static void Foo()
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2617.OnlyStatics), new System.Type[]{}, new object[]{});
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2647/ExtendAndImplement.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -12388,6 +12494,327 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2689.Structs
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2692/Submodule1/Bar.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule1
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.module2692.submodule1.Bar")]
+    public class Bar : Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule1.IBar
+    {
+        [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        public string Bar1
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2692/Submodule1/IBar.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule1
+{
+    [JsiiInterface(nativeType: typeof(IBar), fullyQualifiedName: "jsii-calc.module2692.submodule1.Bar")]
+    public interface IBar
+    {
+        [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Bar1
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IBar), fullyQualifiedName: "jsii-calc.module2692.submodule1.Bar")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule1.IBar
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Bar1
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2692/Submodule2/Bar.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.module2692.submodule2.Bar")]
+    public class Bar : Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2.IBar
+    {
+        [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        public string Bar2
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2692/Submodule2/Foo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.module2692.submodule2.Foo")]
+    public class Foo : Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2.IFoo
+    {
+        [JsiiProperty(name: "foo2", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        public string Foo2
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        public string Bar2
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        public string Bar1
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2692/Submodule2/IBar.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2
+{
+    [JsiiInterface(nativeType: typeof(IBar), fullyQualifiedName: "jsii-calc.module2692.submodule2.Bar")]
+    public interface IBar
+    {
+        [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Bar2
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IBar), fullyQualifiedName: "jsii-calc.module2692.submodule2.Bar")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2.IBar
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Bar2
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2692/Submodule2/IFoo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2
+{
+    [JsiiInterface(nativeType: typeof(IFoo), fullyQualifiedName: "jsii-calc.module2692.submodule2.Foo")]
+    public interface IFoo : Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2.IBar, Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule1.IBar
+    {
+        [JsiiProperty(name: "foo2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Foo2
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IFoo), fullyQualifiedName: "jsii-calc.module2692.submodule2.Foo")]
+        new internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2.IFoo
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "foo2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Foo2
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+
+            [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Bar2
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+
+            [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Bar1
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2700/Base.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2700
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2700.Base), fullyQualifiedName: "jsii-calc.module2700.Base")]
+    public class Base : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module2700.IFoo
+    {
+        public Base(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Base(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Base(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "bar", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        public virtual string Bar()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public virtual double Baz
+        {
+            get => GetInstanceProperty<double>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2700/Derived.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2700
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2700.Derived), fullyQualifiedName: "jsii-calc.module2700.Derived")]
+    public class Derived : Amazon.JSII.Tests.CalculatorNamespace.Module2700.Base, Amazon.JSII.Tests.CalculatorNamespace.Module2700.IFoo
+    {
+        public Derived(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Derived(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Derived(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "zoo", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string Zoo()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module2700/IFoo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module2700
+{
+    [JsiiInterface(nativeType: typeof(IFoo), fullyQualifiedName: "jsii-calc.module2700.IFoo")]
+    public interface IFoo
+    {
+        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        double Baz
+        {
+            get;
+        }
+        [JsiiMethod(name: "bar", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string Bar();
+
+        [JsiiTypeProxy(nativeType: typeof(IFoo), fullyQualifiedName: "jsii-calc.module2700.IFoo")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module2700.IFoo
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"number\\"}")]
+            public double Baz
+            {
+                get => GetInstanceProperty<double>()!;
+            }
+
+            [JsiiMethod(name: "bar", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+            public string Bar()
+            {
+                return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+            }
         }
     }
 }
@@ -16362,6 +16789,84 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TwoMethodsWithSimilarCapitalization.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>In TypeScript it is possible to have two methods with the same name but different capitalization.</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/jsii/issues/2508
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.TwoMethodsWithSimilarCapitalization), fullyQualifiedName: "jsii-calc.TwoMethodsWithSimilarCapitalization")]
+    public class TwoMethodsWithSimilarCapitalization : DeputyBase
+    {
+        public TwoMethodsWithSimilarCapitalization(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TwoMethodsWithSimilarCapitalization(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TwoMethodsWithSimilarCapitalization(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "toIsoString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string ToIsoString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiMethod(name: "toIsOString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        [System.Obsolete("python requires that all alternatives are deprecated")]
+        public virtual string ToIsOString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiMethod(name: "toISOString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        [System.Obsolete("python requires that all alternatives are deprecated")]
+        public virtual string ToISOString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "fooBar", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public virtual double FooBar
+        {
+            get => GetInstanceProperty<double>()!;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "fooBAR", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        [System.Obsolete("YES")]
+        public virtual double FooBAR
+        {
+            get => GetInstanceProperty<double>()!;
         }
     }
 }

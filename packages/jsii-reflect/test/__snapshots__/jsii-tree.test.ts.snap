@@ -102,6 +102,35 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(_) initializer (stable)
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ _
+ │ │ │       │     └── type: number
+ │ │ │       ├─┬ static bar(_) method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: boolean
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ foo(_) method (stable)
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ _
+ │ │ │         │   └── type: string
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method (stable)
+ │ │ │         ├── static
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement (stable)
@@ -166,6 +195,61 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
  │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ bar1 property (stable)
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: string
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar (stable)
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ bar2 property (stable)
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: string
+ │ │ │ │     └─┬ interface Foo (stable)
+ │ │ │ │       ├─┬ interfaces
+ │ │ │ │       │ ├── Bar
+ │ │ │ │       │ └── Bar
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ foo2 property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base (stable)
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   ├─┬ bar() method (stable)
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ baz property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: number
+ │ │ │   ├─┬ class Derived (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ zoo() method (stable)
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IFoo (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ bar() method (stable)
+ │ │ │       │ ├── abstract
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ baz property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -1990,6 +2074,21 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ throwError() method (stable)
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ toIsoString() method (stable)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property (deprecated)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck (stable)
  │   │ └─┬ members
  │   │   └─┬ static mode() method (stable)
@@ -3008,6 +3107,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3028,6 +3133,27 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │ │   └─┬ types
  │ │ │ │     └── interface MyStruct
  │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       └─┬ interfaces
+ │ │ │ │         ├── Bar
+ │ │ │ │         └── Bar
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3222,6 +3348,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├─┬ class UnaryOperation
  │   │ └── base: Operation
@@ -3451,6 +3578,19 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>(_) initializer
+ │ │ │       ├── static bar(_) method
+ │ │ │       └── foo(_) method
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├── static bar() method
+ │ │ │       └── static foo() method
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -3488,6 +3628,37 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ │         ├── baseMap property
  │ │ │ │         └── numbers property
  │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └── bar1 property
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── bar2 property
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       └─┬ members
+ │ │ │ │         └── foo2 property
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── bar() method
+ │ │ │   │   └── baz property
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── zoo() method
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       ├── bar() method
+ │ │ │       └── baz property
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4306,6 +4477,14 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── toIsoString() method
+ │   │   ├── toIsOString() method
+ │   │   ├── toISOString() method
+ │   │   ├── fooBar property
+ │   │   └── fooBAR property
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └── static mode() method
@@ -4759,6 +4938,8 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -4766,6 +4947,11 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -4814,6 +5000,12 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
@@ -4832,6 +5024,21 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ │   └─┬ types
  │ │ │ │     └── interface MyStruct
  │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └── interface Foo
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4994,6 +5201,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable
@@ -5133,6 +5341,8 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
  │   ├─┬ module2689
  │   │ └─┬ submodules
@@ -5140,6 +5350,11 @@ exports[`jsii-tree 1`] = `
  │   │   ├── props
  │   │   ├── retval
  │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1

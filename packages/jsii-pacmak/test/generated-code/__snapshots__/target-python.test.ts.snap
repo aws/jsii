@@ -236,13 +236,14 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/README.md 1`] = `
-
+scope.jsii-calc-base
+====================
 
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -717,13 +718,14 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/README.md 1`] = `
-
+scope.jsii-calc-base-of-base
+============================
 
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1170,13 +1172,14 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/README.md 1`] = `
-
+scope.jsii-calc-lib
+===================
 
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -2101,6 +2104,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_only_interface
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 module2530
+          ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 module2617
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2647
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 module2689
@@ -2113,6 +2120,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┃  ┗━ 📄 __init__.py
           ┃  ┗━ 📁 structs
           ┃     ┗━ 📄 __init__.py
+          ┣━ 📁 module2692
+          ┃  ┣━ 📄 __init__.py
+          ┃  ┣━ 📁 submodule1
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┗━ 📁 submodule2
+          ┃     ┗━ 📄 __init__.py
+          ┣━ 📁 module2700
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 nodirect
           ┃  ┣━ 📄 __init__.py
           ┃  ┣━ 📁 sub1
@@ -2391,7 +2406,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -2426,12 +2441,18 @@ kwargs = json.loads(
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
+        "jsii_calc.module2530",
+        "jsii_calc.module2617",
         "jsii_calc.module2647",
         "jsii_calc.module2689",
         "jsii_calc.module2689.methods",
         "jsii_calc.module2689.props",
         "jsii_calc.module2689.retval",
         "jsii_calc.module2689.structs",
+        "jsii_calc.module2692",
+        "jsii_calc.module2692.submodule1",
+        "jsii_calc.module2692.submodule2",
+        "jsii_calc.module2700",
         "jsii_calc.nodirect",
         "jsii_calc.nodirect.sub1",
         "jsii_calc.nodirect.sub2",
@@ -9029,6 +9050,37 @@ class TopLevelStruct:
         )
 
 
+class TwoMethodsWithSimilarCapitalization(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.TwoMethodsWithSimilarCapitalization",
+):
+    '''In TypeScript it is possible to have two methods with the same name but different capitalization.
+
+    :see: https://github.com/aws/jsii/issues/2508
+    '''
+
+    def __init__(self) -> None:
+        jsii.create(TwoMethodsWithSimilarCapitalization, self, [])
+
+    @jsii.member(jsii_name="toIsoString")
+    def to_iso_string(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "toIsoString", []))
+
+    @jsii.member(jsii_name="toIsOString")
+    def to_is_o_string(self) -> builtins.str:
+        '''
+        :deprecated: python requires that all alternatives are deprecated
+
+        :stability: deprecated
+        '''
+        return typing.cast(builtins.str, jsii.invoke(self, "toIsOString", []))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="fooBar")
+    def foo_bar(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.get(self, "fooBar"))
+
+
 class UmaskCheck(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UmaskCheck"):
     '''Checks the current file permissions are cool (no funky UMASK down-scoping happened).
 
@@ -10029,6 +10081,7 @@ __all__ = [
     "TestStructWithEnum",
     "Thrower",
     "TopLevelStruct",
+    "TwoMethodsWithSimilarCapitalization",
     "UmaskCheck",
     "UnaryOperation",
     "UnionProperties",
@@ -10379,6 +10432,93 @@ publication.publish()
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2530/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass"):
+    '''Verifies a method with parameters "_" can be generated.
+
+    :see: https://github.com/aws/jsii/issues/2530
+    '''
+
+    def __init__(self, _: jsii.Number) -> None:
+        '''
+        :param _: -
+        '''
+        jsii.create(MyClass, self, [_])
+
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @builtins.classmethod
+    def bar(cls, _: builtins.bool) -> None:
+        '''
+        :param _: -
+        '''
+        return typing.cast(None, jsii.sinvoke(cls, "bar", [_]))
+
+    @jsii.member(jsii_name="foo")
+    def foo(self, _: builtins.str) -> None:
+        '''
+        :param _: -
+        '''
+        return typing.cast(None, jsii.invoke(self, "foo", [_]))
+
+
+__all__ = [
+    "MyClass",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2617/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+class OnlyStatics(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2617.OnlyStatics",
+):
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @builtins.classmethod
+    def bar(cls) -> None:
+        return typing.cast(None, jsii.sinvoke(cls, "bar", []))
+
+    @jsii.member(jsii_name="foo") # type: ignore[misc]
+    @builtins.classmethod
+    def foo(cls) -> None:
+        return typing.cast(None, jsii.sinvoke(cls, "foo", []))
+
+
+__all__ = [
+    "OnlyStatics",
+]
+
+publication.publish()
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2647/__init__.py 1`] = `
 import abc
 import builtins
@@ -10649,6 +10789,267 @@ publication.publish()
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2692/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2692/submodule1/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module2692.submodule1.Bar",
+    jsii_struct_bases=[],
+    name_mapping={"bar1": "bar1"},
+)
+class Bar:
+    def __init__(self, *, bar1: builtins.str) -> None:
+        '''
+        :param bar1: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "bar1": bar1,
+        }
+
+    @builtins.property
+    def bar1(self) -> builtins.str:
+        result = self._values.get("bar1")
+        assert result is not None, "Required property 'bar1' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Bar(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "Bar",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2692/submodule2/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+from ..submodule1 import Bar as _Bar_ec7eccad
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module2692.submodule2.Bar",
+    jsii_struct_bases=[],
+    name_mapping={"bar2": "bar2"},
+)
+class Bar:
+    def __init__(self, *, bar2: builtins.str) -> None:
+        '''
+        :param bar2: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "bar2": bar2,
+        }
+
+    @builtins.property
+    def bar2(self) -> builtins.str:
+        result = self._values.get("bar2")
+        assert result is not None, "Required property 'bar2' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Bar(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module2692.submodule2.Foo",
+    jsii_struct_bases=[Bar, _Bar_ec7eccad],
+    name_mapping={"bar2": "bar2", "bar1": "bar1", "foo2": "foo2"},
+)
+class Foo(Bar, _Bar_ec7eccad):
+    def __init__(
+        self,
+        *,
+        bar2: builtins.str,
+        bar1: builtins.str,
+        foo2: builtins.str,
+    ) -> None:
+        '''
+        :param bar2: 
+        :param bar1: 
+        :param foo2: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "bar2": bar2,
+            "bar1": bar1,
+            "foo2": foo2,
+        }
+
+    @builtins.property
+    def bar2(self) -> builtins.str:
+        result = self._values.get("bar2")
+        assert result is not None, "Required property 'bar2' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def bar1(self) -> builtins.str:
+        result = self._values.get("bar1")
+        assert result is not None, "Required property 'bar1' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def foo2(self) -> builtins.str:
+        result = self._values.get("foo2")
+        assert result is not None, "Required property 'foo2' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Foo(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "Bar",
+    "Foo",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2700/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+
+@jsii.interface(jsii_type="jsii-calc.module2700.IFoo")
+class IFoo(typing_extensions.Protocol):
+    @builtins.staticmethod
+    def __jsii_proxy_class__() -> typing.Type["_IFooProxy"]:
+        return _IFooProxy
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="baz")
+    def baz(self) -> jsii.Number:
+        ...
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> builtins.str:
+        ...
+
+
+class _IFooProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2700.IFoo"
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="baz")
+    def baz(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.get(self, "baz"))
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "bar", []))
+
+
+@jsii.implements(IFoo)
+class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base"):
+    def __init__(self) -> None:
+        jsii.create(Base, self, [])
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "bar", []))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="baz")
+    def baz(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.get(self, "baz"))
+
+
+@jsii.implements(IFoo)
+class Derived(Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Derived"):
+    def __init__(self) -> None:
+        jsii.create(Derived, self, [])
+
+    @jsii.member(jsii_name="zoo")
+    def zoo(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "zoo", []))
+
+
+__all__ = [
+    "Base",
+    "Derived",
+    "IFoo",
+]
+
+publication.publish()
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/nodirect/__init__.py 1`] = `
 import abc
 import builtins
@@ -10898,6 +11299,11 @@ publication.publish()
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/__init__.py 1`] = `
+'''
+# Read you, read me
+
+This is the readme of the \`jsii-calc.submodule\` module.
+'''
 import abc
 import builtins
 import datetime
@@ -11261,6 +11667,11 @@ publication.publish()
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/isolated/__init__.py 1`] = `
+'''
+# Read you, read me
+
+This is the readme of the \`jsii-calc.submodule.isolated\` module.
+'''
 import abc
 import builtins
 import datetime
