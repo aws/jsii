@@ -1,0 +1,165 @@
+# Go
+
+!!! danger
+    The **go** target is currently unstable and not suitable for production use.
+
+**Go** is not a common object-oriented language: the language currently only
+supports composition, not extension. On the other hand, the
+[*jsii type system*][type-system] includes *classes* and *interfaces*, which are
+typically associated with extension-based programming models.
+
+In rare circumstances, **Go** developers may find themselves in a situation
+where they must implement an *abstract base class*, extend some *class* in order
+to *override* a method or property, or implement a *jsii interface*.
+
+[type-system]: ../../../specification/2-type-system.md
+
+## Implementing *jsii interfaces*
+
+Implementing *jsii interfaces* leverages the idiomatic **go** way to implement
+interfaces: define all the necessary methods on the implementing **go** struct,
+and the value can be used naturally.
+
+There is a single restriction: all such implementation methods must be defined
+using a *pointer receiver*, or a runtime error may occur:
+
+Assuming you are consuming a *jsii* module that defines the following:
+
+```go
+package jsiimodule
+
+type IGreeter interface {
+  Greet(greetee string)
+}
+
+// ...
+func NewMajestyGreeter(greeter IGreeter) MajestyGreeter {
+  // Omitted for brevity
+}
+```
+
+You can implement this interface natively in go as:
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "example/jsiimodule"
+)
+
+type greeter struct {
+  _ byte // padding
+}
+
+// IMPORTANT - this function has a pointer receiver!
+func (g *greeter) Greet(greetee string) {
+  fmt.Printf("Hello, %s!\n", greetee)
+}
+
+func main() {
+  g := &greeter{}
+
+  // Simply pass the instance though, it "just works".
+  mg := jsiimodule.NewMajestyGreeter(g)
+
+  mg.Announce("Elizabeth II")
+}
+```
+
+## Extending and overriding *classes*
+
+!!! important
+    Leveraging extension and override goes against the design principles of the
+    **go** programming language. We advise you avoid using this mechanism unless
+    you have determined that there is no way to achieve the desired result with
+    composition.
+
+    In particular, if the only element you need to override on a *class* is it's
+    *constructor*, you should simply *decorate* this constructor instead of
+    using the extension and overrides mechanism.
+
+*Classes* that are open for *extension* (including *abstract base classes*) have
+a special *overriding* constructor that can be used when building sub-classes.
+This *override* constructor is expected to be called from within the child
+*class* constructor that you are writing. This constructor is named using the
+following convention: `New<ClassName>_Override`, and receives the *overriding*
+struct instance as the first parameter.
+
+The **go** `struct` that *extends* the base *jsii class* must anonymously embed
+the *jsii class*' **go** interface, while specifying the `overrides:"..."` field
+tag. The value of the tag is a comma-separated list of **go** methods that are
+locally overridden (note: in the case of *property accessors*, the *getter* name
+is to be used, even if only the *setter* is overridden).
+
+Assuming the following abstract base class:
+
+```go
+package jsiimodule
+
+type AbstractBaseClass interface {
+  // Those members have implementations provided, you *may* override them
+  ConcreteMethod() bool
+  ConcreteProperty() string
+  SetConcreteProperty(v string)
+
+
+  // Those members do not have implementations, you *must* implement them
+  AbstractMethod() string
+  AbstractReadonlyProperty() float64
+}
+
+func NewAbstractBaseClass_Override(inst AbstractBaseClass, arg0 string, arg1 float64) {
+  // Omitted for brevity
+}
+```
+
+You can implement that abstract base class in go in the following way:
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+
+  "example/jsiimodule"
+)
+
+type childClass struct {
+  // We implement AbstractMethod, AbstractReadonlyProperty, and override the setter for ConcreteProperty
+  jsiimodule.AbstractBaseClass `overrides:"AbstractMethod,AbstractReadonlyProperty,ConcreteProperty"`
+
+  // Our own storage
+  stringValue string
+}
+
+// Provide your own constructor, which delegates to the base class' overriding
+// constructor.
+func NewChildClass(stringValue string, arg0 string, arg1 float64) jsiimodule.AbstractBaseClass {
+  c := &childClass{stringValue: stringValue}
+
+  // This will take care of setting childCLass.AbstractBaseClass!
+  jsiimodule.NewAbstractBaseClass_Override(c, arg0, arg1)
+
+  return c
+}
+
+// Then implement the necessary members
+func (c *childClass) AbstractMethod() string {
+  fmt.Println("childClass.AbstractMethod invoked!")
+  return c.stringValue
+}
+
+func (c *childClass) AbstractReadonlyProperty() float64 {
+  fmt.Println("childClass.ConcreteProperty read!")
+  return 1337
+}
+
+// And overrides those we decided to replace
+func (c *childClass) SetConcreteProperty(v string) {
+  // We'll just up-case before delegating to the "super" implementation.
+  c.AbstractBaseClass.SetConcreteProperty(strings.ToUpper(v))
+}
+```
