@@ -1060,9 +1060,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// The method <c>foo</c> has a parameter that uses a type
     /// from a dependent module. Since Go "reimplments" this method, it will also need
     /// to include an "import" statement for the calc-base module.
-    /// 
+    ///
     /// <strong>Stability</strong>: Deprecated
-    /// 
+    ///
     /// <strong>See</strong>: https://github.com/aws/jsii/issues/2647
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.BaseFor2647), fullyQualifiedName: "@scope/jsii-calc-lib.BaseFor2647", parametersJson: "[{\\"name\\":\\"very\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}}]")]
@@ -1200,7 +1200,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <summary>(deprecated) Check that enums from \\@scoped packages can be references.</summary>
     /// <remarks>
     /// See awslabs/jsii#138
-    /// 
+    ///
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiEnum(nativeType: typeof(EnumFromScopedModule), fullyQualifiedName: "@scope/jsii-calc-lib.EnumFromScopedModule")]
@@ -1447,7 +1447,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
-    /// 
+    ///
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
@@ -1466,7 +1466,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// These classes can be greeted with
         /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
-        /// 
+        ///
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiTypeProxy(nativeType: typeof(IFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
@@ -1714,7 +1714,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>
     /// Their presence validates that .NET/Java/jsii-reflect can track all fields
     /// far enough up the tree.
-    /// 
+    ///
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
@@ -1732,7 +1732,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// Their presence validates that .NET/Java/jsii-reflect can track all fields
         /// far enough up the tree.
-        /// 
+        ///
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiTypeProxy(nativeType: typeof(IThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
@@ -2322,7 +2322,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
-        /// 
+        ///
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiInterface(nativeType: typeof(INestedStruct), fullyQualifiedName: "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct")]
@@ -2342,7 +2342,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
             /// <summary>(deprecated) This is a struct, nested within a class.</summary>
             /// <remarks>
             /// Normal.
-            /// 
+            ///
             /// <strong>Stability</strong>: Deprecated
             /// </remarks>
             [JsiiTypeProxy(nativeType: typeof(INestedStruct), fullyQualifiedName: "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct")]
@@ -2369,7 +2369,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
-        /// 
+        ///
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiByValue(fqn: "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct")]
@@ -2885,6 +2885,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 Jsii487Derived.cs
        ┃           ┣━ 📄 Jsii496Derived.cs
        ┃           ┣━ 📄 JsiiAgent.cs
+       ┃           ┣━ 📁 JsiiCalc
+       ┃           ┃  ┗━ 📁 Submodule
+       ┃           ┃     ┣━ 📁 Isolated
+       ┃           ┃     ┃  ┗━ 📄 NamespaceDoc.cs
+       ┃           ┃     ┗━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 JSObjectLiteralForInterface.cs
        ┃           ┣━ 📄 JSObjectLiteralToNative.cs
        ┃           ┣━ 📄 JSObjectLiteralToNativeClass.cs
@@ -4105,7 +4110,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
     /// <remarks>
     /// Here's how you use it:
-    /// 
+    ///
     /// <code><![CDATA[
     /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// Calculator calculator = new Calculator();
@@ -4113,7 +4118,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);
     /// ]]></code>
-    /// 
+    ///
     /// I will repeat this example again, but in an @example tag.
     /// </remarks>
     /// <example>
@@ -4246,7 +4251,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>The initial value of the calculator.</summary>
         /// <remarks>
         /// NOTE: Any number works here, it's fine.
-        /// 
+        ///
         /// <strong>Default</strong>: 0
         /// </remarks>
         [JsiiOptional]
@@ -4505,9 +4510,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>This class has docs.</summary>
     /// <remarks>
     /// The docs are great. They're a bunch of tags.
-    /// 
+    ///
     /// <strong>See</strong>: https://aws.amazon.com/
-    /// 
+    ///
     /// <strong>CustomAttribute</strong>: hasAValue
     /// </remarks>
     /// <example>
@@ -6004,7 +6009,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// This is the meat of the TSDoc comment. It may contain
     /// multiple lines and multiple paragraphs.
-    /// 
+    ///
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
     /// <example>
@@ -7077,7 +7082,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>The initial value of the calculator.</summary>
         /// <remarks>
         /// NOTE: Any number works here, it's fine.
-        /// 
+        ///
         /// <strong>Default</strong>: 0
         /// </remarks>
         [JsiiProperty(name: "initialValue", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
@@ -7115,7 +7120,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// <summary>The initial value of the calculator.</summary>
             /// <remarks>
             /// NOTE: Any number works here, it's fine.
-            /// 
+            ///
             /// <strong>Default</strong>: 0
             /// </remarks>
             [JsiiOptional]
@@ -8850,7 +8855,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>The container port of the application load balancer attached to your Fargate service.</summary>
         /// <remarks>
         /// Corresponds to container port mapping.
-        /// 
+        ///
         /// <strong>Default</strong>: 80
         /// </remarks>
         [JsiiProperty(name: "containerPort", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
@@ -8871,9 +8876,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
         /// 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
         /// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-        /// 
+        ///
         /// This default is set in the underlying FargateTaskDefinition construct.
-        /// 
+        ///
         /// <strong>Default</strong>: 256
         /// </remarks>
         [JsiiProperty(name: "cpu", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
@@ -8890,19 +8895,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// This field is required and you must use one of the following values, which determines your range of valid values
         /// for the cpu parameter:
-        /// 
+        ///
         /// 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-        /// 
+        ///
         /// 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-        /// 
+        ///
         /// 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-        /// 
+        ///
         /// Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-        /// 
+        ///
         /// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-        /// 
+        ///
         /// This default is set in the underlying FargateTaskDefinition construct.
-        /// 
+        ///
         /// <strong>Default</strong>: 512
         /// </remarks>
         [JsiiProperty(name: "memoryMiB", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
@@ -8954,7 +8959,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// <summary>The container port of the application load balancer attached to your Fargate service.</summary>
             /// <remarks>
             /// Corresponds to container port mapping.
-            /// 
+            ///
             /// <strong>Default</strong>: 80
             /// </remarks>
             [JsiiOptional]
@@ -8972,9 +8977,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
             /// 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
             /// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-            /// 
+            ///
             /// This default is set in the underlying FargateTaskDefinition construct.
-            /// 
+            ///
             /// <strong>Default</strong>: 256
             /// </remarks>
             [JsiiOptional]
@@ -8988,19 +8993,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// <remarks>
             /// This field is required and you must use one of the following values, which determines your range of valid values
             /// for the cpu parameter:
-            /// 
+            ///
             /// 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-            /// 
+            ///
             /// 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-            /// 
+            ///
             /// 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-            /// 
+            ///
             /// Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-            /// 
+            ///
             /// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-            /// 
+            ///
             /// This default is set in the underlying FargateTaskDefinition construct.
-            /// 
+            ///
             /// <strong>Default</strong>: 512
             /// </remarks>
             [JsiiOptional]
@@ -11761,6 +11766,42 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsiiCalc/Submodule/Isolated/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.JsiiCalc.Submodule.Isolated
+{
+    /// <remarks>
+    /// <h1>Read you, read me</h1>
+    ///
+    /// This is the readme of the <c>jsii-calc.submodule.isolated</c> module.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsiiCalc/Submodule/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.JsiiCalc.Submodule
+{
+    /// <remarks>
+    /// <h1>Read you, read me</h1>
+    ///
+    /// This is the readme of the <c>jsii-calc.submodule</c> module.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsonFormatter.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -12023,7 +12064,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>The container port of the application load balancer attached to your Fargate service.</summary>
         /// <remarks>
         /// Corresponds to container port mapping.
-        /// 
+        ///
         /// <strong>Default</strong>: 80
         /// </remarks>
         [JsiiOptional]
@@ -12042,9 +12083,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
         /// 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
         /// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-        /// 
+        ///
         /// This default is set in the underlying FargateTaskDefinition construct.
-        /// 
+        ///
         /// <strong>Default</strong>: 256
         /// </remarks>
         [JsiiOptional]
@@ -12059,19 +12100,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// This field is required and you must use one of the following values, which determines your range of valid values
         /// for the cpu parameter:
-        /// 
+        ///
         /// 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-        /// 
+        ///
         /// 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-        /// 
+        ///
         /// 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-        /// 
+        ///
         /// Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-        /// 
+        ///
         /// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-        /// 
+        ///
         /// This default is set in the underlying FargateTaskDefinition construct.
-        /// 
+        ///
         /// <strong>Default</strong>: 512
         /// </remarks>
         [JsiiOptional]
@@ -13076,27 +13117,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
     /// <h1>jsii Calculator</h1>
-    /// 
+    ///
     /// This library is used to demonstrate and test the features of JSII
-    /// 
+    ///
     /// <h2>How to use running sum API:</h2>
-    /// 
+    ///
     /// First, create a calculator:
-    /// 
+    ///
     /// <code><![CDATA[
     /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// Calculator calculator = new Calculator();
     /// ]]></code>
-    /// 
+    ///
     /// Then call some operations:
-    /// 
+    ///
     /// <code><![CDATA[
     /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// calculator.Add(10);
     /// ]]></code>
-    /// 
+    ///
     /// <h2>Code Samples</h2>
-    /// 
+    ///
     /// <code><![CDATA[
     /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// /* This is totes a magic comment in here, just you wait! */
