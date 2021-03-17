@@ -83,16 +83,22 @@ RUN amazon-linux-extras install docker                                          
   && yum clean all && rm -rf /var/cache/yum
 VOLUME /var/lib/docker
 
-# Install Node 10+
-RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -                                                             \
-  && yum -y install nodejs                                                                                              \
-  && yum clean all && rm -rf /var/cache/yum                                                                             \
+# Install Node using NVM (Node Version Manager) so we can have multiple Node versions installed and easily switch
+# between them.
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash -                                   \
+  && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc                                                                \
+  && echo 'source "$NVM_DIR/nvm.sh"' >> $HOME/.bashrc
+
+# Source NVM into this shell and install Node 10 and 14. First installed version becomes default.
+RUN export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh"  \                                                          \
+  && nvm install 10                                                                                                     \
+  && nvm install 14                                                                                                     \
   && npm set unsafe-perm true
 
-# Install Yarn
-RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo                                     \
-  && yum -y install yarn                                                                                                \
-  && yum clean all && rm -rf /var/cache/yum
+# Can't install Yarn using yum anymore now that we're using nvm, so install it using NPM
+RUN export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh"                                                             \
+  && nvm exec 10 npm install -g yarn                                                                                    \
+  && nvm exec 14 npm install -g yarn
 
 # Install some configuration
 COPY ssh_config /root/.ssh/config
