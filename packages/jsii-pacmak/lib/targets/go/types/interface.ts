@@ -5,11 +5,7 @@ import * as comparators from '../comparators';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS, MethodCall } from '../runtime';
-import {
-  getMemberDependencies,
-  getParamDependencies,
-  embedForBase,
-} from '../util';
+import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { GoMethod, GoProperty } from './type-member';
@@ -82,24 +78,14 @@ export class GoInterface extends GoType {
     code.closeBlock();
     code.line();
 
-    const embeds = new Array<string>();
-    for (const base of this.extends) {
-      const alias = embedForBase(this.pkg, this.proxyName, base);
-      if (alias.original) {
-        code.line(`type ${alias.embed} = ${alias.original}`);
-        code.line();
-      }
-      embeds.push(alias.embed);
-    }
-
     code.line(`// The jsii proxy for ${this.name}`);
     code.openBlock(`type ${this.proxyName} struct`);
     if (this.extends.length === 0) {
       // Ensure this is not 0-width
       code.line('_ byte // padding');
     } else {
-      for (const embed of embeds) {
-        code.line(embed);
+      for (const base of this.extends) {
+        code.line(this.pkg.resolveEmbeddedType(base).embed);
       }
     }
     code.closeBlock();
@@ -169,6 +155,10 @@ export class GoInterface extends GoType {
       this.properties.some((p) => p.usesRuntimePackage) ||
       this.methods.some((m) => m.usesRuntimePackage)
     );
+  }
+
+  public get usesInternalPackage() {
+    return this.extends.some((base) => this.pkg.isExternalType(base));
   }
 
   public get extends(): GoInterface[] {

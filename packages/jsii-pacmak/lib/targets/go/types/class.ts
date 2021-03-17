@@ -11,11 +11,7 @@ import {
   StaticGetProperty,
   StaticSetProperty,
 } from '../runtime';
-import {
-  getMemberDependencies,
-  getParamDependencies,
-  embedForBase,
-} from '../util';
+import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { GoInterface } from './interface';
@@ -201,6 +197,10 @@ export class GoClass extends GoType {
     return this.initializer != null || this.members.length > 0;
   }
 
+  public get usesInternalPackage() {
+    return this.baseTypes.some((base) => this.pkg.isExternalType(base));
+  }
+
   protected emitInterface(context: EmitContext): void {
     const { code, documenter } = context;
     documenter.emit(this.type.docs);
@@ -250,29 +250,15 @@ export class GoClass extends GoType {
   }
 
   private emitStruct({ code }: EmitContext): void {
-    const bases = [
-      ...(this.extends ? [this.extends] : []),
-      ...(this.implements ?? []),
-    ];
-
-    const embeds = new Array<string>();
-    for (const base of bases) {
-      const alias = embedForBase(this.pkg, this.proxyName, base);
-      if (alias.original) {
-        code.line(`type ${alias.embed} = ${alias.original}`);
-      }
-      embeds.push(alias.embed);
-    }
-
     code.line(`// The jsii proxy struct for ${this.name}`);
     code.openBlock(`type ${this.proxyName} struct`);
 
     // Make sure this is not 0-width
-    if (embeds.length === 0) {
+    if (this.baseTypes.length === 0) {
       code.line('_ byte // padding');
     } else {
-      for (const embed of embeds) {
-        code.line(embed);
+      for (const base of this.baseTypes) {
+        code.line(this.pkg.resolveEmbeddedType(base).embed);
       }
     }
 

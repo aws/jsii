@@ -4,7 +4,6 @@ import { Type } from 'jsii-reflect';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
-import { embedForBase } from '../util';
 import { GoClass } from './class';
 import { GoInterface } from './interface';
 
@@ -39,6 +38,7 @@ export abstract class GoType {
   public abstract get dependencies(): Package[];
   public abstract get usesInitPackage(): boolean;
   public abstract get usesRuntimePackage(): boolean;
+  public abstract get usesInternalPackage(): boolean;
 
   public get namespace() {
     return this.pkg.packageName;
@@ -61,9 +61,9 @@ export abstract class GoType {
       const instanceVar = this.proxyName[0];
       code.line(`${instanceVar} := ${this.proxyName}{}`);
       for (const base of bases) {
-        const baseEmbed = embedForBase(this.pkg, this.proxyName, base).embed;
+        const baseEmbed = this.pkg.resolveEmbeddedType(base);
         code.line(
-          `${JSII_RT_ALIAS}.InitJsiiProxy(&${instanceVar}.${baseEmbed})`,
+          `${JSII_RT_ALIAS}.InitJsiiProxy(&${instanceVar}.${baseEmbed.fieldName})`,
         );
       }
       code.line(`return &${instanceVar}`);

@@ -1,14 +1,7 @@
 import { Assembly, Submodule } from 'jsii-reflect';
 
 import { Package } from './package';
-import {
-  GoMethod,
-  GoTypeMember,
-  GoType,
-  GoClass,
-  GoInterface,
-  GoTypeRef,
-} from './types';
+import { GoMethod, GoTypeMember, GoType } from './types';
 
 /*
  * Recursively search module for type with fqn
@@ -121,30 +114,4 @@ export function substituteReservedWords(name: string): string {
 export function tarballName(assm: Assembly): string {
   const name = assm.name.replace(/^@/, '').replace(/\//g, '-');
   return `${name}-${assm.version}.tgz`;
-}
-
-/**
- * Returns the name of the embed field used to embed a base class/interface in a
- * struct.
- *
- * @returns If the base is in the same package, returns the proxy name of the
- * base under `embed`, otherwise returns a unique symbol under `embed` and the
- * original interface reference under `original`.
- *
- * @param pkg The package we are code-generating
- * @param structName The name of the struct in which we will embed the type
- * @param base The base type we want to embed
- */
-export function embedForBase(
-  pkg: Package,
-  structName: string,
-  base: GoClass | GoInterface,
-) {
-  if (base.pkg === pkg) {
-    return { embed: base.proxyName };
-  }
-  const typeref = new GoTypeRef(pkg.root, base.type.reference);
-  const original = typeref.scopedInterfaceName(pkg);
-  const embed = `${structName}_${original.replace(/[^A-Za-z0-9]/g, '')}`;
-  return { embed, original };
 }
