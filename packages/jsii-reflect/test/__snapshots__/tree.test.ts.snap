@@ -9,7 +9,20 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -42,7 +55,20 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -75,7 +101,20 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -201,6 +240,35 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(_) initializer
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ _
+ │ │ │       │     └── type: number
+ │ │ │       ├─┬ static bar(_) method
+ │ │ │       │ ├── static
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: boolean
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ foo(_) method
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ _
+ │ │ │         │   └── type: string
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method
+ │ │ │         ├── static
+ │ │ │         └── returns: void
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └─┬ class ExtendAndImplement
@@ -215,6 +283,111 @@ exports[`showAll 1`] = `
  │ │ │       │ └── returns: string
  │ │ │       └─┬ localMethod() method
  │ │ │         └── returns: string
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar(_bar) method
+ │ │ │ │ │       │ ├─┬ parameters
+ │ │ │ │ │       │ │ └─┬ _bar
+ │ │ │ │ │       │ │   └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       │ └── returns: void
+ │ │ │ │ │       └─┬ foo(_values) method
+ │ │ │ │ │         ├─┬ parameters
+ │ │ │ │ │         │ └─┬ _values
+ │ │ │ │ │         │   └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ │         └── returns: void
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar property
+ │ │ │ │ │       │ ├── immutable
+ │ │ │ │ │       │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo property
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar() method
+ │ │ │ │ │       │ └── returns: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo() method
+ │ │ │ │ │         └── returns: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ baseMap property
+ │ │ │ │         │ ├── abstract
+ │ │ │ │         │ ├── immutable
+ │ │ │ │         │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │         └─┬ numbers property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ bar1 property
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: string
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ bar2 property
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: string
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       ├─┬ interfaces
+ │ │ │ │       │ ├── Bar
+ │ │ │ │       │ └── Bar
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ foo2 property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├─┬ bar() method
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ baz property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: number
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ ├── base: Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └─┬ zoo() method
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ bar() method
+ │ │ │       │ ├── abstract
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ baz property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -2039,6 +2212,21 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ throwError() method
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ toIsoString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └─┬ static mode() method
@@ -3039,7 +3227,20 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
  │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -3088,9 +3289,45 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
  │ │ ├─┬ module2647
  │ │ │ └─┬ types
  │ │ │   └── class ExtendAndImplement
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └── interface Foo
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3253,6 +3490,7 @@ exports[`types 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable

@@ -1,6 +1,8 @@
 import * as spec from '@jsii/spec';
 import { toCamelCase } from 'codemaker';
 
+import { jsiiToPascalCase } from '../../naming-util';
+
 export class DotNetNameUtils {
   public convertPropertyName(original: string) {
     if (this.isInvalidName(original)) {
@@ -87,7 +89,7 @@ export class DotNetNameUtils {
   }
 
   public capitalizeWord(original: string) {
-    return original.charAt(0).toUpperCase() + original.slice(1);
+    return jsiiToPascalCase(original);
   }
 
   /* We only want valid names for members */

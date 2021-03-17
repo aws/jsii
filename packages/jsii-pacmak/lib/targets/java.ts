@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
-import { toPascalCase, toSnakeCase } from 'codemaker/lib/case-utils';
+import { toSnakeCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
@@ -16,6 +16,7 @@ import * as xmlbuilder from 'xmlbuilder';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { Generator } from '../generator';
 import * as logging from '../logging';
+import { jsiiToPascalCase } from '../naming-util';
 import { JsiiModule } from '../packaging';
 import {
   PackageInfo,
@@ -597,7 +598,7 @@ class JavaGenerator extends Generator {
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
-      return `do${toPascalCase(methodName)}`;
+      return `do${jsiiToPascalCase(methodName)}`;
     }
     return methodName;
   }
@@ -876,7 +877,7 @@ class JavaGenerator extends Generator {
 
   protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
     const getterType = this.toDecoratedJavaType(prop);
-    const propName = this.code.toPascalCase(
+    const propName = jsiiToPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
 
@@ -1322,7 +1323,7 @@ class JavaGenerator extends Generator {
     const setterTypes = this.toDecoratedJavaTypes(prop, {
       covariant: prop.static,
     });
-    const propName = this.code.toPascalCase(
+    const propName = jsiiToPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
 
@@ -1546,7 +1547,7 @@ class JavaGenerator extends Generator {
       (prop) =>
         prop.abstract &&
         // Only checking the getter - java.lang.Object has no setters.
-        !isJavaLangObjectMethodName(`get${toPascalCase(prop.name)}`) &&
+        !isJavaLangObjectMethodName(`get${jsiiToPascalCase(prop.name)}`) &&
         (prop.parentType.fqn === type.fqn ||
           !hasDefaultInterfaces(prop.assembly)),
     )) {
@@ -1608,7 +1609,7 @@ class JavaGenerator extends Generator {
 
   private toJavaProp(property: spec.Property, inherited: boolean): JavaProp {
     const safeName = JavaGenerator.safeJavaPropertyName(property.name);
-    const propName = this.code.toPascalCase(safeName);
+    const propName = jsiiToPascalCase(safeName);
 
     return {
       docs: property.docs,
