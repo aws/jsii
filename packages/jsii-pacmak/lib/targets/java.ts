@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
-import { toPascalCase, toSnakeCase } from 'codemaker/lib/case-utils';
+import { toSnakeCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
@@ -16,6 +16,7 @@ import * as xmlbuilder from 'xmlbuilder';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { Generator } from '../generator';
 import * as logging from '../logging';
+import { jsiiToPascalCase } from '../naming-util';
 import { JsiiModule } from '../packaging';
 import {
   PackageInfo,
@@ -597,7 +598,7 @@ class JavaGenerator extends Generator {
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
-      return `do${toPascalCase(methodName)}`;
+      return `do${jsiiToPascalCase(methodName)}`;
     }
     return methodName;
   }
@@ -624,7 +625,7 @@ class JavaGenerator extends Generator {
     this.emitFullGeneratorInfo = fingerprint;
     this.moduleClass = this.emitModuleFile(assm);
 
-    this.emitPackageInfo(assm);
+    this.emitAssemblyPackageInfo(assm);
   }
 
   protected onEndAssembly(assm: spec.Assembly, fingerprint: boolean) {
@@ -795,9 +796,16 @@ class JavaGenerator extends Generator {
     this.code.line(`${member.name},`);
   }
 
-  // namespaces are handled implicitly by onBeginClass().
-  protected onBeginNamespace(_ns: string) {
-    /* noop */
+  /**
+   * Namespaces are handled implicitly by onBeginClass().
+   *
+   * Only emit package-info in case this is a submodule
+   */
+  protected onBeginNamespace(ns: string) {
+    const submodule = this.assembly.submodules?.[ns];
+    if (submodule) {
+      this.emitSubmodulePackageInfo(this.assembly, ns);
+    }
   }
 
   protected onEndNamespace(_ns: string) {
@@ -876,7 +884,7 @@ class JavaGenerator extends Generator {
 
   protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
     const getterType = this.toDecoratedJavaType(prop);
-    const propName = this.code.toPascalCase(
+    const propName = jsiiToPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
 
@@ -974,18 +982,16 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private emitPackageInfo(mod: spec.Assembly) {
+  private emitAssemblyPackageInfo(mod: spec.Assembly) {
     if (!mod.docs) {
       return;
     }
 
     const { packageName } = this.toNativeName(mod);
-    const packageInfoFile = this.toJavaFilePath(mod, {
-      assembly: mod.name,
-      fqn: `${mod.name}.package-info`,
-      kind: spec.TypeKind.Class,
-      name: 'package-info',
-    });
+    const packageInfoFile = this.toJavaFilePath(
+      mod,
+      `${mod.name}.package-info`,
+    );
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
@@ -1002,6 +1008,31 @@ class JavaGenerator extends Generator {
     }
     this.code.line(' */');
     this.emitStabilityAnnotations(mod);
+    this.code.line(`package ${packageName};`);
+    this.code.closeFile(packageInfoFile);
+  }
+
+  private emitSubmodulePackageInfo(assembly: spec.Assembly, moduleFqn: string) {
+    const mod = assembly.submodules?.[moduleFqn];
+    if (!mod?.readme?.markdown) {
+      return;
+    }
+
+    const { packageName } = translateFqn(assembly, moduleFqn);
+    const packageInfoFile = this.toJavaFilePath(
+      assembly,
+      `${moduleFqn}.package-info`,
+    );
+    this.code.openFile(packageInfoFile);
+    this.code.line('/**');
+    if (mod.readme) {
+      for (const line of markDownToJavaDoc(
+        this.convertSamplesInMarkdown(mod.readme.markdown),
+      ).split('\n')) {
+        this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
+      }
+    }
+    this.code.line(' */');
     this.code.line(`package ${packageName};`);
     this.code.closeFile(packageInfoFile);
   }
@@ -1322,7 +1353,7 @@ class JavaGenerator extends Generator {
     const setterTypes = this.toDecoratedJavaTypes(prop, {
       covariant: prop.static,
     });
-    const propName = this.code.toPascalCase(
+    const propName = jsiiToPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
 
@@ -1546,7 +1577,7 @@ class JavaGenerator extends Generator {
       (prop) =>
         prop.abstract &&
         // Only checking the getter - java.lang.Object has no setters.
-        !isJavaLangObjectMethodName(`get${toPascalCase(prop.name)}`) &&
+        !isJavaLangObjectMethodName(`get${jsiiToPascalCase(prop.name)}`) &&
         (prop.parentType.fqn === type.fqn ||
           !hasDefaultInterfaces(prop.assembly)),
     )) {
@@ -1608,7 +1639,7 @@ class JavaGenerator extends Generator {
 
   private toJavaProp(property: spec.Property, inherited: boolean): JavaProp {
     const safeName = JavaGenerator.safeJavaPropertyName(property.name);
-    const propName = this.code.toPascalCase(safeName);
+    const propName = jsiiToPascalCase(safeName);
 
     return {
       docs: property.docs,
@@ -2226,14 +2257,26 @@ class JavaGenerator extends Generator {
     return parent in this.assembly.types;
   }
 
-  private toJavaFilePath(assm: spec.Assembly, type: spec.Type) {
-    const { packageName, typeName } = this.toNativeName(assm, type);
+  private toJavaFilePath(assm: spec.Assembly, fqn: string): string;
+  private toJavaFilePath(assm: spec.Assembly, type: spec.Type): string;
+  private toJavaFilePath(assm: spec.Assembly, what: spec.Type | string) {
+    const fqn = typeof what === 'string' ? what : what.fqn;
+    const { packageName, typeNames } = translateFqn(assm, fqn);
+
+    if (typeNames.length === 0) {
+      throw new Error(
+        `toJavaFilePath: ${fqn} must indicate a type, but doesn't: ${JSON.stringify(
+          { packageName, typeNames },
+        )}`,
+      );
+    }
+
     return `${path.join(
       'src',
       'main',
       'java',
       ...packageName.split('.'),
-      typeName.split('.')[0],
+      typeNames[0],
     )}.java`;
   }
 
@@ -2792,6 +2835,8 @@ class JavaGenerator extends Generator {
    * 2. Locate the `targets.java.package` value for that assembly (this assembly, or one of the dependencies)
    * 3. Return the java FQN: ``<module.targets.java.package>.<FQN stipped of first component>``
    *
+   * Records an assembly reference if the referenced FQN comes from a different assembly.
+   *
    * @param fqn the JSII FQN to be used.
    *
    * @returns the corresponding Java FQN.
@@ -2802,14 +2847,16 @@ class JavaGenerator extends Generator {
     fqn: string,
     { binaryName }: { binaryName: boolean } = { binaryName: false },
   ): string {
-    const [mod, ...name] = fqn.split('.');
+    const [mod] = fqn.split('.');
     const depMod = this.findModule(mod);
     // Make sure any dependency (direct or transitive) of which any type is explicitly referenced by the generated
     // code is included in the generated POM's dependencies section (protecting the artifact from changes in the
     // dependencies' dependency structure).
     if (mod !== this.assembly.name) {
       this.referencedModules[mod] = depMod;
-      return this.getNativeName(depMod, name.join('.'), mod);
+
+      const translated = translateFqn({ ...depMod, name: mod }, fqn);
+      return [translated.packageName, ...translated.typeNames].join('.');
     }
 
     const { packageName, typeName } =
@@ -2821,21 +2868,12 @@ class JavaGenerator extends Generator {
     return `${packageName}${className ? `.${className}` : ''}`;
   }
 
-  private getNativeName(assm: spec.Assembly, name: string | undefined): string;
-  private getNativeName(
-    assm: spec.AssemblyConfiguration,
-    name: string | undefined,
-    assmName: string,
-  ): string;
-  private getNativeName(
-    assm: spec.AssemblyConfiguration,
-    name: string | undefined,
-    assmName: string = (assm as spec.Assembly).name,
-  ): string {
-    const { javaPackage, tail } = resolvePackageName(assmName, assm, name);
-    return `${javaPackage}${tail ? `.${tail}` : ''}`;
-  }
-
+  /**
+   * Computes Java name for a jsii assembly or type.
+   *
+   * @param assm The assembly that contains the type
+   * @param type The type we want the name of
+   */
   private toNativeName(
     assm: spec.Assembly,
   ): { packageName: string; typeName: undefined };
@@ -2847,28 +2885,15 @@ class JavaGenerator extends Generator {
     assm: spec.Assembly,
     type?: spec.Type,
   ): { packageName: string; typeName?: string } {
-    const javaPackage = assm.targets?.java?.package;
-    if (!javaPackage) {
-      throw new Error(
-        `The module ${assm.name} does not have a java.package setting`,
-      );
+    if (!type) {
+      return { packageName: packageNameFromAssembly(assm) };
     }
 
-    if (type == null) {
-      return { packageName: javaPackage };
-    }
-
-    let ns = type.namespace;
-    let typeName = type.name;
-    while (ns != null && assm.types?.[`${assm.name}.${ns}`] != null) {
-      const nestingType = assm.types[`${assm.name}.${ns}`];
-      ns = nestingType.namespace;
-      typeName = `${nestingType.name}.${typeName}`;
-    }
-
-    const packageName = resolvePackageName(assm.name, assm, ns).javaPackage;
-
-    return { packageName, typeName };
+    const translated = translateFqn(assm, type.fqn);
+    return {
+      packageName: translated.packageName,
+      typeName: translated.typeNames.join('.'),
+    };
   }
 
   /**
@@ -3060,38 +3085,80 @@ function computeOverrides<T extends { param: spec.Parameter }>(
   };
 }
 
-function resolvePackageName(
-  assmName: string,
-  config: spec.AssemblyConfiguration,
-  ns: string | undefined,
-): { javaPackage: string; tail?: string } {
-  const rootPackage: string = config.targets?.java?.package;
-  if (!rootPackage) {
+type AssemblyLike = spec.AssemblyConfiguration & { name: string };
+
+/**
+ * Return the native package name from an assembly
+ */
+function packageNameFromAssembly(assm: AssemblyLike) {
+  const javaPackage = assm.targets?.java?.package;
+  if (!javaPackage) {
     throw new Error(
-      `Assembly ${assmName} does not have a targets.java.package configured!`,
+      `The module ${assm.name} does not have a java.package setting`,
     );
   }
-  if (!ns) {
-    return { javaPackage: rootPackage };
-  }
+  return javaPackage;
+}
 
-  const segments = ns.split('.');
-  let javaPackage = rootPackage;
-  for (let i = 0; i < segments.length; i++) {
-    const submoduleName = `${assmName}.${segments.slice(0, i + 1).join('.')}`;
-    const submodule = config.submodules?.[submoduleName];
-    if (submodule == null) {
-      // We have reached a type name at this stage, so the rest is "tail".
-      return { javaPackage, tail: segments.slice(i).join('.') };
-    }
-    const override = submodule.targets?.java?.package;
-    if (override) {
-      javaPackage = override;
+/**
+ * Analyzes and translates a jsii FQN to Java components
+ *
+ * The FQN can be of the assembly, a submodule, or a type.
+ *
+ * Any type can have the following characteristics:
+ *
+ * - Located in zero or more nested submodules. Any of these can have a Java
+ *   package name assigned--if none, the name is automatically determined by
+ *   snake casing. At least the assembly must have a Java package name assigned.
+ * - Located in zero or more nested types (classes).
+ *
+ * Find up the set of namespaces until we find a submodule (or the assembly
+ * itself) that has an explicit Java package name defined.
+ *
+ * Append all the namespaces that we crossed that didn't have a package name defined.
+ *
+ * Returns the Java package name determined this way, as well as the hierarchy of type
+ * names inside the package. `typeNames` may be missing or empty if the FQN indicated
+ * the assembly or a submodule, contains 1 element if the FQN indicated a top-level type,
+ * multiple elements if the FQN indicated a nested type.
+ */
+function translateFqn(
+  assm: AssemblyLike,
+  originalFqn: string,
+): { packageName: string; typeNames: string[] } {
+  const implicitPackageNames = new Array<string>();
+  const typeNames = new Array<string>();
+
+  // We work ourselves upward through the FQN until we've found an explicit package
+  let packageName = packageNameFromAssembly(assm);
+  let fqn = originalFqn;
+  while (fqn !== '' && fqn !== assm.name) {
+    const [parentFqn, lastPart] = splitNamespace(fqn);
+
+    const submodule = assm.submodules?.[fqn];
+    if (submodule) {
+      const explicitPackage = submodule.targets?.java?.package;
+      if (explicitPackage) {
+        packageName = explicitPackage;
+        // We can stop recursing, types cannot be the parent of a module and nothing upwards can change
+        // the package name anymore
+        break;
+      }
+      implicitPackageNames.unshift(`.${toSnakeCase(lastPart)}`);
     } else {
-      javaPackage = `${javaPackage}.${toSnakeCase(segments[i])}`;
+      // If it's not a submodule, it must be a type.
+      typeNames.unshift(lastPart);
     }
+
+    fqn = parentFqn;
   }
-  return { javaPackage };
+  if (fqn === '') {
+    throw new Error(`Could not find '${originalFqn}' inside '${assm.name}'`);
+  }
+  return {
+    packageName: `${packageName}${implicitPackageNames.join('')}`,
+    typeNames,
+  };
 }
 
 /**
@@ -3129,3 +3196,14 @@ const JAVA_LANG_OBJECT_METHOD_NAMES = new Set([
   'toString',
   'wait',
 ]);
+
+/**
+ * In a dotted string, strip off the last dotted component
+ */
+function splitNamespace(ns: string): [string, string] {
+  const dot = ns.lastIndexOf('.');
+  if (dot === -1) {
+    return ['', ns];
+  }
+  return [ns.substr(0, dot), ns.substr(dot + 1)];
+}

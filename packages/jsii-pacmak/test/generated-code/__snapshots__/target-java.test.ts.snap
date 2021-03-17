@@ -3731,6 +3731,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┗━ 📁 submodule2
           ┃                 ┃     ┣━ 📄 Bar.java
           ┃                 ┃     ┗━ 📄 Foo.java
+          ┃                 ┣━ 📁 module2700
+          ┃                 ┃  ┣━ 📄 Base.java
+          ┃                 ┃  ┣━ 📄 Derived.java
+          ┃                 ┃  ┗━ 📄 IFoo.java
           ┃                 ┣━ 📄 Multiply.java
           ┃                 ┣━ 📄 Negate.java
           ┃                 ┣━ 📄 NestedClassInstance.java
@@ -3811,12 +3815,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┃  ┗━ 📄 Structure.java
           ┃                 ┃  ┣━ 📄 Default.java
           ┃                 ┃  ┣━ 📁 isolated
-          ┃                 ┃  ┃  ┗━ 📄 Kwargs.java
+          ┃                 ┃  ┃  ┣━ 📄 Kwargs.java
+          ┃                 ┃  ┃  ┗━ 📄 package-info.java
           ┃                 ┃  ┣━ 📄 MyClass.java
           ┃                 ┃  ┣━ 📁 nested_submodule
           ┃                 ┃  ┃  ┣━ 📁 deeply_nested
           ┃                 ┃  ┃  ┃  ┗━ 📄 INamespaced.java
           ┃                 ┃  ┃  ┗━ 📄 Namespaced.java
+          ┃                 ┃  ┣━ 📄 package-info.java
           ┃                 ┃  ┣━ 📁 param
           ┃                 ┃  ┃  ┗━ 📄 SpecialParameter.java
           ┃                 ┃  ┗━ 📁 returnsparam
@@ -3829,6 +3835,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 TestStructWithEnum.java
           ┃                 ┣━ 📄 Thrower.java
           ┃                 ┣━ 📄 TopLevelStruct.java
+          ┃                 ┣━ 📄 TwoMethodsWithSimilarCapitalization.java
           ┃                 ┣━ 📄 UmaskCheck.java
           ┃                 ┣━ 📄 UnaryOperation.java
           ┃                 ┣━ 📄 UnionProperties.java
@@ -20505,6 +20512,79 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/TwoMethodsWithSimilarCapitalization.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * In TypeScript it is possible to have two methods with the same name but different capitalization.
+ * <p>
+ * @see https://github.com/aws/jsii/issues/2508
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.TwoMethodsWithSimilarCapitalization")
+public class TwoMethodsWithSimilarCapitalization extends software.amazon.jsii.JsiiObject {
+
+    protected TwoMethodsWithSimilarCapitalization(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected TwoMethodsWithSimilarCapitalization(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public TwoMethodsWithSimilarCapitalization() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String toIsoString() {
+        return software.amazon.jsii.Kernel.call(this, "toIsoString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     * @deprecated python requires that all alternatives are deprecated
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public @org.jetbrains.annotations.NotNull java.lang.String toIsOString() {
+        return software.amazon.jsii.Kernel.call(this, "toIsOString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     * @deprecated python requires that all alternatives are deprecated
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public @org.jetbrains.annotations.NotNull java.lang.String toISOString() {
+        return software.amazon.jsii.Kernel.call(this, "toISOString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Number getFooBar() {
+        return software.amazon.jsii.Kernel.get(this, "fooBar", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+
+    /**
+     * @deprecated YES
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public @org.jetbrains.annotations.NotNull java.lang.Number getFooBAR() {
+        return software.amazon.jsii.Kernel.get(this, "fooBAR", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/UmaskCheck.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -22559,6 +22639,160 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable, software.ama
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2700/Base.java 1`] = `
+package software.amazon.jsii.tests.calculator.module2700;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module2700.Base")
+public class Base extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.module2700.IFoo {
+
+    protected Base(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Base(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Base() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.String bar() {
+        return software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @Override
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Number getBaz() {
+        return software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2700/Derived.java 1`] = `
+package software.amazon.jsii.tests.calculator.module2700;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module2700.Derived")
+public class Derived extends software.amazon.jsii.tests.calculator.module2700.Base implements software.amazon.jsii.tests.calculator.module2700.IFoo {
+
+    protected Derived(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Derived(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Derived() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String zoo() {
+        return software.amazon.jsii.Kernel.call(this, "zoo", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2700/IFoo.java 1`] = `
+package software.amazon.jsii.tests.calculator.module2700;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module2700.IFoo")
+@software.amazon.jsii.Jsii.Proxy(IFoo.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IFoo extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.Number getBaz();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String bar();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.module2700.IFoo.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public final @org.jetbrains.annotations.NotNull java.lang.Number getBaz() {
+            return software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String bar() {
+            return software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IFoo}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IFoo {
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        default @org.jetbrains.annotations.NotNull java.lang.Number getBaz() {
+            return software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.String bar() {
+            return software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/nodirect/sub1/TypeFromSub1.java 1`] = `
 package software.amazon.jsii.tests.calculator.nodirect.sub1;
 
@@ -23928,6 +24162,16 @@ public class Kwargs extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/submodule/isolated/package-info.java 1`] = `
+/**
+ * <h1>Read you, read me</h1>
+ * <p>
+ * This is the readme of the <code>jsii-calc.submodule.isolated</code> module.
+ */
+package software.amazon.jsii.tests.calculator.submodule.isolated;
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/submodule/nested_submodule/Namespaced.java 1`] = `
 package software.amazon.jsii.tests.calculator.submodule.nested_submodule;
 
@@ -24029,6 +24273,16 @@ public interface INamespaced extends software.amazon.jsii.JsiiSerializable {
         }
     }
 }
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/submodule/package-info.java 1`] = `
+/**
+ * <h1>Read you, read me</h1>
+ * <p>
+ * This is the readme of the <code>jsii-calc.submodule</code> module.
+ */
+package software.amazon.jsii.tests.calculator.submodule;
 
 `;
 
@@ -24394,6 +24648,7 @@ jsii-calc.SyncVirtualMethods=software.amazon.jsii.tests.calculator.SyncVirtualMe
 jsii-calc.TestStructWithEnum=software.amazon.jsii.tests.calculator.TestStructWithEnum
 jsii-calc.Thrower=software.amazon.jsii.tests.calculator.Thrower
 jsii-calc.TopLevelStruct=software.amazon.jsii.tests.calculator.TopLevelStruct
+jsii-calc.TwoMethodsWithSimilarCapitalization=software.amazon.jsii.tests.calculator.TwoMethodsWithSimilarCapitalization
 jsii-calc.UmaskCheck=software.amazon.jsii.tests.calculator.UmaskCheck
 jsii-calc.UnaryOperation=software.amazon.jsii.tests.calculator.UnaryOperation
 jsii-calc.UnionProperties=software.amazon.jsii.tests.calculator.UnionProperties
@@ -24418,6 +24673,9 @@ jsii-calc.module2689.structs.MyStruct=software.amazon.jsii.tests.calculator.modu
 jsii-calc.module2692.submodule1.Bar=software.amazon.jsii.tests.calculator.module2692.submodule1.Bar
 jsii-calc.module2692.submodule2.Bar=software.amazon.jsii.tests.calculator.module2692.submodule2.Bar
 jsii-calc.module2692.submodule2.Foo=software.amazon.jsii.tests.calculator.module2692.submodule2.Foo
+jsii-calc.module2700.Base=software.amazon.jsii.tests.calculator.module2700.Base
+jsii-calc.module2700.Derived=software.amazon.jsii.tests.calculator.module2700.Derived
+jsii-calc.module2700.IFoo=software.amazon.jsii.tests.calculator.module2700.IFoo
 jsii-calc.nodirect.sub1.TypeFromSub1=software.amazon.jsii.tests.calculator.nodirect.sub1.TypeFromSub1
 jsii-calc.nodirect.sub2.TypeFromSub2=software.amazon.jsii.tests.calculator.nodirect.sub2.TypeFromSub2
 jsii-calc.onlystatic.OnlyStaticMethods=software.amazon.jsii.tests.calculator.onlystatic.OnlyStaticMethods
