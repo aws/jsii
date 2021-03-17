@@ -783,9 +783,18 @@ export interface TypeBase extends Documentable, SourceLocatable {
   assembly: string;
 
   /**
-   * The namespace of the type (``foo.bar.baz``). When undefined, the type is located at the root of the assembly
-   * (it's ``fqn`` would be like ``<assembly>.<name>``). If the `namespace` corresponds to an existing type's
-   * namespace-qualified (e.g: ``<namespace>.<name>``), then the current type is a nested type.
+   * The namespace of the type (`foo.bar.baz`).
+   *
+   * When undefined, the type is located at the root of the assembly (its
+   * `fqn` would be like `<assembly>.<name>`).
+   *
+   * For types inside other types or inside submodules, the `<namespace>` corresponds to
+   * the namespace-qualified name of the container (can contain multiple segments like:
+   * `<ns1>.<ns2>.<ns3>`).
+   *
+   * In all cases:
+   *
+   *  <fqn> = <assembly>[.<namespace>].<name>
    *
    * @default none
    */
