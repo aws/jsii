@@ -1034,7 +1034,6 @@ func (suite *ComplianceSuite) TestConsts() {
 
 	assert.Equal(float64(1234), *calc.Statics_Bar())
 	assert.Equal("world", *(*calc.Statics_ZooBar())["hello"])
-
 }
 
 func (suite *ComplianceSuite) TestReceiveInstanceOfPrivateClass() {

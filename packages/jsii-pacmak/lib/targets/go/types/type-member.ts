@@ -1,6 +1,6 @@
-import { toPascalCase } from 'codemaker';
 import { Callable, Method, Parameter, Property } from 'jsii-reflect';
 
+import { jsiiToPascalCase } from '../../../naming-util';
 import { EmitContext } from '../emit-context';
 import { GetProperty, JSII_RT_ALIAS, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
@@ -33,7 +33,7 @@ export class GoProperty implements GoTypeMember {
     public parent: GoType,
     public readonly property: Property,
   ) {
-    this.name = toPascalCase(this.property.name);
+    this.name = jsiiToPascalCase(this.property.name);
     this.immutable = property.immutable;
 
     if (property.type) {
@@ -147,7 +147,7 @@ export abstract class GoMethod implements GoTypeMember {
     public readonly parent: GoClass | GoInterface,
     public readonly method: Callable,
   ) {
-    this.name = toPascalCase(method.name);
+    this.name = jsiiToPascalCase(method.name);
     if (Method.isMethod(method) && method.returns.type) {
       this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
     }

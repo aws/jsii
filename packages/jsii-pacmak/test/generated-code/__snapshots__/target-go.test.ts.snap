@@ -1496,6 +1496,8 @@ type Number interface {
 	IDoublable
 	DoubleValue() *float64
 	Value() *float64
+	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Number
@@ -1579,6 +1581,7 @@ type NumericValue interface {
 	jcb.Base
 	Value() *float64
 	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for NumericValue
@@ -1629,17 +1632,45 @@ func (n *jsiiProxy_NumericValue) ToString() *string {
 	return returns
 }
 
+// Returns: the name of the class (to verify native type names are created for derived classes).
+// Deprecated.
+func (n *jsiiProxy_NumericValue) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		n,
+		"typeName",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
 // Represents an operation on values.
 // Deprecated.
 type Operation interface {
 	NumericValue
+	Value() *float64
 	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Operation
 type jsiiProxy_Operation struct {
 	jsiiProxy_NumericValue // extends @scope/jsii-calc-lib.NumericValue
 }
+
+func (j *jsiiProxy_Operation) Value() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"value",
+		&returns,
+	)
+	return returns
+}
+
 
 // Deprecated.
 func NewOperation() Operation {
@@ -1666,6 +1697,21 @@ func (o *jsiiProxy_Operation) ToString() *string {
 	_jsii_.Invoke(
 		o,
 		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+// Deprecated.
+func (o *jsiiProxy_Operation) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		o,
+		"typeName",
 		nil /* no parameters */,
 		&returns,
 	)
@@ -2179,6 +2225,7 @@ type CompositeOperation interface {
 	SetStringStyle(val CompositeOperation_CompositionStringStyle)
 	Value() *float64
 	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for CompositeOperation
@@ -2284,6 +2331,20 @@ func (c *jsiiProxy_CompositeOperation) ToString() *string {
 	_jsii_.Invoke(
 		c,
 		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (c *jsiiProxy_CompositeOperation) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		c,
+		"typeName",
 		nil /* no parameters */,
 		&returns,
 	)
@@ -2397,12 +2458,25 @@ func (j *jsiiProxy_Base) SetProp(val *string) {
 
 type Derived interface {
 	Base
+	Prop() *string
+	SetProp(val *string)
 }
 
 // The jsii proxy struct for Derived
 type jsiiProxy_Derived struct {
 	jsiiProxy_Base // extends jsii-calc.DerivedClassHasNoProperties.Base
 }
+
+func (j *jsiiProxy_Derived) Prop() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"prop",
+		&returns,
+	)
+	return returns
+}
+
 
 func NewDerived() Derived {
 	_init_.Initialize()
@@ -2418,6 +2492,14 @@ func NewDerived() Derived {
 	)
 
 	return &j
+}
+
+func (j *jsiiProxy_Derived) SetProp(val *string) {
+	_jsii_.Set(
+		j,
+		"prop",
+		val,
+	)
 }
 
 
@@ -2642,6 +2724,7 @@ import (
 type AbstractClass interface {
 	AbstractClassBase
 	IInterfaceImplementedByAbstractClass
+	AbstractProperty() *string
 	PropFromInterface() *string
 	AbstractMethod(name *string) *string
 	NonAbstractMethod() *float64
@@ -2651,6 +2734,16 @@ type AbstractClass interface {
 type jsiiProxy_AbstractClass struct {
 	jsiiProxy_AbstractClassBase // extends jsii-calc.AbstractClassBase
 	jsiiProxy_IInterfaceImplementedByAbstractClass // implements jsii-calc.IInterfaceImplementedByAbstractClass
+}
+
+func (j *jsiiProxy_AbstractClass) AbstractProperty() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"abstractProperty",
+		&returns,
+	)
+	return returns
 }
 
 func (j *jsiiProxy_AbstractClass) PropFromInterface() *string {
@@ -2883,13 +2976,37 @@ func (a *jsiiProxy_AbstractSuite) WorkItAll(seed *string) *string {
 // The "+" binary operation.
 type Add interface {
 	BinaryOperation
+	Lhs() scopejsiicalclib.NumericValue
+	Rhs() scopejsiicalclib.NumericValue
 	Value() *float64
+	Hello() *string
 	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Add
 type jsiiProxy_Add struct {
 	jsiiProxy_BinaryOperation // extends jsii-calc.BinaryOperation
+}
+
+func (j *jsiiProxy_Add) Lhs() scopejsiicalclib.NumericValue {
+	var returns scopejsiicalclib.NumericValue
+	_jsii_.Get(
+		j,
+		"lhs",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Add) Rhs() scopejsiicalclib.NumericValue {
+	var returns scopejsiicalclib.NumericValue
+	_jsii_.Get(
+		j,
+		"rhs",
+		&returns,
+	)
+	return returns
 }
 
 func (j *jsiiProxy_Add) Value() *float64 {
@@ -2920,6 +3037,20 @@ func NewAdd(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue
 	return &j
 }
 
+// (deprecated) Say hello!
+func (a *jsiiProxy_Add) Hello() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		a,
+		"hello",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
 // (deprecated) String representation of the value.
 func (a *jsiiProxy_Add) ToString() *string {
 	var returns *string
@@ -2927,6 +3058,20 @@ func (a *jsiiProxy_Add) ToString() *string {
 	_jsii_.Invoke(
 		a,
 		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (a *jsiiProxy_Add) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		a,
+		"typeName",
 		nil /* no parameters */,
 		&returns,
 	)
@@ -3787,7 +3932,10 @@ type BinaryOperation interface {
 	scopejsiicalclib.IFriendly
 	Lhs() scopejsiicalclib.NumericValue
 	Rhs() scopejsiicalclib.NumericValue
+	Value() *float64
 	Hello() *string
+	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for BinaryOperation
@@ -3962,18 +4110,27 @@ type Calculator interface {
 	composition.CompositeOperation
 	Curr() scopejsiicalclib.NumericValue
 	SetCurr(val scopejsiicalclib.NumericValue)
+	DecorationPostfixes() *[]*string
+	SetDecorationPostfixes(val *[]*string)
+	DecorationPrefixes() *[]*string
+	SetDecorationPrefixes(val *[]*string)
 	Expression() scopejsiicalclib.NumericValue
 	MaxValue() *float64
 	SetMaxValue(val *float64)
 	OperationsLog() *[]scopejsiicalclib.NumericValue
 	OperationsMap() *map[string]*[]scopejsiicalclib.NumericValue
+	StringStyle() composition.CompositeOperation_CompositionStringStyle
+	SetStringStyle(val composition.CompositeOperation_CompositionStringStyle)
 	UnionProperty() interface{}
 	SetUnionProperty(val interface{})
+	Value() *float64
 	Add(value *float64)
 	Mul(value *float64)
 	Neg()
 	Pow(value *float64)
 	ReadUnionValue() *float64
+	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Calculator
@@ -3986,6 +4143,26 @@ func (j *jsiiProxy_Calculator) Curr() scopejsiicalclib.NumericValue {
 	_jsii_.Get(
 		j,
 		"curr",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Calculator) DecorationPostfixes() *[]*string {
+	var returns *[]*string
+	_jsii_.Get(
+		j,
+		"decorationPostfixes",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Calculator) DecorationPrefixes() *[]*string {
+	var returns *[]*string
+	_jsii_.Get(
+		j,
+		"decorationPrefixes",
 		&returns,
 	)
 	return returns
@@ -4031,11 +4208,31 @@ func (j *jsiiProxy_Calculator) OperationsMap() *map[string]*[]scopejsiicalclib.N
 	return returns
 }
 
+func (j *jsiiProxy_Calculator) StringStyle() composition.CompositeOperation_CompositionStringStyle {
+	var returns composition.CompositeOperation_CompositionStringStyle
+	_jsii_.Get(
+		j,
+		"stringStyle",
+		&returns,
+	)
+	return returns
+}
+
 func (j *jsiiProxy_Calculator) UnionProperty() interface{} {
 	var returns interface{}
 	_jsii_.Get(
 		j,
 		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Calculator) Value() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"value",
 		&returns,
 	)
 	return returns
@@ -4067,10 +4264,34 @@ func (j *jsiiProxy_Calculator) SetCurr(val scopejsiicalclib.NumericValue) {
 	)
 }
 
+func (j *jsiiProxy_Calculator) SetDecorationPostfixes(val *[]*string) {
+	_jsii_.Set(
+		j,
+		"decorationPostfixes",
+		val,
+	)
+}
+
+func (j *jsiiProxy_Calculator) SetDecorationPrefixes(val *[]*string) {
+	_jsii_.Set(
+		j,
+		"decorationPrefixes",
+		val,
+	)
+}
+
 func (j *jsiiProxy_Calculator) SetMaxValue(val *float64) {
 	_jsii_.Set(
 		j,
 		"maxValue",
+		val,
+	)
+}
+
+func (j *jsiiProxy_Calculator) SetStringStyle(val composition.CompositeOperation_CompositionStringStyle) {
+	_jsii_.Set(
+		j,
+		"stringStyle",
 		val,
 	)
 }
@@ -4126,6 +4347,34 @@ func (c *jsiiProxy_Calculator) ReadUnionValue() *float64 {
 	_jsii_.Invoke(
 		c,
 		"readUnionValue",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// (deprecated) String representation of the value.
+func (c *jsiiProxy_Calculator) ToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		c,
+		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (c *jsiiProxy_Calculator) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		c,
+		"typeName",
 		nil /* no parameters */,
 		&returns,
 	)
@@ -5863,7 +6112,11 @@ func (j *jsiiProxy_DynamicPropertyBearer) SetValueStore(val *string) {
 
 type DynamicPropertyBearerChild interface {
 	DynamicPropertyBearer
+	DynamicProperty() *string
+	SetDynamicProperty(val *string)
 	OriginalValue() *string
+	ValueStore() *string
+	SetValueStore(val *string)
 	OverrideValue(newValue *string) *string
 }
 
@@ -5872,11 +6125,31 @@ type jsiiProxy_DynamicPropertyBearerChild struct {
 	jsiiProxy_DynamicPropertyBearer // extends jsii-calc.DynamicPropertyBearer
 }
 
+func (j *jsiiProxy_DynamicPropertyBearerChild) DynamicProperty() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"dynamicProperty",
+		&returns,
+	)
+	return returns
+}
+
 func (j *jsiiProxy_DynamicPropertyBearerChild) OriginalValue() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
 		"originalValue",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_DynamicPropertyBearerChild) ValueStore() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"valueStore",
 		&returns,
 	)
 	return returns
@@ -5897,6 +6170,22 @@ func NewDynamicPropertyBearerChild(originalValue *string) DynamicPropertyBearerC
 	)
 
 	return &j
+}
+
+func (j *jsiiProxy_DynamicPropertyBearerChild) SetDynamicProperty(val *string) {
+	_jsii_.Set(
+		j,
+		"dynamicProperty",
+		val,
+	)
+}
+
+func (j *jsiiProxy_DynamicPropertyBearerChild) SetValueStore(val *string) {
+	_jsii_.Set(
+		j,
+		"valueStore",
+		val,
+	)
 }
 
 // Sets \`this.dynamicProperty\` to the new value, and returns the old value.
@@ -6968,19 +7257,19 @@ func (j *jsiiProxy_IInterfaceWithPropertiesExtension) SetFoo(val *float64) {
 	)
 }
 
-type Ijsii417Derived interface {
-	Ijsii417PublicBaseOfBase
+type IJSII417Derived interface {
+	IJSII417PublicBaseOfBase
 	Bar()
 	Baz()
 	Property() *string
 }
 
-// The jsii proxy for Ijsii417Derived
-type jsiiProxy_Ijsii417Derived struct {
-	jsiiProxy_Ijsii417PublicBaseOfBase // extends jsii-calc.IJSII417PublicBaseOfBase
+// The jsii proxy for IJSII417Derived
+type jsiiProxy_IJSII417Derived struct {
+	jsiiProxy_IJSII417PublicBaseOfBase // extends jsii-calc.IJSII417PublicBaseOfBase
 }
 
-func (i *jsiiProxy_Ijsii417Derived) Bar() {
+func (i *jsiiProxy_IJSII417Derived) Bar() {
 	_jsii_.InvokeVoid(
 		i,
 		"bar",
@@ -6988,7 +7277,7 @@ func (i *jsiiProxy_Ijsii417Derived) Bar() {
 	)
 }
 
-func (i *jsiiProxy_Ijsii417Derived) Baz() {
+func (i *jsiiProxy_IJSII417Derived) Baz() {
 	_jsii_.InvokeVoid(
 		i,
 		"baz",
@@ -6996,7 +7285,7 @@ func (i *jsiiProxy_Ijsii417Derived) Baz() {
 	)
 }
 
-func (j *jsiiProxy_Ijsii417Derived) Property() *string {
+func (j *jsiiProxy_IJSII417Derived) Property() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
@@ -7006,17 +7295,17 @@ func (j *jsiiProxy_Ijsii417Derived) Property() *string {
 	return returns
 }
 
-type Ijsii417PublicBaseOfBase interface {
+type IJSII417PublicBaseOfBase interface {
 	Foo()
 	HasRoot() *bool
 }
 
-// The jsii proxy for Ijsii417PublicBaseOfBase
-type jsiiProxy_Ijsii417PublicBaseOfBase struct {
+// The jsii proxy for IJSII417PublicBaseOfBase
+type jsiiProxy_IJSII417PublicBaseOfBase struct {
 	_ byte // padding
 }
 
-func (i *jsiiProxy_Ijsii417PublicBaseOfBase) Foo() {
+func (i *jsiiProxy_IJSII417PublicBaseOfBase) Foo() {
 	_jsii_.InvokeVoid(
 		i,
 		"foo",
@@ -7024,7 +7313,7 @@ func (i *jsiiProxy_Ijsii417PublicBaseOfBase) Foo() {
 	)
 }
 
-func (j *jsiiProxy_Ijsii417PublicBaseOfBase) HasRoot() *bool {
+func (j *jsiiProxy_IJSII417PublicBaseOfBase) HasRoot() *bool {
 	var returns *bool
 	_jsii_.Get(
 		j,
@@ -7539,6 +7828,7 @@ func (i *jsiiProxy_ImplementsInterfaceWithInternal) Visible() {
 
 type ImplementsInterfaceWithInternalSubclass interface {
 	ImplementsInterfaceWithInternal
+	Visible()
 }
 
 // The jsii proxy struct for ImplementsInterfaceWithInternalSubclass
@@ -7560,6 +7850,14 @@ func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInterna
 	)
 
 	return &j
+}
+
+func (i *jsiiProxy_ImplementsInterfaceWithInternalSubclass) Visible() {
+	_jsii_.InvokeVoid(
+		i,
+		"visible",
+		nil /* no parameters */,
+	)
 }
 
 type ImplementsPrivateInterface interface {
@@ -7617,6 +7915,7 @@ type InbetweenClass interface {
 	PublicClass
 	IPublicInterface2
 	Ciao() *string
+	Hello()
 }
 
 // The jsii proxy struct for InbetweenClass
@@ -7652,6 +7951,14 @@ func (i *jsiiProxy_InbetweenClass) Ciao() *string {
 	)
 
 	return returns
+}
+
+func (i *jsiiProxy_InbetweenClass) Hello() {
+	_jsii_.InvokeVoid(
+		i,
+		"hello",
+		nil /* no parameters */,
+	)
 }
 
 // Verifies that collections of interfaces or structs are correctly handled.
@@ -7845,19 +8152,31 @@ func NewIssue2638B() Issue2638B {
 	return &j
 }
 
-type Jsii417Derived interface {
-	Jsii417PublicBaseOfBase
+type JSII417Derived interface {
+	JSII417PublicBaseOfBase
+	HasRoot() *bool
 	Property() *string
 	Bar()
 	Baz()
+	Foo()
 }
 
-// The jsii proxy struct for Jsii417Derived
-type jsiiProxy_Jsii417Derived struct {
-	jsiiProxy_Jsii417PublicBaseOfBase // extends jsii-calc.JSII417PublicBaseOfBase
+// The jsii proxy struct for JSII417Derived
+type jsiiProxy_JSII417Derived struct {
+	jsiiProxy_JSII417PublicBaseOfBase // extends jsii-calc.JSII417PublicBaseOfBase
 }
 
-func (j *jsiiProxy_Jsii417Derived) Property() *string {
+func (j *jsiiProxy_JSII417Derived) HasRoot() *bool {
+	var returns *bool
+	_jsii_.Get(
+		j,
+		"hasRoot",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_JSII417Derived) Property() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
@@ -7868,10 +8187,10 @@ func (j *jsiiProxy_Jsii417Derived) Property() *string {
 }
 
 
-func NewJsii417Derived(property *string) Jsii417Derived {
+func NewJSII417Derived(property *string) JSII417Derived {
 	_init_.Initialize()
 
-	j := jsiiProxy_Jsii417Derived{}
+	j := jsiiProxy_JSII417Derived{}
 
 	_jsii_.Create(
 		"jsii-calc.JSII417Derived",
@@ -7884,7 +8203,22 @@ func NewJsii417Derived(property *string) Jsii417Derived {
 	return &j
 }
 
-func (j *jsiiProxy_Jsii417Derived) Bar() {
+func JSII417Derived_MakeInstance() JSII417PublicBaseOfBase {
+	_init_.Initialize()
+
+	var returns JSII417PublicBaseOfBase
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.JSII417Derived",
+		"makeInstance",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+func (j *jsiiProxy_JSII417Derived) Bar() {
 	_jsii_.InvokeVoid(
 		j,
 		"bar",
@@ -7892,7 +8226,7 @@ func (j *jsiiProxy_Jsii417Derived) Bar() {
 	)
 }
 
-func (j *jsiiProxy_Jsii417Derived) Baz() {
+func (j *jsiiProxy_JSII417Derived) Baz() {
 	_jsii_.InvokeVoid(
 		j,
 		"baz",
@@ -7900,17 +8234,25 @@ func (j *jsiiProxy_Jsii417Derived) Baz() {
 	)
 }
 
-type Jsii417PublicBaseOfBase interface {
+func (j *jsiiProxy_JSII417Derived) Foo() {
+	_jsii_.InvokeVoid(
+		j,
+		"foo",
+		nil /* no parameters */,
+	)
+}
+
+type JSII417PublicBaseOfBase interface {
 	HasRoot() *bool
 	Foo()
 }
 
-// The jsii proxy struct for Jsii417PublicBaseOfBase
-type jsiiProxy_Jsii417PublicBaseOfBase struct {
+// The jsii proxy struct for JSII417PublicBaseOfBase
+type jsiiProxy_JSII417PublicBaseOfBase struct {
 	_ byte // padding
 }
 
-func (j *jsiiProxy_Jsii417PublicBaseOfBase) HasRoot() *bool {
+func (j *jsiiProxy_JSII417PublicBaseOfBase) HasRoot() *bool {
 	var returns *bool
 	_jsii_.Get(
 		j,
@@ -7921,10 +8263,10 @@ func (j *jsiiProxy_Jsii417PublicBaseOfBase) HasRoot() *bool {
 }
 
 
-func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBase {
+func NewJSII417PublicBaseOfBase() JSII417PublicBaseOfBase {
 	_init_.Initialize()
 
-	j := jsiiProxy_Jsii417PublicBaseOfBase{}
+	j := jsiiProxy_JSII417PublicBaseOfBase{}
 
 	_jsii_.Create(
 		"jsii-calc.JSII417PublicBaseOfBase",
@@ -7937,10 +8279,10 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBase {
 	return &j
 }
 
-func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBase {
+func JSII417PublicBaseOfBase_MakeInstance() JSII417PublicBaseOfBase {
 	_init_.Initialize()
 
-	var returns Jsii417PublicBaseOfBase
+	var returns JSII417PublicBaseOfBase
 
 	_jsii_.StaticInvoke(
 		"jsii-calc.JSII417PublicBaseOfBase",
@@ -7952,7 +8294,7 @@ func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBase {
 	return returns
 }
 
-func (j *jsiiProxy_Jsii417PublicBaseOfBase) Foo() {
+func (j *jsiiProxy_JSII417PublicBaseOfBase) Foo() {
 	_jsii_.InvokeVoid(
 		j,
 		"foo",
@@ -7960,20 +8302,20 @@ func (j *jsiiProxy_Jsii417PublicBaseOfBase) Foo() {
 	)
 }
 
-type JsObjectLiteralForInterface interface {
+type JSObjectLiteralForInterface interface {
 	GiveMeFriendly() scopejsiicalclib.IFriendly
 	GiveMeFriendlyGenerator() IFriendlyRandomGenerator
 }
 
-// The jsii proxy struct for JsObjectLiteralForInterface
-type jsiiProxy_JsObjectLiteralForInterface struct {
+// The jsii proxy struct for JSObjectLiteralForInterface
+type jsiiProxy_JSObjectLiteralForInterface struct {
 	_ byte // padding
 }
 
-func NewJsObjectLiteralForInterface() JsObjectLiteralForInterface {
+func NewJSObjectLiteralForInterface() JSObjectLiteralForInterface {
 	_init_.Initialize()
 
-	j := jsiiProxy_JsObjectLiteralForInterface{}
+	j := jsiiProxy_JSObjectLiteralForInterface{}
 
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralForInterface",
@@ -7986,7 +8328,7 @@ func NewJsObjectLiteralForInterface() JsObjectLiteralForInterface {
 	return &j
 }
 
-func (j *jsiiProxy_JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendly {
+func (j *jsiiProxy_JSObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendly {
 	var returns scopejsiicalclib.IFriendly
 
 	_jsii_.Invoke(
@@ -7999,7 +8341,7 @@ func (j *jsiiProxy_JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalcli
 	return returns
 }
 
-func (j *jsiiProxy_JsObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomGenerator {
+func (j *jsiiProxy_JSObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomGenerator {
 	var returns IFriendlyRandomGenerator
 
 	_jsii_.Invoke(
@@ -8012,19 +8354,19 @@ func (j *jsiiProxy_JsObjectLiteralForInterface) GiveMeFriendlyGenerator() IFrien
 	return returns
 }
 
-type JsObjectLiteralToNative interface {
-	ReturnLiteral() JsObjectLiteralToNativeClass
+type JSObjectLiteralToNative interface {
+	ReturnLiteral() JSObjectLiteralToNativeClass
 }
 
-// The jsii proxy struct for JsObjectLiteralToNative
-type jsiiProxy_JsObjectLiteralToNative struct {
+// The jsii proxy struct for JSObjectLiteralToNative
+type jsiiProxy_JSObjectLiteralToNative struct {
 	_ byte // padding
 }
 
-func NewJsObjectLiteralToNative() JsObjectLiteralToNative {
+func NewJSObjectLiteralToNative() JSObjectLiteralToNative {
 	_init_.Initialize()
 
-	j := jsiiProxy_JsObjectLiteralToNative{}
+	j := jsiiProxy_JSObjectLiteralToNative{}
 
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNative",
@@ -8037,8 +8379,8 @@ func NewJsObjectLiteralToNative() JsObjectLiteralToNative {
 	return &j
 }
 
-func (j *jsiiProxy_JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClass {
-	var returns JsObjectLiteralToNativeClass
+func (j *jsiiProxy_JSObjectLiteralToNative) ReturnLiteral() JSObjectLiteralToNativeClass {
+	var returns JSObjectLiteralToNativeClass
 
 	_jsii_.Invoke(
 		j,
@@ -8050,19 +8392,19 @@ func (j *jsiiProxy_JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNat
 	return returns
 }
 
-type JsObjectLiteralToNativeClass interface {
+type JSObjectLiteralToNativeClass interface {
 	PropA() *string
 	SetPropA(val *string)
 	PropB() *float64
 	SetPropB(val *float64)
 }
 
-// The jsii proxy struct for JsObjectLiteralToNativeClass
-type jsiiProxy_JsObjectLiteralToNativeClass struct {
+// The jsii proxy struct for JSObjectLiteralToNativeClass
+type jsiiProxy_JSObjectLiteralToNativeClass struct {
 	_ byte // padding
 }
 
-func (j *jsiiProxy_JsObjectLiteralToNativeClass) PropA() *string {
+func (j *jsiiProxy_JSObjectLiteralToNativeClass) PropA() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
@@ -8072,7 +8414,7 @@ func (j *jsiiProxy_JsObjectLiteralToNativeClass) PropA() *string {
 	return returns
 }
 
-func (j *jsiiProxy_JsObjectLiteralToNativeClass) PropB() *float64 {
+func (j *jsiiProxy_JSObjectLiteralToNativeClass) PropB() *float64 {
 	var returns *float64
 	_jsii_.Get(
 		j,
@@ -8083,10 +8425,10 @@ func (j *jsiiProxy_JsObjectLiteralToNativeClass) PropB() *float64 {
 }
 
 
-func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClass {
+func NewJSObjectLiteralToNativeClass() JSObjectLiteralToNativeClass {
 	_init_.Initialize()
 
-	j := jsiiProxy_JsObjectLiteralToNativeClass{}
+	j := jsiiProxy_JSObjectLiteralToNativeClass{}
 
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNativeClass",
@@ -8099,7 +8441,7 @@ func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClass {
 	return &j
 }
 
-func (j *jsiiProxy_JsObjectLiteralToNativeClass) SetPropA(val *string) {
+func (j *jsiiProxy_JSObjectLiteralToNativeClass) SetPropA(val *string) {
 	_jsii_.Set(
 		j,
 		"propA",
@@ -8107,7 +8449,7 @@ func (j *jsiiProxy_JsObjectLiteralToNativeClass) SetPropA(val *string) {
 	)
 }
 
-func (j *jsiiProxy_JsObjectLiteralToNativeClass) SetPropB(val *float64) {
+func (j *jsiiProxy_JSObjectLiteralToNativeClass) SetPropB(val *float64) {
 	_jsii_.Set(
 		j,
 		"propB",
@@ -9081,11 +9423,15 @@ type Multiply interface {
 	BinaryOperation
 	IFriendlier
 	IRandomNumberGenerator
+	Lhs() scopejsiicalclib.NumericValue
+	Rhs() scopejsiicalclib.NumericValue
 	Value() *float64
 	Farewell() *string
 	Goodbye() *string
+	Hello() *string
 	Next() *float64
 	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Multiply
@@ -9093,16 +9439,6 @@ type jsiiProxy_Multiply struct {
 	jsiiProxy_BinaryOperation // extends jsii-calc.BinaryOperation
 	jsiiProxy_IFriendlier // implements jsii-calc.IFriendlier
 	jsiiProxy_IRandomNumberGenerator // implements jsii-calc.IRandomNumberGenerator
-}
-
-func (j *jsiiProxy_Multiply) Value() *float64 {
-	var returns *float64
-	_jsii_.Get(
-		j,
-		"value",
-		&returns,
-	)
-	return returns
 }
 
 func (j *jsiiProxy_Multiply) Lhs() scopejsiicalclib.NumericValue {
@@ -9120,6 +9456,16 @@ func (j *jsiiProxy_Multiply) Rhs() scopejsiicalclib.NumericValue {
 	_jsii_.Get(
 		j,
 		"rhs",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Multiply) Value() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"value",
 		&returns,
 	)
 	return returns
@@ -9171,6 +9517,20 @@ func (m *jsiiProxy_Multiply) Goodbye() *string {
 	return returns
 }
 
+// (deprecated) Say hello!
+func (m *jsiiProxy_Multiply) Hello() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		m,
+		"hello",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
 // Returns another random number.
 func (m *jsiiProxy_Multiply) Next() *float64 {
 	var returns *float64
@@ -9199,20 +9559,6 @@ func (m *jsiiProxy_Multiply) ToString() *string {
 	return returns
 }
 
-// (deprecated) Say hello!
-func (m *jsiiProxy_Multiply) Hello() *string {
-	var returns *string
-
-	_jsii_.Invoke(
-		m,
-		"hello",
-		nil /* no parameters */,
-		&returns,
-	)
-
-	return returns
-}
-
 // Returns: the name of the class (to verify native type names are created for derived classes).
 func (m *jsiiProxy_Multiply) TypeName() interface{} {
 	var returns interface{}
@@ -9231,11 +9577,13 @@ func (m *jsiiProxy_Multiply) TypeName() interface{} {
 type Negate interface {
 	UnaryOperation
 	IFriendlier
+	Operand() scopejsiicalclib.NumericValue
 	Value() *float64
 	Farewell() *string
 	Goodbye() *string
 	Hello() *string
 	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Negate
@@ -9244,21 +9592,21 @@ type jsiiProxy_Negate struct {
 	jsiiProxy_IFriendlier // implements jsii-calc.IFriendlier
 }
 
-func (j *jsiiProxy_Negate) Value() *float64 {
-	var returns *float64
-	_jsii_.Get(
-		j,
-		"value",
-		&returns,
-	)
-	return returns
-}
-
 func (j *jsiiProxy_Negate) Operand() scopejsiicalclib.NumericValue {
 	var returns scopejsiicalclib.NumericValue
 	_jsii_.Get(
 		j,
 		"operand",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Negate) Value() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"value",
 		&returns,
 	)
 	return returns
@@ -10106,8 +10454,17 @@ func (p *jsiiProxy_Polymorphism) SayHello(friendly scopejsiicalclib.IFriendly) *
 type Power interface {
 	composition.CompositeOperation
 	Base() scopejsiicalclib.NumericValue
+	DecorationPostfixes() *[]*string
+	SetDecorationPostfixes(val *[]*string)
+	DecorationPrefixes() *[]*string
+	SetDecorationPrefixes(val *[]*string)
 	Expression() scopejsiicalclib.NumericValue
 	Pow() scopejsiicalclib.NumericValue
+	StringStyle() composition.CompositeOperation_CompositionStringStyle
+	SetStringStyle(val composition.CompositeOperation_CompositionStringStyle)
+	Value() *float64
+	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Power
@@ -10120,6 +10477,26 @@ func (j *jsiiProxy_Power) Base() scopejsiicalclib.NumericValue {
 	_jsii_.Get(
 		j,
 		"base",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Power) DecorationPostfixes() *[]*string {
+	var returns *[]*string
+	_jsii_.Get(
+		j,
+		"decorationPostfixes",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Power) DecorationPrefixes() *[]*string {
+	var returns *[]*string
+	_jsii_.Get(
+		j,
+		"decorationPrefixes",
 		&returns,
 	)
 	return returns
@@ -10145,6 +10522,26 @@ func (j *jsiiProxy_Power) Pow() scopejsiicalclib.NumericValue {
 	return returns
 }
 
+func (j *jsiiProxy_Power) StringStyle() composition.CompositeOperation_CompositionStringStyle {
+	var returns composition.CompositeOperation_CompositionStringStyle
+	_jsii_.Get(
+		j,
+		"stringStyle",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Power) Value() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"value",
+		&returns,
+	)
+	return returns
+}
+
 
 // Creates a Power operation.
 func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericValue) Power {
@@ -10161,6 +10558,58 @@ func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericVa
 	)
 
 	return &j
+}
+
+func (j *jsiiProxy_Power) SetDecorationPostfixes(val *[]*string) {
+	_jsii_.Set(
+		j,
+		"decorationPostfixes",
+		val,
+	)
+}
+
+func (j *jsiiProxy_Power) SetDecorationPrefixes(val *[]*string) {
+	_jsii_.Set(
+		j,
+		"decorationPrefixes",
+		val,
+	)
+}
+
+func (j *jsiiProxy_Power) SetStringStyle(val composition.CompositeOperation_CompositionStringStyle) {
+	_jsii_.Set(
+		j,
+		"stringStyle",
+		val,
+	)
+}
+
+// (deprecated) String representation of the value.
+func (p *jsiiProxy_Power) ToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		p,
+		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (p *jsiiProxy_Power) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		p,
+		"typeName",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
 }
 
 // Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.
@@ -11188,7 +11637,7 @@ func Statics_StaticMethod(name *string) *string {
 	return returns
 }
 
-func Statics_Bar() *float64 {
+func Statics_BAR() *float64 {
 	_init_.Initialize()
 	var returns *float64
 	_jsii_.StaticGet(
@@ -11470,14 +11919,43 @@ type StructWithJavaReservedWords struct {
 // An operation that sums multiple values.
 type Sum interface {
 	composition.CompositeOperation
+	DecorationPostfixes() *[]*string
+	SetDecorationPostfixes(val *[]*string)
+	DecorationPrefixes() *[]*string
+	SetDecorationPrefixes(val *[]*string)
 	Expression() scopejsiicalclib.NumericValue
 	Parts() *[]scopejsiicalclib.NumericValue
 	SetParts(val *[]scopejsiicalclib.NumericValue)
+	StringStyle() composition.CompositeOperation_CompositionStringStyle
+	SetStringStyle(val composition.CompositeOperation_CompositionStringStyle)
+	Value() *float64
+	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for Sum
 type jsiiProxy_Sum struct {
 	composition.CompositeOperation // extends jsii-calc.composition.CompositeOperation
+}
+
+func (j *jsiiProxy_Sum) DecorationPostfixes() *[]*string {
+	var returns *[]*string
+	_jsii_.Get(
+		j,
+		"decorationPostfixes",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Sum) DecorationPrefixes() *[]*string {
+	var returns *[]*string
+	_jsii_.Get(
+		j,
+		"decorationPrefixes",
+		&returns,
+	)
+	return returns
 }
 
 func (j *jsiiProxy_Sum) Expression() scopejsiicalclib.NumericValue {
@@ -11500,6 +11978,26 @@ func (j *jsiiProxy_Sum) Parts() *[]scopejsiicalclib.NumericValue {
 	return returns
 }
 
+func (j *jsiiProxy_Sum) StringStyle() composition.CompositeOperation_CompositionStringStyle {
+	var returns composition.CompositeOperation_CompositionStringStyle
+	_jsii_.Get(
+		j,
+		"stringStyle",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Sum) Value() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"value",
+		&returns,
+	)
+	return returns
+}
+
 
 func NewSum() Sum {
 	_init_.Initialize()
@@ -11517,6 +12015,22 @@ func NewSum() Sum {
 	return &j
 }
 
+func (j *jsiiProxy_Sum) SetDecorationPostfixes(val *[]*string) {
+	_jsii_.Set(
+		j,
+		"decorationPostfixes",
+		val,
+	)
+}
+
+func (j *jsiiProxy_Sum) SetDecorationPrefixes(val *[]*string) {
+	_jsii_.Set(
+		j,
+		"decorationPrefixes",
+		val,
+	)
+}
+
 func (j *jsiiProxy_Sum) SetParts(val *[]scopejsiicalclib.NumericValue) {
 	_jsii_.Set(
 		j,
@@ -11525,9 +12039,47 @@ func (j *jsiiProxy_Sum) SetParts(val *[]scopejsiicalclib.NumericValue) {
 	)
 }
 
+func (j *jsiiProxy_Sum) SetStringStyle(val composition.CompositeOperation_CompositionStringStyle) {
+	_jsii_.Set(
+		j,
+		"stringStyle",
+		val,
+	)
+}
+
+// (deprecated) String representation of the value.
+func (s *jsiiProxy_Sum) ToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (s *jsiiProxy_Sum) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		s,
+		"typeName",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
 type SupportsNiceJavaBuilder interface {
 	SupportsNiceJavaBuilderWithRequiredProps
+	Bar() *float64
 	Id() *float64
+	PropId() *string
 	Rest() *[]*string
 }
 
@@ -11536,11 +12088,31 @@ type jsiiProxy_SupportsNiceJavaBuilder struct {
 	jsiiProxy_SupportsNiceJavaBuilderWithRequiredProps // extends jsii-calc.SupportsNiceJavaBuilderWithRequiredProps
 }
 
+func (j *jsiiProxy_SupportsNiceJavaBuilder) Bar() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"bar",
+		&returns,
+	)
+	return returns
+}
+
 func (j *jsiiProxy_SupportsNiceJavaBuilder) Id() *float64 {
 	var returns *float64
 	_jsii_.Get(
 		j,
 		"id",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_SupportsNiceJavaBuilder) PropId() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"propId",
 		&returns,
 	)
 	return returns
@@ -12052,6 +12624,9 @@ func UmaskCheck_Mode() *float64 {
 type UnaryOperation interface {
 	scopejsiicalclib.Operation
 	Operand() scopejsiicalclib.NumericValue
+	Value() *float64
+	ToString() *string
+	TypeName() interface{}
 }
 
 // The jsii proxy struct for UnaryOperation
@@ -12064,6 +12639,16 @@ func (j *jsiiProxy_UnaryOperation) Operand() scopejsiicalclib.NumericValue {
 	_jsii_.Get(
 		j,
 		"operand",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_UnaryOperation) Value() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"value",
 		&returns,
 	)
 	return returns
@@ -12084,6 +12669,35 @@ func NewUnaryOperation(operand scopejsiicalclib.NumericValue) UnaryOperation {
 	)
 
 	return &j
+}
+
+// String representation of the value.
+// Deprecated.
+func (u *jsiiProxy_UnaryOperation) ToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		u,
+		"toString",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (u *jsiiProxy_UnaryOperation) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		u,
+		"typeName",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
 }
 
 type UnionProperties struct {
@@ -13493,7 +14107,7 @@ func init() {
 	)
 	_jsii_.RegisterInterface(
 		"jsii-calc.IJSII417Derived",
-		reflect.TypeOf((*Ijsii417Derived)(nil)).Elem(),
+		reflect.TypeOf((*IJSII417Derived)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "bar", GoMethod: "Bar"},
 			_jsii_.MemberMethod{JsiiMethod: "baz", GoMethod: "Baz"},
@@ -13502,20 +14116,20 @@ func init() {
 			_jsii_.MemberProperty{JsiiProperty: "property", GoGetter: "Property"},
 		},
 		func() interface{} {
-			j := jsiiProxy_Ijsii417Derived{}
-			_jsii_.InitJsiiProxy(&j.jsiiProxy_Ijsii417PublicBaseOfBase)
+			j := jsiiProxy_IJSII417Derived{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IJSII417PublicBaseOfBase)
 			return &j
 		},
 	)
 	_jsii_.RegisterInterface(
 		"jsii-calc.IJSII417PublicBaseOfBase",
-		reflect.TypeOf((*Ijsii417PublicBaseOfBase)(nil)).Elem(),
+		reflect.TypeOf((*IJSII417PublicBaseOfBase)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
 			_jsii_.MemberProperty{JsiiProperty: "hasRoot", GoGetter: "HasRoot"},
 		},
 		func() interface{} {
-			return &jsiiProxy_Ijsii417PublicBaseOfBase{}
+			return &jsiiProxy_IJSII417PublicBaseOfBase{}
 		},
 	)
 	_jsii_.RegisterInterface(
@@ -13795,7 +14409,7 @@ func init() {
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.JSII417Derived",
-		reflect.TypeOf((*Jsii417Derived)(nil)).Elem(),
+		reflect.TypeOf((*JSII417Derived)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "bar", GoMethod: "Bar"},
 			_jsii_.MemberMethod{JsiiMethod: "baz", GoMethod: "Baz"},
@@ -13804,52 +14418,52 @@ func init() {
 			_jsii_.MemberProperty{JsiiProperty: "property", GoGetter: "Property"},
 		},
 		func() interface{} {
-			j := jsiiProxy_Jsii417Derived{}
-			_jsii_.InitJsiiProxy(&j.jsiiProxy_Jsii417PublicBaseOfBase)
+			j := jsiiProxy_JSII417Derived{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_JSII417PublicBaseOfBase)
 			return &j
 		},
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.JSII417PublicBaseOfBase",
-		reflect.TypeOf((*Jsii417PublicBaseOfBase)(nil)).Elem(),
+		reflect.TypeOf((*JSII417PublicBaseOfBase)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
 			_jsii_.MemberProperty{JsiiProperty: "hasRoot", GoGetter: "HasRoot"},
 		},
 		func() interface{} {
-			return &jsiiProxy_Jsii417PublicBaseOfBase{}
+			return &jsiiProxy_JSII417PublicBaseOfBase{}
 		},
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.JSObjectLiteralForInterface",
-		reflect.TypeOf((*JsObjectLiteralForInterface)(nil)).Elem(),
+		reflect.TypeOf((*JSObjectLiteralForInterface)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "giveMeFriendly", GoMethod: "GiveMeFriendly"},
 			_jsii_.MemberMethod{JsiiMethod: "giveMeFriendlyGenerator", GoMethod: "GiveMeFriendlyGenerator"},
 		},
 		func() interface{} {
-			return &jsiiProxy_JsObjectLiteralForInterface{}
+			return &jsiiProxy_JSObjectLiteralForInterface{}
 		},
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.JSObjectLiteralToNative",
-		reflect.TypeOf((*JsObjectLiteralToNative)(nil)).Elem(),
+		reflect.TypeOf((*JSObjectLiteralToNative)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "returnLiteral", GoMethod: "ReturnLiteral"},
 		},
 		func() interface{} {
-			return &jsiiProxy_JsObjectLiteralToNative{}
+			return &jsiiProxy_JSObjectLiteralToNative{}
 		},
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.JSObjectLiteralToNativeClass",
-		reflect.TypeOf((*JsObjectLiteralToNativeClass)(nil)).Elem(),
+		reflect.TypeOf((*JSObjectLiteralToNativeClass)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberProperty{JsiiProperty: "propA", GoGetter: "PropA"},
 			_jsii_.MemberProperty{JsiiProperty: "propB", GoGetter: "PropB"},
 		},
 		func() interface{} {
-			return &jsiiProxy_JsObjectLiteralToNativeClass{}
+			return &jsiiProxy_JSObjectLiteralToNativeClass{}
 		},
 	)
 	_jsii_.RegisterClass(
@@ -14897,6 +15511,7 @@ import (
 type ExtendAndImplement interface {
 	scopejsiicalclib.BaseFor2647
 	scopejsiicalclib.IFriendly
+	Foo(obj jcb.IBaseInterface)
 	Hello() *string
 	LocalMethod() *string
 }
@@ -14924,6 +15539,15 @@ func NewExtendAndImplement(very scopejsiicalcbaseofbase.Very) ExtendAndImplement
 	return &j
 }
 
+// Deprecated.
+func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
+	_jsii_.InvokeVoid(
+		e,
+		"foo",
+		[]interface{}{obj},
+	)
+}
+
 // (deprecated) Say hello!
 func (e *jsiiProxy_ExtendAndImplement) Hello() *string {
 	var returns *string
@@ -14949,15 +15573,6 @@ func (e *jsiiProxy_ExtendAndImplement) LocalMethod() *string {
 	)
 
 	return returns
-}
-
-// Deprecated.
-func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
-	_jsii_.InvokeVoid(
-		e,
-		"foo",
-		[]interface{}{obj},
-	)
 }
 
 
