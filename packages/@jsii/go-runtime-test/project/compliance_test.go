@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"encoding/json"
 	"fmt"
 	"math"
 	"runtime"
@@ -755,8 +756,35 @@ func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType(
 	//var classRef calc.InbetweenClass = calc.Constructors_MakeClass()
 }
 
+func (suite *ComplianceSuite) TestStructs_StepBuilders() {
+	suite.NotApplicableTest("Go does not generate fluent builders")
+}
+
 func (suite *ComplianceSuite) TestStaticListInClassCannotBeModified() {
 	suite.NotApplicableTest("Go arrays are immutable by design")
+}
+
+func (suite *ComplianceSuite) TestStructsAreUndecoratedOntheWayToKernel() {
+	assert := suite.Assert()
+
+	s := calc.StructB{RequiredString: "Bazinga!", OptionalBoolean: false}
+	j := calc.JsonFormatter_Stringify(s)
+
+	var a map[string]interface{}
+	if err := json.Unmarshal([]byte(j), &a); err != nil {
+		assert.FailNowf(err.Error(), "unmarshal failed")
+	}
+
+	// Optional members get returned in the JSON, which breaks this test!
+	suite.FailTest("Optionals are not supported", "https://github.com/aws/jsii/issues/2671")
+
+	assert.Equal(
+		map[string]interface{}{
+			"requiredString":  "Bazinga!",
+			"optionalBoolean": false,
+		},
+		a,
+	)
 }
 
 func (suite *ComplianceSuite) TestReturnAbstract() {
@@ -900,11 +928,11 @@ func (suite *ComplianceSuite) TestHashCodeIsResistantToPropertyShadowingResultVa
 	suite.NotApplicableTest("Go does not have HashCode()")
 }
 
-func (suite *ComplianceSuite) TestStructsMultiplePropertiesHashCode() {
+func (suite *ComplianceSuite) TestStructs_MultiplePropertiesHashCode() {
 	suite.NotApplicableTest("Go does not have HashCode()")
 }
 
-func (suite *ComplianceSuite) TestStructsOptionalHashCode() {
+func (suite *ComplianceSuite) TestStructs_OptionalHashCode() {
 	suite.NotApplicableTest("Go does not have HashCode()")
 }
 
@@ -915,11 +943,11 @@ func (suite *ComplianceSuite) TestReturnSubclassThatImplementsInterface976() {
 	assert.Equal(t, 333.0, obj.Foo())
 }
 
-func (suite *ComplianceSuite) TestStructsOptionalEquals() {
+func (suite *ComplianceSuite) TestStructs_OptionalEquals() {
 	suite.NotApplicableTest("Go does not have Equals(other)")
 }
 
-func (suite *ComplianceSuite) TestPropertyOverridesGetCallsSuper() {
+func (suite *ComplianceSuite) TestPropertyOverrides_Get_Calls_Super() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -949,7 +977,7 @@ func (suite *ComplianceSuite) TestUnmarshallIntoAbstractType() {
 	assert.Equal(t, 120.0, v.Value())
 }
 
-func (suite *ComplianceSuite) TestFailSyncOverridesCallsDoubleAsyncPropertyGetter() {
+func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertyGetter() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -964,7 +992,7 @@ func (suite *ComplianceSuite) TestFailSyncOverridesCallsDoubleAsyncPropertyGette
 	obj.CallerIsProperty()
 }
 
-func (suite *ComplianceSuite) TestFailSyncOverridesCallsDoubleAsyncPropertySetter() {
+func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertySetter() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -979,7 +1007,7 @@ func (suite *ComplianceSuite) TestFailSyncOverridesCallsDoubleAsyncPropertySette
 	obj.SetCallerIsProperty(12)
 }
 
-func (suite *ComplianceSuite) TestPropertyOverridesGetSet() {
+func (suite *ComplianceSuite) TestPropertyOverrides_Get_Set() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -1011,7 +1039,7 @@ func (suite *ComplianceSuite) TestCollectionTypes() {
 	assert.Equal(t, 123.0, at.MapProperty()["Foo"].Value())
 }
 
-func (suite *ComplianceSuite) TestAsyncOverridesOverrideAsyncMethodByParentClass() {
+func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethodByParentClass() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -1026,7 +1054,7 @@ func (suite *ComplianceSuite) TestTestStructsCanBeDowncastedToParentType() {
 	assert.NotZero(t, calc.Demonstrate982_TakeThisToo())
 }
 
-func (suite *ComplianceSuite) TestPropertyOverridesGetThrows() {
+func (suite *ComplianceSuite) TestPropertyOverrides_Get_Throws() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -1078,7 +1106,7 @@ func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInStructProperties
 	t.Skip("Go reserved words do not collide with identifiers used in API surface")
 }
 
-func (suite *ComplianceSuite) TestDoNotOverridePrivatesMethodPublic() {
+func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Public() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -1087,7 +1115,7 @@ func (suite *ComplianceSuite) TestDoNotOverridePrivatesMethodPublic() {
 	assert.Equal(t, "privateMethod", obj.PrivateMethodValue())
 }
 
-func (suite *ComplianceSuite) TestDoNotOverridePrivatesPropertyByNamePublic() {
+func (suite *ComplianceSuite) TestDoNotOverridePrivates_Property_By_Name_Public() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -1107,7 +1135,7 @@ func (suite *ComplianceSuite) TestMapInClassCannotBeModified() {
 	suite.NotApplicableTest("Go maps are immutable by design")
 }
 
-func (suite *ComplianceSuite) TestAsyncOverridesTwoOverrides() {
+func (suite *ComplianceSuite) TestAsyncOverrides_TwoOverrides() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -1115,7 +1143,7 @@ func (suite *ComplianceSuite) TestAsyncOverridesTwoOverrides() {
 	assert.Equal(t, 684.0, obj.CallMe())
 }
 
-func (suite *ComplianceSuite) TestPropertyOverridesSetCallsSuper() {
+func (suite *ComplianceSuite) TestPropertyOverrides_Set_Calls_Super() {
 	t := suite.T()
 	suite.FailTest("Test relies on overrides, which are not supported yet", "https://github.com/aws/jsii/issues/2048")
 
@@ -1146,7 +1174,7 @@ func (suite *ComplianceSuite) TestIso8601DoesNotDeserializeToDate() {
 	assert.Equal(t, nowAsISO, entropy.Increase())
 }
 
-func (suite *ComplianceSuite) TestCollectionOfInterfacesListOfInterfaces() {
+func (suite *ComplianceSuite) TestCollectionOfInterfaces_ListOfInterfaces() {
 	t := suite.T()
 
 	for _, obj := range calc.InterfaceCollections_ListOfInterfaces() {
@@ -1163,7 +1191,7 @@ func (suite *ComplianceSuite) TestUndefinedAndNull() {
 	// TODO: c.SetMaxValue(nil)
 }
 
-func (suite *ComplianceSuite) TestStructsSerializeToJsii() {
+func (suite *ComplianceSuite) TestStructs_SerializeToJsii() {
 	t := suite.T()
 	t.Skip("DateTime fields are not implemented yet")
 
