@@ -78,7 +78,7 @@ export class DotNetDocGenerator {
     const remarks = this.renderRemarks(docs);
     if (remarks.length > 0) {
       this.code.line('/// <remarks>');
-      remarks.forEach((r) => this.code.line(`/// ${r}`));
+      remarks.forEach((r) => this.code.line(`/// ${r}`.trimRight()));
       this.code.line('/// </remarks>');
     }
 
@@ -101,7 +101,7 @@ export class DotNetDocGenerator {
 
     this.code.line('/// <remarks>');
     for (const line of lines) {
-      this.code.line(`/// ${line}`);
+      this.code.line(`/// ${line}`.trimRight());
     }
     this.code.line('/// </remarks>');
   }
