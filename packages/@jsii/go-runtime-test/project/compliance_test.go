@@ -431,7 +431,7 @@ func (suite *ComplianceSuite) TestStructs_nonOptionalequals() {
 func (suite *ComplianceSuite) TestTestInterfaceParameter() {
 	assert := suite.Assert()
 
-	obj := calc.NewJsObjectLiteralForInterface()
+	obj := calc.NewJSObjectLiteralForInterface()
 	friendly := obj.GiveMeFriendly()
 	assert.Equal("I am literally friendly!", *friendly.Hello())
 
@@ -1032,7 +1032,7 @@ func (suite *ComplianceSuite) TestConsts() {
 	obj := calc.Statics_ConstObj()
 	assert.Equal("world", *obj.Hello())
 
-	assert.Equal(float64(1234), *calc.Statics_Bar())
+	assert.Equal(float64(1234), *calc.Statics_BAR())
 	assert.Equal("world", *(*calc.Statics_ZooBar())["hello"])
 }
 
@@ -1093,7 +1093,7 @@ func (suite *ComplianceSuite) TestStructs_NonOptionalhashCode() {
 func (suite *ComplianceSuite) TestTestLiteralInterface() {
 
 	assert := suite.Assert()
-	obj := calc.NewJsObjectLiteralForInterface()
+	obj := calc.NewJSObjectLiteralForInterface()
 	friendly := obj.GiveMeFriendly()
 	assert.Equal("I am literally friendly!", *friendly.Hello())
 
