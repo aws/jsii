@@ -5,6 +5,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
  ┗━ 📁 go
     ┗━ 📁 jcb
        ┣━ 📄 go.mod
+       ┣━ 📁 internal
+       ┃  ┗━ 📄 types.go
        ┣━ 📄 jcb.go
        ┣━ 📄 jcb.init.go
        ┣━ 📁 jsii
@@ -238,6 +240,15 @@ require (
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
+)
+type Type__scopejsiicalcbaseofbaseIVeryBaseInterface = scopejsiicalcbaseofbase.IVeryBaseInterface
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jcb.go 1`] = `
 // An example direct dependency for jsii-calc.
 package jcb
@@ -246,6 +257,7 @@ import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jcb/jsii"
 
+	"github.com/aws/jsii/jsii-calc/go/jcb/internal"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 )
 
@@ -301,7 +313,7 @@ type IBaseInterface interface {
 
 // The jsii proxy for IBaseInterface
 type jsiiProxy_IBaseInterface struct {
-	scopejsiicalcbaseofbase.IVeryBaseInterface // extends @scope/jsii-calc-base-of-base.IVeryBaseInterface
+	internal.Type__scopejsiicalcbaseofbaseIVeryBaseInterface
 }
 
 func (i *jsiiProxy_IBaseInterface) Bar() {
@@ -383,7 +395,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_IBaseInterface{}
-			_jsii_.InitJsiiProxy(&j.IVeryBaseInterface)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalcbaseofbaseIVeryBaseInterface)
 			return &j
 		},
 	)
@@ -852,6 +864,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃  ┣━ 📄 customsubmodulename.go
        ┃  ┗━ 📄 customsubmodulename.init.go
        ┣━ 📄 go.mod
+       ┣━ 📁 internal
+       ┃  ┗━ 📄 types.go
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 scope-jsii-calc-lib-0.0.0.tgz
@@ -1285,6 +1299,16 @@ require (
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/jcb"
+)
+type Type__jcbIBaseInterface = jcb.IBaseInterface
+type Type__jcbBase = jcb.Base
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/jsii.go 1`] = `
 // Package jsii contains the functionaility needed for jsii packages to
 // initialize their dependencies and themselves. Users should never need to use this package
@@ -1329,6 +1353,7 @@ import (
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/internal"
 )
 
 // A base class for testing #2647.
@@ -1465,7 +1490,7 @@ type IThreeLevelsInterface interface {
 
 // The jsii proxy for IThreeLevelsInterface
 type jsiiProxy_IThreeLevelsInterface struct {
-	jcb.IBaseInterface // extends @scope/jsii-calc-base.IBaseInterface
+	internal.Type__jcbIBaseInterface
 }
 
 func (i *jsiiProxy_IThreeLevelsInterface) Baz() {
@@ -1502,8 +1527,8 @@ type Number interface {
 
 // The jsii proxy struct for Number
 type jsiiProxy_Number struct {
-	jsiiProxy_NumericValue // extends @scope/jsii-calc-lib.NumericValue
-	jsiiProxy_IDoublable // implements @scope/jsii-calc-lib.IDoublable
+	jsiiProxy_NumericValue
+	jsiiProxy_IDoublable
 }
 
 func (j *jsiiProxy_Number) DoubleValue() float64 {
@@ -1586,7 +1611,7 @@ type NumericValue interface {
 
 // The jsii proxy struct for NumericValue
 type jsiiProxy_NumericValue struct {
-	jcb.Base // extends @scope/jsii-calc-base.Base
+	internal.Type__jcbBase
 }
 
 func (j *jsiiProxy_NumericValue) Value() float64 {
@@ -1658,7 +1683,7 @@ type Operation interface {
 
 // The jsii proxy struct for Operation
 type jsiiProxy_Operation struct {
-	jsiiProxy_NumericValue // extends @scope/jsii-calc-lib.NumericValue
+	jsiiProxy_NumericValue
 }
 
 func (j *jsiiProxy_Operation) Value() float64 {
@@ -1800,7 +1825,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_IThreeLevelsInterface{}
-			_jsii_.InitJsiiProxy(&j.IBaseInterface)
+			_jsii_.InitJsiiProxy(&j.Type__jcbIBaseInterface)
 			return &j
 		},
 	)
@@ -1834,7 +1859,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_NumericValue{}
-			_jsii_.InitJsiiProxy(&j.Base)
+			_jsii_.InitJsiiProxy(&j.Type__jcbBase)
 			return &j
 		},
 	)
@@ -1871,7 +1896,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
     ┗━ 📁 jsiicalc
        ┣━ 📁 composition
        ┃  ┣━ 📄 composition.go
-       ┃  ┗━ 📄 composition.init.go
+       ┃  ┣━ 📄 composition.init.go
+       ┃  ┗━ 📁 internal
+       ┃     ┗━ 📄 types.go
        ┣━ 📁 derivedclasshasnoproperties
        ┃  ┣━ 📄 derivedclasshasnoproperties.go
        ┃  ┗━ 📄 derivedclasshasnoproperties.init.go
@@ -1882,6 +1909,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📁 interfaceinnamespaceonlyinterface
        ┃  ┣━ 📄 interfaceinnamespaceonlyinterface.go
        ┃  ┗━ 📄 interfaceinnamespaceonlyinterface.init.go
+       ┣━ 📁 internal
+       ┃  ┗━ 📄 types.go
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii-calc-3.20.120.tgz
        ┃  ┗━ 📄 jsii.go
@@ -1895,6 +1924,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 module2617.go
        ┃  ┗━ 📄 module2617.init.go
        ┣━ 📁 module2647
+       ┃  ┣━ 📁 internal
+       ┃  ┃  ┗━ 📄 types.go
        ┃  ┣━ 📄 module2647.go
        ┃  ┗━ 📄 module2647.init.go
        ┣━ 📁 module2689
@@ -1922,6 +1953,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📁 module2700
        ┃  ┣━ 📄 module2700.go
        ┃  ┗━ 📄 module2700.init.go
+       ┣━ 📁 module2702
+       ┃  ┣━ 📁 internal
+       ┃  ┃  ┗━ 📄 types.go
+       ┃  ┣━ 📄 module2702.go
+       ┃  ┗━ 📄 module2702.init.go
        ┣━ 📁 nodirect
        ┃  ┣━ 📄 nodirect.go
        ┃  ┣━ 📁 sub1
@@ -1945,6 +1981,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📁 child
        ┃  ┃  ┣━ 📄 child.go
        ┃  ┃  ┗━ 📄 child.init.go
+       ┃  ┣━ 📁 internal
+       ┃  ┃  ┗━ 📄 types.go
        ┃  ┣━ 📁 isolated
        ┃  ┃  ┣━ 📄 isolated.go
        ┃  ┃  ┗━ 📄 isolated.init.go
@@ -1952,6 +1990,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┃  ┣━ 📁 deeplynested
        ┃  ┃  ┃  ┣━ 📄 deeplynested.go
        ┃  ┃  ┃  ┗━ 📄 deeplynested.init.go
+       ┃  ┃  ┣━ 📁 internal
+       ┃  ┃  ┃  ┗━ 📄 types.go
        ┃  ┃  ┣━ 📄 nestedsubmodule.go
        ┃  ┃  ┗━ 📄 nestedsubmodule.init.go
        ┃  ┣━ 📁 param
@@ -2213,6 +2253,7 @@ import (
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition/internal"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
@@ -2233,7 +2274,7 @@ type CompositeOperation interface {
 
 // The jsii proxy struct for CompositeOperation
 type jsiiProxy_CompositeOperation struct {
-	scopejsiicalclib.Operation // extends @scope/jsii-calc-lib.Operation
+	internal.Type__scopejsiicalclibOperation
 }
 
 func (j *jsiiProxy_CompositeOperation) DecorationPostfixes() []string {
@@ -2390,7 +2431,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_CompositeOperation{}
-			_jsii_.InitJsiiProxy(&j.Operation)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibOperation)
 			return &j
 		},
 	)
@@ -2403,6 +2444,15 @@ func init() {
 		},
 	)
 }
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
+type Type__scopejsiicalclibOperation = scopejsiicalclib.Operation
 
 `;
 
@@ -2467,7 +2517,7 @@ type Derived interface {
 
 // The jsii proxy struct for Derived
 type jsiiProxy_Derived struct {
-	jsiiProxy_Base // extends jsii-calc.DerivedClassHasNoProperties.Base
+	jsiiProxy_Base
 }
 
 func (j *jsiiProxy_Derived) Prop() string {
@@ -2675,6 +2725,20 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
+)
+type Type__scopejsiicalclibOperation = scopejsiicalclib.Operation
+type Type__scopejsiicalclibIFriendly = scopejsiicalclib.IFriendly
+type Type__compositionCompositeOperation = composition.CompositeOperation
+type Type__customsubmodulenameIReflectable = customsubmodulename.IReflectable
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] = `
 // Package jsii contains the functionaility needed for jsii packages to
 // initialize their dependencies and themselves. Users should never need to use this package
@@ -2719,6 +2783,7 @@ import (
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/internal"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
@@ -2735,8 +2800,8 @@ type AbstractClass interface {
 
 // The jsii proxy struct for AbstractClass
 type jsiiProxy_AbstractClass struct {
-	jsiiProxy_AbstractClassBase // extends jsii-calc.AbstractClassBase
-	jsiiProxy_IInterfaceImplementedByAbstractClass // implements jsii-calc.IInterfaceImplementedByAbstractClass
+	jsiiProxy_AbstractClassBase
+	jsiiProxy_IInterfaceImplementedByAbstractClass
 }
 
 func (j *jsiiProxy_AbstractClass) AbstractProperty() string {
@@ -2989,7 +3054,7 @@ type Add interface {
 
 // The jsii proxy struct for Add
 type jsiiProxy_Add struct {
-	jsiiProxy_BinaryOperation // extends jsii-calc.BinaryOperation
+	jsiiProxy_BinaryOperation
 }
 
 func (j *jsiiProxy_Add) Lhs() scopejsiicalclib.NumericValue {
@@ -3649,7 +3714,7 @@ type AnonymousImplementationProvider interface {
 
 // The jsii proxy struct for AnonymousImplementationProvider
 type jsiiProxy_AnonymousImplementationProvider struct {
-	jsiiProxy_IAnonymousImplementationProvider // implements jsii-calc.IAnonymousImplementationProvider
+	jsiiProxy_IAnonymousImplementationProvider
 }
 
 func NewAnonymousImplementationProvider() AnonymousImplementationProvider {
@@ -3883,7 +3948,7 @@ type Bell interface {
 
 // The jsii proxy struct for Bell
 type jsiiProxy_Bell struct {
-	jsiiProxy_IBell // implements jsii-calc.IBell
+	jsiiProxy_IBell
 }
 
 func (j *jsiiProxy_Bell) Rung() bool {
@@ -3943,8 +4008,8 @@ type BinaryOperation interface {
 
 // The jsii proxy struct for BinaryOperation
 type jsiiProxy_BinaryOperation struct {
-	scopejsiicalclib.Operation // extends @scope/jsii-calc-lib.Operation
-	scopejsiicalclib.IFriendly // implements @scope/jsii-calc-lib.IFriendly
+	internal.Type__scopejsiicalclibOperation
+	internal.Type__scopejsiicalclibIFriendly
 }
 
 func (j *jsiiProxy_BinaryOperation) Lhs() scopejsiicalclib.NumericValue {
@@ -4138,7 +4203,7 @@ type Calculator interface {
 
 // The jsii proxy struct for Calculator
 type jsiiProxy_Calculator struct {
-	composition.CompositeOperation // extends jsii-calc.composition.CompositeOperation
+	internal.Type__compositionCompositeOperation
 }
 
 func (j *jsiiProxy_Calculator) Curr() scopejsiicalclib.NumericValue {
@@ -4414,7 +4479,7 @@ type ClassThatImplementsTheInternalInterface interface {
 
 // The jsii proxy struct for ClassThatImplementsTheInternalInterface
 type jsiiProxy_ClassThatImplementsTheInternalInterface struct {
-	jsiiProxy_INonInternalInterface // implements jsii-calc.INonInternalInterface
+	jsiiProxy_INonInternalInterface
 }
 
 func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) A() string {
@@ -4520,7 +4585,7 @@ type ClassThatImplementsThePrivateInterface interface {
 
 // The jsii proxy struct for ClassThatImplementsThePrivateInterface
 type jsiiProxy_ClassThatImplementsThePrivateInterface struct {
-	jsiiProxy_INonInternalInterface // implements jsii-calc.INonInternalInterface
+	jsiiProxy_INonInternalInterface
 }
 
 func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) A() string {
@@ -4884,7 +4949,7 @@ type ClassWithPrivateConstructorAndAutomaticProperties interface {
 
 // The jsii proxy struct for ClassWithPrivateConstructorAndAutomaticProperties
 type jsiiProxy_ClassWithPrivateConstructorAndAutomaticProperties struct {
-	jsiiProxy_IInterfaceWithProperties // implements jsii-calc.IInterfaceWithProperties
+	jsiiProxy_IInterfaceWithProperties
 }
 
 func (j *jsiiProxy_ClassWithPrivateConstructorAndAutomaticProperties) ReadOnlyString() string {
@@ -6000,7 +6065,7 @@ type DoubleTrouble interface {
 
 // The jsii proxy struct for DoubleTrouble
 type jsiiProxy_DoubleTrouble struct {
-	jsiiProxy_IFriendlyRandomGenerator // implements jsii-calc.IFriendlyRandomGenerator
+	jsiiProxy_IFriendlyRandomGenerator
 }
 
 func NewDoubleTrouble() DoubleTrouble {
@@ -6125,7 +6190,7 @@ type DynamicPropertyBearerChild interface {
 
 // The jsii proxy struct for DynamicPropertyBearerChild
 type jsiiProxy_DynamicPropertyBearerChild struct {
-	jsiiProxy_DynamicPropertyBearer // extends jsii-calc.DynamicPropertyBearer
+	jsiiProxy_DynamicPropertyBearer
 }
 
 func (j *jsiiProxy_DynamicPropertyBearerChild) DynamicProperty() string {
@@ -7024,7 +7089,7 @@ type IFriendlier interface {
 
 // The jsii proxy for IFriendlier
 type jsiiProxy_IFriendlier struct {
-	scopejsiicalclib.IFriendly // extends @scope/jsii-calc-lib.IFriendly
+	internal.Type__scopejsiicalclibIFriendly
 }
 
 func (i *jsiiProxy_IFriendlier) Farewell() string {
@@ -7060,8 +7125,8 @@ type IFriendlyRandomGenerator interface {
 
 // The jsii proxy for IFriendlyRandomGenerator
 type jsiiProxy_IFriendlyRandomGenerator struct {
-	scopejsiicalclib.IFriendly // extends @scope/jsii-calc-lib.IFriendly
-	jsiiProxy_IRandomNumberGenerator // extends jsii-calc.IRandomNumberGenerator
+	internal.Type__scopejsiicalclibIFriendly
+	jsiiProxy_IRandomNumberGenerator
 }
 
 func (i *jsiiProxy_IFriendlyRandomGenerator) Hello() string {
@@ -7118,7 +7183,7 @@ type IInterfaceThatShouldNotBeADataType interface {
 
 // The jsii proxy for IInterfaceThatShouldNotBeADataType
 type jsiiProxy_IInterfaceThatShouldNotBeADataType struct {
-	jsiiProxy_IInterfaceWithMethods // extends jsii-calc.IInterfaceWithMethods
+	jsiiProxy_IInterfaceWithMethods
 }
 
 func (j *jsiiProxy_IInterfaceThatShouldNotBeADataType) OtherValue() string {
@@ -7239,7 +7304,7 @@ type IInterfaceWithPropertiesExtension interface {
 
 // The jsii proxy for IInterfaceWithPropertiesExtension
 type jsiiProxy_IInterfaceWithPropertiesExtension struct {
-	jsiiProxy_IInterfaceWithProperties // extends jsii-calc.IInterfaceWithProperties
+	jsiiProxy_IInterfaceWithProperties
 }
 
 func (j *jsiiProxy_IInterfaceWithPropertiesExtension) Foo() float64 {
@@ -7269,7 +7334,7 @@ type IJSII417Derived interface {
 
 // The jsii proxy for IJSII417Derived
 type jsiiProxy_IJSII417Derived struct {
-	jsiiProxy_IJSII417PublicBaseOfBase // extends jsii-calc.IJSII417PublicBaseOfBase
+	jsiiProxy_IJSII417PublicBaseOfBase
 }
 
 func (i *jsiiProxy_IJSII417Derived) Bar() {
@@ -7385,7 +7450,7 @@ type INonInternalInterface interface {
 
 // The jsii proxy for INonInternalInterface
 type jsiiProxy_INonInternalInterface struct {
-	jsiiProxy_IAnotherPublicInterface // extends jsii-calc.IAnotherPublicInterface
+	jsiiProxy_IAnotherPublicInterface
 }
 
 func (j *jsiiProxy_INonInternalInterface) B() string {
@@ -7802,7 +7867,7 @@ type ImplementsInterfaceWithInternal interface {
 
 // The jsii proxy struct for ImplementsInterfaceWithInternal
 type jsiiProxy_ImplementsInterfaceWithInternal struct {
-	jsiiProxy_IInterfaceWithInternal // implements jsii-calc.IInterfaceWithInternal
+	jsiiProxy_IInterfaceWithInternal
 }
 
 func NewImplementsInterfaceWithInternal() ImplementsInterfaceWithInternal {
@@ -7836,7 +7901,7 @@ type ImplementsInterfaceWithInternalSubclass interface {
 
 // The jsii proxy struct for ImplementsInterfaceWithInternalSubclass
 type jsiiProxy_ImplementsInterfaceWithInternalSubclass struct {
-	jsiiProxy_ImplementsInterfaceWithInternal // extends jsii-calc.ImplementsInterfaceWithInternal
+	jsiiProxy_ImplementsInterfaceWithInternal
 }
 
 func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInternalSubclass {
@@ -7923,8 +7988,8 @@ type InbetweenClass interface {
 
 // The jsii proxy struct for InbetweenClass
 type jsiiProxy_InbetweenClass struct {
-	jsiiProxy_PublicClass // extends jsii-calc.PublicClass
-	jsiiProxy_IPublicInterface2 // implements jsii-calc.IPublicInterface2
+	jsiiProxy_PublicClass
+	jsiiProxy_IPublicInterface2
 }
 
 func NewInbetweenClass() InbetweenClass {
@@ -8166,7 +8231,7 @@ type JSII417Derived interface {
 
 // The jsii proxy struct for JSII417Derived
 type jsiiProxy_JSII417Derived struct {
-	jsiiProxy_JSII417PublicBaseOfBase // extends jsii-calc.JSII417PublicBaseOfBase
+	jsiiProxy_JSII417PublicBaseOfBase
 }
 
 func (j *jsiiProxy_JSII417Derived) HasRoot() bool {
@@ -8980,8 +9045,8 @@ type Jsii487Derived interface {
 
 // The jsii proxy struct for Jsii487Derived
 type jsiiProxy_Jsii487Derived struct {
-	jsiiProxy_IJsii487External // implements jsii-calc.IJsii487External
-	jsiiProxy_IJsii487External2 // implements jsii-calc.IJsii487External2
+	jsiiProxy_IJsii487External
+	jsiiProxy_IJsii487External2
 }
 
 func NewJsii487Derived() Jsii487Derived {
@@ -9006,7 +9071,7 @@ type Jsii496Derived interface {
 
 // The jsii proxy struct for Jsii496Derived
 type jsiiProxy_Jsii496Derived struct {
-	jsiiProxy_IJsii496 // implements jsii-calc.IJsii496
+	jsiiProxy_IJsii496
 }
 
 func NewJsii496Derived() Jsii496Derived {
@@ -9439,9 +9504,9 @@ type Multiply interface {
 
 // The jsii proxy struct for Multiply
 type jsiiProxy_Multiply struct {
-	jsiiProxy_BinaryOperation // extends jsii-calc.BinaryOperation
-	jsiiProxy_IFriendlier // implements jsii-calc.IFriendlier
-	jsiiProxy_IRandomNumberGenerator // implements jsii-calc.IRandomNumberGenerator
+	jsiiProxy_BinaryOperation
+	jsiiProxy_IFriendlier
+	jsiiProxy_IRandomNumberGenerator
 }
 
 func (j *jsiiProxy_Multiply) Lhs() scopejsiicalclib.NumericValue {
@@ -9591,8 +9656,8 @@ type Negate interface {
 
 // The jsii proxy struct for Negate
 type jsiiProxy_Negate struct {
-	jsiiProxy_UnaryOperation // extends jsii-calc.UnaryOperation
-	jsiiProxy_IFriendlier // implements jsii-calc.IFriendlier
+	jsiiProxy_UnaryOperation
+	jsiiProxy_IFriendlier
 }
 
 func (j *jsiiProxy_Negate) Operand() scopejsiicalclib.NumericValue {
@@ -10472,7 +10537,7 @@ type Power interface {
 
 // The jsii proxy struct for Power
 type jsiiProxy_Power struct {
-	composition.CompositeOperation // extends jsii-calc.composition.CompositeOperation
+	internal.Type__compositionCompositeOperation
 }
 
 func (j *jsiiProxy_Power) Base() scopejsiicalclib.NumericValue {
@@ -11513,7 +11578,7 @@ type StaticHelloChild interface {
 
 // The jsii proxy struct for StaticHelloChild
 type jsiiProxy_StaticHelloChild struct {
-	jsiiProxy_StaticHelloParent // extends jsii-calc.StaticHelloParent
+	jsiiProxy_StaticHelloParent
 }
 
 func StaticHelloChild_Method() {
@@ -11938,7 +12003,7 @@ type Sum interface {
 
 // The jsii proxy struct for Sum
 type jsiiProxy_Sum struct {
-	composition.CompositeOperation // extends jsii-calc.composition.CompositeOperation
+	internal.Type__compositionCompositeOperation
 }
 
 func (j *jsiiProxy_Sum) DecorationPostfixes() []string {
@@ -12088,7 +12153,7 @@ type SupportsNiceJavaBuilder interface {
 
 // The jsii proxy struct for SupportsNiceJavaBuilder
 type jsiiProxy_SupportsNiceJavaBuilder struct {
-	jsiiProxy_SupportsNiceJavaBuilderWithRequiredProps // extends jsii-calc.SupportsNiceJavaBuilderWithRequiredProps
+	jsiiProxy_SupportsNiceJavaBuilderWithRequiredProps
 }
 
 func (j *jsiiProxy_SupportsNiceJavaBuilder) Bar() float64 {
@@ -12728,7 +12793,7 @@ type UnaryOperation interface {
 
 // The jsii proxy struct for UnaryOperation
 type jsiiProxy_UnaryOperation struct {
-	scopejsiicalclib.Operation // extends @scope/jsii-calc-lib.Operation
+	internal.Type__scopejsiicalclibOperation
 }
 
 func (j *jsiiProxy_UnaryOperation) Operand() scopejsiicalclib.NumericValue {
@@ -12810,7 +12875,7 @@ type UpcasingReflectable interface {
 
 // The jsii proxy struct for UpcasingReflectable
 type jsiiProxy_UpcasingReflectable struct {
-	customsubmodulename.IReflectable // implements @scope/jsii-calc-lib.submodule.IReflectable
+	internal.Type__customsubmodulenameIReflectable
 }
 
 func (j *jsiiProxy_UpcasingReflectable) Entries() []customsubmodulename.ReflectableEntry {
@@ -13489,8 +13554,8 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_BinaryOperation{}
-			_jsii_.InitJsiiProxy(&j.Operation)
-			_jsii_.InitJsiiProxy(&j.IFriendly)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibOperation)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibIFriendly)
 			return &j
 		},
 	)
@@ -13529,7 +13594,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_Calculator{}
-			_jsii_.InitJsiiProxy(&j.CompositeOperation)
+			_jsii_.InitJsiiProxy(&j.Type__compositionCompositeOperation)
 			return &j
 		},
 	)
@@ -14104,7 +14169,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_IFriendlier{}
-			_jsii_.InitJsiiProxy(&j.IFriendly)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibIFriendly)
 			return &j
 		},
 	)
@@ -14117,7 +14182,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_IFriendlyRandomGenerator{}
-			_jsii_.InitJsiiProxy(&j.IFriendly)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibIFriendly)
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_IRandomNumberGenerator)
 			return &j
 		},
@@ -14925,7 +14990,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_Power{}
-			_jsii_.InitJsiiProxy(&j.CompositeOperation)
+			_jsii_.InitJsiiProxy(&j.Type__compositionCompositeOperation)
 			return &j
 		},
 	)
@@ -15229,7 +15294,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_Sum{}
-			_jsii_.InitJsiiProxy(&j.CompositeOperation)
+			_jsii_.InitJsiiProxy(&j.Type__compositionCompositeOperation)
 			return &j
 		},
 	)
@@ -15349,7 +15414,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_UnaryOperation{}
-			_jsii_.InitJsiiProxy(&j.Operation)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibOperation)
 			return &j
 		},
 	)
@@ -15365,7 +15430,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_UpcasingReflectable{}
-			_jsii_.InitJsiiProxy(&j.IReflectable)
+			_jsii_.InitJsiiProxy(&j.Type__customsubmodulenameIReflectable)
 			return &j
 		},
 	)
@@ -15604,6 +15669,16 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
+type Type__scopejsiicalclibBaseFor2647 = scopejsiicalclib.BaseFor2647
+type Type__scopejsiicalclibIFriendly = scopejsiicalclib.IFriendly
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647.go 1`] = `
 package module2647
 
@@ -15612,6 +15687,7 @@ import (
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module2647/internal"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
@@ -15629,8 +15705,8 @@ type ExtendAndImplement interface {
 
 // The jsii proxy struct for ExtendAndImplement
 type jsiiProxy_ExtendAndImplement struct {
-	scopejsiicalclib.BaseFor2647 // extends @scope/jsii-calc-lib.BaseFor2647
-	scopejsiicalclib.IFriendly // implements @scope/jsii-calc-lib.IFriendly
+	internal.Type__scopejsiicalclibBaseFor2647
+	internal.Type__scopejsiicalclibIFriendly
 }
 
 // Deprecated.
@@ -15709,8 +15785,8 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_ExtendAndImplement{}
-			_jsii_.InitJsiiProxy(&j.BaseFor2647)
-			_jsii_.InitJsiiProxy(&j.IFriendly)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibBaseFor2647)
+			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibIFriendly)
 			return &j
 		},
 	)
@@ -16108,7 +16184,7 @@ type Base interface {
 
 // The jsii proxy struct for Base
 type jsiiProxy_Base struct {
-	jsiiProxy_IFoo // implements jsii-calc.module2700.IFoo
+	jsiiProxy_IFoo
 }
 
 func (j *jsiiProxy_Base) Baz() float64 {
@@ -16161,8 +16237,8 @@ type Derived interface {
 
 // The jsii proxy struct for Derived
 type jsiiProxy_Derived struct {
-	jsiiProxy_Base // extends jsii-calc.module2700.Base
-	jsiiProxy_IFoo // implements jsii-calc.module2700.IFoo
+	jsiiProxy_Base
+	jsiiProxy_IFoo
 }
 
 func (j *jsiiProxy_Derived) Baz() float64 {
@@ -16301,6 +16377,271 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_IFoo{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2702/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/jcb"
+)
+type Type__jcbBase = jcb.Base
+type Type__jcbIBaseInterface = jcb.IBaseInterface
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2702/module2702.go 1`] = `
+package module2702
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jcb"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module2702/internal"
+)
+
+type Class1 interface {
+	jcb.Base
+	Base()
+	TypeName() interface{}
+}
+
+// The jsii proxy struct for Class1
+type jsiiProxy_Class1 struct {
+	internal.Type__jcbBase
+}
+
+func NewClass1() Class1 {
+	_init_.Initialize()
+
+	j := jsiiProxy_Class1{}
+
+	_jsii_.Create(
+		"jsii-calc.module2702.Class1",
+		nil /* no parameters */,
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+func (c *jsiiProxy_Class1) Base() {
+	_jsii_.InvokeVoid(
+		c,
+		"base",
+		nil /* no parameters */,
+	)
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (c *jsiiProxy_Class1) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		c,
+		"typeName",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+type Class2 interface {
+	jcb.Base
+	Base() string
+	TypeName() interface{}
+}
+
+// The jsii proxy struct for Class2
+type jsiiProxy_Class2 struct {
+	internal.Type__jcbBase
+}
+
+func (j *jsiiProxy_Class2) Base() string {
+	var returns string
+	_jsii_.Get(
+		j,
+		"base",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewClass2() Class2 {
+	_init_.Initialize()
+
+	j := jsiiProxy_Class2{}
+
+	_jsii_.Create(
+		"jsii-calc.module2702.Class2",
+		nil /* no parameters */,
+		[]_jsii_.FQN{},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+// Returns: the name of the class (to verify native type names are created for derived classes).
+func (c *jsiiProxy_Class2) TypeName() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		c,
+		"typeName",
+		nil /* no parameters */,
+		&returns,
+	)
+
+	return returns
+}
+
+type Class3 interface {
+	jcb.IBaseInterface
+	Bar()
+	Foo()
+	IBaseInterface()
+}
+
+// The jsii proxy struct for Class3
+type jsiiProxy_Class3 struct {
+	internal.Type__jcbIBaseInterface
+}
+
+func NewClass3() Class3 {
+	_init_.Initialize()
+
+	j := jsiiProxy_Class3{}
+
+	_jsii_.Create(
+		"jsii-calc.module2702.Class3",
+		nil /* no parameters */,
+		[]_jsii_.FQN{"@scope/jsii-calc-base.IBaseInterface"},
+		nil, // no overrides
+		&j,
+	)
+
+	return &j
+}
+
+func (c *jsiiProxy_Class3) Bar() {
+	_jsii_.InvokeVoid(
+		c,
+		"bar",
+		nil /* no parameters */,
+	)
+}
+
+func (c *jsiiProxy_Class3) Foo() {
+	_jsii_.InvokeVoid(
+		c,
+		"foo",
+		nil /* no parameters */,
+	)
+}
+
+func (c *jsiiProxy_Class3) IBaseInterface() {
+	_jsii_.InvokeVoid(
+		c,
+		"iBaseInterface",
+		nil /* no parameters */,
+	)
+}
+
+type IFoo interface {
+	jcb.IBaseInterface
+	IBaseInterface() string
+}
+
+// The jsii proxy for IFoo
+type jsiiProxy_IFoo struct {
+	internal.Type__jcbIBaseInterface
+}
+
+func (j *jsiiProxy_IFoo) IBaseInterface() string {
+	var returns string
+	_jsii_.Get(
+		j,
+		"iBaseInterface",
+		&returns,
+	)
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2702/module2702.init.go 1`] = `
+package module2702
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.module2702.Class1",
+		reflect.TypeOf((*Class1)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "base", GoMethod: "Base"},
+			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
+		},
+		func() interface{} {
+			j := jsiiProxy_Class1{}
+			_jsii_.InitJsiiProxy(&j.Type__jcbBase)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.module2702.Class2",
+		reflect.TypeOf((*Class2)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "base", GoGetter: "Base"},
+			_jsii_.MemberMethod{JsiiMethod: "typeName", GoMethod: "TypeName"},
+		},
+		func() interface{} {
+			j := jsiiProxy_Class2{}
+			_jsii_.InitJsiiProxy(&j.Type__jcbBase)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.module2702.Class3",
+		reflect.TypeOf((*Class3)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "bar", GoMethod: "Bar"},
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+			_jsii_.MemberMethod{JsiiMethod: "iBaseInterface", GoMethod: "IBaseInterface"},
+		},
+		func() interface{} {
+			j := jsiiProxy_Class3{}
+			_jsii_.InitJsiiProxy(&j.Type__jcbIBaseInterface)
+			return &j
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.module2702.IFoo",
+		reflect.TypeOf((*IFoo)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "bar", GoMethod: "Bar"},
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+			_jsii_.MemberProperty{JsiiProperty: "iBaseInterface", GoGetter: "IBaseInterface"},
+		},
+		func() interface{} {
+			j := jsiiProxy_IFoo{}
+			_jsii_.InitJsiiProxy(&j.Type__jcbIBaseInterface)
+			return &j
 		},
 	)
 }
@@ -16906,6 +17247,15 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
+)
+type Type__deeplynestedINamespaced = deeplynested.INamespaced
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated.go 1`] = `
 package isolated
 
@@ -17018,6 +17368,15 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsubmodule/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
+)
+type Type__deeplynestedINamespaced = deeplynested.INamespaced
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsubmodule/nestedsubmodule.go 1`] = `
 package nestedsubmodule
 
@@ -17026,6 +17385,7 @@ import (
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/internal"
 )
 
 type Namespaced interface {
@@ -17036,7 +17396,7 @@ type Namespaced interface {
 
 // The jsii proxy struct for Namespaced
 type jsiiProxy_Namespaced struct {
-	deeplynested.INamespaced // implements jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced
+	internal.Type__deeplynestedINamespaced
 }
 
 func (j *jsiiProxy_Namespaced) DefinedAt() string {
@@ -17082,7 +17442,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_Namespaced{}
-			_jsii_.InitJsiiProxy(&j.INamespaced)
+			_jsii_.InitJsiiProxy(&j.Type__deeplynestedINamespaced)
 			return &j
 		},
 	)
@@ -17203,6 +17563,7 @@ import (
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/internal"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
 )
@@ -17227,7 +17588,7 @@ type MyClass interface {
 
 // The jsii proxy struct for MyClass
 type jsiiProxy_MyClass struct {
-	deeplynested.INamespaced // implements jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced
+	internal.Type__deeplynestedINamespaced
 }
 
 func (j *jsiiProxy_MyClass) AllTypes() jsiicalc.AllTypes {
@@ -17348,7 +17709,7 @@ func init() {
 		},
 		func() interface{} {
 			j := jsiiProxy_MyClass{}
-			_jsii_.InitJsiiProxy(&j.INamespaced)
+			_jsii_.InitJsiiProxy(&j.Type__deeplynestedINamespaced)
 			return &j
 		},
 	)
