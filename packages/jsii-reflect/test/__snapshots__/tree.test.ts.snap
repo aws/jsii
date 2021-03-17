@@ -22,6 +22,7 @@ exports[`defaults 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -67,6 +68,7 @@ exports[`inheritance 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -112,6 +114,7 @@ exports[`members 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -358,6 +361,33 @@ exports[`showAll 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: string
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├─┬ bar() method
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ baz property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: number
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ ├── base: Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └─┬ zoo() method
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ bar() method
+ │ │ │       │ ├── abstract
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ baz property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -2182,6 +2212,21 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ throwError() method
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ toIsoString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └─┬ static mode() method
@@ -3195,6 +3240,7 @@ exports[`signatures 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -3277,6 +3323,11 @@ exports[`types 1`] = `
  │ │ │ │     ├── interface Bar
  │ │ │ │     └── interface Foo
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3439,6 +3490,7 @@ exports[`types 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable

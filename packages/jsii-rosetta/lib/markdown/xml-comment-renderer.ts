@@ -82,10 +82,20 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
     try {
       const doc = new DOMParser().parseFromString(html, 'text/html');
       return new XMLSerializer().serializeToString(doc);
-    } catch (e) {
-      // There may be errors in parsing HTML. Don't let that stop us!
-      console.error(e.message);
-      return ESCAPE.text(html);
+    } catch {
+      // Could not parse - we'll escape unsafe XML entities here...
+      return html.replace(/[<>&]/g, (char: string) => {
+        switch (char) {
+          case '&':
+            return '&amp;';
+          case '<':
+            return '&lt;';
+          case '>':
+            return '&gt;';
+          default:
+            return char;
+        }
+      });
     }
   }
 
@@ -95,15 +105,7 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
    * If we don't do this, the parser will reject the whole XML block once it seens an unclosed
    * <img> tag.
    */
-  public html_block(node: cm.Node, _context: RendererContext) {
-    const html = node.literal ?? '';
-    try {
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      return new XMLSerializer().serializeToString(doc);
-    } catch (e) {
-      // There may be errors in parsing HTML. Don't let that stop us!
-      console.error(e.message);
-      return ESCAPE.text(html);
-    }
+  public html_block(node: cm.Node, context: RendererContext) {
+    return this.html_inline(node, context);
   }
 }
