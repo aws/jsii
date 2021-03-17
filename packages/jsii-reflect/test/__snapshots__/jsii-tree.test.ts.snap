@@ -250,6 +250,39 @@ exports[`jsii-tree --all 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: number
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1 (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ base() method (stable)
+ │ │ │   │     └── returns: void
+ │ │ │   ├─┬ class Class2 (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ base property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: string
+ │ │ │   ├─┬ class Class3 (stable)
+ │ │ │   │ ├── interfaces: IBaseInterface
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   ├─┬ bar() method (stable)
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   ├─┬ foo() method (stable)
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   └─┬ iBaseInterface() method (stable)
+ │ │ │   │     └── returns: void
+ │ │ │   └─┬ interface IFoo (stable)
+ │ │ │     ├─┬ interfaces
+ │ │ │     │ └── IBaseInterface
+ │ │ │     └─┬ members
+ │ │ │       └─┬ iBaseInterface property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3154,6 +3187,17 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   │ ├── base: Base
  │ │ │   │ └── interfaces: IFoo
  │ │ │   └── interface IFoo
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1
+ │ │ │   │ └── base: Base
+ │ │ │   ├─┬ class Class2
+ │ │ │   │ └── base: Base
+ │ │ │   ├─┬ class Class3
+ │ │ │   │ └── interfaces: IBaseInterface
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ interfaces
+ │ │ │       └── IBaseInterface
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -3659,6 +3703,25 @@ exports[`jsii-tree --members 1`] = `
  │ │ │     └─┬ members
  │ │ │       ├── bar() method
  │ │ │       └── baz property
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── base() method
+ │ │ │   ├─┬ class Class2
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── base property
+ │ │ │   ├─┬ class Class3
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── bar() method
+ │ │ │   │   ├── foo() method
+ │ │ │   │   └── iBaseInterface() method
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       └── iBaseInterface property
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4952,6 +5015,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── submodule1
  │   │   └── submodule2
  │   ├── module2700
+ │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -5038,6 +5102,12 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class Base
  │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├── class Class1
+ │ │ │   ├── class Class2
+ │ │ │   ├── class Class3
  │ │ │   └── interface IFoo
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
@@ -5355,6 +5425,7 @@ exports[`jsii-tree 1`] = `
  │   │   ├── submodule1
  │   │   └── submodule2
  │   ├── module2700
+ │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
