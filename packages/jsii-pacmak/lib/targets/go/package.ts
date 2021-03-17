@@ -167,7 +167,7 @@ export abstract class Package {
     const original = typeref.scopedInterfaceName(this);
 
     const slug = original.replace(/[^A-Za-z0-9]/g, '');
-    const aliasName = `Type_${slug}`;
+    const aliasName = `Type__${slug}`;
 
     this.embeddedTypes[type.fqn] = {
       foriegnTypeName: original,
