@@ -85,19 +85,24 @@ VOLUME /var/lib/docker
 
 # Install Node using NVM (Node Version Manager) so we can have multiple Node versions installed and easily switch
 # between them.
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash -                                   \
-  && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc                                                                \
-  && echo 'source "$NVM_DIR/nvm.sh"' >> $HOME/.bashrc
+ENV NVM_DIR /usr/local/nvm
 
-# Source NVM into this shell and install Node 10 and 14. First installed version becomes default.
-RUN export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh"  \                                                          \
-  && nvm install 10                                                                                                     \
-  && nvm install 14                                                                                                     \
+RUN mkdir -p $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash -                                   \
+  && echo 'source "$NVM_DIR/nvm.sh"' >> $HOME/.bash_profile
+
+# Because we wrote things to .bash_profile, make the default shell a login shell so it gets sourced.
+# Also set BASH_ENV to make bash source this EVEN if it's not a login shell (later on when the container
+# gets executed)
+SHELL [ "/bin/bash", "--login", "-c" ]
+ENV BASH_ENV /root/.bash_profile
+
+# Source NVM into this shell and install Node 10 and 14. First installed version (10) becomes default.
+RUN nvm install 10                                                                                                     \
+  && nvm install 14                                                                                                    \
   && npm set unsafe-perm true
 
 # Can't install Yarn using yum anymore now that we're using nvm, so install it using NPM
-RUN export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh"                                                             \
-  && nvm exec 10 npm install -g yarn                                                                                    \
+RUN nvm exec 10 npm install -g yarn                                                                                    \
   && nvm exec 14 npm install -g yarn
 
 # Install some configuration
@@ -119,4 +124,4 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "--login"]
