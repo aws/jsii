@@ -121,7 +121,7 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 	}
 
 	if existing, exists := t.structInfo[strct]; exists && existing.FQN != fqn {
-		return fmt.Errorf("attempting to register type %s as %s, but it was already registered as: %s", strct.String(), fqn, existing)
+		return fmt.Errorf("attempting to register type %s as %s, but it was already registered as: %s", strct.String(), fqn, existing.FQN)
 	}
 
 	numField := strct.NumField()
