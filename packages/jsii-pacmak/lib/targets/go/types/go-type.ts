@@ -1,4 +1,4 @@
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { CodeMaker } from 'codemaker';
 import { Type } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
@@ -13,7 +13,7 @@ export abstract class GoType {
   public readonly proxyName: string;
 
   public constructor(public pkg: Package, public type: Type) {
-    this.name = toPascalCase(type.name);
+    this.name = type.name;
 
     // Prefix with the nesting parent name(s), using an _ delimiter.
     for (
@@ -21,7 +21,7 @@ export abstract class GoType {
       parent != null;
       parent = parent.nestingParent
     ) {
-      this.name = `${toPascalCase(parent.name)}_${this.name}`;
+      this.name = `${parent.name}_${this.name}`;
     }
 
     // Add "jsiiProxy_" prefix to private struct name to avoid keyword conflicts

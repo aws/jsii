@@ -61,7 +61,7 @@ func RegisterClass(fqn FQN, class reflect.Type, members []Member, maker func() i
 
 // RegisterEnum associates an enum's fully qualified name to the specified enum
 // type, and members. Panics if enum is not a reflect.String type, any value in
-// the provided members map is of a type ofther than enum, or if the provided
+// the provided members map is of a type other than enum, or if the provided
 // fqn was already used to register a different type.
 func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
 	client := kernel.GetClient()
@@ -141,9 +141,9 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []M
 		}
 	}
 
-	var interfaceFQNs []api.FQN
-	for _, iface := range interfaces {
-		interfaceFQNs = append(interfaceFQNs, api.FQN(iface))
+	interfaceFQNs := make([]api.FQN, len(interfaces))
+	for i, iface := range interfaces {
+		interfaceFQNs[i] = api.FQN(iface)
 	}
 	overrides := make([]api.Override, len(overriddenMembers))
 	for i, member := range overriddenMembers {
@@ -336,10 +336,10 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 // ready for inclusion in an invoke or create request.
 func convertArguments(args []interface{}) []interface{} {
 	if len(args) == 0 {
-		return make([]interface{}, 0, 0)
+		return nil
 	}
 
-	result := make([]interface{}, len(args), len(args))
+	result := make([]interface{}, len(args))
 	client := kernel.GetClient()
 	for i, arg := range args {
 		val := reflect.ValueOf(arg)

@@ -57,8 +57,10 @@ func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructFi
 	if info, ok = t.structInfo[typ]; !ok {
 		return
 	}
+
 	fqn = info.FQN
-	fields = append(fields, info.Fields...)
+	fields = make([]reflect.StructField, len(info.Fields))
+	copy(fields, info.Fields)
 	return
 }
 

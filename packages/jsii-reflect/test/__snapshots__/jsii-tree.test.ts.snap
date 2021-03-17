@@ -223,6 +223,33 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: string
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base (stable)
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   ├─┬ bar() method (stable)
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ baz property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: number
+ │ │ │   ├─┬ class Derived (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ zoo() method (stable)
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IFoo (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ bar() method (stable)
+ │ │ │       │ ├── abstract
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ baz property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
  │ │ ├─┬ module2702
  │ │ │ └─┬ types
  │ │ │   ├─┬ class Class1 (stable)
@@ -2080,6 +2107,21 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ throwError() method (stable)
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ toIsoString() method (stable)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property (deprecated)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck (stable)
  │   │ └─┬ members
  │   │   └─┬ static mode() method (stable)
@@ -3137,6 +3179,14 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │ │         ├── Bar
  │ │ │ │         └── Bar
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   └── interface IFoo
  │ │ ├─┬ module2702
  │ │ │ └─┬ types
  │ │ │   ├─┬ class Class1
@@ -3342,6 +3392,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├─┬ class UnaryOperation
  │   │ └── base: Operation
@@ -3637,6 +3688,21 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ │       └─┬ members
  │ │ │ │         └── foo2 property
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── bar() method
+ │ │ │   │   └── baz property
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── zoo() method
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       ├── bar() method
+ │ │ │       └── baz property
  │ │ ├─┬ module2702
  │ │ │ └─┬ types
  │ │ │   ├─┬ class Class1
@@ -4474,6 +4540,14 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── toIsoString() method
+ │   │   ├── toIsOString() method
+ │   │   ├── toISOString() method
+ │   │   ├── fooBar property
+ │   │   └── fooBAR property
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └── static mode() method
@@ -4940,6 +5014,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
@@ -5023,6 +5098,11 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ │     ├── interface Bar
  │ │ │ │     └── interface Foo
  │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
  │ │ ├─┬ module2702
  │ │ │ └─┬ types
  │ │ │   ├── class Class1
@@ -5191,6 +5271,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable
@@ -5343,6 +5424,7 @@ exports[`jsii-tree 1`] = `
  │   │ └─┬ submodules
  │   │   ├── submodule1
  │   │   └── submodule2
+ │   ├── module2700
  │   ├── module2702
  │   ├─┬ nodirect
  │   │ └─┬ submodules
