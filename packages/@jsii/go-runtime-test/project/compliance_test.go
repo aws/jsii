@@ -427,7 +427,7 @@ func (suite *ComplianceSuite) TestStructs_nonOptionalequals() {
 func (suite *ComplianceSuite) TestTestInterfaceParameter() {
 	assert := suite.Assert()
 
-	obj := calc.NewJsObjectLiteralForInterface()
+	obj := calc.NewJSObjectLiteralForInterface()
 	friendly := obj.GiveMeFriendly()
 	assert.Equal("I am literally friendly!", friendly.Hello())
 
@@ -761,12 +761,15 @@ func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType(
 	assert := suite.Assert()
 
 	ifaceRef := calc.Constructors_MakeInterface()
-	var v calc.IPublicInterface = ifaceRef
+	v := ifaceRef
 	assert.NotNil(v)
 
 	// TODO: I am not sure this is possible in Go (probably N/A)
 	suite.FailTest("N/A?", "")
-	//var classRef calc.InbetweenClass = calc.Constructors_MakeClass()
+
+	classRef, ok := calc.Constructors_MakeClass().(calc.InbetweenClass)
+	assert.True(ok)
+	assert.NotNil(classRef)
 }
 
 func (suite *ComplianceSuite) TestStaticListInClassCannotBeModified() {
@@ -1030,8 +1033,8 @@ func (suite *ComplianceSuite) TestConsts() {
 	obj := calc.Statics_ConstObj()
 	assert.Equal("world", obj.Hello())
 
-	assert.Equal(float64(1234), calc.Statics_Bar())
-	assert.Equal("world", calc.Statics_ZooBar()["hello"])
+	assert.Equal(float64(1234), calc.Statics_BAR());
+	assert.Equal("world", calc.Statics_ZooBar()["hello"]);
 
 }
 
@@ -1095,9 +1098,9 @@ func (suite *ComplianceSuite) TestStructs_NonOptionalhashCode() {
 func (suite *ComplianceSuite) TestTestLiteralInterface() {
 
 	assert := suite.Assert()
-	obj := calc.NewJsObjectLiteralForInterface()
-	friendly := obj.GiveMeFriendly()
-	assert.Equal("I am literally friendly!", friendly.Hello())
+	obj := calc.NewJSObjectLiteralForInterface();
+	friendly := obj.GiveMeFriendly();
+	assert.Equal("I am literally friendly!", friendly.Hello());
 
 	gen := obj.GiveMeFriendlyGenerator()
 	assert.Equal("giveMeFriendlyGenerator", gen.Hello())
@@ -1158,7 +1161,7 @@ func (suite *ComplianceSuite) TestSyncOverrides_CallsSuper() {
 	assert := suite.Assert()
 
 	obj := NewSyncOverrides()
-	obj.returnSuper = true
+	obj.returnSuper = false
 	obj.multiplier = 1
 
 	assert.Equal(float64(10*5), obj.CallerIsProperty())

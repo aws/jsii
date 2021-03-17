@@ -182,20 +182,39 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 	return dataVal.Interface()
 }
 
-func castValToRef(data reflect.Value) (api.ObjectRef, bool) {
-	ref := api.ObjectRef{}
-	ok := false
-
+func castValToRef(data reflect.Value) (ref api.ObjectRef, ok bool) {
 	if data.Kind() == reflect.Map {
 		for _, k := range data.MapKeys() {
 			// Finding values type requires extracting from reflect.Value
 			// otherwise .Kind() returns `interface{}`
 			v := reflect.ValueOf(data.MapIndex(k).Interface())
 
-			if k.Kind() == reflect.String && k.String() == "$jsii.byref" && v.Kind() == reflect.String {
+			if k.Kind() != reflect.String {
+				continue
+			}
+
+			switch k.String() {
+			case "$jsii.byref":
+				if v.Kind() != reflect.String {
+					ok = false
+					return
+				}
 				ref.InstanceID = v.String()
 				ok = true
-				break
+			case "$jsii.interfaces":
+				if v.Kind() != reflect.Slice {
+					continue
+				}
+				ifaces := make([]api.FQN, v.Len())
+				for i := 0; i < v.Len(); i++ {
+					e := reflect.ValueOf(v.Index(i).Interface())
+					if e.Kind() != reflect.String {
+						ok = false
+						return
+					}
+					ifaces[i] = api.FQN(e.String())
+				}
+				ref.Interfaces = ifaces
 			}
 
 		}

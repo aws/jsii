@@ -1,5 +1,10 @@
 package api
 
+import (
+	"fmt"
+	"regexp"
+)
+
 // FQN represents a fully-qualified type name in the jsii type system.
 type FQN string
 
@@ -62,6 +67,16 @@ func IsPropertyOverride(value Override) bool {
 
 type ObjectRef struct {
 	InstanceID string `json:"$jsii.byref"`
+	Interfaces []FQN  `json:"$jsii.interfaces,omitempty"`
+}
+
+func (o *ObjectRef) TypeFQN() FQN {
+	re := regexp.MustCompile("^(.+)@(\\d+)$")
+	if parts := re.FindStringSubmatch(o.InstanceID); parts == nil {
+		panic(fmt.Errorf("invalid instance id: %s", o.InstanceID))
+	} else {
+		return FQN(parts[1])
+	}
 }
 
 type EnumRef struct {

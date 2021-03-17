@@ -1026,7 +1026,7 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
