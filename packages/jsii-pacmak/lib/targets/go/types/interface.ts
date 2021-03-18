@@ -83,13 +83,7 @@ export class GoInterface extends GoType {
       code.line('_ byte // padding');
     } else {
       for (const base of this.extends) {
-        const embed =
-          base.pkg === this.pkg
-            ? base.proxyName
-            : new GoTypeRef(this.pkg.root, base.type.reference).scopedName(
-                this.pkg,
-              );
-        code.line(`${embed} // extends ${base.fqn}`);
+        code.line(this.pkg.resolveEmbeddedType(base).embed);
       }
     }
     code.closeBlock();
@@ -159,6 +153,10 @@ export class GoInterface extends GoType {
       this.properties.some((p) => p.usesRuntimePackage) ||
       this.methods.some((m) => m.usesRuntimePackage)
     );
+  }
+
+  public get usesInternalPackage() {
+    return this.extends.some((base) => this.pkg.isExternalType(base));
   }
 
   public get extends(): GoInterface[] {
