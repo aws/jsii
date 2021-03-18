@@ -513,8 +513,8 @@ abstract class BaseMethod implements PythonBase {
     // resolved, so build up a list of all of the prop names so we can check against
     // them later.
     const liftedPropNames = new Set<string>();
-    if (this.liftedProp?.properties?.length ?? 0 >= 1) {
-      for (const prop of this.liftedProp!.properties!) {
+    if (this.liftedProp?.properties != null) {
+      for (const prop of this.liftedProp.properties) {
         liftedPropNames.add(toPythonParameterName(prop.name));
       }
     }
@@ -751,24 +751,36 @@ abstract class BaseMethod implements PythonBase {
     const liftedProperties: spec.Property[] = [];
 
     const stack = [this.liftedProp];
-    let current = stack.shift();
-    while (current !== undefined) {
+    const knownIfaces = new Set<string>();
+    const knownProps = new Set<string>();
+    for (
+      let current = stack.shift();
+      current != null;
+      current = stack.shift()
+    ) {
+      knownIfaces.add(current.fqn);
+
       // Add any interfaces that this interface depends on, to the list.
       if (current.interfaces !== undefined) {
-        stack.push(
-          ...current.interfaces.map(
-            (ifc) => resolver.dereference(ifc) as spec.InterfaceType,
-          ),
-        );
+        for (const iface of current.interfaces) {
+          if (knownIfaces.has(iface)) {
+            continue;
+          }
+          stack.push(resolver.dereference(iface) as spec.InterfaceType);
+          knownIfaces.add(iface);
+        }
       }
 
       // Add all of the properties of this interface to our list of properties.
       if (current.properties !== undefined) {
-        liftedProperties.push(...current.properties);
+        for (const prop of current.properties) {
+          if (knownProps.has(prop.name)) {
+            continue;
+          }
+          liftedProperties.push(prop);
+          knownProps.add(prop.name);
+        }
       }
-
-      // Finally, grab our next item.
-      current = stack.shift();
     }
 
     return liftedProperties;

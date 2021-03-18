@@ -164,7 +164,7 @@ export abstract class Package {
     }
 
     const typeref = new GoTypeRef(this.root, type.type.reference);
-    const original = typeref.scopedInterfaceName(this);
+    const original = typeref.scopedName(this);
 
     const slug = original.replace(/[^A-Za-z0-9]/g, '');
     const aliasName = `Type__${slug}`;

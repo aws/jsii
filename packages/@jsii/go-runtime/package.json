@@ -13,6 +13,7 @@
     "doc": "(cd jsii-runtime-go && yarn --silent go:run godoc)",
     "fmt": "yarn --silent go:run goimports -w jsii-runtime-go",
     "lint": "(cd jsii-runtime-go && go vet ./... && yarn --silent go:run golint ./...)",
+    "lint:fix": "yarn lint && yarn fmt",
     "test": "(cd jsii-runtime-go && go test ./...)"
   },
   "keywords": [],

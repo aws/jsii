@@ -1,9 +1,10 @@
 package kernel
 
 import (
-	"github.com/aws/jsii-runtime-go/internal/typeregistry"
 	"reflect"
 	"testing"
+
+	"github.com/aws/jsii-runtime-go/internal/typeregistry"
 )
 
 func TestClient(t *testing.T) {
