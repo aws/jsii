@@ -48,9 +48,9 @@
     "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
     "source-map-loader": "^2.0.1",
-    "ts-jest": "^26.5.3",
+    "ts-jest": "^26.5.4",
     "typescript": "~3.9.9",
-    "webpack": "^5.25.1",
+    "webpack": "^5.26.3",
     "webpack-cli": "^4.5.0"
   }
 }
