@@ -61,9 +61,7 @@ export class GoInterface extends GoType {
     // embed extended interfaces
     for (const iface of this.extends) {
       code.line(
-        new GoTypeRef(this.pkg.root, iface.type.reference).scopedInterfaceName(
-          this.pkg,
-        ),
+        new GoTypeRef(this.pkg.root, iface.type.reference).scopedName(this.pkg),
       );
     }
 
@@ -201,7 +199,7 @@ class InterfaceProperty extends GoProperty {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
+      this.reference?.scopedReference(this.parent.pkg) ??
       this.property.type.toString()
     );
   }

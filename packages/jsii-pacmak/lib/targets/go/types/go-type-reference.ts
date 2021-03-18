@@ -72,6 +72,11 @@ export class GoTypeRef {
     return this.type?.name;
   }
 
+  public get datatype() {
+    const reflectType = this.type?.type;
+    return reflectType?.isInterfaceType() && reflectType.datatype;
+  }
+
   public get namespace() {
     return this.type?.namespace;
   }
@@ -123,15 +128,11 @@ export class GoTypeRef {
    * Return the name of a type for reference from the `Package` passed in
    */
   public scopedName(scope: Package): string {
-    return this.scopedTypeName(this.typeMap, scope, false);
+    return this.scopedTypeName(this.typeMap, scope);
   }
 
-  public scopedInterfaceName(scope: Package): string {
+  public scopedReference(scope: Package): string {
     return this.scopedTypeName(this.typeMap, scope, true);
-  }
-
-  public scopedReferenceName(scope: Package): string {
-    return this.scopedTypeName(this.typeMap, scope, false, true);
   }
 
   private buildTypeMap(ref: GoTypeRef): TypeMap {
@@ -161,22 +162,24 @@ export class GoTypeRef {
     return { type: 'interface', value: ref };
   }
 
-  private scopedTypeName(
+  public scopedTypeName(
     typeMap: TypeMap,
     scope: Package,
-    asInterface: boolean,
     asRef = false,
   ): string {
     if (typeMap.type === 'primitive') {
-      return typeMap.value;
+      const { value } = typeMap;
+      const prefix = asRef && value !== 'interface{}' ? '*' : '';
+      return `${prefix}${value}`;
     } else if (typeMap.type === 'array' || typeMap.type === 'map') {
-      const prefix = typeMap.type === 'array' ? '[]' : 'map[string]';
-      const innerName =
-        this.scopedTypeName(typeMap.value.typeMap, scope, asInterface, asRef) ??
-        'interface{}';
-      return `${prefix}${innerName}`;
-    } else if (typeMap.type === 'interface') {
       const prefix = asRef ? '*' : '';
+      const wrapper = typeMap.type === 'array' ? '[]' : 'map[string]';
+      const innerName =
+        this.scopedTypeName(typeMap.value.typeMap, scope, asRef) ??
+        'interface{}';
+      return `${prefix}${wrapper}${innerName}`;
+    } else if (typeMap.type === 'interface') {
+      const prefix = asRef && typeMap.value.datatype ? '*' : '';
       const baseName = typeMap.value.name;
       // type is defined in the same scope as the current one, no namespace required
       if (scope.packageName === typeMap.value.namespace && baseName) {
@@ -196,7 +199,7 @@ export class GoTypeRef {
 
     // type isn't handled
     throw new Error(
-      `Type ${typeMap.value?.name} does not resolve to a known Go type. It is being mapped to "interface{}".`,
+      `Type ${typeMap.value?.name} does not resolve to a known Go type.`,
     );
   }
 }

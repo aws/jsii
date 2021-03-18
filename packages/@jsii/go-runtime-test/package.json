@@ -8,7 +8,7 @@
     "fmt": "yarn --silent go:run goimports -w .",
     "lint": "cd project && go vet ./... && yarn --silent go:run golint ./...",
     "test": "cd project && go test ./...",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "yarn lint && yarn fmt",
     "gen:calc": "node build-tools/gen-calc.js",
     "go:run": "cd project && go mod download && node ../build-tools/go-run.js"
   },

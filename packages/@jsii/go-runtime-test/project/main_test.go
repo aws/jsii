@@ -25,9 +25,10 @@ func TestMain(m *testing.M) {
 // Only uses first argument as initial value. This is just a convenience for
 // tests that want to assert against the initialValue
 func initCalculator(initialValue float64) calc.Calculator {
-	return calc.NewCalculator(calc.CalculatorProps{
-		InitialValue: initialValue,
-		MaximumValue: math.MaxFloat64,
+	max := jsii.Number(math.MaxFloat64)
+	return calc.NewCalculator(&calc.CalculatorProps{
+		InitialValue: &initialValue,
+		MaximumValue: max,
 	})
 }
 
@@ -44,30 +45,30 @@ func TestCalculator(t *testing.T) {
 		expected := float64(10)
 		calculator := initCalculator(expected)
 		actual := calculator.Value()
-		if actual != expected {
-			t.Errorf("Expected: %f; Actual %f;", expected, actual)
+		if *actual != expected {
+			t.Errorf("Expected: %f; Actual %f;", expected, *actual)
 		}
 	})
 
 	t.Run("Property mutation", func(t *testing.T) {
 		calculator := initCalculator(float64(0))
 		var newVal float64 = 12345
-		currentProps := calclib.NewNumber(newVal)
+		currentProps := calclib.NewNumber(&newVal)
 		calculator.SetCurr(currentProps)
 		actual := calculator.Value()
-		if newVal != actual {
-			t.Errorf("Expected: %f; Actual %f;", newVal, actual)
+		if newVal != *actual {
+			t.Errorf("Expected: %f; Actual %f;", newVal, *actual)
 		}
 	})
 
 	t.Run("Method with side effect", func(t *testing.T) {
 		initial, factor := float64(10), float64(3)
 		calculator := initCalculator(initial)
-		calculator.Mul(factor)
+		calculator.Mul(&factor)
 		expectedProduct := initial * factor
 		actualProduct := calculator.Value()
-		if actualProduct != expectedProduct {
-			t.Errorf("Expected quotient: %f; Actual %f;", expectedProduct, actualProduct)
+		if *actualProduct != expectedProduct {
+			t.Errorf("Expected quotient: %f; Actual %f;", expectedProduct, *actualProduct)
 		}
 	})
 
@@ -92,11 +93,11 @@ func TestCalculator(t *testing.T) {
 		calculator := initCalculator(0)
 		lhs, rhs := 10, 3
 		calculator.SetCurr(calc.NewMultiply(
-			calclib.NewNumber(float64(lhs)),
-			calclib.NewNumber(float64(rhs)),
+			calclib.NewNumber(jsii.Number(10)),
+			calclib.NewNumber(jsii.Number(3)),
 		))
 		expectedString := fmt.Sprintf("(%d * %d)", lhs, rhs)
-		actualString := calculator.ToString()
+		actualString := *calculator.ToString()
 		if actualString != expectedString {
 			t.Errorf("Expected string: %s; Actual %s;", expectedString, actualString)
 		}
@@ -107,17 +108,18 @@ func TestUpcasingReflectable(t *testing.T) {
 	delegate := make(map[string]interface{})
 	key, val := "key1", "value1"
 	delegate[key] = val
-	upReflectable := calc.NewUpcasingReflectable(delegate)
-	entries := upReflectable.Entries()
+	upReflectable := calc.NewUpcasingReflectable(&delegate)
+	entries := *upReflectable.Entries()
 
 	if len(entries) != 1 {
 		t.Errorf("Entries expected to have length of: 1; Actual: %d", len(entries))
 	}
 
-	actual := entries[0]
-	expected := customsubmodulename.ReflectableEntry{Key: strings.ToUpper(key), Value: val}
-	if actual != expected {
-		t.Errorf("Expected %v; Received: %v", expected, actual)
+	actual := *entries[0]
+	keyupper := strings.ToUpper(key)
+	expected := customsubmodulename.ReflectableEntry{Key: &keyupper, Value: &val}
+	if *actual.Key != *expected.Key {
+		t.Errorf("Expected %v; Received: %v", *expected.Key, *actual.Key)
 	}
 }
 
@@ -126,9 +128,10 @@ func TestAllTypes(t *testing.T) {
 
 	t.Run("Array property", func(t *testing.T) {
 		expected1, expected2 := "val1", "val2"
-		allTypes.SetArrayProperty([]string{expected1, expected2})
-		actual := allTypes.ArrayProperty()
-		actual1, actual2 := actual[0], actual[1]
+		arrproperty := []*string{jsii.String(expected1), jsii.String(expected2)}
+		allTypes.SetArrayProperty(&arrproperty)
+		actual := *allTypes.ArrayProperty()
+		actual1, actual2 := *actual[0], *actual[1]
 
 		if actual1 != expected1 || actual2 != expected2 {
 			t.Errorf("Expected Values: %s, %s; Received: %s, %s", expected1, expected2, actual1, actual2)
@@ -197,11 +200,11 @@ func TestOptionalEnums(t *testing.T) {
 
 func TestStructWithEnum(t *testing.T) {
 	obj := calc.NewTestStructWithEnum()
-	if !obj.IsStringEnumA(calc.StructWithEnum{Foo: calc.StringEnum_A}) {
+	if !*obj.IsStringEnumA(&calc.StructWithEnum{Foo: calc.StringEnum_A}) {
 		t.Error("Failed")
 	}
 
-	if !obj.IsStringEnumB(calc.StructWithEnum{
+	if !*obj.IsStringEnumB(&calc.StructWithEnum{
 		Foo: calc.StringEnum_B,
 		Bar: calc.AllTypesEnum_THIS_IS_GREAT,
 	}) {
@@ -229,7 +232,7 @@ func TestStructWithEnum(t *testing.T) {
 
 func TestReturnsSpecialParam(t *testing.T) {
 	retSpecialParam := returnsParam.NewReturnsSpecialParameter()
-	val := retSpecialParam.ReturnsSpecialParam()
+	val := *retSpecialParam.ReturnsSpecialParam()
 	expected := reflect.TypeOf(param.SpecialParameter{})
 	actual := reflect.TypeOf(val)
 	if actual != expected {

@@ -1,6 +1,9 @@
 package friendlyRandom
 
-import "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+import (
+	"github.com/aws/jsii-runtime-go"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
 
 type SubclassFriendlyRandom struct {
 	scopejsiicalclib.Number `overrides:"Hello,Next"`
@@ -13,13 +16,13 @@ func NewSubclass() *SubclassFriendlyRandom {
 	return s
 }
 
-func (s *SubclassFriendlyRandom) Hello() string {
-	return "SubclassNativeFriendlyRandom"
+func (s *SubclassFriendlyRandom) Hello() *string {
+	return jsii.String("SubclassNativeFriendlyRandom")
 }
 
-func (s *SubclassFriendlyRandom) Next() float64 {
+func (s *SubclassFriendlyRandom) Next() *float64 {
 	defer func() { s.next += 100 }()
-	return s.next
+	return jsii.Number(s.next)
 }
 
 type PureFriendlyRandom struct {
@@ -30,11 +33,11 @@ func NewPure() *PureFriendlyRandom {
 	return &PureFriendlyRandom{next: 1000}
 }
 
-func (p *PureFriendlyRandom) Hello() string {
-	return "I am a native!"
+func (p *PureFriendlyRandom) Hello() *string {
+	return jsii.String("I am a native!")
 }
 
-func (p *PureFriendlyRandom) Next() float64 {
+func (p *PureFriendlyRandom) Next() *float64 {
 	defer func() { p.next += 1000 }()
-	return p.next
+	return jsii.Number(p.next)
 }
