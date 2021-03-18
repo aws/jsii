@@ -2,10 +2,11 @@ package tests
 
 import (
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/suite"
 	"io/ioutil"
 	"strings"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
 type ComplianceSuite struct {
@@ -33,7 +34,7 @@ func (suite *ComplianceSuite) Assert() *assert.Assertions {
 	return assert.New(suite.T())
 }
 
-func (suite* ComplianceSuite) reportForTest() map[string]string {
+func (suite *ComplianceSuite) reportForTest() map[string]string {
 	fullName := suite.T().Name()
 	testName := strings.Split(fullName, "/")[1]
 	name := strings.Replace(testName, "Test", "", 1)

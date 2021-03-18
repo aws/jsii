@@ -1,6 +1,7 @@
 package tests
 
 import (
+	_jsii_ "github.com/aws/jsii-runtime-go"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
@@ -16,16 +17,15 @@ func newPureNativeFriendlyRandom() *pureNativeFriendlyRandom {
 	}
 }
 
-func (p *pureNativeFriendlyRandom) Next() float64 {
+func (p *pureNativeFriendlyRandom) Next() *float64 {
 	n := p._nextNumber
 	p._nextNumber += 1000
-	return n
+	return &n
 }
 
-func (p *pureNativeFriendlyRandom) Hello() string {
-	return "I am a native!"
+func (p *pureNativeFriendlyRandom) Hello() *string {
+	return _jsii_.String("I am a native!")
 }
-
 
 /*
    class SubclassNativeFriendlyRandom extends Number implements IFriendly, IRandomNumberGenerator {
@@ -57,4 +57,3 @@ type subclassNativeFriendlyRandom struct {
 	scopejsiicalclib.IFriendly
 	calc.IRandomNumberGenerator
 }
-

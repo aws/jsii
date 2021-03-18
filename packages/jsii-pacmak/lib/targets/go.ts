@@ -40,15 +40,21 @@ export class Golang extends Target {
     // write `local.go.mod` with "replace" directives for local modules
     const localGoMod = await this.writeLocalGoMod(pkgDir);
 
-    // run `go build` with local.go.mod, go 1.16 requires that we download
-    // modules explicit so go.sum is updated.
-    await go('mod', ['download', '-modfile', localGoMod], { cwd: pkgDir });
+    try {
+      // run `go build` with local.go.mod, go 1.16 requires that we download
+      // modules explicit so go.sum is updated.
+      await go('mod', ['download', '-modfile', localGoMod], { cwd: pkgDir });
+    } catch (e) {
+      const content = await fs.readFile(localGoMod, 'utf8');
+      logging.info(`Content of ${localGoMod} file:\n${content}`);
+      return Promise.reject(e);
+    }
     await go('build', ['-modfile', localGoMod, './...'], { cwd: pkgDir });
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;
     await fs.remove(path.join(pkgDir, localGoMod));
-    await fs.remove(path.join(pkgDir, localGoSum));
+    return fs.remove(path.join(pkgDir, localGoSum));
   }
 
   /**

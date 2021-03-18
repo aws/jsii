@@ -8,6 +8,7 @@ import {
   JSII_SINVOKE_FUNC,
   JSII_SINVOKE_VOID_FUNC,
 } from './constants';
+import { emitArguments } from './emit-arguments';
 import { FunctionCall } from './function-call';
 import { slugify, emitInitialization } from './util';
 
@@ -26,6 +27,11 @@ export class MethodCall extends FunctionCall {
   }
 
   private emitDynamic(code: CodeMaker) {
+    const args = emitArguments(
+      code,
+      this.parent.parameters,
+      this.returnVarName,
+    );
     if (this.returnsVal) {
       code.line(`var ${this.returnVarName} ${this.returnType}`);
       code.line();
@@ -36,7 +42,7 @@ export class MethodCall extends FunctionCall {
 
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.method.name}",`);
-    code.line(`${this.argsString},`);
+    code.line(args ? `${args},` : 'nil, // no parameters');
     if (this.returnsVal) {
       code.line(`&${this.returnVarName},`);
     }
@@ -52,7 +58,11 @@ export class MethodCall extends FunctionCall {
   private emitStatic(code: CodeMaker) {
     emitInitialization(code);
     code.line();
-
+    const args = emitArguments(
+      code,
+      this.parent.parameters,
+      this.returnVarName,
+    );
     if (this.returnsVal) {
       code.line(`var ${this.returnVarName} ${this.returnType}`);
       code.line();
@@ -63,7 +73,7 @@ export class MethodCall extends FunctionCall {
 
     code.line(`"${this.parent.parent.fqn}",`);
     code.line(`"${this.parent.method.name}",`);
-    code.line(`${this.argsString},`);
+    code.line(args ? `${args},` : 'nil, // no parameters');
     if (this.returnsVal) {
       code.line(`&${this.returnVarName},`);
     }
@@ -88,13 +98,5 @@ export class MethodCall extends FunctionCall {
 
   private get inStatic(): boolean {
     return Method.isMethod(this.parent.method) && this.parent.method.static;
-  }
-
-  private get argsString(): string {
-    const argsList = this.parent.parameters.map((param) => param.name);
-    if (argsList.length === 0) {
-      return 'nil /* no parameters */';
-    }
-    return `[]interface{}{${argsList.join(', ')}}`;
   }
 }

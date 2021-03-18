@@ -176,17 +176,14 @@ export class GoClass extends GoType {
     // embed extended interfaces
     if (this.extends) {
       code.line(
-        new GoTypeRef(
-          this.pkg.root,
-          this.extends.type.reference,
-        ).scopedInterfaceName(this.pkg),
+        new GoTypeRef(this.pkg.root, this.extends.type.reference).scopedName(
+          this.pkg,
+        ),
       );
     }
     for (const iface of this.implements) {
       code.line(
-        new GoTypeRef(this.pkg.root, iface.type.reference).scopedInterfaceName(
-          this.pkg,
-        ),
+        new GoTypeRef(this.pkg.root, iface.type.reference).scopedName(this.pkg),
       );
     }
 
@@ -344,13 +341,6 @@ export class ClassMethod extends GoMethod {
     const { code } = context;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
     code.line(`${this.name}(${this.paramString()})${returnTypeString}`);
-  }
-
-  public get returnType(): string {
-    return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
-      this.method.toString()
-    );
   }
 
   public get instanceArg(): string {
