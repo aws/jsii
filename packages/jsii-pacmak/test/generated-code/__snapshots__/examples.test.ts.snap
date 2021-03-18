@@ -421,9 +421,9 @@ import (
 )
 
 type Baz struct {
-	Foo float64 \`json:"foo"\`
-	Bar string \`json:"bar"\`
-	Baz bool \`json:"baz"\`
+	Foo *float64 \`json:"foo"\`
+	Bar *string \`json:"bar"\`
+	Baz *bool \`json:"baz"\`
 }
 
 type Consumer interface {
@@ -434,7 +434,7 @@ type jsiiProxy_Consumer struct {
 	_ byte // padding
 }
 
-func Consumer_ConsumeBaz(baz Baz) {
+func Consumer_ConsumeBaz(baz *Baz) {
 	_init_.Initialize()
 
 	_jsii_.StaticInvokeVoid(
@@ -445,12 +445,12 @@ func Consumer_ConsumeBaz(baz Baz) {
 }
 
 type Foo struct {
-	Foo float64 \`json:"foo"\`
+	Foo *float64 \`json:"foo"\`
 }
 
 type FooBar struct {
-	Foo float64 \`json:"foo"\`
-	Bar string \`json:"bar"\`
+	Foo *float64 \`json:"foo"\`
+	Bar *string \`json:"bar"\`
 }
 
 
