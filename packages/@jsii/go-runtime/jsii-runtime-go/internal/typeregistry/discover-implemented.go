@@ -18,10 +18,12 @@ func (t *TypeRegistry) DiscoverImplementation(vt reflect.Type) (interfaces []api
 	registeredOverrides := make(map[string]bool)
 	embeds := t.registeredBasesOf(vt)
 
+	pt := reflect.PtrTo(vt)
+
 OuterLoop:
 	for fqn, members := range t.typeMembers {
 		iface := t.fqnToType[fqn]
-		if iface.Kind == classType || !vt.AssignableTo(iface.Type) {
+		if iface.Kind == classType || !(vt.AssignableTo(iface.Type) || pt.AssignableTo(iface.Type)) {
 			continue
 		}
 		for _, embed := range embeds {

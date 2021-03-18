@@ -61,9 +61,7 @@ export class GoInterface extends GoType {
     // embed extended interfaces
     for (const iface of this.extends) {
       code.line(
-        new GoTypeRef(this.pkg.root, iface.type.reference).scopedInterfaceName(
-          this.pkg,
-        ),
+        new GoTypeRef(this.pkg.root, iface.type.reference).scopedName(this.pkg),
       );
     }
 
@@ -85,14 +83,7 @@ export class GoInterface extends GoType {
       code.line('_ byte // padding');
     } else {
       for (const base of this.extends) {
-        const embed =
-          base.pkg === this.pkg
-            ? base.proxyName
-            : new GoTypeRef(
-                this.pkg.root,
-                base.type.reference,
-              ).scopedInterfaceName(this.pkg);
-        code.line(`${embed} // extends ${base.fqn}`);
+        code.line(this.pkg.resolveEmbeddedType(base).embed);
       }
     }
     code.closeBlock();
@@ -164,6 +155,10 @@ export class GoInterface extends GoType {
     );
   }
 
+  public get usesInternalPackage() {
+    return this.extends.some((base) => this.pkg.isExternalType(base));
+  }
+
   public get extends(): GoInterface[] {
     return this.type.interfaces
       .map((iface) => this.pkg.root.findType(iface.fqn) as GoInterface)
@@ -204,7 +199,7 @@ class InterfaceProperty extends GoProperty {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
+      this.reference?.scopedReference(this.parent.pkg) ??
       this.property.type.toString()
     );
   }

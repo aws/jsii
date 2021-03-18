@@ -2,6 +2,7 @@ package tests
 
 import (
 	"fmt"
+	"github.com/aws/jsii-runtime-go"
 	"math"
 	"runtime"
 	"testing"
@@ -20,16 +21,16 @@ import (
 func (suite *ComplianceSuite) TestStatics() {
 	assert := suite.Assert()
 
-	assert.Equal("hello ,Yoyo!", calc.Statics_StaticMethod("Yoyo"))
-	assert.Equal("default", calc.Statics_Instance().Value())
+	assert.Equal("hello ,Yoyo!", *calc.Statics_StaticMethod(jsii.String("Yoyo")))
+	assert.Equal("default", *calc.Statics_Instance().Value())
 
-	newStatics := calc.NewStatics("new value")
+	newStatics := calc.NewStatics(jsii.String("new value"))
 	calc.Statics_SetInstance(newStatics)
 	assert.Same(newStatics, calc.Statics_Instance())
-	assert.Equal("new value", calc.Statics_Instance().Value())
+	assert.Equal("new value", *calc.Statics_Instance().Value())
 
 	// the float64 conversion is a bit annoying - can we do something about it?
-	assert.Equal(float64(100), calc.Statics_NonConstStatic())
+	assert.Equal(float64(100), *calc.Statics_NonConstStatic())
 
 }
 
@@ -39,86 +40,79 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 	types := calc.NewAllTypes()
 
 	// boolean
-	types.SetBooleanProperty(true)
-	assert.Equal(true, types.BooleanProperty())
+	types.SetBooleanProperty(jsii.Bool(true))
+	assert.Equal(true, *types.BooleanProperty())
 
 	// string
-	types.SetStringProperty("foo")
-	assert.Equal("foo", types.StringProperty())
+	types.SetStringProperty(jsii.String("foo"))
+	assert.Equal("foo", *types.StringProperty())
 
 	// number
-	types.SetNumberProperty(1234)
-	assert.Equal(float64(1234), types.NumberProperty())
+	types.SetNumberProperty(jsii.Number(1234))
+	assert.Equal(float64(1234), *types.NumberProperty())
 
 	// // json
-	types.SetJsonProperty(map[string]interface{}{"Foo": map[string]interface{}{"Bar": 123}})
-	assert.Equal(float64(123), types.JsonProperty()["Foo"].(map[string]interface{})["Bar"])
+	mapProp := map[string]interface{}{"Foo": map[string]interface{}{"Bar": 123}}
+	types.SetJsonProperty(&mapProp)
+	assert.Equal(float64(123), (*types.JsonProperty())["Foo"].(map[string]interface{})["Bar"])
 
 	suite.FailTest("Dates are currently treated as strings and fail going through the wire", "https://github.com/aws/jsii/issues/2659")
 
 	// whoops - should accept time.Time, not string.
 	// date
-	types.SetDateProperty("12345")
+	types.SetDateProperty(jsii.String("12345"))
 	assert.Equal("12345", types.DateProperty())
 }
 
 func (suite *ComplianceSuite) TestUseNestedStruct() {
 	suite.FailTest("Nested types are not namespaced", "https://github.com/aws/jsii/pull/2650")
 	jcb.StaticConsumer_Consume(customsubmodulename.NestingClass_NestedStruct{
-		Name: "Bond, James Bond",
+		Name: jsii.String("Bond, James Bond"),
 	})
 }
 
 func (suite *ComplianceSuite) TestStaticMapInClassCanBeReadCorrectly() {
 	assert := suite.Assert()
 
-	result := calc.ClassWithCollections_StaticMap()
-	assert.Equal("value1", result["key1"])
-	assert.Equal("value2", result["key2"])
+	result := *calc.ClassWithCollections_StaticMap()
+	assert.Equal("value1", *result["key1"])
+	assert.Equal("value2", *result["key2"])
 	assert.Equal(2, len(result))
 }
 
 func (suite *ComplianceSuite) TestTestNativeObjectsWithInterfaces() {
-	suite.FailTest("Overrides not supported", "https://github.com/aws/jsii/issues/2048")
-
 	assert := suite.Assert()
 
 	// create a pure and native object, not part of the jsii hierarchy, only implements a jsii interface
 	pureNative := newPureNativeFriendlyRandom()
 	generatorBoundToPureNative := calc.NewNumberGenerator(pureNative)
 	assert.Equal(pureNative, generatorBoundToPureNative.Generator())
-	assert.Equal(generatorBoundToPureNative.NextTimes100(), 100000)
-	assert.Equal(generatorBoundToPureNative.NextTimes100(), 200000)
+	assert.Equal(float64(100000), *generatorBoundToPureNative.NextTimes100())
+	assert.Equal(float64(200000), *generatorBoundToPureNative.NextTimes100())
 
-	//subclassNative := subclassNativeFriendlyRandom{}
-	//generatorBoundToPSubclassedObject := calc.NewNumberGenerator(subclassNative)
-	//if subclassNative != generatorBoundToPSubclassedObject.Generator() {
-	//	t.Fail()
-	//}
-	//
-	//generatorBoundToPSubclassedObject.IsSameGenerator(subclassNative)
-	//if generatorBoundToPSubclassedObject.NextTimes100() != 10000 {
-	//	t.Fail()
-	//}
-	//
-	//if generatorBoundToPSubclassedObject.NextTimes100() != 20000 {
-	//	t.Fail()
-	//}
+	subclassNative := NewSubclassNativeFriendlyRandom()
+	generatorBoundToPSubclassedObject := calc.NewNumberGenerator(subclassNative)
+	assert.Equal(subclassNative, generatorBoundToPSubclassedObject.Generator())
 
+	generatorBoundToPSubclassedObject.IsSameGenerator(subclassNative)
+	assert.Equal(float64(10000), *generatorBoundToPSubclassedObject.NextTimes100())
+	assert.Equal(float64(20000), *generatorBoundToPSubclassedObject.NextTimes100())
 }
 
 func (suite *ComplianceSuite) TestMaps() {
 	assert := suite.Assert()
 
 	// TODO: props should be optional
-	calc2 := calc.NewCalculator(calc.CalculatorProps{})
-	calc2.Add(10)
-	calc2.Add(20)
-	calc2.Mul(2)
+	calc2 := calc.NewCalculator(&calc.CalculatorProps{})
+	calc2.Add(jsii.Number(10))
+	calc2.Add(jsii.Number(20))
+	calc2.Mul(jsii.Number(2))
 
-	assert.Equal(2, len(calc2.OperationsMap()["add"]))
-	assert.Equal(1, len(calc2.OperationsMap()["mul"]))
-	assert.Equal(float64(30), calc2.OperationsMap()["add"][1].Value())
+	result := *calc2.OperationsMap()
+	assert.Equal(2, len(*result["add"]))
+	assert.Equal(1, len(*result["mul"]))
+	resultAdd := *result["add"]
+	assert.Equal(float64(30), *resultAdd[1].Value())
 }
 
 func (suite *ComplianceSuite) TestDates() {
@@ -137,27 +131,27 @@ func (suite *ComplianceSuite) TestDates() {
 func (suite *ComplianceSuite) TestCallMethods() {
 	assert := suite.Assert()
 
-	calc := calc.NewCalculator(calc.CalculatorProps{})
-	calc.Add(10)
-	assert.Equal(float64(10), calc.Value())
+	calc := calc.NewCalculator(&calc.CalculatorProps{})
+	calc.Add(jsii.Number(10))
+	assert.Equal(float64(10), *calc.Value())
 
-	calc.Mul(2)
-	assert.Equal(float64(20), calc.Value())
+	calc.Mul(jsii.Number(2))
+	assert.Equal(float64(20), *calc.Value())
 
-	calc.Pow(5)
-	assert.Equal(float64(20*20*20*20*20), calc.Value())
+	calc.Pow(jsii.Number(5))
+	assert.Equal(float64(20*20*20*20*20), *calc.Value())
 
 	calc.Neg()
-	assert.Equal(float64(-3200000), calc.Value())
+	assert.Equal(float64(-3200000), *calc.Value())
 }
 
 func (suite *ComplianceSuite) TestNodeStandardLibrary() {
 	assert := suite.Assert()
 
 	obj := calc.NewNodeStandardLibrary()
-	assert.Equal("Hello, resource! SYNC!", obj.FsReadFileSync())
+	assert.Equal("Hello, resource! SYNC!", *obj.FsReadFileSync())
 	assert.NotEmpty(obj.OsPlatform())
-	assert.Equal("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50", obj.CryptoSha256())
+	assert.Equal("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50", *obj.CryptoSha256())
 
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	assert.Equal("Hello, resource!", obj.FsReadFile())
@@ -202,7 +196,7 @@ func (suite *ComplianceSuite) TestDynamicTypes() {
 	assert.Equal("World", a[1].(string))
 
 	// array of any
-	types.SetAnyProperty([]interface{}{"Hybrid", calclib.NewNumber(12), 123, false})
+	types.SetAnyProperty([]interface{}{"Hybrid", calclib.NewNumber(jsii.Number(12)), 123, false})
 	assert.Equal(float64(123), (types.AnyProperty()).([]interface{})[2])
 
 	// map
@@ -214,10 +208,10 @@ func (suite *ComplianceSuite) TestDynamicTypes() {
 	assert.Equal(float64(19289812), ((types.AnyProperty()).(map[string]interface{}))["Goo"])
 
 	// classes
-	mult := calc.NewMultiply(calclib.NewNumber(10), calclib.NewNumber(20))
+	mult := calc.NewMultiply(calclib.NewNumber(jsii.Number(10)), calclib.NewNumber(jsii.Number(20)))
 	types.SetAnyProperty(mult)
 	assert.Equal(mult, types.AnyProperty())
-	assert.Equal(float64(200), ((types.AnyProperty()).(calc.Multiply)).Value())
+	assert.Equal(float64(200), *((types.AnyProperty()).(calc.Multiply)).Value())
 
 	// date
 	types.SetAnyProperty(time.Unix(1234, 0))
@@ -229,26 +223,26 @@ func (suite *ComplianceSuite) TestDynamicTypes() {
 func (suite *ComplianceSuite) TestArrayReturnedByMethodCanBeRead() {
 	assert := suite.Assert()
 
-	arr := calc.ClassWithCollections_CreateAList()
+	arr := *calc.ClassWithCollections_CreateAList()
 
-	assert.Contains(arr, "one")
-	assert.Contains(arr, "two")
+	assert.Contains(arr, jsii.String("one"))
+	assert.Contains(arr, jsii.String("two"))
 }
 
 func (suite *ComplianceSuite) TestUnionProperties() {
 	assert := suite.Assert()
 
-	calc3 := calc.NewCalculator(calc.CalculatorProps{
-		InitialValue: 0,
-		MaximumValue: math.MaxFloat64,
+	calc3 := calc.NewCalculator(&calc.CalculatorProps{
+		InitialValue: jsii.Number(0),
+		MaximumValue: jsii.Number(math.MaxFloat64),
 	})
-	calc3.SetUnionProperty(calc.NewMultiply(calclib.NewNumber(9), calclib.NewNumber(3)))
+	calc3.SetUnionProperty(calc.NewMultiply(calclib.NewNumber(jsii.Number(9)), calclib.NewNumber(jsii.Number(3))))
 
 	_, ok := calc3.UnionProperty().(calc.Multiply)
 	assert.True(ok)
 
-	assert.Equal(float64(9*3), calc3.ReadUnionValue())
-	calc3.SetUnionProperty(calc.NewPower(calclib.NewNumber(10), calclib.NewNumber(3)))
+	assert.Equal(float64(9*3), *calc3.ReadUnionValue())
+	calc3.SetUnionProperty(calc.NewPower(calclib.NewNumber(jsii.Number(10)), calclib.NewNumber(jsii.Number(3))))
 
 	_, ok = calc3.UnionProperty().(calc.Power)
 	assert.True(ok)
@@ -272,23 +266,23 @@ func (suite *ComplianceSuite) TestCreateObjectAndCtorOverloads() {
 func (suite *ComplianceSuite) TestGetAndSetEnumValues() {
 	assert := suite.Assert()
 
-	calc := calc.NewCalculator(calc.CalculatorProps{})
-	calc.Add(9)
-	calc.Pow(3)
+	calc := calc.NewCalculator(&calc.CalculatorProps{})
+	calc.Add(jsii.Number(9))
+	calc.Pow(jsii.Number(3))
 	assert.Equal(composition.CompositeOperation_CompositionStringStyle_NORMAL, calc.StringStyle())
 
 	calc.SetStringStyle(composition.CompositeOperation_CompositionStringStyle_DECORATED)
 	assert.Equal(composition.CompositeOperation_CompositionStringStyle_DECORATED, calc.StringStyle())
-	assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.ToString())
+	assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", *calc.ToString())
 }
 
 func (suite *ComplianceSuite) TestListInClassCanBeReadCorrectly() {
 	assert := suite.Assert()
 
-	classWithCollections := calc.NewClassWithCollections(map[string]string{}, []string{"one", "two"})
-	val := classWithCollections.Array()
-	assert.Equal("one", val[0])
-	assert.Equal("two", val[1])
+	classWithCollections := calc.NewClassWithCollections(&map[string]*string{}, &[]*string{jsii.String("one"), jsii.String("two")})
+	val := *classWithCollections.Array()
+	assert.Equal("one", *val[0])
+	assert.Equal("two", *val[1])
 }
 
 type derivedFromAllTypes struct {
@@ -305,10 +299,10 @@ func (suite *ComplianceSuite) TestTestFluentApiWithDerivedClasses() {
 	assert := suite.Assert()
 
 	obj := newDerivedFromAllTypes()
-	obj.SetStringProperty("Hello")
-	obj.SetNumberProperty(12)
-	assert.Equal("Hello", obj.StringProperty())
-	assert.Equal(float64(12), obj.NumberProperty())
+	obj.SetStringProperty(jsii.String("Hello"))
+	obj.SetNumberProperty(jsii.Number(12))
+	assert.Equal("Hello", *obj.StringProperty())
+	assert.Equal(float64(12), *obj.NumberProperty())
 }
 
 func (suite *ComplianceSuite) TestCanLoadEnumValues() {
@@ -320,8 +314,8 @@ func (suite *ComplianceSuite) TestCanLoadEnumValues() {
 func (suite *ComplianceSuite) TestCollectionOfInterfaces_ListOfStructs() {
 	assert := suite.Assert()
 
-	list := calc.InterfaceCollections_ListOfStructs()
-	assert.Equal("Hello, I'm String!", list[0].RequiredString)
+	list := *calc.InterfaceCollections_ListOfStructs()
+	assert.Equal("Hello, I'm String!", *list[0].RequiredString)
 }
 
 type doNotOverridePrivates struct {
@@ -346,46 +340,46 @@ func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_getter_public()
 	assert := suite.Assert()
 
 	obj := newDoNotOverridePrivates()
-	assert.Equal("privateProperty", obj.PrivatePropertyValue())
+	assert.Equal("privateProperty", *obj.PrivatePropertyValue())
 
 	// verify the setter override is not invoked.
-	obj.ChangePrivatePropertyValue("MyNewValue")
-	assert.Equal("MyNewValue", obj.PrivatePropertyValue())
+	obj.ChangePrivatePropertyValue(jsii.String("MyNewValue"))
+	assert.Equal("MyNewValue", *obj.PrivatePropertyValue())
 }
 
 func (suite *ComplianceSuite) TestEqualsIsResistantToPropertyShadowingResultVariable() {
 	assert := suite.Assert()
-	first := calc.StructWithJavaReservedWords{Default: "one"}
-	second := calc.StructWithJavaReservedWords{Default: "one"}
-	third := calc.StructWithJavaReservedWords{Default: "two"}
+	first := calc.StructWithJavaReservedWords{Default: jsii.String("one")}
+	second := calc.StructWithJavaReservedWords{Default: jsii.String("one")}
+	third := calc.StructWithJavaReservedWords{Default: jsii.String("two")}
 	assert.Equal(first, second)
 	assert.NotEqual(first, third)
 }
 
 type overridableProtectedMemberDerived struct {
-	calc.OverridableProtectedMember
+	calc.OverridableProtectedMember `overrides:"OverrideReadOnly,OverrideReadeWrite"`
 }
 
-func newOverridableProtectedMemberDerived() overridableProtectedMemberDerived {
-	return overridableProtectedMemberDerived{
-		calc.NewOverridableProtectedMember(),
-	}
+func newOverridableProtectedMemberDerived() *overridableProtectedMemberDerived {
+	o := overridableProtectedMemberDerived{}
+	calc.NewOverridableProtectedMember_Override(&o)
+	return &o
 }
 
-func (x *overridableProtectedMemberDerived) OverrideReadOnly() string {
-	return "Cthulhu "
+func (x *overridableProtectedMemberDerived) OverrideReadOnly() *string {
+	return jsii.String("Cthulhu ")
 }
 
-func (x *overridableProtectedMemberDerived) OverrideReadeWrite() string {
-	return "Fhtagn!"
+func (x *overridableProtectedMemberDerived) OverrideReadeWrite() *string {
+	return jsii.String("Fhtagn!")
 }
 
 func (suite *ComplianceSuite) TestCanOverrideProtectedGetter() {
-	suite.FailTest("Overrides are not supported yet", "https://github.com/aws/jsii/issues/2048")
+	suite.FailTest("unable to access protected members", "https://github.com/aws/jsii/issues/2673")
 
 	assert := suite.Assert()
 	overridden := newOverridableProtectedMemberDerived()
-	assert.Equal("Cthulhu Fhtagn!", overridden.ValueFromProtected())
+	assert.Equal("Cthulhu Fhtagn!", *overridden.ValueFromProtected())
 }
 
 type implementsAdditionalInterface struct {
@@ -393,33 +387,31 @@ type implementsAdditionalInterface struct {
 	_struct calc.StructB
 }
 
-func (x implementsAdditionalInterface) ReturnStruct() calc.StructB {
-	return x._struct
+func newImplementsAdditionalInterface(s calc.StructB) *implementsAdditionalInterface {
+	n := implementsAdditionalInterface{_struct: s}
+	calc.NewAllTypes_Override(&n)
+	return &n
 }
 
-func newImplementsAdditionalInterface(s calc.StructB) implementsAdditionalInterface {
-	return implementsAdditionalInterface{
-		calc.NewAllTypes(),
-		s,
-	}
+func (x implementsAdditionalInterface) ReturnStruct() *calc.StructB {
+	return &x._struct
 }
 
 func (suite *ComplianceSuite) TestInterfacesCanBeUsedTransparently_WhenAddedToJsiiType() {
-	suite.FailTest("Overrides not supported", "https://github.com/aws/jsii/issues/2048")
 	assert := suite.Assert()
 
-	expected := calc.StructB{RequiredString: "It's Britney b**ch!"}
+	expected := calc.StructB{RequiredString: jsii.String("It's Britney b**ch!")}
 	delegate := newImplementsAdditionalInterface(expected)
 	consumer := calc.NewConsumePureInterface(delegate)
-	assert.Equal(expected, consumer.WorkItBaby())
+	assert.Equal(expected, *consumer.WorkItBaby())
 }
 
 func (suite *ComplianceSuite) TestStructs_nonOptionalequals() {
 	assert := suite.Assert()
 
-	structA := calc.StableStruct{ReadonlyProperty: "one"}
-	structB := calc.StableStruct{ReadonlyProperty: "one"}
-	structC := calc.StableStruct{ReadonlyProperty: "two"}
+	structA := calc.StableStruct{ReadonlyProperty: jsii.String("one")}
+	structB := calc.StableStruct{ReadonlyProperty: jsii.String("one")}
+	structC := calc.StableStruct{ReadonlyProperty: jsii.String("two")}
 	assert.Equal(structB, structA)
 	assert.NotEqual(structC, structA)
 }
@@ -429,11 +421,11 @@ func (suite *ComplianceSuite) TestTestInterfaceParameter() {
 
 	obj := calc.NewJSObjectLiteralForInterface()
 	friendly := obj.GiveMeFriendly()
-	assert.Equal("I am literally friendly!", friendly.Hello())
+	assert.Equal("I am literally friendly!", *friendly.Hello())
 
 	greetingAugmenter := calc.NewGreetingAugmenter()
 	betterGreeting := greetingAugmenter.BetterGreeting(friendly)
-	assert.Equal("I am literally friendly! Let me buy you a drink!", betterGreeting)
+	assert.Equal("I am literally friendly! Let me buy you a drink!", *betterGreeting)
 }
 
 func (suite *ComplianceSuite) TestLiftedKwargWithSameNameAsPositionalArg() {
@@ -441,20 +433,20 @@ func (suite *ComplianceSuite) TestLiftedKwargWithSameNameAsPositionalArg() {
 
 	// This is a replication of a test that mostly affects languages with keyword arguments (e.g: Python, Ruby, ...)
 	bell := calc.NewBell()
-	amb := calc.NewAmbiguousParameters(bell, calc.StructParameterType{Scope: "Driiiing!"})
+	amb := calc.NewAmbiguousParameters(bell, &calc.StructParameterType{Scope: jsii.String("Driiiing!")})
 	assert.Equal(bell, amb.Scope())
 
-	expected := calc.StructParameterType{Scope: "Driiiing!"}
-	assert.Equal(expected, amb.Props())
+	expected := calc.StructParameterType{Scope: jsii.String("Driiiing!")}
+	assert.Equal(expected, *amb.Props())
 }
 
 type addTen struct {
 	calc.Add
 }
 
-func newAddTen(value float64) addTen {
+func newAddTen(value *float64) addTen {
 	return addTen{
-		calc.NewAdd(calclib.NewNumber(value), calclib.NewNumber(10)),
+		calc.NewAdd(calclib.NewNumber(value), calclib.NewNumber(jsii.Number(10))),
 	}
 }
 
@@ -462,9 +454,9 @@ type mulTen struct {
 	calc.Multiply
 }
 
-func newMulTen(value float64) mulTen {
+func newMulTen(value *float64) mulTen {
 	return mulTen{
-		calc.NewMultiply(calclib.NewNumber(value), calclib.NewNumber(10)),
+		calc.NewMultiply(calclib.NewNumber(value), calclib.NewNumber(jsii.Number(10))),
 	}
 }
 
@@ -473,19 +465,19 @@ func (suite *ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects()
 
 	types := calc.NewAllTypes()
 
-	jsObj := calclib.NewNumber(44)
+	jsObj := calclib.NewNumber(jsii.Number(44))
 	types.SetAnyProperty(jsObj)
 	_, ok := (types.AnyProperty()).(calclib.Number)
 	assert.True(ok)
 
 	suite.FailTest("??", "??")
 
-	nativeObj := newAddTen(10)
+	nativeObj := newAddTen(jsii.Number(10))
 	types.SetAnyProperty(nativeObj)
 	result1 := types.AnyProperty()
 	assert.Equal(nativeObj, result1)
 
-	nativeObj2 := newMulTen(20)
+	nativeObj2 := newMulTen(jsii.Number(20))
 	types.SetAnyProperty(nativeObj2)
 	unmarshalledNativeObj, ok := (types.AnyProperty()).(mulTen)
 	assert.True(ok)
@@ -498,14 +490,15 @@ func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
 	gms := calc.NewGiveMeStructs()
 	returnedLiteral := gms.StructLiteral()
 	nativeBuilt := calclib.StructWithOnlyOptionals{
-		Optional1: "optional1FromStructLiteral",
-		Optional3: false,
+		Optional1: jsii.String("optional1FromStructLiteral"),
+		Optional3: jsii.Bool(false),
 	}
-	assert.Equal(nativeBuilt.Optional1, returnedLiteral.Optional1)
+
+	assert.Equal(*nativeBuilt.Optional1, *returnedLiteral.Optional1)
 	assert.Equal(nativeBuilt.Optional2, returnedLiteral.Optional2)
-	assert.Equal(nativeBuilt.Optional3, returnedLiteral.Optional3)
-	assert.Equal(nativeBuilt, returnedLiteral)
-	assert.Equal(returnedLiteral, nativeBuilt)
+	assert.Equal(*nativeBuilt.Optional3, *returnedLiteral.Optional3)
+	assert.EqualValues(nativeBuilt, *returnedLiteral)
+	assert.EqualValues(*returnedLiteral, nativeBuilt)
 }
 
 func (suite *ComplianceSuite) TestClassesCanSelfReferenceDuringClassInitialization() {
@@ -522,21 +515,25 @@ func (suite *ComplianceSuite) TestCanObtainStructReferenceWithOverloadedSetter()
 
 func (suite *ComplianceSuite) TestCallbacksCorrectlyDeserializeArguments() {
 	assert := suite.Assert()
-	renderer := TestCallbacksCorrectlyDeserializeArgumentsDataRenderer{
-		DataRenderer: calc.NewDataRenderer(),
-	}
+	renderer := NewTestCallbacksCorrectlyDeserializeArgumentsDataRenderer()
 
-	suite.FailTest("Callbacks are currently not supported", "https://github.com/aws/jsii/issues/2048")
-	assert.Equal("{\n  \"anumber\": 50,\n  \"astring\": \"50\",\n  \"firstOptional\": [],\n  \"custom\": \"value\"\n}",
-		renderer.Render(calclib.MyFirstStruct{Anumber: 50, Astring: "50"}))
+	assert.Equal("{\n  \"anumber\": 50,\n  \"astring\": \"50\",\n  \"custom\": \"value\"\n}",
+		*renderer.Render(&calclib.MyFirstStruct{Anumber: jsii.Number(50), Astring: jsii.String("50")}))
 }
 
-type TestCallbacksCorrectlyDeserializeArgumentsDataRenderer struct {
-	calc.DataRenderer
+type testCallbacksCorrectlyDeserializeArgumentsDataRenderer struct {
+	calc.DataRenderer `overrides:"RenderMap"`
 }
 
-func (r *TestCallbacksCorrectlyDeserializeArgumentsDataRenderer) RenderMap(m map[string]interface{}) string {
-	m["custom"] = "value" // this is here to make sure this override actually gets invoked.
+func NewTestCallbacksCorrectlyDeserializeArgumentsDataRenderer() *testCallbacksCorrectlyDeserializeArgumentsDataRenderer {
+	t := testCallbacksCorrectlyDeserializeArgumentsDataRenderer{}
+	calc.NewDataRenderer_Override(&t)
+	return &t
+}
+
+func (r *testCallbacksCorrectlyDeserializeArgumentsDataRenderer) RenderMap(m *map[string]interface{}) *string {
+	mapInput := *m
+	mapInput["custom"] = jsii.String("value") // this is here to make sure this override actually gets invoked.
 	return r.DataRenderer.RenderMap(m)
 }
 
@@ -547,39 +544,44 @@ func (suite *ComplianceSuite) TestCanUseInterfaceSetters() {
 	suite.FailTest("Setter are not generated for read-write properties", "https://github.com/aws/jsii/issues/2665")
 
 	// obj.SetProperty("New Value")
-	assert.True(obj.WasSet())
+	assert.True(*obj.WasSet())
 }
 
 func (suite *ComplianceSuite) TestPropertyOverrides_Interfaces() {
 	assert := suite.Assert()
 
-	interact := calc.NewUsesInterfaceWithProperties(&TestPropertyOverridesInterfacesIInterfaceWithProperties{})
-	assert.Equal("READ_ONLY_STRING", interact.JustRead())
+	interfaceWithProps := TestPropertyOverridesInterfacesIInterfaceWithProperties{}
+	interact := calc.NewUsesInterfaceWithProperties(&interfaceWithProps)
+	assert.Equal("READ_ONLY_STRING", *interact.JustRead())
 
 	suite.FailTest("Not sure. Most likely related to the missing setters on interfaces", "https://github.com/aws/jsii/issues/2665")
-	assert.Equal("Hello!?", interact.WriteAndRead("Hello"))
+	assert.Equal("Hello!?", interact.WriteAndRead(jsii.String("Hello")))
 }
 
 type TestPropertyOverridesInterfacesIInterfaceWithProperties struct {
-	x string
+	x *string
 }
 
-func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadOnlyString() string {
-	return "READ_ONLY_STRING"
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadOnlyString() *string {
+	return jsii.String("READ_ONLY_STRING")
 }
 
-func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadWriteString() string {
-	return i.x + "?"
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadWriteString() *string {
+	strct := *i
+	str := *strct.x
+	result := str + "?"
+	return jsii.String(result)
 }
 
 // Note this method is not currently part of the generated interface for some reason (https://github.com/aws/jsii/issues/2665).
 func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) SetReadWriteString(value string) {
-	i.x = value + "!"
+	newVal := value + "!"
+	i.x = &newVal
 }
 
 func (suite *ComplianceSuite) TestTestJsiiAgent() {
 	assert := suite.Assert()
-	assert.Equal(fmt.Sprintf("%s/%s/%s", runtime.Version(), runtime.GOOS, runtime.GOARCH), calc.JsiiAgent_Value())
+	assert.Equal(fmt.Sprintf("%s/%s/%s", runtime.Version(), runtime.GOOS, runtime.GOARCH), *calc.JsiiAgent_Value())
 }
 
 func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Private() {
@@ -588,7 +590,7 @@ func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Private() {
 		DoNotOverridePrivates: calc.NewDoNotOverridePrivates(),
 	}
 
-	assert.Equal("privateMethod", obj.PrivateMethodValue())
+	assert.Equal("privateMethod", *obj.PrivateMethodValue())
 }
 
 type TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates struct {
@@ -601,71 +603,70 @@ func (d *TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates) privateMet
 
 func (suite *ComplianceSuite) TestPureInterfacesCanBeUsedTransparently() {
 	assert := suite.Assert()
-	expected := calc.StructB{
-		RequiredString: "It's Britney b**ch!",
+	expected := &calc.StructB{
+		RequiredString: jsii.String("It's Britney b**ch!"),
 	}
 
 	delegate := &TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate{
 		expected: expected,
 	}
 	consumer := calc.NewConsumePureInterface(delegate)
-	assert.Equal(expected, consumer.WorkItBaby())
+	assert.EqualValues(expected, consumer.WorkItBaby())
 }
 
 type TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate struct {
-	expected calc.StructB
+	expected *calc.StructB
 }
 
-func (t *TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate) ReturnStruct() calc.StructB {
+func (t *TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate) ReturnStruct() *calc.StructB {
 	return t.expected
 }
 
 func (suite *ComplianceSuite) TestNullShouldBeTreatedAsUndefined() {
-	suite.FailTest("Optionals are not supported yet so nil isn't being recognized as undefined", "https://github.com/aws/jsii/issues/2442")
-
-	obj := calc.NewNullShouldBeTreatedAsUndefined("hello", nil)
+	obj := calc.NewNullShouldBeTreatedAsUndefined(jsii.String("hello"), nil)
 	obj.GiveMeUndefined(nil)
-	obj.GiveMeUndefinedInsideAnObject(calc.NullShouldBeTreatedAsUndefinedData{
+	obj.GiveMeUndefinedInsideAnObject(&calc.NullShouldBeTreatedAsUndefinedData{
 		ThisShouldBeUndefined:                              nil,
-		ArrayWithThreeElementsAndUndefinedAsSecondArgument: []interface{}{"hello", nil, "boom"},
+		ArrayWithThreeElementsAndUndefinedAsSecondArgument: &[]interface{}{jsii.String("hello"), nil, jsii.String("boom")},
 	})
 
-	// whoops - optionals is still not supported
-	obj.SetChangeMeToUndefined("this should be nil")
+	var nilstr *string
+	obj.SetChangeMeToUndefined(nilstr)
 	obj.VerifyPropertyIsUndefined()
 }
 
 type myOverridableProtectedMember struct {
-	calc.OverridableProtectedMember
+	calc.OverridableProtectedMember `overrides:"OverrideMe"`
 }
 
-func (x myOverridableProtectedMember) OverrideMe() string {
-	return "Cthulhu Fhtagn!"
+func newMyOverridableProtectedMember() *myOverridableProtectedMember {
+	m := myOverridableProtectedMember{}
+	calc.NewOverridableProtectedMember_Override(&m)
+	return &m
+}
+
+func (x myOverridableProtectedMember) OverrideMe() *string {
+	return jsii.String("Cthulhu Fhtagn!")
 }
 
 func (suite *ComplianceSuite) TestCanOverrideProtectedMethod() {
-	suite.FailTest("Overrides not supported", "https://github.com/aws/jsii/issues/2048")
-
 	assert := suite.Assert()
 	challenge := "Cthulhu Fhtagn!"
 
-	overridden := myOverridableProtectedMember{
-		calc.NewOverridableProtectedMember(),
-	}
+	overridden := newMyOverridableProtectedMember()
 
-	assert.Equal(challenge, overridden.ValueFromProtected())
+	assert.Equal(challenge, *overridden.ValueFromProtected())
 }
 
 func (suite *ComplianceSuite) TestEraseUnsetDataValues() {
 	assert := suite.Assert()
-	opts := calc.EraseUndefinedHashValuesOptions{Option1: "option1"}
-	assert.True(calc.EraseUndefinedHashValues_DoesKeyExist(opts, "option1"))
+	opts := calc.EraseUndefinedHashValuesOptions{Option1: jsii.String("option1")}
+	assert.True(*calc.EraseUndefinedHashValues_DoesKeyExist(&opts, jsii.String("option1")))
 
-	assert.Equal(map[string]interface{}{"prop2": "value2"}, calc.EraseUndefinedHashValues_Prop1IsNull())
-	assert.Equal(map[string]interface{}{"prop1": "value1"}, calc.EraseUndefinedHashValues_Prop2IsUndefined())
+	assert.Equal(map[string]interface{}{"prop2": "value2"}, *calc.EraseUndefinedHashValues_Prop1IsNull())
+	assert.Equal(map[string]interface{}{"prop1": "value1"}, *calc.EraseUndefinedHashValues_Prop2IsUndefined())
 
-	suite.FailTest("Optionals are not supported", "https://github.com/aws/jsii/issues/2671")
-	assert.False(calc.EraseUndefinedHashValues_DoesKeyExist(opts, "option2"))
+	assert.False(*calc.EraseUndefinedHashValues_DoesKeyExist(&opts, jsii.String("option2")))
 }
 
 func (suite *ComplianceSuite) TestStructs_containsNullChecks() {
@@ -676,7 +677,7 @@ func (suite *ComplianceSuite) TestStructs_containsNullChecks() {
 	suite.FailTest("No validation of required fields in structs", "https://github.com/aws/jsii/issues/2672")
 
 	// we expect a failure here when we pass the struct to js
-	assert.PanicsWithError("", func() { obj.ReadFirstNumber(s) })
+	assert.PanicsWithError("", func() { obj.ReadFirstNumber(&s) })
 }
 
 func (suite *ComplianceSuite) TestUnionPropertiesWithBuilder() {
@@ -703,50 +704,42 @@ func (suite *ComplianceSuite) TestTestNullIsAValidOptionalMap() {
 
 func (suite *ComplianceSuite) TestMapReturnedByMethodCanBeRead() {
 	assert := suite.Assert()
-	result := calc.ClassWithCollections_CreateAMap()
-	assert.Equal("value1", result["key1"])
-	assert.Equal("value2", result["key2"])
+	result := *calc.ClassWithCollections_CreateAMap()
+	assert.Equal("value1", *result["key1"])
+	assert.Equal("value2", *result["key2"])
 	assert.Equal(2, len(result))
 }
 
 type myAbstractSuite struct {
 	calc.AbstractSuite `overrides:"SomeMethod,Property"`
 
-	_property string
+	_property *string
 }
 
-func NewMyAbstractSuite(prop string) *myAbstractSuite {
+func NewMyAbstractSuite(prop *string) *myAbstractSuite {
 	m := myAbstractSuite{_property: prop}
 	calc.NewAbstractSuite_Override(&m)
 	return &m
 }
 
-func (s *myAbstractSuite) SomeMethod(str string) string {
-	return fmt.Sprintf("Wrapped<%s>", str)
+func (s *myAbstractSuite) SomeMethod(str *string) *string {
+	return jsii.String(fmt.Sprintf("Wrapped<%s>", *str))
 }
 
-func (s *myAbstractSuite) Property() string {
+func (s *myAbstractSuite) Property() *string {
 	return s._property
 }
 
-func (s *myAbstractSuite) SetProperty(value string) {
-	v := fmt.Sprintf("String<%s>", value)
-	s._property = v
+func (s *myAbstractSuite) SetProperty(value *string) {
+	v := fmt.Sprintf("String<%s>", *value)
+	s._property = &v
 }
 
 func (suite *ComplianceSuite) TestAbstractMembersAreCorrectlyHandled() {
 	assert := suite.Assert()
-	abstractSuite := NewMyAbstractSuite("")
-	assert.Equal("Wrapped<String<Oomf!>>", abstractSuite.WorkItAll("Oomf!"))
+	abstractSuite := NewMyAbstractSuite(nil)
+	assert.Equal("Wrapped<String<Oomf!>>", *abstractSuite.WorkItAll(jsii.String("Oomf!")))
 }
-
-//type myOverridableProtectedMember struct {
-//	calc.OverridableProtectedMember
-//}
-//
-//func (s myOverridableProtectedMember) SetOverrideReadWrite(value string) {
-//	s.OverridableProtectedMember.SetOverrideReadWrite("zzzzzzzzz" + value)
-//}
 
 func (suite *ComplianceSuite) TestCanOverrideProtectedSetter() {
 	suite.FailTest("unable to access protected members", "https://github.com/aws/jsii/issues/2673")
@@ -782,17 +775,17 @@ func (suite *ComplianceSuite) TestReturnAbstract() {
 	obj := calc.NewAbstractClassReturner()
 	obj2 := obj.GiveMeAbstract()
 
-	assert.Equal("Hello, John!!", obj2.AbstractMethod("John"))
-	assert.Equal("propFromInterfaceValue", obj2.PropFromInterface())
-	assert.Equal(float64(42), obj2.NonAbstractMethod())
+	assert.Equal("Hello, John!!", *obj2.AbstractMethod(jsii.String("John")))
+	assert.Equal("propFromInterfaceValue", *obj2.PropFromInterface())
+	assert.Equal(float64(42), *obj2.NonAbstractMethod())
 
 	iface := obj.GiveMeInterface()
-	assert.Equal("propFromInterfaceValue", iface.PropFromInterface())
-	assert.Equal("hello-abstract-property", obj.ReturnAbstractFromProperty().AbstractProperty())
+	assert.Equal("propFromInterfaceValue", *iface.PropFromInterface())
+	assert.Equal("hello-abstract-property", *obj.ReturnAbstractFromProperty().AbstractProperty())
 }
 
 func (suite *ComplianceSuite) TestCollectionOfInterfaces_MapOfInterfaces() {
-	mymap := calc.InterfaceCollections_MapOfInterfaces()
+	mymap := *calc.InterfaceCollections_MapOfInterfaces()
 	for _, value := range mymap {
 		value.Ring()
 	}
@@ -801,22 +794,22 @@ func (suite *ComplianceSuite) TestCollectionOfInterfaces_MapOfInterfaces() {
 func (suite *ComplianceSuite) TestStructs_multiplePropertiesEquals() {
 	assert := suite.Assert()
 	structA := calc.DiamondInheritanceTopLevelStruct{
-		BaseLevelProperty:      "one",
-		FirstMidLevelProperty:  "two",
-		SecondMidLevelProperty: "three",
-		TopLevelProperty:       "four",
+		BaseLevelProperty:      jsii.String("one"),
+		FirstMidLevelProperty:  jsii.String("two"),
+		SecondMidLevelProperty: jsii.String("three"),
+		TopLevelProperty:       jsii.String("four"),
 	}
 	structB := calc.DiamondInheritanceTopLevelStruct{
-		BaseLevelProperty:      "one",
-		FirstMidLevelProperty:  "two",
-		SecondMidLevelProperty: "three",
-		TopLevelProperty:       "four",
+		BaseLevelProperty:      jsii.String("one"),
+		FirstMidLevelProperty:  jsii.String("two"),
+		SecondMidLevelProperty: jsii.String("three"),
+		TopLevelProperty:       jsii.String("four"),
 	}
 	structC := calc.DiamondInheritanceTopLevelStruct{
-		BaseLevelProperty:      "one",
-		FirstMidLevelProperty:  "two",
-		SecondMidLevelProperty: "different",
-		TopLevelProperty:       "four",
+		BaseLevelProperty:      jsii.String("one"),
+		FirstMidLevelProperty:  jsii.String("two"),
+		SecondMidLevelProperty: jsii.String("different"),
+		TopLevelProperty:       jsii.String("four"),
 	}
 
 	assert.Equal(structA, structB)
@@ -827,8 +820,8 @@ func (suite *ComplianceSuite) TestAsyncOverrides_callAsyncMethod() {
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	assert := suite.Assert()
 	obj := calc.NewAsyncVirtualMethods()
-	assert.Equal(float64(128), obj.CallMe())
-	assert.Equal(float64(528), obj.OverrideMe(44))
+	assert.Equal(float64(128), *obj.CallMe())
+	assert.Equal(float64(528), *obj.OverrideMe(jsii.Number(44)))
 }
 
 type myDoNotOverridePrivates struct {
@@ -847,26 +840,26 @@ func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_getter_private(
 	assert := suite.Assert()
 
 	obj := myDoNotOverridePrivates{calc.NewDoNotOverridePrivates()}
-	assert.Equal("privateProperty", obj.PrivatePropertyValue())
+	assert.Equal("privateProperty", *obj.PrivatePropertyValue())
 
 	// verify the setter override is not invoked.
-	obj.ChangePrivatePropertyValue("MyNewValue")
-	assert.Equal("MyNewValue", obj.PrivatePropertyValue())
+	obj.ChangePrivatePropertyValue(jsii.String("MyNewValue"))
+	assert.Equal("MyNewValue", *obj.PrivatePropertyValue())
 }
 
 func (suite *ComplianceSuite) TestStructs_withDiamondInheritance_correctlyDedupeProperties() {
 	assert := suite.Assert()
 	s := calc.DiamondInheritanceTopLevelStruct{
-		BaseLevelProperty:      "base",
-		FirstMidLevelProperty:  "mid1",
-		SecondMidLevelProperty: "mid2",
-		TopLevelProperty:       "top",
+		BaseLevelProperty:      jsii.String("base"),
+		FirstMidLevelProperty:  jsii.String("mid1"),
+		SecondMidLevelProperty: jsii.String("mid2"),
+		TopLevelProperty:       jsii.String("top"),
 	}
 
-	assert.Equal("base", s.BaseLevelProperty)
-	assert.Equal("mid1", s.FirstMidLevelProperty)
-	assert.Equal("mid2", s.SecondMidLevelProperty)
-	assert.Equal("top", s.TopLevelProperty)
+	assert.Equal("base", *s.BaseLevelProperty)
+	assert.Equal("mid1", *s.FirstMidLevelProperty)
+	assert.Equal("mid2", *s.SecondMidLevelProperty)
+	assert.Equal("top", *s.TopLevelProperty)
 }
 
 type myDoNotOverridePrivates2 struct {
@@ -880,19 +873,19 @@ func (s *myDoNotOverridePrivates2) PrivateProperty() string {
 func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_by_name_private() {
 	assert := suite.Assert()
 	obj := myDoNotOverridePrivates2{calc.NewDoNotOverridePrivates()}
-	assert.Equal("privateProperty", obj.PrivatePropertyValue())
+	assert.Equal("privateProperty", *obj.PrivatePropertyValue())
 }
 
 func (suite *ComplianceSuite) TestMapInClassCanBeReadCorrectly() {
 	assert := suite.Assert()
 
-	modifiableMap := map[string]string{
-		"key": "value",
+	modifiableMap := map[string]*string{
+		"key": jsii.String("value"),
 	}
 
-	classWithCollections := calc.NewClassWithCollections(modifiableMap, []string{})
-	result := classWithCollections.Map()
-	assert.Equal("value", result["key"])
+	classWithCollections := calc.NewClassWithCollections(&modifiableMap, &[]*string{})
+	result := *classWithCollections.Map()
+	assert.Equal("value", *result["key"])
 	assert.Equal(1, len(result))
 }
 
@@ -933,42 +926,40 @@ func NewPartiallyInitializedThisConsumerImpl(assert *assert.Assertions) *partial
 	return &p
 }
 
-func (p *partiallyInitializedThisConsumerImpl) ConsumePartiallyInitializedThis(obj calc.ConstructorPassesThisOut, dt string, ev calc.AllTypesEnum) string {
-
+func (p *partiallyInitializedThisConsumerImpl) ConsumePartiallyInitializedThis(obj calc.ConstructorPassesThisOut, dt *string, ev calc.AllTypesEnum) *string {
 	epoch := time.Date(1970, time.January, 1, 0, 0, 0, 0, time.UTC).Format("2006-01-02T15:04:05.000Z07:00")
 
 	p.assert.NotNil(obj)
-	p.assert.Equal(epoch, dt)
+	p.assert.Equal(epoch, *dt)
 	p.assert.Equal(calc.AllTypesEnum_THIS_IS_GREAT, ev)
 
-	return "OK"
-
+	return jsii.String("OK")
 }
 
 func (suite *ComplianceSuite) TestInterfaceBuilder() {
 
 	assert := suite.Assert()
 
-	interact := calc.NewUsesInterfaceWithProperties(&TestInterfaceBuilderIInterfaceWithProperties{value: "READ_WRITE"})
-	assert.Equal("READ_ONLY", interact.JustRead())
+	interact := calc.NewUsesInterfaceWithProperties(&TestInterfaceBuilderIInterfaceWithProperties{value: jsii.String("READ_WRITE")})
+	assert.Equal("READ_ONLY", *interact.JustRead())
 
 	suite.FailTest("Not sure. Most likely related to the missing setters on interfaces", "https://github.com/aws/jsii/issues/2665")
-	assert.Equal("Hello", interact.WriteAndRead("Hello"))
+	assert.Equal("Hello", *interact.WriteAndRead(jsii.String("Hello")))
 }
 
 type TestInterfaceBuilderIInterfaceWithProperties struct {
-	value string
+	value *string
 }
 
-func (i *TestInterfaceBuilderIInterfaceWithProperties) ReadOnlyString() string {
-	return "READ_ONLY"
+func (i *TestInterfaceBuilderIInterfaceWithProperties) ReadOnlyString() *string {
+	return jsii.String("READ_ONLY")
 }
 
-func (i *TestInterfaceBuilderIInterfaceWithProperties) ReadWriteString() string {
+func (i *TestInterfaceBuilderIInterfaceWithProperties) ReadWriteString() *string {
 	return i.value
 }
 
-func (i *TestInterfaceBuilderIInterfaceWithProperties) SetReadWriteString(val string) {
+func (i *TestInterfaceBuilderIInterfaceWithProperties) SetReadWriteString(val *string) {
 	i.value = val
 }
 
@@ -985,28 +976,30 @@ func (suite *ComplianceSuite) TestUnionTypes() {
 	types.SetUnionProperty("Hello")
 	assert.Equal("Hello", types.UnionProperty())
 
-	types.SetUnionProperty(calc.NewMultiply(calclib.NewNumber(2), calclib.NewNumber(12)))
+	types.SetUnionProperty(calc.NewMultiply(calclib.NewNumber(jsii.Number(2)), calclib.NewNumber(jsii.Number(12))))
 	multiply, ok := types.UnionProperty().(calc.Multiply)
 
 	assert.True(ok)
-	assert.Equal(float64(24), multiply.Value())
+	assert.Equal(float64(24), *multiply.Value())
 
 	// map
-	m := map[string]interface{}{"Foo": calclib.NewNumber(99)}
-	types.SetUnionMapProperty(m)
+	m := map[string]interface{}{"Foo": calclib.NewNumber(jsii.Number(99))}
+	types.SetUnionMapProperty(&m)
 
-	number, ok := types.UnionMapProperty()["Foo"].(calclib.Number)
+	unionMapProp := *types.UnionMapProperty()
+	number, ok := unionMapProp["Foo"].(calclib.Number)
 	assert.True(ok)
-	assert.Equal(float64(99), number.Value())
+	assert.Equal(float64(99), *number.Value())
 
 	// array
 	suite.FailTest("Unable to set an array of interfaces", "https://github.com/aws/jsii/issues/2686")
-	a := []interface{}{123, calclib.NewNumber(33)}
-	types.SetUnionArrayProperty(a)
+	a := []interface{}{123, calclib.NewNumber(jsii.Number(33))}
+	types.SetUnionArrayProperty(&a)
 
-	number, ok = types.UnionArrayProperty()[1].(calclib.Number)
+	unionArrayProp := *types.UnionArrayProperty()
+	number, ok = unionArrayProp[1].(calclib.Number)
 	assert.True(ok)
-	assert.Equal(33, number.Value())
+	assert.Equal(33, *number.Value())
 }
 
 func (suite *ComplianceSuite) TestArrays() {
@@ -1014,11 +1007,11 @@ func (suite *ComplianceSuite) TestArrays() {
 	sum := calc.NewSum()
 
 	suite.FailTest("Unable to set an array of interfaces", "https://github.com/aws/jsii/issues/2686")
-	sum.SetParts([]calclib.NumericValue{calclib.NewNumber(5), calclib.NewNumber(10), calc.NewMultiply(calclib.NewNumber(2), calclib.NewNumber(3))})
+	sum.SetParts(&[]calclib.NumericValue{calclib.NewNumber(jsii.Number(5)), calclib.NewNumber(jsii.Number(10)), calc.NewMultiply(calclib.NewNumber(jsii.Number(2)), calclib.NewNumber(jsii.Number(3)))})
 	assert.Equal(10+5+(2*3), sum.Value())
-	assert.Equal(5, sum.Parts()[0].Value())
-	assert.Equal(6, sum.Parts()[2].Value())
-	assert.Equal("(((0 + 5) + 10) + (2 * 3))", sum.ToString())
+	assert.Equal(5, *(*sum.Parts())[0].Value())
+	assert.Equal(6, *(*sum.Parts())[2].Value())
+	assert.Equal("(((0 + 5) + 10) + (2 * 3))", *sum.ToString())
 }
 
 func (suite *ComplianceSuite) TestStaticMapInClassCannotBeModified() {
@@ -1029,18 +1022,17 @@ func (suite *ComplianceSuite) TestConsts() {
 
 	assert := suite.Assert()
 
-	assert.Equal("hello", calc.Statics_Foo())
+	assert.Equal("hello", *calc.Statics_Foo())
 	obj := calc.Statics_ConstObj()
-	assert.Equal("world", obj.Hello())
+	assert.Equal("world", *obj.Hello())
 
-	assert.Equal(float64(1234), calc.Statics_BAR());
-	assert.Equal("world", calc.Statics_ZooBar()["hello"]);
-
+	assert.Equal(float64(1234), *calc.Statics_BAR())
+	assert.Equal("world", *(*calc.Statics_ZooBar())["hello"])
 }
 
 func (suite *ComplianceSuite) TestReceiveInstanceOfPrivateClass() {
 	assert := suite.Assert()
-	assert.True(calc.NewReturnsPrivateImplementationOfInterface().PrivateImplementation().Success())
+	assert.True(*calc.NewReturnsPrivateImplementationOfInterface().PrivateImplementation().Success())
 }
 
 func (suite *ComplianceSuite) TestMapReturnedByMethodCannotBeModified() {
@@ -1050,9 +1042,9 @@ func (suite *ComplianceSuite) TestMapReturnedByMethodCannotBeModified() {
 func (suite *ComplianceSuite) TestStaticListInClassCanBeReadCorrectly() {
 	assert := suite.Assert()
 
-	arr := calc.ClassWithCollections_StaticArray()
-	assert.Contains(arr, "one")
-	assert.Contains(arr, "two")
+	arr := *calc.ClassWithCollections_StaticArray()
+	assert.Contains(arr, jsii.String("one"))
+	assert.Contains(arr, jsii.String("two"))
 }
 
 func (suite *ComplianceSuite) TestFluentApi() {
@@ -1062,11 +1054,11 @@ func (suite *ComplianceSuite) TestFluentApi() {
 func (suite *ComplianceSuite) TestCanLeverageIndirectInterfacePolymorphism() {
 	provider := calc.NewAnonymousImplementationProvider()
 	assert := suite.Assert()
-	assert.Equal(float64(1337), provider.ProvideAsClass().Value())
+	assert.Equal(float64(1337), *provider.ProvideAsClass().Value())
 
 	suite.FailTest("Unable to reuse instances between parent/child interfaces", "https://github.com/aws/jsii/issues/2688")
-	assert.Equal(float64(1337), provider.ProvideAsInterface().Value())
-	assert.Equal("to implement", provider.ProvideAsInterface().Verb())
+	assert.Equal(float64(1337), *provider.ProvideAsInterface().Value())
+	assert.Equal("to implement", *provider.ProvideAsInterface().Verb())
 }
 
 func (suite *ComplianceSuite) TestPropertyOverrides_Set_Throws() {
@@ -1074,7 +1066,7 @@ func (suite *ComplianceSuite) TestPropertyOverrides_Set_Throws() {
 	assert := suite.Assert()
 	so := NewTestPropertyOverrides_Set_ThrowsSyncVirtualMethods()
 
-	assert.Panics(func() { so.ModifyValueOfTheProperty("Hii") })
+	assert.Panics(func() { so.ModifyValueOfTheProperty(jsii.String("Hii")) })
 }
 
 type testPropertyOverrides_Set_ThrowsSyncVirtualMethods struct {
@@ -1087,7 +1079,7 @@ func NewTestPropertyOverrides_Set_ThrowsSyncVirtualMethods() *testPropertyOverri
 	return &t
 }
 
-func (s *testPropertyOverrides_Set_ThrowsSyncVirtualMethods) SetTheProperty(_ string) {
+func (s *testPropertyOverrides_Set_ThrowsSyncVirtualMethods) SetTheProperty(*string) {
 	panic("Exception from overloaded setter")
 }
 
@@ -1098,13 +1090,13 @@ func (suite *ComplianceSuite) TestStructs_NonOptionalhashCode() {
 func (suite *ComplianceSuite) TestTestLiteralInterface() {
 
 	assert := suite.Assert()
-	obj := calc.NewJSObjectLiteralForInterface();
-	friendly := obj.GiveMeFriendly();
-	assert.Equal("I am literally friendly!", friendly.Hello());
+	obj := calc.NewJSObjectLiteralForInterface()
+	friendly := obj.GiveMeFriendly()
+	assert.Equal("I am literally friendly!", *friendly.Hello())
 
 	gen := obj.GiveMeFriendlyGenerator()
-	assert.Equal("giveMeFriendlyGenerator", gen.Hello())
-	assert.Equal(float64(42), gen.Next())
+	assert.Equal("giveMeFriendlyGenerator", *gen.Hello())
+	assert.Equal(float64(42), *gen.Next())
 }
 
 func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInMethodNames() {
@@ -1114,14 +1106,14 @@ func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInMethodNames() {
 func (suite *ComplianceSuite) TestPureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing() {
 	assert := suite.Assert()
 	expected := calc.StructB{
-		RequiredString: "It's Britney b**ch!",
+		RequiredString: jsii.String("It's Britney b**ch!"),
 	}
-	delegate := NewIndirectlyImplementsStructReturningDelegate(expected)
+	delegate := NewIndirectlyImplementsStructReturningDelegate(&expected)
 	consumer := calc.NewConsumePureInterface(delegate)
-	assert.Equal(expected, consumer.WorkItBaby())
+	assert.EqualValues(expected, *consumer.WorkItBaby())
 }
 
-func NewIndirectlyImplementsStructReturningDelegate(expected calc.StructB) calc.IStructReturningDelegate {
+func NewIndirectlyImplementsStructReturningDelegate(expected *calc.StructB) calc.IStructReturningDelegate {
 	return &IndirectlyImplementsStructReturningDelegate{ImplementsStructReturningDelegate: ImplementsStructReturningDelegate{expected: expected}}
 }
 
@@ -1130,10 +1122,10 @@ type IndirectlyImplementsStructReturningDelegate struct {
 }
 
 type ImplementsStructReturningDelegate struct {
-	expected calc.StructB
+	expected *calc.StructB
 }
 
-func (i ImplementsStructReturningDelegate) ReturnStruct() calc.StructB {
+func (i ImplementsStructReturningDelegate) ReturnStruct() *calc.StructB {
 	return i.expected
 }
 
@@ -1141,18 +1133,18 @@ func (suite *ComplianceSuite) TestExceptions() {
 
 	assert := suite.Assert()
 
-	calc3 := calc.NewCalculator(calc.CalculatorProps{InitialValue: 20, MaximumValue: 30})
-	calc3.Add(3)
-	assert.Equal(float64(23), calc3.Value())
+	calc3 := calc.NewCalculator(&calc.CalculatorProps{InitialValue: jsii.Number(20), MaximumValue: jsii.Number(30)})
+	calc3.Add(jsii.Number(3))
+	assert.Equal(float64(23), *calc3.Value())
 
 	// TODO: should assert the actual error here - not working for some reasons
 	assert.Panics(func() {
-		calc3.Add(10)
+		calc3.Add(jsii.Number(10))
 	})
 
-	calc3.SetMaxValue(40)
-	calc3.Add(10)
-	assert.Equal(float64(33), calc3.Value())
+	calc3.SetMaxValue(jsii.Number(40))
+	calc3.Add(jsii.Number(10))
+	assert.Equal(float64(33), *calc3.Value())
 
 }
 
@@ -1161,37 +1153,37 @@ func (suite *ComplianceSuite) TestSyncOverrides_CallsSuper() {
 	assert := suite.Assert()
 
 	obj := NewSyncOverrides()
-	obj.returnSuper = false
-	obj.multiplier = 1
+	obj.returnSuper = jsii.Bool(false)
+	obj.multiplier = jsii.Number(1)
 
-	assert.Equal(float64(10*5), obj.CallerIsProperty())
+	assert.Equal(float64(10*5), *obj.CallerIsProperty())
 
-	obj.returnSuper = true // js code returns n * 2
-	assert.Equal(float64(10*2), obj.CallerIsProperty())
+	obj.returnSuper = jsii.Bool(true) // js code returns n * 2
+	assert.Equal(float64(10*2), *obj.CallerIsProperty())
 }
 
 type syncOverrides struct {
 	calc.SyncVirtualMethods `overrides:"VirtualMethod"`
-	returnSuper             bool
-	multiplier              float64
-	callAsync               bool
+	returnSuper             *bool
+	multiplier              *float64
+	callAsync               *bool
 }
 
 func NewSyncOverrides() *syncOverrides {
-	s := syncOverrides{}
+	s := syncOverrides{returnSuper: jsii.Bool(false), multiplier: jsii.Number(1), callAsync: jsii.Bool(false)}
 	calc.NewSyncVirtualMethods_Override(&s)
 	return &s
 }
 
-func (s *syncOverrides) VirtualMethod(n float64) float64 {
-	if s.returnSuper {
+func (s *syncOverrides) VirtualMethod(n *float64) *float64 {
+	if *s.returnSuper {
 		return s.SyncVirtualMethods.VirtualMethod(n)
 	}
-	if s.callAsync {
+	if *s.callAsync {
 		obj := OverrideAsyncMethods{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()}
 		return obj.CallMe()
 	}
-	return 5 * n * s.multiplier
+	return jsii.Number(5 * (*n) * (*s.multiplier))
 }
 
 func (suite *ComplianceSuite) TestAsyncOverrides_OverrideCallsSuper() {
@@ -1201,17 +1193,17 @@ func (suite *ComplianceSuite) TestAsyncOverrides_OverrideCallsSuper() {
 	obj := OverrideCallsSuper{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()}
 
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	assert.Equal(1441, obj.OverrideMe(12))
-	assert.Equal(1209, obj.CallMe())
+	assert.Equal(1441, *obj.OverrideMe(jsii.Number(12)))
+	assert.Equal(1209, *obj.CallMe())
 }
 
 type OverrideCallsSuper struct {
 	calc.AsyncVirtualMethods
 }
 
-func (o *OverrideCallsSuper) OverrideMe(mult float64) float64 {
-	superRet := o.AsyncVirtualMethods.OverrideMe(mult)
-	return superRet*10 + 1
+func (o *OverrideCallsSuper) OverrideMe(mult *float64) *float64 {
+	superRet := *o.AsyncVirtualMethods.OverrideMe(mult)
+	return jsii.Number(superRet*10 + 1)
 }
 
 func (suite *ComplianceSuite) TestSyncOverrides() {
@@ -1219,22 +1211,22 @@ func (suite *ComplianceSuite) TestSyncOverrides() {
 	assert := suite.Assert()
 
 	obj := NewSyncOverrides()
-	obj.returnSuper = false
-	obj.multiplier = 1
+	obj.returnSuper = jsii.Bool(false)
+	obj.multiplier = jsii.Number(1)
 
-	assert.Equal(float64(10*5), obj.CallerIsMethod())
+	assert.Equal(float64(10*5), *obj.CallerIsMethod())
 
 	// affect the result
-	obj.multiplier = 5
-	assert.Equal(float64(10*5*5), obj.CallerIsMethod())
+	obj.multiplier = jsii.Number(5)
+	assert.Equal(float64(10*5*5), *obj.CallerIsMethod())
 
 	// verify callbacks are invoked from a property
-	assert.Equal(float64(10*5*5), obj.CallerIsProperty())
+	assert.Equal(float64(10*5*5), *obj.CallerIsProperty())
 
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	// and from an async method
-	obj.multiplier = 3
-	assert.Equal(float64(10*5*3), obj.CallerIsAsync())
+	obj.multiplier = jsii.Number(3)
+	assert.Equal(float64(10*5*3), *obj.CallerIsAsync())
 }
 
 func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethod() {
@@ -1264,15 +1256,15 @@ func (o *OverrideAsyncMethods) foo() float64 {
 func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_Method() {
 	suite.Assert().Panics(func() {
 		obj := NewSyncOverrides()
-		obj.callAsync = true
+		obj.callAsync = jsii.Bool(true)
 		obj.CallerIsMethod()
 	})
 }
 
 func (suite *ComplianceSuite) TestCollectionOfInterfaces_MapOfStructs() {
 	assert := suite.Assert()
-	m := calc.InterfaceCollections_MapOfStructs()
-	assert.Equal("Hello, I'm String!", m["A"].RequiredString)
+	m := *calc.InterfaceCollections_MapOfStructs()
+	assert.Equal("Hello, I'm String!", *(*m["A"]).RequiredString)
 }
 
 // required to make `go test` recognize the suite.

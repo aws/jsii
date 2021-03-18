@@ -118,8 +118,12 @@ func (c *Client) invoke(method reflect.Value, args []interface{}) (retval reflec
 			err = fmt.Errorf("too many arguments received %d for %d", len(args), numIn)
 			return
 		}
-		callArgs[i] = reflect.New(argType)
-		c.CastAndSetToPtr(callArgs[i].Interface(), arg)
+		if argType.Kind() == reflect.Ptr {
+			callArgs[i] = reflect.New(argType.Elem())
+		} else {
+			callArgs[i] = reflect.New(argType)
+		}
+		c.castAndSetToPtr(callArgs[i].Elem(), reflect.ValueOf(arg))
 		if argType.Kind() != reflect.Ptr && argType.Kind() != reflect.Interface {
 			// The result of `reflect.New` is always a pointer, so if the
 			// argument is by-value, we have to de-reference it first.

@@ -165,6 +165,10 @@ export class GoClass extends GoType {
     return this.initializer != null || this.members.length > 0;
   }
 
+  public get usesInternalPackage() {
+    return this.baseTypes.some((base) => this.pkg.isExternalType(base));
+  }
+
   protected emitInterface(context: EmitContext): void {
     const { code, documenter } = context;
     documenter.emit(this.type.docs);
@@ -173,17 +177,14 @@ export class GoClass extends GoType {
     // embed extended interfaces
     if (this.extends) {
       code.line(
-        new GoTypeRef(
-          this.pkg.root,
-          this.extends.type.reference,
-        ).scopedInterfaceName(this.pkg),
+        new GoTypeRef(this.pkg.root, this.extends.type.reference).scopedName(
+          this.pkg,
+        ),
       );
     }
     for (const iface of this.implements) {
       code.line(
-        new GoTypeRef(this.pkg.root, iface.type.reference).scopedInterfaceName(
-          this.pkg,
-        ),
+        new GoTypeRef(this.pkg.root, iface.type.reference).scopedName(this.pkg),
       );
     }
 
@@ -213,31 +214,16 @@ export class GoClass extends GoType {
   private emitStruct({ code }: EmitContext): void {
     code.line(`// The jsii proxy struct for ${this.name}`);
     code.openBlock(`type ${this.proxyName} struct`);
-    if (this.extends == null && this.implements.length === 0) {
-      // Make sure this is not 0-width
+
+    // Make sure this is not 0-width
+    if (this.baseTypes.length === 0) {
       code.line('_ byte // padding');
     } else {
-      if (this.extends) {
-        const embed =
-          this.extends.pkg === this.pkg
-            ? this.extends.proxyName
-            : new GoTypeRef(
-                this.pkg.root,
-                this.extends.type.reference,
-              ).scopedInterfaceName(this.pkg);
-        code.line(`${embed} // extends ${this.extends.fqn}`);
-      }
-      for (const iface of this.implements) {
-        const embed =
-          iface.pkg === this.pkg
-            ? iface.proxyName
-            : new GoTypeRef(
-                this.pkg.root,
-                iface.type.reference,
-              ).scopedInterfaceName(this.pkg);
-        code.line(`${embed} // implements ${iface.fqn}`);
+      for (const base of this.baseTypes) {
+        code.line(this.pkg.resolveEmbeddedType(base).embed);
       }
     }
+
     code.closeBlock();
     code.line();
   }
@@ -380,13 +366,6 @@ export class ClassMethod extends GoMethod {
     const { code } = context;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
     code.line(`${this.name}(${this.paramString()})${returnTypeString}`);
-  }
-
-  public get returnType(): string {
-    return (
-      this.reference?.scopedInterfaceName(this.parent.pkg) ??
-      this.method.toString()
-    );
   }
 
   public get instanceArg(): string {

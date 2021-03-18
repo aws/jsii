@@ -71,7 +71,7 @@ func (o *ObjectStore) Register(value reflect.Value, instanceID string) error {
 	for _, alias := range aliases {
 		ptr := alias.Pointer()
 		if existing, found := o.objectToID[ptr]; found && existing != instanceID {
-			return fmt.Errorf("value %s is embedded in %s which has ID %s, but was already assigned %s", alias, value, instanceID, existing)
+			return fmt.Errorf("value %s is embedded in %s which has ID %s, but was already assigned %s", alias.String(), value.String(), instanceID, existing)
 		}
 	}
 

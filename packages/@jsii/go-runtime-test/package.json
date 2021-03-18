@@ -8,7 +8,7 @@
     "fmt": "(cd project && go fmt ./...)",
     "lint": "(cd project && go vet ./...)",
     "test": "(cd project && go test ./...)",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "yarn lint && yarn fmt",
     "gen:calc": "node build-tools/gen-calc.js"
   },
   "keywords": [],
