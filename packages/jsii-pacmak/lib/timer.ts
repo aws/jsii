@@ -58,16 +58,12 @@ export class Timers {
     }
   }
 
-  public async recordAsync<T>(label: string, operation: () => Promise<T>) {
+  public async recordAsync<T>(
+    label: string,
+    operation: () => Promise<T>,
+  ): Promise<T> {
     const timer = this.start(label);
-    try {
-      const x = await operation();
-      timer.end();
-      return x;
-    } catch (e) {
-      timer.end();
-      throw e;
-    }
+    return operation().finally(() => timer.end());
   }
 
   public start(label: string) {

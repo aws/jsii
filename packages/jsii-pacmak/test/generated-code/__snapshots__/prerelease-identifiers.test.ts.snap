@@ -139,11 +139,14 @@ require (
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/foo-1.2.3.tgz 1`] = `go/foo/jsii/foo-1.2.3.tgz is a tarball`;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_      "embed"
-	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 
@@ -152,18 +155,15 @@ import (
 
 //go:embed foo-1.2.3.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Ensure all dependencies are initialized
-		bar.Initialize()
+	// Ensure all dependencies are initialized
+	bar.Initialize()
 
-		// Load this library into the kernel
-		_jsii_.Load("foo", "1.2.3", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("foo", "1.2.3", tarball)
 }
 
 `;
@@ -410,13 +410,14 @@ include pyproject.toml
 `;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -648,11 +649,14 @@ require (
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/foo-1.2.3.tgz 1`] = `go/foo/jsii/foo-1.2.3.tgz is a tarball`;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_      "embed"
-	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 
@@ -661,18 +665,15 @@ import (
 
 //go:embed foo-1.2.3.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Ensure all dependencies are initialized
-		bar.Initialize()
+	// Ensure all dependencies are initialized
+	bar.Initialize()
 
-		// Load this library into the kernel
-		_jsii_.Load("foo", "1.2.3", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("foo", "1.2.3", tarball)
 }
 
 `;
@@ -919,13 +920,14 @@ include pyproject.toml
 `;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1154,26 +1156,26 @@ require (
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/foo-2.0.0-rc.42.tgz 1`] = `go/foo/jsii/foo-2.0.0-rc.42.tgz is a tarball`;
 
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_      "embed"
-	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
 //go:embed foo-2.0.0-rc.42.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Load this library into the kernel
-		_jsii_.Load("foo", "2.0.0-rc.42", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("foo", "2.0.0-rc.42", tarball)
 }
 
 `;
@@ -1407,13 +1409,14 @@ include pyproject.toml
 `;
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1639,26 +1642,26 @@ require (
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/foo-4.5.6-pre.1337.tgz 1`] = `go/foo/jsii/foo-4.5.6-pre.1337.tgz is a tarball`;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
 package jsii
 
 import (
 	_      "embed"
-	"sync"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
 )
 
 //go:embed foo-4.5.6-pre.1337.tgz
 var tarball []byte
-var once    sync.Once
 
-// Initialize performs the necessary work for the enclosing
-// module to be loaded in the jsii kernel.
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
 func Initialize() {
-	once.Do(func(){
-		// Load this library into the kernel
-		_jsii_.Load("foo", "4.5.6-pre.1337", tarball)
-	})
+	// Load this library into the kernel
+	_jsii_.Load("foo", "4.5.6-pre.1337", tarball)
 }
 
 `;
@@ -1892,13 +1895,14 @@ include pyproject.toml
 `;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/README.md 1`] = `
-
+foo
+===
 
 `;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=53.0.0", "wheel~=0.36.2"]
+requires = ["setuptools~=54.1.2", "wheel~=0.36.2"]
 build-backend = "setuptools.build_meta"
 
 `;

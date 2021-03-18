@@ -13,12 +13,21 @@ import {
   JSII_INIT_FUNC,
   JSII_INIT_ALIAS,
 } from './runtime';
-import { GoClass, GoType, Enum, Interface, Struct } from './types';
-import { findTypeInTree, goPackageName, flatMap, tarballName } from './util';
+import { GoClass, GoType, Enum, GoInterface, Struct, GoTypeRef } from './types';
+import {
+  findTypeInTree,
+  goPackageNameForAssembly,
+  flatMap,
+  tarballName,
+} from './util';
 import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
 export const GO_VERSION = '1.16';
+
+// the name of a sub-package that includes internal type aliases it has to be
+// "internal" so it not published.
+const INTERNAL_PACKAGE_NAME = 'internal';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -26,8 +35,11 @@ export const GO_VERSION = '1.16';
 export abstract class Package {
   public readonly root: Package;
   public readonly file: string;
+  public readonly directory: string;
   public readonly submodules: InternalPackage[];
   public readonly types: GoType[];
+
+  private readonly embeddedTypes: { [fqn: string]: EmbeddedType } = {};
 
   public constructor(
     private readonly typeSpec: readonly Type[],
@@ -39,7 +51,8 @@ export abstract class Package {
     // If no root is provided, this module is the root
     root?: Package,
   ) {
-    this.file = `${filePath}/${packageName}.go`;
+    this.directory = filePath;
+    this.file = `${this.directory}/${packageName}.go`;
     this.root = root ?? this;
     this.submodules = this.submoduleSpec.map(
       (sm) => new InternalPackage(this.root, this, sm),
@@ -50,7 +63,7 @@ export abstract class Package {
         if (type.isInterfaceType() && type.datatype) {
           return new Struct(this, type);
         } else if (type.isInterfaceType()) {
-          return new Interface(this, type);
+          return new GoInterface(this, type);
         } else if (type.isClassType()) {
           return new GoClass(this, type);
         } else if (type.isEnumType()) {
@@ -109,14 +122,61 @@ export abstract class Package {
     code.closeFile(this.file);
 
     this.emitGoInitFunction(context);
+    this.emitSubmodules(context);
 
-    this.emitInternalPackages(context);
+    this.emitInternal(context);
   }
 
-  public emitInternalPackages(context: EmitContext) {
+  public emitSubmodules(context: EmitContext) {
     for (const submodule of this.submodules) {
       submodule.emit(context);
     }
+  }
+
+  /**
+   * Determines if `type` comes from a foreign package.
+   */
+  public isExternalType(type: GoClass | GoInterface) {
+    return type.pkg !== this;
+  }
+
+  /**
+   * Returns the name of the embed field used to embed a base class/interface in a
+   * struct.
+   *
+   * @returns If the base is in the same package, returns the proxy name of the
+   * base under `embed`, otherwise returns a unique symbol under `embed` and the
+   * original interface reference under `original`.
+   *
+   * @param type The base type we want to embed
+   */
+  public resolveEmbeddedType(type: GoClass | GoInterface): EmbeddedType {
+    if (!this.isExternalType(type)) {
+      return {
+        embed: type.proxyName,
+        fieldName: type.proxyName,
+      };
+    }
+
+    const exists = this.embeddedTypes[type.fqn];
+    if (exists) {
+      return exists;
+    }
+
+    const typeref = new GoTypeRef(this.root, type.type.reference);
+    const original = typeref.scopedName(this);
+
+    const slug = original.replace(/[^A-Za-z0-9]/g, '');
+    const aliasName = `Type__${slug}`;
+
+    this.embeddedTypes[type.fqn] = {
+      foriegnTypeName: original,
+      foriegnType: typeref,
+      fieldName: aliasName,
+      embed: `${INTERNAL_PACKAGE_NAME}.${aliasName}`,
+    };
+
+    return this.resolveEmbeddedType(type);
   }
 
   protected emitHeader(code: CodeMaker) {
@@ -125,17 +185,15 @@ export abstract class Package {
   }
 
   protected get usesRuntimePackage(): boolean {
-    return (
-      this.types.some((type) => type.usesRuntimePackage) ||
-      this.submodules.some((sub) => sub.usesRuntimePackage)
-    );
+    return this.types.some((type) => type.usesRuntimePackage);
   }
 
   protected get usesInitPackage(): boolean {
-    return (
-      this.types.some((type) => type.usesInitPackage) ||
-      this.submodules.some((sub) => sub.usesInitPackage)
-    );
+    return this.types.some((type) => type.usesInitPackage);
+  }
+
+  protected get usesInternalPackage(): boolean {
+    return this.types.some((type) => type.usesInternalPackage);
   }
 
   /**
@@ -182,6 +240,12 @@ export abstract class Package {
       });
     }
 
+    if (this.usesInternalPackage) {
+      toImport.push({
+        module: `${this.goModuleName}/${INTERNAL_PACKAGE_NAME}`,
+      });
+    }
+
     for (const packageName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
       if (packageName !== this.packageName) {
@@ -198,6 +262,45 @@ export abstract class Package {
       type.emit(context);
     }
   }
+
+  private emitInternal(context: EmitContext) {
+    const aliases = Object.values(this.embeddedTypes);
+
+    if (aliases.length === 0) {
+      return;
+    }
+
+    const code = context.code;
+
+    const fileName = join(this.directory, INTERNAL_PACKAGE_NAME, 'types.go');
+    code.openFile(fileName);
+
+    code.line(`package ${INTERNAL_PACKAGE_NAME}`);
+
+    const imports = new Set<string>();
+
+    for (const alias of aliases) {
+      if (!alias.foriegnType) {
+        continue;
+      }
+
+      for (const pkg of alias.foriegnType.dependencies) {
+        imports.add(pkg.goModuleName);
+      }
+    }
+
+    code.open('import (');
+    for (const imprt of imports) {
+      code.line(`"${imprt}"`);
+    }
+    code.close(')');
+
+    for (const alias of aliases) {
+      code.line(`type ${alias.fieldName} = ${alias.foriegnTypeName}`);
+    }
+
+    code.closeFile(fileName);
+  }
 }
 
 /*
@@ -212,21 +315,23 @@ export class RootPackage extends Package {
   private readonly versionFile: VersionFile;
 
   public constructor(assembly: Assembly) {
-    const packageName = goPackageName(assembly.name);
+    const goConfig = assembly.targets?.go ?? {};
+    const packageName = goPackageNameForAssembly(assembly);
     const filePath = '';
-    const moduleName = assembly.targets?.go?.moduleName ?? '';
+    const moduleName = goConfig.moduleName ?? '';
+    const version = `${assembly.version}${goConfig.versionSuffix ?? ''}`;
 
     super(
-      Object.values(assembly.types),
+      assembly.types,
       assembly.submodules,
       packageName,
       filePath,
       moduleName,
-      assembly.version,
+      version,
     );
 
     this.assembly = assembly;
-    this.version = assembly.version;
+    this.version = version;
     this.versionFile = new VersionFile(this.version);
 
     if (this.assembly.readme?.markdown) {
@@ -329,13 +434,20 @@ export class RootPackage extends Package {
 
     const file = join(JSII_INIT_PACKAGE, `${JSII_INIT_PACKAGE}.go`);
     code.openFile(file);
-    code.line('package jsii');
+    code.line(
+      `// Package ${JSII_INIT_PACKAGE} contains the functionaility needed for jsii packages to`,
+    );
+    code.line(
+      '// initialize their dependencies and themselves. Users should never need to use this package',
+    );
+    code.line('// directly. If you find you need to - please report a bug at');
+    code.line('// https://github.com/aws/jsii/issues/new/choose');
+    code.line(`package ${JSII_INIT_PACKAGE}`);
     code.line();
 
     const toImport: ImportedModule[] = [
       JSII_RT_MODULE,
       { module: 'embed', alias: '_' },
-      { module: 'sync' },
     ];
     if (dependencies.length > 0) {
       for (const pkg of dependencies) {
@@ -350,15 +462,15 @@ export class RootPackage extends Package {
     code.line();
     code.line(`//go:embed ${tarballName(this.assembly)}`);
     code.line('var tarball []byte');
-    code.line('var once    sync.Once');
     code.line();
 
     code.line(
-      `// ${JSII_INIT_FUNC} performs the necessary work for the enclosing`,
+      `// ${JSII_INIT_FUNC} loads the necessary packages in the @jsii/kernel to support the enclosing module.`,
     );
-    code.line('// module to be loaded in the jsii kernel.');
+    code.line(
+      '// The implementation is idempotent (and hence safe to be called over and over).',
+    );
     code.open(`func ${JSII_INIT_FUNC}() {`);
-    code.open('once.Do(func(){');
     if (dependencies.length > 0) {
       code.line('// Ensure all dependencies are initialized');
       for (const pkg of this.packageDependencies) {
@@ -370,7 +482,6 @@ export class RootPackage extends Package {
     code.line(
       `${JSII_RT_ALIAS}.Load("${this.assembly.name}", "${this.assembly.version}", tarball)`,
     );
-    code.close('})');
     code.close('}');
 
     code.closeFile(file);
@@ -384,7 +495,7 @@ export class InternalPackage extends Package {
   public readonly parent: Package;
 
   public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
-    const packageName = goPackageName(assembly.name);
+    const packageName = goPackageNameForAssembly(assembly);
     const filePath =
       parent === root ? packageName : `${parent.filePath}/${packageName}`;
 
@@ -506,4 +617,30 @@ function importGoModules(code: CodeMaker, modules: readonly ImportedModule[]) {
   function isSpecial(mod: ImportedModule): boolean {
     return mod.alias === JSII_RT_ALIAS || mod.alias === JSII_INIT_ALIAS;
   }
+}
+
+/**
+ * Represents an embedded Go type.
+ */
+interface EmbeddedType {
+  /**
+   * The field name for the embedded type.
+   */
+  readonly fieldName: string;
+
+  /**
+   * The embedded type name to use. Could be either a struct proxy (if the base
+   * type is in the same package) or an internal alias for a foriegn type name.
+   */
+  readonly embed: string;
+
+  /**
+   * Refernce to the foreign type (if this is a foriegn type)
+   */
+  readonly foriegnType?: GoTypeRef;
+
+  /**
+   * The name of the foriegn type.
+   */
+  readonly foriegnTypeName?: string;
 }

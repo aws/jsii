@@ -41,6 +41,17 @@ export abstract class Type implements Documentable, SourceLocatable {
   }
 
   /**
+   * The type within which this type is nested (if any).
+   */
+  public get nestingParent(): Type | undefined {
+    const ns = this.namespace;
+    if (ns == null) {
+      return undefined;
+    }
+    return this.assembly.tryFindType(`${this.assembly.name}.${ns}`);
+  }
+
+  /**
    * The simple name of the type (MyClass).
    */
   public get name(): string {

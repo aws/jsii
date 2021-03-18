@@ -11,7 +11,7 @@ import { shell } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
-import { goPackageName, tarballName } from './go/util';
+import { tarballName } from './go/util';
 
 export class Golang extends Target {
   private readonly goGenerator: GoGenerator;
@@ -35,18 +35,26 @@ export class Golang extends Target {
     // copy generated sources to the output directory
     await this.copyFiles(sourceDir, outDir);
 
-    const pkgDir = path.join(outDir, goPackageName(this.assembly.name));
+    const pkgDir = path.join(outDir, this.goGenerator.rootPackage.packageName);
 
     // write `local.go.mod` with "replace" directives for local modules
     const localGoMod = await this.writeLocalGoMod(pkgDir);
 
-    // run `go build` with local.go.mod
-    await go('build', ['-modfile', localGoMod], { cwd: pkgDir });
+    try {
+      // run `go build` with local.go.mod, go 1.16 requires that we download
+      // modules explicit so go.sum is updated.
+      await go('mod', ['download', '-modfile', localGoMod], { cwd: pkgDir });
+    } catch (e) {
+      const content = await fs.readFile(localGoMod, 'utf8');
+      logging.info(`Content of ${localGoMod} file:\n${content}`);
+      return Promise.reject(e);
+    }
+    await go('build', ['-modfile', localGoMod, './...'], { cwd: pkgDir });
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod, '.mod')}.sum`;
     await fs.remove(path.join(pkgDir, localGoMod));
-    await fs.remove(path.join(pkgDir, localGoSum));
+    return fs.remove(path.join(pkgDir, localGoSum));
   }
 
   /**
@@ -152,7 +160,7 @@ class GoGenerator implements IGenerator {
     tarball: string,
     { license, notice }: Legalese,
   ): Promise<any> {
-    const output = path.join(outDir, goPackageName(this.assembly.name));
+    const output = path.join(outDir, this.rootPackage.packageName);
     await this.code.save(output);
     await fs.copyFile(
       tarball,
@@ -229,5 +237,11 @@ function tryFindLocalRuntime():
  */
 async function go(command: string, args: string[], options: { cwd: string }) {
   const { cwd } = options;
-  return shell('go', [command, ...args], { cwd });
+  return shell('go', [command, ...args], {
+    cwd,
+    env: {
+      // disable the use of sumdb to reduce eventual consistency issues when new modules are published
+      GOSUMDB: 'off',
+    },
+  });
 }

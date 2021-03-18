@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
-    public class ClassTypeTests
+    public static class ClassTypeTests
     {
         const string RootPrefix = nameof(JsonModel) + "." + nameof(ClassType) + ".";
 
@@ -25,11 +25,11 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 );
 
                 string actual = ToJson(classType);
@@ -64,11 +64,11 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 ));
             }
 
@@ -85,11 +85,11 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 ));
             }
 
@@ -106,11 +106,11 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 ));
             }
 
@@ -125,11 +125,11 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: null,
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 );
                 string actual = ToJson(classType);
                 const string expected = @"{
@@ -158,11 +158,11 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 );
 
                 string actual = ToJson(classType);
@@ -194,10 +194,10 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    methods: new Method[] { },
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 );
 
                 string actual = ToJson(classType);
@@ -229,10 +229,10 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
+                    properties: Array.Empty<Property>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 );
 
                 string actual = ToJson(classType);
@@ -264,10 +264,10 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     initializer: new Initializer(),
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 );
 
                 string actual = ToJson(classType);
@@ -299,10 +299,10 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
-                    interfaces: new string[] { }
+                    interfaces: Array.Empty<string>()
                 );
 
                 string actual = ToJson(classType);
@@ -334,8 +334,8 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
-                    properties: new Property[] { },
-                    methods: new Method[] { },
+                    properties: Array.Empty<Property>(),
+                    methods: Array.Empty<Method>(),
                     @base: "myBaseFqn",
                     initializer: new Initializer()
                 );

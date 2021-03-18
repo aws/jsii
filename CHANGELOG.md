@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.25.0](https://github.com/aws/jsii/compare/v1.24.0...v1.25.0) (2021-03-16)
+
+
+### Features
+
+* **compliance:** Compliance suite ([#2607](https://github.com/aws/jsii/issues/2607)) ([18b2c16](https://github.com/aws/jsii/commit/18b2c167bbc47d7620e6a952e08751af28bf53a6))
+* **go:** packageName and versionSuffix ([#2687](https://github.com/aws/jsii/issues/2687)) ([9562108](https://github.com/aws/jsii/commit/95621082cb742bb8dc24e28f3bf6cb6013050c03)), closes [#2632](https://github.com/aws/jsii/issues/2632)
+
+
+### Bug Fixes
+
+* **go:** duplicate conversion functions when parent structs have the same base name ([#2697](https://github.com/aws/jsii/issues/2697)) ([52bd510](https://github.com/aws/jsii/commit/52bd510a994597cc166effde0b8c658a2a8cb0df)), closes [#2692](https://github.com/aws/jsii/issues/2692)
+* **go:** invalid code when a module only has static methods [test only] ([#2704](https://github.com/aws/jsii/issues/2704)) ([2dbe84d](https://github.com/aws/jsii/commit/2dbe84dfeff8d6f63aab19c1674fb7c9d17ea976)), closes [#2622](https://github.com/aws/jsii/issues/2622) [#2617](https://github.com/aws/jsii/issues/2617)
+* **go:** missing imports needed by base members ([#2685](https://github.com/aws/jsii/issues/2685)) ([daca06f](https://github.com/aws/jsii/commit/daca06f7c426d1fba509068ab842bd8dc7ddb62a)), closes [#2647](https://github.com/aws/jsii/issues/2647)
+* **go:** missing imports required by collection types ([#2691](https://github.com/aws/jsii/issues/2691)) ([c9a36a6](https://github.com/aws/jsii/commit/c9a36a6c0e18c44aa8e8e7e719cb9df144da5193)), closes [#2689](https://github.com/aws/jsii/issues/2689)
+* **go:** nested types are not namespaced ([#2650](https://github.com/aws/jsii/issues/2650)) ([45b527c](https://github.com/aws/jsii/commit/45b527c0b2f35a09b715c1a6c5940ec0578007fb)), closes [#2649](https://github.com/aws/jsii/issues/2649)
+
+## [1.24.0](https://github.com/aws/jsii/compare/v1.23.0...v1.24.0) (2021-03-03)
+
+
+### Features
+
+* **go:** support direct implementation of jsii interfaces ([#2614](https://github.com/aws/jsii/issues/2614)) ([9da3282](https://github.com/aws/jsii/commit/9da32821676a9ed7ea6cd4744c06df4fb3551bc7)), closes [#2048](https://github.com/aws/jsii/issues/2048)
+
+
+### Bug Fixes
+
+* **go:** enums inside structs are not properly serialized ([#2636](https://github.com/aws/jsii/issues/2636)) ([19cbd25](https://github.com/aws/jsii/commit/19cbd2532e6210f034e12299c5c1b00807a91b90))
+* **go:** invalid generated code for classes a keyword name ([#2641](https://github.com/aws/jsii/issues/2641)) ([8668f13](https://github.com/aws/jsii/commit/8668f13d7b74b3f2fecc0b02d241a1a6f9e2f648)), closes [#2637](https://github.com/aws/jsii/issues/2637)
+* **go:** malformed multiline docstrings in constructors ([#2639](https://github.com/aws/jsii/issues/2639)) ([72f25af](https://github.com/aws/jsii/commit/72f25af24c47075d6faa3b624236dd0375e3acdb)), closes [#2638](https://github.com/aws/jsii/issues/2638)
+
+## [1.23.0](https://github.com/aws/jsii/compare/v1.22.0...v1.23.0) (2021-03-01)
+
+### Features
+
+* **go:** emit indirect dependencies in go.mod ([#2596](https://github.com/aws/jsii/issues/2596)) ([0f95a0b](https://github.com/aws/jsii/commit/0f95a0b8cd4d569d410bfad21254949c4fd90870))
+* **go:** preserve casing of enum member names ([#2598](https://github.com/aws/jsii/issues/2598)) ([efdc165](https://github.com/aws/jsii/commit/efdc1659e1cbf1fae08a8a32cb2b98821f3c41f1)), closes [aws/aws-cdk-rfcs#292](https://github.com/aws/aws-cdk-rfcs/issues/292)
+* **go:** represent jsii structs as go structs (only) ([#2600](https://github.com/aws/jsii/issues/2600)) ([e7cc93e](https://github.com/aws/jsii/commit/e7cc93e902ac4ae7dbd37388d0be1b65ba691a40)), closes [aws/aws-cdk-rfcs#292](https://github.com/aws/aws-cdk-rfcs/issues/292)
+* **go:** require go 1.16, use native embed ([#2603](https://github.com/aws/jsii/issues/2603)) ([67cd3ce](https://github.com/aws/jsii/commit/67cd3cec5bef9e91e828d7a47cd63b0c814e446e))
+* **pacmak:** emit LICENSE file with SPDX license text, NOTICE file ([#2604](https://github.com/aws/jsii/issues/2604)) ([6747f12](https://github.com/aws/jsii/commit/6747f12a061d06672bb1d3f18e2639205e104577))
+
+
+### Bug Fixes
+
+* **go:** map values incorrectly handled though de/serialization ([#2587](https://github.com/aws/jsii/issues/2587)) ([0359928](https://github.com/aws/jsii/commit/035992887b3346e6cb1e66d0bb66c3029de2917f))
+* **go-runtime:** enums are not encoded/decoded correctly ([#2585](https://github.com/aws/jsii/issues/2585)) ([4731aeb](https://github.com/aws/jsii/commit/4731aeb6ad85c04160b30232e85e3f8a43c712a6)), closes [#2534](https://github.com/aws/jsii/issues/2534)
+* **java:** invalid code when multi-inheriting optional properties ([#2591](https://github.com/aws/jsii/issues/2591)) ([2399608](https://github.com/aws/jsii/commit/23996087adef48f73ecb61d6b499263435af2283)), closes [#22556](https://github.com/aws/jsii/issues/22556)
+* **java:** JsiiRuntime.ErrorStreamSink does not respond to being interrupted ([#2540](https://github.com/aws/jsii/issues/2540)) ([6e74bf9](https://github.com/aws/jsii/commit/6e74bf9d3aa00b936e76e42f4591890b2d735d86)), closes [#2533](https://github.com/aws/jsii/issues/2533)
+* **jsii:** excessive "exclude" in "tsconfig.json" ([#1736](https://github.com/aws/jsii/issues/1736)) ([ecffb9f](https://github.com/aws/jsii/commit/ecffb9f9dd7f02643fb2af30d9c0052f7465691d))
+* **pacmak:** go 1.16 requires running "go mod download" explicitly ([#2616](https://github.com/aws/jsii/issues/2616)) ([1f8f022](https://github.com/aws/jsii/commit/1f8f0222b0f1ece444a242aff87cf4ffe897a9d0)), closes [#2615](https://github.com/aws/jsii/issues/2615)
+* **pacmak:** go local replace do not respect `--outdir` in some cases ([#2584](https://github.com/aws/jsii/issues/2584)) ([b9b9b4c](https://github.com/aws/jsii/commit/b9b9b4ca9dbb535b714df4ba506a31a5fc56c773))
+* **pacmak:** multiple go (and python) issues  ([#2622](https://github.com/aws/jsii/issues/2622)) ([c2bd156](https://github.com/aws/jsii/commit/c2bd156b30fd1db469fd609af09dbed314a5d280)), closes [#2618](https://github.com/aws/jsii/issues/2618) [#2619](https://github.com/aws/jsii/issues/2619) [#2620](https://github.com/aws/jsii/issues/2620) [#2621](https://github.com/aws/jsii/issues/2621)
+
 ## [1.22.0](https://github.com/aws/jsii/compare/v1.21.0...v1.22.0) (2021-02-18)
 
 ### Bug Fixes

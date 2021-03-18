@@ -77,9 +77,16 @@ export function verifyGeneratedCodeFor(
 
 export function checkTree(
   file: string,
-  root: string = file,
+  {
+    root = file,
+    excludes = (_) => false,
+  }: { root?: string; excludes?: (file: string) => boolean } = {},
 ): TreeStructure | undefined {
   const stat = tryStat(file);
+
+  if (excludes(path.relative(root, file))) {
+    return undefined;
+  }
 
   // Normalizing paths so snapshots are identical in Windows, too...
   const relativeFile = path.relative(root, file).replace(/\\/g, '/');
@@ -106,10 +113,12 @@ export function checkTree(
     .readdirSync(file)
     .map((entry) => ({
       entry,
-      subtree: checkTree(path.join(file, entry), root),
+      subtree: checkTree(path.join(file, entry), { root, excludes }),
     }))
     .reduce((tree, { entry, subtree }) => {
-      tree[entry] = subtree!;
+      if (subtree != null) {
+        tree[entry] = subtree;
+      }
       return tree;
     }, {} as { [name: string]: TreeStructure });
 

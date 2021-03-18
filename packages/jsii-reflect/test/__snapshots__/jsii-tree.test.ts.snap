@@ -102,6 +102,211 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(_) initializer (stable)
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ _
+ │ │ │       │     └── type: number
+ │ │ │       ├─┬ static bar(_) method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: boolean
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ foo(_) method (stable)
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ _
+ │ │ │         │   └── type: string
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method (stable)
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method (stable)
+ │ │ │         ├── static
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement (stable)
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     ├── interfaces: IFriendly
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(very) initializer (deprecated)
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ very
+ │ │ │       │     └── type: @scope/jsii-calc-base-of-base.Very
+ │ │ │       ├─┬ hello() method (stable)
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ localMethod() method (stable)
+ │ │ │         └── returns: string
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar(_bar) method (stable)
+ │ │ │ │ │       │ ├─┬ parameters
+ │ │ │ │ │       │ │ └─┬ _bar
+ │ │ │ │ │       │ │   └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       │ └── returns: void
+ │ │ │ │ │       └─┬ foo(_values) method (stable)
+ │ │ │ │ │         ├─┬ parameters
+ │ │ │ │ │         │ └─┬ _values
+ │ │ │ │ │         │   └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ │         └── returns: void
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar property (stable)
+ │ │ │ │ │       │ ├── immutable
+ │ │ │ │ │       │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo property (stable)
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       ├─┬ bar() method (stable)
+ │ │ │ │ │       │ └── returns: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo() method (stable)
+ │ │ │ │ │         └── returns: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ baseMap property (stable)
+ │ │ │ │         │ ├── abstract
+ │ │ │ │         │ ├── immutable
+ │ │ │ │         │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │         └─┬ numbers property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ bar1 property (stable)
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: string
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar (stable)
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ bar2 property (stable)
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: string
+ │ │ │ │     └─┬ interface Foo (stable)
+ │ │ │ │       ├─┬ interfaces
+ │ │ │ │       │ ├── Bar
+ │ │ │ │       │ └── Bar
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ foo2 property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base (stable)
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   ├─┬ bar() method (stable)
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ baz property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: number
+ │ │ │   ├─┬ class Derived (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ zoo() method (stable)
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IFoo (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ bar() method (stable)
+ │ │ │       │ ├── abstract
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ baz property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1 (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ base() method (stable)
+ │ │ │   │     └── returns: void
+ │ │ │   ├─┬ class Class2 (stable)
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   └─┬ base property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: string
+ │ │ │   ├─┬ class Class3 (stable)
+ │ │ │   │ ├── interfaces: IBaseInterface
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   ├─┬ bar() method (stable)
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   ├─┬ foo() method (stable)
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   └─┬ iBaseInterface() method (stable)
+ │ │ │   │     └── returns: void
+ │ │ │   └─┬ interface IFoo (stable)
+ │ │ │     ├─┬ interfaces
+ │ │ │     │ └── IBaseInterface
+ │ │ │     └─┬ members
+ │ │ │       └─┬ iBaseInterface property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1 (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │ │ │       └─┬ sub1() method (stable)
+ │ │ │ │ │         └── returns: string
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2 (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer (stable)
+ │ │ │ │         └─┬ sub2() method (stable)
+ │ │ │ │           └── returns: string
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ static staticMethod() method (stable)
+ │ │ │         ├── static
+ │ │ │         └── returns: string
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -203,32 +408,38 @@ exports[`jsii-tree --all 1`] = `
  │ │   │         └─┬ returnsSpecialParam() method (stable)
  │ │   │           └── returns: jsii-calc.submodule.param.SpecialParameter
  │ │   └─┬ types
- │ │     └─┬ class MyClass (stable)
- │ │       ├── interfaces: INamespaced
+ │ │     ├─┬ class MyClass (stable)
+ │ │     │ ├── interfaces: INamespaced
+ │ │     │ └─┬ members
+ │ │     │   ├─┬ <initializer>(props) initializer (stable)
+ │ │     │   │ └─┬ parameters
+ │ │     │   │   └─┬ props
+ │ │     │   │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   ├─┬ methodWithSpecialParam(param) method (stable)
+ │ │     │   │ ├─┬ parameters
+ │ │     │   │ │ └─┬ param
+ │ │     │   │ │   └── type: jsii-calc.submodule.param.SpecialParameter
+ │ │     │   │ └── returns: string
+ │ │     │   ├─┬ awesomeness property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Awesomeness
+ │ │     │   ├─┬ definedAt property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: string
+ │ │     │   ├─┬ goodness property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Goodness
+ │ │     │   ├─┬ props property (stable)
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   └─┬ allTypes property (stable)
+ │ │     │     └── type: Optional<jsii-calc.AllTypes>
+ │ │     └─┬ interface Default (stable)
  │ │       └─┬ members
- │ │         ├─┬ <initializer>(props) initializer (stable)
- │ │         │ └─┬ parameters
- │ │         │   └─┬ props
- │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
- │ │         ├─┬ methodWithSpecialParam(param) method (stable)
- │ │         │ ├─┬ parameters
- │ │         │ │ └─┬ param
- │ │         │ │   └── type: jsii-calc.submodule.param.SpecialParameter
- │ │         │ └── returns: string
- │ │         ├─┬ awesomeness property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
- │ │         ├─┬ definedAt property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: string
- │ │         ├─┬ goodness property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Goodness
- │ │         ├─┬ props property (stable)
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.SomeStruct
- │ │         └─┬ allTypes property (stable)
- │ │           └── type: Optional<jsii-calc.AllTypes>
+ │ │         └─┬ foo property (stable)
+ │ │           ├── abstract
+ │ │           ├── immutable
+ │ │           └── type: number
  │ └─┬ types
  │   ├─┬ class AbstractClass (stable)
  │   │ ├── base: AbstractClassBase
@@ -721,6 +932,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ map
  │   │     │   └── type: Map<string => any>
  │   │     └── returns: string
+ │   ├─┬ class Default (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   └─┬ pleaseCompile() method (stable)
+ │   │     └── returns: void
  │   ├─┬ class DefaultedConstructorArgument (stable)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer (stable)
@@ -1022,6 +1238,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ myself() method (stable)
  │   │     └── returns: jsii-calc.Isomorphism
+ │   ├─┬ class Issue2638 (stable)
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (stable)
+ │   ├─┬ class Issue2638B (stable)
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (stable)
  │   ├─┬ class JSII417Derived (stable)
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
@@ -1861,11 +2083,45 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ valueOfOtherProperty property (stable)
  │   │     └── type: string
+ │   ├─┬ class TestStructWithEnum (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ isStringEnumA(input) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ isStringEnumB(input) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ structWithFoo property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructWithEnum
+ │   │   └─┬ structWithFooBar property (stable)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.StructWithEnum
  │   ├─┬ class Thrower (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ throwError() method (stable)
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ toIsoString() method (stable)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method (deprecated)
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property (deprecated)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck (stable)
  │   │ └─┬ members
  │   │   └─┬ static mode() method (stable)
@@ -2548,6 +2804,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface StructWithEnum (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ foo property (stable)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StringEnum
+ │   │   └─┬ bar property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.AllTypesEnum>
  │   ├─┬ interface StructWithJavaReservedWords (stable)
  │   │ └─┬ members
  │   │   ├─┬ default property (stable)
@@ -2733,6 +2999,17 @@ exports[`jsii-tree --all 1`] = `
    │           ├── immutable
    │           └── type: any
    └─┬ types
+     ├─┬ class BaseFor2647 (deprecated)
+     │ └─┬ members
+     │   ├─┬ <initializer>(very) initializer (deprecated)
+     │   │ └─┬ parameters
+     │   │   └─┬ very
+     │   │     └── type: @scope/jsii-calc-base-of-base.Very
+     │   └─┬ foo(obj) method (deprecated)
+     │     ├─┬ parameters
+     │     │ └─┬ obj
+     │     │   └── type: @scope/jsii-calc-base.IBaseInterface
+     │     └── returns: void
      ├─┬ class Number (deprecated)
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -2863,6 +3140,76 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     └── interfaces: IFriendly
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       └─┬ interfaces
+ │ │ │ │         ├── Bar
+ │ │ │ │         └── Bar
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └── interfaces: IFoo
+ │ │ │   └── interface IFoo
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1
+ │ │ │   │ └── base: Base
+ │ │ │   ├─┬ class Class2
+ │ │ │   │ └── base: Base
+ │ │ │   ├─┬ class Class3
+ │ │ │   │ └── interfaces: IBaseInterface
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ interfaces
+ │ │ │       └── IBaseInterface
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -2898,8 +3245,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │   └─┬ types
  │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
- │ │     └─┬ class MyClass
- │ │       └── interfaces: INamespaced
+ │ │     ├─┬ class MyClass
+ │ │     │ └── interfaces: INamespaced
+ │ │     └── interface Default
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -2942,6 +3290,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
+ │   ├── class Default
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
@@ -2976,6 +3325,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
  │   ├── class Isomorphism
+ │   ├── class Issue2638
+ │   ├── class Issue2638B
  │   ├─┬ class JSII417Derived
  │   │ └── base: JSII417PublicBaseOfBase
  │   ├── class JSII417PublicBaseOfBase
@@ -3039,7 +3390,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── base: SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
+ │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├─┬ class UnaryOperation
  │   │ └── base: Operation
@@ -3150,6 +3503,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
@@ -3189,6 +3543,7 @@ exports[`jsii-tree --inheritance 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├─┬ class Number
      │ ├── base: NumericValue
      │ └── interfaces: IDoublable
@@ -3267,6 +3622,126 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>(_) initializer
+ │ │ │       ├── static bar(_) method
+ │ │ │       └── foo(_) method
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├── static bar() method
+ │ │ │       └── static foo() method
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>(very) initializer
+ │ │ │       ├── hello() method
+ │ │ │       └── localMethod() method
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar(_bar) method
+ │ │ │ │ │       └── foo(_values) method
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar property
+ │ │ │ │ │       └── foo property
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├── bar() method
+ │ │ │ │ │       └── foo() method
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── baseMap property
+ │ │ │ │         └── numbers property
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └── bar1 property
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── bar2 property
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       └─┬ members
+ │ │ │ │         └── foo2 property
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── bar() method
+ │ │ │   │   └── baz property
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── zoo() method
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       ├── bar() method
+ │ │ │       └── baz property
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── base() method
+ │ │ │   ├─┬ class Class2
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── base property
+ │ │ │   ├─┬ class Class3
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── bar() method
+ │ │ │   │   ├── foo() method
+ │ │ │   │   └── iBaseInterface() method
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       └── iBaseInterface property
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       └── sub1() method
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer
+ │ │ │ │         └── sub2() method
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods
+ │ │ │     └─┬ members
+ │ │ │       └── static staticMethod() method
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -3330,15 +3805,18 @@ exports[`jsii-tree --members 1`] = `
  │ │   │         ├── <initializer>() initializer
  │ │   │         └── returnsSpecialParam() method
  │ │   └─┬ types
- │ │     └─┬ class MyClass
+ │ │     ├─┬ class MyClass
+ │ │     │ └─┬ members
+ │ │     │   ├── <initializer>(props) initializer
+ │ │     │   ├── methodWithSpecialParam(param) method
+ │ │     │   ├── awesomeness property
+ │ │     │   ├── definedAt property
+ │ │     │   ├── goodness property
+ │ │     │   ├── props property
+ │ │     │   └── allTypes property
+ │ │     └─┬ interface Default
  │ │       └─┬ members
- │ │         ├── <initializer>(props) initializer
- │ │         ├── methodWithSpecialParam(param) method
- │ │         ├── awesomeness property
- │ │         ├── definedAt property
- │ │         ├── goodness property
- │ │         ├── props property
- │ │         └── allTypes property
+ │ │         └── foo property
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ └─┬ members
@@ -3540,6 +4018,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── render(data) method
  │   │   ├── renderArbitrary(data) method
  │   │   └── renderMap(map) method
+ │   ├─┬ class Default
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── pleaseCompile() method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) initializer
@@ -3673,6 +4155,12 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── myself() method
+ │   ├─┬ class Issue2638
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
+ │   ├─┬ class Issue2638B
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JSII417Derived
  │   │ └─┬ members
  │   │   ├── <initializer>(property) initializer
@@ -4041,10 +4529,25 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── otherProperty property
  │   │   ├── theProperty property
  │   │   └── valueOfOtherProperty property
+ │   ├─┬ class TestStructWithEnum
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── isStringEnumA(input) method
+ │   │   ├── isStringEnumB(input) method
+ │   │   ├── structWithFoo property
+ │   │   └── structWithFooBar property
  │   ├─┬ class Thrower
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── toIsoString() method
+ │   │   ├── toIsOString() method
+ │   │   ├── toISOString() method
+ │   │   ├── fooBar property
+ │   │   └── fooBAR property
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └── static mode() method
@@ -4335,6 +4838,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── scope property
  │   │   └── props property
+ │   ├─┬ interface StructWithEnum
+ │   │ └─┬ members
+ │   │   ├── foo property
+ │   │   └── bar property
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├── default property
@@ -4434,6 +4941,10 @@ exports[`jsii-tree --members 1`] = `
    │         ├── key property
    │         └── value property
    └─┬ types
+     ├─┬ class BaseFor2647
+     │ └─┬ members
+     │   ├── <initializer>(very) initializer
+     │   └── foo(obj) method
      ├─┬ class Number
      │ └─┬ members
      │   ├── <initializer>(value) initializer
@@ -4490,6 +5001,26 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
+ │   ├── module2702
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -4533,6 +5064,63 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └── class ExtendAndImplement
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └── interface Foo
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├── class Class1
+ │ │ │   ├── class Class2
+ │ │ │   ├── class Class3
+ │ │ │   └── interface IFoo
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -4565,7 +5153,8 @@ exports[`jsii-tree --types 1`] = `
  │ │   │   └─┬ types
  │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
- │ │     └── class MyClass
+ │ │     ├── class MyClass
+ │ │     └── interface Default
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
@@ -4597,6 +5186,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
+ │   ├── class Default
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
@@ -4625,6 +5215,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
  │   ├── class Isomorphism
+ │   ├── class Issue2638
+ │   ├── class Issue2638B
  │   ├── class JSII417Derived
  │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface
@@ -4677,7 +5269,9 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
+ │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable
@@ -4757,6 +5351,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
@@ -4792,6 +5387,7 @@ exports[`jsii-tree --types 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├── class Number
      ├── class NumericValue
      ├── class Operation
@@ -4815,6 +5411,26 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
+ │   ├── module2702
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references

@@ -5,7 +5,7 @@ namespace Amazon.JSII.JsonModel.Spec
 {
     public abstract class DependencyRoot
     {
-        public DependencyRoot
+        protected DependencyRoot
         (
             AssemblyTargets? targets = null,
             IDictionary<string, PackageVersion>? dependencies = null

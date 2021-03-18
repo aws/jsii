@@ -9,6 +9,26 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
+ │   ├── module2702
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -36,6 +56,26 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
+ │   ├── module2702
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -63,6 +103,26 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
+ │   ├── module2702
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -183,6 +243,211 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class MyClass
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(_) initializer
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ _
+ │ │ │       │     └── type: number
+ │ │ │       ├─┬ static bar(_) method
+ │ │ │       │ ├── static
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: boolean
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ foo(_) method
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ _
+ │ │ │         │   └── type: string
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStatics
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ static bar() method
+ │ │ │       │ ├── static
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ static foo() method
+ │ │ │         ├── static
+ │ │ │         └── returns: void
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class ExtendAndImplement
+ │ │ │     ├── base: BaseFor2647
+ │ │ │     ├── interfaces: IFriendly
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ <initializer>(very) initializer
+ │ │ │       │ └─┬ parameters
+ │ │ │       │   └─┬ very
+ │ │ │       │     └── type: @scope/jsii-calc-base-of-base.Very
+ │ │ │       ├─┬ hello() method
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ localMethod() method
+ │ │ │         └── returns: string
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar(_bar) method
+ │ │ │ │ │       │ ├─┬ parameters
+ │ │ │ │ │       │ │ └─┬ _bar
+ │ │ │ │ │       │ │   └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       │ └── returns: void
+ │ │ │ │ │       └─┬ foo(_values) method
+ │ │ │ │ │         ├─┬ parameters
+ │ │ │ │ │         │ └─┬ _values
+ │ │ │ │ │         │   └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ │         └── returns: void
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar property
+ │ │ │ │ │       │ ├── immutable
+ │ │ │ │ │       │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo property
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class MyClass
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       ├─┬ bar() method
+ │ │ │ │ │       │ └── returns: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │ │       └─┬ foo() method
+ │ │ │ │ │         └── returns: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ interface MyStruct
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ baseMap property
+ │ │ │ │         │ ├── abstract
+ │ │ │ │         │ ├── immutable
+ │ │ │ │         │ └── type: Map<string => @scope/jsii-calc-base.BaseProps>
+ │ │ │ │         └─┬ numbers property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: Array<@scope/jsii-calc-lib.Number>
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface Bar
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ bar1 property
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: string
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ interface Bar
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ bar2 property
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: string
+ │ │ │ │     └─┬ interface Foo
+ │ │ │ │       ├─┬ interfaces
+ │ │ │ │       │ ├── Bar
+ │ │ │ │       │ └── Bar
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ foo2 property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├─┬ bar() method
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ baz property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: number
+ │ │ │   ├─┬ class Derived
+ │ │ │   │ ├── base: Base
+ │ │ │   │ ├── interfaces: IFoo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └─┬ zoo() method
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IFoo
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ bar() method
+ │ │ │       │ ├── abstract
+ │ │ │       │ └── returns: string
+ │ │ │       └─┬ baz property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Class1
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └─┬ base() method
+ │ │ │   │     └── returns: void
+ │ │ │   ├─┬ class Class2
+ │ │ │   │ ├── base: Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └─┬ base property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: string
+ │ │ │   ├─┬ class Class3
+ │ │ │   │ ├── interfaces: IBaseInterface
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├─┬ bar() method
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   ├─┬ foo() method
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   └─┬ iBaseInterface() method
+ │ │ │   │     └── returns: void
+ │ │ │   └─┬ interface IFoo
+ │ │ │     ├─┬ interfaces
+ │ │ │     │ └── IBaseInterface
+ │ │ │     └─┬ members
+ │ │ │       └─┬ iBaseInterface property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class TypeFromSub1
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── <initializer>() initializer
+ │ │ │ │ │       └─┬ sub1() method
+ │ │ │ │ │         └── returns: string
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class TypeFromSub2
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer
+ │ │ │ │         └─┬ sub2() method
+ │ │ │ │           └── returns: string
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class OnlyStaticMethods
+ │ │ │     └─┬ members
+ │ │ │       └─┬ static staticMethod() method
+ │ │ │         ├── static
+ │ │ │         └── returns: string
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -284,32 +549,38 @@ exports[`showAll 1`] = `
  │ │   │         └─┬ returnsSpecialParam() method
  │ │   │           └── returns: jsii-calc.submodule.param.SpecialParameter
  │ │   └─┬ types
- │ │     └─┬ class MyClass
- │ │       ├── interfaces: INamespaced
+ │ │     ├─┬ class MyClass
+ │ │     │ ├── interfaces: INamespaced
+ │ │     │ └─┬ members
+ │ │     │   ├─┬ <initializer>(props) initializer
+ │ │     │   │ └─┬ parameters
+ │ │     │   │   └─┬ props
+ │ │     │   │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   ├─┬ methodWithSpecialParam(param) method
+ │ │     │   │ ├─┬ parameters
+ │ │     │   │ │ └─┬ param
+ │ │     │   │ │   └── type: jsii-calc.submodule.param.SpecialParameter
+ │ │     │   │ └── returns: string
+ │ │     │   ├─┬ awesomeness property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Awesomeness
+ │ │     │   ├─┬ definedAt property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: string
+ │ │     │   ├─┬ goodness property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.Goodness
+ │ │     │   ├─┬ props property
+ │ │     │   │ ├── immutable
+ │ │     │   │ └── type: jsii-calc.submodule.child.SomeStruct
+ │ │     │   └─┬ allTypes property
+ │ │     │     └── type: Optional<jsii-calc.AllTypes>
+ │ │     └─┬ interface Default
  │ │       └─┬ members
- │ │         ├─┬ <initializer>(props) initializer
- │ │         │ └─┬ parameters
- │ │         │   └─┬ props
- │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
- │ │         ├─┬ methodWithSpecialParam(param) method
- │ │         │ ├─┬ parameters
- │ │         │ │ └─┬ param
- │ │         │ │   └── type: jsii-calc.submodule.param.SpecialParameter
- │ │         │ └── returns: string
- │ │         ├─┬ awesomeness property
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
- │ │         ├─┬ definedAt property
- │ │         │ ├── immutable
- │ │         │ └── type: string
- │ │         ├─┬ goodness property
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.Goodness
- │ │         ├─┬ props property
- │ │         │ ├── immutable
- │ │         │ └── type: jsii-calc.submodule.child.SomeStruct
- │ │         └─┬ allTypes property
- │ │           └── type: Optional<jsii-calc.AllTypes>
+ │ │         └─┬ foo property
+ │ │           ├── abstract
+ │ │           ├── immutable
+ │ │           └── type: number
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -802,6 +1073,11 @@ exports[`showAll 1`] = `
  │   │     │ └─┬ map
  │   │     │   └── type: Map<string => any>
  │   │     └── returns: string
+ │   ├─┬ class Default
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ pleaseCompile() method
+ │   │     └── returns: void
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer
@@ -1103,6 +1379,12 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ myself() method
  │   │     └── returns: jsii-calc.Isomorphism
+ │   ├─┬ class Issue2638
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
+ │   ├─┬ class Issue2638B
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JSII417Derived
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
@@ -1942,11 +2224,45 @@ exports[`showAll 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ valueOfOtherProperty property
  │   │     └── type: string
+ │   ├─┬ class TestStructWithEnum
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ isStringEnumA(input) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ isStringEnumB(input) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.StructWithEnum
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ structWithFoo property
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructWithEnum
+ │   │   └─┬ structWithFooBar property
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.StructWithEnum
  │   ├─┬ class Thrower
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └─┬ throwError() method
  │   │     └── returns: void
+ │   ├─┬ class TwoMethodsWithSimilarCapitalization
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ toIsoString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toIsOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ toISOString() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ fooBar property
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ fooBAR property
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class UmaskCheck
  │   │ └─┬ members
  │   │   └─┬ static mode() method
@@ -2629,6 +2945,16 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface StructWithEnum
+ │   │ └─┬ members
+ │   │   ├─┬ foo property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StringEnum
+ │   │   └─┬ bar property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.AllTypesEnum>
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├─┬ default property
@@ -2814,6 +3140,17 @@ exports[`showAll 1`] = `
    │           ├── immutable
    │           └── type: any
    └─┬ types
+     ├─┬ class BaseFor2647
+     │ └─┬ members
+     │   ├─┬ <initializer>(very) initializer
+     │   │ └─┬ parameters
+     │   │   └─┬ very
+     │   │     └── type: @scope/jsii-calc-base-of-base.Very
+     │   └─┬ foo(obj) method
+     │     ├─┬ parameters
+     │     │ └─┬ obj
+     │     │   └── type: @scope/jsii-calc-base.IBaseInterface
+     │     └── returns: void
      ├─┬ class Number
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -2926,6 +3263,26 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
  │   ├── composition
+ │   ├── module2530
+ │   ├── module2617
+ │   ├── module2647
+ │   ├─┬ module2689
+ │   │ └─┬ submodules
+ │   │   ├── methods
+ │   │   ├── props
+ │   │   ├── retval
+ │   │   └── structs
+ │   ├─┬ module2692
+ │   │ └─┬ submodules
+ │   │   ├── submodule1
+ │   │   └── submodule2
+ │   ├── module2700
+ │   ├── module2702
+ │   ├─┬ nodirect
+ │   │ └─┬ submodules
+ │   │   ├── sub1
+ │   │   └── sub2
+ │   ├── onlystatic
  │   └─┬ submodule
  │     └─┬ submodules
  │       ├── back_references
@@ -2969,6 +3326,63 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ module2530
+ │ │ │ └─┬ types
+ │ │ │   └── class MyClass
+ │ │ ├─┬ module2617
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStatics
+ │ │ ├─┬ module2647
+ │ │ │ └─┬ types
+ │ │ │   └── class ExtendAndImplement
+ │ │ ├─┬ module2689
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ methods
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ props
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ ├─┬ retval
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class MyClass
+ │ │ │ │ └─┬ structs
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── interface MyStruct
+ │ │ │ └── types
+ │ │ ├─┬ module2692
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ submodule1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface Bar
+ │ │ │ │ └─┬ submodule2
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── interface Bar
+ │ │ │ │     └── interface Foo
+ │ │ │ └── types
+ │ │ ├─┬ module2700
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   ├── class Derived
+ │ │ │   └── interface IFoo
+ │ │ ├─┬ module2702
+ │ │ │ └─┬ types
+ │ │ │   ├── class Class1
+ │ │ │   ├── class Class2
+ │ │ │   ├── class Class3
+ │ │ │   └── interface IFoo
+ │ │ ├─┬ nodirect
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ sub1
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class TypeFromSub1
+ │ │ │ │ └─┬ sub2
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class TypeFromSub2
+ │ │ │ └── types
+ │ │ ├─┬ onlystatic
+ │ │ │ └─┬ types
+ │ │ │   └── class OnlyStaticMethods
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
  │ │   │ ├─┬ back_references
@@ -3001,7 +3415,8 @@ exports[`types 1`] = `
  │ │   │   └─┬ types
  │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
- │ │     └── class MyClass
+ │ │     ├── class MyClass
+ │ │     └── interface Default
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
@@ -3033,6 +3448,7 @@ exports[`types 1`] = `
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
+ │   ├── class Default
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
@@ -3061,6 +3477,8 @@ exports[`types 1`] = `
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
  │   ├── class Isomorphism
+ │   ├── class Issue2638
+ │   ├── class Issue2638B
  │   ├── class JSII417Derived
  │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface
@@ -3113,7 +3531,9 @@ exports[`types 1`] = `
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
+ │   ├── class TestStructWithEnum
  │   ├── class Thrower
+ │   ├── class TwoMethodsWithSimilarCapitalization
  │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable
@@ -3193,6 +3613,7 @@ exports[`types 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
@@ -3228,6 +3649,7 @@ exports[`types 1`] = `
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
+     ├── class BaseFor2647
      ├── class Number
      ├── class NumericValue
      ├── class Operation

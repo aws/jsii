@@ -94,3 +94,8 @@ kbd {
 .md-typeset a {
   color: #5b79a0;
 }
+
+/* Required so compliance table is fully visible */
+.md-content {
+  overflow: initial;
+}

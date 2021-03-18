@@ -1,7 +1,14 @@
 import { CodeMaker } from 'codemaker';
+import { Method } from 'jsii-reflect';
 
 import { GoMethod } from '../types';
-import { JSII_INVOKE_FUNC, JSII_SINVOKE_FUNC } from './constants';
+import {
+  JSII_INVOKE_FUNC,
+  JSII_INVOKE_VOID_FUNC,
+  JSII_SINVOKE_FUNC,
+  JSII_SINVOKE_VOID_FUNC,
+} from './constants';
+import { emitArguments } from './emit-arguments';
 import { FunctionCall } from './function-call';
 import { slugify, emitInitialization } from './util';
 
@@ -20,37 +27,61 @@ export class MethodCall extends FunctionCall {
   }
 
   private emitDynamic(code: CodeMaker) {
-    code.line(`var ${this.returnVarName} ${this.returnType}`);
-    code.open(`${JSII_INVOKE_FUNC}(`);
+    const args = emitArguments(
+      code,
+      this.parent.parameters,
+      this.returnVarName,
+    );
+    if (this.returnsVal) {
+      code.line(`var ${this.returnVarName} ${this.returnType}`);
+      code.line();
+      code.open(`${JSII_INVOKE_FUNC}(`);
+    } else {
+      code.open(`${JSII_INVOKE_VOID_FUNC}(`);
+    }
 
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.method.name}",`);
-    code.line(`${this.argsString},`);
-    code.line(`${this.returnsVal ? 'true' : 'false'},`);
-    code.line(`&${this.returnVarName},`);
+    code.line(args ? `${args},` : 'nil, // no parameters');
+    if (this.returnsVal) {
+      code.line(`&${this.returnVarName},`);
+    }
 
     code.close(`)`);
 
     if (this.returnsVal) {
+      code.line();
       code.line(`return ${this.returnVarName}`);
     }
   }
 
   private emitStatic(code: CodeMaker) {
     emitInitialization(code);
-    code.line(`var ${this.returnVarName} ${this.returnType}`);
-
-    code.open(`${JSII_SINVOKE_FUNC}(`);
+    code.line();
+    const args = emitArguments(
+      code,
+      this.parent.parameters,
+      this.returnVarName,
+    );
+    if (this.returnsVal) {
+      code.line(`var ${this.returnVarName} ${this.returnType}`);
+      code.line();
+      code.open(`${JSII_SINVOKE_FUNC}(`);
+    } else {
+      code.open(`${JSII_SINVOKE_VOID_FUNC}(`);
+    }
 
     code.line(`"${this.parent.parent.fqn}",`);
     code.line(`"${this.parent.method.name}",`);
-    code.line(`${this.argsString},`);
-    code.line(`${this.returnsVal ? 'true' : 'false'},`);
-    code.line(`&${this.returnVarName},`);
+    code.line(args ? `${args},` : 'nil, // no parameters');
+    if (this.returnsVal) {
+      code.line(`&${this.returnVarName},`);
+    }
 
     code.close(`)`);
 
     if (this.returnsVal) {
+      code.line();
       code.line(`return ${this.returnVarName}`);
     }
   }
@@ -66,13 +97,6 @@ export class MethodCall extends FunctionCall {
   }
 
   private get inStatic(): boolean {
-    return this.parent.method.static;
-  }
-
-  private get argsString(): string {
-    const argsList = this.parent.parameters
-      .map((param) => param.name)
-      .join(', ');
-    return `[]interface{}{${argsList}}`;
+    return Method.isMethod(this.parent.method) && this.parent.method.static;
   }
 }
