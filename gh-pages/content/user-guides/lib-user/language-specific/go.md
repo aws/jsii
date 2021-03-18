@@ -28,6 +28,10 @@ Assuming you are consuming a *jsii* module that defines the following:
 ```go
 package jsiimodule
 
+import (
+  "fmt"
+)
+
 type IGreeter interface {
   Greet(greetee string)
 }
@@ -35,6 +39,11 @@ type IGreeter interface {
 // ...
 func NewMajestyGreeter(greeter IGreeter) MajestyGreeter {
   // Omitted for brevity
+}
+
+// Does something with the IGreeter that was provided at construction time
+func (m MajestyGreeter) Announce(who string) {
+  m.greeter.Greet(fmt.Sprintf("Your Royal Highness %s", who))
 }
 ```
 
@@ -78,7 +87,31 @@ func main() {
 
     In particular, if the only element you need to override on a *class* is it's
     *constructor*, you should simply *decorate* this constructor instead of
-    using the extension and overrides mechanism.
+    using the extension and overrides mechanism. For example you can declare an
+    AWS CDK construct (that does not declare new properties or methods) in the
+    following way:
+
+    ```go
+    package cdkapp
+
+    import (
+      "github.com/aws/aws-cdk-go"
+      "github.com/aws/aws-cdk-go/aws-s3"
+    )
+
+    // Optional: alias the type for clarity
+    type CustomBucket s3.Bucket
+
+    // Imagine this builds an S3 bucket with "special" defaults. It does not
+    // accept s3.BucketProps, instead those are hard-coded in the constructor
+    // itself. It could also accept a different properties object, to allow for
+    // user settings?
+    func NewCustomBucket(scope core.Construct, id string) CustomBucket {
+      return s3.NewBucket(scope, id, s3.BucketProps{
+        // ... customized properties
+      })
+    }
+    ```
 
 *Classes* that are open for *extension* (including *abstract base classes*) have
 a special *overriding* constructor that can be used when building sub-classes.
