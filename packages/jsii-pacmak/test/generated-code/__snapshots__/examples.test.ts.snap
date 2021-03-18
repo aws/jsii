@@ -367,12 +367,12 @@ func (n *jsiiProxy_Namespace1) Foo() {
 }
 
 type Namespace1_Foo struct {
-	Bar string \`json:"bar"\`
+	Bar *string \`json:"bar"\`
 }
 
 type Namespace1_IBar interface {
 	Method()
-	Bar() string
+	Bar() *string
 }
 
 // The jsii proxy for Namespace1_IBar
@@ -388,8 +388,8 @@ func (n *jsiiProxy_Namespace1_IBar) Method() {
 	)
 }
 
-func (j *jsiiProxy_Namespace1_IBar) Bar() string {
-	var returns string
+func (j *jsiiProxy_Namespace1_IBar) Bar() *string {
+	var returns *string
 	_jsii_.Get(
 		j,
 		"bar",
@@ -439,7 +439,7 @@ const (
 )
 
 type Namespace2_Foo_Final interface {
-	Done() bool
+	Done() *bool
 }
 
 // The jsii proxy struct for Namespace2_Foo_Final
@@ -447,8 +447,8 @@ type jsiiProxy_Namespace2_Foo_Final struct {
 	_ byte // padding
 }
 
-func (j *jsiiProxy_Namespace2_Foo_Final) Done() bool {
-	var returns bool
+func (j *jsiiProxy_Namespace2_Foo_Final) Done() *bool {
+	var returns *bool
 	_jsii_.Get(
 		j,
 		"done",
