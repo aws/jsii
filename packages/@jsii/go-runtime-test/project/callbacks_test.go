@@ -9,8 +9,8 @@ import (
 func TestPureInterfacesCanBeUsedTransparently(t *testing.T) {
 	requiredstring := "It's Britney b**ch!"
 	expected := calc.StructB{RequiredString: &requiredstring}
-	delegate := StructReturningDelegate{expected: &expected}
-	consumer := calc.NewConsumePureInterface(&delegate)
+	delegate := &StructReturningDelegate{expected: &expected}
+	consumer := calc.NewConsumePureInterface(delegate)
 	actual := consumer.WorkItBaby()
 
 	if *actual.RequiredString != *expected.RequiredString {

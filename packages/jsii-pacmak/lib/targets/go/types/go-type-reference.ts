@@ -74,7 +74,7 @@ export class GoTypeRef {
 
   public get datatype() {
     const reflectType = this.type?.type;
-    return reflectType?.isInterfaceType() && reflectType?.datatype;
+    return reflectType?.isInterfaceType() && reflectType.datatype;
   }
 
   public get namespace() {
