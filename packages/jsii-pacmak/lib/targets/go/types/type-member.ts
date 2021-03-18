@@ -206,6 +206,6 @@ export class GoParameter {
 
   public toString(): string {
     const paramType = this.reference.scopedReference(this.parent.pkg);
-    return `${this.name} ${paramType}`;
+    return `${this.name} ${this.parameter.variadic ? '...' : ''}${paramType}`;
   }
 }

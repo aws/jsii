@@ -1,12 +1,23 @@
 package tests
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/aws/jsii-runtime-go"
 	"math"
 	"runtime"
 	"testing"
 	"time"
+
+	"github.com/aws/jsii/go-runtime-test/internal/addTen"
+	"github.com/aws/jsii/go-runtime-test/internal/doNotOverridePrivates"
+
+	"github.com/aws/jsii/go-runtime-test/internal/friendlyRandom"
+	"github.com/aws/jsii/go-runtime-test/internal/overrideAsyncMethods"
+	"github.com/aws/jsii/go-runtime-test/internal/syncOverrides"
+	"github.com/aws/jsii/go-runtime-test/internal/twoOverrides"
+	"github.com/aws/jsii/go-runtime-test/internal/wallClock"
+
+	"github.com/aws/jsii-runtime-go"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
@@ -295,6 +306,11 @@ func newDerivedFromAllTypes() derivedFromAllTypes {
 	}
 }
 
+func (suite *ComplianceSuite) AfterTest(suiteName, testName string) {
+	// Close jsii runtime, clean up the child process, etc...
+	jsii.Close()
+}
+
 func (suite *ComplianceSuite) TestTestFluentApiWithDerivedClasses() {
 	assert := suite.Assert()
 
@@ -318,28 +334,10 @@ func (suite *ComplianceSuite) TestCollectionOfInterfaces_ListOfStructs() {
 	assert.Equal("Hello, I'm String!", *list[0].RequiredString)
 }
 
-type doNotOverridePrivates struct {
-	calc.DoNotOverridePrivates
-}
-
-func newDoNotOverridePrivates() doNotOverridePrivates {
-	return doNotOverridePrivates{
-		calc.NewDoNotOverridePrivates(),
-	}
-}
-
-func (x *doNotOverridePrivates) PrivateProperty() string {
-	return "privateProperty-Override"
-}
-
-func (x *doNotOverridePrivates) SetPrivateProperty(value string) {
-	panic("Boom")
-}
-
 func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_getter_public() {
 	assert := suite.Assert()
 
-	obj := newDoNotOverridePrivates()
+	obj := doNotOverridePrivates.New()
 	assert.Equal("privateProperty", *obj.PrivatePropertyValue())
 
 	// verify the setter override is not invoked.
@@ -440,16 +438,6 @@ func (suite *ComplianceSuite) TestLiftedKwargWithSameNameAsPositionalArg() {
 	assert.Equal(expected, *amb.Props())
 }
 
-type addTen struct {
-	calc.Add
-}
-
-func newAddTen(value *float64) addTen {
-	return addTen{
-		calc.NewAdd(calclib.NewNumber(value), calclib.NewNumber(jsii.Number(10))),
-	}
-}
-
 type mulTen struct {
 	calc.Multiply
 }
@@ -472,7 +460,7 @@ func (suite *ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects()
 
 	suite.FailTest("??", "??")
 
-	nativeObj := newAddTen(jsii.Number(10))
+	nativeObj := addTen.New(jsii.Number(10))
 	types.SetAnyProperty(nativeObj)
 	result1 := types.AnyProperty()
 	assert.Equal(nativeObj, result1)
@@ -765,8 +753,32 @@ func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType(
 	assert.NotNil(classRef)
 }
 
+func (suite *ComplianceSuite) TestStructs_StepBuilders() {
+	suite.NotApplicableTest("Go does not generate fluent builders")
+}
+
 func (suite *ComplianceSuite) TestStaticListInClassCannotBeModified() {
 	suite.NotApplicableTest("Go arrays are immutable by design")
+}
+
+func (suite *ComplianceSuite) TestStructsAreUndecoratedOntheWayToKernel() {
+	assert := suite.Assert()
+
+	s := calc.StructB{RequiredString: jsii.String("Bazinga!"), OptionalBoolean: jsii.Bool(false)}
+	j := calc.JsonFormatter_Stringify(s)
+
+	var a map[string]interface{}
+	if err := json.Unmarshal([]byte(*j), &a); err != nil {
+		assert.FailNowf(err.Error(), "unmarshal failed")
+	}
+
+	assert.Equal(
+		map[string]interface{}{
+			"requiredString":  "Bazinga!",
+			"optionalBoolean": false,
+		},
+		a,
+	)
 }
 
 func (suite *ComplianceSuite) TestReturnAbstract() {
@@ -904,6 +916,406 @@ func (suite *ComplianceSuite) TestAsyncOverrides_overrideThrows() {
 	obj := myAsyncVirtualMethods{calc.NewAsyncVirtualMethods()}
 	obj.CallMe()
 	assert.Panics(func() { obj.CallMe() })
+}
+
+func (suite *ComplianceSuite) TestHashCodeIsResistantToPropertyShadowingResultVariable() {
+	suite.NotApplicableTest("Go does not have HashCode()")
+}
+
+func (suite *ComplianceSuite) TestStructs_MultiplePropertiesHashCode() {
+	suite.NotApplicableTest("Go does not have HashCode()")
+}
+
+func (suite *ComplianceSuite) TestStructs_OptionalHashCode() {
+	suite.NotApplicableTest("Go does not have HashCode()")
+}
+
+func (suite *ComplianceSuite) TestReturnSubclassThatImplementsInterface976() {
+	t := suite.T()
+
+	obj := calc.SomeTypeJsii976_ReturnReturn()
+	assert.Equal(t, 333.0, *obj.Foo())
+}
+
+func (suite *ComplianceSuite) TestStructs_OptionalEquals() {
+	suite.NotApplicableTest("Go does not have Equals(other)")
+}
+
+func (suite *ComplianceSuite) TestPropertyOverrides_Get_Calls_Super() {
+	t := suite.T()
+
+	so := &testPropertyOverridesGetCallsSuper{}
+	calc.NewSyncVirtualMethods_Override(so)
+
+	assert.Equal(t, "super:initial value", *so.RetrieveValueOfTheProperty())
+	assert.Equal(t, "super:initial value", *so.TheProperty())
+}
+
+type testPropertyOverridesGetCallsSuper struct {
+	calc.SyncVirtualMethods `overrides:"TheProperty"`
+}
+
+func (t *testPropertyOverridesGetCallsSuper) TheProperty() *string {
+	s := t.SyncVirtualMethods.TheProperty()
+	return jsii.String(fmt.Sprintf("super:%s", *s))
+}
+
+func (suite *ComplianceSuite) TestUnmarshallIntoAbstractType() {
+	t := suite.T()
+
+	c := calc.NewCalculator(&calc.CalculatorProps{})
+	c.Add(jsii.Number(120))
+	v := c.Curr()
+
+	assert.Equal(t, 120.0, *v.Value())
+}
+
+func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertyGetter() {
+	t := suite.T()
+
+	obj := syncOverrides.New()
+	obj.CallAsync = true
+
+	defer func() {
+		err := recover()
+		assert.NotNil(t, err, "expected a failure to occur")
+	}()
+
+	obj.CallerIsProperty()
+}
+
+func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertySetter() {
+	t := suite.T()
+
+	obj := syncOverrides.New()
+	obj.CallAsync = true
+
+	defer func() {
+		err := recover()
+		assert.NotNil(t, err, "expected a failure to occur")
+	}()
+
+	obj.SetCallerIsProperty(jsii.Number(12))
+}
+
+func (suite *ComplianceSuite) TestPropertyOverrides_Get_Set() {
+	t := suite.T()
+
+	so := syncOverrides.New()
+	assert.Equal(t, "I am an override!", *so.RetrieveValueOfTheProperty())
+	so.ModifyValueOfTheProperty(jsii.String("New Value"))
+	assert.Equal(t, "New Value", *so.AnotherTheProperty)
+}
+
+func (suite *ComplianceSuite) TestVariadicMethodCanBeInvoked() {
+	t := suite.T()
+
+	vm := calc.NewVariadicMethod(jsii.Number(1))
+	result := vm.AsArray(jsii.Number(3), jsii.Number(4), jsii.Number(5), jsii.Number(6))
+	assert.Equal(t, []*float64{jsii.Number(1), jsii.Number(3), jsii.Number(4), jsii.Number(5), jsii.Number(6)}, *result)
+}
+
+func (suite *ComplianceSuite) TestCollectionTypes() {
+	t := suite.T()
+
+	at := calc.NewAllTypes()
+
+	// array
+	at.SetArrayProperty(&[]*string{jsii.String("Hello"), jsii.String("World")})
+	assert.Equal(t, "World", *(*at.ArrayProperty())[1])
+
+	// map
+	at.SetMapProperty(&map[string]calclib.Number{"Foo": calclib.NewNumber(jsii.Number(123))})
+	assert.Equal(t, 123.0, *(*at.MapProperty())["Foo"].Value())
+}
+
+func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethodByParentClass() {
+	t := suite.T()
+
+	obj := overrideAsyncMethods.NewOverrideAsyncMethodsByBaseClass()
+	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
+	assert.Equal(t, 4452.0, obj.CallMe())
+}
+
+func (suite *ComplianceSuite) TestTestStructsCanBeDowncastedToParentType() {
+	t := suite.T()
+
+	assert.NotZero(t, calc.Demonstrate982_TakeThis())
+	assert.NotZero(t, calc.Demonstrate982_TakeThisToo())
+}
+
+func (suite *ComplianceSuite) TestPropertyOverrides_Get_Throws() {
+	t := suite.T()
+
+	so := &testPropertyOverridesGetThrows{}
+	calc.NewSyncVirtualMethods_Override(so)
+
+	defer func() {
+		err := recover()
+		assert.NotNil(t, err, "expected an error!")
+		if e, ok := err.(error); ok {
+			err = e.Error()
+		}
+		assert.Equal(t, "Oh no, this is bad", err)
+	}()
+
+	so.RetrieveValueOfTheProperty()
+}
+
+type testPropertyOverridesGetThrows struct {
+	calc.SyncVirtualMethods `overrides:"TheProperty"`
+}
+
+func (t *testPropertyOverridesGetThrows) TheProperty() *string {
+	panic("Oh no, this is bad")
+}
+
+func (suite *ComplianceSuite) TestGetSetPrimitiveProperties() {
+	t := suite.T()
+
+	number := calclib.NewNumber(jsii.Number(20))
+	assert.Equal(t, 20.0, *number.Value())
+	assert.Equal(t, 40.0, *number.DoubleValue())
+	assert.Equal(t, -30.0, *calc.NewNegate(calc.NewAdd(calclib.NewNumber(jsii.Number(20)), calclib.NewNumber(jsii.Number(10)))).Value())
+	assert.Equal(t, 20.0, *calc.NewMultiply(calc.NewAdd(calclib.NewNumber(jsii.Number(5)), calclib.NewNumber(jsii.Number(5))), calclib.NewNumber(jsii.Number(2))).Value())
+	assert.Equal(t, 3.0*3*3*3, *calc.NewPower(calclib.NewNumber(jsii.Number(3)), calclib.NewNumber(jsii.Number(4))).Value())
+	assert.Equal(t, 999.0, *calc.NewPower(calclib.NewNumber(jsii.Number(999)), calclib.NewNumber(jsii.Number(1))).Value())
+	assert.Equal(t, 1.0, *calc.NewPower(calclib.NewNumber(jsii.Number(999)), calclib.NewNumber(jsii.Number(0))).Value())
+}
+
+func (suite *ComplianceSuite) TestGetAndSetNonPrimitiveProperties() {
+	t := suite.T()
+
+	c := calc.NewCalculator(&calc.CalculatorProps{})
+	c.Add(jsii.Number(3200000))
+	c.Neg()
+	c.SetCurr(calc.NewMultiply(calclib.NewNumber(jsii.Number(2)), c.Curr()))
+	assert.Equal(t, -6400000.0, *c.Value())
+}
+
+func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInStructProperties() {
+	t := suite.T()
+	t.Skip("Go reserved words do not collide with identifiers used in API surface")
+}
+
+func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Public() {
+	t := suite.T()
+
+	obj := doNotOverridePrivates.New()
+
+	assert.Equal(t, "privateMethod", *obj.PrivateMethodValue())
+}
+
+func (suite *ComplianceSuite) TestDoNotOverridePrivates_Property_By_Name_Public() {
+	t := suite.T()
+
+	obj := doNotOverridePrivates.New()
+
+	assert.Equal(t, "privateProperty", *obj.PrivatePropertyValue())
+}
+
+func (suite *ComplianceSuite) TestTestNullIsAValidOptionalList() {
+	t := suite.T()
+
+	assert.Nil(t, calc.DisappointingCollectionSource_MaybeList())
+}
+
+func (suite *ComplianceSuite) TestMapInClassCannotBeModified() {
+	suite.NotApplicableTest("Go maps are immutable by design")
+}
+
+func (suite *ComplianceSuite) TestAsyncOverrides_TwoOverrides() {
+	t := suite.T()
+
+	obj := twoOverrides.New()
+	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
+	assert.Equal(t, 684.0, obj.CallMe())
+}
+
+func (suite *ComplianceSuite) TestPropertyOverrides_Set_Calls_Super() {
+	t := suite.T()
+
+	so := &testPropertyOverridesSetCallsSuper{}
+	calc.NewSyncVirtualMethods_Override(so)
+
+	so.ModifyValueOfTheProperty(jsii.String("New Value"))
+	assert.Equal(t, "New Value:by override", *so.TheProperty())
+}
+
+type testPropertyOverridesSetCallsSuper struct {
+	calc.SyncVirtualMethods `overrides:"TheProperty"`
+}
+
+func (t *testPropertyOverridesSetCallsSuper) SetTheProperty(value *string) {
+	t.SyncVirtualMethods.SetTheProperty(jsii.String(fmt.Sprintf("%s:by override", *value)))
+}
+
+func (suite *ComplianceSuite) TestIso8601DoesNotDeserializeToDate() {
+	t := suite.T()
+
+	nowAsISO := time.Now().Format(time.RFC3339)
+
+	w := wallClock.NewWallClock(nowAsISO)
+	entropy := wallClock.NewEntropy(w)
+
+	assert.Equal(t, nowAsISO, *entropy.Increase())
+}
+
+func (suite *ComplianceSuite) TestCollectionOfInterfaces_ListOfInterfaces() {
+	t := suite.T()
+
+	for _, obj := range *calc.InterfaceCollections_ListOfInterfaces() {
+		assert.Implements(t, (*calc.IBell)(nil), obj)
+	}
+}
+
+func (suite *ComplianceSuite) TestUndefinedAndNull() {
+	t := suite.T()
+
+	c := calc.NewCalculator(&calc.CalculatorProps{})
+	assert.Nil(t, c.MaxValue())
+	c.SetMaxValue(nil)
+}
+
+func (suite *ComplianceSuite) TestStructs_SerializeToJsii() {
+	t := suite.T()
+	t.Skip("DateTime fields are not implemented yet")
+
+	firstStruct := calclib.MyFirstStruct{
+		Astring:       jsii.String("FirstString"),
+		Anumber:       jsii.Number(999),
+		FirstOptional: &[]*string{jsii.String("First"), jsii.String("Optional")},
+	}
+
+	doubleTrouble := calc.NewDoubleTrouble()
+
+	derivedStruct := calc.DerivedStruct{
+		NonPrimitive: doubleTrouble,
+		Bool:         jsii.Bool(false),
+		// TODO: AnotherRequired: time.Now(),
+		Astring:       jsii.String("String"),
+		Anumber:       jsii.Number(1234),
+		FirstOptional: &[]*string{jsii.String("one"), jsii.String("two")},
+	}
+
+	gms := calc.NewGiveMeStructs()
+	assert.Equal(t, 999.0, *gms.ReadFirstNumber(&firstStruct))
+	assert.Equal(t, 1234.0, *gms.ReadFirstNumber(&calclib.MyFirstStruct{
+		Anumber:       derivedStruct.Anumber,
+		Astring:       derivedStruct.Astring,
+		FirstOptional: derivedStruct.FirstOptional,
+	}))
+	assert.Equal(t, doubleTrouble, gms.ReadDerivedNonPrimitive(&derivedStruct))
+
+	literal := *gms.StructLiteral()
+	assert.Equal(t, "optional1FromStructLiteral", *literal.Optional1)
+	assert.Equal(t, false, *literal.Optional3)
+	assert.Nil(t, literal.Optional2)
+}
+
+func (suite *ComplianceSuite) TestCanObtainReferenceWithOverloadedSetter() {
+	t := suite.T()
+
+	assert.NotNil(t, calc.ConfusingToJackson_MakeInstance())
+}
+
+func (suite *ComplianceSuite) TestTestJsObjectLiteralToNative() {
+	t := suite.T()
+
+	obj := calc.NewJSObjectLiteralToNative()
+	obj2 := obj.ReturnLiteral()
+
+	assert.Equal(t, "Hello", *obj2.PropA())
+	assert.Equal(t, 102.0, *obj2.PropB())
+}
+
+func (suite *ComplianceSuite) TestClassWithPrivateConstructorAndAutomaticProperties() {
+	t := suite.T()
+
+	obj := calc.ClassWithPrivateConstructorAndAutomaticProperties_Create(jsii.String("Hello"), jsii.String("Bye"))
+	assert.Equal(t, "Bye", *obj.ReadWriteString())
+	obj.SetReadWriteString(jsii.String("Hello"))
+	assert.Equal(t, "Hello", *obj.ReadOnlyString())
+}
+
+func (suite *ComplianceSuite) TestArrayReturnedByMethodCannotBeModified() {
+	suite.NotApplicableTest("Go arrays are immutable by design")
+}
+
+func (suite *ComplianceSuite) TestCorrectlyDeserializesStructUnions() {
+	t := suite.T()
+
+	a0 := &calc.StructA{
+		RequiredString: jsii.String("Present!"),
+		OptionalString: jsii.String("Bazinga!"),
+	}
+	a1 := &calc.StructA{
+		RequiredString: jsii.String("Present!"),
+		OptionalNumber: jsii.Number(1337),
+	}
+	b0 := &calc.StructB{
+		RequiredString:  jsii.String("Present!"),
+		OptionalBoolean: jsii.Bool(true),
+	}
+	b1 := &calc.StructB{
+		RequiredString:  jsii.String("Present!"),
+		OptionalStructA: a1,
+	}
+
+	assert.True(t, *calc.StructUnionConsumer_IsStructA(a0))
+	assert.True(t, *calc.StructUnionConsumer_IsStructA(a1))
+	assert.False(t, *calc.StructUnionConsumer_IsStructA(b0))
+	assert.False(t, *calc.StructUnionConsumer_IsStructA(b1))
+
+	assert.False(t, *calc.StructUnionConsumer_IsStructB(a0))
+	assert.False(t, *calc.StructUnionConsumer_IsStructB(a1))
+	assert.True(t, *calc.StructUnionConsumer_IsStructB(b0))
+	assert.True(t, *calc.StructUnionConsumer_IsStructB(b1))
+}
+
+func (suite *ComplianceSuite) TestSubclassing() {
+	t := suite.T()
+	t.Log("This is, in fact, demonstrating wrapping another type (which is more go-ey than extending)")
+
+	c := calc.NewCalculator(&calc.CalculatorProps{})
+	c.SetCurr(addTen.New(jsii.Number(33)))
+	c.Neg()
+	assert.Equal(t, -43.0, *c.Value())
+}
+
+func (suite *ComplianceSuite) TestTestInterfaces() {
+	t := suite.T()
+
+	var (
+		friendly                calclib.IFriendly
+		friendlier              calc.IFriendlier
+		randomNumberGenerator   calc.IRandomNumberGenerator
+		friendlyRandomGenerator calc.IFriendlyRandomGenerator
+	)
+
+	add := calc.NewAdd(calclib.NewNumber(jsii.Number(10)), calclib.NewNumber(jsii.Number(20)))
+	friendly = add
+	// friendlier = add // <-- shouldn't compile since Add implements IFriendly
+	assert.Equal(t, "Hello, I am a binary operation. What's your name?", *friendly.Hello())
+
+	multiply := calc.NewMultiply(calclib.NewNumber(jsii.Number(10)), calclib.NewNumber(jsii.Number(30)))
+	friendly = multiply
+	friendlier = multiply
+	randomNumberGenerator = multiply
+	// friendlyRandomGenerator = multiply // <-- shouldn't compile
+	assert.Equal(t, "Hello, I am a binary operation. What's your name?", *friendly.Hello())
+	assert.Equal(t, "Goodbye from Multiply!", *friendlier.Goodbye())
+	assert.Equal(t, 89.0, *randomNumberGenerator.Next())
+
+	friendlyRandomGenerator = calc.NewDoubleTrouble()
+	assert.Equal(t, "world", *friendlyRandomGenerator.Hello())
+	assert.Equal(t, 12.0, *friendlyRandomGenerator.Next())
+
+	poly := calc.NewPolymorphism()
+	assert.Equal(t, "oh, Hello, I am a binary operation. What's your name?", *poly.SayHello(friendly))
+	assert.Equal(t, "oh, world", *poly.SayHello(friendlyRandomGenerator))
+	assert.Equal(t, "oh, I am a native!", *poly.SayHello(friendlyRandom.NewPure()))
+	assert.Equal(t, "oh, SubclassNativeFriendlyRandom", *poly.SayHello(friendlyRandom.NewSubclass()))
 }
 
 func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInClassProperties() {
@@ -1152,38 +1564,14 @@ func (suite *ComplianceSuite) TestSyncOverrides_CallsSuper() {
 
 	assert := suite.Assert()
 
-	obj := NewSyncOverrides()
-	obj.returnSuper = jsii.Bool(false)
-	obj.multiplier = jsii.Number(1)
+	obj := syncOverrides.New()
+	obj.ReturnSuper = false
+	obj.Multiplier = 1
 
 	assert.Equal(float64(10*5), *obj.CallerIsProperty())
 
-	obj.returnSuper = jsii.Bool(true) // js code returns n * 2
+	obj.ReturnSuper = true // js code returns n * 2
 	assert.Equal(float64(10*2), *obj.CallerIsProperty())
-}
-
-type syncOverrides struct {
-	calc.SyncVirtualMethods `overrides:"VirtualMethod"`
-	returnSuper             *bool
-	multiplier              *float64
-	callAsync               *bool
-}
-
-func NewSyncOverrides() *syncOverrides {
-	s := syncOverrides{returnSuper: jsii.Bool(false), multiplier: jsii.Number(1), callAsync: jsii.Bool(false)}
-	calc.NewSyncVirtualMethods_Override(&s)
-	return &s
-}
-
-func (s *syncOverrides) VirtualMethod(n *float64) *float64 {
-	if *s.returnSuper {
-		return s.SyncVirtualMethods.VirtualMethod(n)
-	}
-	if *s.callAsync {
-		obj := OverrideAsyncMethods{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()}
-		return obj.CallMe()
-	}
-	return jsii.Number(5 * (*n) * (*s.multiplier))
 }
 
 func (suite *ComplianceSuite) TestAsyncOverrides_OverrideCallsSuper() {
@@ -1198,7 +1586,7 @@ func (suite *ComplianceSuite) TestAsyncOverrides_OverrideCallsSuper() {
 }
 
 type OverrideCallsSuper struct {
-	calc.AsyncVirtualMethods
+	calc.AsyncVirtualMethods `overrides:"OverrideMe"`
 }
 
 func (o *OverrideCallsSuper) OverrideMe(mult *float64) *float64 {
@@ -1210,14 +1598,14 @@ func (suite *ComplianceSuite) TestSyncOverrides() {
 
 	assert := suite.Assert()
 
-	obj := NewSyncOverrides()
-	obj.returnSuper = jsii.Bool(false)
-	obj.multiplier = jsii.Number(1)
+	obj := syncOverrides.New()
+	obj.ReturnSuper = false
+	obj.Multiplier = 1
 
 	assert.Equal(float64(10*5), *obj.CallerIsMethod())
 
 	// affect the result
-	obj.multiplier = jsii.Number(5)
+	obj.Multiplier = 5
 	assert.Equal(float64(10*5*5), *obj.CallerIsMethod())
 
 	// verify callbacks are invoked from a property
@@ -1225,7 +1613,7 @@ func (suite *ComplianceSuite) TestSyncOverrides() {
 
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	// and from an async method
-	obj.multiplier = jsii.Number(3)
+	obj.Multiplier = 3
 	assert.Equal(float64(10*5*3), *obj.CallerIsAsync())
 }
 
@@ -1233,30 +1621,16 @@ func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethod() {
 
 	assert := suite.Assert()
 
-	obj := OverrideAsyncMethods{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()}
+	obj := overrideAsyncMethods.New()
 
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	assert.Equal(float64(4452), obj.CallMe())
 }
 
-type OverrideAsyncMethods struct {
-	calc.AsyncVirtualMethods
-}
-
-func (o *OverrideAsyncMethods) OverrideMe(mult float64) float64 {
-	return o.foo() * 2
-}
-
-// Implement another method, which doesn't override anything in the base class.
-// This should obviously be possible.
-func (o *OverrideAsyncMethods) foo() float64 {
-	return 2222
-}
-
 func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_Method() {
 	suite.Assert().Panics(func() {
-		obj := NewSyncOverrides()
-		obj.callAsync = jsii.Bool(true)
+		obj := syncOverrides.New()
+		obj.CallAsync = true
 		obj.CallerIsMethod()
 	})
 }

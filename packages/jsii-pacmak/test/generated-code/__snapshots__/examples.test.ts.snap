@@ -1770,7 +1770,7 @@ func NewNamespace1() Namespace1 {
 
 	_jsii_.Create(
 		"testpkg.Namespace1",
-		nil /* no parameters */,
+		nil, // no parameters
 		&j,
 	)
 
@@ -1782,7 +1782,7 @@ func NewNamespace1_Override(n Namespace1) {
 
 	_jsii_.Create(
 		"testpkg.Namespace1",
-		nil /* no parameters */,
+		nil, // no parameters
 		n,
 	)
 }
@@ -1791,7 +1791,7 @@ func (n *jsiiProxy_Namespace1) Foo() {
 	_jsii_.InvokeVoid(
 		n,
 		"foo",
-		nil /* no parameters */,
+		nil, // no parameters
 	)
 }
 
@@ -1813,7 +1813,7 @@ func (n *jsiiProxy_Namespace1_IBar) Method() {
 	_jsii_.InvokeVoid(
 		n,
 		"method",
-		nil /* no parameters */,
+		nil, // no parameters
 	)
 }
 
@@ -1843,7 +1843,7 @@ func NewNamespace2() Namespace2 {
 
 	_jsii_.Create(
 		"testpkg.Namespace2",
-		nil /* no parameters */,
+		nil, // no parameters
 		&j,
 	)
 
@@ -1855,7 +1855,7 @@ func NewNamespace2_Override(n Namespace2) {
 
 	_jsii_.Create(
 		"testpkg.Namespace2",
-		nil /* no parameters */,
+		nil, // no parameters
 		n,
 	)
 }
@@ -1864,7 +1864,7 @@ func (n *jsiiProxy_Namespace2) Foo() {
 	_jsii_.InvokeVoid(
 		n,
 		"foo",
-		nil /* no parameters */,
+		nil, // no parameters
 	)
 }
 
@@ -1902,7 +1902,7 @@ func NewNamespace2_Foo_Final() Namespace2_Foo_Final {
 
 	_jsii_.Create(
 		"testpkg.Namespace2.Foo.Final",
-		nil /* no parameters */,
+		nil, // no parameters
 		&j,
 	)
 
@@ -1914,7 +1914,7 @@ func NewNamespace2_Foo_Final_Override(n Namespace2_Foo_Final) {
 
 	_jsii_.Create(
 		"testpkg.Namespace2.Foo.Final",
-		nil /* no parameters */,
+		nil, // no parameters
 		n,
 	)
 }
