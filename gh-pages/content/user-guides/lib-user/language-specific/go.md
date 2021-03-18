@@ -110,7 +110,11 @@ type AbstractBaseClass interface {
   AbstractReadonlyProperty() float64
 }
 
-func NewAbstractBaseClass_Override(inst AbstractBaseClass, arg0 string, arg1 float64) {
+// NewAbstractBaseClass_Override initializes an overridden AbstractBaseClass
+// instance. The inst parameter receives the go struct that declares the
+// overrides, while the someString and someNumber are parameters to the abstract
+// base class' constructor.
+func NewAbstractBaseClass_Override(inst AbstractBaseClass, someString string, someNumber float64) {
   // Omitted for brevity
 }
 ```
@@ -137,11 +141,11 @@ type childClass struct {
 
 // Provide your own constructor, which delegates to the base class' overriding
 // constructor.
-func NewChildClass(stringValue string, arg0 string, arg1 float64) jsiimodule.AbstractBaseClass {
+func NewChildClass(stringValue string, someString string, someNumber float64) jsiimodule.AbstractBaseClass {
   c := &childClass{stringValue: stringValue}
 
-  // This will take care of setting childCLass.AbstractBaseClass!
-  jsiimodule.NewAbstractBaseClass_Override(c, arg0, arg1)
+  // This will take care of setting childClass.AbstractBaseClass!
+  jsiimodule.NewAbstractBaseClass_Override(c, someString, someNumber)
 
   return c
 }
