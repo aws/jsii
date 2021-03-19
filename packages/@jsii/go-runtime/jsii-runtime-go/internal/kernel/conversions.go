@@ -26,6 +26,14 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		// reflect.Value. In such cases, we must craft the correctly-typed zero
 		// value ourselves.
 		data = reflect.Zero(ptr.Type())
+	} else if ptr.Kind() == reflect.Ptr {
+		// if ptr is a Pointer type and data is valid, initialize a non-nil pointer
+		// type. Otherwise inner value is not-settable upon recursion. See third
+		// law of reflection.
+		// https://blog.golang.org/laws-of-reflection
+		ptr.Set(reflect.New(ptr.Type().Elem()))
+		c.castAndSetToPtr(ptr.Elem(), data)
+		return
 	} else if data.Kind() == reflect.Interface && !data.IsNil() {
 		// If data is a non-nil interface, unwrap it to get it's dynamic value
 		// type sorted out, so that further calls in this method don't have to
@@ -104,6 +112,11 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
+	// The only case that the value is invalid is when passing `nil` explicitly
+	if !dataVal.IsValid() {
+		return nil
+	}
+
 	if (dataVal.Kind() == reflect.Interface || dataVal.Kind() == reflect.Ptr) && dataVal.IsNil() {
 		return nil
 	}
@@ -131,30 +144,32 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 			return c.CastPtrToRef(elem)
 		}
 
+		if dataVal.Elem().Kind() == reflect.Struct {
+			elemVal := dataVal.Elem()
+			if fields, fqn, isStruct := c.Types().StructFields(elemVal.Type()); isStruct {
+				data := make(map[string]interface{})
+				for _, field := range fields {
+					fieldVal := elemVal.FieldByIndex(field.Index)
+					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
+						continue
+					}
+					key := field.Tag.Get("json")
+					data[key] = c.CastPtrToRef(fieldVal)
+				}
+
+				return api.WireStruct{
+					StructDescriptor: api.StructDescriptor{
+						FQN:    fqn,
+						Fields: data,
+					},
+				}
+			}
+		}
+
 		if ref, err := c.ManageObject(dataVal); err != nil {
 			panic(err)
 		} else {
 			return ref
-		}
-
-	case reflect.Struct:
-		if fields, fqn, isStruct := c.Types().StructFields(dataVal.Type()); isStruct {
-			data := make(map[string]interface{})
-			for _, field := range fields {
-				fieldVal := dataVal.FieldByIndex(field.Index)
-				if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
-					continue
-				}
-				key := field.Tag.Get("json")
-				data[key] = c.CastPtrToRef(fieldVal)
-			}
-
-			return api.WireStruct{
-				StructDescriptor: api.StructDescriptor{
-					FQN:    fqn,
-					Fields: data,
-				},
-			}
 		}
 
 	case reflect.Slice:

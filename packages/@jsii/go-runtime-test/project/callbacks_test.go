@@ -7,20 +7,21 @@ import (
 )
 
 func TestPureInterfacesCanBeUsedTransparently(t *testing.T) {
-	expected := calc.StructB{RequiredString: "It's Britney b**ch!"}
-	delegate := &StructReturningDelegate{expected: expected}
+	requiredstring := "It's Britney b**ch!"
+	expected := calc.StructB{RequiredString: &requiredstring}
+	delegate := &StructReturningDelegate{expected: &expected}
 	consumer := calc.NewConsumePureInterface(delegate)
 	actual := consumer.WorkItBaby()
 
-	if actual != expected {
-		t.Errorf("Expected %v; actual: %v", expected, actual)
+	if *actual.RequiredString != *expected.RequiredString {
+		t.Errorf("Expected %v; actual: %v", *expected.RequiredString, *actual.RequiredString)
 	}
 }
 
 type StructReturningDelegate struct {
-	expected calc.StructB
+	expected *calc.StructB
 }
 
-func (o *StructReturningDelegate) ReturnStruct() calc.StructB {
+func (o *StructReturningDelegate) ReturnStruct() *calc.StructB {
 	return o.expected
 }
