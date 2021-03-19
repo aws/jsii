@@ -21,9 +21,9 @@ type Entropy struct {
 	jsiicalc.Entropy `overrides:"Repeat"`
 }
 
-func NewEntropy(jsiicalc.IWallClock) *Entropy {
+func NewEntropy(clock jsiicalc.IWallClock) *Entropy {
 	e := &Entropy{}
-	e.Entropy = e
+	jsiicalc.NewEntropy_Override(e, clock)
 	return e
 }
 
