@@ -14,9 +14,18 @@ SDK             | Version
 `.NET SDK`      | `>= 3.1.101`
 `mono`          | `>= 6.8.0.105`
 `Javascript`    | `node >= 10.19.0` with `npm >= 6.13.4`
+                | `node >= 14.24.0` with `npm >= 6.13.4`
+                | (both managed via NVM)
 `PowerShell`    | `pwsh >= 6.2.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
 `Go`            | `go >= 1.16`
+
+### Notes on Node.js
+
+You *must* use `bash` (not `sh`) to run commands in this container.
+
+By default, Node.js will be at version 10. To switch to Node 14,
+pass `-e NVM_USE_VERSION=14` into the container at startup.
 
 ## Included Tools & Utilities
 
