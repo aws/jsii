@@ -84,11 +84,13 @@ RUN amazon-linux-extras install docker                                          
 VOLUME /var/lib/docker
 
 # Install Node using NVM (Node Version Manager) so we can have multiple Node versions installed and easily switch
-# between them.
+# between them. $NVM_USE_VERSION becomes a global variable the container responds to to pick a Node version on startup,
+# if set.
 ENV NVM_DIR /usr/local/nvm
 
-RUN mkdir -p $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash -                                   \
-  && echo 'source "$NVM_DIR/nvm.sh"' >> $HOME/.bash_profile
+RUN mkdir -p $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash -              \
+  && echo 'source "$NVM_DIR/nvm.sh"' >> $HOME/.bash_profile                                                             \
+  && echo '[[ -z "$NVM_USE_VERSION" ]] || nvm use "$NVM_USE_VERSION"' >> $HOME/.bash_profile
 
 # Because we wrote things to .bash_profile, make the default shell a login shell so it gets sourced.
 # Also set BASH_ENV to make bash source this EVEN if it's not a login shell (later on when the container
