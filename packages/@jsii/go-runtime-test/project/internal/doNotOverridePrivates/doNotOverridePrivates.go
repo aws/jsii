@@ -8,7 +8,7 @@ type DoNotOverridePrivates struct {
 
 func New() *DoNotOverridePrivates {
 	d := &DoNotOverridePrivates{}
-	d.DoNotOverridePrivates = d
+	calc.NewDoNotOverridePrivates_Override(d)
 	return d
 }
 

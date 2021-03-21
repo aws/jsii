@@ -9,6 +9,7 @@ import {
   ClassConstructor,
   JSII_RT_ALIAS,
   MethodCall,
+  slugify,
   StaticGetProperty,
   StaticSetProperty,
 } from '../runtime';
@@ -289,17 +290,41 @@ export class GoClassConstructor extends GoMethod {
   }
 
   public emit(context: EmitContext) {
-    const { code } = context;
+    // Abstract classes cannot be directly created
+    if (!this.parent.type.abstract) {
+      this.emitNew(context);
+    }
+    // Subclassable classes (the default) get an _Overrides constructor
+    if (this.parent.type.spec.docs?.subclassable ?? true) {
+      this.emitOverride(context);
+    }
+  }
+
+  private emitNew({ code, documenter }: EmitContext) {
     const constr = `New${this.parent.name}`;
     const paramString =
       this.parameters.length === 0
         ? ''
         : this.parameters.map((p) => p.toString()).join(', ');
 
-    context.documenter.emit(this.type.docs);
+    documenter.emit(this.type.docs);
     code.openBlock(`func ${constr}(${paramString}) ${this.parent.name}`);
-
     this.constructorRuntimeCall.emit(code);
+    code.closeBlock();
+
+    code.line();
+  }
+
+  private emitOverride({ code, documenter }: EmitContext) {
+    const constr = `New${this.parent.name}_Override`;
+    const params = this.parameters.map((p) => p.toString());
+
+    const instanceVar = slugify(this.parent.name[0].toLowerCase(), params);
+    params.unshift(`${instanceVar} ${this.parent.name}`);
+
+    documenter.emit(this.type.docs);
+    code.openBlock(`func ${constr}(${params.join(', ')})`);
+    this.constructorRuntimeCall.emitOverride(code, instanceVar);
     code.closeBlock();
     code.line();
   }
