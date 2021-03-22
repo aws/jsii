@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import { CodeMaker } from 'codemaker';
 import { InterfaceType } from 'jsii-reflect';
-import { SpecialDependencies } from '../dependencies';
 
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
