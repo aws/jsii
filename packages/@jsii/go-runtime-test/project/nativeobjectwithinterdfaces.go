@@ -1,12 +1,11 @@
 package tests
 
 import (
-	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+	"github.com/aws/jsii-runtime-go"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 type pureNativeFriendlyRandom struct {
-	calc.IFriendlyRandomGenerator
 	_nextNumber float64
 }
 
@@ -16,45 +15,32 @@ func newPureNativeFriendlyRandom() *pureNativeFriendlyRandom {
 	}
 }
 
-func (p *pureNativeFriendlyRandom) Next() float64 {
+func (p *pureNativeFriendlyRandom) Next() *float64 {
 	n := p._nextNumber
 	p._nextNumber += 1000
-	return n
+	return &n
 }
 
-func (p *pureNativeFriendlyRandom) Hello() string {
-	return "I am a native!"
+func (p *pureNativeFriendlyRandom) Hello() *string {
+	return jsii.String("I am a native!")
 }
-
-
-/*
-   class SubclassNativeFriendlyRandom extends Number implements IFriendly, IRandomNumberGenerator {
-
-       private int nextNumber;
-
-       public SubclassNativeFriendlyRandom() {
-           super(908);
-           this.nextNumber = 100;
-       }
-
-       @Override
-       public String hello() {
-           return "SubclassNativeFriendlyRandom";
-       }
-
-       @Override
-       public java.lang.Number next() {
-           int next = this.nextNumber;
-           this.nextNumber += 100;
-           return next;
-       }
-   }
-
-*/
 
 type subclassNativeFriendlyRandom struct {
 	scopejsiicalclib.Number
-	scopejsiicalclib.IFriendly
-	calc.IRandomNumberGenerator
+	nextNumber float64
 }
 
+func NewSubclassNativeFriendlyRandom() *subclassNativeFriendlyRandom {
+	s := subclassNativeFriendlyRandom{nextNumber: 100}
+	scopejsiicalclib.NewNumber_Override(&s, jsii.Number(908))
+	return &s
+}
+
+func (s *subclassNativeFriendlyRandom) Next() *float64 {
+	defer func() { s.nextNumber += 100 }()
+	return jsii.Number(s.nextNumber)
+}
+
+func (s *subclassNativeFriendlyRandom) Hello() *string {
+	return jsii.String("SubclassNativeFriendlyRandom")
+}

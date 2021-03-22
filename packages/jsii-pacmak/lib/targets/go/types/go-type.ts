@@ -1,4 +1,4 @@
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { CodeMaker } from 'codemaker';
 import { Type } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
@@ -13,7 +13,7 @@ export abstract class GoType {
   public readonly proxyName: string;
 
   public constructor(public pkg: Package, public type: Type) {
-    this.name = toPascalCase(type.name);
+    this.name = type.name;
 
     // Prefix with the nesting parent name(s), using an _ delimiter.
     for (
@@ -21,7 +21,7 @@ export abstract class GoType {
       parent != null;
       parent = parent.nestingParent
     ) {
-      this.name = `${toPascalCase(parent.name)}_${this.name}`;
+      this.name = `${parent.name}_${this.name}`;
     }
 
     // Add "jsiiProxy_" prefix to private struct name to avoid keyword conflicts
@@ -38,6 +38,7 @@ export abstract class GoType {
   public abstract get dependencies(): Package[];
   public abstract get usesInitPackage(): boolean;
   public abstract get usesRuntimePackage(): boolean;
+  public abstract get usesInternalPackage(): boolean;
 
   public get namespace() {
     return this.pkg.packageName;
@@ -60,9 +61,9 @@ export abstract class GoType {
       const instanceVar = this.proxyName[0];
       code.line(`${instanceVar} := ${this.proxyName}{}`);
       for (const base of bases) {
-        const baseEmbed = base.pkg === this.pkg ? base.proxyName : base.name;
+        const baseEmbed = this.pkg.resolveEmbeddedType(base);
         code.line(
-          `${JSII_RT_ALIAS}.InitJsiiProxy(&${instanceVar}.${baseEmbed})`,
+          `${JSII_RT_ALIAS}.InitJsiiProxy(&${instanceVar}.${baseEmbed.fieldName})`,
         );
       }
       code.line(`return &${instanceVar}`);

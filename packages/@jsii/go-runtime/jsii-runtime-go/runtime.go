@@ -3,6 +3,7 @@ package jsii
 import (
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
 	"github.com/aws/jsii-runtime-go/internal/kernel"
@@ -61,7 +62,7 @@ func RegisterClass(fqn FQN, class reflect.Type, members []Member, maker func() i
 
 // RegisterEnum associates an enum's fully qualified name to the specified enum
 // type, and members. Panics if enum is not a reflect.String type, any value in
-// the provided members map is of a type ofther than enum, or if the provided
+// the provided members map is of a type other than enum, or if the provided
 // fqn was already used to register a different type.
 func RegisterEnum(fqn FQN, enum reflect.Type, members map[string]interface{}) {
 	client := kernel.GetClient()
@@ -108,8 +109,10 @@ func InitJsiiProxy(ptr interface{}) {
 
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
-func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []Member, inst interface{}) {
+func Create(fqn FQN, args []interface{}, inst interface{}) {
 	client := kernel.GetClient()
+
+	var overrides []api.Override
 
 	instVal := reflect.ValueOf(inst)
 	structVal := instVal.Elem()
@@ -130,6 +133,20 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []M
 				panic(err)
 			}
 
+			if tag := field.Tag.Get("overrides"); tag != "" {
+				if names := strings.Split(tag, ","); len(names) > 0 {
+					overrides = make([]api.Override, len(names))
+					registry := client.Types()
+					for i, name := range names {
+						if override, ok := registry.GetOverride(api.FQN(fqn), name); !ok {
+							panic(fmt.Errorf("unable to identify method or property for override %s declared by %v", name, field))
+						} else {
+							overrides[i] = override
+						}
+					}
+				}
+			}
+
 		case reflect.Struct:
 			fieldVal := structVal.Field(i)
 			if !fieldVal.IsZero() {
@@ -141,19 +158,13 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overriddenMembers []M
 		}
 	}
 
-	var interfaceFQNs []api.FQN
-	for _, iface := range interfaces {
-		interfaceFQNs = append(interfaceFQNs, api.FQN(iface))
-	}
-	overrides := make([]api.Override, len(overriddenMembers))
-	for i, member := range overriddenMembers {
-		overrides[i] = member.toOverride()
-	}
+	interfaces, newOverrides := client.Types().DiscoverImplementation(instType)
+	overrides = append(overrides, newOverrides...)
 
 	res, err := client.Create(kernel.CreateProps{
 		FQN:        api.FQN(fqn),
 		Arguments:  convertArguments(args),
-		Interfaces: interfaceFQNs,
+		Interfaces: interfaces,
 		Overrides:  overrides,
 	})
 
@@ -336,10 +347,10 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 // ready for inclusion in an invoke or create request.
 func convertArguments(args []interface{}) []interface{} {
 	if len(args) == 0 {
-		return make([]interface{}, 0, 0)
+		return nil
 	}
 
-	result := make([]interface{}, len(args), len(args))
+	result := make([]interface{}, len(args))
 	client := kernel.GetClient()
 	for i, arg := range args {
 		val := reflect.ValueOf(arg)
@@ -359,3 +370,8 @@ func convertArguments(args []interface{}) []interface{} {
 func Close() {
 	kernel.CloseClient()
 }
+
+// Helpers to store primitives and return pointers to them
+func Bool(v bool) *bool         { return &v }
+func Number(v float64) *float64 { return &v }
+func String(v string) *string   { return &v }

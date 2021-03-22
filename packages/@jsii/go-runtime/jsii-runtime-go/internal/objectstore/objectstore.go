@@ -53,20 +53,25 @@ func (o *ObjectStore) Register(value reflect.Value, instanceID string) error {
 		if existing == instanceID {
 			return nil
 		}
-		return fmt.Errorf("attempting to register %v as %s, but it was already registered as %s", value, instanceID, existing)
+		return fmt.Errorf("attempting to register %s as %s, but it was already registered as %s", value, instanceID, existing)
 	}
+
+	aliases := findAliases(value)
+
 	if existing, found := o.idToObject[instanceID]; found {
 		if existing == value {
 			return nil
 		}
-		return fmt.Errorf("attempted to register %v as %s, but %v has this ID", value, instanceID, existing)
+		// Value already exists (e.g: a constructor made a callback with "this"
+		// passed as an argument). We make the current value an alias of the new
+		// one.
+		aliases = append(aliases, existing)
 	}
 
-	aliases := findAliases(value)
 	for _, alias := range aliases {
 		ptr := alias.Pointer()
 		if existing, found := o.objectToID[ptr]; found && existing != instanceID {
-			return fmt.Errorf("value %s is embedded in %s which has ID %s, but was already assigned %s", alias, value, instanceID, existing)
+			return fmt.Errorf("value %s is embedded in %s which has ID %s, but was already assigned %s", alias.String(), value.String(), instanceID, existing)
 		}
 	}
 
@@ -131,7 +136,7 @@ func canonicalValue(value reflect.Value) (reflect.Value, error) {
 // a nil value, or a value that is not ultimately a reflect.Struct may result
 // in panic.
 func findAliases(value reflect.Value) []reflect.Value {
-	result := []reflect.Value{}
+	var result []reflect.Value
 
 	// Indirect so we always work on the pointer referree
 	value = reflect.Indirect(value)

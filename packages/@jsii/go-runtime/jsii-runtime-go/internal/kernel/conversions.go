@@ -26,6 +26,14 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		// reflect.Value. In such cases, we must craft the correctly-typed zero
 		// value ourselves.
 		data = reflect.Zero(ptr.Type())
+	} else if ptr.Kind() == reflect.Ptr && ptr.IsNil() {
+		// if ptr is a Pointer type and data is valid, initialize a non-nil pointer
+		// type. Otherwise inner value is not-settable upon recursion. See third
+		// law of reflection.
+		// https://blog.golang.org/laws-of-reflection
+		ptr.Set(reflect.New(ptr.Type().Elem()))
+		c.castAndSetToPtr(ptr.Elem(), data)
+		return
 	} else if data.Kind() == reflect.Interface && !data.IsNil() {
 		// If data is a non-nil interface, unwrap it to get it's dynamic value
 		// type sorted out, so that further calls in this method don't have to
@@ -77,6 +85,11 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		return
 	}
 
+	if date, isDate := castValToDate(data); isDate {
+		ptr.Set(reflect.ValueOf(date))
+		return
+	}
+
 	// maps
 	if m, isMap := c.castValToMap(data, ptr.Type()); isMap {
 		ptr.Set(m)
@@ -104,6 +117,11 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 // objref for the runtime. Recursively casts types that may contain nested
 // object references.
 func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
+	if !dataVal.IsValid() {
+		// dataVal is a 0-value, meaning we have no value available... We return
+		// this to JavaScript as a "null" value.
+		return nil
+	}
 	if (dataVal.Kind() == reflect.Interface || dataVal.Kind() == reflect.Ptr) && dataVal.IsNil() {
 		return nil
 	}
@@ -131,30 +149,32 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 			return c.CastPtrToRef(elem)
 		}
 
+		if dataVal.Elem().Kind() == reflect.Struct {
+			elemVal := dataVal.Elem()
+			if fields, fqn, isStruct := c.Types().StructFields(elemVal.Type()); isStruct {
+				data := make(map[string]interface{})
+				for _, field := range fields {
+					fieldVal := elemVal.FieldByIndex(field.Index)
+					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
+						continue
+					}
+					key := field.Tag.Get("json")
+					data[key] = c.CastPtrToRef(fieldVal)
+				}
+
+				return api.WireStruct{
+					StructDescriptor: api.StructDescriptor{
+						FQN:    fqn,
+						Fields: data,
+					},
+				}
+			}
+		}
+
 		if ref, err := c.ManageObject(dataVal); err != nil {
 			panic(err)
 		} else {
 			return ref
-		}
-
-	case reflect.Struct:
-		if fields, fqn, isStruct := c.Types().StructFields(dataVal.Type()); isStruct {
-			data := make(map[string]interface{})
-			for _, field := range fields {
-				fieldVal := dataVal.FieldByIndex(field.Index)
-				if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
-					continue
-				}
-				key := field.Tag.Get("json")
-				data[key] = c.CastPtrToRef(fieldVal)
-			}
-
-			return api.WireStruct{
-				StructDescriptor: api.StructDescriptor{
-					FQN:    fqn,
-					Fields: data,
-				},
-			}
 		}
 
 	case reflect.Slice:
@@ -172,25 +192,61 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 	return dataVal.Interface()
 }
 
-func castValToRef(data reflect.Value) (api.ObjectRef, bool) {
-	ref := api.ObjectRef{}
-	ok := false
-
+func castValToRef(data reflect.Value) (ref api.ObjectRef, ok bool) {
 	if data.Kind() == reflect.Map {
 		for _, k := range data.MapKeys() {
 			// Finding values type requires extracting from reflect.Value
 			// otherwise .Kind() returns `interface{}`
 			v := reflect.ValueOf(data.MapIndex(k).Interface())
 
-			if k.Kind() == reflect.String && k.String() == "$jsii.byref" && v.Kind() == reflect.String {
+			if k.Kind() != reflect.String {
+				continue
+			}
+
+			switch k.String() {
+			case "$jsii.byref":
+				if v.Kind() != reflect.String {
+					ok = false
+					return
+				}
 				ref.InstanceID = v.String()
 				ok = true
+			case "$jsii.interfaces":
+				if v.Kind() != reflect.Slice {
+					continue
+				}
+				ifaces := make([]api.FQN, v.Len())
+				for i := 0; i < v.Len(); i++ {
+					e := reflect.ValueOf(v.Index(i).Interface())
+					if e.Kind() != reflect.String {
+						ok = false
+						return
+					}
+					ifaces[i] = api.FQN(e.String())
+				}
+				ref.Interfaces = ifaces
 			}
 
 		}
 	}
 
 	return ref, ok
+}
+
+// TODO: This should return a time.Time instead
+func castValToDate(data reflect.Value) (date string, ok bool) {
+	if data.Kind() == reflect.Map {
+		for _, k := range data.MapKeys() {
+			v := reflect.ValueOf(data.MapIndex(k).Interface())
+			if k.Kind() == reflect.String && k.String() == "$jsii.date" && v.Kind() == reflect.String {
+				date = v.String()
+				ok = true
+				break
+			}
+		}
+	}
+
+	return
 }
 
 func castValToEnumRef(data reflect.Value) (enum api.EnumRef, ok bool) {
@@ -205,7 +261,7 @@ func castValToEnumRef(data reflect.Value) (enum api.EnumRef, ok bool) {
 			if k.Kind() == reflect.String && k.String() == "$jsii.enum" && v.Kind() == reflect.String {
 				enum.MemberFQN = v.String()
 				ok = true
-				return
+				break
 			}
 		}
 	}

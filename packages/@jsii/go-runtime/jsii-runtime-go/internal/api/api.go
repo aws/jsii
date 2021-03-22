@@ -1,5 +1,10 @@
 package api
 
+import (
+	"fmt"
+	"regexp"
+)
+
 // FQN represents a fully-qualified type name in the jsii type system.
 type FQN string
 
@@ -8,14 +13,13 @@ type FQN string
 // MethodOverride and PropertyOverride to simulate the union type of Override =
 // MethodOverride | PropertyOverride.
 type Override interface {
+	GoName() string
 	isOverride()
 }
 
 type override struct{}
 
-func (o override) isOverride() {
-	return
-}
+func (o override) isOverride() {}
 
 // MethodOverride is used to register a "go-native" implementation to be
 // substituted to the default javascript implementation on the created object.
@@ -26,6 +30,10 @@ type MethodOverride struct {
 	GoMethod   string `json:"cookie"`
 }
 
+func (m MethodOverride) GoName() string {
+	return m.GoMethod
+}
+
 // PropertyOverride is used to register a "go-native" implementation to be
 // substituted to the default javascript implementation on the created object.
 type PropertyOverride struct {
@@ -33,6 +41,10 @@ type PropertyOverride struct {
 
 	JsiiProperty string `json:"property"`
 	GoGetter     string `json:"cookie"`
+}
+
+func (m PropertyOverride) GoName() string {
+	return m.GoGetter
 }
 
 func IsMethodOverride(value Override) bool {
@@ -55,6 +67,16 @@ func IsPropertyOverride(value Override) bool {
 
 type ObjectRef struct {
 	InstanceID string `json:"$jsii.byref"`
+	Interfaces []FQN  `json:"$jsii.interfaces,omitempty"`
+}
+
+func (o *ObjectRef) TypeFQN() FQN {
+	re := regexp.MustCompile("^(.+)@(\\d+)$")
+	if parts := re.FindStringSubmatch(o.InstanceID); parts == nil {
+		panic(fmt.Errorf("invalid instance id: %s", o.InstanceID))
+	} else {
+		return FQN(parts[1])
+	}
 }
 
 type EnumRef struct {

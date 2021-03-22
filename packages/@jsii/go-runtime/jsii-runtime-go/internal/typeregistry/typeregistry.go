@@ -57,8 +57,19 @@ func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructFi
 	if info, ok = t.structInfo[typ]; !ok {
 		return
 	}
+
 	fqn = info.FQN
-	fields = append(fields, info.Fields...)
+	fields = make([]reflect.StructField, len(info.Fields))
+	copy(fields, info.Fields)
+	return
+}
+
+// FindType returns the registered type corresponding to the provided jsii FQN.
+func (t *TypeRegistry) FindType(fqn api.FQN) (typ reflect.Type, ok bool) {
+	var reg registeredType
+	if reg, ok = t.fqnToType[fqn]; ok {
+		typ = reg.Type
+	}
 	return
 }
 

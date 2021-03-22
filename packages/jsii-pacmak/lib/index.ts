@@ -105,7 +105,13 @@ export async function pacmak({
                 rosetta,
               }),
             )
-            .then(() => logging.info(`${targetSet.targetType} finished`));
+            .then(
+              () => logging.info(`${targetSet.targetType} finished`),
+              (err) => {
+                logging.warn(`${targetSet.targetType} failed`);
+                return Promise.reject(err);
+              },
+            );
         },
         { parallel },
       ),
@@ -332,9 +338,7 @@ function mapParallelOrSerial<T, R>(
         : // Wait for the previous promise, then make the next one
           result[result.length - 1].then(
             () => mapper(item),
-            (error) => {
-              throw error;
-            },
+            (error) => Promise.reject(error),
           ),
     );
   }

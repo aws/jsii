@@ -184,6 +184,63 @@ const setDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
   return result;
 };
 
+/**
+ * Prepare python members for emission.
+ *
+ * If there are multiple members of the same name, they will all map to the same python
+ * name, so we will filter all deprecated members and expect that there will be only one
+ * left.
+ *
+ * Returns the members in a sorted list.
+ */
+function prepareMembers(members: PythonBase[], resolver: TypeResolver) {
+  // create a map from python name to list of members
+  const map: { [pythonName: string]: PythonBase[] } = {};
+  for (const m of members) {
+    let list = map[m.pythonName];
+    if (!list) {
+      list = map[m.pythonName] = [];
+    }
+
+    list.push(m);
+  }
+
+  // now return all the members
+  const ret = new Array<PythonBase>();
+
+  for (const [name, list] of Object.entries(map)) {
+    let member;
+
+    if (list.length === 1) {
+      // if we have a single member for this normalized name, then use it
+      member = list[0];
+    } else {
+      // we found more than one member with the same python name, filter all
+      // deprecated versions and check that we are left with exactly one.
+      // otherwise, they will overwrite each other
+      // see https://github.com/aws/jsii/issues/2508
+      const nonDeprecated = list.filter((x) => !isDeprecated(x));
+      if (nonDeprecated.length > 1) {
+        throw new Error(
+          `Multiple non-deprecated members which map to the Python name "${name}"`,
+        );
+      }
+
+      if (nonDeprecated.length === 0) {
+        throw new Error(
+          `Multiple members which map to the Python name "${name}", but all of them are deprecated`,
+        );
+      }
+
+      member = nonDeprecated[0];
+    }
+
+    ret.push(member);
+  }
+
+  return sortMembers(ret, resolver);
+}
+
 const sortMembers = (
   members: PythonBase[],
   resolver: TypeResolver,
@@ -235,6 +292,7 @@ const sortMembers = (
 
 interface PythonBase {
   readonly pythonName: string;
+  readonly docs?: spec.Docs;
 
   emit(code: CodeMaker, context: EmitContext, opts?: any): void;
 
@@ -271,7 +329,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     public readonly pythonName: string,
     public readonly fqn: string | undefined,
     opts: PythonTypeOpts,
-    protected readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
   ) {
     const { bases = [] } = opts;
 
@@ -342,7 +400,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     if (this.members.length > 0) {
       const resolver = this.boundResolver(context.resolver);
       let shouldSeparate = preamble != null;
-      for (const member of sortMembers(this.members, resolver)) {
+      for (const member of prepareMembers(this.members, resolver)) {
         if (shouldSeparate) {
           code.line();
         }
@@ -405,7 +463,7 @@ abstract class BaseMethod implements PythonBase {
     private readonly jsName: string | undefined,
     private readonly parameters: spec.Parameter[],
     private readonly returns: spec.OptionalValue | undefined,
-    private readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
@@ -455,8 +513,8 @@ abstract class BaseMethod implements PythonBase {
     // resolved, so build up a list of all of the prop names so we can check against
     // them later.
     const liftedPropNames = new Set<string>();
-    if (this.liftedProp?.properties?.length ?? 0 >= 1) {
-      for (const prop of this.liftedProp!.properties!) {
+    if (this.liftedProp?.properties != null) {
+      for (const prop of this.liftedProp.properties) {
         liftedPropNames.add(toPythonParameterName(prop.name));
       }
     }
@@ -693,24 +751,36 @@ abstract class BaseMethod implements PythonBase {
     const liftedProperties: spec.Property[] = [];
 
     const stack = [this.liftedProp];
-    let current = stack.shift();
-    while (current !== undefined) {
+    const knownIfaces = new Set<string>();
+    const knownProps = new Set<string>();
+    for (
+      let current = stack.shift();
+      current != null;
+      current = stack.shift()
+    ) {
+      knownIfaces.add(current.fqn);
+
       // Add any interfaces that this interface depends on, to the list.
       if (current.interfaces !== undefined) {
-        stack.push(
-          ...current.interfaces.map(
-            (ifc) => resolver.dereference(ifc) as spec.InterfaceType,
-          ),
-        );
+        for (const iface of current.interfaces) {
+          if (knownIfaces.has(iface)) {
+            continue;
+          }
+          stack.push(resolver.dereference(iface) as spec.InterfaceType);
+          knownIfaces.add(iface);
+        }
       }
 
       // Add all of the properties of this interface to our list of properties.
       if (current.properties !== undefined) {
-        liftedProperties.push(...current.properties);
+        for (const prop of current.properties) {
+          if (knownProps.has(prop.name)) {
+            continue;
+          }
+          liftedProperties.push(prop);
+          knownProps.add(prop.name);
+        }
       }
-
-      // Finally, grab our next item.
-      current = stack.shift();
     }
 
     return liftedProperties;
@@ -746,7 +816,7 @@ abstract class BaseProperty implements PythonBase {
     public readonly pythonName: string,
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
-    private readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
     opts: BasePropertyOpts,
   ) {
     const { abstract = false, immutable = false, isStatic = false } = opts;
@@ -1372,7 +1442,7 @@ class EnumMember implements PythonBase {
     private readonly generator: PythonGenerator,
     public readonly pythonName: string,
     private readonly value: string,
-    private readonly docs: spec.Docs | undefined,
+    public readonly docs: spec.Docs | undefined,
   ) {
     this.pythonName = pythonName;
     this.value = value;
@@ -1395,18 +1465,34 @@ class EnumMember implements PythonBase {
 }
 
 interface ModuleOpts {
-  assembly: spec.Assembly;
-  assemblyFilename: string;
-  loadAssembly?: boolean;
-  package?: Package;
+  readonly assembly: spec.Assembly;
+  readonly assemblyFilename: string;
+  readonly loadAssembly?: boolean;
+  readonly package?: Package;
+
+  /**
+   * The docstring to emit at the top of this module, if any.
+   */
+  readonly moduleDocumentation?: string;
 }
 
+/**
+ * Python module
+ *
+ * Will be called for jsii submodules and namespaces.
+ */
 class PythonModule implements PythonType {
+  /**
+   * Converted to put on the module
+   *
+   * The format is in markdown, with code samples converted from TS to Python.
+   */
+  public readonly moduleDocumentation?: string;
+
   private readonly assembly: spec.Assembly;
   private readonly assemblyFilename: string;
   private readonly loadAssembly: boolean;
   private readonly members = new Array<PythonBase>();
-  private readonly package?: Package;
 
   public constructor(
     public readonly pythonName: string,
@@ -1416,7 +1502,7 @@ class PythonModule implements PythonType {
     this.assembly = opts.assembly;
     this.assemblyFilename = opts.assemblyFilename;
     this.loadAssembly = !!opts.loadAssembly;
-    this.package = opts.package;
+    this.moduleDocumentation = opts.moduleDocumentation;
   }
 
   public addMember(member: PythonBase) {
@@ -1486,7 +1572,7 @@ class PythonModule implements PythonType {
     }
 
     // Emit all of our members.
-    for (const member of sortMembers(this.members, resolver)) {
+    for (const member of prepareMembers(this.members, resolver)) {
       code.line();
       code.line();
       member.emit(code, context);
@@ -1573,13 +1659,9 @@ class PythonModule implements PythonType {
    * Emit the README as module docstring if this is the entry point module (it loads the assembly)
    */
   private emitModuleDocumentation(code: CodeMaker) {
-    if (
-      this.package &&
-      this.fqn === this.assembly.name &&
-      this.package.convertedReadme.trim().length > 0
-    ) {
+    if (this.moduleDocumentation) {
       code.line(DOCSTRING_QUOTES);
-      code.line(this.package.convertedReadme);
+      code.line(this.moduleDocumentation);
       code.line(DOCSTRING_QUOTES);
     }
   }
@@ -1674,7 +1756,10 @@ interface PackageData {
 }
 
 class Package {
-  public convertedReadme = '';
+  /**
+   * The PythonModule that represents the root module of the package
+   */
+  public rootModule?: PythonModule;
 
   public readonly name: string;
   public readonly version: string;
@@ -1683,12 +1768,7 @@ class Package {
   private readonly modules = new Map<string, PythonModule>();
   private readonly data = new Map<string, PackageData[]>();
 
-  public constructor(
-    private readonly generator: PythonGenerator,
-    name: string,
-    version: string,
-    metadata: spec.Assembly,
-  ) {
+  public constructor(name: string, version: string, metadata: spec.Assembly) {
     this.name = name;
     this.version = version;
     this.metadata = metadata;
@@ -1696,6 +1776,11 @@ class Package {
 
   public addModule(module: PythonModule) {
     this.modules.set(module.pythonName, module);
+
+    // This is the module that represents the assembly
+    if (module.fqn === this.metadata.name) {
+      this.rootModule = module;
+    }
   }
 
   public addData(
@@ -1711,13 +1796,6 @@ class Package {
   }
 
   public write(code: CodeMaker, context: EmitContext) {
-    if (this.metadata.readme) {
-      // Conversion is expensive, so cache the result in a variable (we need it twice)
-      this.convertedReadme = this.generator
-        .convertMarkdown(this.metadata.readme.markdown)
-        .trim();
-    }
-
     const modules = [...this.modules.values()].sort((a, b) =>
       a.pythonName.localeCompare(b.pythonName),
     );
@@ -1770,8 +1848,13 @@ class Package {
       );
     }
 
+    // Need to always write this file as the build process depends on it.
+    // Make up some contents if we don't have anything useful to say.
     code.openFile('README.md');
-    code.line(this.convertedReadme);
+    code.line(
+      this.rootModule?.moduleDocumentation ??
+        `${this.name}\n${'='.repeat(this.name.length)}`,
+    );
     code.closeFile('README.md');
 
     // Strip " (build abcdef)" from the jsii version
@@ -2266,13 +2349,12 @@ class PythonGenerator extends Generator {
 
   protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
     this.package = new Package(
-      this,
       assm.targets!.python!.distName,
       toReleaseVersion(assm.version, TargetName.PYTHON),
       assm,
     );
 
-    // This is the '<package>._jsii' module
+    // This is the '<packagename>._jsii' module for this assembly
     const assemblyModule = new PythonModule(
       this.getAssemblyModuleName(assm),
       undefined,
@@ -2302,11 +2384,23 @@ class PythonGenerator extends Generator {
     });
   }
 
+  /**
+   * Will be called for assembly root, namespaces and submodules (anything that contains other types, based on its FQN)
+   */
   protected onBeginNamespace(ns: string) {
+    // 'ns' contains something like '@scope/jsii-calc-base-of-base'
+    const submoduleLike =
+      ns === this.assembly.name
+        ? this.assembly
+        : this.assembly.submodules?.[ns];
+
     const module = new PythonModule(toPackageName(ns, this.assembly), ns, {
       assembly: this.assembly,
       assemblyFilename: this.getAssemblyFileName(),
       package: this.package,
+      moduleDocumentation: submoduleLike?.readme
+        ? this.convertMarkdown(submoduleLike.readme?.markdown).trim()
+        : undefined,
     });
 
     this.package.addModule(module);
@@ -2911,3 +3005,5 @@ function nestedContext(
         : context.surroundingTypeFqns,
   };
 }
+
+const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;
