@@ -2,6 +2,7 @@ import { CodeMaker } from 'codemaker';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 
 import * as comparators from '../comparators';
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS, MethodCall } from '../runtime';
@@ -141,22 +142,24 @@ export class GoInterface extends GoType {
     code.close(')');
   }
 
-  public get usesInitPackage() {
-    return (
-      this.properties.some((p) => p.usesInitPackage) ||
-      this.methods.some((m) => m.usesInitPackage)
+  public get specialDependencies(): SpecialDependencies {
+    return [
+      ...this.properties.map((p) => p.specialDependencies),
+      ...this.methods.map((m) => m.specialDependencies),
+    ].reduce(
+      (acc, elt) => ({
+        runtime: acc.runtime || elt.runtime,
+        init: acc.init || elt.init,
+        internal: acc.internal,
+        time: acc.time || elt.time,
+      }),
+      {
+        runtime: false,
+        init: false,
+        internal: this.extends.some((base) => this.pkg.isExternalType(base)),
+        time: false,
+      },
     );
-  }
-
-  public get usesRuntimePackage() {
-    return (
-      this.properties.some((p) => p.usesRuntimePackage) ||
-      this.methods.some((m) => m.usesRuntimePackage)
-    );
-  }
-
-  public get usesInternalPackage() {
-    return this.extends.some((base) => this.pkg.isExternalType(base));
   }
 
   public get extends(): GoInterface[] {
@@ -212,8 +215,6 @@ class InterfaceProperty extends GoProperty {
 
 class InterfaceMethod extends GoMethod {
   public readonly runtimeCall: MethodCall;
-  public readonly usesInitPackage = false;
-  public readonly usesRuntimePackage = true;
 
   public constructor(
     public readonly parent: GoInterface,
@@ -244,6 +245,17 @@ class InterfaceMethod extends GoMethod {
 
     code.closeBlock();
     code.line();
+  }
+
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: true,
+      init: false,
+      internal: false,
+      time:
+        this.parameters.some((p) => p.reference.specialDependencies.time) ||
+        !!this.reference?.specialDependencies.time,
+    };
   }
 
   private get returnTypeString(): string {
