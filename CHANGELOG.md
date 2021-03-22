@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.26.0](https://github.com/aws/jsii/compare/v1.24.0...v1.26.0) (2021-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **go,python/java:** if multiple members have the same name with different capitalization, only one is allowed to be non-deprecated. This will currently only manifest when producing python bindings, but will be added as a jsii compiler error in the future.
+
+### Features
+
+* **compliance:** Compliance suite ([#2607](https://github.com/aws/jsii/issues/2607)) ([18b2c16](https://github.com/aws/jsii/commit/18b2c167bbc47d7620e6a952e08751af28bf53a6))
+* **go:** extension & overrides mechanism ([#2717](https://github.com/aws/jsii/issues/2717)) ([33f3b26](https://github.com/aws/jsii/commit/33f3b26070bffbb0c39ec38be84c5246a983559a))
+* **go:** packageName and versionSuffix ([#2687](https://github.com/aws/jsii/issues/2687)) ([9562108](https://github.com/aws/jsii/commit/95621082cb742bb8dc24e28f3bf6cb6013050c03)), closes [#2632](https://github.com/aws/jsii/issues/2632)
+* **superchain:** `$NVM_USE_VERSION` selects Node.js version ([#2726](https://github.com/aws/jsii/issues/2726)) ([fb9abf9](https://github.com/aws/jsii/commit/fb9abf954d29fd1f1e67cdc2d917c7dbb3a8f9d9))
+* **superchain:** install both Node 10 and Node 14 ([#2718](https://github.com/aws/jsii/issues/2718)) ([3ca97d9](https://github.com/aws/jsii/commit/3ca97d9f7164ac158a253354837970177e1d2f4e))
+
+
+### Bug Fixes
+
+* **go:** duplicate conversion functions when parent structs have the same base name ([#2697](https://github.com/aws/jsii/issues/2697)) ([52bd510](https://github.com/aws/jsii/commit/52bd510a994597cc166effde0b8c658a2a8cb0df)), closes [#2692](https://github.com/aws/jsii/issues/2692)
+* **go:** invalid code when a module only has static methods [test only] ([#2704](https://github.com/aws/jsii/issues/2704)) ([2dbe84d](https://github.com/aws/jsii/commit/2dbe84dfeff8d6f63aab19c1674fb7c9d17ea976)), closes [#2622](https://github.com/aws/jsii/issues/2622) [#2617](https://github.com/aws/jsii/issues/2617)
+* **go:** missing imports needed by base members ([#2685](https://github.com/aws/jsii/issues/2685)) ([daca06f](https://github.com/aws/jsii/commit/daca06f7c426d1fba509068ab842bd8dc7ddb62a)), closes [#2647](https://github.com/aws/jsii/issues/2647)
+* **go:** missing imports required by collection types ([#2691](https://github.com/aws/jsii/issues/2691)) ([c9a36a6](https://github.com/aws/jsii/commit/c9a36a6c0e18c44aa8e8e7e719cb9df144da5193)), closes [#2689](https://github.com/aws/jsii/issues/2689)
+* **go:** nested types are not namespaced ([#2650](https://github.com/aws/jsii/issues/2650)) ([45b527c](https://github.com/aws/jsii/commit/45b527c0b2f35a09b715c1a6c5940ec0578007fb)), closes [#2649](https://github.com/aws/jsii/issues/2649)
+* **go:** optional values ([#2705](https://github.com/aws/jsii/issues/2705)) ([7d0cfc5](https://github.com/aws/jsii/commit/7d0cfc5ab341e79d7a7cc53deaf161ebe1c7f7aa)), closes [#2442](https://github.com/aws/jsii/issues/2442) [#2671](https://github.com/aws/jsii/issues/2671)
+* **go,python/java:** bad code for members with same name with different casing ([#2699](https://github.com/aws/jsii/issues/2699)) ([25528fb](https://github.com/aws/jsii/commit/25528fb12fae6f54c902e97c8449d61435c2a814)), closes [#2508](https://github.com/aws/jsii/issues/2508)
+* **pacmak:** .NET submodules don't have namespace docs ([#2683](https://github.com/aws/jsii/issues/2683)) ([097a4ea](https://github.com/aws/jsii/commit/097a4ea95f5816f944cd0977479ae696091d77c1))
+* **pacmak:** Java submodules don't have package infos ([#2682](https://github.com/aws/jsii/issues/2682)) ([e6ca054](https://github.com/aws/jsii/commit/e6ca05465f4f17b705d98d29979ca572dac3f89f))
+* **pacmak:** Python submodules don't have docstrings ([#2681](https://github.com/aws/jsii/issues/2681)) ([a950282](https://github.com/aws/jsii/commit/a9502826fdc54f43212c641078f21a4d4bcf127f))
+* **pacmak:** xmldom error when generating packages ([#2713](https://github.com/aws/jsii/issues/2713)) ([6b2bbe8](https://github.com/aws/jsii/commit/6b2bbe8198b66c07d868d64981bb5a4eb6966588))
+* TypeError when trying to use bin-scripts in Python ([#2720](https://github.com/aws/jsii/issues/2720)) ([acdf1a9](https://github.com/aws/jsii/commit/acdf1a9fe7b42200d1f1295486359492b0c00412))
+* **python:** duplicated kwargs when field is multi-inherited ([#2654](https://github.com/aws/jsii/issues/2654)) ([3cd9d19](https://github.com/aws/jsii/commit/3cd9d1934d3d08bf57df1eb952347bf905c2a35c)), closes [#2653](https://github.com/aws/jsii/issues/2653)
+* **rosetta:** 'extract' does not translate samples in submodule READMEs ([#2712](https://github.com/aws/jsii/issues/2712)) ([ccac1bd](https://github.com/aws/jsii/commit/ccac1bd4dc6abdd271002515a0745349404716a7))
+
 ## [1.25.0](https://github.com/aws/jsii/compare/v1.24.0...v1.25.0) (2021-03-16)
 
 
