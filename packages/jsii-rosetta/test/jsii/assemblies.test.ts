@@ -29,33 +29,6 @@ test('Extract snippet from README', () => {
   expect(snippets[0].visibleSource).toEqual('someExample();');
 });
 
-test('Extract snippet from submodule READMEs', () => {
-  const snippets = Array.from(
-    allTypeScriptSnippets([
-      {
-        assembly: fakeAssembly({
-          submodules: {
-            'my.submodule': {
-              readme: {
-                markdown: [
-                  'Before the example.',
-                  '```ts',
-                  'someExample();',
-                  '```',
-                  'After the example.',
-                ].join('\n'),
-              },
-            },
-          },
-        }),
-        directory: path.join(__dirname, 'fixtures'),
-      },
-    ]),
-  );
-
-  expect(snippets[0].visibleSource).toEqual('someExample();');
-});
-
 test('Extract snippet from type docstring', () => {
   const snippets = Array.from(
     allTypeScriptSnippets([
