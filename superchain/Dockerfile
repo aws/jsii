@@ -83,24 +83,16 @@ RUN amazon-linux-extras install docker                                          
   && yum clean all && rm -rf /var/cache/yum
 VOLUME /var/lib/docker
 
-# Install Node using NVM (Node Version Manager) so we can have multiple Node versions installed and easily switch
-# between them. $NVM_USE_VERSION becomes a global variable the container responds to to pick a Node version on startup,
-# if set.
-ENV NVM_DIR /usr/local/nvm
-COPY run.sh /usr/local/bin/
-
-RUN mkdir -p $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash -             \
-  && chmod a+x /usr/local/bin/run.sh                                                                                   \
-  # Source NVM into this shell
-  && source $NVM_DIR/nvm.sh                                                                                            \
-  # Install Node 10 and yarn on node 10. First installed version becomes default.
-  && nvm install 10                                                                                                    \
-  && nvm exec 10 npm install -g yarn                                                                                   \
-  # Install Node 14 and yarn on node 14.
-  && nvm install 14                                                                                                    \
-  && nvm exec 14 npm install -g yarn                                                                                   \
-  # Make npm play nicer with Docker containers running as "root".
+# Install Node 10+
+RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -                                                             \
+  && yum -y install nodejs                                                                                              \
+  && yum clean all && rm -rf /var/cache/yum                                                                             \
   && npm set unsafe-perm true
+
+# Install Yarn
+RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo                                     \
+  && yum -y install yarn                                                                                                \
+  && yum clean all && rm -rf /var/cache/yum
 
 # Install some configuration
 COPY ssh_config /root/.ssh/config
@@ -121,5 +113,4 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
-ENTRYPOINT ["/usr/local/bin/run.sh"]
 CMD ["/bin/bash"]
