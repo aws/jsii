@@ -8,24 +8,26 @@ required in order to package [jsii] projects in all supported languages.
 
 ## Included Language SDKs
 
-SDK             | Version
-----------------|-------------------------------------------
-`OpenJDK 8`     | Amazon Corretto `>= 8.242.08.1`
-`.NET SDK`      | `>= 3.1.101`
-`mono`          | `>= 6.8.0.105`
-`Javascript`    | `node >= 10.19.0` with `npm >= 6.13.4`
-                | `node >= 14.24.0` with `npm >= 6.13.4`
-                | (both managed via NVM)
-`PowerShell`    | `pwsh >= 6.2.3`
-`Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
-`Go`            | `go >= 1.16`
+SDK           | Version
+--------------|-------------------------------------------
+`OpenJDK 8`   | Amazon Corretto `>= 8.242.08.1`
+`.NET SDK`    | `>= 3.1.101`
+`mono`        | `>= 6.8.0.105`
+`Node`        | `node >= 10.19.0` with `npm >= 6.13.4`
+`Node` (Alt)  | `node >= 14.24.0` with `npm >= 6.13.4` (see [notes] below)
+`PowerShell`  | `pwsh >= 6.2.3`
+`Python 3`    | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
+`Go`          | `go >= 1.16`
+
+[notes]: #notes-on-node.js
 
 ### Notes on Node.js
 
-You *must* use `bash` (not `sh`) to run commands in this container.
+By default, Node.js will be at version 10. To switch to Node 14, pass
+`-e NVM_USE_VERSION=14` into the container at startup, or use
+[`nvm` commands][nvm] to switch between versions or to install other versions.
 
-By default, Node.js will be at version 10. To switch to Node 14,
-pass `-e NVM_USE_VERSION=14` into the container at startup.
+[nvm]: https://github.com/nvm-sh/nvm
 
 ## Included Tools & Utilities
 
