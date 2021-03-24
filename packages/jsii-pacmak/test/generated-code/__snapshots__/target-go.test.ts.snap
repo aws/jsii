@@ -7205,6 +7205,7 @@ func (j *jsiiProxy_IAnonymouslyImplementMe) Value() *float64 {
 
 type IAnotherPublicInterface interface {
 	A() *string
+	SetA(a *string)
 }
 
 // The jsii proxy for IAnotherPublicInterface
@@ -7289,6 +7290,8 @@ type IDeprecatedInterface interface {
 	Method()
 	// Deprecated: could be better
 	MutableProperty() *float64
+	// Deprecated: could be better
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IDeprecatedInterface
@@ -7328,6 +7331,8 @@ type IExperimentalInterface interface {
 	Method()
 	// Experimental.
 	MutableProperty() *float64
+	// Experimental.
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IExperimentalInterface
@@ -7364,6 +7369,7 @@ func (j *jsiiProxy_IExperimentalInterface) SetMutableProperty(val *float64) {
 type IExtendsPrivateInterface interface {
 	MoreThings() *[]*string
 	Private() *string
+	SetPrivate(p *string)
 }
 
 // The jsii proxy for IExtendsPrivateInterface
@@ -7402,6 +7408,7 @@ func (j *jsiiProxy_IExtendsPrivateInterface) SetPrivate(val *string) {
 type IExternalInterface interface {
 	Method()
 	MutableProperty() *float64
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IExternalInterface
@@ -7621,6 +7628,7 @@ func (i *jsiiProxy_IInterfaceWithOptionalMethodArguments) Hello(arg1 *string, ar
 type IInterfaceWithProperties interface {
 	ReadOnlyString() *string
 	ReadWriteString() *string
+	SetReadWriteString(r *string)
 }
 
 // The jsii proxy for IInterfaceWithProperties
@@ -7659,6 +7667,7 @@ func (j *jsiiProxy_IInterfaceWithProperties) SetReadWriteString(val *string) {
 type IInterfaceWithPropertiesExtension interface {
 	IInterfaceWithProperties
 	Foo() *float64
+	SetFoo(f *float64)
 }
 
 // The jsii proxy for IInterfaceWithPropertiesExtension
@@ -7776,6 +7785,7 @@ type jsiiProxy_IJsii496 struct {
 
 type IMutableObjectLiteral interface {
 	Value() *string
+	SetValue(v *string)
 }
 
 // The jsii proxy for IMutableObjectLiteral
@@ -7804,7 +7814,9 @@ func (j *jsiiProxy_IMutableObjectLiteral) SetValue(val *string) {
 type INonInternalInterface interface {
 	IAnotherPublicInterface
 	B() *string
+	SetB(b *string)
 	C() *string
+	SetC(c *string)
 }
 
 // The jsii proxy for INonInternalInterface
@@ -7852,6 +7864,7 @@ func (j *jsiiProxy_INonInternalInterface) SetC(val *string) {
 type IObjectWithProperty interface {
 	WasSet() *bool
 	Property() *string
+	SetProperty(p *string)
 }
 
 // The jsii proxy for IObjectWithProperty
@@ -8058,6 +8071,7 @@ func (j *jsiiProxy_IReturnsNumber) NumberProp() scopejsiicalclib.Number {
 type IStableInterface interface {
 	Method()
 	MutableProperty() *float64
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IStableInterface

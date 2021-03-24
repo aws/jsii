@@ -521,9 +521,7 @@ func (suite *ComplianceSuite) TestCanUseInterfaceSetters() {
 	assert := suite.Assert()
 	obj := calc.ObjectWithPropertyProvider_Provide()
 
-	suite.FailTest("Setter are not generated for read-write properties", "https://github.com/aws/jsii/issues/2665")
-
-	// obj.SetProperty("New Value")
+	obj.SetProperty(jsii.String("New Value"))
 	assert.True(*obj.WasSet())
 }
 
@@ -534,8 +532,7 @@ func (suite *ComplianceSuite) TestPropertyOverrides_Interfaces() {
 	interact := calc.NewUsesInterfaceWithProperties(&interfaceWithProps)
 	assert.Equal("READ_ONLY_STRING", *interact.JustRead())
 
-	suite.FailTest("Not sure. Most likely related to the missing setters on interfaces", "https://github.com/aws/jsii/issues/2665")
-	assert.Equal("Hello!?", interact.WriteAndRead(jsii.String("Hello")))
+	assert.Equal("Hello!?", *interact.WriteAndRead(jsii.String("Hello")))
 }
 
 type TestPropertyOverridesInterfacesIInterfaceWithProperties struct {
@@ -553,9 +550,8 @@ func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) ReadWriteStrin
 	return jsii.String(result)
 }
 
-// Note this method is not currently part of the generated interface for some reason (https://github.com/aws/jsii/issues/2665).
-func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) SetReadWriteString(value string) {
-	newVal := value + "!"
+func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) SetReadWriteString(value *string) {
+	newVal := *value + "!"
 	i.x = &newVal
 }
 
@@ -1346,7 +1342,6 @@ func (suite *ComplianceSuite) TestInterfaceBuilder() {
 	interact := calc.NewUsesInterfaceWithProperties(&TestInterfaceBuilderIInterfaceWithProperties{value: jsii.String("READ_WRITE")})
 	assert.Equal("READ_ONLY", *interact.JustRead())
 
-	suite.FailTest("Not sure. Most likely related to the missing setters on interfaces", "https://github.com/aws/jsii/issues/2665")
 	assert.Equal("Hello", *interact.WriteAndRead(jsii.String("Hello")))
 }
 

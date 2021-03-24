@@ -210,6 +210,13 @@ class InterfaceProperty extends GoProperty {
   public emit({ code, documenter }: EmitContext) {
     documenter.emit(this.property.docs);
     code.line(`${this.name}() ${this.returnType}`);
+
+    if (!this.property.immutable) {
+      documenter.emit(this.property.docs);
+      code.line(
+        `Set${this.name}(${this.name[0].toLowerCase()} ${this.returnType})`,
+      );
+    }
   }
 }
 
