@@ -3032,6 +3032,7 @@ func (a *jsiiProxy_AbstractClassReturner) GiveMeInterface() IInterfaceImplemente
 // Ensures abstract members implementations correctly register overrides in various languages.
 type AbstractSuite interface {
 	Property() *string
+	SetProperty(val *string)
 	SomeMethod(str *string) *string
 	WorkItAll(seed *string) *string
 }
@@ -10915,6 +10916,7 @@ func NewOptionalStructConsumer_Override(o OptionalStructConsumer, optionalStruct
 type OverridableProtectedMember interface {
 	OverrideReadOnly() *string
 	OverrideReadWrite() *string
+	SetOverrideReadWrite(val *string)
 	OverrideMe() *string
 	SwitchModes()
 	ValueFromProtected() *string

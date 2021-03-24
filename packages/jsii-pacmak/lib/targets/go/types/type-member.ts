@@ -100,7 +100,7 @@ export class GoProperty implements GoTypeMember {
 
   public emitSetterDecl(context: EmitContext) {
     const { code } = context;
-    if (!this.property.protected && !this.immutable) {
+    if (!this.immutable) {
       code.line(`Set${this.name}(val ${this.returnType})`);
     }
   }
