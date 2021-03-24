@@ -3,6 +3,7 @@ import { Method, ClassType, Initializer } from 'jsii-reflect';
 
 import { jsiiToPascalCase } from '../../../naming-util';
 import * as comparators from '../comparators';
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import {
@@ -155,18 +156,17 @@ export class GoClass extends GoType {
     ];
   }
 
-  public get usesInitPackage() {
-    return (
-      this.initializer != null || this.members.some((m) => m.usesInitPackage)
-    );
-  }
-
-  public get usesRuntimePackage() {
-    return this.initializer != null || this.members.length > 0;
-  }
-
-  public get usesInternalPackage() {
-    return this.baseTypes.some((base) => this.pkg.isExternalType(base));
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: this.initializer != null || this.members.length > 0,
+      init:
+        this.initializer != null ||
+        this.members.some((m) => m.specialDependencies.init),
+      internal: this.baseTypes.some((base) => this.pkg.isExternalType(base)),
+      time:
+        !!this.initializer?.specialDependencies.time ||
+        this.members.some((m) => m.specialDependencies.time),
+    };
   }
 
   protected emitInterface(context: EmitContext): void {
@@ -276,9 +276,6 @@ export class GoClass extends GoType {
 }
 
 export class GoClassConstructor extends GoMethod {
-  public readonly usesInitPackage = true;
-  public readonly usesRuntimePackage = true;
-
   private readonly constructorRuntimeCall: ClassConstructor;
 
   public constructor(
@@ -287,6 +284,15 @@ export class GoClassConstructor extends GoMethod {
   ) {
     super(parent, type);
     this.constructorRuntimeCall = new ClassConstructor(this);
+  }
+
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: true,
+      init: true,
+      internal: false,
+      time: this.parameters.some((p) => p.reference.specialDependencies.time),
+    };
   }
 
   public emit(context: EmitContext) {
@@ -332,8 +338,6 @@ export class GoClassConstructor extends GoMethod {
 
 export class ClassMethod extends GoMethod {
   public readonly runtimeCall: MethodCall;
-  public readonly usesInitPackage: boolean = false;
-  public readonly usesRuntimePackage = true;
 
   public constructor(
     public readonly parent: GoClass,
@@ -371,11 +375,20 @@ export class ClassMethod extends GoMethod {
   public get instanceArg(): string {
     return this.parent.name.substring(0, 1).toLowerCase();
   }
+
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: true,
+      init: this.method.static,
+      internal: false,
+      time:
+        !!this.parameters.some((p) => p.reference.specialDependencies.time) ||
+        !!this.reference?.specialDependencies.time,
+    };
+  }
 }
 
 export class StaticMethod extends ClassMethod {
-  public readonly usesInitPackage = true;
-
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
