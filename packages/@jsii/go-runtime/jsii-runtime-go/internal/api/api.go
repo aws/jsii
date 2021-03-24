@@ -83,6 +83,10 @@ type EnumRef struct {
 	MemberFQN string `json:"$jsii.enum"`
 }
 
+type WireDate struct {
+	Timestamp string `json:"$jsii.date"`
+}
+
 type WireMap struct {
 	MapData map[string]interface{} `json:"$jsii.map"`
 }

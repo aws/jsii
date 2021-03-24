@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
 	"github.com/aws/jsii-runtime-go/internal/kernel"
@@ -371,7 +372,14 @@ func Close() {
 	kernel.CloseClient()
 }
 
-// Helpers to store primitives and return pointers to them
-func Bool(v bool) *bool         { return &v }
-func Number(v float64) *float64 { return &v }
-func String(v string) *string   { return &v }
+// Bool obtains a pointer to the provided bool.
+func Bool(v bool) *bool           { return &v }
+
+// Number obtains a pointer to the provided float64.
+func Number(v float64) *float64   { return &v }
+
+// String obtains a pointer to the provided string.
+func String(v string) *string     { return &v }
+
+// Time obtains a pointer to the provided time.Time.
+func Time(v time.Time) *time.Time { return &v }

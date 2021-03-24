@@ -62,21 +62,16 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 	types.SetNumberProperty(jsii.Number(1234))
 	assert.Equal(float64(1234), *types.NumberProperty())
 
-	// // json
+	// json
 	mapProp := map[string]interface{}{"Foo": map[string]interface{}{"Bar": 123}}
 	types.SetJsonProperty(&mapProp)
 	assert.Equal(float64(123), (*types.JsonProperty())["Foo"].(map[string]interface{})["Bar"])
 
-	suite.FailTest("Dates are currently treated as strings and fail going through the wire", "https://github.com/aws/jsii/issues/2659")
-
-	// whoops - should accept time.Time, not string.
-	// date
-	types.SetDateProperty(jsii.String("12345"))
-	assert.Equal("12345", types.DateProperty())
+	types.SetDateProperty(jsii.Time(time.Unix(0, 123000000)))
+	assert.WithinDuration(time.Unix(0, 123000000), *types.DateProperty(), 0)
 }
 
 func (suite *ComplianceSuite) TestUseNestedStruct() {
-	suite.FailTest("Nested types are not namespaced", "https://github.com/aws/jsii/pull/2650")
 	jcb.StaticConsumer_Consume(customsubmodulename.NestingClass_NestedStruct{
 		Name: jsii.String("Bond, James Bond"),
 	})
@@ -128,15 +123,14 @@ func (suite *ComplianceSuite) TestMaps() {
 
 func (suite *ComplianceSuite) TestDates() {
 	assert := suite.Assert()
-	suite.FailTest("Dates are represented as strings instead of date objects", "https://github.com/aws/jsii/issues/2659")
 
 	types := calc.NewAllTypes()
-	//types.SetDateProperty(time.Unix(128, 0))
-	assert.Equal(time.Unix(128, 0), types.DateProperty())
+	types.SetDateProperty(jsii.Time(time.Unix(128, 0)))
+	assert.WithinDuration(time.Unix(128, 0), *types.DateProperty(), 0)
 
 	// weak type
 	types.SetAnyProperty(time.Unix(999, 0))
-	assert.Equal(time.Unix(999, 0), types.AnyProperty())
+	assert.WithinDuration(time.Unix(999, 0), types.AnyProperty().(time.Time), 0)
 }
 
 func (suite *ComplianceSuite) TestCallMethods() {
@@ -226,9 +220,7 @@ func (suite *ComplianceSuite) TestDynamicTypes() {
 
 	// date
 	types.SetAnyProperty(time.Unix(1234, 0))
-	if types.AnyProperty() != time.Unix(1234, 0) {
-		suite.FailTest("Dates not supported", "https://github.com/aws/jsii/issues/2659")
-	}
+	assert.WithinDuration(time.Unix(1234, 0), types.AnyProperty().(time.Time), 0)
 }
 
 func (suite *ComplianceSuite) TestArrayReturnedByMethodCanBeRead() {
@@ -1187,7 +1179,6 @@ func (suite *ComplianceSuite) TestUndefinedAndNull() {
 
 func (suite *ComplianceSuite) TestStructs_SerializeToJsii() {
 	t := suite.T()
-	t.Skip("DateTime fields are not implemented yet")
 
 	firstStruct := calclib.MyFirstStruct{
 		Astring:       jsii.String("FirstString"),
@@ -1198,12 +1189,12 @@ func (suite *ComplianceSuite) TestStructs_SerializeToJsii() {
 	doubleTrouble := calc.NewDoubleTrouble()
 
 	derivedStruct := calc.DerivedStruct{
-		NonPrimitive: doubleTrouble,
-		Bool:         jsii.Bool(false),
-		// TODO: AnotherRequired: time.Now(),
-		Astring:       jsii.String("String"),
-		Anumber:       jsii.Number(1234),
-		FirstOptional: &[]*string{jsii.String("one"), jsii.String("two")},
+		NonPrimitive:    doubleTrouble,
+		Bool:            jsii.Bool(false),
+		AnotherRequired: jsii.Time(time.Now()),
+		Astring:         jsii.String("String"),
+		Anumber:         jsii.Number(1234),
+		FirstOptional:   &[]*string{jsii.String("one"), jsii.String("two")},
 	}
 
 	gms := calc.NewGiveMeStructs()
@@ -1346,8 +1337,8 @@ func NewPartiallyInitializedThisConsumerImpl(assert *assert.Assertions) *partial
 	return &p
 }
 
-func (p *partiallyInitializedThisConsumerImpl) ConsumePartiallyInitializedThis(obj calc.ConstructorPassesThisOut, dt *string, ev calc.AllTypesEnum) *string {
-	epoch := time.Date(1970, time.January, 1, 0, 0, 0, 0, time.UTC).Format("2006-01-02T15:04:05.000Z07:00")
+func (p *partiallyInitializedThisConsumerImpl) ConsumePartiallyInitializedThis(obj calc.ConstructorPassesThisOut, dt *time.Time, ev calc.AllTypesEnum) *string {
+	epoch := time.Date(1970, time.January, 1, 0, 0, 0, 0, time.UTC)
 
 	p.assert.NotNil(obj)
 	p.assert.Equal(epoch, *dt)

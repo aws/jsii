@@ -2,6 +2,7 @@ package kernel
 
 import (
 	"reflect"
+	"time"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
 )
@@ -126,6 +127,11 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 		return nil
 	}
 
+	// In case we got a time.Time value (or pointer to one).
+	if wireDate, isDate := castPtrToDate(dataVal); isDate {
+		return wireDate
+	}
+
 	switch dataVal.Kind() {
 	case reflect.Map:
 		result := api.WireMap{MapData: make(map[string]interface{})}
@@ -192,6 +198,24 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 	return dataVal.Interface()
 }
 
+// castPtrToDate obtains an api.WireDate from the provided reflect.Value if it
+// represents a time.Time or *time.Time value. It accepts both a pointer and
+// direct value as a convenience (when passing time.Time through an interface{}
+// parameter, having to unwrap it as a pointer is annoying and unneeded).
+func castPtrToDate(data reflect.Value) (wireDate api.WireDate, ok bool) {
+	var timestamp *time.Time
+	if timestamp, ok = data.Interface().(*time.Time); !ok {
+		var val time.Time
+		if val, ok = data.Interface().(time.Time); ok {
+			timestamp = &val
+		}
+	}
+	if ok {
+		wireDate.Timestamp = timestamp.Format(time.RFC3339Nano)
+	}
+	return
+}
+
 func castValToRef(data reflect.Value) (ref api.ObjectRef, ok bool) {
 	if data.Kind() == reflect.Map {
 		for _, k := range data.MapKeys() {
@@ -234,13 +258,14 @@ func castValToRef(data reflect.Value) (ref api.ObjectRef, ok bool) {
 }
 
 // TODO: This should return a time.Time instead
-func castValToDate(data reflect.Value) (date string, ok bool) {
+func castValToDate(data reflect.Value) (date time.Time, ok bool) {
 	if data.Kind() == reflect.Map {
 		for _, k := range data.MapKeys() {
 			v := reflect.ValueOf(data.MapIndex(k).Interface())
 			if k.Kind() == reflect.String && k.String() == "$jsii.date" && v.Kind() == reflect.String {
-				date = v.String()
-				ok = true
+				var err error
+				date, err = time.Parse(time.RFC3339Nano, v.String())
+				ok = (err == nil)
 				break
 			}
 		}

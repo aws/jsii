@@ -1,6 +1,7 @@
 import { Callable, Method, Parameter, Property } from 'jsii-reflect';
 
 import { jsiiToPascalCase } from '../../../naming-util';
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { GetProperty, JSII_RT_ALIAS, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
@@ -16,8 +17,7 @@ export interface GoTypeMember {
   reference?: GoTypeRef;
   returnType: string;
 
-  usesInitPackage: boolean;
-  usesRuntimePackage: boolean;
+  specialDependencies: SpecialDependencies;
 }
 
 /*
@@ -41,12 +41,13 @@ export class GoProperty implements GoTypeMember {
     }
   }
 
-  public get usesInitPackage() {
-    return this.static;
-  }
-
-  public get usesRuntimePackage() {
-    return true;
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: true,
+      init: this.static,
+      internal: false,
+      time: !!this.reference?.specialDependencies.time,
+    };
   }
 
   public get static(): boolean {
@@ -157,8 +158,8 @@ export abstract class GoMethod implements GoTypeMember {
   }
 
   public abstract emit(context: EmitContext): void;
-  public abstract get usesInitPackage(): boolean;
-  public abstract get usesRuntimePackage(): boolean;
+
+  public abstract get specialDependencies(): SpecialDependencies;
 
   public get returnsRef(): boolean {
     if (
