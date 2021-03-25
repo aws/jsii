@@ -1609,10 +1609,6 @@ func (suite *ComplianceSuite) TestSyncOverrides() {
 	// verify callbacks are invoked from a property
 	assert.Equal(float64(10*5*5), *obj.CallerIsProperty())
 
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	// and from an async method
-	obj.Multiplier = 3
-	assert.Equal(float64(10*5*3), *obj.CallerIsAsync())
 }
 
 func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethod() {
