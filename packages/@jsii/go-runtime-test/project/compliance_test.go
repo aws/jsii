@@ -347,7 +347,7 @@ func (suite *ComplianceSuite) TestEqualsIsResistantToPropertyShadowingResultVari
 }
 
 type overridableProtectedMemberDerived struct {
-	calc.OverridableProtectedMember `overrides:"OverrideReadOnly,OverrideReadeWrite"`
+	calc.OverridableProtectedMember `overrides:"OverrideReadOnly,OverrideReadWrite"`
 }
 
 func newOverridableProtectedMemberDerived() *overridableProtectedMemberDerived {
@@ -360,13 +360,11 @@ func (x *overridableProtectedMemberDerived) OverrideReadOnly() *string {
 	return jsii.String("Cthulhu ")
 }
 
-func (x *overridableProtectedMemberDerived) OverrideReadeWrite() *string {
+func (x *overridableProtectedMemberDerived) OverrideReadWrite() *string {
 	return jsii.String("Fhtagn!")
 }
 
 func (suite *ComplianceSuite) TestCanOverrideProtectedGetter() {
-	suite.FailTest("unable to access protected members", "https://github.com/aws/jsii/issues/2673")
-
 	assert := suite.Assert()
 	overridden := newOverridableProtectedMemberDerived()
 	assert.Equal("Cthulhu Fhtagn!", *overridden.ValueFromProtected())
@@ -718,13 +716,27 @@ func (suite *ComplianceSuite) TestAbstractMembersAreCorrectlyHandled() {
 }
 
 func (suite *ComplianceSuite) TestCanOverrideProtectedSetter() {
-	suite.FailTest("unable to access protected members", "https://github.com/aws/jsii/issues/2673")
 	assert := suite.Assert()
 	challenge := "Bazzzzzzzzzzzaar..."
-	overridden := myOverridableProtectedMember{calc.NewOverridableProtectedMember()}
+	overridden := newTestCanOverrideProtectedSetterOverridableProtectedMember()
 	overridden.SwitchModes()
-	assert.Equal(challenge, overridden.ValueFromProtected())
+	assert.Equal(challenge, *overridden.ValueFromProtected())
 }
+
+type TestCanOverrideProtectedSetterOverridableProtectedMember struct {
+	calc.OverridableProtectedMember `overrides:"OverrideReadWrite"`
+}
+
+func (x TestCanOverrideProtectedSetterOverridableProtectedMember) SetOverrideReadWrite(val *string) {
+	x.OverridableProtectedMember.SetOverrideReadWrite(jsii.String(fmt.Sprintf("zzzzzzzzz%s", *val)))
+}
+
+func newTestCanOverrideProtectedSetterOverridableProtectedMember() *TestCanOverrideProtectedSetterOverridableProtectedMember {
+	m := TestCanOverrideProtectedSetterOverridableProtectedMember{}
+	calc.NewOverridableProtectedMember_Override(&m)
+	return &m
+}
+
 
 func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType() {
 	assert := suite.Assert()
@@ -1597,10 +1609,6 @@ func (suite *ComplianceSuite) TestSyncOverrides() {
 	// verify callbacks are invoked from a property
 	assert.Equal(float64(10*5*5), *obj.CallerIsProperty())
 
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	// and from an async method
-	obj.Multiplier = 3
-	assert.Equal(float64(10*5*3), *obj.CallerIsAsync())
 }
 
 func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethod() {
