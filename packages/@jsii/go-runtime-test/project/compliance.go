@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -30,8 +30,8 @@ func (suite *ComplianceSuite) TearDownSuite() {
 	}
 }
 
-func (suite *ComplianceSuite) Assert() *assert.Assertions {
-	return assert.New(suite.T())
+func (suite *ComplianceSuite) Require() *require.Assertions {
+	return require.New(suite.T())
 }
 
 func (suite *ComplianceSuite) reportForTest() map[string]string {
