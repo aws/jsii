@@ -1,16 +1,13 @@
 import { CodeMaker } from 'codemaker';
 import { EnumType, EnumMember } from 'jsii-reflect';
 
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
 import { GoType } from './go-type';
 
 export class Enum extends GoType {
-  public readonly usesInitPackage = false;
-  public readonly usesRuntimePackage = false;
-  public readonly usesInternalPackage = false;
-
   private readonly members: readonly GoEnumMember[];
 
   public constructor(pkg: Package, public type: EnumType) {
@@ -52,6 +49,15 @@ export class Enum extends GoType {
 
   public get dependencies(): Package[] {
     return [];
+  }
+
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: false,
+      init: false,
+      internal: false,
+      time: false,
+    };
   }
 }
 

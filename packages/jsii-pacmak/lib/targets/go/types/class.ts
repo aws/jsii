@@ -3,12 +3,14 @@ import { Method, ClassType, Initializer } from 'jsii-reflect';
 
 import { jsiiToPascalCase } from '../../../naming-util';
 import * as comparators from '../comparators';
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import {
   ClassConstructor,
   JSII_RT_ALIAS,
   MethodCall,
+  slugify,
   StaticGetProperty,
   StaticSetProperty,
 } from '../runtime';
@@ -154,18 +156,17 @@ export class GoClass extends GoType {
     ];
   }
 
-  public get usesInitPackage() {
-    return (
-      this.initializer != null || this.members.some((m) => m.usesInitPackage)
-    );
-  }
-
-  public get usesRuntimePackage() {
-    return this.initializer != null || this.members.length > 0;
-  }
-
-  public get usesInternalPackage() {
-    return this.baseTypes.some((base) => this.pkg.isExternalType(base));
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: this.initializer != null || this.members.length > 0,
+      init:
+        this.initializer != null ||
+        this.members.some((m) => m.specialDependencies.init),
+      internal: this.baseTypes.some((base) => this.pkg.isExternalType(base)),
+      time:
+        !!this.initializer?.specialDependencies.time ||
+        this.members.some((m) => m.specialDependencies.time),
+    };
   }
 
   protected emitInterface(context: EmitContext): void {
@@ -275,9 +276,6 @@ export class GoClass extends GoType {
 }
 
 export class GoClassConstructor extends GoMethod {
-  public readonly usesInitPackage = true;
-  public readonly usesRuntimePackage = true;
-
   private readonly constructorRuntimeCall: ClassConstructor;
 
   public constructor(
@@ -288,18 +286,51 @@ export class GoClassConstructor extends GoMethod {
     this.constructorRuntimeCall = new ClassConstructor(this);
   }
 
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: true,
+      init: true,
+      internal: false,
+      time: this.parameters.some((p) => p.reference.specialDependencies.time),
+    };
+  }
+
   public emit(context: EmitContext) {
-    const { code } = context;
+    // Abstract classes cannot be directly created
+    if (!this.parent.type.abstract) {
+      this.emitNew(context);
+    }
+    // Subclassable classes (the default) get an _Overrides constructor
+    if (this.parent.type.spec.docs?.subclassable ?? true) {
+      this.emitOverride(context);
+    }
+  }
+
+  private emitNew({ code, documenter }: EmitContext) {
     const constr = `New${this.parent.name}`;
     const paramString =
       this.parameters.length === 0
         ? ''
         : this.parameters.map((p) => p.toString()).join(', ');
 
-    context.documenter.emit(this.type.docs);
+    documenter.emit(this.type.docs);
     code.openBlock(`func ${constr}(${paramString}) ${this.parent.name}`);
-
     this.constructorRuntimeCall.emit(code);
+    code.closeBlock();
+
+    code.line();
+  }
+
+  private emitOverride({ code, documenter }: EmitContext) {
+    const constr = `New${this.parent.name}_Override`;
+    const params = this.parameters.map((p) => p.toString());
+
+    const instanceVar = slugify(this.parent.name[0].toLowerCase(), params);
+    params.unshift(`${instanceVar} ${this.parent.name}`);
+
+    documenter.emit(this.type.docs);
+    code.openBlock(`func ${constr}(${params.join(', ')})`);
+    this.constructorRuntimeCall.emitOverride(code, instanceVar);
     code.closeBlock();
     code.line();
   }
@@ -307,8 +338,6 @@ export class GoClassConstructor extends GoMethod {
 
 export class ClassMethod extends GoMethod {
   public readonly runtimeCall: MethodCall;
-  public readonly usesInitPackage: boolean = false;
-  public readonly usesRuntimePackage = true;
 
   public constructor(
     public readonly parent: GoClass,
@@ -346,11 +375,20 @@ export class ClassMethod extends GoMethod {
   public get instanceArg(): string {
     return this.parent.name.substring(0, 1).toLowerCase();
   }
+
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: true,
+      init: this.method.static,
+      internal: false,
+      time:
+        !!this.parameters.some((p) => p.reference.specialDependencies.time) ||
+        !!this.reference?.specialDependencies.time,
+    };
+  }
 }
 
 export class StaticMethod extends ClassMethod {
-  public readonly usesInitPackage = true;
-
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,

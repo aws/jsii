@@ -1,6 +1,7 @@
 import { TypeReference } from 'jsii-reflect';
 
 import * as log from '../../../logging';
+import { SpecialDependencies } from '../dependencies';
 import { Package } from '../package';
 import { GoType } from './go-type';
 
@@ -12,8 +13,7 @@ class PrimitiveMapper {
     number: 'float64',
     boolean: 'bool',
     any: 'interface{}',
-    // TODO: Resolve "time" package dependency where needed and change to "time.Time"
-    date: 'string',
+    date: 'time.Time',
     string: 'string',
     json: `map[string]interface{}`,
   };
@@ -58,6 +58,31 @@ export class GoTypeRef {
     }
 
     return undefined;
+  }
+
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: false,
+      init: false,
+      internal: false,
+      time: containsDate(this.reference),
+    };
+
+    function containsDate(ref: TypeReference): boolean {
+      if (ref.primitive === 'date') {
+        return true;
+      }
+      if (ref.arrayOfType) {
+        return containsDate(ref.arrayOfType);
+      }
+      if (ref.mapOfType) {
+        return containsDate(ref.mapOfType);
+      }
+      if (ref.unionOfTypes) {
+        return ref.unionOfTypes.some(containsDate);
+      }
+      return false;
+    }
   }
 
   public get primitiveType() {

@@ -146,11 +146,10 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`]
 package jsii
 
 import (
+	bar    "bar/v2/jsii"
 	_      "embed"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
-
-	bar    "bar/v2/jsii"
 )
 
 //go:embed foo-1.2.3.tgz
@@ -656,11 +655,10 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 
 package jsii
 
 import (
+	bar    "bar/v4/jsii"
 	_      "embed"
 
 	_jsii_ "github.com/aws/jsii-runtime-go"
-
-	bar    "bar/v4/jsii"
 )
 
 //go:embed foo-1.2.3.tgz

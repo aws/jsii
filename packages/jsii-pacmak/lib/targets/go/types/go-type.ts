@@ -1,6 +1,7 @@
 import { CodeMaker } from 'codemaker';
 import { Type } from 'jsii-reflect';
 
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
@@ -36,9 +37,7 @@ export abstract class GoType {
   public abstract emitRegistration(code: CodeMaker): void;
 
   public abstract get dependencies(): Package[];
-  public abstract get usesInitPackage(): boolean;
-  public abstract get usesRuntimePackage(): boolean;
-  public abstract get usesInternalPackage(): boolean;
+  public abstract get specialDependencies(): SpecialDependencies;
 
   public get namespace() {
     return this.pkg.packageName;

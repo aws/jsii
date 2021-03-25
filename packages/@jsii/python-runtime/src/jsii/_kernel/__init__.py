@@ -35,6 +35,7 @@ from .types import (
     InvokeRequest,
     InvokeResponse,
     InvokeScriptRequest,
+    InvokeScriptResponse,
     KernelResponse,
     LoadRequest,
     ObjRef,
@@ -254,13 +255,13 @@ class Kernel(metaclass=Singleton):
 
     def invokeBinScript(
         self, pkgname: str, script: str, args: Optional[List[Any]] = None
-    ) -> None:
+    ) -> InvokeScriptResponse:
         if args is None:
             args = []
 
-        self.provider.invokeBinScript(
+        return self.provider.invokeBinScript(
             InvokeScriptRequest(
-                pkgname=pkgname,
+                assembly=pkgname,
                 script=script,
                 args=_make_reference_for_native(self, args),
             )

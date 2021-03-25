@@ -6,13 +6,13 @@ import (
 )
 
 type SubclassFriendlyRandom struct {
-	scopejsiicalclib.Number `overrides:"Hello,Next"`
-	next                    float64
+	scopejsiicalclib.Number
+	next float64
 }
 
 func NewSubclass() *SubclassFriendlyRandom {
 	s := &SubclassFriendlyRandom{next: 100}
-	s.Number = s
+	scopejsiicalclib.NewNumber_Override(s, jsii.Number(0))
 	return s
 }
 

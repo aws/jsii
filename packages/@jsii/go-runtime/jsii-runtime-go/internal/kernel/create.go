@@ -4,9 +4,9 @@ import "github.com/aws/jsii-runtime-go/internal/api"
 
 type CreateProps struct {
 	FQN        api.FQN        `json:"fqn"`
-	Interfaces []api.FQN      `json:"interfaces"`
-	Arguments  []interface{}  `json:"args"`
-	Overrides  []api.Override `json:"overrides"`
+	Interfaces []api.FQN      `json:"interfaces,omitempty"`
+	Arguments  []interface{}  `json:"args,omitempty"`
+	Overrides  []api.Override `json:"overrides,omitempty"`
 }
 
 // TODO extends AnnotatedObjRef?
