@@ -83,8 +83,12 @@ RUN amazon-linux-extras install docker                                          
   && yum clean all && rm -rf /var/cache/yum
 VOLUME /var/lib/docker
 
-# Install Node 10+
-RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -                                                             \
+# Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx')
+# (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
+# for most of the multiple builds).
+ARG NODE_MAJOR_VERSION=10
+
+RUN curl -sL https://rpm.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash -                                                \
   && yum -y install nodejs                                                                                              \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && npm set unsafe-perm true
