@@ -42,7 +42,7 @@
     "@types/node": "^10.17.55",
     "@types/semver": "^7.3.4",
     "jsii-build-tools": "^0.0.0",
-    "semver": "^7.3.4",
+    "semver": "^7.3.5",
     "typescript": "~3.9.9"
   }
 }
