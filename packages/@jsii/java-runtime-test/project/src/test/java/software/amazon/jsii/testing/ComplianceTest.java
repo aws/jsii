@@ -467,9 +467,6 @@ public class ComplianceTest {
         // verify callbacks are invoked from a property
         assertEquals(10 * 5 * 5, obj.getCallerIsProperty());
 
-        // and from an async method
-        obj.multiplier = 3;
-        assertEquals(10 * 5 * 3, obj.callerIsAsync());
     }
 
     /**
