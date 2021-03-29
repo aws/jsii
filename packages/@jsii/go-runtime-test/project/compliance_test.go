@@ -1402,25 +1402,23 @@ func (suite *ComplianceSuite) TestUnionTypes() {
 	require.Equal(float64(99), *number.Value())
 
 	// array
-	suite.FailTest("Unable to set an array of interfaces", "https://github.com/aws/jsii/issues/2686")
 	a := []interface{}{123, calclib.NewNumber(jsii.Number(33))}
 	types.SetUnionArrayProperty(&a)
 
 	unionArrayProp := *types.UnionArrayProperty()
 	number, ok = unionArrayProp[1].(calclib.Number)
 	require.True(ok)
-	require.Equal(33, *number.Value())
+	require.Equal(float64(33), *number.Value())
 }
 
 func (suite *ComplianceSuite) TestArrays() {
 	require := suite.Require()
 	sum := calc.NewSum()
 
-	suite.FailTest("Unable to set an array of interfaces", "https://github.com/aws/jsii/issues/2686")
 	sum.SetParts(&[]calclib.NumericValue{calclib.NewNumber(jsii.Number(5)), calclib.NewNumber(jsii.Number(10)), calc.NewMultiply(calclib.NewNumber(jsii.Number(2)), calclib.NewNumber(jsii.Number(3)))})
-	require.Equal(10+5+(2*3), sum.Value())
-	require.Equal(5, *(*sum.Parts())[0].Value())
-	require.Equal(6, *(*sum.Parts())[2].Value())
+	require.Equal(float64(10+5+(2*3)), *sum.Value())
+	require.Equal(float64(5), *(*sum.Parts())[0].Value())
+	require.Equal(float64(6), *(*sum.Parts())[2].Value())
 	require.Equal("(((0 + 5) + 10) + (2 * 3))", *sum.ToString())
 }
 
