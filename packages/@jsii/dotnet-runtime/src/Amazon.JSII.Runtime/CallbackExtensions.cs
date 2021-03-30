@@ -16,7 +16,8 @@ namespace Amazon.JSII.Runtime
 {
     internal static class CallbackExtensions
     {
-        public static object? InvokeCallback(this Callback callback, IReferenceMap referenceMap, IFrameworkToJsiiConverter converter, out string? error)
+        public static object? InvokeCallback(this Callback callback, IReferenceMap referenceMap,
+            IFrameworkToJsiiConverter converter, out string? error)
         {
             try
             {
@@ -76,20 +77,22 @@ namespace Amazon.JSII.Runtime
 
             if (methodInfo == null)
             {
-                throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Method} method, but this method does not exist");
+                throw new InvalidOperationException(
+                    $"Received callback for {deputy.GetType().Name}.{request.Method} method, but this method does not exist");
             }
 
             var attribute = methodInfo.GetAttribute<JsiiMethodAttribute>()!;
             var parameters = methodInfo.GetParameters();
-            
+
             var converter = ServiceContainer.ServiceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
-            
+
             var rehydratedArgs = Enumerable.Range(0, request.Arguments?.Length ?? 0)
                 .Select(n =>
                 {
                     var paramIndex = n >= parameters.Length ? parameters.Length - 1 : n;
                     var requiredType = parameters[paramIndex].ParameterType;
-                    if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap, request.Arguments![n], out var value))
+                    if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap,
+                        request.Arguments![n], out var value))
                     {
                         throw new JsiiException($"Unable to convert {request.Arguments![n]} to {requiredType.Name}");
                     }
@@ -100,7 +103,7 @@ namespace Amazon.JSII.Runtime
                         array.SetValue(value, 0);
                         value = array;
                     }
-                    
+
                     if (!requiredType.IsInstanceOfType(value) && value is IConvertible)
                     {
                         value = Convert.ChangeType(value, requiredType, CultureInfo.InvariantCulture);
@@ -120,7 +123,8 @@ namespace Amazon.JSII.Runtime
                     if (n == parameters.Length - 1 && rehydratedArgs.Length > parameters.Length)
                     {
                         var allArgs = rehydratedArgs.TakeLast(rehydratedArgs.Length - parameters.Length + 1);
-                        var array = Array.CreateInstance(parameters[parameters.Length - 1].ParameterType.GetElementType()!,
+                        var array = Array.CreateInstance(
+                            parameters[parameters.Length - 1].ParameterType.GetElementType()!,
                             allArgs.Select(list => (list as Array)!.Length).Sum());
                         var idx = 0;
                         foreach (var list in allArgs)
@@ -150,7 +154,8 @@ namespace Amazon.JSII.Runtime
             var propertyInfo = ReflectionUtils.GetNativeProperty(deputy.GetType(), request.Property);
             if (propertyInfo == null)
             {
-                throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not exist");
+                throw new InvalidOperationException(
+                    $"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not exist");
             }
 
             var attribute = propertyInfo.GetAttribute<JsiiPropertyAttribute>()!;
@@ -158,7 +163,8 @@ namespace Amazon.JSII.Runtime
             var methodInfo = propertyInfo.GetMethod;
             if (methodInfo == null)
             {
-                throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
+                throw new InvalidOperationException(
+                    $"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
             }
 
             return new CallbackResult(attribute, methodInfo.Invoke(deputy, Array.Empty<object>()));
@@ -172,16 +178,18 @@ namespace Amazon.JSII.Runtime
             var propertyInfo = ReflectionUtils.GetNativeProperty(deputy.GetType(), request.Property);
             if (propertyInfo == null)
             {
-                throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not exist");
+                throw new InvalidOperationException(
+                    $"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not exist");
             }
 
             var methodInfo = propertyInfo.SetMethod;
             if (methodInfo == null)
             {
-                throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not have a setter");
+                throw new InvalidOperationException(
+                    $"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not have a setter");
             }
 
-            methodInfo.Invoke(deputy, new [] { FromKernel(request.Value, referenceMap) });
+            methodInfo.Invoke(deputy, new[] {FromKernel(request.Value, referenceMap)});
         }
 
         /*
@@ -194,9 +202,9 @@ namespace Amazon.JSII.Runtime
             var prop = jObject.Property("$jsii.byref", StringComparison.InvariantCulture);
             if (prop != null)
             {
-                var objId = prop.Value.Value<String>();
-                var interfaces = jObject.Property("$jsii.interfaces", StringComparison.InvariantCulture)?.Value
-                    ?.Values<string>()?.ToArray();
+                var objId = prop.Value.Value<String>()!;
+                string[]? interfaces = jObject.Property("$jsii.interfaces", StringComparison.InvariantCulture)?.Value
+                    ?.Values<string>()?.ToArray()!;
                 return referenceMap.GetOrCreateNativeReference(new ByRefValue(objId, interfaces));
             }
 
@@ -224,6 +232,7 @@ namespace Amazon.JSII.Runtime
                     mapped[key] = value;
                 }
             }
+
             return mapped;
         }
     }
@@ -231,9 +240,11 @@ namespace Amazon.JSII.Runtime
     internal sealed class CallbackResult : OptionalValue
     {
         public CallbackResult(IOptionalValue optionalValue, object? value)
-            : this(optionalValue.Type, optionalValue.IsOptional, value) {}
+            : this(optionalValue.Type, optionalValue.IsOptional, value)
+        {
+        }
 
-        private CallbackResult(TypeReference type, bool isOptional, object? value): base(type, isOptional)
+        private CallbackResult(TypeReference type, bool isOptional, object? value) : base(type, isOptional)
         {
             Value = value;
         }

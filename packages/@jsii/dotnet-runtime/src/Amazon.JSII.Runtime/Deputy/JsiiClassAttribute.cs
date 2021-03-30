@@ -11,13 +11,11 @@ namespace Amazon.JSII.Runtime.Deputy
             : base(nativeType, fullyQualifiedName)
         {
             Parameters = parametersJson == null
-                             ? Array.Empty<Parameter>()
-                             : JsonConvert.DeserializeObject<Parameter[]>(parametersJson);
+                ? Array.Empty<Parameter>()
+                : JsonConvert.DeserializeObject<Parameter[]>(parametersJson)
+                  ?? throw new ArgumentException("Invalid JSON descriptor", nameof(parametersJson));
         }
 
-        public Parameter[] Parameters
-        {
-            get;
-        }
+        public Parameter[] Parameters { get; }
     }
 }

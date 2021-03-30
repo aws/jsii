@@ -58,10 +58,10 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   }
 }";
 
-                CollectionTypeReference actual = JsonConvert.DeserializeObject<CollectionTypeReference>(json);
+                CollectionTypeReference actual = JsonConvert.DeserializeObject<CollectionTypeReference>(json)!;
 
-                Assert.Equal(CollectionKind.Array, actual.Kind);
-                Assert.NotNull(actual.ElementType);
+                Assert.Equal(CollectionKind.Array, actual?.Kind);
+                Assert.NotNull(actual?.ElementType);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingElementType))]

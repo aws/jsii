@@ -381,7 +381,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": { ""summary"": ""hello"" }
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.True(actual.IsAbstract);
                 Assert.Empty(actual.Properties);
@@ -474,7 +474,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
                 Assert.Null(actual.Namespace);
             }
 
@@ -495,7 +495,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""kind"": ""class""
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.Null(actual.Docs);
             }
@@ -517,7 +517,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.Null(actual.Properties);
             }
@@ -539,7 +539,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.Null(actual.Methods);
             }
@@ -561,7 +561,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.Null(actual.Base);
             }
@@ -583,7 +583,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.Null(actual.Initializer);
             }
@@ -605,7 +605,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.Null(actual.Interfaces);
             }
@@ -627,7 +627,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.Equal(1, actual.Methods?.Length);
                 Assert.True(actual.Methods?[0]?.IsAsync);
