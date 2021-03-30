@@ -40,7 +40,7 @@
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^26.0.21",
     "@types/node": "^10.17.55",
     "eslint": "^7.22.0",
     "jest": "^26.6.3",
@@ -48,9 +48,9 @@
     "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
     "source-map-loader": "^2.0.1",
-    "ts-jest": "^26.5.3",
+    "ts-jest": "^26.5.4",
     "typescript": "~3.9.9",
-    "webpack": "^5.25.1",
+    "webpack": "^5.28.0",
     "webpack-cli": "^4.5.0"
   }
 }

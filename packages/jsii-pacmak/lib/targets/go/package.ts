@@ -4,6 +4,7 @@ import { basename, dirname, join } from 'path';
 import * as semver from 'semver';
 
 import { VERSION } from '../../version';
+import { SpecialDependencies } from './dependencies';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
 import {
@@ -184,16 +185,18 @@ export abstract class Package {
     code.line();
   }
 
-  protected get usesRuntimePackage(): boolean {
-    return this.types.some((type) => type.usesRuntimePackage);
-  }
-
-  protected get usesInitPackage(): boolean {
-    return this.types.some((type) => type.usesInitPackage);
-  }
-
-  protected get usesInternalPackage(): boolean {
-    return this.types.some((type) => type.usesInternalPackage);
+  protected get specialDependencies(): SpecialDependencies {
+    return this.types
+      .map((t) => t.specialDependencies)
+      .reduce(
+        (acc, elt) => ({
+          runtime: acc.runtime || elt.runtime,
+          init: acc.init || elt.init,
+          internal: acc.internal || elt.internal,
+          time: acc.time || elt.time,
+        }),
+        { runtime: false, init: false, internal: false, time: false },
+      );
   }
 
   /**
@@ -229,18 +232,24 @@ export abstract class Package {
   private emitImports(code: CodeMaker) {
     const toImport = new Array<ImportedModule>();
 
-    if (this.usesRuntimePackage) {
+    const specialDeps = this.specialDependencies;
+
+    if (specialDeps.time) {
+      toImport.push({ module: 'time' });
+    }
+
+    if (specialDeps.runtime) {
       toImport.push(JSII_RT_MODULE);
     }
 
-    if (this.usesInitPackage) {
+    if (specialDeps.init) {
       toImport.push({
         alias: JSII_INIT_ALIAS,
         module: `${this.root.goModuleName}/${JSII_INIT_PACKAGE}`,
       });
     }
 
-    if (this.usesInternalPackage) {
+    if (specialDeps.internal) {
       toImport.push({
         module: `${this.goModuleName}/${INTERNAL_PACKAGE_NAME}`,
       });
@@ -611,7 +620,9 @@ function importGoModules(code: CodeMaker, modules: readonly ImportedModule[]) {
   }
 
   function isBuiltIn(mod: ImportedModule): boolean {
-    return !mod.module.includes('/');
+    // Standard library modules don't have any "." in their path, whereas any
+    // other module has a DNS portion in them, which must include a ".".
+    return !mod.module.includes('.');
   }
 
   function isSpecial(mod: ImportedModule): boolean {

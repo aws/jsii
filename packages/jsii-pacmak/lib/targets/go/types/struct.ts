@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import { CodeMaker } from 'codemaker';
 import { InterfaceType } from 'jsii-reflect';
 
+import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
@@ -13,10 +14,6 @@ import { GoProperty } from './type-member';
  * Struct wraps a JSII datatype interface aka, structs
  */
 export class Struct extends GoType {
-  public readonly usesRuntimePackage = false;
-  public readonly usesInitPackage = false;
-  public readonly usesInternalPackage = false;
-
   private readonly properties: readonly GoProperty[];
 
   public constructor(parent: Package, public readonly type: InterfaceType) {
@@ -34,6 +31,15 @@ export class Struct extends GoType {
 
   public get dependencies(): Package[] {
     return getMemberDependencies(this.properties);
+  }
+
+  public get specialDependencies(): SpecialDependencies {
+    return {
+      runtime: false,
+      init: false,
+      internal: false,
+      time: this.properties.some((prop) => prop.specialDependencies.time),
+    };
   }
 
   public emit(context: EmitContext): void {

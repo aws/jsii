@@ -11,7 +11,7 @@ type TwoOverrides struct {
 
 func New() *TwoOverrides {
 	t := &TwoOverrides{}
-	t.AsyncVirtualMethods = t
+	jsiicalc.NewAsyncVirtualMethods_Override(t)
 	return t
 }
 

@@ -59,9 +59,9 @@ reserved words in an identifier.
 
     [report bugs]: https://github.com/aws/jsii/issues/new/choose
 
-#### `--strip-dependencies`
+#### `--strip-deprecated`
 
-The `--strip-dependencies` option modifies the compilation flow such that all
+The `--strip-deprecated` option modifies the compilation flow such that all
 declarations (types, members) documented with the `@deprecated` tag will be
 erased from the visible API of the module:
 

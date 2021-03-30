@@ -11,7 +11,7 @@ type OverrideAsyncMethods struct {
 
 func New() *OverrideAsyncMethods {
 	o := &OverrideAsyncMethods{}
-	o.AsyncVirtualMethods = o
+	jsiicalc.NewAsyncVirtualMethods_Override(o)
 	return o
 }
 
@@ -29,6 +29,6 @@ type OverrideAsyncMethodsByBaseClass struct {
 
 func NewOverrideAsyncMethodsByBaseClass() *OverrideAsyncMethodsByBaseClass {
 	o := &OverrideAsyncMethodsByBaseClass{}
-	o.AsyncVirtualMethods = o
+	o.AsyncVirtualMethods = New()
 	return o
 }

@@ -16,7 +16,7 @@ type SyncOverrides struct {
 
 func New() *SyncOverrides {
 	s := &SyncOverrides{Multiplier: 1}
-	s.SyncVirtualMethods = s
+	jsiicalc.NewSyncVirtualMethods_Override(s)
 	return s
 }
 

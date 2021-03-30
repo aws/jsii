@@ -39,7 +39,7 @@
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^26.0.21",
     "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^10.17.55",
     "@types/tar": "^4.0.4",
@@ -49,7 +49,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
-    "ts-jest": "^26.5.3",
+    "ts-jest": "^26.5.4",
     "typescript": "~3.9.9"
   }
 }

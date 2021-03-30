@@ -64,6 +64,15 @@ func (t *TypeRegistry) StructFields(typ reflect.Type) (fields []reflect.StructFi
 	return
 }
 
+// FindType returns the registered type corresponding to the provided jsii FQN.
+func (t *TypeRegistry) FindType(fqn api.FQN) (typ reflect.Type, ok bool) {
+	var reg registeredType
+	if reg, ok = t.fqnToType[fqn]; ok {
+		typ = reg.Type
+	}
+	return
+}
+
 // InitJsiiProxy initializes a jsii proxy value at the provided pointer. It
 // returns an error if the pointer does not have a value of a registered
 // proxyable type (that is, a class or interface type).
