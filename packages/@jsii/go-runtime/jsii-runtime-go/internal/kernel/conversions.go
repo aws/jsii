@@ -7,6 +7,10 @@ import (
 	"github.com/aws/jsii-runtime-go/internal/api"
 )
 
+var (
+	anyType = reflect.TypeOf((*interface{})(nil)).Elem()
+)
+
 // CastAndSetToPtr accepts a pointer to any type and attempts to cast the value
 // argument to be the same type. Then it sets the value of the pointer element
 // to be the newly cast data. This is used to cast payloads from JSII to
@@ -98,15 +102,21 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 	}
 
 	// arrays
-	if ptr.Kind() == reflect.Slice && data.Kind() == reflect.Slice {
+	if data.Kind() == reflect.Slice {
 		len := data.Len()
-		ptr.Set(reflect.MakeSlice(ptr.Type(), len, len))
+		var slice reflect.Value
+		if ptr.Kind() == reflect.Slice {
+			slice = reflect.MakeSlice(ptr.Type(), len, len)
+		} else {
+			slice = reflect.MakeSlice(reflect.SliceOf(anyType), len, len)
+		}
 
 		// If return type is a slice, recursively cast elements
 		for i := 0; i < len; i++ {
-			c.castAndSetToPtr(ptr.Index(i), data.Index(i))
+			c.castAndSetToPtr(slice.Index(i), data.Index(i))
 		}
 
+		ptr.Set(slice)
 		return
 	}
 
@@ -186,7 +196,7 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 	case reflect.Slice:
 		refs := make([]interface{}, dataVal.Len())
 		for i := 0; i < dataVal.Len(); i++ {
-			refs[i] = dataVal.Index(i).Interface()
+			refs[i] = c.CastPtrToRef(dataVal.Index(i))
 		}
 		return refs
 
@@ -307,7 +317,6 @@ func (c *Client) castValToMap(data reflect.Value, mapType reflect.Type) (m refle
 	if mapType.Kind() == reflect.Map && mapType.Key().Kind() != reflect.String {
 		return
 	}
-	anyType := reflect.TypeOf((*interface{})(nil)).Elem()
 	if mapType == anyType {
 		mapType = reflect.TypeOf((map[string]interface{})(nil))
 	}
