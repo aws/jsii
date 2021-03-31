@@ -370,7 +370,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": { ""summary"": ""hello"" }
 }";
 
-                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json)!;
 
                 Assert.Equal("jsii/0.9.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
@@ -406,7 +406,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {""summary"": ""hello""}
 }";
 
-                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json)!;
 
                 Assert.Equal("jsii/0.9.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
@@ -454,7 +454,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {""summary"": ""hello""}
 }";
 
-                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json)!;
 
                 Assert.Equal("jsii/0.9.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
@@ -599,7 +599,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json)!;
                 Assert.Null(actual.Dependencies);
             }
 
@@ -633,7 +633,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": {}
 }";
 
-                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json)!;
                 Assert.Null(actual.Bundled);
             }
 
@@ -667,7 +667,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""bundled"": {}
 }";
 
-                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json)!;
                 Assert.Null(actual.Docs);
             }
         }

@@ -10,7 +10,9 @@ namespace Amazon.JSII.Runtime.Deputy
         public JsiiPropertyAttribute(string name, string typeJson, bool isOptional = false, bool isOverride = false)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Type = JsonConvert.DeserializeObject<TypeReference>(typeJson ?? throw new ArgumentNullException(nameof(typeJson)));
+            Type = JsonConvert.DeserializeObject<TypeReference>(typeJson ??
+                                                                throw new ArgumentNullException(nameof(typeJson)))
+                   ?? throw new ArgumentException("Invalid JSON descriptor", nameof(typeJson));
             IsOptional = isOptional;
             IsOverride = isOverride;
         }
@@ -20,7 +22,7 @@ namespace Amazon.JSII.Runtime.Deputy
         public TypeReference Type { get; }
 
         public bool IsOptional { get; }
-        
+
         public bool IsOverride { get; }
     }
 }

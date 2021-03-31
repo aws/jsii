@@ -20,7 +20,8 @@ namespace Amazon.JSII.Runtime.Deputy
                 : JsonConvert.DeserializeObject<OptionalValue>(returnsJson);
             Parameters = parametersJson == null
                 ? Array.Empty<Parameter>()
-                : JsonConvert.DeserializeObject<Parameter[]>(parametersJson);
+                : JsonConvert.DeserializeObject<Parameter[]>(parametersJson)
+                  ?? throw new ArgumentException("Invalid JSON descriptor", nameof(parametersJson));
             IsAsync = isAsync;
             IsOverride = isOverride;
         }
@@ -31,9 +32,9 @@ namespace Amazon.JSII.Runtime.Deputy
 
         public Parameter[] Parameters { get; }
 
-        
+
         public bool IsAsync { get; }
-        
+
         public bool IsOverride { get; }
     }
 }

@@ -61,7 +61,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""docs"": { ""summary"": ""hello"" }
 }";
 
-                EnumMember actual = JsonConvert.DeserializeObject<EnumMember>(json);
+                EnumMember actual = JsonConvert.DeserializeObject<EnumMember>(json)!;
 
                 Assert.Equal("myName", actual?.Name, ignoreLineEndingDifferences: true);
                 Assert.Equal("hello", actual?.Docs?.Summary);
@@ -84,7 +84,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""name"": ""myName""
 }";
 
-                EnumMember actual = JsonConvert.DeserializeObject<EnumMember>(json);
+                EnumMember actual = JsonConvert.DeserializeObject<EnumMember>(json)!;
 
                 Assert.Null(actual.Docs);
             }
