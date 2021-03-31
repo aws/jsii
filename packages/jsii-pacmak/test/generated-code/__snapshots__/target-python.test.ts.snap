@@ -1566,7 +1566,7 @@ class MyFirstStruct:
         *,
         anumber: jsii.Number,
         astring: builtins.str,
-        first_optional: typing.Optional[typing.List[builtins.str]] = None,
+        first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> None:
         '''(deprecated) This is the first struct we have created in jsii.
 
@@ -3309,7 +3309,7 @@ class ClassWithCollections(
     def __init__(
         self,
         map: typing.Mapping[builtins.str, builtins.str],
-        array: typing.List[builtins.str],
+        array: typing.Sequence[builtins.str],
     ) -> None:
         '''
         :param map: -
@@ -3466,7 +3466,7 @@ class ConfusingToJacksonStruct:
     def __init__(
         self,
         *,
-        union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]] = None,
+        union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.Sequence[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]] = None,
     ) -> None:
         '''
         :param union_property: 
@@ -3704,7 +3704,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         *,
         anumber: jsii.Number,
         astring: builtins.str,
-        first_optional: typing.Optional[typing.List[builtins.str]] = None,
+        first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> builtins.str:
         '''
         :param anumber: (deprecated) An awesome number value.
@@ -3945,13 +3945,13 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
         *,
         anumber: jsii.Number,
         astring: builtins.str,
-        first_optional: typing.Optional[typing.List[builtins.str]] = None,
+        first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
         another_required: datetime.datetime,
         bool: builtins.bool,
         non_primitive: "DoubleTrouble",
         another_optional: typing.Optional[typing.Mapping[builtins.str, scope.jsii_calc_lib.NumericValue]] = None,
         optional_any: typing.Any = None,
-        optional_array: typing.Optional[typing.List[builtins.str]] = None,
+        optional_array: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> None:
         '''A struct which derives from another struct.
 
@@ -4948,10 +4948,10 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         non_primitive: "DoubleTrouble",
         another_optional: typing.Optional[typing.Mapping[builtins.str, scope.jsii_calc_lib.NumericValue]] = None,
         optional_any: typing.Any = None,
-        optional_array: typing.Optional[typing.List[builtins.str]] = None,
+        optional_array: typing.Optional[typing.Sequence[builtins.str]] = None,
         anumber: jsii.Number,
         astring: builtins.str,
-        first_optional: typing.Optional[typing.List[builtins.str]] = None,
+        first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> scope.jsii_calc_lib.MyFirstStruct:
         '''Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 
@@ -4988,10 +4988,10 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         non_primitive: "DoubleTrouble",
         another_optional: typing.Optional[typing.Mapping[builtins.str, scope.jsii_calc_lib.NumericValue]] = None,
         optional_any: typing.Any = None,
-        optional_array: typing.Optional[typing.List[builtins.str]] = None,
+        optional_array: typing.Optional[typing.Sequence[builtins.str]] = None,
         anumber: jsii.Number,
         astring: builtins.str,
-        first_optional: typing.Optional[typing.List[builtins.str]] = None,
+        first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> "DoubleTrouble":
         '''Returns the boolean from a DerivedStruct struct.
 
@@ -5025,7 +5025,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         *,
         anumber: jsii.Number,
         astring: builtins.str,
-        first_optional: typing.Optional[typing.List[builtins.str]] = None,
+        first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> jsii.Number:
         '''Returns the "anumber" from a MyFirstStruct struct;
 
@@ -7173,7 +7173,7 @@ class NullShouldBeTreatedAsUndefined(
     def give_me_undefined_inside_an_object(
         self,
         *,
-        array_with_three_elements_and_undefined_as_second_argument: typing.List[typing.Any],
+        array_with_three_elements_and_undefined_as_second_argument: typing.Sequence[typing.Any],
         this_should_be_undefined: typing.Any = None,
     ) -> None:
         '''
@@ -7213,7 +7213,7 @@ class NullShouldBeTreatedAsUndefinedData:
     def __init__(
         self,
         *,
-        array_with_three_elements_and_undefined_as_second_argument: typing.List[typing.Any],
+        array_with_three_elements_and_undefined_as_second_argument: typing.Sequence[typing.Any],
         this_should_be_undefined: typing.Any = None,
     ) -> None:
         '''
@@ -7293,7 +7293,7 @@ class ObjectRefsInCollections(
     @jsii.member(jsii_name="sumFromArray")
     def sum_from_array(
         self,
-        values: typing.List[scope.jsii_calc_lib.NumericValue],
+        values: typing.Sequence[scope.jsii_calc_lib.NumericValue],
     ) -> jsii.Number:
         '''Returns the sum of all values.
 
@@ -10630,7 +10630,7 @@ class MyClass(
         return typing.cast(None, jsii.invoke(self, "bar", [_bar]))
 
     @jsii.member(jsii_name="foo")
-    def foo(self, _values: typing.List[scope.jsii_calc_lib.Number]) -> None:
+    def foo(self, _values: typing.Sequence[scope.jsii_calc_lib.Number]) -> None:
         '''
         :param _values: -
         '''
@@ -10750,7 +10750,7 @@ class MyStruct:
         self,
         *,
         base_map: typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps],
-        numbers: typing.List[scope.jsii_calc_lib.Number],
+        numbers: typing.Sequence[scope.jsii_calc_lib.Number],
     ) -> None:
         '''
         :param base_map: 
