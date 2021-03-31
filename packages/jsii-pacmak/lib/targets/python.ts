@@ -1606,6 +1606,8 @@ class PythonModule implements PythonType {
         code.line(`${member},`);
       }
       code.unindent(']');
+    } else {
+      code.line('__all__: List[typing.Any] = []');
     }
 
     // Finally, we'll use publication to ensure that all of the non-public names

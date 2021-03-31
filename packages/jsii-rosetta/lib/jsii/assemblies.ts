@@ -68,6 +68,18 @@ export function allSnippetSources(
     });
   }
 
+  for (const [submoduleFqn, submodule] of Object.entries(
+    assembly.submodules ?? {},
+  )) {
+    if (submodule.readme) {
+      ret.push({
+        type: 'markdown',
+        markdown: submodule.readme.markdown,
+        where: removeSlashes(`${submoduleFqn}-README`),
+      });
+    }
+  }
+
   if (assembly.types) {
     Object.values(assembly.types).forEach((type) => {
       emitDocs(type.docs, `${assembly.name}.${type.name}`);
