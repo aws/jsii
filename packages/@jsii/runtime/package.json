@@ -25,7 +25,8 @@
     "jsii-runtime": "bin/jsii-runtime"
   },
   "scripts": {
-    "build": "tsc --build && chmod +x bin/jsii-runtime && npx webpack-cli && npm run lint",
+    "build": "tsc --build && chmod +x bin/jsii-runtime && npm run lint && npm run bundle",
+    "bundle": "ts-node build-tools/bundle.ts",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
     "lint:fix": "yarn lint --fix",
@@ -35,13 +36,15 @@
   },
   "dependencies": {
     "@jsii/kernel": "^0.0.0",
-    "@jsii/spec": "^0.0.0"
+    "@jsii/spec": "^0.0.0",
+    "tslib": "^2.1.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/jest": "^26.0.21",
     "@types/node": "^10.17.55",
+    "esbuild": "^0.11.2",
     "eslint": "^7.22.0",
     "jest": "^26.6.3",
     "jsii-build-tools": "^0.0.0",
@@ -49,8 +52,6 @@
     "prettier": "^2.2.1",
     "source-map-loader": "^2.0.1",
     "ts-jest": "^26.5.4",
-    "typescript": "~3.9.9",
-    "webpack": "^5.28.0",
-    "webpack-cli": "^4.5.0"
+    "typescript": "~4.2.3"
   }
 }

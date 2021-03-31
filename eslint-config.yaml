@@ -159,7 +159,9 @@ rules:
 
   'import/no-extraneous-dependencies':
     - error
-    - devDependencies: ['**/test/**'] # Only allow importing devDependencies from tests
+    - devDependencies:
+        - '**/test/**' # Allow importing devDependencies from tests
+        - '**/build-tools/**' # Allow importing devDependencies from build tools
       optionalDependencies: false # Disallow importing optional dependencies (those shouldn't be used here)
       peerDependencies: false # Disallow importing peer dependencies (those shouldn't be used here)
 

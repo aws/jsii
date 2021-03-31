@@ -2209,7 +2209,7 @@ async function preparePackage(module: string, useCache = true) {
   }
 
   const packageRoot = findPackageRoot(module);
-  await new Promise((ok, ko) => {
+  await new Promise<void>((ok, ko) => {
     const child = childProcess.spawn('npm', ['pack', packageRoot], {
       cwd: staging,
       shell: true,

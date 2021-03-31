@@ -11,3 +11,6 @@ tsconfig.json
 *.tsbuildinfo
 
 test/_tarballs/
+
+# Don't include build tools
+build-tools/
