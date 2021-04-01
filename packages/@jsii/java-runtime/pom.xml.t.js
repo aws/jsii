@@ -46,12 +46,8 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     </developers>
 
     <scm>
-        <connection>scm:${packageInfo.repository.type}:${
-  packageInfo.repository.url
-}</connection>
-        <developerConnection>scm:${packageInfo.repository.type}:${
-  packageInfo.repository.url
-}</developerConnection>
+        <connection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</connection>
+        <developerConnection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</developerConnection>
         <url>${packageInfo.repository.url}</url>
         <tag>v${packageInfo.version}</tag>
     </scm>
