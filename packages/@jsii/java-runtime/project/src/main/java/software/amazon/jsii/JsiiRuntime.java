@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.Nullable;
-import org.zeroturnaround.exec.ProcessExecutor;
-import org.zeroturnaround.exec.StartedProcess;
-import org.zeroturnaround.exec.stream.LogOutputStream;
 import software.amazon.jsii.api.Callback;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -16,7 +13,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.channels.Channels;
-import java.nio.channels.Pipe;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,7 +44,7 @@ public final class JsiiRuntime {
     /**
      * The child procesds.
      */
-    private StartedProcess childProcess;
+    private Process childProcess;
 
     /**
      * Child's standard output.
@@ -59,6 +55,11 @@ public final class JsiiRuntime {
      * Child's standard input.
      */
     private Writer stdin;
+
+    /**
+     * The error stream sink for the child process.
+     */
+    private ErrorStreamSink errorStreamSink;
 
     /**
      * Handler for synchronous callbacks. Must be set using setCallbackHandler.
@@ -72,6 +73,7 @@ public final class JsiiRuntime {
 
     /**
      * The main API of this class. Sends a JSON request to jsii-runtime and returns the JSON response.
+     *
      * @param request The JSON request
      * @return The JSON response
      * @throws JsiiException If the runtime returns an error response.
@@ -109,6 +111,7 @@ public final class JsiiRuntime {
     /**
      * Handles an "error" response by extracting the message and stack trace
      * and throwing a JsiiException.
+     *
      * @param resp The response
      * @return Never
      */
@@ -124,6 +127,7 @@ public final class JsiiRuntime {
     /**
      * Processes a "callback" response, which is a request to invoke a synchronous callback
      * and send back the result.
+     *
      * @param resp The response.
      * @return The next response in the req/res chain.
      */
@@ -164,6 +168,7 @@ public final class JsiiRuntime {
 
     /**
      * Sets the handler for sync callbacks.
+     *
      * @param callbackHandler The handler.
      */
     public void setCallbackHandler(final JsiiCallbackHandler callbackHandler) {
@@ -192,21 +197,6 @@ public final class JsiiRuntime {
             }
         }
 
-        if (childProcess != null) {
-            // Wait for the child process to complete
-            try {
-                // Giving the process up to 5 seconds to clean up and exit
-                if (!childProcess.getProcess().waitFor(5, TimeUnit.SECONDS)) {
-                    // If it's still not done, forcibly terminate it at this point.
-                    childProcess.getProcess().destroyForcibly();
-                }
-            } catch (final InterruptedException ie) {
-                throw new RuntimeException(ie);
-            } finally {
-                childProcess = null;
-            }
-        }
-
         // Cleaning up stdout (ensuring buffers are flushed, etc...)
         if (stdout != null) {
             try {
@@ -215,6 +205,32 @@ public final class JsiiRuntime {
                 // Ignore - the stream might have already been closed.
             } finally {
                 stdout = null;
+            }
+        }
+
+        // Cleaning up error stream sink (ensuring all messages are flushed, etc...)
+        if (this.errorStreamSink != null) {
+            try {
+                this.errorStreamSink.close();
+            } catch (final InterruptedException ie) {
+                // Ignore - we can no longer do anything about this...
+            } finally {
+                this.errorStreamSink = null;
+            }
+        }
+
+        if (childProcess != null) {
+            // Wait for the child process to complete
+            try {
+                // Giving the process up to 5 seconds to clean up and exit
+                if (!childProcess.waitFor(5, TimeUnit.SECONDS)) {
+                    // If it's still not done, forcibly terminate it at this point.
+                    childProcess.destroyForcibly();
+                }
+            } catch (final InterruptedException ie) {
+                throw new RuntimeException(ie);
+            } finally {
+                childProcess = null;
             }
         }
 
@@ -257,20 +273,21 @@ public final class JsiiRuntime {
         }
 
         try {
-            final Pipe stdin = Pipe.open();
-            this.stdin = Channels.newWriter(stdin.sink(), StandardCharsets.UTF_8.newEncoder(), -1);
+            final ProcessBuilder pb = new ProcessBuilder()
+                    .command(jsiiRuntimeCommand)
+                    .redirectError(ProcessBuilder.Redirect.PIPE)
+                    .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                    .redirectInput(ProcessBuilder.Redirect.PIPE);
+            pb.environment().put("JSII_AGENT", String.format("Java/%s", System.getProperty("java.version")));
+            pb.environment().put("JSII_DEBUG", jsiiDebug);
 
-            final Pipe stdout = Pipe.open();
-            this.stdout = new BufferedReader(Channels.newReader(stdout.source(), StandardCharsets.UTF_8.newDecoder(), -1));
+            this.childProcess = pb.start();
 
-            final ProcessExecutor executor = new ProcessExecutor(jsiiRuntimeCommand)
-                    .environment("JSII_AGENT", String.format("Java/%s", System.getProperty("java.version")))
-                    .environment("JSII_DEBUG", jsiiDebug)
-                    .redirectInput(Channels.newInputStream(stdin.source()))
-                    .redirectOutput(Channels.newOutputStream(stdout.sink()))
-                    .redirectError(new ErrorStreamSink());
+            this.stdin = Channels.newWriter(Channels.newChannel(this.childProcess.getOutputStream()), StandardCharsets.UTF_8.newEncoder(), -1);
+            this.stdout = new BufferedReader(Channels.newReader(Channels.newChannel(this.childProcess.getInputStream()), StandardCharsets.UTF_8.newDecoder(), -1));
 
-            this.childProcess = executor.start();
+            this.errorStreamSink = new ErrorStreamSink(this.childProcess.getErrorStream());
+            this.errorStreamSink.start();
         } catch (final IOException ioe) {
             throw new UncheckedIOException(ioe);
         }
@@ -300,6 +317,7 @@ public final class JsiiRuntime {
 
     /**
      * Reads the next response from STDOUT of the child process.
+     *
      * @return The parsed JSON response.
      * @throws JsiiException if we couldn't parse the response.
      */
@@ -319,6 +337,7 @@ public final class JsiiRuntime {
 
     /**
      * This will return the server process in case it is not already started.
+     *
      * @return A {@link JsiiClient} connected to the server process.
      */
     public JsiiClient getClient() {
@@ -335,7 +354,6 @@ public final class JsiiRuntime {
      *
      * @param expectedVersion The version this client expects from the runtime
      * @param actualVersion   The actual version the runtime reports
-     *
      * @throws JsiiException if versions mismatch
      */
     static void assertVersionCompatible(final String expectedVersion, final String actualVersion) {
@@ -356,10 +374,54 @@ public final class JsiiRuntime {
         inspector.inspect(message, type);
     }
 
-    private static final class ErrorStreamSink extends LogOutputStream {
+    /**
+     * This {@link Thread} takes the standard error output from a child process and handles it correctly as per the jsii
+     * runtime protocol. It is implemented in such a way that it is interruptible, drawing inspiration from how it's
+     * done at zt-exec (so credits to ZeroTurnaround & contributors).
+     *
+     * @see <a href="https://github.com/zeroturnaround/zt-exec/blob/master/src/main/java/org/zeroturnaround/exec/stream/InputStreamPumper.java">zt-exec</a>
+     */
+    private static final class ErrorStreamSink extends Thread {
         private final ObjectMapper objectMapper = new ObjectMapper();
+        private final InputStream inputStream;
+        private final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        private boolean stop = false;
 
-        public void processLine(final String line) {
+        public ErrorStreamSink(final InputStream inputStream) {
+            this.inputStream = inputStream;
+            this.setDaemon(true);
+            this.setName(this.getClass().getCanonicalName());
+            this.setUncaughtExceptionHandler((thread, throwable) -> {
+                System.err.printf("Unexpected error in background thread \"%s\": %s%n", thread.getName(), throwable);
+            });
+        }
+
+        public void run() {
+            try {
+                while (this.inputStream.available() > 0 && !this.stop) {
+                    final int read = this.inputStream.read();
+                    this.buffer.write(read);
+                    if (read == '\n') {
+                        processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
+                        buffer.reset();
+                    }
+                    // Short interruptible sleep, so we can be stopped by a signal... This is a bit ugly (busy-waiting)
+                    // but is in fact the only way to be reliably interruptible with the InputStream API.
+                    Thread.sleep(100);
+                }
+            } catch (final IOException ioe) {
+                throw new UncheckedIOException(ioe);
+            } catch (final InterruptedException ie) {
+                // Ignore - simply exit right away.
+            }
+        }
+
+        public void close() throws InterruptedException {
+            this.stop = true;
+            this.wait();
+        }
+
+        private void processLine(final String line) {
             try {
                 final JsonNode tree = objectMapper.readTree(line);
                 final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
