@@ -279,12 +279,14 @@ public final class JsiiRuntime {
                     .redirectOutput(ProcessBuilder.Redirect.PIPE)
                     .redirectInput(ProcessBuilder.Redirect.PIPE);
             pb.environment().put("JSII_AGENT", String.format("Java/%s", System.getProperty("java.version")));
-            pb.environment().put("JSII_DEBUG", jsiiDebug);
+            if (jsiiDebug != null) {
+                pb.environment().put("JSII_DEBUG", jsiiDebug);
+            }
 
             this.childProcess = pb.start();
 
-            this.stdin = Channels.newWriter(Channels.newChannel(this.childProcess.getOutputStream()), StandardCharsets.UTF_8.newEncoder(), -1);
-            this.stdout = new BufferedReader(Channels.newReader(Channels.newChannel(this.childProcess.getInputStream()), StandardCharsets.UTF_8.newDecoder(), -1));
+            this.stdin = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);
+            this.stdout = new BufferedReader(new InputStreamReader(this.childProcess.getInputStream(), StandardCharsets.UTF_8));
 
             this.errorStreamSink = new ErrorStreamSink(this.childProcess.getErrorStream());
             this.errorStreamSink.start();
@@ -398,12 +400,14 @@ public final class JsiiRuntime {
 
         public void run() {
             try {
-                while (this.inputStream.available() > 0 && !this.stop) {
-                    final int read = this.inputStream.read();
-                    this.buffer.write(read);
-                    if (read == '\n') {
-                        processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
-                        buffer.reset();
+                while (!this.stop) {
+                    while (this.inputStream.available() > 0) {
+                        final int read = this.inputStream.read();
+                        this.buffer.write(read);
+                        if (read == '\n') {
+                            processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
+                            buffer.reset();
+                        }
                     }
                     // Short interruptible sleep, so we can be stopped by a signal... This is a bit ugly (busy-waiting)
                     // but is in fact the only way to be reliably interruptible with the InputStream API.
@@ -418,7 +422,7 @@ public final class JsiiRuntime {
 
         public void close() throws InterruptedException {
             this.stop = true;
-            this.wait();
+            this.join();
         }
 
         private void processLine(final String line) {
