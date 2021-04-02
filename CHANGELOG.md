@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.27.0](https://github.com/aws/jsii/compare/v1.26.0...v1.27.0) (2021-04-02)
+
+
+### Features
+
+* **go:** variadic type helpers to build slices ([#2755](https://github.com/aws/jsii/issues/2755)) ([16b6546](https://github.com/aws/jsii/commit/16b65468c27bf6569a35042279fadb2d5cc4c715))
+* **superchain:** also build a superchain image with Node 14 ([#2741](https://github.com/aws/jsii/issues/2741)) ([6364d51](https://github.com/aws/jsii/commit/6364d514edc1904aab5e0e9037a6025c9b335043))
+
+
+### Bug Fixes
+
+* **go:** dates are mistreated as strings ([#2730](https://github.com/aws/jsii/issues/2730)) ([2ba2ec4](https://github.com/aws/jsii/commit/2ba2ec47af1b3007844c00bd44aa81ccc7729040)), closes [#2659](https://github.com/aws/jsii/issues/2659)
+* **go:** missing setter for R/W interface properties ([#2731](https://github.com/aws/jsii/issues/2731)) ([74d0d99](https://github.com/aws/jsii/commit/74d0d9999d6381ef8bec36a45141380f190e26b9)), closes [#2665](https://github.com/aws/jsii/issues/2665)
+* **go:** protected property accessors missing ([#2738](https://github.com/aws/jsii/issues/2738)) ([94c799a](https://github.com/aws/jsii/commit/94c799a93ebedb12f1b7c9ae475eeac98d13a755))
+* **go:** unable to set an array of interfaces/enums ([#2754](https://github.com/aws/jsii/issues/2754)) ([0cd514e](https://github.com/aws/jsii/commit/0cd514e6e61d47116e9dc693916325fefb90c45d)), closes [#2686](https://github.com/aws/jsii/issues/2686)
+* **python:** accept Sequence[T] for array parameters ([#2606](https://github.com/aws/jsii/issues/2606)) ([b09d578](https://github.com/aws/jsii/commit/b09d578464f1b408607bbb9645c65fbb5db318fa)), closes [aws/aws-cdk#13203](https://github.com/aws/aws-cdk/issues/13203)
+* **python:** module import fails with: KeyError: '__all__' ([#2757](https://github.com/aws/jsii/issues/2757)) ([c32a889](https://github.com/aws/jsii/commit/c32a8895bdd7c84bd289ca053d15b97086bb5511)), closes [#2750](https://github.com/aws/jsii/issues/2750)
+* **rosetta:** 'extract' does not translate samples in submodule READMEs ([#2744](https://github.com/aws/jsii/issues/2744)) ([0a3f01f](https://github.com/aws/jsii/commit/0a3f01fa73e94aea4c86adb64450f45340360b92))
+* **superchain:** use entrypoint to set up nvm ([#2736](https://github.com/aws/jsii/issues/2736)) ([0e247b6](https://github.com/aws/jsii/commit/0e247b6d9f432512559fb4642eebce0b1a854859))
+
 ## [1.26.0](https://github.com/aws/jsii/compare/v1.24.0...v1.26.0) (2021-03-22)
 
 
