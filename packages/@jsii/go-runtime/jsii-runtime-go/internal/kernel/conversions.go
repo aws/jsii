@@ -2,8 +2,13 @@ package kernel
 
 import (
 	"reflect"
+	"time"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
+)
+
+var (
+	anyType = reflect.TypeOf((*interface{})(nil)).Elem()
 )
 
 // CastAndSetToPtr accepts a pointer to any type and attempts to cast the value
@@ -97,15 +102,21 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 	}
 
 	// arrays
-	if ptr.Kind() == reflect.Slice && data.Kind() == reflect.Slice {
+	if data.Kind() == reflect.Slice {
 		len := data.Len()
-		ptr.Set(reflect.MakeSlice(ptr.Type(), len, len))
+		var slice reflect.Value
+		if ptr.Kind() == reflect.Slice {
+			slice = reflect.MakeSlice(ptr.Type(), len, len)
+		} else {
+			slice = reflect.MakeSlice(reflect.SliceOf(anyType), len, len)
+		}
 
 		// If return type is a slice, recursively cast elements
 		for i := 0; i < len; i++ {
-			c.castAndSetToPtr(ptr.Index(i), data.Index(i))
+			c.castAndSetToPtr(slice.Index(i), data.Index(i))
 		}
 
+		ptr.Set(slice)
 		return
 	}
 
@@ -124,6 +135,11 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 	}
 	if (dataVal.Kind() == reflect.Interface || dataVal.Kind() == reflect.Ptr) && dataVal.IsNil() {
 		return nil
+	}
+
+	// In case we got a time.Time value (or pointer to one).
+	if wireDate, isDate := castPtrToDate(dataVal); isDate {
+		return wireDate
 	}
 
 	switch dataVal.Kind() {
@@ -180,7 +196,7 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 	case reflect.Slice:
 		refs := make([]interface{}, dataVal.Len())
 		for i := 0; i < dataVal.Len(); i++ {
-			refs[i] = dataVal.Index(i).Interface()
+			refs[i] = c.CastPtrToRef(dataVal.Index(i))
 		}
 		return refs
 
@@ -190,6 +206,24 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 		}
 	}
 	return dataVal.Interface()
+}
+
+// castPtrToDate obtains an api.WireDate from the provided reflect.Value if it
+// represents a time.Time or *time.Time value. It accepts both a pointer and
+// direct value as a convenience (when passing time.Time through an interface{}
+// parameter, having to unwrap it as a pointer is annoying and unneeded).
+func castPtrToDate(data reflect.Value) (wireDate api.WireDate, ok bool) {
+	var timestamp *time.Time
+	if timestamp, ok = data.Interface().(*time.Time); !ok {
+		var val time.Time
+		if val, ok = data.Interface().(time.Time); ok {
+			timestamp = &val
+		}
+	}
+	if ok {
+		wireDate.Timestamp = timestamp.Format(time.RFC3339Nano)
+	}
+	return
 }
 
 func castValToRef(data reflect.Value) (ref api.ObjectRef, ok bool) {
@@ -234,13 +268,14 @@ func castValToRef(data reflect.Value) (ref api.ObjectRef, ok bool) {
 }
 
 // TODO: This should return a time.Time instead
-func castValToDate(data reflect.Value) (date string, ok bool) {
+func castValToDate(data reflect.Value) (date time.Time, ok bool) {
 	if data.Kind() == reflect.Map {
 		for _, k := range data.MapKeys() {
 			v := reflect.ValueOf(data.MapIndex(k).Interface())
 			if k.Kind() == reflect.String && k.String() == "$jsii.date" && v.Kind() == reflect.String {
-				date = v.String()
-				ok = true
+				var err error
+				date, err = time.Parse(time.RFC3339Nano, v.String())
+				ok = (err == nil)
 				break
 			}
 		}
@@ -282,7 +317,6 @@ func (c *Client) castValToMap(data reflect.Value, mapType reflect.Type) (m refle
 	if mapType.Kind() == reflect.Map && mapType.Key().Kind() != reflect.String {
 		return
 	}
-	anyType := reflect.TypeOf((*interface{})(nil)).Elem()
 	if mapType == anyType {
 		mapType = reflect.TypeOf((map[string]interface{})(nil))
 	}

@@ -61,9 +61,7 @@ namespace Amazon.JSII.Runtime.Services
             _logger.LogDebug($"{startInfo.FileName} {startInfo.Arguments}");
 
             // Registering shutdown hook to have JS process gracefully terminate.
-            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
-                ((IDisposable)this).Dispose();
-            };
+            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => { ((IDisposable) this).Dispose(); };
 
             _process = Process.Start(startInfo);
 
@@ -78,7 +76,6 @@ namespace Amazon.JSII.Runtime.Services
 
             void StderrSink()
             {
-
                 string? line;
                 using (var standardError = _process.StandardError)
                 using (Stream stderr = Console.OpenStandardError())
@@ -86,13 +83,16 @@ namespace Amazon.JSII.Runtime.Services
                 {
                     while ((line = standardError.ReadLine()) != null)
                     {
-                        try {
-                            var entry = JsonConvert.DeserializeObject<ConsoleEntry>(line);
+                        try
+                        {
+                            var entry = JsonConvert.DeserializeObject<ConsoleEntry>(line)
+                                        ?? throw new Exception("Invalid JSON message");
                             if (entry.Stderr != null)
                             {
                                 byte[] buffer = Convert.FromBase64String(entry.Stderr);
                                 stderr.Write(buffer, 0, buffer.Length);
                             }
+
                             if (entry.Stdout != null)
                             {
                                 byte[] buffer = Convert.FromBase64String(entry.Stdout);
@@ -125,7 +125,8 @@ namespace Amazon.JSII.Runtime.Services
                 if (!_process.HasExited)
                 {
                     // Write "exit" message
-                    StandardInput.WriteLine("{\"exit\":0}");;
+                    StandardInput.WriteLine("{\"exit\":0}");
+                    ;
                 }
 
                 StandardInput.Dispose();
@@ -137,7 +138,8 @@ namespace Amazon.JSII.Runtime.Services
                 try
                 {
                     // Give the kernel 5 seconds to clean up after itself
-                    if (!_process.WaitForExit(5_000)) {
+                    if (!_process.WaitForExit(5_000))
+                    {
                         // Kill the child process if needed
                         _process.Kill();
                     }
@@ -165,8 +167,10 @@ namespace Amazon.JSII.Runtime.Services
         private static Tuple<string, string> GetAssemblyFileVersion()
         {
             var assembly = typeof(NodeProcess).GetTypeInfo().Assembly;
-            var assemblyFileVersionAttribute = assembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute)) as AssemblyFileVersionAttribute;
-            var frameworkAttribute = assembly.GetCustomAttribute(typeof(TargetFrameworkAttribute)) as TargetFrameworkAttribute;
+            var assemblyFileVersionAttribute =
+                assembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute)) as AssemblyFileVersionAttribute;
+            var frameworkAttribute =
+                assembly.GetCustomAttribute(typeof(TargetFrameworkAttribute)) as TargetFrameworkAttribute;
             return new Tuple<string, string>(
                 frameworkAttribute?.FrameworkName ?? "Unknown",
                 assemblyFileVersionAttribute?.Version ?? "Unknown"
@@ -177,6 +181,6 @@ namespace Amazon.JSII.Runtime.Services
         {
             public string? Stderr { get; set; }
             public string? Stdout { get; set; }
-    }
+        }
     }
 }

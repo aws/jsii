@@ -50,7 +50,7 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
   ""custom"": { ""custtag"": ""custval"" }
 }";
 
-                Docs actual = JsonConvert.DeserializeObject<Docs>(json);
+                Docs actual = JsonConvert.DeserializeObject<Docs>(json)!;
 
                 Assert.Equal("summary", actual.Summary);
                 Assert.Equal("remarks", actual.Remarks);

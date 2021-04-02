@@ -83,29 +83,20 @@ RUN amazon-linux-extras install docker                                          
   && yum clean all && rm -rf /var/cache/yum
 VOLUME /var/lib/docker
 
-# Install Node using NVM (Node Version Manager) so we can have multiple Node versions installed and easily switch
-# between them. $NVM_USE_VERSION becomes a global variable the container responds to to pick a Node version on startup,
-# if set.
-ENV NVM_DIR /usr/local/nvm
+# Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx')
+# (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
+# for most of the multiple builds).
+ARG NODE_MAJOR_VERSION=10
 
-RUN mkdir -p $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash -              \
-  && echo 'source "$NVM_DIR/nvm.sh"' >> $HOME/.bash_profile                                                             \
-  && echo '[[ -z "$NVM_USE_VERSION" ]] || nvm use "$NVM_USE_VERSION"' >> $HOME/.bash_profile
-
-# Because we wrote things to .bash_profile, make the default shell a login shell so it gets sourced.
-# Also set BASH_ENV to make bash source this EVEN if it's not a login shell (later on when the container
-# gets executed)
-SHELL [ "/bin/bash", "--login", "-c" ]
-ENV BASH_ENV /root/.bash_profile
-
-# Source NVM into this shell and install Node 10 and 14. First installed version (10) becomes default.
-RUN nvm install 10                                                                                                     \
-  && nvm install 14                                                                                                    \
+RUN curl -sL https://rpm.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash -                                                \
+  && yum -y install nodejs                                                                                              \
+  && yum clean all && rm -rf /var/cache/yum                                                                             \
   && npm set unsafe-perm true
 
-# Can't install Yarn using yum anymore now that we're using nvm, so install it using NPM
-RUN nvm exec 10 npm install -g yarn                                                                                    \
-  && nvm exec 14 npm install -g yarn
+# Install Yarn
+RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo                                     \
+  && yum -y install yarn                                                                                                \
+  && yum clean all && rm -rf /var/cache/yum
 
 # Install some configuration
 COPY ssh_config /root/.ssh/config
@@ -126,4 +117,4 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
-CMD ["/bin/bash", "--login"]
+CMD ["/bin/bash"]

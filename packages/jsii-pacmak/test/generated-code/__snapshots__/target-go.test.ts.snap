@@ -2842,6 +2842,8 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc.go 1`] = 
 package jsiicalc
 
 import (
+	"time"
+
 	_jsii_ "github.com/aws/jsii-runtime-go"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
@@ -3030,6 +3032,7 @@ func (a *jsiiProxy_AbstractClassReturner) GiveMeInterface() IInterfaceImplemente
 // Ensures abstract members implementations correctly register overrides in various languages.
 type AbstractSuite interface {
 	Property() *string
+	SetProperty(val *string)
 	SomeMethod(str *string) *string
 	WorkItAll(seed *string) *string
 }
@@ -3225,8 +3228,8 @@ type AllTypes interface {
 	SetArrayProperty(val *[]*string)
 	BooleanProperty() *bool
 	SetBooleanProperty(val *bool)
-	DateProperty() *string
-	SetDateProperty(val *string)
+	DateProperty() *time.Time
+	SetDateProperty(val *time.Time)
 	EnumProperty() AllTypesEnum
 	SetEnumProperty(val AllTypesEnum)
 	EnumPropertyValue() *float64
@@ -3312,8 +3315,8 @@ func (j *jsiiProxy_AllTypes) BooleanProperty() *bool {
 	return returns
 }
 
-func (j *jsiiProxy_AllTypes) DateProperty() *string {
-	var returns *string
+func (j *jsiiProxy_AllTypes) DateProperty() *time.Time {
+	var returns *time.Time
 	_jsii_.Get(
 		j,
 		"dateProperty",
@@ -3517,7 +3520,7 @@ func (j *jsiiProxy_AllTypes) SetBooleanProperty(val *bool) {
 	)
 }
 
-func (j *jsiiProxy_AllTypes) SetDateProperty(val *string) {
+func (j *jsiiProxy_AllTypes) SetDateProperty(val *time.Time) {
 	_jsii_.Set(
 		j,
 		"dateProperty",
@@ -5807,7 +5810,7 @@ func (d *jsiiProxy_Default) PleaseCompile() {
 type DefaultedConstructorArgument interface {
 	Arg1() *float64
 	Arg2() *string
-	Arg3() *string
+	Arg3() *time.Time
 }
 
 // The jsii proxy struct for DefaultedConstructorArgument
@@ -5835,8 +5838,8 @@ func (j *jsiiProxy_DefaultedConstructorArgument) Arg2() *string {
 	return returns
 }
 
-func (j *jsiiProxy_DefaultedConstructorArgument) Arg3() *string {
-	var returns *string
+func (j *jsiiProxy_DefaultedConstructorArgument) Arg3() *time.Time {
+	var returns *time.Time
 	_jsii_.Get(
 		j,
 		"arg3",
@@ -5846,7 +5849,7 @@ func (j *jsiiProxy_DefaultedConstructorArgument) Arg3() *string {
 }
 
 
-func NewDefaultedConstructorArgument(arg1 *float64, arg2 *string, arg3 *string) DefaultedConstructorArgument {
+func NewDefaultedConstructorArgument(arg1 *float64, arg2 *string, arg3 *time.Time) DefaultedConstructorArgument {
 	_init_.Initialize()
 
 	j := jsiiProxy_DefaultedConstructorArgument{}
@@ -5860,7 +5863,7 @@ func NewDefaultedConstructorArgument(arg1 *float64, arg2 *string, arg3 *string) 
 	return &j
 }
 
-func NewDefaultedConstructorArgument_Override(d DefaultedConstructorArgument, arg1 *float64, arg2 *string, arg3 *string) {
+func NewDefaultedConstructorArgument_Override(d DefaultedConstructorArgument, arg1 *float64, arg2 *string, arg3 *time.Time) {
 	_init_.Initialize()
 
 	_jsii_.Create(
@@ -6039,7 +6042,7 @@ type DerivedStruct struct {
 	Astring *string \`json:"astring"\`
 	// Deprecated.
 	FirstOptional *[]*string \`json:"firstOptional"\`
-	AnotherRequired *string \`json:"anotherRequired"\`
+	AnotherRequired *time.Time \`json:"anotherRequired"\`
 	Bool *bool \`json:"bool"\`
 	// An example of a non primitive property.
 	NonPrimitive DoubleTrouble \`json:"nonPrimitive"\`
@@ -6056,7 +6059,7 @@ type DiamondBottom struct {
 	Left *float64 \`json:"left"\`
 	// Deprecated.
 	Right *bool \`json:"right"\`
-	Bottom *string \`json:"bottom"\`
+	Bottom *time.Time \`json:"bottom"\`
 }
 
 type DiamondInheritanceBaseLevelStruct struct {
@@ -7203,6 +7206,7 @@ func (j *jsiiProxy_IAnonymouslyImplementMe) Value() *float64 {
 
 type IAnotherPublicInterface interface {
 	A() *string
+	SetA(a *string)
 }
 
 // The jsii proxy for IAnotherPublicInterface
@@ -7287,6 +7291,8 @@ type IDeprecatedInterface interface {
 	Method()
 	// Deprecated: could be better
 	MutableProperty() *float64
+	// Deprecated: could be better
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IDeprecatedInterface
@@ -7326,6 +7332,8 @@ type IExperimentalInterface interface {
 	Method()
 	// Experimental.
 	MutableProperty() *float64
+	// Experimental.
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IExperimentalInterface
@@ -7362,6 +7370,7 @@ func (j *jsiiProxy_IExperimentalInterface) SetMutableProperty(val *float64) {
 type IExtendsPrivateInterface interface {
 	MoreThings() *[]*string
 	Private() *string
+	SetPrivate(p *string)
 }
 
 // The jsii proxy for IExtendsPrivateInterface
@@ -7400,6 +7409,7 @@ func (j *jsiiProxy_IExtendsPrivateInterface) SetPrivate(val *string) {
 type IExternalInterface interface {
 	Method()
 	MutableProperty() *float64
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IExternalInterface
@@ -7619,6 +7629,7 @@ func (i *jsiiProxy_IInterfaceWithOptionalMethodArguments) Hello(arg1 *string, ar
 type IInterfaceWithProperties interface {
 	ReadOnlyString() *string
 	ReadWriteString() *string
+	SetReadWriteString(r *string)
 }
 
 // The jsii proxy for IInterfaceWithProperties
@@ -7657,6 +7668,7 @@ func (j *jsiiProxy_IInterfaceWithProperties) SetReadWriteString(val *string) {
 type IInterfaceWithPropertiesExtension interface {
 	IInterfaceWithProperties
 	Foo() *float64
+	SetFoo(f *float64)
 }
 
 // The jsii proxy for IInterfaceWithPropertiesExtension
@@ -7774,6 +7786,7 @@ type jsiiProxy_IJsii496 struct {
 
 type IMutableObjectLiteral interface {
 	Value() *string
+	SetValue(v *string)
 }
 
 // The jsii proxy for IMutableObjectLiteral
@@ -7802,7 +7815,9 @@ func (j *jsiiProxy_IMutableObjectLiteral) SetValue(val *string) {
 type INonInternalInterface interface {
 	IAnotherPublicInterface
 	B() *string
+	SetB(b *string)
 	C() *string
+	SetC(c *string)
 }
 
 // The jsii proxy for INonInternalInterface
@@ -7850,6 +7865,7 @@ func (j *jsiiProxy_INonInternalInterface) SetC(val *string) {
 type IObjectWithProperty interface {
 	WasSet() *bool
 	Property() *string
+	SetProperty(p *string)
 }
 
 // The jsii proxy for IObjectWithProperty
@@ -8056,6 +8072,7 @@ func (j *jsiiProxy_IReturnsNumber) NumberProp() scopejsiicalclib.Number {
 type IStableInterface interface {
 	Method()
 	MutableProperty() *float64
+	SetMutableProperty(m *float64)
 }
 
 // The jsii proxy for IStableInterface
@@ -8373,7 +8390,7 @@ func (j *jsiiProxy_ImplementsPrivateInterface) SetPrivate(val *string) {
 type ImplictBaseOfBase struct {
 	Foo scopejsiicalcbaseofbase.Very \`json:"foo"\`
 	Bar *string \`json:"bar"\`
-	Goo *string \`json:"goo"\`
+	Goo *time.Time \`json:"goo"\`
 }
 
 type InbetweenClass interface {
@@ -10772,7 +10789,7 @@ func (o *jsiiProxy_OptionalArgumentInvoker) InvokeWithoutOptional() {
 type OptionalConstructorArgument interface {
 	Arg1() *float64
 	Arg2() *string
-	Arg3() *string
+	Arg3() *time.Time
 }
 
 // The jsii proxy struct for OptionalConstructorArgument
@@ -10800,8 +10817,8 @@ func (j *jsiiProxy_OptionalConstructorArgument) Arg2() *string {
 	return returns
 }
 
-func (j *jsiiProxy_OptionalConstructorArgument) Arg3() *string {
-	var returns *string
+func (j *jsiiProxy_OptionalConstructorArgument) Arg3() *time.Time {
+	var returns *time.Time
 	_jsii_.Get(
 		j,
 		"arg3",
@@ -10811,7 +10828,7 @@ func (j *jsiiProxy_OptionalConstructorArgument) Arg3() *string {
 }
 
 
-func NewOptionalConstructorArgument(arg1 *float64, arg2 *string, arg3 *string) OptionalConstructorArgument {
+func NewOptionalConstructorArgument(arg1 *float64, arg2 *string, arg3 *time.Time) OptionalConstructorArgument {
 	_init_.Initialize()
 
 	j := jsiiProxy_OptionalConstructorArgument{}
@@ -10825,7 +10842,7 @@ func NewOptionalConstructorArgument(arg1 *float64, arg2 *string, arg3 *string) O
 	return &j
 }
 
-func NewOptionalConstructorArgument_Override(o OptionalConstructorArgument, arg1 *float64, arg2 *string, arg3 *string) {
+func NewOptionalConstructorArgument_Override(o OptionalConstructorArgument, arg1 *float64, arg2 *string, arg3 *time.Time) {
 	_init_.Initialize()
 
 	_jsii_.Create(
@@ -10899,6 +10916,7 @@ func NewOptionalStructConsumer_Override(o OptionalStructConsumer, optionalStruct
 type OverridableProtectedMember interface {
 	OverrideReadOnly() *string
 	OverrideReadWrite() *string
+	SetOverrideReadWrite(val *string)
 	OverrideMe() *string
 	SwitchModes()
 	ValueFromProtected() *string
@@ -11048,7 +11066,7 @@ type ParentStruct982 struct {
 }
 
 type PartiallyInitializedThisConsumer interface {
-	ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt *string, ev AllTypesEnum) *string
+	ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt *time.Time, ev AllTypesEnum) *string
 }
 
 // The jsii proxy struct for PartiallyInitializedThisConsumer
@@ -11066,7 +11084,7 @@ func NewPartiallyInitializedThisConsumer_Override(p PartiallyInitializedThisCons
 	)
 }
 
-func (p *jsiiProxy_PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt *string, ev AllTypesEnum) *string {
+func (p *jsiiProxy_PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt *time.Time, ev AllTypesEnum) *string {
 	var returns *string
 
 	_jsii_.Invoke(
@@ -11868,9 +11886,9 @@ func RootStructValidator_Validate(struct_ *RootStruct) {
 }
 
 type RuntimeTypeChecking interface {
-	MethodWithDefaultedArguments(arg1 *float64, arg2 *string, arg3 *string)
+	MethodWithDefaultedArguments(arg1 *float64, arg2 *string, arg3 *time.Time)
 	MethodWithOptionalAnyArgument(arg interface{})
-	MethodWithOptionalArguments(arg1 *float64, arg2 *string, arg3 *string)
+	MethodWithOptionalArguments(arg1 *float64, arg2 *string, arg3 *time.Time)
 }
 
 // The jsii proxy struct for RuntimeTypeChecking
@@ -11902,7 +11920,7 @@ func NewRuntimeTypeChecking_Override(r RuntimeTypeChecking) {
 	)
 }
 
-func (r *jsiiProxy_RuntimeTypeChecking) MethodWithDefaultedArguments(arg1 *float64, arg2 *string, arg3 *string) {
+func (r *jsiiProxy_RuntimeTypeChecking) MethodWithDefaultedArguments(arg1 *float64, arg2 *string, arg3 *time.Time) {
 	_jsii_.InvokeVoid(
 		r,
 		"methodWithDefaultedArguments",
@@ -11919,7 +11937,7 @@ func (r *jsiiProxy_RuntimeTypeChecking) MethodWithOptionalAnyArgument(arg interf
 }
 
 // Used to verify verification of number of method arguments.
-func (r *jsiiProxy_RuntimeTypeChecking) MethodWithOptionalArguments(arg1 *float64, arg2 *string, arg3 *string) {
+func (r *jsiiProxy_RuntimeTypeChecking) MethodWithOptionalArguments(arg1 *float64, arg2 *string, arg3 *time.Time) {
 	_jsii_.InvokeVoid(
 		r,
 		"methodWithOptionalArguments",

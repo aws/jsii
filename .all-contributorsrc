@@ -1066,6 +1066,33 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "donicek",
+      "name": "Petr Kacer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8548012?v=4",
+      "profile": "https://github.com/donicek",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "ArmaanT",
+      "name": "Armaan Tobaccowalla",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13340433?v=4",
+      "profile": "https://armaan.tobaccowalla.com",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "ChristopheVico",
+      "name": "Christophe Vico",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56592817?v=4",
+      "profile": "https://github.com/ChristopheVico",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
