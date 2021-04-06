@@ -1512,5 +1512,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return word;
             }
         }
+
+        [Fact(DisplayName = Prefix + nameof(ArrayOfInterfaces))]
+        public void ArrayOfInterfaces()
+        {
+            var bells = new IBell[1][];
+            bells[0] = new IBell[1];
+            bells[0][0] = new Bell();
+
+            var allTypes = new AllTypes();
+            allTypes.AnyProperty = bells;
+            
+            Assert.Equal(bells, allTypes.AnyProperty);
+        }
     }
 }
