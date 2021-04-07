@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@jest/types": "^26.6.2",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
     "all-contributors-cli": "^6.20.0",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
@@ -30,7 +30,7 @@
     "jest-expect-message": "^1.0.2",
     "lerna": "^4.0.0",
     "prettier": "^2.2.1",
-    "standard-version": "^9.1.1",
+    "standard-version": "^9.2.0",
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
     "typescript": "~3.9.9"
