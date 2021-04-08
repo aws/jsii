@@ -1093,6 +1093,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "yglcode",
+      "name": "Yigong Liu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11893614?v=4",
+      "profile": "https://github.com/yglcode",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
     }
   ],
   "repoType": "github",
