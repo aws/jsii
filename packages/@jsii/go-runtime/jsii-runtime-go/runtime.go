@@ -113,8 +113,6 @@ func InitJsiiProxy(ptr interface{}) {
 func Create(fqn FQN, args []interface{}, inst interface{}) {
 	client := kernel.GetClient()
 
-	var overrides []api.Override
-
 	instVal := reflect.ValueOf(inst)
 	structVal := instVal.Elem()
 	instType := structVal.Type()
@@ -134,20 +132,6 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 				panic(err)
 			}
 
-			if tag := field.Tag.Get("overrides"); tag != "" {
-				if names := strings.Split(tag, ","); len(names) > 0 {
-					overrides = make([]api.Override, len(names))
-					registry := client.Types()
-					for i, name := range names {
-						if override, ok := registry.GetOverride(api.FQN(fqn), name); !ok {
-							panic(fmt.Errorf("unable to identify method or property for override %s declared by %v", name, field))
-						} else {
-							overrides[i] = override
-						}
-					}
-				}
-			}
-
 		case reflect.Struct:
 			fieldVal := structVal.Field(i)
 			if !fieldVal.IsZero() {
@@ -155,6 +139,36 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 			}
 			if err := client.Types().InitJsiiProxy(fieldVal); err != nil {
 				panic(err)
+			}
+		}
+	}
+
+	//find method overrides thru reflection
+	mOverrides := getMethodOverrides(inst, "jsiiProxy_")
+	//if overriding struct has no overriding methods, could happen if
+	//overriding methods are not defined with pointer receiver.
+	if len(mOverrides) == 0 && !strings.HasPrefix(instType.Name(), "jsiiProxy_") {
+		panic(fmt.Errorf("%s has no overriding methods. Please verify overriding methods are defined with pointer receiver", instType.Name()))
+	}
+	var overrides []api.Override
+	registry := client.Types()
+	added := make(map[string]bool)
+	for _, name := range mOverrides {
+		//use getter's name even if setter is overriden
+		if strings.HasPrefix(name, "Set") {
+			propName := name[3:]
+			if override, ok := registry.GetOverride(api.FQN(fqn), propName); ok {
+				if !added[propName] {
+					added[propName] = true
+					overrides = append(overrides, override)
+				}
+				continue
+			}
+		}
+		if override, ok := registry.GetOverride(api.FQN(fqn), name); ok {
+			if !added[name] {
+				added[name] = true
+				overrides = append(overrides, override)
 			}
 		}
 	}
@@ -359,6 +373,67 @@ func convertArguments(args []interface{}) []interface{} {
 	}
 
 	return result
+}
+
+//Get ptr's methods names which override "base" struct methods.
+//The "base" struct is identified by name prefix "basePrefix".
+func getMethodOverrides(ptr interface{}, basePrefix string) (methods []string) {
+	//methods override cache: [methodName]structName
+	mCache := make(map[string]string)
+	getMethodOverridesRec(ptr, basePrefix, mCache)
+	//return overriden methods names in embedding hierarchy
+	for m, _ := range mCache {
+		methods = append(methods, m)
+	}
+	return
+}
+
+func getMethodOverridesRec(ptr interface{}, basePrefix string, cache map[string]string) {
+	ptrType := reflect.TypeOf(ptr)
+	if ptrType.Kind() != reflect.Ptr {
+		return
+	}
+	structType := ptrType.Elem()
+	if structType.Kind() != reflect.Struct {
+		return
+	}
+	if strings.HasPrefix(structType.Name(), basePrefix) {
+		//skip base class
+		return
+	}
+
+	ptrVal := reflect.ValueOf(ptr)
+	structVal := ptrVal.Elem()
+
+	//add embedded/super overrides first
+	for i := 0; i < structType.NumField(); i++ {
+		field := structType.Field(i)
+		if !field.Anonymous {
+			continue
+		}
+		if field.Type.Kind() == reflect.Ptr ||
+			field.Type.Kind() == reflect.Interface {
+			p := structVal.Field(i)
+			if !p.IsNil() {
+				getMethodOverridesRec(p.Interface(), basePrefix, cache)
+			}
+		}
+	}
+	//add overrides in current struct
+	//current struct's value-type method-set
+	valMethods := make(map[string]bool)
+	for i := 0; i < structType.NumMethod(); i++ {
+		valMethods[structType.Method(i).Name] = true
+	}
+	//compare current struct's pointer-type method-set to
+	//its value-type method-set
+	structName := structType.Name()
+	for i := 0; i < ptrType.NumMethod(); i++ {
+		mn := ptrType.Method(i).Name
+		if !valMethods[mn] {
+			cache[mn] = structName
+		}
+	}
 }
 
 // Close finalizes the runtime process, signalling the end of the execution to
