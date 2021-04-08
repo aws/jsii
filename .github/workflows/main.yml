@@ -31,7 +31,7 @@ jobs:
         with:
           go-version: '1.16'
       - name: Set up Java 8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: '8'
       - name: Set up Node 12
@@ -122,7 +122,7 @@ jobs:
         with:
           go-version: '1.16'
       - name: Set up Java 8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: '8'
       - name: Set up Node 12
@@ -273,7 +273,7 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - name: Set up Java ${{ matrix.java }}
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java }}
       - name: Set up Node ${{ matrix.node }}
