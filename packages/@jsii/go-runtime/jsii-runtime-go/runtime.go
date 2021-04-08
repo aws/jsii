@@ -143,10 +143,10 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 		}
 	}
 
-	//find method overrides thru reflection
+	// Find method overrides thru reflection
 	mOverrides := getMethodOverrides(inst, "jsiiProxy_")
-	//if overriding struct has no overriding methods, could happen if
-	//overriding methods are not defined with pointer receiver.
+	// If overriding struct has no overriding methods, could happen if
+	// overriding methods are not defined with pointer receiver.
 	if len(mOverrides) == 0 && !strings.HasPrefix(instType.Name(), "jsiiProxy_") {
 		panic(fmt.Errorf("%s has no overriding methods. Please verify overriding methods are defined with pointer receiver", instType.Name()))
 	}
@@ -154,7 +154,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 	registry := client.Types()
 	added := make(map[string]bool)
 	for _, name := range mOverrides {
-		//use getter's name even if setter is overriden
+		// Use getter's name even if setter is overriden
 		if strings.HasPrefix(name, "Set") {
 			propName := name[3:]
 			if override, ok := registry.GetOverride(api.FQN(fqn), propName); ok {
@@ -375,14 +375,14 @@ func convertArguments(args []interface{}) []interface{} {
 	return result
 }
 
-//Get ptr's methods names which override "base" struct methods.
-//The "base" struct is identified by name prefix "basePrefix".
+// Get ptr's methods names which override "base" struct methods.
+// The "base" struct is identified by name prefix "basePrefix".
 func getMethodOverrides(ptr interface{}, basePrefix string) (methods []string) {
-	//methods override cache: [methodName]structName
+	// Methods override cache: [methodName]structName
 	mCache := make(map[string]string)
 	getMethodOverridesRec(ptr, basePrefix, mCache)
-	//return overriden methods names in embedding hierarchy
-	for m, _ := range mCache {
+	// Return overriden methods names in embedding hierarchy
+	for m := range mCache {
 		methods = append(methods, m)
 	}
 	return
@@ -398,14 +398,14 @@ func getMethodOverridesRec(ptr interface{}, basePrefix string, cache map[string]
 		return
 	}
 	if strings.HasPrefix(structType.Name(), basePrefix) {
-		//skip base class
+		// Skip base class
 		return
 	}
 
 	ptrVal := reflect.ValueOf(ptr)
 	structVal := ptrVal.Elem()
 
-	//add embedded/super overrides first
+	// Add embedded/super overrides first
 	for i := 0; i < structType.NumField(); i++ {
 		field := structType.Field(i)
 		if !field.Anonymous {
@@ -419,14 +419,13 @@ func getMethodOverridesRec(ptr interface{}, basePrefix string, cache map[string]
 			}
 		}
 	}
-	//add overrides in current struct
-	//current struct's value-type method-set
+	// Add overrides in current struct
+	// Current struct's value-type method-set
 	valMethods := make(map[string]bool)
 	for i := 0; i < structType.NumMethod(); i++ {
 		valMethods[structType.Method(i).Name] = true
 	}
-	//compare current struct's pointer-type method-set to
-	//its value-type method-set
+	// Compare current struct's pointer-type method-set to its value-type method-set
 	structName := structType.Name()
 	for i := 0; i < ptrType.NumMethod(); i++ {
 		mn := ptrType.Method(i).Name
