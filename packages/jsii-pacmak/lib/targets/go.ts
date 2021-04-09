@@ -48,7 +48,7 @@ export class Golang extends Target {
       });
     } catch (e) {
       logging.info(
-        `Content of ${localGoMod.path} file:\n${localGoMod.content}`,
+        `[${pkgDir}] Content of ${localGoMod.path} file:\n${localGoMod.content}`,
       );
       return Promise.reject(e);
     }
@@ -113,10 +113,10 @@ export class Golang extends Target {
 
     // read existing content
     const goMod = path.join(pkgDir, GOMOD_FILENAME);
-    const lines = (await fs.readFile(goMod, 'utf-8')).split('\n');
+    const lines = [await fs.readFile(goMod, 'utf-8'), '', '// Local packages:'];
 
     for (const [from, to] of Object.entries(replace)) {
-      logging.info(`Local replace: ${from} => ${to}`);
+      logging.info(`[${pkgDir}] Local replace: ${from} => ${to}`);
       lines.push(`replace ${from} => ${to}`);
     }
 
