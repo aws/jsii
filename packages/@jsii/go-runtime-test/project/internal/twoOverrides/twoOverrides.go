@@ -6,7 +6,7 @@ import (
 )
 
 type TwoOverrides struct {
-	jsiicalc.AsyncVirtualMethods `overrides:"OverrideMe,OverrideMeToo"`
+	jsiicalc.AsyncVirtualMethods
 }
 
 func New() *TwoOverrides {
