@@ -1,5 +1,6 @@
 import type { Config } from '@jest/types';
 import { defaults } from 'jest-config';
+import { cpus } from 'os';
 import { env } from 'process';
 
 /**
@@ -28,6 +29,10 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   testMatch: ['**/?(*.)+(spec|test).ts'],
   testRunner: 'jest-circus/runner',
+  // Adjust maximum concurrency to specifically disallow running unbounded. Allow a minimum of 2 concurrent
+  // tests, and a maximum of 4 (which is the libuv thread pool size - more will likely cause wait times to
+  // quickly run out of control, and make everything very, very slow.)
+  maxConcurrency: Math.max(Math.min(cpus().length - 1, 4), 2),
   // When in Continuous Integration, allow double the default test timeout (assuming "frugal" runner type)
   testTimeout: env.CI === 'true' ? 10_000 : undefined,
   transform: {
