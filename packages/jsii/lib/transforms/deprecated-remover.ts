@@ -591,7 +591,8 @@ class Transformation {
     const symbol = typeChecker.getSymbolAtLocation(
       ts.getNameOfDeclaration(node as ts.Declaration) ?? node,
     );
-    return symbol && typeChecker.getFullyQualifiedName(symbol);
+    const type = symbol && typeChecker.getDeclaredTypeOfSymbol(symbol);
+    return type?.symbol && typeChecker.getFullyQualifiedName(type.symbol);
   }
 
   private static typeReference(
