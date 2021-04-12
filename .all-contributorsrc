@@ -1103,6 +1103,15 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "Cristim",
+      "name": "Cristian Măgherușan-Stanciu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/95209?v=4",
+      "profile": "http://mcristi.wordpress.com",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
