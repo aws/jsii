@@ -159,3 +159,44 @@ test('produces correct output', async () => {
     "
   `);
 });
+
+test('cross-file deprecated heritage', async () => {
+  const result = await compileJsiiForTest(
+    {
+      'index.ts': `
+        import { IDeprecated } from './deprecated';
+        export * from './deprecated';
+        export interface INotDeprecated extends IDeprecated {}
+      `,
+      'deprecated.ts': `
+        ${DEPRECATED}
+        export interface IDeprecated {}
+      `,
+    },
+    undefined /* callback */,
+    { stripDeprecated: true },
+  );
+
+  const output = Object.entries(result.files)
+    .filter(([name]) => name.endsWith('.d.ts'))
+    .map(([name, content]) => {
+      const separator = '/'.repeat(name.length + 8);
+      return `${separator}\n/// ${name} ///\n${content}${separator}\n`;
+    })
+    .join('\n\n');
+  expect(output).toMatchInlineSnapshot(`
+    "//////////////////
+    /// index.d.ts ///
+    import './deprecated';
+    import './deprecated';
+    export interface INotDeprecated {
+    }
+    //////////////////
+    
+    
+    ///////////////////////
+    /// deprecated.d.ts ///
+    ///////////////////////
+    "
+  `);
+});
