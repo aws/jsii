@@ -1,4 +1,4 @@
-import { compileJsiiForTest } from '../lib';
+import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 
 const DEPRECATED = '/** @deprecated stripped */';
 
@@ -114,15 +114,7 @@ test('produces correct output', async () => {
       },
     }
   `);
-  expect(
-    Object.entries(result.files)
-      .filter(([name]) => name.endsWith('.d.ts'))
-      .map(([name, content]) => {
-        const separator = '/'.repeat(name.length + 8);
-        return `${separator}\n/// ${name} ///\n${content}${separator}\n`;
-      })
-      .join('\n\n'),
-  ).toMatchInlineSnapshot(`
+  expect(declFilesSnapshot(result)).toMatchInlineSnapshot(`
     "//////////////////
     /// index.d.ts ///
     import './deprecated';
@@ -177,14 +169,7 @@ test('cross-file deprecated heritage', async () => {
     { stripDeprecated: true },
   );
 
-  const output = Object.entries(result.files)
-    .filter(([name]) => name.endsWith('.d.ts'))
-    .map(([name, content]) => {
-      const separator = '/'.repeat(name.length + 8);
-      return `${separator}\n/// ${name} ///\n${content}${separator}\n`;
-    })
-    .join('\n\n');
-  expect(output).toMatchInlineSnapshot(`
+  expect(declFilesSnapshot(result)).toMatchInlineSnapshot(`
     "//////////////////
     /// index.d.ts ///
     import './deprecated';
@@ -200,3 +185,13 @@ test('cross-file deprecated heritage', async () => {
     "
   `);
 });
+
+function declFilesSnapshot(result: HelperCompilationResult) {
+  return Object.entries(result.files)
+    .filter(([name]) => name.endsWith('.d.ts'))
+    .map(([name, content]) => {
+      const separator = '/'.repeat(name.length + 8);
+      return `${separator}\n/// ${name} ///\n${content}${separator}\n`;
+    })
+    .join('\n\n');
+}
