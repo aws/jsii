@@ -121,10 +121,8 @@ following convention: `New<ClassName>_Override`, and receives the *overriding*
 struct instance as the first parameter.
 
 The **go** `struct` that *extends* the base *jsii class* must anonymously embed
-the *jsii class*' **go** interface, while specifying the `overrides:"..."` field
-tag. The value of the tag is a comma-separated list of **go** methods that are
-locally overridden (note: in the case of *property accessors*, the *getter* name
-is to be used, even if only the *setter* is overridden).
+the *jsii class*' **go** interface. All overridden method *must* be defined
+using a pointer receiver.
 
 Assuming the following abstract base class:
 
@@ -165,8 +163,8 @@ import (
 )
 
 type childClass struct {
-  // We implement AbstractMethod, AbstractReadonlyProperty, and override the setter for ConcreteProperty
-  jsiimodule.AbstractBaseClass `overrides:"AbstractMethod,AbstractReadonlyProperty,ConcreteProperty"`
+  // Anonymous embed of the "base class".
+  jsiimodule.AbstractBaseClass
 
   // Our own storage
   stringValue string

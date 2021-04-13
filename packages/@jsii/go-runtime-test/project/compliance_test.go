@@ -347,7 +347,7 @@ func (suite *ComplianceSuite) TestEqualsIsResistantToPropertyShadowingResultVari
 }
 
 type overridableProtectedMemberDerived struct {
-	calc.OverridableProtectedMember `overrides:"OverrideReadOnly,OverrideReadWrite"`
+	calc.OverridableProtectedMember
 }
 
 func newOverridableProtectedMemberDerived() *overridableProtectedMemberDerived {
@@ -381,7 +381,7 @@ func newImplementsAdditionalInterface(s calc.StructB) *implementsAdditionalInter
 	return &n
 }
 
-func (x implementsAdditionalInterface) ReturnStruct() *calc.StructB {
+func (x *implementsAdditionalInterface) ReturnStruct() *calc.StructB {
 	return &x._struct
 }
 
@@ -500,7 +500,7 @@ func (suite *ComplianceSuite) TestCallbacksCorrectlyDeserializeArguments() {
 }
 
 type testCallbacksCorrectlyDeserializeArgumentsDataRenderer struct {
-	calc.DataRenderer `overrides:"RenderMap"`
+	calc.DataRenderer
 }
 
 func NewTestCallbacksCorrectlyDeserializeArgumentsDataRenderer() *testCallbacksCorrectlyDeserializeArgumentsDataRenderer {
@@ -610,7 +610,7 @@ func (suite *ComplianceSuite) TestNullShouldBeTreatedAsUndefined() {
 }
 
 type myOverridableProtectedMember struct {
-	calc.OverridableProtectedMember `overrides:"OverrideMe"`
+	calc.OverridableProtectedMember
 }
 
 func newMyOverridableProtectedMember() *myOverridableProtectedMember {
@@ -619,7 +619,7 @@ func newMyOverridableProtectedMember() *myOverridableProtectedMember {
 	return &m
 }
 
-func (x myOverridableProtectedMember) OverrideMe() *string {
+func (x *myOverridableProtectedMember) OverrideMe() *string {
 	return jsii.String("Cthulhu Fhtagn!")
 }
 
@@ -685,7 +685,7 @@ func (suite *ComplianceSuite) TestMapReturnedByMethodCanBeRead() {
 }
 
 type myAbstractSuite struct {
-	calc.AbstractSuite `overrides:"SomeMethod,Property"`
+	calc.AbstractSuite
 
 	_property *string
 }
@@ -724,10 +724,10 @@ func (suite *ComplianceSuite) TestCanOverrideProtectedSetter() {
 }
 
 type TestCanOverrideProtectedSetterOverridableProtectedMember struct {
-	calc.OverridableProtectedMember `overrides:"OverrideReadWrite"`
+	calc.OverridableProtectedMember
 }
 
-func (x TestCanOverrideProtectedSetterOverridableProtectedMember) SetOverrideReadWrite(val *string) {
+func (x *TestCanOverrideProtectedSetterOverridableProtectedMember) SetOverrideReadWrite(val *string) {
 	x.OverridableProtectedMember.SetOverrideReadWrite(jsii.String(fmt.Sprintf("zzzzzzzzz%s", *val)))
 }
 
@@ -736,7 +736,6 @@ func newTestCanOverrideProtectedSetterOverridableProtectedMember() *TestCanOverr
 	calc.NewOverridableProtectedMember_Override(&m)
 	return &m
 }
-
 
 func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType() {
 	require := suite.Require()
@@ -952,7 +951,7 @@ func (suite *ComplianceSuite) TestPropertyOverrides_Get_Calls_Super() {
 }
 
 type testPropertyOverridesGetCallsSuper struct {
-	calc.SyncVirtualMethods `overrides:"TheProperty"`
+	calc.SyncVirtualMethods
 }
 
 func (t *testPropertyOverridesGetCallsSuper) TheProperty() *string {
@@ -1063,7 +1062,7 @@ func (suite *ComplianceSuite) TestPropertyOverrides_Get_Throws() {
 }
 
 type testPropertyOverridesGetThrows struct {
-	calc.SyncVirtualMethods `overrides:"TheProperty"`
+	calc.SyncVirtualMethods
 }
 
 func (t *testPropertyOverridesGetThrows) TheProperty() *string {
@@ -1143,7 +1142,7 @@ func (suite *ComplianceSuite) TestPropertyOverrides_Set_Calls_Super() {
 }
 
 type testPropertyOverridesSetCallsSuper struct {
-	calc.SyncVirtualMethods `overrides:"TheProperty"`
+	calc.SyncVirtualMethods
 }
 
 func (t *testPropertyOverridesSetCallsSuper) SetTheProperty(value *string) {
@@ -1327,8 +1326,8 @@ func (suite *ComplianceSuite) TestObjectIdDoesNotGetReallocatedWhenTheConstructo
 }
 
 type partiallyInitializedThisConsumerImpl struct {
-	calc.PartiallyInitializedThisConsumer `overrides:"ConsumePartiallyInitializedThis"`
-	require                                *require.Assertions
+	calc.PartiallyInitializedThisConsumer
+	require *require.Assertions
 }
 
 func NewPartiallyInitializedThisConsumerImpl(assert *require.Assertions) *partiallyInitializedThisConsumerImpl {
@@ -1478,7 +1477,7 @@ func (suite *ComplianceSuite) TestPropertyOverrides_Set_Throws() {
 }
 
 type testPropertyOverrides_Set_ThrowsSyncVirtualMethods struct {
-	calc.SyncVirtualMethods `overrides:"TheProperty"`
+	calc.SyncVirtualMethods
 }
 
 func NewTestPropertyOverrides_Set_ThrowsSyncVirtualMethods() *testPropertyOverrides_Set_ThrowsSyncVirtualMethods {
@@ -1582,7 +1581,7 @@ func (suite *ComplianceSuite) TestAsyncOverrides_OverrideCallsSuper() {
 }
 
 type OverrideCallsSuper struct {
-	calc.AsyncVirtualMethods `overrides:"OverrideMe"`
+	calc.AsyncVirtualMethods
 }
 
 func (o *OverrideCallsSuper) OverrideMe(mult *float64) *float64 {
