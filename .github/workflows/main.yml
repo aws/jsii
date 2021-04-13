@@ -58,7 +58,7 @@ jobs:
           echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: |-
             ${{ steps.cache-locations.outputs.pip-cache }}
@@ -150,7 +150,7 @@ jobs:
           echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: |-
             ${{ steps.cache-locations.outputs.pip-cache }}
@@ -312,7 +312,7 @@ jobs:
           echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: |-
             ${{ steps.cache-locations.outputs.pip-cache }}
