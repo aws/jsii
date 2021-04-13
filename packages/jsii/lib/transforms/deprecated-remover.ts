@@ -591,7 +591,11 @@ class Transformation {
     const symbol = typeChecker.getSymbolAtLocation(
       ts.getNameOfDeclaration(node as ts.Declaration) ?? node,
     );
-    return symbol && typeChecker.getFullyQualifiedName(symbol);
+    // This symbol ☝️ does not contain enough information in some cases - when
+    // an imported type is part of a heritage clause - to produce the fqn.
+    // Round tripping this to its type and back to a symbol seems to fix this.
+    const type = symbol && typeChecker.getDeclaredTypeOfSymbol(symbol);
+    return type?.symbol && typeChecker.getFullyQualifiedName(type.symbol);
   }
 
   private static typeReference(
