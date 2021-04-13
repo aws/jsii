@@ -2,11 +2,13 @@
   "lerna": "3.13.1",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "command": {
     "bootstrap": {
       "rejectCycles": true
     }
   },
-  "version": "1.27.1"
+  "version": "1.28.0"
 }
