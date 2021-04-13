@@ -6,3 +6,5 @@ require (
 	github.com/Masterminds/semver/v3 v3.1.1
 	github.com/stretchr/testify v1.7.0
 )
+
+retract v1.27.0
