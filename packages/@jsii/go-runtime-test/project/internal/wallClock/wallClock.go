@@ -18,7 +18,7 @@ func (w *WallClock) Iso8601Now() *string {
 }
 
 type Entropy struct {
-	jsiicalc.Entropy `overrides:"Repeat"`
+	jsiicalc.Entropy
 }
 
 func NewEntropy(clock jsiicalc.IWallClock) *Entropy {

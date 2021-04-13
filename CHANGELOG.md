@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.28.0](https://github.com/aws/jsii/compare/v1.27.1...v1.28.0) (2021-04-13)
+
+
+### Features
+
+* **jsii-go:** use reflect to resolve overriden methods ([#2780](https://github.com/aws/jsii/issues/2780)) ([295d189](https://github.com/aws/jsii/commit/295d189610938d5e644243af8c4d1f17f1c2a8a0)), closes [#2768](https://github.com/aws/jsii/issues/2768)
+
+
+### Bug Fixes
+
+* **dotnet:** unable to pass 2d-array of interfaces ([#2763](https://github.com/aws/jsii/issues/2763)) ([347cf69](https://github.com/aws/jsii/commit/347cf69305a82733da2dc10517cb0b911decbce1)), closes [aws/aws-cdk#12587](https://github.com/aws/aws-cdk/issues/12587)
+* deprecated symbol stripping does not strip out heritage clause with imported type ([#2783](https://github.com/aws/jsii/issues/2783)) ([e87d879](https://github.com/aws/jsii/commit/e87d879f9b637a769b6b62af5fe7711ca0b8a3c5))
+
 ## [1.27.1](https://github.com/aws/jsii/compare/v1.27.0...v1.27.1) (2021-04-12)
 
 ### Bug Fixes

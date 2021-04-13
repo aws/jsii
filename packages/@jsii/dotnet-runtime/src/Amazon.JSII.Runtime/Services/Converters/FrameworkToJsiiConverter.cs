@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -346,6 +346,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
             if (enumAttribute != null)
             {
                 return new TypeReference(enumAttribute.FullyQualifiedName);
+            }
+
+            var interfaceAttribute = type.GetCustomAttribute<JsiiInterfaceAttribute>();
+            if (interfaceAttribute != null)
+            {
+                return new TypeReference(interfaceAttribute.FullyQualifiedName);
             }
 
             var structAttribute = type.GetCustomAttribute<JsiiByValueAttribute>();
