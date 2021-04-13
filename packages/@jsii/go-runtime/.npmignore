@@ -1,0 +1,7 @@
+/.idea
+/build-tools
+/dist
+
+*.ts
+!*.d.ts
+*.tsbuildinfo
