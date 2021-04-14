@@ -7,11 +7,11 @@ import (
 )
 
 type SyncOverrides struct {
-	jsiicalc.SyncVirtualMethods `overrides:"VirtualMethod,TheProperty"`
-	AnotherTheProperty          *string
-	Multiplier                  int
-	ReturnSuper                 bool
-	CallAsync                   bool
+	jsiicalc.SyncVirtualMethods
+	AnotherTheProperty *string
+	Multiplier         int
+	ReturnSuper        bool
+	CallAsync          bool
 }
 
 func New() *SyncOverrides {

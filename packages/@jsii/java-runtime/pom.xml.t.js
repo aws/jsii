@@ -65,7 +65,6 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <jetbrains-annotations.version>[13.0.0,20.0-a0)</jetbrains-annotations.version>
         <junit.version>[5.7.0,5.8-a0)</junit.version>
         <mockito.version>[3.5.13,4.0-a0)</mockito.version>
-        <zt-exec.version>[1.12,2.0-a0)</zt-exec.version>
     </properties>
 
     <dependencies>
@@ -127,13 +126,6 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
             <version>\${javax-annotations.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.zeroturnaround/zt-exec -->
-        <dependency>
-            <groupId>org.zeroturnaround</groupId>
-            <artifactId>zt-exec</artifactId>
-            <version>\${zt-exec.version}</version>
         </dependency>
     </dependencies>
 

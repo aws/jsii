@@ -71,6 +71,13 @@ export interface NamingContext {
    * or not when emitting type signatures.
    */
   readonly emittedTypes: Set<string>;
+
+  /**
+   * Whether the type is emitted for a parameter or not. This may change the
+   * exact type signature being emitted (e.g: Arrays are typing.Sequence[T] for
+   * parameters, and typing.List[T] otherwise).
+   */
+  readonly parameterType?: boolean;
 }
 
 export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
@@ -160,7 +167,8 @@ class List implements TypeName {
   }
 
   public pythonType(context: NamingContext) {
-    return `typing.List[${this.#element.pythonType(context)}]`;
+    const type = context.parameterType ? 'Sequence' : 'List';
+    return `typing.${type}[${this.#element.pythonType(context)}]`;
   }
 
   public requiredImports(context: NamingContext) {
