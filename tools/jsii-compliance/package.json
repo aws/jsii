@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.17.56",
-    "eslint": "^7.23.0",
+    "eslint": "^7.24.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "~3.9.9"
