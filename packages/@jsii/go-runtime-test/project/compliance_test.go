@@ -8,17 +8,15 @@ import (
 	"testing"
 	"time"
 
+	"github.com/aws/jsii-runtime-go"
 	"github.com/aws/jsii/go-runtime-test/internal/addTen"
+	"github.com/aws/jsii/go-runtime-test/internal/bellRinger"
 	"github.com/aws/jsii/go-runtime-test/internal/doNotOverridePrivates"
-
 	"github.com/aws/jsii/go-runtime-test/internal/friendlyRandom"
 	"github.com/aws/jsii/go-runtime-test/internal/overrideAsyncMethods"
 	"github.com/aws/jsii/go-runtime-test/internal/syncOverrides"
 	"github.com/aws/jsii/go-runtime-test/internal/twoOverrides"
 	"github.com/aws/jsii/go-runtime-test/internal/wallClock"
-
-	"github.com/aws/jsii-runtime-go"
-
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
@@ -1630,6 +1628,16 @@ func (suite *ComplianceSuite) TestCollectionOfInterfaces_MapOfStructs() {
 	require := suite.Require()
 	m := *calc.InterfaceCollections_MapOfStructs()
 	require.Equal("Hello, I'm String!", *(*m["A"]).RequiredString)
+}
+
+func (suite *ComplianceSuite) TestCallbackParameterIsInterface() {
+	require := suite.Require()
+
+	ringer := bellRinger.New()
+
+	require.True(*calc.ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer))
+	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer))
+	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPublicClass(ringer))
 }
 
 // required to make `go test` recognize the suite.

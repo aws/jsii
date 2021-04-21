@@ -19,7 +19,8 @@ ENV LANG="C.UTF-8"                                                              
     M2="/usr/local/apache-maven/bin"                                                                                    \
     MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
                                                                                                                         \
-    GOROOT="/usr/local/go"
+    GOROOT="/usr/local/go"                                                                                              \
+    GITHUB_CLI_VERSION="1.9.2"
 
 # Install deltarpm as it can speed up the upgrade processes, and tar as it's needed for installing Maven
 # Also upgrading anything already installed, and adding some common dependencies for included tools
@@ -97,6 +98,11 @@ RUN curl -sL https://rpm.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash -  
 RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo                                     \
   && yum -y install yarn                                                                                                \
   && yum clean all && rm -rf /var/cache/yum
+
+# Install GitHub CLI
+RUN curl -sL https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_amd64.tar.gz | \
+  tar -xzv --strip-components=2 gh_${GITHUB_CLI_VERSION}_linux_amd64/bin/gh                                                    \
+  && mv gh /usr/bin/
 
 # Install some configuration
 COPY ssh_config /root/.ssh/config

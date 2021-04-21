@@ -124,7 +124,7 @@ func (c *Client) invoke(method reflect.Value, args []interface{}) (retval reflec
 			callArgs[i] = reflect.New(argType)
 		}
 		c.castAndSetToPtr(callArgs[i].Elem(), reflect.ValueOf(arg))
-		if argType.Kind() != reflect.Ptr && argType.Kind() != reflect.Interface {
+		if argType.Kind() != reflect.Ptr {
 			// The result of `reflect.New` is always a pointer, so if the
 			// argument is by-value, we have to de-reference it first.
 			callArgs[i] = callArgs[i].Elem()
