@@ -30,3 +30,17 @@ export class Class3 implements IBaseInterface {
 export interface IFoo extends IBaseInterface {
   readonly iBaseInterface: string;
 }
+
+// See https://github.com/aws/aws-cdk/issues/13474
+// IBaseInterface == core.IResource
+// Class3 == core.Resource
+
+export interface IVpc extends IBaseInterface {
+  baz(): void;
+}
+
+export class Vpc extends Class3 implements IVpc {
+  public baz(): void {
+    return;
+  }
+}

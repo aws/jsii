@@ -3,6 +3,7 @@ import pytest
 
 from jsii.errors import JSIIError
 import jsii_calc
+from jsii_calc.module2702 import IVpc, Vpc
 
 
 class TestErrorHandling:
@@ -28,6 +29,15 @@ class TestErrorHandling:
 
         with pytest.raises(JSIIError, match="Cannot pass function as argument here.*"):
             obj.add(self.test_descriptive_error_when_passing_function)
+
+    def test_implements_interface(self) -> None:
+        # This test exists just for mypy
+
+        def interface_func(vpc: IVpc) -> None:
+            pass
+
+        vpc = Vpc()
+        interface_func(vpc)
 
 
 def find_struct_bases(x):
