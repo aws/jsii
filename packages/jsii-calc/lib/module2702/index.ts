@@ -32,15 +32,33 @@ export interface IFoo extends IBaseInterface {
 }
 
 // See https://github.com/aws/aws-cdk/issues/13474
-// IBaseInterface == core.IResource
-// Class3 == core.Resource
 
-export interface IVpc extends IBaseInterface {
-  baz(): void;
+export interface IConstruct {
+  constructMethod(): void;
 }
 
-export class Vpc extends Class3 implements IVpc {
-  public baz(): void {
+export interface IResource extends IConstruct {
+  resourceMethod(): void;
+}
+
+export interface IVpc extends IResource {
+  vpcMethod(): void;
+}
+
+export class Construct implements IConstruct {
+  public constructMethod(): void {
+    return;
+  }
+}
+
+export abstract class Resource extends Construct implements IResource {
+  public resourceMethod(): void {
+    return;
+  }
+}
+
+export class Vpc extends Resource implements IVpc {
+  public vpcMethod(): void {
     return;
   }
 }
