@@ -51,6 +51,7 @@ Tool / Utility | Version
 `rsync`        | `>= 3.1.2`
 `yarn`         | `>= 1.21.1`
 `zip` & `unzip`| `>= 6.0-19`
+`gh`           | `>= 1.9.2`
 
 ## License
 
