@@ -3,7 +3,7 @@ import pytest
 
 from jsii.errors import JSIIError
 import jsii_calc
-from jsii_calc.module2702 import IVpc, Vpc
+from jsii_calc.module2702 import IVpc, Vpc, IBaz, Baz
 
 
 class TestErrorHandling:
@@ -33,11 +33,17 @@ class TestErrorHandling:
     def test_implements_interface(self) -> None:
         # This test exists just for mypy
 
-        def interface_func(vpc: IVpc) -> None:
+        def vpc_interface_func(vpc: IVpc) -> None:
             pass
 
         vpc = Vpc()
-        interface_func(vpc)
+        vpc_interface_func(vpc)
+
+        def baz_interface_func(baz: IBaz) -> None:
+            pass
+
+        baz = Baz()
+        baz_interface_func(baz)
 
 
 def find_struct_bases(x):

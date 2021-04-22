@@ -62,3 +62,13 @@ export class Vpc extends Resource implements IVpc {
     return;
   }
 }
+
+export interface IBaz extends IBaseInterface {
+  bazMethod(): void;
+}
+
+export class Baz extends Class3 implements IBaz {
+  public bazMethod(): void {
+    return;
+  }
+}
