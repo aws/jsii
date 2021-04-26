@@ -1112,6 +1112,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "rectalogic",
+      "name": "Andrew Wason",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11581?v=4",
+      "profile": "https://github.com/rectalogic",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "repoType": "github",
