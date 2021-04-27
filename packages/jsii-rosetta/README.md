@@ -195,6 +195,6 @@ Worker threads are enabled by default on NodeJS 12.x, and can be enabled on Node
 $ node --experimental-worker /path/to/jsii-rosetta extract ...
 ```
 
-If worker thread support is enabled, `jsii-rosetta` will use a number of workers equal to half the number of CPU cores,
+If worker thread support is available, `jsii-rosetta` will use a number of workers equal to half the number of CPU cores,
 up to a maximum of 16 workers. This default maximum can be overridden by setting the `JSII_ROSETTA_MAX_WORKER_COUNT`
 environment variable.
