@@ -1122,6 +1122,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "corymhall",
+      "name": "Cory Hall",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43035978?v=4",
+      "profile": "https://github.com/corymhall",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",

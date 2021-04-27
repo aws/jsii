@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.29.0](https://github.com/aws/jsii/compare/v1.28.0...v1.29.0) (2021-04-21)
+
+
+### Features
+
+* **superchain:** add github cli ([#2803](https://github.com/aws/jsii/issues/2803)) ([23f3582](https://github.com/aws/jsii/commit/23f3582fafaee2b7a64c92d6d426783b31f5aea4))
+
+
+### Bug Fixes
+
+* **go:** panic on callback: using *<interface> as <interface> ([#2797](https://github.com/aws/jsii/issues/2797)) ([e5a40d8](https://github.com/aws/jsii/commit/e5a40d8ec59b8dd92cd19274154208bbef099637)), closes [#2793](https://github.com/aws/jsii/issues/2793)
+
 ## [1.28.0](https://github.com/aws/jsii/compare/v1.27.1...v1.28.0) (2021-04-13)
 
 
