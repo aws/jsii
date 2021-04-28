@@ -51,8 +51,8 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.56",
-    "eslint": "^7.24.0",
+    "@types/node": "^10.17.59",
+    "eslint": "^7.25.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",

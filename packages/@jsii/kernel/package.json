@@ -39,17 +39,17 @@
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.22",
+    "@types/jest": "^26.0.23",
     "@types/jest-expect-message": "^1.0.3",
-    "@types/node": "^10.17.56",
+    "@types/node": "^10.17.59",
     "@types/tar": "^4.0.4",
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
     "jest": "^26.6.3",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "prettier": "^2.2.1",
-    "ts-jest": "^26.5.4",
+    "ts-jest": "^26.5.5",
     "typescript": "~3.9.9"
   }
 }
