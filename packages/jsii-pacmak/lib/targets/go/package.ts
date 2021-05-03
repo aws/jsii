@@ -10,6 +10,7 @@ import { ReadmeFile } from './readme-file';
 import {
   JSII_RT_ALIAS,
   JSII_RT_MODULE_NAME,
+  JSII_RT_PACKAGE_NAME,
   JSII_INIT_PACKAGE,
   JSII_INIT_FUNC,
   JSII_INIT_ALIAS,
@@ -559,7 +560,7 @@ interface ImportedModule {
 
 const JSII_RT_MODULE: ImportedModule = {
   alias: JSII_RT_ALIAS,
-  module: JSII_RT_MODULE_NAME,
+  module: JSII_RT_PACKAGE_NAME,
 };
 const GO_REFLECT: ImportedModule = { module: 'reflect' };
 
