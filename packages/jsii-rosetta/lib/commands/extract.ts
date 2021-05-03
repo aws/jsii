@@ -165,7 +165,11 @@ async function workerBasedTranslateAll(
 ): Promise<TranslateAllResult> {
   // Use about half the advertised cores because hyperthreading doesn't seem to help that
   // much (on my machine, using more than half the cores actually makes it slower).
-  const N = Math.max(1, Math.ceil(os.cpus().length / 2));
+  // Cap to a reasonable top-level limit to prevent thrash on machines with many, many cores.
+  const maxWorkers = parseInt(
+    process.env.JSII_ROSETTA_MAX_WORKER_COUNT ?? '16',
+  );
+  const N = Math.min(maxWorkers, Math.max(1, Math.ceil(os.cpus().length / 2)));
   const snippetArr = Array.from(snippets);
   const groups = divideEvenly(N, snippetArr);
   logging.info(

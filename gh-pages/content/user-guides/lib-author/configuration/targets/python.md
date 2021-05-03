@@ -58,11 +58,11 @@ are accepted by `jsii-pacmak`, and are translated according to the following tab
 
 | Source Version (`npm`) | Python Version ([PEP-440]) | Notes                            |
 | ---------------------- | -------------------------- | -------------------------------- |
-| `X.Y.Z.dev.N`          | `X.Y.Z.devN`               | Development, iteration `N`.      |
-| `X.Y.Z.pre.N`          | `X.Y.Z.devN`               | Development, iteration `N`       |
-| `X.Y.Z.alpha.N`        | `X.Y.Z.aN`                 | Alpha release, iteration `N`     |
-| `X.Y.Z.beta.N`         | `X.Y.Z.bN`                 | Beta release, iteration `N`      |
-| `X.Y.Z.rc.N`           | `X.Y.Z.rcN`                | Release candidate, iteration `N` |
+| `X.Y.Z-dev.N`          | `X.Y.Z.devN`               | Development, iteration `N`.      |
+| `X.Y.Z-pre.N`          | `X.Y.Z.devN`               | Development, iteration `N`       |
+| `X.Y.Z-alpha.N`        | `X.Y.Z.aN`                 | Alpha release, iteration `N`     |
+| `X.Y.Z-beta.N`         | `X.Y.Z.bN`                 | Beta release, iteration `N`      |
+| `X.Y.Z-rc.N`           | `X.Y.Z.rcN`                | Release candidate, iteration `N` |
 
 [semver]: https://semver.org/spec/v2.0.0.html
 [pep-440]: https://www.python.org/dev/peps/pep-0440/#pre-releases

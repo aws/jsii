@@ -31,7 +31,7 @@ export const suite: schema.Suite = {
     {
       name: 'unionProperties',
       description:
-        'Kernal values that accept a union type can be set, and are returned with the concrete type',
+        'Kernel values that accept a union type can be set, and are returned with the concrete type',
     },
     {
       name: 'syncOverrides',
@@ -502,6 +502,10 @@ export const suite: schema.Suite = {
     {
       name: 'testInterfaces',
       description: '',
+    },
+    {
+      name: 'callbackParameterIsInterface',
+      description: 'Validates pure interfaces can be passed to callbacks',
     },
   ],
 };
