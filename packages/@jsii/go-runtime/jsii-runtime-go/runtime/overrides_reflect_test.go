@@ -1,4 +1,4 @@
-package jsii
+package runtime
 
 import (
 	"reflect"
