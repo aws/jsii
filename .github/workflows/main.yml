@@ -23,7 +23,7 @@ jobs:
     steps:
       # Set up all of our standard runtimes
       - name: Set up .NET 5
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v1.8.0
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
@@ -115,7 +115,7 @@ jobs:
     steps:
       # Set up all of our standard runtimes
       - name: Set up .NET 5
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v1.8.0
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
@@ -267,7 +267,7 @@ jobs:
     steps:
       # Set up all of our standard runtimes (this is matrix-based)
       - name: Set up .NET ${{ matrix.dotnet }}
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v1.8.0
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - name: Set up Go ${{ matrix.go }}
