@@ -44,6 +44,8 @@ array is produced each time it is passed through the process boundary.
 !!! info
     Items in the list may be passed by-reference (according to their type's specification), in which case mutating
     operations performed on those may be visible across the process boundary.
+    
+[Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#arrays)
 
 ### Enum
 
@@ -55,10 +57,12 @@ parameter).
 !!! info
     Unlike in certain languages such as **Java**, `enum` types cannot declare new properties or methods.
 
+[Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#enums)
+
 ### Any and Unknown
 
 **TypeScript** defines two opaque types: `any` and `unknown` that can be used to represent a value of arbitary type. The
-difference between them is that while `any` is assignable to any other type, `unknown` requires a type assertion or
+difference between them is that while `any` is [assignable to any other type][ts-any], `unknown` requires a [type assertion][ts-unknown] or
 explicit cast to be performed before it can be assigned.
 
 Both of these types map to an `Any` _primitive type_ in the _jsii_ type system, and the subtle distinction between `any`
@@ -68,9 +72,14 @@ and `unknown` is lost in the process.
     It is important to note that, contrary to the other types in the **TypeScript** type system, `any` and `unknown`
     types are inherently `null`-able.
 
+[ts-any]: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any
+[ts-unknown]: https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown
+
 ### Void
 
 As in most languages, the `void` type is used to denote a method does not return anything.
+
+[Find out more here](https://www.typescriptlang.org/docs/handbook/2/functions.html#void)
 
 ### Null and Undefined
 
@@ -83,6 +92,8 @@ are semantically equivalent.
     Unlike certain other programming languages, such as **Java**, **TypeScript** does not allow `null` (or `undefined`)
     values unless the type signature expressedly supports that (with the exception of `any` and `unknown`, which are
     implicitly `null`-able, as was discussed earlier).
+
+[Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#null-and-undefined)
 
 ### Object
 
@@ -98,6 +109,8 @@ boundary. As a consequence, they may not include any method.
 !!! question
     The by-value nature of `object` is problematic because **TypeScript** makes no guarantee with respects to the
     absence of methods on `object`, and properties may be dynamic.
+    
+[Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#object-types)
 
 ### Promises
 
@@ -124,13 +137,14 @@ convenient APIs in other languages.
 
 ### Classes
 
-Exported **TypeScript** classes are represented in the _jsii_ type system, with the following restrictions from plain
+Exported **TypeScript** [classes][ts-classes] are represented in the _jsii_ type system, with the following restrictions from plain
 **TypeScript**:
 
 - Methods overloads are not supported.
 - Overridden methods or properties must retain the exact same type signature as the one declared in a parent type. The
   **jsii** type system strictly enforces the [Liskov substitution principle].
 
+[ts-classes]: https://www.typescriptlang.org/docs/handbook/2/classes.html
 [liskov substitution principle]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
 
 ### Interfaces & Structs
@@ -171,6 +185,8 @@ allow for a convenient API in languages that support overloads.
 
 In general however, _type unions_ are discouraged and should only be used when there is no alternative way to model the
 API.
+
+[Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types)
 
 ## Serialization Behavior
 
@@ -392,4 +408,4 @@ basis for the _jsii_ type system. Additionally, the **JavaScript** type system i
 [**JavaScript** Fundamentals][js-fundamentals] document.
 
 [js-fundamentals]: https://javascript.info/types
-[ts-handbook]: https://www.typescriptlang.org/docs/handbook/basic-types.html
+[ts-handbook]: https://www.typescriptlang.org/docs/handbook/2/basic-types.html
