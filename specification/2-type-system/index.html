@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/specification/2-type-system/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6f955dcd.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bde7dde4.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
@@ -1622,6 +1622,7 @@ array is produced each time it is passed through the process boundary.</p>
 <p>Items in the list may be passed by-reference (according to their type's specification), in which case mutating
 operations performed on those may be visible across the process boundary.</p>
 </div>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#arrays">Find out more here</a></p>
 <h3 id="enum">Enum</h3>
 <p>As in many languages, <code>enum</code> can be used to represent a group of related constants. While <strong>TypeScript</strong> <code>enum</code> entries
 are associated with a value that is either a <code>string</code> or a <code>number</code>, the <em>jsii</em> type system does not allow for those to
@@ -1631,9 +1632,10 @@ parameter).</p>
 <p class="admonition-title">Info</p>
 <p>Unlike in certain languages such as <strong>Java</strong>, <code>enum</code> types cannot declare new properties or methods.</p>
 </div>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#enums">Find out more here</a></p>
 <h3 id="any-and-unknown">Any and Unknown</h3>
 <p><strong>TypeScript</strong> defines two opaque types: <code>any</code> and <code>unknown</code> that can be used to represent a value of arbitary type. The
-difference between them is that while <code>any</code> is assignable to any other type, <code>unknown</code> requires a type assertion or
+difference between them is that while <code>any</code> is <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any">assignable to any other type</a>, <code>unknown</code> requires a <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown">type assertion</a> or
 explicit cast to be performed before it can be assigned.</p>
 <p>Both of these types map to an <code>Any</code> <em>primitive type</em> in the <em>jsii</em> type system, and the subtle distinction between <code>any</code>
 and <code>unknown</code> is lost in the process.</p>
@@ -1644,6 +1646,7 @@ types are inherently <code>null</code>-able.</p>
 </div>
 <h3 id="void">Void</h3>
 <p>As in most languages, the <code>void</code> type is used to denote a method does not return anything.</p>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#void">Find out more here</a></p>
 <h3 id="null-and-undefined">Null and Undefined</h3>
 <p><strong>JavaScript</strong> differentiates <code>undefined</code> and <code>null</code> values. While <code>undefined</code> denotes that <em>no value</em> has been set,
 <code>null</code> denotes an intentional signal of there being <em>no data</em>. Most other programming languages (particularly statically
@@ -1655,6 +1658,7 @@ are semantically equivalent.</p>
 values unless the type signature expressedly supports that (with the exception of <code>any</code> and <code>unknown</code>, which are
 implicitly <code>null</code>-able, as was discussed earlier).</p>
 </div>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#null-and-undefined">Find out more here</a></p>
 <h3 id="object">Object</h3>
 <p><strong>TypeScript</strong>'s <code>object</code> type denotes anything that is not a <em>primitive</em> type, meaning anything other than a <code>number</code>,
 <code>string</code>, <code>boolean</code>, <code>bigint</code>, <code>symbol</code>, <code>null</code> or <code>undefined</code>.</p>
@@ -1669,6 +1673,7 @@ boundary. As a consequence, they may not include any method.</p>
 <p>The by-value nature of <code>object</code> is problematic because <strong>TypeScript</strong> makes no guarantee with respects to the
 absence of methods on <code>object</code>, and properties may be dynamic.</p>
 </div>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#object-types">Find out more here</a></p>
 <h3 id="promises">Promises</h3>
 <p><em>jsii</em> supports asynchronous methods, and the <strong>TypeScript</strong> <code>Promise&lt;T&gt;</code> type has to be used as the result of <code>async</code>
 methods. Promises can only be used as the result type of methods, not as the type of a property or parameter.</p>
@@ -1688,7 +1693,7 @@ classic object-oriented concepts, such as <em>classes</em> and <em>interfaces</e
 nuances on top of those, to better represent <strong>TypeScript</strong> and <strong>JavaScript</strong> idioms in a way that enables generating
 convenient APIs in other languages.</p>
 <h3 id="classes">Classes</h3>
-<p>Exported <strong>TypeScript</strong> classes are represented in the <em>jsii</em> type system, with the following restrictions from plain
+<p>Exported <strong>TypeScript</strong> <a href="https://www.typescriptlang.org/docs/handbook/2/classes.html">classes</a> are represented in the <em>jsii</em> type system, with the following restrictions from plain
 <strong>TypeScript</strong>:</p>
 <ul>
 <li>Methods overloads are not supported.</li>
@@ -1725,6 +1730,7 @@ difficult to use from those languages, as the value has to be declared using the
 allow for a convenient API in languages that support overloads.</p>
 <p>In general however, <em>type unions</em> are discouraged and should only be used when there is no alternative way to model the
 API.</p>
+<p><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types">Find out more here</a></p>
 <h2 id="serialization-behavior">Serialization Behavior</h2>
 <p>When values are passed between the <em>host</em> process and the <code>node</code> process, they are serialized as JSON documents. They
 can be passed by value or by reference, depending on the type of the value as well as the declared type of the transfer
@@ -1925,7 +1931,7 @@ one <em>submodule</em>.</p>
 <p>There are two supported ways to introduce <em>submodules</em>:</p>
 <ul>
 <li>Using the namespaced export syntax:
-  <div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">ns</span> <span class="nx">from</span> <span class="s1">&#39;./module&#39;</span><span class="p">;</span>
+  <div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">ns</span> <span class="k">from</span> <span class="s1">&#39;./module&#39;</span><span class="p">;</span>
 </code></pre></div></li>
 <li>Using an explicit namespace declaration:
   <div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="nx">namespace</span> <span class="nx">ns</span> <span class="p">{</span>
@@ -1966,7 +1972,7 @@ precedence over what is specified in <code>package.json</code>. <em>Submodules</
 <code>./module/.jsiirc.json</code> file.</p>
 </div>
 <h2 id="references">References</h2>
-<p>The <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html"><strong>TypeScript</strong> Handbook</a> describes the language's type system and syntax elements that serve as the
+<p>The <a href="https://www.typescriptlang.org/docs/handbook/2/basic-types.html"><strong>TypeScript</strong> Handbook</a> describes the language's type system and syntax elements that serve as the
 basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</strong> type system is described in the
 <a href="https://javascript.info/types"><strong>JavaScript</strong> Fundamentals</a> document.</p>
                 
@@ -1977,7 +1983,7 @@ basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</s
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-04-22
+      Last update: 2021-05-07
     
   </small>
 </div>
@@ -2064,10 +2070,10 @@ basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</s
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      <script src="../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
       
     
   </body>
