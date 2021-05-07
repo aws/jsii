@@ -254,7 +254,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jcb.go 1`] 
 package jcb
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jcb/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb/internal"
@@ -375,7 +375,7 @@ package jcb
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -428,7 +428,7 @@ package jsii
 import (
 	_                       "embed"
 
-	_jsii_                  "github.com/aws/jsii-runtime-go"
+	_jsii_                  "github.com/aws/jsii-runtime-go/runtime"
 
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
@@ -702,7 +702,7 @@ package jsii
 import (
 	_      "embed"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 //go:embed scope-jsii-calc-base-of-base-2.1.1.tgz
@@ -724,7 +724,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 package scopejsiicalcbaseofbase
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
 )
 
@@ -832,7 +832,7 @@ package scopejsiicalcbaseofbase
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -1112,7 +1112,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package customsubmodulename
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
@@ -1271,7 +1271,7 @@ package customsubmodulename
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -1358,7 +1358,7 @@ package jsii
 import (
 	_                       "embed"
 
-	_jsii_                  "github.com/aws/jsii-runtime-go"
+	_jsii_                  "github.com/aws/jsii-runtime-go/runtime"
 
 	jcb                     "github.com/aws/jsii/jsii-calc/go/jcb/jsii"
 	scopejsiicalcbaseofbase "github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2/jsii"
@@ -1387,7 +1387,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package scopejsiicalclib
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
@@ -1811,7 +1811,7 @@ package scopejsiicalclib
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -2296,7 +2296,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/compos
 package composition
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition/internal"
@@ -2453,7 +2453,7 @@ package composition
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -2500,7 +2500,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnop
 package derivedclasshasnoproperties
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -2620,7 +2620,7 @@ package derivedclasshasnoproperties
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -2668,7 +2668,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespa
 package interfaceinnamespaceincludesclasses
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -2738,7 +2738,7 @@ package interfaceinnamespaceincludesclasses
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -2777,7 +2777,7 @@ package interfaceinnamespaceonlyinterface
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -2813,7 +2813,7 @@ package jsii
 import (
 	_                "embed"
 
-	_jsii_           "github.com/aws/jsii-runtime-go"
+	_jsii_           "github.com/aws/jsii-runtime-go/runtime"
 
 	jcb              "github.com/aws/jsii/jsii-calc/go/jcb/jsii"
 	scopejsiicalclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
@@ -2844,7 +2844,7 @@ package jsiicalc
 import (
 	"time"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
@@ -14227,7 +14227,7 @@ package jsiicalc
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -16412,7 +16412,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2530/module2
 package module2530
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -16479,7 +16479,7 @@ package module2530
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -16501,7 +16501,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2617/module2
 package module2617
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -16542,7 +16542,7 @@ package module2617
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -16572,7 +16572,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2
 package module2647
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
@@ -16669,7 +16669,7 @@ package module2647
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -16696,7 +16696,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2689/methods
 package methods
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
@@ -16762,7 +16762,7 @@ package methods
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -16792,7 +16792,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2689/props/p
 package props
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
@@ -16863,7 +16863,7 @@ package props
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -16886,7 +16886,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2689/retval/
 package retval
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
@@ -16962,7 +16962,7 @@ package retval
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -17003,7 +17003,7 @@ package structs
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -17039,7 +17039,7 @@ package submodule1
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -17074,7 +17074,7 @@ package submodule2
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -17094,7 +17094,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2700/module2
 package module2700
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -17274,7 +17274,7 @@ package module2700
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -17335,7 +17335,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2702/module2
 package module2702
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
@@ -17833,7 +17833,7 @@ package module2702
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18014,7 +18014,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/nodirect/sub1/sub1
 package sub1
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -18073,7 +18073,7 @@ package sub1
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18095,7 +18095,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/nodirect/sub2/sub2
 package sub2
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -18154,7 +18154,7 @@ package sub2
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18176,7 +18176,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/onlystatic/onlysta
 package onlystatic
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -18213,7 +18213,7 @@ package onlystatic
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18233,7 +18233,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythons
 package pythonself
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -18374,7 +18374,7 @@ package pythonself
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18437,7 +18437,7 @@ package backreferences
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18453,7 +18453,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/child/ch
 package child
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 )
 
@@ -18589,7 +18589,7 @@ package child
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18663,7 +18663,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated
 package isolated
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
@@ -18702,7 +18702,7 @@ package isolated
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18722,7 +18722,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsu
 package deeplynested
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 type INamespaced interface {
@@ -18753,7 +18753,7 @@ package deeplynested
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18784,7 +18784,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsu
 package nestedsubmodule
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
@@ -18832,7 +18832,7 @@ package nestedsubmodule
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18870,7 +18870,7 @@ package param
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18886,7 +18886,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/returnsp
 package returnsparam
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
@@ -18947,7 +18947,7 @@ package returnsparam
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -18969,7 +18969,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/submodul
 package submodule
 
 import (
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
@@ -19107,7 +19107,7 @@ package submodule
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {

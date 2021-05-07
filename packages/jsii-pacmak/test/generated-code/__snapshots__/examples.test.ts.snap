@@ -396,7 +396,7 @@ package jsii
 import (
 	_      "embed"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 //go:embed testpkg-0.0.1.tgz
@@ -417,7 +417,7 @@ package testpkg
 
 import (
 	_init_ "example.test/demo/testpkg/jsii"
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 type Baz struct {
@@ -462,7 +462,7 @@ package testpkg
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
@@ -1730,7 +1730,7 @@ package jsii
 import (
 	_      "embed"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 //go:embed testpkg-0.0.1.tgz
@@ -1751,7 +1751,7 @@ package testpkg
 
 import (
 	_init_ "example.test/demo/testpkg/jsii"
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 type Namespace1 interface {
@@ -1928,7 +1928,7 @@ package testpkg
 import (
 	"reflect"
 
-	_jsii_ "github.com/aws/jsii-runtime-go"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func init() {
