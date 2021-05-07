@@ -1,5 +1,6 @@
 // JSII go runtime module name
 export const JSII_RT_MODULE_NAME = 'github.com/aws/jsii-runtime-go';
+export const JSII_RT_PACKAGE_NAME = `${JSII_RT_MODULE_NAME}/runtime`;
 export const JSII_RT_ALIAS = '_jsii_';
 
 // Jsii initializer package name
