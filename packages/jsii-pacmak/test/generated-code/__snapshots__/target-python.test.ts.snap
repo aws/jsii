@@ -11116,46 +11116,6 @@ class Class3(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Class3"):
         return typing.cast(None, jsii.invoke(self, "iBaseInterface", []))
 
 
-@jsii.interface(jsii_type="jsii-calc.module2702.IBaz")
-class IBaz(scope.jsii_calc_base.IBaseInterface, typing_extensions.Protocol):
-    @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type["_IBazProxy"]:
-        return _IBazProxy
-
-    @jsii.member(jsii_name="bazMethod")
-    def baz_method(self) -> None:
-        ...
-
-
-class _IBazProxy(
-    jsii.proxy_for(scope.jsii_calc_base.IBaseInterface) # type: ignore[misc]
-):
-    __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2702.IBaz"
-
-    @jsii.member(jsii_name="bazMethod")
-    def baz_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "bazMethod", []))
-
-
-@jsii.interface(jsii_type="jsii-calc.module2702.IConstruct")
-class IConstruct(typing_extensions.Protocol):
-    @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type["_IConstructProxy"]:
-        return _IConstructProxy
-
-    @jsii.member(jsii_name="constructMethod")
-    def construct_method(self) -> None:
-        ...
-
-
-class _IConstructProxy:
-    __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2702.IConstruct"
-
-    @jsii.member(jsii_name="constructMethod")
-    def construct_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "constructMethod", []))
-
-
 @jsii.interface(jsii_type="jsii-calc.module2702.IFoo")
 class IFoo(scope.jsii_calc_base.IBaseInterface, typing_extensions.Protocol):
     @builtins.staticmethod
@@ -11179,113 +11139,11 @@ class _IFooProxy(
         return typing.cast(builtins.str, jsii.get(self, "iBaseInterface"))
 
 
-@jsii.interface(jsii_type="jsii-calc.module2702.IResource")
-class IResource(IConstruct, typing_extensions.Protocol):
-    @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type["_IResourceProxy"]:
-        return _IResourceProxy
-
-    @jsii.member(jsii_name="resourceMethod")
-    def resource_method(self) -> None:
-        ...
-
-
-class _IResourceProxy(
-    jsii.proxy_for(IConstruct) # type: ignore[misc]
-):
-    __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2702.IResource"
-
-    @jsii.member(jsii_name="resourceMethod")
-    def resource_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "resourceMethod", []))
-
-
-@jsii.interface(jsii_type="jsii-calc.module2702.IVpc")
-class IVpc(IResource, typing_extensions.Protocol):
-    @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type["_IVpcProxy"]:
-        return _IVpcProxy
-
-    @jsii.member(jsii_name="vpcMethod")
-    def vpc_method(self) -> None:
-        ...
-
-
-class _IVpcProxy(
-    jsii.proxy_for(IResource) # type: ignore[misc]
-):
-    __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2702.IVpc"
-
-    @jsii.member(jsii_name="vpcMethod")
-    def vpc_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "vpcMethod", []))
-
-
-@jsii.implements(IBaz)
-class Baz(Class3, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Baz"):
-    def __init__(self) -> None:
-        jsii.create(Baz, self, [])
-
-    @jsii.member(jsii_name="bazMethod")
-    def baz_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "bazMethod", []))
-
-
-@jsii.implements(IConstruct)
-class Construct(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Construct"):
-    def __init__(self) -> None:
-        jsii.create(Construct, self, [])
-
-    @jsii.member(jsii_name="constructMethod")
-    def construct_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "constructMethod", []))
-
-
-@jsii.implements(IResource)
-class Resource(
-    Construct,
-    metaclass=jsii.JSIIAbstractClass,
-    jsii_type="jsii-calc.module2702.Resource",
-):
-    @builtins.staticmethod
-    def __jsii_proxy_class__() -> typing.Type["_ResourceProxy"]:
-        return _ResourceProxy
-
-    def __init__(self) -> None:
-        jsii.create(Resource, self, [])
-
-    @jsii.member(jsii_name="resourceMethod")
-    def resource_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "resourceMethod", []))
-
-
-class _ResourceProxy(Resource):
-    pass
-
-
-@jsii.implements(IVpc)
-class Vpc(Resource, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Vpc"):
-    def __init__(self) -> None:
-        jsii.create(Vpc, self, [])
-
-    @jsii.member(jsii_name="vpcMethod")
-    def vpc_method(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "vpcMethod", []))
-
-
 __all__ = [
-    "Baz",
     "Class1",
     "Class2",
     "Class3",
-    "Construct",
-    "IBaz",
-    "IConstruct",
     "IFoo",
-    "IResource",
-    "IVpc",
-    "Resource",
-    "Vpc",
 ]
 
 publication.publish()
