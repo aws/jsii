@@ -50,7 +50,7 @@
     "source-map-loader": "^2.0.1",
     "ts-jest": "^26.5.5",
     "typescript": "~3.9.9",
-    "webpack": "^5.36.0",
+    "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0"
   }
 }
