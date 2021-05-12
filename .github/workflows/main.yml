@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: '12'
       - name: Set up Python 3.6
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2.2.2
         with:
           python-version: '3.6'
       - name: Install python3-venv
@@ -132,7 +132,7 @@ jobs:
         with:
           node-version: '12'
       - name: Set up Python 3.6
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2.2.2
         with:
           python-version: '3.6'
       - name: Install python3-venv
@@ -284,7 +284,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2.2.2
         with:
           python-version: ${{ matrix.python }}
       - name: 'Linux: Install python3-venv'
