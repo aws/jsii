@@ -105,7 +105,7 @@ jobs:
         run: yarn upgrade
 
       - name: Make Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v3.9.1
         with:
           # Git commit details
           branch: automation/yarn-upgrade
