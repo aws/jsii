@@ -46,7 +46,7 @@ jobs:
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
       - name: Locate Caches
         id: cache-locations
         run: |-
@@ -138,7 +138,7 @@ jobs:
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
       - name: Locate Caches
         id: cache-locations
         run: |-
