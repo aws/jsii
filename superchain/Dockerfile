@@ -49,6 +49,11 @@ RUN yum -y install python3 python3-pip                                          
   && rm -rf $(pip cache dir)                                                                                            \
   && yum clean all && rm -rf /var/cache/yum
 
+# Install jq to parse json 
+# projen/projen#795
+
+RUN yum -y install jq
+
 # Install JDK8 (Corretto)
 RUN amazon-linux-extras enable corretto8                                                                                \
   && yum -y install java-1.8.0-amazon-corretto-devel                                                                    \
