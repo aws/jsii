@@ -121,7 +121,8 @@ export function parsePerson(value: string) {
   return result;
 }
 
-const REPOSITORY_REGEX = /^(?:(github|gist|bitbucket|gitlab):)?([A-Za-z\d_-]+\/[A-Za-z\d_-]+)$/;
+const REPOSITORY_REGEX =
+  /^(?:(github|gist|bitbucket|gitlab):)?([A-Za-z\d_-]+\/[A-Za-z\d_-]+)$/;
 export function parseRepository(value: string): { url: string } {
   const match = REPOSITORY_REGEX.exec(value);
   if (!match) {
