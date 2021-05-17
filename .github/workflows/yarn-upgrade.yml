@@ -78,11 +78,12 @@ jobs:
       - name: Run "ncu -u"
         # We special-case @types/fs-extra because the current major (9.x) is broken with @types/node@10
         # We special-case typescript because it's not semantically versionned, and major.minor is the API contract
+        # We special-case prettier because 2.3.0 introduces Allman brace style, while we use one true brace style
         run: |-
           # Upgrade devDependencies at repository root
           ncu --upgrade --target=minor --filter=@types/node,@types/fs-extra
           ncu --upgrade --target=patch --filter=typescript
-          ncu --upgrade --target=latest --reject=@types/node,@types/fs-extra,typescript
+          ncu --upgrade --target=latest --reject=@types/node,@types/fs-extra,typescript,prettier
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
           lerna exec --parallel ncu -- --upgrade --target=minor                                     \
@@ -95,7 +96,7 @@ jobs:
 
           # Upgrade all other dependencies (devDependencies) to the latest
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/fs-extra,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/fs-extra,typescript,prettier,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
