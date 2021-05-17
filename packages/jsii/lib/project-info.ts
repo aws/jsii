@@ -89,10 +89,8 @@ export async function loadProjectInfo(
     }
     version = _resolveVersion(version as any, projectRoot).version;
     pkg.peerDependencies = pkg.peerDependencies ?? {};
-    const peerVersion = _resolveVersion(
-      pkg.peerDependencies[name],
-      projectRoot,
-    ).version;
+    const peerVersion = _resolveVersion(pkg.peerDependencies[name], projectRoot)
+      .version;
     if (peerVersion === version) {
       return;
     }
@@ -338,11 +336,9 @@ function _toPerson(
   };
 }
 
-function _toRepository(value: any): {
-  type: string;
-  url: string;
-  directory?: string;
-} {
+function _toRepository(
+  value: any,
+): { type: string; url: string; directory?: string } {
   if (typeof value === 'string') {
     value = parseRepository(value);
   }
@@ -481,7 +477,9 @@ function mergeMetadata(
   }
 }
 
-function _loadDiagnostics(entries?: { [key: string]: string }):
+function _loadDiagnostics(entries?: {
+  [key: string]: string;
+}):
   | {
       [key: string]: ts.DiagnosticCategory;
     }

@@ -524,21 +524,21 @@ function _defaultValidations(): ValidationFunction[] {
       if (nestedType.namespace == null) {
         continue;
       }
-      const nestingType =
-        assembly.types![`${assembly.name}.${nestedType.namespace}`];
+      const nestingType = assembly.types![
+        `${assembly.name}.${nestedType.namespace}`
+      ];
       if (nestingType == null) {
         continue;
       }
       const nestedTypeName = Case.pascal(nestedType.name);
       for (const { name, member } of staticMembers(nestingType)) {
         if (name === nestedTypeName) {
-          let diag =
-            JsiiDiagnostic.JSII_5020_STATIC_MEMBER_CONFLICTS_WITH_NESTED_TYPE.create(
-              getRelatedNode(member)!,
-              nestingType,
-              member,
-              nestedType,
-            );
+          let diag = JsiiDiagnostic.JSII_5020_STATIC_MEMBER_CONFLICTS_WITH_NESTED_TYPE.create(
+            getRelatedNode(member)!,
+            nestingType,
+            member,
+            nestedType,
+          );
           const nestedTypeNode = getRelatedNode(nestedType);
           if (nestedTypeNode != null) {
             diag = diag.addRelatedInformation(

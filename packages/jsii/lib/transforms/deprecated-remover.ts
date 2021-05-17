@@ -345,15 +345,14 @@ export class DeprecatedRemover {
     context: Method | Initializer | Parameter | Property,
     assembly: Assembly,
   ): JsiiDiagnostic {
-    const node =
-      bindings.getRelatedNode<
-        | ts.AccessorDeclaration
-        | ts.MethodDeclaration
-        | ts.MethodSignature
-        | ts.ParameterDeclaration
-        | ts.PropertyDeclaration
-        | ts.PropertySignature
-      >(context);
+    const node = bindings.getRelatedNode<
+      | ts.AccessorDeclaration
+      | ts.MethodDeclaration
+      | ts.MethodSignature
+      | ts.ParameterDeclaration
+      | ts.PropertyDeclaration
+      | ts.PropertySignature
+    >(context);
     const diagnostic = JsiiDiagnostic.JSII_3999_INCOHERENT_TYPE_MODEL.create(
       node?.type ?? node!,
       `${messagePrefix} has @deprecated type ${fqn}, and it is erased by --strip-deprecated.`,
@@ -389,8 +388,10 @@ class Transformation {
         );
       }
 
-      const { typeExpression: newInterface, syntheticImport } =
-        Transformation.typeReference(iface, declaration, typeChecker);
+      const {
+        typeExpression: newInterface,
+        syntheticImport,
+      } = Transformation.typeReference(iface, declaration, typeChecker);
       if (ts.isClassDeclaration(declaration)) {
         return {
           node: ts.updateClassDeclaration(
@@ -456,8 +457,10 @@ class Transformation {
           }`,
         );
       }
-      const { typeExpression: newBaseClass, syntheticImport } =
-        Transformation.typeReference(baseClass, declaration, typeChecker);
+      const {
+        typeExpression: newBaseClass,
+        syntheticImport,
+      } = Transformation.typeReference(baseClass, declaration, typeChecker);
       const existingClause = declaration.heritageClauses?.find(
         (clause) => clause.token === ts.SyntaxKind.ExtendsKeyword,
       );
@@ -759,8 +762,10 @@ class DeprecationRemovalTransformer {
       for (const transformation of this.transformations) {
         // 👇 as any because the assignment below confuses type checker
         if (transformation.targets(node as any)) {
-          const { node: transformedNode, syntheticImport } =
-            transformation.apply(node);
+          const {
+            node: transformedNode,
+            syntheticImport,
+          } = transformation.apply(node);
           node = transformedNode as any;
           if (syntheticImport) {
             this.syntheticImports.push(syntheticImport);

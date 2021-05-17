@@ -114,7 +114,7 @@ export function nodeOfType<A>(
 export function nodeOfType<
   S extends keyof CapturableNodes,
   N extends string,
-  A,
+  A
 >(
   capture: N,
   capturableNodeType: S,
@@ -124,7 +124,7 @@ export function nodeOfType<
 export function nodeOfType<
   S extends keyof CapturableNodes,
   N extends string,
-  A,
+  A
 >(
   syntaxKindOrCaptureName: ts.SyntaxKind | N,
   nodeTypeOrChildren?: S | AstMatcher<A>,
@@ -509,7 +509,7 @@ export function findSuperCall(
   }
   if (ts.isCallExpression(node)) {
     if (renderer.textOf(node.expression) === 'super') {
-      return node as unknown as ts.SuperCall;
+      return (node as unknown) as ts.SuperCall;
     }
   }
   if (ts.isExpressionStatement(node)) {
