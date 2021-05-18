@@ -134,9 +134,8 @@ function main() {
         // chdir, since underneath the in-memory layer we're using a regular TS
         // compilerhost. Have to make all file references absolute before we chdir
         // though.
-        const absAssemblies = (args.ASSEMBLY.length > 0
-          ? args.ASSEMBLY
-          : ['.']
+        const absAssemblies = (
+          args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']
         ).map((x) => path.resolve(x));
         const absOutput = path.resolve(args.output);
         if (args.directory) {

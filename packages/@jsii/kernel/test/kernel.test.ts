@@ -21,15 +21,11 @@ import { closeRecording, recordInteraction } from './recording';
 
 // extract versions of fixtures
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-const calcBaseVersion = require('@scope/jsii-calc-base/package.json').version.replace(
-  /\+.+$/,
-  '',
-);
+const calcBaseVersion =
+  require('@scope/jsii-calc-base/package.json').version.replace(/\+.+$/, '');
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-const calcLibVersion = require('@scope/jsii-calc-lib/package.json').version.replace(
-  /\+.+$/,
-  '',
-);
+const calcLibVersion =
+  require('@scope/jsii-calc-lib/package.json').version.replace(/\+.+$/, '');
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcVersion = require('jsii-calc/package.json').version.replace(
   /\+.+$/,
@@ -578,8 +574,10 @@ defineTest(
   'verify object literals are converted to real classes',
   (sandbox) => {
     const obj = sandbox.create({ fqn: 'jsii-calc.JSObjectLiteralToNative' });
-    const obj2 = sandbox.invoke({ objref: obj, method: 'returnLiteral' })
-      .result;
+    const obj2 = sandbox.invoke({
+      objref: obj,
+      method: 'returnLiteral',
+    }).result;
 
     expect(obj2[api.TOKEN_REF]).toBeTruthy(); // verify that we received a ref as a result;
 
@@ -1222,7 +1220,8 @@ defineTest(
       try {
         sandbox.invoke({ objref: obj, method: 'throwError' });
       } catch (error) {
-        const regexp = /^\s*at Thrower\.doThrowError \(.*jsii[-_]calc.*\/lib\/compliance\.ts:\d+:\d+\)$/m;
+        const regexp =
+          /^\s*at Thrower\.doThrowError \(.*jsii[-_]calc.*\/lib\/compliance\.ts:\d+:\d+\)$/m;
         expect(regexp.test(error.stack)).toBeTruthy(); // The stack trace includes the path to the original source file
         throw error;
       }
@@ -1640,8 +1639,10 @@ defineTest('calculator can set and retrieve union properties', (sandbox) => {
     value: mul(num(9), num(3)),
   });
 
-  const value = sandbox.invoke({ objref: calculator, method: 'readUnionValue' })
-    .result;
+  const value = sandbox.invoke({
+    objref: calculator,
+    method: 'readUnionValue',
+  }).result;
   expect(27).toBe(value);
 
   const expression = sandbox.get({

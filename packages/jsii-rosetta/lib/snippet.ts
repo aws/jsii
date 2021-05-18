@@ -41,9 +41,8 @@ export function typeScriptSnippetFromSource(
   strict: boolean,
   parameters: Record<string, string> = {},
 ): TypeScriptSnippet {
-  const [source, sourceParameters] = parametersFromSourceDirectives(
-    typeScriptSource,
-  );
+  const [source, sourceParameters] =
+    parametersFromSourceDirectives(typeScriptSource);
   return {
     visibleSource: source.trimRight(),
     where,
