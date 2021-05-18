@@ -50,11 +50,6 @@ rules:
   '@typescript-eslint/await-thenable':
     - error
 
-  '@typescript-eslint/brace-style':
-    - error
-    - 1tbs # One True Brace Style!
-    - allowSingleLine: true
-
   '@typescript-eslint/explicit-module-boundary-types':
     - off
 
