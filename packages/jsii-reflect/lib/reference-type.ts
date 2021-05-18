@@ -77,9 +77,9 @@ export abstract class ReferenceType extends Type {
    * Lists all properties in this class.
    * @param inherited include all properties inherited from base classes (default: false)
    */
-  public abstract getProperties(
-    inherited?: boolean,
-  ): { [name: string]: Property };
+  public abstract getProperties(inherited?: boolean): {
+    [name: string]: Property;
+  };
 
   /**
    * List all methods in this class.
