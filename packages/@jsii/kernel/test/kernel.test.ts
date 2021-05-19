@@ -20,14 +20,11 @@ import { closeRecording, recordInteraction } from './recording';
 /* eslint-disable require-atomic-updates */
 
 // extract versions of fixtures
-// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcBaseVersion =
-  require('@scope/jsii-calc-base/package.json').version.replace(/\+.+$/, '');
-// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+  require('@scope/jsii-calc-base/package.json').version.replace(/\+.+$/, ''); // eslint-disable-line
 const calcLibVersion =
-  require('@scope/jsii-calc-lib/package.json').version.replace(/\+.+$/, '');
-// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-const calcVersion = require('jsii-calc/package.json').version.replace(
+  require('@scope/jsii-calc-lib/package.json').version.replace(/\+.+$/, ''); // eslint-disable-line
+const calcVersion = require('jsii-calc/package.json').version.replace( // eslint-disable-line
   /\+.+$/,
   '',
 );
