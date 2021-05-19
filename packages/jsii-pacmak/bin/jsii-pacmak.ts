@@ -43,8 +43,7 @@ import { VERSION_DESC } from '../lib/version';
     })
     .option('fingerprint', {
       type: 'boolean',
-      desc:
-        'attach a fingerprint to the generated artifacts, and skip generation if outdir contains artifacts that have a matching fingerprint',
+      desc: 'attach a fingerprint to the generated artifacts, and skip generation if outdir contains artifacts that have a matching fingerprint',
       default: true,
     })
     .option('force', {
@@ -55,14 +54,12 @@ import { VERSION_DESC } from '../lib/version';
     })
     .option('force-subdirectory', {
       type: 'boolean',
-      desc:
-        'force generation into a target-named subdirectory, even in single-target mode',
+      desc: 'force generation into a target-named subdirectory, even in single-target mode',
       default: true,
     })
     .option('force-target', {
       type: 'boolean',
-      desc:
-        'force generation of the given targets, even if the source package.json doesnt declare it',
+      desc: 'force generation of the given targets, even if the source package.json doesnt declare it',
       default: false,
     })
     .option('recurse', {
@@ -85,25 +82,21 @@ import { VERSION_DESC } from '../lib/version';
     })
     .option('npmignore', {
       type: 'boolean',
-      desc:
-        'Auto-update .npmignore to exclude the output directory and include the .jsii file',
+      desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
       default: true,
     })
     .option('rosetta-tablet', {
       type: 'string',
-      desc:
-        "Location of a jsii-rosetta tablet with sample translations (created using 'jsii-rosetta extract')",
+      desc: "Location of a jsii-rosetta tablet with sample translations (created using 'jsii-rosetta extract')",
     })
     .option('rosetta-translate-live', {
       type: 'boolean',
-      desc:
-        "Translate code samples on-the-fly if they can't be found in the samples tablet",
+      desc: "Translate code samples on-the-fly if they can't be found in the samples tablet",
       default: true,
     })
     .option('parallel', {
       type: 'boolean',
-      desc:
-        'Generate all configured targets in parallel (disabling this might help if you encounter EMFILE errors)',
+      desc: 'Generate all configured targets in parallel (disabling this might help if you encounter EMFILE errors)',
       default: true,
     })
     .option('dotnet-nuget-global-packages-folder', {
