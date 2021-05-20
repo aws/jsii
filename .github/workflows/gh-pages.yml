@@ -13,7 +13,7 @@ jobs:
   build:
     name: build
     permissions:
-      content: read
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -54,7 +54,7 @@ jobs:
     needs: build
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     permissions:
-      content: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out
