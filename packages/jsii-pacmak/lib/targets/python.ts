@@ -1607,7 +1607,7 @@ class PythonModule implements PythonType {
       }
       code.unindent(']');
     } else {
-      code.line('__all__: List[typing.Any] = []');
+      code.line('__all__: typing.List[typing.Any] = []');
     }
 
     // Finally, we'll use publication to ensure that all of the non-public names
