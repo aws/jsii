@@ -10,6 +10,8 @@ jobs:
        (github.event.pull_request.user.login == 'aws-cdk-automation' 
         || github.event.pull_request.user.login == 'dependabot[bot]' 
         || github.event.pull_request.user.login == 'dependabot-preview[bot]')
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
     - uses: hmarr/auto-approve-action@v2.1.0
