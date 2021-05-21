@@ -38,7 +38,7 @@ export const setInterfaceRelatedNode: (
 ) => spec.InterfaceType = setter;
 
 export const setMethodRelatedNode: <
-  T extends ts.MethodDeclaration | ts.MethodSignature
+  T extends ts.MethodDeclaration | ts.MethodSignature,
 >(
   object: spec.Method,
   node: T,

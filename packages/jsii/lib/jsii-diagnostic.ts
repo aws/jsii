@@ -11,7 +11,7 @@ import { JSII_DIAGNOSTICS_CODE } from './utils';
  * warnings as errors, or to suppress certain undesirable warnings.
  */
 export class Code<
-  T extends DiagnosticMessageFormatter = DiagnosticMessageFormatter
+  T extends DiagnosticMessageFormatter = DiagnosticMessageFormatter,
 > {
   private static readonly byCode: { [code: number]: Code } = {};
   private static readonly byName: { [name: string]: Code } = {};
@@ -352,14 +352,13 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'type-model/struct-props-must-be-readonly',
   });
 
-  public static readonly JSII_3009_OPTIONAL_PARAMETER_BEFORE_REQUIRED = Code.error(
-    {
+  public static readonly JSII_3009_OPTIONAL_PARAMETER_BEFORE_REQUIRED =
+    Code.error({
       code: 3009,
       formatter: (param: spec.Parameter, nextParam: spec.Parameter) =>
         `Parameter "${param.name}" cannot be optional, as it precedes required parameter "${nextParam.name}"`,
       name: 'type-model/optional-parameter-before-required',
-    },
-  );
+    });
 
   public static readonly JSII_3999_INCOHERENT_TYPE_MODEL = Code.error({
     code: 3999,
@@ -601,8 +600,8 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'language-compatibility/member-name-conflicts-with-type-name',
   });
 
-  public static readonly JSII_5020_STATIC_MEMBER_CONFLICTS_WITH_NESTED_TYPE = Code.error(
-    {
+  public static readonly JSII_5020_STATIC_MEMBER_CONFLICTS_WITH_NESTED_TYPE =
+    Code.error({
       code: 5020,
       formatter: (
         nestingType: spec.Type,
@@ -610,10 +609,8 @@ export class JsiiDiagnostic implements ts.Diagnostic {
         nestedType: spec.Type,
       ) =>
         `The static member "${nestingType.name}.${staticMember.name}" has the same PascalCased representation as nested type "${nestingType.name}.${nestedType.name}". This would result in invalid code in Go.`,
-      name:
-        'language-compatibility/static-member-name-conflicts-with-nested-type',
-    },
-  );
+      name: 'language-compatibility/static-member-name-conflicts-with-nested-type',
+    });
 
   //////////////////////////////////////////////////////////////////////////////
   // 6000 => 6999 -- RESERVED
@@ -775,9 +772,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
    * @param diag
    */
   public static isJsiiDiagnostic(diag: ts.Diagnostic): diag is JsiiDiagnostic {
-    return (
-      ((diag as unknown) as JsiiDiagnostic).domain === JsiiDiagnostic.DOMAIN
-    );
+    return (diag as unknown as JsiiDiagnostic).domain === JsiiDiagnostic.DOMAIN;
   }
 
   private readonly domain = JsiiDiagnostic.DOMAIN;
@@ -791,7 +786,8 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public readonly start: number | undefined;
   public readonly length: number | undefined;
 
-  public readonly relatedInformation = new Array<ts.DiagnosticRelatedInformation>();
+  public readonly relatedInformation =
+    new Array<ts.DiagnosticRelatedInformation>();
 
   /**
    * Creates a new `JsiiDiagnostic` with the provided properties.

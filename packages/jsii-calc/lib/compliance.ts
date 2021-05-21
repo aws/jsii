@@ -1249,7 +1249,8 @@ export abstract class AbstractClassBase {
 
 export abstract class AbstractClass
   extends AbstractClassBase
-  implements IInterfaceImplementedByAbstractClass {
+  implements IInterfaceImplementedByAbstractClass
+{
   public nonAbstractMethod() {
     return 42;
   }
@@ -1319,7 +1320,8 @@ export class DoNotOverridePrivates {
  * Class that implements interface properties automatically, but using a private constructor
  */
 export class ClassWithPrivateConstructorAndAutomaticProperties
-  implements IInterfaceWithProperties {
+  implements IInterfaceWithProperties
+{
   public static create(readOnlyString: string, readWriteString: string) {
     return new ClassWithPrivateConstructorAndAutomaticProperties(
       readOnlyString,
@@ -1518,7 +1520,8 @@ export class ExportedBaseClass {
 }
 class PrivateImplementation
   extends ExportedBaseClass
-  implements IPrivatelyImplemented {
+  implements IPrivatelyImplemented
+{
   public constructor() {
     super(true);
   }
@@ -1804,7 +1807,8 @@ interface IPrivateInterfaceThatExtendsTheNonInternalOne
 export class ClassThatImplementsTheInternalInterface
   implements
     IInternalInterfaceThatExtendsTheNonInternalOne,
-    INonInternalInterface {
+    INonInternalInterface
+{
   public a = 'a';
   public b = 'b';
   public c = 'c';
@@ -1812,7 +1816,8 @@ export class ClassThatImplementsTheInternalInterface
 }
 
 export class ClassThatImplementsThePrivateInterface
-  implements IPrivateInterfaceThatExtendsTheNonInternalOne {
+  implements IPrivateInterfaceThatExtendsTheNonInternalOne
+{
   public a = 'a';
   public b = 'b';
   public c = 'c';
@@ -2212,7 +2217,8 @@ export interface IAnonymousImplementationProvider {
   provideAsClass(): Implementation;
 }
 export class AnonymousImplementationProvider
-  implements IAnonymousImplementationProvider {
+  implements IAnonymousImplementationProvider
+{
   private readonly instance = new PrivateType();
 
   public provideAsClass(): Implementation {

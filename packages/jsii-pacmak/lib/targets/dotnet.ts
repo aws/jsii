@@ -274,9 +274,9 @@ function projectLocation(module: JsiiModule) {
 }
 
 export default class Dotnet extends Target {
-  public static toPackageInfos(
-    assm: spec.Assembly,
-  ): { [language: string]: PackageInfo } {
+  public static toPackageInfos(assm: spec.Assembly): {
+    [language: string]: PackageInfo;
+  } {
     const packageId = assm.targets!.dotnet!.packageId;
     const version = toReleaseVersion(assm.version, TargetName.DOTNET);
     const packageInfo: PackageInfo = {

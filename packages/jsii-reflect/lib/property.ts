@@ -15,7 +15,8 @@ import { TypeSystem } from './type-system';
 
 export class Property
   extends OptionalValue
-  implements Documentable, Overridable, TypeMember, SourceLocatable {
+  implements Documentable, Overridable, TypeMember, SourceLocatable
+{
   public readonly kind = MemberKind.Property;
 
   public constructor(
