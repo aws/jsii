@@ -821,6 +821,30 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: Array<string>
  │   │   └─┬ map property (stable)
  │   │     └── type: Map<string => string>
+ │   ├─┬ class ClassWithContainerTypes (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(array,record,obj,props) initializer (stable)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ array
+ │   │   │   │ └── type: Array<jsii-calc.DummyObj>
+ │   │   │   ├─┬ record
+ │   │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   │   ├─┬ obj
+ │   │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   │   └─┬ props
+ │   │   │     └── type: Optional<jsii-calc.ContainerProps>
+ │   │   ├─┬ array property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: Array<jsii-calc.DummyObj>
+ │   │   ├─┬ obj property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   ├─┬ record property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   └─┬ props property (stable)
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.ContainerProps>
  │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
  │   │   └── <initializer>() initializer (stable)
@@ -2339,6 +2363,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
+ │   ├─┬ interface ContainerProps (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ arrayProp property (stable)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Array<jsii-calc.DummyObj>
+ │   │   ├─┬ objProp property (stable)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   └─┬ recordProp property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Map<string => jsii-calc.DummyObj>
  │   ├─┬ interface DeprecatedStruct (deprecated)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (deprecated)
@@ -2410,6 +2448,12 @@ exports[`jsii-tree --all 1`] = `
  │   │ │ └── DiamondInheritanceSecondMidLevelStruct
  │   │ └─┬ members
  │   │   └─┬ topLevelProperty property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface DummyObj (stable)
+ │   │ └─┬ members
+ │   │   └─┬ example property (stable)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
@@ -3352,6 +3396,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class ClassThatImplementsThePrivateInterface
  │   │ └── interfaces: INonInternalInterface
  │   ├── class ClassWithCollections
+ │   ├── class ClassWithContainerTypes
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
@@ -3485,6 +3530,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └─┬ interfaces
  │   │   └── ParentStruct982
  │   ├── interface ConfusingToJacksonStruct
+ │   ├── interface ContainerProps
  │   ├── interface DeprecatedStruct
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
@@ -3504,6 +3550,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └─┬ interfaces
  │   │   ├── DiamondInheritanceFirstMidLevelStruct
  │   │   └── DiamondInheritanceSecondMidLevelStruct
+ │   ├── interface DummyObj
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
@@ -4059,6 +4106,13 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static staticMap property
  │   │   ├── array property
  │   │   └── map property
+ │   ├─┬ class ClassWithContainerTypes
+ │   │ └─┬ members
+ │   │   ├── <initializer>(array,record,obj,props) initializer
+ │   │   ├── array property
+ │   │   ├── obj property
+ │   │   ├── record property
+ │   │   └── props property
  │   ├─┬ class ClassWithDocs
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
@@ -4713,6 +4767,11 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface ConfusingToJacksonStruct
  │   │ └─┬ members
  │   │   └── unionProperty property
+ │   ├─┬ interface ContainerProps
+ │   │ └─┬ members
+ │   │   ├── arrayProp property
+ │   │   ├── objProp property
+ │   │   └── recordProp property
  │   ├─┬ interface DeprecatedStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
@@ -4739,6 +4798,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface DiamondInheritanceTopLevelStruct
  │   │ └─┬ members
  │   │   └── topLevelProperty property
+ │   ├─┬ interface DummyObj
+ │   │ └─┬ members
+ │   │   └── example property
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├── option1 property
@@ -5285,6 +5347,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithCollections
+ │   ├── class ClassWithContainerTypes
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
@@ -5396,6 +5459,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface CalculatorProps
  │   ├── interface ChildStruct982
  │   ├── interface ConfusingToJacksonStruct
+ │   ├── interface ContainerProps
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface DiamondBottom
@@ -5403,6 +5467,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
  │   ├── interface DiamondInheritanceTopLevelStruct
+ │   ├── interface DummyObj
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
