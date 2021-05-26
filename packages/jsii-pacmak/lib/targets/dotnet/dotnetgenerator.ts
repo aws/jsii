@@ -293,9 +293,8 @@ export class DotNetGenerator extends Generator {
     }
 
     if (cls.interfaces && cls.interfaces.length > 0) {
-      const implementations = this.typeresolver.resolveImplementedInterfaces(
-        cls,
-      );
+      const implementations =
+        this.typeresolver.resolveImplementedInterfaces(cls);
       baseTypeNames = baseTypeNames.concat(implementations);
     }
 

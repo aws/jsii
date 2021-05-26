@@ -120,7 +120,8 @@ describe(toReleaseVersion, () => {
       go: '1.2.3-pre',
       java: '1.2.3-pre',
       js: '1.2.3-pre',
-      python: /Unable to map prerelease identifier \(in: 1\.2\.3-pre\) components to python: \[ 'pre' \]/,
+      python:
+        /Unable to map prerelease identifier \(in: 1\.2\.3-pre\) components to python: \[ 'pre' \]/,
     },
     '1.2.3-alpha.1337': {
       dotnet: '1.2.3-alpha.1337',

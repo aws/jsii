@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     name: build
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -19,7 +21,7 @@ jobs:
         with:
           python-version: '3.8'
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
       - name: Locate Caches
         id: cache-locations
         run: |-
@@ -51,10 +53,12 @@ jobs:
     name: Publish
     needs: build
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
         with:
           ref: gh-pages
           token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
