@@ -19,6 +19,8 @@ env:
 jobs:
   build:
     name: Build
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       # Set up all of our standard runtimes
@@ -111,6 +113,8 @@ jobs:
 
   create-release-package:
     name: Create Release Package
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       # Set up all of our standard runtimes

@@ -60,22 +60,20 @@ export abstract class Package {
       (sm) => new InternalPackage(this.root, this, sm),
     );
 
-    this.types = this.typeSpec.map(
-      (type: Type): GoType => {
-        if (type.isInterfaceType() && type.datatype) {
-          return new Struct(this, type);
-        } else if (type.isInterfaceType()) {
-          return new GoInterface(this, type);
-        } else if (type.isClassType()) {
-          return new GoClass(this, type);
-        } else if (type.isEnumType()) {
-          return new Enum(this, type);
-        }
-        throw new Error(
-          `Type: ${type.name} with kind ${type.kind} is not a supported type`,
-        );
-      },
-    );
+    this.types = this.typeSpec.map((type: Type): GoType => {
+      if (type.isInterfaceType() && type.datatype) {
+        return new Struct(this, type);
+      } else if (type.isInterfaceType()) {
+        return new GoInterface(this, type);
+      } else if (type.isClassType()) {
+        return new GoClass(this, type);
+      } else if (type.isEnumType()) {
+        return new Enum(this, type);
+      }
+      throw new Error(
+        `Type: ${type.name} with kind ${type.kind} is not a supported type`,
+      );
+    });
   }
 
   /*

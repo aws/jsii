@@ -685,8 +685,9 @@ export class Assembler implements Emitter {
             : fqn,
         };
       }
-      const symbolLocation = sym.getDeclarations()?.[0]?.getSourceFile()
-        ?.fileName;
+      const symbolLocation = sym
+        .getDeclarations()?.[0]
+        ?.getSourceFile()?.fileName;
       const pkgInfo = symbolLocation && (await findPackageInfo(symbolLocation));
       const assemblyName: string = pkgInfo?.name ?? this.projectInfo.name;
       const fqn = `${assemblyName}.${sym.name}`;
@@ -870,9 +871,8 @@ export class Assembler implements Emitter {
       // This is what happens when one does `export { Symbol } from "./location";`
       //                   ExportSpecifier:           ~~~~~~
 
-      const resolvedSymbol = this._typeChecker.getExportSpecifierLocalTargetSymbol(
-        node,
-      );
+      const resolvedSymbol =
+        this._typeChecker.getExportSpecifierLocalTargetSymbol(node);
       if (!resolvedSymbol) {
         // A grammar error, compilation will already have failed
         return [];
@@ -1398,9 +1398,8 @@ export class Assembler implements Emitter {
     const ctorDeclaration =
       constructor && (constructor.declarations[0] as ts.ConstructorDeclaration);
     if (constructor && ctorDeclaration) {
-      const signature = this._typeChecker.getSignatureFromDeclaration(
-        ctorDeclaration,
-      );
+      const signature =
+        this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
 
       if (
         (ts.getCombinedModifierFlags(ctorDeclaration) &
@@ -1985,9 +1984,8 @@ export class Assembler implements Emitter {
     const declaration = symbol.valueDeclaration as
       | ts.MethodDeclaration
       | ts.MethodSignature;
-    const signature = this._typeChecker.getSignatureFromDeclaration(
-      declaration,
-    );
+    const signature =
+      this._typeChecker.getSignatureFromDeclaration(declaration);
     if (!signature) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_9004_UNABLE_TO_COMPUTE_SIGNATURE.create(
@@ -2247,7 +2245,8 @@ export class Assembler implements Emitter {
     if (LOG.isTraceEnabled()) {
       LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
     }
-    const paramDeclaration = paramSymbol.valueDeclaration as ts.ParameterDeclaration;
+    const paramDeclaration =
+      paramSymbol.valueDeclaration as ts.ParameterDeclaration;
 
     this._warnAboutReservedWords(paramSymbol);
 
@@ -2931,9 +2930,9 @@ function memberNames(jsiiType: spec.InterfaceType | spec.ClassType): string[] {
   return Object.keys(typeMembers(jsiiType)).filter((n) => n !== '');
 }
 
-function typeMembers(
-  jsiiType: spec.InterfaceType | spec.ClassType,
-): { [key: string]: spec.Property | spec.Method } {
+function typeMembers(jsiiType: spec.InterfaceType | spec.ClassType): {
+  [key: string]: spec.Property | spec.Method;
+} {
   const ret: { [key: string]: spec.Property | spec.Method } = {};
 
   for (const prop of jsiiType.properties ?? []) {
@@ -2982,9 +2981,9 @@ function noEmptyDict<T>(
   return xs;
 }
 
-function toDependencyClosure(
-  assemblies: readonly spec.Assembly[],
-): { [name: string]: spec.AssemblyConfiguration } {
+function toDependencyClosure(assemblies: readonly spec.Assembly[]): {
+  [name: string]: spec.AssemblyConfiguration;
+} {
   const result: { [name: string]: spec.AssemblyTargets } = {};
   for (const assembly of assemblies) {
     if (!assembly.targets) {

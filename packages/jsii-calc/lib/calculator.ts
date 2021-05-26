@@ -80,7 +80,8 @@ export class Add extends BinaryOperation {
  */
 export class Multiply
   extends BinaryOperation
-  implements IFriendlier, IRandomNumberGenerator {
+  implements IFriendlier, IRandomNumberGenerator
+{
   public get value() {
     return this.lhs.value * this.rhs.value;
   }
