@@ -10589,7 +10589,7 @@ import typing_extensions
 
 from .._jsii import *
 
-__all__: List[typing.Any] = []
+__all__: typing.List[typing.Any] = []
 
 publication.publish()
 
@@ -10806,7 +10806,7 @@ import typing_extensions
 
 from .._jsii import *
 
-__all__: List[typing.Any] = []
+__all__: typing.List[typing.Any] = []
 
 publication.publish()
 
@@ -11163,7 +11163,7 @@ import typing_extensions
 
 from .._jsii import *
 
-__all__: List[typing.Any] = []
+__all__: typing.List[typing.Any] = []
 
 publication.publish()
 
