@@ -12,9 +12,6 @@ import { ModuleLike } from './module-like';
 import { Property } from './property';
 import { Type } from './type';
 
-const readFile = promisify(fs.readFile);
-const stat = promisify(fs.stat);
-
 export class TypeSystem {
   /**
    * All assemblies in this type system.
@@ -344,4 +341,16 @@ function flatMap<T, R>(
   return collection
     .map(mapper)
     .reduce((acc, elt) => acc.concat(elt), new Array<R>());
+}
+
+async function stat(p: string) {
+  // just-in-time require so that this file can be loaded in browsers as well.
+  const stat = promisify(fs.stat);
+  return stat(p);
+}
+
+async function readFile(p: string) {
+  // just-in-time require so that this file can be loaded in browsers as well.
+  const readFile = promisify(fs.readFile);
+  return readFile(p);
 }
