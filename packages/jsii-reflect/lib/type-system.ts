@@ -1,5 +1,4 @@
 import * as jsii from '@jsii/spec';
-import * as fs from 'fs';
 import * as path from 'path';
 import { promisify } from 'util';
 
@@ -343,14 +342,16 @@ function flatMap<T, R>(
     .reduce((acc, elt) => acc.concat(elt), new Array<R>());
 }
 
-async function stat(p: string) {
+function stat(p: string) {
   // just-in-time require so that this file can be loaded in browsers as well.
-  const stat = promisify(fs.stat);
-  return stat(p);
+  // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+  const fs = require('fs');
+  return promisify(fs.stat)(p);
 }
 
-async function readFile(p: string) {
+function readFile(p: string) {
   // just-in-time require so that this file can be loaded in browsers as well.
-  const readFile = promisify(fs.readFile);
-  return readFile(p);
+  // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+  const fs = require('fs');
+  return promisify(fs.readFile)(p);
 }
