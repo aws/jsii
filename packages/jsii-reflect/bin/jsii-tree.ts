@@ -12,20 +12,17 @@ async function main() {
         args
           .positional('JSII-FILE', {
             type: 'string',
-            desc:
-              'path to a .jsii file to load, all dependency .jsii files must be explicitly supplied',
+            desc: 'path to a .jsii file to load, all dependency .jsii files must be explicitly supplied',
           })
           .positional('MODULE-DIR', {
             type: 'string',
-            desc:
-              'path to an jsii npm module directory, all jsii dependencies will be loaded transitively',
+            desc: 'path to an jsii npm module directory, all jsii dependencies will be loaded transitively',
           }),
     )
     .option('closure', {
       type: 'string',
       alias: 'c',
-      desc:
-        'Load dependencies of package without assuming its a JSII package itself',
+      desc: 'Load dependencies of package without assuming its a JSII package itself',
     })
     .option('all', {
       type: 'boolean',

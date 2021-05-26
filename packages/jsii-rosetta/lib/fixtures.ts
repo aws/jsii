@@ -123,9 +123,10 @@ function loadAndSubFixture(
  * @returns an object containing the import statements on one end, and the rest
  *          on the other hand.
  */
-function sidelineImports(
-  source: string,
-): { imports: string; statements: string } {
+function sidelineImports(source: string): {
+  imports: string;
+  statements: string;
+} {
   let imports = '';
   let statements = '';
 

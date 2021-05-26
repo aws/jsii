@@ -9,9 +9,9 @@ interface PromptAnswers extends PackageJson {
   jsiiTargets: string[];
 }
 
-function getPassThroughValues(
-  current: BasePackageJson,
-): { readonly metadata?: any } {
+function getPassThroughValues(current: BasePackageJson): {
+  readonly metadata?: any;
+} {
   const metadata = getNestedValue(['jsii', 'metadata'], current);
   return {
     ...(metadata ? { metadata } : {}),

@@ -452,7 +452,7 @@ export abstract class Generator implements IGenerator {
    * Notice that the method that contains all the arguments will not be returned.
    */
   protected createOverloadsForOptionals<
-    T extends spec.Method | spec.Initializer
+    T extends spec.Method | spec.Initializer,
   >(method: T) {
     const overloads = new Array<T>();
 

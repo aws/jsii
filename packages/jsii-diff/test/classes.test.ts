@@ -363,7 +363,8 @@ test.each([
   {
     oldDecl: 'name: string',
     newDecl: 'name?: string',
-    error: /type Optional<string> \(formerly string\): output type is now optional/,
+    error:
+      /type Optional<string> \(formerly string\): output type is now optional/,
   },
   {
     oldDecl: 'name?: string',
