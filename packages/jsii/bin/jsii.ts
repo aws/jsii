@@ -34,14 +34,12 @@ const warningTypes = Object.keys(enabledWarnings);
           .option('project-references', {
             alias: 'r',
             type: 'boolean',
-            desc:
-              'Generate TypeScript project references (also [package.json].jsii.projectReferences)',
+            desc: 'Generate TypeScript project references (also [package.json].jsii.projectReferences)',
           })
           .option('fix-peer-dependencies', {
             type: 'boolean',
             default: true,
-            desc:
-              'Automatically add missing entries in the peerDependencies section of package.json',
+            desc: 'Automatically add missing entries in the peerDependencies section of package.json',
           })
           .options('fail-on-warnings', {
             alias: 'Werr',
@@ -58,8 +56,7 @@ const warningTypes = Object.keys(enabledWarnings);
           .option('strip-deprecated', {
             type: 'boolean',
             default: false,
-            desc:
-              '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
+            desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
           }),
     )
     .option('verbose', {

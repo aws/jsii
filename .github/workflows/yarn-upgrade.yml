@@ -9,11 +9,13 @@ on:
 jobs:
   upgrade:
     name: Yarn Upgrade
+    permissions:
+      content: read
     runs-on: ubuntu-latest
     steps:
 
       - name: Check Out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Set up Node
         uses: actions/setup-node@v2.1.5
@@ -103,6 +105,38 @@ jobs:
 
       - name: Run "yarn upgrade"
         run: yarn upgrade
+
+      # Next, create and upload the changes as a patch file. This will later be downloaded to create a pull request
+      # Creating a pull request requires write permissions and it's best to keep write privileges isolated.
+      - name: Create Patch
+        run: |-
+          git add .
+          git diff --patch --staged > ${{ runner.temp }}/upgrade.patch
+      - name: Upload Patch
+        uses: actions/upload-artifact@v2
+        with:
+          name: upgrade.patch
+          path: ${{ runner.temp }}/upgrade.patch
+
+  pr:
+    name: Create Pull Request
+    needs: upgrade
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+      - name: Download patch
+        uses: actions/download-artifact@v2
+        with:
+          name: upgrade.patch
+          path: ${{ runner.temp }}
+
+      - name: Apply patch
+        run: '[ -s ${{ runner.temp }}/upgrade.patch ] && git apply ${{ runner.temp }}/upgrade.patch || echo "Empty patch. Skipping."'
 
       - name: Make Pull Request
         uses: peter-evans/create-pull-request@v3

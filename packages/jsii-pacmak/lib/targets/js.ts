@@ -7,9 +7,9 @@ import { toReleaseVersion } from './version-utils';
 import { TargetName } from '.';
 
 export default class JavaScript extends Target {
-  public static toPackageInfos(
-    assm: spec.Assembly,
-  ): { [language: string]: PackageInfo } {
+  public static toPackageInfos(assm: spec.Assembly): {
+    [language: string]: PackageInfo;
+  } {
     const releaseVersion = toReleaseVersion(
       assm.version,
       TargetName.JAVASCRIPT,

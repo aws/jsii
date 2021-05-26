@@ -367,9 +367,9 @@ function moduleArtifactsSubdir(module: JsiiModule) {
 }
 
 export default class Java extends Target {
-  public static toPackageInfos(
-    assm: spec.Assembly,
-  ): { [language: string]: PackageInfo } {
+  public static toPackageInfos(assm: spec.Assembly): {
+    [language: string]: PackageInfo;
+  } {
     const groupId = assm.targets!.java!.maven.groupId;
     const artifactId = assm.targets!.java!.maven.artifactId;
     const releaseVersion = toReleaseVersion(assm.version, TargetName.JAVA);
@@ -2669,10 +2669,8 @@ class JavaGenerator extends Generator {
     const moduleName = mod.name;
     const moduleClass = this.makeModuleClass(moduleName);
 
-    const {
-      filePath: moduleResFile,
-      name: moduleResName,
-    } = this.toJavaResourcePath(mod, `${mod.name}.${MODULE_CLASS_NAME}`);
+    const { filePath: moduleResFile, name: moduleResName } =
+      this.toJavaResourcePath(mod, `${mod.name}.${MODULE_CLASS_NAME}`);
     this.code.openFile(moduleResFile);
     for (const fqn of Object.keys(this.assembly.types ?? {})) {
       this.code.line(`${fqn}=${this.toNativeFqn(fqn, { binaryName: true })}`);
@@ -2874,9 +2872,10 @@ class JavaGenerator extends Generator {
    * @param assm The assembly that contains the type
    * @param type The type we want the name of
    */
-  private toNativeName(
-    assm: spec.Assembly,
-  ): { packageName: string; typeName: undefined };
+  private toNativeName(assm: spec.Assembly): {
+    packageName: string;
+    typeName: undefined;
+  };
   private toNativeName(
     assm: spec.Assembly,
     type: spec.Type,

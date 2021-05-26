@@ -269,7 +269,7 @@ export abstract class ComparableType<T> {
  * Contains shared code that applies to both class and interface types.
  */
 export abstract class ComparableReferenceType<
-  T extends reflect.ReferenceType
+  T extends reflect.ReferenceType,
 > extends ComparableType<T> {
   /**
    * Compare members of the reference types
