@@ -124,7 +124,7 @@ export function validateAsyncSame(
  * Once variadic, can never be made non-variadic anymore (because I could always have been passing N+1 arguments)
  */
 export function validateNotMadeNonVariadic<
-  T extends reflect.Method | reflect.Initializer
+  T extends reflect.Method | reflect.Initializer,
 >(original: T, updated: T, mismatches: IReport) {
   if (original.variadic && !updated.variadic) {
     mismatches.report({
@@ -348,7 +348,7 @@ function describeOptionalValueMatchingFailure(
  * (All types still assignable)
  */
 export function validateExistingParams<
-  T extends reflect.Initializer | reflect.Method
+  T extends reflect.Initializer | reflect.Method,
 >(
   original: T,
   updated: T,
@@ -385,7 +385,7 @@ export function validateExistingParams<
  * (Not too few arguments)
  */
 export function validateNoNewRequiredParams<
-  T extends reflect.Initializer | reflect.Method
+  T extends reflect.Initializer | reflect.Method,
 >(original: T, updated: T, mismatches: IReport) {
   updated.parameters.forEach((param, i) => {
     if (param.optional) {
@@ -404,7 +404,7 @@ export function validateNoNewRequiredParams<
 }
 
 export function validateMethodCompatible<
-  T extends reflect.Method | reflect.Initializer
+  T extends reflect.Method | reflect.Initializer,
 >(original: T, updated: T, mismatches: IReport) {
   validateStabilities(original, updated, mismatches);
 
@@ -482,7 +482,7 @@ export function validateNotMadeImmutable(
 
 export function* memberPairs<
   T extends reflect.TypeMember,
-  U extends reflect.ReferenceType
+  U extends reflect.ReferenceType,
 >(
   origClass: U,
   xs: T[],

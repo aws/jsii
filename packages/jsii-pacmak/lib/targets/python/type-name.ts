@@ -138,7 +138,7 @@ export function mergePythonImports(
 function isOptionalValue(
   type: OptionalValue | TypeReference,
 ): type is OptionalValue {
-  return ((type as unknown) as OptionalValue).type != null;
+  return (type as unknown as OptionalValue).type != null;
 }
 
 class Dict implements TypeName {
