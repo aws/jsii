@@ -1150,6 +1150,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "polothy",
+      "name": "Mark Nielsen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/634657?v=4",
+      "profile": "https://polothy.github.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github",
