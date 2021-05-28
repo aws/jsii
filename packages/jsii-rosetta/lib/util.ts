@@ -38,7 +38,7 @@ export function printDiagnostic(
   stream.write(message);
 }
 
-const StrictBrand = Symbol('strict');
+const StrictBrand = 'jsiiStrict';
 interface MaybeStrictDiagnostic {
   readonly [StrictBrand]?: boolean;
 }
@@ -46,7 +46,7 @@ interface MaybeStrictDiagnostic {
 export function annotateStrictDiagnostic(diag: ts.Diagnostic) {
   Object.defineProperty(diag, StrictBrand, {
     configurable: false,
-    enumerable: false,
+    enumerable: true,
     value: true,
     writable: false,
   });
