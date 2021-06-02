@@ -3,12 +3,22 @@ import { readJson, writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
 import { TargetLanguage } from '../languages';
+import { debug } from '../logging';
 import { Rosetta } from '../rosetta';
 import { typeScriptSnippetFromSource } from '../snippet';
 import { Translation } from '../tablets/tablets';
 
 export interface TransliterateAssemblyOptions {
+  /**
+   * Enable this to cause a failure if any of the code examples in the provided
+   * assemblies fail to compile.
+   */
   readonly strict?: boolean;
+
+  /**
+   * A pre-build translation tablet (as produced by `jsii-rosetta extract`).
+   */
+  readonly tablet?: string;
 }
 
 /**
@@ -26,36 +36,19 @@ export interface TransliterateAssemblyOptions {
 export async function transliterateAssembly(
   assemblyLocations: readonly string[],
   targetLanguages: readonly TargetLanguage[],
-  tabletLocation?: string,
   options: TransliterateAssemblyOptions = {},
 ): Promise<void> {
   const rosetta = new Rosetta({ liveConversion: true, targetLanguages });
-  if (tabletLocation) {
-    await rosetta.loadTabletFromFile(tabletLocation);
+  if (options.tablet) {
+    await rosetta.loadTabletFromFile(options.tablet);
   }
-  const assemblies = await Promise.all(
-    assemblyLocations.map(async (assemblyLocation) => {
-      const assembly = (await readJson(
-        resolve(assemblyLocation, SPEC_FILE_NAME),
-      )) as Assembly;
-      await rosetta.addAssembly(assembly, assemblyLocation);
-      return { assemblyLocation, assembly };
-    }),
-  ).then((items) =>
-    items.reduce((acc, { assemblyLocation, assembly }) => {
-      acc.set(assemblyLocation, assembly);
-      return acc;
-    }, new Map<string, Assembly>()),
-  );
+  const assemblies = await loadAssemblies(assemblyLocations, rosetta);
 
-  for (const [location, assembly] of assemblies.entries()) {
-    console.error(
-      `Working on the assembly ${assembly.name}@${assembly.version} at ${location}`,
-    );
+  for (const [location, loadAssembly] of assemblies.entries()) {
     for (const language of targetLanguages) {
       const now = new Date().getTime();
-      console.error(`- Transliterating to ${language}`);
-      const result = mutableCopy(assembly);
+      // eslint-disable-next-line no-await-in-loop
+      const result = await loadAssembly();
       if (result.readme?.markdown) {
         result.readme.markdown = rosetta.translateSnippetsInMarkdown(
           result.readme.markdown,
@@ -76,31 +69,45 @@ export async function transliterateAssembly(
         result,
       );
       const then = new Date().getTime();
-      console.error(`  => Done after ${then - now} milliseconds`);
+      debug(
+        `Done transliterating ${result.name}@${
+          result.version
+        } to ${language} after ${then - now} milliseconds`,
+      );
     }
   }
 }
 
-type Mutable<T> = T extends ReadonlyArray<infer E>
-  ? Array<Mutable<E>>
-  : T extends Array<infer E>
-  ? Array<Mutable<E>>
-  : T extends string
-  ? T
-  : { -readonly [K in keyof T]: Mutable<T[K]> };
-function mutableCopy<T>(val: T): Mutable<T> {
-  if (val == null || typeof val !== 'object') {
-    return val as any;
+/**
+ * Given a set of directories containing `.jsii` assemblies, load all the
+ * assemblies into the provided `Rosetta` instance and return a map of
+ * directories to assembly-loading functions (the function re-loads the original
+ * assembly from disk on each invocation).
+ *
+ * @param directories the assembly-containing directories to traverse.
+ * @param rosetta     the `Rosetta` instance in which to load assemblies.
+ *
+ * @returns a map of directories to a function that loads the `.jsii` assembly
+ *          contained therein from disk.
+ */
+async function loadAssemblies(
+  directories: readonly string[],
+  rosetta: Rosetta,
+): Promise<ReadonlyMap<string, AssemblyLoader>> {
+  const result = new Map<string, AssemblyLoader>();
+
+  for (const directory of directories) {
+    const loader = () => readJson(resolve(directory, SPEC_FILE_NAME));
+    // eslint-disable-next-line no-await-in-loop
+    await rosetta.addAssembly(await loader(), directory);
+    result.set(directory, loader);
   }
-  if (Array.isArray(val)) {
-    return val.map(mutableCopy) as any;
-  }
-  const result = {} as Mutable<T>;
-  for (const [key, value] of Object.entries(val)) {
-    (result as any)[key] = mutableCopy(value);
-  }
+
   return result;
 }
+
+type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
+type AssemblyLoader = () => Promise<Mutable<Assembly>>;
 
 function prefixDisclaimer(translation: Translation): string {
   const message = translation.didCompile
