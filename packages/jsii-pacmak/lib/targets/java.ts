@@ -5,6 +5,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
   Rosetta,
+  TargetLanguage,
   typeScriptSnippetFromSource,
   Translation,
   enforcesStrictMode,
@@ -2916,7 +2917,10 @@ class JavaGenerator extends Generator {
       'example',
       enforcesStrictMode(this.assembly),
     );
-    const translated = this.rosetta.translateSnippet(snippet, 'java');
+    const translated = this.rosetta.translateSnippet(
+      snippet,
+      TargetLanguage.JAVA,
+    );
     if (!translated) {
       return example;
     }
@@ -2926,7 +2930,7 @@ class JavaGenerator extends Generator {
   private convertSamplesInMarkdown(markdown: string): string {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
-      'java',
+      TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,

@@ -10,6 +10,8 @@ import {
 import { translateMarkdown } from '../lib/commands/convert';
 import { extractSnippets } from '../lib/commands/extract';
 import { readTablet } from '../lib/commands/read';
+import { transliterateAssembly } from '../lib/commands/transliterate';
+import { TargetLanguage } from '../lib/languages';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import * as logging from '../lib/logging';
@@ -164,6 +166,55 @@ function main() {
         ) {
           process.exitCode = 1;
         }
+      }),
+    )
+    .command(
+      'transliterate [ASSEMBLY..] [LANGUAGE..]',
+      '(EXPERIMENTAL) Transliterates the designated assemblies to the specified language (or all supported languages)',
+      (command) =>
+        command
+          .positional('ASSEMBLY', {
+            type: 'string',
+            string: true,
+            default: new Array<string>(),
+            required: true,
+            describe: 'Assembly to transliterate',
+          })
+          .positional('LANGUAGE', {
+            type: 'string',
+            string: true,
+            default: new Array<string>(),
+            describe: 'Language ID to transliterate to',
+          })
+          .option('tablet', {
+            type: 'string',
+            describe: 'Language tablet to read',
+          })
+          .options('strict', {
+            type: 'boolean',
+            describe: "Enables strict mode for a package's assembly",
+          }),
+      wrapHandler((args) => {
+        const assemblies = (
+          args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']
+        ).map((dir) => path.resolve(process.cwd(), dir));
+        const languages =
+          args.LANGUAGE.length > 0
+            ? args.LANGUAGE.map((lang) => {
+                const target = Object.entries(TargetLanguage).find(
+                  ([k]) => k === lang,
+                )?.[1];
+                if (target == null) {
+                  throw new Error(
+                    `Unknown target language: ${lang}. Expected one of ${Object.keys(
+                      TargetLanguage,
+                    ).join(', ')}`,
+                  );
+                }
+                return target;
+              })
+            : Object.values(TargetLanguage);
+        return transliterateAssembly(assemblies, languages, args.tablet, args);
       }),
     )
     .command(

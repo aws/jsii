@@ -19,11 +19,14 @@ test('Rosetta object can do live translation', () => {
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ['python'],
+    targetLanguages: [TargetLanguage.PYTHON],
   });
 
   // WHEN
-  const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
+  const translated = rosetta.translateSnippet(
+    SAMPLE_CODE,
+    TargetLanguage.PYTHON,
+  );
 
   // THEN
   expect(translated).toMatchObject({
@@ -47,7 +50,10 @@ test('Can use preloaded tablet', () => {
   rosetta.addTablet(tablet);
 
   // WHEN
-  const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
+  const translated = rosetta.translateSnippet(
+    SAMPLE_CODE,
+    TargetLanguage.PYTHON,
+  );
 
   // THEN
   expect(translated).toMatchObject({
@@ -60,11 +66,14 @@ test('Rosetta object can do live translation', () => {
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ['python'],
+    targetLanguages: [TargetLanguage.PYTHON],
   });
 
   // WHEN
-  const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
+  const translated = rosetta.translateSnippet(
+    SAMPLE_CODE,
+    TargetLanguage.PYTHON,
+  );
 
   // THEN
   expect(translated).toMatchObject({
@@ -77,7 +86,7 @@ test('Rosetta object can do translation and annotation of snippets in MarkDown',
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ['python'],
+    targetLanguages: [TargetLanguage.PYTHON],
   });
 
   // WHEN
@@ -91,7 +100,7 @@ test('Rosetta object can do translation and annotation of snippets in MarkDown',
       '```',
       'That was it, thank you for your attention.',
     ].join('\n'),
-    'python',
+    TargetLanguage.PYTHON,
     false,
     (trans) => {
       return {
@@ -142,7 +151,10 @@ describe('with mocked filesystem', () => {
     // WHEN
     const rosetta = new Rosetta();
     await rosetta.loadTabletFromFile('/test.tablet');
-    const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
+    const translated = rosetta.translateSnippet(
+      SAMPLE_CODE,
+      TargetLanguage.PYTHON,
+    );
 
     // THEN
     expect(translated).toMatchObject({
@@ -158,7 +170,10 @@ describe('with mocked filesystem', () => {
     // WHEN
     const rosetta = new Rosetta();
     await rosetta.addAssembly(fakeAssembly({}), '/');
-    const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
+    const translated = rosetta.translateSnippet(
+      SAMPLE_CODE,
+      TargetLanguage.PYTHON,
+    );
 
     // THEN
     expect(translated).toMatchObject({

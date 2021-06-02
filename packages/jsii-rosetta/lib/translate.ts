@@ -51,7 +51,7 @@ export class Translator {
 
   public translate(
     snip: TypeScriptSnippet,
-    languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[],
+    languages: readonly TargetLanguage[] = Object.values(TargetLanguage),
   ) {
     logging.debug(
       `Translating ${snippetKey(snip)} ${inspect(snip.parameters ?? {})}`,

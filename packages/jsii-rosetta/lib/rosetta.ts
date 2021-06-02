@@ -31,7 +31,7 @@ export interface RosettaOptions {
    *
    * @default All languages
    */
-  targetLanguages?: TargetLanguage[];
+  targetLanguages?: readonly TargetLanguage[];
 }
 
 /**
