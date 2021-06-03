@@ -2,7 +2,7 @@
 
 jsii-config is a command line utility for configuring [jsii enabled modules](../../README.md). It is useful to help convert an existing typescript module to a jsii module. It can also be used to revise existing jsii compiler configuration optiions, such as adding a new language target.
 
-[See the jsii documentation](../../docs/configuration.md) for more information on how the configuration options affect jsii's output.
+[See the jsii documentation](https://aws.github.io/jsii/user-guides/lib-author/configuration/) for more information on how the configuration options affect jsii's output.
 
 ## Usage
 
@@ -14,7 +14,7 @@ jsii-config requires an existing package.json with the following fields:
 - main
 - author
 
-For details on the content of these fields, [see the jsii documentation](../../docs/configuration.md#additional-requirements--extensions).
+For details on the content of these fields, [see the jsii documentation](https://aws.github.io/jsii/user-guides/lib-author/configuration/#additional-requirements-extensions).
 
 jsii-config can be called via npx.
 
