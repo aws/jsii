@@ -134,7 +134,8 @@ export class SnippetTranslator {
     const source = completeSource(snippet);
 
     const fakeCurrentDirectory =
-      snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY];
+      snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY] ??
+      snippet.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
     this.compilation = compiler.compileInMemory(
       snippet.where,
       source,

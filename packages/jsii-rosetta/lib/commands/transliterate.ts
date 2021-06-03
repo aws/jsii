@@ -2,21 +2,26 @@ import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind } from '@jsii/spec';
 import { readJson, writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
+import { fixturize } from '../fixtures';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { Rosetta } from '../rosetta';
-import { typeScriptSnippetFromSource } from '../snippet';
+import { SnippetParameters, typeScriptSnippetFromSource } from '../snippet';
 import { Translation } from '../tablets/tablets';
 
 export interface TransliterateAssemblyOptions {
   /**
-   * Enable this to cause a failure if any of the code examples in the provided
-   * assemblies fail to compile.
+   * Whather transliteration should fail upon failing to compile an example that
+   * required live transliteration.
+   *
+   * @default false
    */
   readonly strict?: boolean;
 
   /**
    * A pre-build translation tablet (as produced by `jsii-rosetta extract`).
+   *
+   * @default - Only the default tablet (`.jsii.tabl.json`) files will be used.
    */
   readonly tablet?: string;
 }
@@ -38,7 +43,11 @@ export async function transliterateAssembly(
   targetLanguages: readonly TargetLanguage[],
   options: TransliterateAssemblyOptions = {},
 ): Promise<void> {
-  const rosetta = new Rosetta({ liveConversion: true, targetLanguages });
+  const rosetta = new Rosetta({
+    includeCompilerDiagnostics: true,
+    liveConversion: true,
+    targetLanguages,
+  });
   if (options.tablet) {
     await rosetta.loadTabletFromFile(options.tablet);
   }
@@ -53,20 +62,22 @@ export async function transliterateAssembly(
         result.readme.markdown = rosetta.translateSnippetsInMarkdown(
           result.readme.markdown,
           language,
-          options.strict ?? false,
+          true /* strict */,
           (translation) => ({
             language: translation.language,
             source: prefixDisclaimer(translation),
           }),
+          location,
         );
       }
       for (const type of Object.values(result.types ?? {})) {
-        transliterateType(type, rosetta, language, options.strict ?? false);
+        transliterateType(type, rosetta, language, location);
       }
       // eslint-disable-next-line no-await-in-loop
       await writeJson(
         resolve(location, `${SPEC_FILE_NAME}.${language}`),
         result,
+        { spaces: 2 },
       );
       const then = new Date().getTime();
       debug(
@@ -75,6 +86,13 @@ export async function transliterateAssembly(
         } to ${language} after ${then - now} milliseconds`,
       );
     }
+  }
+
+  rosetta.printDiagnostics(process.stderr);
+  if (rosetta.hasErrors && options.strict) {
+    throw new Error(
+      'Strict mode is enabled and some examples failed compilation!',
+    );
   }
 }
 
@@ -134,7 +152,7 @@ function transliterateType(
   type: Type,
   rosetta: Rosetta,
   language: TargetLanguage,
-  strict: boolean,
+  workingDirectory: string,
 ): void {
   transliterateDocs(type.docs);
   switch (type.kind) {
@@ -142,6 +160,7 @@ function transliterateType(
     // @ts-ignore 7029
     case TypeKind.Class:
       transliterateDocs(type?.initializer?.docs);
+
     // fallthrough
     case TypeKind.Interface:
       for (const method of type.methods ?? []) {
@@ -154,21 +173,26 @@ function transliterateType(
         transliterateDocs(property.docs);
       }
       break;
+
     case TypeKind.Enum:
       for (const member of type.members) {
         transliterateDocs(member.docs);
       }
       break;
+
     default:
       throw new Error(`Unsupported type kind: ${(type as any).kind}`);
   }
 
   function transliterateDocs(docs: Docs | undefined) {
     if (docs?.example) {
-      const snippet = typeScriptSnippetFromSource(
-        docs.example,
-        'example',
-        strict,
+      const snippet = fixturize(
+        typeScriptSnippetFromSource(
+          docs.example,
+          'example',
+          true /* strict */,
+          { [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory },
+        ),
       );
       const translation = rosetta.translateSnippet(snippet, language);
       if (translation != null) {
