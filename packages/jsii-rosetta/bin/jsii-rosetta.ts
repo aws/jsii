@@ -30,7 +30,7 @@ function main() {
       'Translate a single snippet',
       (command) =>
         command
-          .positional('file', {
+          .positional('FILE', {
             type: 'string',
             describe: 'The file to translate (leave out for stdin)',
           })
@@ -41,7 +41,7 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateTypeScript(
-          await makeFileSource(args.file ?? '-', 'stdin.ts'),
+          await makeFileSource(args.FILE ?? '-', 'stdin.ts'),
           makeVisitor(args),
         );
         renderResult(result);
@@ -52,7 +52,7 @@ function main() {
       'Translate a MarkDown file',
       (command) =>
         command
-          .positional('file', {
+          .positional('FILE', {
             type: 'string',
             describe: 'The file to translate (leave out for stdin)',
           })
@@ -63,7 +63,7 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateMarkdown(
-          await makeFileSource(args.file ?? '-', 'stdin.md'),
+          await makeFileSource(args.FILE ?? '-', 'stdin.md'),
           makeVisitor(args),
         );
         renderResult(result);
