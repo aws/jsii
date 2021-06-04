@@ -9,7 +9,11 @@ import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
 import { CodeBlock } from './markdown/types';
-import { TypeScriptSnippet } from './snippet';
+import {
+  SnippetParameters,
+  TypeScriptSnippet,
+  updateParameters,
+} from './snippet';
 import {
   DEFAULT_TABLET_NAME,
   LanguageTablet,
@@ -24,14 +28,19 @@ export interface RosettaOptions {
    *
    * @default false
    */
-  liveConversion?: boolean;
+  readonly liveConversion?: boolean;
 
   /**
    * Target languages to use for live conversion
    *
    * @default All languages
    */
-  targetLanguages?: TargetLanguage[];
+  readonly targetLanguages?: readonly TargetLanguage[];
+
+  /**
+   * Whether to include compiler diagnostics in the compilation results.
+   */
+  readonly includeCompilerDiagnostics?: boolean;
 }
 
 /**
@@ -49,10 +58,14 @@ export interface RosettaOptions {
 export class Rosetta {
   private readonly loadedTablets: LanguageTablet[] = [];
   private readonly liveTablet = new LanguageTablet();
-  private readonly extractedSnippets: Record<string, TypeScriptSnippet> = {};
-  private readonly translator = new Translator(false);
+  private readonly extractedSnippets = new Map<string, TypeScriptSnippet>();
+  private readonly translator: Translator;
 
-  public constructor(private readonly options: RosettaOptions = {}) {}
+  public constructor(private readonly options: RosettaOptions = {}) {
+    this.translator = new Translator(
+      options.includeCompilerDiagnostics ?? false,
+    );
+  }
 
   /**
    * Diagnostics encountered while doing live translation
@@ -104,7 +117,7 @@ export class Rosetta {
       for (const tsnip of allTypeScriptSnippets([
         { assembly, directory: assemblyDir },
       ])) {
-        this.extractedSnippets[tsnip.visibleSource] = tsnip;
+        this.extractedSnippets.set(tsnip.visibleSource, tsnip);
       }
     }
   }
@@ -136,7 +149,7 @@ export class Rosetta {
     }
 
     // See if we're going to live-convert it with full source information
-    const extracted = this.extractedSnippets[source.visibleSource];
+    const extracted = this.extractedSnippets.get(source.visibleSource);
     if (extracted !== undefined) {
       const snippet = this.translator.translate(
         extracted,
@@ -159,12 +172,18 @@ export class Rosetta {
     targetLang: TargetLanguage,
     strict: boolean,
     translationToCodeBlock: (x: Translation) => CodeBlock = id,
+    compileDirectory = process.cwd(),
   ): string {
     return transformMarkdown(
       markdown,
       new MarkdownRenderer(),
       new ReplaceTypeScriptTransform('markdown', strict, (tsSnip) => {
-        const translated = this.translateSnippet(tsSnip, targetLang);
+        const translated = this.translateSnippet(
+          updateParameters(tsSnip, {
+            [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,
+          }),
+          targetLang,
+        );
         if (!translated) {
           return undefined;
         }

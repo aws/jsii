@@ -7,6 +7,7 @@ import {
   structPropertyAcceptsUndefined,
 } from '../jsii/jsii-utils';
 import { jsiiTargetParam } from '../jsii/packages';
+import { TargetLanguage } from '../languages/target-language';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
 import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
 import {
@@ -86,7 +87,7 @@ export interface PythonVisitorOptions {
 }
 
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
-  public readonly language = 'python';
+  public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
 
   public constructor(private readonly options: PythonVisitorOptions = {}) {

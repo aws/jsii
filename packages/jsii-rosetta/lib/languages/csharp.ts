@@ -23,6 +23,7 @@ import {
 } from '../typescript/types';
 import { flat, partition, setExtend } from '../util';
 import { DefaultVisitor } from './default';
+import { TargetLanguage } from './target-language';
 
 interface CSharpLanguageContext {
   /**
@@ -74,7 +75,7 @@ interface CSharpLanguageContext {
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
-  public readonly language = 'csharp';
+  public readonly language = TargetLanguage.CSHARP;
 
   public readonly defaultContext = {
     propertyOrMethod: false,

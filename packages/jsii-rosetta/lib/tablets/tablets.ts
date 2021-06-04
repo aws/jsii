@@ -51,7 +51,7 @@ export class LanguageTablet {
     if (!obj.toolVersion || !obj.snippets) {
       throw new Error(`File '${filename}' does not seem to be a Tablet file`);
     }
-    if (obj.toolVersion !== TOOL_VERSION) {
+    if (obj.toolVersion !== TOOL_VERSION && TOOL_VERSION !== '0.0.0') {
       throw new Error(
         `Tablet file '${filename}' has been created with version '${obj.toolVersion}', cannot read with current version '${TOOL_VERSION}'`,
       );

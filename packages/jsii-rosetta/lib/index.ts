@@ -1,5 +1,6 @@
 export * from './translate';
 export { renderTree } from './o-tree';
+export { TargetLanguage } from './languages/target-language';
 export { CSharpVisitor } from './languages/csharp';
 export { JavaVisitor } from './languages/java';
 export { PythonVisitor } from './languages/python';
