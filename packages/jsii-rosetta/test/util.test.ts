@@ -1,8 +1,10 @@
 import * as ts from 'typescript';
 
-import { annotateStrictDiagnostic, isErrorDiagnostic } from '../lib/util';
-
-const strictBrand = 'jsiiStrict';
+import {
+  StrictBrand,
+  annotateStrictDiagnostic,
+  isErrorDiagnostic,
+} from '../lib/util';
 
 describe(annotateStrictDiagnostic, () => {
   const diagnostic = {
@@ -17,7 +19,7 @@ describe(annotateStrictDiagnostic, () => {
   test('adds strict property', () => {
     annotateStrictDiagnostic(diagnostic);
 
-    expect(diagnostic).toHaveProperty(strictBrand);
+    expect(diagnostic).toHaveProperty([StrictBrand]);
   });
 });
 
@@ -26,7 +28,7 @@ describe(isErrorDiagnostic, () => {
   const errorDiagnostic = makeDiagnostic(ts.DiagnosticCategory.Error);
   const strictErrorDiagnostic = {
     ...makeDiagnostic(ts.DiagnosticCategory.Error),
-    [strictBrand]: true,
+    [StrictBrand]: true,
   };
   const diagnostics = [
     warningDiagnostic,

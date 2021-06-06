@@ -38,7 +38,7 @@ export function printDiagnostic(
   stream.write(message);
 }
 
-const StrictBrand = 'jsiiStrict';
+export const StrictBrand = 'jsii.strict';
 interface MaybeStrictDiagnostic {
   readonly [StrictBrand]?: boolean;
 }
