@@ -2,6 +2,7 @@ import * as spec from '@jsii/spec';
 import { CodeMaker } from 'codemaker';
 import {
   Rosetta,
+  TargetLanguage,
   Translation,
   enforcesStrictMode,
   typeScriptSnippetFromSource,
@@ -166,7 +167,10 @@ export class DotNetDocGenerator {
       'example',
       enforcesStrictMode(this.assembly),
     );
-    const translated = this.rosetta.translateSnippet(snippet, 'csharp');
+    const translated = this.rosetta.translateSnippet(
+      snippet,
+      TargetLanguage.CSHARP,
+    );
     if (!translated) {
       return example;
     }
@@ -176,7 +180,7 @@ export class DotNetDocGenerator {
   private convertSamplesInMarkdown(markdown: string): string {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
-      'csharp',
+      TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,

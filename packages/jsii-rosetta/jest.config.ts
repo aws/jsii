@@ -1,3 +1,7 @@
-import config from '../../jest.config';
+import { join } from 'path';
 
-export default config;
+import { overriddenConfig } from '../../jest.config';
+
+export default overriddenConfig({
+  setupFiles: [join(__dirname, 'jestsetup.js')],
+});

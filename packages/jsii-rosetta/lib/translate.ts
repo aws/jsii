@@ -51,7 +51,7 @@ export class Translator {
 
   public translate(
     snip: TypeScriptSnippet,
-    languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[],
+    languages: readonly TargetLanguage[] = Object.values(TargetLanguage),
   ) {
     logging.debug(
       `Translating ${snippetKey(snip)} ${inspect(snip.parameters ?? {})}`,
@@ -134,7 +134,8 @@ export class SnippetTranslator {
     const source = completeSource(snippet);
 
     const fakeCurrentDirectory =
-      snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY];
+      snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY] ??
+      snippet.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
     this.compilation = compiler.compileInMemory(
       snippet.where,
       source,

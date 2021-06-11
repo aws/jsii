@@ -4,6 +4,7 @@ import * as escapeStringRegexp from 'escape-string-regexp';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
+  TargetLanguage,
   Translation,
   Rosetta,
   enforcesStrictMode,
@@ -2290,7 +2291,10 @@ class PythonGenerator extends Generator {
       'example',
       enforcesStrictMode(this.assembly),
     );
-    const translated = this.rosetta.translateSnippet(snippet, 'python');
+    const translated = this.rosetta.translateSnippet(
+      snippet,
+      TargetLanguage.PYTHON,
+    );
     if (!translated) {
       return example;
     }
@@ -2300,7 +2304,7 @@ class PythonGenerator extends Generator {
   public convertMarkdown(markdown: string): string {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
-      'python',
+      TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,
