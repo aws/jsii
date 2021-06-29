@@ -16,7 +16,7 @@ export const TREE = Symbol('tree');
 expect.addSnapshotSerializer({
   test: (val) => val?.[BINARY] != null,
   serialize: (val) => `base64:${val[BINARY].toString('base64')}`,
-})
+});
 expect.addSnapshotSerializer({
   test: (val) => val?.[FILE] != null,
   serialize: (val) => val[FILE],
