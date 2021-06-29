@@ -41,6 +41,14 @@ export interface RosettaOptions {
    * Whether to include compiler diagnostics in the compilation results.
    */
   readonly includeCompilerDiagnostics?: boolean;
+
+  /**
+   * Whether this Rosetta should operate in "loose" mode, where missing literate
+   * source files and missing fixtures are ignored instead of failing.
+   *
+   * @default false
+   */
+  readonly loose?: boolean;
 }
 
 /**
@@ -60,8 +68,10 @@ export class Rosetta {
   private readonly liveTablet = new LanguageTablet();
   private readonly extractedSnippets = new Map<string, TypeScriptSnippet>();
   private readonly translator: Translator;
+  private readonly loose: boolean;
 
   public constructor(private readonly options: RosettaOptions = {}) {
+    this.loose = !!options.loose;
     this.translator = new Translator(
       options.includeCompilerDiagnostics ?? false,
     );
@@ -114,9 +124,7 @@ export class Rosetta {
     }
 
     if (this.options.liveConversion) {
-      for (const tsnip of allTypeScriptSnippets([
-        { assembly, directory: assemblyDir },
-      ])) {
+      for (const tsnip of allTypeScriptSnippets([        { assembly, directory: assemblyDir },      ], this.loose)) {
         this.extractedSnippets.set(tsnip.visibleSource, tsnip);
       }
     }

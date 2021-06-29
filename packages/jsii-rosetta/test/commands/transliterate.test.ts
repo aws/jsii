@@ -907,6 +907,330 @@ export class ClassName implements IInterface {
     );
   }));
 
+test('single assembly, loose mode', () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = await jsii.compileJsiiForTest({
+      'README.md': `
+# Missing literate source
+
+[example is not found](missing-example.lit.ts)
+
+# Missing fixture
+
+\`\`\`ts fixture=not-found
+new SampleClass('README.md');
+\`\`\`
+`,
+      'index.ts': `
+/**
+ * @example
+ *   /// fixture=not-found
+ *   new DoesNotCompile(this, 'That', { foo: 1337 });
+ */
+export class SampleClass {
+  public constructor(_source: string){ }
+}
+`,
+      // The `lit.ts` source file will not be there in packaged form...
+      'missing-example.lit.ts': `
+import { SampleClass } from './index';
+
+/// !show
+/// ## This is a heading within the literate file!
+new SampleClass('literate');
+      `,
+    });
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      compilationResult.assembly,
+      {
+        spaces: 2,
+      },
+    );
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+
+    // WHEN
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        loose: true,
+      }),
+    ).resolves.not.toThrow();
+
+    // THEN
+    expect(
+      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`)),
+    ).toMatchInlineSnapshot(
+      {
+        fingerprint: expect.any(String),
+        jsiiVersion: expect.any(String),
+      },
+      `
+      Object {
+        "author": Object {
+          "name": "John Doe",
+          "roles": Array [
+            "author",
+          ],
+        },
+        "description": "testpkg",
+        "fingerprint": Any<String>,
+        "homepage": "https://github.com/aws/jsii.git",
+        "jsiiVersion": Any<String>,
+        "license": "Apache-2.0",
+        "metadata": Object {
+          "jsii": Object {
+            "pacmak": Object {
+              "hasDefaultInterfaces": true,
+            },
+          },
+        },
+        "name": "testpkg",
+        "readme": Object {
+          "markdown": "# Missing literate source
+
+      ## This is a heading within the literate file!
+
+      \`\`\`csharp
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new index_1.SampleClass(\\"literate\\");
+      \`\`\`
+
+      # Missing fixture
+
+      \`\`\`csharp
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new SampleClass(\\"README.md\\");
+      \`\`\`",
+        },
+        "repository": Object {
+          "type": "git",
+          "url": "https://github.com/aws/jsii.git",
+        },
+        "schema": "jsii/0.10.0",
+        "targets": Object {
+          "js": Object {
+            "npm": "testpkg",
+          },
+        },
+        "types": Object {
+          "testpkg.SampleClass": Object {
+            "assembly": "testpkg",
+            "docs": Object {
+              "example": "// Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new DoesNotCompile(this, \\"That\\", new Struct { Foo = 1337 });",
+            },
+            "fqn": "testpkg.SampleClass",
+            "initializer": Object {
+              "locationInModule": Object {
+                "filename": "index.ts",
+                "line": 8,
+              },
+              "parameters": Array [
+                Object {
+                  "name": "_source",
+                  "type": Object {
+                    "primitive": "string",
+                  },
+                },
+              ],
+            },
+            "kind": "class",
+            "locationInModule": Object {
+              "filename": "index.ts",
+              "line": 7,
+            },
+            "name": "SampleClass",
+          },
+        },
+        "version": "0.0.1",
+      }
+    `,
+    );
+
+    expect(
+      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`)),
+    ).toMatchInlineSnapshot(
+      {
+        fingerprint: expect.any(String),
+        jsiiVersion: expect.any(String),
+      },
+      `
+      Object {
+        "author": Object {
+          "name": "John Doe",
+          "roles": Array [
+            "author",
+          ],
+        },
+        "description": "testpkg",
+        "fingerprint": Any<String>,
+        "homepage": "https://github.com/aws/jsii.git",
+        "jsiiVersion": Any<String>,
+        "license": "Apache-2.0",
+        "metadata": Object {
+          "jsii": Object {
+            "pacmak": Object {
+              "hasDefaultInterfaces": true,
+            },
+          },
+        },
+        "name": "testpkg",
+        "readme": Object {
+          "markdown": "# Missing literate source
+
+      ## This is a heading within the literate file!
+
+      \`\`\`java
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new SampleClass(\\"literate\\");
+      \`\`\`
+
+      # Missing fixture
+
+      \`\`\`java
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new SampleClass(\\"README.md\\");
+      \`\`\`",
+        },
+        "repository": Object {
+          "type": "git",
+          "url": "https://github.com/aws/jsii.git",
+        },
+        "schema": "jsii/0.10.0",
+        "targets": Object {
+          "js": Object {
+            "npm": "testpkg",
+          },
+        },
+        "types": Object {
+          "testpkg.SampleClass": Object {
+            "assembly": "testpkg",
+            "docs": Object {
+              "example": "// Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      DoesNotCompile.Builder.create(this, \\"That\\").foo(1337).build();",
+            },
+            "fqn": "testpkg.SampleClass",
+            "initializer": Object {
+              "locationInModule": Object {
+                "filename": "index.ts",
+                "line": 8,
+              },
+              "parameters": Array [
+                Object {
+                  "name": "_source",
+                  "type": Object {
+                    "primitive": "string",
+                  },
+                },
+              ],
+            },
+            "kind": "class",
+            "locationInModule": Object {
+              "filename": "index.ts",
+              "line": 7,
+            },
+            "name": "SampleClass",
+          },
+        },
+        "version": "0.0.1",
+      }
+    `,
+    );
+
+    expect(
+      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`)),
+    ).toMatchInlineSnapshot(
+      {
+        fingerprint: expect.any(String),
+        jsiiVersion: expect.any(String),
+      },
+      `
+      Object {
+        "author": Object {
+          "name": "John Doe",
+          "roles": Array [
+            "author",
+          ],
+        },
+        "description": "testpkg",
+        "fingerprint": Any<String>,
+        "homepage": "https://github.com/aws/jsii.git",
+        "jsiiVersion": Any<String>,
+        "license": "Apache-2.0",
+        "metadata": Object {
+          "jsii": Object {
+            "pacmak": Object {
+              "hasDefaultInterfaces": true,
+            },
+          },
+        },
+        "name": "testpkg",
+        "readme": Object {
+          "markdown": "# Missing literate source
+
+      ## This is a heading within the literate file!
+
+      \`\`\`python
+      # Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      index_1.SampleClass(\\"literate\\")
+      \`\`\`
+
+      # Missing fixture
+
+      \`\`\`python
+      # Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      SampleClass(\\"README.md\\")
+      \`\`\`",
+        },
+        "repository": Object {
+          "type": "git",
+          "url": "https://github.com/aws/jsii.git",
+        },
+        "schema": "jsii/0.10.0",
+        "targets": Object {
+          "js": Object {
+            "npm": "testpkg",
+          },
+        },
+        "types": Object {
+          "testpkg.SampleClass": Object {
+            "assembly": "testpkg",
+            "docs": Object {
+              "example": "# Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      DoesNotCompile(self, \\"That\\", foo=1337)",
+            },
+            "fqn": "testpkg.SampleClass",
+            "initializer": Object {
+              "locationInModule": Object {
+                "filename": "index.ts",
+                "line": 8,
+              },
+              "parameters": Array [
+                Object {
+                  "name": "_source",
+                  "type": Object {
+                    "primitive": "string",
+                  },
+                },
+              ],
+            },
+            "kind": "class",
+            "locationInModule": Object {
+              "filename": "index.ts",
+              "line": 7,
+            },
+            "name": "SampleClass",
+          },
+        },
+        "version": "0.0.1",
+      }
+    `,
+    );
+  }));
+
 async function withTemporaryDirectory<T>(
   callback: (dir: string) => Promise<T>,
 ): Promise<T> {
