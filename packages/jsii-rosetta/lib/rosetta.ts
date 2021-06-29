@@ -124,7 +124,10 @@ export class Rosetta {
     }
 
     if (this.options.liveConversion) {
-      for (const tsnip of allTypeScriptSnippets([        { assembly, directory: assemblyDir },      ], this.loose)) {
+      for (const tsnip of allTypeScriptSnippets(
+        [{ assembly, directory: assemblyDir }],
+        this.loose,
+      )) {
         this.extractedSnippets.set(tsnip.visibleSource, tsnip);
       }
     }

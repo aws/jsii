@@ -191,13 +191,14 @@ function main() {
             alias: 's',
             conflicts: 'loose',
             describe:
-            'Fail if an example that needs live transliteration fails to compile (which could cause incorrect transpilation results)',
+              'Fail if an example that needs live transliteration fails to compile (which could cause incorrect transpilation results)',
             type: 'boolean',
           })
           .options('loose', {
             alias: 'l',
             conflicts: 'strict',
-            describe: 'Ignore missing fixtures and literate markdown files instead of failing',
+            describe:
+              'Ignore missing fixtures and literate markdown files instead of failing',
             type: 'boolean',
           })
           .option('tablet', {

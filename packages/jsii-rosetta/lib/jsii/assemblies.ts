@@ -132,7 +132,10 @@ function removeSlashes(x: string) {
   return x.replace(/\//g, '.');
 }
 
-export function* allTypeScriptSnippets(assemblies: readonly LoadedAssembly[], loose = false): IterableIterator<TypeScriptSnippet> {
+export function* allTypeScriptSnippets(
+  assemblies: readonly LoadedAssembly[],
+  loose = false,
+): IterableIterator<TypeScriptSnippet> {
   for (const { assembly, directory } of assemblies) {
     const strict = enforcesStrictMode(assembly);
     for (const source of allSnippetSources(assembly)) {

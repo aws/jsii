@@ -12,7 +12,10 @@ import { TypeScriptSnippet, SnippetParameters } from './snippet';
 /**
  * Complete snippets with fixtures, if required
  */
-export function fixturize(snippet: TypeScriptSnippet, loose = false): TypeScriptSnippet {
+export function fixturize(
+  snippet: TypeScriptSnippet,
+  loose = false,
+): TypeScriptSnippet {
   let source = snippet.visibleSource;
   const parameters = snippet.parameters ?? {};
 
@@ -46,7 +49,11 @@ export function fixturize(snippet: TypeScriptSnippet, loose = false): TypeScript
   };
 }
 
-function loadLiterateSource(directory: string, literateFileName: string, loose = false) {
+function loadLiterateSource(
+  directory: string,
+  literateFileName: string,
+  loose = false,
+) {
   const fullPath = path.join(directory, literateFileName);
   const exists = fs.existsSync(fullPath);
   if (!exists) {
