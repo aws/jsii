@@ -61,6 +61,8 @@
         }
       },
       "dotnet": {
+        "assemblyOriginatorKeyFile": "keypair.snk",
+        "signAssembly": true,
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
         "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
         "versionSuffix": "-devpreview"

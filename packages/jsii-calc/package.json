@@ -72,6 +72,8 @@
         }
       },
       "dotnet": {
+        "assemblyOriginatorKeyFile": "keypair.snk",
+        "signAssembly": true,
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
         "packageId": "Amazon.JSII.Tests.CalculatorPackageId",
         "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png"

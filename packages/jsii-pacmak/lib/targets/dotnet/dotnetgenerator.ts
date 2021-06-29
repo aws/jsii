@@ -102,6 +102,14 @@ export class DotNetGenerator extends Generator {
     await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
 
+    if (assm.targets!.dotnet!.assemblyOriginatorKeyFile) {
+      // There is an AOKF so we copy it to the out-dir so it's available for signing.
+      const relativePath = assm.targets!.dotnet!.assemblyOriginatorKeyFile;
+      const outPath = path.join(outdir, packageId, relativePath);
+      await fs.mkdirp(path.dirname(outPath));
+      await fs.copyFile(path.resolve(this.packageRoot, relativePath), outPath);
+    }
+
     // Create an anchor file for the current model
     this.generateDependencyAnchorFile();
 
