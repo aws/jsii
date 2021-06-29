@@ -39,9 +39,8 @@ export function fixturize(snippet: TypeScriptSnippet): TypeScriptSnippet {
   }
 
   return {
-    visibleSource: snippet.visibleSource,
+    ...snippet,
     completeSource: source,
-    where: snippet.where,
     parameters,
   };
 }
