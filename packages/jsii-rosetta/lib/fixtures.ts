@@ -42,9 +42,8 @@ export function fixturize(
   }
 
   return {
-    visibleSource: snippet.visibleSource,
+    ...snippet,
     completeSource: source,
-    where: snippet.where,
     parameters,
   };
 }
