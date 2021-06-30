@@ -11,7 +11,15 @@ import { Translation } from '../tablets/tablets';
 
 export interface TransliterateAssemblyOptions {
   /**
-   * Whather transliteration should fail upon failing to compile an example that
+   * Whether to ignore any missing fixture files or literate markdown documents
+   * referenced by the assembly, instead of failing.
+   *
+   * @default false
+   */
+  readonly loose?: boolean;
+
+  /**
+   * Whether transliteration should fail upon failing to compile an example that
    * required live transliteration.
    *
    * @default false
@@ -46,6 +54,7 @@ export async function transliterateAssembly(
   const rosetta = new Rosetta({
     includeCompilerDiagnostics: true,
     liveConversion: true,
+    loose: options.loose,
     targetLanguages,
   });
   if (options.tablet) {
@@ -71,7 +80,7 @@ export async function transliterateAssembly(
         );
       }
       for (const type of Object.values(result.types ?? {})) {
-        transliterateType(type, rosetta, language, location);
+        transliterateType(type, rosetta, language, location, options.loose);
       }
       // eslint-disable-next-line no-await-in-loop
       await writeJson(
@@ -153,6 +162,7 @@ function transliterateType(
   rosetta: Rosetta,
   language: TargetLanguage,
   workingDirectory: string,
+  loose = false,
 ): void {
   transliterateDocs(type.docs);
   switch (type.kind) {
@@ -193,6 +203,7 @@ function transliterateType(
           true /* strict */,
           { [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory },
         ),
+        loose,
       );
       const translation = rosetta.translateSnippet(snippet, language);
       if (translation != null) {

@@ -10,7 +10,7 @@ labels: feature-request, needs-triage
 <!--
 Check the box (with an X) for any language runtime that you know is affected by
 the reported bug. If you're uncertain whether a language is affected or not,
-please leave the bux un-checked.
+please leave the box un-checked.
 -->
 - [ ] `TypeScript` or `Javascript`
 - [ ] `Python`
