@@ -12,7 +12,10 @@ import { TypeScriptSnippet, SnippetParameters } from './snippet';
 /**
  * Complete snippets with fixtures, if required
  */
-export function fixturize(snippet: TypeScriptSnippet): TypeScriptSnippet {
+export function fixturize(
+  snippet: TypeScriptSnippet,
+  loose = false,
+): TypeScriptSnippet {
   let source = snippet.visibleSource;
   const parameters = snippet.parameters ?? {};
 
@@ -25,14 +28,14 @@ export function fixturize(snippet: TypeScriptSnippet): TypeScriptSnippet {
   if (literateSource) {
     // Compatibility with the "old school" example inclusion mechanism.
     // Completely load this file and attach a parameter with its directory.
-    source = loadLiterateSource(directory, literateSource);
+    source = loadLiterateSource(directory, literateSource, loose);
     parameters[SnippetParameters.$COMPILATION_DIRECTORY] = path.join(
       directory,
       path.dirname(literateSource),
     );
   } else if (parameters[SnippetParameters.FIXTURE]) {
-    // Explicitly request a fixture
-    source = loadAndSubFixture(directory, parameters.fixture, source, true);
+    // Explicitly requested fixture must exist, unless we are operating in loose mode
+    source = loadAndSubFixture(directory, parameters.fixture, source, !loose);
   } else if (parameters[SnippetParameters.NO_FIXTURE] === undefined) {
     // Don't explicitly request no fixture
     source = loadAndSubFixture(directory, 'default', source, false);
@@ -45,10 +48,22 @@ export function fixturize(snippet: TypeScriptSnippet): TypeScriptSnippet {
   };
 }
 
-function loadLiterateSource(directory: string, literateFileName: string) {
+function loadLiterateSource(
+  directory: string,
+  literateFileName: string,
+  loose = false,
+) {
   const fullPath = path.join(directory, literateFileName);
   const exists = fs.existsSync(fullPath);
   if (!exists) {
+    if (loose) {
+      // In loose mode, we'll fall back to the `.js` file if it exists...
+      const jsFile = fullPath.replace(/\.ts(x?)$/, '.js$1');
+      if (fs.existsSync(jsFile)) {
+        return fs.readFileSync(jsFile, { encoding: 'utf-8' });
+      }
+      return `Missing literate source file ${literateFileName}`;
+    }
     // This couldn't really happen in practice, but do the check anyway
     throw new Error(
       `Sample uses literate source ${literateFileName}, but not found: ${fullPath}`,

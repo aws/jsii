@@ -28,6 +28,7 @@ export interface ExtractOptions {
 export async function extractSnippets(
   assemblyLocations: string[],
   options: ExtractOptions,
+  loose = false,
 ): Promise<ExtractResult> {
   const only = options.only ?? [];
 
@@ -37,7 +38,7 @@ export async function extractSnippets(
     options.validateAssemblies,
   );
 
-  let snippets = allTypeScriptSnippets(assemblies);
+  let snippets = allTypeScriptSnippets(assemblies, loose);
   if (only.length > 0) {
     snippets = filterSnippets(snippets, only);
   }
