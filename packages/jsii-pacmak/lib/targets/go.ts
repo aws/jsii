@@ -94,10 +94,10 @@ export class Golang extends Target {
     // local build directory for this module. if
     // we do, add a "replace" directive to point to it instead of download from
     // the network.
-    const visit = (pkg: RootPackage) => {
+    const visit = async (pkg: RootPackage) => {
       for (const dep of pkg.packageDependencies) {
         for (const baseDir of dirs) {
-          const moduleDir = tryFindLocalModule(baseDir, dep);
+          const moduleDir = await tryFindLocalModule(baseDir, dep);
           if (moduleDir) {
             replace[dep.goModuleName] = moduleDir;
 
@@ -107,11 +107,11 @@ export class Golang extends Target {
         }
 
         // recurse to transitive deps ("replace" is only considered at the top level go.mod)
-        visit(dep);
+        await visit(dep);
       }
     };
 
-    visit(this.goGenerator.rootPackage);
+    await visit(this.goGenerator.rootPackage);
 
     // write `local.go.mod`
 
@@ -198,14 +198,14 @@ class GoGenerator implements IGenerator {
  * @param baseDir the `dist/go` directory
  * @returns `undefined` if not or the module directory otherwise.
  */
-function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
+async function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
   const gomodPath = path.join(baseDir, pkg.packageName, GOMOD_FILENAME);
-  if (!fs.pathExistsSync(gomodPath)) {
+  if (!await fs.pathExists(gomodPath)) {
     return undefined;
   }
 
   // read `go.mod` and check that it is for the correct module
-  const gomod = fs.readFileSync(gomodPath, 'utf-8').split('\n');
+  const gomod = (await fs.readFile(gomodPath, 'utf-8')).split('\n');
   const isExpectedModule = gomod.find(
     (line) => line.trim() === `module ${pkg.goModuleName}`,
   );
