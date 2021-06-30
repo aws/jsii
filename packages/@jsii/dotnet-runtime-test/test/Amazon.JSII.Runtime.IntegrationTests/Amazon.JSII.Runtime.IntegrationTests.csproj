@@ -13,6 +13,9 @@
         <VSTestLogger>xunit</VSTestLogger>
 
         <RollForward>Major</RollForward>
+
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\..\..\dotnet-runtime\keypair.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <ItemGroup>

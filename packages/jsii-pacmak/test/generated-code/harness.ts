@@ -6,12 +6,17 @@ import * as process from 'process';
 import { pacmak, TargetName } from '../../lib';
 import { shell } from '../../lib/util';
 
+const BINARY = Symbol('binary');
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
 const TARBALL = Symbol('tarball');
 export const TREE = Symbol('tree');
 
 // Custom serializers so we can see the source without escape sequences
+expect.addSnapshotSerializer({
+  test: (val) => val?.[BINARY] != null,
+  serialize: (val) => `base64:${val[BINARY].toString('base64')}`,
+});
 expect.addSnapshotSerializer({
   test: (val) => val?.[FILE] != null,
   serialize: (val) => val[FILE],
@@ -20,7 +25,6 @@ expect.addSnapshotSerializer({
   test: (val) => val?.[MISSING] != null,
   serialize: (val) => `${val[MISSING]} does not exist`,
 });
-
 expect.addSnapshotSerializer({
   test: (val) => val?.[TARBALL] != null,
   serialize: (val) =>
@@ -101,6 +105,9 @@ export function checkTree(
     if (file.endsWith('.tgz')) {
       // Special-cased to avoid binary differences being annoying
       expect({ [TARBALL]: relativeFile }).toMatchSnapshot(snapshotName);
+    } else if (file.endsWith('.snk')) {
+      // Special-cased to avoid binary garbage in the snapshot
+      expect({ [BINARY]: fs.readFileSync(file) }).toMatchSnapshot(snapshotName);
     } else {
       expect({
         [FILE]: fs.readFileSync(file, { encoding: 'utf-8' }),

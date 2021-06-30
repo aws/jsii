@@ -44,8 +44,10 @@
     "@scope/jsii-calc-base": {
       "targets": {
         "dotnet": {
+          "assemblyOriginatorKeyFile": "keypair.snk",
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId",
+          "signAssembly": true
         },
         "go": {
           "moduleName": "github.com/aws/jsii/jsii-calc/go",
@@ -70,8 +72,10 @@
     "@scope/jsii-calc-base-of-base": {
       "targets": {
         "dotnet": {
+          "assemblyOriginatorKeyFile": "keypair.snk",
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId",
+          "signAssembly": true
         },
         "go": {
           "moduleName": "github.com/aws/jsii/jsii-calc/go"
@@ -117,8 +121,10 @@
       },
       "targets": {
         "dotnet": {
+          "assemblyOriginatorKeyFile": "keypair.snk",
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+          "signAssembly": true,
           "versionSuffix": "-devpreview"
         },
         "go": {
@@ -370,9 +376,11 @@
   },
   "targets": {
     "dotnet": {
+      "assemblyOriginatorKeyFile": "keypair.snk",
       "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png",
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
-      "packageId": "Amazon.JSII.Tests.CalculatorPackageId"
+      "packageId": "Amazon.JSII.Tests.CalculatorPackageId",
+      "signAssembly": true
     },
     "go": {
       "moduleName": "github.com/aws/jsii/jsii-calc/go"
@@ -16135,5 +16143,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "Ouku0wagXKUVN9v9Ud7ocXYRaRl10KuCazRDvU/7iNk="
+  "fingerprint": "veSEdpP/MO/2rgrj4snUsPnRuoVakYV95bfGuB7lPuk="
 }

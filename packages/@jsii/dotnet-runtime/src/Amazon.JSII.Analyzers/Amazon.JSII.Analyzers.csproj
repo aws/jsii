@@ -10,6 +10,9 @@
 
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\..\keypair.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <ItemGroup>

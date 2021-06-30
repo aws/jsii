@@ -18,6 +18,9 @@
       CA1711, <!-- Identifiers should not have incorrect suffix -->
       CA1724, <!-- Type names should not match namespaces -->
     </NoWarn>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\keypair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

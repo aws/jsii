@@ -86,6 +86,7 @@ export abstract class Generator implements IGenerator {
   protected readonly code = new CodeMaker();
   private _assembly?: spec.Assembly;
   protected _reflectAssembly?: reflect.Assembly;
+  private _packageRoot?: string;
   private fingerprint?: string;
 
   public constructor(private readonly options: GeneratorOptions = {}) {}
@@ -106,16 +107,24 @@ export abstract class Generator implements IGenerator {
     return this._reflectAssembly;
   }
 
+  public get packageRoot(): string {
+    if (!this._packageRoot) {
+      throw new Error(`Call load() first`);
+    }
+    return this._packageRoot;
+  }
+
   public get metadata() {
     return { fingerprint: this.fingerprint };
   }
 
   public async load(
-    _packageRoot: string,
+    packageRoot: string,
     assembly: reflect.Assembly,
   ): Promise<void> {
     this._reflectAssembly = assembly;
     this._assembly = assembly.spec;
+    this._packageRoot = packageRoot;
 
     // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
     this.fingerprint = crypto
