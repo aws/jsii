@@ -97,6 +97,7 @@ export class Golang extends Target {
     const visit = async (pkg: RootPackage) => {
       for (const dep of pkg.packageDependencies) {
         for (const baseDir of dirs) {
+          // eslint-disable-next-line no-await-in-loop
           const moduleDir = await tryFindLocalModule(baseDir, dep);
           if (moduleDir) {
             replace[dep.goModuleName] = moduleDir;
@@ -107,6 +108,7 @@ export class Golang extends Target {
         }
 
         // recurse to transitive deps ("replace" is only considered at the top level go.mod)
+        // eslint-disable-next-line no-await-in-loop
         await visit(dep);
       }
     };
@@ -200,7 +202,7 @@ class GoGenerator implements IGenerator {
  */
 async function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
   const gomodPath = path.join(baseDir, pkg.packageName, GOMOD_FILENAME);
-  if (!await fs.pathExists(gomodPath)) {
+  if (!(await fs.pathExists(gomodPath))) {
     return undefined;
   }
 
