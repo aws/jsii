@@ -44,6 +44,7 @@ declare const mock: Tpe;
 
 const val = new Cls();
 /// !hide
-// Code snippet ended before !hide marker above`);
+// Code snippet ended before !hide marker above
+`);
   });
 });
