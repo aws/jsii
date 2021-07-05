@@ -112,7 +112,9 @@ export class DotNetGenerator extends Generator {
         await fs.mkdirp(path.dirname(outPath));
         await fs.copyFile(keyFile, outPath);
       } else {
-        warn(`Missing Assembly Originator Key File for ${assm.name}, not found in "${keyFile}". The assembly will NOT be strong-name signed!`)
+        warn(
+          `Missing Assembly Originator Key File for ${assm.name}, not found in "${keyFile}". The assembly will NOT be strong-name signed!`,
+        );
       }
     }
 
