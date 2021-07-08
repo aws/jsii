@@ -244,7 +244,6 @@ describe('jsii-config', () => {
       'jsii.targets.python.module',
       'jsii.targets.dotnet.namespace',
       'jsii.targets.dotnet.packageId',
-      'jsii.targets.dotnet.assemblyOriginatorKeyFile',
     ].forEach((field) => {
       it(`shows error message when empty ${field} is submitted`, async () => {
         await jsiiConfig('./package.json');
