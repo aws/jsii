@@ -6,7 +6,6 @@ import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { Generator, Legalese } from '../../generator';
-import { warn } from '../../logging';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
