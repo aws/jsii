@@ -8,9 +8,6 @@ The `dotnet` target requires the following configuration:
   transparent background is recommended. See the [.NET documentation] for more information.
 - `versionSuffix` - an optional suffix that will be appended at the end of the NuGet package's `version` field. The
   suffix must start with a `-`.
-- `signAssembly` - whether the assembly should be strong-name signed. Defaults to `false` when not specified.
-- `assemblyOriginatorKeyFile`- the path to the strong-name signing key to be used. When not specified or if the file
-  referred to does not exist, the assembly will not be strong-name signed.
 
 Example:
 
@@ -21,8 +18,6 @@ Example:
       "namespace": "Acme.HelloJsii",              // Required
       "packageId": "Acme.HelloJsii",              // Required
       "iconUrl": "https://cdn.acme.com/icon.png", // Optional
-      "signAssembly": true,                       // Optional
-      "assemblyOriginatorKeyFile": "./key.snk",   // Optional
       "versionSuffix": "-preview"                 // Optional
     },
     // ...

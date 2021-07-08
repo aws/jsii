@@ -387,12 +387,10 @@ defineTest(
   (sandbox) => {
     expect(sandbox.naming({ assembly: 'jsii-calc' }).naming).toEqual({
       dotnet: {
-        assemblyOriginatorKeyFile: 'keypair.snk',
         iconUrl:
           'https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png',
         namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
-        signAssembly: true,
       },
       go: {
         moduleName: 'github.com/aws/jsii/jsii-calc/go',
@@ -414,11 +412,9 @@ defineTest(
     expect(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming).toEqual(
       {
         dotnet: {
-          assemblyOriginatorKeyFile: 'keypair.snk',
           namespace: 'Amazon.JSII.Tests.CalculatorNamespace.LibNamespace',
           packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId',
           versionSuffix: '-devpreview',
-          signAssembly: true,
         },
         go: {
           moduleName: 'github.com/aws/jsii/jsii-calc/go',
@@ -2211,7 +2207,7 @@ async function preparePackage(module: string, useCache = true) {
   }
 
   const packageRoot = findPackageRoot(module);
-  await new Promise<void>((ok, ko) => {
+  await new Promise((ok, ko) => {
     const child = childProcess.spawn('npm', ['pack', packageRoot], {
       cwd: staging,
       shell: true,

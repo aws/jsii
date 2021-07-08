@@ -30,10 +30,8 @@
   "schema": "jsii/0.10.0",
   "targets": {
     "dotnet": {
-      "assemblyOriginatorKeyFile": "keypair.snk",
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-      "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId",
-      "signAssembly": true
+      "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
     },
     "go": {
       "moduleName": "github.com/aws/jsii/jsii-calc/go"
@@ -163,5 +161,5 @@
     }
   },
   "version": "2.1.1",
-  "fingerprint": "L4CceIu37Nd8GLnVvLXQ62rAZvb7TNHW8E/k4n1CTLI="
+  "fingerprint": "rbtJN11MzD+pqofNrrkTb/GoS1wpG+lpZoOWh+HXysE="
 }
