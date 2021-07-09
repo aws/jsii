@@ -37,8 +37,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
                         @namespace: "Dot.Net.Namespace",
                         packageId: "Dot.Net.PackageId",
-                        signAssembly: true,
-                        assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -92,8 +90,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
     ""dotnet"": {
       ""namespace"": ""Dot.Net.Namespace"",
       ""packageId"": ""Dot.Net.PackageId"",
-      ""signAssembly"": true,
-      ""assemblyOriginatorKeyFile"": ""key.snk"",
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -120,8 +116,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
                         @namespace: "Dot.Net.Namespace",
                         packageId: "Dot.Net.PackageId",
-                        signAssembly: true,
-                        assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -149,8 +143,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
                         @namespace: "Dot.Net.Namespace",
                         packageId: "Dot.Net.PackageId",
-                        signAssembly: true,
-                        assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
@@ -176,8 +168,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
                         @namespace: "Dot.Net.Namespace",
                         packageId: "Dot.Net.PackageId",
-                        signAssembly: true,
-                        assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
@@ -210,8 +200,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
     ""dotnet"": {
       ""namespace"": ""Dot.Net.Namespace"",
       ""packageId"": ""Dot.Net.PackageId"",
-      ""signAssembly"": true,
-      ""assemblyOriginatorKeyFile"": ""key.snk"",
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -236,8 +224,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
                         @namespace: "Dot.Net.Namespace",
                         packageId: "Dot.Net.PackageId",
-                        signAssembly: true,
-                        assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
@@ -270,8 +256,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
     ""dotnet"": {
       ""namespace"": ""Dot.Net.Namespace"",
       ""packageId"": ""Dot.Net.PackageId"",
-      ""signAssembly"": true,
-      ""assemblyOriginatorKeyFile"": ""key.snk"",
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -296,8 +280,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
                         @namespace: "Dot.Net.Namespace",
                         packageId: "Dot.Net.PackageId",
-                        signAssembly: true,
-                        assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
@@ -330,8 +312,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
     ""dotnet"": {
       ""namespace"": ""Dot.Net.Namespace"",
       ""packageId"": ""Dot.Net.PackageId"",
-      ""signAssembly"": true,
-      ""assemblyOriginatorKeyFile"": ""key.snk"",
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -429,8 +409,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
     ""dotnet"": {
       ""namespace"": ""Dot.Net.Namespace"",
       ""packageId"": ""Dot.Net.PackageId"",
-      ""signAssembly"": true,
-      ""assemblyOriginatorKeyFile"": ""key.snk"",
       ""iconUrl"": ""http://www.example.com/icon.png""
     },
     ""java"": { ""package"": ""com.amazonaws.cdk.Test"" }
@@ -463,8 +441,6 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                 Assert.NotNull(dotNetTarget);
                 Assert.Equal("Dot.Net.Namespace", dotNetTarget?.Namespace);
                 Assert.Equal("Dot.Net.PackageId", dotNetTarget?.PackageId);
-                Assert.True(dotNetTarget?.SignAssembly);
-                Assert.Equal("key.snk", dotNetTarget?.AssemblyOriginatorKeyFile);
                 Assert.Equal("http://www.example.com/icon.png", dotNetTarget?.IconUrl);
 
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);

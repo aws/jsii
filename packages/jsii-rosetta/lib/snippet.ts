@@ -57,7 +57,11 @@ export function updateParameters(
 ): TypeScriptSnippet {
   return {
     ...snippet,
-    parameters: Object.assign({}, snippet.parameters ?? {}, params),
+    parameters: Object.assign(
+      Object.create(null),
+      snippet.parameters ?? {},
+      params,
+    ),
   };
 }
 

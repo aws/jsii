@@ -94,21 +94,6 @@ export class FileGenerator {
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
     propertyGroup.ele('TargetFramework', TARGET_FRAMEWORK);
 
-    if (dotnetInfo!.signAssembly != null) {
-      const signAssembly = propertyGroup.ele('SignAssembly');
-      signAssembly.att(
-        'Condition',
-        `Exists('${dotnetInfo!.assemblyOriginatorKeyFile}')`,
-      );
-    }
-
-    if (dotnetInfo!.assemblyOriginatorKeyFile != null) {
-      propertyGroup.ele(
-        'AssemblyOriginatorKeyFile',
-        dotnetInfo!.assemblyOriginatorKeyFile,
-      );
-    }
-
     const itemGroup1 = rootNode.ele('ItemGroup');
     const embeddedResource = itemGroup1.ele('EmbeddedResource');
     embeddedResource.att('Include', this.tarballFileName);

@@ -1159,6 +1159,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ansgarm",
+      "name": "Ansgar Mertens",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1112056?v=4",
+      "profile": "https://ansgar.dev",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "repoType": "github",

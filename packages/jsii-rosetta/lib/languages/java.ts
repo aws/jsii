@@ -2,6 +2,7 @@ import * as ts from 'typescript';
 
 import { isStructType } from '../jsii/jsii-utils';
 import { jsiiTargetParam } from '../jsii/packages';
+import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import {
@@ -102,7 +103,7 @@ interface InsideTypeDeclaration {
 type JavaRenderer = AstRenderer<JavaContext>;
 
 export class JavaVisitor extends DefaultVisitor<JavaContext> {
-  public readonly language = 'java';
+  public readonly language = TargetLanguage.JAVA;
   public readonly defaultContext = {};
 
   public mergeContext(
