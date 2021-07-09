@@ -6,7 +6,6 @@ import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { Generator, Legalese } from '../../generator';
-import { warn } from '../../logging';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
@@ -102,21 +101,6 @@ export class DotNetGenerator extends Generator {
     }
     await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
-
-    if (assm.targets!.dotnet!.assemblyOriginatorKeyFile) {
-      // There is an AOKF so we copy it to the out-dir so it's available for signing.
-      const relativePath = assm.targets!.dotnet!.assemblyOriginatorKeyFile;
-      const outPath = path.join(outdir, packageId, relativePath);
-      const keyFile = path.resolve(this.packageRoot, relativePath);
-      if (await fs.pathExists(keyFile)) {
-        await fs.mkdirp(path.dirname(outPath));
-        await fs.copyFile(keyFile, outPath);
-      } else {
-        warn(
-          `Missing Assembly Originator Key File for ${assm.name}, not found in "${keyFile}". The assembly will NOT be strong-name signed!`,
-        );
-      }
-    }
 
     // Create an anchor file for the current model
     this.generateDependencyAnchorFile();

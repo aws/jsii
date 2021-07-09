@@ -179,26 +179,6 @@ const schema: ConfigPromptsSchema = {
             return true;
           },
         },
-        signAssembly: {
-          type: 'confirm',
-          default: false,
-          message:
-            '.NET Sign Assembly - whether the assembly should be strong-name signed. Defaults to false when not specified',
-          when: targetEnabled('dotnet'),
-        },
-        assemblyOriginatorKeyFile: {
-          type: 'input',
-          default: '',
-          message:
-            '.NET Assembly Originator Key File - path to the strong-name signing key to be used (e.g. "../../key.snk")',
-          when: (answers: any) => {
-            return (
-              targetEnabled('dotnet')(answers) &&
-              Boolean(answers.jsii.targets.dotnet.signAssembly)
-            );
-          },
-          validate: hasLength,
-        },
       },
     },
   },

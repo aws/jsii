@@ -15,10 +15,8 @@
     "@scope/jsii-calc-base": {
       "targets": {
         "dotnet": {
-          "assemblyOriginatorKeyFile": "keypair.snk",
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId",
-          "signAssembly": true
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
         "go": {
           "moduleName": "github.com/aws/jsii/jsii-calc/go",
@@ -43,10 +41,8 @@
     "@scope/jsii-calc-base-of-base": {
       "targets": {
         "dotnet": {
-          "assemblyOriginatorKeyFile": "keypair.snk",
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId",
-          "signAssembly": true
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
         "go": {
           "moduleName": "github.com/aws/jsii/jsii-calc/go"
@@ -117,10 +113,8 @@
   },
   "targets": {
     "dotnet": {
-      "assemblyOriginatorKeyFile": "keypair.snk",
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
-      "signAssembly": true,
       "versionSuffix": "-devpreview"
     },
     "go": {
@@ -936,5 +930,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "VGOZpWrEvVP89sv+SjK/xjSbzBuZR674SgkkFORecgw="
+  "fingerprint": "yaW4nEkJcW4ZyHTJGV9YSAtkrzeBBoXkDffMJBD8dGQ="
 }

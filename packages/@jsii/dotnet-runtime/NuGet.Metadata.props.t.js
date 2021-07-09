@@ -20,9 +20,6 @@ process.stdout.write(`<Project>
     <IncludeSource>True</IncludeSource>
 
     <PackageOutputPath>..\\..\\bin\\$(Configuration)\\NuGet\\</PackageOutputPath>
-
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly Condition="Exists('$(AssemblyOriginatorKeyFile)')">True</SignAssembly>
   </PropertyGroup>
 </Project>
 `);

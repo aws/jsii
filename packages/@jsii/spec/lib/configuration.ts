@@ -77,16 +77,6 @@ export interface Config {
        * version field
        */
       versionSuffix?: string;
-
-      /**
-       * whether the assembly should be strong-name signed
-       */
-      signAssembly?: boolean;
-
-      /**
-       * path to the strong-name signing key to be used
-       */
-      assemblyOriginatorFile?: string;
     };
   };
 

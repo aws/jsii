@@ -66,8 +66,6 @@
         }
       },
       "dotnet": {
-        "assemblyOriginatorKeyFile": "keypair.snk",
-        "signAssembly": true,
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
         "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
       },

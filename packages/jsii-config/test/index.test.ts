@@ -98,7 +98,6 @@ describe('jsii-config', () => {
             packageId: 'Amazon.Module',
             iconUrl: undefined,
             versionSuffix: '',
-            signAssembly: false,
           },
         },
       },
@@ -209,7 +208,6 @@ describe('jsii-config', () => {
           'jsii.targets.dotnet.packageId',
           'jsii.targets.dotnet.iconUrl',
           'jsii.targets.dotnet.versionSuffix',
-          'jsii.targets.dotnet.signAssembly',
         ],
         questions,
       );
@@ -223,44 +221,10 @@ describe('jsii-config', () => {
       });
     });
 
-    it('prompts for dotnet assembly originator file when target and signAssembly are enabled', async () => {
-      await jsiiConfig('./package.json');
-      const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestion(
-        'jsii.targets.dotnet.assemblyOriginatorKeyFile',
-        questions,
-      );
-      const enabled = {
-        jsiiTargets: ['dotnet'],
-        jsii: {
-          targets: {
-            dotnet: {
-              signAssembly: true,
-            },
-          },
-        },
-      };
-
-      const disabled = {
-        jsiiTargets: ['dotnet'],
-        jsii: {
-          targets: {
-            dotnet: {
-              signAssembly: false,
-            },
-          },
-        },
-      };
-
-      expect(subject.when(enabled)).toBe(true);
-      expect(subject.when(disabled)).toBe(false);
-    });
-
     it('returns new config with empty values removed', async () => {
       const subject = await jsiiConfig('./package.json');
       const expected = { ...configAnswers };
       delete expected.jsii.targets.dotnet.iconUrl;
-      delete expected.jsii.targets.dotnet.signAssembly;
       delete expected.jsii.targets.dotnet.versionSuffix;
       delete expected.jsii.targets.java.maven.versionSuffix;
 
@@ -280,7 +244,6 @@ describe('jsii-config', () => {
       'jsii.targets.python.module',
       'jsii.targets.dotnet.namespace',
       'jsii.targets.dotnet.packageId',
-      'jsii.targets.dotnet.assemblyOriginatorKeyFile',
     ].forEach((field) => {
       it(`shows error message when empty ${field} is submitted`, async () => {
         await jsiiConfig('./package.json');

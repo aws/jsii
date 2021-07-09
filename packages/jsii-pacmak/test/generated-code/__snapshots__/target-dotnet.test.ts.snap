@@ -19,7 +19,6 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┃              ┗━ 📄 StaticConsumer.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.BasePackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
-       ┣━ 📄 keypair.snk
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
        ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
@@ -48,8 +47,6 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly Condition="Exists('keypair.snk')">true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-base-0.0.0.tgz" />
@@ -498,8 +495,6 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/keypair.snk 1`] = `base64:BwIAAAAkAABSU0EyAAQAAAEAAQCxnCMX+Fd0o25mypd7lTSHP1w8BkhL5l4q3DK8VKjdyl7u9etmgF1XJsThflhCo6P/2VO7FKyjUOrsvUZ+yTbKWxv8X2TWAKTQE6WK45douRLDRNduLWJrUlS/KbgDUJ9JDM/7p7I/Z4Dc+Cb7WyobPOExdUn2mCh7qU7yTiB6hNmu0919vTyosCsiP2QwhflDye74naIF5VmmixUlC+1UMNR3EuvIzdqUlR4pCaedwx2BWW6XhSwJ5tRSmg5VqbCZ5fg2JccRejE6ySipqGw18gI7wsf2B69KvbicFDRzDK9vh4s5ZpAwmvecdMMI6jzhqJnmS4CCr0wNtmpF8Pi/mSZ68bmgVR7QB8FIZZpRiRGoXSqesFpI+Wf6tdjZYsM3UlDZDkenZVky1CcYS5zsCxREblT+8cRZjmNkyl2DX2knk1Jyu7ykgrFJad4l+W84r9fBbXYwMc4W7SBy1ub10EfweBeA7xkzt/SAh38+vuybUOvhU5BQm3f6wscs4K1tVWK8onQOpX88F0XgvzucVdlqIBZlWME78CnGbP2FokNYW/AuZ8eKEsPF/KwBPWgVgLYcJSUzsmXr1Bu8uPligWkbpqvUorPL8KZlktXF7soUpI6SJ7BVYfGV92kcUzhH3KOUVNIFVziMj03PZibhdFupPVGQDAIELXv5xgdf+jIgAXGsbe0PtpkBVkE80lHeKHAQJc7ei6JgwQPh+qXn4MlACPNZ/Fsf0Vz4+tXi2cjWvQZm31vkRIuIrArsOxc=`;
-
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
@@ -521,7 +516,6 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┃              ┗━ 📄 VeryBaseProps.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
-       ┣━ 📄 keypair.snk
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
        ┗━ 📄 scope-jsii-calc-base-of-base-2.1.1.tgz
@@ -550,8 +544,6 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly Condition="Exists('keypair.snk')">true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-base-of-base-2.1.1.tgz" />
@@ -970,8 +962,6 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/keypair.snk 1`] = `base64:BwIAAAAkAABSU0EyAAQAAAEAAQDdF3PmnvchnBKqV8R0U5hpRpoARSHz+kh1CFDITDJ5xk3H0w27Tzjj2ogRPD7t5vuP4jvWZd+IawegqJokCOuqj5NZZuQpW4vs4aoh9qu7QF9S9RgqvZARZK9bLtyQZ6PT7cH0QI07hz6fg3/7tv5WfdjLbtcAJzzDlqhMOxB/xo1lBO20wAhANdWU70JdKSAPbkkYkAScrMPVY8k/p+EHwEL2X4VygECUq4tCCzM8WUU243BHqSW5lXIqzwtan8eRny8jtipkuVoiD8wJBLo5jIa7ncnXfmUSbHe4TveZipSNR7dvWEe4M+U1lOAILnH894viZqVJeuciwhAFS47+Wdg1w3XcxMH1JUJO2plIHIf9wj7KVNOqOD9wO14lhCOxmUKRHfPD+3zqIjAS0qkiDIqSPCii9nd/vR1pQDnrXZEqwWeuRNRjXWYFMpSSb15EoEqcUSvgI/Rp4QXsTqrb11M7BcRA30O+29n7L4aG0ElKsEkD0uEQ2B/czM8SCxrJ9t8eAwEhi3C7tpto1mncyM8lLMwOCXTkwgzr+7844Nox3qrOubSaIwLR/0/LGHkIURj1UxRBwZtoQLRXWriewfLKIAp8Pnj0koI3RGIudIXb4WPht3i4ekqbkHKrgYaYHDw9n6INF42/dmoBDkCDpLgq83b1VuWJpZRPrsjG5W81zHSsOZy+SQterZnjK3ChghilcxvPrOMj7y42+/Q9WTvZZjqsRCE8AQfAgJedtpBGy/WjqlzL7AN0aytQlFI=`;
-
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-2.1.1.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-2.1.1.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
@@ -1010,7 +1000,6 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃           ┗━ 📄 Reflector.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.LibPackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
-       ┣━ 📄 keypair.snk
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
        ┗━ 📄 scope-jsii-calc-lib-0.0.0.tgz
@@ -1039,8 +1028,6 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly Condition="Exists('keypair.snk')">true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-lib-0.0.0.tgz" />
@@ -2715,8 +2702,6 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/keypair.snk 1`] = `base64:BwIAAAAkAABSU0EyAAQAAAEAAQB9aj3+1O16Dg+1rmyMQf2KEyJYQw9nvypTmoAueNUvMxkQ2rZm+teuZapFKZK8xYue/YQE5f+nnKKcXlYsMHMAKXL9W/IBQkZqqK5xDtZYeZYmrwqHQxM8b0r6Oud0fbpJl2KLZHVTELgublzV5yHnMesLgqP92hF95+/qZqH8iOnUdXI7t+9PmtgUAtm7Qfo0RmFBYZfRiO45lQb9lVkRs93uRpcSHT/8+iN1CpX+ac4Hkc8B46CYze9VhjCz7t91vMhQZG6rYiUb81ZwMNhAwtrsd+xz0p8Xb9h8XMY6rQnPYCMOVgo2fKVFRf23gTupWvTp6k3cC8Sqn/aZh5qccQ73KZWm2y40RVAUZ7o4jCH68Woevsn54pbgrTGU5as3FqzoayVuxyL4Mf2Vp34TWvywm3uX12B5HkD9NjSRAC14rorMWnmucln1EpTywna884PbAKyIjJCwf3hCXpmejBKweNmiAOpMzw8lwq1uFcXCBPxmURc3hK4kMmtfS0X7p1/wbxQd3kCJWY4Ik1QzxhazJ1YaBM3OMMcbI2yqW1QFnmtb21z2mE4+/6FYHnRNBc3WyNnwY+zo7FitsF4iAchyVh/TT4bFM6Ln4ReUMzCP62v0WxAhV09b0d07PfGkdUpb5Mr1MOUFiwaxkKr5/BXDclMUkF9lbPxaX4BPbLW5FODQJsCCPbaGOUEwBLv2NO0/rXsREpher0BgbevNf1bibHroldBbhrzWJs0bhsSQ1XYpXUvcvGjVhWAcDEs=`;
-
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/scope-jsii-calc-lib-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/scope-jsii-calc-lib-0.0.0.tgz is a tarball`;
 
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
@@ -3076,7 +3061,6 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 jsii-calc-3.20.120.tgz
-       ┣━ 📄 keypair.snk
        ┣━ 📄 LICENSE
        ┗━ 📄 NOTICE
 `;
@@ -3106,8 +3090,6 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly Condition="Exists('keypair.snk')">true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="jsii-calc-3.20.120.tgz" />
@@ -18233,5 +18215,3 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz is a tarball`;
-
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/keypair.snk 1`] = `base64:BwIAAAAkAABSU0EyAAQAAAEAAQAtiOAaA0AgzIvq9lqnHGF6xAd/jDqqMHPKmzP2ptdRWDZyCCL0fw9U6rkidCGrOloAvrvWxQYGy1VDRbMCs/C64AX1BBFaTPAafPA0FGYo84oaJAu821vdSbXwMtnU7IUVGENlKyWInCo1tSMrKkvgvpnAQTg5cQ/r4YBqlG1GrFNSF4v2dTK1SesiG5l1thCiV42b5rtigY89V6BkHh0jWdAj4Xd5Uw1jcArRDVnDr58sLaar2anVUxpQBZJEm7x/a8Io2KQ64RXhdEwHRE1TVjDTVGYUjpeQMYbCP7d+vJYP63sSAkzWqeMoL9/JaylYjsWNyVzrTnLGHCfFP9XpLWyAIocBktxy8exy3PzQnuS3guTLATMOKLAyhQDsgW0Y+1vWOuDnXFEwnz+YguE1sKbCxzU8gR1JEaLZPwh6B01wkOEpMBBJJBpU+wSxHyBYyaaM2lv7dCjU58qYqJnr5RssEgzFl++BVaIZfX1L3AvNL+/rR7lbhjtPKDbIy9iPb5DXK7+LaWiV6LvSIcyoSsU2GwB+gOYX7WMDqC86rlmUlBhaxGTIjI2jgorhC9tq/9ZGNH+QQdgf/T1Prfk/rd4pU0e2kswxg1tXWLIFb84Mr7GCDrr7AodG3XH7YMIXCt0acrGEZTrJX03NxicclICB3qQETQsbfF/pUAqvDZK6kVm6JC8hpfVwPuPHqz6sRNW778c+A36LIp+e+O5J3yd/YfoMrkC7w9ZtrC5V7zEMB/fVM3RP8hvnjWvp1DE=`;
