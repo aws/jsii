@@ -13,8 +13,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* crash when assembly originator key file is missing ([#2899](https://github.com/aws/jsii/issues/2899)) ([e05ce62](https://github.com/aws/jsii/commit/e05ce625ba4760fa8196a5944cc9089a1aaefcfb))
-* **dotnet:** strong-name sign assemblies ([#2894](https://github.com/aws/jsii/issues/2894)) ([7b90f27](https://github.com/aws/jsii/commit/7b90f27c7819209f6485c28eabefb328a0304ab5))
 * **pacmak/go:** missing go.sum entry ([#2893](https://github.com/aws/jsii/issues/2893)) ([6e6ad69](https://github.com/aws/jsii/commit/6e6ad693230e18f36990e8feaf3734da7c01dbd5))
 * **rosetta:** extract does not respect strict metadata entry ([#2863](https://github.com/aws/jsii/issues/2863)) ([5d2392b](https://github.com/aws/jsii/commit/5d2392b7713cb6dfea6092c4ac3ee45360a5d28a)), closes [#2861](https://github.com/aws/jsii/issues/2861)
 * **rosetta:** hangs on 'markdown' command when a file is provided ([#2871](https://github.com/aws/jsii/issues/2871)) ([e538b36](https://github.com/aws/jsii/commit/e538b36c6ccf53ace908ff4c342dc9a4435ce353))
