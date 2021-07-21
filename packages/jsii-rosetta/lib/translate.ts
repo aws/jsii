@@ -150,9 +150,15 @@ export class SnippetTranslator {
       const program = this.compilation.program;
       const diagnostics = [
         ...neverThrowing(program.getGlobalDiagnostics)(),
-        ...neverThrowing(program.getSyntacticDiagnostics)(this.compilation.rootFile),
-        ...neverThrowing(program.getDeclarationDiagnostics)(this.compilation.rootFile),
-        ...neverThrowing(program.getSemanticDiagnostics)(this.compilation.rootFile),
+        ...neverThrowing(program.getSyntacticDiagnostics)(
+          this.compilation.rootFile,
+        ),
+        ...neverThrowing(program.getDeclarationDiagnostics)(
+          this.compilation.rootFile,
+        ),
+        ...neverThrowing(program.getSemanticDiagnostics)(
+          this.compilation.rootFile,
+        ),
       ];
       if (snippet.strict) {
         // In a strict assembly, so we'll need to brand all diagnostics here...
@@ -167,7 +173,9 @@ export class SnippetTranslator {
      * is here to avoid compiler crashes due to broken code examples that cause
      * the TypeScript compiler to hit a "Debug Failure".
      */
-    function neverThrowing<A extends unknown[], R>(call: (...args: A) => readonly R[]): (...args: A) => readonly R[] {
+    function neverThrowing<A extends unknown[], R>(
+      call: (...args: A) => readonly R[],
+    ): (...args: A) => readonly R[] {
       return (...args: A) => {
         try {
           return call(...args);
