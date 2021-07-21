@@ -137,10 +137,17 @@ type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
 type AssemblyLoader = () => Promise<Mutable<Assembly>>;
 
 function prefixDisclaimer(translation: Translation): string {
-  const message = translation.didCompile
-    ? 'Example automatically generated. See https://github.com/aws/jsii/issues/826'
-    : 'Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826';
-  return `${commentToken()} ${message}\n${translation.source}`;
+  const comment = commentToken();
+  const disclaimer = translation.didCompile
+    ? 'This example was automatically transliterated.'
+    : 'This example was automatically transliterated with incomplete type information. It may not work as-is.';
+
+  return [
+    `${comment} ${disclaimer}`,
+    `${comment} See https://github.com/aws/jsii/issues/826 for more information.`,
+    '',
+    translation.source,
+  ].join('\n');
 
   function commentToken() {
     // This is future-proofed a bit, but don't read too much in this...
