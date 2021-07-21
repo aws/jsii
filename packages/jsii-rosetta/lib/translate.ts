@@ -149,16 +149,33 @@ export class SnippetTranslator {
     if (options.includeCompilerDiagnostics || snippet.strict) {
       const program = this.compilation.program;
       const diagnostics = [
-        ...program.getGlobalDiagnostics(),
-        ...program.getSyntacticDiagnostics(this.compilation.rootFile),
-        ...program.getDeclarationDiagnostics(this.compilation.rootFile),
-        ...program.getSemanticDiagnostics(this.compilation.rootFile),
+        ...neverThrowing(program.getGlobalDiagnostics)(),
+        ...neverThrowing(program.getSyntacticDiagnostics)(this.compilation.rootFile),
+        ...neverThrowing(program.getDeclarationDiagnostics)(this.compilation.rootFile),
+        ...neverThrowing(program.getSemanticDiagnostics)(this.compilation.rootFile),
       ];
       if (snippet.strict) {
         // In a strict assembly, so we'll need to brand all diagnostics here...
         diagnostics.forEach(annotateStrictDiagnostic);
       }
       this.compileDiagnostics.push(...diagnostics);
+    }
+
+    /**
+     * Intercepts all exceptions thrown by the wrapped call, and logs them to
+     * console.error instead of re-throwing, then returns an empty array. This
+     * is here to avoid compiler crashes due to broken code examples that cause
+     * the TypeScript compiler to hit a "Debug Failure".
+     */
+    function neverThrowing<A extends unknown[], R>(call: (...args: A) => readonly R[]): (...args: A) => readonly R[] {
+      return (...args: A) => {
+        try {
+          return call(...args);
+        } catch (err) {
+          console.error(`Failed to execute ${call.name}: ${err}`);
+          return [];
+        }
+      };
     }
   }
 

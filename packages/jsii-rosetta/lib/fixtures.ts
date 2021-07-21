@@ -62,7 +62,7 @@ function loadLiterateSource(
       if (fs.existsSync(jsFile)) {
         return fs.readFileSync(jsFile, { encoding: 'utf-8' });
       }
-      return `Missing literate source file ${literateFileName}`;
+      return `throw new Error("Could not render example: missing literate source file ${literateFileName}");`;
     }
     // This couldn't really happen in practice, but do the check anyway
     throw new Error(
