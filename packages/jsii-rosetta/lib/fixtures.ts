@@ -55,10 +55,7 @@ export function fixturize(
   };
 }
 
-function loadLiterateSource(
-  directory: string,
-  literateFileName: string,
-) {
+function loadLiterateSource(directory: string, literateFileName: string) {
   const fullPath = path.join(directory, literateFileName);
   const exists = fs.existsSync(fullPath);
   if (!exists) {

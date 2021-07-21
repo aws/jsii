@@ -142,7 +142,6 @@ function prefixDisclaimer(translation: Translation): string {
     ? 'This example was automatically transliterated.'
     : 'This example was automatically transliterated with incomplete type information. It may not work as-is.';
 
-
   return [
     `${comment} ${disclaimer}`,
     `${comment} See https://github.com/aws/jsii/issues/826 for more information.`,
