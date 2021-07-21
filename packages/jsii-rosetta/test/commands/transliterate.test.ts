@@ -1057,7 +1057,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the literate file!
 
       \`\`\`csharp
-      // This example automatically transliterated with incomplete type information. It may not work as-is.
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       new SampleClass(\\"literate\\");
@@ -1068,7 +1068,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the omitted literate file!
 
       \`\`\`csharp
-      // This example automatically transliterated with incomplete type information. It may not work as-is.
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       new SampleClass(\\"omitted-literate\\");
@@ -1077,7 +1077,7 @@ new SampleClass('omitted-literate');
       # Missing fixture
 
       \`\`\`csharp
-      // This example automatically transliterated with incomplete type information. It may not work as-is.
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       new SampleClass(\\"README.md\\");
@@ -1097,7 +1097,7 @@ new SampleClass('omitted-literate');
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example automatically transliterated with incomplete type information. It may not work as-is.
+              "example": "// This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       new DoesNotCompile(this, \\"That\\", new Struct { Foo = 1337 });",
@@ -1164,7 +1164,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the literate file!
 
       \`\`\`java
-      // This example automatically transliterated with incomplete type information. It may not work as-is.
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       new SampleClass(\\"literate\\");
@@ -1175,7 +1175,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the omitted literate file!
 
       \`\`\`java
-      // This example automatically transliterated with incomplete type information. It may not work as-is.
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       new SampleClass(\\"omitted-literate\\");
@@ -1184,7 +1184,7 @@ new SampleClass('omitted-literate');
       # Missing fixture
 
       \`\`\`java
-      // This example automatically transliterated with incomplete type information. It may not work as-is.
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       new SampleClass(\\"README.md\\");
@@ -1204,7 +1204,7 @@ new SampleClass('omitted-literate');
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example automatically transliterated with incomplete type information. It may not work as-is.
+              "example": "// This example was automatically transliterated with incomplete type information. It may not work as-is.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       DoesNotCompile.Builder.create(this, \\"That\\").foo(1337).build();",
@@ -1271,7 +1271,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the literate file!
 
       \`\`\`python
-      # This example automatically transliterated with incomplete type information. It may not work as-is.
+      # This example was automatically transliterated with incomplete type information. It may not work as-is.
       # See https://github.com/aws/jsii/issues/826 for more information.
 
       SampleClass(\\"literate\\")
@@ -1282,7 +1282,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the omitted literate file!
 
       \`\`\`python
-      # This example automatically transliterated with incomplete type information. It may not work as-is.
+      # This example was automatically transliterated with incomplete type information. It may not work as-is.
       # See https://github.com/aws/jsii/issues/826 for more information.
 
       SampleClass(\\"omitted-literate\\")
@@ -1291,7 +1291,7 @@ new SampleClass('omitted-literate');
       # Missing fixture
 
       \`\`\`python
-      # This example automatically transliterated with incomplete type information. It may not work as-is.
+      # This example was automatically transliterated with incomplete type information. It may not work as-is.
       # See https://github.com/aws/jsii/issues/826 for more information.
 
       SampleClass(\\"README.md\\")
@@ -1311,7 +1311,7 @@ new SampleClass('omitted-literate');
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "# This example automatically transliterated with incomplete type information. It may not work as-is.
+              "example": "# This example was automatically transliterated with incomplete type information. It may not work as-is.
       # See https://github.com/aws/jsii/issues/826 for more information.
 
       DoesNotCompile(self, \\"That\\", foo=1337)",

@@ -140,7 +140,7 @@ function prefixDisclaimer(translation: Translation): string {
   const comment = commentToken();
   const disclaimer = translation.didCompile
     ? 'This example was automatically transliterated.'
-    : 'This example automatically transliterated with incomplete type information. It may not work as-is.';
+    : 'This example was automatically transliterated with incomplete type information. It may not work as-is.';
 
 
   return [
