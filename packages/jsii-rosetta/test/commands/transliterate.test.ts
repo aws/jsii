@@ -949,8 +949,8 @@ new SampleClass('literate');
 import { SampleClass } from './index';
 
 /// !show
-/// ## This is a heading within the literate file!
-new SampleClass('literate');
+/// ## This is a heading within the omitted literate file!
+new SampleClass('omitted-literate');
       `,
     });
     fs.writeJsonSync(
@@ -1009,17 +1009,17 @@ new SampleClass('literate');
       ## This is a heading within the literate file!
 
       \`\`\`csharp
-      // Example automatically generated. See https://github.com/aws/jsii/issues/826
-      throw new Error(\\"Could not render example: missing literate source file omit-example.lit.ts\\");
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new SampleClass(\\"literate\\");
       \`\`\`
 
       # Missing literate source and fallback
 
-      ## This is a heading within the literate file!
+      ## This is a heading within the omitted literate file!
 
       \`\`\`csharp
-      // Example automatically generated. See https://github.com/aws/jsii/issues/826
-      throw new Error(\\"Could not render example: missing literate source file omit-example.lit.ts\\");
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new SampleClass(\\"omitted-literate\\");
       \`\`\`
 
       # Missing fixture
@@ -1108,17 +1108,17 @@ new SampleClass('literate');
       ## This is a heading within the literate file!
 
       \`\`\`java
-      // Example automatically generated. See https://github.com/aws/jsii/issues/826
-      throw new Error(\\"Could not render example: missing literate source file omit-example.lit.ts\\");
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new SampleClass(\\"literate\\");
       \`\`\`
 
       # Missing literate source and fallback
 
-      ## This is a heading within the literate file!
+      ## This is a heading within the omitted literate file!
 
       \`\`\`java
-      // Example automatically generated. See https://github.com/aws/jsii/issues/826
-      throw new Error(\\"Could not render example: missing literate source file omit-example.lit.ts\\");
+      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      new SampleClass(\\"omitted-literate\\");
       \`\`\`
 
       # Missing fixture
@@ -1207,17 +1207,17 @@ new SampleClass('literate');
       ## This is a heading within the literate file!
 
       \`\`\`python
-      # Example automatically generated. See https://github.com/aws/jsii/issues/826
-      throw new Error(\\"Could not render example: missing literate source file omit-example.lit.ts\\");
+      # Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      SampleClass(\\"literate\\")
       \`\`\`
 
       # Missing literate source and fallback
 
-      ## This is a heading within the literate file!
+      ## This is a heading within the omitted literate file!
 
       \`\`\`python
-      # Example automatically generated. See https://github.com/aws/jsii/issues/826
-      throw new Error(\\"Could not render example: missing literate source file omit-example.lit.ts\\");
+      # Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      SampleClass(\\"omitted-literate\\")
       \`\`\`
 
       # Missing fixture

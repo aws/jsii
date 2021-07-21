@@ -28,7 +28,14 @@ export function fixturize(
   if (literateSource) {
     // Compatibility with the "old school" example inclusion mechanism.
     // Completely load this file and attach a parameter with its directory.
-    source = loadLiterateSource(directory, literateSource, loose);
+    try {
+      source = loadLiterateSource(directory, literateSource);
+    } catch (ex) {
+      // In loose mode, we ignore this failure and stick to the visible source.
+      if (!loose) {
+        throw ex;
+      }
+    }
     parameters[SnippetParameters.$COMPILATION_DIRECTORY] = path.join(
       directory,
       path.dirname(literateSource),
@@ -51,19 +58,10 @@ export function fixturize(
 function loadLiterateSource(
   directory: string,
   literateFileName: string,
-  loose = false,
 ) {
   const fullPath = path.join(directory, literateFileName);
   const exists = fs.existsSync(fullPath);
   if (!exists) {
-    if (loose) {
-      // In loose mode, we'll fall back to the `.js` file if it exists...
-      const jsFile = fullPath.replace(/\.ts(x?)$/, '.js$1');
-      if (fs.existsSync(jsFile)) {
-        return fs.readFileSync(jsFile, { encoding: 'utf-8' });
-      }
-      return `throw new Error("Could not render example: missing literate source file ${literateFileName}");`;
-    }
     // This couldn't really happen in practice, but do the check anyway
     throw new Error(
       `Sample uses literate source ${literateFileName}, but not found: ${fullPath}`,
