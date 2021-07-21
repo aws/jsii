@@ -1168,6 +1168,15 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "johannes-weber",
+      "name": "Johannes Weber",
+      "avatar_url": "https://avatars.githubusercontent.com/u/569011?v=4",
+      "profile": "https://twitter.com/jowe",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoType": "github",
