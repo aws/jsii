@@ -38,7 +38,7 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.3.0
         with:
           node-version: '12'
       - name: Set up Python 3.6
@@ -132,7 +132,7 @@ jobs:
           java-version: '8'
           distribution: 'zulu'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.3.0
         with:
           node-version: '12'
       - name: Set up Python 3.6
@@ -239,6 +239,13 @@ jobs:
             node: '10'
             os: ubuntu-latest
             python: '3.6'
+          - java: '8'
+            dotnet: '6.0.x'
+            dotnet-prerelease: true
+            go: '1.16'
+            node: '10'
+            os: ubuntu-latest
+            python: '3.6'
           # Test alternate Javas
           - java: '11'
             dotnet: '3.1.x'
@@ -274,6 +281,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
+          include-prerelease: ${{ matrix.dotnet-prerelease }}
       - name: Set up Go ${{ matrix.go }}
         uses: actions/setup-go@v2
         with:
@@ -284,7 +292,7 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'zulu'
       - name: Set up Node ${{ matrix.node }}
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.3.0
         with:
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}

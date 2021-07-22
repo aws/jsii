@@ -145,7 +145,9 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`csharp
-      // Example automatically generated. See https://github.com/aws/jsii/issues/826
+      // This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps { Foo = \\"bar\\" });
       object.Property = EnumType.OPTION_A;
       object.MethodCall();
@@ -169,7 +171,9 @@ export class ClassName implements IInterface {
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 "summary": "Create a new instance of ClassName.",
               },
@@ -209,7 +213,9 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       ClassName.StaticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
@@ -302,7 +308,9 @@ export class ClassName implements IInterface {
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+              "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
             },
             "fqn": "testpkg.EnumType",
@@ -314,14 +322,18 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_A });",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 },
                 "name": "OPTION_B",
@@ -341,7 +353,9 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       iface.MethodCall();",
                   "summary": "An instance method call.",
                 },
@@ -357,7 +371,9 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       iface.Property = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
@@ -409,7 +425,9 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`java
-      // Example automatically generated. See https://github.com/aws/jsii/issues/826
+      // This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps().foo(\\"bar\\"));
       object.getProperty() = EnumType.getOPTION_A();
       object.methodCall();
@@ -433,7 +451,9 @@ export class ClassName implements IInterface {
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
                 "summary": "Create a new instance of ClassName.",
               },
@@ -473,7 +493,9 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       ClassName.staticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
@@ -566,7 +588,9 @@ export class ClassName implements IInterface {
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+              "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
             },
             "fqn": "testpkg.EnumType",
@@ -578,14 +602,18 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_A()));",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
                 },
                 "name": "OPTION_B",
@@ -605,7 +633,9 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       iface.methodCall();",
                   "summary": "An instance method call.",
                 },
@@ -621,7 +651,9 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "// This example was automatically transliterated.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       iface.getProperty() = EnumType.getOPTION_B();",
                   "summary": "A property value.",
                 },
@@ -673,7 +705,9 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`python
-      # Example automatically generated. See https://github.com/aws/jsii/issues/826
+      # This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       object = ClassName(\\"this\\", 1337, foo=\\"bar\\")
       object.property = EnumType.OPTION_A
       object.method_call()
@@ -697,7 +731,9 @@ export class ClassName implements IInterface {
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "# Example automatically generated. See https://github.com/aws/jsii/issues/826
+                "example": "# This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
                 "summary": "Create a new instance of ClassName.",
               },
@@ -737,7 +773,9 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "# Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "# This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       ClassName.static_method()",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
@@ -830,7 +868,9 @@ export class ClassName implements IInterface {
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "# Example automatically generated. See https://github.com/aws/jsii/issues/826
+              "example": "# This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
             },
             "fqn": "testpkg.EnumType",
@@ -842,14 +882,18 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "# Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "# This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       ClassName(\\"this\\", 1337, property=EnumType.OPTION_A)",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "# Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "# This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
                 },
                 "name": "OPTION_B",
@@ -869,7 +913,9 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "# Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "# This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       iface.method_call()",
                   "summary": "An instance method call.",
                 },
@@ -885,7 +931,9 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "# Example automatically generated. See https://github.com/aws/jsii/issues/826
+                  "example": "# This example was automatically transliterated.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       iface.property = EnumType.OPTION_B",
                   "summary": "A property value.",
                 },
@@ -914,7 +962,11 @@ test('single assembly, loose mode', () =>
       'README.md': `
 # Missing literate source
 
-[example is not found](missing-example.lit.ts)
+[ts source is not found](missing-example.lit.ts)
+
+# Missing literate source and fallback
+
+[example is not found](omit-example.lit.ts)
 
 # Missing fixture
 
@@ -940,6 +992,14 @@ import { SampleClass } from './index';
 /// ## This is a heading within the literate file!
 new SampleClass('literate');
       `,
+      // The `lit.ts`  source file and `lit.js` output will not be there in packaged form...
+      'omit-example.lit.ts': `
+import { SampleClass } from './index';
+
+/// !show
+/// ## This is a heading within the omitted literate file!
+new SampleClass('omitted-literate');
+      `,
     });
     fs.writeJsonSync(
       path.join(tmpDir, SPEC_FILE_NAME),
@@ -949,6 +1009,9 @@ new SampleClass('literate');
       },
     );
     for (const [file, content] of Object.entries(compilationResult.files)) {
+      if (file.startsWith('omit-')) {
+        continue;
+      }
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
     }
 
@@ -994,14 +1057,29 @@ new SampleClass('literate');
       ## This is a heading within the literate file!
 
       \`\`\`csharp
-      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
-      new index_1.SampleClass(\\"literate\\");
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
+      new SampleClass(\\"literate\\");
+      \`\`\`
+
+      # Missing literate source and fallback
+
+      ## This is a heading within the omitted literate file!
+
+      \`\`\`csharp
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
+      new SampleClass(\\"omitted-literate\\");
       \`\`\`
 
       # Missing fixture
 
       \`\`\`csharp
-      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new SampleClass(\\"README.md\\");
       \`\`\`",
         },
@@ -1019,7 +1097,9 @@ new SampleClass('literate');
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+              "example": "// This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new DoesNotCompile(this, \\"That\\", new Struct { Foo = 1337 });",
             },
             "fqn": "testpkg.SampleClass",
@@ -1084,14 +1164,29 @@ new SampleClass('literate');
       ## This is a heading within the literate file!
 
       \`\`\`java
-      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new SampleClass(\\"literate\\");
+      \`\`\`
+
+      # Missing literate source and fallback
+
+      ## This is a heading within the omitted literate file!
+
+      \`\`\`java
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
+      new SampleClass(\\"omitted-literate\\");
       \`\`\`
 
       # Missing fixture
 
       \`\`\`java
-      // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      // This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       new SampleClass(\\"README.md\\");
       \`\`\`",
         },
@@ -1109,7 +1204,9 @@ new SampleClass('literate');
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+              "example": "// This example was automatically transliterated with incomplete type information. It may not work as-is.
+      // See https://github.com/aws/jsii/issues/826 for more information.
+
       DoesNotCompile.Builder.create(this, \\"That\\").foo(1337).build();",
             },
             "fqn": "testpkg.SampleClass",
@@ -1174,14 +1271,29 @@ new SampleClass('literate');
       ## This is a heading within the literate file!
 
       \`\`\`python
-      # Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
-      index_1.SampleClass(\\"literate\\")
+      # This example was automatically transliterated with incomplete type information. It may not work as-is.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
+      SampleClass(\\"literate\\")
+      \`\`\`
+
+      # Missing literate source and fallback
+
+      ## This is a heading within the omitted literate file!
+
+      \`\`\`python
+      # This example was automatically transliterated with incomplete type information. It may not work as-is.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
+      SampleClass(\\"omitted-literate\\")
       \`\`\`
 
       # Missing fixture
 
       \`\`\`python
-      # Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+      # This example was automatically transliterated with incomplete type information. It may not work as-is.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       SampleClass(\\"README.md\\")
       \`\`\`",
         },
@@ -1199,7 +1311,9 @@ new SampleClass('literate');
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "# Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+              "example": "# This example was automatically transliterated with incomplete type information. It may not work as-is.
+      # See https://github.com/aws/jsii/issues/826 for more information.
+
       DoesNotCompile(self, \\"That\\", foo=1337)",
             },
             "fqn": "testpkg.SampleClass",

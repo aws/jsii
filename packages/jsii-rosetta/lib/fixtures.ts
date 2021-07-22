@@ -28,7 +28,14 @@ export function fixturize(
   if (literateSource) {
     // Compatibility with the "old school" example inclusion mechanism.
     // Completely load this file and attach a parameter with its directory.
-    source = loadLiterateSource(directory, literateSource, loose);
+    try {
+      source = loadLiterateSource(directory, literateSource);
+    } catch (ex) {
+      // In loose mode, we ignore this failure and stick to the visible source.
+      if (!loose) {
+        throw ex;
+      }
+    }
     parameters[SnippetParameters.$COMPILATION_DIRECTORY] = path.join(
       directory,
       path.dirname(literateSource),
@@ -48,22 +55,10 @@ export function fixturize(
   };
 }
 
-function loadLiterateSource(
-  directory: string,
-  literateFileName: string,
-  loose = false,
-) {
+function loadLiterateSource(directory: string, literateFileName: string) {
   const fullPath = path.join(directory, literateFileName);
   const exists = fs.existsSync(fullPath);
   if (!exists) {
-    if (loose) {
-      // In loose mode, we'll fall back to the `.js` file if it exists...
-      const jsFile = fullPath.replace(/\.ts(x?)$/, '.js$1');
-      if (fs.existsSync(jsFile)) {
-        return fs.readFileSync(jsFile, { encoding: 'utf-8' });
-      }
-      return `Missing literate source file ${literateFileName}`;
-    }
     // This couldn't really happen in practice, but do the check anyway
     throw new Error(
       `Sample uses literate source ${literateFileName}, but not found: ${fullPath}`,
@@ -152,13 +147,16 @@ function sidelineImports(source: string): {
     ScriptKind.TS,
   );
   for (const statement of sourceFile.statements) {
-    switch (statement.kind) {
-      case SyntaxKind.ImportDeclaration:
-      case SyntaxKind.ImportEqualsDeclaration:
-        imports += statement.getFullText(sourceFile);
-        break;
-      default:
-        statements += statement.getFullText(sourceFile);
+    if (
+      statement.kind === SyntaxKind.ImportDeclaration ||
+      statement.kind === SyntaxKind.ImportEqualsDeclaration ||
+      (statement.kind === SyntaxKind.VariableStatement &&
+        statement.getChildAt(0).getChildAt(0).kind ===
+          SyntaxKind.DeclareKeyword)
+    ) {
+      imports += statement.getFullText(sourceFile);
+    } else {
+      statements += statement.getFullText(sourceFile);
     }
   }
 
