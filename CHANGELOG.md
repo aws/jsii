@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.32.0](https://github.com/aws/jsii/compare/v1.30.0...v1.32.0) (2021-07-22)
+
+
+### Features
+
+* **jsii-rosetta transliterate:** transliterate a jsii assembly ([#2869](https://github.com/aws/jsii/issues/2869)) ([d9028c8](https://github.com/aws/jsii/commit/d9028c8cf91297a44cd4b1f128f769716bf0e74e))
+* **rosetta:** hoist declare statements to top-level of document ([#2897](https://github.com/aws/jsii/issues/2897)) ([7b2ec05](https://github.com/aws/jsii/commit/7b2ec05b2ec247de83901e8504f7ba711d6027bb))
+* **rosetta:** transliterate loose mode ([#2892](https://github.com/aws/jsii/issues/2892)) ([43e6dfd](https://github.com/aws/jsii/commit/43e6dfd0591b0f38a8c636edd3896400c96676e3))
+
+
+### Bug Fixes
+
+* crash when assembly originator key file is missing ([#2899](https://github.com/aws/jsii/issues/2899)) ([e05ce62](https://github.com/aws/jsii/commit/e05ce625ba4760fa8196a5944cc9089a1aaefcfb))
+* **dotnet:** strong-name sign assemblies ([#2894](https://github.com/aws/jsii/issues/2894)) ([7b90f27](https://github.com/aws/jsii/commit/7b90f27c7819209f6485c28eabefb328a0304ab5))
+* **pacmak/go:** missing go.sum entry ([#2893](https://github.com/aws/jsii/issues/2893)) ([6e6ad69](https://github.com/aws/jsii/commit/6e6ad693230e18f36990e8feaf3734da7c01dbd5))
+* **rosetta:** extract does not respect strict metadata entry ([#2863](https://github.com/aws/jsii/issues/2863)) ([5d2392b](https://github.com/aws/jsii/commit/5d2392b7713cb6dfea6092c4ac3ee45360a5d28a)), closes [#2861](https://github.com/aws/jsii/issues/2861)
+* **rosetta:** fails on "Debug Failure" ([#2917](https://github.com/aws/jsii/issues/2917)) ([f6078ef](https://github.com/aws/jsii/commit/f6078ef08a144ea86623f331c60ac15ca5f91219)), closes [cdklabs/jsii-docgen#369](https://github.com/cdklabs/jsii-docgen/issues/369)
+* **rosetta:** hangs on 'markdown' command when a file is provided ([#2871](https://github.com/aws/jsii/issues/2871)) ([e538b36](https://github.com/aws/jsii/commit/e538b36c6ccf53ace908ff4c342dc9a4435ce353))
+
 ## [1.31.0](https://github.com/aws/jsii/compare/v1.30.0...v1.31.0) (2021-07-09)
 
 
