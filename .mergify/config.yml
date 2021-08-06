@@ -6,7 +6,7 @@ pull_request_rules:
       label:
         add: [contribution/core]
     conditions:
-      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi|kaizen3031593)$
+      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi|kaizen3031593|Chriscbr)$
       - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
