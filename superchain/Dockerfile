@@ -92,7 +92,6 @@ ARG NODE_MAJOR_VERSION=12
 RUN curl -sL https://rpm.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash -                                          \
   && yum -y install nodejs                                                                                              \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
-  && rm -rf "/root/.npm"                                                                          \
   && npm set unsafe-perm true
 
 # Install Yarn
@@ -123,5 +122,7 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
+
+USER user:root
 
 CMD ["/bin/bash"]
