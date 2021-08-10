@@ -20,7 +20,7 @@
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.23",
     "@types/mock-fs": "^4.13.0",
-    "@types/node": "^10.17.59",
+    "@types/node": "^12.20.19",
     "@types/yargs": "^16.0.1",
     "eslint": "^7.26.0",
     "jest": "^26.6.3",
@@ -51,6 +51,6 @@
     "directory": "packages/jsii-rosetta"
   },
   "engines": {
-    "node": ">= 10.5.0"
+    "node": ">= 12.4.0"
   }
 }

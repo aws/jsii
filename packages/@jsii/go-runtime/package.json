@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.59",
+    "@types/node": "^12.20.19",
     "codemaker": "^0.0.0",
     "eslint": "^7.26.0",
     "fs-extra": "^9.1.0",

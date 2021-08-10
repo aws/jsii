@@ -18,7 +18,7 @@
     "directory": "tools/jsii-build-tools"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 12.4.0"
   },
   "bin": {
     "diff-test": "bin/diff-test",

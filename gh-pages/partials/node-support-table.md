@@ -1,12 +1,11 @@
 | Release   | Status                       |
 | --------- | ---------------------------- |
-| `<10.3.0` | :x: Defunct                  |
-| `^10.3.0` | :white_check_mark: Supported |
-| `^11.0.0` | :warning: Unsupported        |
-| `^12.0.0` | :white_check_mark: Supported |
-| `^13.0.0` | :warning: Unsupported        |
+| `<12.4.0` | :x: Defunct                  |
+| `^12.4.0` | :white_check_mark: Supported |
+| `^13.0.0` | :x: Defunct                  |
 | `^14.0.0` | :white_check_mark: Supported |
-| `^15.0.0` | :test_tube: Best effort      |
+| `^15.0.0` | :x: Defunct                  |
+| `^16.0.0` | :white_check_mark: Supported |
 
 ??? question "Status Definitions"
     - **:white_check_mark: Supported**: Long Term Support (LTS) releases  (those with an even major version) are

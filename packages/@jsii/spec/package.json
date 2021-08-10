@@ -17,7 +17,7 @@
     "directory": "packages/@jsii/spec"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 12.4.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
-    "@types/node": "^10.17.59",
+    "@types/node": "^12.20.19",
     "eslint": "^7.26.0",
     "jest": "^26.6.3",
     "jsii-build-tools": "^0.0.0",

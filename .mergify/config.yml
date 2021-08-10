@@ -36,9 +36,9 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
@@ -85,9 +85,9 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
@@ -134,9 +134,9 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$

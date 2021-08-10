@@ -101,7 +101,7 @@ export const STANDARD_COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: true,
   stripInternal: true,
-  target: ts.ScriptTarget.ES2018,
+  target: ts.ScriptTarget.ES2019,
   // Incremental builds
   incremental: true,
   tsBuildInfoFile: '.tsbuildinfo',
