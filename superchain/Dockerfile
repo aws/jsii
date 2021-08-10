@@ -92,7 +92,7 @@ ARG NODE_MAJOR_VERSION=12
 RUN curl -sL https://rpm.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash -                                          \
   && yum -y install nodejs                                                                                              \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
-  && [-f "/root/.npm" ] && rm -rf "/root/.npm"                                                                          \
+  && rm -rf "/root/.npm"                                                                          \
   && npm set unsafe-perm true
 
 # Install Yarn
