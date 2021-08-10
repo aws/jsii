@@ -35,7 +35,8 @@
   },
   "dependencies": {
     "@jsii/kernel": "^0.0.0",
-    "@jsii/spec": "^0.0.0"
+    "@jsii/spec": "^0.0.0",
+    "semver": "^7.3.5"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
