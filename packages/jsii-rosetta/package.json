@@ -35,7 +35,7 @@
     "commonmark": "^0.29.3",
     "fs-extra": "^9.1.0",
     "typescript": "~3.9.9",
-    "xmldom": "^0.6.0",
+    "xmldom": "github:xmldom/xmldom#0.7.0",
     "yargs": "^16.2.0"
   },
   "license": "Apache-2.0",
