@@ -49,6 +49,7 @@ enum DocTag {
   SUBCLASSABLE = 'subclassable',
   EXAMPLE = 'example',
   STABILITY = 'stability',
+  STRUCT = 'struct',
 }
 
 /**
@@ -171,6 +172,11 @@ function parseDocParts(
       }
     }
     return undefined;
+  }
+
+  if (eatTag(DocTag.STRUCT) != null) {
+    docs.hints = docs.hints ?? {};
+    docs.hints.struct = true;
   }
 
   docs.default = eatTag(DocTag.DEFAULT, DocTag.DEFAULT_VALUE);

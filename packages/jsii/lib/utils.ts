@@ -61,6 +61,27 @@ export function formatDiagnostic(
   diagnostic: ts.Diagnostic,
   projectRoot: string,
 ) {
+  if (JsiiDiagnostic.isJsiiDiagnostic(diagnostic)) {
+    // Ensure we leverage pre-rendered diagnostics where available.
+    return diagnostic.format(projectRoot);
+  }
+  return _formatDiagnostic(diagnostic, projectRoot);
+}
+
+/**
+ * Formats a diagnostic message with color and context, if possible. Users
+ * should use `formatDiagnostic` instead, as this implementation is inteded for
+ * internal usafe only.
+ *
+ * @param diagnostic  the diagnostic message ot be formatted.
+ * @param projectRoot the root of the TypeScript project.
+ *
+ * @returns a formatted string.
+ */
+ export function _formatDiagnostic(
+  diagnostic: ts.Diagnostic,
+  projectRoot: string,
+) {
   const formatDiagnosticsHost: ts.FormatDiagnosticsHost = {
     getCurrentDirectory: () => projectRoot,
     getCanonicalFileName: (fileName) => fileName,
