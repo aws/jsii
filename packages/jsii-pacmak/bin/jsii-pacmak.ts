@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import * as yargs from 'yargs';
 
+import '@jsii/node-check';
+
 import { pacmak, configureLogging, TargetName } from '../lib';
 import { debug } from '../lib/logging';
 import { VERSION_DESC } from '../lib/version';

@@ -1,0 +1,5 @@
+{
+  "extends": "../../../tsconfig-base",
+  "include": ["**/*.ts"],
+  "exclude": ["jest.config.ts"],
+}

@@ -3,8 +3,9 @@
   "include": ["**/*.ts"],
   "exclude": ["jest.config.ts"],
   "references": [
-    { "path": "../jsii" },
+    { "path": "../@jsii/node-check" },
     { "path": "../@jsii/spec" },
+    { "path": "../jsii" },
     { "path": "../oo-ascii-tree" },
   ]
 }

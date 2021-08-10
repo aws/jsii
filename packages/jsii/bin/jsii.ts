@@ -3,6 +3,8 @@ import * as path from 'path';
 import * as process from 'process';
 import * as yargs from 'yargs';
 
+import '@jsii/node-check';
+
 import { Compiler } from '../lib/compiler';
 import { configureCategories } from '../lib/jsii-diagnostic';
 import { loadProjectInfo } from '../lib/project-info';

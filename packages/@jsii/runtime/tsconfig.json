@@ -10,5 +10,7 @@
   ],
   "references": [
     { "path": "../kernel" },
+    { "path": "../node-check" },
+    { "path": "../spec" },
   ],
 }

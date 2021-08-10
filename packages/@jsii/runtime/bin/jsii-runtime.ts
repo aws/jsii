@@ -5,6 +5,8 @@ import { resolve } from 'path';
 import { execArgv, execPath, exit, on, stdin, stdout } from 'process';
 import { Duplex } from 'stream';
 
+import '@jsii/node-check';
+
 // Spawn another node process, with the following file descriptor setup:
 // - No STDIN will be provided
 // - STDOUT and STDERR will be intercepted, contents wrapped & forward to STDERR

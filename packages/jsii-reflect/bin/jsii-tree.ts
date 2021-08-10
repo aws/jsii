@@ -1,6 +1,8 @@
 import * as colors from 'colors/safe';
 import * as yargs from 'yargs';
 
+import '@jsii/node-check';
+
 import { TypeSystem, TypeSystemTree } from '../lib';
 
 async function main() {

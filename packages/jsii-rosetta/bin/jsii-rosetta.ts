@@ -2,6 +2,8 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as yargs from 'yargs';
 
+import '@jsii/node-check';
+
 import {
   TranslateResult,
   DEFAULT_TABLET_NAME,
