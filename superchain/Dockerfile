@@ -36,7 +36,7 @@ RUN apt-get update                                                              
   && apt-get -y install apt-transport-https dirmngr gnupg ca-certificates                                               \
                     tar curl                                                                                            \
                     build-essential                                                                                     \
-                    git gzip openssl rsync unzip zip                                                                    \
+                    git gzip libssl-dev openssl rsync unzip zip                                                         \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
