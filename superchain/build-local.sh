@@ -26,4 +26,5 @@ docker build                                                                    
   --build-arg COMMIT_ID=${COMMIT_ID}                                            \
   --build-arg NODE_MAJOR_VERSION=10                                             \
   -t "jsii/superchain:local"                                                    \
-  .
+  -f ${PWD}/Dockerfile                                                          \
+  ..

@@ -58,48 +58,90 @@ jobs:
         # Ensure we run with bash, because that's the syntax we're using here...
         shell: bash
 
+      - name: Initialize docker buildx
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          docker buildx create --name=jsii-superchain.builder --use
+
+      - name: Determine build time
+        id: build-time
+        run: |-
+          echo "::set-output name=value::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
       - name: Build Image
         if: steps.should-run.outputs.result == 'true'
         run: |-
-          docker build                                                        \
-            --pull                                                            \
-            --build-arg BUILD_TIMESTAMP="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"    \
-            --build-arg COMMIT_ID='${{ github.sha }}'                         \
-            --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                 \
-            --tag "jsii/superchain:node${{ matrix.node }}-nightly"            \
-            ./superchain
-      - name: Test Image
-        if: steps.should-run.outputs.result == 'true'
-        run: |-
-          docker run                                                          \
-            --rm                                                              \
-            --tty                                                             \
-            --network=host                                                    \
-            -v${{ github.workspace }}:${{ github.workspace }}                 \
-            -w${{ github.workspace }}                                         \
-            "jsii/superchain:node${{ matrix.node }}-nightly"                  \
-            bash -c "yarn install --frozen-lockfile && yarn build && yarn test"
+          docker buildx build                                                   \
+            --platform linux/amd64,linux/arm64                                  \
+            --squash                                                            \
+            --pull                                                              \
+            --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
+            --build-arg COMMIT_ID='${{ github.sha }}'                           \
+            --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
+            -f superchain/Dockerfile                                            \
+            .
 
       # Only when puhsing to main/release from now on
       - name: Publish (nightly)
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/release'
         run: |-
-          docker push jsii/superchain:node${{ matrix.node }}-nightly
+          docker buildx build                                                   \
+            --platform linux/amd64,linux/arm64                                  \
+            --target release                                                    \
+            --push                                                              \
+            --squash                                                            \
+            --pull                                                              \
+            --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
+            --build-arg COMMIT_ID='${{ github.sha }}'                           \
+            --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
+            --tag "jsii/superchain:node${{ matrix.node }}-nightly"              \
+            -f superchain/Dockerfile                                            \
+            .
 
           # If the current version is the default version, also tag this with the unqualified ':nightly' label
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
-            docker tag jsii/superchain:node${{ matrix.node }}-nightly jsii/superchain:nightly
-            docker push jsii/superchain:nightly
+            docker buildx build                                                   \
+              --platform linux/amd64,linux/arm64                                  \
+              --target release                                                    \
+              --push                                                              \
+              --squash                                                            \
+              --pull                                                              \
+              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
+              --build-arg COMMIT_ID='${{ github.sha }}'                           \
+              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
+              --tag "jsii/superchain:nightly"                                     \
+              -f superchain/Dockerfile                                            \
+              .
           fi
       - name: Publish (latest)
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/release'
         run: |-
           # Alias 'nodeX-nightly's to 'nodeX', then push
-          docker tag jsii/superchain:node${{ matrix.node }}-nightly jsii/superchain:node${{ matrix.node }}
-          docker push jsii/superchain:node${{ matrix.node }}
+          docker buildx build                                                   \
+            --platform linux/amd64,linux/arm64                                  \
+            --target release                                                    \
+            --push                                                              \
+            --squash                                                            \
+            --pull                                                              \
+            --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
+            --build-arg COMMIT_ID='${{ github.sha }}'                           \
+            --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
+            --tag "jsii/superchain:node${{ matrix.node }}"                      \
+            -f superchain/Dockerfile                                            \
+              .
 
           # If the current version is the default version, also tag this with the unqualified ':latest' label
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
-            docker tag jsii/superchain:node${{ matrix.node }} jsii/superchain:latest
-            docker push jsii/superchain:latest
+            docker buildx build                                                   \
+              --platform linux/amd64,linux/arm64                                  \
+              --target release                                                    \
+              --push                                                              \
+              --squash                                                            \
+              --pull                                                              \
+              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
+              --build-arg COMMIT_ID='${{ github.sha }}'                           \
+              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
+              --tag "jsii/superchain:latest"                                      \
+              -f superchain/Dockerfile                                            \
+              .
           fi

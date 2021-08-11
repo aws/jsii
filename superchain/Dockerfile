@@ -1,4 +1,7 @@
-FROM public.ecr.aws/amazonlinux/amazonlinux:2
+########################################################################################################################
+# Set up the image
+########################################################################################################################
+FROM public.ecr.aws/debian/debian:10-slim as superchain
 
 # Set locale and some other interesting environment variables
 ENV LANG="C.UTF-8"                                                                                                      \
@@ -20,97 +23,140 @@ ENV LANG="C.UTF-8"                                                              
     MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
                                                                                                                         \
     GOROOT="/usr/local/go"                                                                                              \
-    GITHUB_CLI_VERSION="1.9.2"
+    GITHUB_CLI_VERSION="1.13.1"
 
-# Install deltarpm as it can speed up the upgrade processes, and tar as it's needed for installing Maven
-# Also upgrading anything already installed, and adding some common dependencies for included tools
-RUN yum -y upgrade                                                                                                      \
-  && yum -y install deltarpm tar                                                                                        \
-                    make system-rpm-config yum-utils                                                                    \
-                    git gzip openssl rsync unzip which zip                                                              \
-  && yum clean all && rm -rf /var/cache/yum
+# Installing tar as it's needed for installing Maven, curl as it's needed to download a bunch of things during the
+# build, build-essentials as it would be needed to install any dependency including native components, and a couple of
+# generally useful/pervasive packages.
+RUN apt-get update                                                                                                      \
+  && apt-get -y install apt-transport-https dirmngr gnupg ca-certificates                                               \
+                    tar curl                                                                                            \
+                    build-essential                                                                                     \
+                    git gzip openssl rsync unzip zip                                                                    \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install .NET Core, mono & PowerShell
-COPY gpg/mono.asc /tmp/mono.asc
-RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
-  && rpm -Uvh "https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm"                              \
-  && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
-  && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
-      | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
-  && yum -y install dotnet-sdk-3.1 mono-devel powershell                                                                \
-  && yum-config-manager --disable packages-microsoft-com-prod                                                           \
-  && yum-config-manager --disable mono-centos7-stable                                                                   \
-  && yum clean all && rm -rf /var/cache/yum
+# Install mono
+COPY superchain/gpg/mono.asc /tmp/mono.asc
+RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                                                                       \
+  && echo "deb https://download.mono-project.com/repo/debian stable-buster main"                                        \
+      > /etc/apt/sources.list.d/mono-official-stable.list                                                               \
+  && apt-get update                                                                                                     \
+  && apt-get -y install mono-devel                                                                                      \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install .NET Core and PowerShell (they don't support ARM binary distributions, unfortunately)
+RUN if [ "$(uname -m)" = "x86_64" ]; then                                                                               \
+    curl -SsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                             \
+      -o /tmp/packages-microsoft-prod.deb                                                                               \
+    && dpkg -i /tmp/packages-microsoft-prod.deb                                                                         \
+    && rm /tmp/packages-microsoft-prod.deb                                                                              \
+    && apt-get update                                                                                                   \
+    && apt-get -y install dotnet-sdk-3.1 powershell                                                                     \
+    && rm -rf /var/lib/apt/lists/*                                                                                      \
+  ;else                                                                                                                 \
+    curl -SsL "https://dot.net/v1/dotnet-install.sh" -o /tmp/dotnet-install.sh                                          \
+    && export DOTNET_HOME="/usr/local/dotnet" && mkdir -p ${DOTNET_HOME}                                                \
+    && bash /tmp/dotnet-install.sh --channel 3.1 --install-dir ${DOTNET_HOME}                                           \
+    && rm /tmp/dotnet-install.sh                                                                                        \
+    && ln -s ${DOTNET_HOME}/bin/dotnet /usr/local/bin/dotnet                                                            \
+    && ln -s ${DOTNET_HOME}/bin/nuget /usr/local/bin/nuget                                                              \
+    && curl -SsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-x64.tar.gz"  \
+        -o /tmp/powershell.tar.gz                                                                                       \
+    && mkdir -p /opt/microsoft/powershell/7                                                                             \
+    &&  tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                   \
+    && rm /tmp/powershell.tar.gz                                                                                        \
+    && chmod +x /opt/microsoft/powershell/7/pwsh                                                                        \
+    && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh                                                             \
+  ;fi
 
 # Install Python 3
-RUN yum -y install python3 python3-pip                                                                                  \
+RUN apt-get update                                                                                                      \
+  && apt-get -y install python3 python3-pip                                                                             \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
   && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
   && rm -rf $(pip cache dir)                                                                                            \
-  && yum clean all && rm -rf /var/cache/yum
+  && rm -rf /var/lib/apt/lists/*
 
-# Install JDK8 (Corretto)
-RUN amazon-linux-extras enable corretto8                                                                                \
-  && yum -y install java-1.8.0-amazon-corretto-devel                                                                    \
-  && yum clean all && rm -rf /var/cache/yum
+# Install JDK8 (Amazon Corretto 8)
+COPY superchain/gpg/corretto.asc /tmp/corretto.asc
+RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                                                               \
+  && echo "deb https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/amazon-corretto.list                     \
+  && apt-get update                                                                                                     \
+  && mkdir -p /usr/share/man/man1 # update-alternatives will otherwise crash                                            \
+  && apt-get -y install java-common java-1.8.0-amazon-corretto-jdk                                                      \
+  && rm -rf /usr/share/man/man1                                                                                         \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Maven
-RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz     \
-         -o /tmp/apache-maven.tar.gz                                                                                    \
-  && curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc\
-          -o /tmp/apache-maven.tar.gz.asc                                                                               \
-  && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
-  && curl -sL https://www.apache.org/dist/maven/KEYS | gpg --homedir /tmp/gpg-maven --import                            \
-  && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
-  && mkdir -p /usr/local && (cd /usr/local && tar xzf /tmp/apache-maven.tar.gz)                                         \
-  && mv /usr/local/apache-maven-${M2_VERSION} /usr/local/apache-maven                                                   \
-  && for BIN in $(find /usr/local/apache-maven/bin -type f -executable);                                                \
-     do                                                                                                                 \
-       ln -s $BIN /usr/local/bin/$(basename $BIN);                                                                      \
-     done                                                                                                               \
+RUN curl -sL "https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"     \
+         -o /tmp/apache-maven.tar.gz                                                                                      \
+  && curl -sL "https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc"\
+          -o /tmp/apache-maven.tar.gz.asc                                                                                 \
+  && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                               \
+  && curl -sL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                            \
+  && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                          \
+  && mkdir -p /usr/local && (cd /usr/local && tar xzf /tmp/apache-maven.tar.gz)                                           \
+  && mv /usr/local/apache-maven-${M2_VERSION} /usr/local/apache-maven                                                     \
+  && for BIN in $(find /usr/local/apache-maven/bin -type f -executable);                                                  \
+     do                                                                                                                   \
+       ln -s $BIN /usr/local/bin/$(basename $BIN);                                                                        \
+     done                                                                                                                 \
   && rm -rf /tmp/apache-maven.tar.gz /tmp/apache-maven.tar.gz.asc /tmp/gpg-maven
-COPY m2-settings.xml /root/.m2/settings.xml
+COPY superchain/m2-settings.xml /root/.m2/settings.xml
 
 # Install Go
-RUN curl -sL https://golang.org/dl/go1.16.linux-amd64.tar.gz -o /tmp/go.tar.gz                                          \
+RUN if [ "$(uname -m)" = "x86_64" ]; then                                                                               \
+    curl -SsL "https://golang.org/dl/go1.16.7.linux-amd64.tar.gz" -o /tmp/go.tar.gz                                     \
+  ;else                                                                                                                 \
+    curl -SsL "https://golang.org/dl/go1.16.7.linux-arm64.tar.gz" -o /tmp/go.tar.gz                               \
+  ;fi                                                                                                                   \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
 
-# Install GCC
-RUN yum -y install gcc
-
 # Install Docker
-RUN amazon-linux-extras install docker                                                                                  \
-  && yum clean all && rm -rf /var/cache/yum
+COPY superchain/gpg/docker.asc /tmp/docker.asc
+RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                                                                   \
+  && echo "deb https://download.docker.com/linux/debian buster stable" > /etc/apt/sources.list.d/docker.list            \
+  && apt-get update                                                                                                     \
+  && apt-get -y install docker-ce docker-ce-cli containerd.io                                                           \
+  && rm -rf /var/lib/apt/lists/*
 VOLUME /var/lib/docker
 
-# Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx')
+# Install GitHub CLI
+RUN if [ "$(uname -m)" = "x86_64" ]; then                                                                                     \
+    curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_amd64.deb"  \
+      -o /tmp/gh.deb                                                                                                          \
+  ;else                                                                                                                       \
+    curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_arm64.deb"  \
+      -o /tmp/gh.deb                                                                                                          \
+  ;fi                                                                                                                         \
+  && apt-get update                                                                                                           \
+  && apt-get -y install /tmp/gh.deb                                                                                           \
+  && rm /tmp/gh.deb                                                                                                           \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
 ARG NODE_MAJOR_VERSION=10
-
-RUN curl -sL https://rpm.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash -                                                \
-  && yum -y install nodejs                                                                                              \
-  && yum clean all && rm -rf /var/cache/yum                                                                             \
-  && npm set unsafe-perm true
-
-# Install Yarn
-RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo                                     \
-  && yum -y install yarn                                                                                                \
-  && yum clean all && rm -rf /var/cache/yum
-
-# Install GitHub CLI
-RUN curl -sL https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_amd64.tar.gz | \
-  tar -xzv --strip-components=2 gh_${GITHUB_CLI_VERSION}_linux_amd64/bin/gh                                                    \
-  && mv gh /usr/bin/
+COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
+COPY superchain/gpg/yarn.asc /tmp/yarn.asc
+RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \
+  && echo "deb https://deb.nodesource.com/node_${NODE_MAJOR_VERSION}.x buster main"                                     \
+      > /etc/apt/sources.list.d/nodesource.list                                                                         \
+  && apt-key add /tmp/yarn.asc && rm /tmp/yarn.asc                                                                      \
+  && echo "deb https://dl.yarnpkg.com/debian stable main" > /etc/apt/sources.list.d/yarnpkg.list                        \
+  && apt-get update                                                                                                     \
+  && apt-get -y install nodejs yarn                                                                                     \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install some configuration
-COPY ssh_config /root/.ssh/config
+COPY superchain/ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
-COPY dockerd-entrypoint.sh /usr/local/bin/
+COPY superchain/dockerd-entrypoint.sh /usr/local/bin/
 
 # Add the source used to build this Docker image (to facilitate re-builds, forensics)
-COPY . /docker-source
+COPY superchain /docker-source
 
 ## Image Metadata
 ARG BUILD_TIMESTAMP
@@ -124,3 +170,16 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
 CMD ["/bin/bash"]
+
+########################################################################################################################
+# Running tests now
+########################################################################################################################
+FROM superchain as test
+COPY . /tmp/source
+RUN cd /tmp/source && yarn install --frozen-lockfile && yarn build && yarn test
+
+########################################################################################################################
+# Final image ignores test contents
+########################################################################################################################
+FROM test as release
+RUN rm -rf /tmp/source
