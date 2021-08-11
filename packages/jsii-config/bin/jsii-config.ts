@@ -1,8 +1,8 @@
+import '@jsii/check-node/run';
+
 import { writeFile } from 'fs';
 import { promisify } from 'util';
 import * as yargs from 'yargs';
-
-import '@jsii/node-check';
 
 import jsiiConfig from '../lib';
 

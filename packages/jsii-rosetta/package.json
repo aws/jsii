@@ -31,7 +31,7 @@
     "prettier": "^2.3.0"
   },
   "dependencies": {
-    "@jsii/node-check": "0.0.0",
+    "@jsii/check-node": "0.0.0",
     "@jsii/spec": "^0.0.0",
     "commonmark": "^0.29.3",
     "fs-extra": "^9.1.0",

@@ -1,10 +1,10 @@
+import '@jsii/check-node/run';
+
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as log4js from 'log4js';
 import * as yargs from 'yargs';
-
-import '@jsii/node-check';
 
 import { compareAssemblies } from '../lib';
 import {

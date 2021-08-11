@@ -4,8 +4,13 @@
 *.sh
 dist
 
+# Don't pack unit tests
+*.test.js
+*.test.d.ts
+
 # Don't include various configuration & state information
 coverage
 .eslintrc.*
 tsconfig.json
 *.tsbuildinfo
+jest.config.ts

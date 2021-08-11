@@ -1,8 +1,4 @@
-import {
-  DEADLINE_EPOCH_MS,
-  SupportLevel,
-  VERSION_SUPPORT,
-} from '../lib/constants';
+import { DEADLINE_EPOCH_MS, SupportLevel, VERSION_SUPPORT } from './constants';
 
 // This test is there to ensure house-keeping happens when it should. Deprecated
 // node releases should move to `SupportLevel.END_OF_LIFE` once the `DEADLINE`

@@ -4,16 +4,25 @@ export const enum SupportLevel {
    * will output a yellow warning to the console, until the DEADLINE has been
    * reached, at which point it'll be a SCARY RED WARNING.
    */
-  DEPRECATED = 'end-of-life',
+  DEPRECATED = 'deprecated',
 
   /**
    * Supported releases, nothing to see. No message will be output.
    */
   SUPPORTED = 'supported',
+
   /**
    * EOL releases are unsupported, so this will emit a SCARY RED WARNING.
    */
-  END_OF_LIFE = 'unsupported',
+  END_OF_LIFE = 'end-of-life',
+
+  /**
+   * Not end-of-life, but also not supported. This is usually the case for early
+   * releases on a new major train, where some of the features are not available
+   * yet. These emit a SCARY RED WARNING, but the messaging is slightly
+   * different than that of END_OF_LIFE.
+   */
+  UNSUPPORTED = 'unsupported',
 
   /**
    * Those releases are newer than the current software package, so we have not
@@ -48,10 +57,13 @@ export const VERSION_SUPPORT: { readonly [range: string]: SupportLevel } = {
   '<10.3.0': SupportLevel.END_OF_LIFE,
   '^10.3.0': SupportLevel.DEPRECATED,
   '^11.0.0-0': SupportLevel.END_OF_LIFE,
-  '^12.4.0': SupportLevel.SUPPORTED,
+  '<12.7.0': SupportLevel.UNSUPPORTED,
+  '^12.7.0': SupportLevel.SUPPORTED,
   '^13.0.0-0': SupportLevel.END_OF_LIFE,
+  '<14.5.0': SupportLevel.UNSUPPORTED,
   '^14.5.0': SupportLevel.SUPPORTED,
   '^15.0.0-0': SupportLevel.END_OF_LIFE,
+  '<16.3.0': SupportLevel.UNSUPPORTED,
   '^16.3.0': SupportLevel.SUPPORTED,
   // Anything else will be treated as SupportLevel.UNTESTED.
 };

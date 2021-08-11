@@ -1,7 +1,7 @@
+import '@jsii/check-node/run';
+
 import * as colors from 'colors/safe';
 import * as yargs from 'yargs';
-
-import '@jsii/node-check';
 
 import { TypeSystem, TypeSystemTree } from '../lib';
 
