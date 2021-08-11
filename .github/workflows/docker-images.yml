@@ -50,6 +50,25 @@ jobs:
             fi
           fi
 
+      # Enable experimental features (i.e: --squash) in the Docker daemon
+      - name: Setup node
+        uses: actions/setup-node@v2.4.0
+        with:
+          node-version: 16
+      - name: Enable Docker experimental features
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          sudo node <<-EOF
+            const fs = require('fs');
+            const path = '/etc/docker/daemon.json';
+            const base = fs.existsSync(path)
+              ? JSON.parse(fs.readFileSync(path, 'utf-8'))
+              : {};
+            fs.writeFileSync(path, JSON.stringify({ ...base, experimental: true }, null, 2));
+          EOF
+          # Now restart the Docker daemon so configuration becomes effective
+          sudo systemctl restart docker.service
+
       # We only authenticate to Docker for 'push' events, as 'pull_request' from forks will not have the secret
       - name: Login to Docker
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push'
