@@ -137,7 +137,7 @@ jobs:
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
             --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"        \
             -f superchain/Dockerfile                                            \
-              .
+            .
 
           # If the current version is the default version, also tag this with the unqualified ':1-*' label
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
