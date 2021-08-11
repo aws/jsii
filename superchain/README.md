@@ -18,17 +18,31 @@ SDK             | Version
 `Python 3`      | `python3 >= 3.7.3` with `pip3 >= 20.0.2`
 `Go`            | `go >= 1.16`
 
+## Image tags
+
+Maintained image tags are the following:
+
+- `:nightly` is built off the current repository HEAD, and should not be used for production workloads
+- `:latest-buster-slim` is the latest supported release, built on the `debian:buster-slim` base
+- `:node<MV>-buster-slim` is the latest supported release with Node `<MV>`, built on the `debian:buster-slim` base
+
+The following tags are no longer updated and should not be used:
+
+- `:latest` (users should migrate to `:latest-buster-slim`)
+- `:node10` (users should migrate to `:node14-buster-slim`)
+- `:node14` (users shoudl migrate to `:node14-buster-slim`)
+
 ## NodeJS and NPM
 
 We build multiple versions of this image, for different versions of Node. They are available as:
 
-* `jsii/superchain:node10[-nightly]`
-* `jsii/superchain:node14[-nightly]`
+* `jsii/superchain:node10(-buster-slim|-nightly)`
+* `jsii/superchain:node14(-buster-slim|-nightly)`
 
 The following labels are also available, and are aliases for the Node 10 images:
 
 * `jsii/superchain:nightly`
-* `jsii/superchain:latest`
+* `jsii/superchain:latest-buster-slim`
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:
