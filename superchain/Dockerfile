@@ -75,7 +75,7 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then                            
 
 # Install Python 3
 RUN apt-get update                                                                                                      \
-  && apt-get -y install python3 python3-pip                                                                             \
+  && apt-get -y install python3 python3-pip python3-venv                                                                \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
   && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
   && rm -rf $(pip cache dir)                                                                                            \
