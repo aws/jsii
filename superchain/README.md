@@ -13,7 +13,7 @@ SDK             | Version
 `OpenJDK 8`     | Amazon Corretto `>= 8.242.08.1`
 `.NET SDK`      | `>= 3.1.101`
 `mono`          | `>= 6.8.0.105`
-`Javascript`    | `node >= 12.4.0` OR `node >= 14.16.0` OR `node >= 16.0.0` with `npm >= 6.14.11` (see [NodeJS and NPM](#nodejs-and-npm))
+`Javascript`    | `node >= 12.7.0` OR `node >= 14.16.0` OR `node >= 16.0.0` with `npm >= 6.14.11` (see [NodeJS and NPM](#nodejs-and-npm))
 `PowerShell`    | `pwsh >= 6.2.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
 `Go`            | `go >= 1.16`

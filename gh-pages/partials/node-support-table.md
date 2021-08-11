@@ -1,7 +1,7 @@
 | Release   | Status                       |
 | --------- | ---------------------------- |
-| `<12.4.0` | :x: Defunct                  |
-| `^12.4.0` | :white_check_mark: Supported |
+| `<12.7.0` | :x: Defunct                  |
+| `^12.7.0` | :white_check_mark: Supported |
 | `^13.0.0` | :x: Defunct                  |
 | `^14.0.0` | :white_check_mark: Supported |
 | `^15.0.0` | :x: Defunct                  |

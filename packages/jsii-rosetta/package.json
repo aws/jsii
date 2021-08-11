@@ -51,6 +51,6 @@
     "directory": "packages/jsii-rosetta"
   },
   "engines": {
-    "node": ">= 12.4.0"
+    "node": ">= 12.7.0"
   }
 }
