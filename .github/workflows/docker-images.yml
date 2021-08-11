@@ -7,9 +7,6 @@ on:
   push:
     branches: [main, release]
 
-env:
-  DOCKER_BUILDKIT: 1
-
 jobs:
   superchain:
     name: jsii/superchain
@@ -50,25 +47,6 @@ jobs:
             fi
           fi
 
-      # Enable experimental features (i.e: --squash) in the Docker daemon
-      - name: Setup node
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: 16
-      - name: Enable Docker experimental features
-        if: steps.should-run.outputs.result == 'true'
-        run: |-
-          sudo node <<-EOF
-            const fs = require('fs');
-            const path = '/etc/docker/daemon.json';
-            const base = fs.existsSync(path)
-              ? JSON.parse(fs.readFileSync(path, 'utf-8'))
-              : {};
-            fs.writeFileSync(path, JSON.stringify({ ...base, experimental: true }, null, 2));
-          EOF
-          # Now restart the Docker daemon so configuration becomes effective
-          sudo systemctl restart docker.service
-
       # We only authenticate to Docker for 'push' events, as 'pull_request' from forks will not have the secret
       - name: Login to Docker
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push'
@@ -95,7 +73,6 @@ jobs:
         run: |-
           docker buildx build                                                   \
             --platform linux/amd64,linux/arm64                                  \
-            --squash                                                            \
             --pull                                                              \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
@@ -109,9 +86,8 @@ jobs:
         run: |-
           docker buildx build                                                   \
             --platform linux/amd64,linux/arm64                                  \
-            --target release                                                    \
+            --target superchain                                                 \
             --push                                                              \
-            --squash                                                            \
             --pull                                                              \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
@@ -124,9 +100,8 @@ jobs:
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
             docker buildx build                                                   \
               --platform linux/amd64,linux/arm64                                  \
-              --target release                                                    \
+              --target superchain                                                 \
               --push                                                              \
-              --squash                                                            \
               --pull                                                              \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
               --build-arg COMMIT_ID='${{ github.sha }}'                           \
@@ -141,9 +116,8 @@ jobs:
           # Alias 'nodeX-nightly's to 'nodeX', then push
           docker buildx build                                                   \
             --platform linux/amd64,linux/arm64                                  \
-            --target release                                                    \
+            --target superchain                                                 \
             --push                                                              \
-            --squash                                                            \
             --pull                                                              \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
@@ -156,9 +130,8 @@ jobs:
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
             docker buildx build                                                   \
               --platform linux/amd64,linux/arm64                                  \
-              --target release                                                    \
+              --target superchain                                                 \
               --push                                                              \
-              --squash                                                            \
               --pull                                                              \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
               --build-arg COMMIT_ID='${{ github.sha }}'                           \
