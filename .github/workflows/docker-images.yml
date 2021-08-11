@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['10', '14']
+        node: ['10', '12', '14', '16']
     env:
-      # Node version whose images will be aliased to 'nightly' and 'latest'
-      DEFAULT_NODE_MAJOR_VERSION: 10
+      # Node version whose images will be aliased without the -nodeXX segment
+      DEFAULT_NODE_MAJOR_VERSION: 12
     steps:
       - name: Check out
         uses: actions/checkout@v2.3.4

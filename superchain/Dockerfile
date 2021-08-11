@@ -25,6 +25,10 @@ ENV LANG="C.UTF-8"                                                              
     GOROOT="/usr/local/go"                                                                                              \
     GITHUB_CLI_VERSION="1.13.1"
 
+# Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
+ARG BUILDPLATFORM
+ARG TARGETPLATFORM
+
 # Installing tar as it's needed for installing Maven, curl as it's needed to download a bunch of things during the
 # build, build-essentials as it would be needed to install any dependency including native components, and a couple of
 # generally useful/pervasive packages.
@@ -129,7 +133,7 @@ RUN curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSIO
 # Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
-ARG NODE_MAJOR_VERSION=10
+ARG NODE_MAJOR_VERSION=12
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \

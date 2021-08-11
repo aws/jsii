@@ -31,9 +31,10 @@ jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 - `<BASE>` is the base image tag (e.g: `buster-slim`)
   - The only supported value is `buster-slim`
 - `<NODE-MAJOR>` is the major version of node contained in the image
-  - `10` corresponds to node 10.x (which is EOL since 2021-04-31), this is the
-    default value
+  - `10` corresponds to node 10.x
+  - `12` corresponds to node 12.x, this is the default
   - `14` corresponds to node 14.x
+  - `10` corresponds to node 12.x
 - `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
   repository and should typically not be used for production workloads
 
