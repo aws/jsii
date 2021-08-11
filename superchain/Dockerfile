@@ -25,9 +25,6 @@ ENV LANG="C.UTF-8"                                                              
     GOROOT="/usr/local/go"                                                                                              \
     GITHUB_CLI_VERSION="1.13.1"
 
-# Setting $ARCH to the relevant architecture ($TARGETPLATFORM is e.g: "linux/amd64")
-RUN export ARCH=${TARGETPLATFORM#linux/}
-
 # Installing tar as it's needed for installing Maven, curl as it's needed to download a bunch of things during the
 # build, build-essentials as it would be needed to install any dependency including native components, and a couple of
 # generally useful/pervasive packages.
@@ -48,28 +45,28 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
   && rm -rf /var/lib/apt/lists/*
 
 # Install .NET Core and PowerShell (they don't support ARM binary distributions, unfortunately)
-RUN if [ "${ARCH}" = "amd64" ]; then                                                                                      \
-    curl -SsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                               \
-      -o /tmp/packages-microsoft-prod.deb                                                                                 \
-    && dpkg -i /tmp/packages-microsoft-prod.deb                                                                           \
-    && rm /tmp/packages-microsoft-prod.deb                                                                                \
-    && apt-get update                                                                                                     \
-    && apt-get -y install dotnet-sdk-3.1 powershell                                                                       \
-    && rm -rf /var/lib/apt/lists/*                                                                                        \
-  ;else                                                                                                                   \
-    curl -SsL "https://dot.net/v1/dotnet-install.sh" -o /tmp/dotnet-install.sh                                            \
-    && export DOTNET_HOME="/usr/local/dotnet" && mkdir -p ${DOTNET_HOME}                                                  \
-    && bash /tmp/dotnet-install.sh --channel 3.1 --install-dir ${DOTNET_HOME}                                             \
-    && rm /tmp/dotnet-install.sh                                                                                          \
-    && ln -s ${DOTNET_HOME}/bin/dotnet /usr/local/bin/dotnet                                                              \
-    && ln -s ${DOTNET_HOME}/bin/nuget /usr/local/bin/nuget                                                                \
-    && curl -SsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-${ARCH}.tar.gz"\
-        -o /tmp/powershell.tar.gz                                                                                         \
-    && mkdir -p /opt/microsoft/powershell/7                                                                               \
-    &&  tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                     \
-    && rm /tmp/powershell.tar.gz                                                                                          \
-    && chmod +x /opt/microsoft/powershell/7/pwsh                                                                          \
-    && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh                                                               \
+RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then                                                                    \
+    curl -SsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                             \
+      -o /tmp/packages-microsoft-prod.deb                                                                               \
+    && dpkg -i /tmp/packages-microsoft-prod.deb                                                                         \
+    && rm /tmp/packages-microsoft-prod.deb                                                                              \
+    && apt-get update                                                                                                   \
+    && apt-get -y install dotnet-sdk-3.1 powershell                                                                     \
+    && rm -rf /var/lib/apt/lists/*                                                                                      \
+  ;else                                                                                                                 \
+    curl -SsL "https://dot.net/v1/dotnet-install.sh" -o /tmp/dotnet-install.sh                                          \
+    && export DOTNET_HOME="/usr/local/dotnet" && mkdir -p ${DOTNET_HOME}                                                \
+    && bash /tmp/dotnet-install.sh --channel 3.1 --install-dir ${DOTNET_HOME}                                           \
+    && rm /tmp/dotnet-install.sh                                                                                        \
+    && ln -s ${DOTNET_HOME}/bin/dotnet /usr/local/bin/dotnet                                                            \
+    && ln -s ${DOTNET_HOME}/bin/nuget /usr/local/bin/nuget                                                              \
+    && curl -SsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-${TARGETPLATFORM#linux/}.tar.gz"\
+        -o /tmp/powershell.tar.gz                                                                                       \
+    && mkdir -p /opt/microsoft/powershell/7                                                                             \
+    &&  tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                   \
+    && rm /tmp/powershell.tar.gz                                                                                        \
+    && chmod +x /opt/microsoft/powershell/7/pwsh                                                                        \
+    && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh                                                             \
   ;fi
 
 # Install Python 3
@@ -91,24 +88,24 @@ RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                       
   && rm -rf /var/lib/apt/lists/*
 
 # Install Maven
-RUN curl -sL "https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"     \
-         -o /tmp/apache-maven.tar.gz                                                                                      \
+RUN curl -sL "https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"   \
+         -o /tmp/apache-maven.tar.gz                                                                                    \
   && curl -sL "https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc"\
-          -o /tmp/apache-maven.tar.gz.asc                                                                                 \
-  && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                               \
-  && curl -sL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                            \
-  && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                          \
-  && mkdir -p /usr/local && (cd /usr/local && tar xzf /tmp/apache-maven.tar.gz)                                           \
-  && mv /usr/local/apache-maven-${M2_VERSION} /usr/local/apache-maven                                                     \
-  && for BIN in $(find /usr/local/apache-maven/bin -type f -executable);                                                  \
-     do                                                                                                                   \
-       ln -s $BIN /usr/local/bin/$(basename $BIN);                                                                        \
-     done                                                                                                                 \
+          -o /tmp/apache-maven.tar.gz.asc                                                                               \
+  && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
+  && curl -sL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                          \
+  && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
+  && mkdir -p /usr/local && (cd /usr/local && tar xzf /tmp/apache-maven.tar.gz)                                         \
+  && mv /usr/local/apache-maven-${M2_VERSION} /usr/local/apache-maven                                                   \
+  && for BIN in $(find /usr/local/apache-maven/bin -type f -executable);                                                \
+     do                                                                                                                 \
+       ln -s $BIN /usr/local/bin/$(basename $BIN);                                                                      \
+     done                                                                                                               \
   && rm -rf /tmp/apache-maven.tar.gz /tmp/apache-maven.tar.gz.asc /tmp/gpg-maven
 COPY superchain/m2-settings.xml /root/.m2/settings.xml
 
 # Install Go
-RUN curl -SsL "https://golang.org/dl/go1.16.7.linux-${ARCH}.tar.gz" -o /tmp/go.tar.gz                                     \
+RUN curl -SsL "https://golang.org/dl/go1.16.7.linux-${TARGETPLATFORM#linux/}.tar.gz" -o /tmp/go.tar.gz                  \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
 
@@ -122,11 +119,11 @@ RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                           
 VOLUME /var/lib/docker
 
 # Install GitHub CLI
-RUN curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${ARCH}.deb"\
-      -o /tmp/gh.deb                                                                                                          \
-  && apt-get update                                                                                                           \
-  && apt-get -y install /tmp/gh.deb                                                                                           \
-  && rm /tmp/gh.deb                                                                                                           \
+RUN curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"\
+      -o /tmp/gh.deb                                                                                                    \
+  && apt-get update                                                                                                     \
+  && apt-get -y install /tmp/gh.deb                                                                                     \
+  && rm /tmp/gh.deb                                                                                                     \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
@@ -158,7 +155,7 @@ ARG COMMIT_ID
 LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
       org.opencontainers.image.title="jsii/superchain"                                                                  \
       org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                   \
-      org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                 \
+      org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                   \
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
