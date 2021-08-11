@@ -81,6 +81,13 @@ RUN apt-get update                                                              
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
+# Install Rust (required for https://pypi.org/project/cryptography/ in certain circumstances... like ARM64 arch)
+ENV RUSTUP_HOME=/usr/local/rustup                                                                                       \
+    CARGO_HOME=/usr/local/cargo
+RUN curl -SsL "https://sh.rustup.rs" | sh -s -- -y --no-modify-path --profile=minimal                                   \
+  && echo "source ${CARGO_HOME}/env" >> /etc/profile.d/cargo.sh
+ENV PATH=$PATH:${CARGO_HOME}/bin
+
 # Install JDK8 (Amazon Corretto 8)
 COPY superchain/gpg/corretto.asc /tmp/corretto.asc
 RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                                                               \
