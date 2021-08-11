@@ -103,7 +103,7 @@ jobs:
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
-            --tag "jsii/superchain:node${{ matrix.node }}-nightly"              \
+            --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}-nightly"\
             -f superchain/Dockerfile                                            \
             .
 
@@ -118,7 +118,7 @@ jobs:
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
               --build-arg COMMIT_ID='${{ github.sha }}'                           \
               --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
-              --tag "jsii/superchain:nightly"                                     \
+              --tag "jsii/superchain:1-buster-slim-nightly"                       \
               -f superchain/Dockerfile                                            \
               .
           fi
@@ -135,11 +135,11 @@ jobs:
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
-            --tag "jsii/superchain:node${{ matrix.node }}-buster-slim"          \
+            --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"        \
             -f superchain/Dockerfile                                            \
               .
 
-          # If the current version is the default version, also tag this with the unqualified ':latest' label
+          # If the current version is the default version, also tag this with the unqualified ':1-*' label
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
             docker buildx build                                                   \
               --builder ${{ steps.buildx.outputs.name }}                          \
@@ -150,7 +150,7 @@ jobs:
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
               --build-arg COMMIT_ID='${{ github.sha }}'                           \
               --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
-              --tag "jsii/superchain:latest-buster-slim"                          \
+              --tag "jsii/superchain:1-buster-slim"                               \
               -f superchain/Dockerfile                                            \
               .
           fi

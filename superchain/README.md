@@ -20,17 +20,31 @@ SDK             | Version
 
 ## Image tags
 
-Maintained image tags are the following:
+Maintained image tags are named using the following pattern:
 
-- `:nightly` is built off the current repository HEAD, and should not be used for production workloads
-- `:latest-buster-slim` is the latest supported release, built on the `debian:buster-slim` base
-- `:node<MV>-buster-slim` is the latest supported release with Node `<MV>`, built on the `debian:buster-slim` base
+```
+jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
+```
 
-The following tags are no longer updated and should not be used:
+- `<JSII-MAJOR>` is the major line of the jsii toolchain
+  - The only supported value is `1`
+- `<BASE>` is the base image tag (e.g: `buster-slim`)
+  - The only supported value is `buster-slim`
+- `<NODE-MAJOR>` is the major version of node contained in the image
+  - `10` corresponds to node 10.x (which is EOL since 2021-04-31), this is the
+    default value
+  - `14` corresponds to node 14.x
+- `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
+  repository and should typically not be used for production workloads
 
-- `:latest` (users should migrate to `:latest-buster-slim`)
-- `:node10` (users should migrate to `:node14-buster-slim`)
-- `:node14` (users shoudl migrate to `:node14-buster-slim`)
+The previous image tags are no longer updated and should no longer be used:
+
+- `:latest` (users should migrate to `:1-buster-slim`)
+- `:nightly` (users should migrate to `:1-buster-slim-nightly`)
+- `:node10` (users should migrate to `:1-buster-slim-node10`)
+- `:node10-nightly` (users should migrate to `:1-buster-slim-node10-nightly`)
+- `:node14` (users shoudl migrate to `:1-buster-slim-node14`)
+- `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
 
 ## NodeJS and NPM
 

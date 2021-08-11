@@ -25,6 +25,9 @@ ENV LANG="C.UTF-8"                                                              
     GOROOT="/usr/local/go"                                                                                              \
     GITHUB_CLI_VERSION="1.13.1"
 
+# Setting $ARCH to the relevant architecture ($TARGETPLATFORM is e.g: "linux/amd64")
+RUN export ARCH=${TARGETPLATFORM#linux/}
+
 # Installing tar as it's needed for installing Maven, curl as it's needed to download a bunch of things during the
 # build, build-essentials as it would be needed to install any dependency including native components, and a couple of
 # generally useful/pervasive packages.
@@ -45,28 +48,28 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
   && rm -rf /var/lib/apt/lists/*
 
 # Install .NET Core and PowerShell (they don't support ARM binary distributions, unfortunately)
-RUN if [ "$(uname -m)" = "x86_64" ]; then                                                                               \
-    curl -SsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                             \
-      -o /tmp/packages-microsoft-prod.deb                                                                               \
-    && dpkg -i /tmp/packages-microsoft-prod.deb                                                                         \
-    && rm /tmp/packages-microsoft-prod.deb                                                                              \
-    && apt-get update                                                                                                   \
-    && apt-get -y install dotnet-sdk-3.1 powershell                                                                     \
-    && rm -rf /var/lib/apt/lists/*                                                                                      \
-  ;else                                                                                                                 \
-    curl -SsL "https://dot.net/v1/dotnet-install.sh" -o /tmp/dotnet-install.sh                                          \
-    && export DOTNET_HOME="/usr/local/dotnet" && mkdir -p ${DOTNET_HOME}                                                \
-    && bash /tmp/dotnet-install.sh --channel 3.1 --install-dir ${DOTNET_HOME}                                           \
-    && rm /tmp/dotnet-install.sh                                                                                        \
-    && ln -s ${DOTNET_HOME}/bin/dotnet /usr/local/bin/dotnet                                                            \
-    && ln -s ${DOTNET_HOME}/bin/nuget /usr/local/bin/nuget                                                              \
-    && curl -SsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-x64.tar.gz"  \
-        -o /tmp/powershell.tar.gz                                                                                       \
-    && mkdir -p /opt/microsoft/powershell/7                                                                             \
-    &&  tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                   \
-    && rm /tmp/powershell.tar.gz                                                                                        \
-    && chmod +x /opt/microsoft/powershell/7/pwsh                                                                        \
-    && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh                                                             \
+RUN if [ "${ARCH}" = "amd64" ]; then                                                                                      \
+    curl -SsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                               \
+      -o /tmp/packages-microsoft-prod.deb                                                                                 \
+    && dpkg -i /tmp/packages-microsoft-prod.deb                                                                           \
+    && rm /tmp/packages-microsoft-prod.deb                                                                                \
+    && apt-get update                                                                                                     \
+    && apt-get -y install dotnet-sdk-3.1 powershell                                                                       \
+    && rm -rf /var/lib/apt/lists/*                                                                                        \
+  ;else                                                                                                                   \
+    curl -SsL "https://dot.net/v1/dotnet-install.sh" -o /tmp/dotnet-install.sh                                            \
+    && export DOTNET_HOME="/usr/local/dotnet" && mkdir -p ${DOTNET_HOME}                                                  \
+    && bash /tmp/dotnet-install.sh --channel 3.1 --install-dir ${DOTNET_HOME}                                             \
+    && rm /tmp/dotnet-install.sh                                                                                          \
+    && ln -s ${DOTNET_HOME}/bin/dotnet /usr/local/bin/dotnet                                                              \
+    && ln -s ${DOTNET_HOME}/bin/nuget /usr/local/bin/nuget                                                                \
+    && curl -SsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-${ARCH}.tar.gz"\
+        -o /tmp/powershell.tar.gz                                                                                         \
+    && mkdir -p /opt/microsoft/powershell/7                                                                               \
+    &&  tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                     \
+    && rm /tmp/powershell.tar.gz                                                                                          \
+    && chmod +x /opt/microsoft/powershell/7/pwsh                                                                          \
+    && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh                                                               \
   ;fi
 
 # Install Python 3
@@ -82,8 +85,8 @@ COPY superchain/gpg/corretto.asc /tmp/corretto.asc
 RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                                                               \
   && echo "deb https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/amazon-corretto.list                     \
   && apt-get update                                                                                                     \
-  && mkdir -p /usr/share/man/man1 # update-alternatives will otherwise crash                                            \
-  && apt-get -y install java-common java-1.8.0-amazon-corretto-jdk                                                      \
+  && mkdir -p /usr/share/man/man1                                                                                       \
+  && apt-get -y install java-1.8.0-amazon-corretto-jdk                                                                  \
   && rm -rf /usr/share/man/man1                                                                                         \
   && rm -rf /var/lib/apt/lists/*
 
@@ -105,11 +108,7 @@ RUN curl -sL "https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/a
 COPY superchain/m2-settings.xml /root/.m2/settings.xml
 
 # Install Go
-RUN if [ "$(uname -m)" = "x86_64" ]; then                                                                               \
-    curl -SsL "https://golang.org/dl/go1.16.7.linux-amd64.tar.gz" -o /tmp/go.tar.gz                                     \
-  ;else                                                                                                                 \
-    curl -SsL "https://golang.org/dl/go1.16.7.linux-arm64.tar.gz" -o /tmp/go.tar.gz                               \
-  ;fi                                                                                                                   \
+RUN curl -SsL "https://golang.org/dl/go1.16.7.linux-${ARCH}.tar.gz" -o /tmp/go.tar.gz                                     \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
 
@@ -123,13 +122,8 @@ RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                           
 VOLUME /var/lib/docker
 
 # Install GitHub CLI
-RUN if [ "$(uname -m)" = "x86_64" ]; then                                                                                     \
-    curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_amd64.deb"  \
+RUN curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${ARCH}.deb"\
       -o /tmp/gh.deb                                                                                                          \
-  ;else                                                                                                                       \
-    curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_arm64.deb"  \
-      -o /tmp/gh.deb                                                                                                          \
-  ;fi                                                                                                                         \
   && apt-get update                                                                                                           \
   && apt-get -y install /tmp/gh.deb                                                                                           \
   && rm /tmp/gh.deb                                                                                                           \
@@ -177,9 +171,3 @@ CMD ["/bin/bash"]
 FROM superchain as test
 COPY . /tmp/source
 RUN cd /tmp/source && yarn install --frozen-lockfile && yarn build && yarn test
-
-########################################################################################################################
-# Final image ignores test contents
-########################################################################################################################
-FROM test as release
-RUN rm -rf /tmp/source

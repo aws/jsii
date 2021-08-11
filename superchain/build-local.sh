@@ -20,8 +20,10 @@ else
 fi
 
 # Now on to building the image
-docker build                                                                    \
+docker buildx build                                                             \
+  --load                                                                        \
   --pull                                                                        \
+  --target superchain                                                           \
   --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                  \
   --build-arg COMMIT_ID=${COMMIT_ID}                                            \
   --build-arg NODE_MAJOR_VERSION=10                                             \
