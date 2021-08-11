@@ -20,7 +20,7 @@ ENV LANG="C.UTF-8"                                                              
     MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
                                                                                                                         \
     GOROOT="/usr/local/go"                                                                                              \
-    GITHUB_CLI_VERSION="1.9.2"
+    GITHUB_CLI_VERSION="1.14.0"
 
 # Install deltarpm as it can speed up the upgrade processes, and tar as it's needed for installing Maven
 # Also upgrading anything already installed, and adding some common dependencies for included tools
@@ -72,7 +72,7 @@ RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/ap
 COPY m2-settings.xml /root/.m2/settings.xml
 
 # Install Go
-RUN curl -sL https://golang.org/dl/go1.16.linux-amd64.tar.gz -o /tmp/go.tar.gz                                          \
+RUN curl -sL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
 
@@ -112,17 +112,24 @@ COPY dockerd-entrypoint.sh /usr/local/bin/
 # Add the source used to build this Docker image (to facilitate re-builds, forensics)
 COPY . /docker-source
 
+# Create an additional user, then use it to run as non-root
+RUN yum -y install shadow-utils                                                                                         \
+  && useradd developer -G root                                                                                          \
+  && yum -y history undo last                                                                                           \
+  && yum clean all && rm -rf /var/cache/yum
+USER developer:root
+WORKDIR /home/developer
+
+
 ## Image Metadata
 ARG BUILD_TIMESTAMP
 ARG COMMIT_ID
 LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
       org.opencontainers.image.title="jsii/superchain"                                                                  \
       org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                   \
-      org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                 \
+      org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                   \
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
-
-USER user:root
 
 CMD ["/bin/bash"]
