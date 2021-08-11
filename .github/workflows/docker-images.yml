@@ -58,13 +58,19 @@ jobs:
         # Ensure we run with bash, because that's the syntax we're using here...
         shell: bash
 
-      - name: Initialize docker buildx
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: arm64
+
+      - name: Set up docker buildx
+        id: buildx
         if: steps.should-run.outputs.result == 'true'
-        run: |-
-          docker buildx create --name=jsii-superchain.builder --use
+        uses: docker/setup-buildx-action@v1
 
       - name: Determine build time
         id: build-time
+        if: steps.should-run.outputs.result == 'true'
         run: |-
           echo "::set-output name=value::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
 
@@ -72,6 +78,7 @@ jobs:
         if: steps.should-run.outputs.result == 'true'
         run: |-
           docker buildx build                                                   \
+            --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --pull                                                              \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
@@ -85,6 +92,7 @@ jobs:
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/release'
         run: |-
           docker buildx build                                                   \
+            --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
             --push                                                              \
@@ -99,6 +107,7 @@ jobs:
           # If the current version is the default version, also tag this with the unqualified ':nightly' label
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
             docker buildx build                                                   \
+              --builder ${{ steps.buildx.outputs.name }}                          \
               --platform linux/amd64,linux/arm64                                  \
               --target superchain                                                 \
               --push                                                              \
@@ -115,6 +124,7 @@ jobs:
         run: |-
           # Alias 'nodeX-nightly's to 'nodeX', then push
           docker buildx build                                                   \
+            --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
             --push                                                              \
@@ -129,6 +139,7 @@ jobs:
           # If the current version is the default version, also tag this with the unqualified ':latest' label
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
             docker buildx build                                                   \
+              --builder ${{ steps.buildx.outputs.name }}                          \
               --platform linux/amd64,linux/arm64                                  \
               --target superchain                                                 \
               --push                                                              \
