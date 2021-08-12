@@ -41,7 +41,8 @@ RUN set -eo pipefail                                                            
   && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
   && curl -sL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                          \
   && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
-  && mkdir -p /opt/apache/maven && tar xzf /tmp/apache-maven.tar.gz -C /opt/apache/maven --strip-components=1
+  && mkdir -p /opt/apache/maven                                                                                         \
+  && tar xzf /tmp/apache-maven.tar.gz -C /opt/apache/maven --strip-components=1
 
 # Prepare .NET Core distribution
 ARG DOTNET_CHANNEL="3.1"
@@ -67,7 +68,8 @@ RUN POWERSHELL_RELEASE=$(curl -fSsL "https://aka.ms/powershell-release?tag=lts" 
 # Prepare Go distribution
 ARG GO_VERSION="1.16.7"
 RUN curl -fSsL "https://golang.org/dl/go${GO_VERSION}.linux-${TARGETPLATFORM#linux/}.tar.gz" -o /tmp/go.tar.gz          \
-  && mkdir -p /opt/golang/go && tar -xzf /tmp/go.tar.gz -C /opt/golang/go
+  && mkdir -p /opt/golang/go                                                                                            \
+  && tar -xzf /tmp/go.tar.gz -C /opt/golang/go --strip-components=1
 
 ########################################################################################################################
 # Set up the image
