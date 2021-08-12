@@ -49,7 +49,7 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
   && rm -rf /var/lib/apt/lists/*
 
 # Install .NET Core and PowerShell
-RUN ARCH="${${TARGETPLATFORM#linux/}/amd64/x64}"                                                                        \
+RUN ARCH="${TARGETPLATFORM#linux/}" && ARCH="${ARCH/amd64/x64}"                                                         \
   && FEED_URL="https://dotnetcli.azureedge.net/dotnet"                                                                  \
   && DOTNET_CHANNEL=3.1                                                                                                 \
   && DOTNET_VERSION=$(curl -fSsL "${FEED_URL}/Sdk/${DOTNET_CHANNEL}/latest.version")                                    \
