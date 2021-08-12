@@ -1,3 +1,5 @@
+import '@jsii/check-node/run';
+
 import { spawn } from 'child_process';
 import { error } from 'console';
 import { constants as os } from 'os';

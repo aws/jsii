@@ -1,3 +1,5 @@
+import '@jsii/check-node/run';
+
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as process from 'process';
