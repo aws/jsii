@@ -48,30 +48,28 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
   && apt-get -y install mono-devel                                                                                      \
   && rm -rf /var/lib/apt/lists/*
 
-# Install .NET Core and PowerShell (they don't support ARM binary distributions, unfortunately)
-RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then                                                                    \
-    curl -fSsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                            \
-      -o /tmp/packages-microsoft-prod.deb                                                                               \
-    && dpkg -i /tmp/packages-microsoft-prod.deb                                                                         \
-    && rm /tmp/packages-microsoft-prod.deb                                                                              \
-    && apt-get update                                                                                                   \
-    && apt-get -y install dotnet-sdk-3.1 powershell                                                                     \
-    && rm -rf /var/lib/apt/lists/*                                                                                      \
-  ;else                                                                                                                 \
-    curl -fSsL "https://dotnetcli.azureedge.net/dotnet/Sdk/3.1.412/dotnet-sdk-3.1.412-linux-${TARGETPLATFORM#linux/}.tar.gz"\
-      -o /tmp/dotnet.tar.gz                                                                                             \
-    && mkdir -p /opt/microsoft/dotnet/3.1                                                                               \
-    && tar zxf /tmp/dotnet.tar.gz -C /opt/microsoft/dotnet/3.1                                                          \
-    && rm /tmp/dotnet.tar.gz                                                                                            \
-    && ln -s /opt/microsoft/dotnet/3.1/dotnet /usr/bin/dotnet                                                           \
-    && curl -fSsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-${TARGETPLATFORM#linux/}.tar.gz"\
-        -o /tmp/powershell.tar.gz                                                                                       \
-    && mkdir -p /opt/microsoft/powershell/7                                                                             \
-    && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                    \
-    && rm /tmp/powershell.tar.gz                                                                                        \
-    && chmod +x /opt/microsoft/powershell/7/pwsh                                                                        \
-    && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh                                                             \
-  ;fi
+# Install .NET Core and PowerShell
+RUN ARCH="${${TARGETPLATFORM#linux/}/amd64/x64}"                                                                        \
+  && FEED_URL="https://dotnetcli.azureedge.net/dotnet"                                                                  \
+  && DOTNET_CHANNEL=3.1                                                                                                 \
+  && DOTNET_VERSION=$(curl -fSsL "${FEED_URL}/Sdk/${DOTNET_CHANNEL}/latest.version")                                    \
+  && curl -fSsL "${FEED_URL}/Sdk/${DOTNET_VERSION}/dotnet-sdk-${DOTNET_VERSION}-linux-${ARCH}.tar.gz"                   \
+    -o /tmp/dotnet.tar.gz                                                                                               \
+  && mkdir -p /opt/microsoft/dotnet/${DOTNET_CHANNEL}                                                                   \
+  && tar zxf /tmp/dotnet.tar.gz -C /opt/microsoft/dotnet/${DOTNET_CHANNEL}                                              \
+  && rm /tmp/dotnet.tar.gz                                                                                              \
+  && ln -s /opt/microsoft/dotnet/${DOTNET_CHANNEL}/dotnet /usr/bin/dotnet                                               \
+  && POWERSHELL_RELEASES="https://github.com/PowerShell/PowerShell/releases"                                            \
+  && POWERSHELL_RELEASE=$(curl -fSsL "https://aka.ms/powershell-release?tag=lts" -o /dev/null -w %{url_effective})      \
+  && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
+  && ASSET="powershell-${POWERSHELL_VERSION}-linux-${ARCH}.tar.gz"                                                      \
+  && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}"                                       \
+      -o /tmp/powershell.tar.gz                                                                                         \
+  && mkdir -p /opt/microsoft/powershell/lts                                                                             \
+  && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/lts                                                    \
+  && rm /tmp/powershell.tar.gz                                                                                          \
+  && chmod +x /opt/microsoft/powershell/lts/pwsh                                                                        \
+  && ln -s /opt/microsoft/powershell/lts/pwsh /usr/bin/pwsh
 
 # Install Python 3
 RUN apt-get update                                                                                                      \
