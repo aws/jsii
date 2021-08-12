@@ -36,7 +36,7 @@ RUN apt-get update                                                              
   && apt-get -y install apt-transport-https dirmngr gnupg ca-certificates                                               \
                     tar curl                                                                                            \
                     build-essential                                                                                     \
-                    git gzip libssl-dev openssl rsync unzip zip                                                         \
+                    git gzip libicu63 libssl-dev openssl rsync unzip zip                                                \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
@@ -50,7 +50,7 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
 
 # Install .NET Core and PowerShell (they don't support ARM binary distributions, unfortunately)
 RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then                                                                    \
-    curl -SsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                             \
+    curl -fSsL "https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb"                            \
       -o /tmp/packages-microsoft-prod.deb                                                                               \
     && dpkg -i /tmp/packages-microsoft-prod.deb                                                                         \
     && rm /tmp/packages-microsoft-prod.deb                                                                              \
@@ -58,16 +58,16 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then                            
     && apt-get -y install dotnet-sdk-3.1 powershell                                                                     \
     && rm -rf /var/lib/apt/lists/*                                                                                      \
   ;else                                                                                                                 \
-    curl -SsL "https://dot.net/v1/dotnet-install.sh" -o /tmp/dotnet-install.sh                                          \
-    && export DOTNET_HOME="/usr/local/dotnet" && mkdir -p ${DOTNET_HOME}                                                \
-    && bash /tmp/dotnet-install.sh --channel 3.1 --install-dir ${DOTNET_HOME}                                           \
-    && rm /tmp/dotnet-install.sh                                                                                        \
-    && ln -s ${DOTNET_HOME}/bin/dotnet /usr/local/bin/dotnet                                                            \
-    && ln -s ${DOTNET_HOME}/bin/nuget /usr/local/bin/nuget                                                              \
-    && curl -SsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-${TARGETPLATFORM#linux/}.tar.gz"\
+    curl -fSsL "https://dotnetcli.azureedge.net/dotnet/Sdk/3.1.412/dotnet-sdk-3.1.412-linux-${TARGETPLATFORM#linux/}.tar.gz"\
+      -o /tmp/dotnet.tar.gz                                                                                             \
+    && mkdir -p /opt/microsoft/dotnet/3.1                                                                               \
+    && tar zxf /tmp/dotnet.tar.gz -C /opt/microsoft/dotnet/3.1                                                          \
+    && rm /tmp/dotnet.tar.gz                                                                                            \
+    && ln -s /opt/microsoft/dotnet/3.1/dotnet /usr/bin/dotnet                                                           \
+    && curl -fSsL "https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-linux-${TARGETPLATFORM#linux/}.tar.gz"\
         -o /tmp/powershell.tar.gz                                                                                       \
     && mkdir -p /opt/microsoft/powershell/7                                                                             \
-    &&  tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                   \
+    && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7                                                    \
     && rm /tmp/powershell.tar.gz                                                                                        \
     && chmod +x /opt/microsoft/powershell/7/pwsh                                                                        \
     && ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh                                                             \
@@ -84,7 +84,7 @@ RUN apt-get update                                                              
 # Install Rust (required for https://pypi.org/project/cryptography/ in certain circumstances... like ARM64 arch)
 ENV RUSTUP_HOME=/usr/local/rustup                                                                                       \
     CARGO_HOME=/usr/local/cargo
-RUN curl -SsL "https://sh.rustup.rs" | sh -s -- -y --no-modify-path --profile=minimal                                   \
+RUN curl -fSsL "https://sh.rustup.rs" | sh -s -- -y --no-modify-path --profile=minimal                                  \
   && echo "source ${CARGO_HOME}/env" >> /etc/profile.d/cargo.sh
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
@@ -116,7 +116,7 @@ RUN curl -sL "https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/a
 COPY superchain/m2-settings.xml /root/.m2/settings.xml
 
 # Install Go
-RUN curl -SsL "https://golang.org/dl/go1.16.7.linux-${TARGETPLATFORM#linux/}.tar.gz" -o /tmp/go.tar.gz                  \
+RUN curl -fSsL "https://golang.org/dl/go1.16.7.linux-${TARGETPLATFORM#linux/}.tar.gz" -o /tmp/go.tar.gz                 \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
 
@@ -130,7 +130,7 @@ RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                           
 VOLUME /var/lib/docker
 
 # Install GitHub CLI
-RUN curl -SsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"\
+RUN curl -fSsL "https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"\
       -o /tmp/gh.deb                                                                                                    \
   && apt-get update                                                                                                     \
   && apt-get -y install /tmp/gh.deb                                                                                     \
