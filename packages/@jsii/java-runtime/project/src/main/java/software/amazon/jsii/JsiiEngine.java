@@ -1,4 +1,4 @@
-qpackage software.amazon.jsii;
+package software.amazon.jsii;
 
 import software.amazon.jsii.api.Callback;
 import software.amazon.jsii.api.GetRequest;
