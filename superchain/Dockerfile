@@ -1,7 +1,7 @@
 ########################################################################################################################
 # Introduction
 ########################################################################################################################
-# This is a multi-sage build, which eventually results in a squashed image.
+# This is a multi-stage build, which eventually results in a squashed image.
 # The image intended for release/use is the one obtained using `docker build --target=superchain ...`.
 #
 # Stages are as follows
@@ -94,7 +94,7 @@ ENV LANG="C.UTF-8"                                                              
     M2_HOME="/opt/apache/maven"                                                                                         \
     M2="/opt/apache/maven/bin"                                                                                          \
                                                                                                                         \
-    GOROOT="/usr/local/go"
+    GOROOT="/opt/golang/go"
 
 # Installing the system dependencies we need...
 RUN apt-get update                                                                                                      \
@@ -111,6 +111,7 @@ RUN apt-get update                                                              
                         libssl-dev                                                                                      \
                         openssl                                                                                         \
                         rsync                                                                                           \
+                        sudo                                                                                            \
                         unzip                                                                                           \
                         zip                                                                                             \
   && rm -rf /var/lib/apt/lists/*
@@ -123,12 +124,6 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
   && apt-get update                                                                                                     \
   && apt-get -y install mono-devel                                                                                      \
   && rm -rf /var/lib/apt/lists/*
-
-# Install .NET Core and PowerShell
-COPY --from=bindist /opt/microsoft/dotnet /opt/microsoft/dotnet
-RUN ln -s /opt/microsoft/dotnet/dotnet /usr/bin/dotnet
-COPY --from=bindist /opt/microsoft/powershell /opt/microsoft/powershell
-RUN ln -s /opt/microsoft/powershell/pwsh /usr/bin/pwsh
 
 # Install Python 3
 RUN apt-get update                                                                                                      \
@@ -156,18 +151,6 @@ RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                       
   && rm -rf /usr/share/man/man1                                                                                         \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Maven
-COPY --from=bindist /opt/apache/maven ${M2_HOME}
-RUN for BIN in $(find ${M2} -type f -executable)                                                                        \
-  ;do                                                                                                                   \
-    ln -s $BIN /usr/local/bin/$(basename $BIN)                                                                          \
-  ;done
-COPY superchain/m2-settings.xml /root/.m2/settings.xml
-
-# Install Go
-COPY --from=bindist /opt/golang/go ${GOROOT}
-ENV PATH="$GOROOT/bin:$PATH"
-
 # Install Docker
 COPY superchain/gpg/docker.asc /tmp/docker.asc
 RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                                                                   \
@@ -188,6 +171,19 @@ RUN BASE="https://github.com/cli/cli/releases/download"                         
   && rm /tmp/gh.deb                                                                                                     \
   && rm -rf /var/lib/apt/lists/*
 
+# Install .NET Core and PowerShell
+COPY --from=bindist /opt/microsoft/dotnet /opt/microsoft/dotnet
+RUN ln -s /opt/microsoft/dotnet/dotnet /usr/bin/dotnet
+COPY --from=bindist /opt/microsoft/powershell /opt/microsoft/powershell
+RUN ln -s /opt/microsoft/powershell/pwsh /usr/bin/pwsh
+
+# Install Maven
+COPY --from=bindist /opt/apache/maven ${M2_HOME}
+COPY superchain/m2-settings.xml /root/.m2/settings.xml
+
+# Install Go
+COPY --from=bindist /opt/golang/go ${GOROOT}
+
 # Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
@@ -207,6 +203,18 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
 COPY superchain/ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 COPY superchain/dockerd-entrypoint.sh /usr/local/bin/
+
+# Create the image's non-root user, and enable no-password sudo
+RUN adduser --shell /bin/bash --gecos "Docker User" --disabled-password docker                                          \
+  && adduser docker sudo                                                                                                \
+  && echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/nopasswd                                                      \
+  && chmod 0440 /etc/sudoers.d/nopasswd
+COPY --chown=docker:docker superchain/m2-settings.xml /home/docker/.m2/settings.xml
+COPY --chown=docker:docker superchain/ssh_config /home/docker/.ssh/config
+RUN chmod 600 /home/docker/.ssh/config
+
+# Add the source used to build this Docker image (to facilitate re-builds, forensics)
+COPY superchain /docker-source
 
 CMD ["/bin/bash"]
 
@@ -229,11 +237,12 @@ ENV LANG="C.UTF-8"                                                              
     M2="/opt/apache/maven/bin"                                                                                          \
     MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
                                                                                                                         \
-    GOROOT="/usr/local/go"
-COPY --from=staging / /
+    GOROOT="/opt/golang/go"                                                                                             \
+    RUSTUP_HOME="/usr/local/rustup"                                                                                     \
+    CARGO_HOME="/usr/local/cargo"
+ENV PATH="${PATH}:${CARGO_HOME}:${GOROOT}/bin:${M2}"
 
-# Add the source used to build this Docker image (to facilitate re-builds, forensics)
-COPY superchain /docker-source
+COPY --from=staging / /
 
 ## Image Metadata
 ARG BUILD_TIMESTAMP
@@ -245,6 +254,8 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
+
+USER docker:docker
 
 CMD ["/bin/bash"]
 

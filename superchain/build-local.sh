@@ -21,7 +21,7 @@ fi
 
 # Now on to building the image
 docker build                                                                    \
-  --target test                                                                 \
+  --target superchain                                                           \
   --build-arg BUILDPLATFORM=linux/amd64                                         \
   --build-arg TARGETPLATFORM=linux/amd64                                        \
   --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                  \
