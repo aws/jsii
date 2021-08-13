@@ -674,18 +674,20 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @return the list of jsii FQNs of interfaces implemented by {@code classToInspect}
      */
     private Collection<String> discoverInterfaces(final Class<?> classToInspect) {
-        final Set<String> interfaces = new HashSet<>();
         // If {@classToInspect} has the @Jsii annotation, it's a jsii well-known type
-        if (classToInspect.isAnnotationPresent(Jsii.class)) {
+        final Jsii declaredAnnotation = classToInspect.getDeclaredAnnotation(Jsii.class);
+        if (declaredAnnotation != null) {
             // If it's an interface, then we can return a singleton set with that!
             if (classToInspect.isInterface()) {
-                final Jsii jsii = classToInspect.getAnnotation(Jsii.class);
-                interfaces.add(jsii.fqn());
+                // Ensure the interface's module has been loaded...
+                loadModule(declaredAnnotation.module());
+                return Collections.singleton(declaredAnnotation.fqn());
             }
             // If it was NOT an interface, then this type already "implies" all interfaces -- nothing to declare.
-            return interfaces;
+            return Collections.emptySet();
         }
         // If this wasn't an @Jsii well-known type, browse up the interface declarations, and collect results
+        final Set<String> interfaces = new HashSet<>();
         for (final Class<?> iface : classToInspect.getInterfaces()) {
             interfaces.addAll(discoverInterfaces(iface));
         }
