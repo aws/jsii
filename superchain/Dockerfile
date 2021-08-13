@@ -264,6 +264,7 @@ CMD ["/bin/bash"]
 # Running tests
 ########################################################################################################################
 FROM superchain as test
+ENV CI=true
 COPY --chown=superchain:superchain . /tmp/source
 WORKDIR /tmp/source
 # Make sure we start fresh (symlinks from outside the build may cause issues, e.g: python venvs)
