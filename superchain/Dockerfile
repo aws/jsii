@@ -263,9 +263,7 @@ CMD ["/bin/bash"]
 # Running tests
 ########################################################################################################################
 FROM superchain as test
-# Set up a volume, so we can possibly inspect the data after the fact (esp. in case of problems)
-VOLUME /tmp/source
-COPY . /tmp/source
+COPY --chown=superchain:superchain . /tmp/source
 WORKDIR /tmp/source
 # Make sure we start fresh (symlinks from outside the build may cause issues, e.g: python venvs)
 RUN git clean -fqdx
