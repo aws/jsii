@@ -1,4 +1,4 @@
-package software.amazon.jsii;
+qpackage software.amazon.jsii;
 
 import software.amazon.jsii.api.Callback;
 import software.amazon.jsii.api.GetRequest;
@@ -679,6 +679,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         if (declaredAnnotation != null) {
             // If it's an interface, then we can return a singleton set with that!
             if (classToInspect.isInterface()) {
+                // Ensure the interface's module has been loaded...
+                loadModule(declaredAnnotation.module());
                 return Collections.singleton(declaredAnnotation.fqn());
             }
             // If it was NOT an interface, then this type already "implies" all interfaces -- nothing to declare.
