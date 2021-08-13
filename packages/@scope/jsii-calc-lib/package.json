@@ -39,11 +39,11 @@
     "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "devDependencies": {
-    "@types/node": "^10.17.59",
+    "@types/node": "^10.17.60",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.3.0"
+    "prettier": "^2.3.2"
   },
   "jsii": {
     "outdir": "dist",
