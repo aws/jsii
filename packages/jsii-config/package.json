@@ -19,16 +19,16 @@
     "jsii-config": "bin/jsii-config"
   },
   "devDependencies": {
-    "@types/inquirer": "^7.3.1",
-    "@types/jest": "^26.0.23",
+    "@types/inquirer": "^7.3.3",
+    "@types/jest": "^27.0.1",
     "@types/jest-expect-message": "^1.0.3",
-    "@types/node": "^10.17.59",
+    "@types/node": "^10.17.60",
     "@types/yargs": "^16.0.1",
-    "eslint": "^7.26.0",
-    "jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^27.0.6",
     "jest-expect-message": "^1.0.2",
-    "prettier": "^2.3.0",
-    "typescript": "~3.9.9"
+    "prettier": "^2.3.2",
+    "typescript": "~3.9.10"
   },
   "dependencies": {
     "@jsii/check-node": "0.0.0",

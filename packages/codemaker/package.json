@@ -36,12 +36,12 @@
     "fs-extra": "^9.1.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^10.17.59",
-    "eslint": "^7.26.0",
-    "jest": "^26.6.3",
-    "prettier": "^2.3.0",
-    "typescript": "~3.9.9"
+    "@types/fs-extra": "^8.1.2",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^10.17.60",
+    "eslint": "^7.32.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "typescript": "~3.9.10"
   }
 }
