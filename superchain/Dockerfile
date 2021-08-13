@@ -138,7 +138,8 @@ ENV RUSTUP_HOME=/usr/local/rustup                                               
     CARGO_HOME=/usr/local/cargo
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "https://sh.rustup.rs" | sh -s -- -y --no-modify-path --profile=minimal                                 \
-  && echo "source ${CARGO_HOME}/env" >> /etc/profile.d/cargo.sh
+  && echo "source ${CARGO_HOME}/env" >> /etc/profile.d/cargo.sh                                                         \
+  && chmod -R a+rw ${CARGO_HOME}
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
 # Install JDK8 (Amazon Corretto 8)
