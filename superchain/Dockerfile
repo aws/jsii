@@ -205,13 +205,13 @@ RUN chmod 600 /root/.ssh/config
 COPY superchain/dockerd-entrypoint.sh /usr/local/bin/
 
 # Create the image's non-root user, and enable no-password sudo
-RUN adduser --shell /bin/bash --gecos "Docker User" --disabled-password docker                                          \
-  && adduser docker sudo                                                                                                \
+RUN adduser --shell /bin/bash --gecos "Docker User" --disabled-password superchain                                      \
+  && adduser superchain sudo                                                                                            \
   && echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/nopasswd                                                      \
   && chmod 0440 /etc/sudoers.d/nopasswd
-COPY --chown=docker:docker superchain/m2-settings.xml /home/docker/.m2/settings.xml
-COPY --chown=docker:docker superchain/ssh_config /home/docker/.ssh/config
-RUN chmod 600 /home/docker/.ssh/config
+COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.m2/settings.xml
+COPY --chown=superchain:superchain superchain/ssh_config /home/superchain/.ssh/config
+RUN chmod 600 /home/superchain/.ssh/config
 
 # Add the source used to build this Docker image (to facilitate re-builds, forensics)
 COPY superchain /docker-source
@@ -240,7 +240,7 @@ ENV LANG="C.UTF-8"                                                              
     GOROOT="/opt/golang/go"                                                                                             \
     RUSTUP_HOME="/usr/local/rustup"                                                                                     \
     CARGO_HOME="/usr/local/cargo"
-ENV PATH="${PATH}:${CARGO_HOME}:${GOROOT}/bin:${M2}"
+ENV PATH="${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}"
 
 COPY --from=staging / /
 
@@ -255,7 +255,7 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
-USER docker:docker
+USER superchain:superchain
 
 CMD ["/bin/bash"]
 
