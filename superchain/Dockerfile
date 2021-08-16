@@ -113,11 +113,14 @@ COPY dockerd-entrypoint.sh /usr/local/bin/
 COPY . /docker-source
 
 # Create an additional user, then use it to run as non-root
-RUN yum -y install shadow-utils                                                                                         \
-  && useradd developer -G root                                                                                          \
-  && yum -y history undo last                                                                                           \
+RUN yum -y install sudo                                                                                                 \
+  && adduser --shell=/bin/bash --comment="Docker User" --groups=wheel superchain                                        \
+  && echo '%wheel ALL = (ALL) NOPASSWD: ALL' > /etc/sudoers.d/nopasswd                                                  \
   && yum clean all && rm -rf /var/cache/yum
-USER developer:root
+COPY --chown=superchain:superchain ssh_config /home/superchain/.ssh/config
+RUN chmod 600 /home/superchain/.ssh/config
+COPY --chown=superchain:superchain m2-settings.xml /home/superchain/.m2/settings.xml
+USER superchain:superchain
 WORKDIR /home/developer
 
 
