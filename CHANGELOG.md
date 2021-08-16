@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.33.0](https://github.com/aws/jsii/compare/v1.32.0...v1.33.0) (2021-08-16)
+
+
+### Features
+
+* node runtime version check ([#2948](https://github.com/aws/jsii/issues/2948)) ([f0a9ec6](https://github.com/aws/jsii/commit/f0a9ec6d9275be5126bcb2a455d43df2107a9262))
+
+
+### Bug Fixes
+
+* **java:** Disable covariants for java builder params ([#2853](https://github.com/aws/jsii/issues/2853)) ([e729f5d](https://github.com/aws/jsii/commit/e729f5d53311224b9b742d024dc4cdf768e24e48)), closes [#2839](https://github.com/aws/jsii/issues/2839)
+* **java:** implemented interface is not registered ([#2952](https://github.com/aws/jsii/issues/2952)) ([99da7a6](https://github.com/aws/jsii/commit/99da7a690a75bd6347fa5da15318c0f262b606a8)), closes [#2951](https://github.com/aws/jsii/issues/2951)
+
 ## [1.32.0](https://github.com/aws/jsii/compare/v1.30.0...v1.32.0) (2021-07-22)
 
 
