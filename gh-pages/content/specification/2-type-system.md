@@ -61,7 +61,7 @@ parameter).
 
 ### Any and Unknown
 
-**TypeScript** defines two opaque types: `any` and `unknown` that can be used to represent a value of arbitary type. The
+**TypeScript** defines two opaque types: `any` and `unknown` that can be used to represent a value of arbitrary type. The
 difference between them is that while `any` is [assignable to any other type][ts-any], `unknown` requires a [type assertion][ts-unknown] or
 explicit cast to be performed before it can be assigned.
 
