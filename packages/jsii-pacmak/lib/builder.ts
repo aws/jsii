@@ -98,7 +98,7 @@ export class OneByOneBuilder implements TargetBuilder {
       return await target.build(src.directory, outputDir);
     } catch (err) {
       logging.warn(`Failed building ${this.targetName}`);
-      return Promise.reject(err);
+      return await Promise.reject(err);
     } finally {
       if (options.clean) {
         logging.debug(`Cleaning ${src.directory}`);

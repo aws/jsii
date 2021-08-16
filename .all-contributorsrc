@@ -1177,6 +1177,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Nycto",
+      "name": "James",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30517?v=4",
+      "profile": "https://github.com/Nycto",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "repoType": "github",

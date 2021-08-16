@@ -345,15 +345,14 @@ export class DeprecatedRemover {
     context: Method | Initializer | Parameter | Property,
     assembly: Assembly,
   ): JsiiDiagnostic {
-    const node =
-      bindings.getRelatedNode<
-        | ts.AccessorDeclaration
-        | ts.MethodDeclaration
-        | ts.MethodSignature
-        | ts.ParameterDeclaration
-        | ts.PropertyDeclaration
-        | ts.PropertySignature
-      >(context);
+    const node = bindings.getRelatedNode<
+      | ts.AccessorDeclaration
+      | ts.MethodDeclaration
+      | ts.MethodSignature
+      | ts.ParameterDeclaration
+      | ts.PropertyDeclaration
+      | ts.PropertySignature
+    >(context);
     const diagnostic = JsiiDiagnostic.JSII_3999_INCOHERENT_TYPE_MODEL.create(
       node?.type ?? node!,
       `${messagePrefix} has @deprecated type ${fqn}, and it is erased by --strip-deprecated.`,

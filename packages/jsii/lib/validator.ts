@@ -27,7 +27,7 @@ export class Validator implements Emitter {
     }
 
     try {
-      return Promise.resolve({
+      return await Promise.resolve({
         diagnostics: this._diagnostics,
         emitSkipped: this._diagnostics.some(
           (diag) => diag.category === ts.DiagnosticCategory.Error,

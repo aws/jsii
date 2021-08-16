@@ -243,7 +243,7 @@ scope.jsii-calc-base
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=56.1.0", "wheel~=0.36.2"]
+requires = ["setuptools~=57.4.0", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -723,7 +723,7 @@ scope.jsii-calc-base-of-base
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=56.1.0", "wheel~=0.36.2"]
+requires = ["setuptools~=57.4.0", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1176,7 +1176,7 @@ scope.jsii-calc-lib
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=56.1.0", "wheel~=0.36.2"]
+requires = ["setuptools~=57.4.0", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -2399,7 +2399,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=56.1.0", "wheel~=0.36.2"]
+requires = ["setuptools~=57.4.0", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -3351,6 +3351,55 @@ class ClassWithCollections(
         jsii.set(self, "map", value)
 
 
+class ClassWithContainerTypes(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.ClassWithContainerTypes",
+):
+    def __init__(
+        self,
+        array: typing.Sequence["DummyObj"],
+        record: typing.Mapping[builtins.str, "DummyObj"],
+        obj: typing.Mapping[builtins.str, "DummyObj"],
+        *,
+        array_prop: typing.Sequence["DummyObj"],
+        obj_prop: typing.Mapping[builtins.str, "DummyObj"],
+        record_prop: typing.Mapping[builtins.str, "DummyObj"],
+    ) -> None:
+        '''
+        :param array: -
+        :param record: -
+        :param obj: -
+        :param array_prop: 
+        :param obj_prop: 
+        :param record_prop: 
+        '''
+        props = ContainerProps(
+            array_prop=array_prop, obj_prop=obj_prop, record_prop=record_prop
+        )
+
+        jsii.create(ClassWithContainerTypes, self, [array, record, obj, props])
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="array")
+    def array(self) -> typing.List["DummyObj"]:
+        return typing.cast(typing.List["DummyObj"], jsii.get(self, "array"))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="obj")
+    def obj(self) -> typing.Mapping[builtins.str, "DummyObj"]:
+        return typing.cast(typing.Mapping[builtins.str, "DummyObj"], jsii.get(self, "obj"))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="record")
+    def record(self) -> typing.Mapping[builtins.str, "DummyObj"]:
+        return typing.cast(typing.Mapping[builtins.str, "DummyObj"], jsii.get(self, "record"))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="props")
+    def props(self) -> typing.Optional["ContainerProps"]:
+        return typing.cast(typing.Optional["ContainerProps"], jsii.get(self, "props"))
+
+
 class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"):
     '''This class has docs.
 
@@ -3677,6 +3726,64 @@ class ConsumersOfThisCrazyTypeSystem(
         :param obj: -
         '''
         return typing.cast(typing.Any, jsii.invoke(self, "consumeNonInternalInterface", [obj]))
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.ContainerProps",
+    jsii_struct_bases=[],
+    name_mapping={
+        "array_prop": "arrayProp",
+        "obj_prop": "objProp",
+        "record_prop": "recordProp",
+    },
+)
+class ContainerProps:
+    def __init__(
+        self,
+        *,
+        array_prop: typing.Sequence["DummyObj"],
+        obj_prop: typing.Mapping[builtins.str, "DummyObj"],
+        record_prop: typing.Mapping[builtins.str, "DummyObj"],
+    ) -> None:
+        '''
+        :param array_prop: 
+        :param obj_prop: 
+        :param record_prop: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "array_prop": array_prop,
+            "obj_prop": obj_prop,
+            "record_prop": record_prop,
+        }
+
+    @builtins.property
+    def array_prop(self) -> typing.List["DummyObj"]:
+        result = self._values.get("array_prop")
+        assert result is not None, "Required property 'array_prop' is missing"
+        return typing.cast(typing.List["DummyObj"], result)
+
+    @builtins.property
+    def obj_prop(self) -> typing.Mapping[builtins.str, "DummyObj"]:
+        result = self._values.get("obj_prop")
+        assert result is not None, "Required property 'obj_prop' is missing"
+        return typing.cast(typing.Mapping[builtins.str, "DummyObj"], result)
+
+    @builtins.property
+    def record_prop(self) -> typing.Mapping[builtins.str, "DummyObj"]:
+        result = self._values.get("record_prop")
+        assert result is not None, "Required property 'record_prop' is missing"
+        return typing.cast(typing.Mapping[builtins.str, "DummyObj"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ContainerProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
@@ -4466,6 +4573,38 @@ class DontComplainAboutVariadicAfterOptional(
         :param things: -
         '''
         return typing.cast(builtins.str, jsii.invoke(self, "optionalAndVariadic", [optional, *things]))
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.DummyObj",
+    jsii_struct_bases=[],
+    name_mapping={"example": "example"},
+)
+class DummyObj:
+    def __init__(self, *, example: builtins.str) -> None:
+        '''
+        :param example: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "example": example,
+        }
+
+    @builtins.property
+    def example(self) -> builtins.str:
+        result = self._values.get("example")
+        assert result is not None, "Required property 'example' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "DummyObj(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 class DynamicPropertyBearer(
@@ -9865,6 +10004,7 @@ __all__ = [
     "ClassThatImplementsTheInternalInterface",
     "ClassThatImplementsThePrivateInterface",
     "ClassWithCollections",
+    "ClassWithContainerTypes",
     "ClassWithDocs",
     "ClassWithJavaReservedWords",
     "ClassWithMutableObjectLiteralProperty",
@@ -9876,6 +10016,7 @@ __all__ = [
     "ConsumePureInterface",
     "ConsumerCanRingBell",
     "ConsumersOfThisCrazyTypeSystem",
+    "ContainerProps",
     "DataRenderer",
     "Default",
     "DefaultedConstructorArgument",
@@ -9895,6 +10036,7 @@ __all__ = [
     "DocumentedClass",
     "DontComplainAboutVariadicAfterOptional",
     "DoubleTrouble",
+    "DummyObj",
     "DynamicPropertyBearer",
     "DynamicPropertyBearerChild",
     "Entropy",

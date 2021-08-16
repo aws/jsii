@@ -2734,6 +2734,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ClassThatImplementsTheInternalInterface.cs
        ┃           ┣━ 📄 ClassThatImplementsThePrivateInterface.cs
        ┃           ┣━ 📄 ClassWithCollections.cs
+       ┃           ┣━ 📄 ClassWithContainerTypes.cs
        ┃           ┣━ 📄 ClassWithDocs.cs
        ┃           ┣━ 📄 ClassWithJavaReservedWords.cs
        ┃           ┣━ 📄 ClassWithMutableObjectLiteralProperty.cs
@@ -2747,6 +2748,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ConsumePureInterface.cs
        ┃           ┣━ 📄 ConsumerCanRingBell.cs
        ┃           ┣━ 📄 ConsumersOfThisCrazyTypeSystem.cs
+       ┃           ┣━ 📄 ContainerProps.cs
        ┃           ┣━ 📄 DataRenderer.cs
        ┃           ┣━ 📄 Default.cs
        ┃           ┣━ 📄 DefaultedConstructorArgument.cs
@@ -2769,6 +2771,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 DoNotRecognizeAnyAsOptional.cs
        ┃           ┣━ 📄 DontComplainAboutVariadicAfterOptional.cs
        ┃           ┣━ 📄 DoubleTrouble.cs
+       ┃           ┣━ 📄 DummyObj.cs
        ┃           ┣━ 📄 DynamicPropertyBearer.cs
        ┃           ┣━ 📄 DynamicPropertyBearerChild.cs
        ┃           ┣━ 📄 Entropy.cs
@@ -2795,6 +2798,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IChildStruct982.cs
        ┃           ┣━ 📄 IConcreteBellRinger.cs
        ┃           ┣━ 📄 IConfusingToJacksonStruct.cs
+       ┃           ┣━ 📄 IContainerProps.cs
        ┃           ┣━ 📄 IDeprecatedInterface.cs
        ┃           ┣━ 📄 IDeprecatedStruct.cs
        ┃           ┣━ 📄 IDerivedStruct.cs
@@ -2803,6 +2807,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IDiamondInheritanceFirstMidLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceSecondMidLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceTopLevelStruct.cs
+       ┃           ┣━ 📄 IDummyObj.cs
        ┃           ┣━ 📄 IEraseUndefinedHashValuesOptions.cs
        ┃           ┣━ 📄 IExperimentalInterface.cs
        ┃           ┣━ 📄 IExperimentalStruct.cs
@@ -4508,6 +4513,63 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithContainerTypes.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithContainerTypes), fullyQualifiedName: "jsii-calc.ClassWithContainerTypes", parametersJson: "[{\\"name\\":\\"array\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}},{\\"name\\":\\"record\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"obj\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.ContainerProps\\"}}]")]
+    public class ClassWithContainerTypes : DeputyBase
+    {
+        public ClassWithContainerTypes(Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] array, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> record, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> obj, Amazon.JSII.Tests.CalculatorNamespace.IContainerProps? props = null): base(new DeputyProps(new object?[]{array, record, obj, props}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ClassWithContainerTypes(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ClassWithContainerTypes(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiProperty(name: "array", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] Array
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[]>()!;
+        }
+
+        [JsiiProperty(name: "obj", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
+        public virtual System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> Obj
+        {
+            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj>>()!;
+        }
+
+        [JsiiProperty(name: "record", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
+        public virtual System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> Record
+        {
+            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj>>()!;
+        }
+
+        [JsiiOptional]
+        [JsiiProperty(name: "props", typeJson: "{\\"fqn\\":\\"jsii-calc.ContainerProps\\"}", isOptional: true)]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IContainerProps? Props
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IContainerProps?>();
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithDocs.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -5170,6 +5232,43 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual object ConsumeNonInternalInterface(Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface obj)
         {
             return InvokeInstanceMethod<object>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface)}, new object[]{obj})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ContainerProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.ContainerProps")]
+    public class ContainerProps : Amazon.JSII.Tests.CalculatorNamespace.IContainerProps
+    {
+        [JsiiProperty(name: "arrayProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}", isOverride: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] ArrayProp
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty(name: "objProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}", isOverride: true)]
+        public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> ObjProp
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty(name: "recordProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}", isOverride: true)]
+        public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> RecordProp
+        {
+            get;
+            set;
         }
     }
 }
@@ -6156,6 +6255,29 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DummyObj.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.DummyObj")]
+    public class DummyObj : Amazon.JSII.Tests.CalculatorNamespace.IDummyObj
+    {
+        [JsiiProperty(name: "example", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        public string Example
+        {
+            get;
+            set;
         }
     }
 }
@@ -7266,6 +7388,64 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IContainerProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IContainerProps), fullyQualifiedName: "jsii-calc.ContainerProps")]
+    public interface IContainerProps
+    {
+        [JsiiProperty(name: "arrayProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}")]
+        Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] ArrayProp
+        {
+            get;
+        }
+
+        [JsiiProperty(name: "objProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
+        System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> ObjProp
+        {
+            get;
+        }
+
+        [JsiiProperty(name: "recordProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
+        System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> RecordProp
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IContainerProps), fullyQualifiedName: "jsii-calc.ContainerProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IContainerProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "arrayProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}")]
+            public Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] ArrayProp
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[]>()!;
+            }
+
+            [JsiiProperty(name: "objProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
+            public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> ObjProp
+            {
+                get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj>>()!;
+            }
+
+            [JsiiProperty(name: "recordProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
+            public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> RecordProp
+            {
+                get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj>>()!;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IDeprecatedInterface.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -7769,6 +7949,40 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
             [JsiiProperty(name: "secondMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
             public string SecondMidLevelProperty
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IDummyObj.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IDummyObj), fullyQualifiedName: "jsii-calc.DummyObj")]
+    public interface IDummyObj
+    {
+        [JsiiProperty(name: "example", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Example
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IDummyObj), fullyQualifiedName: "jsii-calc.DummyObj")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "example", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Example
             {
                 get => GetInstanceProperty<string>()!;
             }

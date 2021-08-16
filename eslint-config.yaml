@@ -30,7 +30,7 @@ settings:
   import/resolver:
     node: {}
     typescript:
-      directory: ./**/tsconfig.json
+      project: ./**/tsconfig.json
 
 ignorePatterns:
   # Ignore Jest configuration file (it's excluded from tsconfig.json, so it's problematic!)
@@ -160,7 +160,9 @@ rules:
 
   'import/no-unresolved':
     - error
-    - ignore: [worker_threads]
+    - ignore:
+        - '@jsii/check-node/run' # @jsii/check-node uses an export map, which import/resolver does not (yet) support (https://github.com/import-js/eslint-plugin-import/issues/1868)
+        - worker_threads # This isn't supported in all node versions (import is always guarded)
 
   'import/order':
     - error

@@ -3,6 +3,7 @@
   "include": ["**/*.ts"],
   "exclude": ["jest.config.ts", "test/generated-code/examples/*"],
   "references": [
+    { "path": "../@jsii/check-node" },
     { "path": "../@jsii/spec" },
     { "path": "../codemaker" },
     { "path": "../jsii" },
