@@ -14,7 +14,7 @@ ENV LANG="C.UTF-8"                                                              
     GEM_HOME="/usr/local/bundle"                                                                                        \
     BUNDLE_SILENCE_ROOT_WARNING="1"                                                                                     \
                                                                                                                         \
-    M2_VERSION="3.6.3"                                                                                                  \
+    M2_VERSION="3.8.2"                                                                                                  \
     M2_HOME="/usr/local/apache-maven"                                                                                   \
     M2="/usr/local/apache-maven/bin"                                                                                    \
     MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
