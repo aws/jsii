@@ -30,7 +30,7 @@ setuptools.setup(
         "jsii._embedded.jsii": ["*.js", "*.js.map"],
     },
     install_requires=[
-        "attrs~=20.1",
+        "attrs~=21.2",
         "cattrs~=1.0.0 ; python_version < '3.7'",
         "cattrs~=1.7.1 ; python_version >= '3.7'",
         "importlib_resources ; python_version < '3.7'",

@@ -1,3 +1,5 @@
+import '@jsii/check-node/run';
+
 import { writeFile } from 'fs';
 import { promisify } from 'util';
 import * as yargs from 'yargs';

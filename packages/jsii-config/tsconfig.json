@@ -5,6 +5,7 @@
   ],
   "exclude": ["jest.config.ts"],
   "references": [
+    { "path": "../@jsii/check-node" },
     { "path": "../@jsii/spec" },
   ],
 }

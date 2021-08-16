@@ -34,13 +34,13 @@
     "jsonschema": "^1.4.0"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^27.0.1",
     "@types/node": "^12.20.19",
-    "eslint": "^7.26.0",
-    "jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^27.0.6",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.3.0",
-    "typescript": "~3.9.9",
-    "typescript-json-schema": "^0.50.0"
+    "prettier": "^2.3.2",
+    "typescript": "~3.9.10",
+    "typescript-json-schema": "^0.50.1"
   }
 }
