@@ -21,9 +21,12 @@ fi
 
 # Now on to building the image
 docker build                                                                    \
-  --pull                                                                        \
+  --target superchain                                                           \
+  --build-arg BUILDPLATFORM=linux/amd64                                         \
+  --build-arg TARGETPLATFORM=linux/amd64                                        \
   --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                  \
+  --build-arg REGISTRY="docker.io/library"                                      \
   --build-arg COMMIT_ID=${COMMIT_ID}                                            \
-  --build-arg NODE_MAJOR_VERSION=10                                             \
   -t "jsii/superchain:local"                                                    \
-  .
+  -f ${PWD}/Dockerfile                                                          \
+  ..
