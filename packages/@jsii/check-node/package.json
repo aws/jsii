@@ -1,7 +1,7 @@
 {
-  "name": "oo-ascii-tree",
+  "name": "@jsii/check-node",
   "version": "0.0.0",
-  "description": "object-oriented ascii tree renderer",
+  "description": "Checks for supported node versions",
   "license": "Apache-2.0",
   "author": {
     "name": "Amazon Web Services",
@@ -14,13 +14,18 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git",
-    "directory": "packages/oo-ascii-tree"
+    "directory": "packages/@jsii/check-node"
   },
   "engines": {
     "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json",
+    "./run": "./lib/run.js"
+  },
   "scripts": {
     "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
@@ -30,13 +35,14 @@
     "test:update": "jest -u",
     "package": "package-js"
   },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "semver": "^7.3.5"
+  },
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/jest": "^27.0.1",
     "@types/node": "^10.17.60",
-    "eslint": "^7.32.0",
-    "jest": "^27.0.6",
-    "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.3.2",
-    "typescript": "~3.9.10"
+    "jest": "^27.0.6"
   }
 }

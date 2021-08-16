@@ -9,7 +9,8 @@
     "jest.config.ts",
   ],
   "references": [
-      { "path": "../jsii" },
-      { "path": "../@jsii/spec" },
+    { "path": "../@jsii/check-node" },
+    { "path": "../@jsii/spec" },
+    { "path": "../jsii" },
   ],
 }
