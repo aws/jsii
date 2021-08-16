@@ -4963,6 +4963,83 @@ func ClassWithCollections_SetStaticMap(val *map[string]*string) {
 	)
 }
 
+type ClassWithContainerTypes interface {
+	Array() *[]*DummyObj
+	Obj() *map[string]*DummyObj
+	Props() *ContainerProps
+	Record() *map[string]*DummyObj
+}
+
+// The jsii proxy struct for ClassWithContainerTypes
+type jsiiProxy_ClassWithContainerTypes struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_ClassWithContainerTypes) Array() *[]*DummyObj {
+	var returns *[]*DummyObj
+	_jsii_.Get(
+		j,
+		"array",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_ClassWithContainerTypes) Obj() *map[string]*DummyObj {
+	var returns *map[string]*DummyObj
+	_jsii_.Get(
+		j,
+		"obj",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_ClassWithContainerTypes) Props() *ContainerProps {
+	var returns *ContainerProps
+	_jsii_.Get(
+		j,
+		"props",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_ClassWithContainerTypes) Record() *map[string]*DummyObj {
+	var returns *map[string]*DummyObj
+	_jsii_.Get(
+		j,
+		"record",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewClassWithContainerTypes(array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj, props *ContainerProps) ClassWithContainerTypes {
+	_init_.Initialize()
+
+	j := jsiiProxy_ClassWithContainerTypes{}
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithContainerTypes",
+		[]interface{}{array, record, obj, props},
+		&j,
+	)
+
+	return &j
+}
+
+func NewClassWithContainerTypes_Override(c ClassWithContainerTypes, array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj, props *ContainerProps) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithContainerTypes",
+		[]interface{}{array, record, obj, props},
+		c,
+	)
+}
+
 // This class has docs.
 //
 // The docs are great. They're a bunch of tags.
@@ -5688,6 +5765,12 @@ func (c *jsiiProxy_ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(o
 	return returns
 }
 
+type ContainerProps struct {
+	ArrayProp *[]*DummyObj \`json:"arrayProp"\`
+	ObjProp *map[string]*DummyObj \`json:"objProp"\`
+	RecordProp *map[string]*DummyObj \`json:"recordProp"\`
+}
+
 // Verifies proper type handling through dynamic overrides.
 type DataRenderer interface {
 	Render(data *scopejsiicalclib.MyFirstStruct) *string
@@ -6411,6 +6494,10 @@ func (d *jsiiProxy_DoubleTrouble) Next() *float64 {
 	)
 
 	return returns
+}
+
+type DummyObj struct {
+	Example *string \`json:"example"\`
 }
 
 // Ensures we can override a dynamic property that was inherited.
@@ -14529,6 +14616,19 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.ClassWithContainerTypes",
+		reflect.TypeOf((*ClassWithContainerTypes)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "array", GoGetter: "Array"},
+			_jsii_.MemberProperty{JsiiProperty: "obj", GoGetter: "Obj"},
+			_jsii_.MemberProperty{JsiiProperty: "props", GoGetter: "Props"},
+			_jsii_.MemberProperty{JsiiProperty: "record", GoGetter: "Record"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ClassWithContainerTypes{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.ClassWithDocs",
 		reflect.TypeOf((*ClassWithDocs)(nil)).Elem(),
 		nil, // no members
@@ -14633,6 +14733,10 @@ func init() {
 		func() interface{} {
 			return &jsiiProxy_ConsumersOfThisCrazyTypeSystem{}
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.ContainerProps",
+		reflect.TypeOf((*ContainerProps)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.DataRenderer",
@@ -14787,6 +14891,10 @@ func init() {
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_IFriendlyRandomGenerator)
 			return &j
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.DummyObj",
+		reflect.TypeOf((*DummyObj)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.DynamicPropertyBearer",

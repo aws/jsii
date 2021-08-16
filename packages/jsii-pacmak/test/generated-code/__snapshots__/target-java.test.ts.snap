@@ -3590,6 +3590,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 ClassThatImplementsTheInternalInterface.java
           ┃                 ┣━ 📄 ClassThatImplementsThePrivateInterface.java
           ┃                 ┣━ 📄 ClassWithCollections.java
+          ┃                 ┣━ 📄 ClassWithContainerTypes.java
           ┃                 ┣━ 📄 ClassWithDocs.java
           ┃                 ┣━ 📄 ClassWithJavaReservedWords.java
           ┃                 ┣━ 📄 ClassWithMutableObjectLiteralProperty.java
@@ -3603,6 +3604,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 ConsumePureInterface.java
           ┃                 ┣━ 📄 ConsumerCanRingBell.java
           ┃                 ┣━ 📄 ConsumersOfThisCrazyTypeSystem.java
+          ┃                 ┣━ 📄 ContainerProps.java
           ┃                 ┣━ 📄 DataRenderer.java
           ┃                 ┣━ 📄 Default.java
           ┃                 ┣━ 📄 DefaultedConstructorArgument.java
@@ -3625,6 +3627,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 DoNotRecognizeAnyAsOptional.java
           ┃                 ┣━ 📄 DontComplainAboutVariadicAfterOptional.java
           ┃                 ┣━ 📄 DoubleTrouble.java
+          ┃                 ┣━ 📄 DummyObj.java
           ┃                 ┣━ 📄 DynamicPropertyBearer.java
           ┃                 ┣━ 📄 DynamicPropertyBearerChild.java
           ┃                 ┣━ 📄 Entropy.java
@@ -6455,6 +6458,157 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithContainerTypes.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ClassWithContainerTypes")
+public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
+
+    protected ClassWithContainerTypes(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ClassWithContainerTypes(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param array This parameter is required.
+     * @param record This parameter is required.
+     * @param obj This parameter is required.
+     * @param props
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ClassWithContainerTypes(final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.DummyObj> array, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> record, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> obj, final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.ContainerProps props) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(array, "array is required"), java.util.Objects.requireNonNull(record, "record is required"), java.util.Objects.requireNonNull(obj, "obj is required"), props });
+    }
+
+    /**
+     * @param array This parameter is required.
+     * @param record This parameter is required.
+     * @param obj This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ClassWithContainerTypes(final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.DummyObj> array, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> record, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> obj) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(array, "array is required"), java.util.Objects.requireNonNull(record, "record is required"), java.util.Objects.requireNonNull(obj, "obj is required") });
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.DummyObj> getArray() {
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.Kernel.get(this, "array", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DummyObj.class))));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> getObj() {
+        return java.util.Collections.unmodifiableMap(software.amazon.jsii.Kernel.get(this, "obj", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DummyObj.class))));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> getRecord() {
+        return java.util.Collections.unmodifiableMap(software.amazon.jsii.Kernel.get(this, "record", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DummyObj.class))));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.ContainerProps getProps() {
+        return software.amazon.jsii.Kernel.get(this, "props", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.ContainerProps.class));
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.ClassWithContainerTypes}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.ClassWithContainerTypes> {
+        /**
+         * @return a new instance of {@link Builder}.
+         * @param array This parameter is required.
+         * @param record This parameter is required.
+         * @param obj This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create(final java.util.List<software.amazon.jsii.tests.calculator.DummyObj> array, final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> record, final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> obj) {
+            return new Builder(array, record, obj);
+        }
+
+        private final java.util.List<software.amazon.jsii.tests.calculator.DummyObj> array;
+        private final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> record;
+        private final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> obj;
+        private software.amazon.jsii.tests.calculator.ContainerProps.Builder props;
+
+        private Builder(final java.util.List<software.amazon.jsii.tests.calculator.DummyObj> array, final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> record, final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> obj) {
+            this.array = array;
+            this.record = record;
+            this.obj = obj;
+        }
+
+        /**
+         * @return {@code this}
+         * @param arrayProp This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder arrayProp(final java.util.List<? extends software.amazon.jsii.tests.calculator.DummyObj> arrayProp) {
+            this.props().arrayProp(arrayProp);
+            return this;
+        }
+
+        /**
+         * @return {@code this}
+         * @param objProp This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder objProp(final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> objProp) {
+            this.props().objProp(objProp);
+            return this;
+        }
+
+        /**
+         * @return {@code this}
+         * @param recordProp This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder recordProp(final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> recordProp) {
+            this.props().recordProp(recordProp);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.ClassWithContainerTypes}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.ClassWithContainerTypes build() {
+            return new software.amazon.jsii.tests.calculator.ClassWithContainerTypes(
+                this.array,
+                this.record,
+                this.obj,
+                this.props != null ? this.props.build() : null
+            );
+        }
+
+        private software.amazon.jsii.tests.calculator.ContainerProps.Builder props() {
+            if (this.props == null) {
+                this.props = new software.amazon.jsii.tests.calculator.ContainerProps.Builder();
+            }
+            return this.props;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithDocs.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -7148,6 +7302,187 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Object consumeNonInternalInterface(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.INonInternalInterface obj) {
         return software.amazon.jsii.Kernel.call(this, "consumeNonInternalInterface", software.amazon.jsii.NativeType.forClass(java.lang.Object.class), new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ContainerProps.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ContainerProps")
+@software.amazon.jsii.Jsii.Proxy(ContainerProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface ContainerProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.DummyObj> getArrayProp();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> getObjProp();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> getRecordProp();
+
+    /**
+     * @return a {@link Builder} of {@link ContainerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link ContainerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<ContainerProps> {
+        private java.util.List<software.amazon.jsii.tests.calculator.DummyObj> arrayProp;
+        private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> objProp;
+        private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> recordProp;
+
+        /**
+         * Sets the value of {@link ContainerProps#getArrayProp}
+         * @param arrayProp the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @SuppressWarnings("unchecked")
+        public Builder arrayProp(java.util.List<? extends software.amazon.jsii.tests.calculator.DummyObj> arrayProp) {
+            this.arrayProp = (java.util.List<software.amazon.jsii.tests.calculator.DummyObj>)arrayProp;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link ContainerProps#getObjProp}
+         * @param objProp the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @SuppressWarnings("unchecked")
+        public Builder objProp(java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> objProp) {
+            this.objProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)objProp;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link ContainerProps#getRecordProp}
+         * @param recordProp the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @SuppressWarnings("unchecked")
+        public Builder recordProp(java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> recordProp) {
+            this.recordProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)recordProp;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link ContainerProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public ContainerProps build() {
+            return new Jsii$Proxy(arrayProp, objProp, recordProp);
+        }
+    }
+
+    /**
+     * An implementation for {@link ContainerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ContainerProps {
+        private final java.util.List<software.amazon.jsii.tests.calculator.DummyObj> arrayProp;
+        private final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> objProp;
+        private final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> recordProp;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.arrayProp = software.amazon.jsii.Kernel.get(this, "arrayProp", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DummyObj.class)));
+            this.objProp = software.amazon.jsii.Kernel.get(this, "objProp", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DummyObj.class)));
+            this.recordProp = software.amazon.jsii.Kernel.get(this, "recordProp", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DummyObj.class)));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        @SuppressWarnings("unchecked")
+        protected Jsii$Proxy(final java.util.List<? extends software.amazon.jsii.tests.calculator.DummyObj> arrayProp, final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> objProp, final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> recordProp) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.arrayProp = (java.util.List<software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(arrayProp, "arrayProp is required");
+            this.objProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(objProp, "objProp is required");
+            this.recordProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(recordProp, "recordProp is required");
+        }
+
+        @Override
+        public final java.util.List<software.amazon.jsii.tests.calculator.DummyObj> getArrayProp() {
+            return this.arrayProp;
+        }
+
+        @Override
+        public final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> getObjProp() {
+            return this.objProp;
+        }
+
+        @Override
+        public final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> getRecordProp() {
+            return this.recordProp;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("arrayProp", om.valueToTree(this.getArrayProp()));
+            data.set("objProp", om.valueToTree(this.getObjProp()));
+            data.set("recordProp", om.valueToTree(this.getRecordProp()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.ContainerProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ContainerProps.Jsii$Proxy that = (ContainerProps.Jsii$Proxy) o;
+
+            if (!arrayProp.equals(that.arrayProp)) return false;
+            if (!objProp.equals(that.objProp)) return false;
+            return this.recordProp.equals(that.recordProp);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.arrayProp.hashCode();
+            result = 31 * result + (this.objProp.hashCode());
+            result = 31 * result + (this.recordProp.hashCode());
+            return result;
+        }
     }
 }
 
@@ -9102,6 +9437,127 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     @Override
     public @org.jetbrains.annotations.NotNull java.lang.Number next() {
         return software.amazon.jsii.Kernel.call(this, "next", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DummyObj.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DummyObj")
+@software.amazon.jsii.Jsii.Proxy(DummyObj.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface DummyObj extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getExample();
+
+    /**
+     * @return a {@link Builder} of {@link DummyObj}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DummyObj}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<DummyObj> {
+        private java.lang.String example;
+
+        /**
+         * Sets the value of {@link DummyObj#getExample}
+         * @param example the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder example(java.lang.String example) {
+            this.example = example;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DummyObj}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public DummyObj build() {
+            return new Jsii$Proxy(example);
+        }
+    }
+
+    /**
+     * An implementation for {@link DummyObj}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DummyObj {
+        private final java.lang.String example;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.example = software.amazon.jsii.Kernel.get(this, "example", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final java.lang.String example) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.example = java.util.Objects.requireNonNull(example, "example is required");
+        }
+
+        @Override
+        public final java.lang.String getExample() {
+            return this.example;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("example", om.valueToTree(this.getExample()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.DummyObj"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DummyObj.Jsii$Proxy that = (DummyObj.Jsii$Proxy) o;
+
+            return this.example.equals(that.example);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.example.hashCode();
+            return result;
+        }
     }
 }
 
@@ -25103,6 +25559,7 @@ jsii-calc.ChildStruct982=software.amazon.jsii.tests.calculator.ChildStruct982
 jsii-calc.ClassThatImplementsTheInternalInterface=software.amazon.jsii.tests.calculator.ClassThatImplementsTheInternalInterface
 jsii-calc.ClassThatImplementsThePrivateInterface=software.amazon.jsii.tests.calculator.ClassThatImplementsThePrivateInterface
 jsii-calc.ClassWithCollections=software.amazon.jsii.tests.calculator.ClassWithCollections
+jsii-calc.ClassWithContainerTypes=software.amazon.jsii.tests.calculator.ClassWithContainerTypes
 jsii-calc.ClassWithDocs=software.amazon.jsii.tests.calculator.ClassWithDocs
 jsii-calc.ClassWithJavaReservedWords=software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords
 jsii-calc.ClassWithMutableObjectLiteralProperty=software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty
@@ -25114,6 +25571,7 @@ jsii-calc.Constructors=software.amazon.jsii.tests.calculator.Constructors
 jsii-calc.ConsumePureInterface=software.amazon.jsii.tests.calculator.ConsumePureInterface
 jsii-calc.ConsumerCanRingBell=software.amazon.jsii.tests.calculator.ConsumerCanRingBell
 jsii-calc.ConsumersOfThisCrazyTypeSystem=software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem
+jsii-calc.ContainerProps=software.amazon.jsii.tests.calculator.ContainerProps
 jsii-calc.DataRenderer=software.amazon.jsii.tests.calculator.DataRenderer
 jsii-calc.Default=software.amazon.jsii.tests.calculator.Default
 jsii-calc.DefaultedConstructorArgument=software.amazon.jsii.tests.calculator.DefaultedConstructorArgument
@@ -25135,6 +25593,7 @@ jsii-calc.DoNotRecognizeAnyAsOptional=software.amazon.jsii.tests.calculator.DoNo
 jsii-calc.DocumentedClass=software.amazon.jsii.tests.calculator.DocumentedClass
 jsii-calc.DontComplainAboutVariadicAfterOptional=software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional
 jsii-calc.DoubleTrouble=software.amazon.jsii.tests.calculator.DoubleTrouble
+jsii-calc.DummyObj=software.amazon.jsii.tests.calculator.DummyObj
 jsii-calc.DynamicPropertyBearer=software.amazon.jsii.tests.calculator.DynamicPropertyBearer
 jsii-calc.DynamicPropertyBearerChild=software.amazon.jsii.tests.calculator.DynamicPropertyBearerChild
 jsii-calc.Entropy=software.amazon.jsii.tests.calculator.Entropy

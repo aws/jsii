@@ -214,25 +214,25 @@
     "jsii-calc.module2530": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 19
+        "line": 20
       }
     },
     "jsii-calc.module2617": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 16
       }
     },
     "jsii-calc.module2647": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 14
+        "line": 15
       }
     },
     "jsii-calc.module2689": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 16
+        "line": 17
       }
     },
     "jsii-calc.module2689.methods": {
@@ -262,7 +262,7 @@
     "jsii-calc.module2692": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 18
+        "line": 19
       }
     },
     "jsii-calc.module2692.submodule1": {
@@ -280,19 +280,19 @@
     "jsii-calc.module2700": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 20
+        "line": 21
       }
     },
     "jsii-calc.module2702": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 17
+        "line": 18
       }
     },
     "jsii-calc.nodirect": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 13
+        "line": 14
       }
     },
     "jsii-calc.nodirect.sub1": {
@@ -310,13 +310,13 @@
     "jsii-calc.onlystatic": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 12
+        "line": 13
       }
     },
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 11
+        "line": 12
       },
       "readme": {
         "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule` module.\n"
@@ -2487,6 +2487,144 @@
         }
       ]
     },
+    "jsii-calc.ClassWithContainerTypes": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ClassWithContainerTypes",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/container-types.ts",
+          "line": 2
+        },
+        "parameters": [
+          {
+            "name": "array",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.DummyObj"
+                },
+                "kind": "array"
+              }
+            }
+          },
+          {
+            "name": "record",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.DummyObj"
+                },
+                "kind": "map"
+              }
+            }
+          },
+          {
+            "name": "obj",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.DummyObj"
+                },
+                "kind": "map"
+              }
+            }
+          },
+          {
+            "name": "props",
+            "optional": true,
+            "type": {
+              "fqn": "jsii-calc.ContainerProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/container-types.ts",
+        "line": 1
+      },
+      "name": "ClassWithContainerTypes",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 3
+          },
+          "name": "array",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.DummyObj"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 5
+          },
+          "name": "obj",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.DummyObj"
+              },
+              "kind": "map"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 4
+          },
+          "name": "record",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.DummyObj"
+              },
+              "kind": "map"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 6
+          },
+          "name": "props",
+          "optional": true,
+          "type": {
+            "fqn": "jsii-calc.ContainerProps"
+          }
+        }
+      ]
+    },
     "jsii-calc.ClassWithDocs": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3354,6 +3492,82 @@
         }
       ],
       "name": "ConsumersOfThisCrazyTypeSystem"
+    },
+    "jsii-calc.ContainerProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ContainerProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/container-types.ts",
+        "line": 10
+      },
+      "name": "ContainerProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 11
+          },
+          "name": "arrayProp",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.DummyObj"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 13
+          },
+          "name": "objProp",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.DummyObj"
+              },
+              "kind": "map"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 12
+          },
+          "name": "recordProp",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.DummyObj"
+              },
+              "kind": "map"
+            }
+          }
+        }
+      ]
     },
     "jsii-calc.DataRenderer": {
       "assembly": "jsii-calc",
@@ -4488,6 +4702,37 @@
         }
       ],
       "name": "DoubleTrouble"
+    },
+    "jsii-calc.DummyObj": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.DummyObj",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/container-types.ts",
+        "line": 16
+      },
+      "name": "DummyObj",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/container-types.ts",
+            "line": 17
+          },
+          "name": "example",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "jsii-calc.DynamicPropertyBearer": {
       "assembly": "jsii-calc",
@@ -16135,5 +16380,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "Ouku0wagXKUVN9v9Ud7ocXYRaRl10KuCazRDvU/7iNk="
+  "fingerprint": "nOY2or+a7JI7VfNfWx2VObkcBa28orXzx4J7PxiymbM="
 }

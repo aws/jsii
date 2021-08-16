@@ -41,6 +41,7 @@ Array [
   "jsii-calc.ClassThatImplementsTheInternalInterface",
   "jsii-calc.ClassThatImplementsThePrivateInterface",
   "jsii-calc.ClassWithCollections",
+  "jsii-calc.ClassWithContainerTypes",
   "jsii-calc.ClassWithDocs",
   "jsii-calc.ClassWithJavaReservedWords",
   "jsii-calc.ClassWithMutableObjectLiteralProperty",
