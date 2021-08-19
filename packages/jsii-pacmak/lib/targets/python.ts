@@ -455,6 +455,7 @@ abstract class BaseMethod implements PythonBase {
     private readonly parameters: spec.Parameter[],
     private readonly returns: spec.OptionalValue | undefined,
     public readonly docs: spec.Docs | undefined,
+    public readonly isStatic: boolean,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
@@ -710,12 +711,17 @@ abstract class BaseMethod implements PythonBase {
       if (this.parent === undefined) {
         throw new Error('Parent not known.');
       }
-      jsiiMethodParams.push(
-        toTypeName(this.parent).pythonType({
-          ...context,
-          typeAnnotation: false,
-        }),
-      );
+      if (this.isStatic) {
+        jsiiMethodParams.push(
+          toTypeName(this.parent).pythonType({
+            ...context,
+            typeAnnotation: false,
+          }),
+        );
+      } else {
+        // Using the dynamic class of `self`.
+        jsiiMethodParams.push(`${implicitParameter}.__class__`);
+      }
     }
     jsiiMethodParams.push(implicitParameter);
     if (this.jsName !== undefined) {
@@ -2429,6 +2435,7 @@ class PythonGenerator extends Generator {
           parameters,
           undefined,
           cls.initializer.docs,
+          false, // Never static
           { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
         ),
       );
@@ -2448,6 +2455,7 @@ class PythonGenerator extends Generator {
         parameters,
         method.returns,
         method.docs,
+        true, // Always static
         {
           abstract: method.abstract,
           liftedProp: this.getliftedProp(method),
@@ -2487,6 +2495,7 @@ class PythonGenerator extends Generator {
           parameters,
           method.returns,
           method.docs,
+          !!method.static,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2503,6 +2512,7 @@ class PythonGenerator extends Generator {
           parameters,
           method.returns,
           method.docs,
+          !!method.static,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2578,6 +2588,7 @@ class PythonGenerator extends Generator {
         parameters,
         method.returns,
         method.docs,
+        !!method.static,
         { liftedProp: this.getliftedProp(method), parent: ifc },
       ),
     );

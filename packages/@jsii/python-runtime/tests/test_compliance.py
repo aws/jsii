@@ -1288,3 +1288,32 @@ def test_iso8601_does_not_deserialize_to_date():
     entropy = MildEntropy(wall_clock)
 
     assert now == entropy.increase()
+
+
+def test_class_can_extend_and_implement_from_jsii():
+    '''
+    This test is identical to test_iso8601_does_not_deserialize_to_date, except
+    the WallCloc class extends ClassWithSelf (a well-known jsii type), to
+    demonstrate it is possible to both extend a jsii type, and implement a
+    supplemental interface at the same time.
+
+    See also https://github.com/aws/jsii/issues/2963
+    '''
+    @jsii.implements(IWallClock)
+    class WallClock(ClassWithSelf):
+        def __init__(self, now: str):
+            super().__init__(now)
+            self.now = now
+
+        def iso8601_now(self) -> str:
+            return self.now
+
+    class MildEntropy(Entropy):
+        def repeat(self, word: str) -> str:
+            return word
+
+    now = datetime.utcnow().isoformat() + "Z"
+    wall_clock = WallClock(now)
+    entropy = MildEntropy(wall_clock)
+
+    assert now == entropy.increase()
