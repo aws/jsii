@@ -334,7 +334,7 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
     '''A base class.'''
 
     def __init__(self) -> None:
-        jsii.create(Base, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="typeName")
     def type_name(self) -> typing.Any:
@@ -426,7 +426,7 @@ class StaticConsumer(
     '''Hides the transitive dependency of base-of-base.'''
 
     def __init__(self) -> None:
-        jsii.create(StaticConsumer, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="consume") # type: ignore[misc]
     @builtins.classmethod
@@ -845,7 +845,7 @@ class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Ver
     '''
 
     def __init__(self) -> None:
-        jsii.create(Very, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="hey")
     def hey(self) -> jsii.Number:
@@ -1287,7 +1287,7 @@ class BaseFor2647(
 
         :stability: deprecated
         '''
-        jsii.create(BaseFor2647, self, [very])
+        jsii.create(self.__class__, self, [very])
 
     @jsii.member(jsii_name="foo")
     def foo(self, obj: scope.jsii_calc_base.IBaseInterface) -> None:
@@ -1628,7 +1628,7 @@ class NumericValue(
     '''
 
     def __init__(self) -> None:
-        jsii.create(NumericValue, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
@@ -1676,7 +1676,7 @@ class Operation(
     '''
 
     def __init__(self) -> None:
-        jsii.create(Operation, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="toString") # type: ignore[misc]
     @abc.abstractmethod
@@ -1791,7 +1791,7 @@ class Number(
 
         :stability: deprecated
         '''
-        jsii.create(Number, self, [value])
+        jsii.create(self.__class__, self, [value])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="doubleValue")
@@ -1929,7 +1929,7 @@ class NestingClass(
             '''
             :stability: deprecated
             '''
-            jsii.create(NestedClass, self, [])
+            jsii.create(self.__class__, self, [])
 
         @builtins.property # type: ignore[misc]
         @jsii.member(jsii_name="property")
@@ -2039,7 +2039,7 @@ class Reflector(
         '''
         :stability: deprecated
         '''
-        jsii.create(Reflector, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="asMap")
     def as_map(
@@ -2559,7 +2559,7 @@ class AbstractClassBase(
     jsii_type="jsii-calc.AbstractClassBase",
 ):
     def __init__(self) -> None:
-        jsii.create(AbstractClassBase, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="abstractProperty")
@@ -2583,7 +2583,7 @@ class AbstractClassReturner(
     jsii_type="jsii-calc.AbstractClassReturner",
 ):
     def __init__(self) -> None:
-        jsii.create(AbstractClassReturner, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="giveMeAbstract")
     def give_me_abstract(self) -> "AbstractClass":
@@ -2606,7 +2606,7 @@ class AbstractSuite(
     '''Ensures abstract members implementations correctly register overrides in various languages.'''
 
     def __init__(self) -> None:
-        jsii.create(AbstractSuite, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="someMethod") # type: ignore[misc]
     @abc.abstractmethod
@@ -2665,7 +2665,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     '''
 
     def __init__(self) -> None:
-        jsii.create(AllTypes, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="anyIn")
     def any_in(self, inp: typing.Any) -> None:
@@ -2886,7 +2886,7 @@ class AllowedMethodNames(
     jsii_type="jsii-calc.AllowedMethodNames",
 ):
     def __init__(self) -> None:
-        jsii.create(AllowedMethodNames, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="getBar")
     def get_bar(self, _p1: builtins.str, _p2: jsii.Number) -> None:
@@ -2941,7 +2941,7 @@ class AmbiguousParameters(
         '''
         props_ = StructParameterType(scope=scope, props=props)
 
-        jsii.create(AmbiguousParameters, self, [scope_, props_])
+        jsii.create(self.__class__, self, [scope_, props_])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="props")
@@ -2959,7 +2959,7 @@ class AsyncVirtualMethods(
     jsii_type="jsii-calc.AsyncVirtualMethods",
 ):
     def __init__(self) -> None:
-        jsii.create(AsyncVirtualMethods, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="callMe")
     def call_me(self) -> jsii.Number:
@@ -2998,7 +2998,7 @@ class AsyncVirtualMethods(
 
 class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AugmentableClass"):
     def __init__(self) -> None:
-        jsii.create(AugmentableClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="methodOne")
     def method_one(self) -> None:
@@ -3011,7 +3011,7 @@ class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Augmentable
 
 class BaseJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.BaseJsii976"):
     def __init__(self) -> None:
-        jsii.create(BaseJsii976, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 @jsii.implements(scope.jsii_calc_lib.IFriendly)
@@ -3032,7 +3032,7 @@ class BinaryOperation(
         :param lhs: Left-hand side operand.
         :param rhs: Right-hand side operand.
         '''
-        jsii.create(BinaryOperation, self, [lhs, rhs])
+        jsii.create(self.__class__, self, [lhs, rhs])
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
@@ -3068,7 +3068,7 @@ class BurriedAnonymousObject(
     '''See https://github.com/aws/aws-cdk/issues/7977.'''
 
     def __init__(self) -> None:
-        jsii.create(BurriedAnonymousObject, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="check")
     def check(self) -> builtins.bool:
@@ -3142,7 +3142,7 @@ class Calculator(
             initial_value=initial_value, maximum_value=maximum_value
         )
 
-        jsii.create(Calculator, self, [props])
+        jsii.create(self.__class__, self, [props])
 
     @jsii.member(jsii_name="add")
     def add(self, value: jsii.Number) -> None:
@@ -3302,7 +3302,7 @@ class ClassWithCollections(
         :param map: -
         :param array: -
         '''
-        jsii.create(ClassWithCollections, self, [map, array])
+        jsii.create(self.__class__, self, [map, array])
 
     @jsii.member(jsii_name="createAList") # type: ignore[misc]
     @builtins.classmethod
@@ -3377,7 +3377,7 @@ class ClassWithContainerTypes(
             array_prop=array_prop, obj_prop=obj_prop, record_prop=record_prop
         )
 
-        jsii.create(ClassWithContainerTypes, self, [array, record, obj, props])
+        jsii.create(self.__class__, self, [array, record, obj, props])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="array")
@@ -3416,7 +3416,7 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
     '''
 
     def __init__(self) -> None:
-        jsii.create(ClassWithDocs, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 class ClassWithJavaReservedWords(
@@ -3427,7 +3427,7 @@ class ClassWithJavaReservedWords(
         '''
         :param int: -
         '''
-        jsii.create(ClassWithJavaReservedWords, self, [int])
+        jsii.create(self.__class__, self, [int])
 
     @jsii.member(jsii_name="import")
     def import_(self, assert_: builtins.str) -> builtins.str:
@@ -3447,7 +3447,7 @@ class ClassWithMutableObjectLiteralProperty(
     jsii_type="jsii-calc.ClassWithMutableObjectLiteralProperty",
 ):
     def __init__(self) -> None:
-        jsii.create(ClassWithMutableObjectLiteralProperty, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="mutableObject")
@@ -3538,12 +3538,12 @@ class ConstructorPassesThisOut(
         '''
         :param consumer: -
         '''
-        jsii.create(ConstructorPassesThisOut, self, [consumer])
+        jsii.create(self.__class__, self, [consumer])
 
 
 class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     def __init__(self) -> None:
-        jsii.create(Constructors, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="hiddenInterface") # type: ignore[misc]
     @builtins.classmethod
@@ -3589,7 +3589,7 @@ class ConsumePureInterface(
         '''
         :param delegate: -
         '''
-        jsii.create(ConsumePureInterface, self, [delegate])
+        jsii.create(self.__class__, self, [delegate])
 
     @jsii.member(jsii_name="workItBaby")
     def work_it_baby(self) -> "StructB":
@@ -3607,7 +3607,7 @@ class ConsumerCanRingBell(
     '''
 
     def __init__(self) -> None:
-        jsii.create(ConsumerCanRingBell, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="staticImplementedByObjectLiteral") # type: ignore[misc]
     @builtins.classmethod
@@ -3705,7 +3705,7 @@ class ConsumersOfThisCrazyTypeSystem(
     jsii_type="jsii-calc.ConsumersOfThisCrazyTypeSystem",
 ):
     def __init__(self) -> None:
-        jsii.create(ConsumersOfThisCrazyTypeSystem, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="consumeAnotherPublicInterface")
     def consume_another_public_interface(
@@ -3790,7 +3790,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
     '''Verifies proper type handling through dynamic overrides.'''
 
     def __init__(self) -> None:
-        jsii.create(DataRenderer, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="render")
     def render(
@@ -3836,7 +3836,7 @@ class Default(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Default"):
     '''
 
     def __init__(self) -> None:
-        jsii.create(Default, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="pleaseCompile")
     def please_compile(self) -> None:
@@ -3858,7 +3858,7 @@ class DefaultedConstructorArgument(
         :param arg2: -
         :param arg3: -
         '''
-        jsii.create(DefaultedConstructorArgument, self, [arg1, arg2, arg3])
+        jsii.create(self.__class__, self, [arg1, arg2, arg3])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="arg1")
@@ -3884,7 +3884,7 @@ class Demonstrate982(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Demonstrate98
     '''
 
     def __init__(self) -> None:
-        jsii.create(Demonstrate982, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="takeThis") # type: ignore[misc]
     @builtins.classmethod
@@ -3919,7 +3919,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
 
         :stability: deprecated
         '''
-        jsii.create(DeprecatedClass, self, [readonly_string, mutable_number])
+        jsii.create(self.__class__, self, [readonly_string, mutable_number])
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
@@ -4464,7 +4464,7 @@ class DoNotOverridePrivates(
     jsii_type="jsii-calc.DoNotOverridePrivates",
 ):
     def __init__(self) -> None:
-        jsii.create(DoNotOverridePrivates, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="changePrivatePropertyValue")
     def change_private_property_value(self, new_value: builtins.str) -> None:
@@ -4489,7 +4489,7 @@ class DoNotRecognizeAnyAsOptional(
     '''jsii#284: do not recognize "any" as an optional argument.'''
 
     def __init__(self) -> None:
-        jsii.create(DoNotRecognizeAnyAsOptional, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="method")
     def method(
@@ -4527,7 +4527,7 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
     '''
 
     def __init__(self) -> None:
-        jsii.create(DocumentedClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="greet")
     def greet(self, *, name: typing.Optional[builtins.str] = None) -> jsii.Number:
@@ -4560,7 +4560,7 @@ class DontComplainAboutVariadicAfterOptional(
     jsii_type="jsii-calc.DontComplainAboutVariadicAfterOptional",
 ):
     def __init__(self) -> None:
-        jsii.create(DontComplainAboutVariadicAfterOptional, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="optionalAndVariadic")
     def optional_and_variadic(
@@ -4617,7 +4617,7 @@ class DynamicPropertyBearer(
         '''
         :param value_store: -
         '''
-        jsii.create(DynamicPropertyBearer, self, [value_store])
+        jsii.create(self.__class__, self, [value_store])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="dynamicProperty")
@@ -4647,7 +4647,7 @@ class DynamicPropertyBearerChild(
         '''
         :param original_value: -
         '''
-        jsii.create(DynamicPropertyBearerChild, self, [original_value])
+        jsii.create(self.__class__, self, [original_value])
 
     @jsii.member(jsii_name="overrideValue")
     def override_value(self, new_value: builtins.str) -> builtins.str:
@@ -4673,7 +4673,7 @@ class Entropy(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Entropy"):
 
         :param clock: your implementation of \`\`WallClock\`\`.
         '''
-        jsii.create(Entropy, self, [clock])
+        jsii.create(self.__class__, self, [clock])
 
     @jsii.member(jsii_name="increase")
     def increase(self) -> builtins.str:
@@ -4727,7 +4727,7 @@ class EraseUndefinedHashValues(
     jsii_type="jsii-calc.EraseUndefinedHashValues",
 ):
     def __init__(self) -> None:
-        jsii.create(EraseUndefinedHashValues, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="doesKeyExist") # type: ignore[misc]
     @builtins.classmethod
@@ -4822,7 +4822,7 @@ class ExperimentalClass(
 
         :stability: experimental
         '''
-        jsii.create(ExperimentalClass, self, [readonly_string, mutable_number])
+        jsii.create(self.__class__, self, [readonly_string, mutable_number])
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
@@ -4913,7 +4913,7 @@ class ExportedBaseClass(
         '''
         :param success: -
         '''
-        jsii.create(ExportedBaseClass, self, [success])
+        jsii.create(self.__class__, self, [success])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="success")
@@ -4977,7 +4977,7 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
 
         :external: true
         '''
-        jsii.create(ExternalClass, self, [readonly_string, mutable_number])
+        jsii.create(self.__class__, self, [readonly_string, mutable_number])
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
@@ -5062,7 +5062,7 @@ class ExternalStruct:
 
 class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"):
     def __init__(self) -> None:
-        jsii.create(GiveMeStructs, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="derivedToFirst")
     def derived_to_first(
@@ -5211,7 +5211,7 @@ class GreetingAugmenter(
     jsii_type="jsii-calc.GreetingAugmenter",
 ):
     def __init__(self) -> None:
-        jsii.create(GreetingAugmenter, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="betterGreeting")
     def better_greeting(self, friendly: scope.jsii_calc_lib.IFriendly) -> builtins.str:
@@ -6250,7 +6250,7 @@ class ImplementInternalInterface(
     jsii_type="jsii-calc.ImplementInternalInterface",
 ):
     def __init__(self) -> None:
-        jsii.create(ImplementInternalInterface, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="prop")
@@ -6264,7 +6264,7 @@ class ImplementInternalInterface(
 
 class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementation"):
     def __init__(self) -> None:
-        jsii.create(Implementation, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
@@ -6278,7 +6278,7 @@ class ImplementsInterfaceWithInternal(
     jsii_type="jsii-calc.ImplementsInterfaceWithInternal",
 ):
     def __init__(self) -> None:
-        jsii.create(ImplementsInterfaceWithInternal, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="visible")
     def visible(self) -> None:
@@ -6291,7 +6291,7 @@ class ImplementsInterfaceWithInternalSubclass(
     jsii_type="jsii-calc.ImplementsInterfaceWithInternalSubclass",
 ):
     def __init__(self) -> None:
-        jsii.create(ImplementsInterfaceWithInternalSubclass, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 class ImplementsPrivateInterface(
@@ -6299,7 +6299,7 @@ class ImplementsPrivateInterface(
     jsii_type="jsii-calc.ImplementsPrivateInterface",
 ):
     def __init__(self) -> None:
-        jsii.create(ImplementsPrivateInterface, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="private")
@@ -6418,7 +6418,7 @@ class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorp
     '''
 
     def __init__(self) -> None:
-        jsii.create(Isomorphism, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="myself")
     def myself(self) -> "Isomorphism":
@@ -6443,12 +6443,12 @@ class Issue2638(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638"):
 
         Second sentence. Third sentence.
         '''
-        jsii.create(Issue2638, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 class Issue2638B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Issue2638B"):
     def __init__(self) -> None:
-        jsii.create(Issue2638B, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 class JSII417PublicBaseOfBase(
@@ -6456,7 +6456,7 @@ class JSII417PublicBaseOfBase(
     jsii_type="jsii-calc.JSII417PublicBaseOfBase",
 ):
     def __init__(self) -> None:
-        jsii.create(JSII417PublicBaseOfBase, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="makeInstance") # type: ignore[misc]
     @builtins.classmethod
@@ -6478,7 +6478,7 @@ class JSObjectLiteralForInterface(
     jsii_type="jsii-calc.JSObjectLiteralForInterface",
 ):
     def __init__(self) -> None:
-        jsii.create(JSObjectLiteralForInterface, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="giveMeFriendly")
     def give_me_friendly(self) -> scope.jsii_calc_lib.IFriendly:
@@ -6494,7 +6494,7 @@ class JSObjectLiteralToNative(
     jsii_type="jsii-calc.JSObjectLiteralToNative",
 ):
     def __init__(self) -> None:
-        jsii.create(JSObjectLiteralToNative, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="returnLiteral")
     def return_literal(self) -> "JSObjectLiteralToNativeClass":
@@ -6506,7 +6506,7 @@ class JSObjectLiteralToNativeClass(
     jsii_type="jsii-calc.JSObjectLiteralToNativeClass",
 ):
     def __init__(self) -> None:
-        jsii.create(JSObjectLiteralToNativeClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="propA")
@@ -6532,7 +6532,7 @@ class JavaReservedWords(
     jsii_type="jsii-calc.JavaReservedWords",
 ):
     def __init__(self) -> None:
-        jsii.create(JavaReservedWords, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="abstract")
     def abstract(self) -> None:
@@ -6755,20 +6755,20 @@ class JavaReservedWords(
 @jsii.implements(IJsii487External2, IJsii487External)
 class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derived"):
     def __init__(self) -> None:
-        jsii.create(Jsii487Derived, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 @jsii.implements(IJsii496)
 class Jsii496Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii496Derived"):
     def __init__(self) -> None:
-        jsii.create(Jsii496Derived, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
     '''Host runtime version should be set via JSII_AGENT.'''
 
     def __init__(self) -> None:
-        jsii.create(JsiiAgent, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.python.classproperty # type: ignore[misc]
     @jsii.member(jsii_name="value")
@@ -6866,7 +6866,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
         '''
         props = LevelOneProps(prop=prop)
 
-        jsii.create(LevelOne, self, [props])
+        jsii.create(self.__class__, self, [props])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="props")
@@ -7101,7 +7101,7 @@ class MethodNamedProperty(
     jsii_type="jsii-calc.MethodNamedProperty",
 ):
     def __init__(self) -> None:
-        jsii.create(MethodNamedProperty, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="property")
     def property(self) -> builtins.str:
@@ -7131,7 +7131,7 @@ class Multiply(
         :param lhs: Left-hand side operand.
         :param rhs: Right-hand side operand.
         '''
-        jsii.create(Multiply, self, [lhs, rhs])
+        jsii.create(self.__class__, self, [lhs, rhs])
 
     @jsii.member(jsii_name="farewell")
     def farewell(self) -> builtins.str:
@@ -7212,7 +7212,7 @@ class NodeStandardLibrary(
     '''Test fixture to verify that jsii modules can use the node standard library.'''
 
     def __init__(self) -> None:
-        jsii.create(NodeStandardLibrary, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="cryptoSha256")
     def crypto_sha256(self) -> builtins.str:
@@ -7256,7 +7256,7 @@ class NullShouldBeTreatedAsUndefined(
         :param _param1: -
         :param optional: -
         '''
-        jsii.create(NullShouldBeTreatedAsUndefined, self, [_param1, optional])
+        jsii.create(self.__class__, self, [_param1, optional])
 
     @jsii.member(jsii_name="giveMeUndefined")
     def give_me_undefined(self, value: typing.Any = None) -> None:
@@ -7354,7 +7354,7 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
         '''
         :param generator: -
         '''
-        jsii.create(NumberGenerator, self, [generator])
+        jsii.create(self.__class__, self, [generator])
 
     @jsii.member(jsii_name="isSameGenerator")
     def is_same_generator(self, gen: IRandomNumberGenerator) -> builtins.bool:
@@ -7384,7 +7384,7 @@ class ObjectRefsInCollections(
     '''Verify that object references can be passed inside collections.'''
 
     def __init__(self) -> None:
-        jsii.create(ObjectRefsInCollections, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="sumFromArray")
     def sum_from_array(
@@ -7431,7 +7431,7 @@ class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
     '''
 
     def __init__(self) -> None:
-        jsii.create(Old, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="doAThing")
     def do_a_thing(self) -> None:
@@ -7450,7 +7450,7 @@ class OptionalArgumentInvoker(
         '''
         :param delegate: -
         '''
-        jsii.create(OptionalArgumentInvoker, self, [delegate])
+        jsii.create(self.__class__, self, [delegate])
 
     @jsii.member(jsii_name="invokeWithOptional")
     def invoke_with_optional(self) -> None:
@@ -7476,7 +7476,7 @@ class OptionalConstructorArgument(
         :param arg2: -
         :param arg3: -
         '''
-        jsii.create(OptionalConstructorArgument, self, [arg1, arg2, arg3])
+        jsii.create(self.__class__, self, [arg1, arg2, arg3])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="arg1")
@@ -7535,7 +7535,7 @@ class OptionalStructConsumer(
         '''
         optional_struct = OptionalStruct(field=field)
 
-        jsii.create(OptionalStructConsumer, self, [optional_struct])
+        jsii.create(self.__class__, self, [optional_struct])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="parameterWasUndefined")
@@ -7557,7 +7557,7 @@ class OverridableProtectedMember(
     '''
 
     def __init__(self) -> None:
-        jsii.create(OverridableProtectedMember, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="overrideMe")
     def _override_me(self) -> builtins.str:
@@ -7591,7 +7591,7 @@ class OverrideReturnsObject(
     jsii_type="jsii-calc.OverrideReturnsObject",
 ):
     def __init__(self) -> None:
-        jsii.create(OverrideReturnsObject, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="test")
     def test(self, obj: IReturnsNumber) -> jsii.Number:
@@ -7639,7 +7639,7 @@ class PartiallyInitializedThisConsumer(
     jsii_type="jsii-calc.PartiallyInitializedThisConsumer",
 ):
     def __init__(self) -> None:
-        jsii.create(PartiallyInitializedThisConsumer, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="consumePartiallyInitializedThis") # type: ignore[misc]
     @abc.abstractmethod
@@ -7678,7 +7678,7 @@ typing.cast(typing.Any, PartiallyInitializedThisConsumer).__jsii_proxy_class__ =
 
 class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
     def __init__(self) -> None:
-        jsii.create(Polymorphism, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="sayHello")
     def say_hello(self, friendly: scope.jsii_calc_lib.IFriendly) -> builtins.str:
@@ -7705,7 +7705,7 @@ class Power(
         :param base: The base of the power.
         :param pow: The number of times to multiply.
         '''
-        jsii.create(Power, self, [base, pow])
+        jsii.create(self.__class__, self, [base, pow])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="base")
@@ -7736,7 +7736,7 @@ class PropertyNamedProperty(
     '''Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.'''
 
     def __init__(self) -> None:
-        jsii.create(PropertyNamedProperty, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="property")
@@ -7751,7 +7751,7 @@ class PropertyNamedProperty(
 
 class PublicClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PublicClass"):
     def __init__(self) -> None:
-        jsii.create(PublicClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> None:
@@ -7763,7 +7763,7 @@ class PythonReservedWords(
     jsii_type="jsii-calc.PythonReservedWords",
 ):
     def __init__(self) -> None:
-        jsii.create(PythonReservedWords, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="and")
     def and_(self) -> None:
@@ -7901,7 +7901,7 @@ class ReferenceEnumFromScopedPackage(
     '''See awslabs/jsii#138.'''
 
     def __init__(self) -> None:
-        jsii.create(ReferenceEnumFromScopedPackage, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="loadFoo")
     def load_foo(self) -> typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule]:
@@ -7939,7 +7939,7 @@ class ReturnsPrivateImplementationOfInterface(
     '''
 
     def __init__(self) -> None:
-        jsii.create(ReturnsPrivateImplementationOfInterface, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="privateImplementation")
@@ -8025,7 +8025,7 @@ class RuntimeTypeChecking(
     jsii_type="jsii-calc.RuntimeTypeChecking",
 ):
     def __init__(self) -> None:
-        jsii.create(RuntimeTypeChecking, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="methodWithDefaultedArguments")
     def method_with_defaulted_arguments(
@@ -8126,7 +8126,7 @@ class SingleInstanceTwoTypes(
     '''
 
     def __init__(self) -> None:
-        jsii.create(SingleInstanceTwoTypes, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="interface1")
     def interface1(self) -> "InbetweenClass":
@@ -8228,7 +8228,7 @@ class SmellyStruct:
 
 class SomeTypeJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SomeTypeJsii976"):
     def __init__(self) -> None:
-        jsii.create(SomeTypeJsii976, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="returnAnonymous") # type: ignore[misc]
     @builtins.classmethod
@@ -8251,7 +8251,7 @@ class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
         :param readonly_string: -
         :param mutable_number: -
         '''
-        jsii.create(StableClass, self, [readonly_string, mutable_number])
+        jsii.create(self.__class__, self, [readonly_string, mutable_number])
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
@@ -8343,7 +8343,7 @@ class StaticHelloParent(
     '''
 
     def __init__(self) -> None:
-        jsii.create(StaticHelloParent, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="method") # type: ignore[misc]
     @builtins.classmethod
@@ -8361,7 +8361,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
         '''
         :param value: -
         '''
-        jsii.create(Statics, self, [value])
+        jsii.create(self.__class__, self, [value])
 
     @jsii.member(jsii_name="staticMethod") # type: ignore[misc]
     @builtins.classmethod
@@ -8436,7 +8436,7 @@ class StringEnum(enum.Enum):
 
 class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"):
     def __init__(self) -> None:
-        jsii.create(StripInternal, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="youSeeMe")
@@ -8620,7 +8620,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
     '''Just because we can.'''
 
     def __init__(self) -> None:
-        jsii.create(StructPassing, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="howManyVarArgsDidIPass") # type: ignore[misc]
     @builtins.classmethod
@@ -8805,7 +8805,7 @@ class Sum(
     '''An operation that sums multiple values.'''
 
     def __init__(self) -> None:
-        jsii.create(Sum, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="expression")
@@ -8897,7 +8897,7 @@ class SupportsNiceJavaBuilderWithRequiredProps(
         '''
         props = SupportsNiceJavaBuilderProps(bar=bar, id=id)
 
-        jsii.create(SupportsNiceJavaBuilderWithRequiredProps, self, [id_, props])
+        jsii.create(self.__class__, self, [id_, props])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="bar")
@@ -8921,7 +8921,7 @@ class SyncVirtualMethods(
     jsii_type="jsii-calc.SyncVirtualMethods",
 ):
     def __init__(self) -> None:
-        jsii.create(SyncVirtualMethods, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="callerIsAsync")
     def caller_is_async(self) -> jsii.Number:
@@ -9031,7 +9031,7 @@ class TestStructWithEnum(
     jsii_type="jsii-calc.TestStructWithEnum",
 ):
     def __init__(self) -> None:
-        jsii.create(TestStructWithEnum, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="isStringEnumA")
     def is_string_enum_a(
@@ -9080,7 +9080,7 @@ class TestStructWithEnum(
 
 class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
     def __init__(self) -> None:
-        jsii.create(Thrower, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="throwError")
     def throw_error(self) -> None:
@@ -9158,7 +9158,7 @@ class TwoMethodsWithSimilarCapitalization(
     '''
 
     def __init__(self) -> None:
-        jsii.create(TwoMethodsWithSimilarCapitalization, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="toIsoString")
     def to_iso_string(self) -> builtins.str:
@@ -9203,7 +9203,7 @@ class UnaryOperation(
         '''
         :param operand: -
         '''
-        jsii.create(UnaryOperation, self, [operand])
+        jsii.create(self.__class__, self, [operand])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="operand")
@@ -9276,7 +9276,7 @@ class UpcasingReflectable(
         '''
         :param delegate: -
         '''
-        jsii.create(UpcasingReflectable, self, [delegate])
+        jsii.create(self.__class__, self, [delegate])
 
     @jsii.python.classproperty # type: ignore[misc]
     @jsii.member(jsii_name="reflector")
@@ -9296,7 +9296,7 @@ class UseBundledDependency(
     jsii_type="jsii-calc.UseBundledDependency",
 ):
     def __init__(self) -> None:
-        jsii.create(UseBundledDependency, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="value")
     def value(self) -> typing.Any:
@@ -9307,7 +9307,7 @@ class UseCalcBase(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseCalcBase"):
     '''Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.'''
 
     def __init__(self) -> None:
-        jsii.create(UseCalcBase, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> scope.jsii_calc_base.Base:
@@ -9322,7 +9322,7 @@ class UsesInterfaceWithProperties(
         '''
         :param obj: -
         '''
-        jsii.create(UsesInterfaceWithProperties, self, [obj])
+        jsii.create(self.__class__, self, [obj])
 
     @jsii.member(jsii_name="justRead")
     def just_read(self) -> builtins.str:
@@ -9356,7 +9356,7 @@ class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvo
         '''
         :param method: -
         '''
-        jsii.create(VariadicInvoker, self, [method])
+        jsii.create(self.__class__, self, [method])
 
     @jsii.member(jsii_name="asArray")
     def as_array(self, *values: jsii.Number) -> typing.List[jsii.Number]:
@@ -9371,7 +9371,7 @@ class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMetho
         '''
         :param prefix: a prefix that will be use for all values returned by \`\`#asArray\`\`.
         '''
-        jsii.create(VariadicMethod, self, [*prefix])
+        jsii.create(self.__class__, self, [*prefix])
 
     @jsii.member(jsii_name="asArray")
     def as_array(
@@ -9391,7 +9391,7 @@ class VirtualMethodPlayground(
     jsii_type="jsii-calc.VirtualMethodPlayground",
 ):
     def __init__(self) -> None:
-        jsii.create(VirtualMethodPlayground, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="overrideMeAsync")
     def override_me_async(self, index: jsii.Number) -> jsii.Number:
@@ -9441,7 +9441,7 @@ class VoidCallback(
     '''
 
     def __init__(self) -> None:
-        jsii.create(VoidCallback, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="callMe")
     def call_me(self) -> None:
@@ -9477,7 +9477,7 @@ class WithPrivatePropertyInConstructor(
         '''
         :param private_field: -
         '''
-        jsii.create(WithPrivatePropertyInConstructor, self, [private_field])
+        jsii.create(self.__class__, self, [private_field])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="success")
@@ -9492,7 +9492,7 @@ class AbstractClass(
     jsii_type="jsii-calc.AbstractClass",
 ):
     def __init__(self) -> None:
-        jsii.create(AbstractClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="abstractMethod") # type: ignore[misc]
     @abc.abstractmethod
@@ -9539,7 +9539,7 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
         :param lhs: Left-hand side operand.
         :param rhs: Right-hand side operand.
         '''
-        jsii.create(Add, self, [lhs, rhs])
+        jsii.create(self.__class__, self, [lhs, rhs])
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
@@ -9559,7 +9559,7 @@ class AnonymousImplementationProvider(
     jsii_type="jsii-calc.AnonymousImplementationProvider",
 ):
     def __init__(self) -> None:
-        jsii.create(AnonymousImplementationProvider, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="provideAsClass")
     def provide_as_class(self) -> Implementation:
@@ -9573,7 +9573,7 @@ class AnonymousImplementationProvider(
 @jsii.implements(IBell)
 class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
     def __init__(self) -> None:
-        jsii.create(Bell, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="ring")
     def ring(self) -> None:
@@ -9635,7 +9635,7 @@ class ClassThatImplementsTheInternalInterface(
     jsii_type="jsii-calc.ClassThatImplementsTheInternalInterface",
 ):
     def __init__(self) -> None:
-        jsii.create(ClassThatImplementsTheInternalInterface, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="a")
@@ -9680,7 +9680,7 @@ class ClassThatImplementsThePrivateInterface(
     jsii_type="jsii-calc.ClassThatImplementsThePrivateInterface",
 ):
     def __init__(self) -> None:
-        jsii.create(ClassThatImplementsThePrivateInterface, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="a")
@@ -9848,7 +9848,7 @@ class InbetweenClass(
     jsii_type="jsii-calc.InbetweenClass",
 ):
     def __init__(self) -> None:
-        jsii.create(InbetweenClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="ciao")
     def ciao(self) -> builtins.str:
@@ -9864,7 +9864,7 @@ class JSII417Derived(
         '''
         :param property: -
         '''
-        jsii.create(JSII417Derived, self, [property])
+        jsii.create(self.__class__, self, [property])
 
     @jsii.member(jsii_name="bar")
     def bar(self) -> None:
@@ -9888,7 +9888,7 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
         '''
         :param operand: -
         '''
-        jsii.create(Negate, self, [operand])
+        jsii.create(self.__class__, self, [operand])
 
     @jsii.member(jsii_name="farewell")
     def farewell(self) -> builtins.str:
@@ -9951,7 +9951,7 @@ class SupportsNiceJavaBuilder(
         :param props: some props once can provide.
         :param rest: a variadic continuation.
         '''
-        jsii.create(SupportsNiceJavaBuilder, self, [id, default_bar, props, *rest])
+        jsii.create(self.__class__, self, [id, default_bar, props, *rest])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="id")
@@ -9968,7 +9968,7 @@ class SupportsNiceJavaBuilder(
 @jsii.implements(IFriendlyRandomGenerator)
 class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"):
     def __init__(self) -> None:
-        jsii.create(DoubleTrouble, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
@@ -10263,7 +10263,7 @@ class CompositeOperation(
     '''Abstract operation composed from an expression of other operations.'''
 
     def __init__(self) -> None:
-        jsii.create(CompositeOperation, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
@@ -10372,7 +10372,7 @@ class Base(
     jsii_type="jsii-calc.DerivedClassHasNoProperties.Base",
 ):
     def __init__(self) -> None:
-        jsii.create(Base, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="prop")
@@ -10390,7 +10390,7 @@ class Derived(
     jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived",
 ):
     def __init__(self) -> None:
-        jsii.create(Derived, self, [])
+        jsii.create(self.__class__, self, [])
 
 
 __all__ = [
@@ -10421,7 +10421,7 @@ class Foo(
     jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
 ):
     def __init__(self) -> None:
-        jsii.create(Foo, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="bar")
@@ -10552,7 +10552,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass")
         '''
         :param _: -
         '''
-        jsii.create(MyClass, self, [_])
+        jsii.create(self.__class__, self, [_])
 
     @jsii.member(jsii_name="bar") # type: ignore[misc]
     @builtins.classmethod
@@ -10649,7 +10649,7 @@ class ExtendAndImplement(
 
         :stability: deprecated
         '''
-        jsii.create(ExtendAndImplement, self, [very])
+        jsii.create(self.__class__, self, [very])
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
@@ -10710,7 +10710,7 @@ class MyClass(
     jsii_type="jsii-calc.module2689.methods.MyClass",
 ):
     def __init__(self) -> None:
-        jsii.create(MyClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="bar")
     def bar(
@@ -10757,7 +10757,7 @@ import scope.jsii_calc_lib
 
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2689.props.MyClass"):
     def __init__(self) -> None:
-        jsii.create(MyClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="bar")
@@ -10797,7 +10797,7 @@ import scope.jsii_calc_lib
 
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2689.retval.MyClass"):
     def __init__(self) -> None:
-        jsii.create(MyClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="bar")
     def bar(self) -> typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps]:
@@ -11115,7 +11115,7 @@ typing.cast(typing.Any, IFoo).__jsii_proxy_class__ = lambda : _IFooProxy
 @jsii.implements(IFoo)
 class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base"):
     def __init__(self) -> None:
-        jsii.create(Base, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="bar")
     def bar(self) -> builtins.str:
@@ -11130,7 +11130,7 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base"):
 @jsii.implements(IFoo)
 class Derived(Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Derived"):
     def __init__(self) -> None:
-        jsii.create(Derived, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="zoo")
     def zoo(self) -> builtins.str:
@@ -11169,7 +11169,7 @@ class Class1(
     jsii_type="jsii-calc.module2702.Class1",
 ):
     def __init__(self) -> None:
-        jsii.create(Class1, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="base")
     def base(self) -> None:
@@ -11182,7 +11182,7 @@ class Class2(
     jsii_type="jsii-calc.module2702.Class2",
 ):
     def __init__(self) -> None:
-        jsii.create(Class2, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="base")
@@ -11193,7 +11193,7 @@ class Class2(
 @jsii.implements(scope.jsii_calc_base.IBaseInterface)
 class Class3(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Class3"):
     def __init__(self) -> None:
-        jsii.create(Class3, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="bar")
     def bar(self) -> None:
@@ -11311,7 +11311,7 @@ typing.cast(typing.Any, IVpc).__jsii_proxy_class__ = lambda : _IVpcProxy
 @jsii.implements(IBaz)
 class Baz(Class3, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Baz"):
     def __init__(self) -> None:
-        jsii.create(Baz, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="bazMethod")
     def baz_method(self) -> None:
@@ -11321,7 +11321,7 @@ class Baz(Class3, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Baz")
 @jsii.implements(IConstruct)
 class Construct(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Construct"):
     def __init__(self) -> None:
-        jsii.create(Construct, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="constructMethod")
     def construct_method(self) -> None:
@@ -11335,7 +11335,7 @@ class Resource(
     jsii_type="jsii-calc.module2702.Resource",
 ):
     def __init__(self) -> None:
-        jsii.create(Resource, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="resourceMethod")
     def resource_method(self) -> None:
@@ -11352,7 +11352,7 @@ typing.cast(typing.Any, Resource).__jsii_proxy_class__ = lambda : _ResourceProxy
 @jsii.implements(IVpc)
 class Vpc(Resource, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Vpc"):
     def __init__(self) -> None:
-        jsii.create(Vpc, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="vpcMethod")
     def vpc_method(self) -> None:
@@ -11416,7 +11416,7 @@ class TypeFromSub1(
     jsii_type="jsii-calc.nodirect.sub1.TypeFromSub1",
 ):
     def __init__(self) -> None:
-        jsii.create(TypeFromSub1, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="sub1")
     def sub1(self) -> builtins.str:
@@ -11450,7 +11450,7 @@ class TypeFromSub2(
     jsii_type="jsii-calc.nodirect.sub2.TypeFromSub2",
 ):
     def __init__(self) -> None:
-        jsii.create(TypeFromSub2, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="sub2")
     def sub2(self) -> builtins.str:
@@ -11526,7 +11526,7 @@ class ClassWithSelf(
         '''
         :param self: -
         '''
-        jsii.create(ClassWithSelf, self_, [self])
+        jsii.create(self_.__class__, self_, [self])
 
     @jsii.member(jsii_name="method")
     def method(self_, self: jsii.Number) -> builtins.str:
@@ -11551,7 +11551,7 @@ class ClassWithSelfKwarg(
         '''
         props = StructWithSelf(self=self)
 
-        jsii.create(ClassWithSelfKwarg, self_, [props])
+        jsii.create(self_.__class__, self_, [props])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="props")
@@ -11698,7 +11698,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         '''
         props = _SomeStruct_91627123(prop=prop)
 
-        jsii.create(MyClass, self, [props])
+        jsii.create(self.__class__, self, [props])
 
     @jsii.member(jsii_name="methodWithSpecialParam")
     def method_with_special_param(self, *, value: builtins.str) -> builtins.str:
@@ -11839,7 +11839,7 @@ class InnerClass(
     jsii_type="jsii-calc.submodule.child.InnerClass",
 ):
     def __init__(self) -> None:
-        jsii.create(InnerClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.python.classproperty # type: ignore[misc]
     @jsii.member(jsii_name="staticProp")
@@ -11857,7 +11857,7 @@ class OuterClass(
     '''
 
     def __init__(self) -> None:
-        jsii.create(OuterClass, self, [])
+        jsii.create(self.__class__, self, [])
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="innerClass")
@@ -12216,7 +12216,7 @@ class ReturnsSpecialParameter(
     jsii_type="jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
 ):
     def __init__(self) -> None:
-        jsii.create(ReturnsSpecialParameter, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="returnsSpecialParam")
     def returns_special_param(self) -> _SpecialParameter_5bbf34a2:

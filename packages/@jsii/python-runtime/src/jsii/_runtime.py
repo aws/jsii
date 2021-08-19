@@ -68,6 +68,9 @@ class JSIIMeta(_ClassPropertyMeta, type):
         # will as well anyways.
         if jsii_type is not None:
             attrs["__jsii_type__"] = jsii_type
+        # The declared type should NOT be inherited by subclasses. This way we can identify whether
+        # an MRO entry corresponds to a possible overrides contributor or not.
+        attrs["__jsii_declared_type__"] = jsii_type
 
         obj = super().__new__(cls, name, bases, attrs)
 
