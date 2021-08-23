@@ -358,32 +358,11 @@ export interface Docs {
   default?: string;
 
   /**
-   * Hints provided to the compiler via TSDoc annotations.
-   */
-  hints?: TypeSystemHints;
-
-  /**
    * Custom tags that are not any of the default ones
    *
    * @default none
    */
   custom?: { [tag: string]: string };
-}
-
-/**
- * Type system hints applied to the documented entity.
- */
-export interface TypeSystemHints {
-  /**
-   * The `@struct` hint can be applied to interfaces, to ensure they are
-   * handled as structs, even if their name stats with a capital letter 'I',
-   * which would normally make them be considered as behavioral interfaces.
-   *
-   * This is only valid on `interface` declarations.
-   *
-   * @default false
-   */
-  struct?: boolean;
 }
 
 /**

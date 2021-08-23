@@ -152,6 +152,7 @@ function parseDocParts(
 ): DocsParsingResult {
   const diagnostics = new Array<string>();
   const docs: spec.Docs = {};
+  const hints: TypeSystemHints = {};
 
   [docs.summary, docs.remarks] = splitSummary(comments);
 
@@ -175,8 +176,7 @@ function parseDocParts(
   }
 
   if (eatTag(DocTag.STRUCT) != null) {
-    docs.hints = docs.hints ?? {};
-    docs.hints.struct = true;
+    hints.struct = true;
   }
 
   docs.default = eatTag(DocTag.DEFAULT, DocTag.DEFAULT_VALUE);
@@ -239,12 +239,21 @@ function parseDocParts(
     }
   }
 
-  return { docs, diagnostics };
+  return { docs, diagnostics, hints };
 }
 
 export interface DocsParsingResult {
   docs: spec.Docs;
+  hints: TypeSystemHints;
   diagnostics?: string[];
+}
+
+export interface TypeSystemHints {
+  /**
+   * Only present on interfaces. This indicates that interface must be handled as a struct/data type
+   * even through it's name starts with a capital letter `I`.
+   */
+  struct?: boolean;
 }
 
 /**
