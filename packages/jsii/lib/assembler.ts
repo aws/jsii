@@ -46,7 +46,7 @@ export class Assembler implements Emitter {
 
   private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
-  private _types: { [fqn: string]: spec.Type; } = {};
+  private _types: { [fqn: string]: spec.Type } = {};
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
@@ -420,12 +420,12 @@ export class Assembler implements Emitter {
     const tsFullName = this._typeChecker.getFullyQualifiedName(type.symbol);
     const tsName = singleValuedEnum
       ? // If it's a single-valued enum, we need to remove the last qualifier to get back to the enum.
-      tsFullName.replace(/\.[^.]+$/, '')
+        tsFullName.replace(/\.[^.]+$/, '')
       : tsFullName;
 
     let typeDeclaration = singleValuedEnum
       ? // If it's a single-valued enum, we need to move to the parent to have the enum declaration
-      type.symbol.valueDeclaration.parent
+        type.symbol.valueDeclaration.parent
       : type.symbol.valueDeclaration;
     if (!typeDeclaration && type.symbol.declarations.length > 0) {
       typeDeclaration = type.symbol.declarations[0];
@@ -627,8 +627,8 @@ export class Assembler implements Emitter {
       resolution.resolvedModule.resolvedFileName
         .split(path.sep)
         .filter((entry) => entry === 'node_modules').length !==
-      packageRoot.split(path.sep).filter((entry) => entry === 'node_modules')
-        .length
+        packageRoot.split(path.sep).filter((entry) => entry === 'node_modules')
+          .length
     ) {
       // External re-exports are "pure-javascript" sugar; they need not be
       // represented in the jsii Assembly since the types in there will be
@@ -675,7 +675,7 @@ export class Assembler implements Emitter {
       this: Assembler,
       sym: ts.Symbol,
       inlineNamespace = false,
-    ): Promise<{ fqn: string; fqnResolutionPrefix: string; }> {
+    ): Promise<{ fqn: string; fqnResolutionPrefix: string }> {
       if (this._submoduleMap.has(sym)) {
         const parent = this._submodules.get(this._submoduleMap.get(sym)!)!;
         const fqn = `${parent.fqn}.${sym.name}`;
@@ -1151,8 +1151,9 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(type.symbol);
 
-    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name
-      }`;
+    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
+      type.symbol.name
+    }`;
 
     const jsiiType: spec.ClassType = bindings.setClassRelatedNode(
       {
@@ -1331,8 +1332,8 @@ export class Assembler implements Emitter {
         const member: ts.Symbol = ts.isConstructorDeclaration(memberDecl)
           ? (memberDecl as any).symbol
           : this._typeChecker.getSymbolAtLocation(
-            ts.getNameOfDeclaration(memberDecl)!,
-          )!;
+              ts.getNameOfDeclaration(memberDecl)!,
+            )!;
 
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
@@ -1426,7 +1427,7 @@ export class Assembler implements Emitter {
             jsiiType.initializer.protected =
               (ts.getCombinedModifierFlags(ctorDeclaration) &
                 ts.ModifierFlags.Protected) !==
-              0 || undefined;
+                0 || undefined;
           }
         }
         this._verifyConsecutiveOptionals(
@@ -1682,8 +1683,9 @@ export class Assembler implements Emitter {
     const jsiiType: spec.EnumType = bindings.setEnumRelatedNode(
       {
         assembly: this.projectInfo.name,
-        fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${symbol.name
-          }`,
+        fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
+          symbol.name
+        }`,
         kind: spec.TypeKind.Enum,
         members: members.map((m) => {
           const { docs } = this._visitDocumentation(m.symbol, typeContext);
@@ -1729,9 +1731,12 @@ export class Assembler implements Emitter {
           _findHint(decl, 'struct')!,
           'struct',
           'interfaces with only readonly properties',
-        ).addRelatedInformation(
-          ts.getNameOfDeclaration(decl) ?? decl, 'The annotated declaration is here'
-        ).preformat(this.projectInfo.projectRoot),
+        )
+          .addRelatedInformation(
+            ts.getNameOfDeclaration(decl) ?? decl,
+            'The annotated declaration is here',
+          )
+          .preformat(this.projectInfo.projectRoot),
       );
       // Clean up the bad hint...
       delete (result.hints as any).struct;
@@ -1885,21 +1890,24 @@ export class Assembler implements Emitter {
           this._diagnostics.push(
             jsiiType.methods!.reduce(
               (diag, mthod) => {
-                let node = bindings.getMethodRelatedNode(mthod);
+                const node = bindings.getMethodRelatedNode(mthod);
                 return node
                   ? diag.addRelatedInformation(
-                    ts.getNameOfDeclaration(node) ?? node,
-                    `A method is declared here`,
-                  )
+                      ts.getNameOfDeclaration(node) ?? node,
+                      `A method is declared here`,
+                    )
                   : diag;
               },
               JsiiDiagnostic.JSII_7001_ILLEGAL_HINT.create(
                 _findHint(declaration, 'struct')!,
                 'struct',
                 'interfaces with only readonly properties',
-              ).addRelatedInformation(
-                ts.getNameOfDeclaration(declaration) ?? declaration, 'The annotated declartion is here'
-              ).preformat(this.projectInfo.projectRoot),
+              )
+                .addRelatedInformation(
+                  ts.getNameOfDeclaration(declaration) ?? declaration,
+                  'The annotated declartion is here',
+                )
+                .preformat(this.projectInfo.projectRoot),
             ),
           );
         }
@@ -3239,8 +3247,14 @@ function _nameOrDeclarationNode(symbol: ts.Symbol): ts.Node {
   return ts.getNameOfDeclaration(declaration) ?? declaration;
 }
 
-function _findHint(decl: ts.Declaration, hint: string): ts.JSDocTag | undefined {
-  const [node] = ts.getAllJSDocTags(decl, (tag): tag is ts.JSDocTag => tag.tagName.text === hint);
+function _findHint(
+  decl: ts.Declaration,
+  hint: string,
+): ts.JSDocTag | undefined {
+  const [node] = ts.getAllJSDocTags(
+    decl,
+    (tag): tag is ts.JSDocTag => tag.tagName.text === hint,
+  );
   return node;
 }
 

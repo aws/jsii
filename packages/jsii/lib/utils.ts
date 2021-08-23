@@ -78,7 +78,7 @@ export function formatDiagnostic(
  *
  * @returns a formatted string.
  */
- export function _formatDiagnostic(
+export function _formatDiagnostic(
   diagnostic: ts.Diagnostic,
   projectRoot: string,
 ) {

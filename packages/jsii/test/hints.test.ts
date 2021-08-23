@@ -1,4 +1,5 @@
 import { InterfaceType, TypeKind } from '@jsii/spec';
+
 import { sourceToAssemblyHelper } from '../lib';
 
 describe('@struct', () => {
@@ -11,7 +12,9 @@ describe('@struct', () => {
     `);
 
     expect(assembly.types!['testpkg.IPSet'].kind).toBe(TypeKind.Interface);
-    expect((assembly.types!['testpkg.IPSet'] as InterfaceType).datatype).toBe(true);
+    expect((assembly.types!['testpkg.IPSet'] as InterfaceType).datatype).toBe(
+      true,
+    );
   });
 
   test('can be used on any struct', async () => {
@@ -23,6 +26,8 @@ describe('@struct', () => {
     `);
 
     expect(assembly.types!['testpkg.Struct'].kind).toBe(TypeKind.Interface);
-    expect((assembly.types!['testpkg.Struct'] as InterfaceType).datatype).toBe(true);
+    expect((assembly.types!['testpkg.Struct'] as InterfaceType).datatype).toBe(
+      true,
+    );
   });
 });

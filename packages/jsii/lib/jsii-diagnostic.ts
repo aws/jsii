@@ -1,8 +1,8 @@
 import * as spec from '@jsii/spec';
 import { camel, constant as allCaps, pascal } from 'case';
 import * as ts from 'typescript';
-import { TypeSystemHints } from './docs';
 
+import { TypeSystemHints } from './docs';
 import { JSII_DIAGNOSTICS_CODE, _formatDiagnostic } from './utils';
 
 /**
@@ -629,7 +629,9 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public static readonly JSII_7001_ILLEGAL_HINT = Code.error({
     code: 7001,
     formatter: (hint: keyof TypeSystemHints, ...valid: readonly string[]) =>
-      `Illegal use of "@${hint}" hint. It is only valid on ${valid.join(', ')}.`,
+      `Illegal use of "@${hint}" hint. It is only valid on ${valid.join(
+        ', ',
+      )}.`,
     name: 'documentation/illegal-hint',
   });
 
@@ -797,6 +799,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public readonly relatedInformation =
     new Array<ts.DiagnosticRelatedInformation>();
 
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   #formatted?: string;
 
   /**
