@@ -86,6 +86,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://aws.github.io/jsii/user-guides/lib-author/hints/</loc>
+         <lastmod>2021-08-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/typescript-restrictions/</loc>
          <lastmod>2021-08-24</lastmod>
          <changefreq>daily</changefreq>

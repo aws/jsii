@@ -738,18 +738,30 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../hints/" class="md-nav__link">
+        Type system hints
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" data-md-state="indeterminate" type="checkbox" id="__nav_2_2_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_6" data-md-state="indeterminate" type="checkbox" id="__nav_2_2_6" checked>
       
-      <label class="md-nav__link" for="__nav_2_2_5">
+      <label class="md-nav__link" for="__nav_2_2_6">
         Toolchain
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Toolchain" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_2_5">
+        <label class="md-nav__title" for="__nav_2_2_6">
           <span class="md-nav__icon md-icon"></span>
           Toolchain
         </label>
@@ -1248,6 +1260,11 @@ existing <strong>.NET</strong> consumers when a conflicting member is introduced
 </ul>
 <p>A name convention is used to distinguish between these two: <em>behavioral interfaces</em> must have a name that starts with a
 <code>I</code> prefix, while <em>structs</em> must not have such a prefix.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The <a href="../hints/#forcing-an-interface-to-be-considered-a-struct"><code>/** @struct */</code> type system hint</a> can be used to force an <em>interface</em> with a name starting with the <code>I</code>
+prefix to be handled as a <em>struct</em> instead of a <em>behavioral interface</em>.</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
 <span class="cm"> * Since there is no `I` prefix, Foo is considered to be a struct.</span>
 <span class="cm"> */</span>
@@ -1650,7 +1667,7 @@ a declaration is named after any target language's <em>reserved words</em>, as t
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-08-25
+      Last update: 2021-08-24
     
   </small>
 </div>

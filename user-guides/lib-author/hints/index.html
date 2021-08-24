@@ -11,14 +11,14 @@
       
       
       
-        <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/configuration/">
+        <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/hints/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
-        <title>Overview - The jsii reference</title>
+        <title>Type system hints - The jsii reference</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#type-system-hints" class="md-skip">
           Skip to content
         </a>
       
@@ -93,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              Type system hints
             
           </span>
         </div>
@@ -515,14 +515,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" data-md-state="indeterminate" type="checkbox" id="__nav_2_2_4" checked>
       
       <label class="md-nav__link" for="__nav_2_2_4">
         Configuration
@@ -538,187 +536,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Overview
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
         Overview
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#jsii-config" class="md-nav__link">
-    jsii-config
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-requirements-extensions" class="md-nav__link">
-    Additional Requirements &amp; Extensions
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional Requirements &amp; Extensions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#attribution-licensing" class="md-nav__link">
-    Attribution &amp; Licensing
-  </a>
-  
-    <nav class="md-nav" aria-label="Attribution &amp; Licensing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#important-license-information" class="md-nav__link">
-    Important License Information
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#source-control-information" class="md-nav__link">
-    Source Control Information
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#library-entry-point" class="md-nav__link">
-    Library Entry Point
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#package-level-api-stability" class="md-nav__link">
-    Package-level API Stability
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-jsii-section" class="md-nav__link">
-    The jsii section
-  </a>
-  
-    <nav class="md-nav" aria-label="The jsii section">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#excludetypescript" class="md-nav__link">
-    excludeTypescript
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#metadata" class="md-nav__link">
-    metadata
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#targets" class="md-nav__link">
-    targets
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tsc" class="md-nav__link">
-    tsc
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#versionformat" class="md-nav__link">
-    versionFormat
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#diagnostics" class="md-nav__link">
-    Diagnostics
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dependency-considerations" class="md-nav__link">
-    Dependency considerations
-  </a>
-  
-    <nav class="md-nav" aria-label="Dependency considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dependencies-that-are-jsii-modules" class="md-nav__link">
-    Dependencies that are jsii modules
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependencies-that-are-not-jsii-modules" class="md-nav__link">
-    Dependencies that are not jsii modules
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -749,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="targets/dotnet/" class="md-nav__link">
+      <a href="../configuration/targets/dotnet/" class="md-nav__link">
         .NET
       </a>
     </li>
@@ -761,7 +583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="targets/go/" class="md-nav__link">
+      <a href="../configuration/targets/go/" class="md-nav__link">
         Go
       </a>
     </li>
@@ -773,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="targets/java/" class="md-nav__link">
+      <a href="../configuration/targets/java/" class="md-nav__link">
         Java
       </a>
     </li>
@@ -785,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="targets/python/" class="md-nav__link">
+      <a href="../configuration/targets/python/" class="md-nav__link">
         Python
       </a>
     </li>
@@ -807,11 +629,51 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../hints/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Type system hints
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Type system hints
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#forcing-an-interface-to-be-considered-a-struct" class="md-nav__link">
+    Forcing an interface to be considered a struct
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1190,145 +1052,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#jsii-config" class="md-nav__link">
-    jsii-config
+  <a href="#forcing-an-interface-to-be-considered-a-struct" class="md-nav__link">
+    Forcing an interface to be considered a struct
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-requirements-extensions" class="md-nav__link">
-    Additional Requirements &amp; Extensions
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional Requirements &amp; Extensions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#attribution-licensing" class="md-nav__link">
-    Attribution &amp; Licensing
-  </a>
-  
-    <nav class="md-nav" aria-label="Attribution &amp; Licensing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#important-license-information" class="md-nav__link">
-    Important License Information
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#source-control-information" class="md-nav__link">
-    Source Control Information
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#library-entry-point" class="md-nav__link">
-    Library Entry Point
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#package-level-api-stability" class="md-nav__link">
-    Package-level API Stability
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-jsii-section" class="md-nav__link">
-    The jsii section
-  </a>
-  
-    <nav class="md-nav" aria-label="The jsii section">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#excludetypescript" class="md-nav__link">
-    excludeTypescript
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#metadata" class="md-nav__link">
-    metadata
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#targets" class="md-nav__link">
-    targets
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tsc" class="md-nav__link">
-    tsc
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#versionformat" class="md-nav__link">
-    versionFormat
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#diagnostics" class="md-nav__link">
-    Diagnostics
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dependency-considerations" class="md-nav__link">
-    Dependency considerations
-  </a>
-  
-    <nav class="md-nav" aria-label="Dependency considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dependencies-that-are-jsii-modules" class="md-nav__link">
-    Dependencies that are jsii modules
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependencies-that-are-not-jsii-modules" class="md-nav__link">
-    Dependencies that are not jsii modules
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1344,270 +1070,31 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/user-guides/lib-author/configuration/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/user-guides/lib-author/hints.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="overview">Overview</h1>
-<p>The configuration for <code>jsii</code> is recorded in the <code>package.json</code> file, which is the standard package manifest for NPM
-packages. This document describes the constraints and extensions <code>jsii</code> adds to the <a href="https://docs.npmjs.com/files/package.json">package.json schema</a>.</p>
-<h2 id="jsii-config">jsii-config</h2>
-<p>Use <a href="https://github.com/aws/jsii/tree/main/packages/jsii-config">jsii-config</a> to aid in configuring a new jsii module.</p>
-<h2 id="additional-requirements-extensions">Additional Requirements &amp; Extensions</h2>
-<p>In order to be able to generate valid packages for all the supported target package managers, certain fields that are
-optional in the standard <a href="https://docs.npmjs.com/files/package.json">package.json schema</a> are required by <code>jsii</code>.</p>
-<p>For example, Maven Central requires packages to carry <a href="https://central.sonatype.org/pages/requirements.html#sufficient-metadata">sufficient metadata</a>, such as <em>developer information</em> and
-<em>license</em>, in order to be valid for publishing.</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th align="center">Required</th>
-<th>Extensions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>author</code></td>
-<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/></svg></span></td>
-<td><code>author.organization</code></td>
-</tr>
-<tr>
-<td><code>license</code></td>
-<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/></svg></span></td>
-<td></td>
-</tr>
-<tr>
-<td><code>main</code></td>
-<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/></svg></span></td>
-<td></td>
-</tr>
-<tr>
-<td><code>repository</code></td>
-<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/></svg></span></td>
-<td></td>
-</tr>
-<tr>
-<td><code>stability</code></td>
-<td align="center"></td>
-<td>The field itself is an extension</td>
-</tr>
-<tr>
-<td><code>types</code></td>
-<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/></svg></span></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="attribution-licensing">Attribution &amp; Licensing</h3>
-<ul>
-<li>The <a href="https://docs.npmjs.com/files/package.json#people-fields-author-contributors"><code>author</code></a> field must be set. Although the string form
-  (<code>"The Octocat &lt;octocat@github.com&gt; (https://github.com/octocat)"</code>) works, it is recommended to set the value using
-  the <code>object</code> format:
-  <div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="c1">// ...</span>
-  <span class="s2">&quot;author&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;The Octocat&quot;</span><span class="p">,</span>                <span class="c1">// Required</span>
-    <span class="s2">&quot;email&quot;</span><span class="o">:</span> <span class="s2">&quot;octocat@github.com&quot;</span><span class="p">,</span>        <span class="c1">// Optional</span>
-    <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://github.com/octocat&quot;</span><span class="p">,</span>  <span class="c1">// Optional</span>
-    <span class="s2">&quot;organization&quot;</span><span class="o">:</span> <span class="kc">false</span>                 <span class="c1">// Optional (defaults to false)</span>
-  <span class="p">},</span>
-  <span class="c1">// ...</span>
+                <h1 id="type-system-hints">Type system hints</h1>
+<p>The <code>jsii</code> compiler interprets some documentation tags as hints that influence
+the type system represented in the <code>.jsii</code> assembly files.</p>
+<h2 id="forcing-an-interface-to-be-considered-a-struct">Forcing an interface to be considered a <em>struct</em></h2>
+<p>Using the <code>@struct</code> tag, an interface will be interpreted as a
+<a href="../../../specification/2-type-system/#structs"><em>struct</em></a> even if its name starts with a capital <code>I</code>, followed by
+another capital letter (which normally would make them be treated as
+<a href="../../../specification/2-type-system/#behavioral-interfaces"><em>behavioral interfaces</em></a>):</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @struct</span>
+<span class="cm"> */</span>
+<span class="k">export</span> <span class="kd">interface</span> <span class="nx">IPRange</span> <span class="p">{</span>
+  <span class="k">readonly</span> <span class="nx">cidr</span>: <span class="kt">string</span><span class="o">:</span>
 <span class="p">}</span>
 </code></pre></div>
-  The <code>organization</code> field is an extension from the <a href="https://docs.npmjs.com/files/package.json">package.json schema</a> that can be used to signal the <code>author</code> field
-  refers to an <code>organization</code> and not and individual person.</li>
-<li>The <a href="https://docs.npmjs.com/cli/v6/configuring-npm/package-json#license"><code>license</code></a> field must be set to a valid <a href="https://spdx.org/licenses/">SPDX license id</a>. If you do not intend to release your
-  package for third-party consumption, <code>UNLICENSED</code> (not to be confused with <code>Unlicense</code>) is a valid option.</li>
-</ul>
-<h4 id="important-license-information">Important License Information</h4>
-<p>You are free to decide which license you want to distribute your code under. The bindings generated by <code>jsii-pacmak</code>
-will use the exact same license as the source <strong>TypeScript</strong> library they were based on. You are responsible for
-correctly applying your chosen license to your work (most licenses have documentations outlining how to correctly apply
-the license), and for complying with the terms of the licenses of packages your work depends on (this is particularly
-important when dependencies are bundled, as discussed later in this section).</p>
-<p>In addition to the <code>license</code> field present in the <code>package.json</code> file, we stronly recommend adding a <code>LICENSE</code> file in
-the package's root directory which contains the standardized text for the license (those can be found on the
-<a href="https://spdx.org/licenses/">SPDX website</a>).</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Unless you know exactly what you are doing, you should copy the license text <strong>verbatim</strong> in the <code>LICENSE</code> file.
-Many organizations have license scanners that will only recognize the standard license text, and editing that may
-cause undesired friction before users in those organizations can use your library, and may void your license choice.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <code>@struct</code> hint can only be used on interface declarations. Attempting to
+use them on any other declaration will result in a compilation error.</p>
 </div>
-<p>A <code>NOTICE</code> file is often desirable. In particular, if you are developing the library as part of your employment, you
-should ask your employer's legal team (or equivalent) for specific instructions.</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>If your library includes bundled dependencies (via the <a href="https://docs.npmjs.com/files/package.json#bundleddependencies"><code>bundledDependencies</code>/<code>bundleDependencies</code></a> key
-in the <code>package.json</code> file), you are required to comply with those dependencies' licenses provisions pertaining to
-re-distribution. This often means providing attribution to these in your <code>NOTICE</code> file, among other requirements.</p>
-</div>
-<p>The <code>LICENSE</code> and <code>NOTICE</code> files, when present, will be copied into generated binding's source code. If no <code>LICENSE</code>
-file exists in the source package, the standard SPDX license text will be produced into a <code>LICENSE</code> file in generated
-bindings whenever possible.</p>
-<h3 id="source-control-information">Source Control Information</h3>
-<p>The <a href="https://docs.npmjs.com/files/package.json#repository"><code>repository</code></a> field must be set to the URL of the source-control system (such as a <code>git</code>
-repository) for the package. The recommended way to provide the value is using the <code>object</code> representation:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;repository&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://github.com/aws/jsii.git&quot;</span><span class="p">,</span> <span class="c1">// Required</span>
-    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>                            <span class="c1">// Recommended</span>
-    <span class="s2">&quot;directory&quot;</span><span class="o">:</span> <span class="s2">&quot;/path&quot;</span>                      <span class="c1">// Optional</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="library-entry-point">Library Entry Point</h3>
-<p>Both the <a href="https://docs.npmjs.com/files/package.json#main"><code>main</code></a> field must be set to the <code>.js</code> file that acts as the entry point of your library (what
-node's <code>require('library-name')</code> will load). Additionally, <code>TypeScript</code>'s <a href="https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html#including-declarations-in-your-npm-package"><code>types</code></a> field must be set to the
-<code>.d.ts</code> file corresponding to the <code>main</code> file. The assembly emitted by <code>jsii</code> will only represent types that are
-exported from the <code>types</code> file.</p>
-<h3 id="package-level-api-stability">Package-level API Stability</h3>
-<p>The <a href="../../language-support/assembly/"><code>.jsii</code> assembly document</a> allows representing API stability levels on
-individual API elements. The default value set for API elements for which a stability declaration is not found can be
-configured using the <code>stability</code> field of the <code>package.json</code> file. It can be set to one of the following values:
-<code>experimental</code>, <code>stable</code>, <code>deprecated</code> and <code>external</code>. While the exact semantic value of those fields is defined by the
-package maintainer, the generic interpretation for those on packages is:</p>
-<ul>
-<li><code>experimental</code> - the package is not yet ready for production usage, as it is still in the early stages of its
-  development.</li>
-<li><code>stable</code> - the package is ready for production and its APIs should be expected to adhere to <a href="https://semver.org">semantic versioning</a>.</li>
-<li><code>deprecated</code> - the package should no longer be used and may no longer be maintained. It is a good practice to set the
-  <code>deprecated</code> field in <code>package.json</code> with an explanation of how consumers of the package should update their
-  dependencies.</li>
-<li><code>external</code> - the package includes APIs that are derived from external artifacts, and the owners of those artifacts
-  control their stability.</li>
-</ul>
-<h2 id="the-jsii-section">The <code>jsii</code> section</h2>
-<p>In order to configure the behavior of <code>jsii</code>, the <code>package.json</code> file must include a <code>jsii</code> section that can contain the
-following entries:</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th align="center">Required</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>excludeTypescript</code></td>
-<td><code class="highlight"><span class="kt">string</span><span class="p">[]</span></code></td>
-<td align="center"></td>
-<td><em>none</em></td>
-</tr>
-<tr>
-<td><code>metadata</code></td>
-<td><code class="highlight"><span class="nx">object</span></code></td>
-<td align="center"></td>
-<td><em>none</em></td>
-</tr>
-<tr>
-<td><code>projectReferences</code></td>
-<td><code class="highlight"><span class="kt">boolean</span></code></td>
-<td align="center"></td>
-<td><code class="highlight"><span class="kc">true</span></code></td>
-</tr>
-<tr>
-<td><code>targets</code></td>
-<td><code class="highlight"><span class="nx">object</span></code></td>
-<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/></svg></span></td>
-<td></td>
-</tr>
-<tr>
-<td><code>tsc</code></td>
-<td><code class="highlight"><span class="nx">object</span></code></td>
-<td align="center"></td>
-<td><code class="highlight"><span class="p">{</span> <span class="nx">outDir</span><span class="o">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="nx">rootDir</span><span class="o">:</span> <span class="s1">&#39;.&#39;</span> <span class="p">}</span></code></td>
-</tr>
-<tr>
-<td><code>versionFormat</code></td>
-<td><code class="highlight"><span class="s1">&#39;short&#39;</span> <span class="o">|</span> <span class="s1">&#39;full&#39;</span></code></td>
-<td align="center"></td>
-<td><code class="highlight"><span class="s1">&#39;full&#39;</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="excludetypescript"><code>excludeTypescript</code></h3>
-<p>By default, <code>jsii</code> will include <em>all</em> <code>*.ts</code> files (except <code>.d.ts</code> files) in the <code>TypeScript</code> compiler input. This can
-be problematic for example when the package's build or test procedure generates <code>.ts</code> files that cannot be compiled with
-<code>jsii</code>'s compiler settings.</p>
-<p>The <code>excludeTypescript</code> configuration accepts a list of glob patterns. Files matching any of those patterns will be
-excluded from the <code>TypeScript</code> compiler input.</p>
-<h3 id="metadata"><code>metadata</code></h3>
-<p>The <code>metadata</code> section can be used to record additional metadata as key-value pairs that will be recorded as-is into the
-<code>.jsii</code> assembly file. That metadata can later be inspected using <a href="https://github.com/aws/jsii/tree/main/packages/jsii-reflect"><code>jsii-reflect</code></a> utilities, for example.</p>
-<h3 id="targets"><code>targets</code></h3>
-<p>The <code>targets</code> section is where <code>jsii</code> packages define which target languages they support. This provides the package
-generators with the additional information they require in order to name generated artifacts. Configuration is provided
-as a mapping from target name to a configuration object.</p>
-<p>The specific configuration accepted for each supported language is presented in dedicated pages:</p>
-<ul>
-<li><a href="targets/dotnet/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M0 3.75A.75.75 0 0 1 .75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.496 4.496 0 0 1 15.75 3h7.5a.75.75 0 0 1 .75.75v15.063a.75.75 0 0 1-.755.75l-7.682-.052a3 3 0 0 0-2.142.878l-.89.891a.75.75 0 0 1-1.061 0l-.902-.901a3 3 0 0 0-2.121-.879H.75a.75.75 0 0 1-.75-.75v-15zm11.247 3.747a3 3 0 0 0-3-2.997H1.5V18h6.947a4.5 4.5 0 0 1 2.803.98l-.003-11.483zm1.503 11.485V7.5a3 3 0 0 1 3-3h6.75v13.558l-6.927-.047a4.5 4.5 0 0 0-2.823.971z"/></svg></span> .NET Target</a></li>
-<li><a href="targets/go/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M0 3.75A.75.75 0 0 1 .75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.496 4.496 0 0 1 15.75 3h7.5a.75.75 0 0 1 .75.75v15.063a.75.75 0 0 1-.755.75l-7.682-.052a3 3 0 0 0-2.142.878l-.89.891a.75.75 0 0 1-1.061 0l-.902-.901a3 3 0 0 0-2.121-.879H.75a.75.75 0 0 1-.75-.75v-15zm11.247 3.747a3 3 0 0 0-3-2.997H1.5V18h6.947a4.5 4.5 0 0 1 2.803.98l-.003-11.483zm1.503 11.485V7.5a3 3 0 0 1 3-3h6.75v13.558l-6.927-.047a4.5 4.5 0 0 0-2.823.971z"/></svg></span> Go Target</a></li>
-<li><a href="targets/java/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M0 3.75A.75.75 0 0 1 .75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.496 4.496 0 0 1 15.75 3h7.5a.75.75 0 0 1 .75.75v15.063a.75.75 0 0 1-.755.75l-7.682-.052a3 3 0 0 0-2.142.878l-.89.891a.75.75 0 0 1-1.061 0l-.902-.901a3 3 0 0 0-2.121-.879H.75a.75.75 0 0 1-.75-.75v-15zm11.247 3.747a3 3 0 0 0-3-2.997H1.5V18h6.947a4.5 4.5 0 0 1 2.803.98l-.003-11.483zm1.503 11.485V7.5a3 3 0 0 1 3-3h6.75v13.558l-6.927-.047a4.5 4.5 0 0 0-2.823.971z"/></svg></span> Java Target</a></li>
-<li><a href="targets/python/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M0 3.75A.75.75 0 0 1 .75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.496 4.496 0 0 1 15.75 3h7.5a.75.75 0 0 1 .75.75v15.063a.75.75 0 0 1-.755.75l-7.682-.052a3 3 0 0 0-2.142.878l-.89.891a.75.75 0 0 1-1.061 0l-.902-.901a3 3 0 0 0-2.121-.879H.75a.75.75 0 0 1-.75-.75v-15zm11.247 3.747a3 3 0 0 0-3-2.997H1.5V18h6.947a4.5 4.5 0 0 1 2.803.98l-.003-11.483zm1.503 11.485V7.5a3 3 0 0 1 3-3h6.75v13.558l-6.927-.047a4.5 4.5 0 0 0-2.823.971z"/></svg></span> Python Target</a></li>
-</ul>
-<h3 id="tsc"><code>tsc</code></h3>
-<p>In order to the generated <code>javascript</code> can be properly loaded by the <code>jsii</code> runtimes, <code>jsii</code> generates a
-[<code>tsconfig.json</code>] file with fixed settings at the beginning of the compilation pass. Certain configuration options can
-however be set by the maintainers in order to better suit their development workflow or processes. Those configuration
-are set in the <code>jsii.tsc</code> section of the <code>package.json</code> file, but use the same name as [<code>tsconfig.json</code>]:</p>
-<ul>
-<li><code>outDir</code> - path to the directory when artifacts generated by the <code>TypeScript</code> compiler will be placed.</li>
-<li>This influences the location of <code>.d.ts</code> and <code>.js</code> files, but will not affect the location of the <code>.jsii</code> file, which
-    will <em>always</em> be placed at the package's root.</li>
-<li><code>rootDir</code> - specifies the root directory that contains all of the <code>.ts</code> source files. This is used in conjunction with
-  <code>outDir</code>, to control the directory structure that gets generated.</li>
-</ul>
-<p>Refer to the <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">TypeScript compiler options reference</a> for more information about those options.</p>
-<h3 id="versionformat"><code>versionFormat</code></h3>
-<p>Determines the format of the <code>jsii</code> toolchain version string that will be included in the <code>.jsii</code> assembly file's
-<code>jsiiVersion</code> attribute.</p>
-<ul>
-<li><code>full</code> (the default) - a version number including a commit hash will be used</li>
-<li>For example: <code>0.14.3 (build 1b1062d)</code></li>
-<li><code>short</code> - only the version number of <code>jsii</code> will be used</li>
-<li>For example: <code>0.14.3</code></li>
-</ul>
-<p>This option is primarily useful for developing regression tests when developing <code>jsii</code> itself, as using the <code>short</code>
-format reduces volatility in the assemblies generated by development versions of <code>jsii</code>. Users of <code>jsii</code> are advised to
-leave the default setting, as having full version information can be essential when trying to troubleshoot assembly
-generation problems.</p>
-<h3 id="diagnostics">Diagnostics</h3>
-<p>JSII produces a number of diagnostic information. These have been categorized into "error", "warning", "suggestion" and
-"message", by default. Diagnostics categorized as "error" will fail the jsii compiler and the rest will be printed to
-console.</p>
-<p>These can be re-configured to a different category under the <code>diagnostics</code> key as so -</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;jsii&quot;</span><span class="p">:</span> <span class="p">{</span>
-  <span class="err">//</span> <span class="err">...</span>
-  <span class="nt">&quot;diagnostics&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;documentation/non-existent-parameter&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;code-style/submodule-name-casing&quot;</span><span class="p">:</span> <span class="s2">&quot;suggestion&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;JSII9998&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;JSII9001&quot;</span><span class="p">:</span> <span class="s2">&quot;warning&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>As noted in the example above, the diagnostic code can be the human readable string, or the numeric code prefixed with
-<code>JSII</code>.</p>
-<p>The full list of diagnostic codes can be found in
-<a href="https://github.com/aws/jsii/tree/main/packages/jsii/lib/jsii-diagnostic.ts"><code>jsii-diagnostic.ts</code></a>.</p>
-<h2 id="dependency-considerations">Dependency considerations</h2>
-<p>Like any node library, <code>jsii</code> packages can declare runtime dependencies using the <a href="https://docs.npmjs.com/files/package.json#dependencies"><code>dependencies</code></a> section of
-<code>package.json</code>.</p>
-<h3 id="dependencies-that-are-jsii-modules">Dependencies that are <code>jsii</code> modules</h3>
-<p>Node modules are conventionally versioned using <a href="https://semver.org">semantic versioning</a>, but that is not true of all package managers that
-<code>jsii</code> is able to target. Additionally, only one version of the <code>jsii</code> runtime and kernel can be used within a given
-application. In order to avoid version resolution surprises at run-time, <code>jsii</code> requires duplicating <code>jsii</code> modules
-declarations from <a href="https://docs.npmjs.com/files/package.json#dependencies"><code>dependencies</code></a> into the <a href="https://docs.npmjs.com/files/package.json#peerdependencies"><code>peerDependencies</code></a> section.</p>
-<h3 id="dependencies-that-are-not-jsii-modules">Dependencies that are not <code>jsii</code> modules</h3>
-<p>The <code>jsii</code> runtimes in non-<strong>javascript</strong> languages do not use <code>npm install</code>, and as a consequence cannot rely on
-<code>npm install</code> bringing in a package's dependencies. As a consequence, dependencies that are not themselves <code>jsii</code>
-modules, <strong>must</strong> also be referenced in the <a href="https://docs.npmjs.com/files/package.json#bundleddependencies"><code>bundledDependencies</code></a> section, so that they are bundled
-within the NPM package.</p>
                 
                   
                     
@@ -1640,7 +1127,7 @@ within the NPM package.</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../typescript-restrictions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: TypeScript Restrictions" rel="prev">
+        <a href="../configuration/targets/python/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1649,20 +1136,20 @@ within the NPM package.</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              TypeScript Restrictions
+              Python
             </div>
           </div>
         </a>
       
       
         
-        <a href="targets/dotnet/" class="md-footer__link md-footer__link--next" aria-label="Next: .NET" rel="next">
+        <a href="../toolchain/jsii/" class="md-footer__link md-footer__link--next" aria-label="Next: jsii" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              .NET
+              jsii
             </div>
           </div>
           <div class="md-footer__button md-icon">
