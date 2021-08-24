@@ -2533,7 +2533,7 @@ from ._jsii import *
 
 class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
     def __init__(self) -> None:
-        jsii.create(Namespace1, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="foo")
     def foo(self) -> None:
@@ -2600,7 +2600,7 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
 
 class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
     def __init__(self) -> None:
-        jsii.create(Namespace2, self, [])
+        jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="foo")
     def foo(self) -> None:
@@ -2612,7 +2612,7 @@ class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
         BAZ = "BAZ"
         class Final(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2.Foo.Final"):
             def __init__(self) -> None:
-                jsii.create(Final, self, [])
+                jsii.create(self.__class__, self, [])
 
             @builtins.property # type: ignore[misc]
             @jsii.member(jsii_name="done")
