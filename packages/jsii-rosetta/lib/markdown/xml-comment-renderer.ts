@@ -8,7 +8,7 @@ const ESCAPE = makeXmlEscaper();
 
 // The types for 'xmldom' are not complete.
 /* eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports */
-const { DOMParser, XMLSerializer } = require('xmldom');
+const { DOMParser, XMLSerializer } = require('@xmldom/xmldom');
 
 /**
  * A renderer that will render a CommonMark tree to .NET XML comments
