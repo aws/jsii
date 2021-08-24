@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/specification/3-kernel-api/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.0">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -22,10 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.fe914879.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -1483,7 +1483,7 @@ the <code>@jsii/kernel</code> API, used to refer to a particular instance):</p>
 
 <span class="kd">interface</span> <span class="nx">CreateResponse</span> <span class="k">extends</span> <span class="nx">ObjectReference</span> <span class="p">{</span>
   <span class="cm">/** The list of interfaces implemented by the instance */</span>
-  <span class="s1">&#39;$jsii.interfaces&#39;</span><span class="o">?:</span> <span class="kt">string</span><span class="p">[];</span>
+  <span class="s1">&#39;$jsii.interfaces&#39;</span><span class="nx">?</span>: <span class="kt">string</span><span class="p">[];</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The value of the <code>'$jsii.byref'</code> field of the <code>ObjectReference</code> type is formatted in the following way:</p>
@@ -1530,7 +1530,7 @@ otherwise be prohibitively expensive.</p>
   <span class="nx">cookie?</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">type</span> <span class="nx">Override</span> <span class="o">=</span> <span class="nx">MethodOverride</span> <span class="o">|</span> <span class="nx">PropertyOverride</span><span class="p">;</span>
+<span class="kr">type</span> <span class="nx">Override</span> <span class="o">=</span> <span class="nx">MethodOverride</span> <span class="o">|</span> <span class="nx">PropertyOverride</span><span class="p">;</span>
 </code></pre></div>
 <h4 id="a-note-about-callbacks">A note about callbacks</h4>
 <p>All <code>@jsii/runtime</code> calls that interact with object instances (that is, any call except for <code>load</code>, <code>naming</code> and
@@ -1571,7 +1571,7 @@ execution of which will resume once the callback response is provided.</p>
   <span class="nx">value</span>: <span class="kt">any</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">type</span> <span class="nx">Callback</span> <span class="o">=</span> <span class="nx">InvokeCallback</span> <span class="o">|</span> <span class="nx">GetCallback</span> <span class="o">|</span> <span class="nx">SetCallback</span><span class="p">;</span>
+<span class="kr">type</span> <span class="nx">Callback</span> <span class="o">=</span> <span class="nx">InvokeCallback</span> <span class="o">|</span> <span class="nx">GetCallback</span> <span class="o">|</span> <span class="nx">SetCallback</span><span class="p">;</span>
 </code></pre></div>
 <p>In order to fulfill the callback request, the <em>host</em> app may need to perform futher API calls (loading new assemblies,
 creating new instances, invoking methods - including delegating to the <code>super</code> implementation, ...). Such calls will
@@ -1596,7 +1596,7 @@ process by using the <code>complete</code> call:</p>
   <span class="nx">err</span>: <span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">type</span> <span class="nx">CompleteRequest</span> <span class="o">=</span> <span class="nx">CallbackSuccess</span> <span class="o">|</span> <span class="nx">CallbackFailure</span><span class="p">;</span>
+<span class="kr">type</span> <span class="nx">CompleteRequest</span> <span class="o">=</span> <span class="nx">CallbackSuccess</span> <span class="o">|</span> <span class="nx">CallbackFailure</span><span class="p">;</span>
 </code></pre></div>
 <p>As discussed earlier, the response to the <code>complete</code> call is the result of resuming execution of the code path that
 triggered the callback request. This may be another callback request, or the final result of that call.</p>
@@ -1801,7 +1801,7 @@ instead:</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-07-22
+      Last update: 2021-08-25
     
   </small>
 </div>
@@ -1890,10 +1890,10 @@ instead:</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>

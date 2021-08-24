@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/typescript-restrictions/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.0">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -22,10 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe914879.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -1231,7 +1231,7 @@ in invalid <strong>C#</strong> code:</p>
 
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">Bar</span> <span class="p">{</span>
 <span class="hll">  <span class="c1">// 💥 Illegal method name</span>
-</span><span class="hll">  <span class="k">public</span> <span class="nx">bar</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class="hll">  <span class="k">public</span> <span class="nx">bar</span><span class="p">()</span><span class="o">:</span> <span class="ow">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 </span><span class="p">}</span>
 </code></pre></div>
 <div class="admonition danger">
@@ -1253,7 +1253,7 @@ existing <strong>.NET</strong> consumers when a conflicting member is introduced
 <span class="cm"> */</span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">Foo</span> <span class="p">{</span>
 <span class="hll">  <span class="c1">// 💥 Structs are not allowed to declare methods</span>
-</span><span class="hll">  <span class="nx">foo</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
+</span><span class="hll">  <span class="nx">foo</span><span class="p">()</span><span class="o">:</span> <span class="ow">void</span><span class="p">;</span>
 </span><span class="hll">  <span class="c1">// 💥 Structs are not allowed to declare mutable properties</span>
 </span><span class="hll">  <span class="nx">mutableProperty</span>: <span class="kt">number</span><span class="p">;</span>
 </span>  <span class="c1">// ✅ Structs can declare immutable properties</span>
@@ -1265,7 +1265,7 @@ existing <strong>.NET</strong> consumers when a conflicting member is introduced
 <span class="cm"> */</span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">IFoo</span> <span class="p">{</span>
   <span class="c1">// ✅ Behavioral interfaces can declare methods</span>
-  <span class="nx">foo</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">foo</span><span class="p">()</span><span class="o">:</span> <span class="ow">void</span><span class="p">;</span>
   <span class="c1">// ✅ Behavioral interfaces can declare mutable properties</span>
   <span class="nx">mutableProperty</span>: <span class="kt">number</span><span class="p">;</span>
   <span class="c1">// ✅ Behavioral interfaces can declare immutable properties</span>
@@ -1296,12 +1296,12 @@ visibility as their parents.</p>
 libraries!</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">Base</span> <span class="p">{</span>
-  <span class="k">protected</span> <span class="nx">method</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+  <span class="k">protected</span> <span class="nx">method</span><span class="p">()</span><span class="o">:</span> <span class="ow">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">Subclass</span> <span class="k">extends</span> <span class="nx">Base</span> <span class="p">{</span>
 <span class="hll">  <span class="c1">// 💥 Illegal change of visibility from protected to public</span>
-</span><span class="hll">  <span class="k">public</span> <span class="nx">method</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class="hll">  <span class="k">public</span> <span class="nx">method</span><span class="p">()</span><span class="o">:</span> <span class="ow">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 </span><span class="p">}</span>
 </code></pre></div>
 <h3 id="covariant-overrides-parameter-list-changes">Covariant Overrides &amp; Parameter List Changes</h3>
@@ -1348,9 +1348,9 @@ types.</p>
 </span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">IAsyncFooMaker</span> <span class="p">{</span>
   <span class="c1">// ✅ Asynchronous methods must return promises</span>
-  <span class="nx">makeFoo</span><span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Foo</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">makeFoo</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Foo</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="c1">// ✅ Arrays are supported</span>
-  <span class="nx">makeFoos</span><span class="p">(</span><span class="nx">count</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Foo</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+  <span class="nx">makeFoos</span><span class="p">(</span><span class="nx">count</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Foo</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <h1 id="soft-reserved-words">Soft-Reserved Words</h1>
@@ -1650,7 +1650,7 @@ a declaration is named after any target language's <em>reserved words</em>, as t
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-07-22
+      Last update: 2021-08-25
     
   </small>
 </div>
@@ -1739,10 +1739,10 @@ a declaration is named after any target language's <em>reserved words</em>, as t
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.716f8af4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>
