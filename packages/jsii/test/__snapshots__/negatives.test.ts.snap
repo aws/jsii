@@ -699,6 +699,49 @@ neg.struct-extends-interface.ts:6:18 - error JSII8007: Interface contains behavi
 
 `;
 
+exports[`struct-hint-on-class 1`] = `
+neg.struct-hint-on-class.ts:4:4 - error JSII7001: Illegal use of "@struct" hint. It is only valid on interfaces with only readonly properties.
+
+4  * @struct
+     ~~~~~~~
+
+  neg.struct-hint-on-class.ts:6:14
+    6 export class ClassName { }
+                   ~~~~~~~~~
+    The annotated declaration is here
+
+`;
+
+exports[`struct-hint-on-enum 1`] = `
+neg.struct-hint-on-enum.ts:4:4 - error JSII7001: Illegal use of "@struct" hint. It is only valid on interfaces with only readonly properties.
+
+4  * @struct
+     ~~~~~~~
+
+  neg.struct-hint-on-enum.ts:6:13
+    6 export enum EnumName { A, B }
+                  ~~~~~~~~
+    The annotated declaration is here
+
+`;
+
+exports[`struct-hint-with-methods 1`] = `
+neg.struct-hint-with-methods.ts:1:72 - error JSII7001: Illegal use of "@struct" hint. It is only valid on interfaces with only readonly properties.
+
+1 
+  
+
+  neg.struct-hint-with-methods.ts:2:18
+    2 export interface INotAStruct {
+                       ~~~~~~~~~~~
+    The annotated declartion is here
+  neg.struct-hint-with-methods.ts:3:3
+    3   method(): void;
+        ~~~~~~
+    A method is declared here
+
+`;
+
 exports[`submodules-cannot-have-colliding-names 1`] = `
 neg.submodules-cannot-have-colliding-names.ts:3:14 - error JSII5011: Submodule "ns1" conflicts with "Ns1, as different languages could represent it as: "ns1", "Ns1""
 

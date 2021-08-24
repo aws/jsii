@@ -13,6 +13,7 @@ import {
   getReferencedDocParams,
   parseSymbolDocumentation,
   renderSymbolDocumentation,
+  TypeSystemHints,
 } from './docs';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
@@ -1162,7 +1163,7 @@ export class Assembler implements Emitter {
         name: type.symbol.name,
         namespace:
           ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-        docs: this._visitDocumentation(type.symbol, ctx),
+        docs: this._visitDocumentation(type.symbol, ctx).docs,
       },
       type.symbol.valueDeclaration as ts.ClassDeclaration,
     );
@@ -1436,7 +1437,7 @@ export class Assembler implements Emitter {
         jsiiType.initializer.docs = this._visitDocumentation(
           constructor,
           memberEmitContext,
-        );
+        ).docs;
         this.overrideDocComment(
           constructor,
           jsiiType.initializer.docs,
@@ -1674,7 +1675,7 @@ export class Assembler implements Emitter {
       );
     }
 
-    const docs = this._visitDocumentation(symbol, ctx);
+    const { docs } = this._visitDocumentation(symbol, ctx);
 
     const typeContext = ctx.replaceStability(docs?.stability);
     const members = type.isUnion() ? type.types : [type];
@@ -1687,7 +1688,7 @@ export class Assembler implements Emitter {
         }`,
         kind: spec.TypeKind.Enum,
         members: members.map((m) => {
-          const docs = this._visitDocumentation(m.symbol, typeContext);
+          const { docs } = this._visitDocumentation(m.symbol, typeContext);
           this.overrideDocComment(m.symbol, docs);
           return { name: m.symbol.name, docs };
         }),
@@ -1710,7 +1711,7 @@ export class Assembler implements Emitter {
   private _visitDocumentation(
     sym: ts.Symbol,
     context: EmitContext,
-  ): spec.Docs | undefined {
+  ): { readonly docs?: spec.Docs; readonly hints: TypeSystemHints } {
     const result = parseSymbolDocumentation(sym, this._typeChecker);
 
     for (const diag of result.diagnostics ?? []) {
@@ -1722,6 +1723,25 @@ export class Assembler implements Emitter {
       );
     }
 
+    const decl = sym.valueDeclaration ?? sym.declarations[0];
+    // The @struct hint is only valid for interface declarations
+    if (!ts.isInterfaceDeclaration(decl) && result.hints.struct) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_7001_ILLEGAL_HINT.create(
+          _findHint(decl, 'struct')!,
+          'struct',
+          'interfaces with only readonly properties',
+        )
+          .addRelatedInformation(
+            ts.getNameOfDeclaration(decl) ?? decl,
+            'The annotated declaration is here',
+          )
+          .preformat(this.projectInfo.projectRoot),
+      );
+      // Clean up the bad hint...
+      delete (result.hints as any).struct;
+    }
+
     // Apply the current context's stability if none was specified locally.
     if (result.docs.stability == null) {
       result.docs.stability = context.stability;
@@ -1730,7 +1750,10 @@ export class Assembler implements Emitter {
     const allUndefined = Object.values(result.docs).every(
       (v) => v === undefined,
     );
-    return !allUndefined ? result.docs : undefined;
+    return {
+      docs: !allUndefined ? result.docs : undefined,
+      hints: result.hints,
+    };
   }
 
   /**
@@ -1777,6 +1800,7 @@ export class Assembler implements Emitter {
       type.symbol.name
     }`;
 
+    const { docs, hints } = this._visitDocumentation(type.symbol, ctx);
     const jsiiType: spec.InterfaceType = bindings.setInterfaceRelatedNode(
       {
         assembly: this.projectInfo.name,
@@ -1785,7 +1809,7 @@ export class Assembler implements Emitter {
         name: type.symbol.name,
         namespace:
           ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
-        docs: this._visitDocumentation(type.symbol, ctx),
+        docs,
       },
       type.symbol.declarations[0] as ts.InterfaceDeclaration,
     );
@@ -1862,6 +1886,30 @@ export class Assembler implements Emitter {
       (...bases: spec.Type[]) => {
         if ((jsiiType.methods ?? []).length === 0) {
           jsiiType.datatype = true;
+        } else if (hints.struct) {
+          this._diagnostics.push(
+            jsiiType.methods!.reduce(
+              (diag, mthod) => {
+                const node = bindings.getMethodRelatedNode(mthod);
+                return node
+                  ? diag.addRelatedInformation(
+                      ts.getNameOfDeclaration(node) ?? node,
+                      `A method is declared here`,
+                    )
+                  : diag;
+              },
+              JsiiDiagnostic.JSII_7001_ILLEGAL_HINT.create(
+                _findHint(declaration, 'struct')!,
+                'struct',
+                'interfaces with only readonly properties',
+              )
+                .addRelatedInformation(
+                  ts.getNameOfDeclaration(declaration) ?? declaration,
+                  'The annotated declartion is here',
+                )
+                .preformat(this.projectInfo.projectRoot),
+            ),
+          );
         }
 
         for (const base of bases) {
@@ -1882,8 +1930,9 @@ export class Assembler implements Emitter {
           );
         }
 
-        // If the name starts with an "I" it is not intended as a datatype, so switch that off.
-        if (jsiiType.datatype && interfaceName) {
+        // If the name starts with an "I" it is not intended as a datatype, so switch that off,
+        // unless a TSDoc hint was set to force this to be considered a behavioral interface.
+        if (jsiiType.datatype && interfaceName && !hints.struct) {
           delete jsiiType.datatype;
         }
 
@@ -2051,7 +2100,7 @@ export class Assembler implements Emitter {
 
     this._verifyConsecutiveOptionals(declaration, method.parameters);
 
-    method.docs = this._visitDocumentation(symbol, ctx);
+    method.docs = this._visitDocumentation(symbol, ctx).docs;
 
     // If the last parameter is a datatype, verify that it does not share any field names with
     // other function arguments, so that it can be turned into keyword arguments by jsii frontends
@@ -2218,7 +2267,7 @@ export class Assembler implements Emitter {
       property.const = true;
     }
 
-    property.docs = this._visitDocumentation(symbol, ctx);
+    property.docs = this._visitDocumentation(symbol, ctx).docs;
 
     type.properties = type.properties ?? [];
     if (
@@ -2273,8 +2322,8 @@ export class Assembler implements Emitter {
 
     parameter.docs = this._visitDocumentation(
       paramSymbol,
-      ctx.removeStability(),
-    ); // No inheritance on purpose
+      ctx.removeStability(), // No inheritance on purpose
+    ).docs;
 
     // Don't rewrite doc comment here on purpose -- instead, we add them as '@param'
     // into the parent's doc comment.
@@ -3196,6 +3245,17 @@ function _isThisType(type: ts.Type, typeChecker: ts.TypeChecker): boolean {
 function _nameOrDeclarationNode(symbol: ts.Symbol): ts.Node {
   const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
   return ts.getNameOfDeclaration(declaration) ?? declaration;
+}
+
+function _findHint(
+  decl: ts.Declaration,
+  hint: string,
+): ts.JSDocTag | undefined {
+  const [node] = ts.getAllJSDocTags(
+    decl,
+    (tag): tag is ts.JSDocTag => tag.tagName.text === hint,
+  );
+  return node;
 }
 
 /**
