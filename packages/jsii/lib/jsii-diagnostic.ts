@@ -2,7 +2,8 @@ import * as spec from '@jsii/spec';
 import { camel, constant as allCaps, pascal } from 'case';
 import * as ts from 'typescript';
 
-import { JSII_DIAGNOSTICS_CODE } from './utils';
+import { TypeSystemHints } from './docs';
+import { JSII_DIAGNOSTICS_CODE, _formatDiagnostic } from './utils';
 
 /**
  * Descriptors for all valid jsii diagnostic codes.
@@ -625,6 +626,15 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'documentation/non-existent-parameter',
   });
 
+  public static readonly JSII_7001_ILLEGAL_HINT = Code.error({
+    code: 7001,
+    formatter: (hint: keyof TypeSystemHints, ...valid: readonly string[]) =>
+      `Illegal use of "@${hint}" hint. It is only valid on ${valid.join(
+        ', ',
+      )}.`,
+    name: 'documentation/illegal-hint',
+  });
+
   public static readonly JSII_7999_DOCUMENTATION_ERROR = Code.error({
     code: 7999,
     formatter: (messageText) => messageText,
@@ -789,6 +799,9 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public readonly relatedInformation =
     new Array<ts.DiagnosticRelatedInformation>();
 
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  #formatted?: string;
+
   /**
    * Creates a new `JsiiDiagnostic` with the provided properties.
    *
@@ -817,6 +830,32 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     this.relatedInformation.push(
       JsiiDiagnostic.JSII_9999_RELATED_INFO.create(node, message),
     );
+    // Clearing out #formatted, as this would no longer be the correct string.
+    this.#formatted = undefined;
+    return this;
+  }
+
+  /**
+   * Formats this diagnostic with color and context if possible, and returns it.
+   * The formatted diagnostic is cached, so that it can be re-used. This is
+   * useful for diagnostic messages involving trivia -- as the trivia may have
+   * been obliterated from the `SourceFile` by the `TsCommentReplacer`, which
+   * makes the error messages really confusing.
+   */
+  public format(projectRoot: string): string {
+    if (this.#formatted == null) {
+      this.#formatted = _formatDiagnostic(this, projectRoot);
+    }
+    return this.#formatted;
+  }
+
+  /**
+   * Ensures the formatted diagnostic is prepared for later re-use.
+   *
+   * @returns `this`
+   */
+  public preformat(projectRoot: string): this {
+    this.format(projectRoot);
     return this;
   }
 }

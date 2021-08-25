@@ -63,21 +63,34 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
     # We need to inspect each item in the MRO, until we get to our Type, at that
     # point we'll bail, because those methods are not the overriden methods, but the
     # "real" methods.
-    jsii_classes = [klass] + list(
+    jsii_name = getattr(klass, "__jsii_type__", "Object")
+    jsii_classes = [
+        next(
+            (
+                m
+                for m in type(obj).mro()
+                if getattr(m, "__jsii_declared_type__", None) == jsii_name
+            ),
+            Object,
+        )
+    ] + list(
         itertools.chain.from_iterable(
             (getattr(m, "__jsii_ifaces__", []) for m in type(obj).mro())
         )
     )
     for mro_klass in type(obj).mro():
-        if (
-            mro_klass is klass
-            and getattr(mro_klass, "__jsii_type__", "Object") is not None
-        ):
+        if getattr(mro_klass, "__jsii_declared_type__", None) is not None:
+            # There is a jsii declared type, so we reached a "well known" object,
+            # and nothing from now on is an override.
             break
-        if mro_klass is Object:
+        if mro_klass is Object or mro_klass is object:
             break
 
         for name, item in mro_klass.__dict__.items():
+            # Ignore all "special" members (name starting with __)...
+            if name.startswith("__"):
+                continue
+
             # We're only interested in things that also exist on the JSII class or
             # interfaces, and which are themselves, jsii members.
             for jsii_class in jsii_classes:
@@ -93,6 +106,7 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
                         overrides.append(
                             Override(method=original.__jsii_name__, cookie=name)
                         )
+                        break
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
@@ -105,6 +119,7 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
                         overrides.append(
                             Override(property=original.fget.__jsii_name__, cookie=name)
                         )
+                        break
 
     return overrides
 
