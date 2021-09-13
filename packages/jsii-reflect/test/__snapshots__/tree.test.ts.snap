@@ -962,6 +962,30 @@ exports[`showAll 1`] = `
  │   │   │ └── type: Array<string>
  │   │   └─┬ map property
  │   │     └── type: Map<string => string>
+ │   ├─┬ class ClassWithContainerTypes
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(array,record,obj,props) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ array
+ │   │   │   │ └── type: Array<jsii-calc.DummyObj>
+ │   │   │   ├─┬ record
+ │   │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   │   ├─┬ obj
+ │   │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   │   └─┬ props
+ │   │   │     └── type: Optional<jsii-calc.ContainerProps>
+ │   │   ├─┬ array property
+ │   │   │ ├── immutable
+ │   │   │ └── type: Array<jsii-calc.DummyObj>
+ │   │   ├─┬ obj property
+ │   │   │ ├── immutable
+ │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   ├─┬ record property
+ │   │   │ ├── immutable
+ │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   └─┬ props property
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.ContainerProps>
  │   ├─┬ class ClassWithDocs
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
@@ -2480,6 +2504,20 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
+ │   ├─┬ interface ContainerProps
+ │   │ └─┬ members
+ │   │   ├─┬ arrayProp property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Array<jsii-calc.DummyObj>
+ │   │   ├─┬ objProp property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Map<string => jsii-calc.DummyObj>
+ │   │   └─┬ recordProp property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Map<string => jsii-calc.DummyObj>
  │   ├─┬ interface DeprecatedStruct
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property
@@ -2551,6 +2589,12 @@ exports[`showAll 1`] = `
  │   │ │ └── DiamondInheritanceSecondMidLevelStruct
  │   │ └─┬ members
  │   │   └─┬ topLevelProperty property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface DummyObj
+ │   │ └─┬ members
+ │   │   └─┬ example property
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
@@ -3498,6 +3542,7 @@ exports[`types 1`] = `
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithCollections
+ │   ├── class ClassWithContainerTypes
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
@@ -3609,6 +3654,7 @@ exports[`types 1`] = `
  │   ├── interface CalculatorProps
  │   ├── interface ChildStruct982
  │   ├── interface ConfusingToJacksonStruct
+ │   ├── interface ContainerProps
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface DiamondBottom
@@ -3616,6 +3662,7 @@ exports[`types 1`] = `
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
  │   ├── interface DiamondInheritanceTopLevelStruct
+ │   ├── interface DummyObj
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface

@@ -1177,6 +1177,41 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Nycto",
+      "name": "James",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30517?v=4",
+      "profile": "https://github.com/Nycto",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "eltociear",
+      "name": "Ikko Ashimine",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22633385?v=4",
+      "profile": "https://bandism.net/",
+      "contributions": [
+        "doc"
+      ]
+    }, {
+      "login": "BenChaimberg",
+      "name": "Ben Chaimberg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3698184?v=4",
+      "profile": "https://github.com/BenChaimberg",
+      "contributions": [
+        "doc"
+      ]
+    }, {
+      "login": "mneil",
+      "name": "Michael Neil",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1605808?v=4",
+      "profile": "https://github.com/mneil",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "repoType": "github",

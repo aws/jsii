@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.34.0](https://github.com/aws/jsii/compare/v1.33.0...v1.34.0) (2021-08-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **superchain:** the `jsii/superchain` image tags `:latest`, `:nightly`,
+`:node10` and `:node14` are no longer maintained. Users should migrate to
+the new debian-based tags starting with `:1-buster-slim`.
+
+### Features
+
+* [@struct](https://github.com/struct) type system hint ([#2965](https://github.com/aws/jsii/issues/2965)) ([a4ed9a8](https://github.com/aws/jsii/commit/a4ed9a851964038a884d1ebb09e2a347f0389c38))
+* **superchain:** arm64 support ([#2949](https://github.com/aws/jsii/issues/2949)) ([ceb66a6](https://github.com/aws/jsii/commit/ceb66a6d60eb3c17867f5b823efec8236ddd5505)), closes [#2930](https://github.com/aws/jsii/issues/2930)
+
+
+### Bug Fixes
+
+* **python:** unable to implement additional interfaces ([#2964](https://github.com/aws/jsii/issues/2964)) ([4ced4d5](https://github.com/aws/jsii/commit/4ced4d538be80b181a9727ab4d74841f08af0afa)), closes [#2963](https://github.com/aws/jsii/issues/2963)
+
+## [1.33.0](https://github.com/aws/jsii/compare/v1.32.0...v1.33.0) (2021-08-16)
+
+
+### Features
+
+* node runtime version check ([#2948](https://github.com/aws/jsii/issues/2948)) ([f0a9ec6](https://github.com/aws/jsii/commit/f0a9ec6d9275be5126bcb2a455d43df2107a9262))
+
+
+### Bug Fixes
+
+* **java:** Disable covariants for java builder params ([#2853](https://github.com/aws/jsii/issues/2853)) ([e729f5d](https://github.com/aws/jsii/commit/e729f5d53311224b9b742d024dc4cdf768e24e48)), closes [#2839](https://github.com/aws/jsii/issues/2839)
+* **java:** implemented interface is not registered ([#2952](https://github.com/aws/jsii/issues/2952)) ([99da7a6](https://github.com/aws/jsii/commit/99da7a690a75bd6347fa5da15318c0f262b606a8)), closes [#2951](https://github.com/aws/jsii/issues/2951)
+
 ## [1.32.0](https://github.com/aws/jsii/compare/v1.30.0...v1.32.0) (2021-07-22)
 
 
