@@ -111,7 +111,7 @@ RUN yum -y upgrade                                                              
   && yum clean all && rm -rf /var/cache/yum
 
 # Install .NET Core, mono & PowerShell
-COPY gpg/mono.asc /tmp/mono.asc
+COPY superchain/gpg/mono.asc /tmp/mono.asc
 RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
   && rpm -Uvh "https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm"                              \
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
@@ -145,7 +145,7 @@ RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/ap
        ln -s $BIN /usr/local/bin/$(basename $BIN);                                                                      \
      done                                                                                                               \
   && rm -rf /tmp/apache-maven.tar.gz /tmp/apache-maven.tar.gz.asc /tmp/gpg-maven
-COPY m2-settings.xml /root/.m2/settings.xml
+COPY superchain/m2-settings.xml /root/.m2/settings.xml
 
 # Install Go
 RUN curl -sL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
