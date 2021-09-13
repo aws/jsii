@@ -253,9 +253,9 @@ RUN yum -y install sudo                                                         
   && adduser --shell=/bin/bash --comment="Docker User" --groups=wheel superchain                                        \
   && echo '%wheel ALL = (ALL) NOPASSWD: ALL' > /etc/sudoers.d/nopasswd                                                  \
   && yum clean all && rm -rf /var/cache/yum
-COPY --chown=superchain:superchain ssh_config /home/superchain/.ssh/config
+COPY --chown=superchain:superchain superchain/ssh_config /home/superchain/.ssh/config
 RUN chmod 600 /home/superchain/.ssh/config
-COPY --chown=superchain:superchain m2-settings.xml /home/superchain/.m2/settings.xml
+COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.m2/settings.xml
 USER superchain:superchain
 WORKDIR /home/developer
 
