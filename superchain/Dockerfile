@@ -91,36 +91,39 @@ ENV LANG="C.UTF-8"                                                              
     DOTNET_USE_POLLING_FILE_WATCHER="true"                                                                              \
     NUGET_XMLDOC_MODE="skip"                                                                                            \
                                                                                                                         \
-    GEM_HOME="/usr/local/bundle"                                                                                        \
-    BUNDLE_SILENCE_ROOT_WARNING="1"                                                                                     \
+    M2_HOME="/opt/apache/maven"                                                                                         \
+    M2="/opt/apache/maven/bin"                                                                                          \
                                                                                                                         \
-    M2_VERSION="3.8.2"                                                                                                  \
-    M2_HOME="/usr/local/apache-maven"                                                                                   \
-    M2="/usr/local/apache-maven/bin"                                                                                    \
-    MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
-                                                                                                                        \
-    GOROOT="/usr/local/go"                                                                                              \
-    GITHUB_CLI_VERSION="1.14.0"
+    GOROOT="/opt/golang/go"
 
-# Install deltarpm as it can speed up the upgrade processes, and tar as it's needed for installing Maven
-# Also upgrading anything already installed, and adding some common dependencies for included tools
-RUN yum -y upgrade                                                                                                      \
-  && yum -y install deltarpm tar                                                                                        \
-                    make system-rpm-config yum-utils                                                                    \
-                    git gzip openssl rsync unzip which zip                                                              \
-  && yum clean all && rm -rf /var/cache/yum
+# Installing the system dependencies we need...
+RUN apt-get update                                                                                                      \
+  && apt-get -y install                                                                                                 \
+                        apt-transport-https                                                                             \
+                        build-essential                                                                                 \
+                        ca-certificates                                                                                 \
+                        curl                                                                                            \
+                        dirmngr                                                                                         \
+                        git                                                                                             \
+                        gnupg                                                                                           \
+                        gzip                                                                                            \
+                        libicu63                                                                                        \
+                        libssl-dev                                                                                      \
+                        openssl                                                                                         \
+                        rsync                                                                                           \
+                        sudo                                                                                            \
+                        unzip                                                                                           \
+                        zip                                                                                             \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install .NET Core, mono & PowerShell
+# Install mono
 COPY superchain/gpg/mono.asc /tmp/mono.asc
-RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
-  && rpm -Uvh "https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm"                              \
-  && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
-  && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
-      | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
-  && yum -y install dotnet-sdk-3.1 mono-devel powershell                                                                \
-  && yum-config-manager --disable packages-microsoft-com-prod                                                           \
-  && yum-config-manager --disable mono-centos7-stable                                                                   \
-  && yum clean all && rm -rf /var/cache/yum
+RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                                                                       \
+  && echo "deb https://download.mono-project.com/repo/debian stable-buster main"                                        \
+      > /etc/apt/sources.list.d/mono-official-stable.list                                                               \
+  && apt-get update                                                                                                     \
+  && apt-get -y install mono-devel                                                                                      \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Python 3
 RUN apt-get update                                                                                                      \
@@ -130,27 +133,14 @@ RUN apt-get update                                                              
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Maven
-RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz     \
-         -o /tmp/apache-maven.tar.gz                                                                                    \
-  && curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc\
-          -o /tmp/apache-maven.tar.gz.asc                                                                               \
-  && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
-  && curl -sL https://www.apache.org/dist/maven/KEYS | gpg --homedir /tmp/gpg-maven --import                            \
-  && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
-  && mkdir -p /usr/local && (cd /usr/local && tar xzf /tmp/apache-maven.tar.gz)                                         \
-  && mv /usr/local/apache-maven-${M2_VERSION} /usr/local/apache-maven                                                   \
-  && for BIN in $(find /usr/local/apache-maven/bin -type f -executable);                                                \
-     do                                                                                                                 \
-       ln -s $BIN /usr/local/bin/$(basename $BIN);                                                                      \
-     done                                                                                                               \
-  && rm -rf /tmp/apache-maven.tar.gz /tmp/apache-maven.tar.gz.asc /tmp/gpg-maven
-COPY superchain/m2-settings.xml /root/.m2/settings.xml
-
-# Install Go
-RUN curl -sL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
-  && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
-ENV PATH="$GOROOT/bin:$PATH"
+# Install Rust (required for https://pypi.org/project/cryptography/ in certain circumstances... like ARM64 arch)
+ENV RUSTUP_HOME=/usr/local/rustup                                                                                       \
+    CARGO_HOME=/usr/local/cargo
+RUN set -eo pipefail                                                                                                    \
+  && curl -fSsL "https://sh.rustup.rs" | sh -s -- -y --no-modify-path --profile=minimal                                 \
+  && echo "source ${CARGO_HOME}/env" >> /etc/profile.d/cargo.sh                                                         \
+  && chmod -R a+rw ${CARGO_HOME}
+ENV PATH=$PATH:${CARGO_HOME}/bin
 
 # Install JDK8 (Amazon Corretto 8)
 COPY superchain/gpg/corretto.asc /tmp/corretto.asc
@@ -171,15 +161,22 @@ RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                           
   && rm -rf /var/lib/apt/lists/*
 VOLUME /var/lib/docker
 
-# Install Node 12+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx')
-# (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
-# for most of the multiple builds).
-ARG NODE_MAJOR_VERSION=12
+# Install GitHub CLI
+ARG GITHUB_CLI_VERSION="1.13.1"
+RUN BASE="https://github.com/cli/cli/releases/download"                                                                 \
+  && echo "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb" \
+  && curl -fSsL "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"            \
+      -o /tmp/gh.deb                                                                                                    \
+  && apt-get update                                                                                                     \
+  && apt-get -y install /tmp/gh.deb                                                                                     \
+  && rm /tmp/gh.deb                                                                                                     \
+  && rm -rf /var/lib/apt/lists/*
 
-RUN curl -sL https://rpm.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash -                                          \
-  && yum -y install nodejs                                                                                              \
-  && yum clean all && rm -rf /var/cache/yum                                                                             \
-  && npm set unsafe-perm true
+# Install .NET Core and PowerShell
+COPY --from=bindist /opt/microsoft/dotnet /opt/microsoft/dotnet
+RUN ln -s /opt/microsoft/dotnet/dotnet /usr/bin/dotnet
+COPY --from=bindist /opt/microsoft/powershell /opt/microsoft/powershell
+RUN ln -s /opt/microsoft/powershell/pwsh /usr/bin/pwsh
 
 # Install Maven
 COPY --from=bindist /opt/apache/maven ${M2_HOME}
@@ -247,18 +244,6 @@ ENV LANG="C.UTF-8"                                                              
 ENV PATH="${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}"
 
 COPY --from=staging / /
-
-# Create an additional user, then use it to run as non-root
-RUN yum -y install sudo                                                                                                 \
-  && adduser --shell=/bin/bash --comment="Docker User" --groups=wheel superchain                                        \
-  && echo '%wheel ALL = (ALL) NOPASSWD: ALL' > /etc/sudoers.d/nopasswd                                                  \
-  && yum clean all && rm -rf /var/cache/yum
-COPY --chown=superchain:superchain superchain/ssh_config /home/superchain/.ssh/config
-RUN chmod 600 /home/superchain/.ssh/config
-COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.m2/settings.xml
-USER superchain:superchain
-WORKDIR /home/developer
-
 
 ## Image Metadata
 ARG BUILD_TIMESTAMP
