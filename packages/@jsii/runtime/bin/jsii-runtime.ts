@@ -42,7 +42,7 @@ for (const signal of Object.keys(os.signals)) {
   }
 
   // Forward all signals to the child
-  on(signal, (sig) => child.kill(sig));
+  on(signal as NodeJS.Signals, (sig) => child.kill(sig));
 }
 
 //#endregion
@@ -68,8 +68,8 @@ function makeHandler(
   };
 }
 
-child.stdout.on('data', makeHandler('stdout'));
-child.stderr.on('data', makeHandler('stderr'));
+child.stdout!.on('data', makeHandler('stdout'));
+child.stderr!.on('data', makeHandler('stderr'));
 
 //#endregion
 

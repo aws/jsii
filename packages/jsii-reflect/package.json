@@ -17,7 +17,7 @@
     "directory": "packages/jsii-reflect"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 12.7.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -45,7 +45,7 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^8.1.2",
     "@types/jest": "^27.0.1",
-    "@types/node": "^10.17.60",
+    "@types/node": "^12.20.19",
     "eslint": "^7.32.0",
     "jest": "^27.0.6",
     "jsii": "^0.0.0",

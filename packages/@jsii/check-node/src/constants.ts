@@ -54,9 +54,7 @@ export const DEADLINE_EPOCH_MS = new Date(
  * forget to also change the `DEADLINE` value.
  */
 export const VERSION_SUPPORT: { readonly [range: string]: SupportLevel } = {
-  '<10.3.0': SupportLevel.END_OF_LIFE,
-  '^10.3.0': SupportLevel.DEPRECATED,
-  '^11.0.0-0': SupportLevel.END_OF_LIFE,
+  '<12.0.0-0': SupportLevel.END_OF_LIFE,
   '<12.7.0': SupportLevel.UNSUPPORTED,
   '^12.7.0': SupportLevel.SUPPORTED,
   '^13.0.0-0': SupportLevel.END_OF_LIFE,

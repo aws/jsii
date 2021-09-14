@@ -213,44 +213,44 @@ jobs:
         dotnet: ['3.1.x']
         go: ['1.16']
         java: ['8']
-        node: ['10', '12', '14']
+        node: ['12', '14', '16']
         os: [ubuntu-latest]
         python: ['3.6']
-        # Add specific combinations to be tested against "node 10" (to restrict cardinality)
+        # Add specific combinations to be tested against "node 12" (to restrict cardinality)
         include:
           # Test using Windows
           - os: windows-latest
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
-            node: '10'
+            node: '12'
             python: '3.6'
           # Test using macOS
           - os: macos-latest
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
-            node: '10'
+            node: '12'
             python: '3.6'
           # Test alternate .NETs
           - java: '8'
             dotnet: '5.0.x'
             go: '1.16'
-            node: '10'
+            node: '12'
             os: ubuntu-latest
             python: '3.6'
           - java: '8'
             dotnet: '6.0.x'
             dotnet-prerelease: true
             go: '1.16'
-            node: '10'
+            node: '12'
             os: ubuntu-latest
             python: '3.6'
           # Test alternate Javas
           - java: '11'
             dotnet: '3.1.x'
             go: '1.16'
-            node: '10'
+            node: '12'
             os: ubuntu-latest
             python: '3.6'
           # Test alternate Pythons
@@ -258,19 +258,19 @@ jobs:
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
-            node: '10'
+            node: '12'
             os: ubuntu-latest
           - python: '3.8'
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
-            node: '10'
+            node: '12'
             os: ubuntu-latest
           - python: '3.9'
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
-            node: '10'
+            node: '12'
             os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}

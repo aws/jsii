@@ -19,7 +19,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   incremental: true,
   inlineSourceMap: true,
   inlineSources: true,
-  lib: ['lib.es2018.d.ts'],
+  lib: ['lib.es2019.d.ts'],
   module: ts.ModuleKind.CommonJS,
   newLine: ts.NewLineKind.LineFeed,
   noEmitOnError: true,
@@ -34,7 +34,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: true,
   stripInternal: false,
-  target: ts.ScriptTarget.ES2018,
+  target: ts.ScriptTarget.ES2019,
 };
 
 const LOG = log4js.getLogger('jsii/compiler');
