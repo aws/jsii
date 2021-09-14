@@ -279,7 +279,24 @@ export class Scratch<A> {
 
   public async cleanup() {
     if (!this.fake) {
-      await fs.remove(this.directory);
+      try {
+        await fs.remove(this.directory);
+      } catch (e) {
+        if (e.code === 'EBUSY') {
+          // This occasionally happens on Windows if we try to clean up too
+          // quickly after we're done... Could be because some AV software is
+          // still running in the background.
+          // Wait 1s and retry once!
+          await new Promise((ok) => setTimeout(ok, 1_000));
+          try {
+            await fs.remove(this.directory);
+          } catch (e2) {
+            logging.warn(`Unable to clean up ${this.directory}: ${e2}`);
+          }
+          return;
+        }
+        logging.warn(`Unable to clean up ${this.directory}: ${e}`);
+      }
     }
   }
 }
