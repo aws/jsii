@@ -25,7 +25,8 @@
     "jsii": "bin/jsii"
   },
   "scripts": {
-    "build": "cp ../../README.md . && bash ./generate.sh && tsc --build && npm run lint",
+    "gen": "cp ../../README.md . && bash ./generate.sh",
+    "build": "yarn gen && tsc --build && npm run lint",
     "watch": "bash ./generate.sh && tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
     "lint:fix": "yarn lint --fix",
