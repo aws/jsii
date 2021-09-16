@@ -21,6 +21,7 @@ import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from '../jsii-diagnostic';
 import * as bindings from '../node-bindings';
+import { fullyQualifiedName, isDeprecated } from './utils';
 
 export class DeprecatedRemover {
   private readonly transformations = new Array<Transformation>();
@@ -517,7 +518,7 @@ class Transformation {
     node: ts.ClassDeclaration | ts.InterfaceDeclaration,
     iface: ts.InterfaceDeclaration,
   ) {
-    const ifaceName = Transformation.fullyQualifiedName(typeChecker, iface)!;
+    const ifaceName = fullyQualifiedName(typeChecker, iface)!;
 
     return new Transformation(typeChecker, node, (declaration) => {
       if (ts.isClassDeclaration(declaration)) {
@@ -562,10 +563,7 @@ class Transformation {
         .map((clause) => {
           const types = clause.types.filter(
             (type) =>
-              Transformation.fullyQualifiedName(
-                typeChecker,
-                type.expression,
-              ) !== ifaceName,
+              fullyQualifiedName(typeChecker, type.expression) !== ifaceName,
           );
           if (types.length === clause.types.length) {
             // Means the interface was only transitively present...
@@ -578,20 +576,6 @@ class Transformation {
         })
         .filter((clause) => clause != null) as ts.HeritageClause[];
     }
-  }
-
-  private static fullyQualifiedName(
-    typeChecker: ts.TypeChecker,
-    node: ts.Node,
-  ): string | undefined {
-    const symbol = typeChecker.getSymbolAtLocation(
-      ts.getNameOfDeclaration(node as ts.Declaration) ?? node,
-    );
-    // This symbol ☝️ does not contain enough information in some cases - when
-    // an imported type is part of a heritage clause - to produce the fqn.
-    // Round tripping this to its type and back to a symbol seems to fix this.
-    const type = symbol && typeChecker.getDeclaredTypeOfSymbol(symbol);
-    return type?.symbol && typeChecker.getFullyQualifiedName(type.symbol);
   }
 
   private static typeReference(
@@ -683,14 +667,11 @@ class Transformation {
       node: ts.Node,
     ) => { node: ts.Node; syntheticImport?: ts.ImportDeclaration },
   ) {
-    this.nodeName = Transformation.fullyQualifiedName(typeChecker, node)!;
+    this.nodeName = fullyQualifiedName(typeChecker, node)!;
   }
 
   public targets(node: ts.Declaration) {
-    return (
-      this.nodeName ===
-      Transformation.fullyQualifiedName(this.typeChecker, node)
-    );
+    return this.nodeName === fullyQualifiedName(this.typeChecker, node);
   }
 }
 
@@ -749,7 +730,7 @@ class DeprecationRemovalTransformer {
   }
 
   private visitor<T extends ts.Node>(node: T): ts.VisitResult<T> {
-    if (this.isDeprecated(node)) {
+    if (isDeprecated(node)) {
       // Removing deprecated members by substituting "nothing" to them
       return undefined;
     }
@@ -783,7 +764,7 @@ class DeprecationRemovalTransformer {
             // This "resolves" the imported type, so we can get to it's declaration(s)
             symbol && this.typeChecker.getDeclaredTypeOfSymbol(symbol)?.symbol;
           return !exportedSymbol?.declarations.some((decl) =>
-            this.isDeprecated(decl),
+            isDeprecated(decl),
           );
         },
       );
@@ -822,7 +803,7 @@ class DeprecationRemovalTransformer {
         this.typeChecker
           .getExportsOfModule(symbol)
           ?.filter(
-            (sym) => !sym.declarations.some((decl) => this.isDeprecated(decl)),
+            (sym) => !sym.declarations.some((decl) => isDeprecated(decl)),
           );
       if (
         (node.exportClause == null ||
@@ -859,12 +840,5 @@ class DeprecationRemovalTransformer {
     return DeprecationRemovalTransformer.IGNORE_CHILDREN.has(node.kind)
       ? node
       : this.visitEachChild(node);
-  }
-
-  private isDeprecated(node: ts.Node): boolean {
-    const original = ts.getOriginalNode(node);
-    return ts
-      .getJSDocTags(original)
-      .some((tag) => tag.tagName.text === 'deprecated');
   }
 }
