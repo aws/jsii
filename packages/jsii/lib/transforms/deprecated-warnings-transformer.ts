@@ -37,6 +37,7 @@ export class DeprecatedWarningInjector {
     ts.ClassDeclaration | ts.InterfaceDeclaration | undefined
   >();
   private deprecatedTypes: ts.Type[] = [];
+  private moduleName = '';
 
   public constructor(private readonly typeChecker: ts.TypeChecker) {}
 
@@ -49,6 +50,7 @@ export class DeprecatedWarningInjector {
             context,
             this.deprecatedTypes,
             this.index,
+            this.moduleName,
           );
           return transformer.transform.bind(transformer);
         },
@@ -58,6 +60,7 @@ export class DeprecatedWarningInjector {
 
   public process(assembly: Assembly) {
     if (assembly.types != null) {
+      this.moduleName = assembly.name;
       const types: Array<InterfaceType | ClassType> = Object.values(
         assembly.types,
       ).filter(isClassOrInterfaceType);
@@ -87,6 +90,7 @@ class DeprecatedWarningsTransformer {
       string,
       ts.ClassDeclaration | ts.InterfaceDeclaration | undefined
     >,
+    private readonly moduleName: string,
   ) {}
 
   public transform<T extends ts.Node>(node: T): T {
@@ -144,9 +148,7 @@ class DeprecatedWarningsTransformer {
     );
 
     if (isDeprecated(node)) {
-      this.warnings.push(
-        getWarning(this.typeChecker, node, ElementType.METHOD),
-      );
+      this.warnings.push(getWarning(node, ElementType.METHOD, this.moduleName));
     }
   }
 
@@ -157,7 +159,7 @@ class DeprecatedWarningsTransformer {
 
     if (isDeprecated(node)) {
       this.warnings.push(
-        getWarning(this.typeChecker, node, ElementType.FUNCTION),
+        getWarning(node, ElementType.FUNCTION, this.moduleName),
       );
     }
   }
@@ -172,7 +174,7 @@ class DeprecatedWarningsTransformer {
         this.typeChecker.getFullyQualifiedName(deprecatedType.symbol),
       );
       this.warnings.push(
-        getWarning(this.typeChecker, deprecatedNode!, ElementType.CLASS),
+        getWarning(deprecatedNode!, ElementType.CLASS, this.moduleName),
       );
     }
   }
@@ -193,9 +195,9 @@ class DeprecatedWarningsTransformer {
     const deprecatedType = this.findDeprecatedInTheTypeHierarchy([type]);
     return deprecatedType != null
       ? getWarning(
-          this.typeChecker,
           deprecatedType.symbol.declarations[0],
           ElementType.PARAMETER,
+          this.moduleName,
         )
       : undefined; // There is no deprecated type in its heritage chain
   }
@@ -212,7 +214,7 @@ class DeprecatedWarningsTransformer {
     const warning = this.getWarningForHeritage(node);
     const warnings: Warning[] = warning != null ? [warning] : [];
     if (isDeprecated(node)) {
-      warnings.push(getWarning(this.typeChecker, node, ElementType.PARAMETER));
+      warnings.push(getWarning(node, ElementType.PARAMETER, this.moduleName));
     }
     const type = this.typeChecker.getTypeAtLocation(node);
     const declaration = type.symbol?.declarations[0]; // TODO Is there really only one?
@@ -220,7 +222,7 @@ class DeprecatedWarningsTransformer {
     if (declaration != null && ts.isInterfaceDeclaration(declaration)) {
       if (isDeprecated(declaration)) {
         warnings.push(
-          getWarning(this.typeChecker, declaration, ElementType.PARAMETER),
+          getWarning(declaration, ElementType.PARAMETER, this.moduleName),
         );
       }
       newBatch = type.getProperties().map((p) => p.declarations[0]);
@@ -364,9 +366,9 @@ function isMethodLikeDeclaration(node: ts.Node): boolean {
 }
 
 function getWarning(
-  typeChecker: ts.TypeChecker,
   node: ts.Node,
   elementType: ElementType,
+  moduleName: string,
 ): Warning {
   const original = ts.getOriginalNode(node);
   const deprecatedTag = ts
@@ -376,9 +378,18 @@ function getWarning(
         (tag.tagName.text ?? tag.tagName.escapedText) === 'deprecated',
     )!;
 
-  typeChecker.getTypeAtLocation(node);
-  // TODO Find a way to the get fully qualified name of any node
-  const fqn = '[NAME PLACEHOLDER]';
+  const fqnComponents: string[] = [];
+  let currentNode = node;
+  do {
+    const declaration = ts.getNameOfDeclaration(currentNode as ts.Declaration);
+    if (declaration != null) {
+      fqnComponents.unshift(declaration.getText());
+    }
+    currentNode = currentNode.parent;
+  } while (currentNode != null);
+  fqnComponents.unshift(moduleName);
+
+  const fqn = fqnComponents.join('.');
 
   return {
     elementName: fqn,
