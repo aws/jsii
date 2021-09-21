@@ -77,9 +77,7 @@ export class DeprecatedWarningInjector {
 }
 
 class DeprecatedWarningsTransformer {
-  private addWarning = false;
   private warnings: Warning[] = [];
-  private readonly typesWithDeprecatedProperties = new Map<ts.Type, ts.Node>();
 
   public constructor(
     private readonly typeChecker: ts.TypeChecker,
@@ -104,96 +102,137 @@ class DeprecatedWarningsTransformer {
   }
 
   private visitor<T extends ts.Node>(node: T): ts.VisitResult<T> {
-    if (ts.isPropertyDeclaration(node) || ts.isPropertySignature(node)) {
-      if (node.parent != null && isDeprecated(node)) {
-        const type = this.typeChecker.getTypeAtLocation(node.parent);
-        this.typesWithDeprecatedProperties.set(type, node);
-      }
-    }
-
     if (ts.isClassDeclaration(node)) {
-      this.warnings = [];
-      const deprecatedType = this.findDeprecatedInTheTypeHierarchy([
-        this.typeChecker.getTypeAtLocation(node),
-      ]);
-      this.addWarning = deprecatedType != null;
-      if (this.addWarning) {
-        const deprecatedNode = this.index.get(
-          this.typeChecker.getFullyQualifiedName(deprecatedType!.symbol),
-        );
-        this.warnings.push(
-          getWarning(this.typeChecker, deprecatedNode!, ElementType.CLASS),
-        );
-      }
+      this.handleClassDeclaration(node);
     }
 
     if (ts.isFunctionDeclaration(node)) {
-      this.warnings = this.getParameterWarnings(node);
-      if (isDeprecated(node)) {
-        this.warnings.push(
-          getWarning(this.typeChecker, node, ElementType.FUNCTION),
-        );
-      }
-      this.addWarning = this.warnings.length > 0;
+      this.handleFunctionDeclaration(node);
     }
 
     if (isMethodLikeDeclaration(node)) {
-      const parameterWarnings = this.getParameterWarnings(
-        node as any as MethodLikeDeclaration,
-      );
-
-      parameterWarnings.forEach((warning: Warning) =>
-        this.warnings.push(warning),
-      );
-
-      if (isDeprecated(node)) {
-        this.warnings.push(
-          getWarning(this.typeChecker, node, ElementType.METHOD),
-        );
-      }
-
-      this.addWarning = this.warnings.length > 0;
+      this.handleMethodLikeDeclaration(node);
     }
 
-    if (ts.isBlock(node) && this.addWarning) {
-      const block = node as Block;
-      const nodeArray: ts.NodeArray<ts.Statement> = ts.createNodeArray([
-        ...this.createWarningStatements(),
-        ...block.statements,
-      ]);
+    if (ts.isBlock(node)) {
+      if (this.warnings.length > 0) {
+        const block = node as Block;
+        const nodeArray: ts.NodeArray<ts.Statement> = ts.createNodeArray([
+          ...this.createWarningStatements(),
+          ...block.statements,
+        ]);
 
-      // "Unstack" all warnings specific to this block
-      this.warnings = this.warnings.filter(
-        (warning) =>
-          ![ElementType.METHOD, ElementType.PARAMETER].includes(warning.type),
-      );
-      return ts.updateBlock(node, nodeArray) as any;
+        // "Pop" all warnings specific to this block
+        this.warnings = this.warnings.filter(
+          (warning) =>
+            ![ElementType.METHOD, ElementType.PARAMETER].includes(warning.type),
+        );
+        return ts.updateBlock(node, nodeArray) as any;
+      }
     }
 
     return this.visitEachChild(node);
   }
 
-  private getParameterWarnings(node: MethodLikeDeclaration): Warning[] {
-    return node.parameters
-      .filter((parameter) =>
-        this.typesWithDeprecatedProperties.has(
-          this.typeChecker.getTypeAtLocation(parameter),
-        ),
-      )
-      .map(
-        (parameter) =>
-          getWarning(
-            this.typeChecker,
-            this.typesWithDeprecatedProperties.get(
-              this.typeChecker.getTypeAtLocation(parameter),
-            )!,
-            ElementType.PARAMETER,
-          )!,
+  private handleMethodLikeDeclaration(node: ts.Node) {
+    const parameterWarnings = this.getParameterWarnings([
+      ...(node as any as MethodLikeDeclaration).parameters,
+    ]);
+
+    parameterWarnings.forEach((warning: Warning) =>
+      this.warnings.push(warning),
+    );
+
+    if (isDeprecated(node)) {
+      this.warnings.push(
+        getWarning(this.typeChecker, node, ElementType.METHOD),
       );
+    }
+  }
+
+  private handleFunctionDeclaration<T>(node: T & ts.FunctionDeclaration) {
+    this.warnings = this.getParameterWarnings([
+      ...(node as any as MethodLikeDeclaration).parameters,
+    ]);
+
+    if (isDeprecated(node)) {
+      this.warnings.push(
+        getWarning(this.typeChecker, node, ElementType.FUNCTION),
+      );
+    }
+  }
+
+  private handleClassDeclaration<T>(node: T & ts.ClassDeclaration) {
+    this.warnings = [];
+    const deprecatedType = this.findDeprecatedInTheTypeHierarchy([
+      this.typeChecker.getTypeAtLocation(node),
+    ]);
+    if (deprecatedType != null) {
+      const deprecatedNode = this.index.get(
+        this.typeChecker.getFullyQualifiedName(deprecatedType.symbol),
+      );
+      this.warnings.push(
+        getWarning(this.typeChecker, deprecatedNode!, ElementType.CLASS),
+      );
+    }
+  }
+
+  // TODO rename this method
+  private getWarningForHeritage(node: ts.Node): Warning | undefined {
+    const type = this.typeChecker.getTypeAtLocation(node);
+    const declaration = type.symbol?.declarations[0];
+    if (
+      declaration == null ||
+      (!ts.isClassDeclaration(declaration) &&
+        !ts.isInterfaceDeclaration(declaration))
+    ) {
+      // This type doesn't have a hierarchy (e.g., a primitive type)
+      return undefined;
+    }
+
+    const deprecatedType = this.findDeprecatedInTheTypeHierarchy([type]);
+    return deprecatedType != null
+      ? getWarning(
+          this.typeChecker,
+          deprecatedType.symbol.declarations[0],
+          ElementType.PARAMETER,
+        )
+      : undefined; // There is no deprecated type in its heritage chain
+  }
+
+  private getParameterWarnings(
+    toProcess: ts.Node[],
+    result: Warning[] = [],
+  ): Warning[] {
+    if (toProcess.length === 0) {
+      return result;
+    }
+
+    const node = toProcess[0];
+    const warning = this.getWarningForHeritage(node);
+    const warnings: Warning[] = warning != null ? [warning] : [];
+    if (isDeprecated(node)) {
+      warnings.push(getWarning(this.typeChecker, node, ElementType.PARAMETER));
+    }
+    const type = this.typeChecker.getTypeAtLocation(node);
+    const declaration = type.symbol?.declarations[0]; // TODO Is there really only one?
+    let newBatch: ts.Node[] = [];
+    if (declaration != null && ts.isInterfaceDeclaration(declaration)) {
+      if (isDeprecated(declaration)) {
+        warnings.push(
+          getWarning(this.typeChecker, declaration, ElementType.PARAMETER),
+        );
+      }
+      newBatch = type.getProperties().map((p) => p.declarations[0]);
+    }
+    return this.getParameterWarnings(
+      toProcess.slice(1).concat(newBatch),
+      result.concat(warnings),
+    );
   }
 
   private createWarningStatements(): ts.Statement[] {
-    return [...this.warnings].flatMap(createWarningStatement);
+    return [...this.warnings].flatMap((w) => this.createWarningStatement(w));
   }
 
   // TODO Rename this method
@@ -204,13 +243,14 @@ class DeprecatedWarningsTransformer {
       return undefined;
     }
 
-    if (this.deprecatedTypes.includes(toProcess[0])) {
-      return toProcess[0];
+    const type = toProcess[0];
+    if (this.deprecatedTypes.includes(type)) {
+      return type;
     }
 
     const node = this.index.get(
-      this.typeChecker.getFullyQualifiedName(toProcess[0].symbol),
-    )!;
+      this.typeChecker.getFullyQualifiedName(type.symbol),
+    );
 
     // This type was not declared in the JSII assembly. Skipping.
     if (node == null) {
@@ -234,84 +274,84 @@ class DeprecatedWarningsTransformer {
 
     return this.findDeprecatedInTheTypeHierarchy(newBatch);
   }
-}
 
-function createWarningStatement(warning: Warning): ts.Statement[] {
-  const message = `${warning?.elementName} is deprecated.\n  ${warning?.message}\n  This API will be removed in the net major release.`;
-  // TODO Are random numbers a good idea?
-  const functionName = `printWarning${getRandomInt(
-    0,
-    Number.MAX_SAFE_INTEGER,
-  )}`;
+  private createWarningStatement(warning: Warning): ts.Statement[] {
+    const message = `${warning?.elementName} is deprecated.\n  ${warning?.message}\n  This API will be removed in the net major release.`;
+    // TODO Are random numbers a good idea?
+    const functionName = `printWarning${getRandomInt(
+      0,
+      Number.MAX_SAFE_INTEGER,
+    )}`;
 
-  // TODO There must be a simpler way...
-  return [
-    // TODO Instead of declaring the function everywhere it's used, should we create a single declaration somewhere and reuse it?
-    //  If so, where should this declaration go?
-    ts.createFunctionDeclaration(
-      undefined,
-      undefined,
-      undefined,
-      functionName,
-      [],
-      [],
-      undefined,
-      ts.createBlock(
-        [
-          ts.createExpressionStatement(
-            ts.createAssignment(
-              ts.createIdentifier('const deprecated'),
-              ts.createIdentifier('process.env.DEPRECATED'),
-            ),
-          ),
-          ts.createExpressionStatement(
-            ts.createAssignment(
-              ts.createIdentifier('const deprecationMode'),
-              ts.createIdentifier(
-                "['warn', 'error', 'quiet'].includes(deprecated) ? deprecated : \"warn\"",
+    // TODO There must be a simpler way...
+    return [
+      // TODO Instead of declaring the function everywhere it's used, should we create a single declaration somewhere and reuse it?
+      //  If so, where should this declaration go?
+      ts.createFunctionDeclaration(
+        undefined,
+        undefined,
+        undefined,
+        functionName,
+        [],
+        [],
+        undefined,
+        ts.createBlock(
+          [
+            ts.createExpressionStatement(
+              ts.createAssignment(
+                ts.createIdentifier('const deprecated'),
+                ts.createIdentifier('process.env.DEPRECATED'),
               ),
             ),
-          ),
-          ts.createExpressionStatement(
-            ts.createAssignment(
-              ts.createIdentifier('const message'),
-              ts.createLiteral(message),
+            ts.createExpressionStatement(
+              ts.createAssignment(
+                ts.createIdentifier('const deprecationMode'),
+                ts.createIdentifier(
+                  "['warn', 'error', 'quiet'].includes(deprecated) ? deprecated : \"warn\"",
+                ),
+              ),
             ),
-          ),
-          // ts.createExpressionStatement(
-          ts.createSwitch(
-            ts.createIdentifier('deprecationMode'),
-            ts.createCaseBlock([
-              ts.createCaseClause(ts.createLiteral('error'), [
-                ts.createThrow(
-                  ts.createNew(
-                    ts.createIdentifier('Error'),
-                    [],
-                    [ts.createIdentifier('message')],
+            ts.createExpressionStatement(
+              ts.createAssignment(
+                ts.createIdentifier('const message'),
+                ts.createLiteral(message),
+              ),
+            ),
+            // ts.createExpressionStatement(
+            ts.createSwitch(
+              ts.createIdentifier('deprecationMode'),
+              ts.createCaseBlock([
+                ts.createCaseClause(ts.createLiteral('error'), [
+                  ts.createThrow(
+                    ts.createNew(
+                      ts.createIdentifier('Error'),
+                      [],
+                      [ts.createIdentifier('message')],
+                    ),
                   ),
-                ),
-                ts.createBreak(),
-              ]),
-              ts.createCaseClause(ts.createLiteral('warn'), [
-                ts.createExpressionStatement(
-                  ts.createCall(
-                    ts.createIdentifier('console.warn'),
-                    [],
-                    [ts.createIdentifier("'[WARNING] ' + message")],
+                  ts.createBreak(),
+                ]),
+                ts.createCaseClause(ts.createLiteral('warn'), [
+                  ts.createExpressionStatement(
+                    ts.createCall(
+                      ts.createIdentifier('console.warn'),
+                      [],
+                      [ts.createIdentifier("'[WARNING] ' + message")],
+                    ),
                   ),
-                ),
-                ts.createBreak(),
+                  ts.createBreak(),
+                ]),
               ]),
-            ]),
-          ),
-        ],
-        true,
+            ),
+          ],
+          true,
+        ),
       ),
-    ),
-    ts.createExpressionStatement(
-      ts.createCall(ts.createIdentifier(functionName), [], []),
-    ),
-  ];
+      ts.createExpressionStatement(
+        ts.createCall(ts.createIdentifier(functionName), [], []),
+      ),
+    ];
+  }
 }
 
 function isMethodLikeDeclaration(node: ts.Node): boolean {
