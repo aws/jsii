@@ -217,15 +217,24 @@ class DeprecatedWarningsTransformer {
       warnings.push(getWarning(node, ElementType.PARAMETER, this.moduleName));
     }
     const type = this.typeChecker.getTypeAtLocation(node);
-    const declaration = type.symbol?.declarations[0]; // TODO Is there really only one?
+    const declaration = type.symbol?.declarations[0];
     let newBatch: ts.Node[] = [];
-    if (declaration != null && ts.isInterfaceDeclaration(declaration)) {
+    // In some cases (e.g., enums) the declaration is the node itself. Not including them twice here
+    if (declaration != null && declaration !== node) {
       if (isDeprecated(declaration)) {
         warnings.push(
           getWarning(declaration, ElementType.PARAMETER, this.moduleName),
         );
       }
-      newBatch = type.getProperties().map((p) => p.declarations[0]);
+      if (
+        ts.isInterfaceDeclaration(declaration) ||
+        ts.isClassDeclaration(node)
+      ) {
+        newBatch = type.getProperties().map((p) => p.declarations[0]);
+      }
+      if (ts.isEnumDeclaration(declaration)) {
+        newBatch = [...declaration.members];
+      }
     }
     return this.getParameterWarnings(
       toProcess.slice(1).concat(newBatch),
@@ -319,7 +328,6 @@ class DeprecatedWarningsTransformer {
                 ts.createLiteral(message),
               ),
             ),
-            // ts.createExpressionStatement(
             ts.createSwitch(
               ts.createIdentifier('deprecationMode'),
               ts.createCaseBlock([
