@@ -103,8 +103,7 @@ const warningTypes = Object.keys(enabledWarnings);
     stripDeprecated: argv['strip-deprecated'],
   });
 
-  const result = argv.watch ? compiler.watch() : compiler.emit();
-  const emitResult = await result;
+  const emitResult = await (argv.watch ? compiler.watch() : compiler.emit());
 
   const allDiagnostics = [...projectInfoDiagnostics, ...emitResult.diagnostics];
 

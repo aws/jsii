@@ -238,6 +238,8 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'metadata/missing-peer-dependency',
   });
 
+  // NOTE: currently not possible to change the severity of this code,
+  // as it's being emitted before the overrides have been loaded
   public static readonly JSII_0006_MISSING_DEV_DEPENDENCY = Code.warning({
     code: 6,
     formatter: (
