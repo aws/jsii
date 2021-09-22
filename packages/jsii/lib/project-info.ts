@@ -6,9 +6,8 @@ import * as semver from 'semver';
 import { intersect } from 'semver-intersect';
 import * as ts from 'typescript';
 
-import { parsePerson, parseRepository } from './utils';
-
 import { JsiiDiagnostic } from './jsii-diagnostic';
+import { parsePerson, parseRepository } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');

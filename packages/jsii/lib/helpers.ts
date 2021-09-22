@@ -145,7 +145,9 @@ async function makeProjectInfo(
     spaces: 2,
   });
 
-  const { projectInfo } = await loadProjectInfo(path.resolve(process.cwd(), '.'));
+  const { projectInfo } = await loadProjectInfo(
+    path.resolve(process.cwd(), '.'),
+  );
   return projectInfo;
 }
 
