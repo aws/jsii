@@ -104,7 +104,9 @@ class DeprecatedWarningsTransformer {
 
     if (isMethodLikeDeclaration(node)) {
       const declaration = node as any as MethodLikeDeclaration;
-      const warnings = this.getParameterWarnings([...declaration.parameters]);
+      const warnings = this.warnings.concat(
+        this.getParameterWarnings([...declaration.parameters]),
+      );
 
       if (isDeprecated(node)) {
         warnings.push(getWarning(node, this.moduleName));
@@ -118,7 +120,15 @@ class DeprecatedWarningsTransformer {
           ...body.statements,
         ]);
 
-        if (ts.isMethodDeclaration(declaration)) {
+        if (ts.isConstructorDeclaration(declaration)) {
+          return ts.updateConstructor(
+            declaration,
+            declaration.decorators,
+            declaration.modifiers,
+            declaration.parameters,
+            ts.updateBlock(body, nodeArray),
+          ) as any;
+        } else if (ts.isMethodDeclaration(declaration)) {
           return ts.updateMethod(
             declaration,
             declaration.decorators,
@@ -274,7 +284,20 @@ class DeprecatedWarningsTransformer {
   }
 
   private createWarningStatement(warning: Warning): ts.Statement[] {
-    const message = `${warning.elementName} is deprecated.\n  ${warning.message}\n  This API will be removed in the next major release.`;
+    function createParameter(name: string) {
+      return ts.createParameter(
+        undefined,
+        undefined,
+        undefined,
+        name,
+        undefined,
+        undefined,
+        undefined,
+      );
+    }
+
+    const message =
+      '`${name} is deprecated.\\n  ${deprecationMessage}\\n  This API will be removed in the next major release.`';
     // TODO Are random numbers a good idea?
     const functionName = `printWarning${getRandomInt(
       0,
@@ -291,7 +314,7 @@ class DeprecatedWarningsTransformer {
         undefined, // asteriskToken
         functionName,
         [], // typeParameters
-        [], // parameters
+        ['name', 'deprecationMessage', 'value'].map(createParameter),
         undefined, // type
         ts.createBlock(
           [
@@ -305,14 +328,14 @@ class DeprecatedWarningsTransformer {
               ts.createAssignment(
                 ts.createIdentifier('const deprecationMode'),
                 ts.createIdentifier(
-                  "['warn', 'error', 'quiet'].includes(deprecated) ? deprecated : \"warn\"",
+                  "['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn'",
                 ),
               ),
             ),
             ts.createExpressionStatement(
               ts.createAssignment(
                 ts.createIdentifier('const message'),
-                ts.createLiteral(message),
+                ts.createIdentifier(message),
               ),
             ),
             ts.createSwitch(
@@ -333,7 +356,10 @@ class DeprecatedWarningsTransformer {
                     ts.createCall(
                       ts.createIdentifier('console.warn'),
                       [],
-                      [ts.createIdentifier("'[WARNING] ' + message")],
+                      [
+                        ts.createLiteral('[WARNING]'),
+                        ts.createIdentifier('message'),
+                      ],
                     ),
                   ),
                   ts.createBreak(),
@@ -345,7 +371,14 @@ class DeprecatedWarningsTransformer {
         ),
       ),
       ts.createExpressionStatement(
-        ts.createCall(ts.createIdentifier(functionName), [], []),
+        ts.createCall(
+          ts.createIdentifier(functionName),
+          [],
+          [
+            ts.createLiteral(warning.elementName),
+            ts.createLiteral(warning.message),
+          ],
+        ),
       ),
     ];
   }
