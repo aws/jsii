@@ -19,6 +19,7 @@ type MethodLikeDeclaration =
 interface Warning {
   readonly elementName: string;
   readonly message: string;
+  readonly path?: string;
 }
 
 export class DeprecatedWarningInjector {
@@ -106,6 +107,7 @@ class DeprecatedWarningsTransformer {
       const declaration = node as any as MethodLikeDeclaration;
       const warnings = this.warnings.concat(
         this.getParameterWarnings([...declaration.parameters]),
+        // this.buildParameterWarnings([...declaration.parameters]),
       );
 
       if (isDeprecated(node)) {
@@ -201,41 +203,60 @@ class DeprecatedWarningsTransformer {
       : undefined; // There is no deprecated type in its heritage chain
   }
 
+  // TODO Rename this method
   private getParameterWarnings(
+    parameters: ts.ParameterDeclaration[],
+  ): Warning[] {
+    // TODO In which situations does getNameOfDeclaration return undefined?
+    const names = parameters.map((p) => ts.getNameOfDeclaration(p)!.getText());
+    return this.buildParameterWarnings(parameters, [], names);
+  }
+
+  private buildParameterWarnings(
     toProcess: ts.Node[],
     result: Warning[] = [],
+    paths: string[] = [],
   ): Warning[] {
     if (toProcess.length === 0) {
       return result;
     }
-
     const node = toProcess[0];
+    const path = paths[0];
     const warning = this.getWarningForHeritage(node);
     const warnings: Warning[] = warning != null ? [warning] : [];
     if (isDeprecated(node)) {
-      warnings.push(getWarning(node, this.moduleName));
+      warnings.push(getWarning(node, this.moduleName, path));
     }
     const type = this.typeChecker.getTypeAtLocation(node);
+
+    // TODO This doesn't work for union types
     const declaration = type.symbol?.declarations[0];
+
     let newBatch: ts.Node[] = [];
+    let newPaths: string[] = [];
     // In some cases (e.g., enums) the declaration is the node itself. Not including them twice here
     if (declaration != null && declaration !== node) {
       if (isDeprecated(declaration)) {
-        warnings.push(getWarning(declaration, this.moduleName));
+        warnings.push(getWarning(declaration, this.moduleName, path));
       }
       if (
         ts.isInterfaceDeclaration(declaration) ||
         ts.isClassDeclaration(node)
       ) {
         newBatch = type.getProperties().map((p) => p.declarations[0]);
+        newPaths = newBatch.map((n) => {
+          const name = ts.getNameOfDeclaration(n as ts.Declaration)?.getText();
+          return name != null ? `${path}.${name}` : '';
+        });
       }
       if (ts.isEnumDeclaration(declaration)) {
         newBatch = [...declaration.members];
       }
     }
-    return this.getParameterWarnings(
+    return this.buildParameterWarnings(
       toProcess.slice(1).concat(newBatch),
       result.concat(warnings),
+      paths.slice(1).concat(newPaths),
     );
   }
 
@@ -305,6 +326,54 @@ class DeprecatedWarningsTransformer {
     )}`;
 
     // TODO There must be a simpler way...
+    const mainStatements = [
+      ts.createExpressionStatement(
+        ts.createAssignment(
+          ts.createIdentifier('const deprecated'),
+          ts.createIdentifier('process.env.JSII_DEPRECATED'),
+        ),
+      ),
+      ts.createExpressionStatement(
+        ts.createAssignment(
+          ts.createIdentifier('const deprecationMode'),
+          ts.createIdentifier(
+            "['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn'",
+          ),
+        ),
+      ),
+      ts.createExpressionStatement(
+        ts.createAssignment(
+          ts.createIdentifier('const message'),
+          ts.createIdentifier(message),
+        ),
+      ),
+      ts.createSwitch(
+        ts.createIdentifier('deprecationMode'),
+        ts.createCaseBlock([
+          ts.createCaseClause(ts.createLiteral('fail'), [
+            ts.createThrow(
+              ts.createNew(
+                ts.createIdentifier('Error'),
+                [],
+                [ts.createIdentifier('message')],
+              ),
+            ),
+            ts.createBreak(),
+          ]),
+          ts.createCaseClause(ts.createLiteral('warn'), [
+            ts.createExpressionStatement(
+              ts.createCall(
+                ts.createIdentifier('console.warn'),
+                [],
+                [ts.createLiteral('[WARNING]'), ts.createIdentifier('message')],
+              ),
+            ),
+            ts.createBreak(),
+          ]),
+        ]),
+      ),
+    ];
+
     return [
       // TODO Instead of declaring the function everywhere it's used, should we create a single declaration somewhere and reuse it?
       //  If so, where should this declaration go?
@@ -316,71 +385,38 @@ class DeprecatedWarningsTransformer {
         [], // typeParameters
         ['name', 'deprecationMessage', 'value'].map(createParameter),
         undefined, // type
-        ts.createBlock(
-          [
-            ts.createExpressionStatement(
-              ts.createAssignment(
-                ts.createIdentifier('const deprecated'),
-                ts.createIdentifier('process.env.JSII_DEPRECATED'),
-              ),
-            ),
-            ts.createExpressionStatement(
-              ts.createAssignment(
-                ts.createIdentifier('const deprecationMode'),
-                ts.createIdentifier(
-                  "['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn'",
-                ),
-              ),
-            ),
-            ts.createExpressionStatement(
-              ts.createAssignment(
-                ts.createIdentifier('const message'),
-                ts.createIdentifier(message),
-              ),
-            ),
-            ts.createSwitch(
-              ts.createIdentifier('deprecationMode'),
-              ts.createCaseBlock([
-                ts.createCaseClause(ts.createLiteral('fail'), [
-                  ts.createThrow(
-                    ts.createNew(
-                      ts.createIdentifier('Error'),
-                      [],
-                      [ts.createIdentifier('message')],
-                    ),
-                  ),
-                  ts.createBreak(),
-                ]),
-                ts.createCaseClause(ts.createLiteral('warn'), [
-                  ts.createExpressionStatement(
-                    ts.createCall(
-                      ts.createIdentifier('console.warn'),
-                      [],
-                      [
-                        ts.createLiteral('[WARNING]'),
-                        ts.createIdentifier('message'),
-                      ],
-                    ),
-                  ),
-                  ts.createBreak(),
-                ]),
-              ]),
-            ),
-          ],
-          true,
-        ),
+        warningFunctionBody(),
       ),
       ts.createExpressionStatement(
         ts.createCall(
           ts.createIdentifier(functionName),
           [],
-          [
-            ts.createLiteral(warning.elementName),
-            ts.createLiteral(warning.message),
-          ],
+          warningFunctionArguments(),
         ),
       ),
     ];
+
+    function warningFunctionBody(): ts.Block {
+      if (warning.path != null) {
+        return ts.createBlock([
+          ts.createIf(
+            ts.createIdentifier('value != null'),
+            ts.createBlock(mainStatements, true),
+          ),
+        ]);
+      }
+      return ts.createBlock(mainStatements, true);
+    }
+
+    function warningFunctionArguments(): ts.Expression[] {
+      const baseArguments: ts.Expression[] = [
+        ts.createLiteral(warning.elementName),
+        ts.createLiteral(warning.message),
+      ];
+      return warning.path == null
+        ? baseArguments
+        : baseArguments.concat(ts.createIdentifier(warning.path));
+    }
   }
 }
 
@@ -393,7 +429,7 @@ function isMethodLikeDeclaration(node: ts.Node): boolean {
   );
 }
 
-function getWarning(node: ts.Node, moduleName: string): Warning {
+function getWarning(node: ts.Node, moduleName: string, path?: string): Warning {
   const original = ts.getOriginalNode(node);
   const deprecatedTag = ts
     .getJSDocTags(original)
@@ -418,6 +454,7 @@ function getWarning(node: ts.Node, moduleName: string): Warning {
   return {
     elementName: fqn,
     message: deprecatedTag.comment,
+    path,
   } as Warning;
 }
 
