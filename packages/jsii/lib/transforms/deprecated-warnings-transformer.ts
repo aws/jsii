@@ -14,7 +14,6 @@ import { fullyQualifiedName, isDeprecated } from './utils';
 type MethodLikeDeclaration =
   | ts.MethodDeclaration
   | ts.ConstructorDeclaration
-  | ts.FunctionDeclaration
   | ts.GetAccessorDeclaration
   | ts.SetAccessorDeclaration;
 
@@ -36,7 +35,7 @@ export class DeprecatedWarningInjector {
     string,
     ts.ClassDeclaration | ts.InterfaceDeclaration
   >();
-  private readonly deprecatedTypes = new Set<ts.Type>();
+  private deprecatedTypes = new Set<ts.Type>();
   private moduleName = '';
 
   public constructor(private readonly typeChecker: ts.TypeChecker) {}
@@ -59,23 +58,25 @@ export class DeprecatedWarningInjector {
   }
 
   public process(assembly: Assembly) {
-    if (assembly.types != null) {
-      this.moduleName = assembly.name;
-      const types: Array<InterfaceType | ClassType> = Object.values(
-        assembly.types,
-      ).filter(isClassOrInterfaceType);
+    if (assembly.types == null) {
+      return;
+    }
 
-      for (const type of types) {
-        const node = bindings.getClassOrInterfaceRelatedNode(type)!;
-        this.index.set(fullyQualifiedName(this.typeChecker, node)!, node);
-      }
-
-      this.deprecatedTypes = Object.values(assembly.types)
+    this.moduleName = assembly.name;
+    const types: Array<InterfaceType | ClassType> = Object.values(
+      assembly.types,
+    ).filter(isClassOrInterfaceType);
+    for (const type of types) {
+      const node = bindings.getClassOrInterfaceRelatedNode(type)!;
+      this.index.set(fullyQualifiedName(this.typeChecker, node)!, node);
+    }
+    this.deprecatedTypes = new Set(
+      Object.values(assembly.types)
         .filter((typeInfo) => typeInfo.docs?.stability === Stability.Deprecated)
         .filter(isClassOrInterfaceType)
         .map((typeInfo) => bindings.getClassOrInterfaceRelatedNode(typeInfo)!)
-        .map((node) => this.typeChecker.getTypeAtLocation(node));
-    }
+        .map((node) => this.typeChecker.getTypeAtLocation(node)),
+    );
   }
 }
 
@@ -85,7 +86,7 @@ class DeprecatedWarningsTransformer {
   public constructor(
     private readonly typeChecker: ts.TypeChecker,
     private readonly context: ts.TransformationContext,
-    private readonly deprecatedTypes: ts.Type[],
+    private readonly deprecatedTypes: Set<ts.Type>,
     private readonly index: Map<
       string,
       ts.ClassDeclaration | ts.InterfaceDeclaration | undefined
@@ -108,10 +109,6 @@ class DeprecatedWarningsTransformer {
   private visitor<T extends ts.Node>(node: T): ts.VisitResult<T> {
     if (ts.isClassDeclaration(node)) {
       this.handleClassDeclaration(node);
-    }
-
-    if (ts.isFunctionDeclaration(node)) {
-      this.handleFunctionDeclaration(node);
     }
 
     if (isMethodLikeDeclaration(node)) {
@@ -149,18 +146,6 @@ class DeprecatedWarningsTransformer {
 
     if (isDeprecated(node)) {
       this.warnings.push(getWarning(node, ElementType.METHOD, this.moduleName));
-    }
-  }
-
-  private handleFunctionDeclaration<T>(node: T & ts.FunctionDeclaration) {
-    this.warnings = this.getParameterWarnings([
-      ...(node as any as MethodLikeDeclaration).parameters,
-    ]);
-
-    if (isDeprecated(node)) {
-      this.warnings.push(
-        getWarning(node, ElementType.FUNCTION, this.moduleName),
-      );
     }
   }
 
@@ -255,7 +240,7 @@ class DeprecatedWarningsTransformer {
     }
 
     const type = toProcess[0];
-    if (this.deprecatedTypes.includes(type)) {
+    if (this.deprecatedTypes.has(type)) {
       return type;
     }
 
@@ -311,7 +296,7 @@ class DeprecatedWarningsTransformer {
             ts.createExpressionStatement(
               ts.createAssignment(
                 ts.createIdentifier('const deprecated'),
-                ts.createIdentifier('process.env.DEPRECATED'),
+                ts.createIdentifier('process.env.JSII_DEPRECATED'),
               ),
             ),
             ts.createExpressionStatement(
@@ -331,7 +316,7 @@ class DeprecatedWarningsTransformer {
             ts.createSwitch(
               ts.createIdentifier('deprecationMode'),
               ts.createCaseBlock([
-                ts.createCaseClause(ts.createLiteral('error'), [
+                ts.createCaseClause(ts.createLiteral('fail'), [
                   ts.createThrow(
                     ts.createNew(
                       ts.createIdentifier('Error'),
