@@ -31,9 +31,7 @@ const BASE_PROJECT = {
 describe('loadProjectInfo', () => {
   test('loads valid project', () =>
     _withTestProject(async (projectRoot) => {
-      const info = await loadProjectInfo(projectRoot, {
-        fixPeerDependencies: false,
-      });
+      const { projectInfo: info } = await loadProjectInfo(projectRoot);
       expect(info.name).toBe(BASE_PROJECT.name);
       expect(info.version).toBe(BASE_PROJECT.version);
       expect(info.description).toBe(BASE_PROJECT.description);
@@ -64,9 +62,7 @@ describe('loadProjectInfo', () => {
   test('loads valid project (UNLICENSED)', () =>
     _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
-          fixPeerDependencies: false,
-        });
+        const { projectInfo: info } = await loadProjectInfo(projectRoot);
         expect(info?.license).toBe('UNLICENSED');
       },
       (info) => {
@@ -77,9 +73,7 @@ describe('loadProjectInfo', () => {
   test('loads valid project (using bundleDependencies)', () =>
     _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
-          fixPeerDependencies: false,
-        });
+        const { projectInfo: info } = await loadProjectInfo(projectRoot);
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
       },
       (info) => {
@@ -91,9 +85,7 @@ describe('loadProjectInfo', () => {
   test('loads valid project (using bundledDependencies)', () =>
     _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
-          fixPeerDependencies: false,
-        });
+        const { projectInfo: info } = await loadProjectInfo(projectRoot);
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
       },
       (info) => {
@@ -106,9 +98,7 @@ describe('loadProjectInfo', () => {
     const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
     return _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
-          fixPeerDependencies: false,
-        });
+        const { projectInfo: info } = await loadProjectInfo(projectRoot);
         expect(info?.contributors?.map(_stripUndefined)).toEqual(
           contributors.map((c) => ({ ...c, roles: ['contributor'] })),
         );
@@ -120,9 +110,9 @@ describe('loadProjectInfo', () => {
   test('rejects un-declared dependency in bundleDependencies', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(/not declared in "dependencies"/i),
+        expect(loadProjectInfo(projectRoot)).rejects.toThrow(
+          /not declared in "dependencies"/i,
+        ),
       (info) => {
         info.bundledDependencies = ['bundled'];
       },
@@ -131,9 +121,9 @@ describe('loadProjectInfo', () => {
   test('rejects invalid license', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(/invalid license identifier/i),
+        expect(loadProjectInfo(projectRoot)).rejects.toThrow(
+          /invalid license identifier/i,
+        ),
       (info) => {
         info.license = 'Not an SPDX licence ID';
       },
@@ -142,9 +132,7 @@ describe('loadProjectInfo', () => {
   test('rejects incompatible dependency version', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(
+        expect(loadProjectInfo(projectRoot)).rejects.toThrow(
           /declared dependency on version .+ but version .+ was found/i,
         ),
       (info) => {
@@ -153,55 +141,57 @@ describe('loadProjectInfo', () => {
       },
     ));
 
-  test('fails to load with missing peerDependency (refusing to auto-fix)', () =>
+  test('missing peerDependencies are allowed', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(
-          `The "package.json" file has "${TEST_DEP_ASSEMBLY.name}" in "dependencies", but not in "peerDependencies"`,
+        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+          expect.objectContaining({
+            diagnostics: [],
+          }),
         ),
       (info) => {
         delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
       },
     ));
 
-  test('loads with missing peerDependency (when auto-fixing)', () =>
-    _withTestProject(
-      async (projectRoot) => {
-        await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
-        // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-        const info = require(path.join(projectRoot, 'package.json'));
-        expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
-      },
-      (info) => {
-        delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
-      },
-    ));
-
-  test('fails to load with inconsistent peerDependency (refusing to auto-fix)', () =>
+  test('warns if peerDependency misses a matching devDependency', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(
-          `The "package.json" file has different version requirements for "${TEST_DEP_ASSEMBLY.name}" in "dependencies" (^1.2.3) versus "peerDependencies" (^42.1337.0)`,
+        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+          expect.objectContaining({
+            diagnostics: [expect.objectContaining({ jsiiCode: 6 })],
+          }),
         ),
-      (info) => {
-        info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
+      () => {
+        // By default there is no devDependency in BASE_PROJECT
       },
     ));
 
-  test('loads with inconsistent peerDependency (when auto-fixing)', () =>
+  test('warns if peerDependency has a devDependency on the wrong version', () =>
     _withTestProject(
-      async (projectRoot) => {
-        await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
-        // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-        const info = require(path.join(projectRoot, 'package.json'));
-        expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
-      },
+      (projectRoot) =>
+        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+          expect.objectContaining({
+            diagnostics: [expect.objectContaining({ jsiiCode: 6 })],
+          }),
+        ),
       (info) => {
-        info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
+        // By default there is no devDependency in BASE_PROJECT
+        info.devDependencies = { 'jsii-test-dep': '4.5.6' };
+      },
+    ));
+
+  test('no warnings if devDependency point version matches peerDependency range', () =>
+    _withTestProject(
+      (projectRoot) =>
+        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+          expect.objectContaining({
+            diagnostics: [],
+          }),
+        ),
+      (info) => {
+        // By default there is no devDependency in BASE_PROJECT
+        info.devDependencies = { 'jsii-test-dep': '1.2.3' };
       },
     ));
 
@@ -209,9 +199,7 @@ describe('loadProjectInfo', () => {
     test('diagnostic categories are correctly detected', () => {
       return _withTestProject(
         async (projectRoot) => {
-          const info = await loadProjectInfo(projectRoot, {
-            fixPeerDependencies: false,
-          });
+          const { projectInfo: info } = await loadProjectInfo(projectRoot);
           expect(info.diagnostics).toBeDefined();
           const diagnostics = info.diagnostics!;
           expect(Object.keys(diagnostics).sort()).toEqual([
@@ -242,11 +230,9 @@ describe('loadProjectInfo', () => {
     test('invalid category is rejected', () => {
       return _withTestProject(
         (projectRoot) =>
-          expect(
-            loadProjectInfo(projectRoot, {
-              fixPeerDependencies: false,
-            }),
-          ).rejects.toThrow(/Invalid category/),
+          expect(loadProjectInfo(projectRoot)).rejects.toThrow(
+            /Invalid category/,
+          ),
         (info) => {
           const diagnostics = {
             diagCode1: 'invalid-category',
