@@ -34,9 +34,9 @@ interface Warning {
 export class DeprecatedWarningInjector {
   private readonly index = new Map<
     string,
-    ts.ClassDeclaration | ts.InterfaceDeclaration | undefined
+    ts.ClassDeclaration | ts.InterfaceDeclaration
   >();
-  private deprecatedTypes: ts.Type[] = [];
+  private readonly deprecatedTypes = new Set<ts.Type>();
   private moduleName = '';
 
   public constructor(private readonly typeChecker: ts.TypeChecker) {}
@@ -287,7 +287,7 @@ class DeprecatedWarningsTransformer {
   }
 
   private createWarningStatement(warning: Warning): ts.Statement[] {
-    const message = `${warning?.elementName} is deprecated.\n  ${warning?.message}\n  This API will be removed in the net major release.`;
+    const message = `${warning.elementName} is deprecated.\n  ${warning.message}\n  This API will be removed in the next major release.`;
     // TODO Are random numbers a good idea?
     const functionName = `printWarning${getRandomInt(
       0,
