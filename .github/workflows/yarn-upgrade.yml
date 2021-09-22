@@ -130,6 +130,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           # Git commit details
+          author: 'AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>'
           branch: automation/yarn-upgrade
           commit-message: |-
             chore: npm-check-updates && yarn upgrade
