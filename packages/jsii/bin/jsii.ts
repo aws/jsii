@@ -40,7 +40,8 @@ const warningTypes = Object.keys(enabledWarnings);
           .option('fix-peer-dependencies', {
             type: 'boolean',
             default: true,
-            desc: 'Automatically add missing entries in the peerDependencies section of package.json (deprecated, defunct)',
+            desc: 'This option no longer has any effect.',
+            hidden: true,
           })
           .options('fail-on-warnings', {
             alias: 'Werr',

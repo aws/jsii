@@ -8,7 +8,7 @@ import * as ts from 'typescript';
 
 import { parsePerson, parseRepository } from './utils';
 
-import { JsiiDiagnostic } from '.';
+import { JsiiDiagnostic } from './jsii-diagnostics';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
