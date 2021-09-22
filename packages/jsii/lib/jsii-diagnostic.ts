@@ -238,6 +238,22 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'metadata/missing-peer-dependency',
   });
 
+  // NOTE: currently not possible to change the severity of this code,
+  // as it's being emitted before the overrides have been loaded
+  public static readonly JSII_0006_MISSING_DEV_DEPENDENCY = Code.warning({
+    code: 6,
+    formatter: (
+      dependencyName: string,
+      peerRange: string,
+      minVersion: string,
+      actual: string,
+    ) =>
+      `A "peerDependency" on "${dependencyName}" at "${peerRange}" means you ` +
+      `should take a "devDependency" on "${dependencyName}" at "${minVersion}" ` +
+      `(found "${actual}")"`,
+    name: 'metadata/missing-dev-dependency',
+  });
+
   //////////////////////////////////////////////////////////////////////////////
   // 1000 => 1999 -- TYPESCRIPT LANGUAGE RESTRICTIONS
 
