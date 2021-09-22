@@ -2,7 +2,6 @@ import '@jsii/check-node/run';
 
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as process from 'process';
 import * as yargs from 'yargs';
 
 import { Compiler } from '../lib/compiler';
@@ -41,7 +40,7 @@ const warningTypes = Object.keys(enabledWarnings);
           .option('fix-peer-dependencies', {
             type: 'boolean',
             default: true,
-            desc: 'Automatically add missing entries in the peerDependencies section of package.json',
+            desc: 'Automatically add missing entries in the peerDependencies section of package.json (deprecated, defunct)',
           })
           .options('fail-on-warnings', {
             alias: 'Werr',
@@ -79,9 +78,8 @@ const warningTypes = Object.keys(enabledWarnings);
     path.resolve(process.cwd(), argv.PROJECT_ROOT),
   );
 
-  const projectInfo = await loadProjectInfo(projectRoot, {
-    fixPeerDependencies: argv['fix-peer-dependencies'],
-  });
+  const { projectInfo, diagnostics: projectInfoDiagnostics } =
+    await loadProjectInfo(projectRoot);
 
   // disable all silenced warnings
   for (const key of argv['silence-warnings']) {
@@ -106,20 +104,20 @@ const warningTypes = Object.keys(enabledWarnings);
   });
 
   const result = argv.watch ? compiler.watch() : compiler.emit();
-  return { projectRoot, emitResult: await result };
-})()
-  .then(({ projectRoot, emitResult }) => {
-    for (const diagnostic of emitResult.diagnostics) {
-      utils.logDiagnostic(diagnostic, projectRoot);
-    }
-    if (emitResult.emitSkipped) {
-      process.exit(1);
-    }
-  })
-  .catch((e) => {
-    console.error(`Error: ${e.stack}`);
-    process.exit(-1);
-  });
+  const emitResult = await result;
+
+  const allDiagnostics = [...projectInfoDiagnostics, ...emitResult.diagnostics];
+
+  for (const diagnostic of allDiagnostics) {
+    utils.logDiagnostic(diagnostic, projectRoot);
+  }
+  if (emitResult.emitSkipped) {
+    process.exitCode = 1;
+  }
+})().catch((e) => {
+  console.error(`Error: ${e.stack}`);
+  process.exitCode = -1;
+});
 
 function _configureLog4js(verbosity: number) {
   log4js.configure({

@@ -145,9 +145,8 @@ async function makeProjectInfo(
     spaces: 2,
   });
 
-  return loadProjectInfo(path.resolve(process.cwd(), '.'), {
-    fixPeerDependencies: true,
-  });
+  const result = await loadProjectInfo(path.resolve(process.cwd(), '.'));
+  return result.projectInfo;
 }
 
 export type PackageInfo = {

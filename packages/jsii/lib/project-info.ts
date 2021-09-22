@@ -8,6 +8,8 @@ import * as ts from 'typescript';
 
 import { parsePerson, parseRepository } from './utils';
 
+import { JsiiDiagnostic } from '.';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
 
@@ -55,13 +57,19 @@ export interface ProjectInfo {
   readonly bin?: { readonly [name: string]: string };
 }
 
+export interface ProjectInfoResult {
+  readonly projectInfo: ProjectInfo;
+  readonly diagnostics: readonly ts.Diagnostic[];
+}
+
 export async function loadProjectInfo(
   projectRoot: string,
-  { fixPeerDependencies }: { fixPeerDependencies: boolean },
-): Promise<ProjectInfo> {
+): Promise<ProjectInfoResult> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
   const pkg = require(packageJsonPath);
+
+  const diagnostics: ts.Diagnostic[] = [];
 
   let bundleDependencies: { [name: string]: string } | undefined;
   for (const name of pkg.bundleDependencies ?? pkg.bundledDependencies ?? []) {
@@ -79,53 +87,34 @@ export async function loadProjectInfo(
     }
 
     bundleDependencies = bundleDependencies ?? {};
-    bundleDependencies[name] = _resolveVersion(version, projectRoot).version!;
+    bundleDependencies[name] = _resolveVersion(version, projectRoot).version;
   }
 
-  let addedPeerDependency = false;
-  Object.entries(pkg.dependencies ?? {}).forEach(([name, version]) => {
-    if (name in (bundleDependencies ?? {})) {
-      return;
-    }
-    version = _resolveVersion(version as any, projectRoot).version;
-    pkg.peerDependencies = pkg.peerDependencies ?? {};
-    const peerVersion = _resolveVersion(
-      pkg.peerDependencies[name],
-      projectRoot,
-    ).version;
-    if (peerVersion === version) {
-      return;
-    }
-    if (!fixPeerDependencies) {
-      if (peerVersion) {
-        throw new Error(
-          `The "package.json" file has different version requirements for "${name}" in "dependencies" (${
-            version as any
-          }) versus "peerDependencies" (${peerVersion})`,
-        );
-      }
-      throw new Error(
-        `The "package.json" file has "${name}" in "dependencies", but not in "peerDependencies"`,
+  // Check peerDependencies are also in devDependencies
+  // You need this to write tests properly. There are probably cases where
+  // it makes sense to have this different, so most of what this checking
+  // produces is warnings, not errors.
+  const devDependencies = pkg.devDependencies ?? {};
+  for (const [name, rng] of Object.entries(pkg.peerDependencies ?? {})) {
+    const range = new semver.Range(
+      _resolveVersion(rng as string, projectRoot).version,
+    );
+    const minVersion = semver.minVersion(range)?.raw;
+
+    if (
+      !(name in devDependencies) ||
+      devDependencies[name] !== `${minVersion}`
+    ) {
+      diagnostics.push(
+        JsiiDiagnostic.JSII_0006_MISSING_DEV_DEPENDENCY.createDetached(
+          name,
+          `${rng as any}`,
+          `${minVersion}`,
+          `${devDependencies[name]}`,
+        ),
       );
+      continue;
     }
-    if (peerVersion) {
-      LOG.warn(
-        `Changing "peerDependency" on "${name}" from "${peerVersion}" to ${
-          version as any
-        }`,
-      );
-    } else {
-      LOG.warn(
-        `Recording missing "peerDependency" on "${name}" at ${version as any}`,
-      );
-    }
-    pkg.peerDependencies[name] = version;
-    addedPeerDependency = true;
-  });
-  // Re-write "package.json" if we fixed up "peerDependencies" and were told to automatically fix.
-  // Yes, we should never have addedPeerDependencies if not fixPeerDependency, but I still check again.
-  if (addedPeerDependency && fixPeerDependencies) {
-    await fs.writeJson(packageJsonPath, pkg, { encoding: 'utf8', spaces: 2 });
   }
 
   const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
@@ -158,7 +147,7 @@ export async function loadProjectInfo(
     pkg.jsii?.metadata,
   );
 
-  return {
+  const projectInfo = {
     projectRoot,
     packageJson: pkg,
 
@@ -226,6 +215,7 @@ export async function loadProjectInfo(
     bin: pkg.bin,
     diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
+  return { projectInfo, diagnostics };
 }
 
 function _guessRepositoryType(url: string): string {
@@ -260,7 +250,7 @@ async function _loadDependencies(
       dependencies[name],
       searchPath,
     );
-    const version = new semver.Range(versionString!);
+    const version = new semver.Range(versionString);
     if (!version) {
       throw new Error(
         `Invalid semver expression for ${name}: ${versionString}`,
@@ -277,8 +267,8 @@ async function _loadDependencies(
     }
     packageVersions[assm.name] =
       packageVersions[assm.name] != null
-        ? intersect(versionString!, packageVersions[assm.name])
-        : versionString!;
+        ? intersect(versionString, packageVersions[assm.name])
+        : versionString;
     transitiveAssemblies[assm.name] = assm;
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
@@ -423,10 +413,17 @@ function _validateStability(
   return stability as spec.Stability;
 }
 
+/**
+ * Resolves an NPM package specifier to a version range
+ *
+ * If it was already a version range, return it. If it the
+ * package references a local file, return the version that
+ * package is at.
+ */
 function _resolveVersion(
   dep: string,
   searchPath: string,
-): { version: string | undefined; localPackage?: string } {
+): { version: string; localPackage?: string } {
   const matches = /^file:(.+)$/.exec(dep);
   if (!matches) {
     return { version: dep };
