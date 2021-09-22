@@ -6,7 +6,6 @@ import {
   Stability,
 } from '@jsii/spec';
 import * as ts from 'typescript';
-import { Block } from 'typescript';
 
 import * as bindings from '../node-bindings';
 import { fullyQualifiedName, isDeprecated } from './utils';
@@ -17,17 +16,9 @@ type MethodLikeDeclaration =
   | ts.GetAccessorDeclaration
   | ts.SetAccessorDeclaration;
 
-enum ElementType {
-  METHOD = 0,
-  FUNCTION = 1,
-  CLASS = 2,
-  PARAMETER = 3,
-}
-
 interface Warning {
   readonly elementName: string;
   readonly message: string;
-  readonly type: ElementType;
 }
 
 export class DeprecatedWarningInjector {
@@ -112,41 +103,60 @@ class DeprecatedWarningsTransformer {
     }
 
     if (isMethodLikeDeclaration(node)) {
-      this.handleMethodLikeDeclaration(node);
-    }
+      const declaration = node as any as MethodLikeDeclaration;
+      const warnings = this.getParameterWarnings([...declaration.parameters]);
 
-    if (ts.isBlock(node)) {
-      if (this.warnings.length > 0) {
-        const block = node as Block;
-        const nodeArray: ts.NodeArray<ts.Statement> = ts.createNodeArray([
-          ...this.createWarningStatements(),
-          ...block.statements,
+      if (isDeprecated(node)) {
+        warnings.push(getWarning(node, this.moduleName));
+      }
+
+      const body = declaration.body;
+      if (body != null && warnings.length > 0) {
+        const warningStatements = this.createWarningStatements(warnings);
+        const nodeArray = ts.createNodeArray([
+          ...warningStatements,
+          ...body.statements,
         ]);
 
-        // "Pop" all warnings specific to this block
-        this.warnings = this.warnings.filter(
-          (warning) =>
-            ![ElementType.METHOD, ElementType.PARAMETER].includes(warning.type),
-        );
-        return ts.updateBlock(node, nodeArray) as any;
+        if (ts.isMethodDeclaration(declaration)) {
+          return ts.updateMethod(
+            declaration,
+            declaration.decorators,
+            declaration.modifiers,
+            declaration.asteriskToken,
+            declaration.name,
+            declaration.questionToken,
+            declaration.typeParameters,
+            declaration.parameters,
+            declaration.type,
+            ts.updateBlock(body, nodeArray),
+          ) as any;
+        } else if (ts.isSetAccessorDeclaration(declaration)) {
+          return ts.updateSetAccessor(
+            declaration,
+            declaration.decorators,
+            declaration.modifiers,
+            declaration.name,
+            declaration.parameters,
+            ts.updateBlock(body, nodeArray),
+          ) as any;
+        } else if (ts.isGetAccessorDeclaration(declaration)) {
+          return ts.updateGetAccessor(
+            declaration,
+            declaration.decorators,
+            declaration.modifiers,
+            declaration.name,
+            declaration.parameters,
+            declaration.type,
+            ts.updateBlock(body, nodeArray),
+          ) as any;
+        }
+      } else {
+        return declaration as any;
       }
     }
 
     return this.visitEachChild(node);
-  }
-
-  private handleMethodLikeDeclaration(node: ts.Node) {
-    const parameterWarnings = this.getParameterWarnings([
-      ...(node as any as MethodLikeDeclaration).parameters,
-    ]);
-
-    parameterWarnings.forEach((warning: Warning) =>
-      this.warnings.push(warning),
-    );
-
-    if (isDeprecated(node)) {
-      this.warnings.push(getWarning(node, ElementType.METHOD, this.moduleName));
-    }
   }
 
   private handleClassDeclaration<T>(node: T & ts.ClassDeclaration) {
@@ -158,9 +168,7 @@ class DeprecatedWarningsTransformer {
       const deprecatedNode = this.index.get(
         this.typeChecker.getFullyQualifiedName(deprecatedType.symbol),
       );
-      this.warnings.push(
-        getWarning(deprecatedNode!, ElementType.CLASS, this.moduleName),
-      );
+      this.warnings.push(getWarning(deprecatedNode!, this.moduleName));
     }
   }
 
@@ -179,11 +187,7 @@ class DeprecatedWarningsTransformer {
 
     const deprecatedType = this.findDeprecatedInTheTypeHierarchy([type]);
     return deprecatedType != null
-      ? getWarning(
-          deprecatedType.symbol.declarations[0],
-          ElementType.PARAMETER,
-          this.moduleName,
-        )
+      ? getWarning(deprecatedType.symbol.declarations[0], this.moduleName)
       : undefined; // There is no deprecated type in its heritage chain
   }
 
@@ -199,7 +203,7 @@ class DeprecatedWarningsTransformer {
     const warning = this.getWarningForHeritage(node);
     const warnings: Warning[] = warning != null ? [warning] : [];
     if (isDeprecated(node)) {
-      warnings.push(getWarning(node, ElementType.PARAMETER, this.moduleName));
+      warnings.push(getWarning(node, this.moduleName));
     }
     const type = this.typeChecker.getTypeAtLocation(node);
     const declaration = type.symbol?.declarations[0];
@@ -207,9 +211,7 @@ class DeprecatedWarningsTransformer {
     // In some cases (e.g., enums) the declaration is the node itself. Not including them twice here
     if (declaration != null && declaration !== node) {
       if (isDeprecated(declaration)) {
-        warnings.push(
-          getWarning(declaration, ElementType.PARAMETER, this.moduleName),
-        );
+        warnings.push(getWarning(declaration, this.moduleName));
       }
       if (
         ts.isInterfaceDeclaration(declaration) ||
@@ -227,8 +229,8 @@ class DeprecatedWarningsTransformer {
     );
   }
 
-  private createWarningStatements(): ts.Statement[] {
-    return [...this.warnings].flatMap((w) => this.createWarningStatement(w));
+  private createWarningStatements(warnings: Warning[]): ts.Statement[] {
+    return warnings.flatMap((w) => this.createWarningStatement(w));
   }
 
   // TODO Rename this method
@@ -284,13 +286,13 @@ class DeprecatedWarningsTransformer {
       // TODO Instead of declaring the function everywhere it's used, should we create a single declaration somewhere and reuse it?
       //  If so, where should this declaration go?
       ts.createFunctionDeclaration(
-        undefined,
-        undefined,
-        undefined,
+        undefined, // decorators
+        undefined, // modifiers
+        undefined, // asteriskToken
         functionName,
-        [],
-        [],
-        undefined,
+        [], // typeParameters
+        [], // parameters
+        undefined, // type
         ts.createBlock(
           [
             ts.createExpressionStatement(
@@ -358,11 +360,7 @@ function isMethodLikeDeclaration(node: ts.Node): boolean {
   );
 }
 
-function getWarning(
-  node: ts.Node,
-  elementType: ElementType,
-  moduleName: string,
-): Warning {
+function getWarning(node: ts.Node, moduleName: string): Warning {
   const original = ts.getOriginalNode(node);
   const deprecatedTag = ts
     .getJSDocTags(original)
@@ -387,7 +385,6 @@ function getWarning(
   return {
     elementName: fqn,
     message: deprecatedTag.comment,
-    type: elementType,
   } as Warning;
 }
 
