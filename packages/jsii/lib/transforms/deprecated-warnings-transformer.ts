@@ -107,7 +107,6 @@ class DeprecatedWarningsTransformer {
       const declaration = node as any as MethodLikeDeclaration;
       const warnings = this.warnings.concat(
         this.getParameterWarnings([...declaration.parameters]),
-        // this.buildParameterWarnings([...declaration.parameters]),
       );
 
       if (isDeprecated(node)) {
@@ -209,58 +208,73 @@ class DeprecatedWarningsTransformer {
   ): Warning[] {
     // TODO In which situations does getNameOfDeclaration return undefined?
     const names = parameters.map((p) => ts.getNameOfDeclaration(p)!.getText());
-    return this.buildParameterWarnings(parameters, [], names);
+    return this.buildParameterWarnings(parameters, names);
   }
 
   private buildParameterWarnings(
     toProcess: ts.Node[],
-    result: Warning[] = [],
     paths: string[] = [],
+    result: Warning[] = [],
   ): Warning[] {
     if (toProcess.length === 0) {
       return result;
     }
+    const moduleName = this.moduleName;
+    const typeChecker = this.typeChecker;
+    const getWarningForHeritage = this.getWarningForHeritage.bind(this);
+
     const node = toProcess[0];
     const path = paths[0];
-    const warning = this.getWarningForHeritage(node);
-    const warnings: Warning[] = warning != null ? [warning] : [];
-    if (isDeprecated(node)) {
-      warnings.push(getWarning(node, this.moduleName, path));
-    }
-    const type = this.typeChecker.getTypeAtLocation(node);
 
-    // TODO This doesn't work for union types
-    const declaration = type.symbol?.declarations[0];
-
-    let newBatch: ts.Node[] = [];
-    let newPaths: string[] = [];
-    // In some cases (e.g., enums) the declaration is the node itself. Not including them twice here
-    if (declaration != null && declaration !== node) {
-      if (isDeprecated(declaration)) {
-        warnings.push(getWarning(declaration, this.moduleName, path));
-      }
-      if (
-        ts.isInterfaceDeclaration(declaration) ||
-        ts.isClassDeclaration(node)
-      ) {
-        newBatch = type.getProperties().map((p) => p.declarations[0]);
-        newPaths = newBatch.map((n) => {
-          const name = ts.getNameOfDeclaration(n as ts.Declaration)?.getText();
-          return name != null ? `${path}.${name}` : '';
-        });
-      }
-      if (ts.isEnumDeclaration(declaration)) {
-        newBatch = [...declaration.members];
-      }
+    function getAllTypes(node: ts.Node): ts.Type[] {
+      const type = typeChecker.getTypeAtLocation(node);
+      return type.isUnionOrIntersection()
+        ? (type as ts.UnionType | ts.IntersectionType).types
+        : [type];
     }
-    return this.buildParameterWarnings(
-      toProcess.slice(1).concat(newBatch),
-      result.concat(warnings),
-      paths.slice(1).concat(newPaths),
-    );
+
+    function getPossibleWarning(node: ts.Node): Warning | undefined {
+      return isDeprecated(node)
+        ? getWarning(node, moduleName, path)
+        : getWarningForHeritage(node);
+    }
+
+    function getAllChildren(types: ts.Type[]): ts.Declaration[] {
+      return types.flatMap((type) =>
+        type.getProperties().flatMap((symbol) => symbol.declarations),
+      );
+    }
+
+    function getWarningsForTypes(types: ts.Type[]): Warning[] {
+      return types
+        .flatMap((type) => type.symbol?.declarations)
+        .filter((d) => d != null)
+        .map((d) => getPossibleWarning(d))
+        .filter((warning) => warning != null)
+        .map((w) => w!); // We have no undefined warnings at this point
+    }
+
+    function getPath(node: ts.Declaration): string {
+      const name = ts.getNameOfDeclaration(node)?.getText();
+      return name != null ? `${path}.${name}` : '';
+    }
+
+    const warning = getPossibleWarning(node);
+    const types = getAllTypes(node);
+    const warnings = getWarningsForTypes(types);
+    const children = getAllChildren(types);
+
+    const nextBatch = toProcess.slice(1).concat(children);
+    const nextPaths = children.map(getPath);
+    const accumulatedResult = result
+      .concat(warnings)
+      .concat(warning ? [warning] : []);
+
+    return this.buildParameterWarnings(nextBatch, nextPaths, accumulatedResult);
   }
 
   private createWarningStatements(warnings: Warning[]): ts.Statement[] {
+    // TODO De-duplicate warnings
     return warnings.flatMap((w) => this.createWarningStatement(w));
   }
 
