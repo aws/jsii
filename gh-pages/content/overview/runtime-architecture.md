@@ -60,7 +60,7 @@ the request-response protocol is defined by the [kernel api specification]. On
 - `#!json { "stdout": "<base64-encoded data>" }` when the console data is to be
   written on the *Host Application*'s `STDOUT` stream.
 - Any data that is not valid JSON, or that does not match either of the formats
-  described avove must be written as-is on the *Host Application*'s `STDERR`
+  described above must be written as-is on the *Host Application*'s `STDERR`
   stream.
 
 [kernel api specification]: ../specification/3-kernel-api.md
