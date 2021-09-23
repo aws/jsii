@@ -333,11 +333,7 @@ class DeprecatedWarningsTransformer {
 
     const message =
       '`${name} is deprecated.\\n  ${deprecationMessage}\\n  This API will be removed in the next major release.`';
-    // TODO Are random numbers a good idea?
-    const functionName = `printWarning${getRandomInt(
-      0,
-      Number.MAX_SAFE_INTEGER,
-    )}`;
+    const functionName = ts.createUniqueName('printJsiiDeprecationWarnings');
 
     // TODO There must be a simpler way...
     const mainStatements = [
@@ -402,11 +398,7 @@ class DeprecatedWarningsTransformer {
         warningFunctionBody(),
       ),
       ts.createExpressionStatement(
-        ts.createCall(
-          ts.createIdentifier(functionName),
-          [],
-          warningFunctionArguments(),
-        ),
+        ts.createCall(functionName, [], warningFunctionArguments()),
       ),
     ];
 
@@ -470,10 +462,4 @@ function getWarning(node: ts.Node, moduleName: string, path?: string): Warning {
     message: deprecatedTag.comment,
     path,
   } as Warning;
-}
-
-function getRandomInt(min: number, max: number) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
