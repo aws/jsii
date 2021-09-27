@@ -426,9 +426,10 @@ class DeprecatedWarningsTransformer {
     }
 
     function warningFunctionArguments(): ts.Expression[] {
+      const message = warning.message ?? '';
       const baseArguments: ts.Expression[] = [
         ts.createLiteral(warning.elementName),
-        ts.createLiteral(warning.message),
+        ts.createLiteral(message),
       ];
       return warning.path == null
         ? baseArguments
