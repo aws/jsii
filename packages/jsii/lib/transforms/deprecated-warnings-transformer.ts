@@ -29,6 +29,7 @@ export class DeprecatedWarningInjector {
   >();
   private deprecatedTypes = new Set<ts.Type>();
   private moduleName = '';
+  private projectRoot = '';
 
   public constructor(private readonly typeChecker: ts.TypeChecker) {}
 
@@ -42,6 +43,7 @@ export class DeprecatedWarningInjector {
             this.deprecatedTypes,
             this.index,
             this.moduleName,
+            this.projectRoot,
           );
           return transformer.transform.bind(transformer);
         },
@@ -49,12 +51,13 @@ export class DeprecatedWarningInjector {
     };
   }
 
-  public process(assembly: Assembly) {
+  public process(assembly: Assembly, projectRoot: string) {
     if (assembly.types == null) {
       return;
     }
 
     this.moduleName = assembly.name;
+    this.projectRoot = projectRoot;
     const types: Array<InterfaceType | ClassType> = Object.values(
       assembly.types,
     ).filter(isClassOrInterfaceType);
@@ -84,6 +87,7 @@ class DeprecatedWarningsTransformer {
       ts.ClassDeclaration | ts.InterfaceDeclaration | undefined
     >,
     private readonly moduleName: string,
+    private readonly projectRoot: string,
   ) {}
 
   public transform<T extends ts.Node>(node: T): T {
@@ -222,6 +226,7 @@ class DeprecatedWarningsTransformer {
     }
     const moduleName = this.moduleName;
     const typeChecker = this.typeChecker;
+    const projectRoot = this.projectRoot;
     const getWarningForHeritage = this.getWarningForHeritage.bind(this);
 
     const node = toProcess[0];
@@ -240,9 +245,15 @@ class DeprecatedWarningsTransformer {
         : getWarningForHeritage(node);
     }
 
-    function getAllChildren(types: ts.Type[]): ts.Declaration[] {
+    function getChildren(types: ts.Type[]): ts.Declaration[] {
       return types.flatMap((type) =>
-        type.getProperties().flatMap((symbol) => symbol.declarations),
+        type.getProperties().flatMap((symbol) => {
+          const declarations = symbol.declarations;
+          const typeIsInTheCompiledModule = declarations
+            .map((d) => d.getSourceFile().fileName)
+            .some((name: string) => name.startsWith(projectRoot));
+          return typeIsInTheCompiledModule ? symbol.declarations : [];
+        }),
       );
     }
 
@@ -263,7 +274,7 @@ class DeprecatedWarningsTransformer {
     const warning = getPossibleWarning(node);
     const types = getAllTypes(node);
     const warnings = getWarningsForTypes(types);
-    const children = getAllChildren(types);
+    const children = getChildren(types);
 
     const nextBatch = toProcess
       .slice(1)
@@ -447,15 +458,7 @@ function isMethodLikeDeclaration(node: ts.Node): boolean {
   );
 }
 
-function getWarning(node: ts.Node, moduleName: string, path?: string): Warning {
-  const original = ts.getOriginalNode(node);
-  const deprecatedTag = ts
-    .getJSDocTags(original)
-    .find(
-      (tag: ts.JSDocTag) =>
-        (tag.tagName.text ?? tag.tagName.escapedText) === 'deprecated',
-    )!;
-
+function makeFqn(node: ts.Node, moduleName: string) {
   const fqnComponents: string[] = [];
   let currentNode = node;
   do {
@@ -467,7 +470,18 @@ function getWarning(node: ts.Node, moduleName: string, path?: string): Warning {
   } while (currentNode != null);
   fqnComponents.unshift(moduleName);
 
-  const fqn = fqnComponents.join('.');
+  return fqnComponents.join('.');
+}
+
+function getWarning(node: ts.Node, moduleName: string, path?: string): Warning {
+  const original = ts.getOriginalNode(node);
+  const deprecatedTag = ts
+    .getJSDocTags(original)
+    .find(
+      (tag: ts.JSDocTag) =>
+        (tag.tagName.text ?? tag.tagName.escapedText) === 'deprecated',
+    )!;
+  const fqn = makeFqn(node, moduleName);
 
   return {
     elementName: fqn,

@@ -248,7 +248,10 @@ export class Assembler implements Emitter {
     }
 
     if (this.deprecatedWarningInjector) {
-      this.deprecatedWarningInjector?.process(assembly);
+      this.deprecatedWarningInjector?.process(
+        assembly,
+        this.projectInfo.projectRoot,
+      );
     }
 
     const validator = new Validator(this.projectInfo, assembly);
