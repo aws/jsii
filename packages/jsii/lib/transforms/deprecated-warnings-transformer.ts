@@ -428,15 +428,12 @@ class DeprecatedWarningsTransformer {
     ];
 
     function warningFunctionBody(): ts.Block {
-      if (warning.path != null) {
-        return ts.createBlock([
-          ts.createIf(
-            ts.createIdentifier('value != null'),
-            ts.createBlock(mainStatements, true),
-          ),
-        ]);
-      }
-      return ts.createBlock(mainStatements, true);
+      return ts.createBlock([
+        ts.createIf(
+          ts.createIdentifier('value != null'),
+          ts.createBlock(mainStatements, true),
+        ),
+      ]);
     }
 
     function warningFunctionArguments(): ts.Expression[] {
@@ -445,9 +442,11 @@ class DeprecatedWarningsTransformer {
         ts.createLiteral(warning.elementName),
         ts.createLiteral(message),
       ];
-      return warning.path == null
-        ? baseArguments
-        : baseArguments.concat(ts.createIdentifier(warning.path));
+      const valueArg =
+        warning.path != null
+          ? ts.createIdentifier(warning.path)
+          : ts.createLiteral('');
+      return baseArguments.concat(valueArg);
     }
   }
 }
