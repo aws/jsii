@@ -206,7 +206,6 @@ class DeprecatedWarningsTransformer {
       : undefined; // There is no deprecated type in its heritage chain
   }
 
-  // TODO Rename this method
   private getParameterWarnings(
     parameters: ts.ParameterDeclaration[],
   ): Warning[] {
@@ -243,7 +242,9 @@ class DeprecatedWarningsTransformer {
       .filter((child) => !visited.has(child))
       .map((node) => node as ts.Declaration);
 
-    const nextPaths = paths.slice(1).concat(children.map(getPath));
+    const nextPaths = paths
+      .slice(1)
+      .concat(children.filter((child) => !visited.has(child)).map(getPath));
 
     const accumulatedResult = result
       .concat(warnings)
@@ -360,7 +361,6 @@ class DeprecatedWarningsTransformer {
       '`${name} is deprecated.\\n  ${deprecationMessage}\\n  This API will be removed in the next major release.`';
     const functionName = ts.createUniqueName('printJsiiDeprecationWarnings');
 
-    // TODO There must be a simpler way...
     const mainStatements = [
       ts.createExpressionStatement(
         ts.createAssignment(
