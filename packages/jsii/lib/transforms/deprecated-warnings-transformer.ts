@@ -215,6 +215,7 @@ class DeprecatedWarningsTransformer {
     toProcess: ts.Node[],
     paths: string[] = [],
     result: Warning[] = [],
+    visited: Set<ts.Node> = new Set(),
   ): Warning[] {
     if (toProcess.length === 0) {
       return result;
@@ -264,13 +265,23 @@ class DeprecatedWarningsTransformer {
     const warnings = getWarningsForTypes(types);
     const children = getAllChildren(types);
 
-    const nextBatch = toProcess.slice(1).concat(children);
+    const nextBatch = toProcess
+      .slice(1)
+      .concat(children)
+      .filter((c) => !visited.has(c));
     const nextPaths = children.map(getPath);
     const accumulatedResult = result
       .concat(warnings)
       .concat(warning ? [warning] : []);
+    const accumulatedVisited = new Set(visited);
+    accumulatedVisited.add(node);
 
-    return this.buildParameterWarnings(nextBatch, nextPaths, accumulatedResult);
+    return this.buildParameterWarnings(
+      nextBatch,
+      nextPaths,
+      accumulatedResult,
+      accumulatedVisited,
+    );
   }
 
   private createWarningStatements(warnings: Warning[]): ts.Statement[] {
