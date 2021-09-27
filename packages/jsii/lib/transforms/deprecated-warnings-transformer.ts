@@ -232,6 +232,32 @@ class DeprecatedWarningsTransformer {
     const node = toProcess[0];
     const path = paths[0];
 
+    const warning = getPossibleWarning(node);
+    const types = getAllTypes(node);
+    const warnings = getWarningsForTypes(types);
+    const children = getChildren(types);
+
+    const nextBatch = toProcess
+      .slice(1)
+      .concat(children)
+      .filter((child) => !visited.has(child))
+      .map((node) => node as ts.Declaration);
+
+    const nextPaths = paths.slice(1).concat(children.map(getPath));
+
+    const accumulatedResult = result
+      .concat(warnings)
+      .concat(warning ? [warning] : []);
+    const accumulatedVisited = new Set(visited);
+    accumulatedVisited.add(node);
+
+    return this.buildParameterWarnings(
+      nextBatch,
+      nextPaths,
+      accumulatedResult,
+      accumulatedVisited,
+    );
+
     function getAllTypes(node: ts.Node): ts.Type[] {
       const type = typeChecker.getTypeAtLocation(node);
       return type.isUnionOrIntersection()
@@ -270,29 +296,6 @@ class DeprecatedWarningsTransformer {
       const name = ts.getNameOfDeclaration(node)?.getText();
       return name != null ? `${path}.${name}` : '';
     }
-
-    const warning = getPossibleWarning(node);
-    const types = getAllTypes(node);
-    const warnings = getWarningsForTypes(types);
-    const children = getChildren(types);
-
-    const nextBatch = toProcess
-      .slice(1)
-      .concat(children)
-      .filter((c) => !visited.has(c));
-    const nextPaths = children.map(getPath);
-    const accumulatedResult = result
-      .concat(warnings)
-      .concat(warning ? [warning] : []);
-    const accumulatedVisited = new Set(visited);
-    accumulatedVisited.add(node);
-
-    return this.buildParameterWarnings(
-      nextBatch,
-      nextPaths,
-      accumulatedResult,
-      accumulatedVisited,
-    );
   }
 
   private createWarningStatements(warnings: Warning[]): ts.Statement[] {
