@@ -258,7 +258,8 @@ class DeprecatedWarningsTransformer {
       return undefined;
     }
 
-    const deprecatedType = this.findDeprecatedInTheTypeHierarchy([type]);
+    const backlog = this.getImmediateSuperTypes(declaration, [type]);
+    const deprecatedType = this.findDeprecatedInTheTypeHierarchy(backlog);
     return deprecatedType != null
       ? getWarning(deprecatedType.symbol.declarations[0], this.moduleName)
       : undefined; // There is no deprecated type in its heritage chain
@@ -358,19 +359,22 @@ class DeprecatedWarningsTransformer {
   }
 
   private createWarningStatements(warnings: Warning[]): ts.Statement[] {
-    // TODO De-duplicate warnings
     return warnings.flatMap((w) => this.createWarningStatement(w));
   }
 
-  // TODO Rename this method
+  /**
+   * Given a list of types, returns all types in the transitive closure of their
+   * inheritance graphs that are deprecated
+   * @param backlog The list of roots to the inheritance graphs
+   */
   private findDeprecatedInTheTypeHierarchy(
-    toProcess: ts.Type[],
+    backlog: ts.Type[],
   ): ts.Type | undefined {
-    if (toProcess.length === 0) {
+    if (backlog.length === 0) {
       return undefined;
     }
 
-    const type = toProcess[0];
+    const type = backlog[0];
     if (this.deprecatedTypes.has(type)) {
       return type;
     }
@@ -379,12 +383,10 @@ class DeprecatedWarningsTransformer {
       this.typeChecker.getFullyQualifiedName(type.symbol),
     );
 
-    // This type was not declared in the JSII assembly. Skipping.
-    if (node == null) {
-      return undefined;
-    }
-
-    if (isInternal(node)) {
+    if (
+      node == null || // This type was not declared in the JSII assembly. Skipping.
+      isInternal(node)
+    ) {
       return undefined;
     }
 
@@ -392,18 +394,33 @@ class DeprecatedWarningsTransformer {
       throw new Error('Node should be a class or interface declaration.');
     }
 
-    const newBatch = toProcess.slice(1);
+    const newBatch = this.getImmediateSuperTypes(node, backlog);
+
+    return this.findDeprecatedInTheTypeHierarchy(newBatch);
+  }
+
+  /**
+   * Given a class or interface declaration, finds the declarations of the
+   * class and interfaces that it extends and implements, respectively. This
+   * result is added to the tail of a list of known types, without duplication.
+   * @param node A class or interface declaration
+   * @param types A list of known types
+   */
+  private getImmediateSuperTypes(
+    node: ts.ClassDeclaration | ts.InterfaceDeclaration,
+    types: ts.Type[],
+  ): ts.Type[] {
+    const result = types.slice(1);
     const heritageClauses = node.heritageClauses ?? [];
     for (const clause of heritageClauses) {
       for (const expression of clause.types) {
         const type = this.typeChecker.getTypeAtLocation(expression);
-        if (!toProcess.includes(type)) {
-          newBatch.push(type);
+        if (!types.includes(type)) {
+          result.push(type);
         }
       }
     }
-
-    return this.findDeprecatedInTheTypeHierarchy(newBatch);
+    return result;
   }
 
   private createWarningStatement(warning: Warning): ts.Statement[] {
