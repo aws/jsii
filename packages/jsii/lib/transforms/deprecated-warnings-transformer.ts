@@ -5,10 +5,15 @@ import {
   isClassOrInterfaceType,
   Stability,
 } from '@jsii/spec';
+import * as fs from 'fs';
+import * as path from 'path';
 import * as ts from 'typescript';
 
 import * as bindings from '../node-bindings';
 import { fullyQualifiedName, isDeprecated } from './utils';
+
+const WARNING_FUNCTION_NAME = 'printJsiiDeprecationWarnings';
+const FILE_NAME = '.warnings.jsii.js';
 
 type MethodLikeDeclaration =
   | ts.MethodDeclaration
@@ -72,6 +77,46 @@ export class DeprecatedWarningInjector {
         .map((typeInfo) => bindings.getClassOrInterfaceRelatedNode(typeInfo)!)
         .map((node) => this.typeChecker.getTypeAtLocation(node)),
     );
+
+    this.createWarningFunction();
+  }
+
+  private createWarningFunction() {
+    const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage, value) {
+  if (value != null) {
+    const deprecated = process.env.JSII_DEPRECATED;
+    const deprecationMode = ['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn';
+    const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
+    switch (deprecationMode) {
+      case "fail":
+        throw new Error(message);
+      case "warn":
+        console.warn("[WARNING]", message);
+        break;
+    }
+  }
+}
+
+module.exports = ${WARNING_FUNCTION_NAME}`;
+
+    const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
+    const resultFile = ts.createSourceFile(
+      FILE_NAME,
+      functionText,
+      ts.ScriptTarget.Latest,
+      false,
+      ts.ScriptKind.JS,
+    );
+
+    try {
+      fs.writeFileSync(
+        path.join(this.projectRoot, FILE_NAME),
+        printer.printFile(resultFile),
+      );
+    } catch (e) {
+      // TODO Log this error properly
+      console.error(e);
+    }
   }
 }
 
@@ -95,7 +140,25 @@ class DeprecatedWarningsTransformer {
       // Processing didn't happen, probably due to JSII compilation errors
       return node;
     }
-    return this.visitEachChild(node);
+    const result = this.visitEachChild(node);
+
+    if (ts.isSourceFile(result)) {
+      const importPath = path.join(
+        path.relative(path.dirname(result.fileName), this.projectRoot),
+        FILE_NAME,
+      );
+
+      return ts.updateSourceFileNode(result, [
+        ts.createImportEqualsDeclaration(
+          undefined,
+          undefined,
+          WARNING_FUNCTION_NAME,
+          ts.createExternalModuleReference(ts.createLiteral(importPath)),
+        ),
+        ...result.statements,
+      ]) as any;
+    }
+    return result;
   }
 
   private visitEachChild<T extends ts.Node>(node: T): T {
@@ -345,96 +408,15 @@ class DeprecatedWarningsTransformer {
   }
 
   private createWarningStatement(warning: Warning): ts.Statement[] {
-    function createParameter(name: string) {
-      return ts.createParameter(
-        undefined,
-        undefined,
-        undefined,
-        name,
-        undefined,
-        undefined,
-        undefined,
-      );
-    }
-
-    const message =
-      '`${name} is deprecated.\\n  ${deprecationMessage}\\n  This API will be removed in the next major release.`';
-    const functionName = ts.createUniqueName('printJsiiDeprecationWarnings');
-
-    const mainStatements = [
-      ts.createExpressionStatement(
-        ts.createAssignment(
-          ts.createIdentifier('const deprecated'),
-          ts.createIdentifier('process.env.JSII_DEPRECATED'),
-        ),
-      ),
-      ts.createExpressionStatement(
-        ts.createAssignment(
-          ts.createIdentifier('const deprecationMode'),
-          ts.createIdentifier(
-            "['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn'",
-          ),
-        ),
-      ),
-      ts.createExpressionStatement(
-        ts.createAssignment(
-          ts.createIdentifier('const message'),
-          ts.createIdentifier(message),
-        ),
-      ),
-      ts.createSwitch(
-        ts.createIdentifier('deprecationMode'),
-        ts.createCaseBlock([
-          ts.createCaseClause(ts.createLiteral('fail'), [
-            ts.createThrow(
-              ts.createNew(
-                ts.createIdentifier('Error'),
-                [],
-                [ts.createIdentifier('message')],
-              ),
-            ),
-            ts.createBreak(),
-          ]),
-          ts.createCaseClause(ts.createLiteral('warn'), [
-            ts.createExpressionStatement(
-              ts.createCall(
-                ts.createIdentifier('console.warn'),
-                [],
-                [ts.createLiteral('[WARNING]'), ts.createIdentifier('message')],
-              ),
-            ),
-            ts.createBreak(),
-          ]),
-        ]),
-      ),
-    ];
-
     return [
-      // TODO Instead of declaring the function everywhere it's used, should we create a single declaration somewhere and reuse it?
-      //  If so, where should this declaration go?
-      ts.createFunctionDeclaration(
-        undefined, // decorators
-        undefined, // modifiers
-        undefined, // asteriskToken
-        functionName,
-        [], // typeParameters
-        ['name', 'deprecationMessage', 'value'].map(createParameter),
-        undefined, // type
-        warningFunctionBody(),
-      ),
       ts.createExpressionStatement(
-        ts.createCall(functionName, [], warningFunctionArguments()),
+        ts.createCall(
+          ts.createIdentifier(WARNING_FUNCTION_NAME),
+          [],
+          warningFunctionArguments(),
+        ),
       ),
     ];
-
-    function warningFunctionBody(): ts.Block {
-      return ts.createBlock([
-        ts.createIf(
-          ts.createIdentifier('value != null'),
-          ts.createBlock(mainStatements, true),
-        ),
-      ]);
-    }
 
     function warningFunctionArguments(): ts.Expression[] {
       const message = warning.message ?? '';
