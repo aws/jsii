@@ -1,6 +1,7 @@
 import * as os from 'os';
 import * as path from 'path';
 import * as ts from 'typescript';
+import * as v8 from 'v8';
 
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
 import * as logging from '../logging';
@@ -210,6 +211,12 @@ async function workerBasedTranslateAll(
   ): Promise<import('./extract_worker').TranslateResponse> {
     return new Promise((resolve, reject) => {
       const wrk = new worker.Worker(path.join(__dirname, 'extract_worker.js'), {
+        resourceLimits: {
+          // Note: V8 heap statistics are expressed in bytes, so we divide by 1MiB (1,048,576 bytes)
+          maxOldGenerationSizeMb: Math.ceil(
+            v8.getHeapStatistics().heap_size_limit / 1_048_576,
+          ),
+        },
         workerData: request,
       });
       wrk.on('message', resolve);
