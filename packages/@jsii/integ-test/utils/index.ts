@@ -29,7 +29,7 @@ export class ProcessManager {
    *
    * @param signal sent to terminate process
    */
-  public async killAll(signal?: string) {
+  public async killAll(signal: NodeJS.Signals = 'SIGTERM') {
     const values = Object.values(this.processes);
     await Promise.all(
       values.map(({ proc, promise }) => async () => {

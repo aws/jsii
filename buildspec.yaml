@@ -6,9 +6,6 @@ phases:
       # Temporarily - install yarn if it's not there already
       - yarn --version || npm install --global yarn
       - yarn install --frozen-lockfile
-      # Temporary - gcc is needed for testify, but we can remove this once we have a new release
-      # of superchain, which will include it as of now.
-      - yum -y install gcc
   build:
     commands:
       - yarn build && yarn test

@@ -108,8 +108,8 @@ export interface InvokeScriptRequest {
 
 export interface InvokeScriptResponse {
   readonly status: number | null;
-  readonly stdout: Buffer;
-  readonly stderr: Buffer;
+  readonly stdout: string;
+  readonly stderr: string;
   readonly signal: string | null;
 }
 

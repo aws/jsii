@@ -17,7 +17,7 @@
     "directory": "packages/codemaker"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 12.7.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -36,12 +36,12 @@
     "fs-extra": "^9.1.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.1.2",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^10.17.60",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^12.20.26",
     "eslint": "^7.32.0",
-    "jest": "^27.0.6",
-    "prettier": "^2.3.2",
+    "jest": "^27.2.1",
+    "prettier": "^2.4.1",
     "typescript": "~3.9.10"
   }
 }

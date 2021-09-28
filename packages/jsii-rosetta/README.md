@@ -189,12 +189,6 @@ terminate the option list by passing `--`).
 Since TypeScript compilation takes a lot of time, much time can be gained by using the CPUs in your system effectively.
 `jsii-rosetta extract` will run the compilations in parallel if support for NodeJS Worker Threads is detected.
 
-Worker threads are enabled by default on NodeJS 12.x, and can be enabled on NodeJS 10.x by using a flag:
-
-```
-$ node --experimental-worker /path/to/jsii-rosetta extract ...
-```
-
 If worker thread support is available, `jsii-rosetta` will use a number of workers equal to half the number of CPU cores,
 up to a maximum of 16 workers. This default maximum can be overridden by setting the `JSII_ROSETTA_MAX_WORKER_COUNT`
 environment variable.

@@ -62,7 +62,7 @@ export default class Python extends Target {
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
     // Create a fresh virtual env
-    const venv = await fs.mkdtemp(path.join(sourceDir, '.env'));
+    const venv = await fs.mkdtemp(path.join(sourceDir, '.env-'));
     const venvBin = path.join(
       venv,
       process.platform === 'win32' ? 'Scripts' : 'bin',

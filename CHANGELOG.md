@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.35.0](https://github.com/aws/jsii/compare/v1.34.0...v1.35.0) (2021-09-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* the minimum supported version of `node` changed from
+`10.3.0` to `12.7.0`. We recommend using `16.x` if possible.
+
+### Features
+
+* **rosetta:** propagate max heap size to worker threads ([#3002](https://github.com/aws/jsii/issues/3002)) ([9c7f63e](https://github.com/aws/jsii/commit/9c7f63eea27db55db83f1ad53552394edba4a931))
+
+
+### Bug Fixes
+
+* **jsii:** improve checks around peerDependencies ([#2997](https://github.com/aws/jsii/issues/2997)) ([d1ff3e6](https://github.com/aws/jsii/commit/d1ff3e678c9011df5e51816b37bec77767b6e8e2)), closes [#2994](https://github.com/aws/jsii/issues/2994)
+* typo in documentation ([#2999](https://github.com/aws/jsii/issues/2999)) ([f3e2271](https://github.com/aws/jsii/commit/f3e2271855d528f3b43478e1f3b6d3e482d44900))
+
+
+* upgrade baseline node requirement to >=12.7.0 ([#2946](https://github.com/aws/jsii/issues/2946)) ([f2c6842](https://github.com/aws/jsii/commit/f2c68426f1066de86f74fe4900011a10eef32c14))
+
 ## [1.34.0](https://github.com/aws/jsii/compare/v1.33.0...v1.34.0) (2021-08-25)
 
 
