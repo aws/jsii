@@ -10,7 +10,7 @@ import * as path from 'path';
 import * as ts from 'typescript';
 
 import * as bindings from '../node-bindings';
-import { fullyQualifiedName, isDeprecated } from './utils';
+import { fullyQualifiedName, isDeprecated, isInternal } from './utils';
 
 const WARNING_FUNCTION_NAME = 'printJsiiDeprecationWarnings';
 const FILE_NAME = '.warnings.jsii.js';
@@ -127,7 +127,7 @@ class DeprecatedWarningsTransformer {
     private readonly deprecatedTypes: Set<ts.Type>,
     private readonly declarationIndex: Map<
       string,
-      ts.ClassDeclaration | ts.InterfaceDeclaration | undefined
+      ts.ClassDeclaration | ts.InterfaceDeclaration
     >,
     private readonly moduleName: string,
     private readonly projectRoot: string,
@@ -168,7 +168,7 @@ class DeprecatedWarningsTransformer {
       this.handleClassDeclaration(node);
     }
 
-    if (isMethodLikeDeclaration(node)) {
+    if (isMethodLikeDeclaration(node) && !isInternal(node)) {
       const declaration = node as any as MethodLikeDeclaration;
       const warnings = this.warnings.concat(
         this.getParameterWarnings([...declaration.parameters]),
@@ -325,7 +325,7 @@ class DeprecatedWarningsTransformer {
     }
 
     function getPossibleWarning(node: ts.Node): Warning | undefined {
-      return isDeprecated(node)
+      return isDeprecated(node) && !isInternal(node)
         ? getWarning(node, moduleName, path)
         : getWarningForHeritage(node);
     }
@@ -381,6 +381,10 @@ class DeprecatedWarningsTransformer {
 
     // This type was not declared in the JSII assembly. Skipping.
     if (node == null) {
+      return undefined;
+    }
+
+    if (isInternal(node)) {
       return undefined;
     }
 

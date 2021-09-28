@@ -41,10 +41,16 @@ export function combinedTransformers(
 }
 
 export function isDeprecated(node: ts.Node): boolean {
+  return hasTag(node, 'deprecated');
+}
+
+export function isInternal(node: ts.Node): boolean {
+  return hasTag(node, 'internal');
+}
+
+function hasTag(node: ts.Node, tagName: string): boolean {
   const original = ts.getOriginalNode(node);
-  return ts
-    .getJSDocTags(original)
-    .some((tag) => tag.tagName.text === 'deprecated');
+  return ts.getJSDocTags(original).some((tag) => tag.tagName.text === tagName);
 }
 
 export function fullyQualifiedName(
