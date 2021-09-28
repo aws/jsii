@@ -28,7 +28,7 @@ interface Warning {
 }
 
 export class DeprecatedWarningInjector {
-  private readonly index = new Map<
+  private readonly declarationIndex = new Map<
     string,
     ts.ClassDeclaration | ts.InterfaceDeclaration
   >();
@@ -46,7 +46,7 @@ export class DeprecatedWarningInjector {
             this.typeChecker,
             context,
             this.deprecatedTypes,
-            this.index,
+            this.declarationIndex,
             this.moduleName,
             this.projectRoot,
           );
@@ -68,7 +68,10 @@ export class DeprecatedWarningInjector {
     ).filter(isClassOrInterfaceType);
     for (const type of types) {
       const node = bindings.getClassOrInterfaceRelatedNode(type)!;
-      this.index.set(fullyQualifiedName(this.typeChecker, node)!, node);
+      this.declarationIndex.set(
+        fullyQualifiedName(this.typeChecker, node)!,
+        node,
+      );
     }
     this.deprecatedTypes = new Set(
       Object.values(assembly.types)
@@ -108,15 +111,10 @@ module.exports = ${WARNING_FUNCTION_NAME}`;
       ts.ScriptKind.JS,
     );
 
-    try {
-      fs.writeFileSync(
-        path.join(this.projectRoot, FILE_NAME),
-        printer.printFile(resultFile),
-      );
-    } catch (e) {
-      // TODO Log this error properly
-      console.error(e);
-    }
+    fs.writeFileSync(
+      path.join(this.projectRoot, FILE_NAME),
+      printer.printFile(resultFile),
+    );
   }
 }
 
@@ -127,7 +125,7 @@ class DeprecatedWarningsTransformer {
     private readonly typeChecker: ts.TypeChecker,
     private readonly context: ts.TransformationContext,
     private readonly deprecatedTypes: Set<ts.Type>,
-    private readonly index: Map<
+    private readonly declarationIndex: Map<
       string,
       ts.ClassDeclaration | ts.InterfaceDeclaration | undefined
     >,
@@ -136,7 +134,7 @@ class DeprecatedWarningsTransformer {
   ) {}
 
   public transform<T extends ts.Node>(node: T): T {
-    if (this.index.size === 0) {
+    if (this.declarationIndex.size === 0) {
       // Processing didn't happen, probably due to JSII compilation errors
       return node;
     }
@@ -183,10 +181,7 @@ class DeprecatedWarningsTransformer {
       const body = declaration.body;
       if (body != null && warnings.length > 0) {
         const warningStatements = this.createWarningStatements(warnings);
-        const nodeArray = ts.createNodeArray([
-          ...warningStatements,
-          ...body.statements,
-        ]);
+        const nodeArray = insertStatements(body, warningStatements);
 
         if (ts.isConstructorDeclaration(declaration)) {
           return ts.updateConstructor(
@@ -243,7 +238,7 @@ class DeprecatedWarningsTransformer {
       this.typeChecker.getTypeAtLocation(node),
     ]);
     if (deprecatedType != null) {
-      const deprecatedNode = this.index.get(
+      const deprecatedNode = this.declarationIndex.get(
         this.typeChecker.getFullyQualifiedName(deprecatedType.symbol),
       );
       this.warnings.push(getWarning(deprecatedNode!, this.moduleName));
@@ -380,7 +375,7 @@ class DeprecatedWarningsTransformer {
       return type;
     }
 
-    const node = this.index.get(
+    const node = this.declarationIndex.get(
       this.typeChecker.getFullyQualifiedName(type.symbol),
     );
 
@@ -472,4 +467,31 @@ function getWarning(node: ts.Node, moduleName: string, path?: string): Warning {
     message: deprecatedTag.comment,
     path,
   } as Warning;
+}
+
+/**
+ * Insert a list of statements in the correct position inside a block of statements.
+ * If there is a `super` call, It inserts the statements just after it. Otherwise,
+ * insert the statements right at the beginning of the block.
+ */
+function insertStatements(block: ts.Block, newStatements: ts.Statement[]) {
+  function splicePoint(statement: ts.Statement | undefined) {
+    if (statement == null) {
+      return 0;
+    }
+    let isSuper = false;
+    statement.forEachChild((node) => {
+      if (
+        ts.isCallExpression(node) &&
+        node.expression.kind === ts.SyntaxKind.SuperKeyword
+      ) {
+        isSuper = true;
+      }
+    });
+    return isSuper ? 1 : 0;
+  }
+
+  const result = [...block.statements];
+  result.splice(splicePoint(block.statements[0]), 0, ...newStatements);
+  return ts.createNodeArray(result);
 }
