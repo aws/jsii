@@ -310,8 +310,10 @@ class DeprecatedWarningsTransformer {
   private getParameterWarnings(
     parameters: ts.ParameterDeclaration[],
   ): Warning[] {
-    // TODO In which situations does getNameOfDeclaration return undefined?
-    const names = parameters.map((p) => ts.getNameOfDeclaration(p)!.getText());
+    const names = parameters
+      .map((p) => ts.getNameOfDeclaration(p)?.getText())
+      .filter((name) => name != null)
+      .map((name) => name!);
     return this.buildParameterWarnings(parameters, names);
   }
 
