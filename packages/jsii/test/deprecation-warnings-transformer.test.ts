@@ -20,6 +20,61 @@ describe('Deprecation warnings', () => {
     );
   });
 
+  test('deprecated constructors', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export class Bar {}  
+    export class Foo extends Bar {
+      ${DEPRECATED}
+      public constructor(){super();}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, 'index')).toMatch(
+      'constructor() { super(); printJsiiDeprecationWarnings("testpkg.Foo", "Use something else", ""); }',
+    );
+  });
+
+  test('deprecated getters', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export class Foo {
+      private _bar = 0;
+      ${DEPRECATED}
+      public get bar(){return this._bar;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, 'index')).toMatch(
+      'get bar() { printJsiiDeprecationWarnings("testpkg.Foo.bar", "Use something else", ""); return this._bar; }',
+    );
+  });
+
+  test('deprecated setters', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export class Foo {
+      private _bar = 0;
+      ${DEPRECATED}
+      public set bar(_bar: number){this._bar = _bar;}
+      public get bar(){return this._bar;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, 'index')).toMatch(
+      'set bar(_bar) { printJsiiDeprecationWarnings("testpkg.Foo.bar", "Use something else", ""); this._bar = _bar; }',
+    );
+  });
+
   test('skip internal methods', async () => {
     const result = await compileJsiiForTest(
       `
