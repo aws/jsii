@@ -318,12 +318,12 @@ class DeprecatedWarningsTransformer {
   }
 
   private buildParameterWarnings(
-    toProcess: ts.Node[],
+    backlog: ts.Node[],
     paths: string[] = [],
     result: Warning[] = [],
     visited: Set<ts.Node> = new Set(),
   ): Warning[] {
-    if (toProcess.length === 0) {
+    if (backlog.length === 0) {
       return result;
     }
     const moduleName = this.moduleName;
@@ -332,7 +332,7 @@ class DeprecatedWarningsTransformer {
     const getWarningFromInheritanceChain =
       this.getWarningFromInheritanceChain.bind(this);
 
-    const node = toProcess[0];
+    const node = backlog[0];
     const path = paths[0];
 
     const warning = getPossibleWarning(node);
@@ -344,7 +344,7 @@ class DeprecatedWarningsTransformer {
         : getWarningsForTypes(types);
     const children = getChildren(types);
 
-    const nextBatch = toProcess
+    const nextBacklog = backlog
       .slice(1)
       .concat(children)
       .filter((child) => !visited.has(child))
@@ -361,7 +361,7 @@ class DeprecatedWarningsTransformer {
     accumulatedVisited.add(node);
 
     return this.buildParameterWarnings(
-      nextBatch,
+      nextBacklog,
       nextPaths,
       accumulatedResult,
       accumulatedVisited,
@@ -384,6 +384,8 @@ class DeprecatedWarningsTransformer {
       return types.flatMap((type) =>
         type.getProperties().flatMap((symbol) => {
           const declarations = symbol.declarations;
+
+          // Don't try to analyze declarations from dependencies
           const typeIsInTheCompiledModule = declarations
             .map((d) => d.getSourceFile().fileName)
             .some((name: string) => name.startsWith(projectRoot));
@@ -489,6 +491,9 @@ class DeprecatedWarningsTransformer {
         ts.createLiteral(warning.elementName),
         ts.createLiteral(message),
       ];
+
+      /* If there is no path, we want to the warning to always be printed.
+         So we pass a constant non-null value (an empty string) to make that happen. */
       const valueArg =
         warning.path != null
           ? ts.createIdentifier(warning.path)
