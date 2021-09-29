@@ -545,7 +545,7 @@ function getWarning(node: ts.Node, moduleName: string, path?: string): Warning {
 }
 
 /**
- * Insert a list of statements in the correct position inside a block of statements.
+ * Inserts a list of statements in the correct position inside a block of statements.
  * If there is a `super` call, It inserts the statements just after it. Otherwise,
  * insert the statements right at the beginning of the block.
  */

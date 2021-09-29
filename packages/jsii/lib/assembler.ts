@@ -22,7 +22,7 @@ import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
 import { DeprecatedRemover } from './transforms/deprecated-remover';
-import { DeprecatedWarningInjector } from './transforms/deprecated-warnings-transformer';
+import { DeprecatedWarningInjector } from './transforms/deprecation-warnings-transformer';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { TsCommentReplacer } from './transforms/ts-comment-replacer';
 import { combinedTransformers } from './transforms/utils';
