@@ -78,7 +78,7 @@ export class Assembler implements Emitter {
       this.deprecatedRemover = new DeprecatedRemover(this._typeChecker);
     }
 
-    if (options.addDeprecatedWarnings) {
+    if (options.addDeprecationWarnings) {
       this.deprecatedWarningInjector = new DeprecatedWarningInjector(
         this._typeChecker,
       );
@@ -2744,7 +2744,7 @@ export interface AssemblerOptions {
    *
    * @default false
    */
-  readonly addDeprecatedWarnings?: boolean;
+  readonly addDeprecationWarnings?: boolean;
 }
 
 interface SubmoduleSpec {
