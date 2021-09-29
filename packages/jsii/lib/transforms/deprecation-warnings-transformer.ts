@@ -410,7 +410,7 @@ class DeprecatedWarningsTransformer {
   }
 
   private createWarningStatements(warnings: Warning[]): ts.Statement[] {
-    return warnings.flatMap((w) => this.createWarningStatement(w));
+    return deduplicate(warnings).flatMap((w) => this.createWarningStatement(w));
   }
 
   /**
@@ -569,4 +569,23 @@ function insertStatements(block: ts.Block, newStatements: ts.Statement[]) {
   const result = [...block.statements];
   result.splice(splicePoint(block.statements[0]), 0, ...newStatements);
   return ts.createNodeArray(result);
+}
+
+function deduplicate(warnings: Warning[]): Warning[] {
+  const result: Warning[] = [];
+
+  for (const warning of warnings) {
+    if (
+      !result.some(
+        (w) =>
+          w.message === warning.message &&
+          w.path === warning.path &&
+          w.elementName === warning.elementName,
+      )
+    ) {
+      result.push(warning);
+    }
+  }
+
+  return result;
 }

@@ -60,6 +60,28 @@ describe('Deprecation warnings', () => {
     );
   });
 
+  test('skip non-exported interfaces', async () => {
+    const result = await compileJsiiForTest(
+      `
+    ${DEPRECATED}
+    class Foo {
+      public bar(){}
+      public zee(){}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    const file = jsFile(result);
+    expect(file).toMatch(
+      'bar() { }',
+    );
+    expect(file).toMatch(
+      'zee() { }',
+    );
+  });
+
   test('all methods of a class that implements a deprecated interface', async () => {
     const result = await compileJsiiForTest(
       `
@@ -100,8 +122,7 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    const file = jsFile(result);
-    expect(file).toMatch(
+    expect(jsFile(result, 'index')).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SomeProps", "Use something else", props); return props; }',
     );
   });
@@ -122,8 +143,9 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    const file = jsFile(result);
-    expect(file).toMatch('bar(props = {}) { return props; }');
+    expect(jsFile(result, 'index')).toMatch(
+      'bar(props = {}) { return props; }',
+    );
   });
 
   test('methods that receive parameters with deprecated fields', async () => {
@@ -142,8 +164,7 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    const file = jsFile(result);
-    expect(file).toMatch(
+    expect(jsFile(result, 'index')).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SomeProps.bar", "Use something else", props?.bar); return props; }',
     );
   });
@@ -169,9 +190,68 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    const file = jsFile(result);
-    expect(file).toMatch(
+    expect(jsFile(result, 'index')).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.OtherProps", "Use something else", props?.other); return props; }',
+    );
+  });
+
+  test('nested fields with deprecated supertypes', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export interface SomeProps {
+      readonly bar: string;
+      readonly other: OtherProps;
+    }
+
+    export interface OtherProps extends SuperOtherProps {
+      readonly zee: string;      
+    }
+      
+    ${DEPRECATED}  
+    export interface SuperOtherProps {
+      readonly abc?: string;
+    }
+
+    export class Foo {
+      public bar(props: SomeProps){return props;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, 'index')).toMatch(
+      'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps", "Use something else", ""); return props; }',
+    );
+  });
+
+  test('nested fields with supertypes having deprecated fields', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export interface SomeProps {
+      readonly bar: string;
+      readonly other: OtherProps;
+    }
+
+    export interface OtherProps extends SuperOtherProps {
+      readonly zee: string;      
+    }
+      
+    export interface SuperOtherProps {
+      ${DEPRECATED}  
+      readonly abc?: string;
+    }
+
+    export class Foo {
+      public bar(props: SomeProps){return props;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, 'index')).toMatch(
+      'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps.abc", "Use something else", props?.other?.abc); return props; }',
     );
   });
 
@@ -196,8 +276,7 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    const file = jsFile(result);
-    expect(file).toMatch(
+    expect(jsFile(result, 'index')).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.OtherProps.zee", "Use something else", props?.other?.zee); return props; }',
     );
   });
