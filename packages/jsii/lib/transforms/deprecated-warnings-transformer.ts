@@ -27,6 +27,35 @@ interface Warning {
   readonly path?: string;
 }
 
+/*
+
+General idea:
+
+When the JSII assembly is created, DeprecatedWarningInjector.process should be
+invoked so that it can compute and store general information about the module,
+such as deprecated types and class and interface declarations. It also creates a
+new Javascript file with a function that prints warnings.
+
+At emit time, DeprecatedWarningsTransformer.transform is invoked for each source
+file and then recursively for each node in the AST. We are interested in two
+types of nodes: class declarations and method-like declarations (proper methods,
+constructors and accessors).
+
+For classes, we navigate up in the type hierarchy looking for deprecated types.
+If one is found, a warning for that will added to each method of the class. For
+methods, we look at each parameter traversing the AST in two directions: "down",
+to its components (e.g., properties of an interface) and, for each node, "up" in
+the type hierarchy, just like we do for classes. Every time a deprecated element
+is found (subject to certain constraints, such as being non-internal) a warning
+is created.
+
+The last step in the processing of a method is to inject, for each collected
+warning, a call to the print function, passing the element's fully qualified
+name, the deprecation message from the JSDoc tag and the value of the element,
+if applicable.
+
+*/
+
 export class DeprecatedWarningInjector {
   private readonly declarationIndex = new Map<
     string,
@@ -66,6 +95,22 @@ export class DeprecatedWarningInjector {
     const types: Array<InterfaceType | ClassType> = Object.values(
       assembly.types,
     ).filter(isClassOrInterfaceType);
+
+    this.buildDeclarationIndex(types);
+    this.computeDeprecatedTypes(types);
+    this.createWarningFunction();
+  }
+
+  private computeDeprecatedTypes(types: Array<InterfaceType | ClassType>) {
+    this.deprecatedTypes = new Set(
+      types
+        .filter((typeInfo) => typeInfo.docs?.stability === Stability.Deprecated)
+        .map((typeInfo) => bindings.getClassOrInterfaceRelatedNode(typeInfo)!)
+        .map((node) => this.typeChecker.getTypeAtLocation(node)),
+    );
+  }
+
+  private buildDeclarationIndex(types: Array<InterfaceType | ClassType>) {
     for (const type of types) {
       const node = bindings.getClassOrInterfaceRelatedNode(type)!;
       this.declarationIndex.set(
@@ -73,15 +118,6 @@ export class DeprecatedWarningInjector {
         node,
       );
     }
-    this.deprecatedTypes = new Set(
-      Object.values(assembly.types)
-        .filter((typeInfo) => typeInfo.docs?.stability === Stability.Deprecated)
-        .filter(isClassOrInterfaceType)
-        .map((typeInfo) => bindings.getClassOrInterfaceRelatedNode(typeInfo)!)
-        .map((node) => this.typeChecker.getTypeAtLocation(node)),
-    );
-
-    this.createWarningFunction();
   }
 
   private createWarningFunction() {
@@ -234,7 +270,7 @@ class DeprecatedWarningsTransformer {
 
   private handleClassDeclaration<T>(node: T & ts.ClassDeclaration) {
     this.warnings = [];
-    const deprecatedType = this.findDeprecatedInTheTypeHierarchy([
+    const deprecatedType = this.findDeprecatedInInheritanceChain([
       this.typeChecker.getTypeAtLocation(node),
     ]);
     if (deprecatedType != null) {
@@ -245,8 +281,14 @@ class DeprecatedWarningsTransformer {
     }
   }
 
-  // TODO rename this method
-  private getWarningForHeritage(node: ts.Node): Warning | undefined {
+  /**
+   * Returns a warning if there is at least one deprecated type in the
+   * inheritance chain starting from the type of this node. For example,
+   * given a property `foo: Bar`, it will look for deprecated classes
+   * or interfaces that `Bar` extends or implements, directly or
+   * indirectly.
+   */
+  private getWarningFromInheritanceChain(node: ts.Node): Warning | undefined {
     const type = this.typeChecker.getTypeAtLocation(node);
     const declaration = type.symbol?.declarations[0];
     if (
@@ -254,15 +296,15 @@ class DeprecatedWarningsTransformer {
       (!ts.isClassDeclaration(declaration) &&
         !ts.isInterfaceDeclaration(declaration))
     ) {
-      // This type doesn't have a hierarchy (e.g., a primitive type)
+      // This type doesn't have an inheritance chain (e.g., a primitive type)
       return undefined;
     }
 
     const backlog = this.getImmediateSuperTypes(declaration, [type]);
-    const deprecatedType = this.findDeprecatedInTheTypeHierarchy(backlog);
+    const deprecatedType = this.findDeprecatedInInheritanceChain(backlog);
     return deprecatedType != null
       ? getWarning(deprecatedType.symbol.declarations[0], this.moduleName)
-      : undefined; // There is no deprecated type in its heritage chain
+      : undefined; // There is no deprecated type in its inheritance chain
   }
 
   private getParameterWarnings(
@@ -285,7 +327,8 @@ class DeprecatedWarningsTransformer {
     const moduleName = this.moduleName;
     const typeChecker = this.typeChecker;
     const projectRoot = this.projectRoot;
-    const getWarningForHeritage = this.getWarningForHeritage.bind(this);
+    const getWarningFromInheritanceChain =
+      this.getWarningFromInheritanceChain.bind(this);
 
     const node = toProcess[0];
     const path = paths[0];
@@ -332,7 +375,7 @@ class DeprecatedWarningsTransformer {
     function getPossibleWarning(node: ts.Node): Warning | undefined {
       return isDeprecated(node) && !isInternal(node)
         ? getWarning(node, moduleName, path)
-        : getWarningForHeritage(node);
+        : getWarningFromInheritanceChain(node); // Only bother with this if we haven't found a warning for the node itself
     }
 
     function getChildren(types: ts.Type[]): ts.Declaration[] {
@@ -371,7 +414,7 @@ class DeprecatedWarningsTransformer {
    * inheritance graphs that are deprecated
    * @param backlog The list of roots to the inheritance graphs
    */
-  private findDeprecatedInTheTypeHierarchy(
+  private findDeprecatedInInheritanceChain(
     backlog: ts.Type[],
   ): ts.Type | undefined {
     if (backlog.length === 0) {
@@ -400,7 +443,7 @@ class DeprecatedWarningsTransformer {
 
     const newBatch = this.getImmediateSuperTypes(node, backlog);
 
-    return this.findDeprecatedInTheTypeHierarchy(newBatch);
+    return this.findDeprecatedInInheritanceChain(newBatch);
   }
 
   /**
