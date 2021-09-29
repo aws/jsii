@@ -292,7 +292,11 @@ class DeprecatedWarningsTransformer {
 
     const warning = getPossibleWarning(node);
     const types = getAllTypes(node);
-    const warnings = getWarningsForTypes(types);
+    const warnings =
+      ts.isParameter(node) && node.initializer != null
+        ? [] /* If the type of a parameter is deprecated but the parameter has an initializer,
+                there is nothing the user can do to avoid it being used. Skipping. */
+        : getWarningsForTypes(types);
     const children = getChildren(types);
 
     const nextBatch = toProcess
@@ -354,7 +358,7 @@ class DeprecatedWarningsTransformer {
 
     function getPath(node: ts.Declaration): string {
       const name = ts.getNameOfDeclaration(node)?.getText();
-      return name != null ? `${path}.${name}` : '';
+      return name != null ? `${path}?.${name}` : '';
     }
   }
 
