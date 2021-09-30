@@ -430,7 +430,8 @@ class DeprecatedWarningsTransformer {
     }
 
     const type = backlog[0];
-    if (this.deprecatedTypes.has(type)) {
+
+    if (this.typeIsDeprecated(type)) {
       return type;
     }
 
@@ -452,6 +453,14 @@ class DeprecatedWarningsTransformer {
     const newBatch = this.getImmediateSuperTypes(node, backlog);
 
     return this.findDeprecatedInInheritanceChain(newBatch);
+  }
+
+  private typeIsDeprecated(type: ts.Type): boolean {
+    return [...this.deprecatedTypes].some(
+      (dt) =>
+        this.typeChecker.getFullyQualifiedName(dt.symbol) ===
+        this.typeChecker.getFullyQualifiedName(type.symbol),
+    );
   }
 
   /**

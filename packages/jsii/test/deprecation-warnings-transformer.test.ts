@@ -80,6 +80,30 @@ describe('Deprecation warnings', () => {
     );
   });
 
+  test('methods of a class that extends a deprecated class', async () => {
+    const result = await compileJsiiForTest(
+      `
+    ${DEPRECATED}  
+    export class Deprecated {}
+      
+    export class Foo extends Deprecated {
+      public bar(){}
+      public zee(){}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    const file = jsFile(result);
+    expect(file).toMatch(
+      'bar() { printJsiiDeprecationWarnings("testpkg.Deprecated", "Use something else", ""); }',
+    );
+    expect(file).toMatch(
+      'zee() { printJsiiDeprecationWarnings("testpkg.Deprecated", "Use something else", ""); }',
+    );
+  });
+
   test('deprecated constructors', async () => {
     const result = await compileJsiiForTest(
       `
