@@ -15,7 +15,7 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, 'index')).toMatch(
+    expect(jsFile(result)).toMatch(
       'bar() { printJsiiDeprecationWarnings("testpkg.Foo.bar", "Use something else", ""); }',
     );
   });
@@ -33,7 +33,7 @@ describe('Deprecation warnings', () => {
       {}, // addDeprecationWarnings was not set
     );
 
-    expect(jsFile(result, 'index')).toMatch('bar() { }');
+    expect(jsFile(result)).toMatch('bar() { }');
   });
 
   // TODO Flagged for review
@@ -299,7 +299,8 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, 'index')).toMatch(
+    console.log(jsFile(result));
+    expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SomeProps.bar", "Use something else", props?.bar); return props; }',
     );
   });
@@ -325,7 +326,8 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, 'index')).toMatch(
+    console.log(jsFile(result));
+    expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.OtherProps", "Use something else", props?.other); return props; }',
     );
   });
@@ -355,7 +357,8 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, 'index')).toMatch(
+    console.log(jsFile(result));
+    expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps", "Use something else", props?.other); return props; }',
     );
   });
@@ -385,7 +388,8 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, 'index')).toMatch(
+    console.log(jsFile(result));
+    expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps.abc", "Use something else", props?.other?.abc); return props; }',
     );
   });
@@ -411,7 +415,8 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, 'index')).toMatch(
+    console.log(jsFile(result));
+    expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.OtherProps.zee", "Use something else", props?.other?.zee); return props; }',
     );
   });
