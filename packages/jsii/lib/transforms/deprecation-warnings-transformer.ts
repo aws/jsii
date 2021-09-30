@@ -389,10 +389,10 @@ class DeprecatedWarningsTransformer {
         type.getProperties().flatMap((symbol) => {
           const declarations = symbol.declarations;
 
-          // Don't try to analyze declarations from dependencies
-          const typeIsInTheCompiledModule = declarations
-            .map((d) => d.getSourceFile().fileName)
-            .some((name: string) => name.startsWith(projectRoot));
+          const typeIsInTheCompiledModule = declarations.every((d) =>
+            pathIsInSubtreeOf(d.getSourceFile().fileName, projectRoot),
+          );
+
           return typeIsInTheCompiledModule ? symbol.declarations : [];
         }),
       );
@@ -601,4 +601,11 @@ function deduplicate(warnings: Warning[]): Warning[] {
   }
 
   return result;
+}
+
+function pathIsInSubtreeOf(p1: string, p2: string): boolean {
+  return path
+    .relative(p1, p2)
+    .split(/[/\\]/)
+    .every((dir) => dir === '..');
 }
