@@ -1,10 +1,6 @@
 import * as ts from 'typescript';
 
-import {
-  StrictBrand,
-  annotateStrictDiagnostic,
-  isErrorDiagnostic,
-} from '../lib/util';
+import { StrictBrand, annotateStrictDiagnostic, isErrorDiagnostic } from '../lib/util';
 
 describe(annotateStrictDiagnostic, () => {
   const diagnostic = {
@@ -30,26 +26,23 @@ describe(isErrorDiagnostic, () => {
     ...makeDiagnostic(ts.DiagnosticCategory.Error),
     [StrictBrand]: true,
   };
-  const diagnostics = [
-    warningDiagnostic,
-    errorDiagnostic,
-    strictErrorDiagnostic,
-  ];
+  const diagnostics = [warningDiagnostic, errorDiagnostic, strictErrorDiagnostic];
 
   test('returns all error diagnostics if onlyStrict is false', () => {
     const onlyStrict = false;
 
-    expect(
-      diagnostics.filter((diag) => isErrorDiagnostic(diag, { onlyStrict })),
-    ).toStrictEqual([errorDiagnostic, strictErrorDiagnostic]);
+    expect(diagnostics.filter((diag) => isErrorDiagnostic(diag, { onlyStrict }))).toStrictEqual([
+      errorDiagnostic,
+      strictErrorDiagnostic,
+    ]);
   });
 
   test('returns only strict error diagnostics if onlyStrict is true', () => {
     const onlyStrict = true;
 
-    expect(
-      diagnostics.filter((diag) => isErrorDiagnostic(diag, { onlyStrict })),
-    ).toStrictEqual([strictErrorDiagnostic]);
+    expect(diagnostics.filter((diag) => isErrorDiagnostic(diag, { onlyStrict }))).toStrictEqual([
+      strictErrorDiagnostic,
+    ]);
   });
 });
 

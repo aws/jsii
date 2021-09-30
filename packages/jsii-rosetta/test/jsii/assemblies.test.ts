@@ -12,13 +12,7 @@ test('Extract snippet from README', () => {
       {
         assembly: fakeAssembly({
           readme: {
-            markdown: [
-              'Before the example.',
-              '```ts',
-              'someExample();',
-              '```',
-              'After the example.',
-            ].join('\n'),
+            markdown: ['Before the example.', '```ts', 'someExample();', '```', 'After the example.'].join('\n'),
           },
         }),
         directory: path.join(__dirname, 'fixtures'),
@@ -37,13 +31,7 @@ test('Extract snippet from submodule READMEs', () => {
           submodules: {
             'my.submodule': {
               readme: {
-                markdown: [
-                  'Before the example.',
-                  '```ts',
-                  'someExample();',
-                  '```',
-                  'After the example.',
-                ].join('\n'),
+                markdown: ['Before the example.', '```ts', 'someExample();', '```', 'After the example.'].join('\n'),
               },
             },
           },
@@ -69,13 +57,7 @@ test('Extract snippet from type docstring', () => {
               name: 'MyType',
               docs: {
                 summary: 'My Type',
-                remarks: [
-                  'Before the example.',
-                  '```ts',
-                  'someExample();',
-                  '```',
-                  'After the example.',
-                ].join('\n'),
+                remarks: ['Before the example.', '```ts', 'someExample();', '```', 'After the example.'].join('\n'),
               },
             },
           },
@@ -176,12 +158,9 @@ test('Fixture allows use of import statements', () => {
               fqn: 'asm.MyType',
               name: 'MyType',
               docs: {
-                example: [
-                  '/// fixture=explicit',
-                  'import { exit } from "process";',
-                  'someExample();',
-                  'exit(0);',
-                ].join('\n'),
+                example: ['/// fixture=explicit', 'import { exit } from "process";', 'someExample();', 'exit(0);'].join(
+                  '\n',
+                ),
               },
             },
           },
@@ -213,9 +192,7 @@ test('Fixture allows use of import statements', () => {
     "
   `);
   expect(snippets[0].visibleSource).toEqual(
-    ['import { exit } from "process";', 'someExample();', 'exit(0);'].join(
-      '\n',
-    ),
+    ['import { exit } from "process";', 'someExample();', 'exit(0);'].join('\n'),
   );
 });
 
@@ -246,9 +223,9 @@ test('Backwards compatibility with literate integ tests', () => {
 
     expect(snippets[0].visibleSource).toEqual('someExample();');
     expect(snippets[0].completeSource).toEqual('# Some literate source file');
-    expect(
-      snippets[0]?.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY],
-    ).toEqual(path.normalize('/package/test'));
+    expect(snippets[0]?.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY]).toEqual(
+      path.normalize('/package/test'),
+    );
   } finally {
     mockfs.restore();
   }

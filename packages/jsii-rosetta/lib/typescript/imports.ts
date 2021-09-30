@@ -1,12 +1,7 @@
 import * as ts from 'typescript';
 
 import { AstRenderer } from '../renderer';
-import {
-  allOfType,
-  matchAst,
-  nodeOfType,
-  stringFromLiteral,
-} from './ast-utils';
+import { allOfType, matchAst, nodeOfType, stringFromLiteral } from './ast-utils';
 
 /**
  * Our own unification of import statements
@@ -28,18 +23,11 @@ export interface ImportBinding {
   alias?: string;
 }
 
-export function analyzeImportEquals(
-  node: ts.ImportEqualsDeclaration,
-  context: AstRenderer<any>,
-): ImportStatement {
+export function analyzeImportEquals(node: ts.ImportEqualsDeclaration, context: AstRenderer<any>): ImportStatement {
   let moduleName = '???';
-  matchAst(
-    node.moduleReference,
-    nodeOfType('ref', ts.SyntaxKind.ExternalModuleReference),
-    (bindings) => {
-      moduleName = stringFromLiteral(bindings.ref.expression);
-    },
-  );
+  matchAst(node.moduleReference, nodeOfType('ref', ts.SyntaxKind.ExternalModuleReference), (bindings) => {
+    moduleName = stringFromLiteral(bindings.ref.expression);
+  });
 
   return {
     node,
@@ -48,20 +36,14 @@ export function analyzeImportEquals(
   };
 }
 
-export function analyzeImportDeclaration(
-  node: ts.ImportDeclaration,
-  context: AstRenderer<any>,
-): ImportStatement {
+export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: AstRenderer<any>): ImportStatement {
   const packageName = stringFromLiteral(node.moduleSpecifier);
 
   const starBindings = matchAst(
     node,
     nodeOfType(
       ts.SyntaxKind.ImportDeclaration,
-      nodeOfType(
-        ts.SyntaxKind.ImportClause,
-        nodeOfType('namespace', ts.SyntaxKind.NamespaceImport),
-      ),
+      nodeOfType(ts.SyntaxKind.ImportClause, nodeOfType('namespace', ts.SyntaxKind.NamespaceImport)),
     ),
   );
 
@@ -82,10 +64,7 @@ export function analyzeImportDeclaration(
       ts.SyntaxKind.ImportDeclaration,
       nodeOfType(
         ts.SyntaxKind.ImportClause,
-        nodeOfType(
-          ts.SyntaxKind.NamedImports,
-          allOfType(ts.SyntaxKind.ImportSpecifier, 'specifiers'),
-        ),
+        nodeOfType(ts.SyntaxKind.NamedImports, allOfType(ts.SyntaxKind.ImportSpecifier, 'specifiers')),
       ),
     ),
   );

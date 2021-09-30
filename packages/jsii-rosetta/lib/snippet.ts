@@ -41,8 +41,7 @@ export function typeScriptSnippetFromSource(
   strict: boolean,
   parameters: Record<string, string> = {},
 ): TypeScriptSnippet {
-  const [source, sourceParameters] =
-    parametersFromSourceDirectives(typeScriptSource);
+  const [source, sourceParameters] = parametersFromSourceDirectives(typeScriptSource);
   return {
     visibleSource: source.trimRight(),
     where,
@@ -51,17 +50,10 @@ export function typeScriptSnippetFromSource(
   };
 }
 
-export function updateParameters(
-  snippet: TypeScriptSnippet,
-  params: Record<string, string>,
-): TypeScriptSnippet {
+export function updateParameters(snippet: TypeScriptSnippet, params: Record<string, string>): TypeScriptSnippet {
   return {
     ...snippet,
-    parameters: Object.assign(
-      Object.create(null),
-      snippet.parameters ?? {},
-      params,
-    ),
+    parameters: Object.assign(Object.create(null), snippet.parameters ?? {}, params),
   };
 }
 
@@ -75,9 +67,7 @@ export function completeSource(snippet: TypeScriptSnippet) {
 /**
  * Extract snippet parameters from the first line of the source if it's a compiler directive
  */
-function parametersFromSourceDirectives(
-  source: string,
-): [string, Record<string, string>] {
+function parametersFromSourceDirectives(source: string): [string, Record<string, string>] {
   const [firstLine, ...rest] = source.split('\n');
   // Also extract parameters from an initial line starting with '/// ' (getting rid of that line).
   const m = /[/]{3}(.*)$/.exec(firstLine);
@@ -96,9 +86,7 @@ function parametersFromSourceDirectives(
 /**
  * Parse a set of 'param param=value' directives into an object
  */
-export function parseKeyValueList(
-  parameters: string[],
-): Record<string, string> {
+export function parseKeyValueList(parameters: string[]): Record<string, string> {
   const ret: Record<string, string> = {};
   for (const param of parameters) {
     const parts = param.split('=', 2);

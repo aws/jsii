@@ -27,19 +27,13 @@ export function translateMarkdown(
   const translatedMarkdown = transformMarkdown(
     markdown.contents,
     new MarkdownRenderer(),
-    new ReplaceTypeScriptTransform(
-      markdown.fileName,
-      opts.strict ?? false,
-      (tsSnippet) => {
-        const translated = translator
-          .translatorFor(tsSnippet)
-          .renderUsing(visitor);
-        return {
-          language: opts.languageIdentifier ?? '',
-          source: translated,
-        };
-      },
-    ),
+    new ReplaceTypeScriptTransform(markdown.fileName, opts.strict ?? false, (tsSnippet) => {
+      const translated = translator.translatorFor(tsSnippet).renderUsing(visitor);
+      return {
+        language: opts.languageIdentifier ?? '',
+        source: translated,
+      };
+    }),
   );
 
   return {

@@ -17,8 +17,7 @@ export class ReplaceCodeTransform implements CommonMarkVisitor {
       source: node.literal ?? '',
     });
     node.info = ret.language;
-    node.literal =
-      ret.source + (!ret.source || ret.source.endsWith('\n') ? '' : '\n');
+    node.literal = ret.source + (!ret.source || ret.source.endsWith('\n') ? '' : '\n');
   }
 
   public block_quote(): void {

@@ -4,12 +4,7 @@ import * as path from 'path';
 import { TargetLanguage } from '../languages';
 import { TypeScriptSnippet } from '../snippet';
 import { snippetKey } from './key';
-import {
-  TabletSchema,
-  TranslatedSnippetSchema,
-  TranslationSchema,
-  ORIGINAL_SNIPPET_KEY,
-} from './schema';
+import { TabletSchema, TranslatedSnippetSchema, TranslationSchema, ORIGINAL_SNIPPET_KEY } from './schema';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const TOOL_VERSION = require('../../package.json').version;
@@ -24,9 +19,7 @@ export class LanguageTablet {
 
   public addSnippet(snippet: TranslatedSnippet) {
     const existingSnippet = this.snippets[snippet.key];
-    this.snippets[snippet.key] = existingSnippet
-      ? existingSnippet.merge(snippet)
-      : snippet;
+    this.snippets[snippet.key] = existingSnippet ? existingSnippet.merge(snippet) : snippet;
   }
 
   public get snippetKeys() {
@@ -37,10 +30,7 @@ export class LanguageTablet {
     return this.snippets[key];
   }
 
-  public lookup(
-    typeScriptSource: TypeScriptSnippet,
-    language: TargetLanguage,
-  ): Translation | undefined {
+  public lookup(typeScriptSource: TypeScriptSnippet, language: TargetLanguage): Translation | undefined {
     const snippet = this.snippets[snippetKey(typeScriptSource)];
     return snippet?.get(language);
   }
@@ -59,9 +49,7 @@ export class LanguageTablet {
 
     Object.assign(
       this.snippets,
-      mapValues(obj.snippets, (schema: TranslatedSnippetSchema) =>
-        TranslatedSnippet.fromSchema(schema),
-      ),
+      mapValues(obj.snippets, (schema: TranslatedSnippetSchema) => TranslatedSnippet.fromSchema(schema)),
     );
   }
 
@@ -142,10 +130,7 @@ export class TranslatedSnippet {
     };
   }
 
-  public addTranslatedSource(
-    language: TargetLanguage,
-    translation: string,
-  ): Translation {
+  public addTranslatedSource(language: TargetLanguage, translation: string): Translation {
     this.translations[language] = { source: translation };
 
     return {
@@ -156,9 +141,7 @@ export class TranslatedSnippet {
   }
 
   public get languages(): TargetLanguage[] {
-    return Object.keys(this.translations).filter(
-      (x) => x !== ORIGINAL_SNIPPET_KEY,
-    ) as TargetLanguage[];
+    return Object.keys(this.translations).filter((x) => x !== ORIGINAL_SNIPPET_KEY) as TargetLanguage[];
   }
 
   public get(language: TargetLanguage): Translation | undefined {
@@ -196,10 +179,7 @@ export interface Translation {
   didCompile?: boolean;
 }
 
-function mapValues<A, B>(
-  xs: Record<string, A>,
-  fn: (x: A) => B,
-): Record<string, B> {
+function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<string, B> {
   const ret: Record<string, B> = {};
   for (const [key, value] of Object.entries(xs)) {
     ret[key] = fn(value);
