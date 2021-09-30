@@ -5,9 +5,7 @@ import { TypeScriptSnippet } from '../snippet';
 import { ReplaceTypeScriptTransform } from './replace-typescript-transform';
 import { CodeBlock } from './types';
 
-export type TypeScriptReplacer = (
-  code: TypeScriptSnippet,
-) => CodeBlock | undefined;
+export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefined;
 
 export function extractTypescriptSnippetsFromMarkdown(
   markdown: string,

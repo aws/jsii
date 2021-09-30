@@ -11,15 +11,11 @@ test('test indentation', () => {
 });
 
 test('collapse subsequent unused indentation', () => {
-  const tree = new OTree(
-    ['{'],
-    [new OTree([], ['\na', '\nb', '\nc'], { indent: 4, separator: ', ' })],
-    {
-      separator: ', ',
-      indent: 4,
-      suffix: '\n}',
-    },
-  );
+  const tree = new OTree(['{'], [new OTree([], ['\na', '\nb', '\nc'], { indent: 4, separator: ', ' })], {
+    separator: ', ',
+    indent: 4,
+    suffix: '\n}',
+  });
 
   expect(renderTree(tree)).toEqual('{\n    a,\n    b,\n    c\n}');
 });
@@ -44,16 +40,6 @@ test('don not collapse subsequent USED indentation', () => {
   );
 
   expect(renderTree(tree)).toEqual(
-    [
-      '{',
-      '    a,',
-      '    {',
-      '        a,',
-      '        b,',
-      '        c',
-      '    },',
-      '    b',
-      '}',
-    ].join('\n'),
+    ['{', '    a,', '    {', '        a,', '        b,', '        c', '    },', '    b', '}'].join('\n'),
   );
 });

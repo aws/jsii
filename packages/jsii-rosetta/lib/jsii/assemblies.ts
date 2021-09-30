@@ -4,12 +4,7 @@ import * as path from 'path';
 
 import { fixturize } from '../fixtures';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
-import {
-  TypeScriptSnippet,
-  typeScriptSnippetFromSource,
-  updateParameters,
-  SnippetParameters,
-} from '../snippet';
+import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, SnippetParameters } from '../snippet';
 import { enforcesStrictMode } from '../strict';
 
 export interface LoadedAssembly {
@@ -38,14 +33,9 @@ export async function loadAssemblies(
   }
 }
 
-async function loadAssemblyFromFile(
-  filename: string,
-  validate: boolean,
-): Promise<spec.Assembly> {
+async function loadAssemblyFromFile(filename: string, validate: boolean): Promise<spec.Assembly> {
   const contents = await fs.readJSON(filename, { encoding: 'utf-8' });
-  return validate
-    ? spec.validateAssembly(contents)
-    : (contents as spec.Assembly);
+  return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
 }
 
 export type AssemblySnippetSource =
@@ -55,9 +45,7 @@ export type AssemblySnippetSource =
 /**
  * Return all markdown and example snippets from the given assembly
  */
-export function allSnippetSources(
-  assembly: spec.Assembly,
-): AssemblySnippetSource[] {
+export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSource[] {
   const ret: AssemblySnippetSource[] = [];
 
   if (assembly.readme) {
@@ -68,9 +56,7 @@ export function allSnippetSources(
     });
   }
 
-  for (const [submoduleFqn, submodule] of Object.entries(
-    assembly.submodules ?? {},
-  )) {
+  for (const [submoduleFqn, submodule] of Object.entries(assembly.submodules ?? {})) {
     if (submodule.readme) {
       ret.push({
         type: 'markdown',
@@ -85,17 +71,11 @@ export function allSnippetSources(
       emitDocs(type.docs, `${assembly.name}.${type.name}`);
 
       if (spec.isEnumType(type)) {
-        type.members.forEach((m) =>
-          emitDocs(m.docs, `${assembly.name}.${type.name}.${m.name}`),
-        );
+        type.members.forEach((m) => emitDocs(m.docs, `${assembly.name}.${type.name}.${m.name}`));
       }
       if (spec.isClassOrInterfaceType(type)) {
-        (type.methods ?? []).forEach((m) =>
-          emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
-        );
-        (type.properties ?? []).forEach((m) =>
-          emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
-        );
+        (type.methods ?? []).forEach((m) => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
+        (type.properties ?? []).forEach((m) => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
       }
     });
   }
@@ -141,20 +121,13 @@ export function* allTypeScriptSnippets(
     for (const source of allSnippetSources(assembly)) {
       switch (source.type) {
         case 'literal':
-          const snippet = updateParameters(
-            typeScriptSnippetFromSource(source.source, source.where, strict),
-            {
-              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
-            },
-          );
+          const snippet = updateParameters(typeScriptSnippetFromSource(source.source, source.where, strict), {
+            [SnippetParameters.$PROJECT_DIRECTORY]: directory,
+          });
           yield fixturize(snippet, loose);
           break;
         case 'markdown':
-          for (const snippet of extractTypescriptSnippetsFromMarkdown(
-            source.markdown,
-            source.where,
-            strict,
-          )) {
+          for (const snippet of extractTypescriptSnippetsFromMarkdown(source.markdown, source.where, strict)) {
             const withDirectory = updateParameters(snippet, {
               [SnippetParameters.$PROJECT_DIRECTORY]: directory,
             });

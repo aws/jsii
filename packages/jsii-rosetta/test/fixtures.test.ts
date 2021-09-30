@@ -32,8 +32,7 @@ const val = new Cls();`;
 
     const fixturizedSnippet = fixturize(snippet);
 
-    expect(fixturizedSnippet.completeSource)
-      .toBe(`// Hoisted imports begin after !show marker below
+    expect(fixturizedSnippet.completeSource).toBe(`// Hoisted imports begin after !show marker below
 /// !show
 import * as ns from 'mod';
 declare const mock: Tpe;

@@ -54,10 +54,7 @@ const typeScriptTests = allFiles(translationsRoot)
   .filter((f) => !f.endsWith('.test.ts')); // Exclude self and other jest tests in this dir
 
 for (const typeScriptTest of typeScriptTests) {
-  describe(`Translating ${path.relative(
-    translationsRoot,
-    typeScriptTest,
-  )}`, () => {
+  describe(`Translating ${path.relative(translationsRoot, typeScriptTest)}`, () => {
     const typeScriptSource = fs.readFileSync(typeScriptTest, {
       encoding: 'utf-8',
     });
@@ -90,9 +87,7 @@ for (const typeScriptTest of typeScriptTests) {
         const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
         try {
           const translation = translator.renderUsing(visitor);
-          expect(stripEmptyLines(translation)).toEqual(
-            stripEmptyLines(stripCommonWhitespace(expected)),
-          );
+          expect(stripEmptyLines(translation)).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
         } catch (e) {
           anyFailed = true;
           throw e;

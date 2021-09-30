@@ -9,19 +9,13 @@ export interface File {
   readonly fileName: string;
 }
 
-export function printDiagnostics(
-  diags: readonly ts.Diagnostic[],
-  stream: NodeJS.WritableStream,
-) {
+export function printDiagnostics(diags: readonly ts.Diagnostic[], stream: NodeJS.WritableStream) {
   for (const diag of diags) {
     printDiagnostic(diag, stream);
   }
 }
 
-export function printDiagnostic(
-  diag: ts.Diagnostic,
-  stream: NodeJS.WritableStream,
-) {
+export function printDiagnostic(diag: ts.Diagnostic, stream: NodeJS.WritableStream) {
   const host = {
     getCurrentDirectory() {
       return '.';
@@ -52,13 +46,9 @@ export function annotateStrictDiagnostic(diag: ts.Diagnostic) {
   });
 }
 
-export function isErrorDiagnostic(
-  diag: ts.Diagnostic,
-  { onlyStrict }: { readonly onlyStrict: boolean },
-): boolean {
+export function isErrorDiagnostic(diag: ts.Diagnostic, { onlyStrict }: { readonly onlyStrict: boolean }): boolean {
   return (
-    diag.category === ts.DiagnosticCategory.Error &&
-    (!onlyStrict || !!(diag as MaybeStrictDiagnostic)[StrictBrand])
+    diag.category === ts.DiagnosticCategory.Error && (!onlyStrict || !!(diag as MaybeStrictDiagnostic)[StrictBrand])
   );
 }
 

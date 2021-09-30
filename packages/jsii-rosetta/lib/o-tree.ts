@@ -50,9 +50,7 @@ export interface OTreeOptions {
  * can be rendered to an output sink.
  */
 export class OTree implements OTree {
-  public static simplify(
-    xs: Array<OTree | string | undefined>,
-  ): Array<OTree | string> {
+  public static simplify(xs: Array<OTree | string | undefined>): Array<OTree | string> {
     return xs.filter(notUndefined).filter(notEmpty);
   }
 
@@ -90,9 +88,7 @@ export class OTree implements OTree {
       sink.write(x);
     }
 
-    const popIndent = sink.requestIndentChange(
-      meVisible ? this.options.indent ?? 0 : 0,
-    );
+    const popIndent = sink.requestIndentChange(meVisible ? this.options.indent ?? 0 : 0);
     let mark = sink.mark();
     for (const child of this.children ?? []) {
       if (this.options.separator && mark.wroteNonWhitespaceSinceMark) {
@@ -172,9 +168,7 @@ export class OTreeSink {
 
     return {
       get wroteNonWhitespaceSinceMark(): boolean {
-        return self.fragments
-          .slice(markIndex)
-          .some((s) => /[^\s]/.exec(s) != null);
+        return self.fragments.slice(markIndex).some((s) => /[^\s]/.exec(s) != null);
       },
     };
   }
@@ -196,9 +190,7 @@ export class OTreeSink {
 
   public renderingForSpan(span?: Span): boolean {
     if (span && this.options.visibleSpans) {
-      this.rendering = this.options.visibleSpans.some((v) =>
-        spanInside(span, v),
-      );
+      this.rendering = this.options.visibleSpans.some((v) => spanInside(span, v));
     }
     return this.rendering;
   }
