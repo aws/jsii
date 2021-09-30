@@ -36,7 +36,6 @@ describe('Deprecation warnings', () => {
     expect(jsFile(result)).toMatch('bar() { }');
   });
 
-  // TODO Flagged for review
   test.skip('methods that receive parameters of enum types with deprecated values', async () => {
     const result = await compileJsiiForTest(
       `
@@ -299,7 +298,6 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    console.log(jsFile(result));
     expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SomeProps.bar", "Use something else", props?.bar); return props; }',
     );
@@ -326,7 +324,6 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    console.log(jsFile(result));
     expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.OtherProps", "Use something else", props?.other); return props; }',
     );
@@ -357,7 +354,6 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    console.log(jsFile(result));
     expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps", "Use something else", props?.other); return props; }',
     );
@@ -388,7 +384,6 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    console.log(jsFile(result));
     expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps.abc", "Use something else", props?.other?.abc); return props; }',
     );
@@ -415,7 +410,6 @@ describe('Deprecation warnings', () => {
       { addDeprecationWarnings: true },
     );
 
-    console.log(jsFile(result));
     expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.OtherProps.zee", "Use something else", props?.other?.zee); return props; }',
     );
