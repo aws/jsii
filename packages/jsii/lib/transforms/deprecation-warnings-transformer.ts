@@ -288,7 +288,10 @@ class DeprecatedWarningsTransformer {
    * or interfaces that `Bar` extends or implements, directly or
    * indirectly.
    */
-  private getWarningFromInheritanceChain(node: ts.Node): Warning | undefined {
+  private getWarningFromInheritanceChain(
+    node: ts.Node,
+    path: string,
+  ): Warning | undefined {
     const type = this.typeChecker.getTypeAtLocation(node);
     const declaration = type.symbol?.declarations[0];
     if (
@@ -303,7 +306,7 @@ class DeprecatedWarningsTransformer {
     const backlog = this.getImmediateSuperTypes(declaration, [type]);
     const deprecatedType = this.findDeprecatedInInheritanceChain(backlog);
     return deprecatedType != null
-      ? getWarning(deprecatedType.symbol.declarations[0], this.moduleName)
+      ? getWarning(deprecatedType.symbol.declarations[0], this.moduleName, path)
       : undefined; // There is no deprecated type in its inheritance chain
   }
 
@@ -375,9 +378,10 @@ class DeprecatedWarningsTransformer {
     }
 
     function getPossibleWarning(node: ts.Node): Warning | undefined {
-      return isDeprecated(node) && !isInternal(node)
-        ? getWarning(node, moduleName, path)
-        : getWarningFromInheritanceChain(node); // Only bother with this if we haven't found a warning for the node itself
+      const actualNode = ts.isEnumMember(node) ? node.parent : node;
+      return isDeprecated(actualNode) && !isInternal(actualNode)
+        ? getWarning(actualNode, moduleName, path)
+        : getWarningFromInheritanceChain(actualNode, path); // Only bother with this if we haven't found a warning for the node itself
     }
 
     function getChildren(types: ts.Type[]): ts.Declaration[] {

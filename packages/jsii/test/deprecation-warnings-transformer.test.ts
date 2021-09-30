@@ -20,6 +20,66 @@ describe('Deprecation warnings', () => {
     );
   });
 
+  test('does not inject warnings by default', async () => {
+    const result = await compileJsiiForTest(
+      `
+    ${DEPRECATED}
+    export class Foo {
+      ${DEPRECATED}
+      public bar(){}
+    }
+    `,
+      undefined /* callback */,
+      {}, // addDeprecationWarnings was not set
+    );
+
+    expect(jsFile(result, 'index')).toMatch('bar() { }');
+  });
+
+  // TODO Flagged for review
+  test.skip('methods that receive parameters of enum types with deprecated values', async () => {
+    const result = await compileJsiiForTest(
+      `
+      export enum SecurityPolicy {
+        ${DEPRECATED}
+        TLS_1_0 = 'TLS_1_0',
+        TLS_1_2 = 'TLS_1_2',
+      }
+      
+    export class Foo {
+      public bar(policy: SecurityPolicy){return policy;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    jsFile(result);
+    fail('How should we handle this case?');
+  });
+
+  test('methods that receive parameters of deprecated enum types', async () => {
+    const result = await compileJsiiForTest(
+      `
+      ${DEPRECATED}
+      export enum SecurityPolicy {
+        TLS_1_0 = 'TLS_1_0',
+        TLS_1_2 = 'TLS_1_2',
+      }
+      
+    export class Foo {
+      public bar(policy: SecurityPolicy){return policy;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result)).toMatch(
+      'bar(policy) { printJsiiDeprecationWarnings("testpkg.SecurityPolicy", "Use something else", policy); return policy; }',
+    );
+  });
+
   test('deprecated constructors', async () => {
     const result = await compileJsiiForTest(
       `
@@ -129,12 +189,8 @@ describe('Deprecation warnings', () => {
     );
 
     const file = jsFile(result);
-    expect(file).toMatch(
-      'bar() { }',
-    );
-    expect(file).toMatch(
-      'zee() { }',
-    );
+    expect(file).toMatch('bar() { }');
+    expect(file).toMatch('zee() { }');
   });
 
   test('all methods of a class that implements a deprecated interface', async () => {
@@ -276,7 +332,7 @@ describe('Deprecation warnings', () => {
     );
 
     expect(jsFile(result, 'index')).toMatch(
-      'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps", "Use something else", ""); return props; }',
+      'bar(props) { printJsiiDeprecationWarnings("testpkg.SuperOtherProps", "Use something else", props?.other); return props; }',
     );
   });
 
