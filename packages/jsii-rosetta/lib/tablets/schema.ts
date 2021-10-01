@@ -47,9 +47,14 @@ export interface TranslatedSnippetSchema {
   /**
    * Whether this was compiled without errors
    *
-   * Undefined means no compilation was not attempted.
+   * Undefined means compilation was not attempted.
    */
   didCompile?: boolean;
+
+  /**
+   * FQNs of classes and functions referenced in this snippet.
+   */
+  fqnsReferenced?: string[];
 }
 
 /**

@@ -133,10 +133,14 @@ export class AstRenderer<C> {
   /**
    * Infer type of expression by the argument it is assigned to
    *
+   * If the type of the expression can include undefined (if the value is
+   * optional), `undefined` will be removed from the union.
+   *
    * (Will return undefined for object literals not unified with a declared type)
    */
   public inferredTypeOfExpression(node: ts.Expression) {
-    return this.typeChecker.getContextualType(node);
+    const type = this.typeChecker.getContextualType(node);
+    return type ? this.typeChecker.getNonNullableType(type) : undefined;
   }
 
   /**

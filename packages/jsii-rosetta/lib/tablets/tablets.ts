@@ -78,6 +78,7 @@ export class TranslatedSnippet {
   public static fromSchema(schema: TranslatedSnippetSchema) {
     const ret = new TranslatedSnippet();
     Object.assign(ret.translations, schema.translations);
+    Object.assign(ret.fqnsReferenced, schema.fqnsReferenced);
     ret._didCompile = schema.didCompile;
     ret._where = schema.where;
     return ret;
@@ -94,6 +95,7 @@ export class TranslatedSnippet {
   }
 
   private readonly translations: Record<string, TranslationSchema> = {};
+  private readonly fqnsReferenced = new Array<string>();
   private _key?: string;
   private _didCompile?: boolean;
   private _where = '';
@@ -140,6 +142,10 @@ export class TranslatedSnippet {
     };
   }
 
+  public addFqnsReferenced(fqnsReferenced: string[]) {
+    this.fqnsReferenced.push(...fqnsReferenced);
+  }
+
   public get languages(): TargetLanguage[] {
     return Object.keys(this.translations).filter((x) => x !== ORIGINAL_SNIPPET_KEY) as TargetLanguage[];
   }
@@ -169,6 +175,7 @@ export class TranslatedSnippet {
       translations: this.translations,
       didCompile: this.didCompile,
       where: this.where,
+      fqnsReferenced: this.fqnsReferenced,
     };
   }
 }

@@ -31,6 +31,27 @@ export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
   return map[type.flags];
 }
 
+export function renderType(type: ts.Type): string {
+  if (type.isClassOrInterface()) {
+    return type.symbol.name;
+  }
+  if (type.isLiteral()) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    return `${type.value}`;
+  }
+  return renderTypeFlags(type);
+}
+
+function renderTypeFlags(type: ts.Type) {
+  const ret = [];
+  for (const flag of Object.values(ts.TypeFlags)) {
+    if (typeof flag === 'number' && type.flags & flag) {
+      ret.push(ts.TypeFlags[flag]);
+    }
+  }
+  return ret.join(',');
+}
+
 export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
   if (param.initializer !== undefined) {
     return true;

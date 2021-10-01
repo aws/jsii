@@ -2,6 +2,7 @@ import * as ts from 'typescript';
 import { inspect } from 'util';
 
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
+import { RecordReferencesVisitor } from './languages/record-references';
 import * as logging from './logging';
 import { renderTree, Span, spanContains } from './o-tree';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
@@ -52,6 +53,8 @@ export class Translator {
       const translated = translator.renderUsing(languageConverterFactory());
       snippet.addTranslatedSource(lang, translated);
     }
+
+    snippet.addFqnsReferenced(translator.fqnsReferenced());
 
     this.#diagnostics = ts.sortAndDeduplicateDiagnostics(this.#diagnostics.concat(translator.diagnostics));
 
@@ -163,6 +166,18 @@ export class SnippetTranslator {
     const converted = converter.convert(this.compilation.rootFile);
     this.translateDiagnostics.push(...filterVisibleDiagnostics(converter.diagnostics, this.visibleSpans));
     return renderTree(converted, { visibleSpans: this.visibleSpans });
+  }
+
+  public fqnsReferenced() {
+    const visitor = new RecordReferencesVisitor();
+    const converter = new AstRenderer(
+      this.compilation.rootFile,
+      this.compilation.program.getTypeChecker(),
+      visitor,
+      this.options,
+    );
+    converter.convert(this.compilation.rootFile);
+    return visitor.fqnsReferenced();
   }
 
   public get diagnostics(): readonly ts.Diagnostic[] {

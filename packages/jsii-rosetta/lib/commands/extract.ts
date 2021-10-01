@@ -91,7 +91,7 @@ async function translateAll(
     const worker = await import('worker_threads');
 
     return await workerBasedTranslateAll(worker, snippets, includeCompilerDiagnostics);
-  } catch (e) {
+  } catch (e: any) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       throw e;
     }
@@ -119,11 +119,11 @@ export function singleThreadedTranslateAll(
   for (const block of snippets) {
     try {
       translatedSnippets.push(translator.translate(block));
-    } catch (e) {
+    } catch (e: any) {
       failures.push({
         category: ts.DiagnosticCategory.Error,
         code: 999,
-        messageText: `rosetta: error translating snippet: ${e}\n${block.completeSource}`,
+        messageText: `rosetta: error translating snippet: ${e}\n${e.stack}\n${block.completeSource}`,
         file: undefined,
         start: undefined,
         length: undefined,
