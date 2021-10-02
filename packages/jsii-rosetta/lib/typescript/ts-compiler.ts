@@ -55,6 +55,7 @@ export const STANDARD_COMPILER_OPTIONS: ts.CompilerOptions = {
   charset: 'utf8',
   declaration: true,
   experimentalDecorators: true,
+  forceConsistentCasingInFileNames: true,
   inlineSourceMap: true,
   inlineSources: true,
   lib: ['lib.es2016.d.ts', 'lib.es2017.object.d.ts', 'lib.es2017.string.d.ts'],

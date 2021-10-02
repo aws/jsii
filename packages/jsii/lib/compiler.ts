@@ -16,6 +16,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   charset: 'utf8',
   declaration: true,
   experimentalDecorators: true,
+  forceConsistentCasingInFileNames: true,
   incremental: true,
   inlineSourceMap: true,
   inlineSources: true,
