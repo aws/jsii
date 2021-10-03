@@ -48,6 +48,15 @@ export function isInternal(node: ts.Node): boolean {
   return hasTag(node, 'internal');
 }
 
+export function isPublic(node: ts.Node): boolean {
+  const modifiers = node.modifiers ?? [];
+  return modifiers.every(
+    (m) =>
+      m.kind !== ts.SyntaxKind.PrivateKeyword &&
+      m.kind !== ts.SyntaxKind.ProtectedKeyword,
+  );
+}
+
 function hasTag(node: ts.Node, tagName: string): boolean {
   const original = ts.getOriginalNode(node);
   return ts.getJSDocTags(original).some((tag) => tag.tagName.text === tagName);

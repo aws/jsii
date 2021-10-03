@@ -10,7 +10,12 @@ import * as path from 'path';
 import * as ts from 'typescript';
 
 import * as bindings from '../node-bindings';
-import { fullyQualifiedName, isDeprecated, isInternal } from './utils';
+import {
+  fullyQualifiedName,
+  isDeprecated,
+  isInternal,
+  isPublic,
+} from './utils';
 
 const WARNING_FUNCTION_NAME = 'printJsiiDeprecationWarnings';
 const FILE_NAME = '.warnings.jsii.js';
@@ -379,7 +384,9 @@ class DeprecatedWarningsTransformer {
 
     function getPossibleWarning(node: ts.Node): Warning | undefined {
       const actualNode = ts.isEnumMember(node) ? node.parent : node;
-      return isDeprecated(actualNode) && !isInternal(actualNode)
+      return isDeprecated(actualNode) &&
+        !isInternal(actualNode) &&
+        isPublic(actualNode)
         ? getWarning(actualNode, moduleName, path)
         : getWarningFromInheritanceChain(actualNode, path); // Only bother with this if we haven't found a warning for the node itself
     }

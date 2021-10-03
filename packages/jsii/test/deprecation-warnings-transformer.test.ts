@@ -341,6 +341,26 @@ describe('Deprecation warnings', () => {
     );
   });
 
+  test('methods that receive parameters of classes with private deprecated fields', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export class Quux {
+      ${DEPRECATED}  
+      private readonly x = '';
+      public baz(){return this.x};
+    }
+      
+    export class Foo {
+      public bar(quux: Quux){return quux;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result)).toMatch('bar(quux) { return quux; }');
+  });
+
   test('methods that receive parameters with fields of deprecated types', async () => {
     const result = await compileJsiiForTest(
       `
