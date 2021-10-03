@@ -3,6 +3,23 @@ import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 const DEPRECATED = '/** @deprecated Use something else */';
 
 describe('Deprecation warnings', () => {
+  test('generates import', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export class Foo {
+      ${DEPRECATED}
+      public bar(){}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result)).toMatch(
+      'const printJsiiDeprecationWarnings = require(".warnings.jsii.js");',
+    );
+  });
+
   test('deprecated methods', async () => {
     const result = await compileJsiiForTest(
       `
@@ -300,6 +317,27 @@ describe('Deprecation warnings', () => {
 
     expect(jsFile(result)).toMatch(
       'bar(props) { printJsiiDeprecationWarnings("testpkg.SomeProps.bar", "Use something else", props?.bar); return props; }',
+    );
+  });
+
+  test('methods that receive parameters of classes with deprecated fields', async () => {
+    const result = await compileJsiiForTest(
+      `
+    export class Quux {
+      ${DEPRECATED}  
+      public readonly x = '';
+    }
+      
+    export class Foo {
+      public bar(quux: Quux){return quux;}
+    }
+    `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result)).toMatch(
+      'bar(quux) { printJsiiDeprecationWarnings("testpkg.Quux.x", "Use something else", quux?.x); return quux; }',
     );
   });
 
