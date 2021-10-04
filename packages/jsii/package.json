@@ -59,7 +59,7 @@
     "@types/semver": "^7.3.8",
     "clone": "^2.1.2",
     "eslint": "^7.32.0",
-    "jest": "^27.2.3",
+    "jest": "^27.2.4",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.4.1",
