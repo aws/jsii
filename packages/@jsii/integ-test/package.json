@@ -17,10 +17,10 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@octokit/rest": "^18.11.2",
+    "@octokit/rest": "^18.11.4",
     "dotenv": "^8.6.0",
     "fs-extra": "^9.1.0",
-    "jest": "^27.2.3",
+    "jest": "^27.2.4",
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
