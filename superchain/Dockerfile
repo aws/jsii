@@ -206,8 +206,8 @@ RUN chmod 600 /root/.ssh/config
 COPY superchain/dockerd-entrypoint.sh /usr/local/bin/
 
 # Create the image's non-root user, and enable no-password sudo
-RUN adduser --shell /bin/bash --gecos "Docker User" --disabled-password --uid 1001 --gid 1001 --no-log-init superchain  \
-  && adduser superchain sudo                                                                                            \
+RUN groupadd --gid 1001 superchain                                                                                      \
+  && useradd --shell /bin/bash --comment "Docker User" --uid 1001 --gid 1001 --no-log-init --groups sudo superchain     \
   && echo "%sudo ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers.d/nopasswd                                                  \
   && chmod 0440 /etc/sudoers.d/nopasswd
 COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.m2/settings.xml
