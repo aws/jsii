@@ -34,10 +34,7 @@ export async function extractSnippets(
   const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(
-    assemblyLocations,
-    options.validateAssemblies,
-  );
+  const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies);
 
   let snippets = allTypeScriptSnippets(assemblies, loose);
   if (only.length > 0) {
@@ -49,10 +46,7 @@ export async function extractSnippets(
   logging.info('Translating');
   const startTime = Date.now();
 
-  const result = await translateAll(
-    snippets,
-    options.includeCompilerDiagnostics,
-  );
+  const result = await translateAll(snippets, options.includeCompilerDiagnostics);
 
   for (const snippet of result.translatedSnippets) {
     tablet.addSnippet(snippet);
@@ -60,9 +54,7 @@ export async function extractSnippets(
 
   const delta = (Date.now() - startTime) / 1000;
   logging.info(
-    `Converted ${tablet.count} snippets in ${delta} seconds (${(
-      delta / tablet.count
-    ).toPrecision(3)}s/snippet)`,
+    `Converted ${tablet.count} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`,
   );
   logging.info(`Saving language tablet to ${options.outputFile}`);
   await tablet.save(options.outputFile);
@@ -78,10 +70,7 @@ interface TranslateAllResult {
 /**
  * Only yield the snippets whose id exists in a whitelist
  */
-function* filterSnippets(
-  ts: IterableIterator<TypeScriptSnippet>,
-  includeIds: string[],
-) {
+function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: string[]) {
   for (const t of ts) {
     if (includeIds.includes(snippetKey(t))) {
       yield t;
@@ -101,18 +90,12 @@ async function translateAll(
   try {
     const worker = await import('worker_threads');
 
-    return await workerBasedTranslateAll(
-      worker,
-      snippets,
-      includeCompilerDiagnostics,
-    );
+    return await workerBasedTranslateAll(worker, snippets, includeCompilerDiagnostics);
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       throw e;
     }
-    logging.warn(
-      'Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.',
-    );
+    logging.warn('Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.');
 
     return singleThreadedTranslateAll(snippets, includeCompilerDiagnostics);
   }
@@ -168,21 +151,15 @@ async function workerBasedTranslateAll(
   // Use about half the advertised cores because hyperthreading doesn't seem to help that
   // much (on my machine, using more than half the cores actually makes it slower).
   // Cap to a reasonable top-level limit to prevent thrash on machines with many, many cores.
-  const maxWorkers = parseInt(
-    process.env.JSII_ROSETTA_MAX_WORKER_COUNT ?? '16',
-  );
+  const maxWorkers = parseInt(process.env.JSII_ROSETTA_MAX_WORKER_COUNT ?? '16');
   const N = Math.min(maxWorkers, Math.max(1, Math.ceil(os.cpus().length / 2)));
   const snippetArr = Array.from(snippets);
   const groups = divideEvenly(N, snippetArr);
-  logging.info(
-    `Translating ${snippetArr.length} snippets using ${groups.length} workers`,
-  );
+  logging.info(`Translating ${snippetArr.length} snippets using ${groups.length} workers`);
 
   // Run workers
   const responses = await Promise.all(
-    groups
-      .map((snippets) => ({ snippets, includeCompilerDiagnostics }))
-      .map(runWorker),
+    groups.map((snippets) => ({ snippets, includeCompilerDiagnostics })).map(runWorker),
   );
 
   // Combine results
@@ -198,9 +175,7 @@ async function workerBasedTranslateAll(
   // Hydrate TranslatedSnippets from data back to objects
   return {
     diagnostics: x.diagnostics,
-    translatedSnippets: x.translatedSnippetSchemas.map((s) =>
-      TranslatedSnippet.fromSchema(s),
-    ),
+    translatedSnippets: x.translatedSnippetSchemas.map((s) => TranslatedSnippet.fromSchema(s)),
   };
 
   /**
@@ -213,9 +188,7 @@ async function workerBasedTranslateAll(
       const wrk = new worker.Worker(path.join(__dirname, 'extract_worker.js'), {
         resourceLimits: {
           // Note: V8 heap statistics are expressed in bytes, so we divide by 1MiB (1,048,576 bytes)
-          maxOldGenerationSizeMb: Math.ceil(
-            v8.getHeapStatistics().heap_size_limit / 1_048_576,
-          ),
+          maxOldGenerationSizeMb: Math.ceil(v8.getHeapStatistics().heap_size_limit / 1_048_576),
         },
         workerData: request,
       });

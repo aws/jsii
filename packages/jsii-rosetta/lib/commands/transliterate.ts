@@ -83,25 +83,15 @@ export async function transliterateAssembly(
         transliterateType(type, rosetta, language, location, options.loose);
       }
       // eslint-disable-next-line no-await-in-loop
-      await writeJson(
-        resolve(location, `${SPEC_FILE_NAME}.${language}`),
-        result,
-        { spaces: 2 },
-      );
+      await writeJson(resolve(location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
       const then = new Date().getTime();
-      debug(
-        `Done transliterating ${result.name}@${
-          result.version
-        } to ${language} after ${then - now} milliseconds`,
-      );
+      debug(`Done transliterating ${result.name}@${result.version} to ${language} after ${then - now} milliseconds`);
     }
   }
 
   rosetta.printDiagnostics(process.stderr);
   if (rosetta.hasErrors && options.strict) {
-    throw new Error(
-      'Strict mode is enabled and some examples failed compilation!',
-    );
+    throw new Error('Strict mode is enabled and some examples failed compilation!');
   }
 }
 
@@ -204,12 +194,9 @@ function transliterateType(
   function transliterateDocs(docs: Docs | undefined) {
     if (docs?.example) {
       const snippet = fixturize(
-        typeScriptSnippetFromSource(
-          docs.example,
-          'example',
-          true /* strict */,
-          { [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory },
-        ),
+        typeScriptSnippetFromSource(docs.example, 'example', true /* strict */, {
+          [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory,
+        }),
         loose,
       );
       const translation = rosetta.translateSnippet(snippet, language);

@@ -1,10 +1,6 @@
 import * as cm from 'commonmark';
 
-export function transformMarkdown(
-  source: string,
-  renderer: CommonMarkRenderer,
-  transform?: CommonMarkVisitor,
-) {
+export function transformMarkdown(source: string, renderer: CommonMarkRenderer, transform?: CommonMarkVisitor) {
   const parser = new cm.Parser();
   const doc = parser.parse(source);
   if (transform) {
@@ -42,10 +38,7 @@ export interface CommonMarkRenderer {
   custom_inline(node: cm.Node, context: RendererContext): string;
 }
 
-export function renderCommonMarkTree(
-  node: cm.Node,
-  renderer: CommonMarkRenderer,
-) {
+export function renderCommonMarkTree(node: cm.Node, renderer: CommonMarkRenderer) {
   const context: RendererContext = {
     recurse(n: cm.Node): string {
       return renderCommonMarkTree(n, renderer);

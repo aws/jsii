@@ -5,15 +5,11 @@ import { AstRenderer } from '../renderer';
 /**
  * Return the OTHER type from undefined from a union, returns undefined if there is more than one
  */
-export function typeWithoutUndefinedUnion(
-  type: ts.Type | undefined,
-): ts.Type | undefined {
+export function typeWithoutUndefinedUnion(type: ts.Type | undefined): ts.Type | undefined {
   if (!type || !type.isUnion()) {
     return type;
   }
-  const remaining = type.types.filter(
-    (t) => t.flags !== ts.TypeFlags.Undefined,
-  );
+  const remaining = type.types.filter((t) => t.flags !== ts.TypeFlags.Undefined);
   if (remaining.length > 1) {
     return undefined;
   }
@@ -35,10 +31,7 @@ export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
   return map[type.flags];
 }
 
-export function parameterAcceptsUndefined(
-  param: ts.ParameterDeclaration,
-  type?: ts.Type,
-): boolean {
+export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
   if (param.initializer !== undefined) {
     return true;
   }
@@ -67,10 +60,7 @@ export function typeContainsUndefined(type: ts.Type): boolean {
 /**
  * If this is a map type, return the type mapped *to* (key must always be `string` anyway).
  */
-export function mapElementType(
-  type: ts.Type,
-  renderer: AstRenderer<any>,
-): ts.Type | undefined {
+export function mapElementType(type: ts.Type, renderer: AstRenderer<any>): ts.Type | undefined {
   if (type.flags & ts.TypeFlags.Object && type.symbol) {
     if (type.symbol.name === '__type') {
       // Declared map type: {[k: string]: A}
@@ -101,11 +91,7 @@ export function inferMapElementType(
   renderer: AstRenderer<any>,
 ): ts.Type | undefined {
   return typeIfSame(
-    elements.map((el) =>
-      ts.isPropertyAssignment(el)
-        ? renderer.typeOfExpression(el.initializer)
-        : undefined,
-    ),
+    elements.map((el) => (ts.isPropertyAssignment(el) ? renderer.typeOfExpression(el.initializer) : undefined)),
   );
 }
 

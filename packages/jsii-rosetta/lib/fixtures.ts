@@ -1,21 +1,13 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import {
-  createSourceFile,
-  ScriptKind,
-  ScriptTarget,
-  SyntaxKind,
-} from 'typescript';
+import { createSourceFile, ScriptKind, ScriptTarget, SyntaxKind } from 'typescript';
 
 import { TypeScriptSnippet, SnippetParameters } from './snippet';
 
 /**
  * Complete snippets with fixtures, if required
  */
-export function fixturize(
-  snippet: TypeScriptSnippet,
-  loose = false,
-): TypeScriptSnippet {
+export function fixturize(snippet: TypeScriptSnippet, loose = false): TypeScriptSnippet {
   let source = snippet.visibleSource;
   const parameters = snippet.parameters ?? {};
 
@@ -36,10 +28,7 @@ export function fixturize(
         throw ex;
       }
     }
-    parameters[SnippetParameters.$COMPILATION_DIRECTORY] = path.join(
-      directory,
-      path.dirname(literateSource),
-    );
+    parameters[SnippetParameters.$COMPILATION_DIRECTORY] = path.join(directory, path.dirname(literateSource));
   } else if (parameters[SnippetParameters.FIXTURE]) {
     // Explicitly requested fixture must exist, unless we are operating in loose mode
     source = loadAndSubFixture(directory, parameters.fixture, source, !loose);
@@ -60,28 +49,16 @@ function loadLiterateSource(directory: string, literateFileName: string) {
   const exists = fs.existsSync(fullPath);
   if (!exists) {
     // This couldn't really happen in practice, but do the check anyway
-    throw new Error(
-      `Sample uses literate source ${literateFileName}, but not found: ${fullPath}`,
-    );
+    throw new Error(`Sample uses literate source ${literateFileName}, but not found: ${fullPath}`);
   }
   return fs.readFileSync(fullPath, { encoding: 'utf-8' });
 }
 
-function loadAndSubFixture(
-  directory: string,
-  fixtureName: string,
-  source: string,
-  mustExist: boolean,
-) {
-  const fixtureFileName = path.join(
-    directory,
-    `rosetta/${fixtureName}.ts-fixture`,
-  );
+function loadAndSubFixture(directory: string, fixtureName: string, source: string, mustExist: boolean) {
+  const fixtureFileName = path.join(directory, `rosetta/${fixtureName}.ts-fixture`);
   const exists = fs.existsSync(fixtureFileName);
   if (!exists && mustExist) {
-    throw new Error(
-      `Sample uses fixture ${fixtureName}, but not found: ${fixtureFileName}`,
-    );
+    throw new Error(`Sample uses fixture ${fixtureName}, but not found: ${fixtureFileName}`);
   }
   if (!exists) {
     return source;
@@ -139,20 +116,13 @@ function sidelineImports(source: string): {
   let imports = '';
   let statements = '';
 
-  const sourceFile = createSourceFile(
-    'index.ts',
-    source,
-    ScriptTarget.Latest,
-    true,
-    ScriptKind.TS,
-  );
+  const sourceFile = createSourceFile('index.ts', source, ScriptTarget.Latest, true, ScriptKind.TS);
   for (const statement of sourceFile.statements) {
     if (
       statement.kind === SyntaxKind.ImportDeclaration ||
       statement.kind === SyntaxKind.ImportEqualsDeclaration ||
       (statement.kind === SyntaxKind.VariableStatement &&
-        statement.getChildAt(0).getChildAt(0).kind ===
-          SyntaxKind.DeclareKeyword)
+        statement.getChildAt(0).getChildAt(0).kind === SyntaxKind.DeclareKeyword)
     ) {
       imports += statement.getFullText(sourceFile);
     } else {

@@ -1,15 +1,7 @@
 import { TargetLanguage } from '../languages';
-import {
-  LanguageTablet,
-  TranslatedSnippet,
-  Translation,
-} from '../tablets/tablets';
+import { LanguageTablet, TranslatedSnippet, Translation } from '../tablets/tablets';
 
-export async function readTablet(
-  tabletFile: string,
-  key?: string,
-  lang?: string,
-) {
+export async function readTablet(tabletFile: string, key?: string, lang?: string) {
   const tab = new LanguageTablet();
   await tab.load(tabletFile);
 
@@ -76,7 +68,5 @@ function center(str: string, n: number, fill: string) {
   const before = Math.floor((n - str.length) / 2);
   const after = Math.ceil((n - str.length) / 2);
 
-  return (
-    fill.repeat(Math.max(before, 0)) + str + fill.repeat(Math.max(after, 0))
-  );
+  return fill.repeat(Math.max(before, 0)) + str + fill.repeat(Math.max(after, 0));
 }

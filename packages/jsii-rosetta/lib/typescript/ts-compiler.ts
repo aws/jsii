@@ -1,10 +1,7 @@
 import * as ts from 'typescript';
 
 export class TypeScriptCompiler {
-  private readonly realHost = ts.createCompilerHost(
-    STANDARD_COMPILER_OPTIONS,
-    true,
-  );
+  private readonly realHost = ts.createCompilerHost(STANDARD_COMPILER_OPTIONS, true);
 
   public createInMemoryCompilerHost(
     sourcePath: string,
@@ -12,45 +9,22 @@ export class TypeScriptCompiler {
     currentDirectory?: string,
   ): ts.CompilerHost {
     const realHost = this.realHost;
-    const sourceFile = ts.createSourceFile(
-      sourcePath,
-      sourceContents,
-      ts.ScriptTarget.Latest,
-    );
+    const sourceFile = ts.createSourceFile(sourcePath, sourceContents, ts.ScriptTarget.Latest);
 
     return {
       ...realHost,
-      fileExists: (filePath) =>
-        filePath === sourcePath || realHost.fileExists(filePath),
-      getCurrentDirectory:
-        currentDirectory != null
-          ? () => currentDirectory
-          : realHost.getCurrentDirectory,
-      getSourceFile: (
-        fileName,
-        languageVersion,
-        onError,
-        shouldCreateNewSourceFile,
-      ) =>
+      fileExists: (filePath) => filePath === sourcePath || realHost.fileExists(filePath),
+      getCurrentDirectory: currentDirectory != null ? () => currentDirectory : realHost.getCurrentDirectory,
+      getSourceFile: (fileName, languageVersion, onError, shouldCreateNewSourceFile) =>
         fileName === sourcePath
           ? sourceFile
-          : realHost.getSourceFile(
-              fileName,
-              languageVersion,
-              onError,
-              shouldCreateNewSourceFile,
-            ),
-      readFile: (filePath) =>
-        filePath === sourcePath ? sourceContents : realHost.readFile(filePath),
+          : realHost.getSourceFile(fileName, languageVersion, onError, shouldCreateNewSourceFile),
+      readFile: (filePath) => (filePath === sourcePath ? sourceContents : realHost.readFile(filePath)),
       writeFile: () => void undefined,
     };
   }
 
-  public compileInMemory(
-    filename: string,
-    contents: string,
-    currentDirectory?: string,
-  ): CompilationResult {
+  public compileInMemory(filename: string, contents: string, currentDirectory?: string): CompilationResult {
     if (!filename.endsWith('.ts')) {
       // Necessary or the TypeScript compiler won't compile the file.
       filename += '.ts';
@@ -59,11 +33,7 @@ export class TypeScriptCompiler {
     const program = ts.createProgram({
       rootNames: [filename],
       options: STANDARD_COMPILER_OPTIONS,
-      host: this.createInMemoryCompilerHost(
-        filename,
-        contents,
-        currentDirectory,
-      ),
+      host: this.createInMemoryCompilerHost(filename, contents, currentDirectory),
     });
 
     const rootFile = program.getSourceFile(filename);

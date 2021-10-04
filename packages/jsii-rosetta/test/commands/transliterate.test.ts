@@ -88,13 +88,9 @@ export class ClassName implements IInterface {
   }
 }`,
     });
-    fs.writeJsonSync(
-      path.join(tmpDir, SPEC_FILE_NAME),
-      compilationResult.assembly,
-      {
-        spaces: 2,
-      },
-    );
+    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
+      spaces: 2,
+    });
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
     }
@@ -113,9 +109,7 @@ export class ClassName implements IInterface {
     ).resolves.not.toThrow();
 
     // THEN
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -393,9 +387,7 @@ export class ClassName implements IInterface {
       }
     `,
     );
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -673,9 +665,7 @@ export class ClassName implements IInterface {
       }
     `,
     );
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -1001,13 +991,9 @@ import { SampleClass } from './index';
 new SampleClass('omitted-literate');
       `,
     });
-    fs.writeJsonSync(
-      path.join(tmpDir, SPEC_FILE_NAME),
-      compilationResult.assembly,
-      {
-        spaces: 2,
-      },
-    );
+    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
+      spaces: 2,
+    });
     for (const [file, content] of Object.entries(compilationResult.files)) {
       if (file.startsWith('omit-')) {
         continue;
@@ -1023,9 +1009,7 @@ new SampleClass('omitted-literate');
     ).resolves.not.toThrow();
 
     // THEN
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -1130,9 +1114,7 @@ new SampleClass('omitted-literate');
     `,
     );
 
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -1237,9 +1219,7 @@ new SampleClass('omitted-literate');
     `,
     );
 
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -1345,11 +1325,7 @@ new SampleClass('omitted-literate');
     );
   }));
 
-async function withTemporaryDirectory<T>(
-  callback: (dir: string) => Promise<T>,
-): Promise<T> {
-  const tmpdir = fs.mkdtempSync(
-    path.join(os.tmpdir(), path.basename(__filename)),
-  );
+async function withTemporaryDirectory<T>(callback: (dir: string) => Promise<T>): Promise<T> {
+  const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
   return callback(tmpdir).finally(() => fs.removeSync(tmpdir));
 }

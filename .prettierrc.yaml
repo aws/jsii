@@ -14,3 +14,6 @@ overrides:
       singleQuote: true
       quoteProps: as-needed
       trailingComma: all
+  - files: "packages/jsii-rosetta/**"
+    options:
+      printWidth: 120

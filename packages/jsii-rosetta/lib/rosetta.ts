@@ -9,16 +9,8 @@ import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
 import { CodeBlock } from './markdown/types';
-import {
-  SnippetParameters,
-  TypeScriptSnippet,
-  updateParameters,
-} from './snippet';
-import {
-  DEFAULT_TABLET_NAME,
-  LanguageTablet,
-  Translation,
-} from './tablets/tablets';
+import { SnippetParameters, TypeScriptSnippet, updateParameters } from './snippet';
+import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
 import { printDiagnostics } from './util';
 
@@ -72,9 +64,7 @@ export class Rosetta {
 
   public constructor(private readonly options: RosettaOptions = {}) {
     this.loose = !!options.loose;
-    this.translator = new Translator(
-      options.includeCompilerDiagnostics ?? false,
-    );
+    this.translator = new Translator(options.includeCompilerDiagnostics ?? false);
   }
 
   /**
@@ -117,26 +107,18 @@ export class Rosetta {
    */
   public async addAssembly(assembly: spec.Assembly, assemblyDir: string) {
     if (await fs.pathExists(path.join(assemblyDir, DEFAULT_TABLET_NAME))) {
-      await this.loadTabletFromFile(
-        path.join(assemblyDir, DEFAULT_TABLET_NAME),
-      );
+      await this.loadTabletFromFile(path.join(assemblyDir, DEFAULT_TABLET_NAME));
       return;
     }
 
     if (this.options.liveConversion) {
-      for (const tsnip of allTypeScriptSnippets(
-        [{ assembly, directory: assemblyDir }],
-        this.loose,
-      )) {
+      for (const tsnip of allTypeScriptSnippets([{ assembly, directory: assemblyDir }], this.loose)) {
         this.extractedSnippets.set(tsnip.visibleSource, tsnip);
       }
     }
   }
 
-  public translateSnippet(
-    source: TypeScriptSnippet,
-    targetLang: TargetLanguage,
-  ): Translation | undefined {
+  public translateSnippet(source: TypeScriptSnippet, targetLang: TargetLanguage): Translation | undefined {
     // Look for it in loaded tablets
     for (const tab of this.allTablets) {
       const ret = tab.lookup(source, targetLang);
@@ -148,10 +130,7 @@ export class Rosetta {
     if (!this.options.liveConversion) {
       return undefined;
     }
-    if (
-      this.options.targetLanguages &&
-      !this.options.targetLanguages.includes(targetLang)
-    ) {
+    if (this.options.targetLanguages && !this.options.targetLanguages.includes(targetLang)) {
       throw new Error(
         `Rosetta configured for live conversion to ${this.options.targetLanguages.join(
           ', ',
@@ -162,19 +141,13 @@ export class Rosetta {
     // See if we're going to live-convert it with full source information
     const extracted = this.extractedSnippets.get(source.visibleSource);
     if (extracted !== undefined) {
-      const snippet = this.translator.translate(
-        extracted,
-        this.options.targetLanguages,
-      );
+      const snippet = this.translator.translate(extracted, this.options.targetLanguages);
       this.liveTablet.addSnippet(snippet);
       return snippet.get(targetLang);
     }
 
     // Try to live-convert it on the spot (we won't have "where" information or fixtures)
-    const snippet = this.translator.translate(
-      source,
-      this.options.targetLanguages,
-    );
+    const snippet = this.translator.translate(source, this.options.targetLanguages);
     return snippet.get(targetLang);
   }
 
