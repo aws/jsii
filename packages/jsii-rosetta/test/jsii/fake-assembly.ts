@@ -12,6 +12,7 @@ export function fakeAssembly(parts: Partial<Assembly>): Assembly {
     version: '0.0.0-use.local',
     jsiiVersion: '0.0.0-use.local',
     license: 'UNLICENSED',
+    symbolToFqn: {},
     ...parts,
   };
 }

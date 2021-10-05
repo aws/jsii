@@ -1047,7 +1047,7 @@
     "type": "git",
     "url": "https://github.com/aws/aws-cdk.git"
   },
-  "schema": "jsii/0.10.0",
+  "schema": "jsii/0.11.0",
   "targets": {
     "dotnet": {
       "assemblyOriginatorKeyFile": "../../key.snk",
@@ -7776,5 +7776,6 @@
     }
   },
   "version": "1.22.0",
-  "fingerprint": "/uV+V7EmvZ86dhBizVIx9ArVdwypxXC0BmVoZP/mzRI="
+  "fingerprint": "/uV+V7EmvZ86dhBizVIx9ArVdwypxXC0BmVoZP/mzRI=",
+  "symbolToFqn": {}
 }
