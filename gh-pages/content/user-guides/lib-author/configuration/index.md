@@ -185,7 +185,9 @@ are set in the `jsii.tsc` section of the `package.json` file, but use the same n
     will _always_ be placed at the package's root.
 - `rootDir` - specifies the root directory that contains all of the `.ts` source files. This is used in conjunction with
   `outDir`, to control the directory structure that gets generated.
-
+- `forceConsistentCasingInFileNames` - if `true`, will make the `TypeScript` compiler care about the casing of files
+   specified in `import` statements.  This is helpful if you're developing on a filesystem that is case-insensitive 
+   (Mac/Win), but building/deploying on a filesystem that is case-sensitive (Linux).
 Refer to the [TypeScript compiler options reference][ts-options] for more information about those options.
 
 [`tsconfig.json`]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
