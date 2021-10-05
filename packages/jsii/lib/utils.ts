@@ -1,4 +1,5 @@
 import * as log4js from 'log4js';
+import * as path from 'path';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
@@ -162,4 +163,49 @@ export function parseRepository(value: string): { url: string } {
     default:
       throw new Error(`Unknown host service: ${host}`);
   }
+}
+
+export function symbolIdentifier(
+  typeChecker: ts.TypeChecker,
+  sym: ts.Symbol,
+  projectRoot: string,
+): string | undefined {
+  const inFileNameParts: string[] = [];
+
+  let decl: ts.Node | undefined = sym.declarations[0];
+  while (decl && !ts.isSourceFile(decl)) {
+    if (
+      ts.isClassDeclaration(decl) ||
+      ts.isNamespaceExportDeclaration(decl) ||
+      ts.isNamespaceExport(decl) ||
+      ts.isEnumDeclaration(decl) ||
+      ts.isEnumMember(decl) ||
+      ts.isInterfaceDeclaration(decl) ||
+      ts.isMethodDeclaration(decl) ||
+      ts.isMethodSignature(decl) ||
+      ts.isPropertyDeclaration(decl) ||
+      ts.isPropertySignature(decl)
+    ) {
+      const name = ts.getNameOfDeclaration(decl);
+      const declSym = name ? typeChecker.getSymbolAtLocation(name) : undefined;
+      if (declSym) {
+        inFileNameParts.unshift(declSym.name);
+      }
+    }
+    decl = decl.parent;
+  }
+  if (!decl) {
+    return undefined;
+  }
+
+  const fileName = path.relative(projectRoot, decl.getSourceFile().fileName);
+  const namespace = path.join(
+    path.dirname(fileName),
+    path.basename(fileName, '.ts'),
+  );
+  if (!namespace) {
+    return undefined;
+  }
+
+  return `${namespace}:${inFileNameParts.join('.')}`;
 }

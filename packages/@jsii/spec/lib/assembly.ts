@@ -143,6 +143,11 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
    * @default none
    */
   bin?: { readonly [script: string]: string };
+
+  /**
+   * Map of symbol identifiers to their corresponding FQNs
+   */
+  symbolToFqn: { [symbolId: string]: string };
 }
 
 /**
@@ -198,7 +203,7 @@ export type Submodule = SourceLocatable & Targetable;
  * Versions of the JSII Assembly Specification.
  */
 export enum SchemaVersion {
-  LATEST = 'jsii/0.10.0',
+  LATEST = 'jsii/0.11.0',
 }
 
 /**
