@@ -263,7 +263,6 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
     'jsii-test-dep-dep': '3.2.1',
   },
   jsiiVersion: VERSION,
-  symbolToFqn: {},
 };
 
 const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
@@ -282,7 +281,6 @@ const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
   },
   jsiiVersion: VERSION,
   fingerprint: 'F1NG3RPR1N7',
-  symbolToFqn: {},
 };
 
 /**

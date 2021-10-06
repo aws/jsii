@@ -25,7 +25,6 @@ test('correctly represents sample assembly', () => {
       'org.jsii.TypeA.NestedType': makeType('org.jsii.TypeA', 'NestedType'),
       'org.jsii.enums.TypeB': makeType('org.jsii.enums', 'TypeB'),
     },
-    symbolToFqn: {},
   };
 
   // WHEN

@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import { TypeBase } from '@jsii/spec';
 import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';
@@ -49,7 +48,6 @@ export class Assembler implements Emitter {
   private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
   private _types: { [fqn: string]: spec.Type } = {};
-  private _symbolToFqn: { [symbolId: string]: string } = {};
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
@@ -235,7 +233,6 @@ export class Assembler implements Emitter {
       jsiiVersion,
       bin: this.projectInfo.bin,
       fingerprint: '<TBD>',
-      symbolToFqn: this._symbolToFqn,
     };
 
     if (this.deprecatedRemover) {
@@ -904,7 +901,6 @@ export class Assembler implements Emitter {
       );
       if (jsiiType) {
         this.registerExportedClassFqn(node, jsiiType.fqn);
-        this.registerSymbolIdentifier(node, jsiiType);
       }
     } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
       // export interface Name { ... }
@@ -913,18 +909,12 @@ export class Assembler implements Emitter {
         this._typeChecker.getTypeAtLocation(node),
         context,
       );
-      if (jsiiType) {
-        this.registerSymbolIdentifier(node, jsiiType);
-      }
     } else if (ts.isEnumDeclaration(node) && _isExported(node)) {
       // export enum Name { ... }
       jsiiType = await this._visitEnum(
         this._typeChecker.getTypeAtLocation(node),
         context,
       );
-      if (jsiiType) {
-        this.registerSymbolIdentifier(node, jsiiType);
-      }
     } else if (ts.isModuleDeclaration(node)) {
       // export namespace name { ... }
       const name = node.name.getText();
@@ -969,6 +959,8 @@ export class Assembler implements Emitter {
     if (!jsiiType) {
       return [];
     }
+
+    jsiiType.symbolId = this.getSymbolId(node);
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
@@ -1037,18 +1029,12 @@ export class Assembler implements Emitter {
     return [jsiiType];
   }
 
-  private registerSymbolIdentifier(
-    node: ts.ClassDeclaration | ts.EnumDeclaration | ts.InterfaceDeclaration,
-    jsiiType: TypeBase,
-  ) {
-    const symbolId = symbolIdentifier(
+  private getSymbolId(node: ts.Node) {
+    return symbolIdentifier(
       this._typeChecker,
       this._typeChecker.getTypeAtLocation(node).symbol,
       this.projectInfo.projectRoot,
     );
-    if (symbolId) {
-      this._symbolToFqn[symbolId] = jsiiType.fqn;
-    }
   }
 
   private _validateHeritageClauses(clauses?: ts.NodeArray<ts.HeritageClause>) {

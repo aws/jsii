@@ -136,7 +136,6 @@ function mockAssembly(
     schema: SchemaVersion.LATEST,
     targets: targetsOf(name),
     version,
-    symbolToFqn: {},
   };
 
   function targetsOf(name: string): Assembly['targets'] {

@@ -23,10 +23,8 @@ test('Symbol map is generated', async () => {
     { stripDeprecated: true },
   );
 
-  console.log(result.assembly);
-  expect(result.assembly.symbolToFqn).toEqual({
-    'index:Foo': 'testpkg.Foo',
-    'some/nested/file:Bar': 'testpkg.Bar',
-    'some/nested/file:Baz': 'testpkg.Baz',
-  });
+  const types = result.assembly.types ?? {};
+  expect(types['testpkg.Foo'].symbolId).toEqual('index:Foo');
+  expect(types['testpkg.Bar'].symbolId).toEqual('some/nested/file:Bar');
+  expect(types['testpkg.Baz'].symbolId).toEqual('some/nested/file:Baz');
 });

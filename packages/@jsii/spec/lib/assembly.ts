@@ -143,11 +143,6 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
    * @default none
    */
   bin?: { readonly [script: string]: string };
-
-  /**
-   * Map of symbol identifiers to their corresponding FQNs
-   */
-  symbolToFqn: { [symbolId: string]: string };
 }
 
 /**
@@ -203,7 +198,7 @@ export type Submodule = SourceLocatable & Targetable;
  * Versions of the JSII Assembly Specification.
  */
 export enum SchemaVersion {
-  LATEST = 'jsii/0.11.0',
+  LATEST = 'jsii/0.10.0',
 }
 
 /**
@@ -816,6 +811,11 @@ export interface TypeBase extends Documentable, SourceLocatable {
    * The kind of the type.
    */
   kind: TypeKind;
+
+  /**
+   * Unique string representation of the corresponding Typescript symbol
+   */
+  symbolId?: string;
 }
 
 /**
