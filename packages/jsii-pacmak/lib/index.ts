@@ -32,6 +32,7 @@ export async function pacmak({
   targets = Object.values(TargetName),
   timers = new Timers(),
   updateNpmIgnoreFiles = false,
+  validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
   const rosetta = new Rosetta({ liveConversion: rosettaLiveConversion });
   if (rosettaTablet) {
@@ -65,7 +66,7 @@ export async function pacmak({
     const system = new TypeSystem();
     return Promise.all(
       modulesToPackage.map(async (m) => {
-        await m.load(system);
+        await m.load(system, validateAssemblies);
         return rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
       }),
     );
@@ -247,6 +248,14 @@ export interface PacmakOptions {
    * @default false
    */
   readonly updateNpmIgnoreFiles?: boolean;
+
+  /**
+   * Whether assemblies should be validated or not. Validation can be expensive and can be skipped if the assemblies
+   * can be assumed to be valid.
+   *
+   * @default false
+   */
+  readonly validateAssemblies?: boolean;
 }
 
 //#endregion
