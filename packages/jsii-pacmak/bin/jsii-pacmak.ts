@@ -110,6 +110,11 @@ import { VERSION_DESC } from '../lib/version';
       // This is expected to be a path, which should be normalized
       normalize: true,
     })
+    .option('validate-assemblies', {
+      type: 'boolean',
+      desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
+      default: false,
+    })
     .version(VERSION_DESC)
     .strict().argv;
 
@@ -134,6 +139,7 @@ import { VERSION_DESC } from '../lib/version';
     rosettaTablet: argv['rosetta-tablet'],
     targets: argv.targets?.map((target) => target as TargetName),
     updateNpmIgnoreFiles: argv.npmignore,
+    validateAssemblies: argv['validate-assemblies'],
   });
 })().catch((err) => {
   process.stderr.write(`${err.stack}\n`);

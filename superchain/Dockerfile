@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y curl gpg tar zsh
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.8.2"
+ARG M2_VERSION="3.8.3"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -sL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                               \
@@ -206,8 +206,8 @@ RUN chmod 600 /root/.ssh/config
 COPY superchain/dockerd-entrypoint.sh /usr/local/bin/
 
 # Create the image's non-root user, and enable no-password sudo
-RUN adduser --shell /bin/bash --gecos "Docker User" --disabled-password superchain                                      \
-  && adduser superchain sudo                                                                                            \
+RUN groupadd --gid 1001 superchain                                                                                      \
+  && useradd --shell /bin/bash --comment "Docker User" --uid 1001 --gid 1001 --no-log-init --groups sudo superchain     \
   && echo "%sudo ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers.d/nopasswd                                                  \
   && chmod 0440 /etc/sudoers.d/nopasswd
 COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.m2/settings.xml

@@ -87,9 +87,9 @@ export class JsiiModule {
     return this._tarball.object;
   }
 
-  public async load(system: TypeSystem) {
+  public async load(system: TypeSystem, validate = true) {
     return system
-      .loadModule(this.moduleDirectory)
+      .loadModule(this.moduleDirectory, { validate })
       .then((assembly) => (this._assembly = assembly));
   }
 
