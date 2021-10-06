@@ -8,6 +8,9 @@ import { TypeSystem } from './type-system';
 import { indexBy } from './util';
 
 export class InterfaceType extends ReferenceType {
+  /** Caches the result of `getInterfaces`. */
+  readonly #interfaces = new Map<boolean, readonly InterfaceType[]>();
+
   public constructor(
     public system: TypeSystem,
     public assembly: Assembly,
@@ -36,6 +39,10 @@ export class InterfaceType extends ReferenceType {
       return [];
     }
 
+    if (this.#interfaces.has(inherited)) {
+      return Array.from(this.#interfaces.get(inherited)!);
+    }
+
     const result = new Set<InterfaceType>();
     for (const iface of this.spec.interfaces) {
       const ifaceType = this.system.findInterface(iface);
@@ -44,6 +51,8 @@ export class InterfaceType extends ReferenceType {
       }
       result.add(ifaceType);
     }
+    this.#interfaces.set(inherited, Array.from(result));
+    // Returning a copy of the array, distinct from the one we memoized, for safety.
     return Array.from(result);
   }
 

@@ -22,11 +22,17 @@ export abstract class ModuleLike {
   >;
   protected declare abstract readonly typeMap: Readonly<Record<string, Type>>;
 
+  /**
+   * Cache for the results of `tryFindType`.
+   */
+  private readonly typeLocatorCache = new Map <string, Type | undefined>();
+
   protected constructor(public readonly system: TypeSystem) {}
 
   public get submodules(): readonly Submodule[] {
     return Object.values(this.submoduleMap);
   }
+
   public get types(): readonly Type[] {
     return Object.values(this.typeMap);
   }
@@ -50,12 +56,18 @@ export abstract class ModuleLike {
   }
 
   public tryFindType(fqn: string): Type | undefined {
+    if (this.typeLocatorCache.has(fqn)) {
+      return this.typeLocatorCache.get(fqn);
+    }
+
     const ownType = this.typeMap[fqn];
     if (ownType != null) {
+      this.typeLocatorCache.set(fqn, ownType);
       return ownType;
     }
 
     if (!fqn.startsWith(`${this.fqn}.`)) {
+      this.typeLocatorCache.set(fqn, undefined);
       return undefined;
     }
 
@@ -65,6 +77,8 @@ export abstract class ModuleLike {
       .slice(0, myFqnLength + 1)
       .join('.');
     const sub = this.submoduleMap[subFqn];
-    return sub?.tryFindType(fqn);
+    const submoduleType = sub?.tryFindType(fqn);
+    this.typeLocatorCache.set(fqn, submoduleType);
+    return submoduleType;
   }
 }

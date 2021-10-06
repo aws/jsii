@@ -12,6 +12,7 @@ import {
 } from './source';
 import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
+import { memoized } from './_memoized';
 
 export abstract class Type implements Documentable, SourceLocatable {
   public constructor(
@@ -43,6 +44,7 @@ export abstract class Type implements Documentable, SourceLocatable {
   /**
    * The type within which this type is nested (if any).
    */
+  @memoized
   public get nestingParent(): Type | undefined {
     const ns = this.namespace;
     if (ns == null) {
@@ -137,6 +139,7 @@ export abstract class Type implements Documentable, SourceLocatable {
    *
    * The result will always be empty for types that are neither ClassType nor InterfaceType.
    */
+  @memoized
   public get allImplementations(): Type[] {
     if (this.isClassType() || this.isInterfaceType()) {
       return [
