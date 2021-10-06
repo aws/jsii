@@ -25,7 +25,7 @@ export abstract class ModuleLike {
   /**
    * Cache for the results of `tryFindType`.
    */
-  private readonly typeLocatorCache = new Map <string, Type | undefined>();
+  private readonly typeLocatorCache = new Map<string, Type | undefined>();
 
   protected constructor(public readonly system: TypeSystem) {}
 

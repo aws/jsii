@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types -- WeakMap<T, _> demands T extends object */
+
 const CACHE = new WeakMap<object, Map<string, unknown>>();
 
 /**
@@ -8,7 +10,11 @@ const CACHE = new WeakMap<object, Map<string, unknown>>();
  * This can only be applied to property accessors (`public get foo(): any`), and not to
  * property declarations (`public readonly foo: any`).
  */
-export function memoized(_prototype: unknown, propertyKey: string, descriptor: PropertyDescriptor): void {
+export function memoized(
+  _prototype: unknown,
+  propertyKey: string,
+  descriptor: PropertyDescriptor,
+): void {
   if (!descriptor.get) {
     throw new Error(`@memoized can only be applied to property getters!`);
   }

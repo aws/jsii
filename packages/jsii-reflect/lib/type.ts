@@ -1,5 +1,6 @@
 import * as jsii from '@jsii/spec';
 
+import { memoized } from './_memoized';
 import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
@@ -12,7 +13,6 @@ import {
 } from './source';
 import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
-import { memoized } from './_memoized';
 
 export abstract class Type implements Documentable, SourceLocatable {
   public constructor(

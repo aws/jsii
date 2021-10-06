@@ -1,8 +1,8 @@
 import * as jsii from '@jsii/spec';
 
+import { memoized } from './_memoized';
 import { Assembly } from './assembly';
 import { InterfaceType } from './interface';
-import { memoized } from './_memoized';
 import { Method } from './method';
 import { Property } from './property';
 import { Type } from './type';

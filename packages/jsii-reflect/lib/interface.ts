@@ -9,6 +9,7 @@ import { indexBy } from './util';
 
 export class InterfaceType extends ReferenceType {
   /** Caches the result of `getInterfaces`. */
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   readonly #interfaces = new Map<boolean, readonly InterfaceType[]>();
 
   public constructor(
