@@ -4,7 +4,8 @@ import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';
 
 export function isStructInterface(name: string) {
-  return !name.startsWith('I');
+  // Start with an I and another uppercase character
+  return !/^I[A-Z]/.test(name);
 }
 
 export function isStructType(type: ts.Type) {

@@ -5,7 +5,7 @@ import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
+import { mapElementType } from '../typescript/types';
 
 import { TargetLanguage } from '.';
 
@@ -130,7 +130,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
    *     - It's not a struct (render as key-value map)
    */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
-    const type = typeWithoutUndefinedUnion(context.inferredTypeOfExpression(node));
+    const type = context.inferredTypeOfExpression(node);
 
     const isUnknownType = !type || !type.symbol;
     const isKnownStruct = type && isStructType(type);
@@ -141,6 +141,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     if (isKnownStruct) {
       return this.knownStructObjectLiteralExpression(node, type!, context);
     }
+
     return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context), context);
   }
 

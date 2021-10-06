@@ -81,6 +81,7 @@ export class TranslatedSnippet {
     Object.assign(ret.fqnsReferenced, schema.fqnsReferenced);
     ret._didCompile = schema.didCompile;
     ret._where = schema.where;
+    ret.fullSource = schema.fullSource;
     return ret;
   }
 
@@ -91,6 +92,7 @@ export class TranslatedSnippet {
     });
     ret._didCompile = didCompile;
     ret._where = original.where;
+    ret.fullSource = original.completeSource;
     return ret;
   }
 
@@ -99,6 +101,7 @@ export class TranslatedSnippet {
   private _key?: string;
   private _didCompile?: boolean;
   private _where = '';
+  private fullSource?: string;
 
   private constructor() {}
 
@@ -146,6 +149,10 @@ export class TranslatedSnippet {
     this.fqnsReferenced.push(...fqnsReferenced);
   }
 
+  public setFullSource(fullSource: string) {
+    this.fullSource = fullSource;
+  }
+
   public get languages(): TargetLanguage[] {
     return Object.keys(this.translations).filter((x) => x !== ORIGINAL_SNIPPET_KEY) as TargetLanguage[];
   }
@@ -160,6 +167,11 @@ export class TranslatedSnippet {
     Object.assign(ret.translations, this.translations, other.translations);
     ret._didCompile = this.didCompile;
     ret._where = this.where;
+    ret.fqnsReferenced.splice(
+      0,
+      ret.fqnsReferenced.length,
+      ...new Set([...this.fqnsReferenced, ...other.fqnsReferenced]),
+    );
     return ret;
   }
 
@@ -176,6 +188,7 @@ export class TranslatedSnippet {
       didCompile: this.didCompile,
       where: this.where,
       fqnsReferenced: this.fqnsReferenced,
+      fullSource: this.fullSource,
     };
   }
 }

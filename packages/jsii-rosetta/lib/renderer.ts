@@ -156,6 +156,10 @@ export class AstRenderer<C> {
     return this.typeChecker.getTypeFromTypeNode(node);
   }
 
+  public typeToString(type: ts.Type) {
+    return this.typeChecker.typeToString(type);
+  }
+
   public report(node: ts.Node, messageText: string, category: ts.DiagnosticCategory = ts.DiagnosticCategory.Error) {
     this.diagnostics.push({
       category,

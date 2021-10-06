@@ -55,6 +55,11 @@ export interface TranslatedSnippetSchema {
    * FQNs of classes and functions referenced in this snippet.
    */
   fqnsReferenced?: string[];
+
+  /**
+   * The full source (with fixture) that was compiled
+   */
+  fullSource?: string;
 }
 
 /**

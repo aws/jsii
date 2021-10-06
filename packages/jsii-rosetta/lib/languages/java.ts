@@ -7,7 +7,7 @@ import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { builtInTypeName, mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
+import { builtInTypeName, firstTypeInUnion, mapElementType } from '../typescript/types';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
@@ -407,7 +407,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const argsLength = node.arguments ? node.arguments.length : 0;
     const lastArg = argsLength > 0 ? node.arguments![argsLength - 1] : undefined;
     const lastArgIsObjectLiteral = lastArg && ts.isObjectLiteralExpression(lastArg);
-    const lastArgType = lastArg && typeWithoutUndefinedUnion(renderer.inferredTypeOfExpression(lastArg));
+    const lastArgType = lastArg && renderer.inferredTypeOfExpression(lastArg);
     // we only render the ClassName.Builder.create(...) expression
     // if the last argument is an object literal, and NOT a known struct
     // (in that case, it has its own creation method)
@@ -654,9 +654,9 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       return fallback;
     }
 
-    const nonUnionType = typeWithoutUndefinedUnion(type);
+    const nonUnionType = firstTypeInUnion(renderer.typeChecker, type);
     if (!nonUnionType) {
-      renderer.report(owningNode, 'Type unions in examples are not supported');
+      renderer.report(owningNode, 'Type unions in examples are not supported for java');
       return fallback;
     }
 

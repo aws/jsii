@@ -91,7 +91,7 @@ async function translateAll(
     const worker = await import('worker_threads');
 
     return await workerBasedTranslateAll(worker, snippets, includeCompilerDiagnostics);
-  } catch (e: any) {
+  } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       throw e;
     }
@@ -119,7 +119,7 @@ export function singleThreadedTranslateAll(
   for (const block of snippets) {
     try {
       translatedSnippets.push(translator.translate(block));
-    } catch (e: any) {
+    } catch (e) {
       failures.push({
         category: ts.DiagnosticCategory.Error,
         code: 999,
