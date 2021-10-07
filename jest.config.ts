@@ -25,7 +25,6 @@ const config: Config.InitialOptions = {
   errorOnDeprecated: true,
   // When in Continuous Integration, use only 1 worker (assuming "frugal" runner type)
   maxWorkers: env.CI === 'true' ? 1 : defaults.maxWorkers,
-  setupFilesAfterEnv: ['jest-expect-message'],
   testEnvironment: 'node',
   testMatch: ['**/?(*.)+(spec|test).ts'],
   testRunner: 'jest-circus/runner',

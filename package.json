@@ -27,7 +27,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest-circus": "^27.2.4",
     "jest-config": "^27.2.4",
-    "jest-expect-message": "^1.0.2",
     "lerna": "^4.0.0",
     "prettier": "^2.4.1",
     "standard-version": "^9.3.1",

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.38.0](https://github.com/aws/jsii/compare/v1.37.0...v1.38.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** modules not packed in topological order ([3f6db2c](https://github.com/aws/jsii/commit/3f6db2cf2292f53a307e0c83625d8e1b1605d813))
+
+## [1.37.0](https://github.com/aws/jsii/compare/v1.36.0...v1.37.0) (2021-10-06)
+
+
+### Features
+
+* **pacmak:** opt out of jsii assembly validation ([#3032](https://github.com/aws/jsii/issues/3032)) ([a3265d9](https://github.com/aws/jsii/commit/a3265d96e7cc69eae2a5b16f85fc4a77fe0fd92d))
+* **reflect:** memoize expensive properties ([#3031](https://github.com/aws/jsii/issues/3031)) ([e169c38](https://github.com/aws/jsii/commit/e169c38934e1e47d326dfccccbd9bb873fc1eb16))
+
 ## [1.36.0](https://github.com/aws/jsii/compare/v1.35.0...v1.36.0) (2021-10-04)
 
 ## [1.35.0](https://github.com/aws/jsii/compare/v1.34.0...v1.35.0) (2021-09-28)
