@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
@@ -168,7 +169,6 @@ export function parseRepository(value: string): { url: string } {
 export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
   sym: ts.Symbol,
-  projectRoot: string,
 ): string | undefined {
   const inFileNameParts: string[] = [];
 
@@ -198,14 +198,53 @@ export function symbolIdentifier(
     return undefined;
   }
 
-  const fileName = path.relative(projectRoot, decl.getSourceFile().fileName);
-  const namespace = path.join(
-    path.dirname(fileName),
-    path.basename(fileName, '.ts'),
-  );
+  const namespace = getNamespace(decl.getSourceFile().fileName);
+
   if (!namespace) {
     return undefined;
   }
 
   return `${namespace}:${inFileNameParts.join('.')}`;
+}
+
+export function getNamespace(sourceFileName: string) {
+  const packageJsonLocation = findPackageJsonLocation(
+    path.dirname(sourceFileName),
+  );
+
+  if (!packageJsonLocation) {
+    return undefined;
+  }
+
+  const packageJson = JSON.parse(
+    fs.readFileSync(packageJsonLocation).toString(),
+  );
+
+  const sourcePath = removePrefix(
+    packageJson.jsii?.outdir ?? '',
+    path.relative(path.dirname(packageJsonLocation), sourceFileName),
+  );
+
+  return sourcePath.replace(/(\.d)?\.ts$/, '');
+
+  function findPackageJsonLocation(currentPath: string): string | undefined {
+    const candidate = path.join(currentPath, 'package.json');
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+    const parentPath = path.resolve(currentPath, '..');
+    return parentPath !== currentPath
+      ? findPackageJsonLocation(parentPath)
+      : undefined;
+  }
+
+  function removePrefix(prefix: string, filePath: string) {
+    const prefixParts = prefix.split(path.sep);
+    const pathParts = filePath.split(path.sep);
+    let i = 0;
+    while (prefixParts[i] === pathParts[i]) {
+      i++;
+    }
+    return pathParts.slice(i).join('/');
+  }
 }

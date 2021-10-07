@@ -1033,7 +1033,6 @@ export class Assembler implements Emitter {
     return symbolIdentifier(
       this._typeChecker,
       this._typeChecker.getTypeAtLocation(node).symbol,
-      this.projectInfo.projectRoot,
     );
   }
 
