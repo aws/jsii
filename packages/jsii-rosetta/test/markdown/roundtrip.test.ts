@@ -96,9 +96,7 @@ This is a [` +
 test('fenced code block', () => {
   expectOutput(
     ['before', '```ts', 'banana', '  second', '```', 'after'].join('\n'),
-    ['before', '', '```ts', 'banana', '  second', '```', '', 'after'].join(
-      '\n',
-    ),
+    ['before', '', '```ts', 'banana', '  second', '```', '', 'after'].join('\n'),
   );
 });
 

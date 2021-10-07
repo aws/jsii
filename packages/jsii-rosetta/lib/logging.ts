@@ -32,8 +32,6 @@ export function debug(fmt: string, ...args: any[]) {
 function log(messageLevel: Level, fmt: string, ...args: any[]) {
   if (level >= messageLevel) {
     const levelName = Level[messageLevel];
-    process.stderr.write(
-      `[jsii-rosetta] [${levelName}] ${util.format(fmt, ...args)}\n`,
-    );
+    process.stderr.write(`[jsii-rosetta] [${levelName}] ${util.format(fmt, ...args)}\n`);
   }
 }

@@ -26,10 +26,7 @@ export interface StructProperty {
   questionMark: boolean;
 }
 
-export function propertiesOfStruct(
-  type: ts.Type,
-  context: AstRenderer<any>,
-): StructProperty[] {
+export function propertiesOfStruct(type: ts.Type, context: AstRenderer<any>): StructProperty[] {
   return type.isClassOrInterface()
     ? type.getProperties().map((s) => {
         let propType;
@@ -37,10 +34,7 @@ export function propertiesOfStruct(
 
         const propSymbol = type.getProperty(s.name)!;
         const symbolDecl = propSymbol.valueDeclaration;
-        if (
-          ts.isPropertyDeclaration(symbolDecl) ||
-          ts.isPropertySignature(symbolDecl)
-        ) {
+        if (ts.isPropertyDeclaration(symbolDecl) || ts.isPropertySignature(symbolDecl)) {
           questionMark = symbolDecl.questionToken !== undefined;
           propType = symbolDecl.type && context.typeOfType(symbolDecl.type);
         }
