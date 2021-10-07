@@ -58,7 +58,11 @@ export async function findJsiiModules(
       );
     }
 
-    const dependencyNames = Object.keys(pkg.dependencies ?? {});
+    const dependencyNames = [
+      ...Object.keys(pkg.dependencies ?? {}),
+      ...Object.keys(pkg.peerDependencies ?? {}),
+      ...Object.keys(pkg.devDependencies ?? {}),
+    ];
 
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
