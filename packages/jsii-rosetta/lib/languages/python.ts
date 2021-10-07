@@ -1,5 +1,6 @@
 import * as ts from 'typescript';
 
+import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
 import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
@@ -418,6 +419,20 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, context: PythonVisitorContext): OTree {
+    let fallback = 'object';
+    if (node.type) {
+      fallback = node.type.getText();
+    }
+
+    if (!node.initializer) {
+      const type =
+        (node.type && context.typeOfType(node.type)) ||
+        (node.initializer && context.typeOfExpression(node.initializer));
+
+      const renderedType = type ? this.renderType(node, type, context, fallback) : fallback;
+      return new OTree(['# ', context.convert(node.name), ' is of type ', renderedType], []);
+    }
+
     return new OTree([context.convert(node.name), ' = ', context.convert(node.initializer)], [], {
       canBreakLine: true,
     });
@@ -626,6 +641,45 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     });
 
     return new OTree([], converted, { separator: ', ', indent: 4 });
+  }
+
+  /**
+   * Render a type.
+   *
+   * Not usually a thing in Python, but useful for declared variables.
+   */
+  private renderType(owningNode: ts.Node, type: ts.Type, renderer: PythonVisitorContext, fallback: string): string {
+    return doRender(determineJsiiType(renderer.typeChecker, type));
+
+    // eslint-disable-next-line consistent-return
+    function doRender(jsiiType: JsiiType): string {
+      switch (jsiiType.kind) {
+        case 'unknown':
+          return fallback;
+        case 'error':
+          renderer.report(owningNode, jsiiType.message);
+          return fallback;
+        case 'map':
+          return `dictionary of string to ${doRender(jsiiType.elementType)}`;
+        case 'list':
+          return `list of ${doRender(jsiiType.elementType)}`;
+        case 'namedType':
+          return jsiiType.name;
+        case 'builtIn':
+          switch (jsiiType.builtIn) {
+            case 'boolean':
+              return 'boolean';
+            case 'number':
+              return 'number';
+            case 'string':
+              return 'string';
+            case 'any':
+              return 'object';
+            default:
+              return jsiiType.builtIn;
+          }
+      }
+    }
   }
 }
 

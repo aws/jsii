@@ -1,5 +1,6 @@
 import * as ts from 'typescript';
 
+import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
 import { isStructType } from '../jsii/jsii-utils';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
@@ -7,7 +8,7 @@ import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { builtInTypeName, mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
+import { typeWithoutUndefinedUnion } from '../typescript/types';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
@@ -268,11 +269,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: JavaRenderer): OTree {
+    let fallback = 'Object';
+    if (node.type) {
+      fallback = node.type.getText();
+    }
     const type =
       (node.type && renderer.typeOfType(node.type)) ||
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    const renderedType = type ? this.renderType(node, type, renderer, 'Object') : 'Object';
+    const renderedType = type ? this.renderType(node, type, renderer, fallback) : fallback;
+
+    if (!node.initializer) {
+      return new OTree([renderedType, ' ', renderer.convert(node.name), ';'], []);
+    }
 
     return new OTree(
       [
@@ -648,52 +657,36 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   private renderType(owningNode: ts.Node, type: ts.Type, renderer: JavaRenderer, fallback: string): string {
-    // this means the snippet didn't have enough info for the TypeScript compiler to figure out the type -
-    // so, just render the fallback
-    if ((type as any).intrinsicName === 'error') {
-      return fallback;
-    }
+    return doRender(determineJsiiType(renderer.typeChecker, type), false);
 
-    const nonUnionType = typeWithoutUndefinedUnion(type);
-    if (!nonUnionType) {
-      renderer.report(owningNode, 'Type unions in examples are not supported');
-      return fallback;
-    }
-
-    const mapValuesType = mapElementType(nonUnionType, renderer);
-    if (mapValuesType) {
-      return `Map<String, ${this.renderType(
-        owningNode,
-        mapValuesType,
-        renderer.updateContext({ requiresReferenceType: true }),
-        'Object',
-      )}>`;
-    }
-
-    // User-defined or aliased type
-    if (type.aliasSymbol) {
-      return type.aliasSymbol.name;
-    }
-    if (type.symbol) {
-      return type.symbol.name;
-    }
-
-    const typeScriptBuiltInType = builtInTypeName(nonUnionType);
-    if (!typeScriptBuiltInType) {
-      return fallback;
-    }
-
-    switch (typeScriptBuiltInType) {
-      case 'boolean':
-        return renderer.currentContext.requiresReferenceType ? 'Boolean' : 'boolean';
-      case 'number':
-        return 'Number';
-      case 'string':
-        return 'String';
-      case 'any':
-        return 'Object';
-      default:
-        return typeScriptBuiltInType;
+    // eslint-disable-next-line consistent-return
+    function doRender(jsiiType: JsiiType, requiresReferenceType: boolean): string {
+      switch (jsiiType.kind) {
+        case 'unknown':
+          return fallback;
+        case 'error':
+          renderer.report(owningNode, jsiiType.message);
+          return fallback;
+        case 'map':
+          return `Map<String, ${doRender(jsiiType.elementType, true)}>`;
+        case 'list':
+          return `${doRender(jsiiType.elementType, true)}[]`;
+        case 'namedType':
+          return jsiiType.name;
+        case 'builtIn':
+          switch (jsiiType.builtIn) {
+            case 'boolean':
+              return requiresReferenceType ? 'Boolean' : 'boolean';
+            case 'number':
+              return 'Number';
+            case 'string':
+              return 'String';
+            case 'any':
+              return 'Object';
+            default:
+              return jsiiType.builtIn;
+          }
+      }
     }
   }
 
