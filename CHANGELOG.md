@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.38.0](https://github.com/aws/jsii/compare/v1.37.0...v1.38.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** modules not packed in topological order ([3f6db2c](https://github.com/aws/jsii/commit/3f6db2cf2292f53a307e0c83625d8e1b1605d813))
+
 ## [1.37.0](https://github.com/aws/jsii/compare/v1.36.0...v1.37.0) (2021-10-06)
 
 
