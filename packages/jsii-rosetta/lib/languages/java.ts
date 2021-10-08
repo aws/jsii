@@ -387,7 +387,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public arrayLiteralExpression(node: ts.ArrayLiteralExpression, renderer: JavaRenderer): OTree {
-    return new OTree(['asList('], renderer.convertAll(node.elements), {
+    return new OTree(['List.of('], renderer.convertAll(node.elements), {
       separator: ', ',
       suffix: ')',
       indent: 4,
