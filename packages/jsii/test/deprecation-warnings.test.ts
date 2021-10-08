@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 
 const DEPRECATED = '/** @deprecated Use something else */';
@@ -194,8 +196,9 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
+    const expectedPath = ['..', '..', '.warnings.jsii.js'].join(path.sep);
     expect(jsFile(result, 'some/folder/source')).toMatch(
-      'const jsiiDeprecationWarnings = require("../../.warnings.jsii.js");',
+      `const jsiiDeprecationWarnings = require("${expectedPath}");`,
     );
   });
 
