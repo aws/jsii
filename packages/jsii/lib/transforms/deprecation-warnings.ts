@@ -30,6 +30,7 @@ export class DeprecationWarningsInjector {
         spec.isDeprecated(type) &&
         (spec.isEnumType(type) || spec.isInterfaceType(type))
       ) {
+        // The type is deprecated
         statements.push(
           createWarningFunctionCall(
             ts.createIdentifier(PARAMETER_NAME),
@@ -46,6 +47,7 @@ export class DeprecationWarningsInjector {
 
         for (const member of Object.values(type.members ?? [])) {
           if (spec.isDeprecated(member)) {
+            // The enum member is deprecated
             const valueIdentifier = ts.createIdentifier(
               `${PARAMETER_NAME} === ${LOCAL_ENUM_NAMESPACE}.${type.name}.${member.name} ? ${PARAMETER_NAME} : undefined`,
             );
@@ -61,8 +63,8 @@ export class DeprecationWarningsInjector {
         }
       } else if (spec.isInterfaceType(type)) {
         for (const prop of Object.values(type.properties ?? {})) {
-          // The property is deprecated
           if (spec.isDeprecated(prop)) {
+            // The property is deprecated
             statements.push(
               createWarningFunctionCall(
                 ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`),
@@ -72,7 +74,6 @@ export class DeprecationWarningsInjector {
             );
           }
 
-          // The type of the property is deprecated
           if (spec.isNamedTypeReference(prop.type)) {
             const functionName = fnName(prop.type.fqn);
             statements.push(
