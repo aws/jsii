@@ -52,6 +52,8 @@ export interface CompilerOptions {
   failOnWarnings?: boolean;
   /** Whether to strip deprecated members from emitted artifacts */
   stripDeprecated?: boolean;
+  /** Whether to add warnings for deprecated elements */
+  addDeprecationWarnings?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -235,6 +237,7 @@ export class Compiler implements Emitter {
     // to post-process the AST
     const assembler = new Assembler(this.options.projectInfo, program, stdlib, {
       stripDeprecated: this.options.stripDeprecated,
+      addDeprecationWarnings: this.options.addDeprecationWarnings,
     });
 
     try {

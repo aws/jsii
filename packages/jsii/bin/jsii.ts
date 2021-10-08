@@ -59,6 +59,11 @@ const warningTypes = Object.keys(enabledWarnings);
             type: 'boolean',
             default: false,
             desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
+          })
+          .option('add-deprecation-warnings', {
+            type: 'boolean',
+            default: false,
+            desc: '[EXPERIMENTAL] Injects warning statements for all deprecated elements, to be printed at runtime',
           }),
     )
     .option('verbose', {
@@ -102,6 +107,7 @@ const warningTypes = Object.keys(enabledWarnings);
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
     stripDeprecated: argv['strip-deprecated'],
+    addDeprecationWarnings: argv['add-deprecation-warnings'],
   });
 
   const emitResult = await (argv.watch ? compiler.watch() : compiler.emit());

@@ -21,6 +21,7 @@ import * as literate from './literate';
 import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { DeprecationWarningsInjector } from './transforms/deprecaction-warnings';
 import { DeprecatedRemover } from './transforms/deprecated-remover';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { TsCommentReplacer } from './transforms/ts-comment-replacer';
@@ -42,6 +43,7 @@ export class Assembler implements Emitter {
   private readonly commentReplacer = new TsCommentReplacer();
   private readonly runtimeTypeInfoInjector: RuntimeTypeInfoInjector;
   private readonly deprecatedRemover?: DeprecatedRemover;
+  private readonly warningsInjector?: DeprecationWarningsInjector;
 
   private readonly mainFile: string;
 
@@ -77,6 +79,12 @@ export class Assembler implements Emitter {
       this.deprecatedRemover = new DeprecatedRemover(this._typeChecker);
     }
 
+    if (options.addDeprecationWarnings) {
+      this.warningsInjector = new DeprecationWarningsInjector(
+        this._typeChecker,
+      );
+    }
+
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
 
@@ -106,6 +114,7 @@ export class Assembler implements Emitter {
       this.deprecatedRemover?.customTransformers ?? {},
       this.runtimeTypeInfoInjector.makeTransformers(),
       this.commentReplacer.makeTransformers(),
+      this.warningsInjector?.customTransformers ?? {},
     );
   }
 
@@ -237,6 +246,10 @@ export class Assembler implements Emitter {
 
     if (this.deprecatedRemover) {
       this._diagnostics.push(...this.deprecatedRemover.removeFrom(assembly));
+    }
+
+    if (this.warningsInjector) {
+      this.warningsInjector.process(assembly, this.projectInfo.projectRoot);
     }
 
     const validator = new Validator(this.projectInfo, assembly);
@@ -2732,6 +2745,13 @@ export interface AssemblerOptions {
    * @default false
    */
   readonly stripDeprecated?: boolean;
+
+  /**
+   * Whether to inject code that warns when a deprecated element is used.
+   *
+   * @default false
+   */
+  readonly addDeprecationWarnings?: boolean;
 }
 
 interface SubmoduleSpec {
