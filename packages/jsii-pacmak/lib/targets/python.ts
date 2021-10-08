@@ -1507,7 +1507,10 @@ class PythonModule implements PythonType {
   }
 
   public addPythonModule(pyMod: PythonModule) {
-    assert(!this.loadAssembly, 'PythonModule.addPythonModule CANNOT be called on assembly-loading modules (it would cause a load cycle)!');
+    assert(
+      !this.loadAssembly,
+      'PythonModule.addPythonModule CANNOT be called on assembly-loading modules (it would cause a load cycle)!',
+    );
     this.modules.push(pyMod);
   }
 
@@ -1611,8 +1614,12 @@ class PythonModule implements PythonType {
     // Finally, we'll load all registered python modules
     if (this.modules.length > 0) {
       code.line();
-      code.line('# Loading modules to ensure their types are registered with the jsii runtime library');
-      for (const module of this.modules.sort((l, r) => l.pythonName.localeCompare(r.pythonName))) {
+      code.line(
+        '# Loading modules to ensure their types are registered with the jsii runtime library',
+      );
+      for (const module of this.modules.sort((l, r) =>
+        l.pythonName.localeCompare(r.pythonName),
+      )) {
         code.line(`import ${module.pythonName}`);
       }
     }
