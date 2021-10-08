@@ -4,7 +4,8 @@ import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';
 
 export function isStructInterface(name: string) {
-  return !name.startsWith('I');
+  // Start with an I and another uppercase character
+  return !/^I[A-Z]/.test(name);
 }
 
 export function isStructType(type: ts.Type) {
@@ -15,7 +16,7 @@ export function isStructType(type: ts.Type) {
   );
 }
 
-function hasFlag<A extends number>(flags: A, test: A) {
+export function hasFlag<A extends number>(flags: A, test: A) {
   // tslint:disable-next-line:no-bitwise
   return (flags & test) !== 0;
 }

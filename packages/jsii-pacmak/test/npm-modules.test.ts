@@ -44,12 +44,50 @@ describe(findJsiiModules, () => {
         },
       },
     });
+    // devDependency
+    await mkdirp(join(workDir, 'packageC'));
+    await writeJson(join(workDir, 'packageC', 'package.json'), {
+      name: 'packageC',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
+        },
+      },
+      devDependencies: {
+        packageB: '*',
+      },
+    });
+    // peerDependency
+    await mkdirp(join(workDir, 'packageD'));
+    await writeJson(join(workDir, 'packageD', 'package.json'), {
+      name: 'packageD',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
+        },
+      },
+      devDependencies: {
+        packageA: '*',
+      },
+    });
 
     const mods = await findJsiiModules(
-      [join(workDir, 'packageA'), join(workDir, 'packageB')],
+      [
+        join(workDir, 'packageD'),
+        join(workDir, 'packageA'),
+        join(workDir, 'packageB'),
+        join(workDir, 'packageC'),
+      ],
       false,
     );
-    expect(mods.map((m) => m.name)).toEqual(['packageB', 'packageA']);
+    expect(mods.map((m) => m.name)).toEqual([
+      'packageB',
+      'packageA',
+      'packageC',
+      'packageD',
+    ]);
   });
 
   test('without deps loads packages in given order', async () => {
