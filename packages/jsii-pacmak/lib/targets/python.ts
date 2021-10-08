@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import * as assert from 'assert';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as fs from 'fs-extra';
@@ -1488,6 +1489,8 @@ class PythonModule implements PythonType {
   private readonly loadAssembly: boolean;
   private readonly members = new Array<PythonBase>();
 
+  private readonly modules = new Array<PythonModule>();
+
   public constructor(
     public readonly pythonName: string,
     public readonly fqn: string | undefined,
@@ -1501,6 +1504,11 @@ class PythonModule implements PythonType {
 
   public addMember(member: PythonBase) {
     this.members.push(member);
+  }
+
+  public addPythonModule(pyMod: PythonModule) {
+    assert(!this.loadAssembly, 'PythonModule.addPythonModule CANNOT be called on assembly-loading modules (it would cause a load cycle)!');
+    this.modules.push(pyMod);
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -1595,10 +1603,19 @@ class PythonModule implements PythonType {
       code.line('__all__: typing.List[typing.Any] = []');
     }
 
-    // Finally, we'll use publication to ensure that all of the non-public names
+    // Next up, we'll use publication to ensure that all of the non-public names
     // get hidden from dir(), tab-complete, etc.
     code.line();
     code.line('publication.publish()');
+
+    // Finally, we'll load all registered python modules
+    if (this.modules.length > 0) {
+      code.line();
+      code.line('# Loading modules to ensure their types are registered with the jsii runtime library');
+      for (const module of this.modules.sort((l, r) => l.pythonName.localeCompare(r.pythonName))) {
+        code.line(`import ${module.pythonName}`);
+      }
+    }
   }
 
   /**
@@ -2144,6 +2161,7 @@ class TypeResolver {
 
 class PythonGenerator extends Generator {
   private package!: Package;
+  private rootModule?: PythonModule;
   private readonly types: Map<string, PythonType>;
 
   public constructor(
@@ -2407,6 +2425,18 @@ class PythonGenerator extends Generator {
     if (ns === this.assembly.name) {
       // This applies recursively to submodules, so no need to duplicate!
       this.package.addData(module, 'py.typed', '');
+    }
+
+    if (ns === this.assembly.name) {
+      this.rootModule = module;
+    } else {
+      this.rootModule!.addPythonModule(module);
+    }
+  }
+
+  protected onEndNamespace(ns: string) {
+    if (ns === this.assembly.name) {
+      delete this.rootModule;
     }
   }
 

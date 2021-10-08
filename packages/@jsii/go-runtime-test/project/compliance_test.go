@@ -11,6 +11,7 @@ import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/aws/jsii/go-runtime-test/internal/addTen"
 	"github.com/aws/jsii/go-runtime-test/internal/bellRinger"
+	"github.com/aws/jsii/go-runtime-test/internal/cdk16625"
 	"github.com/aws/jsii/go-runtime-test/internal/doNotOverridePrivates"
 	"github.com/aws/jsii/go-runtime-test/internal/friendlyRandom"
 	"github.com/aws/jsii/go-runtime-test/internal/overrideAsyncMethods"
@@ -1639,6 +1640,11 @@ func (suite *ComplianceSuite) TestCallbackParameterIsInterface() {
 	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer))
 	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPublicClass(ringer))
 }
+
+func (suite *ComplianceSuite) TestClassCanBeUsedWhenNotExpressedlyLoader() {
+	cdk16625.New().Test()
+}
+
 
 // required to make `go test` recognize the suite.
 func TestComplianceSuite(t *testing.T) {
