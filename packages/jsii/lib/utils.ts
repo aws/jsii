@@ -239,8 +239,8 @@ export function getNamespace(sourceFileName: string) {
   }
 
   function removePrefix(prefix: string, filePath: string) {
-    const prefixParts = prefix.split(path.sep);
-    const pathParts = filePath.split(path.sep);
+    const prefixParts = prefix.split(/[/\\]/g);
+    const pathParts = filePath.split(/[/\\]/g);
     let i = 0;
     while (prefixParts[i] === pathParts[i]) {
       i++;
