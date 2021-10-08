@@ -1641,7 +1641,7 @@ func (suite *ComplianceSuite) TestCallbackParameterIsInterface() {
 	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPublicClass(ringer))
 }
 
-func (suite *ComplianceSuite) TestClassCanBeUsedWhenNotExpressedlyLoader() {
+func (suite *ComplianceSuite) TestClassCanBeUsedWhenNotExpressedlyLoaded() {
 	cdk16625.New().Test()
 }
 
