@@ -90,9 +90,24 @@ export function inferMapElementType(
   elements: ts.NodeArray<ts.ObjectLiteralElementLike>,
   renderer: AstRenderer<any>,
 ): ts.Type | undefined {
-  return typeIfSame(
-    elements.map((el) => (ts.isPropertyAssignment(el) ? renderer.typeOfExpression(el.initializer) : undefined)),
-  );
+  const nodes = elements.map(elementValueNode).filter(isDefined);
+  const types = nodes.map((x) => renderer.typeOfExpression(x));
+
+  return types.every((t) => isSameType(types[0], t)) ? types[0] : undefined;
+
+  function elementValueNode(el: ts.ObjectLiteralElementLike): ts.Expression | undefined {
+    if (ts.isPropertyAssignment(el)) {
+      return el.initializer;
+    }
+    if (ts.isShorthandPropertyAssignment(el)) {
+      return el.name;
+    }
+    return undefined;
+  }
+}
+
+function isSameType(a: ts.Type, b: ts.Type) {
+  return a.flags === b.flags && a.symbol?.name === b.symbol?.name;
 }
 
 function typeIfSame(types: Array<ts.Type | undefined>): ts.Type | undefined {
@@ -119,4 +134,8 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
     return tr.aliasTypeArguments && tr.aliasTypeArguments[0];
   }
   return undefined;
+}
+
+function isDefined<A>(x: A): x is NonNullable<A> {
+  return x !== undefined;
 }
