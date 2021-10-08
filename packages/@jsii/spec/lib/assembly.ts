@@ -811,6 +811,11 @@ export interface TypeBase extends Documentable, SourceLocatable {
    * The kind of the type.
    */
   kind: TypeKind;
+
+  /**
+   * Unique string representation of the corresponding Typescript symbol
+   */
+  symbolId?: string;
 }
 
 /**
