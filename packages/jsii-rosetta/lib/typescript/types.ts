@@ -1,7 +1,6 @@
 import * as ts from 'typescript';
 
 import { hasFlag } from '../jsii/jsii-utils';
-import { AstRenderer } from '../renderer';
 
 /**
  * Return the OTHER type from undefined from a union, returns undefined if there is more than one
@@ -58,53 +57,55 @@ export function typeContainsUndefined(type: ts.Type): boolean {
   return false;
 }
 
+export type MapAnalysis = { result: 'nonMap' } | { result: 'map'; elementType: ts.Type | undefined };
+
 /**
  * If this is a map type, return the type mapped *to* (key must always be `string` anyway).
  */
-export function mapElementType(type: ts.Type, typeChecker: ts.TypeChecker): ts.Type | undefined {
-  if (type.flags & ts.TypeFlags.Object && type.symbol) {
+export function mapElementType(type: ts.Type, typeChecker: ts.TypeChecker): MapAnalysis {
+  if (hasFlag(type.flags, ts.TypeFlags.Object) && type.symbol) {
     if (type.symbol.name === '__type') {
       // Declared map type: {[k: string]: A}
-      return type.getStringIndexType();
+      return { result: 'map', elementType: type.getStringIndexType() };
     }
 
     if (type.symbol.name === '__object') {
       // Derived map type from object literal: typeof({ k: "value" })
       // For every property, get the node that created it (PropertyAssignment), and get the type of the initializer of that node
       const initializerTypes = type.getProperties().map((p) => {
-        if (ts.isPropertyAssignment(p.valueDeclaration)) {
-          return typeOfExpression(typeChecker, p.valueDeclaration.initializer);
-        }
-        return undefined;
+        const expression = p.valueDeclaration;
+        return typeOfObjectLiteralProperty(typeChecker, expression);
       });
-      return typeIfSame([...initializerTypes, type.getStringIndexType()]);
+      return {
+        result: 'map',
+        elementType: typeIfSame([...initializerTypes, type.getStringIndexType()].filter(isDefined)),
+      };
     }
   }
 
-  return undefined;
+  return { result: 'nonMap' };
 }
 
 /**
  * Try to infer the map element type from the properties if they're all the same
  */
 export function inferMapElementType(
-  elements: ts.NodeArray<ts.ObjectLiteralElementLike>,
-  renderer: AstRenderer<any>,
+  elements: readonly ts.ObjectLiteralElementLike[],
+  typeChecker: ts.TypeChecker,
 ): ts.Type | undefined {
-  const nodes = elements.map(elementValueNode).filter(isDefined);
-  const types = nodes.map((x) => renderer.typeOfExpression(x));
+  const types = elements.map((e) => typeOfObjectLiteralProperty(typeChecker, e)).filter(isDefined);
 
   return types.every((t) => isSameType(types[0], t)) ? types[0] : undefined;
+}
 
-  function elementValueNode(el: ts.ObjectLiteralElementLike): ts.Expression | undefined {
-    if (ts.isPropertyAssignment(el)) {
-      return el.initializer;
-    }
-    if (ts.isShorthandPropertyAssignment(el)) {
-      return el.name;
-    }
-    return undefined;
+function typeOfObjectLiteralProperty(typeChecker: ts.TypeChecker, el: ts.Node): ts.Type | undefined {
+  if (ts.isPropertyAssignment(el)) {
+    return typeOfExpression(typeChecker, el.initializer);
   }
+  if (ts.isShorthandPropertyAssignment(el)) {
+    return typeOfExpression(typeChecker, el.name);
+  }
+  return undefined;
 }
 
 function isSameType(a: ts.Type, b: ts.Type) {
