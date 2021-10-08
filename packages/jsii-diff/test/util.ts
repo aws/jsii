@@ -26,10 +26,10 @@ export async function expectError(
   expect(mms.count).not.toBe(0);
 
   const msgs = Array.from(mms.messages());
-  expect(
-    msgs.some((m) => error.test(m)),
-    `Expected error like ${error.toString()}, got ${msgs.join(', ')}`,
-  ).toBeTruthy();
+
+  if (!msgs.some((m) => error.test(m))) {
+    expect(msgs.join(',')).toMatch(error);
+  }
 }
 
 export async function compare(

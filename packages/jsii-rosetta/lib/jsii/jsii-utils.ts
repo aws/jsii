@@ -16,7 +16,7 @@ export function isStructType(type: ts.Type) {
   );
 }
 
-function hasFlag<A extends number>(flags: A, test: A) {
+export function hasFlag<A extends number>(flags: A, test: A) {
   // tslint:disable-next-line:no-bitwise
   return (flags & test) !== 0;
 }

@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { isStructInterface, isStructType } from '../jsii/jsii-utils';
+import { hasFlag, isStructInterface, isStructType } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
@@ -132,7 +132,21 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
     const type = context.inferredTypeOfExpression(node);
 
-    const isUnknownType = !type || !type.symbol;
+    let isUnknownType = !type;
+    if (type && hasFlag(type.flags, ts.TypeFlags.Any)) {
+      // The type checker by itself won't tell us the difference between an `any` that
+      // was literally declared as a type in the code, vs an `any` it assumes because it
+      // can't find a function's type declaration.
+      //
+      // Search for the function's declaration and only if we can't find it,
+      // the type is actually unknown (otherwise it's a literal 'any').
+      const call = findEnclosingCallExpression(node);
+      const signature = call ? context.typeChecker.getResolvedSignature(call) : undefined;
+      if (!signature?.declaration) {
+        isUnknownType = true;
+      }
+    }
+
     const isKnownStruct = type && isStructType(type);
 
     if (isUnknownType) {
@@ -317,3 +331,14 @@ const UNARY_OPS: { [op in ts.PrefixUnaryOperator]: string } = {
   [ts.SyntaxKind.TildeToken]: '~',
   [ts.SyntaxKind.ExclamationToken]: '~',
 };
+
+function findEnclosingCallExpression(node?: ts.Node): ts.CallLikeExpression | undefined {
+  while (node) {
+    if (ts.isCallLikeExpression(node)) {
+      return node;
+    }
+    node = node.parent;
+  }
+
+  return undefined;
+}

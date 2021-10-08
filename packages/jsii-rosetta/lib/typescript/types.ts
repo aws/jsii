@@ -113,11 +113,6 @@ export function inferMapElementType(
   const nodes = elements.map(elementValueNode).filter(isDefined);
   const types = nodes.map((x) => renderer.typeOfExpression(x));
 
-  console.log(
-    'inferMapElementtType',
-    nodes.map((x) => renderer.typeOfExpression(x)).map((x) => renderer.typeToString(x)),
-  );
-
   return types.every((t) => isSameType(types[0], t)) ? types[0] : undefined;
 
   function elementValueNode(el: ts.ObjectLiteralElementLike): ts.Expression | undefined {
