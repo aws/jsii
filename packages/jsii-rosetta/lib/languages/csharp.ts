@@ -641,7 +641,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
           renderer.report(typeNode, jsiiType.message);
           return fallback;
         case 'map':
-          return `IDictionary<String, ${doRender(jsiiType.elementType)}>`;
+          return `IDictionary<string, ${doRender(jsiiType.elementType)}>`;
         case 'list':
           return `${doRender(jsiiType.elementType)}[]`;
         case 'namedType':
