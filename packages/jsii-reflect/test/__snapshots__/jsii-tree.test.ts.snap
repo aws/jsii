@@ -78,6 +78,32 @@ exports[`jsii-tree --all 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: string
+ │ │ ├─┬ cdk16625
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ donotimport
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class UnimportedSubmoduleType (stable)
+ │ │ │ │       ├── interfaces: IRandomNumberGenerator
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ <initializer>(value) initializer (stable)
+ │ │ │ │         │ └─┬ parameters
+ │ │ │ │         │   └─┬ value
+ │ │ │ │         │     └── type: number
+ │ │ │ │         └─┬ next() method (stable)
+ │ │ │ │           └── returns: number
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class Cdk16625 (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>() initializer (stable)
+ │ │ │       ├─┬ test() method (stable)
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ unwrap(gen) method (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── protected
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ gen
+ │ │ │         │   └── type: jsii-calc.IRandomNumberGenerator
+ │ │ │         └── returns: number
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation (stable)
@@ -3232,6 +3258,14 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├── class ClassWithSelfKwarg
  │ │ │   ├── interface IInterfaceWithSelf
  │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ cdk16625
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ donotimport
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class UnimportedSubmoduleType
+ │ │ │ │       └── interfaces: IRandomNumberGenerator
+ │ │ │ └─┬ types
+ │ │ │   └── class Cdk16625
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation
@@ -3729,6 +3763,20 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ interface StructWithSelf
  │ │ │     └─┬ members
  │ │ │       └── self property
+ │ │ ├─┬ cdk16625
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ donotimport
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class UnimportedSubmoduleType
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>(value) initializer
+ │ │ │ │         └── next() method
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class Cdk16625
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>() initializer
+ │ │ │       ├── test() method
+ │ │ │       └── unwrap(gen) method
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation
@@ -5164,6 +5212,9 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├─┬ cdk16625
+ │   │ └─┬ submodules
+ │   │   └── donotimport
  │   ├── composition
  │   ├── module2530
  │   ├── module2617
@@ -5224,6 +5275,13 @@ exports[`jsii-tree --types 1`] = `
  │ │ │   ├── class ClassWithSelfKwarg
  │ │ │   ├── interface IInterfaceWithSelf
  │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ cdk16625
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ donotimport
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class UnimportedSubmoduleType
+ │ │ │ └─┬ types
+ │ │ │   └── class Cdk16625
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
@@ -5585,6 +5643,9 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├─┬ cdk16625
+ │   │ └─┬ submodules
+ │   │   └── donotimport
  │   ├── composition
  │   ├── module2530
  │   ├── module2617

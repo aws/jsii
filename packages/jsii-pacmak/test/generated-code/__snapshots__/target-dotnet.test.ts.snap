@@ -2730,6 +2730,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 BurriedAnonymousObject.cs
        ┃           ┣━ 📄 Calculator.cs
        ┃           ┣━ 📄 CalculatorProps.cs
+       ┃           ┣━ 📁 Cdk16625
+       ┃           ┃  ┣━ 📄 Cdk16625.cs
+       ┃           ┃  ┗━ 📁 Donotimport
+       ┃           ┃     ┗━ 📄 UnimportedSubmoduleType.cs
        ┃           ┣━ 📄 ChildStruct982.cs
        ┃           ┣━ 📄 ClassThatImplementsTheInternalInterface.cs
        ┃           ┣━ 📄 ClassThatImplementsThePrivateInterface.cs
@@ -4285,6 +4289,115 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk16625/Cdk16625.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Cdk16625), fullyQualifiedName: "jsii-calc.cdk16625.Cdk16625")]
+    public abstract class Cdk16625 : DeputyBase
+    {
+        protected Cdk16625(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Cdk16625(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Cdk16625(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Run this function to verify that everything is working as it should.</summary>
+        [JsiiMethod(name: "test")]
+        public virtual void Test()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
+
+        /// <summary>Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).</summary>
+        /// <param name="gen">a VERY pseudo random number generator.</param>
+        [JsiiMethod(name: "unwrap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"a VERY pseudo random number generator.\\"},\\"name\\":\\"gen\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"}}]")]
+        protected abstract double Unwrap(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator gen);
+
+
+        [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Cdk16625), fullyQualifiedName: "jsii-calc.cdk16625.Cdk16625")]
+        internal sealed class _Proxy : Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Cdk16625
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).</summary>
+            /// <param name="gen">a VERY pseudo random number generator.</param>
+            [JsiiMethod(name: "unwrap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"a VERY pseudo random number generator.\\"},\\"name\\":\\"gen\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"}}]")]
+            protected override double Unwrap(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator gen)
+            {
+                return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator)}, new object[]{gen})!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk16625/Donotimport/UnimportedSubmoduleType.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport
+{
+    /// <summary>This type demonstrates the ability to receive a callback argument that has a type from a submodule not explicitly imported in the user's code.</summary>
+    /// <remarks>
+    /// This checks
+    /// that all types available in the assembly can be resolved by the runtime
+    /// library, regardless of whether they were explicitly referenced or not.
+    ///
+    /// <strong>See</strong>: https://github.com/aws/aws-cdk/issues/16625
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport.UnimportedSubmoduleType), fullyQualifiedName: "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    public class UnimportedSubmoduleType : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
+    {
+        public UnimportedSubmoduleType(double @value): base(new DeputyProps(new object?[]{@value}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected UnimportedSubmoduleType(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected UnimportedSubmoduleType(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Not quite random, but it'll do.</summary>
+        /// <returns>1337</returns>
+        [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", isOverride: true)]
+        public virtual double Next()
+        {
+            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
         }
     }
 }
