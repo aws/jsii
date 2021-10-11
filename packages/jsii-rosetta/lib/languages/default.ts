@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { hasFlag, isStructInterface, isStructType } from '../jsii/jsii-utils';
+import { isStructInterface, isStructType, hasAllFlags } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
@@ -133,7 +133,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     const type = context.inferredTypeOfExpression(node);
 
     let isUnknownType = !type;
-    if (type && hasFlag(type.flags, ts.TypeFlags.Any)) {
+    if (type && hasAllFlags(type.flags, ts.TypeFlags.Any)) {
       // The type checker by itself won't tell us the difference between an `any` that
       // was literally declared as a type in the code, vs an `any` it assumes because it
       // can't find a function's type declaration.
