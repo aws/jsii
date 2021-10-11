@@ -1,20 +1,19 @@
 import * as ts from 'typescript';
 
-import { hasFlag } from '../jsii/jsii-utils';
+import { hasAllFlags, hasAnyFlag } from '../jsii/jsii-utils';
 import { AstRenderer } from '../renderer';
 
 /**
- * Return the OTHER type from undefined from a union, returns undefined if there is more than one
+ * Return the first non-undefined type from a union
  */
-export function typeWithoutUndefinedUnion(type: ts.Type | undefined): ts.Type | undefined {
-  if (!type || !type.isUnion()) {
+export function firstTypeInUnion(typeChecker: ts.TypeChecker, type: ts.Type): ts.Type {
+  type = typeChecker.getNonNullableType(type);
+
+  if (!type.isUnion()) {
     return type;
   }
-  const remaining = type.types.filter((t) => !hasFlag(t.flags, ts.TypeFlags.Undefined));
-  if (remaining.length > 1) {
-    return undefined;
-  }
-  return remaining[0];
+
+  return type.types[0];
 }
 
 export type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
@@ -30,6 +29,17 @@ export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
     [ts.TypeFlags.BooleanLiteral]: 'boolean',
   };
   return map[type.flags];
+}
+
+export function renderType(type: ts.Type): string {
+  if (type.isClassOrInterface()) {
+    return type.symbol.name;
+  }
+  if (type.isLiteral()) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    return `${type.value}`;
+  }
+  return renderTypeFlags(type);
 }
 
 export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
@@ -56,6 +66,10 @@ export function typeContainsUndefined(type: ts.Type): boolean {
     return type.types.some(typeContainsUndefined);
   }
   return false;
+}
+
+export function renderTypeFlags(type: ts.Type): string {
+  return renderFlags(type.flags, ts.TypeFlags);
 }
 
 /**
@@ -112,18 +126,12 @@ function isSameType(a: ts.Type, b: ts.Type) {
 }
 
 function typeIfSame(types: Array<ts.Type | undefined>): ts.Type | undefined {
-  let ret: ts.Type | undefined;
-  for (const type of types) {
-    if (ret === undefined) {
-      ret = type;
-    } else {
-      // Not all the same
-      if (type !== undefined && ret.flags !== type.flags) {
-        return undefined;
-      }
-    }
+  const ttypes = types.filter(isDefined);
+  if (types.length === 0) {
+    return undefined;
   }
-  return ret;
+
+  return ttypes.every((t) => isSameType(ttypes[0], t)) ? ttypes[0] : undefined;
 }
 
 /**
@@ -143,4 +151,35 @@ export function typeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expressio
 
 function isDefined<A>(x: A): x is NonNullable<A> {
   return x !== undefined;
+}
+
+export function isNumber(x: any): x is number {
+  return typeof x === 'number';
+}
+
+export function isEnumAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
+  const symbol = typeChecker.getSymbolAtLocation(access.expression);
+  return symbol ? hasAnyFlag(symbol.flags, ts.SymbolFlags.Enum) : false;
+}
+
+export function isStaticReadonlyAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
+  const symbol = typeChecker.getSymbolAtLocation(access);
+  const decl = symbol?.getDeclarations();
+  if (decl && decl[0] && ts.isPropertyDeclaration(decl[0])) {
+    const flags = ts.getCombinedModifierFlags(decl[0]);
+    return hasAllFlags(flags, ts.ModifierFlags.Readonly | ts.ModifierFlags.Static);
+  }
+  return false;
+}
+
+export function renderFlags(flags: number | undefined, flagObject: Record<string, number | string>) {
+  if (flags === undefined) {
+    return '';
+  }
+
+  return Object.values(flagObject)
+    .filter(isNumber)
+    .filter((f) => hasAllFlags(flags, f))
+    .map((f) => flagObject[f])
+    .join(',');
 }

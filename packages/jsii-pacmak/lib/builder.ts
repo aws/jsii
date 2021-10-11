@@ -67,12 +67,15 @@ export class OneByOneBuilder implements TargetBuilder {
   ) {}
 
   public async buildModules(): Promise<void> {
-    const promises = this.modules.map((module) =>
-      this.options.codeOnly
-        ? this.generateModuleCode(module, this.options)
-        : this.buildModule(module, this.options),
-    );
-    await Promise.all(promises);
+    for (const module of this.modules) {
+      if (this.options.codeOnly) {
+        // eslint-disable-next-line no-await-in-loop
+        await this.generateModuleCode(module, this.options);
+      } else {
+        // eslint-disable-next-line no-await-in-loop
+        await this.buildModule(module, this.options);
+      }
+    }
   }
 
   private async generateModuleCode(module: JsiiModule, options: BuildOptions) {

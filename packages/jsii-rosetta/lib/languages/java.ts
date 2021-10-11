@@ -8,7 +8,7 @@ import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { typeWithoutUndefinedUnion } from '../typescript/types';
+import { isEnumAccess, isStaticReadonlyAccess } from '../typescript/types';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
@@ -396,7 +396,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public arrayLiteralExpression(node: ts.ArrayLiteralExpression, renderer: JavaRenderer): OTree {
-    return new OTree(['asList('], renderer.convertAll(node.elements), {
+    return new OTree(['List.of('], renderer.convertAll(node.elements), {
       separator: ', ',
       suffix: ')',
       indent: 4,
@@ -416,7 +416,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const argsLength = node.arguments ? node.arguments.length : 0;
     const lastArg = argsLength > 0 ? node.arguments![argsLength - 1] : undefined;
     const lastArgIsObjectLiteral = lastArg && ts.isObjectLiteralExpression(lastArg);
-    const lastArgType = lastArg && typeWithoutUndefinedUnion(renderer.inferredTypeOfExpression(lastArg));
+    const lastArgType = lastArg && renderer.inferredTypeOfExpression(lastArg);
     // we only render the ClassName.Builder.create(...) expression
     // if the last argument is an object literal, and NOT a known struct
     // (in that case, it has its own creation method)
@@ -505,11 +505,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         // for 'this', assume this is a field, and access it directly
         parts = ['this', '.', rightHandSide];
       } else {
+        let convertToGetter = renderer.currentContext.convertPropertyToGetter !== false;
+
+        // See if we're not accessing an enum member or public static readonly property (const).
+        if (isEnumAccess(renderer.typeChecker, node)) {
+          convertToGetter = false;
+        }
+        if (isStaticReadonlyAccess(renderer.typeChecker, node)) {
+          convertToGetter = false;
+        }
+
         // add a 'get' prefix to the property name, and change the access to a method call, if required
-        const renderedRightHandSide =
-          renderer.currentContext.convertPropertyToGetter === false
-            ? rightHandSide
-            : `get${capitalize(node.name.text)}()`;
+        const renderedRightHandSide = convertToGetter ? `get${capitalize(node.name.text)}()` : rightHandSide;
+
         // strip any trailing ! from the left-hand side, as they're not meaningful in Java
         parts = [stripTrailingBang(leftHandSide), '.', renderedRightHandSide];
       }
