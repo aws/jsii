@@ -14,12 +14,12 @@ import {
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import {
-  typeWithoutUndefinedUnion,
   builtInTypeName,
   typeContainsUndefined,
   parameterAcceptsUndefined,
   mapElementType,
   inferMapElementType,
+  firstTypeInUnion,
 } from '../typescript/types';
 import { flat, partition, setExtend } from '../util';
 import { DefaultVisitor } from './default';
@@ -623,9 +623,9 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       return fallback;
     }
 
-    const nonUnionType = typeWithoutUndefinedUnion(type);
+    const nonUnionType = firstTypeInUnion(renderer.typeChecker, type);
     if (!nonUnionType) {
-      renderer.report(typeNode, 'Type unions in examples are not supported');
+      renderer.report(typeNode, 'Type unions in examples are not supported for csharp');
       return '...';
     }
 

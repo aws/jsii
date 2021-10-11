@@ -123,7 +123,7 @@ export function singleThreadedTranslateAll(
       failures.push({
         category: ts.DiagnosticCategory.Error,
         code: 999,
-        messageText: `rosetta: error translating snippet: ${e}\n${block.completeSource}`,
+        messageText: `rosetta: error translating snippet: ${e}\n${e.stack}\n${block.completeSource}`,
         file: undefined,
         start: undefined,
         length: undefined,
