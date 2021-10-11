@@ -74,7 +74,10 @@ export class DeprecationWarningsInjector {
             );
           }
 
-          if (spec.isNamedTypeReference(prop.type)) {
+          if (
+            spec.isNamedTypeReference(prop.type) &&
+            Object.keys(types).includes(prop.type.fqn)
+          ) {
             const functionName = fnName(prop.type.fqn);
             statements.push(
               ts.createExpressionStatement(
@@ -101,7 +104,8 @@ export class DeprecationWarningsInjector {
             );
           } else if (
             spec.isUnionTypeReference(prop.type) &&
-            spec.isNamedTypeReference(prop.type.union.types[0])
+            spec.isNamedTypeReference(prop.type.union.types[0]) &&
+            Object.keys(types).includes(prop.type.union.types[0].fqn)
           ) {
             const functionName = fnName(prop.type.union.types[0].fqn);
             statements.push(
