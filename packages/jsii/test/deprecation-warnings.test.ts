@@ -197,9 +197,14 @@ describe('Call injections', () => {
     );
 
     const expectedPath = ['..', '..', '.warnings.jsii.js'].join(path.sep);
-    expect(jsFile(result, 'some/folder/source')).toMatch(
-      `const jsiiDeprecationWarnings = require("${expectedPath}");`,
-    );
+    const requireRegex = /const jsiiDeprecationWarnings = require\("(.+)"\);/g;
+
+    const content = jsFile(result, 'some/folder/source');
+    const match = requireRegex.exec(content);
+    expect(match).toBeDefined();
+
+    const actualPath = match![1];
+    expect(path.normalize(actualPath)).toEqual(expectedPath);
   });
 
   test('deprecated methods', async () => {
