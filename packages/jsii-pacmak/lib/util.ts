@@ -1,4 +1,3 @@
-import * as spec from '@jsii/spec';
 import { spawn, SpawnOptions } from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
@@ -224,23 +223,6 @@ export async function shell(
     });
   }
   return spawn1();
-}
-
-/**
- * Loads the assembly from a given module root directory.
- *
- * @param modulePath the path at which the node module is located.
- *
- * @return the parsed ``Assembly``.
- *
- * @throws if the module does not contain a JSII assembly file, or if it's invalid.
- */
-export async function loadAssembly(modulePath: string): Promise<spec.Assembly> {
-  const assmPath = path.join(modulePath, spec.SPEC_FILE_NAME);
-  if (!(await fs.pathExists(assmPath))) {
-    throw new Error(`Could not find ${assmPath}. Was the module built?`);
-  }
-  return spec.validateAssembly(await fs.readJson(assmPath));
 }
 
 /**

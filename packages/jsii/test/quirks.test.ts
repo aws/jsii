@@ -28,5 +28,6 @@ test('trailing semicolon after method is correctly ignored', async () => {
     initializer: { locationInModule: { filename: 'index.ts', line: 5 } },
     locationInModule: { filename: 'index.ts', line: 2 },
     name: 'Foo',
+    symbolId: 'index:Foo',
   });
 });

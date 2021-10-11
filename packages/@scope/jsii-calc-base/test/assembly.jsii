@@ -113,7 +113,8 @@
           }
         }
       ],
-      "name": "Base"
+      "name": "Base",
+      "symbolId": "lib/index:Base"
     },
     "@scope/jsii-calc-base.BaseProps": {
       "assembly": "@scope/jsii-calc-base",
@@ -141,7 +142,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/index:BaseProps"
     },
     "@scope/jsii-calc-base.IBaseInterface": {
       "assembly": "@scope/jsii-calc-base",
@@ -164,7 +166,8 @@
           "name": "bar"
         }
       ],
-      "name": "IBaseInterface"
+      "name": "IBaseInterface",
+      "symbolId": "lib/index:IBaseInterface"
     },
     "@scope/jsii-calc-base.StaticConsumer": {
       "assembly": "@scope/jsii-calc-base",
@@ -198,9 +201,10 @@
           "variadic": true
         }
       ],
-      "name": "StaticConsumer"
+      "name": "StaticConsumer",
+      "symbolId": "lib/index:StaticConsumer"
     }
   },
   "version": "0.0.0",
-  "fingerprint": "rIJAOTzUs2OYke2UCJzexq/fqJOiqmR9PbTMlf37o/A="
+  "fingerprint": "DVCANvLLzJEu5VNOJVmldbT5wTXhmHlZzk3E6muTR5I="
 }

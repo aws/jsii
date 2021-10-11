@@ -3,17 +3,16 @@ import * as ts from 'typescript';
 import { AstRenderer } from '../renderer';
 
 /**
- * Return the OTHER type from undefined from a union, returns undefined if there is more than one
+ * Return the first non-undefined type from a union
  */
-export function typeWithoutUndefinedUnion(type: ts.Type | undefined): ts.Type | undefined {
-  if (!type || !type.isUnion()) {
+export function firstTypeInUnion(typeChecker: ts.TypeChecker, type: ts.Type): ts.Type {
+  type = typeChecker.getNonNullableType(type);
+
+  if (!type.isUnion()) {
     return type;
   }
-  const remaining = type.types.filter((t) => t.flags !== ts.TypeFlags.Undefined);
-  if (remaining.length > 1) {
-    return undefined;
-  }
-  return remaining[0];
+
+  return type.types[0];
 }
 
 type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
@@ -29,6 +28,27 @@ export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
     [ts.TypeFlags.BooleanLiteral]: 'boolean',
   };
   return map[type.flags];
+}
+
+export function renderType(type: ts.Type): string {
+  if (type.isClassOrInterface()) {
+    return type.symbol.name;
+  }
+  if (type.isLiteral()) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    return `${type.value}`;
+  }
+  return renderTypeFlags(type);
+}
+
+export function renderTypeFlags(type: ts.Type) {
+  const ret = [];
+  for (const flag of Object.values(ts.TypeFlags)) {
+    if (typeof flag === 'number' && type.flags & flag) {
+      ret.push(ts.TypeFlags[flag]);
+    }
+  }
+  return ret.join(',');
 }
 
 export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
@@ -90,24 +110,33 @@ export function inferMapElementType(
   elements: ts.NodeArray<ts.ObjectLiteralElementLike>,
   renderer: AstRenderer<any>,
 ): ts.Type | undefined {
-  return typeIfSame(
-    elements.map((el) => (ts.isPropertyAssignment(el) ? renderer.typeOfExpression(el.initializer) : undefined)),
-  );
+  const nodes = elements.map(elementValueNode).filter(isDefined);
+  const types = nodes.map((x) => renderer.typeOfExpression(x));
+
+  return types.every((t) => isSameType(types[0], t)) ? types[0] : undefined;
+
+  function elementValueNode(el: ts.ObjectLiteralElementLike): ts.Expression | undefined {
+    if (ts.isPropertyAssignment(el)) {
+      return el.initializer;
+    }
+    if (ts.isShorthandPropertyAssignment(el)) {
+      return el.name;
+    }
+    return undefined;
+  }
+}
+
+function isSameType(a: ts.Type, b: ts.Type) {
+  return a.flags === b.flags && a.symbol?.name === b.symbol?.name;
 }
 
 function typeIfSame(types: Array<ts.Type | undefined>): ts.Type | undefined {
-  let ret: ts.Type | undefined;
-  for (const type of types) {
-    if (ret === undefined) {
-      ret = type;
-    } else {
-      // Not all the same
-      if (type !== undefined && ret.flags !== type.flags) {
-        return undefined;
-      }
-    }
+  const ttypes = types.filter(isDefined);
+  if (types.length === 0) {
+    return undefined;
   }
-  return ret;
+
+  return ttypes.every((t) => isSameType(ttypes[0], t)) ? ttypes[0] : undefined;
 }
 
 /**
@@ -119,4 +148,8 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
     return tr.aliasTypeArguments && tr.aliasTypeArguments[0];
   }
   return undefined;
+}
+
+function isDefined<A>(x: A): x is NonNullable<A> {
+  return x !== undefined;
 }
