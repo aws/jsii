@@ -42,16 +42,6 @@ export function renderType(type: ts.Type): string {
   return renderTypeFlags(type);
 }
 
-export function renderTypeFlags(type: ts.Type) {
-  const ret = [];
-  for (const flag of Object.values(ts.TypeFlags)) {
-    if (typeof flag === 'number' && type.flags & flag) {
-      ret.push(ts.TypeFlags[flag]);
-    }
-  }
-  return ret.join(',');
-}
-
 export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
   if (param.initializer !== undefined) {
     return true;
