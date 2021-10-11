@@ -61,6 +61,11 @@ export class DeprecationWarningsInjector {
             );
           }
         }
+
+        if (statements.length === 1) {
+          // There is no deprecated element. So there is no point in having the require statement
+          statements.pop();
+        }
       } else if (spec.isInterfaceType(type)) {
         for (const prop of Object.values(type.properties ?? {})) {
           if (spec.isDeprecated(prop)) {

@@ -123,6 +123,21 @@ function testpkg_Baz(p) {
 }`);
   });
 
+  test('does not generate a `require` if the enum does not have deprecated members', async () => {
+    const result = await compileJsiiForTest(
+      `
+        export enum State {
+          ON,
+          OFF
+        }
+        `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, '.warnings.jsii')).not.toMatch('require');
+  });
+
   test('generates functions for enums', async () => {
     const result = await compileJsiiForTest(
       `
