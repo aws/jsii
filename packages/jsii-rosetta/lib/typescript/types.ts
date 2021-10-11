@@ -16,7 +16,7 @@ export function firstTypeInUnion(typeChecker: ts.TypeChecker, type: ts.Type): ts
   return type.types[0];
 }
 
-type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
+export type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
 export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
   const map: { readonly [k: number]: BuiltInType } = {
     [ts.TypeFlags.Any]: 'any',
@@ -75,7 +75,7 @@ export function renderTypeFlags(type: ts.Type): string {
 /**
  * If this is a map type, return the type mapped *to* (key must always be `string` anyway).
  */
-export function mapElementType(type: ts.Type, renderer: AstRenderer<any>): ts.Type | undefined {
+export function mapElementType(type: ts.Type, typeChecker: ts.TypeChecker): ts.Type | undefined {
   if (type.flags & ts.TypeFlags.Object && type.symbol) {
     if (type.symbol.name === '__type') {
       // Declared map type: {[k: string]: A}
@@ -87,7 +87,7 @@ export function mapElementType(type: ts.Type, renderer: AstRenderer<any>): ts.Ty
       // For every property, get the node that created it (PropertyAssignment), and get the type of the initializer of that node
       const initializerTypes = type.getProperties().map((p) => {
         if (ts.isPropertyAssignment(p.valueDeclaration)) {
-          return renderer.typeOfExpression(p.valueDeclaration.initializer);
+          return typeOfExpression(typeChecker, p.valueDeclaration.initializer);
         }
         return undefined;
       });
@@ -143,6 +143,10 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
     return tr.aliasTypeArguments && tr.aliasTypeArguments[0];
   }
   return undefined;
+}
+
+export function typeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
+  return typeChecker.getContextualType(node) ?? typeChecker.getTypeAtLocation(node);
 }
 
 function isDefined<A>(x: A): x is NonNullable<A> {

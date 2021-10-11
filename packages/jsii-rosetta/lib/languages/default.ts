@@ -162,7 +162,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       return this.knownStructObjectLiteralExpression(node, type!, context);
     }
-    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context), context);
+    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context.typeChecker), context);
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
