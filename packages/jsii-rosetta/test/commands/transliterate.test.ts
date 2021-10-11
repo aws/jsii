@@ -259,6 +259,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassName",
           },
           "testpkg.ClassNameProps": Object {
             "assembly": "testpkg",
@@ -298,6 +299,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassNameProps",
           },
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
@@ -334,6 +336,7 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "EnumType",
+            "symbolId": "index:EnumType",
           },
           "testpkg.IInterface": Object {
             "assembly": "testpkg",
@@ -381,6 +384,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:IInterface",
           },
         },
         "version": "0.0.1",
@@ -537,6 +541,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassName",
           },
           "testpkg.ClassNameProps": Object {
             "assembly": "testpkg",
@@ -576,6 +581,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassNameProps",
           },
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
@@ -612,6 +618,7 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "EnumType",
+            "symbolId": "index:EnumType",
           },
           "testpkg.IInterface": Object {
             "assembly": "testpkg",
@@ -659,6 +666,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:IInterface",
           },
         },
         "version": "0.0.1",
@@ -815,6 +823,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassName",
           },
           "testpkg.ClassNameProps": Object {
             "assembly": "testpkg",
@@ -854,6 +863,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassNameProps",
           },
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
@@ -890,6 +900,7 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "EnumType",
+            "symbolId": "index:EnumType",
           },
           "testpkg.IInterface": Object {
             "assembly": "testpkg",
@@ -937,6 +948,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:IInterface",
           },
         },
         "version": "0.0.1",
@@ -1107,6 +1119,7 @@ new SampleClass('omitted-literate');
               "line": 7,
             },
             "name": "SampleClass",
+            "symbolId": "index:SampleClass",
           },
         },
         "version": "0.0.1",
@@ -1212,6 +1225,7 @@ new SampleClass('omitted-literate');
               "line": 7,
             },
             "name": "SampleClass",
+            "symbolId": "index:SampleClass",
           },
         },
         "version": "0.0.1",
@@ -1317,6 +1331,7 @@ new SampleClass('omitted-literate');
               "line": 7,
             },
             "name": "SampleClass",
+            "symbolId": "index:SampleClass",
           },
         },
         "version": "0.0.1",

@@ -12,5 +12,6 @@ test('export { Foo } from "./foo"', async () => {
     kind: 'class',
     locationInModule: { filename: 'foo.ts', line: 1 },
     name: 'Foo',
+    symbolId: 'foo:Foo',
   });
 });
