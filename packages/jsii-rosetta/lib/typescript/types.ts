@@ -1,5 +1,6 @@
 import * as ts from 'typescript';
 
+import { hasAllFlags, hasAnyFlag } from '../jsii/jsii-utils';
 import { AstRenderer } from '../renderer';
 
 /**
@@ -15,7 +16,7 @@ export function firstTypeInUnion(typeChecker: ts.TypeChecker, type: ts.Type): ts
   return type.types[0];
 }
 
-type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
+export type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
 export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
   const map: { readonly [k: number]: BuiltInType } = {
     [ts.TypeFlags.Any]: 'any',
@@ -39,16 +40,6 @@ export function renderType(type: ts.Type): string {
     return `${type.value}`;
   }
   return renderTypeFlags(type);
-}
-
-export function renderTypeFlags(type: ts.Type) {
-  const ret = [];
-  for (const flag of Object.values(ts.TypeFlags)) {
-    if (typeof flag === 'number' && type.flags & flag) {
-      ret.push(ts.TypeFlags[flag]);
-    }
-  }
-  return ret.join(',');
 }
 
 export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
@@ -77,10 +68,14 @@ export function typeContainsUndefined(type: ts.Type): boolean {
   return false;
 }
 
+export function renderTypeFlags(type: ts.Type): string {
+  return renderFlags(type.flags, ts.TypeFlags);
+}
+
 /**
  * If this is a map type, return the type mapped *to* (key must always be `string` anyway).
  */
-export function mapElementType(type: ts.Type, renderer: AstRenderer<any>): ts.Type | undefined {
+export function mapElementType(type: ts.Type, typeChecker: ts.TypeChecker): ts.Type | undefined {
   if (type.flags & ts.TypeFlags.Object && type.symbol) {
     if (type.symbol.name === '__type') {
       // Declared map type: {[k: string]: A}
@@ -92,7 +87,7 @@ export function mapElementType(type: ts.Type, renderer: AstRenderer<any>): ts.Ty
       // For every property, get the node that created it (PropertyAssignment), and get the type of the initializer of that node
       const initializerTypes = type.getProperties().map((p) => {
         if (ts.isPropertyAssignment(p.valueDeclaration)) {
-          return renderer.typeOfExpression(p.valueDeclaration.initializer);
+          return typeOfExpression(typeChecker, p.valueDeclaration.initializer);
         }
         return undefined;
       });
@@ -150,6 +145,10 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
   return undefined;
 }
 
+export function typeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
+  return typeChecker.getContextualType(node) ?? typeChecker.getTypeAtLocation(node);
+}
+
 function isDefined<A>(x: A): x is NonNullable<A> {
   return x !== undefined;
 }
@@ -165,4 +164,35 @@ function isDefined<A>(x: A): x is NonNullable<A> {
 export function inferredTypeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
   const type = typeChecker.getContextualType(node);
   return type ? typeChecker.getNonNullableType(type) : undefined;
+}
+
+export function isNumber(x: any): x is number {
+  return typeof x === 'number';
+}
+
+export function isEnumAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
+  const symbol = typeChecker.getSymbolAtLocation(access.expression);
+  return symbol ? hasAnyFlag(symbol.flags, ts.SymbolFlags.Enum) : false;
+}
+
+export function isStaticReadonlyAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
+  const symbol = typeChecker.getSymbolAtLocation(access);
+  const decl = symbol?.getDeclarations();
+  if (decl && decl[0] && ts.isPropertyDeclaration(decl[0])) {
+    const flags = ts.getCombinedModifierFlags(decl[0]);
+    return hasAllFlags(flags, ts.ModifierFlags.Readonly | ts.ModifierFlags.Static);
+  }
+  return false;
+}
+
+export function renderFlags(flags: number | undefined, flagObject: Record<string, number | string>) {
+  if (flags === undefined) {
+    return '';
+  }
+
+  return Object.values(flagObject)
+    .filter(isNumber)
+    .filter((f) => hasAllFlags(flags, f))
+    .map((f) => flagObject[f])
+    .join(',');
 }

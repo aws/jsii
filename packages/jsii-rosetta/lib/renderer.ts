@@ -11,7 +11,7 @@ import {
   scanText,
 } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
-import { inferredTypeOfExpression } from './typescript/types';
+import { typeOfExpression, inferredTypeOfExpression } from './typescript/types';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)
@@ -149,9 +149,11 @@ export class AstRenderer<C> {
    * Type of expression from the text of the expression
    *
    * (Will return a map type for object literals)
+   *
+   * @deprecated Use `typeOfExpression` directly
    */
   public typeOfExpression(node: ts.Expression): ts.Type {
-    return this.typeChecker.getContextualType(node) ?? this.typeChecker.getTypeAtLocation(node);
+    return typeOfExpression(this.typeChecker, node);
   }
 
   public typeOfType(node: ts.TypeNode): ts.Type {
