@@ -82,7 +82,6 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return operator;
   }
 
-
   public ifStatement(node: ts.IfStatement, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
@@ -160,6 +159,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
       return this.unknownTypeObjectLiteralExpression(node, context);
     }
     if (isKnownStruct) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       return this.knownStructObjectLiteralExpression(node, type!, context);
     }
     return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context), context);
