@@ -1,5 +1,6 @@
 import * as ts from 'typescript';
 
+import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
 import { jsiiTargetParam } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, nimpl } from '../renderer';
@@ -13,14 +14,7 @@ import {
   privatePropertyNames,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import {
-  typeWithoutUndefinedUnion,
-  builtInTypeName,
-  typeContainsUndefined,
-  parameterAcceptsUndefined,
-  mapElementType,
-  inferMapElementType,
-} from '../typescript/types';
+import { typeContainsUndefined, parameterAcceptsUndefined, inferMapElementType } from '../typescript/types';
 import { flat, partition, setExtend } from '../util';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
@@ -415,7 +409,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       });
     }
     // Type information missing and from context we prefer a map
-    return this.keyValueObjectLiteralExpression(node, undefined, renderer);
+    return this.keyValueObjectLiteralExpression(node, renderer);
   }
 
   public knownStructObjectLiteralExpression(
@@ -430,15 +424,9 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     });
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    valueType: ts.Type | undefined,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: CSharpRenderer): OTree {
     // Try to infer an element type from the elements
-    if (valueType === undefined) {
-      valueType = inferMapElementType(node.properties, renderer);
-    }
+    const valueType = inferMapElementType(node.properties, renderer.typeChecker);
 
     return new OTree(
       ['new Dictionary<string, ', this.renderType(node, valueType, false, 'object', renderer), '> { '],
@@ -541,13 +529,22 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: CSharpRenderer): OTree {
+    let fallback = 'var';
+    if (node.type) {
+      fallback = node.type.getText();
+    }
+
     const type =
       (node.type && renderer.typeOfType(node.type)) ||
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    let renderedType = this.renderType(node, type, false, 'var', renderer);
+    let renderedType = this.renderType(node, type, false, fallback, renderer);
     if (renderedType === 'object') {
       renderedType = 'var';
+    }
+
+    if (!node.initializer) {
+      return new OTree([renderedType, ' ', renderer.convert(node.name), ';'], []);
     }
 
     return new OTree(
@@ -623,18 +620,39 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       return fallback;
     }
 
-    const nonUnionType = typeWithoutUndefinedUnion(type);
-    if (!nonUnionType) {
-      renderer.report(typeNode, 'Type unions in examples are not supported');
-      return '...';
-    }
+    const renderedType = doRender(determineJsiiType(renderer.typeChecker, type));
 
-    const mappedTo = mapElementType(nonUnionType, renderer);
-    if (mappedTo) {
-      return `IDictionary<string, ${this.renderType(typeNode, mappedTo, questionMark, 'object', renderer)}>`;
-    }
+    const suffix = questionMark || typeContainsUndefined(type) ? '?' : '';
 
-    return typeNameFromType(nonUnionType, fallback) + (typeContainsUndefined(type) || questionMark ? '?' : '');
+    return renderedType + suffix;
+
+    // eslint-disable-next-line consistent-return
+    function doRender(jsiiType: JsiiType): string {
+      switch (jsiiType.kind) {
+        case 'unknown':
+          return fallback;
+        case 'error':
+          renderer.report(typeNode, jsiiType.message);
+          return fallback;
+        case 'map':
+          return `IDictionary<string, ${doRender(jsiiType.elementType)}>`;
+        case 'list':
+          return `${doRender(jsiiType.elementType)}[]`;
+        case 'namedType':
+          return jsiiType.name;
+        case 'builtIn':
+          switch (jsiiType.builtIn) {
+            case 'boolean':
+              return 'boolean';
+            case 'number':
+              return 'int';
+            case 'string':
+              return 'string';
+            case 'any':
+              return 'object';
+          }
+      }
+    }
   }
 
   private classHeritage(node: ts.ClassDeclaration | ts.InterfaceDeclaration, renderer: CSharpRenderer) {
@@ -644,37 +662,6 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
     return heritage.length > 0 ? [' : ', new OTree([], heritage, { separator: ', ' })] : [];
   }
-}
-
-function typeNameFromType(type: ts.Type, fallback: string): string {
-  // User-defined or aliased type
-  if (type.aliasSymbol) {
-    return type.aliasSymbol.name;
-  }
-  if (type.symbol) {
-    return type.symbol.name;
-  }
-
-  const builtIn = builtInTypeName(type);
-  // *really* any OR we don't know what type it is
-  if (builtIn === 'any') {
-    return fallback;
-  }
-
-  return csharpTypeName(builtIn);
-}
-
-function csharpTypeName(jsTypeName: string | undefined): string {
-  if (jsTypeName === undefined) {
-    return 'void';
-  }
-  switch (jsTypeName) {
-    case 'number':
-      return 'int';
-    case 'any':
-      return 'object';
-  }
-  return jsTypeName;
 }
 
 /**

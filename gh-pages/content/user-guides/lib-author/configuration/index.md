@@ -62,7 +62,7 @@ correctly applying your chosen license to your work (most licenses have document
 the license), and for complying with the terms of the licenses of packages your work depends on (this is particularly
 important when dependencies are bundled, as discussed later in this section).
 
-In addition to the `license` field present in the `package.json` file, we stronly recommend adding a `LICENSE` file in
+In addition to the `license` field present in the `package.json` file, we strongly recommend adding a `LICENSE` file in
 the package's root directory which contains the standardized text for the license (those can be found on the
 [SPDX website](https://spdx.org/licenses/)).
 

@@ -25,6 +25,7 @@ import { DeprecatedRemover } from './transforms/deprecated-remover';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { TsCommentReplacer } from './transforms/ts-comment-replacer';
 import { combinedTransformers } from './transforms/utils';
+import { symbolIdentifier } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
@@ -959,6 +960,8 @@ export class Assembler implements Emitter {
       return [];
     }
 
+    jsiiType.symbolId = this.getSymbolId(node);
+
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
     for (const submodule of this._submodules.keys()) {
@@ -1024,6 +1027,13 @@ export class Assembler implements Emitter {
     }
 
     return [jsiiType];
+  }
+
+  private getSymbolId(node: ts.Node) {
+    return symbolIdentifier(
+      this._typeChecker,
+      this._typeChecker.getTypeAtLocation(node).symbol,
+    );
   }
 
   private _validateHeritageClauses(clauses?: ts.NodeArray<ts.HeritageClause>) {

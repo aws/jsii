@@ -65,6 +65,7 @@ test('produces correct output', async () => {
           },
         ],
         "name": "GrandChild",
+        "symbolId": "mixed:GrandChild",
       },
       "testpkg.IRetainedInterface": Object {
         "assembly": "testpkg",
@@ -75,6 +76,7 @@ test('produces correct output', async () => {
           "line": 2,
         },
         "name": "IRetainedInterface",
+        "symbolId": "retained:IRetainedInterface",
       },
       "testpkg.Retained": Object {
         "abstract": true,
@@ -100,6 +102,7 @@ test('produces correct output', async () => {
             },
           },
         ],
+        "symbolId": "mixed:Retained",
       },
       "testpkg.RetainedClass": Object {
         "assembly": "testpkg",
@@ -111,6 +114,7 @@ test('produces correct output', async () => {
           "line": 3,
         },
         "name": "RetainedClass",
+        "symbolId": "retained:RetainedClass",
       },
     }
   `);

@@ -1829,6 +1829,9 @@ __all__ = [
 
 publication.publish()
 
+# Loading modules to ensure their types are registered with the jsii runtime library
+import scope.jsii_calc_lib.custom_submodule_name
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/_jsii/__init__.py 1`] = `
@@ -2087,6 +2090,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┣━ 📁 bin
           ┃  ┃  ┗━ 📄 calc
           ┃  ┗━ 📄 jsii-calc@3.20.120.jsii.tgz
+          ┣━ 📁 cdk16625
+          ┃  ┣━ 📄 __init__.py
+          ┃  ┗━ 📁 donotimport
+          ┃     ┗━ 📄 __init__.py
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 derived_class_has_no_properties
@@ -2430,6 +2437,8 @@ kwargs = json.loads(
     "packages": [
         "jsii_calc",
         "jsii_calc._jsii",
+        "jsii_calc.cdk16625",
+        "jsii_calc.cdk16625.donotimport",
         "jsii_calc.composition",
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.interface_in_namespace_includes_classes",
@@ -10195,6 +10204,40 @@ __all__ = [
 
 publication.publish()
 
+# Loading modules to ensure their types are registered with the jsii runtime library
+import jsii_calc.cdk16625
+import jsii_calc.cdk16625.donotimport
+import jsii_calc.composition
+import jsii_calc.derived_class_has_no_properties
+import jsii_calc.interface_in_namespace_includes_classes
+import jsii_calc.interface_in_namespace_only_interface
+import jsii_calc.module2530
+import jsii_calc.module2617
+import jsii_calc.module2647
+import jsii_calc.module2689
+import jsii_calc.module2689.methods
+import jsii_calc.module2689.props
+import jsii_calc.module2689.retval
+import jsii_calc.module2689.structs
+import jsii_calc.module2692
+import jsii_calc.module2692.submodule1
+import jsii_calc.module2692.submodule2
+import jsii_calc.module2700
+import jsii_calc.module2702
+import jsii_calc.nodirect
+import jsii_calc.nodirect.sub1
+import jsii_calc.nodirect.sub2
+import jsii_calc.onlystatic
+import jsii_calc.python_self
+import jsii_calc.submodule
+import jsii_calc.submodule.back_references
+import jsii_calc.submodule.child
+import jsii_calc.submodule.isolated
+import jsii_calc.submodule.nested_submodule
+import jsii_calc.submodule.nested_submodule.deeply_nested
+import jsii_calc.submodule.param
+import jsii_calc.submodule.returnsparam
+
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/__init__.py 1`] = `
@@ -10238,6 +10281,118 @@ __jsii_assembly__.invokeBinScript("jsii-calc", "calc", sys.argv[1:])
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/jsii-calc@3.20.120.jsii.tgz 1`] = `python/src/jsii_calc/_jsii/jsii-calc@3.20.120.jsii.tgz is a tarball`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/cdk16625/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from .._jsii import *
+
+from .. import IRandomNumberGenerator as _IRandomNumberGenerator_9643a8b9
+
+
+class Cdk16625(
+    metaclass=jsii.JSIIAbstractClass,
+    jsii_type="jsii-calc.cdk16625.Cdk16625",
+):
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="test")
+    def test(self) -> None:
+        '''Run this function to verify that everything is working as it should.'''
+        return typing.cast(None, jsii.invoke(self, "test", []))
+
+    @jsii.member(jsii_name="unwrap") # type: ignore[misc]
+    @abc.abstractmethod
+    def _unwrap(self, gen: _IRandomNumberGenerator_9643a8b9) -> jsii.Number:
+        '''Implement this functin to return \`\`gen.next()\`\`. It is extremely important that the \`\`donotimport\`\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
+
+        :param gen: a VERY pseudo random number generator.
+        '''
+        ...
+
+
+class _Cdk16625Proxy(Cdk16625):
+    @jsii.member(jsii_name="unwrap")
+    def _unwrap(self, gen: _IRandomNumberGenerator_9643a8b9) -> jsii.Number:
+        '''Implement this functin to return \`\`gen.next()\`\`. It is extremely important that the \`\`donotimport\`\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
+
+        :param gen: a VERY pseudo random number generator.
+        '''
+        return typing.cast(jsii.Number, jsii.invoke(self, "unwrap", [gen]))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
+typing.cast(typing.Any, Cdk16625).__jsii_proxy_class__ = lambda : _Cdk16625Proxy
+
+
+__all__ = [
+    "Cdk16625",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/cdk16625/donotimport/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+from ... import IRandomNumberGenerator as _IRandomNumberGenerator_9643a8b9
+
+
+@jsii.implements(_IRandomNumberGenerator_9643a8b9)
+class UnimportedSubmoduleType(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
+):
+    '''This type demonstrates the ability to receive a callback argument that has a type from a submodule not explicitly imported in the user's code.
+
+    This checks
+    that all types available in the assembly can be resolved by the runtime
+    library, regardless of whether they were explicitly referenced or not.
+
+    :see: https://github.com/aws/aws-cdk/issues/16625
+    '''
+
+    def __init__(self, value: jsii.Number) -> None:
+        '''
+        :param value: -
+        '''
+        jsii.create(self.__class__, self, [value])
+
+    @jsii.member(jsii_name="next")
+    def next(self) -> jsii.Number:
+        '''Not quite random, but it'll do.
+
+        :return: 1337
+        '''
+        return typing.cast(jsii.Number, jsii.invoke(self, "next", []))
+
+
+__all__ = [
+    "UnimportedSubmoduleType",
+]
+
+publication.publish()
+
+`;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/composition/__init__.py 1`] = `
 import abc
