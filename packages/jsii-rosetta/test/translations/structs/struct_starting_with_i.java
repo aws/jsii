@@ -1,2 +1,3 @@
-new Integration(this, "Something", new IntegrationOptions()
-        .argument(5));
+new Integration(this, "Something", IntegrationOptions.builder()
+        .argument(5)
+        .build());

@@ -1,2 +1,3 @@
-new Vpc(this, "Something", new VpcProps()
-        .argument(5));
+new Vpc(this, "Something", VpcProps.builder()
+        .argument(5)
+        .build());

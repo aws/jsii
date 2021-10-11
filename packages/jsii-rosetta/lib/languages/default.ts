@@ -331,14 +331,3 @@ const UNARY_OPS: { [op in ts.PrefixUnaryOperator]: string } = {
   [ts.SyntaxKind.TildeToken]: '~',
   [ts.SyntaxKind.ExclamationToken]: '~',
 };
-
-function findEnclosingCallExpression(node?: ts.Node): ts.CallLikeExpression | undefined {
-  while (node) {
-    if (ts.isCallLikeExpression(node)) {
-      return node;
-    }
-    node = node.parent;
-  }
-
-  return undefined;
-}

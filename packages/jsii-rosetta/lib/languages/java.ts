@@ -409,8 +409,9 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const lastArgIsObjectLiteral = lastArg && ts.isObjectLiteralExpression(lastArg);
     const lastArgType = lastArg && renderer.inferredTypeOfExpression(lastArg);
     // we only render the ClassName.Builder.create(...) expression
-    // if the last argument is an object literal, and NOT a known struct
-    // (in that case, it has its own creation method)
+    // if the last argument is an object literal, and either a known struct (because
+    // those are the jsii rules) or an unknown type (because the example didn't
+    // compile but most of the target examples will intend this to be a struct).
     const renderBuilderInsteadOfNew = lastArgIsObjectLiteral && (!lastArgType || !isStructType(lastArgType));
 
     return new OTree(
@@ -463,9 +464,16 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     structType: ts.Type,
     renderer: JavaRenderer,
   ): OTree {
-    return new OTree(['new ', structType.symbol.name, '()'], [...renderer.convertAll(node.properties)], {
-      indent: 8,
-    });
+    return new OTree(
+      ['', structType.symbol.name, '.builder()'],
+      [
+        ...renderer.convertAll(node.properties),
+        new OTree([renderer.mirrorNewlineBefore(node.properties[0])], ['.build()']),
+      ],
+      {
+        indent: 8,
+      },
+    );
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
