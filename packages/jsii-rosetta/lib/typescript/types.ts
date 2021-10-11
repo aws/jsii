@@ -1,5 +1,6 @@
 import * as ts from 'typescript';
 
+import { hasAllFlags, hasAnyFlag } from '../jsii/jsii-utils';
 import { AstRenderer } from '../renderer';
 
 /**
@@ -41,16 +42,6 @@ export function renderType(type: ts.Type): string {
   return renderTypeFlags(type);
 }
 
-export function renderTypeFlags(type: ts.Type) {
-  const ret = [];
-  for (const flag of Object.values(ts.TypeFlags)) {
-    if (typeof flag === 'number' && type.flags & flag) {
-      ret.push(ts.TypeFlags[flag]);
-    }
-  }
-  return ret.join(',');
-}
-
 export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
   if (param.initializer !== undefined) {
     return true;
@@ -75,6 +66,10 @@ export function typeContainsUndefined(type: ts.Type): boolean {
     return type.types.some(typeContainsUndefined);
   }
   return false;
+}
+
+export function renderTypeFlags(type: ts.Type): string {
+  return renderFlags(type.flags, ts.TypeFlags);
 }
 
 /**
@@ -152,4 +147,35 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
 
 function isDefined<A>(x: A): x is NonNullable<A> {
   return x !== undefined;
+}
+
+export function isNumber(x: any): x is number {
+  return typeof x === 'number';
+}
+
+export function isEnumAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
+  const symbol = typeChecker.getSymbolAtLocation(access.expression);
+  return symbol ? hasAnyFlag(symbol.flags, ts.SymbolFlags.Enum) : false;
+}
+
+export function isStaticReadonlyAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
+  const symbol = typeChecker.getSymbolAtLocation(access);
+  const decl = symbol?.getDeclarations();
+  if (decl && decl[0] && ts.isPropertyDeclaration(decl[0])) {
+    const flags = ts.getCombinedModifierFlags(decl[0]);
+    return hasAllFlags(flags, ts.ModifierFlags.Readonly | ts.ModifierFlags.Static);
+  }
+  return false;
+}
+
+export function renderFlags(flags: number | undefined, flagObject: Record<string, number | string>) {
+  if (flags === undefined) {
+    return '';
+  }
+
+  return Object.values(flagObject)
+    .filter(isNumber)
+    .filter((f) => hasAllFlags(flags, f))
+    .map((f) => flagObject[f])
+    .join(',');
 }
