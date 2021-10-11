@@ -346,11 +346,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    _valueType: ts.Type | undefined,
-    context: PythonVisitorContext,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
     return this.renderObjectLiteralExpression('{', '}', false, node, context);
   }
 

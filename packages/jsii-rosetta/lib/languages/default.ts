@@ -5,7 +5,6 @@ import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { mapElementType } from '../typescript/types';
 
 import { TargetLanguage } from '.';
 
@@ -162,7 +161,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       return this.knownStructObjectLiteralExpression(node, type!, context);
     }
-    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context.typeChecker), context);
+    return this.keyValueObjectLiteralExpression(node, context);
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
@@ -177,11 +176,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return this.notImplemented(node, context);
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    _valueType: ts.Type | undefined,
-    context: AstRenderer<C>,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
 
