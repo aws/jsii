@@ -487,7 +487,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:AbstractClass"
     },
     "jsii-calc.AbstractClassBase": {
       "abstract": true,
@@ -523,7 +524,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:AbstractClassBase"
     },
     "jsii-calc.AbstractClassReturner": {
       "assembly": "jsii-calc",
@@ -589,7 +591,8 @@
             "fqn": "jsii-calc.AbstractClassBase"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:AbstractClassReturner"
     },
     "jsii-calc.AbstractSuite": {
       "abstract": true,
@@ -680,7 +683,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:AbstractSuite"
     },
     "jsii-calc.Add": {
       "assembly": "jsii-calc",
@@ -762,7 +766,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:Add"
     },
     "jsii-calc.AllTypes": {
       "assembly": "jsii-calc",
@@ -1167,7 +1172,8 @@
             "fqn": "jsii-calc.StringEnum"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:AllTypes"
     },
     "jsii-calc.AllTypesEnum": {
       "assembly": "jsii-calc",
@@ -1200,7 +1206,8 @@
           "name": "THIS_IS_GREAT"
         }
       ],
-      "name": "AllTypesEnum"
+      "name": "AllTypesEnum",
+      "symbolId": "lib/compliance:AllTypesEnum"
     },
     "jsii-calc.AllowedMethodNames": {
       "assembly": "jsii-calc",
@@ -1323,7 +1330,8 @@
           ]
         }
       ],
-      "name": "AllowedMethodNames"
+      "name": "AllowedMethodNames",
+      "symbolId": "lib/compliance:AllowedMethodNames"
     },
     "jsii-calc.AmbiguousParameters": {
       "assembly": "jsii-calc",
@@ -1389,7 +1397,8 @@
             "fqn": "jsii-calc.Bell"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:AmbiguousParameters"
     },
     "jsii-calc.AnonymousImplementationProvider": {
       "assembly": "jsii-calc",
@@ -1444,7 +1453,8 @@
           }
         }
       ],
-      "name": "AnonymousImplementationProvider"
+      "name": "AnonymousImplementationProvider",
+      "symbolId": "lib/compliance:AnonymousImplementationProvider"
     },
     "jsii-calc.AsyncVirtualMethods": {
       "assembly": "jsii-calc",
@@ -1570,7 +1580,8 @@
           }
         }
       ],
-      "name": "AsyncVirtualMethods"
+      "name": "AsyncVirtualMethods",
+      "symbolId": "lib/compliance:AsyncVirtualMethods"
     },
     "jsii-calc.AugmentableClass": {
       "assembly": "jsii-calc",
@@ -1610,7 +1621,8 @@
           "name": "methodTwo"
         }
       ],
-      "name": "AugmentableClass"
+      "name": "AugmentableClass",
+      "symbolId": "lib/compliance:AugmentableClass"
     },
     "jsii-calc.BaseJsii976": {
       "assembly": "jsii-calc",
@@ -1628,7 +1640,8 @@
         "filename": "lib/compliance.ts",
         "line": 2485
       },
-      "name": "BaseJsii976"
+      "name": "BaseJsii976",
+      "symbolId": "lib/compliance:BaseJsii976"
     },
     "jsii-calc.Bell": {
       "assembly": "jsii-calc",
@@ -1677,7 +1690,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:Bell"
     },
     "jsii-calc.BinaryOperation": {
       "abstract": true,
@@ -1777,7 +1791,8 @@
             "fqn": "@scope/jsii-calc-lib.NumericValue"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:BinaryOperation"
     },
     "jsii-calc.BurriedAnonymousObject": {
       "abstract": true,
@@ -1843,7 +1858,8 @@
           }
         }
       ],
-      "name": "BurriedAnonymousObject"
+      "name": "BurriedAnonymousObject",
+      "symbolId": "lib/compliance:BurriedAnonymousObject"
     },
     "jsii-calc.Calculator": {
       "assembly": "jsii-calc",
@@ -2087,7 +2103,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:Calculator"
     },
     "jsii-calc.CalculatorProps": {
       "assembly": "jsii-calc",
@@ -2141,7 +2158,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:CalculatorProps"
     },
     "jsii-calc.ChildStruct982": {
       "assembly": "jsii-calc",
@@ -2175,7 +2193,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ChildStruct982"
     },
     "jsii-calc.ClassThatImplementsTheInternalInterface": {
       "assembly": "jsii-calc",
@@ -2253,7 +2272,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassThatImplementsTheInternalInterface"
     },
     "jsii-calc.ClassThatImplementsThePrivateInterface": {
       "assembly": "jsii-calc",
@@ -2331,7 +2351,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassThatImplementsThePrivateInterface"
     },
     "jsii-calc.ClassWithCollections": {
       "assembly": "jsii-calc",
@@ -2497,7 +2518,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassWithCollections"
     },
     "jsii-calc.ClassWithContainerTypes": {
       "assembly": "jsii-calc",
@@ -2635,7 +2657,8 @@
             "fqn": "jsii-calc.ContainerProps"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/container-types:ClassWithContainerTypes"
     },
     "jsii-calc.ClassWithDocs": {
       "assembly": "jsii-calc",
@@ -2660,7 +2683,8 @@
         "filename": "lib/compliance.ts",
         "line": 1892
       },
-      "name": "ClassWithDocs"
+      "name": "ClassWithDocs",
+      "symbolId": "lib/compliance:ClassWithDocs"
     },
     "jsii-calc.ClassWithJavaReservedWords": {
       "assembly": "jsii-calc",
@@ -2731,7 +2755,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassWithJavaReservedWords"
     },
     "jsii-calc.ClassWithMutableObjectLiteralProperty": {
       "assembly": "jsii-calc",
@@ -2764,7 +2789,8 @@
             "fqn": "jsii-calc.IMutableObjectLiteral"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassWithMutableObjectLiteralProperty"
     },
     "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": {
       "assembly": "jsii-calc",
@@ -2844,7 +2870,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassWithPrivateConstructorAndAutomaticProperties"
     },
     "jsii-calc.ConfusingToJackson": {
       "assembly": "jsii-calc",
@@ -2932,7 +2959,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ConfusingToJackson"
     },
     "jsii-calc.ConfusingToJacksonStruct": {
       "assembly": "jsii-calc",
@@ -2987,7 +3015,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ConfusingToJacksonStruct"
     },
     "jsii-calc.ConstructorPassesThisOut": {
       "assembly": "jsii-calc",
@@ -3017,7 +3046,8 @@
         "filename": "lib/compliance.ts",
         "line": 1848
       },
-      "name": "ConstructorPassesThisOut"
+      "name": "ConstructorPassesThisOut",
+      "symbolId": "lib/compliance:ConstructorPassesThisOut"
     },
     "jsii-calc.Constructors": {
       "assembly": "jsii-calc",
@@ -3164,7 +3194,8 @@
           "static": true
         }
       ],
-      "name": "Constructors"
+      "name": "Constructors",
+      "symbolId": "lib/compliance:Constructors"
     },
     "jsii-calc.ConsumePureInterface": {
       "assembly": "jsii-calc",
@@ -3211,7 +3242,8 @@
           }
         }
       ],
-      "name": "ConsumePureInterface"
+      "name": "ConsumePureInterface",
+      "symbolId": "lib/compliance:ConsumePureInterface"
     },
     "jsii-calc.ConsumerCanRingBell": {
       "assembly": "jsii-calc",
@@ -3437,7 +3469,8 @@
           }
         }
       ],
-      "name": "ConsumerCanRingBell"
+      "name": "ConsumerCanRingBell",
+      "symbolId": "lib/compliance:ConsumerCanRingBell"
     },
     "jsii-calc.ConsumersOfThisCrazyTypeSystem": {
       "assembly": "jsii-calc",
@@ -3503,7 +3536,8 @@
           }
         }
       ],
-      "name": "ConsumersOfThisCrazyTypeSystem"
+      "name": "ConsumersOfThisCrazyTypeSystem",
+      "symbolId": "lib/compliance:ConsumersOfThisCrazyTypeSystem"
     },
     "jsii-calc.ContainerProps": {
       "assembly": "jsii-calc",
@@ -3579,7 +3613,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/container-types:ContainerProps"
     },
     "jsii-calc.DataRenderer": {
       "assembly": "jsii-calc",
@@ -3680,7 +3715,8 @@
           }
         }
       ],
-      "name": "DataRenderer"
+      "name": "DataRenderer",
+      "symbolId": "lib/compliance:DataRenderer"
     },
     "jsii-calc.Default": {
       "assembly": "jsii-calc",
@@ -3712,7 +3748,8 @@
           "name": "pleaseCompile"
         }
       ],
-      "name": "Default"
+      "name": "Default",
+      "symbolId": "lib/compliance:Default"
     },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
@@ -3802,7 +3839,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DefaultedConstructorArgument"
     },
     "jsii-calc.Demonstrate982": {
       "assembly": "jsii-calc",
@@ -3858,7 +3896,8 @@
           "static": true
         }
       ],
-      "name": "Demonstrate982"
+      "name": "Demonstrate982",
+      "symbolId": "lib/compliance:Demonstrate982"
     },
     "jsii-calc.DeprecatedClass": {
       "assembly": "jsii-calc",
@@ -3942,7 +3981,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:DeprecatedClass"
     },
     "jsii-calc.DeprecatedEnum": {
       "assembly": "jsii-calc",
@@ -3972,7 +4012,8 @@
           "name": "OPTION_B"
         }
       ],
-      "name": "DeprecatedEnum"
+      "name": "DeprecatedEnum",
+      "symbolId": "lib/stability:DeprecatedEnum"
     },
     "jsii-calc.DeprecatedStruct": {
       "assembly": "jsii-calc",
@@ -4005,7 +4046,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:DeprecatedStruct"
     },
     "jsii-calc.DerivedClassHasNoProperties.Base": {
       "assembly": "jsii-calc",
@@ -4039,7 +4081,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:Base"
     },
     "jsii-calc.DerivedClassHasNoProperties.Derived": {
       "assembly": "jsii-calc",
@@ -4059,7 +4102,8 @@
         "line": 330
       },
       "name": "Derived",
-      "namespace": "DerivedClassHasNoProperties"
+      "namespace": "DerivedClassHasNoProperties",
+      "symbolId": "lib/compliance:Derived"
     },
     "jsii-calc.DerivedStruct": {
       "assembly": "jsii-calc",
@@ -4184,7 +4228,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DerivedStruct"
     },
     "jsii-calc.DiamondBottom": {
       "assembly": "jsii-calc",
@@ -4220,7 +4265,8 @@
             "primitive": "date"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/duplicate-inherited-prop:DiamondBottom"
     },
     "jsii-calc.DiamondInheritanceBaseLevelStruct": {
       "assembly": "jsii-calc",
@@ -4251,7 +4297,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DiamondInheritanceBaseLevelStruct"
     },
     "jsii-calc.DiamondInheritanceFirstMidLevelStruct": {
       "assembly": "jsii-calc",
@@ -4285,7 +4332,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DiamondInheritanceFirstMidLevelStruct"
     },
     "jsii-calc.DiamondInheritanceSecondMidLevelStruct": {
       "assembly": "jsii-calc",
@@ -4319,7 +4367,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DiamondInheritanceSecondMidLevelStruct"
     },
     "jsii-calc.DiamondInheritanceTopLevelStruct": {
       "assembly": "jsii-calc",
@@ -4354,7 +4403,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DiamondInheritanceTopLevelStruct"
     },
     "jsii-calc.DisappointingCollectionSource": {
       "assembly": "jsii-calc",
@@ -4419,7 +4469,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DisappointingCollectionSource"
     },
     "jsii-calc.DoNotOverridePrivates": {
       "assembly": "jsii-calc",
@@ -4487,7 +4538,8 @@
           }
         }
       ],
-      "name": "DoNotOverridePrivates"
+      "name": "DoNotOverridePrivates",
+      "symbolId": "lib/compliance:DoNotOverridePrivates"
     },
     "jsii-calc.DoNotRecognizeAnyAsOptional": {
       "assembly": "jsii-calc",
@@ -4540,7 +4592,8 @@
           ]
         }
       ],
-      "name": "DoNotRecognizeAnyAsOptional"
+      "name": "DoNotRecognizeAnyAsOptional",
+      "symbolId": "lib/compliance:DoNotRecognizeAnyAsOptional"
     },
     "jsii-calc.DocumentedClass": {
       "assembly": "jsii-calc",
@@ -4604,7 +4657,8 @@
           "name": "hola"
         }
       ],
-      "name": "DocumentedClass"
+      "name": "DocumentedClass",
+      "symbolId": "lib/documented:DocumentedClass"
     },
     "jsii-calc.DontComplainAboutVariadicAfterOptional": {
       "assembly": "jsii-calc",
@@ -4656,7 +4710,8 @@
           "variadic": true
         }
       ],
-      "name": "DontComplainAboutVariadicAfterOptional"
+      "name": "DontComplainAboutVariadicAfterOptional",
+      "symbolId": "lib/compliance:DontComplainAboutVariadicAfterOptional"
     },
     "jsii-calc.DoubleTrouble": {
       "assembly": "jsii-calc",
@@ -4713,7 +4768,8 @@
           }
         }
       ],
-      "name": "DoubleTrouble"
+      "name": "DoubleTrouble",
+      "symbolId": "lib/compliance:DoubleTrouble"
     },
     "jsii-calc.DummyObj": {
       "assembly": "jsii-calc",
@@ -4744,7 +4800,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/container-types:DummyObj"
     },
     "jsii-calc.DynamicPropertyBearer": {
       "assembly": "jsii-calc",
@@ -4803,7 +4860,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DynamicPropertyBearer"
     },
     "jsii-calc.DynamicPropertyBearerChild": {
       "assembly": "jsii-calc",
@@ -4880,7 +4938,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:DynamicPropertyBearerChild"
     },
     "jsii-calc.Entropy": {
       "abstract": true,
@@ -4964,7 +5023,8 @@
           }
         }
       ],
-      "name": "Entropy"
+      "name": "Entropy",
+      "symbolId": "lib/date:Entropy"
     },
     "jsii-calc.EnumDispenser": {
       "assembly": "jsii-calc",
@@ -5011,7 +5071,8 @@
           "static": true
         }
       ],
-      "name": "EnumDispenser"
+      "name": "EnumDispenser",
+      "symbolId": "lib/compliance:EnumDispenser"
     },
     "jsii-calc.EraseUndefinedHashValues": {
       "assembly": "jsii-calc",
@@ -5107,7 +5168,8 @@
           "static": true
         }
       ],
-      "name": "EraseUndefinedHashValues"
+      "name": "EraseUndefinedHashValues",
+      "symbolId": "lib/compliance:EraseUndefinedHashValues"
     },
     "jsii-calc.EraseUndefinedHashValuesOptions": {
       "assembly": "jsii-calc",
@@ -5155,7 +5217,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:EraseUndefinedHashValuesOptions"
     },
     "jsii-calc.ExperimentalClass": {
       "assembly": "jsii-calc",
@@ -5234,7 +5297,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:ExperimentalClass"
     },
     "jsii-calc.ExperimentalEnum": {
       "assembly": "jsii-calc",
@@ -5261,7 +5325,8 @@
           "name": "OPTION_B"
         }
       ],
-      "name": "ExperimentalEnum"
+      "name": "ExperimentalEnum",
+      "symbolId": "lib/stability:ExperimentalEnum"
     },
     "jsii-calc.ExperimentalStruct": {
       "assembly": "jsii-calc",
@@ -5292,7 +5357,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:ExperimentalStruct"
     },
     "jsii-calc.ExportedBaseClass": {
       "assembly": "jsii-calc",
@@ -5338,7 +5404,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ExportedBaseClass"
     },
     "jsii-calc.ExtendsInternalInterface": {
       "assembly": "jsii-calc",
@@ -5384,7 +5451,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ExtendsInternalInterface"
     },
     "jsii-calc.ExternalClass": {
       "assembly": "jsii-calc",
@@ -5478,7 +5546,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:ExternalClass"
     },
     "jsii-calc.ExternalEnum": {
       "assembly": "jsii-calc",
@@ -5514,7 +5583,8 @@
           "name": "OPTION_B"
         }
       ],
-      "name": "ExternalEnum"
+      "name": "ExternalEnum",
+      "symbolId": "lib/stability:ExternalEnum"
     },
     "jsii-calc.ExternalStruct": {
       "assembly": "jsii-calc",
@@ -5551,7 +5621,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:ExternalStruct"
     },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
@@ -5659,7 +5730,8 @@
             "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:GiveMeStructs"
     },
     "jsii-calc.Greetee": {
       "assembly": "jsii-calc",
@@ -5694,7 +5766,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/documented:Greetee"
     },
     "jsii-calc.GreetingAugmenter": {
       "assembly": "jsii-calc",
@@ -5737,7 +5810,8 @@
           }
         }
       ],
-      "name": "GreetingAugmenter"
+      "name": "GreetingAugmenter",
+      "symbolId": "lib/compliance:GreetingAugmenter"
     },
     "jsii-calc.IAnonymousImplementationProvider": {
       "assembly": "jsii-calc",
@@ -5785,7 +5859,8 @@
           }
         }
       ],
-      "name": "IAnonymousImplementationProvider"
+      "name": "IAnonymousImplementationProvider",
+      "symbolId": "lib/compliance:IAnonymousImplementationProvider"
     },
     "jsii-calc.IAnonymouslyImplementMe": {
       "assembly": "jsii-calc",
@@ -5833,7 +5908,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IAnonymouslyImplementMe"
     },
     "jsii-calc.IAnotherPublicInterface": {
       "assembly": "jsii-calc",
@@ -5862,7 +5938,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IAnotherPublicInterface"
     },
     "jsii-calc.IBell": {
       "assembly": "jsii-calc",
@@ -5888,7 +5965,8 @@
           "name": "ring"
         }
       ],
-      "name": "IBell"
+      "name": "IBell",
+      "symbolId": "lib/compliance:IBell"
     },
     "jsii-calc.IBellRinger": {
       "assembly": "jsii-calc",
@@ -5923,7 +6001,8 @@
           ]
         }
       ],
-      "name": "IBellRinger"
+      "name": "IBellRinger",
+      "symbolId": "lib/compliance:IBellRinger"
     },
     "jsii-calc.IConcreteBellRinger": {
       "assembly": "jsii-calc",
@@ -5958,7 +6037,8 @@
           ]
         }
       ],
-      "name": "IConcreteBellRinger"
+      "name": "IConcreteBellRinger",
+      "symbolId": "lib/compliance:IConcreteBellRinger"
     },
     "jsii-calc.IDeprecatedInterface": {
       "assembly": "jsii-calc",
@@ -6004,7 +6084,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:IDeprecatedInterface"
     },
     "jsii-calc.IExperimentalInterface": {
       "assembly": "jsii-calc",
@@ -6047,7 +6128,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:IExperimentalInterface"
     },
     "jsii-calc.IExtendsPrivateInterface": {
       "assembly": "jsii-calc",
@@ -6096,7 +6178,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IExtendsPrivateInterface"
     },
     "jsii-calc.IExternalInterface": {
       "assembly": "jsii-calc",
@@ -6148,7 +6231,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:IExternalInterface"
     },
     "jsii-calc.IFriendlier": {
       "assembly": "jsii-calc",
@@ -6202,7 +6286,8 @@
           }
         }
       ],
-      "name": "IFriendlier"
+      "name": "IFriendlier",
+      "symbolId": "lib/calculator:IFriendlier"
     },
     "jsii-calc.IFriendlyRandomGenerator": {
       "assembly": "jsii-calc",
@@ -6219,7 +6304,8 @@
         "filename": "lib/calculator.ts",
         "line": 40
       },
-      "name": "IFriendlyRandomGenerator"
+      "name": "IFriendlyRandomGenerator",
+      "symbolId": "lib/calculator:IFriendlyRandomGenerator"
     },
     "jsii-calc.IInterfaceImplementedByAbstractClass": {
       "assembly": "jsii-calc",
@@ -6250,7 +6336,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IInterfaceImplementedByAbstractClass"
     },
     "jsii-calc.IInterfaceThatShouldNotBeADataType": {
       "assembly": "jsii-calc",
@@ -6284,7 +6371,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IInterfaceThatShouldNotBeADataType"
     },
     "jsii-calc.IInterfaceWithInternal": {
       "assembly": "jsii-calc",
@@ -6310,7 +6398,8 @@
           "name": "visible"
         }
       ],
-      "name": "IInterfaceWithInternal"
+      "name": "IInterfaceWithInternal",
+      "symbolId": "lib/compliance:IInterfaceWithInternal"
     },
     "jsii-calc.IInterfaceWithMethods": {
       "assembly": "jsii-calc",
@@ -6353,7 +6442,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IInterfaceWithMethods"
     },
     "jsii-calc.IInterfaceWithOptionalMethodArguments": {
       "assembly": "jsii-calc",
@@ -6395,7 +6485,8 @@
           ]
         }
       ],
-      "name": "IInterfaceWithOptionalMethodArguments"
+      "name": "IInterfaceWithOptionalMethodArguments",
+      "symbolId": "lib/compliance:IInterfaceWithOptionalMethodArguments"
     },
     "jsii-calc.IInterfaceWithProperties": {
       "assembly": "jsii-calc",
@@ -6439,7 +6530,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IInterfaceWithProperties"
     },
     "jsii-calc.IInterfaceWithPropertiesExtension": {
       "assembly": "jsii-calc",
@@ -6471,7 +6563,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IInterfaceWithPropertiesExtension"
     },
     "jsii-calc.IJSII417Derived": {
       "assembly": "jsii-calc",
@@ -6528,7 +6621,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/erasures:IJSII417Derived"
     },
     "jsii-calc.IJSII417PublicBaseOfBase": {
       "assembly": "jsii-calc",
@@ -6571,7 +6665,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/erasures:IJSII417PublicBaseOfBase"
     },
     "jsii-calc.IJsii487External": {
       "assembly": "jsii-calc",
@@ -6584,7 +6679,8 @@
         "filename": "lib/erasures.ts",
         "line": 52
       },
-      "name": "IJsii487External"
+      "name": "IJsii487External",
+      "symbolId": "lib/erasures:IJsii487External"
     },
     "jsii-calc.IJsii487External2": {
       "assembly": "jsii-calc",
@@ -6597,7 +6693,8 @@
         "filename": "lib/erasures.ts",
         "line": 54
       },
-      "name": "IJsii487External2"
+      "name": "IJsii487External2",
+      "symbolId": "lib/erasures:IJsii487External2"
     },
     "jsii-calc.IJsii496": {
       "assembly": "jsii-calc",
@@ -6610,7 +6707,8 @@
         "filename": "lib/erasures.ts",
         "line": 65
       },
-      "name": "IJsii496"
+      "name": "IJsii496",
+      "symbolId": "lib/erasures:IJsii496"
     },
     "jsii-calc.IMutableObjectLiteral": {
       "assembly": "jsii-calc",
@@ -6639,7 +6737,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IMutableObjectLiteral"
     },
     "jsii-calc.INonInternalInterface": {
       "assembly": "jsii-calc",
@@ -6685,7 +6784,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:INonInternalInterface"
     },
     "jsii-calc.IObjectWithProperty": {
       "assembly": "jsii-calc",
@@ -6733,7 +6833,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IObjectWithProperty"
     },
     "jsii-calc.IOptionalMethod": {
       "assembly": "jsii-calc",
@@ -6766,7 +6867,8 @@
           }
         }
       ],
-      "name": "IOptionalMethod"
+      "name": "IOptionalMethod",
+      "symbolId": "lib/compliance:IOptionalMethod"
     },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
@@ -6796,7 +6898,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IPrivatelyImplemented"
     },
     "jsii-calc.IPublicInterface": {
       "assembly": "jsii-calc",
@@ -6827,7 +6930,8 @@
           }
         }
       ],
-      "name": "IPublicInterface"
+      "name": "IPublicInterface",
+      "symbolId": "lib/compliance:IPublicInterface"
     },
     "jsii-calc.IPublicInterface2": {
       "assembly": "jsii-calc",
@@ -6858,7 +6962,8 @@
           }
         }
       ],
-      "name": "IPublicInterface2"
+      "name": "IPublicInterface2",
+      "symbolId": "lib/compliance:IPublicInterface2"
     },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
@@ -6892,7 +6997,8 @@
           }
         }
       ],
-      "name": "IRandomNumberGenerator"
+      "name": "IRandomNumberGenerator",
+      "symbolId": "lib/calculator:IRandomNumberGenerator"
     },
     "jsii-calc.IReturnJsii976": {
       "assembly": "jsii-calc",
@@ -6923,7 +7029,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IReturnJsii976"
     },
     "jsii-calc.IReturnsNumber": {
       "assembly": "jsii-calc",
@@ -6971,7 +7078,8 @@
             "fqn": "@scope/jsii-calc-lib.Number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:IReturnsNumber"
     },
     "jsii-calc.IStableInterface": {
       "assembly": "jsii-calc",
@@ -7014,7 +7122,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:IStableInterface"
     },
     "jsii-calc.IStructReturningDelegate": {
       "assembly": "jsii-calc",
@@ -7046,7 +7155,8 @@
           }
         }
       ],
-      "name": "IStructReturningDelegate"
+      "name": "IStructReturningDelegate",
+      "symbolId": "lib/compliance:IStructReturningDelegate"
     },
     "jsii-calc.IWallClock": {
       "assembly": "jsii-calc",
@@ -7079,7 +7189,8 @@
           }
         }
       ],
-      "name": "IWallClock"
+      "name": "IWallClock",
+      "symbolId": "lib/date:IWallClock"
     },
     "jsii-calc.ImplementInternalInterface": {
       "assembly": "jsii-calc",
@@ -7112,7 +7223,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ImplementInternalInterface"
     },
     "jsii-calc.Implementation": {
       "assembly": "jsii-calc",
@@ -7146,7 +7258,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:Implementation"
     },
     "jsii-calc.ImplementsInterfaceWithInternal": {
       "assembly": "jsii-calc",
@@ -7180,7 +7293,8 @@
           "overrides": "jsii-calc.IInterfaceWithInternal"
         }
       ],
-      "name": "ImplementsInterfaceWithInternal"
+      "name": "ImplementsInterfaceWithInternal",
+      "symbolId": "lib/compliance:ImplementsInterfaceWithInternal"
     },
     "jsii-calc.ImplementsInterfaceWithInternalSubclass": {
       "assembly": "jsii-calc",
@@ -7199,7 +7313,8 @@
         "filename": "lib/compliance.ts",
         "line": 1740
       },
-      "name": "ImplementsInterfaceWithInternalSubclass"
+      "name": "ImplementsInterfaceWithInternalSubclass",
+      "symbolId": "lib/compliance:ImplementsInterfaceWithInternalSubclass"
     },
     "jsii-calc.ImplementsPrivateInterface": {
       "assembly": "jsii-calc",
@@ -7232,7 +7347,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ImplementsPrivateInterface"
     },
     "jsii-calc.ImplictBaseOfBase": {
       "assembly": "jsii-calc",
@@ -7266,7 +7382,8 @@
             "primitive": "date"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ImplictBaseOfBase"
     },
     "jsii-calc.InbetweenClass": {
       "assembly": "jsii-calc",
@@ -7306,7 +7423,8 @@
           }
         }
       ],
-      "name": "InbetweenClass"
+      "name": "InbetweenClass",
+      "symbolId": "lib/compliance:InbetweenClass"
     },
     "jsii-calc.InterfaceCollections": {
       "assembly": "jsii-calc",
@@ -7407,7 +7525,8 @@
           "static": true
         }
       ],
-      "name": "InterfaceCollections"
+      "name": "InterfaceCollections",
+      "symbolId": "lib/compliance:InterfaceCollections"
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
       "assembly": "jsii-calc",
@@ -7442,7 +7561,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:Foo"
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": {
       "assembly": "jsii-calc",
@@ -7474,7 +7594,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:Hello"
     },
     "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": {
       "assembly": "jsii-calc",
@@ -7506,7 +7627,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:Hello"
     },
     "jsii-calc.InterfacesMaker": {
       "assembly": "jsii-calc",
@@ -7551,7 +7673,8 @@
           "static": true
         }
       ],
-      "name": "InterfacesMaker"
+      "name": "InterfacesMaker",
+      "symbolId": "lib/compliance:InterfacesMaker"
     },
     "jsii-calc.Isomorphism": {
       "abstract": true,
@@ -7589,7 +7712,8 @@
           }
         }
       ],
-      "name": "Isomorphism"
+      "name": "Isomorphism",
+      "symbolId": "lib/compliance:Isomorphism"
     },
     "jsii-calc.Issue2638": {
       "assembly": "jsii-calc",
@@ -7615,7 +7739,8 @@
         "filename": "lib/compliance.ts",
         "line": 2939
       },
-      "name": "Issue2638"
+      "name": "Issue2638",
+      "symbolId": "lib/compliance:Issue2638"
     },
     "jsii-calc.Issue2638B": {
       "assembly": "jsii-calc",
@@ -7637,7 +7762,8 @@
         "filename": "lib/compliance.ts",
         "line": 2948
       },
-      "name": "Issue2638B"
+      "name": "Issue2638B",
+      "symbolId": "lib/compliance:Issue2638B"
     },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
@@ -7707,7 +7833,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/erasures:JSII417Derived"
     },
     "jsii-calc.JSII417PublicBaseOfBase": {
       "assembly": "jsii-calc",
@@ -7769,7 +7896,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/erasures:JSII417PublicBaseOfBase"
     },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
@@ -7819,7 +7947,8 @@
           }
         }
       ],
-      "name": "JSObjectLiteralForInterface"
+      "name": "JSObjectLiteralForInterface",
+      "symbolId": "lib/compliance:JSObjectLiteralForInterface"
     },
     "jsii-calc.JSObjectLiteralToNative": {
       "assembly": "jsii-calc",
@@ -7854,7 +7983,8 @@
           }
         }
       ],
-      "name": "JSObjectLiteralToNative"
+      "name": "JSObjectLiteralToNative",
+      "symbolId": "lib/compliance:JSObjectLiteralToNative"
     },
     "jsii-calc.JSObjectLiteralToNativeClass": {
       "assembly": "jsii-calc",
@@ -7900,7 +8030,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:JSObjectLiteralToNativeClass"
     },
     "jsii-calc.JavaReservedWords": {
       "assembly": "jsii-calc",
@@ -8455,7 +8586,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:JavaReservedWords"
     },
     "jsii-calc.Jsii487Derived": {
       "assembly": "jsii-calc",
@@ -8477,7 +8609,8 @@
         "filename": "lib/erasures.ts",
         "line": 56
       },
-      "name": "Jsii487Derived"
+      "name": "Jsii487Derived",
+      "symbolId": "lib/erasures:Jsii487Derived"
     },
     "jsii-calc.Jsii496Derived": {
       "assembly": "jsii-calc",
@@ -8498,7 +8631,8 @@
         "filename": "lib/erasures.ts",
         "line": 67
       },
-      "name": "Jsii496Derived"
+      "name": "Jsii496Derived",
+      "symbolId": "lib/erasures:Jsii496Derived"
     },
     "jsii-calc.JsiiAgent": {
       "assembly": "jsii-calc",
@@ -8536,7 +8670,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:JsiiAgent"
     },
     "jsii-calc.JsonFormatter": {
       "assembly": "jsii-calc",
@@ -8787,7 +8922,8 @@
           "static": true
         }
       ],
-      "name": "JsonFormatter"
+      "name": "JsonFormatter",
+      "symbolId": "lib/compliance:JsonFormatter"
     },
     "jsii-calc.LevelOne": {
       "assembly": "jsii-calc",
@@ -8834,7 +8970,8 @@
             "fqn": "jsii-calc.LevelOneProps"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:LevelOne"
     },
     "jsii-calc.LevelOne.PropBooleanValue": {
       "assembly": "jsii-calc",
@@ -8866,7 +9003,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:PropBooleanValue"
     },
     "jsii-calc.LevelOne.PropProperty": {
       "assembly": "jsii-calc",
@@ -8898,7 +9036,8 @@
             "fqn": "jsii-calc.LevelOne.PropBooleanValue"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:PropProperty"
     },
     "jsii-calc.LevelOneProps": {
       "assembly": "jsii-calc",
@@ -8929,7 +9068,8 @@
             "fqn": "jsii-calc.LevelOne.PropProperty"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:LevelOneProps"
     },
     "jsii-calc.LoadBalancedFargateServiceProps": {
       "assembly": "jsii-calc",
@@ -9039,7 +9179,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:LoadBalancedFargateServiceProps"
     },
     "jsii-calc.MethodNamedProperty": {
       "assembly": "jsii-calc",
@@ -9090,7 +9231,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:MethodNamedProperty"
     },
     "jsii-calc.Multiply": {
       "assembly": "jsii-calc",
@@ -9227,7 +9369,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:Multiply"
     },
     "jsii-calc.Negate": {
       "assembly": "jsii-calc",
@@ -9350,7 +9493,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:Negate"
     },
     "jsii-calc.NestedClassInstance": {
       "assembly": "jsii-calc",
@@ -9381,7 +9525,8 @@
           "static": true
         }
       ],
-      "name": "NestedClassInstance"
+      "name": "NestedClassInstance",
+      "symbolId": "lib/nested-class:NestedClassInstance"
     },
     "jsii-calc.NestedStruct": {
       "assembly": "jsii-calc",
@@ -9413,7 +9558,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:NestedStruct"
     },
     "jsii-calc.NodeStandardLibrary": {
       "assembly": "jsii-calc",
@@ -9503,7 +9649,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:NodeStandardLibrary"
     },
     "jsii-calc.NullShouldBeTreatedAsUndefined": {
       "assembly": "jsii-calc",
@@ -9606,7 +9753,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:NullShouldBeTreatedAsUndefined"
     },
     "jsii-calc.NullShouldBeTreatedAsUndefinedData": {
       "assembly": "jsii-calc",
@@ -9658,7 +9806,8 @@
             "primitive": "any"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:NullShouldBeTreatedAsUndefinedData"
     },
     "jsii-calc.NumberGenerator": {
       "assembly": "jsii-calc",
@@ -9744,7 +9893,8 @@
             "fqn": "jsii-calc.IRandomNumberGenerator"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:NumberGenerator"
     },
     "jsii-calc.ObjectRefsInCollections": {
       "assembly": "jsii-calc",
@@ -9823,7 +9973,8 @@
           }
         }
       ],
-      "name": "ObjectRefsInCollections"
+      "name": "ObjectRefsInCollections",
+      "symbolId": "lib/compliance:ObjectRefsInCollections"
     },
     "jsii-calc.ObjectWithPropertyProvider": {
       "assembly": "jsii-calc",
@@ -9854,7 +10005,8 @@
           "static": true
         }
       ],
-      "name": "ObjectWithPropertyProvider"
+      "name": "ObjectWithPropertyProvider",
+      "symbolId": "lib/compliance:ObjectWithPropertyProvider"
     },
     "jsii-calc.Old": {
       "assembly": "jsii-calc",
@@ -9887,7 +10039,8 @@
           "name": "doAThing"
         }
       ],
-      "name": "Old"
+      "name": "Old",
+      "symbolId": "lib/documented:Old"
     },
     "jsii-calc.OptionalArgumentInvoker": {
       "assembly": "jsii-calc",
@@ -9939,7 +10092,8 @@
           "name": "invokeWithoutOptional"
         }
       ],
-      "name": "OptionalArgumentInvoker"
+      "name": "OptionalArgumentInvoker",
+      "symbolId": "lib/compliance:OptionalArgumentInvoker"
     },
     "jsii-calc.OptionalConstructorArgument": {
       "assembly": "jsii-calc",
@@ -10027,7 +10181,8 @@
             "primitive": "date"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:OptionalConstructorArgument"
     },
     "jsii-calc.OptionalStruct": {
       "assembly": "jsii-calc",
@@ -10059,7 +10214,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:OptionalStruct"
     },
     "jsii-calc.OptionalStructConsumer": {
       "assembly": "jsii-calc",
@@ -10121,7 +10277,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:OptionalStructConsumer"
     },
     "jsii-calc.OverridableProtectedMember": {
       "assembly": "jsii-calc",
@@ -10214,7 +10371,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:OverridableProtectedMember"
     },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
@@ -10257,7 +10415,8 @@
           }
         }
       ],
-      "name": "OverrideReturnsObject"
+      "name": "OverrideReturnsObject",
+      "symbolId": "lib/compliance:OverrideReturnsObject"
     },
     "jsii-calc.ParentStruct982": {
       "assembly": "jsii-calc",
@@ -10289,7 +10448,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ParentStruct982"
     },
     "jsii-calc.PartiallyInitializedThisConsumer": {
       "abstract": true,
@@ -10346,7 +10506,8 @@
           }
         }
       ],
-      "name": "PartiallyInitializedThisConsumer"
+      "name": "PartiallyInitializedThisConsumer",
+      "symbolId": "lib/compliance:PartiallyInitializedThisConsumer"
     },
     "jsii-calc.Polymorphism": {
       "assembly": "jsii-calc",
@@ -10389,7 +10550,8 @@
           }
         }
       ],
-      "name": "Polymorphism"
+      "name": "Polymorphism",
+      "symbolId": "lib/compliance:Polymorphism"
     },
     "jsii-calc.Power": {
       "assembly": "jsii-calc",
@@ -10483,7 +10645,8 @@
             "fqn": "@scope/jsii-calc-lib.NumericValue"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:Power"
     },
     "jsii-calc.PropertyNamedProperty": {
       "assembly": "jsii-calc",
@@ -10532,7 +10695,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:PropertyNamedProperty"
     },
     "jsii-calc.PublicClass": {
       "assembly": "jsii-calc",
@@ -10562,7 +10726,8 @@
           "name": "hello"
         }
       ],
-      "name": "PublicClass"
+      "name": "PublicClass",
+      "symbolId": "lib/compliance:PublicClass"
     },
     "jsii-calc.PythonReservedWords": {
       "assembly": "jsii-calc",
@@ -10902,7 +11067,8 @@
           "name": "yield"
         }
       ],
-      "name": "PythonReservedWords"
+      "name": "PythonReservedWords",
+      "symbolId": "lib/compliance:PythonReservedWords"
     },
     "jsii-calc.PythonSelf.ClassWithSelf": {
       "assembly": "jsii-calc",
@@ -10974,7 +11140,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassWithSelf"
     },
     "jsii-calc.PythonSelf.ClassWithSelfKwarg": {
       "assembly": "jsii-calc",
@@ -11021,7 +11188,8 @@
             "fqn": "jsii-calc.PythonSelf.StructWithSelf"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ClassWithSelfKwarg"
     },
     "jsii-calc.PythonSelf.IInterfaceWithSelf": {
       "assembly": "jsii-calc",
@@ -11061,7 +11229,8 @@
         }
       ],
       "name": "IInterfaceWithSelf",
-      "namespace": "PythonSelf"
+      "namespace": "PythonSelf",
+      "symbolId": "lib/compliance:IInterfaceWithSelf"
     },
     "jsii-calc.PythonSelf.StructWithSelf": {
       "assembly": "jsii-calc",
@@ -11093,7 +11262,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StructWithSelf"
     },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
@@ -11164,7 +11334,8 @@
             "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ReferenceEnumFromScopedPackage"
     },
     "jsii-calc.ReturnsPrivateImplementationOfInterface": {
       "assembly": "jsii-calc",
@@ -11201,7 +11372,8 @@
             "fqn": "jsii-calc.IPrivatelyImplemented"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:ReturnsPrivateImplementationOfInterface"
     },
     "jsii-calc.RootStruct": {
       "assembly": "jsii-calc",
@@ -11251,7 +11423,8 @@
             "fqn": "jsii-calc.NestedStruct"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:RootStruct"
     },
     "jsii-calc.RootStructValidator": {
       "assembly": "jsii-calc",
@@ -11285,7 +11458,8 @@
           "static": true
         }
       ],
-      "name": "RootStructValidator"
+      "name": "RootStructValidator",
+      "symbolId": "lib/compliance:RootStructValidator"
     },
     "jsii-calc.RuntimeTypeChecking": {
       "assembly": "jsii-calc",
@@ -11389,7 +11563,8 @@
           ]
         }
       ],
-      "name": "RuntimeTypeChecking"
+      "name": "RuntimeTypeChecking",
+      "symbolId": "lib/compliance:RuntimeTypeChecking"
     },
     "jsii-calc.SecondLevelStruct": {
       "assembly": "jsii-calc",
@@ -11438,7 +11613,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:SecondLevelStruct"
     },
     "jsii-calc.SingleInstanceTwoTypes": {
       "assembly": "jsii-calc",
@@ -11490,7 +11666,8 @@
           }
         }
       ],
-      "name": "SingleInstanceTwoTypes"
+      "name": "SingleInstanceTwoTypes",
+      "symbolId": "lib/compliance:SingleInstanceTwoTypes"
     },
     "jsii-calc.SingletonInt": {
       "assembly": "jsii-calc",
@@ -11530,7 +11707,8 @@
           }
         }
       ],
-      "name": "SingletonInt"
+      "name": "SingletonInt",
+      "symbolId": "lib/compliance:SingletonInt"
     },
     "jsii-calc.SingletonIntEnum": {
       "assembly": "jsii-calc",
@@ -11553,7 +11731,8 @@
           "name": "SINGLETON_INT"
         }
       ],
-      "name": "SingletonIntEnum"
+      "name": "SingletonIntEnum",
+      "symbolId": "lib/compliance:SingletonIntEnum.SINGLETON_INT"
     },
     "jsii-calc.SingletonString": {
       "assembly": "jsii-calc",
@@ -11593,7 +11772,8 @@
           }
         }
       ],
-      "name": "SingletonString"
+      "name": "SingletonString",
+      "symbolId": "lib/compliance:SingletonString"
     },
     "jsii-calc.SingletonStringEnum": {
       "assembly": "jsii-calc",
@@ -11616,7 +11796,8 @@
           "name": "SINGLETON_STRING"
         }
       ],
-      "name": "SingletonStringEnum"
+      "name": "SingletonStringEnum",
+      "symbolId": "lib/compliance:SingletonStringEnum.SINGLETON_STRING"
     },
     "jsii-calc.SmellyStruct": {
       "assembly": "jsii-calc",
@@ -11662,7 +11843,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:SmellyStruct"
     },
     "jsii-calc.SomeTypeJsii976": {
       "assembly": "jsii-calc",
@@ -11714,7 +11896,8 @@
           "static": true
         }
       ],
-      "name": "SomeTypeJsii976"
+      "name": "SomeTypeJsii976",
+      "symbolId": "lib/compliance:SomeTypeJsii976"
     },
     "jsii-calc.StableClass": {
       "assembly": "jsii-calc",
@@ -11793,7 +11976,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:StableClass"
     },
     "jsii-calc.StableEnum": {
       "assembly": "jsii-calc",
@@ -11820,7 +12004,8 @@
           "name": "OPTION_B"
         }
       ],
-      "name": "StableEnum"
+      "name": "StableEnum",
+      "symbolId": "lib/stability:StableEnum"
     },
     "jsii-calc.StableStruct": {
       "assembly": "jsii-calc",
@@ -11851,7 +12036,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/stability:StableStruct"
     },
     "jsii-calc.StaticContext": {
       "assembly": "jsii-calc",
@@ -11900,7 +12086,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StaticContext"
     },
     "jsii-calc.StaticHelloChild": {
       "assembly": "jsii-calc",
@@ -11946,7 +12133,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StaticHelloChild"
     },
     "jsii-calc.StaticHelloParent": {
       "assembly": "jsii-calc",
@@ -11996,7 +12184,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StaticHelloParent"
     },
     "jsii-calc.Statics": {
       "assembly": "jsii-calc",
@@ -12189,7 +12378,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:Statics"
     },
     "jsii-calc.StringEnum": {
       "assembly": "jsii-calc",
@@ -12222,7 +12412,8 @@
           "name": "C"
         }
       ],
-      "name": "StringEnum"
+      "name": "StringEnum",
+      "symbolId": "lib/compliance:StringEnum"
     },
     "jsii-calc.StripInternal": {
       "assembly": "jsii-calc",
@@ -12255,7 +12446,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StripInternal"
     },
     "jsii-calc.StructA": {
       "assembly": "jsii-calc",
@@ -12319,7 +12511,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StructA"
     },
     "jsii-calc.StructB": {
       "assembly": "jsii-calc",
@@ -12383,7 +12576,8 @@
             "fqn": "jsii-calc.StructA"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StructB"
     },
     "jsii-calc.StructParameterType": {
       "assembly": "jsii-calc",
@@ -12432,7 +12626,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StructParameterType"
     },
     "jsii-calc.StructPassing": {
       "assembly": "jsii-calc",
@@ -12515,7 +12710,8 @@
           "static": true
         }
       ],
-      "name": "StructPassing"
+      "name": "StructPassing",
+      "symbolId": "lib/compliance:StructPassing"
     },
     "jsii-calc.StructUnionConsumer": {
       "assembly": "jsii-calc",
@@ -12596,7 +12792,8 @@
           "static": true
         }
       ],
-      "name": "StructUnionConsumer"
+      "name": "StructUnionConsumer",
+      "symbolId": "lib/compliance:StructUnionConsumer"
     },
     "jsii-calc.StructWithEnum": {
       "assembly": "jsii-calc",
@@ -12646,7 +12843,8 @@
             "fqn": "jsii-calc.AllTypesEnum"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StructWithEnum"
     },
     "jsii-calc.StructWithJavaReservedWords": {
       "assembly": "jsii-calc",
@@ -12725,7 +12923,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:StructWithJavaReservedWords"
     },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
@@ -12787,7 +12986,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:Sum"
     },
     "jsii-calc.SupportsNiceJavaBuilder": {
       "assembly": "jsii-calc",
@@ -12889,7 +13089,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:SupportsNiceJavaBuilder"
     },
     "jsii-calc.SupportsNiceJavaBuilderProps": {
       "assembly": "jsii-calc",
@@ -12939,7 +13140,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:SupportsNiceJavaBuilderProps"
     },
     "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps": {
       "assembly": "jsii-calc",
@@ -13028,7 +13230,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:SupportsNiceJavaBuilderWithRequiredProps"
     },
     "jsii-calc.SyncVirtualMethods": {
       "assembly": "jsii-calc",
@@ -13297,7 +13500,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:SyncVirtualMethods"
     },
     "jsii-calc.TestStructWithEnum": {
       "assembly": "jsii-calc",
@@ -13397,7 +13601,8 @@
             "fqn": "jsii-calc.StructWithEnum"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:TestStructWithEnum"
     },
     "jsii-calc.Thrower": {
       "assembly": "jsii-calc",
@@ -13427,7 +13632,8 @@
           "name": "throwError"
         }
       ],
-      "name": "Thrower"
+      "name": "Thrower",
+      "symbolId": "lib/compliance:Thrower"
     },
     "jsii-calc.TopLevelStruct": {
       "assembly": "jsii-calc",
@@ -13501,7 +13707,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:TopLevelStruct"
     },
     "jsii-calc.TwoMethodsWithSimilarCapitalization": {
       "assembly": "jsii-calc",
@@ -13601,7 +13808,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:TwoMethodsWithSimilarCapitalization"
     },
     "jsii-calc.UmaskCheck": {
       "assembly": "jsii-calc",
@@ -13635,7 +13843,8 @@
           "static": true
         }
       ],
-      "name": "UmaskCheck"
+      "name": "UmaskCheck",
+      "symbolId": "lib/compliance:UmaskCheck"
     },
     "jsii-calc.UnaryOperation": {
       "abstract": true,
@@ -13684,7 +13893,8 @@
             "fqn": "@scope/jsii-calc-lib.NumericValue"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:UnaryOperation"
     },
     "jsii-calc.UnionProperties": {
       "assembly": "jsii-calc",
@@ -13752,7 +13962,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:UnionProperties"
     },
     "jsii-calc.UpcasingReflectable": {
       "assembly": "jsii-calc",
@@ -13829,7 +14040,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodules:UpcasingReflectable"
     },
     "jsii-calc.UseBundledDependency": {
       "assembly": "jsii-calc",
@@ -13864,7 +14076,8 @@
           }
         }
       ],
-      "name": "UseBundledDependency"
+      "name": "UseBundledDependency",
+      "symbolId": "lib/compliance:UseBundledDependency"
     },
     "jsii-calc.UseCalcBase": {
       "assembly": "jsii-calc",
@@ -13900,7 +14113,8 @@
           }
         }
       ],
-      "name": "UseCalcBase"
+      "name": "UseCalcBase",
+      "symbolId": "lib/compliance:UseCalcBase"
     },
     "jsii-calc.UsesInterfaceWithProperties": {
       "assembly": "jsii-calc",
@@ -14009,7 +14223,8 @@
             "fqn": "jsii-calc.IInterfaceWithProperties"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:UsesInterfaceWithProperties"
     },
     "jsii-calc.VariadicInvoker": {
       "assembly": "jsii-calc",
@@ -14071,7 +14286,8 @@
           "variadic": true
         }
       ],
-      "name": "VariadicInvoker"
+      "name": "VariadicInvoker",
+      "symbolId": "lib/compliance:VariadicInvoker"
     },
     "jsii-calc.VariadicMethod": {
       "assembly": "jsii-calc",
@@ -14150,7 +14366,8 @@
           "variadic": true
         }
       ],
-      "name": "VariadicMethod"
+      "name": "VariadicMethod",
+      "symbolId": "lib/compliance:VariadicMethod"
     },
     "jsii-calc.VirtualMethodPlayground": {
       "assembly": "jsii-calc",
@@ -14288,7 +14505,8 @@
           }
         }
       ],
-      "name": "VirtualMethodPlayground"
+      "name": "VirtualMethodPlayground",
+      "symbolId": "lib/compliance:VirtualMethodPlayground"
     },
     "jsii-calc.VoidCallback": {
       "abstract": true,
@@ -14349,7 +14567,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:VoidCallback"
     },
     "jsii-calc.WithPrivatePropertyInConstructor": {
       "assembly": "jsii-calc",
@@ -14397,7 +14616,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/compliance:WithPrivatePropertyInConstructor"
     },
     "jsii-calc.cdk16625.Cdk16625": {
       "abstract": true,
@@ -14459,7 +14679,8 @@
         }
       ],
       "name": "Cdk16625",
-      "namespace": "cdk16625"
+      "namespace": "cdk16625",
+      "symbolId": "lib/cdk16625/index:Cdk16625"
     },
     "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType": {
       "assembly": "jsii-calc",
@@ -14516,7 +14737,8 @@
         }
       ],
       "name": "UnimportedSubmoduleType",
-      "namespace": "cdk16625.donotimport"
+      "namespace": "cdk16625.donotimport",
+      "symbolId": "lib/cdk16625/donotimport/index:UnimportedSubmoduleType"
     },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
@@ -14640,7 +14862,8 @@
             "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/calculator:CompositeOperation"
     },
     "jsii-calc.composition.CompositeOperation.CompositionStringStyle": {
       "assembly": "jsii-calc",
@@ -14671,7 +14894,8 @@
         }
       ],
       "name": "CompositionStringStyle",
-      "namespace": "composition.CompositeOperation"
+      "namespace": "composition.CompositeOperation",
+      "symbolId": "lib/calculator:CompositionStringStyle"
     },
     "jsii-calc.module2530.MyClass": {
       "assembly": "jsii-calc",
@@ -14743,7 +14967,8 @@
         }
       ],
       "name": "MyClass",
-      "namespace": "module2530"
+      "namespace": "module2530",
+      "symbolId": "lib/module2530/index:MyClass"
     },
     "jsii-calc.module2617.OnlyStatics": {
       "assembly": "jsii-calc",
@@ -14781,7 +15006,8 @@
         }
       ],
       "name": "OnlyStatics",
-      "namespace": "module2617"
+      "namespace": "module2617",
+      "symbolId": "lib/module2617/index:OnlyStatics"
     },
     "jsii-calc.module2647.ExtendAndImplement": {
       "assembly": "jsii-calc",
@@ -14852,7 +15078,8 @@
         }
       ],
       "name": "ExtendAndImplement",
-      "namespace": "module2647"
+      "namespace": "module2647",
+      "symbolId": "lib/module2647/index:ExtendAndImplement"
     },
     "jsii-calc.module2689.methods.MyClass": {
       "assembly": "jsii-calc",
@@ -14919,7 +15146,8 @@
         }
       ],
       "name": "MyClass",
-      "namespace": "module2689.methods"
+      "namespace": "module2689.methods",
+      "symbolId": "lib/module2689/methods/index:MyClass"
     },
     "jsii-calc.module2689.props.MyClass": {
       "assembly": "jsii-calc",
@@ -14978,7 +15206,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2689/props/index:MyClass"
     },
     "jsii-calc.module2689.retval.MyClass": {
       "assembly": "jsii-calc",
@@ -15039,7 +15268,8 @@
         }
       ],
       "name": "MyClass",
-      "namespace": "module2689.retval"
+      "namespace": "module2689.retval",
+      "symbolId": "lib/module2689/retval/index:MyClass"
     },
     "jsii-calc.module2689.structs.MyStruct": {
       "assembly": "jsii-calc",
@@ -15096,7 +15326,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2689/structs/index:MyStruct"
     },
     "jsii-calc.module2692.submodule1.Bar": {
       "assembly": "jsii-calc",
@@ -15128,7 +15359,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2692/submodule1/index:Bar"
     },
     "jsii-calc.module2692.submodule2.Bar": {
       "assembly": "jsii-calc",
@@ -15160,7 +15392,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2692/submodule2/index:Bar"
     },
     "jsii-calc.module2692.submodule2.Foo": {
       "assembly": "jsii-calc",
@@ -15196,7 +15429,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2692/submodule2/index:Foo"
     },
     "jsii-calc.module2700.Base": {
       "assembly": "jsii-calc",
@@ -15253,7 +15487,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2700/index:Base"
     },
     "jsii-calc.module2700.Derived": {
       "assembly": "jsii-calc",
@@ -15293,7 +15528,8 @@
         }
       ],
       "name": "Derived",
-      "namespace": "module2700"
+      "namespace": "module2700",
+      "symbolId": "lib/module2700/index:Derived"
     },
     "jsii-calc.module2700.IFoo": {
       "assembly": "jsii-calc",
@@ -15342,7 +15578,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2700/index:IFoo"
     },
     "jsii-calc.module2702.Baz": {
       "assembly": "jsii-calc",
@@ -15378,7 +15615,8 @@
         }
       ],
       "name": "Baz",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:Baz"
     },
     "jsii-calc.module2702.Class1": {
       "assembly": "jsii-calc",
@@ -15406,7 +15644,8 @@
         }
       ],
       "name": "Class1",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:Class1"
     },
     "jsii-calc.module2702.Class2": {
       "assembly": "jsii-calc",
@@ -15438,7 +15677,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2702/index:Class2"
     },
     "jsii-calc.module2702.Class3": {
       "assembly": "jsii-calc",
@@ -15494,7 +15734,8 @@
         }
       ],
       "name": "Class3",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:Class3"
     },
     "jsii-calc.module2702.Construct": {
       "assembly": "jsii-calc",
@@ -15529,7 +15770,8 @@
         }
       ],
       "name": "Construct",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:Construct"
     },
     "jsii-calc.module2702.IBaz": {
       "assembly": "jsii-calc",
@@ -15559,7 +15801,8 @@
         }
       ],
       "name": "IBaz",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:IBaz"
     },
     "jsii-calc.module2702.IConstruct": {
       "assembly": "jsii-calc",
@@ -15586,7 +15829,8 @@
         }
       ],
       "name": "IConstruct",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:IConstruct"
     },
     "jsii-calc.module2702.IFoo": {
       "assembly": "jsii-calc",
@@ -15620,7 +15864,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/module2702/index:IFoo"
     },
     "jsii-calc.module2702.IResource": {
       "assembly": "jsii-calc",
@@ -15650,7 +15895,8 @@
         }
       ],
       "name": "IResource",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:IResource"
     },
     "jsii-calc.module2702.IVpc": {
       "assembly": "jsii-calc",
@@ -15680,7 +15926,8 @@
         }
       ],
       "name": "IVpc",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:IVpc"
     },
     "jsii-calc.module2702.Resource": {
       "abstract": true,
@@ -15717,7 +15964,8 @@
         }
       ],
       "name": "Resource",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:Resource"
     },
     "jsii-calc.module2702.Vpc": {
       "assembly": "jsii-calc",
@@ -15753,7 +16001,8 @@
         }
       ],
       "name": "Vpc",
-      "namespace": "module2702"
+      "namespace": "module2702",
+      "symbolId": "lib/module2702/index:Vpc"
     },
     "jsii-calc.nodirect.sub1.TypeFromSub1": {
       "assembly": "jsii-calc",
@@ -15789,7 +16038,8 @@
         }
       ],
       "name": "TypeFromSub1",
-      "namespace": "nodirect.sub1"
+      "namespace": "nodirect.sub1",
+      "symbolId": "lib/no-direct-types/sub1/index:TypeFromSub1"
     },
     "jsii-calc.nodirect.sub2.TypeFromSub2": {
       "assembly": "jsii-calc",
@@ -15825,7 +16075,8 @@
         }
       ],
       "name": "TypeFromSub2",
-      "namespace": "nodirect.sub2"
+      "namespace": "nodirect.sub2",
+      "symbolId": "lib/no-direct-types/sub2/index:TypeFromSub2"
     },
     "jsii-calc.onlystatic.OnlyStaticMethods": {
       "assembly": "jsii-calc",
@@ -15858,7 +16109,8 @@
         }
       ],
       "name": "OnlyStaticMethods",
-      "namespace": "onlystatic"
+      "namespace": "onlystatic",
+      "symbolId": "lib/only-static/index:OnlyStaticMethods"
     },
     "jsii-calc.submodule.Default": {
       "assembly": "jsii-calc",
@@ -15892,7 +16144,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/issue2637:Default"
     },
     "jsii-calc.submodule.MyClass": {
       "assembly": "jsii-calc",
@@ -16024,7 +16277,8 @@
             "fqn": "jsii-calc.AllTypes"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/my-class:MyClass"
     },
     "jsii-calc.submodule.back_references.MyClassReference": {
       "assembly": "jsii-calc",
@@ -16056,7 +16310,8 @@
             "fqn": "jsii-calc.submodule.MyClass"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/refers-to-parent/index:MyClassReference"
     },
     "jsii-calc.submodule.child.Awesomeness": {
       "assembly": "jsii-calc",
@@ -16079,7 +16334,8 @@
         }
       ],
       "name": "Awesomeness",
-      "namespace": "submodule.child"
+      "namespace": "submodule.child",
+      "symbolId": "lib/submodule/child/index:Awesomeness.AWESOME"
     },
     "jsii-calc.submodule.child.Goodness": {
       "assembly": "jsii-calc",
@@ -16116,7 +16372,8 @@
         }
       ],
       "name": "Goodness",
-      "namespace": "submodule.child"
+      "namespace": "submodule.child",
+      "symbolId": "lib/submodule/child/index:Goodness"
     },
     "jsii-calc.submodule.child.InnerClass": {
       "assembly": "jsii-calc",
@@ -16153,7 +16410,8 @@
             "fqn": "jsii-calc.submodule.child.SomeStruct"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/child/index:InnerClass"
     },
     "jsii-calc.submodule.child.KwargsProps": {
       "assembly": "jsii-calc",
@@ -16189,7 +16447,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/child/index:KwargsProps"
     },
     "jsii-calc.submodule.child.OuterClass": {
       "assembly": "jsii-calc",
@@ -16230,7 +16489,8 @@
             "fqn": "jsii-calc.submodule.child.InnerClass"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/child/index:OuterClass"
     },
     "jsii-calc.submodule.child.SomeEnum": {
       "assembly": "jsii-calc",
@@ -16252,7 +16512,8 @@
         }
       ],
       "name": "SomeEnum",
-      "namespace": "submodule.child"
+      "namespace": "submodule.child",
+      "symbolId": "lib/submodule/child/index:SomeEnum.SOME"
     },
     "jsii-calc.submodule.child.SomeStruct": {
       "assembly": "jsii-calc",
@@ -16284,7 +16545,8 @@
             "fqn": "jsii-calc.submodule.child.SomeEnum"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/child/index:SomeStruct"
     },
     "jsii-calc.submodule.child.Structure": {
       "assembly": "jsii-calc",
@@ -16316,7 +16578,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/child/index:Structure"
     },
     "jsii-calc.submodule.isolated.Kwargs": {
       "assembly": "jsii-calc",
@@ -16358,7 +16621,8 @@
         }
       ],
       "name": "Kwargs",
-      "namespace": "submodule.isolated"
+      "namespace": "submodule.isolated",
+      "symbolId": "lib/submodule/isolated:Kwargs"
     },
     "jsii-calc.submodule.nested_submodule.Namespaced": {
       "abstract": true,
@@ -16408,7 +16672,8 @@
             "fqn": "jsii-calc.submodule.child.Goodness"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/nested_submodule:Namespaced"
     },
     "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced": {
       "assembly": "jsii-calc",
@@ -16439,7 +16704,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/nested_submodule:INamespaced"
     },
     "jsii-calc.submodule.param.SpecialParameter": {
       "assembly": "jsii-calc",
@@ -16471,7 +16737,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/param/index:SpecialParameter"
     },
     "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter": {
       "assembly": "jsii-calc",
@@ -16507,9 +16774,10 @@
         }
       ],
       "name": "ReturnsSpecialParameter",
-      "namespace": "submodule.returnsparam"
+      "namespace": "submodule.returnsparam",
+      "symbolId": "lib/submodule/returns-param/index:ReturnsSpecialParameter"
     }
   },
   "version": "3.20.120",
-  "fingerprint": "0bVQ5lpvs+fqGDH/l6FJTsw0FQb995F5deFzu57kEJY="
+  "fingerprint": "2ST30e+9gb6XYfIMHyGjwObar3fI+/BV0Ex1hIad+2s="
 }
