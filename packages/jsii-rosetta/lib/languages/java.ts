@@ -453,14 +453,10 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
     return renderer.currentContext.inNewExprWithObjectLiteralAsLastArg
       ? this.renderObjectLiteralAsBuilder(node, renderer)
-      : this.keyValueObjectLiteralExpression(node, undefined, renderer);
+      : this.keyValueObjectLiteralExpression(node, renderer);
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    _valueType: ts.Type | undefined,
-    renderer: JavaRenderer,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
     return new OTree(['Map.of('], renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties), {
       suffix: ')',
       separator: ', ',

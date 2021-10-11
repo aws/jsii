@@ -409,7 +409,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       });
     }
     // Type information missing and from context we prefer a map
-    return this.keyValueObjectLiteralExpression(node, undefined, renderer);
+    return this.keyValueObjectLiteralExpression(node, renderer);
   }
 
   public knownStructObjectLiteralExpression(
@@ -424,15 +424,9 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     });
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    valueType: ts.Type | undefined,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: CSharpRenderer): OTree {
     // Try to infer an element type from the elements
-    if (valueType === undefined) {
-      valueType = inferMapElementType(node.properties, renderer);
-    }
+    const valueType = inferMapElementType(node.properties, renderer.typeChecker);
 
     return new OTree(
       ['new Dictionary<string, ', this.renderType(node, valueType, false, 'object', renderer), '> { '],
