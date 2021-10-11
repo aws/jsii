@@ -1223,6 +1223,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "dsilbergleithcu-godaddy",
+      "name": "Damian Silbergleith",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78872820?v=4",
+      "profile": "https://github.com/dsilbergleithcu-godaddy",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
