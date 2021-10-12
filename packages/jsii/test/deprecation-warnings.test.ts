@@ -247,8 +247,8 @@ function testpkg_Baz(p) {
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
     const calcRoot = resolveModuleDir('jsii-calc');
 
-    await compile(calcLibRoot);
-    await compile(calcRoot);
+    await compile(calcLibRoot, true);
+    await compile(calcRoot, true);
     const warningsFile = loadWarningsFile(calcRoot);
 
     // This type is in jsii-calc-lib, which was compiled above, with warnings
@@ -256,7 +256,11 @@ function testpkg_Baz(p) {
 
     // This type is in jsii-calc-lib, which was not compiled
     expect(warningsFile).not.toMatch('_scope_jsii_calc_base_BaseProps');
-  }, 15000);
+
+    // Recompiling without deprecation warning to leave the packages in a clean state
+    await compile(calcLibRoot, false);
+    await compile(calcRoot, false);
+  }, 26000);
 });
 
 describe('Call injections', () => {
@@ -404,12 +408,12 @@ function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
 
-async function compile(projectRoot: string) {
+async function compile(projectRoot: string, addDeprecationWarnings: boolean) {
   const { projectInfo } = await loadProjectInfo(projectRoot);
 
   const compiler = new Compiler({
     projectInfo,
-    addDeprecationWarnings: true,
+    addDeprecationWarnings,
   });
 
   await compiler.emit();
