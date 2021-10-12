@@ -15,20 +15,21 @@ describe('Function generation', () => {
     });
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `function print(value, name, deprecationMessage) {
-    if (value != null) {
-        const deprecated = process.env.JSII_DEPRECATED;
-        const deprecationMode = ["warn", "fail", "quiet"].includes(deprecated) ? deprecated : "warn";
-        const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
-        switch (deprecationMode) {
-            case "fail":
-                throw new Error(message);
-            case "warn":
-                console.warn("[WARNING]", message);
-                break;
-        }
+      `function print(name, deprecationMessage) {
+    const deprecated = process.env.JSII_DEPRECATED;
+    const deprecationMode = ["warn", "fail", "quiet"].includes(deprecated) ? deprecated : "warn";
+    const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
+    switch (deprecationMode) {
+        case "fail":
+            throw new AssertionError(message);
+        case "warn":
+            console.warn("[WARNING]", message);
+            break;
     }
-}`,
+}
+const visitedObjects = new Set();
+module.exports = { print };
+`,
     );
   });
 
@@ -45,19 +46,22 @@ describe('Function generation', () => {
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
       `function testpkg_Foo(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    visitedObjects.delete(p);
 }
 function testpkg_Bar(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    visitedObjects.delete(p);
 }
 function testpkg_Baz(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    visitedObjects.delete(p);
 }`,
     );
   });
@@ -93,13 +97,14 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Baz(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-        if (!visitedObjects.has(p.bar))
-            testpkg_Bar(p.bar);
-        if (!visitedObjects.has(p.foo))
-            testpkg_Foo(p.foo);
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    if (!visitedObjects.has(p.bar))
+        testpkg_Bar(p.bar);
+    if (!visitedObjects.has(p.foo))
+        testpkg_Foo(p.foo);
+    visitedObjects.delete(p);
 }`);
   });
 
@@ -114,11 +119,12 @@ function testpkg_Baz(p) {
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
       `function testpkg_Bar(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-        if (!visitedObjects.has(p.bar))
-            testpkg_Bar(p.bar);
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    if (!visitedObjects.has(p.bar))
+        testpkg_Bar(p.bar);
+    visitedObjects.delete(p);
 }`,
     );
   });
@@ -150,10 +156,11 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-        print(p, "testpkg.Foo", "Use something else");
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    print("testpkg.Foo", "Use something else");
+    visitedObjects.delete(p);
 }`);
   });
 
@@ -173,11 +180,13 @@ function testpkg_Baz(p) {
 
     expect(jsFile(result, '.warnings.jsii'))
       .toMatch(`function testpkg_State(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-        const ns = require("./index.js");
-        print(p === ns.State.OFF ? p : undefined, "testpkg.State#OFF", "Use something else");
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    const ns = require("./index.js");
+    if (p === ns.State.OFF)
+        print("testpkg.State#OFF", "Use something else");
+    visitedObjects.delete(p);
 }
 `);
   });
@@ -194,10 +203,11 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Baz(p) {
-    if (p != null) {
-        visitedObjects.add(p);
-        testpkg_Bar(p);
-    }
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    testpkg_Bar(p);
+    visitedObjects.delete(p);
 }
 `);
   });
@@ -274,7 +284,7 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatch(
-      'bar() { jsiiDeprecationWarnings.print("", "testpkg.Foo#bar", "Use something else"); }',
+      'bar() { jsiiDeprecationWarnings.print("testpkg.Foo#bar", "Use something else"); }',
     );
   });
 
@@ -309,7 +319,7 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatch(
-      'get x() { jsiiDeprecationWarnings.print("", "testpkg.Foo#x", "Use something else"); return this._x; }',
+      'get x() { jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else"); return this._x; }',
     );
   });
 
@@ -329,7 +339,7 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatch(
-      'set x(_x) { jsiiDeprecationWarnings.print("", "testpkg.Foo#x", "Use something else"); this._x = _x; }',
+      'set x(_x) { jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else"); this._x = _x; }',
     );
   });
 
@@ -346,7 +356,7 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatch(
-      'constructor() { jsiiDeprecationWarnings.print("", "testpkg.Foo", ""); }',
+      'constructor() { jsiiDeprecationWarnings.print("testpkg.Foo", ""); }',
     );
   });
 });

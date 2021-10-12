@@ -47,11 +47,7 @@ export class DeprecationWarningsInjector {
       ) {
         // The type is deprecated
         statements.push(
-          createWarningFunctionCall(
-            ts.createIdentifier(PARAMETER_NAME),
-            type.fqn,
-            type.docs?.deprecated,
-          ),
+          createWarningFunctionCall(type.fqn, type.docs?.deprecated),
         );
       }
 
@@ -63,15 +59,15 @@ export class DeprecationWarningsInjector {
         for (const member of Object.values(type.members ?? [])) {
           if (spec.isDeprecated(member)) {
             // The enum member is deprecated
-            const valueIdentifier = ts.createIdentifier(
-              `${PARAMETER_NAME} === ${LOCAL_ENUM_NAMESPACE}.${type.name}.${member.name} ? ${PARAMETER_NAME} : undefined`,
+            const condition = ts.createIdentifier(
+              `${PARAMETER_NAME} === ${LOCAL_ENUM_NAMESPACE}.${type.name}.${member.name}`,
             );
 
             statements.push(
               createWarningFunctionCall(
-                valueIdentifier,
                 `${type.fqn}#${member.name}`,
                 member.docs?.deprecated,
+                condition,
               ),
             );
           }
@@ -82,9 +78,9 @@ export class DeprecationWarningsInjector {
             // The property is deprecated
             statements.push(
               createWarningFunctionCall(
-                ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`),
                 `${type.fqn}#${prop.name}`,
                 prop.docs?.deprecated,
+                ts.createIdentifier(`${prop.name} in ${PARAMETER_NAME}`),
               ),
             );
           }
@@ -164,6 +160,16 @@ export class DeprecationWarningsInjector {
           }
         }
       }
+      statements.push(
+        ts.createExpressionStatement(
+          ts.createCall(
+            ts.createIdentifier(`${VISITED_OBJECTS_SET_NAME}.delete`),
+            [],
+            [ts.createIdentifier(PARAMETER_NAME)],
+          ),
+        ),
+      );
+
       const parameter = ts.createParameter(
         undefined,
         undefined,
@@ -224,32 +230,34 @@ function fnName(fqn: string): string {
 
 function createFunctionBlock(statements: Statement[]): ts.Block {
   if (statements.length > 0) {
-    const calls = ts.createBlock(statements, true);
-    const guard = ts.createIf(
-      ts.createIdentifier(`${PARAMETER_NAME} != null`),
-      calls,
+    const validation = ts.createIf(
+      ts.createIdentifier(`${PARAMETER_NAME} == null`),
+      ts.createReturn(),
     );
-    return ts.createBlock([guard], true);
+    return ts.createBlock([validation, ...statements], true);
   }
   return ts.createBlock([], true);
 }
 
 function createWarningFunctionCall(
-  value: ts.Expression,
   fqn: string,
   message = '',
+  condition?: ts.Identifier,
   includeNamespace = false,
-) {
+): Statement {
   const functionName = includeNamespace
     ? `${NAMESPACE}.${WARNING_FUNCTION_NAME}`
     : WARNING_FUNCTION_NAME;
-  return ts.createExpressionStatement(
+
+  const mainStatement = ts.createExpressionStatement(
     ts.createCall(
       ts.createIdentifier(functionName),
       [],
-      [value, ts.createLiteral(fqn), ts.createLiteral(message)],
+      [ts.createLiteral(fqn), ts.createLiteral(message)],
     ),
   );
+
+  return condition ? ts.createIf(condition, mainStatement) : mainStatement;
 }
 
 function generateWarningsFile(
@@ -261,18 +269,16 @@ function generateWarningsFile(
     .filter(Boolean);
   const exports = [WARNING_FUNCTION_NAME, ...names].join(',');
 
-  const functionText = `function ${WARNING_FUNCTION_NAME}(value, name, deprecationMessage) {
-  if (value != null) {
-    const deprecated = process.env.JSII_DEPRECATED;
-    const deprecationMode = ['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn';
-    const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
-    switch (deprecationMode) {
-      case "fail":
-        throw new AssertionError(message);
-      case "warn":
-        console.warn("[WARNING]", message);
-        break;
-    }
+  const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage) {
+  const deprecated = process.env.JSII_DEPRECATED;
+  const deprecationMode = ['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn';
+  const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
+  switch (deprecationMode) {
+    case "fail":
+      throw new AssertionError(message);
+    case "warn":
+      console.warn("[WARNING]", message);
+      break;
   }
 }
 
@@ -469,17 +475,12 @@ class Transformer {
 function createWarningStatementForElement(
   element: spec.Callable | spec.Property,
   classType: spec.ClassType,
-): ts.ExpressionStatement[] {
+): ts.Statement[] {
   if (spec.isDeprecated(element)) {
     const elementName = (element as spec.Method | spec.Property).name;
     const fqn = elementName ? `${classType.fqn}#${elementName}` : classType.fqn;
     return [
-      createWarningFunctionCall(
-        ts.createLiteral(''),
-        fqn,
-        element.docs?.deprecated,
-        true,
-      ),
+      createWarningFunctionCall(fqn, element.docs?.deprecated, undefined, true),
     ];
   }
   return [];
