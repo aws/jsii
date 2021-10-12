@@ -63,17 +63,23 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public binaryExpression(node: ts.BinaryExpression, context: AstRenderer<C>): OTree {
-    return new OTree([
-      context.convert(node.left),
-      ' ',
-      context.textOf(node.operatorToken),
-      ' ',
-      context.convert(node.right),
-    ]);
+    const operatorToken = this.translateBinaryOperator(context.textOf(node.operatorToken));
+    return new OTree([context.convert(node.left), ' ', operatorToken, ' ', context.convert(node.right)]);
   }
 
   public prefixUnaryExpression(node: ts.PrefixUnaryExpression, context: AstRenderer<C>): OTree {
-    return new OTree([UNARY_OPS[node.operator], context.convert(node.operand)]);
+    return new OTree([this.translateUnaryOperator(node.operator), context.convert(node.operand)]);
+  }
+
+  public translateUnaryOperator(operator: ts.PrefixUnaryOperator) {
+    return UNARY_OPS[operator];
+  }
+
+  public translateBinaryOperator(operator: string) {
+    if (operator === '===') {
+      return '==';
+    }
+    return operator;
   }
 
   public ifStatement(node: ts.IfStatement, context: AstRenderer<C>): OTree {
@@ -311,5 +317,5 @@ const UNARY_OPS: { [op in ts.PrefixUnaryOperator]: string } = {
   [ts.SyntaxKind.PlusToken]: '+',
   [ts.SyntaxKind.MinusToken]: '-',
   [ts.SyntaxKind.TildeToken]: '~',
-  [ts.SyntaxKind.ExclamationToken]: '~',
+  [ts.SyntaxKind.ExclamationToken]: '!',
 };

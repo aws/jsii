@@ -356,6 +356,13 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return this.renderObjectLiteralExpression('{', '}', false, node, context);
   }
 
+  public translateUnaryOperator(operator: ts.PrefixUnaryOperator) {
+    if (operator === ts.SyntaxKind.ExclamationToken) {
+      return 'not ';
+    }
+    return super.translateUnaryOperator(operator);
+  }
+
   public renderObjectLiteralExpression(
     prefix: string,
     suffix: string,

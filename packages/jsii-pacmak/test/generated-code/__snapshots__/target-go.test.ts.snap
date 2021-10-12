@@ -1940,6 +1940,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 jsiicalc
+       ┣━ 📁 cdk16625
+       ┃  ┣━ 📄 cdk16625.go
+       ┃  ┣━ 📄 cdk16625.init.go
+       ┃  ┗━ 📁 donotimport
+       ┃     ┣━ 📄 donotimport.go
+       ┃     ┣━ 📄 donotimport.init.go
+       ┃     ┗━ 📁 internal
+       ┃        ┗━ 📄 types.go
        ┣━ 📁 composition
        ┃  ┣━ 📄 composition.go
        ┃  ┣━ 📄 composition.init.go
@@ -2289,6 +2297,193 @@ calculator.add(10);
 const foo = 'bar';
 \`\`\`
 
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/cdk16625.go 1`] = `
+package cdk16625
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+)
+
+type Cdk16625 interface {
+	Test()
+	Unwrap(gen jsiicalc.IRandomNumberGenerator) *float64
+}
+
+// The jsii proxy struct for Cdk16625
+type jsiiProxy_Cdk16625 struct {
+	_ byte // padding
+}
+
+func NewCdk16625_Override(c Cdk16625) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.cdk16625.Cdk16625",
+		nil, // no parameters
+		c,
+	)
+}
+
+// Run this function to verify that everything is working as it should.
+func (c *jsiiProxy_Cdk16625) Test() {
+	_jsii_.InvokeVoid(
+		c,
+		"test",
+		nil, // no parameters
+	)
+}
+
+// Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
+func (c *jsiiProxy_Cdk16625) Unwrap(gen jsiicalc.IRandomNumberGenerator) *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		c,
+		"unwrap",
+		[]interface{}{gen},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/cdk16625.init.go 1`] = `
+package cdk16625
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.cdk16625.Cdk16625",
+		reflect.TypeOf((*Cdk16625)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "test", GoMethod: "Test"},
+			_jsii_.MemberMethod{JsiiMethod: "unwrap", GoMethod: "Unwrap"},
+		},
+		func() interface{} {
+			return &jsiiProxy_Cdk16625{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/donotimport/donotimport.go 1`] = `
+package donotimport
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/cdk16625/donotimport/internal"
+)
+
+// This type demonstrates the ability to receive a callback argument that has a type from a submodule not explicitly imported in the user's code.
+//
+// This checks
+// that all types available in the assembly can be resolved by the runtime
+// library, regardless of whether they were explicitly referenced or not.
+// See: https://github.com/aws/aws-cdk/issues/16625
+//
+type UnimportedSubmoduleType interface {
+	jsiicalc.IRandomNumberGenerator
+	Next() *float64
+}
+
+// The jsii proxy struct for UnimportedSubmoduleType
+type jsiiProxy_UnimportedSubmoduleType struct {
+	internal.Type__jsiicalcIRandomNumberGenerator
+}
+
+func NewUnimportedSubmoduleType(value *float64) UnimportedSubmoduleType {
+	_init_.Initialize()
+
+	j := jsiiProxy_UnimportedSubmoduleType{}
+
+	_jsii_.Create(
+		"jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
+		[]interface{}{value},
+		&j,
+	)
+
+	return &j
+}
+
+func NewUnimportedSubmoduleType_Override(u UnimportedSubmoduleType, value *float64) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
+		[]interface{}{value},
+		u,
+	)
+}
+
+// Not quite random, but it'll do.
+//
+// Returns: 1337
+func (u *jsiiProxy_UnimportedSubmoduleType) Next() *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		u,
+		"next",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/donotimport/donotimport.init.go 1`] = `
+package donotimport
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
+		reflect.TypeOf((*UnimportedSubmoduleType)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "next", GoMethod: "Next"},
+		},
+		func() interface{} {
+			j := jsiiProxy_UnimportedSubmoduleType{}
+			_jsii_.InitJsiiProxy(&j.Type__jsiicalcIRandomNumberGenerator)
+			return &j
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/donotimport/internal/types.go 1`] = `
+package internal
+import (
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+)
+type Type__jsiicalcIRandomNumberGenerator = jsiicalc.IRandomNumberGenerator
 
 `;
 

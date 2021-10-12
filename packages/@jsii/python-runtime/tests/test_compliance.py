@@ -76,6 +76,7 @@ from jsii_calc import (
     AnonymousImplementationProvider,
     UpcasingReflectable,
 )
+from jsii_calc.cdk16625 import Cdk16625
 from jsii_calc.python_self import (
     ClassWithSelf,
     ClassWithSelfKwarg,
@@ -1318,3 +1319,19 @@ def test_class_can_extend_and_implement_from_jsii():
     entropy = MildEntropy(wall_clock)
 
     assert now == entropy.increase()
+
+
+def test_class_can_be_used_when_not_expressedly_loaded():
+    """
+    This test verifies that it is possible to receive instances of classes that
+    belong to submodules that have not been explicitly imported. This implies
+    the types are registered with the runtime even though the submodule has
+    never been mentioned in userland.
+    """
+
+    class Subject(Cdk16625):
+        def _unwrap(self, rng: IRandomNumberGenerator):
+            return rng.next()
+
+    # This should NOT throw
+    Subject().test()

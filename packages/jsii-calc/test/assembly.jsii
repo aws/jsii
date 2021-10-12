@@ -205,6 +205,18 @@
         "line": 1090
       }
     },
+    "jsii-calc.cdk16625": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 23
+      }
+    },
+    "jsii-calc.cdk16625.donotimport": {
+      "locationInModule": {
+        "filename": "lib/cdk16625/index.ts",
+        "line": 6
+      }
+    },
     "jsii-calc.composition": {
       "locationInModule": {
         "filename": "lib/calculator.ts",
@@ -14607,6 +14619,127 @@
       ],
       "symbolId": "lib/compliance:WithPrivatePropertyInConstructor"
     },
+    "jsii-calc.cdk16625.Cdk16625": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.cdk16625.Cdk16625",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/cdk16625/index.ts",
+        "line": 8
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Run this function to verify that everything is working as it should."
+          },
+          "locationInModule": {
+            "filename": "lib/cdk16625/index.ts",
+            "line": 21
+          },
+          "name": "test"
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable",
+            "summary": "Implement this functin to return `gen.next()`. It is extremely important that the `donotimport` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void)."
+          },
+          "locationInModule": {
+            "filename": "lib/cdk16625/index.ts",
+            "line": 16
+          },
+          "name": "unwrap",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "a VERY pseudo random number generator."
+              },
+              "name": "gen",
+              "type": {
+                "fqn": "jsii-calc.IRandomNumberGenerator"
+              }
+            }
+          ],
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          }
+        }
+      ],
+      "name": "Cdk16625",
+      "namespace": "cdk16625",
+      "symbolId": "lib/cdk16625/index:Cdk16625"
+    },
+    "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "This checks\nthat all types available in the assembly can be resolved by the runtime\nlibrary, regardless of whether they were explicitly referenced or not.",
+        "see": "https://github.com/aws/aws-cdk/issues/16625",
+        "stability": "stable",
+        "summary": "This type demonstrates the ability to receive a callback argument that has a type from a submodule not explicitly imported in the user's code."
+      },
+      "fqn": "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/cdk16625/donotimport/index.ts",
+          "line": 12
+        },
+        "parameters": [
+          {
+            "name": "value",
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "interfaces": [
+        "jsii-calc.IRandomNumberGenerator"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/cdk16625/donotimport/index.ts",
+        "line": 11
+      },
+      "methods": [
+        {
+          "docs": {
+            "returns": "1337",
+            "stability": "stable",
+            "summary": "Not quite random, but it'll do."
+          },
+          "locationInModule": {
+            "filename": "lib/cdk16625/donotimport/index.ts",
+            "line": 19
+          },
+          "name": "next",
+          "overrides": "jsii-calc.IRandomNumberGenerator",
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          }
+        }
+      ],
+      "name": "UnimportedSubmoduleType",
+      "namespace": "cdk16625.donotimport",
+      "symbolId": "lib/cdk16625/donotimport/index:UnimportedSubmoduleType"
+    },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -16646,5 +16779,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "f6AcTsdiyd7A1OsnCqScIhOj+U5gmsZC6YnZSsCDh+M="
+  "fingerprint": "2ST30e+9gb6XYfIMHyGjwObar3fI+/BV0Ex1hIad+2s="
 }
