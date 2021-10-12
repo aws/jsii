@@ -25,8 +25,13 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
   }
 
   const mapValuesType = mapElementType(type, typeChecker);
-  if (mapValuesType) {
-    return { kind: 'map', elementType: determineJsiiType(typeChecker, mapValuesType) };
+  if (mapValuesType.result === 'map') {
+    return {
+      kind: 'map',
+      elementType: mapValuesType.elementType
+        ? determineJsiiType(typeChecker, mapValuesType.elementType)
+        : { kind: 'builtIn', builtIn: 'any' },
+    };
   }
 
   // User-defined or aliased type
