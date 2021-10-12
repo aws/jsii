@@ -1,6 +1,7 @@
 import * as ts from 'typescript';
 
-import { isStructInterface, isStructType, hasAllFlags } from '../jsii/jsii-utils';
+import { analyzeObjectLiteral } from '../jsii/jsii-types';
+import { isNamedLikeStruct } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
@@ -129,33 +130,17 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
    *     - It's not a struct (render as key-value map)
    */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
-    const type = context.inferredTypeOfExpression(node);
+    const lit = analyzeObjectLiteral(context.typeChecker, node);
 
-    let isUnknownType = !type;
-    if (type && hasAllFlags(type.flags, ts.TypeFlags.Any)) {
-      // The type checker by itself won't tell us the difference between an `any` that
-      // was literally declared as a type in the code, vs an `any` it assumes because it
-      // can't find a function's type declaration.
-      //
-      // Search for the function's declaration and only if we can't find it,
-      // the type is actually unknown (otherwise it's a literal 'any').
-      const call = findEnclosingCallExpression(node);
-      const signature = call ? context.typeChecker.getResolvedSignature(call) : undefined;
-      if (!signature?.declaration) {
-        isUnknownType = true;
-      }
+    switch (lit.kind) {
+      case 'unknown':
+        return this.unknownTypeObjectLiteralExpression(node, context);
+      case 'struct':
+      case 'local-struct':
+        return this.knownStructObjectLiteralExpression(node, lit.type, lit.kind === 'local-struct', context);
+      case 'map':
+        return this.keyValueObjectLiteralExpression(node, context);
     }
-
-    const isKnownStruct = type && isStructType(type);
-
-    if (isUnknownType) {
-      return this.unknownTypeObjectLiteralExpression(node, context);
-    }
-    if (isKnownStruct) {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-      return this.knownStructObjectLiteralExpression(node, type!, context);
-    }
-    return this.keyValueObjectLiteralExpression(node, context);
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
@@ -165,6 +150,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     _structType: ts.Type,
+    _definedInExample: boolean,
     context: AstRenderer<C>,
   ): OTree {
     return this.notImplemented(node, context);
@@ -236,7 +222,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
-    if (isStructInterface(context.textOf(node.name))) {
+    if (isNamedLikeStruct(context.textOf(node.name))) {
       return this.structInterfaceDeclaration(node, context);
     }
     return this.regularInterfaceDeclaration(node, context);

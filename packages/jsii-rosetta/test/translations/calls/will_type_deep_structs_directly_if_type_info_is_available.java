@@ -8,6 +8,7 @@ public class BaseDeeperStruct {
         return this;
     }
 }
+
 public class DeeperStruct extends BaseDeeperStruct {
     private Number b;
     public Number getB() {

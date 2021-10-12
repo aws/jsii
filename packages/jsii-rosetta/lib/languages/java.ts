@@ -1,7 +1,6 @@
 import * as ts from 'typescript';
 
-import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
-import { isStructType } from '../jsii/jsii-utils';
+import { determineJsiiType, JsiiType, analyzeObjectLiteral } from '../jsii/jsii-types';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
@@ -415,39 +414,45 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public newExpression(node: ts.NewExpression, renderer: JavaRenderer): OTree {
     const argsLength = node.arguments ? node.arguments.length : 0;
     const lastArg = argsLength > 0 ? node.arguments![argsLength - 1] : undefined;
-    const lastArgIsObjectLiteral = lastArg && ts.isObjectLiteralExpression(lastArg);
-    const lastArgType = lastArg && renderer.inferredTypeOfExpression(lastArg);
-    // we only render the ClassName.Builder.create(...) expression
+
+    // We render the ClassName.Builder.create(...) expression
     // if the last argument is an object literal, and either a known struct (because
     // those are the jsii rules) or an unknown type (because the example didn't
     // compile but most of the target examples will intend this to be a struct).
-    const renderBuilderInsteadOfNew = lastArgIsObjectLiteral && (!lastArgType || !isStructType(lastArgType));
 
-    return new OTree(
-      [],
-      [
-        renderBuilderInsteadOfNew ? undefined : 'new ',
-        renderer
-          .updateContext({
-            ignorePropertyPrefix: true,
-            convertPropertyToGetter: false,
-          })
-          .convert(node.expression),
-        renderBuilderInsteadOfNew ? '.Builder.create' : undefined,
-        '(',
-        this.argumentList(
-          renderBuilderInsteadOfNew ? node.arguments!.slice(0, argsLength - 1) : node.arguments,
-          renderer,
-        ),
-        ')',
-        renderBuilderInsteadOfNew
-          ? renderer.updateContext({ inNewExprWithObjectLiteralAsLastArg: true }).convert(lastArg)
-          : undefined,
-      ],
-      {
-        canBreakLine: true,
-      },
-    );
+    const structArgument = lastArg && ts.isObjectLiteralExpression(lastArg) ? lastArg : undefined;
+    let renderBuilder = false;
+    if (lastArg && ts.isObjectLiteralExpression(lastArg)) {
+      const analysis = analyzeObjectLiteral(renderer.typeChecker, lastArg);
+      renderBuilder = analysis.kind === 'struct' || analysis.kind === 'unknown';
+    }
+
+    const className = renderer
+      .updateContext({
+        ignorePropertyPrefix: true,
+        convertPropertyToGetter: false,
+      })
+      .convert(node.expression);
+
+    if (renderBuilder) {
+      const initialArguments = node.arguments!.slice(0, argsLength - 1);
+      return new OTree(
+        [],
+        [
+          className,
+          '.Builder.create(',
+          this.argumentList(initialArguments, renderer),
+          ')',
+          ...renderer.convertAll(structArgument!.properties),
+          new OTree([renderer.mirrorNewlineBefore(structArgument!.properties[0])], ['.build()']),
+        ],
+        { canBreakLine: true, indent: 8 },
+      );
+    }
+
+    return new OTree([], ['new ', className, '(', this.argumentList(node.arguments, renderer), ')'], {
+      canBreakLine: true,
+    });
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
@@ -467,13 +472,25 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     structType: ts.Type,
+    definedInExample: boolean,
     renderer: JavaRenderer,
   ): OTree {
+    // Special case: we're rendering an object literal, but the containing constructor
+    // has already started the builder: we don't have to create a new instance,
+    // all we have to do is pile on arguments.
+    if (renderer.currentContext.inNewExprWithObjectLiteralAsLastArg) {
+      return new OTree([], renderer.convertAll(node.properties), { indent: 8 });
+    }
+
+    // Jsii-generated classes have builders, classes we generated in the course of
+    // this example do not.
+    const hasBuilder = !definedInExample;
+
     return new OTree(
-      ['', structType.symbol.name, '.builder()'],
+      hasBuilder ? [structType.symbol.name, '.builder()'] : ['new ', structType.symbol.name, '()'],
       [
         ...renderer.convertAll(node.properties),
-        new OTree([renderer.mirrorNewlineBefore(node.properties[0])], ['.build()']),
+        new OTree([renderer.mirrorNewlineBefore(node.properties[0])], [hasBuilder ? '.build()' : '']),
       ],
       {
         indent: 8,

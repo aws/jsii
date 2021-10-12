@@ -1,3 +1,3 @@
-Object vpc = Vpc.Builder.create(this, "Something")
+Vpc vpc = Vpc.Builder.create(this, "Something")
         .argument(5)
         .build();
