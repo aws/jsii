@@ -8,13 +8,13 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **jsii:** added a symbol identifier to every type in the assembly ([#3030](https://github.com/aws/jsii/issues/3030)) ([2120d34](https://github.com/aws/jsii/commit/2120d34ef74597a6c7995e7798947a6fc931df04))
-* set the flag for forceConsistentCasingInFileNames to true in tsc opts ([#3015](https://github.com/aws/jsii/issues/3015)) ([cc364f0](https://github.com/aws/jsii/commit/cc364f0e46ee0e2c6f230b69f14b825b591f8151)), closes [#3013](https://github.com/aws/jsii/issues/3013) [#3013](https://github.com/aws/jsii/issues/3013)
+* **jsii:** case consistency between filesystems ([#3015](https://github.com/aws/jsii/issues/3015)) ([cc364f0](https://github.com/aws/jsii/commit/cc364f0e46ee0e2c6f230b69f14b825b591f8151)), closes [#3013](https://github.com/aws/jsii/issues/3013) [#3013](https://github.com/aws/jsii/issues/3013)
 
 
 ### Bug Fixes
 
 * **java:** log messages may not flush by app exit ([#3028](https://github.com/aws/jsii/issues/3028)) ([41631e7](https://github.com/aws/jsii/commit/41631e75e26851991e6eb6c607536cd4943e1975)), closes [#3009](https://github.com/aws/jsii/issues/3009)
-* modules not built sequentially ([#3045](https://github.com/aws/jsii/issues/3045)) ([1589af8](https://github.com/aws/jsii/commit/1589af8484df894258aabd16e13bfe8e5f56e630))
+* **pacmak:** build failure due to non-sequential package builds between consumer and dependency ([#3045](https://github.com/aws/jsii/issues/3045)) ([1589af8](https://github.com/aws/jsii/commit/1589af8484df894258aabd16e13bfe8e5f56e630))
 * **python:** unknown type when submodule is not loaded ([#3049](https://github.com/aws/jsii/issues/3049)) ([da55a1e](https://github.com/aws/jsii/commit/da55a1e9add0f8c903ef6f4aa5085f2a3d5a360b)), closes [aws/aws-cdk#16625](https://github.com/aws/aws-cdk/issues/16625)
 * **rosetta:** constants are incorrectly turned into getters ([#3050](https://github.com/aws/jsii/issues/3050)) ([84e4ca3](https://github.com/aws/jsii/commit/84e4ca350f9a0049475f5fb95527bf24b8bd2fbe)), closes [#2984](https://github.com/aws/jsii/issues/2984)
 * **rosetta:** correctly detect arguments typed as `any` ([#3043](https://github.com/aws/jsii/issues/3043)) ([3d2ba15](https://github.com/aws/jsii/commit/3d2ba15ed235439b490031efa0eb08e765b3ea21)), closes [#3029](https://github.com/aws/jsii/issues/3029)
