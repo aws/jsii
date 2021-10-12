@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace.Cdk16625;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
@@ -1522,8 +1523,20 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             var allTypes = new AllTypes();
             allTypes.AnyProperty = bells;
-            
+
             Assert.Equal(bells, allTypes.AnyProperty);
         }
+
+        [Fact(DisplayName = Prefix + nameof(ClassCanBeUsedWhenNotExpressedlyLoaded))]
+        public void ClassCanBeUsedWhenNotExpressedlyLoaded()
+        {
+            new Cdk16625Impl().Test();
+        }
+
+        private sealed class Cdk16625Impl: Cdk16625 {
+                protected override double Unwrap(IRandomNumberGenerator rng) {
+                    return rng.Next();
+                }
+            }
     }
 }

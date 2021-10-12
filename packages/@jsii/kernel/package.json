@@ -40,7 +40,6 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.0.2",
-    "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^12.20.28",
     "@types/tar": "^4.0.5",
     "eslint": "^7.32.0",

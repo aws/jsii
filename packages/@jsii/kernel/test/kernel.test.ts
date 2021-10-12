@@ -579,10 +579,7 @@ defineTest(
     expect(obj2[api.TOKEN_REF]).toBeTruthy(); // verify that we received a ref as a result;
 
     const objid: string = obj2[api.TOKEN_REF];
-    expect(
-      objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass@'),
-      `${objid} does not have the intended prefix`,
-    ).toBeTruthy(); // verify the type of the returned object'
+    expect(objid).toMatch(/^jsii-calc.JSObjectLiteralToNativeClass@/);
   },
 );
 
@@ -1524,12 +1521,13 @@ defineTest('ObjRefs are labeled with the "most correct" type', (sandbox) => {
       method: staticMethod,
     }).result as api.ObjRef;
 
-    expect(
-      deepEqualWithRegex(ret, typeSpec),
-      `Constructors.${staticMethod}() => ${JSON.stringify(
-        ret,
-      )}, does not match ${JSON.stringify(typeSpec)}`,
-    ).toBeTruthy();
+    if (!deepEqualWithRegex(ret, typeSpec)) {
+      throw new Error(
+        `Constructors.${staticMethod}() => ${JSON.stringify(
+          ret,
+        )}, does not match ${JSON.stringify(typeSpec)}`,
+      );
+    }
   }
 });
 
@@ -2207,7 +2205,7 @@ async function preparePackage(module: string, useCache = true) {
   }
 
   const packageRoot = findPackageRoot(module);
-  await new Promise((ok, ko) => {
+  await new Promise<void>((ok, ko) => {
     const child = childProcess.spawn('npm', ['pack', packageRoot], {
       cwd: staging,
       shell: true,

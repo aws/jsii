@@ -15,9 +15,9 @@ import { AstHandler } from '../lib/renderer';
 //
 // To run only the tests for a certain language you're working on, do this:
 //
-//    yarn test test/translations.test.js -t 'Translating .* to Python'
-//    yarn test test/translations.test.js -t 'Translating .* to Java'
-//    yarn test test/translations.test.js -t 'Translating .* to C#'
+//    yarn test test/translations.test -t 'Translating .* to Python'
+//    yarn test test/translations.test -t 'Translating .* to Java'
+//    yarn test test/translations.test -t 'Translating .* to C#'
 //
 // To narrow it down even more you can of course replace the '.*' regex with
 // whatever file indication you desire.

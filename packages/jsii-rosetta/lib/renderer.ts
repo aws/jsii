@@ -11,6 +11,7 @@ import {
   scanText,
 } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
+import { typeOfExpression } from './typescript/types';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)
@@ -133,23 +134,33 @@ export class AstRenderer<C> {
   /**
    * Infer type of expression by the argument it is assigned to
    *
+   * If the type of the expression can include undefined (if the value is
+   * optional), `undefined` will be removed from the union.
+   *
    * (Will return undefined for object literals not unified with a declared type)
    */
   public inferredTypeOfExpression(node: ts.Expression) {
-    return this.typeChecker.getContextualType(node);
+    const type = this.typeChecker.getContextualType(node);
+    return type ? this.typeChecker.getNonNullableType(type) : undefined;
   }
 
   /**
    * Type of expression from the text of the expression
    *
    * (Will return a map type for object literals)
+   *
+   * @deprecated Use `typeOfExpression` directly
    */
   public typeOfExpression(node: ts.Expression): ts.Type {
-    return this.typeChecker.getContextualType(node) ?? this.typeChecker.getTypeAtLocation(node);
+    return typeOfExpression(this.typeChecker, node);
   }
 
   public typeOfType(node: ts.TypeNode): ts.Type {
     return this.typeChecker.getTypeFromTypeNode(node);
+  }
+
+  public typeToString(type: ts.Type) {
+    return this.typeChecker.typeToString(type);
   }
 
   public report(node: ts.Node, messageText: string, category: ts.DiagnosticCategory = ts.DiagnosticCategory.Error) {

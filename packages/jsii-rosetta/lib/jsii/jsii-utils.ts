@@ -4,20 +4,26 @@ import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';
 
 export function isStructInterface(name: string) {
-  return !name.startsWith('I');
+  // Start with an I and another uppercase character
+  return !/^I[A-Z]/.test(name);
 }
 
 export function isStructType(type: ts.Type) {
   return (
     type.isClassOrInterface() &&
-    hasFlag(type.objectFlags, ts.ObjectFlags.Interface) &&
+    hasAllFlags(type.objectFlags, ts.ObjectFlags.Interface) &&
     isStructInterface(type.symbol.name)
   );
 }
 
-function hasFlag<A extends number>(flags: A, test: A) {
+export function hasAllFlags<A extends number>(flags: A, test: A) {
   // tslint:disable-next-line:no-bitwise
-  return (flags & test) !== 0;
+  return test !== 0 && (flags & test) === test;
+}
+
+export function hasAnyFlag<A extends number>(flags: A, test: A) {
+  // tslint:disable-next-line:no-bitwise
+  return test !== 0 && (flags & test) !== 0;
 }
 
 export interface StructProperty {
