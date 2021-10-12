@@ -234,7 +234,7 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if (bar in p)
+    if ("bar" in p)
         print("testpkg.Foo#bar", "kkkkkkkk");
     if (!visitedObjects.has(p.bar))
         testpkg_Bar(p.bar);

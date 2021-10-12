@@ -80,7 +80,7 @@ export class DeprecationWarningsInjector {
               createWarningFunctionCall(
                 `${type.fqn}#${prop.name}`,
                 prop.docs?.deprecated,
-                ts.createIdentifier(`${prop.name} in ${PARAMETER_NAME}`),
+                ts.createIdentifier(`"${prop.name}" in ${PARAMETER_NAME}`),
               ),
             );
           }
