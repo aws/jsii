@@ -215,7 +215,7 @@ function testpkg_Baz(p) {
 
     // This type is in jsii-calc-lib, which was not compiled
     expect(warningsFile).not.toMatch('_scope_jsii_calc_base_BaseProps');
-  }, 10000);
+  }, 15000);
 });
 
 describe('Call injections', () => {

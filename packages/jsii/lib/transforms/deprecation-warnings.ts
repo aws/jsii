@@ -268,7 +268,7 @@ function generateWarningsFile(
     const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
     switch (deprecationMode) {
       case "fail":
-        throw new Error(message);
+        throw new AssertionError(message);
       case "warn":
         console.warn("[WARNING]", message);
         break;
