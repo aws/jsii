@@ -13,6 +13,7 @@ const WARNING_FUNCTION_NAME = 'print';
 const PARAMETER_NAME = 'p';
 const NAMESPACE = 'jsiiDeprecationWarnings';
 const LOCAL_ENUM_NAMESPACE = 'ns';
+const VISITED_OBJECTS_SET_NAME = 'visitedObjects';
 
 export class DeprecationWarningsInjector {
   private transformers: ts.CustomTransformers = {
@@ -28,6 +29,18 @@ export class DeprecationWarningsInjector {
     const types = assembly.types ?? {};
     for (const type of Object.values(types)) {
       const statements: Statement[] = [];
+
+      // This will add the parameter to the set of visited objects, to prevent infinite recursion
+      statements.push(
+        ts.createExpressionStatement(
+          ts.createCall(
+            ts.createIdentifier(`${VISITED_OBJECTS_SET_NAME}.add`),
+            [],
+            [ts.createIdentifier(PARAMETER_NAME)],
+          ),
+        ),
+      );
+
       if (
         spec.isDeprecated(type) &&
         (spec.isEnumType(type) || spec.isInterfaceType(type))
@@ -63,11 +76,6 @@ export class DeprecationWarningsInjector {
             );
           }
         }
-
-        if (statements.length === 1) {
-          // There is no deprecated element. So there is no point in having the require statement
-          statements.pop();
-        }
       } else if (spec.isInterfaceType(type)) {
         for (const prop of Object.values(type.properties ?? {})) {
           if (spec.isDeprecated(prop)) {
@@ -92,12 +100,9 @@ export class DeprecationWarningsInjector {
             );
             if (functionName) {
               statements.push(
-                ts.createExpressionStatement(
-                  ts.createCall(
-                    ts.createIdentifier(functionName),
-                    [],
-                    [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
-                  ),
+                createTypeHandlerCall(
+                  functionName,
+                  `${PARAMETER_NAME}.${prop.name}`,
                 ),
               );
             }
@@ -112,12 +117,9 @@ export class DeprecationWarningsInjector {
             );
             if (functionName) {
               statements.push(
-                ts.createExpressionStatement(
-                  ts.createCall(
-                    ts.createIdentifier(functionName),
-                    [],
-                    [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
-                  ),
+                createTypeHandlerCall(
+                  functionName,
+                  `${PARAMETER_NAME}.${prop.name}`,
                 ),
               );
             }
@@ -133,12 +135,9 @@ export class DeprecationWarningsInjector {
             );
             if (functionName) {
               statements.push(
-                ts.createExpressionStatement(
-                  ts.createCall(
-                    ts.createIdentifier(functionName),
-                    [],
-                    [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
-                  ),
+                createTypeHandlerCall(
+                  functionName,
+                  `${PARAMETER_NAME}.${prop.name}`,
                 ),
               );
             }
@@ -276,6 +275,8 @@ function generateWarningsFile(
     }
   }
 }
+
+const ${VISITED_OBJECTS_SET_NAME} = new Set();
 
 module.exports = {${exports}}`;
 
@@ -556,4 +557,20 @@ function findType(typeName: string, assemblies: Assembly[]) {
     }
   }
   return {};
+}
+
+function createTypeHandlerCall(
+  functionName: string,
+  parameter: string,
+): Statement {
+  return ts.createIf(
+    ts.createIdentifier(`!${VISITED_OBJECTS_SET_NAME}.has(${parameter})`),
+    ts.createExpressionStatement(
+      ts.createCall(
+        ts.createIdentifier(functionName),
+        [],
+        [ts.createIdentifier(parameter)],
+      ),
+    ),
+  );
 }

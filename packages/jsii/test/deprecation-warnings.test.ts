@@ -45,10 +45,19 @@ describe('Function generation', () => {
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
       `function testpkg_Foo(p) {
+    if (p != null) {
+        visitedObjects.add(p);
+    }
 }
 function testpkg_Bar(p) {
+    if (p != null) {
+        visitedObjects.add(p);
+    }
 }
 function testpkg_Baz(p) {
+    if (p != null) {
+        visitedObjects.add(p);
+    }
 }`,
     );
   });
@@ -85,8 +94,11 @@ function testpkg_Baz(p) {
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Baz(p) {
     if (p != null) {
-        testpkg_Bar(p.bar);
-        testpkg_Foo(p.foo);
+        visitedObjects.add(p);
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar);
+        if (!visitedObjects.has(p.foo))
+            testpkg_Foo(p.foo);
     }
 }`);
   });
@@ -103,7 +115,9 @@ function testpkg_Baz(p) {
     expect(jsFile(result, '.warnings.jsii')).toMatch(
       `function testpkg_Bar(p) {
     if (p != null) {
-        testpkg_Bar(p.bar);
+        visitedObjects.add(p);
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar);
     }
 }`,
     );
@@ -137,24 +151,10 @@ function testpkg_Baz(p) {
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
     if (p != null) {
+        visitedObjects.add(p);
         print(p, "testpkg.Foo", "Use something else");
     }
 }`);
-  });
-
-  test('does not generate a `require` if the enum does not have deprecated members', async () => {
-    const result = await compileJsiiForTest(
-      `
-        export enum State {
-          ON,
-          OFF
-        }
-        `,
-      undefined /* callback */,
-      { addDeprecationWarnings: true },
-    );
-
-    expect(jsFile(result, '.warnings.jsii')).not.toMatch('require');
   });
 
   test('generates functions for enums', async () => {
@@ -174,6 +174,7 @@ function testpkg_Baz(p) {
     expect(jsFile(result, '.warnings.jsii'))
       .toMatch(`function testpkg_State(p) {
     if (p != null) {
+        visitedObjects.add(p);
         const ns = require("./index.js");
         print(p === ns.State.OFF ? p : undefined, "testpkg.State#OFF", "Use something else");
     }
@@ -194,6 +195,7 @@ function testpkg_Baz(p) {
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Baz(p) {
     if (p != null) {
+        visitedObjects.add(p);
         testpkg_Bar(p);
     }
 }
