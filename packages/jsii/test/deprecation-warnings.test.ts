@@ -1,6 +1,10 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import * as fs from 'fs';
 import * as path from 'path';
 
 import { compileJsiiForTest, HelperCompilationResult } from '../lib';
+import { Compiler } from '../lib/compiler';
+import { loadProjectInfo } from '../lib/project-info';
 
 const DEPRECATED = '/** @deprecated Use something else */';
 
@@ -47,6 +51,21 @@ function testpkg_Bar(p) {
 function testpkg_Baz(p) {
 }`,
     );
+  });
+
+  test('generates metadata', async () => {
+    const result = await compileJsiiForTest(
+      `
+        export interface Foo {}
+        export interface Bar {}
+        export interface Baz {}
+        `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+    expect(
+      result.assembly.metadata?.jsii?.compiledWithDeprecationWarnings,
+    ).toBe(true);
   });
 
   test('for each non-primitive property, generates a call', async () => {
@@ -180,6 +199,21 @@ function testpkg_Baz(p) {
 }
 `);
   });
+
+  test('generates calls for types in other assemblies', async () => {
+    const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
+    const calcRoot = resolveModuleDir('jsii-calc');
+
+    await compile(calcLibRoot);
+    await compile(calcRoot);
+    const warningsFile = loadWarningsFile(calcRoot);
+
+    // This type is in jsii-calc-lib, which was compiled above, with warnings
+    expect(warningsFile).toMatch('_scope_jsii_calc_lib_Number');
+
+    // This type is in jsii-calc-lib, which was not compiled
+    expect(warningsFile).not.toMatch('_scope_jsii_calc_base_BaseProps');
+  }, 10000);
 });
 
 describe('Call injections', () => {
@@ -194,6 +228,9 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatch('bar() { }');
+    expect(
+      result.assembly.metadata?.jsii?.compiledWithDeprecationWarnings,
+    ).toBeFalsy();
   });
 
   test('generates a require statement', async () => {
@@ -318,4 +355,25 @@ function jsFile(result: HelperCompilationResult, baseName = 'index'): string {
   );
 
   return file![1];
+}
+
+function resolveModuleDir(name: string) {
+  return path.dirname(require.resolve(`${name}/package.json`));
+}
+
+async function compile(projectRoot: string) {
+  const { projectInfo } = await loadProjectInfo(projectRoot);
+
+  const compiler = new Compiler({
+    projectInfo,
+    addDeprecationWarnings: true,
+  });
+
+  await compiler.emit();
+}
+
+function loadWarningsFile(projectRoot: string) {
+  return fs
+    .readFileSync(path.join(projectRoot, '.warnings.jsii.js'))
+    .toString();
 }

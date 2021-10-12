@@ -2,9 +2,10 @@ import * as spec from '@jsii/spec';
 import { Assembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as ts from 'typescript';
 import { EmitHint, Statement } from 'typescript';
+import * as ts from 'typescript/lib/tsserverlibrary';
 
+import { ProjectInfo } from '../project-info';
 import { symbolIdentifier } from '../utils';
 
 const FILE_NAME = '.warnings.jsii.js';
@@ -20,7 +21,8 @@ export class DeprecationWarningsInjector {
 
   public constructor(private readonly typeChecker: ts.TypeChecker) {}
 
-  public process(assembly: Assembly, projectRoot: string) {
+  public process(assembly: Assembly, projectInfo: ProjectInfo) {
+    const projectRoot = projectInfo.projectRoot;
     const functionDeclarations: ts.FunctionDeclaration[] = [];
 
     const types = assembly.types ?? {};
@@ -42,7 +44,7 @@ export class DeprecationWarningsInjector {
 
       if (spec.isEnumType(type) && type.locationInModule?.filename) {
         statements.push(
-          createRequireStatement(projectRoot, type.locationInModule?.filename),
+          createRequireStatement(type.locationInModule?.filename),
         );
 
         for (const member of Object.values(type.members ?? [])) {
@@ -83,51 +85,73 @@ export class DeprecationWarningsInjector {
             spec.isNamedTypeReference(prop.type) &&
             Object.keys(types).includes(prop.type.fqn)
           ) {
-            const functionName = fnName(prop.type.fqn);
-            statements.push(
-              ts.createExpressionStatement(
-                ts.createCall(
-                  ts.createIdentifier(functionName),
-                  [],
-                  [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
-                ),
-              ),
+            const functionName = importedFunctionName(
+              prop.type.fqn,
+              assembly,
+              projectInfo,
             );
+            if (functionName) {
+              statements.push(
+                ts.createExpressionStatement(
+                  ts.createCall(
+                    ts.createIdentifier(functionName),
+                    [],
+                    [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
+                  ),
+                ),
+              );
+            }
           } else if (
             spec.isCollectionTypeReference(prop.type) &&
             spec.isNamedTypeReference(prop.type.collection.elementtype)
           ) {
-            const functionName = fnName(prop.type.collection.elementtype.fqn);
-            statements.push(
-              ts.createExpressionStatement(
-                ts.createCall(
-                  ts.createIdentifier(functionName),
-                  [],
-                  [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
-                ),
-              ),
+            const functionName = importedFunctionName(
+              prop.type.collection.elementtype.fqn,
+              assembly,
+              projectInfo,
             );
+            if (functionName) {
+              statements.push(
+                ts.createExpressionStatement(
+                  ts.createCall(
+                    ts.createIdentifier(functionName),
+                    [],
+                    [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
+                  ),
+                ),
+              );
+            }
           } else if (
             spec.isUnionTypeReference(prop.type) &&
             spec.isNamedTypeReference(prop.type.union.types[0]) &&
             Object.keys(types).includes(prop.type.union.types[0].fqn)
           ) {
-            const functionName = fnName(prop.type.union.types[0].fqn);
-            statements.push(
-              ts.createExpressionStatement(
-                ts.createCall(
-                  ts.createIdentifier(functionName),
-                  [],
-                  [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
-                ),
-              ),
+            const functionName = importedFunctionName(
+              prop.type.union.types[0].fqn,
+              assembly,
+              projectInfo,
             );
+            if (functionName) {
+              statements.push(
+                ts.createExpressionStatement(
+                  ts.createCall(
+                    ts.createIdentifier(functionName),
+                    [],
+                    [ts.createIdentifier(`${PARAMETER_NAME}.${prop.name}`)],
+                  ),
+                ),
+              );
+            }
           }
 
           // We also generate calls to all the supertypes
           for (const iface of type.interfaces ?? []) {
-            if (types[iface]) {
-              const functionName = fnName(types[iface].fqn);
+            const functionName = importedFunctionName(
+              iface,
+              assembly,
+              projectInfo,
+            );
+            if (functionName) {
               statements.push(
                 ts.createExpressionStatement(
                   ts.createCall(
@@ -487,18 +511,49 @@ function insertStatements(block: ts.Block, newStatements: ts.Statement[]) {
   return ts.createNodeArray(result);
 }
 
-function createRequireStatement(
-  warningsLocation: string,
-  typeLocation: string,
-): ts.ExpressionStatement {
-  const relativePath = path.relative(warningsLocation, typeLocation);
-
-  const { ext } = path.parse(relativePath);
-  const jsFileName = relativePath.replace(ext, '.js');
+function createRequireStatement(typeLocation: string): ts.ExpressionStatement {
+  const { ext } = path.parse(typeLocation);
+  const jsFileName = typeLocation.replace(ext, '.js');
 
   return ts.createExpressionStatement(
     ts.createIdentifier(
       `const ${LOCAL_ENUM_NAMESPACE} = require("./${jsFileName}")`,
     ),
   );
+}
+
+/**
+ * Returns a ready-to-used function name (including a `require`, if necessary)
+ */
+function importedFunctionName(
+  typeName: string,
+  assembly: Assembly,
+  projectInfo: ProjectInfo,
+) {
+  const assemblies = projectInfo.dependencyClosure.concat(assembly);
+  const { type, moduleName } = findType(typeName, assemblies);
+  if (type) {
+    return moduleName !== assembly.name
+      ? `require("${moduleName}/${FILE_NAME}").${fnName(type.fqn)}`
+      : fnName(type.fqn);
+  }
+  return undefined;
+}
+
+/**
+ * Find the type and module name in an array of assemblies
+ * matching a given type name
+ */
+function findType(typeName: string, assemblies: Assembly[]) {
+  for (const asm of assemblies) {
+    if (asm.metadata?.jsii?.compiledWithDeprecationWarnings) {
+      const types = asm.types ?? {};
+      for (const name of Object.keys(types)) {
+        if (typeName === name) {
+          return { type: types[name], moduleName: asm.name };
+        }
+      }
+    }
+  }
+  return {};
 }

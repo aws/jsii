@@ -249,7 +249,17 @@ export class Assembler implements Emitter {
     }
 
     if (this.warningsInjector) {
-      this.warningsInjector.process(assembly, this.projectInfo.projectRoot);
+      const jsiiMetadata = {
+        ...(assembly.metadata?.jsii ?? {}),
+        ...{ compiledWithDeprecationWarnings: true },
+      };
+
+      if (assembly.metadata) {
+        assembly.metadata.jsii = jsiiMetadata;
+      } else {
+        assembly.metadata = { jsii: jsiiMetadata };
+      }
+      this.warningsInjector.process(assembly, this.projectInfo);
     }
 
     const validator = new Validator(this.projectInfo, assembly);
