@@ -1,0 +1,6 @@
+class OtherName
+{
+    public OtherName()
+    {
+    }
+}

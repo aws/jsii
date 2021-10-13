@@ -12,6 +12,7 @@ import {
   isReadOnly,
   findSuperCall,
   privatePropertyNames,
+  findEnclosingClassDeclaration,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import {
@@ -25,11 +26,6 @@ import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
 interface CSharpLanguageContext {
-  /**
-   * Used to render the constructor's name
-   */
-  readonly currentClassName?: string;
-
   /**
    * Used to capitalize member accesses
    */
@@ -190,7 +186,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     opts: { isConstructor?: boolean } = {},
   ): OTree {
     const methodName = opts.isConstructor
-      ? renderer.currentContext.currentClassName ?? 'MyClass'
+      ? findEnclosingClassDeclaration(node)?.name?.text ?? 'MyClass'
       : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
 
     const retType = determineReturnType(renderer.typeChecker, node);
