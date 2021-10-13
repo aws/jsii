@@ -135,6 +135,13 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
    *     - It's not a struct (render as key-value map)
    */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
+    // If any of the elements of the objectLiteralExpression are not a literal property
+    // assignment, report them. We can't support those.
+    const unsupported = node.properties.filter(p => !ts.isPropertyAssignment(p) && !ts.isShorthandPropertyAssignment(p)));
+    for (const unsup of unsupported) {
+      context.reportUnsupported(unsup, undefined);
+    }
+
     const type = context.inferredTypeOfExpression(node);
 
     let isUnknownType = !type;
