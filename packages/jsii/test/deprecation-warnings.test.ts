@@ -21,14 +21,17 @@ describe('Function generation', () => {
     const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
     switch (deprecationMode) {
         case "fail":
-            throw new AssertionError(message);
+            throw new DeprecationError(message);
         case "warn":
             console.warn("[WARNING]", message);
             break;
     }
 }
 const visitedObjects = new Set();
+class DeprecationError extends Error {
+}
 module.exports = { print };
+module.exports.DeprecationError = DeprecationError;
 `,
     );
   });
@@ -46,22 +49,10 @@ module.exports = { print };
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
       `function testpkg_Foo(p) {
-    if (p == null)
-        return;
-    visitedObjects.add(p);
-    visitedObjects.delete(p);
 }
 function testpkg_Bar(p) {
-    if (p == null)
-        return;
-    visitedObjects.add(p);
-    visitedObjects.delete(p);
 }
 function testpkg_Baz(p) {
-    if (p == null)
-        return;
-    visitedObjects.add(p);
-    visitedObjects.delete(p);
 }`,
     );
   });
@@ -105,6 +96,36 @@ function testpkg_Baz(p) {
     if (!visitedObjects.has(p.foo))
         testpkg_Foo(p.foo);
     visitedObjects.delete(p);
+}`);
+  });
+
+  test('generates empty functions for interfaces', async () => {
+    const result = await compileJsiiForTest(
+      `
+        export interface IFoo {
+          bar(): string;
+        }
+        `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_IFoo(p) {
+}`);
+  });
+
+  test('generates empty functions for classes', async () => {
+    const result = await compileJsiiForTest(
+      `
+        export class Foo {
+          bar() {return 0};
+        }
+        `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
 }`);
   });
 
@@ -254,7 +275,7 @@ function testpkg_Baz(p) {
     // This type is in jsii-calc-lib, which was compiled above, with warnings
     expect(warningsFile).toMatch('_scope_jsii_calc_lib_Number');
 
-    // This type is in jsii-calc-lib, which was not compiled
+    // This type is in jsii-calc-base, which was not compiled
     expect(warningsFile).not.toMatch('_scope_jsii_calc_base_BaseProps');
 
     // Recompiling without deprecation warning to leave the packages in a clean state

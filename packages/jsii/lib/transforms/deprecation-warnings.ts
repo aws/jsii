@@ -29,6 +29,7 @@ export class DeprecationWarningsInjector {
     const types = assembly.types ?? {};
     for (const type of Object.values(types)) {
       const statements: Statement[] = [];
+      let isEmpty = true;
 
       // This will add the parameter to the set of visited objects, to prevent infinite recursion
       statements.push(
@@ -43,12 +44,13 @@ export class DeprecationWarningsInjector {
 
       if (
         spec.isDeprecated(type) &&
-        (spec.isEnumType(type) || spec.isInterfaceType(type))
+        (spec.isEnumType(type) || (spec.isInterfaceType(type) && type.datatype))
       ) {
         // The type is deprecated
         statements.push(
           createWarningFunctionCall(type.fqn, type.docs?.deprecated),
         );
+        isEmpty = false;
       }
 
       if (spec.isEnumType(type) && type.locationInModule?.filename) {
@@ -70,9 +72,10 @@ export class DeprecationWarningsInjector {
                 condition,
               ),
             );
+            isEmpty = false;
           }
         }
-      } else if (spec.isInterfaceType(type)) {
+      } else if (spec.isInterfaceType(type) && type.datatype) {
         for (const prop of Object.values(type.properties ?? {})) {
           if (spec.isDeprecated(prop)) {
             // The property is deprecated
@@ -83,6 +86,7 @@ export class DeprecationWarningsInjector {
                 ts.createIdentifier(`"${prop.name}" in ${PARAMETER_NAME}`),
               ),
             );
+            isEmpty = false;
           }
 
           if (
@@ -101,6 +105,7 @@ export class DeprecationWarningsInjector {
                   `${PARAMETER_NAME}.${prop.name}`,
                 ),
               );
+              isEmpty = false;
             }
           } else if (
             spec.isCollectionTypeReference(prop.type) &&
@@ -118,6 +123,7 @@ export class DeprecationWarningsInjector {
                   `${PARAMETER_NAME}.${prop.name}`,
                 ),
               );
+              isEmpty = false;
             }
           } else if (
             spec.isUnionTypeReference(prop.type) &&
@@ -136,6 +142,7 @@ export class DeprecationWarningsInjector {
                   `${PARAMETER_NAME}.${prop.name}`,
                 ),
               );
+              isEmpty = false;
             }
           }
 
@@ -156,6 +163,7 @@ export class DeprecationWarningsInjector {
                   ),
                 ),
               );
+              isEmpty = false;
             }
           }
         }
@@ -185,7 +193,7 @@ export class DeprecationWarningsInjector {
         undefined,
         [parameter],
         undefined,
-        createFunctionBlock(statements),
+        createFunctionBlock(isEmpty ? [] : statements),
       );
       functionDeclarations.push(functionDeclaration);
     }
@@ -275,7 +283,7 @@ function generateWarningsFile(
   const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
   switch (deprecationMode) {
     case "fail":
-      throw new AssertionError(message);
+      throw new DeprecationError(message);
     case "warn":
       console.warn("[WARNING]", message);
       break;
@@ -284,7 +292,11 @@ function generateWarningsFile(
 
 const ${VISITED_OBJECTS_SET_NAME} = new Set();
 
-module.exports = {${exports}}`;
+class DeprecationError extends Error {}
+
+module.exports = {${exports}}
+module.exports.DeprecationError = DeprecationError;
+`;
 
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
   const resultFile = ts.createSourceFile(
