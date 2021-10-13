@@ -62,7 +62,11 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public binaryExpression(node: ts.BinaryExpression, context: AstRenderer<C>): OTree {
-    const operatorToken = this.translateBinaryOperator(context.textOf(node.operatorToken));
+    const operator = context.textOf(node.operatorToken);
+    if (operator === '??') {
+      context.reportUnsupported(node.operatorToken, undefined);
+    }
+    const operatorToken = this.translateBinaryOperator(operator);
     return new OTree([context.convert(node.left), ' ', operatorToken, ' ', context.convert(node.right)]);
   }
 
