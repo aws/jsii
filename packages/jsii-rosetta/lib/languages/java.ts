@@ -8,7 +8,7 @@ import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { isEnumAccess, isStaticReadonlyAccess, determineReturnType, renderTypeFlags } from '../typescript/types';
+import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
