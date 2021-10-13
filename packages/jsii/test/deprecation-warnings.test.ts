@@ -265,23 +265,23 @@ function testpkg_Baz(p) {
   });
 
   test('generates calls for types in other assemblies', async () => {
+    const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
-    const calcRoot = resolveModuleDir('jsii-calc');
 
+    await compile(calcBaseRoot, true);
     await compile(calcLibRoot, true);
-    await compile(calcRoot, true);
-    const warningsFile = loadWarningsFile(calcRoot);
+    const warningsFile = loadWarningsFile(calcBaseRoot);
 
-    // This type is in jsii-calc-lib, which was compiled above, with warnings
-    expect(warningsFile).toMatch('_scope_jsii_calc_lib_Number');
+    // jsii-calc-base was compiled with warnings. So we expect to see handlers for its types in the warnings file
+    expect(warningsFile).toMatch('_scope_jsii_calc_base');
 
-    // This type is in jsii-calc-base, which was not compiled
-    expect(warningsFile).not.toMatch('_scope_jsii_calc_base_BaseProps');
+    // jsii-calc-base-of-base was not compiled with warnings. Its types shouldn't be in the warnings file
+    expect(warningsFile).not.toMatch('_scope_jsii_calc_base_of_base');
 
     // Recompiling without deprecation warning to leave the packages in a clean state
+    await compile(calcBaseRoot, false);
     await compile(calcLibRoot, false);
-    await compile(calcRoot, false);
-  }, 26000);
+  }, 20000);
 });
 
 describe('Call injections', () => {
