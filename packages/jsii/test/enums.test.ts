@@ -16,6 +16,7 @@ test('test parsing enum with two members and no values', async () => {
     members: [{ name: 'BAR' }, { name: 'BAZ' }],
     locationInModule: { filename: 'index.ts', line: 2 },
     name: 'Foo',
+    symbolId: 'index:Foo',
   });
 });
 
@@ -35,5 +36,6 @@ test('test parsing enum with two members and assigned values', async () => {
     members: [{ name: 'BAR' }, { name: 'BAZ' }],
     locationInModule: { filename: 'index.ts', line: 2 },
     name: 'Foo',
+    symbolId: 'index:Foo',
   });
 });

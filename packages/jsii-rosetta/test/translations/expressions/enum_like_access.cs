@@ -1,0 +1,1 @@
+Console.WriteLine(EnumType.ENUM_VALUE_A);

@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.39.0](https://github.com/aws/jsii/compare/v1.38.0...v1.39.0) (2021-10-12)
+
+
+### Features
+
+* **jsii:** added a symbol identifier to every type in the assembly ([#3030](https://github.com/aws/jsii/issues/3030)) ([2120d34](https://github.com/aws/jsii/commit/2120d34ef74597a6c7995e7798947a6fc931df04))
+* **jsii:** case consistency between filesystems ([#3015](https://github.com/aws/jsii/issues/3015)) ([cc364f0](https://github.com/aws/jsii/commit/cc364f0e46ee0e2c6f230b69f14b825b591f8151)), closes [#3013](https://github.com/aws/jsii/issues/3013) [#3013](https://github.com/aws/jsii/issues/3013)
+
+
+### Bug Fixes
+
+* **java:** log messages may not flush by app exit ([#3028](https://github.com/aws/jsii/issues/3028)) ([41631e7](https://github.com/aws/jsii/commit/41631e75e26851991e6eb6c607536cd4943e1975)), closes [#3009](https://github.com/aws/jsii/issues/3009)
+* **pacmak:** build failure due to non-sequential package builds between consumer and dependency ([#3045](https://github.com/aws/jsii/issues/3045)) ([1589af8](https://github.com/aws/jsii/commit/1589af8484df894258aabd16e13bfe8e5f56e630))
+* **python:** unknown type when submodule is not loaded ([#3049](https://github.com/aws/jsii/issues/3049)) ([da55a1e](https://github.com/aws/jsii/commit/da55a1e9add0f8c903ef6f4aa5085f2a3d5a360b)), closes [aws/aws-cdk#16625](https://github.com/aws/aws-cdk/issues/16625)
+* **rosetta:** constants are incorrectly turned into getters ([#3050](https://github.com/aws/jsii/issues/3050)) ([84e4ca3](https://github.com/aws/jsii/commit/84e4ca350f9a0049475f5fb95527bf24b8bd2fbe)), closes [#2984](https://github.com/aws/jsii/issues/2984)
+* **rosetta:** correctly detect arguments typed as `any` ([#3043](https://github.com/aws/jsii/issues/3043)) ([3d2ba15](https://github.com/aws/jsii/commit/3d2ba15ed235439b490031efa0eb08e765b3ea21)), closes [#3029](https://github.com/aws/jsii/issues/3029)
+* **rosetta:** fix translation of `!` and `===` operators ([#3052](https://github.com/aws/jsii/issues/3052)) ([72b9b98](https://github.com/aws/jsii/commit/72b9b98e57f600316bbf29ffb7fecb98b1fa48d7)), closes [#2993](https://github.com/aws/jsii/issues/2993)
+* **rosetta:** literal map type is rendered as __object in C sharp ([#3047](https://github.com/aws/jsii/issues/3047)) ([e2843be](https://github.com/aws/jsii/commit/e2843be12e61665bdaa85dcba399c24738c6f1ad)), closes [#3044](https://github.com/aws/jsii/issues/3044) [#3026](https://github.com/aws/jsii/issues/3026) [#3027](https://github.com/aws/jsii/issues/3027)
+* **rosetta:** structs starting with `I` are incorrectly interpreted as non-structs ([#3040](https://github.com/aws/jsii/issues/3040)) ([d564350](https://github.com/aws/jsii/commit/d56435048bcf8c65cbfd782bf05bb5cdc4dbe70e))
+* **rosetta:** support `declare` statements ([#3044](https://github.com/aws/jsii/issues/3044)) ([4ccacd1](https://github.com/aws/jsii/commit/4ccacd14ded542b74232751f7dabc5d05b020a55))
+* **rosetta:** turn `asList` into `List.of` ([#3048](https://github.com/aws/jsii/issues/3048)) ([ee75bf1](https://github.com/aws/jsii/commit/ee75bf1393c17680ff9e80403f2c33a1b568087a))
+
+## [1.38.0](https://github.com/aws/jsii/compare/v1.37.0...v1.38.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** modules not packed in topological order ([3f6db2c](https://github.com/aws/jsii/commit/3f6db2cf2292f53a307e0c83625d8e1b1605d813))
+
+## [1.37.0](https://github.com/aws/jsii/compare/v1.36.0...v1.37.0) (2021-10-06)
+
+
+### Features
+
+* **pacmak:** opt out of jsii assembly validation ([#3032](https://github.com/aws/jsii/issues/3032)) ([a3265d9](https://github.com/aws/jsii/commit/a3265d96e7cc69eae2a5b16f85fc4a77fe0fd92d))
+* **reflect:** memoize expensive properties ([#3031](https://github.com/aws/jsii/issues/3031)) ([e169c38](https://github.com/aws/jsii/commit/e169c38934e1e47d326dfccccbd9bb873fc1eb16))
+
+## [1.36.0](https://github.com/aws/jsii/compare/v1.35.0...v1.36.0) (2021-10-04)
+
 ## [1.35.0](https://github.com/aws/jsii/compare/v1.34.0...v1.35.0) (2021-09-28)
 
 

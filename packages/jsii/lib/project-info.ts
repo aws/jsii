@@ -17,6 +17,7 @@ const LOG = log4js.getLogger('jsii/package-info');
 export interface TSCompilerOptions {
   readonly outDir?: string;
   readonly rootDir?: string;
+  readonly forceConsistentCasingInFileNames?: boolean;
 }
 
 export interface ProjectInfo {
