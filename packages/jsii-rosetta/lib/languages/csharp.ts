@@ -15,7 +15,12 @@ import {
   findEnclosingClassDeclaration,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { typeContainsUndefined, parameterAcceptsUndefined, inferMapElementType } from '../typescript/types';
+import {
+  typeContainsUndefined,
+  parameterAcceptsUndefined,
+  inferMapElementType,
+  determineReturnType,
+} from '../typescript/types';
 import { flat, partition, setExtend } from '../util';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
@@ -176,14 +181,16 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   // tslint:disable-next-line:max-line-length
   public functionLike(
-    node: ts.FunctionLikeDeclarationBase,
+    node: ts.FunctionLikeDeclaration | ts.ConstructorDeclaration | ts.MethodDeclaration,
     renderer: CSharpRenderer,
     opts: { isConstructor?: boolean } = {},
   ): OTree {
     const methodName = opts.isConstructor
       ? findEnclosingClassDeclaration(node)?.name?.text ?? 'MyClass'
       : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
-    const returnType = opts.isConstructor ? '' : this.renderTypeNode(node.type, false, renderer);
+
+    const retType = determineReturnType(renderer.typeChecker, node);
+    const returnType = opts.isConstructor ? '' : this.renderType(node, retType, false, 'void', renderer);
 
     const baseConstructorCall = new Array<string | OTree>();
     if (opts.isConstructor) {

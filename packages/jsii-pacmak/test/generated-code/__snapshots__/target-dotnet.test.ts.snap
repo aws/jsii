@@ -6237,7 +6237,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// int x = 12 + 44;
     /// string s1 = "string";
     /// string s2 = @"string
-    /// with new newlines";// see https://github.com/aws/jsii/issues/2569
+    /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
     /// string s3 = @"string
     /// with
     /// new lines";</code>
