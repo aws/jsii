@@ -1099,8 +1099,11 @@ export class Assembler implements Emitter {
   private declarationLocation(node: ts.Declaration): spec.SourceLocation {
     const file = node.getSourceFile();
     const line = ts.getLineAndCharacterOfPosition(file, node.getStart()).line;
+    const filename = path
+      .normalize(path.relative(this.projectInfo.projectRoot, file.fileName))
+      .replace(/\\/g, '/');
     return {
-      filename: path.relative(this.projectInfo.projectRoot, file.fileName),
+      filename,
       line: line + 1,
     };
   }

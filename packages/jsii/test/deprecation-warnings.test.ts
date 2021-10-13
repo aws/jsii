@@ -281,7 +281,7 @@ function testpkg_Baz(p) {
     // Recompiling without deprecation warning to leave the packages in a clean state
     await compile(calcBaseRoot, false);
     await compile(calcLibRoot, false);
-  }, 20000);
+  }, 25000);
 });
 
 describe('Call injections', () => {
