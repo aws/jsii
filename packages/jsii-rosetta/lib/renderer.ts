@@ -192,6 +192,23 @@ export class AstRenderer<C> {
   }
 
   /**
+   * Whether there is non-whitespace on the same line before the given position
+   */
+  public codeOnLineBefore(pos: number) {
+    const text = this.sourceFile.text;
+    while (pos > 0) {
+      const c = text[--pos];
+      if (c === '\n') {
+        return false;
+      }
+      if (c !== ' ' && c !== '\r' && c !== '\t') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Return a newline if the given node is preceded by at least one newline
    *
    * Used to mirror newline use between matchin brackets (such as { ... } and [ ... ]).
@@ -561,6 +578,11 @@ export interface CommentSyntax {
   text: string;
   hasTrailingNewLine?: boolean;
   kind: ts.CommentKind;
+
+  /**
+   * Whether it's at the end of a code line (so we can render a separating space)
+   */
+  isTrailing?: boolean;
 }
 
 function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRenderer<any>): CommentSyntax {
@@ -569,5 +591,6 @@ function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRender
     kind: rng.kind,
     pos: rng.pos,
     text: renderer.textAt(rng.pos, rng.end),
+    isTrailing: renderer.codeOnLineBefore(rng.pos),
   };
 }

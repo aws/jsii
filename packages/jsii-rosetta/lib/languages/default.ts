@@ -17,8 +17,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public abstract mergeContext(old: C, update: C): C;
 
+  protected statementTerminator = ';';
+
   public commentRange(comment: CommentSyntax, _context: AstRenderer<C>): OTree {
-    return new OTree([comment.text, comment.hasTrailingNewLine ? '\n' : '']);
+    return new OTree([comment.isTrailing ? ' ' : '', comment.text, comment.hasTrailingNewLine ? '\n' : '']);
   }
 
   public sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree {
@@ -58,7 +60,9 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public returnStatement(node: ts.ReturnStatement, children: AstRenderer<C>): OTree {
-    return new OTree(['return ', children.convert(node.expression)]);
+    return new OTree(['return ', children.convert(node.expression), this.statementTerminator], [], {
+      canBreakLine: true,
+    });
   }
 
   public binaryExpression(node: ts.BinaryExpression, context: AstRenderer<C>): OTree {
