@@ -97,7 +97,7 @@ export class TranslatedSnippet {
   }
 
   private readonly translations: Record<string, TranslationSchema> = {};
-  private readonly fqnsReferenced = new Array<string>();
+  private readonly _fqnsReferenced = new Array<string>();
   private _key?: string;
   private _didCompile?: boolean;
   private _where = '';
@@ -111,6 +111,10 @@ export class TranslatedSnippet {
 
   public get where() {
     return this._where;
+  }
+
+  public get fqnsReferenced() {
+    return this._fqnsReferenced;
   }
 
   public get key() {

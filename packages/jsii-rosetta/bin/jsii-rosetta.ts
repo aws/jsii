@@ -7,6 +7,7 @@ import * as yargs from 'yargs';
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
 import { extractSnippets } from '../lib/commands/extract';
+import { copyExamples } from '../lib/commands/copy_examples';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
 import { TargetLanguage } from '../lib/languages';
@@ -64,17 +65,26 @@ function main() {
       }),
     )
     .command(
-      'copy-examples FILE',
+      'copy-examples <TABLET> [ASSEMBLY..]',
       '(EXPERIMENTAL) mutates assemblies to add examples to top-level types',
       (command) =>
-        command.positional('FILE', {
-          type: 'string',
-          describe: 'The file to translate (leave out for stdin)',
-        }),
+        command
+          .positional('TABLET', {
+            type: 'string',
+            required: true,
+            describe: 'Language tablet to read',
+          })
+          .positional('ASSEMBLY', {
+            type: 'string',
+            string: true,
+            default: new Array<string>(),
+            describe: 'Assembly or directory to mutate',
+          })
+          .demandOption('TABLET'),
       wrapHandler(async (args) => {
-        // TODO: write actual function here.
-        await makeFileSource(args.FILE ?? '-', 'stdin.md');
-        console.log('hello world');
+        // TODO: make command accept assemblies (multiple)
+        const assemblies = (['.']).map((x) => path.resolve(x));
+        copyExamples(assemblies, args.TABLET);
       }),
     )
     .command(
