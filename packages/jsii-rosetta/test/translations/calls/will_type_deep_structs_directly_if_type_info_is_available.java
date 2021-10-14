@@ -8,6 +8,7 @@ public class BaseDeeperStruct {
         return this;
     }
 }
+
 public class DeeperStruct extends BaseDeeperStruct {
     private Number b;
     public Number getB() {
@@ -41,6 +42,7 @@ public class OuterStruct {
 public void foo(Number x, OuterStruct outer) {
 }
 
-foo(25, new OuterStruct().foo(3).deeper(new DeeperStruct()
+foo(25, OuterStruct.builder().foo(3).deeper(DeeperStruct.builder()
         .a(1)
-        .b(2)));
+        .b(2)
+        .build()).build());

@@ -418,6 +418,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     structType: ts.Type,
+    _definedInExample: boolean,
     renderer: CSharpRenderer,
   ): OTree {
     return new OTree(['new ', structType.symbol.name, ' { '], renderer.convertAll(node.properties), {
