@@ -11,7 +11,7 @@ import {
   scanText,
 } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
-import { typeOfExpression } from './typescript/types';
+import { typeOfExpression, inferredTypeOfExpression } from './typescript/types';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)
@@ -138,10 +138,11 @@ export class AstRenderer<C> {
    * optional), `undefined` will be removed from the union.
    *
    * (Will return undefined for object literals not unified with a declared type)
+   *
+   * @deprecated Use `inferredTypeOfExpression` instead
    */
   public inferredTypeOfExpression(node: ts.Expression) {
-    const type = this.typeChecker.getContextualType(node);
-    return type ? this.typeChecker.getNonNullableType(type) : undefined;
+    return inferredTypeOfExpression(this.typeChecker, node);
   }
 
   /**
