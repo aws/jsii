@@ -64,6 +64,20 @@ function main() {
       }),
     )
     .command(
+      'copy-examples FILE',
+      '(EXPERIMENTAL) mutates assemblies to add examples to top-level types',
+      (command) =>
+        command.positional('FILE', {
+          type: 'string',
+          describe: 'The file to translate (leave out for stdin)',
+        }),
+      wrapHandler(async (args) => {
+        // TODO: write actual function here.
+        await makeFileSource(args.FILE ?? '-', 'stdin.md');
+        console.log('hello world');
+      }),
+    )
+    .command(
       ['extract [ASSEMBLY..]', '$0 [ASSEMBLY..]'],
       'Extract code snippets from one or more assemblies into a language tablets',
       (command) =>
