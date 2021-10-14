@@ -7,7 +7,7 @@ import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { isEnumAccess, isStaticReadonlyAccess } from '../typescript/types';
+import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
@@ -235,11 +235,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
-    return this.renderProcedure(node, renderer, node.name, this.renderTypeNode(node.type, renderer, 'void'));
+    const retType = determineReturnType(renderer.typeChecker, node);
+    return this.renderProcedure(node, renderer, node.name, this.renderType(node, retType, renderer, 'void'));
   }
 
   public functionDeclaration(node: ts.FunctionDeclaration, renderer: JavaRenderer): OTree {
-    return this.renderProcedure(node, renderer, node.name, this.renderTypeNode(node.type, renderer, 'void'));
+    const retType = determineReturnType(renderer.typeChecker, node);
+    return this.renderProcedure(node, renderer, node.name, this.renderType(node, retType, renderer, 'void'));
   }
 
   public methodSignature(node: ts.MethodSignature, renderer: JavaRenderer): OTree {
@@ -685,7 +687,10 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return this.renderType(typeNode, renderer.typeOfType(typeNode), renderer, fallback);
   }
 
-  private renderType(owningNode: ts.Node, type: ts.Type, renderer: JavaRenderer, fallback: string): string {
+  private renderType(owningNode: ts.Node, type: ts.Type | undefined, renderer: JavaRenderer, fallback: string): string {
+    if (!type) {
+      return fallback;
+    }
     return doRender(determineJsiiType(renderer.typeChecker, type), false);
 
     // eslint-disable-next-line consistent-return

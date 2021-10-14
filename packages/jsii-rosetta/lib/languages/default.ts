@@ -18,8 +18,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public abstract mergeContext(old: C, update: C): C;
 
+  protected statementTerminator = ';';
+
   public commentRange(comment: CommentSyntax, _context: AstRenderer<C>): OTree {
-    return new OTree([comment.text, comment.hasTrailingNewLine ? '\n' : '']);
+    return new OTree([comment.isTrailing ? ' ' : '', comment.text, comment.hasTrailingNewLine ? '\n' : '']);
   }
 
   public sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree {
@@ -59,11 +61,17 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public returnStatement(node: ts.ReturnStatement, children: AstRenderer<C>): OTree {
-    return new OTree(['return ', children.convert(node.expression)]);
+    return new OTree(['return ', children.convert(node.expression), this.statementTerminator], [], {
+      canBreakLine: true,
+    });
   }
 
   public binaryExpression(node: ts.BinaryExpression, context: AstRenderer<C>): OTree {
-    const operatorToken = this.translateBinaryOperator(context.textOf(node.operatorToken));
+    const operator = context.textOf(node.operatorToken);
+    if (operator === '??') {
+      context.reportUnsupported(node.operatorToken, undefined);
+    }
+    const operatorToken = this.translateBinaryOperator(operator);
     return new OTree([context.convert(node.left), ' ', operatorToken, ' ', context.convert(node.right)]);
   }
 
@@ -136,6 +144,15 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
    *     - It's not a struct (render as key-value map)
    */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
+    // If any of the elements of the objectLiteralExpression are not a literal property
+    // assignment, report them. We can't support those.
+    const unsupported = node.properties.filter(
+      (p) => !ts.isPropertyAssignment(p) && !ts.isShorthandPropertyAssignment(p),
+    );
+    for (const unsup of unsupported) {
+      context.report(unsup, `Use of ${ts.SyntaxKind[unsup.kind]} in an object literal is not supported.`);
+    }
+
     const lit = analyzeObjectLiteral(context.typeChecker, node);
 
     switch (lit.kind) {

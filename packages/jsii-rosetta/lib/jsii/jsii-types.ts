@@ -21,10 +21,6 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
 
   type = type.getNonNullableType();
 
-  if (type.isUnion() || type.isIntersection()) {
-    return { kind: 'error', message: 'Type unions or intersections are not supported in examples' };
-  }
-
   const mapValuesType = mapElementType(type, typeChecker);
   if (mapValuesType.result === 'map') {
     return {
@@ -44,11 +40,14 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
   }
 
   const typeScriptBuiltInType = builtInTypeName(type);
-  if (!typeScriptBuiltInType) {
-    return { kind: 'unknown' };
+  if (typeScriptBuiltInType) {
+    return { kind: 'builtIn', builtIn: typeScriptBuiltInType };
   }
 
-  return { kind: 'builtIn', builtIn: typeScriptBuiltInType };
+  if (type.isUnion() || type.isIntersection()) {
+    return { kind: 'error', message: 'Type unions or intersections are not supported in examples' };
+  }
+  return { kind: 'unknown' };
 }
 
 export type ObjectLiteralAnalysis =
