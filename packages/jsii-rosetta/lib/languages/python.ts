@@ -86,6 +86,8 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
 
+  protected statementTerminator = '';
+
   public constructor(private readonly options: PythonVisitorOptions = {}) {
     super();
   }
@@ -102,7 +104,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       .join('\n');
     const needsAdditionalTrailer = comment.hasTrailingNewLine;
 
-    return new OTree([hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
+    return new OTree([comment.isTrailing ? ' ' : '', hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
       // Make sure comment is rendered exactly once in the output tree, no
       // matter how many source nodes it is attached to.
       renderOnce: `comment-${comment.pos}`,
