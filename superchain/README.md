@@ -91,3 +91,6 @@ any direct or indirect dependencies of the primary software being contained).
 As for any pre-built image usage, it is the image user's responsibility to
 ensure that any use of this image complies with any relevant licenses for all
 software contained within.
+
+For more information, refer to the `/NOTICE` file that is present in the Docker
+image.

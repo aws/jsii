@@ -217,6 +217,38 @@ RUN chmod 600 /home/superchain/.ssh/config
 # Add the source used to build this Docker image (to facilitate re-builds, forensics)
 COPY superchain /docker-source
 
+# Create the attributions document
+RUN echo "This jsii/superchain image includes the following third-party software/licensing:" > /NOTICE                  \
+  && echo "" >> /NOTICE                                                                                                 \
+  # Start with the packages that didn't come from "apt-get" or don't have a copyright file
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "docker-ce: https://github.com/docker/cli/blob/master/NOTICE" >> /NOTICE                                      \
+  && echo "docker-ce-cli: https://github.com/moby/moby/blob/master/NOTICE" >> /NOTICE                                   \
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "dotnet: /opt/microsoft/dotnet/LICENSE.txt /opt/microsoft/dotnet/ThirdPartyNotices.txt" >> /NOTICE            \
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "gh: https://github.com/cli/cli/blob/trunk/LICENSE" >> /NOTICE                                                \
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "go: ${GOROOT}/LICENSE ${GOROOT}/PATENTS ${GOROOT}/AUTHORS ${GOROOT}/CONTRIBUTORS" >> /NOTICE                 \
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "java-1.8.0-amazon-corretto-jdk: /usr/lib/jvm/java-1.8.0-amazon-corretto/LICENSE /usr/lib/jvm/java-1.8.0-amazon-corretto/THIRD_PARTY_README" >> /NOTICE\
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "maven: ${M2_HOME}/LICENSE ${M2_HOME}/NOTICE" >> /NOTICE                                                      \
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "cargo: ${RUSTUP_HOME}/toolchains/$rustup show active-toolchain | cut -d' ' -f 1)/share/doc/cargo" >> /NOTICE \
+  && echo "rust: ${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc/rust" >> /NOTICE  \
+  && echo "rustup: https://github.com/rust-lang/rustup/blob/master/README.md" >> /NOTICE                                \
+  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "powershell: /opt/microsoft/powershell/LICENSE.txt /opt/microsoft/powershell/ThirdPartyNotices.txt" >> /NOTICE\
+  && echo "----------------" >> /NOTICE                                                                                 \
+  # And then aggregate everything that came from dpkg which ships a copyright file
+  && for PKG in $(dpkg-query --show --showformat='${package}\n'); do                                                    \
+       if [[ -f "/usr/share/doc/${PKG}/copyright" ]]; then                                                              \
+         echo "${PKG}: /usr/share/doc/${PKG}/copyright" >> /NOTICE                                                      \
+         && echo '----------------' >> /NOTICE                                                                          \
+       ;fi                                                                                                              \
+     ;done
+
 CMD ["/bin/bash"]
 
 ########################################################################################################################
