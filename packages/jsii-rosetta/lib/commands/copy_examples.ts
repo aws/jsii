@@ -1,14 +1,22 @@
 import * as spec from '@jsii/spec';
+
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
 import { LanguageTablet } from '../tablets/tablets';
 
-export async function copyExamples(assemblyLocations: string[], tabletFile: string) {
+export interface CopyResult {
+  exampleCountMap: Record<string, number>;
+}
+
+export async function copyExamples(assemblyLocations: string[], tabletFile: string): Promise<CopyResult> {
   const tab = new LanguageTablet();
   await tab.load(tabletFile);
+
+  const exampleCountMap: Record<string, number> = {};
 
   const fqnsReferencedMap = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
   for (const { assembly, directory } of assemblies) {
+    let exampleCount = 0;
     const types = assembly.types;
     if (types) {
       const filteredTypes = filterForTypesWithoutExamples(types);
@@ -18,19 +26,24 @@ export async function copyExamples(assemblyLocations: string[], tabletFile: stri
           const result = tab.tryGetSnippet(typeKey);
           if (result) {
             insertExample(result.originalSource.source, typeFqn, types);
+            exampleCount = exampleCount + 1;
           }
         }
       }
     }
-    replaceAssembly(assembly, directory);
+    exampleCountMap[directory] = exampleCount;
+    void replaceAssembly(assembly, directory);
   }
+  return {
+    exampleCountMap,
+  };
 }
 
 function filterForTypesWithoutExamples(types: any) {
   const filteredTypes: Record<string, any> = {};
   for (const typeFqn in types) {
     // Filter for acceptable kinds without an example in the docs
-    const kinds = new Set(["class", "interface", "enum"]);
+    const kinds = new Set(['class', 'interface', 'enum']);
     if (kinds.has(types[typeFqn].kind) && types[typeFqn].docs?.example === undefined) {
       filteredTypes[typeFqn] = types[typeFqn];
     }
@@ -38,11 +51,11 @@ function filterForTypesWithoutExamples(types: any) {
   return filteredTypes;
 }
 
-function insertExample(example: string, typeFqn: string, types: {[fqn: string]: spec.Type}) {
+function insertExample(example: string, typeFqn: string, types: { [fqn: string]: spec.Type }) {
   if (types[typeFqn].docs) {
     types[typeFqn].docs!.example = example;
   } else {
-    types[typeFqn].docs = {"example": example};
+    types[typeFqn].docs = { example: example };
   }
 }
 
