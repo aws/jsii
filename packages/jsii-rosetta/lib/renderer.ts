@@ -11,6 +11,7 @@ import {
   scanText,
 } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
+import { typeOfExpression, inferredTypeOfExpression } from './typescript/types';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)
@@ -137,19 +138,22 @@ export class AstRenderer<C> {
    * optional), `undefined` will be removed from the union.
    *
    * (Will return undefined for object literals not unified with a declared type)
+   *
+   * @deprecated Use `inferredTypeOfExpression` instead
    */
   public inferredTypeOfExpression(node: ts.Expression) {
-    const type = this.typeChecker.getContextualType(node);
-    return type ? this.typeChecker.getNonNullableType(type) : undefined;
+    return inferredTypeOfExpression(this.typeChecker, node);
   }
 
   /**
    * Type of expression from the text of the expression
    *
    * (Will return a map type for object literals)
+   *
+   * @deprecated Use `typeOfExpression` directly
    */
   public typeOfExpression(node: ts.Expression): ts.Type {
-    return this.typeChecker.getContextualType(node) ?? this.typeChecker.getTypeAtLocation(node);
+    return typeOfExpression(this.typeChecker, node);
   }
 
   public typeOfType(node: ts.TypeNode): ts.Type {
@@ -186,6 +190,23 @@ export class AstRenderer<C> {
         `This TypeScript feature (${nodeKind}) is not supported in examples. Please rewrite this example.`,
       );
     }
+  }
+
+  /**
+   * Whether there is non-whitespace on the same line before the given position
+   */
+  public codeOnLineBefore(pos: number) {
+    const text = this.sourceFile.text;
+    while (pos > 0) {
+      const c = text[--pos];
+      if (c === '\n') {
+        return false;
+      }
+      if (c !== ' ' && c !== '\r' && c !== '\t') {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -558,6 +579,11 @@ export interface CommentSyntax {
   text: string;
   hasTrailingNewLine?: boolean;
   kind: ts.CommentKind;
+
+  /**
+   * Whether it's at the end of a code line (so we can render a separating space)
+   */
+  isTrailing?: boolean;
 }
 
 function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRenderer<any>): CommentSyntax {
@@ -566,5 +592,6 @@ function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRender
     kind: rng.kind,
     pos: rng.pos,
     text: renderer.textAt(rng.pos, rng.end),
+    isTrailing: renderer.codeOnLineBefore(rng.pos),
   };
 }

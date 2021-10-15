@@ -22,6 +22,7 @@ import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
 import { DeprecatedRemover } from './transforms/deprecated-remover';
+import { DeprecationWarningsInjector } from './transforms/deprecation-warnings';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { TsCommentReplacer } from './transforms/ts-comment-replacer';
 import { combinedTransformers } from './transforms/utils';
@@ -42,6 +43,7 @@ export class Assembler implements Emitter {
   private readonly commentReplacer = new TsCommentReplacer();
   private readonly runtimeTypeInfoInjector: RuntimeTypeInfoInjector;
   private readonly deprecatedRemover?: DeprecatedRemover;
+  private readonly warningsInjector?: DeprecationWarningsInjector;
 
   private readonly mainFile: string;
 
@@ -77,6 +79,12 @@ export class Assembler implements Emitter {
       this.deprecatedRemover = new DeprecatedRemover(this._typeChecker);
     }
 
+    if (options.addDeprecationWarnings) {
+      this.warningsInjector = new DeprecationWarningsInjector(
+        this._typeChecker,
+      );
+    }
+
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
 
@@ -106,6 +114,7 @@ export class Assembler implements Emitter {
       this.deprecatedRemover?.customTransformers ?? {},
       this.runtimeTypeInfoInjector.makeTransformers(),
       this.commentReplacer.makeTransformers(),
+      this.warningsInjector?.customTransformers ?? {},
     );
   }
 
@@ -237,6 +246,20 @@ export class Assembler implements Emitter {
 
     if (this.deprecatedRemover) {
       this._diagnostics.push(...this.deprecatedRemover.removeFrom(assembly));
+    }
+
+    if (this.warningsInjector) {
+      const jsiiMetadata = {
+        ...(assembly.metadata?.jsii ?? {}),
+        ...{ compiledWithDeprecationWarnings: true },
+      };
+
+      if (assembly.metadata) {
+        assembly.metadata.jsii = jsiiMetadata;
+      } else {
+        assembly.metadata = { jsii: jsiiMetadata };
+      }
+      this.warningsInjector.process(assembly, this.projectInfo);
     }
 
     const validator = new Validator(this.projectInfo, assembly);
@@ -1076,8 +1099,11 @@ export class Assembler implements Emitter {
   private declarationLocation(node: ts.Declaration): spec.SourceLocation {
     const file = node.getSourceFile();
     const line = ts.getLineAndCharacterOfPosition(file, node.getStart()).line;
+    const filename = path
+      .normalize(path.relative(this.projectInfo.projectRoot, file.fileName))
+      .replace(/\\/g, '/');
     return {
-      filename: path.relative(this.projectInfo.projectRoot, file.fileName),
+      filename,
       line: line + 1,
     };
   }
@@ -2732,6 +2758,13 @@ export interface AssemblerOptions {
    * @default false
    */
   readonly stripDeprecated?: boolean;
+
+  /**
+   * Whether to inject code that warns when a deprecated element is used.
+   *
+   * @default false
+   */
+  readonly addDeprecationWarnings?: boolean;
 }
 
 interface SubmoduleSpec {

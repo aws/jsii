@@ -1,7 +1,6 @@
 import * as ts from 'typescript';
 
 import { hasAllFlags, hasAnyFlag } from '../jsii/jsii-utils';
-import { AstRenderer } from '../renderer';
 
 /**
  * Return the first non-undefined type from a union
@@ -16,19 +15,21 @@ export function firstTypeInUnion(typeChecker: ts.TypeChecker, type: ts.Type): ts
   return type.types[0];
 }
 
-type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
+export type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
 export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
-  const map: { readonly [k: number]: BuiltInType } = {
-    [ts.TypeFlags.Any]: 'any',
-    [ts.TypeFlags.Unknown]: 'any',
-    [ts.TypeFlags.Boolean]: 'boolean',
-    [ts.TypeFlags.Number]: 'number',
-    [ts.TypeFlags.String]: 'string',
-    [ts.TypeFlags.StringLiteral]: 'string',
-    [ts.TypeFlags.NumberLiteral]: 'number',
-    [ts.TypeFlags.BooleanLiteral]: 'boolean',
-  };
-  return map[type.flags];
+  if (hasAnyFlag(type.flags, ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
+    return 'any';
+  }
+  if (hasAnyFlag(type.flags, ts.TypeFlags.BooleanLike)) {
+    return 'boolean';
+  }
+  if (hasAnyFlag(type.flags, ts.TypeFlags.NumberLike)) {
+    return 'number';
+  }
+  if (hasAnyFlag(type.flags, ts.TypeFlags.StringLike)) {
+    return 'string';
+  }
+  return undefined;
 }
 
 export function renderType(type: ts.Type): string {
@@ -72,53 +73,55 @@ export function renderTypeFlags(type: ts.Type): string {
   return renderFlags(type.flags, ts.TypeFlags);
 }
 
+export type MapAnalysis = { result: 'nonMap' } | { result: 'map'; elementType: ts.Type | undefined };
+
 /**
  * If this is a map type, return the type mapped *to* (key must always be `string` anyway).
  */
-export function mapElementType(type: ts.Type, renderer: AstRenderer<any>): ts.Type | undefined {
-  if (type.flags & ts.TypeFlags.Object && type.symbol) {
+export function mapElementType(type: ts.Type, typeChecker: ts.TypeChecker): MapAnalysis {
+  if (hasAnyFlag(type.flags, ts.TypeFlags.Object) && type.symbol) {
     if (type.symbol.name === '__type') {
       // Declared map type: {[k: string]: A}
-      return type.getStringIndexType();
+      return { result: 'map', elementType: type.getStringIndexType() };
     }
 
     if (type.symbol.name === '__object') {
       // Derived map type from object literal: typeof({ k: "value" })
       // For every property, get the node that created it (PropertyAssignment), and get the type of the initializer of that node
       const initializerTypes = type.getProperties().map((p) => {
-        if (ts.isPropertyAssignment(p.valueDeclaration)) {
-          return renderer.typeOfExpression(p.valueDeclaration.initializer);
-        }
-        return undefined;
+        const expression = p.valueDeclaration;
+        return typeOfObjectLiteralProperty(typeChecker, expression);
       });
-      return typeIfSame([...initializerTypes, type.getStringIndexType()]);
+      return {
+        result: 'map',
+        elementType: typeIfSame([...initializerTypes, type.getStringIndexType()].filter(isDefined)),
+      };
     }
   }
 
-  return undefined;
+  return { result: 'nonMap' };
 }
 
 /**
  * Try to infer the map element type from the properties if they're all the same
  */
 export function inferMapElementType(
-  elements: ts.NodeArray<ts.ObjectLiteralElementLike>,
-  renderer: AstRenderer<any>,
+  elements: readonly ts.ObjectLiteralElementLike[],
+  typeChecker: ts.TypeChecker,
 ): ts.Type | undefined {
-  const nodes = elements.map(elementValueNode).filter(isDefined);
-  const types = nodes.map((x) => renderer.typeOfExpression(x));
+  const types = elements.map((e) => typeOfObjectLiteralProperty(typeChecker, e)).filter(isDefined);
 
   return types.every((t) => isSameType(types[0], t)) ? types[0] : undefined;
+}
 
-  function elementValueNode(el: ts.ObjectLiteralElementLike): ts.Expression | undefined {
-    if (ts.isPropertyAssignment(el)) {
-      return el.initializer;
-    }
-    if (ts.isShorthandPropertyAssignment(el)) {
-      return el.name;
-    }
-    return undefined;
+function typeOfObjectLiteralProperty(typeChecker: ts.TypeChecker, el: ts.Node): ts.Type | undefined {
+  if (ts.isPropertyAssignment(el)) {
+    return typeOfExpression(typeChecker, el.initializer);
   }
+  if (ts.isShorthandPropertyAssignment(el)) {
+    return typeOfExpression(typeChecker, el.name);
+  }
+  return undefined;
 }
 
 function isSameType(a: ts.Type, b: ts.Type) {
@@ -145,8 +148,25 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
   return undefined;
 }
 
+export function typeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
+  return typeChecker.getContextualType(node) ?? typeChecker.getTypeAtLocation(node);
+}
+
 function isDefined<A>(x: A): x is NonNullable<A> {
   return x !== undefined;
+}
+
+/**
+ * Infer type of expression by the argument it is assigned to
+ *
+ * If the type of the expression can include undefined (if the value is
+ * optional), `undefined` will be removed from the union.
+ *
+ * (Will return undefined for object literals not unified with a declared type)
+ */
+export function inferredTypeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
+  const type = typeChecker.getContextualType(node);
+  return type ? typeChecker.getNonNullableType(type) : undefined;
 }
 
 export function isNumber(x: any): x is number {
@@ -178,4 +198,12 @@ export function renderFlags(flags: number | undefined, flagObject: Record<string
     .filter((f) => hasAllFlags(flags, f))
     .map((f) => flagObject[f])
     .join(',');
+}
+
+export function determineReturnType(typeChecker: ts.TypeChecker, node: ts.SignatureDeclaration): ts.Type | undefined {
+  const signature = typeChecker.getSignatureFromDeclaration(node);
+  if (!signature) {
+    return undefined;
+  }
+  return typeChecker.getReturnTypeOfSignature(signature);
 }

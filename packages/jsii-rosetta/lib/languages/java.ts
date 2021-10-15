@@ -1,19 +1,13 @@
 import * as ts from 'typescript';
 
-import { isStructType } from '../jsii/jsii-utils';
+import { determineJsiiType, JsiiType, analyzeObjectLiteral } from '../jsii/jsii-types';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import {
-  builtInTypeName,
-  mapElementType,
-  isEnumAccess,
-  isStaticReadonlyAccess,
-  firstTypeInUnion,
-} from '../typescript/types';
+import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
@@ -241,11 +235,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
-    return this.renderProcedure(node, renderer, node.name, this.renderTypeNode(node.type, renderer, 'void'));
+    const retType = determineReturnType(renderer.typeChecker, node);
+    return this.renderProcedure(node, renderer, node.name, this.renderType(node, retType, renderer, 'void'));
   }
 
   public functionDeclaration(node: ts.FunctionDeclaration, renderer: JavaRenderer): OTree {
-    return this.renderProcedure(node, renderer, node.name, this.renderTypeNode(node.type, renderer, 'void'));
+    const retType = determineReturnType(renderer.typeChecker, node);
+    return this.renderProcedure(node, renderer, node.name, this.renderType(node, retType, renderer, 'void'));
   }
 
   public methodSignature(node: ts.MethodSignature, renderer: JavaRenderer): OTree {
@@ -274,11 +270,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: JavaRenderer): OTree {
+    let fallback = 'Object';
+    if (node.type) {
+      fallback = node.type.getText();
+    }
     const type =
       (node.type && renderer.typeOfType(node.type)) ||
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    const renderedType = type ? this.renderType(node, type, renderer, 'Object') : 'Object';
+    const renderedType = type ? this.renderType(node, type, renderer, fallback) : fallback;
+
+    if (!node.initializer) {
+      return new OTree([renderedType, ' ', renderer.convert(node.name), ';'], []);
+    }
 
     return new OTree(
       [
@@ -412,51 +416,54 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public newExpression(node: ts.NewExpression, renderer: JavaRenderer): OTree {
     const argsLength = node.arguments ? node.arguments.length : 0;
     const lastArg = argsLength > 0 ? node.arguments![argsLength - 1] : undefined;
-    const lastArgIsObjectLiteral = lastArg && ts.isObjectLiteralExpression(lastArg);
-    const lastArgType = lastArg && renderer.inferredTypeOfExpression(lastArg);
-    // we only render the ClassName.Builder.create(...) expression
-    // if the last argument is an object literal, and NOT a known struct
-    // (in that case, it has its own creation method)
-    const renderBuilderInsteadOfNew = lastArgIsObjectLiteral && (!lastArgType || !isStructType(lastArgType));
 
-    return new OTree(
-      [],
-      [
-        renderBuilderInsteadOfNew ? undefined : 'new ',
-        renderer
-          .updateContext({
-            ignorePropertyPrefix: true,
-            convertPropertyToGetter: false,
-          })
-          .convert(node.expression),
-        renderBuilderInsteadOfNew ? '.Builder.create' : undefined,
-        '(',
-        this.argumentList(
-          renderBuilderInsteadOfNew ? node.arguments!.slice(0, argsLength - 1) : node.arguments,
-          renderer,
-        ),
-        ')',
-        renderBuilderInsteadOfNew
-          ? renderer.updateContext({ inNewExprWithObjectLiteralAsLastArg: true }).convert(lastArg)
-          : undefined,
-      ],
-      {
-        canBreakLine: true,
-      },
-    );
+    // We render the ClassName.Builder.create(...) expression
+    // if the last argument is an object literal, and either a known struct (because
+    // those are the jsii rules) or an unknown type (because the example didn't
+    // compile but most of the target examples will intend this to be a struct).
+
+    const structArgument = lastArg && ts.isObjectLiteralExpression(lastArg) ? lastArg : undefined;
+    let renderBuilder = false;
+    if (lastArg && ts.isObjectLiteralExpression(lastArg)) {
+      const analysis = analyzeObjectLiteral(renderer.typeChecker, lastArg);
+      renderBuilder = analysis.kind === 'struct' || analysis.kind === 'unknown';
+    }
+
+    const className = renderer
+      .updateContext({
+        ignorePropertyPrefix: true,
+        convertPropertyToGetter: false,
+      })
+      .convert(node.expression);
+
+    if (renderBuilder) {
+      const initialArguments = node.arguments!.slice(0, argsLength - 1);
+      return new OTree(
+        [],
+        [
+          className,
+          '.Builder.create(',
+          this.argumentList(initialArguments, renderer),
+          ')',
+          ...renderer.convertAll(structArgument!.properties),
+          new OTree([renderer.mirrorNewlineBefore(structArgument!.properties[0])], ['.build()']),
+        ],
+        { canBreakLine: true, indent: 8 },
+      );
+    }
+
+    return new OTree([], ['new ', className, '(', this.argumentList(node.arguments, renderer), ')'], {
+      canBreakLine: true,
+    });
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
     return renderer.currentContext.inNewExprWithObjectLiteralAsLastArg
       ? this.renderObjectLiteralAsBuilder(node, renderer)
-      : this.keyValueObjectLiteralExpression(node, undefined, renderer);
+      : this.keyValueObjectLiteralExpression(node, renderer);
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    _valueType: ts.Type | undefined,
-    renderer: JavaRenderer,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
     return new OTree(['Map.of('], renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties), {
       suffix: ')',
       separator: ', ',
@@ -467,11 +474,30 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     structType: ts.Type,
+    definedInExample: boolean,
     renderer: JavaRenderer,
   ): OTree {
-    return new OTree(['new ', structType.symbol.name, '()'], [...renderer.convertAll(node.properties)], {
-      indent: 8,
-    });
+    // Special case: we're rendering an object literal, but the containing constructor
+    // has already started the builder: we don't have to create a new instance,
+    // all we have to do is pile on arguments.
+    if (renderer.currentContext.inNewExprWithObjectLiteralAsLastArg) {
+      return new OTree([], renderer.convertAll(node.properties), { indent: 8 });
+    }
+
+    // Jsii-generated classes have builders, classes we generated in the course of
+    // this example do not.
+    const hasBuilder = !definedInExample;
+
+    return new OTree(
+      hasBuilder ? [structType.symbol.name, '.builder()'] : ['new ', structType.symbol.name, '()'],
+      [
+        ...renderer.convertAll(node.properties),
+        new OTree([renderer.mirrorNewlineBefore(node.properties[0])], [hasBuilder ? '.build()' : '']),
+      ],
+      {
+        indent: 8,
+      },
+    );
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
@@ -661,53 +687,40 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return this.renderType(typeNode, renderer.typeOfType(typeNode), renderer, fallback);
   }
 
-  private renderType(owningNode: ts.Node, type: ts.Type, renderer: JavaRenderer, fallback: string): string {
-    // this means the snippet didn't have enough info for the TypeScript compiler to figure out the type -
-    // so, just render the fallback
-    if ((type as any).intrinsicName === 'error') {
+  private renderType(owningNode: ts.Node, type: ts.Type | undefined, renderer: JavaRenderer, fallback: string): string {
+    if (!type) {
       return fallback;
     }
+    return doRender(determineJsiiType(renderer.typeChecker, type), false);
 
-    const nonUnionType = firstTypeInUnion(renderer.typeChecker, type);
-    if (!nonUnionType) {
-      renderer.report(owningNode, 'Type unions in examples are not supported for java');
-      return fallback;
-    }
-
-    const mapValuesType = mapElementType(nonUnionType, renderer);
-    if (mapValuesType) {
-      return `Map<String, ${this.renderType(
-        owningNode,
-        mapValuesType,
-        renderer.updateContext({ requiresReferenceType: true }),
-        'Object',
-      )}>`;
-    }
-
-    // User-defined or aliased type
-    if (type.aliasSymbol) {
-      return type.aliasSymbol.name;
-    }
-    if (type.symbol) {
-      return type.symbol.name;
-    }
-
-    const typeScriptBuiltInType = builtInTypeName(nonUnionType);
-    if (!typeScriptBuiltInType) {
-      return fallback;
-    }
-
-    switch (typeScriptBuiltInType) {
-      case 'boolean':
-        return renderer.currentContext.requiresReferenceType ? 'Boolean' : 'boolean';
-      case 'number':
-        return 'Number';
-      case 'string':
-        return 'String';
-      case 'any':
-        return 'Object';
-      default:
-        return typeScriptBuiltInType;
+    // eslint-disable-next-line consistent-return
+    function doRender(jsiiType: JsiiType, requiresReferenceType: boolean): string {
+      switch (jsiiType.kind) {
+        case 'unknown':
+          return fallback;
+        case 'error':
+          renderer.report(owningNode, jsiiType.message);
+          return fallback;
+        case 'map':
+          return `Map<String, ${doRender(jsiiType.elementType, true)}>`;
+        case 'list':
+          return `${doRender(jsiiType.elementType, true)}[]`;
+        case 'namedType':
+          return jsiiType.name;
+        case 'builtIn':
+          switch (jsiiType.builtIn) {
+            case 'boolean':
+              return requiresReferenceType ? 'Boolean' : 'boolean';
+            case 'number':
+              return 'Number';
+            case 'string':
+              return 'String';
+            case 'any':
+              return 'Object';
+            default:
+              return jsiiType.builtIn;
+          }
+      }
     }
   }
 

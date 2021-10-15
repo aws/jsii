@@ -3586,6 +3586,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 BurriedAnonymousObject.java
           ┃                 ┣━ 📄 Calculator.java
           ┃                 ┣━ 📄 CalculatorProps.java
+          ┃                 ┣━ 📁 cdk16625
+          ┃                 ┃  ┣━ 📄 Cdk16625.java
+          ┃                 ┃  ┗━ 📁 donotimport
+          ┃                 ┃     ┗━ 📄 UnimportedSubmoduleType.java
           ┃                 ┣━ 📄 ChildStruct982.java
           ┃                 ┣━ 📄 ClassThatImplementsTheInternalInterface.java
           ┃                 ┣━ 📄 ClassThatImplementsThePrivateInterface.java
@@ -9295,7 +9299,7 @@ package software.amazon.jsii.tests.calculator;
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Number x = 12 + 44;
  * String s1 = "string";
- * String s2 = "string \\nwith new newlines";// see https://github.com/aws/jsii/issues/2569
+ * String s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
  * String s3 = "string\\n            with\\n            new lines";}</pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -21786,6 +21790,120 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/cdk16625/Cdk16625.java 1`] = `
+package software.amazon.jsii.tests.calculator.cdk16625;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.cdk16625.Cdk16625")
+public abstract class Cdk16625 extends software.amazon.jsii.JsiiObject {
+
+    protected Cdk16625(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Cdk16625(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    protected Cdk16625() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * Run this function to verify that everything is working as it should.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void test() {
+        software.amazon.jsii.Kernel.call(this, "test", software.amazon.jsii.NativeType.VOID);
+    }
+
+    /**
+     * Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
+     * <p>
+     * @param gen a VERY pseudo random number generator. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    protected abstract @org.jetbrains.annotations.NotNull java.lang.Number unwrap(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IRandomNumberGenerator gen);
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    private static final class Jsii$Proxy extends software.amazon.jsii.tests.calculator.cdk16625.Cdk16625 {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         * Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
+         * <p>
+         * @param gen a VERY pseudo random number generator. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        protected final @org.jetbrains.annotations.NotNull java.lang.Number unwrap(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IRandomNumberGenerator gen) {
+            return software.amazon.jsii.Kernel.call(this, "unwrap", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(gen, "gen is required") });
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/cdk16625/donotimport/UnimportedSubmoduleType.java 1`] = `
+package software.amazon.jsii.tests.calculator.cdk16625.donotimport;
+
+/**
+ * This type demonstrates the ability to receive a callback argument that has a type from a submodule not explicitly imported in the user's code.
+ * <p>
+ * This checks
+ * that all types available in the assembly can be resolved by the runtime
+ * library, regardless of whether they were explicitly referenced or not.
+ * <p>
+ * @see https://github.com/aws/aws-cdk/issues/16625
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType")
+public class UnimportedSubmoduleType extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IRandomNumberGenerator {
+
+    protected UnimportedSubmoduleType(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected UnimportedSubmoduleType(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param value This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public UnimportedSubmoduleType(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+    }
+
+    /**
+     * Not quite random, but it'll do.
+     * <p>
+     * @return 1337
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.Number next() {
+        return software.amazon.jsii.Kernel.call(this, "next", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/composition/CompositeOperation.java 1`] = `
 package software.amazon.jsii.tests.calculator.composition;
 
@@ -25757,6 +25875,8 @@ jsii-calc.VariadicMethod=software.amazon.jsii.tests.calculator.VariadicMethod
 jsii-calc.VirtualMethodPlayground=software.amazon.jsii.tests.calculator.VirtualMethodPlayground
 jsii-calc.VoidCallback=software.amazon.jsii.tests.calculator.VoidCallback
 jsii-calc.WithPrivatePropertyInConstructor=software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor
+jsii-calc.cdk16625.Cdk16625=software.amazon.jsii.tests.calculator.cdk16625.Cdk16625
+jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType=software.amazon.jsii.tests.calculator.cdk16625.donotimport.UnimportedSubmoduleType
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
 jsii-calc.module2530.MyClass=software.amazon.jsii.tests.calculator.module2530.MyClass

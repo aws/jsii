@@ -1,6 +1,8 @@
+/// fake-from-jsii
 interface BaseDeeperStruct {
   a: number;
 }
+
 interface DeeperStruct extends BaseDeeperStruct {
   b: number;
 }
