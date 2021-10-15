@@ -7,6 +7,11 @@ import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snipp
 import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, SnippetParameters } from '../snippet';
 import { enforcesStrictMode } from '../strict';
 
+export async function replaceAssembly(assembly: spec.Assembly, directory: string) {
+  const fileName = path.join(directory, '.jsii');
+  await fs.writeJson(fileName, assembly, { spaces: '\t' });
+}
+
 export interface LoadedAssembly {
   assembly: spec.Assembly;
   directory: string;

@@ -1,4 +1,5 @@
-import { loadAssemblies } from '../jsii/assemblies';
+import * as spec from '@jsii/spec';
+import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
 import { LanguageTablet } from '../tablets/tablets';
 
 export async function copyExamples(assemblyLocations: string[], tabletFile: string) {
@@ -7,31 +8,42 @@ export async function copyExamples(assemblyLocations: string[], tabletFile: stri
 
   const fqnsReferencedMap = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
-  for (const { assembly } of assemblies) {
-    const types = assembly.types ?? {};
-    const filteredTypes = filterForTypesWithoutExamples(types);
-    console.log(Object.keys(filteredTypes).length);
-    for (const typeFqn in filteredTypes) {
-      console.log(typeFqn);
-      if (fqnsReferencedMap[typeFqn] !== undefined) {
-        const typeKey = fqnsReferencedMap[typeFqn][0];
-        const result = tab.tryGetSnippet(typeKey);
-        console.log(typeFqn, result?.originalSource);
+  for (const { assembly, directory } of assemblies) {
+    const types = assembly.types;
+    if (types) {
+      const filteredTypes = filterForTypesWithoutExamples(types);
+      for (const typeFqn in filteredTypes) {
+        if (fqnsReferencedMap[typeFqn] !== undefined) {
+          const typeKey = fqnsReferencedMap[typeFqn][0];
+          const result = tab.tryGetSnippet(typeKey);
+          if (result) {
+            insertExample(result.originalSource.source, typeFqn, types);
+          }
+        }
       }
     }
+    replaceAssembly(assembly, directory);
   }
 }
 
 function filterForTypesWithoutExamples(types: any) {
   const filteredTypes: Record<string, any> = {};
-  for (const type in types) {
+  for (const typeFqn in types) {
     // Filter for acceptable kinds without an example in the docs
     const kinds = new Set(["class", "interface", "enum"]);
-    if (kinds.has(types[type].kind) && types[type].docs?.example === undefined) {
-      filteredTypes[type] = types[type];
+    if (kinds.has(types[typeFqn].kind) && types[typeFqn].docs?.example === undefined) {
+      filteredTypes[typeFqn] = types[typeFqn];
     }
   }
   return filteredTypes;
+}
+
+function insertExample(example: string, typeFqn: string, types: {[fqn: string]: spec.Type}) {
+  if (types[typeFqn].docs) {
+    types[typeFqn].docs!.example = example;
+  } else {
+    types[typeFqn].docs = {"example": example};
+  }
 }
 
 // TODO: modify to record only the largest snippet
