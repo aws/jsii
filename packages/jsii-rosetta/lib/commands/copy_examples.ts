@@ -22,7 +22,7 @@ export async function copyExamples(assemblyLocations: string[], tabletFile: stri
       const filteredTypes = filterForTypesWithoutExamples(types);
       for (const typeFqn in filteredTypes) {
         if (fqnsReferencedMap[typeFqn] !== undefined) {
-          const typeKey = fqnsReferencedMap[typeFqn][0];
+          const typeKey = fqnsReferencedMap[typeFqn][1];
           const result = tab.tryGetSnippet(typeKey);
           if (result) {
             insertExample(result.originalSource.source, typeFqn, types);
@@ -59,16 +59,21 @@ function insertExample(example: string, typeFqn: string, types: { [fqn: string]:
   }
 }
 
-// TODO: modify to record only the largest snippet
-function mapFqns(tab: LanguageTablet) {
-  const fqnsReferencedMap: Record<string, string[]> = {};
+/**
+ * Returns a map of fqns to a tuple of length and key. Only stores the largest
+ * example found in the tablet.
+ */
+function mapFqns(tab: LanguageTablet): Record<string, [number, string]> {
+  const fqnsReferencedMap: Record<string, [number, string]> = {};
 
   for (const key of tab.snippetKeys) {
-    for (const fqn of tab.tryGetSnippet(key)!.fqnsReferenced) {
-      if (fqnsReferencedMap[fqn]) {
-        fqnsReferencedMap[fqn].push(key);
+    const snippet = tab.tryGetSnippet(key)!;
+    const snippetLength = snippet.originalSource.source.length;
+    for (const fqn of snippet.fqnsReferenced) {
+      if (fqnsReferencedMap[fqn] && fqnsReferencedMap[fqn][0] < snippetLength) {
+        fqnsReferencedMap[fqn] = [snippetLength, key];
       } else {
-        fqnsReferencedMap[fqn] = [key];
+        fqnsReferencedMap[fqn] = [snippetLength, key];
       }
     }
   }

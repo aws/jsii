@@ -66,7 +66,7 @@ function main() {
     )
     .command(
       'copy-examples <TABLET> [ASSEMBLY..]',
-      '(EXPERIMENTAL) mutates assemblies to add examples to top-level types',
+      '(EXPERIMENTAL) mutates one or more assemblies by adding documentation examples to top-level types',
       (command) =>
         command
           .positional('TABLET', {
@@ -82,9 +82,8 @@ function main() {
           })
           .demandOption('TABLET'),
       wrapHandler(async (args) => {
-        // TODO: make command accept assemblies (multiple)
-        const assemblies = ['.'].map((x) => path.resolve(x));
-        const result = await copyExamples(assemblies, args.TABLET);
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        const result = await copyExamples(absAssemblies, args.TABLET);
         for (const directory in result.exampleCountMap) {
           logging.warn(`Added ${result.exampleCountMap[directory]} examples to the .jsii file in ${directory}`);
         }
