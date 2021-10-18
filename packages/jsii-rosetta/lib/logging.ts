@@ -37,6 +37,8 @@ export function debug(fmt: string, ...args: any[]) {
 function log(messageLevel: Level, fmt: string, ...args: any[]) {
   if (level >= messageLevel) {
     const levelName = Level[messageLevel];
-    process.stderr.write(`[jsii-rosetta] [${levelName}] ${util.format(fmt, ...args)}\n`);
+    // `console.error` will automatically be transported from worker child to worker parent,
+    // process.stderr.write() won't.
+    console.error(`[jsii-rosetta] [${levelName}] ${util.format(fmt, ...args)}`);
   }
 }

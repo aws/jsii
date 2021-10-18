@@ -41,7 +41,7 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateTypeScript(await makeFileSource(args.FILE ?? '-', 'stdin.ts'), makeVisitor(args));
-        renderResult(result, true);
+        handleSingleResult(result);
       }),
     )
     .command(
@@ -60,7 +60,7 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateMarkdown(await makeFileSource(args.FILE ?? '-', 'stdin.md'), makeVisitor(args));
-        renderResult(result, true);
+        handleSingleResult(result);
       }),
     )
     .command(
@@ -323,19 +323,33 @@ async function readStdin(): Promise<string> {
   });
 }
 
-function renderResult(result: TranslateResult, fail: boolean) {
+function handleSingleResult(result: TranslateResult) {
   process.stdout.write(`${result.translation}\n`);
 
-  handleDiagnostics(result.diagnostics, fail);
+  // For a single result, we always request implicit failure.
+  handleDiagnostics(result.diagnostics, 'implicit');
 }
 
-function handleDiagnostics(diagnostics: readonly RosettaDiagnostic[], fail: boolean, snippetCount = 1) {
-  if (fail) {
+/**
+ * Print diagnostics and set exit code
+ *
+ * 'fail' is whether or not the user passed '--fail' for commands that accept
+ * it, or 'implicit' for commands that should always fail. 'implicit' will be
+ * treated as 'fail=true, but will not print to the user that the '--fail' is
+ * set (because for this particular command that switch does not exist and so it
+ * would be confusing).
+ */
+function handleDiagnostics(diagnostics: readonly RosettaDiagnostic[], fail: boolean | 'implicit', snippetCount = 1) {
+  if (fail !== false) {
     // Fail on any diagnostic
     if (diagnostics.length > 0) {
       printDiagnostics(diagnostics, process.stderr);
-      // eslint-disable-next-line prettier/prettier
-      logging.error(`${diagnostics.length} diagnostics encountered in ${snippetCount} snippets (running with '--fail')`);
+      logging.error(
+        [
+          `${diagnostics.length} diagnostics encountered in ${snippetCount} snippets`,
+          ...(fail === true ? ["(running with '--fail')"] : []),
+        ].join(' '),
+      );
       process.exitCode = 1;
     }
 
