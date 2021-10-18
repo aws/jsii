@@ -1,6 +1,7 @@
 import * as util from 'util';
 
 export enum Level {
+  ERROR = -2,
   WARN = -1,
   QUIET = 0,
   INFO = 1,
@@ -19,6 +20,10 @@ export function configure({ level: newLevel }: { level: Level }) {
 
 export function warn(fmt: string, ...args: any[]) {
   log(Level.WARN, fmt, ...args);
+}
+
+export function error(fmt: string, ...args: any[]) {
+  log(Level.ERROR, fmt, ...args);
 }
 
 export function info(fmt: string, ...args: any[]) {

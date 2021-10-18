@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as yargs from 'yargs';
 
-import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
+import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
 import { extractSnippets } from '../lib/commands/extract';
 import { readTablet } from '../lib/commands/read';
@@ -13,7 +13,7 @@ import { TargetLanguage } from '../lib/languages';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import * as logging from '../lib/logging';
-import { File, printDiagnostics, isErrorDiagnostic } from '../lib/util';
+import { File, printDiagnostics } from '../lib/util';
 
 function main() {
   const argv = yargs
@@ -41,7 +41,7 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateTypeScript(await makeFileSource(args.FILE ?? '-', 'stdin.ts'), makeVisitor(args));
-        renderResult(result);
+        renderResult(result, true);
       }),
     )
     .command(
@@ -60,7 +60,7 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateMarkdown(await makeFileSource(args.FILE ?? '-', 'stdin.md'), makeVisitor(args));
-        renderResult(result);
+        renderResult(result, true);
       }),
     )
     .command(
@@ -140,15 +140,7 @@ function main() {
           only: args.include,
         });
 
-        printDiagnostics(result.diagnostics, process.stderr);
-
-        if (result.diagnostics.length > 0) {
-          logging.warn(`${result.diagnostics.length} diagnostics encountered in ${result.tablet.count} snippets`);
-        }
-
-        if (result.diagnostics.some((diag) => isErrorDiagnostic(diag, { onlyStrict: !args.fail }))) {
-          process.exitCode = 1;
-        }
+        handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);
       }),
     )
     .command(
@@ -285,7 +277,9 @@ function wrapHandler<A extends { verbose?: number }, R>(handler: (x: A) => Promi
   return (argv: A) => {
     logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
     handler(argv).catch((e) => {
-      throw e;
+      logging.error(e.message);
+      logging.error(e.stack);
+      process.exitCode = 1;
     });
   };
 }
@@ -329,15 +323,44 @@ async function readStdin(): Promise<string> {
   });
 }
 
-function renderResult(result: TranslateResult) {
+function renderResult(result: TranslateResult, fail: boolean) {
   process.stdout.write(`${result.translation}\n`);
 
-  if (result.diagnostics.length > 0) {
-    printDiagnostics(result.diagnostics, process.stderr);
+  handleDiagnostics(result.diagnostics, fail);
+}
 
-    if (result.diagnostics.some((diag) => isErrorDiagnostic(diag, { onlyStrict: false }))) {
-      process.exit(1);
+function handleDiagnostics(diagnostics: readonly RosettaDiagnostic[], fail: boolean, snippetCount = 1) {
+  if (fail) {
+    // Fail on any diagnostic
+    if (diagnostics.length > 0) {
+      printDiagnostics(diagnostics, process.stderr);
+      // eslint-disable-next-line prettier/prettier
+      logging.error(`${diagnostics.length} diagnostics encountered in ${snippetCount} snippets (running with '--fail')`);
+      process.exitCode = 1;
     }
+
+    return;
+  }
+
+  // Otherwise fail only on strict diagnostics. If we have strict diagnostics, print only those
+  // (so it's very clear what is failing the build), otherwise print everything.
+  const strictDiagnostics = diagnostics.filter((diag) => diag.isFromStrictAssembly);
+  if (strictDiagnostics.length > 0) {
+    printDiagnostics(strictDiagnostics, process.stderr);
+    const remaining = diagnostics.length - strictDiagnostics.length;
+    logging.warn(
+      [
+        `${strictDiagnostics.length} diagnostics from assemblies with 'strict' mode on`,
+        ...(remaining > 0 ? [`(and ${remaining} more non-strict diagnostics)`] : []),
+      ].join(' '),
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (diagnostics.length > 0) {
+    printDiagnostics(diagnostics, process.stderr);
+    logging.warn(`${diagnostics.length} diagnostics encountered in ${snippetCount} snippets`);
   }
 }
 
