@@ -1,6 +1,8 @@
 /**
  * A tree of nodes that can be ASCII visualized.
  */
+import WritableStream = NodeJS.WritableStream;
+
 export class AsciiTree {
   /**
    * The parent node.
@@ -87,9 +89,13 @@ export class AsciiTree {
    */
   public toString() {
     let out = '';
-    this.printTree({
-      write: (data: any) => (out += data),
-    } as any);
+    const printer: Pick<WritableStream, 'write'> = {
+      write: (data: Uint8Array | string) => {
+        out += data;
+        return true;
+      },
+    };
+    this.printTree(printer);
     return out;
   }
 
