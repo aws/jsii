@@ -3,14 +3,18 @@ import * as ts from 'typescript';
 import { annotateStrictDiagnostic, hasStrictBranding } from '../lib/util';
 
 describe(annotateStrictDiagnostic, () => {
-  const diagnostic = {
-    category: ts.DiagnosticCategory.Error,
-    code: 999,
-    messageText: 'messageText',
-    file: undefined,
-    start: undefined,
-    length: undefined,
-  };
+  let diagnostic: ts.Diagnostic;
+
+  beforeEach(() => {
+    diagnostic = {
+      category: ts.DiagnosticCategory.Error,
+      code: 999,
+      messageText: 'messageText',
+      file: undefined,
+      start: undefined,
+      length: undefined,
+    };
+  });
 
   test('adds strict property', () => {
     annotateStrictDiagnostic(diagnostic);
