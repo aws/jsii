@@ -1,7 +1,6 @@
 /**
  * A tree of nodes that can be ASCII visualized.
  */
-import WritableStream = NodeJS.WritableStream;
 
 export class AsciiTree {
   /**
@@ -89,7 +88,7 @@ export class AsciiTree {
    */
   public toString() {
     let out = '';
-    const printer: Pick<WritableStream, 'write'> = {
+    const printer: Printer = {
       write: (data: Uint8Array | string) => {
         out += data;
         return true;
