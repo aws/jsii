@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.40.0](https://github.com/aws/jsii/compare/v1.39.0...v1.40.0) (2021-10-19)
+
+
+### Features
+
+* **jsii:** added warnings for usage of deprecated elements  ([#3051](https://github.com/aws/jsii/issues/3051)) ([8c0dd3b](https://github.com/aws/jsii/commit/8c0dd3b88f6ecb47e858ad5fc3c14f074c2c4a45))
+* **jsii:** allow customizing tsconfig.json file name ([#3076](https://github.com/aws/jsii/issues/3076)) ([c611f26](https://github.com/aws/jsii/commit/c611f262c0ecba286e0fa84e03196614e1e3c722))
+
+
+### Bug Fixes
+
+* **rosetta:** allow only property assignments in object literals ([#3065](https://github.com/aws/jsii/issues/3065)) ([c783ab7](https://github.com/aws/jsii/commit/c783ab7037773dfcfa586ccd8d90c8450a5602bc)), closes [#3061](https://github.com/aws/jsii/issues/3061)
+* **rosetta:** breaks when given a lot of snippets ([#3075](https://github.com/aws/jsii/issues/3075)) ([eca552e](https://github.com/aws/jsii/commit/eca552ebbfb39222f62033a2c7503c193f3f9acf))
+* **rosetta:** class declaration uses wrong constructor name in C# ([#3064](https://github.com/aws/jsii/issues/3064)) ([13f75a1](https://github.com/aws/jsii/commit/13f75a15c6b5b3c5aa8ac56122a593393fed8c3e)), closes [#3056](https://github.com/aws/jsii/issues/3056)
+* **rosetta:** disallow nullish coalescing operator in examples ([#3060](https://github.com/aws/jsii/issues/3060)) ([a35bbfa](https://github.com/aws/jsii/commit/a35bbfa7a104213b670ffafeac064dd629ad64a4)), closes [#3053](https://github.com/aws/jsii/issues/3053)
+* **rosetta:** fix usage of Builders in Java ([#3058](https://github.com/aws/jsii/issues/3058)) ([a0ce42d](https://github.com/aws/jsii/commit/a0ce42db08238e30739fe9cdb28e4ca0e9b52192)), closes [#2984](https://github.com/aws/jsii/issues/2984)
+* **rosetta:** newlines after return statements missing ([#3063](https://github.com/aws/jsii/issues/3063)) ([26c95f5](https://github.com/aws/jsii/commit/26c95f5cbcf23fe026faf3190488be2534313dd3)), closes [#3054](https://github.com/aws/jsii/issues/3054)
+
 ## [1.39.0](https://github.com/aws/jsii/compare/v1.38.0...v1.39.0) (2021-10-12)
 
 
