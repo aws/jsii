@@ -8,11 +8,11 @@ import * as logging from '../logging';
 import { TypeScriptSnippet } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
-import { Translator } from '../translate';
+import { RosettaDiagnostic, Translator, rosettaDiagFromTypescript } from '../translate';
 import { divideEvenly } from '../util';
 
 export interface ExtractResult {
-  diagnostics: ts.Diagnostic[];
+  diagnostics: RosettaDiagnostic[];
   tablet: LanguageTablet;
 }
 
@@ -64,7 +64,7 @@ export async function extractSnippets(
 
 interface TranslateAllResult {
   translatedSnippets: TranslatedSnippet[];
-  diagnostics: ts.Diagnostic[];
+  diagnostics: RosettaDiagnostic[];
 }
 
 /**
@@ -133,7 +133,7 @@ export function singleThreadedTranslateAll(
 
   return {
     translatedSnippets,
-    diagnostics: [...translator.diagnostics, ...failures],
+    diagnostics: [...translator.diagnostics, ...failures].map(rosettaDiagFromTypescript),
   };
 }
 

@@ -1,11 +1,12 @@
 /**
  * Pool worker for extract.ts
  */
-import * as ts from 'typescript';
 import * as worker from 'worker_threads';
 
+import * as logging from '../logging';
 import { TypeScriptSnippet } from '../snippet';
 import { TranslatedSnippetSchema } from '../tablets/schema';
+import { RosettaDiagnostic } from '../translate';
 import { singleThreadedTranslateAll } from './extract';
 
 export interface TranslateRequest {
@@ -14,7 +15,7 @@ export interface TranslateRequest {
 }
 
 export interface TranslateResponse {
-  diagnostics: ts.Diagnostic[];
+  diagnostics: RosettaDiagnostic[];
   // Cannot be 'TranslatedSnippet' because needs to be serializable
   translatedSnippetSchemas: TranslatedSnippetSchema[];
 }
@@ -36,6 +37,10 @@ if (worker.isMainThread) {
   throw new Error('This script should be run as a worker, not included directly.');
 }
 
-const request = worker.workerData;
+const request: TranslateRequest = worker.workerData;
+const startTime = Date.now();
 const response = translateSnippet(request);
+const delta = (Date.now() - startTime) / 1000;
+// eslint-disable-next-line prettier/prettier
+logging.info(`Finished translation of ${request.snippets.length} in ${delta.toFixed(0)}s (${response.translatedSnippetSchemas.length} responses)`);
 worker.parentPort!.postMessage(response);
