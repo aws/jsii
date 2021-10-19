@@ -10,6 +10,7 @@ import { TypeScriptSnippet, completeSource, SnippetParameters } from './snippet'
 import { snippetKey } from './tablets/key';
 import { TranslatedSnippet } from './tablets/tablets';
 import { calculateVisibleSpans } from './typescript/ast-utils';
+import { KindCounter } from './typescript/kind-counter';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
 import { annotateStrictDiagnostic, File } from './util';
 
@@ -55,6 +56,7 @@ export class Translator {
     }
 
     snippet.addFqnsReferenced(translator.fqnsReferenced());
+    snippet.addAstKindCounter(translator.astKindCounter());
 
     this.#diagnostics = ts.sortAndDeduplicateDiagnostics(this.#diagnostics.concat(translator.diagnostics));
 
@@ -166,6 +168,11 @@ export class SnippetTranslator {
     const converted = converter.convert(this.compilation.rootFile);
     this.translateDiagnostics.push(...filterVisibleDiagnostics(converter.diagnostics, this.visibleSpans));
     return renderTree(converted, { visibleSpans: this.visibleSpans });
+  }
+
+  public astKindCounter(): Record<number, number> {
+    const kindCounter = new KindCounter();
+    return kindCounter.countKinds(this.compilation.rootFile);
   }
 
   public fqnsReferenced() {

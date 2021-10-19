@@ -91,7 +91,7 @@ function main() {
     )
     .command(
       ['extract [ASSEMBLY..]', '$0 [ASSEMBLY..]'],
-      'Extract code snippets from one or more assemblies into a language tablets',
+      'Extract code snippets from one or more assemblies into language tablets',
       (command) =>
         command
           .positional('ASSEMBLY', {

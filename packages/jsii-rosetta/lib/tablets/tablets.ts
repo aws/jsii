@@ -78,7 +78,8 @@ export class TranslatedSnippet {
   public static fromSchema(schema: TranslatedSnippetSchema) {
     const ret = new TranslatedSnippet();
     Object.assign(ret.translations, schema.translations);
-    Object.assign(ret.fqnsReferenced, schema.fqnsReferenced);
+    Object.assign(ret._fqnsReferenced, schema.fqnsReferenced);
+    Object.assign(ret.astKindCounter, schema.astKindCounter);
     ret._didCompile = schema.didCompile;
     ret._where = schema.where;
     ret.fullSource = schema.fullSource;
@@ -98,6 +99,7 @@ export class TranslatedSnippet {
 
   private readonly translations: Record<string, TranslationSchema> = {};
   private readonly _fqnsReferenced = new Array<string>();
+  private astKindCounter: Record<number, number> = {};
   private _key?: string;
   private _didCompile?: boolean;
   private _where = '';
@@ -153,6 +155,14 @@ export class TranslatedSnippet {
     this.fqnsReferenced.push(...fqnsReferenced);
   }
 
+  public addAstKindCounter(astKindCounter: Record<number, number>) {
+    for (const key in astKindCounter) {
+      const a = this.astKindCounter[key] || 0;
+      const b = astKindCounter[key];
+      this.astKindCounter[key] = a + b;
+    }
+  }
+
   public setFullSource(fullSource: string) {
     this.fullSource = fullSource;
   }
@@ -192,6 +202,7 @@ export class TranslatedSnippet {
       didCompile: this.didCompile,
       where: this.where,
       fqnsReferenced: this.fqnsReferenced,
+      astKindCounter: this.astKindCounter,
       fullSource: this.fullSource,
     };
   }
