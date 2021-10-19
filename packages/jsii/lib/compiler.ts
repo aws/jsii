@@ -92,7 +92,6 @@ export class Compiler implements Emitter {
       configFileName,
     );
 
-    console.log(this.configPath);
 
     this.projectReferences =
       options.projectReferences !== undefined
