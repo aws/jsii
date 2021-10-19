@@ -89,7 +89,7 @@ function mean(tab: LanguageTablet, keys: string[]): string {
   for (const key of keys) {
     const snippet = tab.tryGetSnippet(key);
     if (snippet) {
-      counters.push(snippet.astKindCounter);
+      counters.push(snippet.syntaxKindCounter);
       associatedKeys.push(key);
     }
   }

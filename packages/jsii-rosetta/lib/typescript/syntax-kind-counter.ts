@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-export class KindCounter {
+export class SyntaxKindCounter {
   private readonly counter: Record<string, number>;
 
   public constructor() {
