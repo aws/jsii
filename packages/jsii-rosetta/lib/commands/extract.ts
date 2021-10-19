@@ -1,7 +1,6 @@
 import * as os from 'os';
 import * as path from 'path';
 import * as ts from 'typescript';
-import * as v8 from 'v8';
 
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
 import * as logging from '../logging';
@@ -9,7 +8,8 @@ import { TypeScriptSnippet } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { RosettaDiagnostic, Translator, rosettaDiagFromTypescript } from '../translate';
-import { divideEvenly } from '../util';
+import { WorkerPool } from '../worker-pool';
+import type { SnippetBatchResult, TranslateMetadata } from './extract_worker';
 
 export interface ExtractResult {
   diagnostics: RosettaDiagnostic[];
@@ -140,11 +140,15 @@ export function singleThreadedTranslateAll(
 /**
  * Divide the work evenly over all processors by running 'extract_worker' in Worker Threads, then combine results
  *
+ * The workers are fed small queues of work each. We used to divide the entire queue into N
+ * but since the work is divided unevenly that led to some workers stopping early, idling while
+ * waiting for more work.
+ *
  * Never include 'extract_worker' directly, only do TypeScript type references (so that in
  * the script we may assume that 'worker_threads' successfully imports).
  */
 async function workerBasedTranslateAll(
-  worker: typeof import('worker_threads'),
+  workerModule: typeof import('worker_threads'),
   snippets: IterableIterator<TypeScriptSnippet>,
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
@@ -152,53 +156,28 @@ async function workerBasedTranslateAll(
   // much (on my machine, using more than half the cores actually makes it slower).
   // Cap to a reasonable top-level limit to prevent thrash on machines with many, many cores.
   const maxWorkers = parseInt(process.env.JSII_ROSETTA_MAX_WORKER_COUNT ?? '16');
-  const N = Math.min(maxWorkers, Math.max(1, Math.ceil(os.cpus().length / 2)));
+  Array.isArray(maxWorkers);
+  Array.isArray(os.cpus);
+  const N = 12; // Math.min(maxWorkers, Math.max(1, Math.ceil(os.cpus().length / 2)));
   const snippetArr = Array.from(snippets);
-  const groups = divideEvenly(N, snippetArr);
-  logging.info(`Translating ${snippetArr.length} snippets using ${groups.length} workers`);
+  logging.info(`Translating ${snippetArr.length} snippets using ${N} workers`);
 
-  // Run workers
-  const responses = await Promise.all(
-    groups.map((snippets) => ({ snippets, includeCompilerDiagnostics })).map(runWorker),
-  );
-
-  // Combine results
-  const x = responses.reduce(
-    (acc, current) => {
-      // Modifying 'acc' in place to not incur useless copying
-      acc.translatedSnippetSchemas.push(...current.translatedSnippetSchemas);
-      acc.diagnostics.push(...current.diagnostics);
-      return acc;
-    },
-    { translatedSnippetSchemas: [], diagnostics: [] },
-  );
-  // Hydrate TranslatedSnippets from data back to objects
-  return {
-    diagnostics: x.diagnostics,
-    translatedSnippets: x.translatedSnippetSchemas.map((s) => TranslatedSnippet.fromSchema(s)),
-  };
-
-  /**
-   * Turn running the worker into a nice Promise.
-   */
-  async function runWorker(
-    request: import('./extract_worker').TranslateRequest,
-  ): Promise<import('./extract_worker').TranslateResponse> {
-    return new Promise((resolve, reject) => {
-      const wrk = new worker.Worker(path.join(__dirname, 'extract_worker.js'), {
-        resourceLimits: {
-          // Note: V8 heap statistics are expressed in bytes, so we divide by 1MiB (1,048,576 bytes)
-          maxOldGenerationSizeMb: Math.ceil(v8.getHeapStatistics().heap_size_limit / 1_048_576),
-        },
-        workerData: request,
-      });
-      wrk.on('message', resolve);
-      wrk.on('error', reject);
-      wrk.on('exit', (code) => {
-        if (code !== 0) {
-          reject(new Error(`Worker exited with code ${code}`));
-        }
-      });
+  const pool = new WorkerPool(workerModule, N, path.join(__dirname, 'extract_worker.js'));
+  try {
+    const responses = await pool.process<SnippetBatchResult, TranslateMetadata, TypeScriptSnippet>(snippetArr, {
+      includeCompilerDiagnostics,
     });
+
+    const diagnostics = new Array<RosettaDiagnostic>();
+    const translatedSnippets = new Array<TranslatedSnippet>();
+
+    // Combine results
+    for (const response of responses) {
+      diagnostics.push(...response.diagnostics);
+      translatedSnippets.push(TranslatedSnippet.fromSchema(response.translatedSchema));
+    }
+    return { diagnostics, translatedSnippets };
+  } finally {
+    pool.cleanup();
   }
 }

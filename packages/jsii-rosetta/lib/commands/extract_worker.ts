@@ -3,30 +3,41 @@
  */
 import * as worker from 'worker_threads';
 
-import * as logging from '../logging';
 import { TypeScriptSnippet } from '../snippet';
 import { TranslatedSnippetSchema } from '../tablets/schema';
 import { RosettaDiagnostic } from '../translate';
+import { WorkRequest, WorkResponse } from '../worker-pool';
 import { singleThreadedTranslateAll } from './extract';
 
-export interface TranslateRequest {
-  includeCompilerDiagnostics: boolean;
-  snippets: TypeScriptSnippet[];
+export type TranslateRequest = WorkRequest<TypeScriptSnippet, TranslateMetadata>;
+export type TranslateResponse = WorkResponse<SnippetBatchResult>;
+
+export interface TranslateMetadata {
+  readonly includeCompilerDiagnostics: boolean;
 }
 
-export interface TranslateResponse {
-  diagnostics: RosettaDiagnostic[];
+export interface SnippetBatchResult {
+  readonly diagnostics: RosettaDiagnostic[];
   // Cannot be 'TranslatedSnippet' because needs to be serializable
-  translatedSnippetSchemas: TranslatedSnippetSchema[];
+  readonly translatedSchema: TranslatedSnippetSchema;
 }
 
-function translateSnippet(request: TranslateRequest): TranslateResponse {
-  const result = singleThreadedTranslateAll(request.snippets[Symbol.iterator](), request.includeCompilerDiagnostics);
+function translateSnippetBatch(snippets: TypeScriptSnippet[], metadata: TranslateMetadata): SnippetBatchResult[] {
+  const result = singleThreadedTranslateAll(snippets[Symbol.iterator](), metadata.includeCompilerDiagnostics);
 
-  return {
-    diagnostics: result.diagnostics,
-    translatedSnippetSchemas: result.translatedSnippets.map((s) => s.toSchema()),
-  };
+  // The following is a bit silly: since we won't actually know which snippet a diagnostic
+  // originated from, and the protocol requires us to return an array of snippets, we'll
+  // just attach all diagnostics to the first snippet we return. It doesn't matter since they
+  // all get collated on the other end anyway.
+  const ret: SnippetBatchResult[] = result.translatedSnippets.map((s) => ({
+    translatedSchema: s.toSchema(),
+    diagnostics: [],
+  }));
+  if (ret.length > 0) {
+    ret[0].diagnostics.push(...result.diagnostics);
+  }
+
+  return ret;
 }
 
 if (worker.isMainThread) {
@@ -37,10 +48,11 @@ if (worker.isMainThread) {
   throw new Error('This script should be run as a worker, not included directly.');
 }
 
-const request: TranslateRequest = worker.workerData;
-const startTime = Date.now();
-const response = translateSnippet(request);
-const delta = (Date.now() - startTime) / 1000;
-// eslint-disable-next-line prettier/prettier
-logging.info(`Finished translation of ${request.snippets.length} in ${delta.toFixed(0)}s (${response.translatedSnippetSchemas.length} responses)`);
-worker.parentPort!.postMessage(response);
+worker.parentPort!.on('message', (m: TranslateRequest) => {
+  try {
+    const responses = translateSnippetBatch(m.requests, m.metadata!);
+    worker.parentPort!.postMessage({ id: m.id, responses } as TranslateResponse);
+  } catch (e) {
+    worker.parentPort!.postMessage({ id: m.id, error: e } as TranslateResponse);
+  }
+});
