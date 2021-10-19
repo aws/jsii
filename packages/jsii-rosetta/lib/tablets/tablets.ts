@@ -79,7 +79,7 @@ export class TranslatedSnippet {
     const ret = new TranslatedSnippet();
     Object.assign(ret.translations, schema.translations);
     Object.assign(ret._fqnsReferenced, schema.fqnsReferenced);
-    Object.assign(ret.astKindCounter, schema.astKindCounter);
+    Object.assign(ret._astKindCounter, schema.astKindCounter);
     ret._didCompile = schema.didCompile;
     ret._where = schema.where;
     ret.fullSource = schema.fullSource;
@@ -99,7 +99,7 @@ export class TranslatedSnippet {
 
   private readonly translations: Record<string, TranslationSchema> = {};
   private readonly _fqnsReferenced = new Array<string>();
-  private astKindCounter: Record<number, number> = {};
+  private readonly _astKindCounter: Record<string, number> = {};
   private _key?: string;
   private _didCompile?: boolean;
   private _where = '';
@@ -117,6 +117,10 @@ export class TranslatedSnippet {
 
   public get fqnsReferenced() {
     return this._fqnsReferenced;
+  }
+
+  public get astKindCounter() {
+    return this._astKindCounter;
   }
 
   public get key() {
@@ -155,11 +159,9 @@ export class TranslatedSnippet {
     this.fqnsReferenced.push(...fqnsReferenced);
   }
 
-  public addAstKindCounter(astKindCounter: Record<number, number>) {
-    for (const key in astKindCounter) {
-      const a = this.astKindCounter[key] || 0;
-      const b = astKindCounter[key];
-      this.astKindCounter[key] = a + b;
+  public addAstKindCounter(astKindCounter: Record<string, number>) {
+    for (const [key, value] of Object.entries(astKindCounter)) {
+      this.astKindCounter[key] = value + (this.astKindCounter[key] ?? 0);
     }
   }
 

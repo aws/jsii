@@ -6,7 +6,7 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
-import { copyExamples } from '../lib/commands/copy_examples';
+import { copyExamples } from '../lib/commands/copy-examples';
 import { extractSnippets } from '../lib/commands/extract';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';

@@ -170,7 +170,7 @@ export class SnippetTranslator {
     return renderTree(converted, { visibleSpans: this.visibleSpans });
   }
 
-  public astKindCounter(): Record<number, number> {
+  public astKindCounter(): Record<string, number> {
     const kindCounter = new KindCounter();
     return kindCounter.countKinds(this.compilation.rootFile);
   }
