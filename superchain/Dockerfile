@@ -218,34 +218,100 @@ RUN chmod 600 /home/superchain/.ssh/config
 COPY superchain /docker-source
 
 # Create the attributions document
-RUN echo "This jsii/superchain image includes the following third-party software/licensing:" > /NOTICE                  \
+RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc"                    \
+  && echo "This jsii/superchain image includes the following third-party software/licensing:" > /NOTICE                 \
   && echo "" >> /NOTICE                                                                                                 \
   # Start with the packages that didn't come from "apt-get" or don't have a copyright file
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "docker-ce: https://github.com/docker/cli/blob/master/NOTICE" >> /NOTICE                                      \
-  && echo "docker-ce-cli: https://github.com/moby/moby/blob/master/NOTICE" >> /NOTICE                                   \
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "dotnet: /opt/microsoft/dotnet/LICENSE.txt /opt/microsoft/dotnet/ThirdPartyNotices.txt" >> /NOTICE            \
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "gh: https://github.com/cli/cli/blob/trunk/LICENSE" >> /NOTICE                                                \
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "go: ${GOROOT}/LICENSE ${GOROOT}/PATENTS ${GOROOT}/AUTHORS ${GOROOT}/CONTRIBUTORS" >> /NOTICE                 \
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "java-1.8.0-amazon-corretto-jdk: /usr/lib/jvm/java-1.8.0-amazon-corretto/LICENSE /usr/lib/jvm/java-1.8.0-amazon-corretto/THIRD_PARTY_README" >> /NOTICE\
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "maven: ${M2_HOME}/LICENSE ${M2_HOME}/NOTICE" >> /NOTICE                                                      \
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "cargo: ${RUSTUP_HOME}/toolchains/$rustup show active-toolchain | cut -d' ' -f 1)/share/doc/cargo" >> /NOTICE \
-  && echo "rust: ${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc/rust" >> /NOTICE  \
-  && echo "rustup: https://github.com/rust-lang/rustup/blob/master/README.md" >> /NOTICE                                \
-  && echo "----------------" >> /NOTICE                                                                                 \
-  && echo "powershell: /opt/microsoft/powershell/LICENSE.txt /opt/microsoft/powershell/ThirdPartyNotices.txt" >> /NOTICE\
-  && echo "----------------" >> /NOTICE                                                                                 \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "docker-ce:" >> /NOTICE                                                                                       \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ NOTICE ------------------------------------" >> /NOTICE                 \
+  && curl -SsL "https://github.com/docker/cli/raw/master/NOTICE" >> /NOTICE                                             \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && curl -SsL "https://github.com/docker/cli/raw/master/LICENSE" >> /NOTICE                                            \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "docker-ce-cli:" >> /NOTICE                                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ NOTICE ------------------------------------" >> /NOTICE                 \
+  && curl -SsL "https://github.com/moby/moby/raw/master/NOTICE" >> /NOTICE                                              \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && curl -SsL "https://github.com/moby/moby/raw/master/LICENSE" >> /NOTICE                                             \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "dotnet:" >> /NOTICE                                                                                          \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat /opt/microsoft/dotnet/LICENSE.txt >> /NOTICE                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
+  && cat /opt/microsoft/dotnet/ThirdPartyNotices.txt >> /NOTICE                                                         \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "gh:" >> /NOTICE                                                                                              \
+  && curl -SsL "https://github.com/cli/cli/raw/trunk/LICENSE" >> /NOTICE                                                \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "go:" >> /NOTICE                                                                                              \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat ${GOROOT}/LICENSE  >> /NOTICE                                                                                  \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ PATENTS ------------------------------------" >> /NOTICE                \
+  && cat ${GOROOT}/PATENTS >> /NOTICE                                                                                   \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "java-1.8.0-amazon-corretto-jdk:" >> /NOTICE                                                                  \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/LICENSE >> /NOTICE                                                     \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
+  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/THIRD_PARTY_README >> /NOTICE                                          \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "maven:" >> /NOTICE                                                                                           \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ NOTICE ------------------------------------" >> /NOTICE                 \
+  && cat ${M2_HOME}/NOTICE >> /NOTICE                                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat ${M2_HOME}/LICENSE >> /NOTICE                                                                                  \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "cargo:" >> /NOTICE                                                                                           \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (APACHE) ------------------------------------" >> /NOTICE       \
+  && cat ${RUST_DOCS}/cargo/LICENSE-APACHE >> /NOTICE                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (MIT) ------------------------------------" >> /NOTICE          \
+  && cat ${RUST_DOCS}/cargo/LICENSE-MIT >> /NOTICE                                                                      \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY LICENSES ------------------------------------" >> /NOTICE   \
+  && cat ${RUST_DOCS}/cargo/LICENSE-THIRD-PARTY >> /NOTICE                                                              \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "rust:" >> /NOTICE                                                                                            \
+  && cat ${RUST_DOCS}/rust/COPYRIGHT >> /NOTICE                                                                         \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "rustup:" >> /NOTICE                                                                                          \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (APACHE) ------------------------------------" >> /NOTICE       \
+  && curl -SsL "https://github.com/rust-lang/rustup/raw/master/LICENSE-APACHE.md" >> /NOTICE                            \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (MIT) ------------------------------------" >> /NOTICE          \
+  && curl -SsL "https://github.com/rust-lang/rustup/raw/master/LICENSE-MIT.md" >> /NOTICE                               \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "powershell:" >> /NOTICE                                                                                      \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat /opt/microsoft/powershell/LICENSE.txt >> /NOTICE                                                               \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
+  && cat /opt/microsoft/powershell/ThirdPartyNotices.txt >> /NOTICE                                                     \
+  && echo "################################################################################" >> /NOTICE                 \
+  # Clean up
+  && unset RUST_DOCS                                                                                                    \
   # And then aggregate everything that came from dpkg which ships a copyright file
   && for PKG in $(dpkg-query --show --showformat='${package}\n'); do                                                    \
        if [[ -f "/usr/share/doc/${PKG}/copyright" ]]; then                                                              \
-         echo "${PKG}: /usr/share/doc/${PKG}/copyright" >> /NOTICE                                                      \
-         && echo '----------------' >> /NOTICE                                                                          \
+         echo "${PKG}:" >> /NOTICE                                                                                      \
+         && cat /usr/share/doc/${PKG}/copyright >> /NOTICE                                                              \
+         && echo '################################################################################' >> /NOTICE          \
        ;fi                                                                                                              \
      ;done
 
