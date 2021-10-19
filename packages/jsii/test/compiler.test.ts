@@ -158,6 +158,6 @@ function expectedTypeScriptConfig() {
       tsBuildInfoFile: 'tsconfig.tsbuildinfo',
     },
     exclude: ['node_modules'],
-    include: ['**/*.ts'],
+    include: [join('**', '*.ts')],
   };
 }
