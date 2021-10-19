@@ -84,7 +84,7 @@ function mean(tab: LanguageTablet, keys: string[]): string {
   }
 
   // Find mean counter.
-  const counters: Record<string, number>[] = [];
+  const counters: Array<Record<string, number>> = [];
   const associatedKeys: string[] = [];
   for (const key of keys) {
     const snippet = tab.tryGetSnippet(key);
@@ -94,12 +94,12 @@ function mean(tab: LanguageTablet, keys: string[]): string {
     }
   }
   const center = findCenter(counters);
-  
+
   // Find counter with closest euclidian distance.
   let minDistance = Number.MAX_VALUE;
   let keyOfClosestCounter = keys[0];
 
-  for (let i = 0; i<counters.length; i++) {
+  for (let i = 0; i < counters.length; i++) {
     const counter = counters[i];
     const distance = euclidianDistance(center, counter);
     if (distance < minDistance) {
@@ -108,22 +108,21 @@ function mean(tab: LanguageTablet, keys: string[]): string {
     }
   }
   return keyOfClosestCounter;
-
 }
 
 /**
  * Given a list of Records, outputs a Record that averages all the items in each Record.
  */
-function findCenter(counters: Record<string, number>[]): Record<string,number> {
+function findCenter(counters: Array<Record<string, number>>): Record<string, number> {
   const centerCounter: Record<string, number> = {};
-  for (const counter of counters){
+  for (const counter of counters) {
     for (const [key, value] of Object.entries(counter)) {
       centerCounter[key] = value + (centerCounter[key] ?? 0);
     }
   }
   const total = counters.length;
   for (const [key, value] of Object.entries(centerCounter)) {
-    centerCounter[key] = value/total;
+    centerCounter[key] = value / total;
   }
   return centerCounter;
 }
