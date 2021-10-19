@@ -65,10 +65,10 @@ const warningTypes = Object.keys(enabledWarnings);
             default: false,
             desc: '[EXPERIMENTAL] Injects warning statements for all deprecated elements, to be printed at runtime',
           })
-          .option('tsconfig-filename', {
+          .option('generate-tsconfig', {
             type: 'string',
             default: 'tsconfig.json',
-            desc: 'The name of the TypeScript configuration file to generate',
+            desc: 'Name of the typescript configuration file to generate with compiler settings',
           }),
     )
     .option('verbose', {
@@ -113,7 +113,7 @@ const warningTypes = Object.keys(enabledWarnings);
     failOnWarnings: argv['fail-on-warnings'],
     stripDeprecated: argv['strip-deprecated'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
-    tsconfigFileName: argv['tsconfig-filename'],
+    generateTypeScriptConfig: argv['generate-tsconfig'],
   });
 
   const emitResult = await (argv.watch ? compiler.watch() : compiler.emit());

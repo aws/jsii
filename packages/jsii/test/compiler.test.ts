@@ -30,7 +30,7 @@ describe(Compiler, () => {
 
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
-        tsconfigFileName: 'tsconfig.jsii.json',
+        generateTypeScriptConfig: 'tsconfig.jsii.json',
       });
 
       await compiler.emit();
