@@ -62,7 +62,7 @@ export class WorkerPool {
       const current = this.currentlyHandling.get(worker);
 
       // This is pretty horrible, but... this worker is about to die. Spawn a new one, find the
-      // work this one was about to do, and retry.
+      // work this one was about to do, and retry. It seems to work... (yay?)
       if ((e as any).code === 'ERR_WORKER_OUT_OF_MEMORY') {
         logging.warn('Worker ran out of memory and died. Recreating.');
         this.addWorker(workerModule, workerScript);

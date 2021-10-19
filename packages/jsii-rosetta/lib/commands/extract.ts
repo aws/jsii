@@ -152,13 +152,12 @@ async function workerBasedTranslateAll(
   snippets: IterableIterator<TypeScriptSnippet>,
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
-  // Use about half the advertised cores because hyperthreading doesn't seem to help that
-  // much (on my machine, using more than half the cores actually makes it slower).
+  // Use about half the advertised cores because hyperthreading doesn't seem to
+  // help that much, or we become I/O-bound at some point. On my machine, using
+  // more than half the cores actually makes it slower.
   // Cap to a reasonable top-level limit to prevent thrash on machines with many, many cores.
   const maxWorkers = parseInt(process.env.JSII_ROSETTA_MAX_WORKER_COUNT ?? '16');
-  Array.isArray(maxWorkers);
-  Array.isArray(os.cpus);
-  const N = 12; // Math.min(maxWorkers, Math.max(1, Math.ceil(os.cpus().length / 2)));
+  const N = Math.min(maxWorkers, Math.max(1, Math.ceil(os.cpus().length / 2)));
   const snippetArr = Array.from(snippets);
   logging.info(`Translating ${snippetArr.length} snippets using ${N} workers`);
 
