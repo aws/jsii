@@ -105,6 +105,9 @@ function mapFqns(tab: LanguageTablet): Record<string, string[]> {
   return fqnsReferencedMap;
 }
 
+/**
+ * Finds the mean sparse vector of available snippets for each type.
+ */
 function mean(tab: LanguageTablet, keys: string[]): string {
   // Return example if there is only 1
   if (keys.length === 1) {
@@ -155,7 +158,10 @@ function findCenter(counters: Array<Record<string, number>>): Record<string, num
   return centerCounter;
 }
 
-// TODO: Document asymmetricality
+/**
+ * Finds the euclidean distance between two sparce vectors.
+ * !!! This function assumes that the center parameter is a superset of the counter parameter. !!!
+ */
 function euclideanDistance(center: Record<string, number>, counter: Record<string, number>): number {
   const individualDistances = [];
   for (const [key, value] of Object.entries(center)) {
