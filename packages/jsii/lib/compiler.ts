@@ -54,6 +54,11 @@ export interface CompilerOptions {
   stripDeprecated?: boolean;
   /** Whether to add warnings for deprecated elements */
   addDeprecationWarnings?: boolean;
+  /**
+   * The name of the tsconfig file to generate
+   * @default "tsconfig.json"
+   */
+  generateTypeScriptConfig?: string;
 }
 
 export interface TypescriptConfig {
@@ -79,9 +84,11 @@ export class Compiler implements Emitter {
       },
     );
 
+    const configFileName = options.generateTypeScriptConfig ?? 'tsconfig.json';
+
     this.configPath = path.join(
       this.options.projectInfo.projectRoot,
-      'tsconfig.json',
+      configFileName,
     );
 
     this.projectReferences =
