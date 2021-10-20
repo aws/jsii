@@ -7,7 +7,7 @@ export interface CopyResult {
   exampleCountMap: Record<string, number>;
 }
 
-export async function copyExamples(assemblyLocations: string[], tabletFile: string): Promise<CopyResult> {
+export async function infuse(assemblyLocations: string[], tabletFile: string): Promise<CopyResult> {
   const tab = new LanguageTablet();
   await tab.load(tabletFile);
 
@@ -101,7 +101,7 @@ function mean(tab: LanguageTablet, keys: string[]): string {
 
   for (let i = 0; i < counters.length; i++) {
     const counter = counters[i];
-    const distance = euclidianDistance(center, counter);
+    const distance = euclideanDistance(center, counter);
     if (distance < minDistance) {
       minDistance = distance;
       keyOfClosestCounter = associatedKeys[i];
@@ -127,7 +127,8 @@ function findCenter(counters: Array<Record<string, number>>): Record<string, num
   return centerCounter;
 }
 
-function euclidianDistance(center: Record<string, number>, counter: Record<string, number>): number {
+// TODO: Document asymmetricality
+function euclideanDistance(center: Record<string, number>, counter: Record<string, number>): number {
   const individualDistances = [];
   for (const [key, value] of Object.entries(center)) {
     individualDistances.push(value - (counter[key] ?? 0));

@@ -13,8 +13,9 @@ export class SyntaxKindCounter {
   }
 
   private countNode(node: ts.Node) {
-    const value = node.kind.valueOf().toString();
+    const value = node.kind.valueOf();
     this.counter[value] = this.counter[value] ? this.counter[value] + 1 : 1;
+    //ts.forEachChild(node, (x) => this.countNode(x))
     node.getChildren().forEach((child) => this.countNode(child));
   }
 }

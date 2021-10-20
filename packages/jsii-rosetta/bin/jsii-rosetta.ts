@@ -6,8 +6,8 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
-import { copyExamples } from '../lib/commands/copy-examples';
 import { extractSnippets } from '../lib/commands/extract';
+import { infuse } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
 import { TargetLanguage } from '../lib/languages';
@@ -65,7 +65,7 @@ function main() {
       }),
     )
     .command(
-      'copy-examples <TABLET> [ASSEMBLY..]',
+      'infuse <TABLET> [ASSEMBLY..]',
       '(EXPERIMENTAL) mutates one or more assemblies by adding documentation examples to top-level types',
       (command) =>
         command
@@ -83,7 +83,7 @@ function main() {
           .demandOption('TABLET'),
       wrapHandler(async (args) => {
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
-        const result = await copyExamples(absAssemblies, args.TABLET);
+        const result = await infuse(absAssemblies, args.TABLET);
         for (const directory in result.exampleCountMap) {
           logging.warn(`Added ${result.exampleCountMap[directory]} examples to the .jsii file in ${directory}`);
         }
