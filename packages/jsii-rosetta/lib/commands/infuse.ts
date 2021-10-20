@@ -1,7 +1,9 @@
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import * as spec from '@jsii/spec';
 
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
-import { LanguageTablet } from '../tablets/tablets';
+import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 
 export interface InfusionResult {
   resultMap: Record<string, Infusion>;
@@ -22,6 +24,7 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
   const fqnsReferencedMap = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
   for (const { assembly, directory } of assemblies) {
+    let stream = fs.createWriteStream(path.join(directory, 'kaizen.html'), {flags:'a'});
     const infusion: Infusion = {
       filteredTypeFqns: [],
       insertedExampleFqns: [],
@@ -33,9 +36,15 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
       infusion.filteredTypeFqns = Object.keys(filteredTypes);
       for (const typeFqn in filteredTypes) {
         if (fqnsReferencedMap[typeFqn] !== undefined) {
-          const result = tab.tryGetSnippet(mean(tab, fqnsReferencedMap[typeFqn]));
-          if (result) {
-            const insertSuccess = insertExample(result.originalSource.source, types[typeFqn]);
+          const meanResult = tab.tryGetSnippet(mean(tab, fqnsReferencedMap[typeFqn]));
+          const firstResult = tab.tryGetSnippet(first(tab, fqnsReferencedMap[typeFqn]));
+          const shortestResult = tab.tryGetSnippet(shortest(tab, fqnsReferencedMap[typeFqn]));
+          const longestResult = tab.tryGetSnippet(longest(tab, fqnsReferencedMap[typeFqn]));
+          if (meanResult !== firstResult || meanResult !== shortestResult || meanResult !== longestResult) {
+            logDiscrepancies(stream, typeFqn, [meanResult, firstResult, shortestResult, longestResult]);
+          }
+          if (meanResult) {
+            const insertSuccess = insertExample(meanResult.originalSource.source, types[typeFqn]);
             if (insertSuccess) {
               infusion.insertedExampleFqns.push(typeFqn);
             } else {
@@ -105,6 +114,49 @@ function mapFqns(tab: LanguageTablet): Record<string, string[]> {
   return fqnsReferencedMap;
 }
 
+async function logDiscrepancies(stream: fs.WriteStream, fqn: string, snippets: (TranslatedSnippet | undefined)[]) {  
+  stream.write(`<h2>fqn: ${fqn}</h2>\n`);
+  stream.write(`\t<h2>snippets:</h2>\n`);
+  const snippetNames = ['mean', 'first', 'shortest', 'longest'];
+  for (var i = 0; i < snippets.length; i++) {
+    stream.write(`\t\t<p><b>${snippetNames[i]}</b>: ${snippets[i]?.originalSource.source}</p>\n`);
+  }
+  stream.write('\n----------------\n');
+}
+
+function longest(tab: LanguageTablet, keys: string[]): string {
+  if (keys.length < 1) { throw new Error('uh oh, this should not happen')}
+  let keyOfLongestExample = keys[0];
+  let length = tab.tryGetSnippet(keys[0])?.originalSource.source.length ?? 0;
+  for (const key of keys) {
+    const snippet = tab.tryGetSnippet(key);
+    if (snippet && snippet.originalSource.source.length > length) {
+      length = snippet.originalSource.source.length;
+      keyOfLongestExample = key;
+    }
+  }
+  return keyOfLongestExample;
+}
+
+function shortest(tab: LanguageTablet, keys: string[]): string {
+  if (keys.length < 1) { throw new Error('uh oh, this should not happen')}
+  let keyOfShortestExample = keys[0];
+  let length = tab.tryGetSnippet(keys[0])?.originalSource.source.length ?? 0;
+  for (const key of keys) {
+    const snippet = tab.tryGetSnippet(key);
+    if (snippet && snippet.originalSource.source.length < length) {
+      length = snippet.originalSource.source.length;
+      keyOfShortestExample = key;
+    }
+  }
+  return keyOfShortestExample;
+}
+
+function first(_tab: LanguageTablet, keys: string[]): string {
+  if (keys.length < 1) { throw new Error('uh oh, this should not happen')}
+  return keys[0];
+}
+
 /**
  * Finds the mean sparse vector of available snippets for each type.
  */
@@ -147,14 +199,14 @@ function mean(tab: LanguageTablet, keys: string[]): string {
 function findCenter(counters: Array<Record<string, number>>): Record<string, number> {
   const centerCounter: Record<string, number> = {};
   for (const counter of counters) {
-    for (const [key, value] of Object.entries(counter)) {
+    Object.entries(counter).map(([key, value]) => {
       centerCounter[key] = value + (centerCounter[key] ?? 0);
-    }
+    })
   }
   const total = counters.length;
-  for (const [key, value] of Object.entries(centerCounter)) {
+  Object.entries(centerCounter).map(([key, value]) => {
     centerCounter[key] = value / total;
-  }
+  })
   return centerCounter;
 }
 
@@ -163,9 +215,9 @@ function findCenter(counters: Array<Record<string, number>>): Record<string, num
  * !!! This function assumes that the center parameter is a superset of the counter parameter. !!!
  */
 function euclideanDistance(center: Record<string, number>, counter: Record<string, number>): number {
-  const individualDistances = [];
-  for (const [key, value] of Object.entries(center)) {
+  const individualDistances: number[] = [];
+  Object.entries(center).map(([key, value]) => {
     individualDistances.push(value - (counter[key] ?? 0));
-  }
+  });
   return individualDistances.reduce((acc, curr) => acc + Math.sqrt(Math.pow(curr, 2)));
 }
