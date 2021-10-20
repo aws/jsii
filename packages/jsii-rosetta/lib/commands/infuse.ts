@@ -3,44 +3,64 @@ import * as spec from '@jsii/spec';
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
 import { LanguageTablet } from '../tablets/tablets';
 
-export interface CopyResult {
-  exampleCountMap: Record<string, number>;
+export interface InfusionResult {
+  resultMap: Record<string, Infusion>;
 }
 
-export async function infuse(assemblyLocations: string[], tabletFile: string): Promise<CopyResult> {
+export interface Infusion {
+  filteredTypeFqns: string[];
+  insertedExampleFqns: string[];
+  hadExampleFqns: string[];
+}
+
+export async function infuse(assemblyLocations: string[], tabletFile: string): Promise<InfusionResult> {
   const tab = new LanguageTablet();
   await tab.load(tabletFile);
 
-  const exampleCountMap: Record<string, number> = {};
+  const resultMap: Record<string, Infusion> = {};
 
   const fqnsReferencedMap = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
   for (const { assembly, directory } of assemblies) {
-    let exampleCount = 0;
+    const infusion: Infusion = {
+      filteredTypeFqns: [],
+      insertedExampleFqns: [],
+      hadExampleFqns: [],
+    };
     const types = assembly.types;
     if (types) {
       const filteredTypes = filterForTypesWithoutExamples(types);
+      infusion.filteredTypeFqns = Object.keys(filteredTypes);
       for (const typeFqn in filteredTypes) {
         if (fqnsReferencedMap[typeFqn] !== undefined) {
           const result = tab.tryGetSnippet(mean(tab, fqnsReferencedMap[typeFqn]));
           if (result) {
-            insertExample(result.originalSource.source, typeFqn, types);
-            exampleCount = exampleCount + 1;
+            const insertSuccess = insertExample(result.originalSource.source, types[typeFqn]);
+            if (insertSuccess) {
+              infusion.insertedExampleFqns.push(typeFqn);
+            } else {
+              infusion.hadExampleFqns.push(typeFqn);
+            }
           }
         }
       }
     }
-    exampleCountMap[directory] = exampleCount;
     void replaceAssembly(assembly, directory);
+    resultMap[directory] = infusion;
   }
   return {
-    exampleCountMap,
+    resultMap: resultMap,
   };
 }
 
-function filterForTypesWithoutExamples(types: any) {
+function filterForTypesWithoutExamples(types: any): Record<string, any> {
   const filteredTypes: Record<string, any> = {};
   for (const typeFqn in types) {
+    // Ignore Cfn types if possible
+    const splitFqn = typeFqn.split('.');
+    if (splitFqn.length >= 2 && splitFqn[1].length >= 3 && splitFqn[1].substring(0, 3) === 'Cfn') {
+      continue;
+    }
     // Filter for acceptable kinds without an example in the docs
     const kinds = new Set(['class', 'interface', 'enum']);
     if (kinds.has(types[typeFqn].kind) && types[typeFqn].docs?.example === undefined) {
@@ -50,12 +70,20 @@ function filterForTypesWithoutExamples(types: any) {
   return filteredTypes;
 }
 
-function insertExample(example: string, typeFqn: string, types: { [fqn: string]: spec.Type }) {
-  if (types[typeFqn].docs) {
-    types[typeFqn].docs!.example = example;
-  } else {
-    types[typeFqn].docs = { example: example };
+/**
+ * Insert an example into the docs if it does not already have an example.
+ * Returns true if an example is inserted, false otherwise.
+ */
+function insertExample(example: string, type: spec.Type): boolean {
+  if (type.docs?.example) {
+    return false;
   }
+  if (type.docs) {
+    type.docs.example = example;
+  } else {
+    type.docs = { example: example };
+  }
+  return true;
 }
 
 /**

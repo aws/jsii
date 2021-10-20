@@ -84,8 +84,20 @@ function main() {
       wrapHandler(async (args) => {
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
         const result = await infuse(absAssemblies, args.TABLET);
-        for (const directory in result.exampleCountMap) {
-          logging.warn(`Added ${result.exampleCountMap[directory]} examples to the .jsii file in ${directory}`);
+        for (const [directory, map] of Object.entries(result.resultMap)) {
+          const commonName = directory.split('/').pop()!;
+          const originalCoverage = Math.round((10000 * map.hadExampleFqns.length) / map.filteredTypeFqns.length) / 100;
+          const newCoverage =
+            Math.round(
+              (10000 * (map.insertedExampleFqns.length + map.hadExampleFqns.length)) / map.filteredTypeFqns.length,
+            ) / 100;
+          process.stdout.write(
+            `${commonName}: Added ${result.resultMap[directory].insertedExampleFqns.length} examples to ${map.filteredTypeFqns.length} types.\n`,
+          );
+          process.stdout.write(
+            `${commonName}: Original coverage: ${originalCoverage}%. New coverage: ${newCoverage}%.\n`,
+          );
+          process.stdout.write(map.filteredTypeFqns.toString());
         }
       }),
     )
