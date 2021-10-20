@@ -1,6 +1,6 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as spec from '@jsii/spec';
 
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
@@ -24,7 +24,7 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
   const fqnsReferencedMap = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
   for (const { assembly, directory } of assemblies) {
-    let stream = fs.createWriteStream(path.join(directory, 'kaizen.html'), {flags:'a'});
+    const stream = fs.createWriteStream(path.join(directory, 'kaizen.html'), { flags: 'a' });
     const infusion: Infusion = {
       filteredTypeFqns: [],
       insertedExampleFqns: [],
@@ -41,7 +41,7 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
           const shortestResult = tab.tryGetSnippet(shortest(tab, fqnsReferencedMap[typeFqn]));
           const longestResult = tab.tryGetSnippet(longest(tab, fqnsReferencedMap[typeFqn]));
           if (meanResult !== firstResult || meanResult !== shortestResult || meanResult !== longestResult) {
-            logDiscrepancies(stream, typeFqn, [meanResult, firstResult, shortestResult, longestResult]);
+            void logDiscrepancies(stream, typeFqn, [meanResult, firstResult, shortestResult, longestResult]);
           }
           if (meanResult) {
             const insertSuccess = insertExample(meanResult.originalSource.source, types[typeFqn]);
@@ -114,18 +114,20 @@ function mapFqns(tab: LanguageTablet): Record<string, string[]> {
   return fqnsReferencedMap;
 }
 
-async function logDiscrepancies(stream: fs.WriteStream, fqn: string, snippets: (TranslatedSnippet | undefined)[]) {  
+function logDiscrepancies(stream: fs.WriteStream, fqn: string, snippets: Array<TranslatedSnippet | undefined>) {
   stream.write(`<h2>fqn: ${fqn}</h2>\n`);
   stream.write(`\t<h2>snippets:</h2>\n`);
   const snippetNames = ['mean', 'first', 'shortest', 'longest'];
-  for (var i = 0; i < snippets.length; i++) {
+  for (let i = 0; i < snippets.length; i++) {
     stream.write(`\t\t<p><b>${snippetNames[i]}</b>: ${snippets[i]?.originalSource.source}</p>\n`);
   }
   stream.write('\n----------------\n');
 }
 
 function longest(tab: LanguageTablet, keys: string[]): string {
-  if (keys.length < 1) { throw new Error('uh oh, this should not happen')}
+  if (keys.length < 1) {
+    throw new Error('uh oh, this should not happen');
+  }
   let keyOfLongestExample = keys[0];
   let length = tab.tryGetSnippet(keys[0])?.originalSource.source.length ?? 0;
   for (const key of keys) {
@@ -139,7 +141,9 @@ function longest(tab: LanguageTablet, keys: string[]): string {
 }
 
 function shortest(tab: LanguageTablet, keys: string[]): string {
-  if (keys.length < 1) { throw new Error('uh oh, this should not happen')}
+  if (keys.length < 1) {
+    throw new Error('uh oh, this should not happen');
+  }
   let keyOfShortestExample = keys[0];
   let length = tab.tryGetSnippet(keys[0])?.originalSource.source.length ?? 0;
   for (const key of keys) {
@@ -153,7 +157,9 @@ function shortest(tab: LanguageTablet, keys: string[]): string {
 }
 
 function first(_tab: LanguageTablet, keys: string[]): string {
-  if (keys.length < 1) { throw new Error('uh oh, this should not happen')}
+  if (keys.length < 1) {
+    throw new Error('uh oh, this should not happen');
+  }
   return keys[0];
 }
 
@@ -201,12 +207,12 @@ function findCenter(counters: Array<Record<string, number>>): Record<string, num
   for (const counter of counters) {
     Object.entries(counter).map(([key, value]) => {
       centerCounter[key] = value + (centerCounter[key] ?? 0);
-    })
+    });
   }
   const total = counters.length;
   Object.entries(centerCounter).map(([key, value]) => {
     centerCounter[key] = value / total;
-  })
+  });
   return centerCounter;
 }
 
