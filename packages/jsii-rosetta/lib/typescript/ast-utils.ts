@@ -481,3 +481,10 @@ export function privatePropertyNames(members: readonly ts.ClassElement[], render
   const props = members.filter((m) => ts.isPropertyDeclaration(m)) as ts.PropertyDeclaration[];
   return props.filter((m) => visibility(m) === 'private').map((m) => renderer.textOf(m.name));
 }
+
+export function findEnclosingClassDeclaration(node: ts.Node): ts.ClassDeclaration | undefined {
+  while (node && !ts.isClassDeclaration(node)) {
+    node = node.parent;
+  }
+  return node;
+}

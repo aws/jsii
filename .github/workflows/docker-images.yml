@@ -50,9 +50,9 @@ jobs:
             fi
           fi
 
-      # We only authenticate to Docker for 'push' events, as 'pull_request' from forks will not have the secret
+      # We only authenticate to Docker on the 'aws/jsii' repo, as forks will not have the secret
       - name: Login to Docker
-        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push'
+        if: steps.should-run.outputs.result == 'true' && github.repository == 'aws/jsii'
         # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
         run: |-
           docker login                                                          \

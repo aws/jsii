@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 /**
  * Resolve a package name in an example to a JSII assembly
  *
@@ -12,6 +15,28 @@ export function resolvePackage(packageName: string) {
     return require(resolved);
   } catch {
     return undefined;
+  }
+}
+
+/**
+ * Find an enclosing package.json file given a filename
+ *
+ * Will return `undefined` if a package.json could not be found.
+ */
+export function findPackageJson(fileName: string) {
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const candidatePath = path.join(fileName, 'package.json');
+    if (fs.existsSync(candidatePath)) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      return require(path.resolve(candidatePath));
+    }
+
+    const parent = path.dirname(fileName);
+    if (parent === fileName) {
+      return undefined;
+    }
+    fileName = parent;
   }
 }
 

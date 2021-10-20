@@ -17,17 +17,19 @@ export function firstTypeInUnion(typeChecker: ts.TypeChecker, type: ts.Type): ts
 
 export type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
 export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
-  const map: { readonly [k: number]: BuiltInType } = {
-    [ts.TypeFlags.Any]: 'any',
-    [ts.TypeFlags.Unknown]: 'any',
-    [ts.TypeFlags.Boolean]: 'boolean',
-    [ts.TypeFlags.Number]: 'number',
-    [ts.TypeFlags.String]: 'string',
-    [ts.TypeFlags.StringLiteral]: 'string',
-    [ts.TypeFlags.NumberLiteral]: 'number',
-    [ts.TypeFlags.BooleanLiteral]: 'boolean',
-  };
-  return map[type.flags];
+  if (hasAnyFlag(type.flags, ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
+    return 'any';
+  }
+  if (hasAnyFlag(type.flags, ts.TypeFlags.BooleanLike)) {
+    return 'boolean';
+  }
+  if (hasAnyFlag(type.flags, ts.TypeFlags.NumberLike)) {
+    return 'number';
+  }
+  if (hasAnyFlag(type.flags, ts.TypeFlags.StringLike)) {
+    return 'string';
+  }
+  return undefined;
 }
 
 export function renderType(type: ts.Type): string {
@@ -154,6 +156,19 @@ function isDefined<A>(x: A): x is NonNullable<A> {
   return x !== undefined;
 }
 
+/**
+ * Infer type of expression by the argument it is assigned to
+ *
+ * If the type of the expression can include undefined (if the value is
+ * optional), `undefined` will be removed from the union.
+ *
+ * (Will return undefined for object literals not unified with a declared type)
+ */
+export function inferredTypeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
+  const type = typeChecker.getContextualType(node);
+  return type ? typeChecker.getNonNullableType(type) : undefined;
+}
+
 export function isNumber(x: any): x is number {
   return typeof x === 'number';
 }
@@ -183,4 +198,12 @@ export function renderFlags(flags: number | undefined, flagObject: Record<string
     .filter((f) => hasAllFlags(flags, f))
     .map((f) => flagObject[f])
     .join(',');
+}
+
+export function determineReturnType(typeChecker: ts.TypeChecker, node: ts.SignatureDeclaration): ts.Type | undefined {
+  const signature = typeChecker.getSignatureFromDeclaration(node);
+  if (!signature) {
+    return undefined;
+  }
+  return typeChecker.getReturnTypeOfSignature(signature);
 }

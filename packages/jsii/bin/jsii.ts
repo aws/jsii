@@ -59,6 +59,16 @@ const warningTypes = Object.keys(enabledWarnings);
             type: 'boolean',
             default: false,
             desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
+          })
+          .option('add-deprecation-warnings', {
+            type: 'boolean',
+            default: false,
+            desc: '[EXPERIMENTAL] Injects warning statements for all deprecated elements, to be printed at runtime',
+          })
+          .option('generate-tsconfig', {
+            type: 'string',
+            default: 'tsconfig.json',
+            desc: 'Name of the typescript configuration file to generate with compiler settings',
           }),
     )
     .option('verbose', {
@@ -102,6 +112,8 @@ const warningTypes = Object.keys(enabledWarnings);
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
     stripDeprecated: argv['strip-deprecated'],
+    addDeprecationWarnings: argv['add-deprecation-warnings'],
+    generateTypeScriptConfig: argv['generate-tsconfig'],
   });
 
   const emitResult = await (argv.watch ? compiler.watch() : compiler.emit());

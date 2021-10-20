@@ -4529,7 +4529,7 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
         x = 12 + 44
         s1 = "string"
         s2 = """string
-        with new newlines"""# see https://github.com/aws/jsii/issues/2569
+        with new newlines""" # see https://github.com/aws/jsii/issues/2569
         s3 = """string
                     with
                     new lines"""

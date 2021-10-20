@@ -52,6 +52,13 @@ export interface CompilerOptions {
   failOnWarnings?: boolean;
   /** Whether to strip deprecated members from emitted artifacts */
   stripDeprecated?: boolean;
+  /** Whether to add warnings for deprecated elements */
+  addDeprecationWarnings?: boolean;
+  /**
+   * The name of the tsconfig file to generate
+   * @default "tsconfig.json"
+   */
+  generateTypeScriptConfig?: string;
 }
 
 export interface TypescriptConfig {
@@ -77,9 +84,11 @@ export class Compiler implements Emitter {
       },
     );
 
+    const configFileName = options.generateTypeScriptConfig ?? 'tsconfig.json';
+
     this.configPath = path.join(
       this.options.projectInfo.projectRoot,
-      'tsconfig.json',
+      configFileName,
     );
 
     this.projectReferences =
@@ -235,6 +244,7 @@ export class Compiler implements Emitter {
     // to post-process the AST
     const assembler = new Assembler(this.options.projectInfo, program, stdlib, {
       stripDeprecated: this.options.stripDeprecated,
+      addDeprecationWarnings: this.options.addDeprecationWarnings,
     });
 
     try {

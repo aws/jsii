@@ -1,4 +1,5 @@
 /// !hide
+/// fake-from-jsii
 class Integration {
   constructor(_something: any, id: string, props?: IntegrationOptions) { }
 }
