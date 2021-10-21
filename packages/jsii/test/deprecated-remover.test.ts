@@ -88,6 +88,22 @@ test('produces correct output', async () => {
         "name": "RetainedClass",
         "symbolId": "retained:RetainedClass",
       },
+      "testpkg.SomeEnum": Object {
+        "assembly": "testpkg",
+        "fqn": "testpkg.SomeEnum",
+        "kind": "enum",
+        "locationInModule": Object {
+          "filename": "enums.ts",
+          "line": 2,
+        },
+        "members": Array [
+          Object {
+            "name": "VALUE_RETAINED",
+          },
+        ],
+        "name": "SomeEnum",
+        "symbolId": "enums:SomeEnum",
+      },
     }
   `);
   expect(declFilesSnapshot(result)).toMatchInlineSnapshot(`
@@ -95,6 +111,7 @@ test('produces correct output', async () => {
     /// index.d.ts ///
     import './deprecated';
     export * from './retained';
+    export * from './enums';
     export { GrandChild, Retained } from './mixed';
     //////////////////
 
@@ -111,6 +128,14 @@ test('produces correct output', async () => {
     export declare class RetainedClass {
     }
     /////////////////////
+
+
+    //////////////////
+    /// enums.d.ts ///
+    export declare enum SomeEnum {
+        VALUE_RETAINED = 0
+    }
+    //////////////////
 
 
     //////////////////
@@ -173,6 +198,8 @@ describe('stripDeprecatedAllowList', () => {
       [
         'testpkg.IDeprecatedInterface',
         'testpkg.DeprecatedClass',
+        'testpkg.SomeEnum.VALUE_DEPRECATED',
+        'testpkg.DeprecatedEnum',
         'testpkg.Retained.deprecated',
         'testpkg.Deprecated',
         'testpkg.GrandChild.deprecatedMethod',
@@ -235,6 +262,7 @@ describe('stripDeprecatedAllowList', () => {
       stripDeprecatedAllowListFile,
       [
         'testpkg.IDeprecatedInterface',
+        'testpkg.SomeEnum.VALUE_DEPRECATED',
         'testpkg.GrandChild.deprecatedMethod',
       ].join('\n'),
       'utf8',
@@ -283,6 +311,35 @@ describe('stripDeprecatedAllowList', () => {
         },
         "name": "DeprecatedClass",
         "symbolId": "deprecated:DeprecatedClass",
+      },
+      "testpkg.DeprecatedEnum": Object {
+        "assembly": "testpkg",
+        "docs": Object {
+          "deprecated": "stripped",
+          "stability": "deprecated",
+        },
+        "fqn": "testpkg.DeprecatedEnum",
+        "kind": "enum",
+        "locationInModule": Object {
+          "filename": "enums.ts",
+          "line": 8,
+        },
+        "members": Array [
+          Object {
+            "docs": Object {
+              "stability": "deprecated",
+            },
+            "name": "VALUE_ONE",
+          },
+          Object {
+            "docs": Object {
+              "stability": "deprecated",
+            },
+            "name": "VALUE_TWO",
+          },
+        ],
+        "name": "DeprecatedEnum",
+        "symbolId": "enums:DeprecatedEnum",
       },
       "testpkg.GrandChild": Object {
         "assembly": "testpkg",
@@ -370,6 +427,22 @@ describe('stripDeprecatedAllowList', () => {
         "name": "RetainedClass",
         "symbolId": "retained:RetainedClass",
       },
+      "testpkg.SomeEnum": Object {
+        "assembly": "testpkg",
+        "fqn": "testpkg.SomeEnum",
+        "kind": "enum",
+        "locationInModule": Object {
+          "filename": "enums.ts",
+          "line": 2,
+        },
+        "members": Array [
+          Object {
+            "name": "VALUE_RETAINED",
+          },
+        ],
+        "name": "SomeEnum",
+        "symbolId": "enums:SomeEnum",
+      },
     }
   `);
     expect(declFilesSnapshot(result)).toMatchInlineSnapshot(`
@@ -377,6 +450,7 @@ describe('stripDeprecatedAllowList', () => {
     /// index.d.ts ///
     export * from './deprecated';
     export * from './retained';
+    export * from './enums';
     export { Deprecated, GrandChild, Retained } from './mixed';
     //////////////////
 
@@ -398,6 +472,27 @@ describe('stripDeprecatedAllowList', () => {
     export declare class RetainedClass {
     }
     /////////////////////
+
+
+    //////////////////
+    /// enums.d.ts ///
+    export declare enum SomeEnum {
+        VALUE_RETAINED = 0
+    }
+    /**
+     * @deprecated stripped
+     */
+    export declare enum DeprecatedEnum {
+        /**
+         * @deprecated
+         */
+        VALUE_ONE = 0,
+        /**
+         * @deprecated
+         */
+        VALUE_TWO = 1
+    }
+    //////////////////
 
 
     //////////////////
@@ -438,6 +533,7 @@ const MULTI_FILE_EXAMPLE = {
   'index.ts': `
     export * from './deprecated';
     export * from './retained';
+    export * from './enums';
     export { Deprecated, GrandChild, Retained } from './mixed';
   `,
   'deprecated.ts': `
@@ -449,6 +545,15 @@ const MULTI_FILE_EXAMPLE = {
   'retained.ts': `
     export interface IRetainedInterface {}
     export class RetainedClass {}
+  `,
+  'enums.ts': `
+    export enum SomeEnum {
+      VALUE_RETAINED,
+      ${DEPRECATED}
+      VALUE_DEPRECATED,
+    }
+    ${DEPRECATED}
+    export enum DeprecatedEnum { VALUE_ONE, VALUE_TWO }
   `,
   'mixed.ts': `
     import { IRetainedInterface } from './retained';

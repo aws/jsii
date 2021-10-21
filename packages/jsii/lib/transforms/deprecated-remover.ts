@@ -1,6 +1,7 @@
 import {
   Assembly,
   ClassType,
+  EnumMember,
   Initializer,
   InterfaceType,
   isClassOrInterfaceType,
@@ -98,8 +99,26 @@ export class DeprecatedRemover {
         continue;
       }
 
-      // Enums cannot have references to `@deprecated` types
+      // Enums cannot have references to `@deprecated` types, but can have deprecated members
       if (isEnumType(typeInfo)) {
+        const enumNode = bindings.getEnumRelatedNode(typeInfo)!;
+        const members: EnumMember[] = [];
+        typeInfo.members.forEach((mem) => {
+          if (
+            mem.docs?.stability === Stability.Deprecated &&
+            this.shouldFqnBeStripped(`${fqn}.${mem.name}`)
+          ) {
+            const matchingMemberNode = enumNode.members.find(
+              (enumMem) => enumMem.name.getText() === mem.name,
+            );
+            if (matchingMemberNode) {
+              this.nodesToRemove.add(matchingMemberNode);
+            }
+          } else {
+            members.push(mem);
+          }
+        });
+        typeInfo.members = members;
         continue;
       }
 
