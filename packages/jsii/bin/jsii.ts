@@ -60,6 +60,11 @@ const warningTypes = Object.keys(enabledWarnings);
             default: false,
             desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
           })
+          .option('strip-deprecated-allowlist-file', {
+            type: 'string',
+            default: undefined,
+            desc: '[EXPERIMENTAL] If provided, only full-qualified names listed in the allow list file (newline-delimited) will be stripped with --strip-deprecated',
+          })
           .option('add-deprecation-warnings', {
             type: 'boolean',
             default: false,
@@ -112,6 +117,7 @@ const warningTypes = Object.keys(enabledWarnings);
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
     stripDeprecated: argv['strip-deprecated'],
+    stripDeprecatedAllowListFile: argv['strip-deprecated-allowlist-file'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
     generateTypeScriptConfig: argv['generate-tsconfig'],
   });

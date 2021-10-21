@@ -76,7 +76,22 @@ export class Assembler implements Emitter {
     options: AssemblerOptions = {},
   ) {
     if (options.stripDeprecated) {
-      this.deprecatedRemover = new DeprecatedRemover(this._typeChecker);
+      let allowlistedDeprecations: string[] | undefined;
+      if (options.stripDeprecatedAllowListFile) {
+        if (!fs.existsSync(options.stripDeprecatedAllowListFile)) {
+          throw new Error(
+            `--strip-deprecated file not found: ${options.stripDeprecatedAllowListFile}`,
+          );
+        }
+        allowlistedDeprecations = fs
+          .readFileSync(options.stripDeprecatedAllowListFile, 'utf8')
+          .split('\n');
+      }
+
+      this.deprecatedRemover = new DeprecatedRemover(
+        this._typeChecker,
+        allowlistedDeprecations,
+      );
     }
 
     if (options.addDeprecationWarnings) {
@@ -2758,6 +2773,15 @@ export interface AssemblerOptions {
    * @default false
    */
   readonly stripDeprecated?: boolean;
+
+  /**
+   * If `stripDeprecated` is true, and a file is provided here, only the FQNs
+   * present in the file will actually be removed. This can be useful when
+   * you wish to deprecate some elements without actually removing them.
+   *
+   * @default undefined
+   */
+  readonly stripDeprecatedAllowListFile?: string;
 
   /**
    * Whether to inject code that warns when a deprecated element is used.

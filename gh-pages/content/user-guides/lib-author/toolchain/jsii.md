@@ -78,3 +78,15 @@ However, in order to ensure the underlying code continues to work as designed,
 the *implementation* of such declarations will remain in the **JavaScript**
 (`.js`) files produced by the compilation. This is, in fact, similar to marking
 all `@deprecated` members `@internal`.
+
+Additionally, the `--strip-deprecated-allowlist-file` option allows the above
+behavior to be limited to a specific set of allow-listed fully-qualified names.
+Each line in the file should contain a single fully-qualified name of a
+declaration that should be stripped. If this option is provided, all
+`@deprecated` elements not present in the allow list will be retained. As an
+example, the allowlist file might look like:
+
+    testpkg.IDeprecated
+    testpkg.DeprecatedOne
+    testpkg.DeprecatedTwo.deprecatedProperty
+    testpkg.DeprecatedTwo.deprecatedMethod
