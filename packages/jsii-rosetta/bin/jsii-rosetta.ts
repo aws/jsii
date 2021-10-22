@@ -98,7 +98,7 @@ function main() {
         const absOutput = path.resolve(args.output);
         const result = await infuse(absAssemblies, args.TABLET, {
           outputFile: absOutput,
-          log: args.log ?? false,
+          log: args.log,
         });
 
         let totalTypes = 0;
