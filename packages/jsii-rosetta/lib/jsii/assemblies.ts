@@ -8,7 +8,7 @@ import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, Snipp
 import { enforcesStrictMode } from '../strict';
 
 export async function replaceAssembly(assembly: spec.Assembly, directory: string): Promise<void> {
-  const fileName = path.join(directory, '.jsii');
+  const fileName = path.join(directory, '.temp.jsii');
   await fs.writeJson(fileName, assembly, { spaces: '\t' });
 }
 

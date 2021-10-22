@@ -97,7 +97,7 @@ function main() {
           process.stdout.write(
             `${commonName}: Original coverage: ${originalCoverage}%. New coverage: ${newCoverage}%.\n`,
           );
-          process.stdout.write(map.filteredTypeFqns.toString());
+          //process.stdout.write(map.filteredTypeFqns.toString());
         }
       }),
     )

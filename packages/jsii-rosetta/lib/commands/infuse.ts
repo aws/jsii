@@ -1,9 +1,8 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
-import * as path from 'path';
 
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
-import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
+import { LanguageTablet } from '../tablets/tablets';
 
 export interface InfusionResult {
   resultMap: Record<string, Infusion>;
@@ -16,6 +15,10 @@ export interface Infusion {
 }
 
 export async function infuse(assemblyLocations: string[], tabletFile: string): Promise<InfusionResult> {
+  // Create stream for html file and insert some styling.
+  const stream = fs.createWriteStream('kaizen.html', { flags: 'a' });
+  startFile(stream);
+
   const tab = new LanguageTablet();
   await tab.load(tabletFile);
 
@@ -24,7 +27,8 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
   const fqnsReferencedMap = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
   for (const { assembly, directory } of assemblies) {
-    const stream = fs.createWriteStream(path.join(directory, 'kaizen.html'), { flags: 'a' });
+    const dir = directory.split('/');
+    stream.write(`<h1>${dir[dir.length - 1]}</h1>\n`);
     const infusion: Infusion = {
       filteredTypeFqns: [],
       insertedExampleFqns: [],
@@ -40,9 +44,16 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
           const firstResult = tab.tryGetSnippet(first(tab, fqnsReferencedMap[typeFqn]));
           const shortestResult = tab.tryGetSnippet(shortest(tab, fqnsReferencedMap[typeFqn]));
           const longestResult = tab.tryGetSnippet(longest(tab, fqnsReferencedMap[typeFqn]));
-          if (meanResult !== firstResult || meanResult !== shortestResult || meanResult !== longestResult) {
-            void logDiscrepancies(stream, typeFqn, [meanResult, firstResult, shortestResult, longestResult]);
-          }
+          logOutput(
+            stream,
+            typeFqn,
+            createHtmlEntry(
+              meanResult?.originalSource.source,
+              firstResult?.originalSource.source,
+              shortestResult?.originalSource.source,
+              longestResult?.originalSource.source,
+            ),
+          );
           if (meanResult) {
             const insertSuccess = insertExample(meanResult.originalSource.source, types[typeFqn]);
             if (insertSuccess) {
@@ -60,6 +71,51 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
   return {
     resultMap: resultMap,
   };
+}
+
+function startFile(stream: fs.WriteStream) {
+  stream.write('<style>\n');
+  stream.write('h2 { color: blue; float: clear; }\n\n');
+  stream.write('h1 { color: red; float: clear; }\n\n');
+  stream.write(
+    'div { float: left; height: 31em; width: 22em; overflow: auto; margin: 1em; background-color: #ddd; }\n\n',
+  );
+  stream.write(
+    'pre { float: left; height: 30em; width: 25em; overflow: auto; padding: 0.5em; background-color: #ddd; }\n',
+  );
+  stream.write('</style>\n');
+}
+
+function createHtmlEntry(
+  meanSource: string | undefined,
+  firstSource: string | undefined,
+  shortestSource: string | undefined,
+  longestSource: string | undefined,
+): Record<string, string[]> {
+  const entry: Record<string, string[]> = {};
+  const algorithms = ['mean', 'first', 'shortest', 'longest'];
+  const sources = [meanSource, firstSource, shortestSource, longestSource];
+  for (let i = 0; i < algorithms.length; i++) {
+    const source = sources[i];
+    if (source) {
+      if (entry[source]) {
+        entry[source].push(algorithms[i]);
+      } else {
+        entry[source] = [algorithms[i]];
+      }
+    }
+  }
+  return entry;
+}
+
+function logOutput(stream: fs.WriteStream, typeFqn: string, algorithmMap: Record<string, string[]>) {
+  stream.write(`<h2>${typeFqn}</h2>\n`);
+  Object.entries(algorithmMap).map(([key, value]) => {
+    stream.write(`<div class="snippet"><h3>${value.toString()}</h3>\n<pre>${key}</pre>\n</div>\n`);
+  });
+  for (let i = 0; i < 4 - Object.keys(algorithmMap).length; i++) {
+    stream.write('<div class="padding"></div>\n');
+  }
 }
 
 function filterForTypesWithoutExamples(types: any): Record<string, any> {
@@ -112,16 +168,6 @@ function mapFqns(tab: LanguageTablet): Record<string, string[]> {
     }
   }
   return fqnsReferencedMap;
-}
-
-function logDiscrepancies(stream: fs.WriteStream, fqn: string, snippets: Array<TranslatedSnippet | undefined>) {
-  stream.write(`<h2>fqn: ${fqn}</h2>\n`);
-  stream.write(`\t<h2>snippets:</h2>\n`);
-  const snippetNames = ['mean', 'first', 'shortest', 'longest'];
-  for (let i = 0; i < snippets.length; i++) {
-    stream.write(`\t\t<p><b>${snippetNames[i]}</b>: ${snippets[i]?.originalSource.source}</p>\n`);
-  }
-  stream.write('\n----------------\n');
 }
 
 function longest(tab: LanguageTablet, keys: string[]): string {
