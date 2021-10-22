@@ -2,8 +2,8 @@ import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
-import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { SnippetSelector, mean, meanLength, shortest, longest } from '../snippet-selectors';
+import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 
 export interface InfuseResult {
   coverageResults: Record<string, InfuseTypes>;
@@ -34,7 +34,11 @@ class DefaultRecord<A> {
   }
 }
 
-export async function infuse(assemblyLocations: string[], tabletFile: string, options: InfuseOptions): Promise<InfuseResult> {
+export async function infuse(
+  assemblyLocations: string[],
+  tabletFile: string,
+  options: InfuseOptions,
+): Promise<InfuseResult> {
   let stream: fs.WriteStream | undefined = undefined;
   if (options.log) {
     // Create stream for html file and insert some styling

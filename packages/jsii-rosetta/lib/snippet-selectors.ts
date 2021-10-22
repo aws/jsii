@@ -3,7 +3,7 @@ import { TranslatedSnippet } from './tablets/tablets';
 export type SnippetSelector = (snippets: TranslatedSnippet[]) => TranslatedSnippet;
 
 class SnippetScore {
-  constructor(public readonly snippet: TranslatedSnippet, public readonly score: number) {}
+  public constructor(public readonly snippet: TranslatedSnippet, public readonly score: number) {}
 }
 
 /**
@@ -15,7 +15,7 @@ export function longest(snippets: TranslatedSnippet[]): TranslatedSnippet {
   }
   const snippetScores: SnippetScore[] = [];
   for (const snippet of snippets) {
-    snippetScores.push({snippet: snippet, score: snippet.originalSource.source.length});
+    snippetScores.push({ snippet: snippet, score: snippet.originalSource.source.length });
   }
   return getMaxScore(snippetScores).snippet;
 }
@@ -29,7 +29,7 @@ export function shortest(snippets: TranslatedSnippet[]): TranslatedSnippet {
   }
   const snippetScores: SnippetScore[] = [];
   for (const snippet of snippets) {
-    snippetScores.push({snippet: snippet, score: snippet.originalSource.source.length});
+    snippetScores.push({ snippet: snippet, score: snippet.originalSource.source.length });
   }
   return getMinScore(snippetScores).snippet;
 }
@@ -42,10 +42,10 @@ export function meanLength(snippets: TranslatedSnippet[]): TranslatedSnippet {
     throw new Error('meanLength: array cannot be empty');
   }
 
-  const mean =  snippets.reduce((x, y) => x + y.originalSource.source.length, 0) / snippets.length;
+  const mean = snippets.reduce((x, y) => x + y.originalSource.source.length, 0) / snippets.length;
   const snippetScores: SnippetScore[] = [];
   for (const snippet of snippets) {
-    snippetScores.push({snippet: snippet, score: Math.abs(snippet.originalSource.source.length - mean)});
+    snippetScores.push({ snippet: snippet, score: Math.abs(snippet.originalSource.source.length - mean) });
   }
   return getMinScore(snippetScores).snippet;
 }
@@ -68,7 +68,7 @@ export function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
   // Find counter with closest euclidian distance.
   const snippetScores: SnippetScore[] = [];
   for (let i = 0; i < snippets.length; i++) {
-    snippetScores.push({snippet: snippets[i], score: euclideanDistance(meanCounter, counters[i])});
+    snippetScores.push({ snippet: snippets[i], score: euclideanDistance(meanCounter, counters[i]) });
   }
   return getMinScore(snippetScores).snippet;
 }
@@ -81,7 +81,7 @@ function findCenter(counters: Array<Record<string, number>>): Record<string, num
   for (const counter of counters) {
     for (const [key, value] of Object.entries(counter)) {
       centerCounter[key] = value + (centerCounter[key] ?? 0);
-    };
+    }
   }
   const total = counters.length;
   Object.entries(centerCounter).map(([key, value]) => {
@@ -113,4 +113,3 @@ function getMinScore(snippetScores: SnippetScore[]): SnippetScore {
     return x.score <= y.score ? x : y;
   });
 }
-
