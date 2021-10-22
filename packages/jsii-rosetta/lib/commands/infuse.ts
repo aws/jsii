@@ -55,12 +55,12 @@ export async function infuse(
   const coverageResults: Record<string, InfuseTypes> = {};
   for (const { assembly, directory } of assemblies) {
     if (options.log) {
-      stream!.write(`<h1>@aws-cdk/${directory.split('/').pop()}</h1>\n`);
+      stream?.write(`<h1>@aws-cdk/${directory.split('/').pop()}</h1>\n`);
     }
 
     let typesWithInsertedExamples = 0;
     const filteredTypes = filterForTypesWithoutExamples(assembly.types ?? {});
-    Object.keys(filteredTypes).map((typeFqn) => {
+    for (const [typeFqn, type] of Object.entries(filteredTypes)) {
       if (snippetsFromFqn[typeFqn] !== undefined) {
         const meanResult = mean(snippetsFromFqn[typeFqn]);
         if (options.log) {
@@ -71,12 +71,12 @@ export async function infuse(
             ...makeDict(selected),
             mean: meanResult,
           };
-          logOutput(stream!, typeFqn, createHtmlEntry(selectedFromSelector));
+          logOutput(stream, typeFqn, createHtmlEntry(selectedFromSelector));
         }
-        insertExample(meanResult.originalSource.source, filteredTypes[typeFqn]);
+        insertExample(meanResult.originalSource.source, type);
         typesWithInsertedExamples++;
       }
-    });
+    }
 
     // eslint-disable-next-line no-await-in-loop
     await replaceAssembly(assembly, directory);
@@ -105,19 +105,19 @@ function startFile(stream: fs.WriteStream) {
 
 function createHtmlEntry(results: Record<string, TranslatedSnippet>): Record<string, string[]> {
   const entry = new DefaultRecord<string>();
-  Object.entries(results).map(([key, value]) => {
+  for (const [key, value] of Object.entries(results)) {
     entry.add(value.originalSource.source, key);
-  });
+  }
   return entry.index;
 }
 
-function logOutput(stream: fs.WriteStream, typeFqn: string, algorithmMap: Record<string, string[]>) {
-  stream.write(`<h2>${typeFqn}</h2>\n`);
-  Object.entries(algorithmMap).map(([key, value]) => {
-    stream.write(`<div class="snippet"><h3>${value.toString()}</h3>\n<pre>${key}</pre>\n</div>\n`);
-  });
+function logOutput(stream: fs.WriteStream | undefined, typeFqn: string, algorithmMap: Record<string, string[]>) {
+  stream?.write(`<h2>${typeFqn}</h2>\n`);
+  for (const [key, value] of Object.entries(algorithmMap)) {
+    stream?.write(`<div class="snippet"><h3>${value.toString()}</h3>\n<pre>${key}</pre>\n</div>\n`);
+  }
   for (let i = 0; i < 4 - Object.keys(algorithmMap).length; i++) {
-    stream.write('<div class="padding"></div>\n');
+    stream?.write('<div class="padding"></div>\n');
   }
 }
 
@@ -143,19 +143,14 @@ function filterForTypesWithoutExamples(types: { [fqn: string]: spec.Type }): Rec
 }
 
 /**
- * Insert an example into the docs if it does not already have an example.
- * Returns true if an example is inserted, false otherwise.
+ * Insert an example into the docs of a type.
  */
-function insertExample(example: string, type: spec.Type): boolean {
-  if (type.docs?.example) {
-    return false;
-  }
+function insertExample(example: string, type: spec.Type): void {
   if (type.docs) {
     type.docs.example = example;
   } else {
     type.docs = { example: example };
   }
-  return true;
 }
 
 /**
