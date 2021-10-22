@@ -1,7 +1,7 @@
 import * as spec from '@jsii/spec';
+import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as crypto from 'crypto';
 
 import { fixturize } from '../fixtures';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
@@ -174,10 +174,7 @@ export async function replaceAssembly(assembly: spec.Assembly, directory: string
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   delete assembly.fingerprint;
   assembly = sortJson(assembly);
-  const fingerprint = crypto
-    .createHash('sha256')
-    .update(JSON.stringify(assembly))
-    .digest('base64');
+  const fingerprint = crypto.createHash('sha256').update(JSON.stringify(assembly)).digest('base64');
   return { ...assembly, fingerprint };
 }
 

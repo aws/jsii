@@ -84,21 +84,22 @@ function main() {
       wrapHandler(async (args) => {
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
         const result = await infuse(absAssemblies, args.TABLET);
-        for (const [directory, map] of Object.entries(result.resultMap)) {
+        let totalTypes = 0;
+        let insertedExamples = 0;
+        for (const [directory, map] of Object.entries(result.coverageResults)) {
           const commonName = directory.split('/').pop()!;
-          const originalCoverage = Math.round((10000 * map.hadExampleFqns.length) / map.filteredTypeFqns.length) / 100;
-          const newCoverage =
-            Math.round(
-              (10000 * (map.insertedExampleFqns.length + map.hadExampleFqns.length)) / map.filteredTypeFqns.length,
-            ) / 100;
+          const newCoverage = Math.round((10000 * map.typesWithInsertedExamples) / map.types) / 100;
           process.stdout.write(
-            `${commonName}: Added ${result.resultMap[directory].insertedExampleFqns.length} examples to ${map.filteredTypeFqns.length} types.\n`,
+            `${commonName}: Added ${result.coverageResults[directory].typesWithInsertedExamples} examples to ${map.types} types.\n`,
           );
-          process.stdout.write(
-            `${commonName}: Original coverage: ${originalCoverage}%. New coverage: ${newCoverage}%.\n`,
-          );
+          process.stdout.write(`${commonName}: New coverage: ${newCoverage}%.\n`);
           //process.stdout.write(map.filteredTypeFqns.toString());
+
+          insertedExamples = insertedExamples + map.typesWithInsertedExamples;
+          totalTypes = totalTypes + map.types;
         }
+        const newCoverage = Math.round((10000 * insertedExamples) / totalTypes) / 100;
+        process.stdout.write(`\n\nFinal Stats:\nNew coverage: ${newCoverage}%.\n`);
       }),
     )
     .command(

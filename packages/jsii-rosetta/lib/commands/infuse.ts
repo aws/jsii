@@ -5,21 +5,20 @@ import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 
 export interface InfusionResult {
-  resultMap: Record<string, Infusion>;
+  coverageResults: Record<string, Infusion>;
 }
 
 export interface Infusion {
-  filteredTypeFqns: string[];
-  insertedExampleFqns: string[];
-  hadExampleFqns: string[];
+  types: number;
+  typesWithInsertedExamples: number;
 }
 
 export type SnippetSelector = (snippets: TranslatedSnippet[]) => TranslatedSnippet;
 
-const ADDITIONAL_SELECTORS: Record<string, SnippetSelector> = {first, shortest, longest};
+const ADDITIONAL_SELECTORS: Record<string, SnippetSelector> = { first, shortest, longest };
 
 class DefaultRecord<A> {
-  public readonly index: Record<string, Array<A>> = {};
+  public readonly index: Record<string, A[]> = {};
 
   public add(key: string, value: A) {
     if (!this.index[key]) {
@@ -37,46 +36,43 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
   const tab = new LanguageTablet();
   await tab.load(tabletFile);
 
-  const resultMap: Record<string, Infusion> = {};
+  const coverageResults: Record<string, Infusion> = {};
 
   const snippetsFromFqn = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
   for (const { assembly, directory } of assemblies) {
     const dir = directory.split('/');
-    stream.write(`<h1>${dir[dir.length-2]}/${dir[dir.length - 1]}</h1>\n`);
-    const infusion: Infusion = {
-      filteredTypeFqns: [],
-      insertedExampleFqns: [],
-      hadExampleFqns: [],
-    };
-    const types = assembly.types;
-    if (types) {
-      const filteredTypes = filterForTypesWithoutExamples(types);
-      infusion.filteredTypeFqns = Object.keys(filteredTypes);
-      for (const typeFqn in filteredTypes) {
-        if (snippetsFromFqn[typeFqn] !== undefined) {
-          const meanResult = mean(snippetsFromFqn[typeFqn]);
-          if (true) {
-            const selected = Object.entries(ADDITIONAL_SELECTORS).map(([name, fn]) => [name, fn(snippetsFromFqn[typeFqn])] as const);
-            const selectedFromSelector = {
-              ...makeDict(selected),
-              mean: meanResult,
-            };
-            logOutput(
-              stream,
-              typeFqn,
-              createHtmlEntry(selectedFromSelector),
-            );
-          }
-          insertExample(meanResult.originalSource.source, types[typeFqn]);
+    stream.write(`<h1>@aws-cdk/${dir[dir.length - 1]}</h1>\n`);
+
+    let typesWithInsertedExamples = 0;
+    const filteredTypes = filterForTypesWithoutExamples(assembly.types ?? {});
+    Object.keys(filteredTypes).map((typeFqn) => {
+      if (snippetsFromFqn[typeFqn] !== undefined) {
+        const meanResult = mean(snippetsFromFqn[typeFqn]);
+        if (true) {
+          const selected = Object.entries(ADDITIONAL_SELECTORS).map(
+            ([name, fn]) => [name, fn(snippetsFromFqn[typeFqn])] as const,
+          );
+          const selectedFromSelector = {
+            ...makeDict(selected),
+            mean: meanResult,
+          };
+          logOutput(stream, typeFqn, createHtmlEntry(selectedFromSelector));
         }
+        insertExample(meanResult.originalSource.source, filteredTypes[typeFqn]);
+        typesWithInsertedExamples++;
       }
-    }
+    });
+
+    // eslint-disable-next-line no-await-in-loop
     await replaceAssembly(assembly, directory);
-    resultMap[directory] = infusion;
+    coverageResults[directory] = {
+      types: Object.keys(filteredTypes).length,
+      typesWithInsertedExamples,
+    };
   }
   return {
-    resultMap: resultMap,
+    coverageResults: coverageResults,
   };
 }
 
@@ -111,7 +107,7 @@ function logOutput(stream: fs.WriteStream, typeFqn: string, algorithmMap: Record
   }
 }
 
-function filterForTypesWithoutExamples(types: {[fqn: string]: spec.Type}): Record<string, spec.Type> {
+function filterForTypesWithoutExamples(types: { [fqn: string]: spec.Type }): Record<string, spec.Type> {
   const filteredTypes: Record<string, spec.Type> = {};
   for (const [typeFqn, type] of Object.entries(types)) {
     // Ignore Cfn types if possible
@@ -165,7 +161,7 @@ function mapFqns(tab: LanguageTablet): Record<string, TranslatedSnippet[]> {
 
 function makeDict<A>(xs: Array<readonly [string, A]>): Record<string, A> {
   const ret: Record<string, A> = {};
-  for(const [str, a] of xs) {
+  for (const [str, a] of xs) {
     ret[str] = a;
   }
   return ret;
@@ -203,20 +199,13 @@ function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
   if (snippets.length === 0) {
     throw new Error('mean: array cannot be empty');
   }
-  
-  // Return example if there is only 1
-  if (snippets.length === 1) {
-    return snippets[0];
-  }
 
   // Find mean counter.
   const counters: Array<Record<string, number>> = [];
-  const associatedSnippets: TranslatedSnippet[] = [];
-  for (const snippet of snippets) {
+  snippets.map((snippet) => {
     counters.push(snippet.syntaxKindCounter);
-    associatedSnippets.push(snippet);
-  }
-  const center = findCenter(counters);
+  });
+  const meanCounter = findCenter(counters);
 
   // Find counter with closest euclidian distance.
   let minDistance = Number.MAX_VALUE;
@@ -224,10 +213,10 @@ function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
 
   for (let i = 0; i < counters.length; i++) {
     const counter = counters[i];
-    const distance = euclideanDistance(center, counter);
+    const distance = euclideanDistance(meanCounter, counter);
     if (distance < minDistance) {
       minDistance = distance;
-      closestSnippet = associatedSnippets[i];
+      closestSnippet = snippets[i];
     }
   }
   return closestSnippet;
