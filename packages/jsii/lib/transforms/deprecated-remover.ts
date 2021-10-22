@@ -29,7 +29,7 @@ export class DeprecatedRemover {
 
   public constructor(
     private readonly typeChecker: ts.TypeChecker,
-    private readonly allowlistedDeprecations: string[] | undefined,
+    private readonly allowlistedDeprecations: Set<string> | undefined,
   ) {}
 
   /**
@@ -372,10 +372,7 @@ export class DeprecatedRemover {
   }
 
   private shouldFqnBeStripped(fqn: string) {
-    return (
-      !this.allowlistedDeprecations ||
-      this.allowlistedDeprecations.includes(fqn)
-    );
+    return this.allowlistedDeprecations?.has(fqn) ?? true;
   }
 
   private makeDiagnostic(
