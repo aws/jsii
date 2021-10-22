@@ -4,16 +4,23 @@ import * as fs from 'fs-extra';
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 
-export interface InfusionResult {
-  coverageResults: Record<string, Infusion>;
+export interface InfuseResult {
+  coverageResults: Record<string, InfuseTypes>;
 }
 
-export interface Infusion {
+export interface InfuseTypes {
   types: number;
   typesWithInsertedExamples: number;
 }
 
+export interface InfuseOptions {
+  outputFile: string;
+  log: boolean;
+}
+
 export type SnippetSelector = (snippets: TranslatedSnippet[]) => TranslatedSnippet;
+
+export const DEFAULT_INFUSION_RESULTS_NAME = 'infusion-results.html';
 
 const ADDITIONAL_SELECTORS: Record<string, SnippetSelector> = { first, shortest, longest };
 
@@ -28,28 +35,32 @@ class DefaultRecord<A> {
   }
 }
 
-export async function infuse(assemblyLocations: string[], tabletFile: string): Promise<InfusionResult> {
-  // Create stream for html file and insert some styling.
-  const stream = fs.createWriteStream('kaizen.html', { flags: 'a' });
-  startFile(stream);
+export async function infuse(assemblyLocations: string[], tabletFile: string, options: InfuseOptions): Promise<InfuseResult> {
+  let stream: fs.WriteStream | undefined = undefined;
+  if (options.log) {
+    // Create stream for html file and insert some styling
+    stream = fs.createWriteStream(options.outputFile, { flags: 'a' });
+    startFile(stream);
+  }
 
+  // Load tablet file and assemblies
   const tab = new LanguageTablet();
   await tab.load(tabletFile);
-
-  const coverageResults: Record<string, Infusion> = {};
+  const assemblies = await loadAssemblies(assemblyLocations, true);
 
   const snippetsFromFqn = mapFqns(tab);
-  const assemblies = await loadAssemblies(assemblyLocations, true);
+  const coverageResults: Record<string, InfuseTypes> = {};
   for (const { assembly, directory } of assemblies) {
-    const dir = directory.split('/');
-    stream.write(`<h1>@aws-cdk/${dir[dir.length - 1]}</h1>\n`);
+    if (options.log) {
+      stream!.write(`<h1>@aws-cdk/${directory.split('/').pop()}</h1>\n`);
+    }
 
     let typesWithInsertedExamples = 0;
     const filteredTypes = filterForTypesWithoutExamples(assembly.types ?? {});
     Object.keys(filteredTypes).map((typeFqn) => {
       if (snippetsFromFqn[typeFqn] !== undefined) {
         const meanResult = mean(snippetsFromFqn[typeFqn]);
-        if (true) {
+        if (options.log) {
           const selected = Object.entries(ADDITIONAL_SELECTORS).map(
             ([name, fn]) => [name, fn(snippetsFromFqn[typeFqn])] as const,
           );
@@ -57,7 +68,7 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
             ...makeDict(selected),
             mean: meanResult,
           };
-          logOutput(stream, typeFqn, createHtmlEntry(selectedFromSelector));
+          logOutput(stream!, typeFqn, createHtmlEntry(selectedFromSelector));
         }
         insertExample(meanResult.originalSource.source, filteredTypes[typeFqn]);
         typesWithInsertedExamples++;

@@ -7,7 +7,7 @@ import * as yargs from 'yargs';
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
 import { extractSnippets } from '../lib/commands/extract';
-import { infuse } from '../lib/commands/infuse';
+import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
 import { TargetLanguage } from '../lib/languages';
@@ -80,25 +80,41 @@ function main() {
             default: new Array<string>(),
             describe: 'Assembly or directory to mutate',
           })
+          .option('log', {
+            alias: 'l',
+            type: 'boolean',
+            describe: 'Test all algorithms and log results to an html file',
+            default: false,
+          })
+          .option('output', {
+            alias: 'o',
+            type: 'string',
+            describe: 'Output file to store logging results. Ignored if -log is not true',
+            default: DEFAULT_INFUSION_RESULTS_NAME,
+          })
           .demandOption('TABLET'),
       wrapHandler(async (args) => {
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
-        const result = await infuse(absAssemblies, args.TABLET);
+        const absOutput = path.resolve(args.output);
+        const result = await infuse(absAssemblies, args.TABLET, {
+          outputFile: absOutput,
+          log: args.log ?? false,
+        });
+
         let totalTypes = 0;
         let insertedExamples = 0;
         for (const [directory, map] of Object.entries(result.coverageResults)) {
           const commonName = directory.split('/').pop()!;
-          const newCoverage = Math.round((10000 * map.typesWithInsertedExamples) / map.types) / 100;
+          const newCoverage = roundPercentage(map.typesWithInsertedExamples / map.types);
           process.stdout.write(
-            `${commonName}: Added ${result.coverageResults[directory].typesWithInsertedExamples} examples to ${map.types} types.\n`,
+            `${commonName}: Added ${map.typesWithInsertedExamples} examples to ${map.types} types.\n`,
           );
           process.stdout.write(`${commonName}: New coverage: ${newCoverage}%.\n`);
-          //process.stdout.write(map.filteredTypeFqns.toString());
 
-          insertedExamples = insertedExamples + map.typesWithInsertedExamples;
-          totalTypes = totalTypes + map.types;
+          insertedExamples += map.typesWithInsertedExamples;
+          totalTypes += map.types;
         }
-        const newCoverage = Math.round((10000 * insertedExamples) / totalTypes) / 100;
+        const newCoverage = roundPercentage(insertedExamples / totalTypes);
         process.stdout.write(`\n\nFinal Stats:\nNew coverage: ${newCoverage}%.\n`);
       }),
     )
@@ -378,6 +394,10 @@ function renderResult(result: TranslateResult) {
       process.exit(1);
     }
   }
+}
+
+function roundPercentage(num: number): number {
+  return Math.round(10000 * num) / 100;
 }
 
 main();
