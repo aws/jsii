@@ -160,7 +160,7 @@ function exampleLooksLikeSource(text: string) {
  * Recalculates the fingerprint of the assembly to avoid tampering detection.
  */
 export async function replaceAssembly(assembly: spec.Assembly, directory: string): Promise<void> {
-  const fileName = path.join(directory, '.temp.jsii'); // TODO: change to '.jsii'
+  const fileName = path.join(directory, '.jsii');
   await fs.writeJson(fileName, _fingerprint(assembly), {
     encoding: 'utf8',
     spaces: 2,
