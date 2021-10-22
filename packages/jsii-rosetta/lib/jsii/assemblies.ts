@@ -1,16 +1,15 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import * as crypto from 'crypto';
 
 import { fixturize } from '../fixtures';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, SnippetParameters } from '../snippet';
 import { enforcesStrictMode } from '../strict';
 
-export async function replaceAssembly(assembly: spec.Assembly, directory: string): Promise<void> {
-  const fileName = path.join(directory, '.temp.jsii');
-  await fs.writeJson(fileName, assembly, { spaces: '\t' });
-}
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+const sortJson = require('sort-json');
 
 export interface LoadedAssembly {
   assembly: spec.Assembly;
@@ -154,6 +153,32 @@ export function* allTypeScriptSnippets(
  */
 function exampleLooksLikeSource(text: string) {
   return !!WHITESPACE.exec(text.trim());
+}
+
+/**
+ * Replaces the file where the original assembly file *should* be found with a new assembly file.
+ * Recalculates the fingerprint of the assembly to avoid tampering detection.
+ */
+export async function replaceAssembly(assembly: spec.Assembly, directory: string): Promise<void> {
+  const fileName = path.join(directory, '.temp.jsii'); // TODO: change to '.jsii'
+  await fs.writeJson(fileName, _fingerprint(assembly), {
+    encoding: 'utf8',
+    spaces: 2,
+  });
+}
+
+/**
+ * This function is copied from `packages/jsii/lib/assembler.ts`.
+ * We should make sure not to change one without changing the other as well.
+ */
+function _fingerprint(assembly: spec.Assembly): spec.Assembly {
+  delete assembly.fingerprint;
+  assembly = sortJson(assembly);
+  const fingerprint = crypto
+    .createHash('sha256')
+    .update(JSON.stringify(assembly))
+    .digest('base64');
+  return { ...assembly, fingerprint };
 }
 
 const WHITESPACE = new RegExp('\\s');
