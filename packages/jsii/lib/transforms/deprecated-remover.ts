@@ -106,7 +106,7 @@ export class DeprecatedRemover {
         typeInfo.members.forEach((mem) => {
           if (
             mem.docs?.stability === Stability.Deprecated &&
-            this.shouldFqnBeStripped(`${fqn}.${mem.name}`)
+            this.shouldFqnBeStripped(`${fqn}#${mem.name}`)
           ) {
             const matchingMemberNode = enumNode.members.find(
               (enumMem) => enumMem.name.getText() === mem.name,
@@ -216,7 +216,7 @@ export class DeprecatedRemover {
       typeInfo.methods?.forEach((meth) => {
         if (
           meth.docs?.stability === Stability.Deprecated &&
-          this.shouldFqnBeStripped(`${fqn}.${meth.name}`)
+          this.shouldFqnBeStripped(`${fqn}#${meth.name}`)
         ) {
           this.nodesToRemove.add(bindings.getMethodRelatedNode(meth)!);
         } else {
@@ -231,7 +231,7 @@ export class DeprecatedRemover {
       typeInfo.properties?.forEach((prop) => {
         if (
           prop.docs?.stability === Stability.Deprecated &&
-          this.shouldFqnBeStripped(`${fqn}.${prop.name}`)
+          this.shouldFqnBeStripped(`${fqn}#${prop.name}`)
         ) {
           this.nodesToRemove.add(bindings.getParameterRelatedNode(prop)!);
         } else {

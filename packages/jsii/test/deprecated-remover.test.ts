@@ -198,11 +198,11 @@ describe('stripDeprecatedAllowList', () => {
       [
         'testpkg.IDeprecatedInterface',
         'testpkg.DeprecatedClass',
-        'testpkg.SomeEnum.VALUE_DEPRECATED',
+        'testpkg.SomeEnum#VALUE_DEPRECATED',
         'testpkg.DeprecatedEnum',
-        'testpkg.Retained.deprecated',
+        'testpkg.Retained#deprecated',
         'testpkg.Deprecated',
-        'testpkg.GrandChild.deprecatedMethod',
+        'testpkg.GrandChild#deprecatedMethod',
       ].join('\n'),
       'utf8',
     );
@@ -262,8 +262,8 @@ describe('stripDeprecatedAllowList', () => {
       stripDeprecatedAllowListFile,
       [
         'testpkg.IDeprecatedInterface',
-        'testpkg.SomeEnum.VALUE_DEPRECATED',
-        'testpkg.GrandChild.deprecatedMethod',
+        'testpkg.SomeEnum#VALUE_DEPRECATED',
+        'testpkg.GrandChild#deprecatedMethod',
       ].join('\n'),
       'utf8',
     );

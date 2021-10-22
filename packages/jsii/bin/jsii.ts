@@ -56,14 +56,8 @@ const warningTypes = Object.keys(enabledWarnings);
             )})`,
           })
           .option('strip-deprecated', {
-            type: 'boolean',
-            default: false,
-            desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
-          })
-          .option('strip-deprecated-allowlist-file', {
             type: 'string',
-            default: undefined,
-            desc: '[EXPERIMENTAL] If provided, only full-qualified names listed in the allow list file (newline-delimited) will be stripped with --strip-deprecated',
+            desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain). If an optional file name is given, only FQNs present in the file will be stripped.',
           })
           .option('add-deprecation-warnings', {
             type: 'boolean',
@@ -116,8 +110,8 @@ const warningTypes = Object.keys(enabledWarnings);
     projectInfo,
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
-    stripDeprecated: argv['strip-deprecated'],
-    stripDeprecatedAllowListFile: argv['strip-deprecated-allowlist-file'],
+    stripDeprecated: !!argv['strip-deprecated'],
+    stripDeprecatedAllowListFile: argv['strip-deprecated'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
     generateTypeScriptConfig: argv['generate-tsconfig'],
   });

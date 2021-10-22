@@ -76,16 +76,18 @@ export class Assembler implements Emitter {
     options: AssemblerOptions = {},
   ) {
     if (options.stripDeprecated) {
-      let allowlistedDeprecations: string[] | undefined;
+      let allowlistedDeprecations: Set<string> | undefined;
       if (options.stripDeprecatedAllowListFile) {
         if (!fs.existsSync(options.stripDeprecatedAllowListFile)) {
           throw new Error(
             `--strip-deprecated file not found: ${options.stripDeprecatedAllowListFile}`,
           );
         }
-        allowlistedDeprecations = fs
-          .readFileSync(options.stripDeprecatedAllowListFile, 'utf8')
-          .split('\n');
+        allowlistedDeprecations = new Set<string>(
+          fs
+            .readFileSync(options.stripDeprecatedAllowListFile, 'utf8')
+            .split('\n'),
+        );
       }
 
       this.deprecatedRemover = new DeprecatedRemover(
