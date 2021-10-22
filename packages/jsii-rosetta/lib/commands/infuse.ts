@@ -2,7 +2,7 @@ import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 
 import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
-import { LanguageTablet } from '../tablets/tablets';
+import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 
 export interface InfusionResult {
   resultMap: Record<string, Infusion>;
@@ -12,6 +12,21 @@ export interface Infusion {
   filteredTypeFqns: string[];
   insertedExampleFqns: string[];
   hadExampleFqns: string[];
+}
+
+export type SnippetSelector = (snippets: TranslatedSnippet[]) => TranslatedSnippet;
+
+const ADDITIONAL_SELECTORS: Record<string, SnippetSelector> = {first, shortest, longest};
+
+class DefaultRecord<A> {
+  public readonly index: Record<string, Array<A>> = {};
+
+  public add(key: string, value: A) {
+    if (!this.index[key]) {
+      this.index[key] = [];
+    }
+    this.index[key].push(value);
+  }
 }
 
 export async function infuse(assemblyLocations: string[], tabletFile: string): Promise<InfusionResult> {
@@ -24,11 +39,11 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
 
   const resultMap: Record<string, Infusion> = {};
 
-  const fqnsReferencedMap = mapFqns(tab);
+  const snippetsFromFqn = mapFqns(tab);
   const assemblies = await loadAssemblies(assemblyLocations, true);
   for (const { assembly, directory } of assemblies) {
     const dir = directory.split('/');
-    stream.write(`<h1>${dir[dir.length - 1]}</h1>\n`);
+    stream.write(`<h1>${dir[dir.length-2]}/${dir[dir.length - 1]}</h1>\n`);
     const infusion: Infusion = {
       filteredTypeFqns: [],
       insertedExampleFqns: [],
@@ -39,33 +54,25 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
       const filteredTypes = filterForTypesWithoutExamples(types);
       infusion.filteredTypeFqns = Object.keys(filteredTypes);
       for (const typeFqn in filteredTypes) {
-        if (fqnsReferencedMap[typeFqn] !== undefined) {
-          const meanResult = tab.tryGetSnippet(mean(tab, fqnsReferencedMap[typeFqn]));
-          const firstResult = tab.tryGetSnippet(first(tab, fqnsReferencedMap[typeFqn]));
-          const shortestResult = tab.tryGetSnippet(shortest(tab, fqnsReferencedMap[typeFqn]));
-          const longestResult = tab.tryGetSnippet(longest(tab, fqnsReferencedMap[typeFqn]));
-          logOutput(
-            stream,
-            typeFqn,
-            createHtmlEntry(
-              meanResult?.originalSource.source,
-              firstResult?.originalSource.source,
-              shortestResult?.originalSource.source,
-              longestResult?.originalSource.source,
-            ),
-          );
-          if (meanResult) {
-            const insertSuccess = insertExample(meanResult.originalSource.source, types[typeFqn]);
-            if (insertSuccess) {
-              infusion.insertedExampleFqns.push(typeFqn);
-            } else {
-              infusion.hadExampleFqns.push(typeFqn);
-            }
+        if (snippetsFromFqn[typeFqn] !== undefined) {
+          const meanResult = mean(snippetsFromFqn[typeFqn]);
+          if (true) {
+            const selected = Object.entries(ADDITIONAL_SELECTORS).map(([name, fn]) => [name, fn(snippetsFromFqn[typeFqn])] as const);
+            const selectedFromSelector = {
+              ...makeDict(selected),
+              mean: meanResult,
+            };
+            logOutput(
+              stream,
+              typeFqn,
+              createHtmlEntry(selectedFromSelector),
+            );
           }
+          insertExample(meanResult.originalSource.source, types[typeFqn]);
         }
       }
     }
-    void replaceAssembly(assembly, directory);
+    await replaceAssembly(assembly, directory);
     resultMap[directory] = infusion;
   }
   return {
@@ -75,8 +82,8 @@ export async function infuse(assemblyLocations: string[], tabletFile: string): P
 
 function startFile(stream: fs.WriteStream) {
   stream.write('<style>\n');
-  stream.write('h2 { color: blue; float: clear; }\n\n');
-  stream.write('h1 { color: red; float: clear; }\n\n');
+  stream.write('h2 { color: blue; clear: both; }\n\n');
+  stream.write('h1 { color: red; clear: both; }\n\n');
   stream.write(
     'div { float: left; height: 31em; width: 22em; overflow: auto; margin: 1em; background-color: #ddd; }\n\n',
   );
@@ -86,26 +93,12 @@ function startFile(stream: fs.WriteStream) {
   stream.write('</style>\n');
 }
 
-function createHtmlEntry(
-  meanSource: string | undefined,
-  firstSource: string | undefined,
-  shortestSource: string | undefined,
-  longestSource: string | undefined,
-): Record<string, string[]> {
-  const entry: Record<string, string[]> = {};
-  const algorithms = ['mean', 'first', 'shortest', 'longest'];
-  const sources = [meanSource, firstSource, shortestSource, longestSource];
-  for (let i = 0; i < algorithms.length; i++) {
-    const source = sources[i];
-    if (source) {
-      if (entry[source]) {
-        entry[source].push(algorithms[i]);
-      } else {
-        entry[source] = [algorithms[i]];
-      }
-    }
-  }
-  return entry;
+function createHtmlEntry(results: Record<string, TranslatedSnippet>): Record<string, string[]> {
+  const entry = new DefaultRecord<string>();
+  Object.entries(results).map(([key, value]) => {
+    entry.add(value.originalSource.source, key);
+  });
+  return entry.index;
 }
 
 function logOutput(stream: fs.WriteStream, typeFqn: string, algorithmMap: Record<string, string[]>) {
@@ -118,19 +111,23 @@ function logOutput(stream: fs.WriteStream, typeFqn: string, algorithmMap: Record
   }
 }
 
-function filterForTypesWithoutExamples(types: any): Record<string, any> {
-  const filteredTypes: Record<string, any> = {};
-  for (const typeFqn in types) {
+function filterForTypesWithoutExamples(types: {[fqn: string]: spec.Type}): Record<string, spec.Type> {
+  const filteredTypes: Record<string, spec.Type> = {};
+  for (const [typeFqn, type] of Object.entries(types)) {
     // Ignore Cfn types if possible
     const splitFqn = typeFqn.split('.');
     if (splitFqn.length >= 2 && splitFqn[1].length >= 3 && splitFqn[1].substring(0, 3) === 'Cfn') {
       continue;
     }
-    // Filter for acceptable kinds without an example in the docs
-    const kinds = new Set(['class', 'interface', 'enum']);
-    if (kinds.has(types[typeFqn].kind) && types[typeFqn].docs?.example === undefined) {
-      filteredTypes[typeFqn] = types[typeFqn];
+    // Ignore IXxx Interfaces
+    if (type.kind === spec.TypeKind.Interface && !type.datatype) {
+      continue;
     }
+    // Already has example
+    if (type.docs?.example !== undefined) {
+      continue;
+    }
+    filteredTypes[typeFqn] = type;
   }
   return filteredTypes;
 }
@@ -154,95 +151,86 @@ function insertExample(example: string, type: spec.Type): boolean {
 /**
  * Returns a map of fqns to a list of keys that represent snippets that include the fqn.
  */
-function mapFqns(tab: LanguageTablet): Record<string, string[]> {
-  const fqnsReferencedMap: Record<string, string[]> = {};
+function mapFqns(tab: LanguageTablet): Record<string, TranslatedSnippet[]> {
+  const fqnsReferencedMap = new DefaultRecord<TranslatedSnippet>();
 
   for (const key of tab.snippetKeys) {
     const snippet = tab.tryGetSnippet(key)!;
     for (const fqn of snippet.fqnsReferenced) {
-      if (fqnsReferencedMap[fqn]) {
-        fqnsReferencedMap[fqn].push(key);
-      } else {
-        fqnsReferencedMap[fqn] = [key];
-      }
+      fqnsReferencedMap.add(fqn, snippet);
     }
   }
-  return fqnsReferencedMap;
+  return fqnsReferencedMap.index;
 }
 
-function longest(tab: LanguageTablet, keys: string[]): string {
-  if (keys.length < 1) {
-    throw new Error('uh oh, this should not happen');
+function makeDict<A>(xs: Array<readonly [string, A]>): Record<string, A> {
+  const ret: Record<string, A> = {};
+  for(const [str, a] of xs) {
+    ret[str] = a;
   }
-  let keyOfLongestExample = keys[0];
-  let length = tab.tryGetSnippet(keys[0])?.originalSource.source.length ?? 0;
-  for (const key of keys) {
-    const snippet = tab.tryGetSnippet(key);
-    if (snippet && snippet.originalSource.source.length > length) {
-      length = snippet.originalSource.source.length;
-      keyOfLongestExample = key;
-    }
-  }
-  return keyOfLongestExample;
+  return ret;
 }
 
-function shortest(tab: LanguageTablet, keys: string[]): string {
-  if (keys.length < 1) {
+function longest(snippets: TranslatedSnippet[]): TranslatedSnippet {
+  if (snippets.length < 1) {
     throw new Error('uh oh, this should not happen');
   }
-  let keyOfShortestExample = keys[0];
-  let length = tab.tryGetSnippet(keys[0])?.originalSource.source.length ?? 0;
-  for (const key of keys) {
-    const snippet = tab.tryGetSnippet(key);
-    if (snippet && snippet.originalSource.source.length < length) {
-      length = snippet.originalSource.source.length;
-      keyOfShortestExample = key;
-    }
-  }
-  return keyOfShortestExample;
+  return snippets.reduce((x, y) => {
+    return x.originalSource.source.length >= y.originalSource.source.length ? x : y;
+  });
 }
 
-function first(_tab: LanguageTablet, keys: string[]): string {
-  if (keys.length < 1) {
+function shortest(snippets: TranslatedSnippet[]): TranslatedSnippet {
+  if (snippets.length < 1) {
     throw new Error('uh oh, this should not happen');
   }
-  return keys[0];
+  return snippets.reduce((x, y) => {
+    return x.originalSource.source.length <= y.originalSource.source.length ? x : y;
+  });
+}
+
+function first(snippets: TranslatedSnippet[]): TranslatedSnippet {
+  if (snippets.length < 1) {
+    throw new Error('first: array cannot be empty');
+  }
+  return snippets[0];
 }
 
 /**
  * Finds the mean sparse vector of available snippets for each type.
  */
-function mean(tab: LanguageTablet, keys: string[]): string {
+function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
+  if (snippets.length === 0) {
+    throw new Error('mean: array cannot be empty');
+  }
+  
   // Return example if there is only 1
-  if (keys.length === 1) {
-    return keys[0];
+  if (snippets.length === 1) {
+    return snippets[0];
   }
 
   // Find mean counter.
   const counters: Array<Record<string, number>> = [];
-  const associatedKeys: string[] = [];
-  for (const key of keys) {
-    const snippet = tab.tryGetSnippet(key);
-    if (snippet) {
-      counters.push(snippet.syntaxKindCounter);
-      associatedKeys.push(key);
-    }
+  const associatedSnippets: TranslatedSnippet[] = [];
+  for (const snippet of snippets) {
+    counters.push(snippet.syntaxKindCounter);
+    associatedSnippets.push(snippet);
   }
   const center = findCenter(counters);
 
   // Find counter with closest euclidian distance.
   let minDistance = Number.MAX_VALUE;
-  let keyOfClosestCounter = keys[0];
+  let closestSnippet = snippets[0];
 
   for (let i = 0; i < counters.length; i++) {
     const counter = counters[i];
     const distance = euclideanDistance(center, counter);
     if (distance < minDistance) {
       minDistance = distance;
-      keyOfClosestCounter = associatedKeys[i];
+      closestSnippet = associatedSnippets[i];
     }
   }
-  return keyOfClosestCounter;
+  return closestSnippet;
 }
 
 /**
