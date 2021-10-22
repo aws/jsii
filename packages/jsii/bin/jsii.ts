@@ -56,9 +56,8 @@ const warningTypes = Object.keys(enabledWarnings);
             )})`,
           })
           .option('strip-deprecated', {
-            type: 'boolean',
-            default: false,
-            desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
+            type: 'string',
+            desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain). If an optional file name is given, only FQNs present in the file will be stripped.',
           })
           .option('add-deprecation-warnings', {
             type: 'boolean',
@@ -111,7 +110,8 @@ const warningTypes = Object.keys(enabledWarnings);
     projectInfo,
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
-    stripDeprecated: argv['strip-deprecated'],
+    stripDeprecated: !!argv['strip-deprecated'],
+    stripDeprecatedAllowListFile: argv['strip-deprecated'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
     generateTypeScriptConfig: argv['generate-tsconfig'],
   });
