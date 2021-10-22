@@ -138,9 +138,6 @@ rules:
   'complexity':
     - off
 
-  'consistent-return':
-    - error
-
   'dot-notation':
     - error
 
@@ -240,3 +237,9 @@ rules:
   '@typescript-eslint/unbound-method': off
   'no-case-declarations': off
   'require-atomic-updates': off
+
+  # 'consistent-return' actually decreases safety. Its use will enforce useless `throws`
+  # statements, forcing a runtime error that occlude cases where the TypeScript type
+  # checker would actually have caught something like a non-exhaustive `switch` statement
+  # at compile time.
+  'consistent-return': off

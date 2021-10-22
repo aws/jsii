@@ -2,6 +2,7 @@ class BaseDeeperStruct
 {
     public int A { get; set; }
 }
+
 class DeeperStruct : BaseDeeperStruct
 {
     public int B { get; set; }

@@ -12,7 +12,7 @@ import { TranslatedSnippet } from './tablets/tablets';
 import { calculateVisibleSpans } from './typescript/ast-utils';
 import { SyntaxKindCounter } from './typescript/syntax-kind-counter';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
-import { annotateStrictDiagnostic, File } from './util';
+import { annotateStrictDiagnostic, File, hasStrictBranding } from './util';
 
 export function translateTypeScript(
   source: File,
@@ -24,7 +24,7 @@ export function translateTypeScript(
 
   return {
     translation: translated,
-    diagnostics: translator.diagnostics,
+    diagnostics: translator.diagnostics.map(rosettaDiagFromTypescript),
   };
 }
 
@@ -100,7 +100,35 @@ export interface SnippetTranslatorOptions extends AstRendererOptions {
 
 export interface TranslateResult {
   translation: string;
-  diagnostics: readonly ts.Diagnostic[];
+  diagnostics: readonly RosettaDiagnostic[];
+}
+
+/**
+ * A translation of a TypeScript diagnostic into a data-only representation for Rosetta
+ *
+ * We cannot use the original `ts.Diagnostic` since it holds on to way too much
+ * state (the source file and by extension the entire parse tree), which grows
+ * too big to be properly serialized by a worker and also takes too much memory.
+ *
+ * Reduce it down to only the information we need.
+ */
+export interface RosettaDiagnostic {
+  /**
+   * If this is an error diagnostic or not
+   */
+  readonly isError: boolean;
+
+  /**
+   * If the diagnostic was emitted from an assembly that has its 'strict' flag set
+   */
+  readonly isFromStrictAssembly: boolean;
+
+  /**
+   * The formatted message, ready to be printed (will have colors and newlines in it)
+   *
+   * Ends in a newline.
+   */
+  readonly formattedMessage: string;
 }
 
 /**
@@ -200,3 +228,26 @@ function filterVisibleDiagnostics(diags: readonly ts.Diagnostic[], visibleSpans:
     (d) => d.source !== 'rosetta' || d.start === undefined || visibleSpans.some((s) => spanContains(s, d.start!)),
   );
 }
+
+/**
+ * Turn TypeScript diagnostics into Rosetta diagnostics
+ */
+export function rosettaDiagFromTypescript(diag: ts.Diagnostic): RosettaDiagnostic {
+  return {
+    isError: diag.category === ts.DiagnosticCategory.Error,
+    isFromStrictAssembly: hasStrictBranding(diag),
+    formattedMessage: ts.formatDiagnosticsWithColorAndContext([diag], DIAG_HOST),
+  };
+}
+
+const DIAG_HOST = {
+  getCurrentDirectory() {
+    return '.';
+  },
+  getCanonicalFileName(fileName: string) {
+    return fileName;
+  },
+  getNewLine() {
+    return '\n';
+  },
+};

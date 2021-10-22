@@ -55,3 +55,23 @@ test('rejects ?? operator', () => {
 
   expect(subject.diagnostics[0].messageText).toContain('QuestionQuestionToken');
 });
+
+test('rejects function declarations in object literals', () => {
+  const snippet: TypeScriptSnippet = {
+    completeSource: 'const x = { method() { return 1; } }',
+    where: '@aws-cdk.aws-apigateway-README-snippet4',
+    visibleSource: 'const x = { method() { return 1; } }',
+    parameters: { lit: 'test/integ.restapi-import.lit.ts' },
+    strict: false,
+  };
+
+  // WHEN
+  const subject = new SnippetTranslator(snippet, {
+    includeCompilerDiagnostics: true,
+  });
+  subject.renderUsing(new PythonVisitor());
+
+  expect(subject.diagnostics[0].messageText).toContain(
+    'Use of MethodDeclaration in an object literal is not supported',
+  );
+});

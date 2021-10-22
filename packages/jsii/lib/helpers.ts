@@ -96,6 +96,14 @@ export async function compileJsiiForTest(
       files[jsFile] = await fs.readFile(jsFile, { encoding: 'utf-8' });
       // eslint-disable-next-line no-await-in-loop
       files[dtsFile] = await fs.readFile(dtsFile, { encoding: 'utf-8' });
+
+      const warningsFileName = '.warnings.jsii.js';
+      if (fs.existsSync(warningsFileName)) {
+        // eslint-disable-next-line no-await-in-loop
+        files[warningsFileName] = await fs.readFile(warningsFileName, {
+          encoding: 'utf-8',
+        });
+      }
     }
 
     return { assembly, files };
