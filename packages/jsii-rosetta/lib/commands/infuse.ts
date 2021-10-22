@@ -22,7 +22,7 @@ export type SnippetSelector = (snippets: TranslatedSnippet[]) => TranslatedSnipp
 
 export const DEFAULT_INFUSION_RESULTS_NAME = 'infusion-results.html';
 
-const ADDITIONAL_SELECTORS: Record<string, SnippetSelector> = { first, shortest, longest };
+const ADDITIONAL_SELECTORS: Record<string, SnippetSelector> = { meanLength, shortest, longest };
 
 class DefaultRecord<A> {
   public readonly index: Record<string, A[]> = {};
@@ -89,10 +89,10 @@ export async function infuse(assemblyLocations: string[], tabletFile: string, op
 
 function startFile(stream: fs.WriteStream) {
   stream.write('<style>\n');
-  stream.write('h2 { color: blue; clear: both; }\n\n');
-  stream.write('h1 { color: red; clear: both; }\n\n');
+  stream.write('h2 { color: blue; clear: both; }\n');
+  stream.write('h1 { color: red; clear: both; }\n');
   stream.write(
-    'div { float: left; height: 31em; width: 22em; overflow: auto; margin: 1em; background-color: #ddd; }\n\n',
+    'div { float: left; height: 31em; width: 22em; overflow: auto; margin: 1em; background-color: #ddd; }\n',
   );
   stream.write(
     'pre { float: left; height: 30em; width: 25em; overflow: auto; padding: 0.5em; background-color: #ddd; }\n',
@@ -178,33 +178,62 @@ function makeDict<A>(xs: Array<readonly [string, A]>): Record<string, A> {
   return ret;
 }
 
-function longest(snippets: TranslatedSnippet[]): TranslatedSnippet {
-  if (snippets.length < 1) {
-    throw new Error('uh oh, this should not happen');
-  }
-  return snippets.reduce((x, y) => {
-    return x.originalSource.source.length >= y.originalSource.source.length ? x : y;
+class SnippetScore {
+  constructor(public readonly snippet: TranslatedSnippet, public readonly score: number) {}
+}
+
+function getMaxScore(snippetScores: SnippetScore[]): SnippetScore {
+  return snippetScores.reduce((x, y) => {
+    return x.score >= y.score ? x : y;
   });
+}
+
+function getMinScore(snippetScores: SnippetScore[]): SnippetScore {
+  return snippetScores.reduce((x, y) => {
+    return x.score <= y.score ? x : y;
+  });
+}
+
+function longest(snippets: TranslatedSnippet[]): TranslatedSnippet {
+  if (snippets.length === 0) {
+    throw new Error('longest: array cannot be empty');
+  }
+  const snippetScores: SnippetScore[] = [];
+  for (const snippet of snippets) {
+    snippetScores.push({snippet: snippet, score: snippet.originalSource.source.length});
+  }
+  return getMaxScore(snippetScores).snippet;
 }
 
 function shortest(snippets: TranslatedSnippet[]): TranslatedSnippet {
-  if (snippets.length < 1) {
-    throw new Error('uh oh, this should not happen');
+  if (snippets.length === 0) {
+    throw new Error('shortest: array cannot be empty');
   }
-  return snippets.reduce((x, y) => {
-    return x.originalSource.source.length <= y.originalSource.source.length ? x : y;
-  });
-}
-
-function first(snippets: TranslatedSnippet[]): TranslatedSnippet {
-  if (snippets.length < 1) {
-    throw new Error('first: array cannot be empty');
+  const snippetScores: SnippetScore[] = [];
+  for (const snippet of snippets) {
+    snippetScores.push({snippet: snippet, score: snippet.originalSource.source.length});
   }
-  return snippets[0];
+  return getMinScore(snippetScores).snippet;
 }
 
 /**
- * Finds the mean sparse vector of available snippets for each type.
+ * Returns the snippet with the length closest to the mean length of the available snippets.
+ */
+function meanLength(snippets: TranslatedSnippet[]): TranslatedSnippet {
+  if (snippets.length === 0) {
+    throw new Error('meanLength: array cannot be empty');
+  }
+
+  const mean =  snippets.reduce((x, y) => x + y.originalSource.source.length, 0) / snippets.length;
+  const snippetScores: SnippetScore[] = [];
+  for (const snippet of snippets) {
+    snippetScores.push({snippet: snippet, score: Math.abs(snippet.originalSource.source.length - mean)});
+  }
+  return getMinScore(snippetScores).snippet;
+}
+
+/**
+ * Finds and returns the mean sparse vector of available snippets for each type.
  */
 function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
   if (snippets.length === 0) {
@@ -219,18 +248,11 @@ function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
   const meanCounter = findCenter(counters);
 
   // Find counter with closest euclidian distance.
-  let minDistance = Number.MAX_VALUE;
-  let closestSnippet = snippets[0];
-
-  for (let i = 0; i < counters.length; i++) {
-    const counter = counters[i];
-    const distance = euclideanDistance(meanCounter, counter);
-    if (distance < minDistance) {
-      minDistance = distance;
-      closestSnippet = snippets[i];
-    }
+  const snippetScores: SnippetScore[] = [];
+  for (let i = 0; i < snippets.length; i++) {
+    snippetScores.push({snippet: snippets[i], score: euclideanDistance(meanCounter, counters[i])});
   }
-  return closestSnippet;
+  return getMinScore(snippetScores).snippet;
 }
 
 /**
@@ -239,9 +261,9 @@ function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
 function findCenter(counters: Array<Record<string, number>>): Record<string, number> {
   const centerCounter: Record<string, number> = {};
   for (const counter of counters) {
-    Object.entries(counter).map(([key, value]) => {
+    for (const [key, value] of Object.entries(counter)) {
       centerCounter[key] = value + (centerCounter[key] ?? 0);
-    });
+    };
   }
   const total = counters.length;
   Object.entries(centerCounter).map(([key, value]) => {
