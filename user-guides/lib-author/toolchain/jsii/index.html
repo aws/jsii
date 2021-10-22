@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/toolchain/jsii/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.4">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.5143246d.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.db9e7362.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -1371,6 +1371,16 @@ erased from the visible API of the module:</p>
 the <em>implementation</em> of such declarations will remain in the <strong>JavaScript</strong>
 (<code>.js</code>) files produced by the compilation. This is, in fact, similar to marking
 all <code>@deprecated</code> members <code>@internal</code>.</p>
+<p>Additionally, a file name can be passed to the <code>--strip-deprecated</code> option to
+limit the above behavior to a specific set of allow-listed fully-qualified
+names. Each line in the file should contain a single fully-qualified name of a
+declaration that should be stripped. All <code>@deprecated</code> elements not present in
+the allow list will be retained. An example allowlist file might look like:</p>
+<div class="highlight"><pre><span></span><code>testpkg.IDeprecated
+testpkg.DeprecatedOne
+testpkg.DeprecatedTwo#deprecatedProperty
+testpkg.DeprecatedTwo#deprecatedMethod
+</code></pre></div>
                 
                   
                     
@@ -1379,7 +1389,7 @@ all <code>@deprecated</code> members <code>@internal</code>.</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-10-11
+      Last update: 2021-10-22
     
   </small>
 </div>
@@ -1473,7 +1483,7 @@ all <code>@deprecated</code> members <code>@internal</code>.</p>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.1e84347e.min.js"></script>
       
     
   </body>
