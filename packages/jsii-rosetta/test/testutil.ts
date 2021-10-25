@@ -40,7 +40,7 @@ export class AssemblyFixture {
   /**
    * Make a snippet translator for the given source w.r.t this compiled assembly
    */
-  public successFullyCompile(source: string) {
+  public successfullyCompile(source: string) {
     const snippet = typeScriptSnippetFromSource(source, 'testutil', false, {
       [SnippetParameters.$COMPILATION_DIRECTORY]: this.directory,
     });

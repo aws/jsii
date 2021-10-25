@@ -1,8 +1,9 @@
 import * as ts from 'typescript';
 
+import { hasAnyFlag } from '../jsii/jsii-utils';
 import { findPackageJson } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
-import { OTree } from '../o-tree';
+import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { Spans } from '../typescript/visible-spans';
 import { DefaultVisitor } from './default';
@@ -11,8 +12,6 @@ import { DefaultVisitor } from './default';
 interface RecordReferencesContext {}
 
 type RecordReferencesRenderer = AstRenderer<RecordReferencesContext>;
-
-// FIXME: ignore references from hidden spans
 
 /**
  * A visitor that collects all types referenced in a particular piece of sample code
@@ -89,6 +88,23 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
     return super.regularCallExpression(node, context);
   }
 
+  public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: RecordReferencesRenderer): OTree {
+    context.convertAll(node.properties);
+    return NO_SYNTAX;
+  }
+
+  public propertyAssignment(node: ts.PropertyAssignment, renderer: RecordReferencesRenderer): OTree {
+    const type = renderer.typeOfExpression(node.initializer).getNonNullableType();
+    this.recordSymbol(type?.symbol, renderer);
+    return super.propertyAssignment(node, renderer);
+  }
+
+  public shorthandPropertyAssignment(node: ts.ShorthandPropertyAssignment, renderer: RecordReferencesRenderer): OTree {
+    const type = renderer.typeOfExpression(node.name).getNonNullableType();
+    this.recordSymbol(type?.symbol, renderer);
+    return super.shorthandPropertyAssignment(node, renderer);
+  }
+
   /**
    * Visit the arguments by type (instead of by node)
    *
@@ -139,6 +155,11 @@ function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string 
       const declSym = name ? typeChecker.getSymbolAtLocation(name) : undefined;
       if (declSym) {
         inFileNameParts.unshift(declSym.name);
+        if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
+          // Add in a separator to show where we went from class/interface to
+          // member, replace that later to remove the '.'s on either side.
+          inFileNameParts.unshift('#');
+        }
       }
     }
     decl = decl.parent;
@@ -152,7 +173,7 @@ function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string 
     return undefined;
   }
 
-  return `${packageJson.name}.${inFileNameParts.join('.')}`;
+  return `${packageJson.name}.${inFileNameParts.join('.')}`.replace(/\.#\./, '#');
 }
 
 function isDeclaration(x: ts.Node): x is ts.Declaration {
