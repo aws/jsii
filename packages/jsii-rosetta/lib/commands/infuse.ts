@@ -54,9 +54,7 @@ export async function infuse(
   const snippetsFromFqn = mapFqns(tab);
   const coverageResults: Record<string, InfuseTypes> = {};
   for (const { assembly, directory } of assemblies) {
-    if (options.log) {
-      stream?.write(`<h1>@aws-cdk/${directory.split('/').pop()}</h1>\n`);
-    }
+    stream?.write(`<h1>@aws-cdk/${directory.split('/').pop()}</h1>\n`);
 
     let typesWithInsertedExamples = 0;
     const filteredTypes = filterForTypesWithoutExamples(assembly.types ?? {});
@@ -124,12 +122,7 @@ function logOutput(stream: fs.WriteStream | undefined, typeFqn: string, algorith
 function filterForTypesWithoutExamples(types: { [fqn: string]: spec.Type }): Record<string, spec.Type> {
   const filteredTypes: Record<string, spec.Type> = {};
   for (const [typeFqn, type] of Object.entries(types)) {
-    // Ignore Cfn types if possible
-    const splitFqn = typeFqn.split('.');
-    if (splitFqn.length >= 2 && splitFqn[1].length >= 3 && splitFqn[1].substring(0, 3) === 'Cfn') {
-      continue;
-    }
-    // Ignore IXxx Interfaces
+    // Ignore Interfaces that contain only properties
     if (type.kind === spec.TypeKind.Interface && !type.datatype) {
       continue;
     }
