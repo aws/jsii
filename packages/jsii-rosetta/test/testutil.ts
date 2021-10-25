@@ -5,8 +5,13 @@ import * as path from 'path';
 
 import { typeScriptSnippetFromSource, SnippetTranslator, SnippetParameters, rosettaDiagFromTypescript } from '../lib';
 
+export type MultipleSources = { [key: string]: string; 'index.ts': string };
+
 export class AssemblyFixture {
-  public static async fromSource(source: string, packageInfo: Partial<PackageInfo> & { name: string }) {
+  public static async fromSource(
+    source: string | MultipleSources,
+    packageInfo: Partial<PackageInfo> & { name: string },
+  ) {
     const { assembly, files } = await compileJsiiForTest(source, (pi) => {
       Object.assign(pi, packageInfo);
     });
