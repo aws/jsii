@@ -63,8 +63,9 @@ export function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
   snippets.map((snippet) => {
     counters.push(snippet.syntaxKindCounter);
   });
+  console.log(snippets);
   const meanCounter = findCenter(counters);
-
+  console.log(meanCounter);
   // Find counter with closest euclidian distance.
   const snippetScores: SnippetScore[] = [];
   for (let i = 0; i < snippets.length; i++) {
@@ -91,7 +92,7 @@ function findCenter(counters: Array<Record<string, number>>): Record<string, num
 }
 
 /**
- * Finds the euclidean distance between two sparce vectors.
+ * Finds the euclidean distance between two sparse vectors.
  * !!! This function assumes that the center parameter is a superset of the counter parameter. !!!
  */
 function euclideanDistance(center: Record<string, number>, counter: Record<string, number>): number {
@@ -99,7 +100,7 @@ function euclideanDistance(center: Record<string, number>, counter: Record<strin
   Object.entries(center).map(([key, value]) => {
     individualDistances.push(value - (counter[key] ?? 0));
   });
-  return individualDistances.reduce((acc, curr) => acc + Math.sqrt(Math.pow(curr, 2)));
+  return individualDistances.reduce((acc, curr) => acc + Math.sqrt(Math.pow(curr, 2)), 0);
 }
 
 function getMaxScore(snippetScores: SnippetScore[]): SnippetScore {

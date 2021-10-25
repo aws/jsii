@@ -37,10 +37,10 @@ class DefaultRecord<A> {
 export async function infuse(
   assemblyLocations: string[],
   tabletFile: string,
-  options: InfuseOptions,
+  options?: InfuseOptions,
 ): Promise<InfuseResult> {
   let stream: fs.WriteStream | undefined = undefined;
-  if (options.log) {
+  if (options?.log) {
     // Create stream for html file and insert some styling
     stream = fs.createWriteStream(options.outputFile, { flags: 'a' });
     startFile(stream);
@@ -61,7 +61,7 @@ export async function infuse(
     for (const [typeFqn, type] of Object.entries(filteredTypes)) {
       if (snippetsFromFqn[typeFqn] !== undefined) {
         const meanResult = mean(snippetsFromFqn[typeFqn]);
-        if (options.log) {
+        if (options?.log) {
           const selected = Object.entries(ADDITIONAL_SELECTORS).map(
             ([name, fn]) => [name, fn(snippetsFromFqn[typeFqn])] as const,
           );

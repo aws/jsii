@@ -435,7 +435,7 @@ function handleDiagnostics(diagnostics: readonly RosettaDiagnostic[], fail: bool
 
 /**
  * Rounds a decimal number to two decimal points.
- * The function is useful for fractions that need to be outputted as percentages. 
+ * The function is useful for fractions that need to be outputted as percentages.
  */
 function roundPercentage(num: number): number {
   return Math.round(10000 * num) / 100;
