@@ -4,14 +4,14 @@ import { inspect } from 'util';
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
 import { RecordReferencesVisitor } from './languages/record-references';
 import * as logging from './logging';
-import { renderTree, Span, spanContains } from './o-tree';
+import { renderTree } from './o-tree';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import { TypeScriptSnippet, completeSource, SnippetParameters } from './snippet';
 import { snippetKey } from './tablets/key';
 import { TranslatedSnippet } from './tablets/tablets';
-import { calculateVisibleSpans } from './typescript/ast-utils';
 import { SyntaxKindCounter } from './typescript/syntax-kind-counter';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
+import { Spans } from './typescript/visible-spans';
 import { annotateStrictDiagnostic, File, hasStrictBranding } from './util';
 
 export function translateTypeScript(
@@ -137,7 +137,7 @@ export interface RosettaDiagnostic {
 export class SnippetTranslator {
   public readonly translateDiagnostics: ts.Diagnostic[] = [];
   public readonly compileDiagnostics: ts.Diagnostic[] = [];
-  private readonly visibleSpans: Span[];
+  private readonly visibleSpans: Spans;
   private readonly compilation!: CompilationResult;
 
   public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
@@ -150,7 +150,7 @@ export class SnippetTranslator {
     this.compilation = compiler.compileInMemory(snippet.where, source, fakeCurrentDirectory);
 
     // Respect '/// !hide' and '/// !show' directives
-    this.visibleSpans = calculateVisibleSpans(source);
+    this.visibleSpans = Spans.visibleSpansFromSource(source);
 
     // This makes it about 5x slower, so only do it on demand
     if (options.includeCompilerDiagnostics || snippet.strict) {
@@ -199,12 +199,12 @@ export class SnippetTranslator {
   }
 
   public syntaxKindCounter(): Record<string, number> {
-    const kindCounter = new SyntaxKindCounter();
+    const kindCounter = new SyntaxKindCounter(this.visibleSpans);
     return kindCounter.countKinds(this.compilation.rootFile);
   }
 
   public fqnsReferenced() {
-    const visitor = new RecordReferencesVisitor();
+    const visitor = new RecordReferencesVisitor(this.visibleSpans);
     const converter = new AstRenderer(
       this.compilation.rootFile,
       this.compilation.program.getTypeChecker(),
@@ -223,10 +223,8 @@ export class SnippetTranslator {
 /**
  * Hide diagnostics that are rosetta-sourced if they are reported against a non-visible span
  */
-function filterVisibleDiagnostics(diags: readonly ts.Diagnostic[], visibleSpans: Span[]): ts.Diagnostic[] {
-  return diags.filter(
-    (d) => d.source !== 'rosetta' || d.start === undefined || visibleSpans.some((s) => spanContains(s, d.start!)),
-  );
+function filterVisibleDiagnostics(diags: readonly ts.Diagnostic[], visibleSpans: Spans): ts.Diagnostic[] {
+  return diags.filter((d) => d.source !== 'rosetta' || d.start === undefined || visibleSpans.containsPosition(d.start));
 }
 
 /**

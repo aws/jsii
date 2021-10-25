@@ -4,6 +4,7 @@ import { findPackageJson } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
+import { Spans } from '../typescript/visible-spans';
 import { DefaultVisitor } from './default';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -13,10 +14,17 @@ type RecordReferencesRenderer = AstRenderer<RecordReferencesContext>;
 
 // FIXME: ignore references from hidden spans
 
+/**
+ * A visitor that collects all types referenced in a particular piece of sample code
+ */
 export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesContext> {
-  public readonly language = TargetLanguage.PYTHON; // Doesn't matter, but we need it :(
+  public readonly language = TargetLanguage.PYTHON; // Doesn't matter, but we need it to use the visitor infra :(
   public readonly defaultContext = {};
   private readonly references = new Set<string>();
+
+  public constructor(private readonly visibleSpans: Spans) {
+    super();
+  }
 
   public fqnsReferenced() {
     return Array.from(this.references).sort();
@@ -26,34 +34,57 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
     return Object.assign({}, old, update);
   }
 
+  /**
+   * For a variable declaration, a type counts as "referenced" if it gets assigned a value via an initializer
+   *
+   * This skips "declare" statements which aren't really interesting.
+   */
+  public variableDeclaration(node: ts.VariableDeclaration, renderer: RecordReferencesRenderer): OTree {
+    if (this.visibleSpans.containsStartOfNode(node) && node.initializer) {
+      const type =
+        (node.type && renderer.typeOfType(node.type)) ||
+        (node.initializer && renderer.typeOfExpression(node.initializer));
+
+      this.recordSymbol(type?.symbol, renderer);
+    }
+
+    return super.variableDeclaration(node, renderer);
+  }
+
   public newExpression(node: ts.NewExpression, context: RecordReferencesRenderer): OTree {
     // Constructor
-    this.recordNode(node.expression, context);
-    if (node.arguments) {
-      this.visitArgumentTypes(node.arguments, context);
+    if (this.visibleSpans.containsStartOfNode(node)) {
+      this.recordNode(node.expression, context);
+      if (node.arguments) {
+        this.visitArgumentTypes(node.arguments, context);
+      }
     }
 
     return super.newExpression(node, context);
   }
 
   public propertyAccessExpression(node: ts.PropertyAccessExpression, context: RecordReferencesRenderer): OTree {
-    // The property itself
-    this.recordNode(node, context);
+    if (this.visibleSpans.containsStartOfNode(node)) {
+      // The property itself
+      this.recordNode(node, context);
 
-    // FIXME: should we record the return type?
+      // Not currently considering the return type as "referenced"
+    }
 
     return super.propertyAccessExpression(node, context);
   }
 
   public regularCallExpression(node: ts.CallExpression, context: RecordReferencesRenderer): OTree {
-    // The method itself
-    this.recordNode(node.expression, context);
+    if (this.visibleSpans.containsStartOfNode(node)) {
+      // The method itself
+      this.recordNode(node.expression, context);
 
-    if (node.arguments) {
-      this.visitArgumentTypes(node.arguments, context);
+      if (node.arguments) {
+        this.visitArgumentTypes(node.arguments, context);
+      }
+
+      // Not currently considering the return type as "referenced"
     }
-
-    // FIXME: should we record the return type?
 
     return super.regularCallExpression(node, context);
   }
