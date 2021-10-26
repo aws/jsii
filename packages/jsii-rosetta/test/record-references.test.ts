@@ -25,6 +25,8 @@ beforeAll(async () => {
   );
 });
 
+afterAll(async () => assembly.cleanup());
+
 test('detect class instantiations', () => {
   const translator = assembly.successfullyCompile(`
     import * as ass from 'my_assembly';

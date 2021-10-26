@@ -52,6 +52,8 @@ beforeAll(async () => {
   });
 });
 
+afterAll(async () => assembly.cleanup());
+
 test('examples are added in the assembly', async () => {
   await infuse([assembly.directory], path.join(assembly.directory, TABLET_FILE));
 

@@ -22,6 +22,7 @@ beforeAll(async () => {
     },
   );
 });
+afterAll(async () => assembly.cleanup());
 
 test('generate syntax counter', () => {
   const translator = assembly.successfullyCompile(`
