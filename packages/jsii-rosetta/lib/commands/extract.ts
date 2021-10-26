@@ -1,6 +1,7 @@
 import * as os from 'os';
 import * as path from 'path';
 import * as ts from 'typescript';
+import * as workerpool from 'workerpool';
 
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
 import * as logging from '../logging';
@@ -8,8 +9,7 @@ import { TypeScriptSnippet } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { RosettaDiagnostic, Translator, rosettaDiagFromTypescript } from '../translate';
-import { WorkerPool } from '../worker-pool';
-import type { SnippetBatchResult, TranslateMetadata } from './extract_worker';
+import type { TranslateBatchRequest, TranslateBatchResponse } from './extract_worker';
 
 export interface ExtractResult {
   diagnostics: RosettaDiagnostic[];
@@ -81,24 +81,13 @@ function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: st
 /**
  * Translate all snippets
  *
- * Uses a worker-based parallel translation if available, falling back to a single-threaded workflow if not.
+ * We are now always using workers, as we are targeting Node 12+.
  */
 async function translateAll(
   snippets: IterableIterator<TypeScriptSnippet>,
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
-  try {
-    const worker = await import('worker_threads');
-
-    return await workerBasedTranslateAll(worker, snippets, includeCompilerDiagnostics);
-  } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      throw e;
-    }
-    logging.warn('Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.');
-
-    return singleThreadedTranslateAll(snippets, includeCompilerDiagnostics);
-  }
+  return workerBasedTranslateAll(snippets, includeCompilerDiagnostics);
 }
 
 /**
@@ -148,7 +137,6 @@ export function singleThreadedTranslateAll(
  * the script we may assume that 'worker_threads' successfully imports).
  */
 async function workerBasedTranslateAll(
-  workerModule: typeof import('worker_threads'),
   snippets: IterableIterator<TypeScriptSnippet>,
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
@@ -161,11 +149,16 @@ async function workerBasedTranslateAll(
   const snippetArr = Array.from(snippets);
   logging.info(`Translating ${snippetArr.length} snippets using ${N} workers`);
 
-  const pool = new WorkerPool(workerModule, N, path.join(__dirname, 'extract_worker.js'));
+  const pool = workerpool.pool(path.join(__dirname, 'extract_worker.js'), {
+    maxWorkers: N,
+  });
+
   try {
-    const responses = await pool.process<SnippetBatchResult, TranslateMetadata, TypeScriptSnippet>(snippetArr, {
-      includeCompilerDiagnostics,
-    });
+    const requests = batchSnippets(snippetArr, includeCompilerDiagnostics);
+
+    const responses: TranslateBatchResponse[] = await Promise.all(
+      requests.map((request) => pool.exec('translateBatch', [request])),
+    );
 
     const diagnostics = new Array<RosettaDiagnostic>();
     const translatedSnippets = new Array<TranslatedSnippet>();
@@ -173,10 +166,27 @@ async function workerBasedTranslateAll(
     // Combine results
     for (const response of responses) {
       diagnostics.push(...response.diagnostics);
-      translatedSnippets.push(TranslatedSnippet.fromSchema(response.translatedSchema));
+      translatedSnippets.push(...response.translatedSchemas.map(TranslatedSnippet.fromSchema));
     }
     return { diagnostics, translatedSnippets };
   } finally {
-    pool.cleanup();
+    pool.terminate();
   }
+}
+
+function batchSnippets(
+  snippets: TypeScriptSnippet[],
+  includeCompilerDiagnostics: boolean,
+  batchSize = 10,
+): TranslateBatchRequest[] {
+  const ret = [];
+
+  for (let i = 0; i < snippets.length; i += batchSize) {
+    ret.push({
+      snippets: snippets.slice(i, i + batchSize),
+      includeCompilerDiagnostics,
+    });
+  }
+
+  return ret;
 }
