@@ -14,7 +14,7 @@ const DUMMY_README = `
   const aClass = new ass.ClassA();
   aClass.someMethod();
   \`\`\`
-`
+`;
 
 const TABLET_FILE = 'text.tabl.json';
 
@@ -23,7 +23,7 @@ beforeAll(async () => {
   // Create an assembly in a temp directory
   assembly = await AssemblyFixture.fromSource(
     {
-      'index.ts':`
+      'index.ts': `
       export class ClassA {
         public someMethod() {
         }
