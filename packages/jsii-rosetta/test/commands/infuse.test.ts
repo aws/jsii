@@ -70,8 +70,8 @@ test('can log to output file', async () => {
   });
 
   // assert that the output file exists and there is some information in the file.
-  fs.stat(path.join(assembly.directory, DEFAULT_INFUSION_RESULTS_NAME), (_err, stats) => {
-    expect(stats.isFile()).toBeTruthy();
-    expect(stats.size).toBeGreaterThan(0);
-  });
+  const stats = await fs.stat(path.join(assembly.directory, DEFAULT_INFUSION_RESULTS_NAME));
+
+  expect(stats.isFile()).toBeTruthy();
+  expect(stats.size).toBeGreaterThan(0);
 });
