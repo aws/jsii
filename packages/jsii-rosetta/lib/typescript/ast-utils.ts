@@ -1,48 +1,6 @@
 import * as ts from 'typescript';
 
-import { Span } from '../o-tree';
 import { AstRenderer } from '../renderer';
-
-export interface MarkedSpan {
-  start: number;
-  end: number;
-  visible: boolean;
-}
-
-export function calculateVisibleSpans(source: string): Span[] {
-  return calculateMarkedSpans(source).filter((s) => s.visible);
-}
-
-export function calculateMarkedSpans(source: string): MarkedSpan[] {
-  const regEx = /[/]{3}[ \t]*(!(?:show|hide))[ \t]*$/gm;
-
-  const ret = new Array<MarkedSpan>();
-  let match;
-  let spanStart;
-  let visible = true;
-  while ((match = regEx.exec(source)) != null) {
-    const directiveStart = match.index;
-    const directive = match[1].trim();
-    if (['!hide', '!show'].includes(directive)) {
-      const isShow = directive === '!show';
-      if (spanStart === undefined) {
-        // Add a span at the start which is the reverse of the actual first directive
-        ret.push({ start: 0, end: directiveStart, visible: !isShow });
-      } else {
-        // Else add a span for the current directive
-        ret.push({ start: spanStart, end: directiveStart, visible });
-      }
-      visible = isShow;
-      spanStart = match.index + match[0].length;
-    }
-  }
-
-  // Add the remainder under the last visibility
-  ret.push({ start: spanStart ?? 0, end: source.length, visible });
-
-  // Filter empty spans and return
-  return ret.filter((s) => s.start !== s.end);
-}
 
 export function stripCommentMarkers(comment: string, multiline: boolean) {
   if (multiline) {

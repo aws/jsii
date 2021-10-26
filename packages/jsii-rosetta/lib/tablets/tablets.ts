@@ -78,8 +78,11 @@ export class TranslatedSnippet {
   public static fromSchema(schema: TranslatedSnippetSchema) {
     const ret = new TranslatedSnippet();
     Object.assign(ret.translations, schema.translations);
+    Object.assign(ret._fqnsReferenced, schema.fqnsReferenced);
+    Object.assign(ret._syntaxKindCounter, schema.syntaxKindCounter);
     ret._didCompile = schema.didCompile;
     ret._where = schema.where;
+    ret.fullSource = schema.fullSource;
     return ret;
   }
 
@@ -90,13 +93,17 @@ export class TranslatedSnippet {
     });
     ret._didCompile = didCompile;
     ret._where = original.where;
+    ret.fullSource = original.completeSource;
     return ret;
   }
 
   private readonly translations: Record<string, TranslationSchema> = {};
+  private readonly _fqnsReferenced = new Array<string>();
+  private readonly _syntaxKindCounter: Record<string, number> = {};
   private _key?: string;
   private _didCompile?: boolean;
   private _where = '';
+  private fullSource?: string;
 
   private constructor() {}
 
@@ -106,6 +113,14 @@ export class TranslatedSnippet {
 
   public get where() {
     return this._where;
+  }
+
+  public get fqnsReferenced() {
+    return this._fqnsReferenced;
+  }
+
+  public get syntaxKindCounter() {
+    return this._syntaxKindCounter;
   }
 
   public get key() {
@@ -140,6 +155,20 @@ export class TranslatedSnippet {
     };
   }
 
+  public addFqnsReferenced(fqnsReferenced: string[]) {
+    this.fqnsReferenced.push(...fqnsReferenced);
+  }
+
+  public addSyntaxKindCounter(syntaxKindCounter: Record<string, number>) {
+    for (const [key, value] of Object.entries(syntaxKindCounter)) {
+      this.syntaxKindCounter[key] = value + (this.syntaxKindCounter[key] ?? 0);
+    }
+  }
+
+  public setFullSource(fullSource: string) {
+    this.fullSource = fullSource;
+  }
+
   public get languages(): TargetLanguage[] {
     return Object.keys(this.translations).filter((x) => x !== ORIGINAL_SNIPPET_KEY) as TargetLanguage[];
   }
@@ -154,6 +183,11 @@ export class TranslatedSnippet {
     Object.assign(ret.translations, this.translations, other.translations);
     ret._didCompile = this.didCompile;
     ret._where = this.where;
+    ret.fqnsReferenced.splice(
+      0,
+      ret.fqnsReferenced.length,
+      ...new Set([...this.fqnsReferenced, ...other.fqnsReferenced]),
+    );
     return ret;
   }
 
@@ -169,6 +203,9 @@ export class TranslatedSnippet {
       translations: this.translations,
       didCompile: this.didCompile,
       where: this.where,
+      fqnsReferenced: this.fqnsReferenced,
+      syntaxKindCounter: this.syntaxKindCounter,
+      fullSource: this.fullSource,
     };
   }
 }
