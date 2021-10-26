@@ -42,7 +42,9 @@ export async function infuse(
   let stream: fs.WriteStream | undefined = undefined;
   if (options?.log) {
     // Create stream for html file and insert some styling
-    stream = fs.createWriteStream(options.outputFile, { flags: 'a' });
+    stream = fs.createWriteStream(options.outputFile, {
+      encoding: 'utf-8',
+    });
     startFile(stream);
   }
 
@@ -83,6 +85,9 @@ export async function infuse(
       typesWithInsertedExamples,
     };
   }
+
+  stream?.close();
+
   return {
     coverageResults: coverageResults,
   };
