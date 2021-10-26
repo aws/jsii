@@ -63,9 +63,7 @@ export function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
   snippets.map((snippet) => {
     counters.push(snippet.syntaxKindCounter);
   });
-  console.log(snippets);
   const meanCounter = findCenter(counters);
-  console.log(meanCounter);
   // Find counter with closest euclidian distance.
   const snippetScores: SnippetScore[] = [];
   for (let i = 0; i < snippets.length; i++) {

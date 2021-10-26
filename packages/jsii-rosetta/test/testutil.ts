@@ -37,7 +37,7 @@ export class AssemblyFixture {
       await fs.writeFile(path.join(modDir, fileName), fileContents);
     }
 
-    return new AssemblyFixture(tmpDir);
+    return new AssemblyFixture(modDir);
   }
 
   private constructor(public readonly directory: string) {}
