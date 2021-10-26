@@ -192,3 +192,10 @@ Since TypeScript compilation takes a lot of time, much time can be gained by usi
 If worker thread support is available, `jsii-rosetta` will use a number of workers equal to half the number of CPU cores,
 up to a maximum of 16 workers. This default maximum can be overridden by setting the `JSII_ROSETTA_MAX_WORKER_COUNT`
 environment variable.
+
+If you get out of memory errors running too many workers, run a command like this to up the memory allowed for your workers:
+
+```
+$ /sbin/sysctl -w vm.max_map_count=2251954
+```
+
