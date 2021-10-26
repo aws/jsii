@@ -820,6 +820,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#-add-deprecated-warnings" class="md-nav__link">
+    --add-deprecated-warnings
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1277,6 +1284,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#-add-deprecated-warnings" class="md-nav__link">
+    --add-deprecated-warnings
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1381,6 +1395,18 @@ testpkg.DeprecatedOne
 testpkg.DeprecatedTwo#deprecatedProperty
 testpkg.DeprecatedTwo#deprecatedMethod
 </code></pre></div>
+<h4 id="-add-deprecated-warnings"><code>--add-deprecated-warnings</code></h4>
+<p>The <code>--add-deprecated-warnings</code> flag modifies the implementation of all
+declarations (types, members) documented with the <code>@deprecated</code> flag such that,
+when the deprecated declaration is used by a dependent, a warning is printed to
+the console at runtime.</p>
+<p>This is specifically useful to notify users of a jsii module that they are
+using deprecated elements and code updates are required.</p>
+<p>Additionally, the environment variable <code>JSII_DEPRECATED</code> can be set to <code>error</code>
+or <code>quiet</code> to either fail at runtime or silence these warnings, respectively.
+By default, this is set to <code>warn</code>.</p>
+<p>The <code>JSII_DEPRECATED</code> environment variable is respected only on modules compiled
+with the <code>--add-deprecated-warnings</code> flag.</p>
                 
                   
                     
@@ -1389,7 +1415,7 @@ testpkg.DeprecatedTwo#deprecatedMethod
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-10-22
+      Last update: 2021-10-26
     
   </small>
 </div>
