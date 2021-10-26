@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.41.0](https://github.com/aws/jsii/compare/v1.40.0...v1.41.0) (2021-10-26)
+
+
+### Features
+
+* **jsii:** experimental --strip-deprecated with file ([#3085](https://github.com/aws/jsii/issues/3085)) ([e5ba807](https://github.com/aws/jsii/commit/e5ba807a2da6bdb88ecd66d35770269a8292d805))
+
 ## [1.40.0](https://github.com/aws/jsii/compare/v1.39.0...v1.40.0) (2021-10-19)
 
 
