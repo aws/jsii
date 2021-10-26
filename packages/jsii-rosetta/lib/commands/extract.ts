@@ -170,7 +170,8 @@ async function workerBasedTranslateAll(
     }
     return { diagnostics, translatedSnippets };
   } finally {
-    pool.terminate();
+    // Not waiting on purpose
+    void pool.terminate();
   }
 }
 
