@@ -7,6 +7,7 @@ import * as yargs from 'yargs';
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
 import { extractSnippets } from '../lib/commands/extract';
+import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
 import { TargetLanguage } from '../lib/languages';
@@ -64,8 +65,62 @@ function main() {
       }),
     )
     .command(
+      'infuse <TABLET> [ASSEMBLY..]',
+      '(EXPERIMENTAL) mutates one or more assemblies by adding documentation examples to top-level types',
+      (command) =>
+        command
+          .positional('TABLET', {
+            type: 'string',
+            required: true,
+            describe: 'Language tablet to read',
+          })
+          .positional('ASSEMBLY', {
+            type: 'string',
+            string: true,
+            default: new Array<string>(),
+            describe: 'Assembly or directory to mutate',
+          })
+          .option('log', {
+            alias: 'l',
+            type: 'boolean',
+            describe: 'Test all algorithms and log results to an html file',
+            default: false,
+          })
+          .option('output', {
+            alias: 'o',
+            type: 'string',
+            describe: 'Output file to store logging results. Ignored if -log is not true',
+            default: DEFAULT_INFUSION_RESULTS_NAME,
+          })
+          .demandOption('TABLET'),
+      wrapHandler(async (args) => {
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        const absOutput = path.resolve(args.output);
+        const result = await infuse(absAssemblies, args.TABLET, {
+          outputFile: absOutput,
+          log: args.log,
+        });
+
+        let totalTypes = 0;
+        let insertedExamples = 0;
+        for (const [directory, map] of Object.entries(result.coverageResults)) {
+          const commonName = directory.split('/').pop()!;
+          const newCoverage = roundPercentage(map.typesWithInsertedExamples / map.types);
+          process.stdout.write(
+            `${commonName}: Added ${map.typesWithInsertedExamples} examples to ${map.types} types.\n`,
+          );
+          process.stdout.write(`${commonName}: New coverage: ${newCoverage}%.\n`);
+
+          insertedExamples += map.typesWithInsertedExamples;
+          totalTypes += map.types;
+        }
+        const newCoverage = roundPercentage(insertedExamples / totalTypes);
+        process.stdout.write(`\n\nFinal Stats:\nNew coverage: ${newCoverage}%.\n`);
+      }),
+    )
+    .command(
       ['extract [ASSEMBLY..]', '$0 [ASSEMBLY..]'],
-      'Extract code snippets from one or more assemblies into a language tablets',
+      'Extract code snippets from one or more assemblies into language tablets',
       (command) =>
         command
           .positional('ASSEMBLY', {
@@ -376,6 +431,14 @@ function handleDiagnostics(diagnostics: readonly RosettaDiagnostic[], fail: bool
     printDiagnostics(diagnostics, process.stderr);
     logging.warn(`${diagnostics.length} diagnostics encountered in ${snippetCount} snippets`);
   }
+}
+
+/**
+ * Rounds a decimal number to two decimal points.
+ * The function is useful for fractions that need to be outputted as percentages.
+ */
+function roundPercentage(num: number): number {
+  return Math.round(10000 * num) / 100;
 }
 
 main();
