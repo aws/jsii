@@ -89,3 +89,20 @@ the allow list will be retained. An example allowlist file might look like:
     testpkg.DeprecatedOne
     testpkg.DeprecatedTwo#deprecatedProperty
     testpkg.DeprecatedTwo#deprecatedMethod
+
+#### `--add-deprecated-warnings`
+
+The `--add-deprecated-warnings` flag modifies the implementation of all
+declarations (types, members) documented with the `@deprecated` flag such that,
+when the deprecated declaration is used by a dependent, a warning is printed to
+the console at runtime.
+
+This is specifically useful to notify users of a jsii module that they are
+using deprecated elements and code updates are required.
+
+Additionally, the environment variable `JSII_DEPRECATED` can be set to `error`
+or `quiet` to either fail at runtime or silence these warnings, respectively.
+By default, this is set to `warn`.
+
+The `JSII_DEPRECATED` environment variable is respected only on modules compiled
+with the `--add-deprecated-warnings` flag.
