@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.41.0](https://github.com/aws/jsii/compare/v1.40.0...v1.41.0) (2021-10-27)
+
+
+### Features
+
+* **jsii:** experimental --strip-deprecated with file ([#3085](https://github.com/aws/jsii/issues/3085)) ([e5ba807](https://github.com/aws/jsii/commit/e5ba807a2da6bdb88ecd66d35770269a8292d805))
+* **rosetta:** "rosetta infuse" feature ([#3067](https://github.com/aws/jsii/issues/3067)) ([0f2f2d0](https://github.com/aws/jsii/commit/0f2f2d01e879c229d021099fdf2144837bd9e632))
+* **rosetta:** improve translation throughput ([#3083](https://github.com/aws/jsii/issues/3083)) ([919d895](https://github.com/aws/jsii/commit/919d895956fb73fcbc684a7485c3ff8a8ecd678b))
+
+
+### Bug Fixes
+
+* deprecation-warnings includes TS-only import ([#3094](https://github.com/aws/jsii/issues/3094)) ([edfdc48](https://github.com/aws/jsii/commit/edfdc48430886c53fe5331c26d117861d3c91df2))
+
 ## [1.40.0](https://github.com/aws/jsii/compare/v1.39.0...v1.40.0) (2021-10-19)
 
 
