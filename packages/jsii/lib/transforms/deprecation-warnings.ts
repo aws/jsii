@@ -55,7 +55,7 @@ export class DeprecationWarningsInjector {
 
       if (spec.isEnumType(type) && type.locationInModule?.filename) {
         statements.push(
-          createRequireStatement(type.locationInModule?.filename),
+          createEnumRequireStatement(type.locationInModule?.filename),
         );
 
         for (const member of Object.values(type.members ?? [])) {
@@ -338,12 +338,7 @@ class Transformer {
         : `./${FILE_NAME}`;
 
       return ts.updateSourceFileNode(result, [
-        ts.createImportEqualsDeclaration(
-          undefined,
-          undefined,
-          NAMESPACE,
-          ts.createExternalModuleReference(ts.createLiteral(importPath)),
-        ),
+        createRequireStatement(NAMESPACE, importPath),
         ...result.statements,
       ]) as any;
     }
@@ -525,13 +520,30 @@ function insertStatements(block: ts.Block, newStatements: ts.Statement[]) {
   return ts.createNodeArray(result);
 }
 
-function createRequireStatement(typeLocation: string): ts.ExpressionStatement {
+function createEnumRequireStatement(typeLocation: string): ts.Statement {
   const { ext } = path.parse(typeLocation);
   const jsFileName = typeLocation.replace(ext, '.js');
 
-  return ts.createExpressionStatement(
-    ts.createIdentifier(
-      `const ${LOCAL_ENUM_NAMESPACE} = require("./${jsFileName}")`,
+  return createRequireStatement(LOCAL_ENUM_NAMESPACE, `./${jsFileName}`);
+}
+
+function createRequireStatement(
+  name: string,
+  importPath: string,
+): ts.Statement {
+  return ts.createVariableStatement(
+    undefined,
+    ts.createVariableDeclarationList(
+      [
+        ts.createVariableDeclaration(
+          name,
+          undefined,
+          ts.createCall(ts.createIdentifier('require'), undefined, [
+            ts.createLiteral(importPath),
+          ]),
+        ),
+      ],
+      ts.NodeFlags.Const,
     ),
   );
 }
