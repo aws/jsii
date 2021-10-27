@@ -262,7 +262,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {
-    return new OTree([this.renderTypeNode(node.type, renderer), ' ', renderer.convert(node.name)]);
+    let renderedType = this.renderTypeNode(node.type, renderer);
+    if (node.dotDotDotToken && renderedType.endsWith('[]')) {
+      // Varargs. In Java, render this as `Element...` (instead of `Element[]` which is what we'll have gotten).
+      renderedType = `${renderedType.substr(0, renderedType.length - 2)}...`;
+    }
+
+    return new OTree([renderedType, ' ', renderer.convert(node.name)]);
   }
 
   public block(node: ts.Block, renderer: JavaRenderer): OTree {
@@ -691,6 +697,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     if (!type) {
       return fallback;
     }
+
     return doRender(determineJsiiType(renderer.typeChecker, type), false);
 
     // eslint-disable-next-line consistent-return

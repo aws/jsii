@@ -317,6 +317,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: CSharpRenderer): OTree {
     return new OTree([
+      ...(node.dotDotDotToken ? ['params '] : []), // Varargs. Render with 'params' keyword
       this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
       ' ',
       renderer.convert(node.name),
