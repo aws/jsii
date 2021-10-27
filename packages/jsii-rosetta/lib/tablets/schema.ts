@@ -37,34 +37,47 @@ export interface TranslatedSnippetSchema {
    * Since TypeScript is a valid output translation, the original will be
    * listed under the key '$'.
    */
-  translations: { [key: string]: TranslationSchema };
+  readonly translations: { [key: string]: TranslationSchema };
 
   /**
    * A human-readable description of the location this code snippet was found
    */
-  where: string;
+  readonly where: string;
 
   /**
    * Whether this was compiled without errors
    *
    * Undefined means compilation was not attempted.
    */
-  didCompile?: boolean;
+  readonly didCompile?: boolean;
 
   /**
    * FQNs of classes and functions referenced in this snippet.
    */
-  fqnsReferenced?: string[];
+  readonly fqnsReferenced?: string[];
+
+  /**
+   * A fingerprint of the types referenced in `fqnsReferenced`.
+   *
+   * This can be used to validate/invalidate previous compilations of a snippet.
+   *
+   * A snippet needs to be recompiled if:
+   *
+   * - Its source text changes: hash will be different
+   * - Its fixture changes: fullSource will be different
+   * - The referenced types have changed: fingerprint will be different
+   */
+  readonly fqnsFingerprint?: string;
 
   /**
    * Counts the number of instances each kind of Typescript object shows up in the snippet AST.
    */
-  syntaxKindCounter?: { [key: number]: number };
+  readonly syntaxKindCounter?: { [key: number]: number };
 
   /**
    * The full source (with fixture) that was compiled
    */
-  fullSource?: string;
+  readonly fullSource?: string;
 }
 
 /**
