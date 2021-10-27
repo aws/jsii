@@ -31,6 +31,22 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
     };
   }
 
+  if (type.symbol?.name === 'Array') {
+    const typeRef = type as ts.TypeReference;
+
+    if (typeRef.typeArguments?.length === 1) {
+      return {
+        kind: 'list',
+        elementType: determineJsiiType(typeChecker, typeRef.typeArguments[0]),
+      };
+    }
+
+    return {
+      kind: 'list',
+      elementType: { kind: 'builtIn', builtIn: 'any' },
+    };
+  }
+
   // User-defined or aliased type
   if (type.aliasSymbol) {
     return { kind: 'namedType', name: type.aliasSymbol.name };
