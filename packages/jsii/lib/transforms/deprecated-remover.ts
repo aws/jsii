@@ -1,6 +1,7 @@
 import {
   Assembly,
   ClassType,
+  EnumMember,
   Initializer,
   InterfaceType,
   isClassOrInterfaceType,
@@ -24,8 +25,12 @@ import * as bindings from '../node-bindings';
 
 export class DeprecatedRemover {
   private readonly transformations = new Array<Transformation>();
+  private readonly nodesToRemove = new Set<ts.Node>();
 
-  public constructor(private readonly typeChecker: ts.TypeChecker) {}
+  public constructor(
+    private readonly typeChecker: ts.TypeChecker,
+    private readonly allowlistedDeprecations: Set<string> | undefined,
+  ) {}
 
   /**
    * Obtains the configuration for the TypeScript transform(s) that will remove
@@ -42,6 +47,7 @@ export class DeprecatedRemover {
             this.typeChecker,
             context,
             this.transformations,
+            this.nodesToRemove,
           );
           return transformer.transform.bind(transformer);
         },
@@ -71,13 +77,19 @@ export class DeprecatedRemover {
     // Find all types that will be stripped out
     for (const [fqn, typeInfo] of Object.entries(assembly.types)) {
       if (typeInfo.docs?.stability === Stability.Deprecated) {
+        if (!this.shouldFqnBeStripped(fqn)) {
+          continue;
+        }
         strippedFqns.add(fqn);
+
         if (isClassType(typeInfo) && typeInfo.base != null) {
           replaceWithClass.set(fqn, typeInfo.base);
         }
         if (isClassOrInterfaceType(typeInfo) && typeInfo.interfaces != null) {
           replaceWithInterfaces.set(fqn, typeInfo.interfaces);
         }
+
+        this.nodesToRemove.add(bindings.getRelatedNode(typeInfo)!);
       }
     }
 
@@ -87,8 +99,26 @@ export class DeprecatedRemover {
         continue;
       }
 
-      // Enums cannot have references to `@deprecated` types
+      // Enums cannot have references to `@deprecated` types, but can have deprecated members
       if (isEnumType(typeInfo)) {
+        const enumNode = bindings.getEnumRelatedNode(typeInfo)!;
+        const members: EnumMember[] = [];
+        typeInfo.members.forEach((mem) => {
+          if (
+            mem.docs?.stability === Stability.Deprecated &&
+            this.shouldFqnBeStripped(`${fqn}#${mem.name}`)
+          ) {
+            const matchingMemberNode = enumNode.members.find(
+              (enumMem) => enumMem.name.getText() === mem.name,
+            );
+            if (matchingMemberNode) {
+              this.nodesToRemove.add(matchingMemberNode);
+            }
+          } else {
+            members.push(mem);
+          }
+        });
+        typeInfo.members = members;
         continue;
       }
 
@@ -181,20 +211,38 @@ export class DeprecatedRemover {
       }
 
       // Drop all `@deprecated` members, and remove "overrides" from stripped types
-      typeInfo.methods = typeInfo?.methods
-        ?.filter((meth) => meth.docs?.stability !== Stability.Deprecated)
-        ?.map((meth) =>
-          meth.overrides != null && strippedFqns.has(meth.overrides)
-            ? { ...meth, overrides: undefined }
-            : meth,
-        );
-      typeInfo.properties = typeInfo?.properties
-        ?.filter((prop) => prop.docs?.stability !== Stability.Deprecated)
-        ?.map((prop) =>
-          prop.overrides != null && strippedFqns.has(prop.overrides)
-            ? { ...prop, overrides: undefined }
-            : prop,
-        );
+      const methods: Method[] = [];
+      const properties: Property[] = [];
+      typeInfo.methods?.forEach((meth) => {
+        if (
+          meth.docs?.stability === Stability.Deprecated &&
+          this.shouldFqnBeStripped(`${fqn}#${meth.name}`)
+        ) {
+          this.nodesToRemove.add(bindings.getMethodRelatedNode(meth)!);
+        } else {
+          methods.push(
+            meth.overrides != null && strippedFqns.has(meth.overrides)
+              ? { ...meth, overrides: undefined }
+              : meth,
+          );
+        }
+      });
+      typeInfo.methods = typeInfo.methods ? methods : undefined;
+      typeInfo.properties?.forEach((prop) => {
+        if (
+          prop.docs?.stability === Stability.Deprecated &&
+          this.shouldFqnBeStripped(`${fqn}#${prop.name}`)
+        ) {
+          this.nodesToRemove.add(bindings.getParameterRelatedNode(prop)!);
+        } else {
+          properties.push(
+            prop.overrides != null && strippedFqns.has(prop.overrides)
+              ? { ...prop, overrides: undefined }
+              : prop,
+          );
+        }
+      });
+      typeInfo.properties = typeInfo.properties ? properties : undefined;
     }
 
     const diagnostics = this.findLeftoverUseOfDeprecatedAPIs(
@@ -205,7 +253,9 @@ export class DeprecatedRemover {
     // Remove all `@deprecated` types, after we did everything, so we could
     // still access the related nodes from the assembly object.
     for (const fqn of strippedFqns) {
-      delete assembly.types[fqn];
+      if (this.shouldFqnBeStripped(fqn)) {
+        delete assembly.types[fqn];
+      }
     }
 
     return diagnostics;
@@ -319,6 +369,10 @@ export class DeprecatedRemover {
     return ref.union.types
       .map((type) => this.tryFindReference(type, fqns))
       .find((ref) => ref != null);
+  }
+
+  private shouldFqnBeStripped(fqn: string) {
+    return this.allowlistedDeprecations?.has(fqn) ?? true;
   }
 
   private makeDiagnostic(
@@ -722,6 +776,7 @@ class DeprecationRemovalTransformer {
     private readonly typeChecker: ts.TypeChecker,
     private readonly context: ts.TransformationContext,
     private readonly transformations: readonly Transformation[],
+    private readonly nodesToRemove: Set<ts.Node>,
   ) {}
 
   public transform<T extends ts.Node>(node: T): T {
@@ -863,8 +918,9 @@ class DeprecationRemovalTransformer {
 
   private isDeprecated(node: ts.Node): boolean {
     const original = ts.getOriginalNode(node);
-    return ts
-      .getJSDocTags(original)
-      .some((tag) => tag.tagName.text === 'deprecated');
+    return (
+      this.nodesToRemove.has(original) &&
+      ts.getJSDocTags(original).some((tag) => tag.tagName.text === 'deprecated')
+    );
   }
 }

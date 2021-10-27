@@ -52,6 +52,8 @@ export interface CompilerOptions {
   failOnWarnings?: boolean;
   /** Whether to strip deprecated members from emitted artifacts */
   stripDeprecated?: boolean;
+  /** The path to an allowlist of FQNs to strip if stripDeprecated is set */
+  stripDeprecatedAllowListFile?: string;
   /** Whether to add warnings for deprecated elements */
   addDeprecationWarnings?: boolean;
   /**
@@ -244,6 +246,7 @@ export class Compiler implements Emitter {
     // to post-process the AST
     const assembler = new Assembler(this.options.projectInfo, program, stdlib, {
       stripDeprecated: this.options.stripDeprecated,
+      stripDeprecatedAllowListFile: this.options.stripDeprecatedAllowListFile,
       addDeprecationWarnings: this.options.addDeprecationWarnings,
     });
 

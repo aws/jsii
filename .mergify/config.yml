@@ -1,4 +1,27 @@
 # See https://doc.mergify.io
+queue_rules:
+  - name: default
+    conditions:
+      - status-success~=^jsii/superchain
+      # One test for each OS
+      - status-success~=^Test \(ubuntu-.*$
+      - status-success~=^Test \(macos-.*$
+      - status-success~=^Test \(windows-.*$
+      # One test for each supported nodejs version
+      - status-success~=^Test \(.* node 12 .*$
+      - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
+      # One test for Java 8 and 11
+      - status-success~=^Test \(.* java 8 .*$
+      - status-success~=^Test \(.* java 11 .*$
+      # One test for Python 3.6 through 3.9
+      - status-success~=^Test \(.* python 3\.6[ )].*$
+      - status-success~=^Test \(.* python 3\.7[ )].*$
+      - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
 
 pull_request_rules:
   - name: label core
@@ -6,7 +29,7 @@ pull_request_rules:
       label:
         add: [contribution/core]
     conditions:
-      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi|kaizen3031593|Chriscbr)$
+      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi|kaizen3031593|Chriscbr|corymhall|otaviomacedo)$
       - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
@@ -56,10 +79,9 @@ pull_request_rules:
       dismiss_reviews:
         approved: true
         changes_requested: false
-      merge:
-        strict: smart+fasttrack
+      queue:
+        name: default
         method: squash
-        strict_method: merge
         commit_message: title+body
       comment:
         message: Merging (with squash)...
