@@ -334,7 +334,7 @@ class Transformer {
         this.projectRoot,
       );
       const importPath = importDir.startsWith('..')
-        ? path.join(importDir, FILE_NAME)
+        ? unixPath(path.join(importDir, FILE_NAME))
         : `./${FILE_NAME}`;
 
       return ts.updateSourceFileNode(result, [
@@ -586,4 +586,24 @@ function createTypeHandlerCall(
       ),
     ),
   );
+}
+
+/**
+ * Force a path to be UNIXy (use `/` as a separator)
+ *
+ * `path.join()` etc. will use the system-dependent path separator (either `/` or `\`
+ * depending on your platform).
+ *
+ * However, if we actually emit the path-dependent separator to the `.js` files, then
+ * files compiled with jsii on Windows cannot be used on any other platform. That seems
+ * like an unnecessary restriction, especially since a `/` will work fine on Windows,
+ * so make sure to always emit `/`.
+ *
+ * TSC itself always strictly emits `/` (or at least, emits the same what you put in).
+ */
+function unixPath(filePath: string) {
+  if (path.sep === '\\') {
+    return filePath.replace(/\\/g, '/');
+  }
+  return filePath;
 }
