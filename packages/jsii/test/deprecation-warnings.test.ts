@@ -78,8 +78,8 @@ function testpkg_Baz(p) {
         export interface Foo {}
         export interface Bar {}
         export interface Baz {
-          readonly foo: Foo;
-          readonly bar: Bar;
+          readonly foo: Foo; 
+          readonly bar: Bar; 
           readonly x: string;
         }
         `,
@@ -190,8 +190,8 @@ function testpkg_Baz(p) {
       `
         export enum State {
           ON,
-
-          ${DEPRECATED}
+          
+          ${DEPRECATED} 
           OFF
         }
         `,
@@ -239,10 +239,10 @@ function testpkg_Baz(p) {
       export interface Bar {
         readonly x: string;
       }
-
+      
       export interface Foo {
         readonly y: string;
-
+    
         /** @deprecated kkkkkkkk */
         readonly bar: Bar;
       }
@@ -317,11 +317,14 @@ describe('Call injections', () => {
     );
 
     const expectedPath = ['..', '..', '.warnings.jsii.js'].join(path.sep);
-    const content = jsFile(result, 'some/folder/source');
+    const requireRegex = /const jsiiDeprecationWarnings = require\("(.+)"\);/g;
 
-    expect(content).toContain(
-      `const jsiiDeprecationWarnings = require("${expectedPath}");`,
-    );
+    const content = jsFile(result, 'some/folder/source');
+    const match = requireRegex.exec(content);
+    expect(match).toBeDefined();
+
+    const actualPath = match![1];
+    expect(path.normalize(actualPath)).toEqual(expectedPath);
   });
 
   test('deprecated methods', async () => {
@@ -382,7 +385,7 @@ describe('Call injections', () => {
     export class Foo {
       private _x = 0;
       public get x(){return this._x}
-
+      
       ${DEPRECATED}
       public set x(_x: number) {this._x = _x;}
     }
