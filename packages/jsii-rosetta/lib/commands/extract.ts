@@ -1,6 +1,5 @@
 import * as os from 'os';
 import * as path from 'path';
-import * as ts from 'typescript';
 import * as workerpool from 'workerpool';
 
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
@@ -8,7 +7,7 @@ import * as logging from '../logging';
 import { TypeScriptSnippet } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
-import { RosettaDiagnostic, Translator, rosettaDiagFromTypescript } from '../translate';
+import { RosettaDiagnostic, Translator, makeRosettaDiagnostic } from '../translate';
 import type { TranslateBatchRequest, TranslateBatchResponse } from './extract_worker';
 
 export interface ExtractResult {
@@ -102,27 +101,22 @@ export function singleThreadedTranslateAll(
 ): TranslateAllResult {
   const translatedSnippets = new Array<TranslatedSnippet>();
 
-  const failures = new Array<ts.Diagnostic>();
+  const failures = new Array<RosettaDiagnostic>();
 
   const translator = new Translator(includeCompilerDiagnostics);
   for (const block of snippets) {
     try {
       translatedSnippets.push(translator.translate(block));
     } catch (e) {
-      failures.push({
-        category: ts.DiagnosticCategory.Error,
-        code: 999,
-        messageText: `rosetta: error translating snippet: ${e}\n${e.stack}\n${block.completeSource}`,
-        file: undefined,
-        start: undefined,
-        length: undefined,
-      });
+      failures.push(
+        makeRosettaDiagnostic(true, `rosetta: error translating snippet: ${e}\n${e.stack}\n${block.completeSource}`),
+      );
     }
   }
 
   return {
     translatedSnippets,
-    diagnostics: [...translator.diagnostics, ...failures].map(rosettaDiagFromTypescript),
+    diagnostics: [...translator.diagnostics, ...failures],
   };
 }
 

@@ -23,7 +23,7 @@ function translateBatch(request: TranslateBatchRequest): TranslateBatchResponse 
   const result = singleThreadedTranslateAll(request.snippets[Symbol.iterator](), request.includeCompilerDiagnostics);
 
   return {
-    translatedSchemas: result.translatedSnippets.map((s) => s.toSchema()),
+    translatedSchemas: result.translatedSnippets.map((s) => s.snippet),
     diagnostics: result.diagnostics,
   };
 }

@@ -12,7 +12,7 @@ import { TranslatedSnippet } from './tablets/tablets';
 import { SyntaxKindCounter } from './typescript/syntax-kind-counter';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
 import { Spans } from './typescript/visible-spans';
-import { annotateStrictDiagnostic, File, hasStrictBranding } from './util';
+import { annotateStrictDiagnostic, File, hasStrictBranding, mkDict } from './util';
 
 export function translateTypeScript(
   source: File,
@@ -37,34 +37,36 @@ export function translateTypeScript(
 export class Translator {
   private readonly compiler = new TypeScriptCompiler();
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #diagnostics: readonly ts.Diagnostic[] = [];
+  #diagnostics: ts.Diagnostic[] = [];
 
   public constructor(private readonly includeCompilerDiagnostics: boolean) {}
 
   public translate(snip: TypeScriptSnippet, languages: readonly TargetLanguage[] = Object.values(TargetLanguage)) {
     logging.debug(`Translating ${snippetKey(snip)} ${inspect(snip.parameters ?? {})}`);
     const translator = this.translatorFor(snip);
-    const snippet = TranslatedSnippet.fromSnippet(
-      snip,
-      this.includeCompilerDiagnostics ? translator.compileDiagnostics.length === 0 : undefined,
+
+    const translations = mkDict(
+      languages.map((lang) => {
+        const languageConverterFactory = TARGET_LANGUAGES[lang];
+        const translated = translator.renderUsing(languageConverterFactory());
+        return [lang, { source: translated }] as const;
+      }),
     );
 
-    for (const lang of languages) {
-      const languageConverterFactory = TARGET_LANGUAGES[lang];
-      const translated = translator.renderUsing(languageConverterFactory());
-      snippet.addTranslatedSource(lang, translated);
-    }
+    this.#diagnostics.push(...translator.diagnostics);
 
-    snippet.addFqnsReferenced(translator.fqnsReferenced());
-    snippet.addSyntaxKindCounter(translator.syntaxKindCounter());
-
-    this.#diagnostics = ts.sortAndDeduplicateDiagnostics(this.#diagnostics.concat(translator.diagnostics));
-
-    return snippet;
+    return TranslatedSnippet.fromSchema({
+      translations,
+      where: snip.where,
+      didCompile: translator.didSuccessfullyCompile,
+      fqnsReferenced: translator.fqnsReferenced(),
+      fullSource: snip.completeSource,
+      syntaxKindCounter: translator.syntaxKindCounter(),
+    });
   }
 
-  public get diagnostics(): readonly ts.Diagnostic[] {
-    return Array.from(this.#diagnostics);
+  public get diagnostics(): readonly RosettaDiagnostic[] {
+    return ts.sortAndDeduplicateDiagnostics(this.#diagnostics).map(rosettaDiagFromTypescript);
   }
 
   /**
@@ -131,6 +133,10 @@ export interface RosettaDiagnostic {
   readonly formattedMessage: string;
 }
 
+export function makeRosettaDiagnostic(isError: boolean, formattedMessage: string): RosettaDiagnostic {
+  return { isError, formattedMessage, isFromStrictAssembly: false };
+}
+
 /**
  * Translate a single TypeScript snippet
  */
@@ -184,6 +190,10 @@ export class SnippetTranslator {
         }
       };
     }
+  }
+
+  public get didSuccessfullyCompile() {
+    return this.compileDiagnostics.length === 0;
   }
 
   public renderUsing(visitor: AstHandler<any>) {

@@ -2,7 +2,7 @@ import { transformMarkdown } from '../markdown/markdown';
 import { MarkdownRenderer } from '../markdown/markdown-renderer';
 import { ReplaceTypeScriptTransform } from '../markdown/replace-typescript-transform';
 import { AstHandler, AstRendererOptions } from '../renderer';
-import { TranslateResult, Translator, rosettaDiagFromTypescript } from '../translate';
+import { TranslateResult, Translator } from '../translate';
 import { File } from '../util';
 
 export interface TranslateMarkdownOptions extends AstRendererOptions {
@@ -38,6 +38,6 @@ export function translateMarkdown(
 
   return {
     translation: translatedMarkdown,
-    diagnostics: translator.diagnostics.map(rosettaDiagFromTypescript),
+    diagnostics: translator.diagnostics,
   };
 }

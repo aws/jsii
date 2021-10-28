@@ -163,9 +163,9 @@ describe('with mocked filesystem', () => {
 });
 
 function makeSnippet(original: TypeScriptSnippet, translations: Record<TargetLanguage, string>) {
-  const snippet = TranslatedSnippet.fromSnippet(original);
+  const snippet = TranslatedSnippet.fromTypeScript(original);
   for (const [key, value] of Object.entries(translations)) {
-    snippet.addTranslatedSource(key as TargetLanguage, value);
+    snippet.addTranslation(key as TargetLanguage, value);
   }
   return snippet;
 }

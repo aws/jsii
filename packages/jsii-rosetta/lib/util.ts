@@ -84,3 +84,11 @@ export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
     xs.add(el);
   }
 }
+
+export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<A, B> {
+  const ret: any = {};
+  for (const [key, value] of xs) {
+    ret[key] = value;
+  }
+  return ret;
+}

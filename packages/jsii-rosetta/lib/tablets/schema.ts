@@ -72,7 +72,7 @@ export interface TranslatedSnippetSchema {
   /**
    * Counts the number of instances each kind of Typescript object shows up in the snippet AST.
    */
-  readonly syntaxKindCounter?: { [key: number]: number };
+  readonly syntaxKindCounter?: { [key: string]: number };
 
   /**
    * The full source (with fixture) that was compiled

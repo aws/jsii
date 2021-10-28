@@ -11,7 +11,7 @@ import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transf
 import { CodeBlock } from './markdown/types';
 import { SnippetParameters, TypeScriptSnippet, updateParameters } from './snippet';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
-import { Translator, rosettaDiagFromTypescript } from './translate';
+import { Translator } from './translate';
 import { printDiagnostics } from './util';
 
 export interface RosettaOptions {
@@ -71,7 +71,7 @@ export class Rosetta {
    * Diagnostics encountered while doing live translation
    */
   public get diagnostics() {
-    return this.translator.diagnostics.map(rosettaDiagFromTypescript);
+    return this.translator.diagnostics;
   }
 
   /**
