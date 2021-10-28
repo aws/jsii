@@ -85,6 +85,9 @@ export class LanguageTablet {
  */
 export class TranslatedSnippet {
   public static fromSchema(schema: TranslatedSnippetSchema) {
+    if (!schema.translations[ORIGINAL_SNIPPET_KEY]) {
+      throw new Error(`Input schema must have '${ORIGINAL_SNIPPET_KEY}' key set in translations`);
+    }
     return new TranslatedSnippet(schema);
   }
 

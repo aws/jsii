@@ -13,6 +13,7 @@ import { SyntaxKindCounter } from './typescript/syntax-kind-counter';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
 import { Spans } from './typescript/visible-spans';
 import { annotateStrictDiagnostic, File, hasStrictBranding, mkDict } from './util';
+import { ORIGINAL_SNIPPET_KEY } from './tablets/schema';
 
 export function translateTypeScript(
   source: File,
@@ -56,7 +57,10 @@ export class Translator {
     this.#diagnostics.push(...translator.diagnostics);
 
     return TranslatedSnippet.fromSchema({
-      translations,
+      translations: {
+        ...translations,
+        [ORIGINAL_SNIPPET_KEY]: { source: snip.visibleSource },
+      },
       where: snip.where,
       didCompile: translator.didSuccessfullyCompile,
       fqnsReferenced: translator.fqnsReferenced(),
