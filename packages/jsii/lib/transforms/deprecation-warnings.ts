@@ -57,6 +57,7 @@ export class DeprecationWarningsInjector {
         statements.push(
           createEnumRequireStatement(type.locationInModule?.filename),
         );
+        statements.push(createDuplicateEnumValuesCheck(type));
 
         for (const member of Object.values(type.members ?? [])) {
           if (spec.isDeprecated(member)) {
@@ -597,6 +598,56 @@ function createTypeHandlerCall(
         [ts.createIdentifier(parameter)],
       ),
     ),
+  );
+}
+
+/**
+ * There is a chance an enum contains duplicates values with distinct keys,
+ * with one of those keys being deprecated. This is a potential pattern to "rename" an enum.
+ * In this case, we can't concretely determine if the deprecated member was used or not,
+ * so in those cases we skip the warnings altogether, rather than erroneously warning for valid usage.
+ * This create a statement to check if the enum value is a duplicate:
+ *
+ * if (Object.values(Foo).filter(x => x === p).length > 1) { return; }
+ *
+ * Note that we can't just check the assembly for these duplicates, due to:
+ * https://github.com/aws/jsii/issues/2782
+ */
+function createDuplicateEnumValuesCheck(
+  type: spec.TypeBase & spec.EnumType,
+): ts.Statement {
+  return ts.createIf(
+    ts.createBinary(
+      ts.createPropertyAccess(
+        ts.createCall(
+          ts.createPropertyAccess(
+            ts.createCall(ts.createIdentifier('Object.values'), undefined, [
+              ts.createIdentifier(`${LOCAL_ENUM_NAMESPACE}.${type.name}`),
+            ]),
+            ts.createIdentifier('filter'),
+          ),
+          undefined,
+          [
+            ts.createArrowFunction(
+              undefined,
+              undefined,
+              [ts.createParameter(undefined, undefined, undefined, 'x')],
+              undefined,
+              ts.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+              ts.createBinary(
+                ts.createIdentifier('x'),
+                ts.createToken(ts.SyntaxKind.EqualsEqualsEqualsToken),
+                ts.createIdentifier(PARAMETER_NAME),
+              ),
+            ),
+          ],
+        ),
+        ts.createIdentifier('length'),
+      ),
+      ts.createToken(ts.SyntaxKind.GreaterThanToken),
+      ts.createNumericLiteral('1'),
+    ),
+    ts.createReturn(),
   );
 }
 
