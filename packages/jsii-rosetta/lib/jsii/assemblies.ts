@@ -116,10 +116,9 @@ function removeSlashes(x: string) {
   return x.replace(/\//g, '.');
 }
 
-export function* allTypeScriptSnippets(
-  assemblies: readonly LoadedAssembly[],
-  loose = false,
-): IterableIterator<TypeScriptSnippet> {
+export function allTypeScriptSnippets(assemblies: readonly LoadedAssembly[], loose = false): TypeScriptSnippet[] {
+  const ret = new Array<TypeScriptSnippet>();
+
   for (const { assembly, directory } of assemblies) {
     const strict = enforcesStrictMode(assembly);
     for (const source of allSnippetSources(assembly)) {
@@ -128,18 +127,19 @@ export function* allTypeScriptSnippets(
           const snippet = updateParameters(typeScriptSnippetFromSource(source.source, source.where, strict), {
             [SnippetParameters.$PROJECT_DIRECTORY]: directory,
           });
-          yield fixturize(snippet, loose);
+          ret.push(fixturize(snippet, loose));
           break;
         case 'markdown':
           for (const snippet of extractTypescriptSnippetsFromMarkdown(source.markdown, source.where, strict)) {
             const withDirectory = updateParameters(snippet, {
               [SnippetParameters.$PROJECT_DIRECTORY]: directory,
             });
-            yield fixturize(withDirectory, loose);
+            ret.push(fixturize(withDirectory, loose));
           }
       }
     }
   }
+  return ret;
 }
 
 /**

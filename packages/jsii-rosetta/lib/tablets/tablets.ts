@@ -15,6 +15,12 @@ export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
  * A tablet containing various snippets in multiple languages
  */
 export class LanguageTablet {
+  public static async fromFile(filename: string) {
+    const ret = new LanguageTablet();
+    await ret.load(filename);
+    return ret;
+  }
+
   private readonly snippets: Record<string, TranslatedSnippet> = {};
 
   public addSnippet(snippet: TranslatedSnippet) {
@@ -128,11 +134,8 @@ export class TranslatedSnippet {
     };
   }
 
-  public addFqnsReferenced(fqnsReferenced: string[]) {
-    if (!this._snippet.fqnsReferenced) {
-      this._snippet.fqnsReferenced = [];
-    }
-    this._snippet.fqnsReferenced.push(...fqnsReferenced);
+  public fqnsReferenced() {
+    return this._snippet.fqnsReferenced ?? [];
   }
 
   public addSyntaxKindCounter(syntaxKindCounter: Record<string, number>) {
@@ -158,6 +161,13 @@ export class TranslatedSnippet {
     return new TranslatedSnippet({
       ...this.snippet,
       translations: { ...this.snippet.translations, ...other.snippet.translations },
+    });
+  }
+
+  public withFingerprint(fp: string) {
+    return new TranslatedSnippet({
+      ...this.snippet,
+      fqnsFingerprint: fp,
     });
   }
 

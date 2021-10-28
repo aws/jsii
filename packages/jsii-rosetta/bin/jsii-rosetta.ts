@@ -163,6 +163,12 @@ function main() {
             describe: 'Whether to validate loaded assemblies or not (this can be slow)',
             default: false,
           })
+          .option('cache-from', {
+            alias: 'c',
+            type: 'string',
+            // eslint-disable-next-line prettier/prettier
+            describe: 'Reuse translations from the given tablet file if the snippet and type definitions did not change',
+          })
           .option('strict', {
             alias: 'S',
             type: 'boolean',
@@ -193,6 +199,7 @@ function main() {
           includeCompilerDiagnostics: !!args.compile,
           validateAssemblies: args['validate-assemblies'],
           only: args.include,
+          cacheTabletFile: args['cache-from'],
         });
 
         handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);

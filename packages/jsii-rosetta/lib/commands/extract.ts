@@ -3,8 +3,9 @@ import * as path from 'path';
 import * as workerpool from 'workerpool';
 
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
+import { TypeFingerprinter } from '../jsii/fingerprinting';
 import * as logging from '../logging';
-import { TypeScriptSnippet } from '../snippet';
+import { TypeScriptSnippet, completeSource } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { RosettaDiagnostic, Translator, makeRosettaDiagnostic } from '../translate';
@@ -16,10 +17,15 @@ export interface ExtractResult {
 }
 
 export interface ExtractOptions {
-  outputFile: string;
-  includeCompilerDiagnostics: boolean;
-  validateAssemblies: boolean;
-  only?: string[];
+  readonly outputFile: string;
+  readonly includeCompilerDiagnostics: boolean;
+  readonly validateAssemblies: boolean;
+  readonly only?: string[];
+
+  /**
+   * A tablet file to be loaded and used as a source for caching
+   */
+  readonly cacheTabletFile?: string;
 }
 
 /**
@@ -34,13 +40,33 @@ export async function extractSnippets(
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies);
+  const fingerprinter = new TypeFingerprinter(assemblies.map((a) => a.assembly));
 
-  let snippets = allTypeScriptSnippets(assemblies, loose);
+  let snippets = Array.from(allTypeScriptSnippets(assemblies, loose));
   if (only.length > 0) {
     snippets = filterSnippets(snippets, only);
   }
 
   const tablet = new LanguageTablet();
+
+  if (options.cacheTabletFile) {
+    const cache = await LanguageTablet.fromFile(options.cacheTabletFile);
+
+    let snippetsFromCacheCtr = 0;
+    let i = 0;
+    while (i < snippets.length) {
+      const fromCache = tryReadFromCache(snippets[i], cache, fingerprinter);
+      if (fromCache) {
+        tablet.addSnippet(fromCache);
+        snippets.splice(i, 1);
+        snippetsFromCacheCtr += 1;
+      } else {
+        i += 1;
+      }
+    }
+
+    logging.info(`Reused ${snippetsFromCacheCtr} translations from cache ${options.cacheTabletFile}`);
+  }
 
   logging.info('Translating');
   const startTime = Date.now();
@@ -48,7 +74,8 @@ export async function extractSnippets(
   const result = await translateAll(snippets, options.includeCompilerDiagnostics);
 
   for (const snippet of result.translatedSnippets) {
-    tablet.addSnippet(snippet);
+    const fingerprinted = snippet.withFingerprint(fingerprinter.fingerprintAll(snippet.fqnsReferenced()));
+    tablet.addSnippet(fingerprinted);
   }
 
   const delta = (Date.now() - startTime) / 1000;
@@ -69,12 +96,8 @@ interface TranslateAllResult {
 /**
  * Only yield the snippets whose id exists in a whitelist
  */
-function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: string[]) {
-  for (const t of ts) {
-    if (includeIds.includes(snippetKey(t))) {
-      yield t;
-    }
-  }
+function filterSnippets(ts: TypeScriptSnippet[], includeIds: string[]) {
+  return ts.filter((t) => includeIds.includes(snippetKey(t)));
 }
 
 /**
@@ -83,7 +106,7 @@ function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: st
  * We are now always using workers, as we are targeting Node 12+.
  */
 async function translateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
+  snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
   return workerBasedTranslateAll(snippets, includeCompilerDiagnostics);
@@ -96,7 +119,7 @@ async function translateAll(
  * snippets in parallel.
  */
 export function singleThreadedTranslateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
+  snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): TranslateAllResult {
   const translatedSnippets = new Array<TranslatedSnippet>();
@@ -131,7 +154,7 @@ export function singleThreadedTranslateAll(
  * the script we may assume that 'worker_threads' successfully imports).
  */
 async function workerBasedTranslateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
+  snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
   // Use about half the advertised cores because hyperthreading doesn't seem to
@@ -184,4 +207,23 @@ function batchSnippets(
   }
 
   return ret;
+}
+
+/**
+ * Try to find the translation for the given snippet in the given cache
+ *
+ * Rules for cacheability are:
+ * - id is the same (== visible source didn't change)
+ * - complete source is the same (== fixture didn't change)
+ * - all types involved have the same fingerprint (== API surface didn't change)
+ */
+function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTablet, fingerprinter: TypeFingerprinter) {
+  const fromCache = cache.tryGetSnippet(snippetKey(sourceSnippet));
+
+  const cacheable =
+    fromCache &&
+    completeSource(sourceSnippet) === fromCache.snippet.fullSource &&
+    fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) === fromCache.snippet.fqnsFingerprint;
+
+  return cacheable ? fromCache : undefined;
 }
