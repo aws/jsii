@@ -2336,10 +2336,22 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
+
+      const convertedExample = this.convertExample(docs.example);
+
+      // We used to use the slightly nicer `<pre>{@code ...}</pre>`, which doesn't
+      // require (and therefore also doesn't allow) escaping special characters.
+      //
+      // However, code samples may contain block quotes of their own ('*/') that
+      // would terminate the block comment from the PoV of the Java tokenizer, and
+      // since `{@code ... }` doesn't allow any escaping, there's also no way to encode
+      // '*/' in a way that would (a) hide it from the tokenizer and (b) give '*/' back
+      // after processing JavaDocs.
+      //
+      // Hence, we just resort to HTML-encoding everything (same as we do for code
+      // examples that have been translated from MarkDown).
       paras.push(
-        `<blockquote><pre>{@code\n${this.convertExample(
-          docs.example,
-        )}}</pre></blockquote>`,
+        markDownToJavaDoc(['```', convertedExample, '```'].join('\n')),
       );
     }
 
