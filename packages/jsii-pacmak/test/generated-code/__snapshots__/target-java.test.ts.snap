@@ -2339,7 +2339,7 @@ package software.amazon.jsii.tests.calculator.lib;
  * from a dependent module. Since Go "reimplments" this method, it will also need
  * to include an "import" statement for the calc-base module.
  * <p>
- * @see https://github.com/aws/jsii/issues/2647
+ * See {@link https://github.com/aws/jsii/issues/2647}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5623,12 +5623,13 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * Example:
  * <p>
- * <blockquote><pre>{@code
+ * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * System.out.println(calculator.expression.getValue());}</pre></blockquote>
+ * System.out.println(calculator.expression.getValue());
+ * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -6623,12 +6624,13 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * Example:
  * <p>
- * <blockquote><pre>{@code
+ * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * public void anExample() {
- * }}</pre></blockquote>
+ * }
+ * </pre></blockquote>
  * <p>
- * @see https://aws.amazon.com/
+ * See {@link https://aws.amazon.com/}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -6803,7 +6805,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * This tries to confuse Jackson by having overloaded property setters.
  * <p>
- * @see https://github.com/aws/aws-cdk/issues/4080
+ * See {@link https://github.com/aws/aws-cdk/issues/4080}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -7559,7 +7561,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * A class named "Default".
  * <p>
- * @see https://github.com/aws/jsii/issues/2637
+ * See {@link https://github.com/aws/jsii/issues/2637}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -9295,12 +9297,13 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * Example:
  * <p>
- * <blockquote><pre>{@code
+ * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Number x = 12 + 44;
  * String s1 = "string";
  * String s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
- * String s3 = "string\\n            with\\n            new lines";}</pre></blockquote>
+ * String s3 = "string\\n            with\\n            new lines";
+ * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -14090,7 +14093,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * Docstrings with period.
  * <p>
- * @see https://github.com/aws/jsii/issues/2638
+ * See {@link https://github.com/aws/jsii/issues/2638}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -14894,7 +14897,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * Make sure structs are un-decorated on the way in.
  * <p>
- * @see https://github.com/aws/aws-cdk/issues/5066
+ * See {@link https://github.com/aws/aws-cdk/issues/5066}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -16936,7 +16939,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * @see https://github.com/aws/jsii/issues/903
+ * See {@link https://github.com/aws/jsii/issues/903}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -17718,7 +17721,7 @@ package software.amazon.jsii.tests.calculator;
  * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
  * <p>
  * @return an instance of an un-exported class that extends \`ExportedBaseClass\`, declared as \`IPrivatelyImplemented\`.
- * @see https://github.com/aws/jsii/issues/320
+ * See {@link https://github.com/aws/jsii/issues/320}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -20991,7 +20994,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * In TypeScript it is possible to have two methods with the same name but different capitalization.
  * <p>
- * @see https://github.com/aws/jsii/issues/2508
+ * See {@link https://github.com/aws/jsii/issues/2508}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -21064,7 +21067,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * Checks the current file permissions are cool (no funky UMASK down-scoping happened).
  * <p>
- * @see https://github.com/aws/jsii/issues/1765
+ * See {@link https://github.com/aws/jsii/issues/1765}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -21866,7 +21869,7 @@ package software.amazon.jsii.tests.calculator.cdk16625.donotimport;
  * that all types available in the assembly can be resolved by the runtime
  * library, regardless of whether they were explicitly referenced or not.
  * <p>
- * @see https://github.com/aws/aws-cdk/issues/16625
+ * See {@link https://github.com/aws/aws-cdk/issues/16625}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22406,7 +22409,7 @@ package software.amazon.jsii.tests.calculator.module2530;
 /**
  * Verifies a method with parameters "_" can be generated.
  * <p>
- * @see https://github.com/aws/jsii/issues/2530
+ * See {@link https://github.com/aws/jsii/issues/2530}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22490,7 +22493,7 @@ package software.amazon.jsii.tests.calculator.module2647;
 /**
  * This class falls into the category of "multiple bases" from a different module from a go code gen perspective.
  * <p>
- * @see https://github.com/aws/jsii/issues/2647
+ * See {@link https://github.com/aws/jsii/issues/2647}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -24131,7 +24134,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * <p>
  * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * /* This is totes a magic comment in here, just you wait! *{@literal /}
+ * /* This is totes a magic comment in here, just you wait! *&#47;
  * String foo = "bar";
  * </pre></blockquote>
  */
@@ -24445,7 +24448,7 @@ package software.amazon.jsii.tests.calculator.submodule;
 /**
  * A struct named "Default".
  * <p>
- * @see https://github.com/aws/jsii/issues/2637
+ * See {@link https://github.com/aws/jsii/issues/2637}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.submodule.Default")
@@ -25044,7 +25047,7 @@ package software.amazon.jsii.tests.calculator.submodule.child;
 /**
  * Checks that classes can self-reference during initialization.
  * <p>
- * @see : https://github.com/aws/jsii/pull/1706
+ * See {@link : https://github.com/aws/jsii/pull/1706}
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
