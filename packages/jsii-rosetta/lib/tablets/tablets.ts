@@ -11,6 +11,8 @@ const TOOL_VERSION = require('../../package.json').version;
 
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
 
+export const CURRENT_SCHEMA_VERSION = '1';
+
 /**
  * A tablet containing various snippets in multiple languages
  */
@@ -42,14 +44,17 @@ export class LanguageTablet {
   }
 
   public async load(filename: string) {
-    const obj = await fs.readJson(filename, { encoding: 'utf-8' });
+    const obj = (await fs.readJson(filename, { encoding: 'utf-8' })) as TabletSchema;
 
     if (!obj.toolVersion || !obj.snippets) {
       throw new Error(`File '${filename}' does not seem to be a Tablet file`);
     }
-    if (obj.toolVersion !== TOOL_VERSION && TOOL_VERSION !== '0.0.0') {
+
+    if (obj.version !== CURRENT_SCHEMA_VERSION) {
+      // If we're ever changing the schema version in a backwards incompatible way,
+      // do upconversion here.
       throw new Error(
-        `Tablet file '${filename}' has been created with version '${obj.toolVersion}', cannot read with current version '${TOOL_VERSION}'`,
+        `Tablet file '${filename}' has schema version '${obj.version}', this program expects '${CURRENT_SCHEMA_VERSION}'`,
       );
     }
 
@@ -73,7 +78,7 @@ export class LanguageTablet {
 
   private toSchema(): TabletSchema {
     return {
-      version: '1',
+      version: CURRENT_SCHEMA_VERSION,
       toolVersion: TOOL_VERSION,
       snippets: mapValues(this.snippets, (s) => s.snippet),
     };

@@ -28,7 +28,9 @@ const sources: string[] = [
 ];
 beforeAll(() => {
   for (const source of sources) {
-    const snippet = TranslatedSnippet.fromTypeScript(typeScriptSnippetFromSource(source, 'selectors', false));
+    const snippet = TranslatedSnippet.fromTypeScript(
+      typeScriptSnippetFromSource(source, 'selectors', undefined, false),
+    );
     snippets.push(snippet);
   }
 });

@@ -46,7 +46,7 @@ export class AssemblyFixture {
    * Make a snippet translator for the given source w.r.t this compiled assembly
    */
   public successfullyCompile(source: string) {
-    const snippet = typeScriptSnippetFromSource(source, 'testutil', false, {
+    const snippet = typeScriptSnippetFromSource(source, 'testutil', undefined, false, {
       [SnippetParameters.$COMPILATION_DIRECTORY]: this.directory,
     });
     const ret = new SnippetTranslator(snippet, {

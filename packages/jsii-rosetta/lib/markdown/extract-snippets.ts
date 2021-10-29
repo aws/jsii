@@ -9,7 +9,7 @@ export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefi
 
 export function extractTypescriptSnippetsFromMarkdown(
   markdown: string,
-  wherePrefix: string,
+  where: string,
   strict: boolean,
 ): TypeScriptSnippet[] {
   const parser = new cm.Parser();
@@ -19,7 +19,7 @@ export function extractTypescriptSnippetsFromMarkdown(
 
   visitCommonMarkTree(
     doc,
-    new ReplaceTypeScriptTransform(wherePrefix, strict, (ts) => {
+    new ReplaceTypeScriptTransform(where, strict, (ts) => {
       ret.push(ts);
       return undefined;
     }),

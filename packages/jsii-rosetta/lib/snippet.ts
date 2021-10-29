@@ -9,8 +9,16 @@ export interface TypeScriptSnippet {
 
   /**
    * A human-readable description of where this snippet was found in the assembly
+   *
+   * This will be used as identifying key. It should indicate the file, but be
+   * insensitive to ordering. Add additional locating information in `whereOffset`.
    */
   readonly where: string;
+
+  /**
+   * Additional information to locate the snippet which will not be used to uniquely identify the snippet in a cache
+   */
+  readonly whereOffset?: string;
 
   /**
    * When enhanced with a fixture, the snippet's complete source code
@@ -38,6 +46,7 @@ export interface TypeScriptSnippet {
 export function typeScriptSnippetFromSource(
   typeScriptSource: string,
   where: string,
+  whereOffset: string | undefined,
   strict: boolean,
   parameters: Record<string, string> = {},
 ): TypeScriptSnippet {
@@ -45,6 +54,7 @@ export function typeScriptSnippetFromSource(
   return {
     visibleSource: source.trimRight(),
     where,
+    whereOffset,
     parameters: Object.assign({}, parameters, sourceParameters),
     strict,
   };

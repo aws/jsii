@@ -194,7 +194,7 @@ function transliterateType(
   function transliterateDocs(docs: Docs | undefined) {
     if (docs?.example) {
       const snippet = fixturize(
-        typeScriptSnippetFromSource(docs.example, 'example', true /* strict */, {
+        typeScriptSnippetFromSource(docs.example, 'example', undefined, true /* strict */, {
           [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory,
         }),
         loose,

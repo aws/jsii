@@ -157,7 +157,11 @@ export class SnippetTranslator {
     const fakeCurrentDirectory =
       snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY] ??
       snippet.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
-    this.compilation = compiler.compileInMemory(snippet.where, source, fakeCurrentDirectory);
+    this.compilation = compiler.compileInMemory(
+      `${snippet.where}${snippet.whereOffset ?? ''}`,
+      source,
+      fakeCurrentDirectory,
+    );
 
     // Respect '/// !hide' and '/// !show' directives
     this.visibleSpans = Spans.visibleSpansFromSource(source);

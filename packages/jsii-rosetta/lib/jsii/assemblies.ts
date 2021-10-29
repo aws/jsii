@@ -124,9 +124,12 @@ export function allTypeScriptSnippets(assemblies: readonly LoadedAssembly[], loo
     for (const source of allSnippetSources(assembly)) {
       switch (source.type) {
         case 'literal':
-          const snippet = updateParameters(typeScriptSnippetFromSource(source.source, source.where, strict), {
-            [SnippetParameters.$PROJECT_DIRECTORY]: directory,
-          });
+          const snippet = updateParameters(
+            typeScriptSnippetFromSource(source.source, source.where, undefined, strict),
+            {
+              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
+            },
+          );
           ret.push(fixturize(snippet, loose));
           break;
         case 'markdown':

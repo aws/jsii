@@ -50,42 +50,35 @@ export async function extractSnippets(
   const tablet = new LanguageTablet();
 
   if (options.cacheTabletFile) {
-    const cache = await LanguageTablet.fromFile(options.cacheTabletFile);
+    await reuseTranslationsFromCache(snippets, tablet, options.cacheTabletFile, fingerprinter);
+  }
 
-    let snippetsFromCacheCtr = 0;
-    let i = 0;
-    while (i < snippets.length) {
-      const fromCache = tryReadFromCache(snippets[i], cache, fingerprinter);
-      if (fromCache) {
-        tablet.addSnippet(fromCache);
-        snippets.splice(i, 1);
-        snippetsFromCacheCtr += 1;
-      } else {
-        i += 1;
-      }
+  const translateCount = snippets.length;
+  const diagnostics = [];
+  if (translateCount > 0) {
+    logging.info('Translating');
+    const startTime = Date.now();
+
+    const result = await translateAll(snippets, options.includeCompilerDiagnostics);
+
+    for (const snippet of result.translatedSnippets) {
+      const fingerprinted = snippet.withFingerprint(fingerprinter.fingerprintAll(snippet.fqnsReferenced()));
+      tablet.addSnippet(fingerprinted);
     }
 
-    logging.info(`Reused ${snippetsFromCacheCtr} translations from cache ${options.cacheTabletFile}`);
+    const delta = (Date.now() - startTime) / 1000;
+    logging.info(
+      `Translated ${translateCount} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`,
+    );
+    diagnostics.push(...result.diagnostics);
+  } else {
+    logging.info('Nothing left to translate');
   }
 
-  logging.info('Translating');
-  const startTime = Date.now();
-
-  const result = await translateAll(snippets, options.includeCompilerDiagnostics);
-
-  for (const snippet of result.translatedSnippets) {
-    const fingerprinted = snippet.withFingerprint(fingerprinter.fingerprintAll(snippet.fqnsReferenced()));
-    tablet.addSnippet(fingerprinted);
-  }
-
-  const delta = (Date.now() - startTime) / 1000;
-  logging.info(
-    `Converted ${tablet.count} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`,
-  );
   logging.info(`Saving language tablet to ${options.outputFile}`);
   await tablet.save(options.outputFile);
 
-  return { diagnostics: result.diagnostics, tablet };
+  return { diagnostics, tablet };
 }
 
 interface TranslateAllResult {
@@ -207,6 +200,39 @@ function batchSnippets(
   }
 
   return ret;
+}
+
+/**
+ * Try and read as many snippet translations from the cache as possible, adding them to the target tablet
+ *
+ * Removes the already translated snippets from the input array.
+ */
+async function reuseTranslationsFromCache(
+  snippets: TypeScriptSnippet[],
+  tablet: LanguageTablet,
+  cacheFile: string,
+  fingerprinter: TypeFingerprinter,
+) {
+  try {
+    const cache = await LanguageTablet.fromFile(cacheFile);
+
+    let snippetsFromCacheCtr = 0;
+    let i = 0;
+    while (i < snippets.length) {
+      const fromCache = tryReadFromCache(snippets[i], cache, fingerprinter);
+      if (fromCache) {
+        tablet.addSnippet(fromCache);
+        snippets.splice(i, 1);
+        snippetsFromCacheCtr += 1;
+      } else {
+        i += 1;
+      }
+    }
+
+    logging.info(`Reused ${snippetsFromCacheCtr} translations from cache ${cacheFile}`);
+  } catch (e) {
+    logging.warn(`Error reading cache ${cacheFile}: ${e.message}`);
+  }
 }
 
 /**
