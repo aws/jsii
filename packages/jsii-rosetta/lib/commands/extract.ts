@@ -220,6 +220,16 @@ function batchSnippets(
 function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTablet, fingerprinter: TypeFingerprinter) {
   const fromCache = cache.tryGetSnippet(snippetKey(sourceSnippet));
 
+  if (fromCache) {
+    if (completeSource(sourceSnippet) !== fromCache.snippet.fullSource) {
+      console.log(sourceSnippet);
+      console.log(completeSource(sourceSnippet));
+      console.log('---------------------------------------');
+      console.log(fromCache.snippet.fullSource);
+      console.log('=========================================');
+    }
+  }
+
   const cacheable =
     fromCache &&
     completeSource(sourceSnippet) === fromCache.snippet.fullSource &&

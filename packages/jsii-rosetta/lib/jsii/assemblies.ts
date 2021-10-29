@@ -172,7 +172,7 @@ export async function replaceAssembly(assembly: spec.Assembly, directory: string
  * We should make sure not to change one without changing the other as well.
  */
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
-  delete assembly.fingerprint;
+  delete (assembly as any).fingerprint;
   assembly = sortJson(assembly);
   const fingerprint = crypto.createHash('sha256').update(JSON.stringify(assembly)).digest('base64');
   return { ...assembly, fingerprint };

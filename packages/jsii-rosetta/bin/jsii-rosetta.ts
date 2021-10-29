@@ -14,7 +14,7 @@ import { TargetLanguage } from '../lib/languages';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import * as logging from '../lib/logging';
-import { File, printDiagnostics } from '../lib/util';
+import { File, fmap, printDiagnostics } from '../lib/util';
 
 function main() {
   const argv = yargs
@@ -164,10 +164,12 @@ function main() {
             default: false,
           })
           .option('cache-from', {
-            alias: 'c',
+            alias: 'C',
             type: 'string',
             // eslint-disable-next-line prettier/prettier
             describe: 'Reuse translations from the given tablet file if the snippet and type definitions did not change',
+            requiresArg: true,
+            default: undefined,
           })
           .option('strict', {
             alias: 'S',
@@ -190,6 +192,7 @@ function main() {
         // though.
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
         const absOutput = path.resolve(args.output);
+        const absCache = fmap(args['cache-from'], path.resolve);
         if (args.directory) {
           process.chdir(args.directory);
         }
@@ -199,7 +202,7 @@ function main() {
           includeCompilerDiagnostics: !!args.compile,
           validateAssemblies: args['validate-assemblies'],
           only: args.include,
-          cacheTabletFile: args['cache-from'],
+          cacheTabletFile: absCache,
         });
 
         handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);

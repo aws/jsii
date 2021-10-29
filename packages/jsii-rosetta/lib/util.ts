@@ -92,3 +92,12 @@ export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<
   }
   return ret;
 }
+
+export function fmap<A, B>(value: NonNullable<A>, fn: (x: A) => B): B;
+export function fmap<A, B>(value: undefined, fn: (x: A) => B): undefined;
+export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  return fn(value);
+}
