@@ -205,6 +205,8 @@ function testpkg_Baz(p) {
         return;
     visitedObjects.add(p);
     const ns = require("./index.js");
+    if (Object.values(ns.State).filter(x => x === p).length > 1)
+        return;
     if (p === ns.State.OFF)
         print("testpkg.State#OFF", "Use something else");
     visitedObjects.delete(p);

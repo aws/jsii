@@ -287,6 +287,13 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return this.notImplemented(node, context);
   }
 
+  public elementAccessExpression(node: ts.ElementAccessExpression, context: AstRenderer<C>): OTree {
+    const expression = context.convert(node.expression);
+    const index = context.convert(node.argumentExpression);
+
+    return new OTree([expression, '[', index, ']']);
+  }
+
   public nonNullExpression(node: ts.NonNullExpression, context: AstRenderer<C>): OTree {
     // We default we drop the non-null assertion
     return context.convert(node.expression);

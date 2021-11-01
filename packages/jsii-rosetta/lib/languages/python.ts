@@ -301,7 +301,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
     const suffix = parameterAcceptsUndefined(node, type) ? '=None' : '';
 
-    return new OTree([context.convert(node.name), suffix]);
+    return new OTree([node.dotDotDotToken ? '*' : '', context.convert(node.name), suffix]);
 
     function renderStructProperty(prop: StructProperty): string {
       const sfx = structPropertyAcceptsUndefined(prop) ? '=None' : '';
