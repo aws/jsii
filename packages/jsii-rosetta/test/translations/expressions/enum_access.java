@@ -1,0 +1,1 @@
+System.out.println(EnumType.ENUM_VALUE_A);

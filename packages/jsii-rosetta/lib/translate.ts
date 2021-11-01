@@ -2,15 +2,17 @@ import * as ts from 'typescript';
 import { inspect } from 'util';
 
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
+import { RecordReferencesVisitor } from './languages/record-references';
 import * as logging from './logging';
-import { renderTree, Span, spanContains } from './o-tree';
+import { renderTree } from './o-tree';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import { TypeScriptSnippet, completeSource, SnippetParameters } from './snippet';
 import { snippetKey } from './tablets/key';
 import { TranslatedSnippet } from './tablets/tablets';
-import { calculateVisibleSpans } from './typescript/ast-utils';
+import { SyntaxKindCounter } from './typescript/syntax-kind-counter';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
-import { annotateStrictDiagnostic, File } from './util';
+import { Spans } from './typescript/visible-spans';
+import { annotateStrictDiagnostic, File, hasStrictBranding } from './util';
 
 export function translateTypeScript(
   source: File,
@@ -22,7 +24,7 @@ export function translateTypeScript(
 
   return {
     translation: translated,
-    diagnostics: translator.diagnostics,
+    diagnostics: translator.diagnostics.map(rosettaDiagFromTypescript),
   };
 }
 
@@ -52,6 +54,9 @@ export class Translator {
       const translated = translator.renderUsing(languageConverterFactory());
       snippet.addTranslatedSource(lang, translated);
     }
+
+    snippet.addFqnsReferenced(translator.fqnsReferenced());
+    snippet.addSyntaxKindCounter(translator.syntaxKindCounter());
 
     this.#diagnostics = ts.sortAndDeduplicateDiagnostics(this.#diagnostics.concat(translator.diagnostics));
 
@@ -95,7 +100,35 @@ export interface SnippetTranslatorOptions extends AstRendererOptions {
 
 export interface TranslateResult {
   translation: string;
-  diagnostics: readonly ts.Diagnostic[];
+  diagnostics: readonly RosettaDiagnostic[];
+}
+
+/**
+ * A translation of a TypeScript diagnostic into a data-only representation for Rosetta
+ *
+ * We cannot use the original `ts.Diagnostic` since it holds on to way too much
+ * state (the source file and by extension the entire parse tree), which grows
+ * too big to be properly serialized by a worker and also takes too much memory.
+ *
+ * Reduce it down to only the information we need.
+ */
+export interface RosettaDiagnostic {
+  /**
+   * If this is an error diagnostic or not
+   */
+  readonly isError: boolean;
+
+  /**
+   * If the diagnostic was emitted from an assembly that has its 'strict' flag set
+   */
+  readonly isFromStrictAssembly: boolean;
+
+  /**
+   * The formatted message, ready to be printed (will have colors and newlines in it)
+   *
+   * Ends in a newline.
+   */
+  readonly formattedMessage: string;
 }
 
 /**
@@ -104,7 +137,7 @@ export interface TranslateResult {
 export class SnippetTranslator {
   public readonly translateDiagnostics: ts.Diagnostic[] = [];
   public readonly compileDiagnostics: ts.Diagnostic[] = [];
-  private readonly visibleSpans: Span[];
+  private readonly visibleSpans: Spans;
   private readonly compilation!: CompilationResult;
 
   public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
@@ -117,7 +150,7 @@ export class SnippetTranslator {
     this.compilation = compiler.compileInMemory(snippet.where, source, fakeCurrentDirectory);
 
     // Respect '/// !hide' and '/// !show' directives
-    this.visibleSpans = calculateVisibleSpans(source);
+    this.visibleSpans = Spans.visibleSpansFromSource(source);
 
     // This makes it about 5x slower, so only do it on demand
     if (options.includeCompilerDiagnostics || snippet.strict) {
@@ -165,6 +198,23 @@ export class SnippetTranslator {
     return renderTree(converted, { visibleSpans: this.visibleSpans });
   }
 
+  public syntaxKindCounter(): Record<string, number> {
+    const kindCounter = new SyntaxKindCounter(this.visibleSpans);
+    return kindCounter.countKinds(this.compilation.rootFile);
+  }
+
+  public fqnsReferenced() {
+    const visitor = new RecordReferencesVisitor(this.visibleSpans);
+    const converter = new AstRenderer(
+      this.compilation.rootFile,
+      this.compilation.program.getTypeChecker(),
+      visitor,
+      this.options,
+    );
+    converter.convert(this.compilation.rootFile);
+    return visitor.fqnsReferenced();
+  }
+
   public get diagnostics(): readonly ts.Diagnostic[] {
     return ts.sortAndDeduplicateDiagnostics(this.compileDiagnostics.concat(this.translateDiagnostics));
   }
@@ -173,8 +223,29 @@ export class SnippetTranslator {
 /**
  * Hide diagnostics that are rosetta-sourced if they are reported against a non-visible span
  */
-function filterVisibleDiagnostics(diags: readonly ts.Diagnostic[], visibleSpans: Span[]): ts.Diagnostic[] {
-  return diags.filter(
-    (d) => d.source !== 'rosetta' || d.start === undefined || visibleSpans.some((s) => spanContains(s, d.start!)),
-  );
+function filterVisibleDiagnostics(diags: readonly ts.Diagnostic[], visibleSpans: Spans): ts.Diagnostic[] {
+  return diags.filter((d) => d.source !== 'rosetta' || d.start === undefined || visibleSpans.containsPosition(d.start));
 }
+
+/**
+ * Turn TypeScript diagnostics into Rosetta diagnostics
+ */
+export function rosettaDiagFromTypescript(diag: ts.Diagnostic): RosettaDiagnostic {
+  return {
+    isError: diag.category === ts.DiagnosticCategory.Error,
+    isFromStrictAssembly: hasStrictBranding(diag),
+    formattedMessage: ts.formatDiagnosticsWithColorAndContext([diag], DIAG_HOST),
+  };
+}
+
+const DIAG_HOST = {
+  getCurrentDirectory() {
+    return '.';
+  },
+  getCanonicalFileName(fileName: string) {
+    return fileName;
+  },
+  getNewLine() {
+    return '\n';
+  },
+};

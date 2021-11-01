@@ -170,6 +170,10 @@ export class VisualizeAstVisitor implements AstHandler<void> {
     return this.defaultNode('templateExpression', node, context);
   }
 
+  public elementAccessExpression(node: ts.ElementAccessExpression, context: AstRenderer<void>): OTree {
+    return this.defaultNode('elementAccessExpression', node, context);
+  }
+
   public nonNullExpression(node: ts.NonNullExpression, context: AstRenderer<void>): OTree {
     return this.defaultNode('nonNullExpression', node, context);
   }

@@ -62,7 +62,7 @@ correctly applying your chosen license to your work (most licenses have document
 the license), and for complying with the terms of the licenses of packages your work depends on (this is particularly
 important when dependencies are bundled, as discussed later in this section).
 
-In addition to the `license` field present in the `package.json` file, we stronly recommend adding a `LICENSE` file in
+In addition to the `license` field present in the `package.json` file, we strongly recommend adding a `LICENSE` file in
 the package's root directory which contains the standardized text for the license (those can be found on the
 [SPDX website](https://spdx.org/licenses/)).
 
@@ -185,7 +185,9 @@ are set in the `jsii.tsc` section of the `package.json` file, but use the same n
     will _always_ be placed at the package's root.
 - `rootDir` - specifies the root directory that contains all of the `.ts` source files. This is used in conjunction with
   `outDir`, to control the directory structure that gets generated.
-
+- `forceConsistentCasingInFileNames` - if `true`, will make the `TypeScript` compiler care about the casing of files
+   specified in `import` statements.  This is helpful if you're developing on a filesystem that is case-insensitive 
+   (Mac/Win), but building/deploying on a filesystem that is case-sensitive (Linux).
 Refer to the [TypeScript compiler options reference][ts-options] for more information about those options.
 
 [`tsconfig.json`]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
