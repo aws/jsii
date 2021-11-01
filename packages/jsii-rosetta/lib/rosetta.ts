@@ -9,7 +9,7 @@ import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
 import { CodeBlock } from './markdown/types';
-import { SnippetParameters, TypeScriptSnippet, updateParameters } from './snippet';
+import { SnippetParameters, TypeScriptSnippet, updateParameters, ApiLocation } from './snippet';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
 import { printDiagnostics } from './util';
@@ -152,6 +152,7 @@ export class Rosetta {
   }
 
   public translateSnippetsInMarkdown(
+    apiLocation: ApiLocation,
     markdown: string,
     targetLang: TargetLanguage,
     strict: boolean,
@@ -161,7 +162,7 @@ export class Rosetta {
     return transformMarkdown(
       markdown,
       new MarkdownRenderer(),
-      new ReplaceTypeScriptTransform('markdown', strict, (tsSnip) => {
+      new ReplaceTypeScriptTransform(apiLocation, strict, (tsSnip) => {
         const translated = this.translateSnippet(
           updateParameters(tsSnip, {
             [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,

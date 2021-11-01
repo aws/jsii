@@ -6,7 +6,7 @@ import { RecordReferencesVisitor } from './languages/record-references';
 import * as logging from './logging';
 import { renderTree } from './o-tree';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
-import { TypeScriptSnippet, completeSource, SnippetParameters } from './snippet';
+import { TypeScriptSnippet, completeSource, SnippetParameters, formatLocation } from './snippet';
 import { snippetKey } from './tablets/key';
 import { ORIGINAL_SNIPPET_KEY } from './tablets/schema';
 import { TranslatedSnippet } from './tablets/tablets';
@@ -20,7 +20,10 @@ export function translateTypeScript(
   visitor: AstHandler<any>,
   options: SnippetTranslatorOptions = {},
 ): TranslateResult {
-  const translator = new SnippetTranslator({ visibleSource: source.contents, where: source.fileName }, options);
+  const translator = new SnippetTranslator(
+    { visibleSource: source.contents, location: { api: { api: 'file', fileName: source.fileName } } },
+    options,
+  );
   const translated = translator.renderUsing(visitor);
 
   return {
@@ -61,7 +64,7 @@ export class Translator {
         ...translations,
         [ORIGINAL_SNIPPET_KEY]: { source: snip.visibleSource },
       },
-      where: snip.where,
+      location: snip.location,
       didCompile: translator.didSuccessfullyCompile,
       fqnsReferenced: translator.fqnsReferenced(),
       fullSource: snip.completeSource,
@@ -158,7 +161,7 @@ export class SnippetTranslator {
       snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY] ??
       snippet.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
     this.compilation = compiler.compileInMemory(
-      `${snippet.where}${snippet.whereOffset ?? ''}`,
+      removeSlashes(formatLocation(snippet.location)),
       source,
       fakeCurrentDirectory,
     );
@@ -267,3 +270,11 @@ const DIAG_HOST = {
     return '\n';
   },
 };
+
+/**
+ * Remove slashes from a "where" description, as the TS compiler will interpret it as a directory
+ * and we can't have that for compiling literate files
+ */
+function removeSlashes(x: string) {
+  return x.replace(/\//g, '.');
+}

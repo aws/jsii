@@ -1,3 +1,5 @@
+import { SnippetLocation } from '../snippet';
+
 /**
  * Tablet file schema
  */
@@ -40,9 +42,9 @@ export interface TranslatedSnippetSchema {
   readonly translations: { [key: string]: TranslationSchema };
 
   /**
-   * A human-readable description of the location this code snippet was found
+   * A description of the location this code snippet was found
    */
-  readonly where: string;
+  readonly location: SnippetLocation;
 
   /**
    * Whether this was compiled without errors

@@ -8,17 +8,9 @@ export interface TypeScriptSnippet {
   readonly visibleSource: string;
 
   /**
-   * A human-readable description of where this snippet was found in the assembly
-   *
-   * This will be used as identifying key. It should indicate the file, but be
-   * insensitive to ordering. Add additional locating information in `whereOffset`.
+   * Description of where the snippet was found
    */
-  readonly where: string;
-
-  /**
-   * Additional information to locate the snippet which will not be used to uniquely identify the snippet in a cache
-   */
-  readonly whereOffset?: string;
+  readonly location: SnippetLocation;
 
   /**
    * When enhanced with a fixture, the snippet's complete source code
@@ -39,22 +31,90 @@ export interface TypeScriptSnippet {
 }
 
 /**
+ * Description of a location where the snippet is found
+ *
+ * The location does not necessarily indicate an exact source file,
+ * but it will generally refer to a location that can contain one or more
+ * snippets.
+ */
+export interface SnippetLocation {
+  /**
+   * The jsii API with which this snippet is associated
+   */
+  readonly api: ApiLocation;
+
+  /**
+   * The API field in which the snippet is found, if any
+   *
+   * Absence of this field is appropriate for source files (or tests),
+   * but for Markdown files 'field' should really be set to a Markdown
+   * location.
+   */
+  readonly field?: FieldLocation;
+}
+
+export type ApiLocation =
+  | { readonly api: 'file'; readonly fileName: string }
+  | { readonly api: 'moduleReadme'; readonly moduleFqn: string }
+  | { readonly api: 'type'; readonly fqn: string }
+  | { readonly api: 'initializer'; readonly fqn: string }
+  | { readonly api: 'member'; readonly fqn: string; readonly memberName: string }
+  | { readonly api: 'parameter'; readonly fqn: string; readonly methodName: string; readonly parameterName: string };
+
+export type FieldLocation = { readonly field: 'markdown'; readonly line: number } | { readonly field: 'example' };
+
+/**
+ * Render an API location to a human readable representation
+ */
+export function formatLocation(location: SnippetLocation): string {
+  switch (location.field?.field) {
+    case 'example':
+      return `${renderApiLocation(location.api)}-example`;
+    case 'markdown':
+      return `${renderApiLocation(location.api)}-L${location.field.line}`;
+    case undefined:
+      return renderApiLocation(location.api);
+  }
+}
+
+/**
+ * Render an API location to an unique string
+ *
+ * This function is used in hashing examples for reuse, and so the formatting
+ * here should not be changed lightly.
+ */
+export function renderApiLocation(apiLoc: ApiLocation): string {
+  switch (apiLoc.api) {
+    case 'file':
+      return apiLoc.fileName;
+    case 'moduleReadme':
+      return `${apiLoc.moduleFqn}-README`;
+    case 'type':
+      return apiLoc.fqn;
+    case 'initializer':
+      return `${apiLoc.fqn}#initializer`;
+    case 'member':
+      return `${apiLoc.fqn}#${apiLoc.memberName}`;
+    case 'parameter':
+      return `${apiLoc.fqn}#${apiLoc.methodName}!#${apiLoc.parameterName}`;
+  }
+}
+
+/**
  * Construct a TypeScript snippet from literal source
  *
  * Will parse parameters from a directive in the given source.
  */
 export function typeScriptSnippetFromSource(
   typeScriptSource: string,
-  where: string,
-  whereOffset: string | undefined,
+  location: SnippetLocation,
   strict: boolean,
   parameters: Record<string, string> = {},
 ): TypeScriptSnippet {
   const [source, sourceParameters] = parametersFromSourceDirectives(typeScriptSource);
   return {
     visibleSource: source.trimRight(),
-    where,
-    whereOffset,
+    location,
     parameters: Object.assign({}, parameters, sourceParameters),
     strict,
   };

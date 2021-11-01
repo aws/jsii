@@ -6,7 +6,7 @@ import { fixturize } from '../fixtures';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { Rosetta } from '../rosetta';
-import { SnippetParameters, typeScriptSnippetFromSource } from '../snippet';
+import { SnippetParameters, typeScriptSnippetFromSource, ApiLocation } from '../snippet';
 import { Translation } from '../tablets/tablets';
 
 export interface TransliterateAssemblyOptions {
@@ -69,6 +69,7 @@ export async function transliterateAssembly(
       const result = await loadAssembly();
       if (result.readme?.markdown) {
         result.readme.markdown = rosetta.translateSnippetsInMarkdown(
+          { api: 'moduleReadme', moduleFqn: result.name },
           result.readme.markdown,
           language,
           true /* strict */,
@@ -161,29 +162,35 @@ function transliterateType(
   workingDirectory: string,
   loose = false,
 ): void {
-  transliterateDocs(type.docs);
+  transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs, workingDirectory);
   switch (type.kind) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore 7029
     case TypeKind.Class:
-      transliterateDocs(type?.initializer?.docs);
+      if (type.initializer) {
+        transliterateDocs({ api: 'initializer', fqn: type.fqn }, type.initializer.docs, workingDirectory);
+      }
 
     // fallthrough
     case TypeKind.Interface:
       for (const method of type.methods ?? []) {
-        transliterateDocs(method.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: method.name }, method.docs, workingDirectory);
         for (const parameter of method.parameters ?? []) {
-          transliterateDocs(parameter.docs);
+          transliterateDocs(
+            { api: 'parameter', fqn: type.fqn, methodName: method.name, parameterName: parameter.name },
+            parameter.docs,
+            workingDirectory,
+          );
         }
       }
       for (const property of type.properties ?? []) {
-        transliterateDocs(property.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: property.name }, property.docs, workingDirectory);
       }
       break;
 
     case TypeKind.Enum:
       for (const member of type.members) {
-        transliterateDocs(member.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: member.name }, member.docs, workingDirectory);
       }
       break;
 
@@ -191,10 +198,25 @@ function transliterateType(
       throw new Error(`Unsupported type kind: ${(type as any).kind}`);
   }
 
-  function transliterateDocs(docs: Docs | undefined) {
+  function transliterateDocs(api: ApiLocation, docs: Docs | undefined, workingDirectory: string) {
+    if (docs?.remarks) {
+      docs.remarks = rosetta.translateSnippetsInMarkdown(
+        api,
+        docs.remarks,
+        language,
+        true /* strict */,
+        (translation) => ({
+          language: translation.language,
+          source: prefixDisclaimer(translation),
+        }),
+        workingDirectory,
+      );
+    }
+
     if (docs?.example) {
+      const location = { api, field: { field: 'example' } } as const;
       const snippet = fixturize(
-        typeScriptSnippetFromSource(docs.example, 'example', undefined, true /* strict */, {
+        typeScriptSnippetFromSource(docs.example, location, true /* strict */, {
           [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory,
         }),
         loose,

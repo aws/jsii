@@ -11,7 +11,7 @@ const TOOL_VERSION = require('../../package.json').version;
 
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
 
-export const CURRENT_SCHEMA_VERSION = '1';
+export const CURRENT_SCHEMA_VERSION = '2';
 
 /**
  * A tablet containing various snippets in multiple languages
@@ -102,7 +102,7 @@ export class TranslatedSnippet {
         [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource },
       },
       didCompile: didCompile,
-      where: original.where,
+      location: original.location,
       fullSource: original.completeSource,
     });
   }
@@ -182,7 +182,7 @@ export class TranslatedSnippet {
   private asTypescriptSnippet(): TypeScriptSnippet {
     return {
       visibleSource: this.snippet.translations[ORIGINAL_SNIPPET_KEY].source,
-      where: this.snippet.where,
+      location: this.snippet.location,
     };
   }
 }
