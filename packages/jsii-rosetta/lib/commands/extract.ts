@@ -4,11 +4,13 @@ import * as workerpool from 'workerpool';
 
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
 import { TypeFingerprinter } from '../jsii/fingerprinting';
+import { TARGET_LANGUAGES } from '../languages';
 import * as logging from '../logging';
 import { TypeScriptSnippet, completeSource } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { RosettaDiagnostic, Translator, makeRosettaDiagnostic } from '../translate';
+import { mapValues } from '../util';
 import type { TranslateBatchRequest, TranslateBatchResponse } from './extract_worker';
 
 export interface ExtractResult {
@@ -235,6 +237,8 @@ async function reuseTranslationsFromCache(
   }
 }
 
+const EXPECTED_LANGUAGE_VERSIONS = mapValues(TARGET_LANGUAGES, (f) => f.version);
+
 /**
  * Try to find the translation for the given snippet in the given cache
  *
@@ -242,23 +246,23 @@ async function reuseTranslationsFromCache(
  * - id is the same (== visible source didn't change)
  * - complete source is the same (== fixture didn't change)
  * - all types involved have the same fingerprint (== API surface didn't change)
+ * - the versions of all translations match the versions on the available translators (== translator itself didn't change)
+ *
+ * For the versions check: we could have selectively picked some translations
+ * from the cache while performing others. However, since the big work is in
+ * parsing the TypeScript, and the rendering itself is peanutes (assumption), it
+ * doesn't really make a lot of difference.  So, for simplification's sake,
+ * we'll regen all translations if there's at least one that's outdated.
  */
 function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTablet, fingerprinter: TypeFingerprinter) {
   const fromCache = cache.tryGetSnippet(snippetKey(sourceSnippet));
 
-  if (fromCache) {
-    if (completeSource(sourceSnippet) !== fromCache.snippet.fullSource) {
-      console.log(sourceSnippet);
-      console.log(completeSource(sourceSnippet));
-      console.log('---------------------------------------');
-      console.log(fromCache.snippet.fullSource);
-      console.log('=========================================');
-    }
-  }
-
   const cacheable =
     fromCache &&
     completeSource(sourceSnippet) === fromCache.snippet.fullSource &&
+    Object.entries(EXPECTED_LANGUAGE_VERSIONS).every(
+      ([lang, version]) => fromCache.snippet.translations?.[lang]?.version === version,
+    ) &&
     fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) === fromCache.snippet.fqnsFingerprint;
 
   return cacheable ? fromCache : undefined;

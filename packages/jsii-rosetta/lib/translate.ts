@@ -52,8 +52,8 @@ export class Translator {
     const translations = mkDict(
       languages.map((lang) => {
         const languageConverterFactory = TARGET_LANGUAGES[lang];
-        const translated = translator.renderUsing(languageConverterFactory());
-        return [lang, { source: translated }] as const;
+        const translated = translator.renderUsing(languageConverterFactory.createVisitor());
+        return [lang, { source: translated, version: languageConverterFactory.version }] as const;
       }),
     );
 
@@ -62,7 +62,7 @@ export class Translator {
     return TranslatedSnippet.fromSchema({
       translations: {
         ...translations,
-        [ORIGINAL_SNIPPET_KEY]: { source: snip.visibleSource },
+        [ORIGINAL_SNIPPET_KEY]: { source: snip.visibleSource, version: '0' },
       },
       location: snip.location,
       didCompile: translator.didSuccessfullyCompile,

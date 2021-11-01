@@ -89,5 +89,10 @@ export interface TranslationSchema {
   /**
    * The source of a single translation
    */
-  source: string;
+  readonly source: string;
+
+  /**
+   * The version of the translator used to obtain this translation
+   */
+  readonly version: string;
 }

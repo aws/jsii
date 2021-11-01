@@ -3,6 +3,7 @@ import * as path from 'path';
 
 import { TargetLanguage } from '../languages';
 import { TypeScriptSnippet } from '../snippet';
+import { mapValues } from '../util';
 import { snippetKey } from './key';
 import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
 
@@ -99,7 +100,7 @@ export class TranslatedSnippet {
   public static fromTypeScript(original: TypeScriptSnippet, didCompile?: boolean) {
     return new TranslatedSnippet({
       translations: {
-        [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource },
+        [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource, version: '0' },
       },
       didCompile: didCompile,
       location: original.location,
@@ -132,8 +133,8 @@ export class TranslatedSnippet {
     };
   }
 
-  public addTranslation(language: TargetLanguage, translation: string): Translation {
-    this.snippet.translations[language] = { source: translation };
+  public addTranslation(language: TargetLanguage, translation: string, version: string): Translation {
+    this.snippet.translations[language] = { source: translation, version };
 
     return {
       source: translation,
@@ -191,14 +192,6 @@ export interface Translation {
   source: string;
   language: string;
   didCompile?: boolean;
-}
-
-function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<string, B> {
-  const ret: Record<string, B> = {};
-  for (const [key, value] of Object.entries(xs)) {
-    ret[key] = fn(value);
-  }
-  return ret;
 }
 
 type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };

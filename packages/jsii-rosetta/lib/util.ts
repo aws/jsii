@@ -101,3 +101,11 @@ export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
   }
   return fn(value);
 }
+
+export function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<string, B> {
+  const ret: Record<string, B> = {};
+  for (const [key, value] of Object.entries(xs)) {
+    ret[key] = fn(value);
+  }
+  return ret;
+}
