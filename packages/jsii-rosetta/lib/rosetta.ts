@@ -9,7 +9,13 @@ import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
 import { CodeBlock } from './markdown/types';
-import { SnippetParameters, TypeScriptSnippet, updateParameters, ApiLocation } from './snippet';
+import {
+  SnippetParameters,
+  TypeScriptSnippet,
+  updateParameters,
+  ApiLocation,
+  typeScriptSnippetFromSource,
+} from './snippet';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
 import { printDiagnostics } from './util';
@@ -149,6 +155,24 @@ export class Rosetta {
     // Try to live-convert it on the spot (we won't have "where" information or fixtures)
     const snippet = this.translator.translate(source, this.options.targetLanguages);
     return snippet.get(targetLang);
+  }
+
+  public translateExample(
+    apiLocation: ApiLocation,
+    example: string,
+    targetLang: TargetLanguage,
+    strict: boolean,
+    compileDirectory = process.cwd(),
+  ): Translation {
+    const location = { api: apiLocation, field: { field: 'example' } } as const;
+
+    const snippet = typeScriptSnippetFromSource(example, location, strict, {
+      [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,
+    });
+
+    const translated = this.translateSnippet(snippet, targetLang);
+
+    return translated ?? { language: 'typescript', source: example };
   }
 
   public translateSnippetsInMarkdown(
