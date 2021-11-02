@@ -108,7 +108,7 @@ function filterSnippets(ts: TypeScriptSnippet[], includeIds: string[]) {
  *
  * We are now always using workers, as we are targeting Node 12+.
  */
-export async function translateAll(
+async function translateAll(
   snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
