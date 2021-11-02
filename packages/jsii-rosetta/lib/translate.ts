@@ -276,5 +276,5 @@ const DIAG_HOST = {
  * and we can't have that for compiling literate files
  */
 function removeSlashes(x: string) {
-  return x.replace(/\//g, '.');
+  return x.replace(/\/|\\/g, '.');
 }
