@@ -38,7 +38,7 @@ export class TypeScriptCompiler {
 
     const rootFile = program.getSourceFile(filename);
     if (rootFile == null) {
-      throw new Error("Oopsie -- couldn't find root file back");
+      throw new Error(`Oopsie -- couldn't find root file back: ${filename}`);
     }
 
     return { program, rootFile };

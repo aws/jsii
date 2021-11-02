@@ -3,7 +3,7 @@ import * as cm from 'commonmark';
 import { CommonMarkVisitor } from './markdown';
 import { CodeBlock } from './types';
 
-export type CodeReplacer = (code: CodeBlock) => CodeBlock;
+export type CodeReplacer = (code: CodeBlock, line: number) => CodeBlock;
 
 /**
  * Renderer that replaces code blocks in a MarkDown document
@@ -12,10 +12,14 @@ export class ReplaceCodeTransform implements CommonMarkVisitor {
   public constructor(private readonly replacer: CodeReplacer) {}
 
   public code_block(node: cm.Node) {
-    const ret = this.replacer({
-      language: node.info ?? '',
-      source: node.literal ?? '',
-    });
+    const line = node.sourcepos[0][0];
+    const ret = this.replacer(
+      {
+        language: node.info ?? '',
+        source: node.literal ?? '',
+      },
+      line,
+    );
     node.info = ret.language;
     node.literal = ret.source + (!ret.source || ret.source.endsWith('\n') ? '' : '\n');
   }

@@ -84,3 +84,28 @@ export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
     xs.add(el);
   }
 }
+
+export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<A, B> {
+  const ret: any = {};
+  for (const [key, value] of xs) {
+    ret[key] = value;
+  }
+  return ret;
+}
+
+export function fmap<A, B>(value: NonNullable<A>, fn: (x: A) => B): B;
+export function fmap<A, B>(value: undefined, fn: (x: A) => B): undefined;
+export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  return fn(value);
+}
+
+export function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<string, B> {
+  const ret: Record<string, B> = {};
+  for (const [key, value] of Object.entries(xs)) {
+    ret[key] = fn(value);
+  }
+  return ret;
+}

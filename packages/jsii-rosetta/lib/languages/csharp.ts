@@ -70,6 +70,14 @@ interface CSharpLanguageContext {
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.CSHARP;
 
   public readonly defaultContext = {

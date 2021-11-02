@@ -24,8 +24,8 @@ export async function readTablet(tabletFile: string, key?: string, lang?: string
   }
 
   function displaySnippet(snippet: TranslatedSnippet) {
-    if (snippet.didCompile !== undefined) {
-      process.stdout.write(`Compiled: ${snippet.didCompile}\n`);
+    if (snippet.snippet.didCompile !== undefined) {
+      process.stdout.write(`Compiled: ${snippet.snippet.didCompile}\n`);
     }
 
     if (lang !== undefined) {

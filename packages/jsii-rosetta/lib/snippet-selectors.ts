@@ -61,7 +61,7 @@ export function mean(snippets: TranslatedSnippet[]): TranslatedSnippet {
   // Find mean counter.
   const counters: Array<Record<string, number>> = [];
   snippets.map((snippet) => {
-    counters.push(snippet.syntaxKindCounter);
+    counters.push(snippet.snippet.syntaxKindCounter ?? {});
   });
   const meanCounter = findCenter(counters);
   // Find counter with closest euclidian distance.
