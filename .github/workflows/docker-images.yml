@@ -24,7 +24,7 @@ jobs:
       DEFAULT_NODE_MAJOR_VERSION: 12
     steps:
       - name: Check out
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       # Determine if we should run the validation or not
       - name: Should this run?
