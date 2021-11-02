@@ -10,7 +10,6 @@ import { TypeScriptSnippet, completeSource } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { RosettaDiagnostic, Translator, makeRosettaDiagnostic } from '../translate';
-import { mapValues } from '../util';
 import type { TranslateBatchRequest, TranslateBatchResponse } from './extract_worker';
 
 export interface ExtractResult {
@@ -28,7 +27,16 @@ export interface ExtractOptions {
    * A tablet file to be loaded and used as a source for caching
    */
   readonly cacheTabletFile?: string;
+
+  /**
+   * Call the given translation function on the snippets.
+   *
+   * Optional, only for testing. Uses `translateAll` by default.
+   */
+  readonly translationFunction?: TranslationFunc;
 }
+
+type TranslationFunc = typeof translateAll;
 
 /**
  * Extract all samples from the given assemblies into a tablet
@@ -61,7 +69,7 @@ export async function extractSnippets(
     logging.info('Translating');
     const startTime = Date.now();
 
-    const result = await translateAll(snippets, options.includeCompilerDiagnostics);
+    const result = await (options.translationFunction ?? translateAll)(snippets, options.includeCompilerDiagnostics);
 
     for (const snippet of result.translatedSnippets) {
       const fingerprinted = snippet.withFingerprint(fingerprinter.fingerprintAll(snippet.fqnsReferenced()));
@@ -100,7 +108,7 @@ function filterSnippets(ts: TypeScriptSnippet[], includeIds: string[]) {
  *
  * We are now always using workers, as we are targeting Node 12+.
  */
-async function translateAll(
+export async function translateAll(
   snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
@@ -237,8 +245,6 @@ async function reuseTranslationsFromCache(
   }
 }
 
-const EXPECTED_LANGUAGE_VERSIONS = mapValues(TARGET_LANGUAGES, (f) => f.version);
-
 /**
  * Try to find the translation for the given snippet in the given cache
  *
@@ -260,8 +266,8 @@ function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTable
   const cacheable =
     fromCache &&
     completeSource(sourceSnippet) === fromCache.snippet.fullSource &&
-    Object.entries(EXPECTED_LANGUAGE_VERSIONS).every(
-      ([lang, version]) => fromCache.snippet.translations?.[lang]?.version === version,
+    Object.entries(TARGET_LANGUAGES).every(
+      ([lang, translator]) => fromCache.snippet.translations?.[lang]?.version === translator.version,
     ) &&
     fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) === fromCache.snippet.fqnsFingerprint;
 

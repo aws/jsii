@@ -196,7 +196,12 @@ export class SnippetTranslator {
         try {
           return call(...args);
         } catch (err) {
-          console.error(`Failed to execute ${call.name}: ${err}`);
+          const isExpectedTypescriptError = err.message.includes('Error: Debug Failure');
+
+          if (!isExpectedTypescriptError) {
+            console.error(`Failed to execute ${call.name}: ${err}`);
+          }
+
           return [];
         }
       };

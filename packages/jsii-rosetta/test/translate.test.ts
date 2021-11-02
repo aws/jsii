@@ -1,5 +1,6 @@
 import { SnippetTranslator, TypeScriptSnippet, PythonVisitor } from '../lib';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
+import { snippetKey } from '../lib/tablets/key';
 
 const location = {
   api: { api: 'moduleReadme', moduleFqn: '@aws-cdk/aws-apigateway' },
@@ -79,4 +80,35 @@ test('rejects function declarations in object literals', () => {
   expect(subject.diagnostics[0].messageText).toContain(
     'Use of MethodDeclaration in an object literal is not supported',
   );
+});
+
+test('completeSource does not impact the snippet key', () => {
+  const snippet1: TypeScriptSnippet = {
+    visibleSource: '// hello',
+    location: { api: { api: 'member', fqn: 'my.class', memberName: 'member1' } },
+    completeSource: '// i do not like to say\n// hello',
+  };
+
+  const snippet2 = {
+    ...snippet1,
+    completeSource: undefined,
+  };
+
+  expect(snippetKey(snippet1)).toEqual(snippetKey(snippet2));
+});
+
+test('Snippets from different locations have different keys', () => {
+  const visibleSource = 'console.log("banana");';
+
+  const snippet1: TypeScriptSnippet = {
+    visibleSource,
+    location: { api: { api: 'member', fqn: 'my.class', memberName: 'member1' } },
+  };
+
+  const snippet2: TypeScriptSnippet = {
+    visibleSource,
+    location: { api: { api: 'type', fqn: 'my.class' } },
+  };
+
+  expect(snippetKey(snippet1)).not.toEqual(snippetKey(snippet2));
 });
