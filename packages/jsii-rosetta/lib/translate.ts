@@ -6,20 +6,24 @@ import { RecordReferencesVisitor } from './languages/record-references';
 import * as logging from './logging';
 import { renderTree } from './o-tree';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
-import { TypeScriptSnippet, completeSource, SnippetParameters } from './snippet';
+import { TypeScriptSnippet, completeSource, SnippetParameters, formatLocation } from './snippet';
 import { snippetKey } from './tablets/key';
+import { ORIGINAL_SNIPPET_KEY } from './tablets/schema';
 import { TranslatedSnippet } from './tablets/tablets';
 import { SyntaxKindCounter } from './typescript/syntax-kind-counter';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
 import { Spans } from './typescript/visible-spans';
-import { annotateStrictDiagnostic, File, hasStrictBranding } from './util';
+import { annotateStrictDiagnostic, File, hasStrictBranding, mkDict } from './util';
 
 export function translateTypeScript(
   source: File,
   visitor: AstHandler<any>,
   options: SnippetTranslatorOptions = {},
 ): TranslateResult {
-  const translator = new SnippetTranslator({ visibleSource: source.contents, where: source.fileName }, options);
+  const translator = new SnippetTranslator(
+    { visibleSource: source.contents, location: { api: { api: 'file', fileName: source.fileName } } },
+    options,
+  );
   const translated = translator.renderUsing(visitor);
 
   return {
@@ -37,34 +41,39 @@ export function translateTypeScript(
 export class Translator {
   private readonly compiler = new TypeScriptCompiler();
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #diagnostics: readonly ts.Diagnostic[] = [];
+  #diagnostics: ts.Diagnostic[] = [];
 
   public constructor(private readonly includeCompilerDiagnostics: boolean) {}
 
   public translate(snip: TypeScriptSnippet, languages: readonly TargetLanguage[] = Object.values(TargetLanguage)) {
     logging.debug(`Translating ${snippetKey(snip)} ${inspect(snip.parameters ?? {})}`);
     const translator = this.translatorFor(snip);
-    const snippet = TranslatedSnippet.fromSnippet(
-      snip,
-      this.includeCompilerDiagnostics ? translator.compileDiagnostics.length === 0 : undefined,
+
+    const translations = mkDict(
+      languages.map((lang) => {
+        const languageConverterFactory = TARGET_LANGUAGES[lang];
+        const translated = translator.renderUsing(languageConverterFactory.createVisitor());
+        return [lang, { source: translated, version: languageConverterFactory.version }] as const;
+      }),
     );
 
-    for (const lang of languages) {
-      const languageConverterFactory = TARGET_LANGUAGES[lang];
-      const translated = translator.renderUsing(languageConverterFactory());
-      snippet.addTranslatedSource(lang, translated);
-    }
+    this.#diagnostics.push(...translator.diagnostics);
 
-    snippet.addFqnsReferenced(translator.fqnsReferenced());
-    snippet.addSyntaxKindCounter(translator.syntaxKindCounter());
-
-    this.#diagnostics = ts.sortAndDeduplicateDiagnostics(this.#diagnostics.concat(translator.diagnostics));
-
-    return snippet;
+    return TranslatedSnippet.fromSchema({
+      translations: {
+        ...translations,
+        [ORIGINAL_SNIPPET_KEY]: { source: snip.visibleSource, version: '0' },
+      },
+      location: snip.location,
+      didCompile: translator.didSuccessfullyCompile,
+      fqnsReferenced: translator.fqnsReferenced(),
+      fullSource: snip.completeSource,
+      syntaxKindCounter: translator.syntaxKindCounter(),
+    });
   }
 
-  public get diagnostics(): readonly ts.Diagnostic[] {
-    return Array.from(this.#diagnostics);
+  public get diagnostics(): readonly RosettaDiagnostic[] {
+    return ts.sortAndDeduplicateDiagnostics(this.#diagnostics).map(rosettaDiagFromTypescript);
   }
 
   /**
@@ -131,6 +140,10 @@ export interface RosettaDiagnostic {
   readonly formattedMessage: string;
 }
 
+export function makeRosettaDiagnostic(isError: boolean, formattedMessage: string): RosettaDiagnostic {
+  return { isError, formattedMessage, isFromStrictAssembly: false };
+}
+
 /**
  * Translate a single TypeScript snippet
  */
@@ -147,7 +160,11 @@ export class SnippetTranslator {
     const fakeCurrentDirectory =
       snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY] ??
       snippet.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
-    this.compilation = compiler.compileInMemory(snippet.where, source, fakeCurrentDirectory);
+    this.compilation = compiler.compileInMemory(
+      removeSlashes(formatLocation(snippet.location)),
+      source,
+      fakeCurrentDirectory,
+    );
 
     // Respect '/// !hide' and '/// !show' directives
     this.visibleSpans = Spans.visibleSpansFromSource(source);
@@ -179,11 +196,20 @@ export class SnippetTranslator {
         try {
           return call(...args);
         } catch (err) {
-          console.error(`Failed to execute ${call.name}: ${err}`);
+          const isExpectedTypescriptError = err.message.includes('Error: Debug Failure');
+
+          if (!isExpectedTypescriptError) {
+            console.error(`Failed to execute ${call.name}: ${err}`);
+          }
+
           return [];
         }
       };
     }
+  }
+
+  public get didSuccessfullyCompile() {
+    return this.compileDiagnostics.length === 0;
   }
 
   public renderUsing(visitor: AstHandler<any>) {
@@ -249,3 +275,11 @@ const DIAG_HOST = {
     return '\n';
   },
 };
+
+/**
+ * Remove slashes from a "where" description, as the TS compiler will interpret it as a directory
+ * and we can't have that for compiling literate files
+ */
+function removeSlashes(x: string) {
+  return x.replace(/\/|\\/g, '.');
+}

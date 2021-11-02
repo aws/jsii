@@ -362,6 +362,9 @@ export class AstRenderer<C> {
       }
       return visitor.spreadElement(tree, this);
     }
+    if (ts.isElementAccessExpression(tree)) {
+      return visitor.elementAccessExpression(tree, this);
+    }
     if (ts.isTemplateExpression(tree)) {
       return visitor.templateExpression(tree, this);
     }
@@ -492,6 +495,7 @@ export interface AstHandler<C> {
   nonNullExpression(node: ts.NonNullExpression, context: AstRenderer<C>): OTree;
   parenthesizedExpression(node: ts.ParenthesizedExpression, context: AstRenderer<C>): OTree;
   maskingVoidExpression(node: ts.VoidExpression, context: AstRenderer<C>): OTree;
+  elementAccessExpression(node: ts.ElementAccessExpression, context: AstRenderer<C>): OTree;
 
   // Not a node, called when we recognize a spread element/assignment that is only
   // '...' and nothing else.

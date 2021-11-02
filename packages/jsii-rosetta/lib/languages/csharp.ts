@@ -70,6 +70,14 @@ interface CSharpLanguageContext {
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.CSHARP;
 
   public readonly defaultContext = {
@@ -317,6 +325,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: CSharpRenderer): OTree {
     return new OTree([
+      ...(node.dotDotDotToken ? ['params '] : []), // Varargs. Render with 'params' keyword
       this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
       ' ',
       renderer.convert(node.name),

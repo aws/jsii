@@ -1,11 +1,14 @@
 import { fixturize } from '../lib/fixtures';
 import { SnippetParameters } from '../lib/snippet';
+import { testSnippetLocation } from './testutil';
+
+const location = testSnippetLocation('where');
 
 describe('fixturize', () => {
   test('snippet retains properties', () => {
     const snippet = {
       visibleSource: 'visibleSource',
-      where: 'where',
+      location,
       parameters: {
         [SnippetParameters.$PROJECT_DIRECTORY]: 'directory',
         [SnippetParameters.NO_FIXTURE]: '',
@@ -23,7 +26,7 @@ declare const mock: Tpe;
 const val = new Cls();`;
     const snippet = {
       visibleSource: source,
-      where: 'where',
+      location,
       parameters: {
         [SnippetParameters.$PROJECT_DIRECTORY]: 'test',
       },
