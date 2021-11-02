@@ -266,6 +266,29 @@ function testpkg_Baz(p) {
 `);
   });
 
+  test('generates calls for deprecated interface', async () => {
+    const result = await compileJsiiForTest(
+      `
+      /** @deprecated use Bar instead */
+      export interface Foo {
+        readonly bar: string;
+      }
+      `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    if ("bar" in p)
+        print("testpkg.Foo#bar", "use Bar instead");
+    visitedObjects.delete(p);
+}
+`);
+  });
+
   test('generates calls for types in other assemblies', async () => {
     const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
