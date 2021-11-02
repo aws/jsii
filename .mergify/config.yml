@@ -127,10 +127,9 @@ pull_request_rules:
       dismiss_reviews:
         approved: true
         changes_requested: false
-      merge:
-        strict: smart+fasttrack
+      queue:
+        name: default
         method: merge
-        strict_method: merge
         commit_message: title+body
       comment:
         message: Merging (no-squash)...
