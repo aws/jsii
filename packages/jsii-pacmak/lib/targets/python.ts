@@ -9,7 +9,7 @@ import {
   Translation,
   Rosetta,
   enforcesStrictMode,
-  typeScriptSnippetFromSource,
+  ApiLocation,
 } from 'jsii-rosetta';
 import * as path from 'path';
 
@@ -383,13 +383,22 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     this.members.push(member);
   }
 
+  public get apiLocation(): ApiLocation {
+    if (!this.fqn) {
+      throw new Error(
+        `Cannot make apiLocation for ${this.pythonName}, does not have FQN`,
+      );
+    }
+    return { api: 'type', fqn: this.fqn };
+  }
+
   public emit(code: CodeMaker, context: EmitContext) {
     context = nestedContext(context, this.fqn);
 
     const classParams = this.getClassParams(context);
     openSignature(code, 'class', this.pythonName, classParams);
 
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `class-${this.pythonName}`,
       trailingNewLine: true,
     });
@@ -462,6 +471,10 @@ abstract class BaseMethod implements PythonBase {
     this.abstract = !!opts.abstract;
     this.liftedProp = opts.liftedProp;
     this.parent = opts.parent;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return { api: 'member', fqn: this.parent.fqn, memberName: this.jsiiMethod };
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -628,7 +641,7 @@ abstract class BaseMethod implements PythonBase {
       false,
       returnType,
     );
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       arguments: documentableArgs,
       documentableItem: `method-${this.pythonName}`,
     });
@@ -688,7 +701,7 @@ abstract class BaseMethod implements PythonBase {
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specifiy to start with in our dictionary literal.
     const liftedProps = this.getLiftedProperties(context.resolver).map(
-      (p) => new StructField(this.generator, p),
+      (p) => new StructField(this.generator, p, this.parent),
     );
     const assignments = liftedProps
       .map((p) => p.pythonName)
@@ -814,6 +827,7 @@ abstract class BaseProperty implements PythonBase {
   protected readonly shouldEmitBody: boolean = true;
 
   private readonly immutable: boolean;
+  private readonly parent: spec.NamedTypeReference;
 
   public constructor(
     private readonly generator: PythonGenerator,
@@ -828,6 +842,11 @@ abstract class BaseProperty implements PythonBase {
     this.abstract = abstract;
     this.immutable = immutable;
     this.isStatic = isStatic;
+    this.parent = opts.parent;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return { api: 'member', fqn: this.parent.fqn, memberName: this.jsName };
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -856,7 +875,7 @@ abstract class BaseProperty implements PythonBase {
       true,
       pythonType,
     );
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
     });
     if (
@@ -925,7 +944,7 @@ class Interface extends BasePythonClassType {
         })}) # type: ignore[misc]`,
     );
     openSignature(code, 'class', this.proxyClassName, proxyBases);
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `class-${this.pythonName}`,
       trailingNewLine: true,
     });
@@ -1039,7 +1058,7 @@ class Struct extends BasePythonClassType {
    */
   private get allMembers(): StructField[] {
     return this.thisInterface.allProperties.map(
-      (x) => new StructField(this.generator, x.spec),
+      (x) => new StructField(this.generator, x.spec, this.thisInterface),
     );
   }
 
@@ -1108,7 +1127,7 @@ class Struct extends BasePythonClassType {
       name: m.pythonName,
       docs: m.docs,
     }));
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       arguments: args,
       documentableItem: `class-${this.pythonName}`,
     });
@@ -1180,11 +1199,16 @@ class StructField implements PythonBase {
   public constructor(
     private readonly generator: PythonGenerator,
     public readonly prop: spec.Property,
+    private readonly parent: spec.NamedTypeReference,
   ) {
     this.pythonName = toPythonPropertyName(prop.name);
     this.jsiiName = prop.name;
     this.type = prop;
     this.docs = prop.docs;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return { api: 'member', fqn: this.parent.fqn, memberName: this.jsiiName };
   }
 
   public get optional(): boolean {
@@ -1215,7 +1239,7 @@ class StructField implements PythonBase {
   }
 
   public emitDocString(code: CodeMaker) {
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
     });
   }
@@ -1438,9 +1462,14 @@ class EnumMember implements PythonBase {
     public readonly pythonName: string,
     private readonly value: string,
     public readonly docs: spec.Docs | undefined,
+    private readonly parent: spec.NamedTypeReference,
   ) {
     this.pythonName = pythonName;
     this.value = value;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return { api: 'member', fqn: this.parent.fqn, memberName: this.value };
   }
 
   public dependsOnModules() {
@@ -1449,7 +1478,7 @@ class EnumMember implements PythonBase {
 
   public emit(code: CodeMaker, _context: EmitContext) {
     code.line(`${this.pythonName} = "${this.value}"`);
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `enum-${this.pythonName}`,
     });
   }
@@ -2186,6 +2215,7 @@ class PythonGenerator extends Generator {
   // eslint-disable-next-line complexity
   public emitDocString(
     code: CodeMaker,
+    apiLocation: ApiLocation,
     docs: spec.Docs | undefined,
     options: {
       arguments?: DocumentableArgument[];
@@ -2237,7 +2267,9 @@ class PythonGenerator extends Generator {
     if (docs.remarks) {
       brk();
       lines.push(
-        ...md2rst(this.convertMarkdown(docs.remarks ?? '')).split('\n'),
+        ...md2rst(this.convertMarkdown(docs.remarks ?? '', apiLocation)).split(
+          '\n',
+        ),
       );
       brk();
     }
@@ -2283,7 +2315,7 @@ class PythonGenerator extends Generator {
       brk();
       lines.push('Example::');
       lines.push('');
-      const exampleText = this.convertExample(docs.example);
+      const exampleText = this.convertExample(docs.example, apiLocation);
 
       for (const line of exampleText.split('\n')) {
         lines.push(`    ${line}`);
@@ -2316,24 +2348,19 @@ class PythonGenerator extends Generator {
     }
   }
 
-  public convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(
+  public convertExample(example: string, apiLoc: ApiLocation): string {
+    const translated = this.rosetta.translateExample(
+      apiLoc,
       example,
-      'example',
+      TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
     );
-    const translated = this.rosetta.translateSnippet(
-      snippet,
-      TargetLanguage.PYTHON,
-    );
-    if (!translated) {
-      return example;
-    }
     return this.prefixDisclaimer(translated);
   }
 
-  public convertMarkdown(markdown: string): string {
+  public convertMarkdown(markdown: string, apiLoc: ApiLocation): string {
     return this.rosetta.translateSnippetsInMarkdown(
+      apiLoc,
       markdown,
       TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
@@ -2418,12 +2445,17 @@ class PythonGenerator extends Generator {
         ? this.assembly
         : this.assembly.submodules?.[ns];
 
+    const readmeLocation: ApiLocation = { api: 'moduleReadme', moduleFqn: ns };
+
     const module = new PythonModule(toPackageName(ns, this.assembly), ns, {
       assembly: this.assembly,
       assemblyFilename: this.getAssemblyFileName(),
       package: this.package,
       moduleDocumentation: submoduleLike?.readme
-        ? this.convertMarkdown(submoduleLike.readme?.markdown).trim()
+        ? this.convertMarkdown(
+            submoduleLike.readme?.markdown,
+            readmeLocation,
+          ).trim()
         : undefined,
     });
 
@@ -2635,7 +2667,7 @@ class PythonGenerator extends Generator {
     let ifaceProperty: InterfaceProperty | StructField;
 
     if (ifc.datatype) {
-      ifaceProperty = new StructField(this, prop);
+      ifaceProperty = new StructField(this, prop, ifc);
     } else {
       ifaceProperty = new InterfaceProperty(
         this,
@@ -2663,6 +2695,7 @@ class PythonGenerator extends Generator {
         toPythonIdentifier(member.name),
         member.name,
         member.docs,
+        enm,
       ),
     );
   }

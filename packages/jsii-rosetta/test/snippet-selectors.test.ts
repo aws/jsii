@@ -1,6 +1,7 @@
 import { typeScriptSnippetFromSource } from '../lib/snippet';
 import { longest, mean, meanLength, shortest } from '../lib/snippet-selectors';
 import { TranslatedSnippet } from '../lib/tablets/tablets';
+import { testSnippetLocation } from './testutil';
 
 const snippets: TranslatedSnippet[] = [];
 const sources: string[] = [
@@ -28,7 +29,9 @@ const sources: string[] = [
 ];
 beforeAll(() => {
   for (const source of sources) {
-    const snippet = TranslatedSnippet.fromSnippet(typeScriptSnippetFromSource(source, 'selectors', false));
+    const snippet = TranslatedSnippet.fromTypeScript(
+      typeScriptSnippetFromSource(source, testSnippetLocation('selectors'), false),
+    );
     snippets.push(snippet);
   }
 });

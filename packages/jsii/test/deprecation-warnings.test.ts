@@ -166,25 +166,6 @@ function testpkg_Baz(p) {
     );
   });
 
-  test('generates a call to print if the type is deprecated', async () => {
-    const result = await compileJsiiForTest(
-      `
-        ${DEPRECATED}
-        export interface Foo {}
-        `,
-      undefined /* callback */,
-      { addDeprecationWarnings: true },
-    );
-
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
-    if (p == null)
-        return;
-    visitedObjects.add(p);
-    print("testpkg.Foo", "Use something else");
-    visitedObjects.delete(p);
-}`);
-  });
-
   test('generates functions for enums', async () => {
     const result = await compileJsiiForTest(
       `
@@ -261,6 +242,32 @@ function testpkg_Baz(p) {
         print("testpkg.Foo#bar", "kkkkkkkk");
     if (!visitedObjects.has(p.bar))
         testpkg_Bar(p.bar);
+    visitedObjects.delete(p);
+}
+`);
+  });
+
+  test('generates calls for each property of a deprecated type', async () => {
+    const result = await compileJsiiForTest(
+      `
+      /** @deprecated use Bar instead */
+      export interface Foo {
+        readonly bar: string;
+        readonly baz: number;
+      }
+      `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    if ("bar" in p)
+        print("testpkg.Foo#bar", "use Bar instead");
+    if ("baz" in p)
+        print("testpkg.Foo#baz", "use Bar instead");
     visitedObjects.delete(p);
 }
 `);

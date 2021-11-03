@@ -3,7 +3,13 @@ import { PackageInfo, compileJsiiForTest } from 'jsii';
 import * as os from 'os';
 import * as path from 'path';
 
-import { typeScriptSnippetFromSource, SnippetTranslator, SnippetParameters, rosettaDiagFromTypescript } from '../lib';
+import {
+  typeScriptSnippetFromSource,
+  SnippetTranslator,
+  SnippetParameters,
+  rosettaDiagFromTypescript,
+  SnippetLocation,
+} from '../lib';
 
 export type MultipleSources = { [key: string]: string; 'index.ts': string };
 
@@ -46,7 +52,8 @@ export class AssemblyFixture {
    * Make a snippet translator for the given source w.r.t this compiled assembly
    */
   public successfullyCompile(source: string) {
-    const snippet = typeScriptSnippetFromSource(source, 'testutil', false, {
+    const location = testSnippetLocation('testutil');
+    const snippet = typeScriptSnippetFromSource(source, location, false, {
       [SnippetParameters.$COMPILATION_DIRECTORY]: this.directory,
     });
     const ret = new SnippetTranslator(snippet, {
@@ -64,6 +71,10 @@ export class AssemblyFixture {
   public async cleanup() {
     await fs.remove(this.directory);
   }
+}
+
+export function testSnippetLocation(fileName: string): SnippetLocation {
+  return { api: { api: 'file', fileName }, field: { field: 'example' } };
 }
 
 export const DUMMY_ASSEMBLY_TARGETS = {

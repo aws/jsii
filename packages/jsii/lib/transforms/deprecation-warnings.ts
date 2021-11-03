@@ -42,10 +42,7 @@ export class DeprecationWarningsInjector {
         ),
       );
 
-      if (
-        spec.isDeprecated(type) &&
-        (spec.isEnumType(type) || (spec.isInterfaceType(type) && type.datatype))
-      ) {
+      if (spec.isDeprecated(type) && spec.isEnumType(type)) {
         // The type is deprecated
         statements.push(
           createWarningFunctionCall(type.fqn, type.docs?.deprecated),
@@ -78,12 +75,14 @@ export class DeprecationWarningsInjector {
         }
       } else if (spec.isInterfaceType(type) && type.datatype) {
         for (const prop of Object.values(type.properties ?? {})) {
-          if (spec.isDeprecated(prop)) {
-            // The property is deprecated
+          if (spec.isDeprecated(prop) || spec.isDeprecated(type)) {
+            // If the property individually is deprecated, or the entire type is deprecated
+            const deprecatedDocs =
+              prop.docs?.deprecated ?? type.docs?.deprecated;
             statements.push(
               createWarningFunctionCall(
                 `${type.fqn}#${prop.name}`,
-                prop.docs?.deprecated,
+                deprecatedDocs,
                 ts.createIdentifier(`"${prop.name}" in ${PARAMETER_NAME}`),
               ),
             );
