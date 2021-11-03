@@ -1,11 +1,11 @@
 import * as ts from 'typescript';
 
-import { isStructInterface, isStructType } from '../jsii/jsii-utils';
+import { analyzeObjectLiteral } from '../jsii/jsii-types';
+import { isNamedLikeStruct } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
 
 import { TargetLanguage } from '.';
 
@@ -18,8 +18,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public abstract mergeContext(old: C, update: C): C;
 
+  protected statementTerminator = ';';
+
   public commentRange(comment: CommentSyntax, _context: AstRenderer<C>): OTree {
-    return new OTree([comment.text, comment.hasTrailingNewLine ? '\n' : '']);
+    return new OTree([comment.isTrailing ? ' ' : '', comment.text, comment.hasTrailingNewLine ? '\n' : '']);
   }
 
   public sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree {
@@ -59,21 +61,33 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public returnStatement(node: ts.ReturnStatement, children: AstRenderer<C>): OTree {
-    return new OTree(['return ', children.convert(node.expression)]);
+    return new OTree(['return ', children.convert(node.expression), this.statementTerminator], [], {
+      canBreakLine: true,
+    });
   }
 
   public binaryExpression(node: ts.BinaryExpression, context: AstRenderer<C>): OTree {
-    return new OTree([
-      context.convert(node.left),
-      ' ',
-      context.textOf(node.operatorToken),
-      ' ',
-      context.convert(node.right),
-    ]);
+    const operator = context.textOf(node.operatorToken);
+    if (operator === '??') {
+      context.reportUnsupported(node.operatorToken, undefined);
+    }
+    const operatorToken = this.translateBinaryOperator(operator);
+    return new OTree([context.convert(node.left), ' ', operatorToken, ' ', context.convert(node.right)]);
   }
 
   public prefixUnaryExpression(node: ts.PrefixUnaryExpression, context: AstRenderer<C>): OTree {
-    return new OTree([UNARY_OPS[node.operator], context.convert(node.operand)]);
+    return new OTree([this.translateUnaryOperator(node.operator), context.convert(node.operand)]);
+  }
+
+  public translateUnaryOperator(operator: ts.PrefixUnaryOperator) {
+    return UNARY_OPS[operator];
+  }
+
+  public translateBinaryOperator(operator: string) {
+    if (operator === '===') {
+      return '==';
+    }
+    return operator;
   }
 
   public ifStatement(node: ts.IfStatement, context: AstRenderer<C>): OTree {
@@ -130,18 +144,26 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
    *     - It's not a struct (render as key-value map)
    */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
-    const type = typeWithoutUndefinedUnion(context.inferredTypeOfExpression(node));
-
-    const isUnknownType = !type || !type.symbol;
-    const isKnownStruct = type && isStructType(type);
-
-    if (isUnknownType) {
-      return this.unknownTypeObjectLiteralExpression(node, context);
+    // If any of the elements of the objectLiteralExpression are not a literal property
+    // assignment, report them. We can't support those.
+    const unsupported = node.properties.filter(
+      (p) => !ts.isPropertyAssignment(p) && !ts.isShorthandPropertyAssignment(p),
+    );
+    for (const unsup of unsupported) {
+      context.report(unsup, `Use of ${ts.SyntaxKind[unsup.kind]} in an object literal is not supported.`);
     }
-    if (isKnownStruct) {
-      return this.knownStructObjectLiteralExpression(node, type!, context);
+
+    const lit = analyzeObjectLiteral(context.typeChecker, node);
+
+    switch (lit.kind) {
+      case 'unknown':
+        return this.unknownTypeObjectLiteralExpression(node, context);
+      case 'struct':
+      case 'local-struct':
+        return this.knownStructObjectLiteralExpression(node, lit.type, lit.kind === 'local-struct', context);
+      case 'map':
+        return this.keyValueObjectLiteralExpression(node, context);
     }
-    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context), context);
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
@@ -151,16 +173,13 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     _structType: ts.Type,
+    _definedInExample: boolean,
     context: AstRenderer<C>,
   ): OTree {
     return this.notImplemented(node, context);
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    _valueType: ts.Type | undefined,
-    context: AstRenderer<C>,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
 
@@ -226,7 +245,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
-    if (isStructInterface(context.textOf(node.name))) {
+    if (isNamedLikeStruct(context.textOf(node.name))) {
       return this.structInterfaceDeclaration(node, context);
     }
     return this.regularInterfaceDeclaration(node, context);
@@ -266,6 +285,13 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public templateExpression(node: ts.TemplateExpression, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
+  }
+
+  public elementAccessExpression(node: ts.ElementAccessExpression, context: AstRenderer<C>): OTree {
+    const expression = context.convert(node.expression);
+    const index = context.convert(node.argumentExpression);
+
+    return new OTree([expression, '[', index, ']']);
   }
 
   public nonNullExpression(node: ts.NonNullExpression, context: AstRenderer<C>): OTree {
@@ -315,5 +341,5 @@ const UNARY_OPS: { [op in ts.PrefixUnaryOperator]: string } = {
   [ts.SyntaxKind.PlusToken]: '+',
   [ts.SyntaxKind.MinusToken]: '-',
   [ts.SyntaxKind.TildeToken]: '~',
-  [ts.SyntaxKind.ExclamationToken]: '~',
+  [ts.SyntaxKind.ExclamationToken]: '!',
 };

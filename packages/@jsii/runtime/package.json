@@ -42,7 +42,7 @@
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/jest": "^27.0.2",
-    "@types/node": "^12.20.27",
+    "@types/node": "^12.20.28",
     "eslint": "^7.32.0",
     "jest": "^27.2.4",
     "jsii-build-tools": "^0.0.0",
@@ -51,7 +51,7 @@
     "source-map-loader": "^3.0.0",
     "ts-jest": "^27.0.5",
     "typescript": "~3.9.10",
-    "webpack": "^5.56.1",
+    "webpack": "^5.57.1",
     "webpack-cli": "^4.8.0"
   }
 }

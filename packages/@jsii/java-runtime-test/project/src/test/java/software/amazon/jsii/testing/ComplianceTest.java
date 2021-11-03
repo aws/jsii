@@ -11,6 +11,7 @@ import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.ReloadingClassLoader;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer;
+import software.amazon.jsii.tests.calculator.cdk16625.Cdk16625;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass.NestedStruct;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
@@ -1798,5 +1799,16 @@ public class ComplianceTest {
         };
 
         assertEquals(nowAsISO, entropy.increase());
+    }
+
+    @Test
+    public void classCanBeUsedWhenNotExpressedlyLoaded() {
+        final Cdk16625 subject = new Cdk16625() {
+            @Override
+            protected java.lang.Number unwrap(final IRandomNumberGenerator rng) {
+                return rng.next();
+            }
+        };
+        subject.test();
     }
 }

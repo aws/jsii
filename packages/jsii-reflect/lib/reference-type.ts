@@ -1,5 +1,6 @@
 import * as jsii from '@jsii/spec';
 
+import { memoized } from './_memoized';
 import { Assembly } from './assembly';
 import { InterfaceType } from './interface';
 import { Method } from './method';
@@ -20,6 +21,7 @@ export abstract class ReferenceType extends Type {
   /**
    * All the base interfaces that this interface extends.
    */
+  @memoized
   public get interfaces(): InterfaceType[] {
     return this.getInterfaces();
   }
@@ -27,6 +29,7 @@ export abstract class ReferenceType extends Type {
   /**
    * List of methods (without inherited methods).
    */
+  @memoized
   public get ownMethods(): Method[] {
     return Object.values(this.getMethods(false));
   }
@@ -34,6 +37,7 @@ export abstract class ReferenceType extends Type {
   /**
    * List of own and inherited methods
    */
+  @memoized
   public get allMethods(): Method[] {
     return Object.values(this.getMethods(true));
   }
@@ -41,6 +45,7 @@ export abstract class ReferenceType extends Type {
   /**
    * List of properties.
    */
+  @memoized
   public get ownProperties(): Property[] {
     return Object.values(this.getProperties());
   }
@@ -48,14 +53,17 @@ export abstract class ReferenceType extends Type {
   /**
    * List of own and inherited methods
    */
+  @memoized
   public get allProperties(): Property[] {
     return Object.values(this.getProperties(true));
   }
 
+  @memoized
   public get ownMembers(): TypeMember[] {
     return Object.values(this.getMembers(false));
   }
 
+  @memoized
   public get allMembers(): TypeMember[] {
     return Object.values(this.getMembers(true));
   }

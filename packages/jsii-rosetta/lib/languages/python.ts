@@ -1,6 +1,12 @@
 import * as ts from 'typescript';
 
-import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
+import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
+import {
+  propertiesOfStruct,
+  StructProperty,
+  structPropertyAcceptsUndefined,
+  analyzeStructType,
+} from '../jsii/jsii-utils';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
@@ -82,8 +88,18 @@ export interface PythonVisitorOptions {
 }
 
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
+
+  protected statementTerminator = '';
 
   public constructor(private readonly options: PythonVisitorOptions = {}) {
     super();
@@ -101,7 +117,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       .join('\n');
     const needsAdditionalTrailer = comment.hasTrailingNewLine;
 
-    return new OTree([hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
+    return new OTree([comment.isTrailing ? ' ' : '', hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
       // Make sure comment is rendered exactly once in the output tree, no
       // matter how many source nodes it is attached to.
       renderOnce: `comment-${comment.pos}`,
@@ -277,7 +293,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public parameterDeclaration(node: ts.ParameterDeclaration, context: PythonVisitorContext): OTree {
     const type = node.type && context.typeOfType(node.type);
 
-    if (context.currentContext.tailPositionParameter && type && isStructType(type)) {
+    if (context.currentContext.tailPositionParameter && type && analyzeStructType(type) !== false) {
       // Return the parameter that we exploded so that we can use this information
       // while translating the body.
       if (context.currentContext.returnExplodedParameter) {
@@ -293,7 +309,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
     const suffix = parameterAcceptsUndefined(node, type) ? '=None' : '';
 
-    return new OTree([context.convert(node.name), suffix]);
+    return new OTree([node.dotDotDotToken ? '*' : '', context.convert(node.name), suffix]);
 
     function renderStructProperty(prop: StructProperty): string {
       const sfx = structPropertyAcceptsUndefined(prop) ? '=None' : '';
@@ -336,6 +352,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     structType: ts.Type,
+    _definedInExample: boolean,
     context: PythonVisitorContext,
   ): OTree {
     if (context.currentContext.tailPositionArgument) {
@@ -345,12 +362,15 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    _valueType: ts.Type | undefined,
-    context: PythonVisitorContext,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
     return this.renderObjectLiteralExpression('{', '}', false, node, context);
+  }
+
+  public translateUnaryOperator(operator: ts.PrefixUnaryOperator) {
+    if (operator === ts.SyntaxKind.ExclamationToken) {
+      return 'not ';
+    }
+    return super.translateUnaryOperator(operator);
   }
 
   public renderObjectLiteralExpression(
@@ -418,6 +438,20 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, context: PythonVisitorContext): OTree {
+    let fallback = 'object';
+    if (node.type) {
+      fallback = node.type.getText();
+    }
+
+    if (!node.initializer) {
+      const type =
+        (node.type && context.typeOfType(node.type)) ||
+        (node.initializer && context.typeOfExpression(node.initializer));
+
+      const renderedType = type ? this.renderType(node, type, context, fallback) : fallback;
+      return new OTree(['# ', context.convert(node.name), ' is of type ', renderedType], []);
+    }
+
     return new OTree([context.convert(node.name), ' = ', context.convert(node.initializer)], [], {
       canBreakLine: true,
     });
@@ -626,6 +660,45 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     });
 
     return new OTree([], converted, { separator: ', ', indent: 4 });
+  }
+
+  /**
+   * Render a type.
+   *
+   * Not usually a thing in Python, but useful for declared variables.
+   */
+  private renderType(owningNode: ts.Node, type: ts.Type, renderer: PythonVisitorContext, fallback: string): string {
+    return doRender(determineJsiiType(renderer.typeChecker, type));
+
+    // eslint-disable-next-line consistent-return
+    function doRender(jsiiType: JsiiType): string {
+      switch (jsiiType.kind) {
+        case 'unknown':
+          return fallback;
+        case 'error':
+          renderer.report(owningNode, jsiiType.message);
+          return fallback;
+        case 'map':
+          return `dictionary of string to ${doRender(jsiiType.elementType)}`;
+        case 'list':
+          return `list of ${doRender(jsiiType.elementType)}`;
+        case 'namedType':
+          return jsiiType.name;
+        case 'builtIn':
+          switch (jsiiType.builtIn) {
+            case 'boolean':
+              return 'boolean';
+            case 'number':
+              return 'number';
+            case 'string':
+              return 'string';
+            case 'any':
+              return 'object';
+            default:
+              return jsiiType.builtIn;
+          }
+      }
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import * as jsii from '@jsii/spec';
 
+import { memoized } from './_memoized';
 import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
@@ -43,6 +44,7 @@ export abstract class Type implements Documentable, SourceLocatable {
   /**
    * The type within which this type is nested (if any).
    */
+  @memoized
   public get nestingParent(): Type | undefined {
     const ns = this.namespace;
     if (ns == null) {
@@ -137,6 +139,7 @@ export abstract class Type implements Documentable, SourceLocatable {
    *
    * The result will always be empty for types that are neither ClassType nor InterfaceType.
    */
+  @memoized
   public get allImplementations(): Type[] {
     if (this.isClassType() || this.isInterfaceType()) {
       return [

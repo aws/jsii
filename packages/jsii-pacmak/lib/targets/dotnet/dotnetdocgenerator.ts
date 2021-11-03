@@ -5,8 +5,8 @@ import {
   TargetLanguage,
   Translation,
   enforcesStrictMode,
-  typeScriptSnippetFromSource,
   markDownToXmlDoc,
+  ApiLocation,
 } from 'jsii-rosetta';
 import * as xmlbuilder from 'xmlbuilder';
 
@@ -44,7 +44,7 @@ export class DotNetDocGenerator {
    * Returns
    * Remarks (includes examples, links, deprecated)
    */
-  public emitDocs(obj: spec.Documentable): void {
+  public emitDocs(obj: spec.Documentable, apiLocation: ApiLocation): void {
     const docs = obj.docs;
 
     // The docs may be undefined at the method level but not the parameters level
@@ -76,7 +76,7 @@ export class DotNetDocGenerator {
     // Remarks does not use emitXmlDoc() because the remarks can contain code blocks
     // which are fenced with <code> tags, which would be escaped to
     // &lt;code&gt; if we used the xml builder.
-    const remarks = this.renderRemarks(docs);
+    const remarks = this.renderRemarks(docs, apiLocation);
     if (remarks.length > 0) {
       this.code.line('/// <remarks>');
       remarks.forEach((r) => this.code.line(`/// ${r}`.trimRight()));
@@ -85,18 +85,21 @@ export class DotNetDocGenerator {
 
     if (docs.example) {
       this.code.line('/// <example>');
-      this.emitXmlDoc('code', this.convertExample(docs.example));
+      this.emitXmlDoc('code', this.convertExample(docs.example, apiLocation));
       this.code.line('/// </example>');
     }
   }
 
-  public emitMarkdownAsRemarks(markdown: string | undefined) {
+  public emitMarkdownAsRemarks(
+    markdown: string | undefined,
+    apiLocation: ApiLocation,
+  ) {
     if (!markdown) {
       return;
     }
 
     const translated = markDownToXmlDoc(
-      this.convertSamplesInMarkdown(markdown),
+      this.convertSamplesInMarkdown(markdown, apiLocation),
     );
     const lines = translated.split('\n');
 
@@ -110,12 +113,12 @@ export class DotNetDocGenerator {
   /**
    * Returns the lines that should go into the <remarks> section
    */
-  private renderRemarks(docs: spec.Docs): string[] {
+  private renderRemarks(docs: spec.Docs, apiLocation: ApiLocation): string[] {
     const ret: string[] = [];
 
     if (docs.remarks) {
       const translated = markDownToXmlDoc(
-        this.convertSamplesInMarkdown(docs.remarks),
+        this.convertSamplesInMarkdown(docs.remarks, apiLocation),
       );
       ret.push(...translated.split('\n'));
       ret.push('');
@@ -161,24 +164,19 @@ export class DotNetDocGenerator {
     }
   }
 
-  private convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(
+  private convertExample(example: string, apiLocation: ApiLocation): string {
+    const translated = this.rosetta.translateExample(
+      apiLocation,
       example,
-      'example',
+      TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
     );
-    const translated = this.rosetta.translateSnippet(
-      snippet,
-      TargetLanguage.CSHARP,
-    );
-    if (!translated) {
-      return example;
-    }
     return this.prefixDisclaimer(translated);
   }
 
-  private convertSamplesInMarkdown(markdown: string): string {
+  private convertSamplesInMarkdown(markdown: string, api: ApiLocation): string {
     return this.rosetta.translateSnippetsInMarkdown(
+      api,
       markdown,
       TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),

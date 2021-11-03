@@ -8,6 +8,9 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├─┬ cdk16625
+ │   │ └─┬ submodules
+ │   │   └── donotimport
  │   ├── composition
  │   ├── module2530
  │   ├── module2617
@@ -55,6 +58,9 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├─┬ cdk16625
+ │   │ └─┬ submodules
+ │   │   └── donotimport
  │   ├── composition
  │   ├── module2530
  │   ├── module2617
@@ -102,6 +108,9 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├─┬ cdk16625
+ │   │ └─┬ submodules
+ │   │   └── donotimport
  │   ├── composition
  │   ├── module2530
  │   ├── module2617
@@ -219,6 +228,32 @@ exports[`showAll 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: string
+ │ │ ├─┬ cdk16625
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ donotimport
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class UnimportedSubmoduleType
+ │ │ │ │       ├── interfaces: IRandomNumberGenerator
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├─┬ <initializer>(value) initializer
+ │ │ │ │         │ └─┬ parameters
+ │ │ │ │         │   └─┬ value
+ │ │ │ │         │     └── type: number
+ │ │ │ │         └─┬ next() method
+ │ │ │ │           └── returns: number
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class Cdk16625
+ │ │ │     └─┬ members
+ │ │ │       ├── <initializer>() initializer
+ │ │ │       ├─┬ test() method
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ unwrap(gen) method
+ │ │ │         ├── abstract
+ │ │ │         ├── protected
+ │ │ │         ├─┬ parameters
+ │ │ │         │ └─┬ gen
+ │ │ │         │   └── type: jsii-calc.IRandomNumberGenerator
+ │ │ │         └── returns: number
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation
@@ -3359,6 +3394,9 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├─┬ cdk16625
+ │   │ └─┬ submodules
+ │   │   └── donotimport
  │   ├── composition
  │   ├── module2530
  │   ├── module2617
@@ -3419,6 +3457,13 @@ exports[`types 1`] = `
  │ │ │   ├── class ClassWithSelfKwarg
  │ │ │   ├── interface IInterfaceWithSelf
  │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ cdk16625
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ donotimport
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class UnimportedSubmoduleType
+ │ │ │ └─┬ types
+ │ │ │   └── class Cdk16625
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
