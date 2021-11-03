@@ -1,14 +1,15 @@
 import * as os from 'os';
 import * as path from 'path';
-import * as ts from 'typescript';
 import * as workerpool from 'workerpool';
 
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
+import { TypeFingerprinter } from '../jsii/fingerprinting';
+import { TARGET_LANGUAGES } from '../languages';
 import * as logging from '../logging';
-import { TypeScriptSnippet } from '../snippet';
+import { TypeScriptSnippet, completeSource } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
-import { RosettaDiagnostic, Translator, rosettaDiagFromTypescript } from '../translate';
+import { RosettaDiagnostic, Translator, makeRosettaDiagnostic } from '../translate';
 import type { TranslateBatchRequest, TranslateBatchResponse } from './extract_worker';
 
 export interface ExtractResult {
@@ -17,11 +18,25 @@ export interface ExtractResult {
 }
 
 export interface ExtractOptions {
-  outputFile: string;
-  includeCompilerDiagnostics: boolean;
-  validateAssemblies: boolean;
-  only?: string[];
+  readonly outputFile: string;
+  readonly includeCompilerDiagnostics: boolean;
+  readonly validateAssemblies: boolean;
+  readonly only?: string[];
+
+  /**
+   * A tablet file to be loaded and used as a source for caching
+   */
+  readonly cacheTabletFile?: string;
+
+  /**
+   * Call the given translation function on the snippets.
+   *
+   * Optional, only for testing. Uses `translateAll` by default.
+   */
+  readonly translationFunction?: TranslationFunc;
 }
+
+type TranslationFunc = typeof translateAll;
 
 /**
  * Extract all samples from the given assemblies into a tablet
@@ -35,31 +50,45 @@ export async function extractSnippets(
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies);
+  const fingerprinter = new TypeFingerprinter(assemblies.map((a) => a.assembly));
 
-  let snippets = allTypeScriptSnippets(assemblies, loose);
+  let snippets = Array.from(allTypeScriptSnippets(assemblies, loose));
   if (only.length > 0) {
     snippets = filterSnippets(snippets, only);
   }
 
   const tablet = new LanguageTablet();
 
-  logging.info('Translating');
-  const startTime = Date.now();
-
-  const result = await translateAll(snippets, options.includeCompilerDiagnostics);
-
-  for (const snippet of result.translatedSnippets) {
-    tablet.addSnippet(snippet);
+  if (options.cacheTabletFile) {
+    await reuseTranslationsFromCache(snippets, tablet, options.cacheTabletFile, fingerprinter);
   }
 
-  const delta = (Date.now() - startTime) / 1000;
-  logging.info(
-    `Converted ${tablet.count} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`,
-  );
+  const translateCount = snippets.length;
+  const diagnostics = [];
+  if (translateCount > 0) {
+    logging.info('Translating');
+    const startTime = Date.now();
+
+    const result = await (options.translationFunction ?? translateAll)(snippets, options.includeCompilerDiagnostics);
+
+    for (const snippet of result.translatedSnippets) {
+      const fingerprinted = snippet.withFingerprint(fingerprinter.fingerprintAll(snippet.fqnsReferenced()));
+      tablet.addSnippet(fingerprinted);
+    }
+
+    const delta = (Date.now() - startTime) / 1000;
+    logging.info(
+      `Translated ${translateCount} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`,
+    );
+    diagnostics.push(...result.diagnostics);
+  } else {
+    logging.info('Nothing left to translate');
+  }
+
   logging.info(`Saving language tablet to ${options.outputFile}`);
   await tablet.save(options.outputFile);
 
-  return { diagnostics: result.diagnostics, tablet };
+  return { diagnostics, tablet };
 }
 
 interface TranslateAllResult {
@@ -70,12 +99,8 @@ interface TranslateAllResult {
 /**
  * Only yield the snippets whose id exists in a whitelist
  */
-function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: string[]) {
-  for (const t of ts) {
-    if (includeIds.includes(snippetKey(t))) {
-      yield t;
-    }
-  }
+function filterSnippets(ts: TypeScriptSnippet[], includeIds: string[]) {
+  return ts.filter((t) => includeIds.includes(snippetKey(t)));
 }
 
 /**
@@ -84,7 +109,7 @@ function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: st
  * We are now always using workers, as we are targeting Node 12+.
  */
 async function translateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
+  snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
   return workerBasedTranslateAll(snippets, includeCompilerDiagnostics);
@@ -97,32 +122,27 @@ async function translateAll(
  * snippets in parallel.
  */
 export function singleThreadedTranslateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
+  snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): TranslateAllResult {
   const translatedSnippets = new Array<TranslatedSnippet>();
 
-  const failures = new Array<ts.Diagnostic>();
+  const failures = new Array<RosettaDiagnostic>();
 
   const translator = new Translator(includeCompilerDiagnostics);
   for (const block of snippets) {
     try {
       translatedSnippets.push(translator.translate(block));
     } catch (e) {
-      failures.push({
-        category: ts.DiagnosticCategory.Error,
-        code: 999,
-        messageText: `rosetta: error translating snippet: ${e}\n${e.stack}\n${block.completeSource}`,
-        file: undefined,
-        start: undefined,
-        length: undefined,
-      });
+      failures.push(
+        makeRosettaDiagnostic(true, `rosetta: error translating snippet: ${e}\n${e.stack}\n${block.completeSource}`),
+      );
     }
   }
 
   return {
     translatedSnippets,
-    diagnostics: [...translator.diagnostics, ...failures].map(rosettaDiagFromTypescript),
+    diagnostics: [...translator.diagnostics, ...failures],
   };
 }
 
@@ -137,7 +157,7 @@ export function singleThreadedTranslateAll(
  * the script we may assume that 'worker_threads' successfully imports).
  */
 async function workerBasedTranslateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
+  snippets: TypeScriptSnippet[],
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
   // Use about half the advertised cores because hyperthreading doesn't seem to
@@ -190,4 +210,66 @@ function batchSnippets(
   }
 
   return ret;
+}
+
+/**
+ * Try and read as many snippet translations from the cache as possible, adding them to the target tablet
+ *
+ * Removes the already translated snippets from the input array.
+ */
+async function reuseTranslationsFromCache(
+  snippets: TypeScriptSnippet[],
+  tablet: LanguageTablet,
+  cacheFile: string,
+  fingerprinter: TypeFingerprinter,
+) {
+  try {
+    const cache = await LanguageTablet.fromFile(cacheFile);
+
+    let snippetsFromCacheCtr = 0;
+    let i = 0;
+    while (i < snippets.length) {
+      const fromCache = tryReadFromCache(snippets[i], cache, fingerprinter);
+      if (fromCache) {
+        tablet.addSnippet(fromCache);
+        snippets.splice(i, 1);
+        snippetsFromCacheCtr += 1;
+      } else {
+        i += 1;
+      }
+    }
+
+    logging.info(`Reused ${snippetsFromCacheCtr} translations from cache ${cacheFile}`);
+  } catch (e) {
+    logging.warn(`Error reading cache ${cacheFile}: ${e.message}`);
+  }
+}
+
+/**
+ * Try to find the translation for the given snippet in the given cache
+ *
+ * Rules for cacheability are:
+ * - id is the same (== visible source didn't change)
+ * - complete source is the same (== fixture didn't change)
+ * - all types involved have the same fingerprint (== API surface didn't change)
+ * - the versions of all translations match the versions on the available translators (== translator itself didn't change)
+ *
+ * For the versions check: we could have selectively picked some translations
+ * from the cache while performing others. However, since the big work is in
+ * parsing the TypeScript, and the rendering itself is peanutes (assumption), it
+ * doesn't really make a lot of difference.  So, for simplification's sake,
+ * we'll regen all translations if there's at least one that's outdated.
+ */
+function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTablet, fingerprinter: TypeFingerprinter) {
+  const fromCache = cache.tryGetSnippet(snippetKey(sourceSnippet));
+
+  const cacheable =
+    fromCache &&
+    completeSource(sourceSnippet) === fromCache.snippet.fullSource &&
+    Object.entries(TARGET_LANGUAGES).every(
+      ([lang, translator]) => fromCache.snippet.translations?.[lang]?.version === translator.version,
+    ) &&
+    fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) === fromCache.snippet.fqnsFingerprint;
+
+  return cacheable ? fromCache : undefined;
 }

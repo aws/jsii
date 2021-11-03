@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.42.0](https://github.com/aws/jsii/compare/v1.41.0...v1.42.0) (2021-11-02)
+
+
+### Features
+
+* **rosetta:** reuse translation results from a cache ([#3101](https://github.com/aws/jsii/issues/3101)) ([b08a50e](https://github.com/aws/jsii/commit/b08a50e381351afab093bbf8e78fffd5a4cd58c0))
+
+
+### Bug Fixes
+
+* **jsii:** deprecation warnings erroneously warn for duplicate enum values ([#3105](https://github.com/aws/jsii/issues/3105)) ([c477422](https://github.com/aws/jsii/commit/c4774225b0f134cdb3705eb95905c0f7937fa8c4)), closes [#3103](https://github.com/aws/jsii/issues/3103)
+* **jsii:** generated deprecation-warning code is platform dependent ([#3096](https://github.com/aws/jsii/issues/3096)) ([9aa6f02](https://github.com/aws/jsii/commit/9aa6f022734ebcc57ef06fbf5c437479e49b408c))
+* **jsii:** unexpected deprecated warnings when a deprecated interface is extended ([#3112](https://github.com/aws/jsii/issues/3112)) ([bd7e07c](https://github.com/aws/jsii/commit/bd7e07c562a06a0d5a25f58a0d0307a61c23a554)), closes [#3111](https://github.com/aws/jsii/issues/3111)
+* **pacmak:** '*/' not escaped in JavaDocs ([#3104](https://github.com/aws/jsii/issues/3104)) ([7ab109a](https://github.com/aws/jsii/commit/7ab109a376911d8034d73abd7f392df0e746ba37))
+* **rosetta:** arrays aren't handled properly ([#3098](https://github.com/aws/jsii/issues/3098)) ([de4648b](https://github.com/aws/jsii/commit/de4648b6ba25154afcac07e99c964a0457b3a9a0))
+
 ## [1.41.0](https://github.com/aws/jsii/compare/v1.40.0...v1.41.0) (2021-10-27)
 
 

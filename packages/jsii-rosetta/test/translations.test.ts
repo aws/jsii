@@ -5,6 +5,7 @@ import { JavaVisitor, PythonVisitor, SnippetTranslator } from '../lib';
 import { CSharpVisitor } from '../lib/languages/csharp';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import { AstHandler } from '../lib/renderer';
+import { testSnippetLocation } from './testutil';
 
 // This iterates through all subdirectories of this directory,
 // and creates a Jest test for each, by translating the TypeScript file it finds there,
@@ -64,7 +65,7 @@ for (const typeScriptTest of typeScriptTests) {
     beforeAll(() => {
       translator = new SnippetTranslator({
         visibleSource: typeScriptSource,
-        where: typeScriptTest,
+        location: testSnippetLocation(typeScriptTest),
       });
     });
 

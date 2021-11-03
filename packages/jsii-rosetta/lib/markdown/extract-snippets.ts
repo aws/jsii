@@ -1,7 +1,7 @@
 import * as cm from 'commonmark';
 
 import { visitCommonMarkTree } from '../markdown/markdown';
-import { TypeScriptSnippet } from '../snippet';
+import { TypeScriptSnippet, ApiLocation } from '../snippet';
 import { ReplaceTypeScriptTransform } from './replace-typescript-transform';
 import { CodeBlock } from './types';
 
@@ -9,7 +9,7 @@ export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefi
 
 export function extractTypescriptSnippetsFromMarkdown(
   markdown: string,
-  wherePrefix: string,
+  location: ApiLocation,
   strict: boolean,
 ): TypeScriptSnippet[] {
   const parser = new cm.Parser();
@@ -19,7 +19,7 @@ export function extractTypescriptSnippetsFromMarkdown(
 
   visitCommonMarkTree(
     doc,
-    new ReplaceTypeScriptTransform(wherePrefix, strict, (ts) => {
+    new ReplaceTypeScriptTransform(location, strict, (ts) => {
       ret.push(ts);
       return undefined;
     }),

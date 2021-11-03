@@ -159,7 +159,7 @@ function mapFqns(tab: LanguageTablet): Record<string, TranslatedSnippet[]> {
 
   for (const key of tab.snippetKeys) {
     const snippet = tab.tryGetSnippet(key)!;
-    for (const fqn of snippet.fqnsReferenced) {
+    for (const fqn of snippet.snippet.fqnsReferenced ?? []) {
       fqnsReferencedMap.add(fqn, snippet);
     }
   }

@@ -160,7 +160,7 @@ export class DotNetGenerator extends Generator {
         this.assembly.name,
         jsiiNs,
       );
-      this.emitNamespaceDocs(dotnetNs, submodule);
+      this.emitNamespaceDocs(dotnetNs, jsiiNs, submodule);
     }
   }
 
@@ -174,7 +174,7 @@ export class DotNetGenerator extends Generator {
     const namespace = this.namespaceFor(this.assembly, ifc);
     this.openFileIfNeeded(interfaceName, namespace, this.isNested(ifc));
 
-    this.dotnetDocGenerator.emitDocs(ifc);
+    this.dotnetDocGenerator.emitDocs(ifc, { api: 'type', fqn: ifc.fqn });
     this.dotnetRuntimeGenerator.emitAttributesForInterface(ifc);
 
     if (implementations.length > 0) {
@@ -204,7 +204,11 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
-    this.dotnetDocGenerator.emitDocs(method);
+    this.dotnetDocGenerator.emitDocs(method, {
+      api: 'member',
+      fqn: ifc.fqn,
+      memberName: method.name,
+    });
     this.dotnetRuntimeGenerator.emitAttributesForMethod(ifc, method);
     const returnType = method.returns
       ? this.typeresolver.toDotNetType(method.returns.type)
@@ -243,7 +247,11 @@ export class DotNetGenerator extends Generator {
     }
 
     this.emitNewLineIfNecessary();
-    this.dotnetDocGenerator.emitDocs(prop);
+    this.dotnetDocGenerator.emitDocs(prop, {
+      api: 'member',
+      fqn: ifc.fqn,
+      memberName: prop.name,
+    });
     this.dotnetRuntimeGenerator.emitAttributesForProperty(prop);
 
     const propType = this.typeresolver.toDotNetType(prop.type);
@@ -308,7 +316,11 @@ export class DotNetGenerator extends Generator {
 
     const implementsExpr = ` : ${baseTypeNames.join(', ')}`;
 
-    this.dotnetDocGenerator.emitDocs(cls);
+    this.dotnetDocGenerator.emitDocs(cls, {
+      api: 'type',
+      fqn: cls.fqn,
+    });
+
     this.dotnetRuntimeGenerator.emitAttributesForClass(cls);
 
     this.code.openBlock(
@@ -320,7 +332,10 @@ export class DotNetGenerator extends Generator {
     let parametersBase = '';
     const initializer = cls.initializer;
     if (initializer) {
-      this.dotnetDocGenerator.emitDocs(initializer);
+      this.dotnetDocGenerator.emitDocs(initializer, {
+        api: 'initializer',
+        fqn: cls.fqn,
+      });
       this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(
         initializer,
       );
@@ -452,7 +467,10 @@ export class DotNetGenerator extends Generator {
     const namespace = this.namespaceFor(this.assembly, enm);
     this.openFileIfNeeded(enumName, namespace, this.isNested(enm));
     this.emitNewLineIfNecessary();
-    this.dotnetDocGenerator.emitDocs(enm);
+    this.dotnetDocGenerator.emitDocs(enm, {
+      api: 'type',
+      fqn: enm.fqn,
+    });
     this.dotnetRuntimeGenerator.emitAttributesForEnum(enm, enumName);
     this.code.openBlock(`public enum ${enm.name}`);
   }
@@ -465,7 +483,11 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) {
-    this.dotnetDocGenerator.emitDocs(member);
+    this.dotnetDocGenerator.emitDocs(member, {
+      api: 'member',
+      fqn: enm.fqn,
+      memberName: member.name,
+    });
     const enumMemberName = this.nameutils.convertEnumMemberName(member.name);
     this.dotnetRuntimeGenerator.emitAttributesForEnumMember(
       enumMemberName,
@@ -544,7 +566,11 @@ export class DotNetGenerator extends Generator {
       method,
     )})`;
 
-    this.dotnetDocGenerator.emitDocs(method);
+    this.dotnetDocGenerator.emitDocs(method, {
+      api: 'member',
+      fqn: cls.fqn,
+      memberName: method.name,
+    });
     this.dotnetRuntimeGenerator.emitAttributesForMethod(
       cls,
       method /*, emitForProxyOrDatatype*/,
@@ -669,7 +695,10 @@ export class DotNetGenerator extends Generator {
     this.openFileIfNeeded(name, namespace, isNested);
 
     this.code.line();
-    this.dotnetDocGenerator.emitDocs(ifc);
+    this.dotnetDocGenerator.emitDocs(ifc, {
+      api: 'type',
+      fqn: ifc.fqn,
+    });
     this.dotnetRuntimeGenerator.emitAttributesForInterfaceProxy(ifc);
 
     const interfaceFqn = this.typeresolver.toNativeFqn(ifc.fqn);
@@ -758,7 +787,10 @@ export class DotNetGenerator extends Generator {
       this.code.line();
     }
 
-    this.dotnetDocGenerator.emitDocs(ifc);
+    this.dotnetDocGenerator.emitDocs(ifc, {
+      api: 'type',
+      fqn: ifc.fqn,
+    });
     const suffix = `: ${this.typeresolver.toNativeFqn(ifc.fqn)}`;
     this.dotnetRuntimeGenerator.emitAttributesForInterfaceDatatype(ifc);
     this.code.openBlock(`public class ${name} ${suffix}`);
@@ -888,7 +920,11 @@ export class DotNetGenerator extends Generator {
     const staticKeyWord = prop.static ? 'static ' : '';
     const propName = this.nameutils.convertPropertyName(prop.name);
 
-    this.dotnetDocGenerator.emitDocs(prop);
+    this.dotnetDocGenerator.emitDocs(prop, {
+      api: 'member',
+      fqn: cls.fqn,
+      memberName: prop.name,
+    });
     if (prop.optional) {
       this.code.line('[JsiiOptional]');
     }
@@ -969,7 +1005,11 @@ export class DotNetGenerator extends Generator {
     this.flagFirstMemberWritten(true);
     const propType = this.typeresolver.toDotNetType(prop.type);
     const isOptional = prop.optional ? '?' : '';
-    this.dotnetDocGenerator.emitDocs(prop);
+    this.dotnetDocGenerator.emitDocs(prop, {
+      api: 'member',
+      fqn: cls.fqn,
+      memberName: prop.name,
+    });
     this.dotnetRuntimeGenerator.emitAttributesForProperty(prop);
     const access = this.renderAccessLevel(prop);
     const propName = this.nameutils.convertPropertyName(prop.name);
@@ -1086,6 +1126,7 @@ export class DotNetGenerator extends Generator {
   private emitAssemblyDocs() {
     this.emitNamespaceDocs(
       this.assembly.targets!.dotnet!.namespace,
+      this.assembly.name,
       this.assembly,
     );
   }
@@ -1102,7 +1143,11 @@ export class DotNetGenerator extends Generator {
    * In any case, we need a place to attach the docs where they can be transported around,
    * might as well be this method.
    */
-  private emitNamespaceDocs(namespace: string, docSource: spec.Targetable) {
+  private emitNamespaceDocs(
+    namespace: string,
+    jsiiFqn: string,
+    docSource: spec.Targetable,
+  ) {
     if (!docSource.readme) {
       return;
     }
@@ -1110,7 +1155,10 @@ export class DotNetGenerator extends Generator {
     const className = 'NamespaceDoc';
     this.openFileIfNeeded(className, namespace, false, false);
 
-    this.dotnetDocGenerator.emitMarkdownAsRemarks(docSource.readme.markdown);
+    this.dotnetDocGenerator.emitMarkdownAsRemarks(docSource.readme.markdown, {
+      api: 'moduleReadme',
+      moduleFqn: jsiiFqn,
+    });
     this.emitHideAttribute();
     // Traditionally this class is made 'internal', but that interacts poorly with DocFX's default filters
     // which aren't overridable. So we make it public, but use attributes to hide it from users' IntelliSense,

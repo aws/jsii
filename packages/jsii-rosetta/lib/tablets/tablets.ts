@@ -3,23 +3,32 @@ import * as path from 'path';
 
 import { TargetLanguage } from '../languages';
 import { TypeScriptSnippet } from '../snippet';
+import { mapValues } from '../util';
 import { snippetKey } from './key';
-import { TabletSchema, TranslatedSnippetSchema, TranslationSchema, ORIGINAL_SNIPPET_KEY } from './schema';
+import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const TOOL_VERSION = require('../../package.json').version;
 
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
 
+export const CURRENT_SCHEMA_VERSION = '2';
+
 /**
  * A tablet containing various snippets in multiple languages
  */
 export class LanguageTablet {
+  public static async fromFile(filename: string) {
+    const ret = new LanguageTablet();
+    await ret.load(filename);
+    return ret;
+  }
+
   private readonly snippets: Record<string, TranslatedSnippet> = {};
 
   public addSnippet(snippet: TranslatedSnippet) {
     const existingSnippet = this.snippets[snippet.key];
-    this.snippets[snippet.key] = existingSnippet ? existingSnippet.merge(snippet) : snippet;
+    this.snippets[snippet.key] = existingSnippet ? existingSnippet.mergeTranslations(snippet) : snippet;
   }
 
   public get snippetKeys() {
@@ -36,14 +45,17 @@ export class LanguageTablet {
   }
 
   public async load(filename: string) {
-    const obj = await fs.readJson(filename, { encoding: 'utf-8' });
+    const obj = (await fs.readJson(filename, { encoding: 'utf-8' })) as TabletSchema;
 
     if (!obj.toolVersion || !obj.snippets) {
       throw new Error(`File '${filename}' does not seem to be a Tablet file`);
     }
-    if (obj.toolVersion !== TOOL_VERSION && TOOL_VERSION !== '0.0.0') {
+
+    if (obj.version !== CURRENT_SCHEMA_VERSION) {
+      // If we're ever changing the schema version in a backwards incompatible way,
+      // do upconversion here.
       throw new Error(
-        `Tablet file '${filename}' has been created with version '${obj.toolVersion}', cannot read with current version '${TOOL_VERSION}'`,
+        `Tablet file '${filename}' has schema version '${obj.version}', this program expects '${CURRENT_SCHEMA_VERSION}'`,
       );
     }
 
@@ -67,60 +79,43 @@ export class LanguageTablet {
 
   private toSchema(): TabletSchema {
     return {
-      version: '1',
+      version: CURRENT_SCHEMA_VERSION,
       toolVersion: TOOL_VERSION,
-      snippets: mapValues(this.snippets, (s) => s.toSchema()),
+      snippets: mapValues(this.snippets, (s) => s.snippet),
     };
   }
 }
 
+/**
+ * Mutable operations on an underlying TranslatedSnippetSchema
+ */
 export class TranslatedSnippet {
   public static fromSchema(schema: TranslatedSnippetSchema) {
-    const ret = new TranslatedSnippet();
-    Object.assign(ret.translations, schema.translations);
-    Object.assign(ret._fqnsReferenced, schema.fqnsReferenced);
-    Object.assign(ret._syntaxKindCounter, schema.syntaxKindCounter);
-    ret._didCompile = schema.didCompile;
-    ret._where = schema.where;
-    ret.fullSource = schema.fullSource;
-    return ret;
+    if (!schema.translations[ORIGINAL_SNIPPET_KEY]) {
+      throw new Error(`Input schema must have '${ORIGINAL_SNIPPET_KEY}' key set in translations`);
+    }
+    return new TranslatedSnippet(schema);
   }
 
-  public static fromSnippet(original: TypeScriptSnippet, didCompile?: boolean) {
-    const ret = new TranslatedSnippet();
-    Object.assign(ret.translations, {
-      [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource },
+  public static fromTypeScript(original: TypeScriptSnippet, didCompile?: boolean) {
+    return new TranslatedSnippet({
+      translations: {
+        [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource, version: '0' },
+      },
+      didCompile: didCompile,
+      location: original.location,
+      fullSource: original.completeSource,
     });
-    ret._didCompile = didCompile;
-    ret._where = original.where;
-    ret.fullSource = original.completeSource;
-    return ret;
   }
 
-  private readonly translations: Record<string, TranslationSchema> = {};
-  private readonly _fqnsReferenced = new Array<string>();
-  private readonly _syntaxKindCounter: Record<string, number> = {};
+  public readonly snippet: TranslatedSnippetSchema;
+
+  private readonly _snippet: Mutable<TranslatedSnippetSchema>;
   private _key?: string;
-  private _didCompile?: boolean;
-  private _where = '';
-  private fullSource?: string;
 
-  private constructor() {}
-
-  public get didCompile() {
-    return this._didCompile;
-  }
-
-  public get where() {
-    return this._where;
-  }
-
-  public get fqnsReferenced() {
-    return this._fqnsReferenced;
-  }
-
-  public get syntaxKindCounter() {
-    return this._syntaxKindCounter;
+  private constructor(snippet: TranslatedSnippetSchema) {
+    this._snippet = { ...snippet };
+    this.snippet = this._snippet;
   }
 
   public get key() {
@@ -130,82 +125,65 @@ export class TranslatedSnippet {
     return this._key;
   }
 
-  public asTypescriptSnippet(): TypeScriptSnippet {
-    return {
-      visibleSource: this.translations[ORIGINAL_SNIPPET_KEY].source,
-      where: this.where,
-    };
-  }
-
   public get originalSource(): Translation {
     return {
-      source: this.translations[ORIGINAL_SNIPPET_KEY].source,
+      source: this.snippet.translations[ORIGINAL_SNIPPET_KEY].source,
       language: 'typescript',
-      didCompile: this.didCompile,
+      didCompile: this.snippet.didCompile,
     };
   }
 
-  public addTranslatedSource(language: TargetLanguage, translation: string): Translation {
-    this.translations[language] = { source: translation };
+  public addTranslation(language: TargetLanguage, translation: string, version: string): Translation {
+    this.snippet.translations[language] = { source: translation, version };
 
     return {
       source: translation,
       language,
-      didCompile: this.didCompile,
+      didCompile: this.snippet.didCompile,
     };
   }
 
-  public addFqnsReferenced(fqnsReferenced: string[]) {
-    this.fqnsReferenced.push(...fqnsReferenced);
+  public fqnsReferenced() {
+    return this._snippet.fqnsReferenced ?? [];
   }
 
   public addSyntaxKindCounter(syntaxKindCounter: Record<string, number>) {
+    if (!this._snippet.syntaxKindCounter) {
+      this._snippet.syntaxKindCounter = {};
+    }
     for (const [key, value] of Object.entries(syntaxKindCounter)) {
-      this.syntaxKindCounter[key] = value + (this.syntaxKindCounter[key] ?? 0);
+      const x = this._snippet.syntaxKindCounter[key] ?? 0;
+      this._snippet.syntaxKindCounter[key] = value + x;
     }
   }
 
-  public setFullSource(fullSource: string) {
-    this.fullSource = fullSource;
-  }
-
   public get languages(): TargetLanguage[] {
-    return Object.keys(this.translations).filter((x) => x !== ORIGINAL_SNIPPET_KEY) as TargetLanguage[];
+    return Object.keys(this.snippet.translations).filter((x) => x !== ORIGINAL_SNIPPET_KEY) as TargetLanguage[];
   }
 
   public get(language: TargetLanguage): Translation | undefined {
-    const t = this.translations[language];
-    return t && { source: t.source, language, didCompile: this.didCompile };
+    const t = this.snippet.translations[language];
+    return t && { source: t.source, language, didCompile: this.snippet.didCompile };
   }
 
-  public merge(other: TranslatedSnippet) {
-    const ret = new TranslatedSnippet();
-    Object.assign(ret.translations, this.translations, other.translations);
-    ret._didCompile = this.didCompile;
-    ret._where = this.where;
-    ret.fqnsReferenced.splice(
-      0,
-      ret.fqnsReferenced.length,
-      ...new Set([...this.fqnsReferenced, ...other.fqnsReferenced]),
-    );
-    return ret;
+  public mergeTranslations(other: TranslatedSnippet) {
+    return new TranslatedSnippet({
+      ...this.snippet,
+      translations: { ...this.snippet.translations, ...other.snippet.translations },
+    });
   }
 
-  public toTypeScriptSnippet() {
+  public withFingerprint(fp: string) {
+    return new TranslatedSnippet({
+      ...this.snippet,
+      fqnsFingerprint: fp,
+    });
+  }
+
+  private asTypescriptSnippet(): TypeScriptSnippet {
     return {
-      source: this.originalSource,
-      where: this.where,
-    };
-  }
-
-  public toSchema(): TranslatedSnippetSchema {
-    return {
-      translations: this.translations,
-      didCompile: this.didCompile,
-      where: this.where,
-      fqnsReferenced: this.fqnsReferenced,
-      syntaxKindCounter: this.syntaxKindCounter,
-      fullSource: this.fullSource,
+      visibleSource: this.snippet.translations[ORIGINAL_SNIPPET_KEY].source,
+      location: this.snippet.location,
     };
   }
 }
@@ -216,10 +194,4 @@ export interface Translation {
   didCompile?: boolean;
 }
 
-function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<string, B> {
-  const ret: Record<string, B> = {};
-  for (const [key, value] of Object.entries(xs)) {
-    ret[key] = fn(value);
-  }
-  return ret;
-}
+type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };

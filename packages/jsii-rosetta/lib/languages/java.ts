@@ -93,6 +93,14 @@ interface InsideTypeDeclaration {
 type JavaRenderer = AstRenderer<JavaContext>;
 
 export class JavaVisitor extends DefaultVisitor<JavaContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.JAVA;
   public readonly defaultContext = {};
 

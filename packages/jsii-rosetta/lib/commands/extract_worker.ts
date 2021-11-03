@@ -20,10 +20,10 @@ export interface TranslateBatchResponse {
 }
 
 function translateBatch(request: TranslateBatchRequest): TranslateBatchResponse {
-  const result = singleThreadedTranslateAll(request.snippets[Symbol.iterator](), request.includeCompilerDiagnostics);
+  const result = singleThreadedTranslateAll(request.snippets, request.includeCompilerDiagnostics);
 
   return {
-    translatedSchemas: result.translatedSnippets.map((s) => s.toSchema()),
+    translatedSchemas: result.translatedSnippets.map((s) => s.snippet),
     diagnostics: result.diagnostics,
   };
 }
