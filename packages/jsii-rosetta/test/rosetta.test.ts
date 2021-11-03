@@ -3,10 +3,11 @@ import * as mockfs from 'mock-fs';
 import { Rosetta, LanguageTablet, TranslatedSnippet, TypeScriptSnippet, DEFAULT_TABLET_NAME } from '../lib';
 import { TargetLanguage } from '../lib/languages';
 import { fakeAssembly } from './jsii/fake-assembly';
+import { testSnippetLocation } from './testutil';
 
 const SAMPLE_CODE: TypeScriptSnippet = {
   visibleSource: 'callThisFunction();',
-  where: 'sample',
+  location: testSnippetLocation('sample'),
 };
 
 test('Rosetta object can do live translation', () => {
@@ -76,6 +77,7 @@ test('Rosetta object can do translation and annotation of snippets in MarkDown',
 
   // WHEN
   const translated = rosetta.translateSnippetsInMarkdown(
+    { api: 'file', fileName: 'markdown' },
     [
       '# MarkDown Translation',
       '',
@@ -163,9 +165,9 @@ describe('with mocked filesystem', () => {
 });
 
 function makeSnippet(original: TypeScriptSnippet, translations: Record<TargetLanguage, string>) {
-  const snippet = TranslatedSnippet.fromSnippet(original);
+  const snippet = TranslatedSnippet.fromTypeScript(original);
   for (const [key, value] of Object.entries(translations)) {
-    snippet.addTranslatedSource(key as TargetLanguage, value);
+    snippet.addTranslation(key as TargetLanguage, value, 'x');
   }
   return snippet;
 }

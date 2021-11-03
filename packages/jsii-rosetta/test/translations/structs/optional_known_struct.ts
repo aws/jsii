@@ -1,4 +1,5 @@
 /// !hide
+/// fake-from-jsii
 class Vpc {
   constructor(_something: any, id: string, props?: VpcProps) { }
 }

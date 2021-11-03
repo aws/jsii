@@ -11,7 +11,7 @@ import {
   scanText,
 } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
-import { typeOfExpression } from './typescript/types';
+import { typeOfExpression, inferredTypeOfExpression } from './typescript/types';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)
@@ -138,10 +138,11 @@ export class AstRenderer<C> {
    * optional), `undefined` will be removed from the union.
    *
    * (Will return undefined for object literals not unified with a declared type)
+   *
+   * @deprecated Use `inferredTypeOfExpression` instead
    */
   public inferredTypeOfExpression(node: ts.Expression) {
-    const type = this.typeChecker.getContextualType(node);
-    return type ? this.typeChecker.getNonNullableType(type) : undefined;
+    return inferredTypeOfExpression(this.typeChecker, node);
   }
 
   /**
@@ -189,6 +190,23 @@ export class AstRenderer<C> {
         `This TypeScript feature (${nodeKind}) is not supported in examples. Please rewrite this example.`,
       );
     }
+  }
+
+  /**
+   * Whether there is non-whitespace on the same line before the given position
+   */
+  public codeOnLineBefore(pos: number) {
+    const text = this.sourceFile.text;
+    while (pos > 0) {
+      const c = text[--pos];
+      if (c === '\n') {
+        return false;
+      }
+      if (c !== ' ' && c !== '\r' && c !== '\t') {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -344,6 +362,9 @@ export class AstRenderer<C> {
       }
       return visitor.spreadElement(tree, this);
     }
+    if (ts.isElementAccessExpression(tree)) {
+      return visitor.elementAccessExpression(tree, this);
+    }
     if (ts.isTemplateExpression(tree)) {
       return visitor.templateExpression(tree, this);
     }
@@ -474,6 +495,7 @@ export interface AstHandler<C> {
   nonNullExpression(node: ts.NonNullExpression, context: AstRenderer<C>): OTree;
   parenthesizedExpression(node: ts.ParenthesizedExpression, context: AstRenderer<C>): OTree;
   maskingVoidExpression(node: ts.VoidExpression, context: AstRenderer<C>): OTree;
+  elementAccessExpression(node: ts.ElementAccessExpression, context: AstRenderer<C>): OTree;
 
   // Not a node, called when we recognize a spread element/assignment that is only
   // '...' and nothing else.
@@ -561,6 +583,11 @@ export interface CommentSyntax {
   text: string;
   hasTrailingNewLine?: boolean;
   kind: ts.CommentKind;
+
+  /**
+   * Whether it's at the end of a code line (so we can render a separating space)
+   */
+  isTrailing?: boolean;
 }
 
 function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRenderer<any>): CommentSyntax {
@@ -569,5 +596,6 @@ function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRender
     kind: rng.kind,
     pos: rng.pos,
     text: renderer.textAt(rng.pos, rng.end),
+    isTrailing: renderer.codeOnLineBefore(rng.pos),
   };
 }

@@ -12,19 +12,20 @@ import {
   isReadOnly,
   findSuperCall,
   privatePropertyNames,
+  findEnclosingClassDeclaration,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { typeContainsUndefined, parameterAcceptsUndefined, inferMapElementType } from '../typescript/types';
+import {
+  typeContainsUndefined,
+  parameterAcceptsUndefined,
+  inferMapElementType,
+  determineReturnType,
+} from '../typescript/types';
 import { flat, partition, setExtend } from '../util';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
 interface CSharpLanguageContext {
-  /**
-   * Used to render the constructor's name
-   */
-  readonly currentClassName?: string;
-
   /**
    * Used to capitalize member accesses
    */
@@ -69,6 +70,14 @@ interface CSharpLanguageContext {
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.CSHARP;
 
   public readonly defaultContext = {
@@ -180,14 +189,16 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   // tslint:disable-next-line:max-line-length
   public functionLike(
-    node: ts.FunctionLikeDeclarationBase,
+    node: ts.FunctionLikeDeclaration | ts.ConstructorDeclaration | ts.MethodDeclaration,
     renderer: CSharpRenderer,
     opts: { isConstructor?: boolean } = {},
   ): OTree {
     const methodName = opts.isConstructor
-      ? renderer.currentContext.currentClassName ?? 'MyClass'
+      ? findEnclosingClassDeclaration(node)?.name?.text ?? 'MyClass'
       : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
-    const returnType = opts.isConstructor ? '' : this.renderTypeNode(node.type, false, renderer);
+
+    const retType = determineReturnType(renderer.typeChecker, node);
+    const returnType = opts.isConstructor ? '' : this.renderType(node, retType, false, 'void', renderer);
 
     const baseConstructorCall = new Array<string | OTree>();
     if (opts.isConstructor) {
@@ -314,6 +325,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: CSharpRenderer): OTree {
     return new OTree([
+      ...(node.dotDotDotToken ? ['params '] : []), // Varargs. Render with 'params' keyword
       this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
       ' ',
       renderer.convert(node.name),
@@ -415,6 +427,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     structType: ts.Type,
+    _definedInExample: boolean,
     renderer: CSharpRenderer,
   ): OTree {
     return new OTree(['new ', structType.symbol.name, ' { '], renderer.convertAll(node.properties), {

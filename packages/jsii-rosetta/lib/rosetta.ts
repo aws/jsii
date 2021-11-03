@@ -9,7 +9,13 @@ import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
 import { CodeBlock } from './markdown/types';
-import { SnippetParameters, TypeScriptSnippet, updateParameters } from './snippet';
+import {
+  SnippetParameters,
+  TypeScriptSnippet,
+  updateParameters,
+  ApiLocation,
+  typeScriptSnippetFromSource,
+} from './snippet';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
 import { printDiagnostics } from './util';
@@ -56,8 +62,15 @@ export interface RosettaOptions {
  * when the second one is not necessary.
  */
 export class Rosetta {
+  /**
+   * Newly translated samples
+   *
+   * In case live translation has been enabled, all samples that have been translated on-the-fly
+   * are added to this tablet.
+   */
+  public readonly liveTablet = new LanguageTablet();
+
   private readonly loadedTablets: LanguageTablet[] = [];
-  private readonly liveTablet = new LanguageTablet();
   private readonly extractedSnippets = new Map<string, TypeScriptSnippet>();
   private readonly translator: Translator;
   private readonly loose: boolean;
@@ -99,11 +112,9 @@ export class Rosetta {
    * loaded.
    *
    * Otherwise, if live conversion is enabled, the snippets in the assembly
-   * become available for live translation later.
-   *
-   * (We do it like this to centralize the logic around the "where" calculation,
-   * otherwise each language generator has to reimplement a way to describe API
-   * elements while spidering the jsii assembly).
+   * become available for live translation later. This is necessary because we probably
+   * need to fixture snippets for successful compilation, and the information
+   * pacmak sends our way later on is not going to be enough to do that.
    */
   public async addAssembly(assembly: spec.Assembly, assemblyDir: string) {
     if (await fs.pathExists(path.join(assemblyDir, DEFAULT_TABLET_NAME))) {
@@ -118,6 +129,18 @@ export class Rosetta {
     }
   }
 
+  /**
+   * Translate the given snippet for the given target language
+   *
+   * This will either:
+   *
+   * - Find an existing translation in a tablet and return that, if available.
+   * - Otherwise, find a fixturized version of this snippet in an assembly that
+   *   was loaded beforehand, and translate it on-the-fly. Finding the fixture
+   *   will be based on the snippet key, which consists of a hash of the
+   *   visible source and the API location.
+   * - Otherwise, translate the snippet as-is (without fixture information).
+   */
   public translateSnippet(source: TypeScriptSnippet, targetLang: TargetLanguage): Translation | undefined {
     // Look for it in loaded tablets
     for (const tab of this.allTablets) {
@@ -151,7 +174,37 @@ export class Rosetta {
     return snippet.get(targetLang);
   }
 
+  /**
+   * Translate a snippet found in the "@ example" section of a jsii assembly
+   *
+   * Behaves exactly like `translateSnippet`, so see that method for documentation.
+   */
+  public translateExample(
+    apiLocation: ApiLocation,
+    example: string,
+    targetLang: TargetLanguage,
+    strict: boolean,
+    compileDirectory = process.cwd(),
+  ): Translation {
+    const location = { api: apiLocation, field: { field: 'example' } } as const;
+
+    const snippet = typeScriptSnippetFromSource(example, location, strict, {
+      [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,
+    });
+
+    const translated = this.translateSnippet(snippet, targetLang);
+
+    return translated ?? { language: 'typescript', source: example };
+  }
+
+  /**
+   * Translate all TypeScript snippets found in a block of Markdown text
+   *
+   * For each snippet, behaves exactly like `translateSnippet`, so see that
+   * method for documentation.
+   */
   public translateSnippetsInMarkdown(
+    apiLocation: ApiLocation,
     markdown: string,
     targetLang: TargetLanguage,
     strict: boolean,
@@ -161,7 +214,7 @@ export class Rosetta {
     return transformMarkdown(
       markdown,
       new MarkdownRenderer(),
-      new ReplaceTypeScriptTransform('markdown', strict, (tsSnip) => {
+      new ReplaceTypeScriptTransform(apiLocation, strict, (tsSnip) => {
         const translated = this.translateSnippet(
           updateParameters(tsSnip, {
             [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,

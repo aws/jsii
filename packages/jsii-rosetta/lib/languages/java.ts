@@ -1,14 +1,13 @@
 import * as ts from 'typescript';
 
-import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
-import { isStructType } from '../jsii/jsii-utils';
+import { determineJsiiType, JsiiType, analyzeObjectLiteral } from '../jsii/jsii-types';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { isEnumAccess, isStaticReadonlyAccess } from '../typescript/types';
+import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
@@ -94,6 +93,14 @@ interface InsideTypeDeclaration {
 type JavaRenderer = AstRenderer<JavaContext>;
 
 export class JavaVisitor extends DefaultVisitor<JavaContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.JAVA;
   public readonly defaultContext = {};
 
@@ -236,11 +243,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
-    return this.renderProcedure(node, renderer, node.name, this.renderTypeNode(node.type, renderer, 'void'));
+    const retType = determineReturnType(renderer.typeChecker, node);
+    return this.renderProcedure(node, renderer, node.name, this.renderType(node, retType, renderer, 'void'));
   }
 
   public functionDeclaration(node: ts.FunctionDeclaration, renderer: JavaRenderer): OTree {
-    return this.renderProcedure(node, renderer, node.name, this.renderTypeNode(node.type, renderer, 'void'));
+    const retType = determineReturnType(renderer.typeChecker, node);
+    return this.renderProcedure(node, renderer, node.name, this.renderType(node, retType, renderer, 'void'));
   }
 
   public methodSignature(node: ts.MethodSignature, renderer: JavaRenderer): OTree {
@@ -261,7 +270,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {
-    return new OTree([this.renderTypeNode(node.type, renderer), ' ', renderer.convert(node.name)]);
+    let renderedType = this.renderTypeNode(node.type, renderer);
+    if (node.dotDotDotToken && renderedType.endsWith('[]')) {
+      // Varargs. In Java, render this as `Element...` (instead of `Element[]` which is what we'll have gotten).
+      renderedType = `${renderedType.substr(0, renderedType.length - 2)}...`;
+    }
+
+    return new OTree([renderedType, ' ', renderer.convert(node.name)]);
   }
 
   public block(node: ts.Block, renderer: JavaRenderer): OTree {
@@ -415,38 +430,45 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public newExpression(node: ts.NewExpression, renderer: JavaRenderer): OTree {
     const argsLength = node.arguments ? node.arguments.length : 0;
     const lastArg = argsLength > 0 ? node.arguments![argsLength - 1] : undefined;
-    const lastArgIsObjectLiteral = lastArg && ts.isObjectLiteralExpression(lastArg);
-    const lastArgType = lastArg && renderer.inferredTypeOfExpression(lastArg);
-    // we only render the ClassName.Builder.create(...) expression
-    // if the last argument is an object literal, and NOT a known struct
-    // (in that case, it has its own creation method)
-    const renderBuilderInsteadOfNew = lastArgIsObjectLiteral && (!lastArgType || !isStructType(lastArgType));
 
-    return new OTree(
-      [],
-      [
-        renderBuilderInsteadOfNew ? undefined : 'new ',
-        renderer
-          .updateContext({
-            ignorePropertyPrefix: true,
-            convertPropertyToGetter: false,
-          })
-          .convert(node.expression),
-        renderBuilderInsteadOfNew ? '.Builder.create' : undefined,
-        '(',
-        this.argumentList(
-          renderBuilderInsteadOfNew ? node.arguments!.slice(0, argsLength - 1) : node.arguments,
-          renderer,
-        ),
-        ')',
-        renderBuilderInsteadOfNew
-          ? renderer.updateContext({ inNewExprWithObjectLiteralAsLastArg: true }).convert(lastArg)
-          : undefined,
-      ],
-      {
-        canBreakLine: true,
-      },
-    );
+    // We render the ClassName.Builder.create(...) expression
+    // if the last argument is an object literal, and either a known struct (because
+    // those are the jsii rules) or an unknown type (because the example didn't
+    // compile but most of the target examples will intend this to be a struct).
+
+    const structArgument = lastArg && ts.isObjectLiteralExpression(lastArg) ? lastArg : undefined;
+    let renderBuilder = false;
+    if (lastArg && ts.isObjectLiteralExpression(lastArg)) {
+      const analysis = analyzeObjectLiteral(renderer.typeChecker, lastArg);
+      renderBuilder = analysis.kind === 'struct' || analysis.kind === 'unknown';
+    }
+
+    const className = renderer
+      .updateContext({
+        ignorePropertyPrefix: true,
+        convertPropertyToGetter: false,
+      })
+      .convert(node.expression);
+
+    if (renderBuilder) {
+      const initialArguments = node.arguments!.slice(0, argsLength - 1);
+      return new OTree(
+        [],
+        [
+          className,
+          '.Builder.create(',
+          this.argumentList(initialArguments, renderer),
+          ')',
+          ...renderer.convertAll(structArgument!.properties),
+          new OTree([renderer.mirrorNewlineBefore(structArgument!.properties[0])], ['.build()']),
+        ],
+        { canBreakLine: true, indent: 8 },
+      );
+    }
+
+    return new OTree([], ['new ', className, '(', this.argumentList(node.arguments, renderer), ')'], {
+      canBreakLine: true,
+    });
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
@@ -466,11 +488,30 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     structType: ts.Type,
+    definedInExample: boolean,
     renderer: JavaRenderer,
   ): OTree {
-    return new OTree(['new ', structType.symbol.name, '()'], [...renderer.convertAll(node.properties)], {
-      indent: 8,
-    });
+    // Special case: we're rendering an object literal, but the containing constructor
+    // has already started the builder: we don't have to create a new instance,
+    // all we have to do is pile on arguments.
+    if (renderer.currentContext.inNewExprWithObjectLiteralAsLastArg) {
+      return new OTree([], renderer.convertAll(node.properties), { indent: 8 });
+    }
+
+    // Jsii-generated classes have builders, classes we generated in the course of
+    // this example do not.
+    const hasBuilder = !definedInExample;
+
+    return new OTree(
+      hasBuilder ? [structType.symbol.name, '.builder()'] : ['new ', structType.symbol.name, '()'],
+      [
+        ...renderer.convertAll(node.properties),
+        new OTree([renderer.mirrorNewlineBefore(node.properties[0])], [hasBuilder ? '.build()' : '']),
+      ],
+      {
+        indent: 8,
+      },
+    );
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
@@ -660,7 +701,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return this.renderType(typeNode, renderer.typeOfType(typeNode), renderer, fallback);
   }
 
-  private renderType(owningNode: ts.Node, type: ts.Type, renderer: JavaRenderer, fallback: string): string {
+  private renderType(owningNode: ts.Node, type: ts.Type | undefined, renderer: JavaRenderer, fallback: string): string {
+    if (!type) {
+      return fallback;
+    }
+
     return doRender(determineJsiiType(renderer.typeChecker, type), false);
 
     // eslint-disable-next-line consistent-return

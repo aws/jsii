@@ -1,7 +1,12 @@
 import * as ts from 'typescript';
 
 import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
-import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
+import {
+  propertiesOfStruct,
+  StructProperty,
+  structPropertyAcceptsUndefined,
+  analyzeStructType,
+} from '../jsii/jsii-utils';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
@@ -83,8 +88,18 @@ export interface PythonVisitorOptions {
 }
 
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
+
+  protected statementTerminator = '';
 
   public constructor(private readonly options: PythonVisitorOptions = {}) {
     super();
@@ -102,7 +117,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       .join('\n');
     const needsAdditionalTrailer = comment.hasTrailingNewLine;
 
-    return new OTree([hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
+    return new OTree([comment.isTrailing ? ' ' : '', hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
       // Make sure comment is rendered exactly once in the output tree, no
       // matter how many source nodes it is attached to.
       renderOnce: `comment-${comment.pos}`,
@@ -278,7 +293,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public parameterDeclaration(node: ts.ParameterDeclaration, context: PythonVisitorContext): OTree {
     const type = node.type && context.typeOfType(node.type);
 
-    if (context.currentContext.tailPositionParameter && type && isStructType(type)) {
+    if (context.currentContext.tailPositionParameter && type && analyzeStructType(type) !== false) {
       // Return the parameter that we exploded so that we can use this information
       // while translating the body.
       if (context.currentContext.returnExplodedParameter) {
@@ -294,7 +309,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
     const suffix = parameterAcceptsUndefined(node, type) ? '=None' : '';
 
-    return new OTree([context.convert(node.name), suffix]);
+    return new OTree([node.dotDotDotToken ? '*' : '', context.convert(node.name), suffix]);
 
     function renderStructProperty(prop: StructProperty): string {
       const sfx = structPropertyAcceptsUndefined(prop) ? '=None' : '';
@@ -337,6 +352,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
     structType: ts.Type,
+    _definedInExample: boolean,
     context: PythonVisitorContext,
   ): OTree {
     if (context.currentContext.tailPositionArgument) {

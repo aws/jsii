@@ -1,2 +1,3 @@
-new Vpc(this, "Something", new VpcProps()
-        .argument(5));
+Vpc.Builder.create(this, "Something")
+        .argument(5)
+        .build();

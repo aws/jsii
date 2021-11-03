@@ -1,4 +1,4 @@
-public void test(Array _args) {
+public void test(Object... _args) {
 }
 
 test(Map.of("Key", "Value", "also", 1337));

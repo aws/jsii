@@ -1,3 +1,5 @@
+import { Spans } from './typescript/visible-spans';
+
 export interface OTreeOptions {
   /**
    * Adjust indentation with the given number
@@ -124,7 +126,7 @@ export interface SinkMark {
 }
 
 export interface OTreeSinkOptions {
-  visibleSpans?: Span[];
+  visibleSpans?: Spans;
 }
 
 /**
@@ -190,7 +192,7 @@ export class OTreeSink {
 
   public renderingForSpan(span?: Span): boolean {
     if (span && this.options.visibleSpans) {
-      this.rendering = this.options.visibleSpans.some((v) => spanInside(span, v));
+      this.rendering = this.options.visibleSpans.fullyContainsSpan(span);
     }
     return this.rendering;
   }
@@ -255,14 +257,6 @@ function containsNewline(x: string) {
 }
 
 export interface Span {
-  start: number;
-  end: number;
-}
-
-export function spanInside(a: Span, b: Span) {
-  return b.start <= a.start && a.end <= b.end;
-}
-
-export function spanContains(a: Span, position: number) {
-  return a.start <= position && position < a.end;
+  readonly start: number;
+  readonly end: number;
 }
