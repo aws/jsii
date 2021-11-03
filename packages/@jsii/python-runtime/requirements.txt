@@ -3,7 +3,7 @@ mypy==0.812
 pip~=21.3
 pytest~=6.2
 pytest-mypy~=0.8
-setuptools~=58.2
+setuptools~=58.5
 wheel~=0.37
 
 -e .
