@@ -1,5 +1,7 @@
 import * as ts from 'typescript';
 
+import { RosettaDiagnostic } from './translate';
+
 export function startsWithUppercase(x: string): boolean {
   return /^[A-Z]/.exec(x) != null;
 }
@@ -9,27 +11,10 @@ export interface File {
   readonly fileName: string;
 }
 
-export function printDiagnostics(diags: readonly ts.Diagnostic[], stream: NodeJS.WritableStream) {
+export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: NodeJS.WritableStream) {
   for (const diag of diags) {
-    printDiagnostic(diag, stream);
+    stream.write(diag.formattedMessage);
   }
-}
-
-export function printDiagnostic(diag: ts.Diagnostic, stream: NodeJS.WritableStream) {
-  const host = {
-    getCurrentDirectory() {
-      return '.';
-    },
-    getCanonicalFileName(fileName: string) {
-      return fileName;
-    },
-    getNewLine() {
-      return '\n';
-    },
-  };
-
-  const message = ts.formatDiagnosticsWithColorAndContext([diag], host);
-  stream.write(message);
 }
 
 export const StrictBrand = 'jsii.strict';
@@ -37,6 +22,9 @@ interface MaybeStrictDiagnostic {
   readonly [StrictBrand]?: boolean;
 }
 
+/**
+ * Annotate a diagnostic with a magic property to indicate it's a strict diagnostic
+ */
 export function annotateStrictDiagnostic(diag: ts.Diagnostic) {
   Object.defineProperty(diag, StrictBrand, {
     configurable: false,
@@ -46,10 +34,11 @@ export function annotateStrictDiagnostic(diag: ts.Diagnostic) {
   });
 }
 
-export function isErrorDiagnostic(diag: ts.Diagnostic, { onlyStrict }: { readonly onlyStrict: boolean }): boolean {
-  return (
-    diag.category === ts.DiagnosticCategory.Error && (!onlyStrict || !!(diag as MaybeStrictDiagnostic)[StrictBrand])
-  );
+/**
+ * Return whether or not the given diagnostic was annotated with the magic strict property
+ */
+export function hasStrictBranding(diag: ts.Diagnostic) {
+  return !!(diag as MaybeStrictDiagnostic)[StrictBrand];
 }
 
 /**
@@ -94,4 +83,29 @@ export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
   for (const el of els) {
     xs.add(el);
   }
+}
+
+export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<A, B> {
+  const ret: any = {};
+  for (const [key, value] of xs) {
+    ret[key] = value;
+  }
+  return ret;
+}
+
+export function fmap<A, B>(value: NonNullable<A>, fn: (x: A) => B): B;
+export function fmap<A, B>(value: undefined, fn: (x: A) => B): undefined;
+export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  return fn(value);
+}
+
+export function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<string, B> {
+  const ret: Record<string, B> = {};
+  for (const [key, value] of Object.entries(xs)) {
+    ret[key] = fn(value);
+  }
+  return ret;
 }

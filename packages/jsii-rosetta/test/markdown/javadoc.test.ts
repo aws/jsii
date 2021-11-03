@@ -91,6 +91,19 @@ if (x &lt; 3) {
   );
 });
 
+test('doc comment closing chars are escaped', () => {
+  expectOutput(
+    ['Escape this */', '```', 'And this */', '```'].join('\n'),
+    `
+Escape this *&#47;
+<p>
+<blockquote><pre>
+And this *&#47;
+</pre></blockquote>
+  `,
+  );
+});
+
 test('quotes are escaped inside attributes', () => {
   expectOutput(
     `

@@ -88,6 +88,14 @@ export interface PythonVisitorOptions {
 }
 
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
 
@@ -301,7 +309,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
     const suffix = parameterAcceptsUndefined(node, type) ? '=None' : '';
 
-    return new OTree([context.convert(node.name), suffix]);
+    return new OTree([node.dotDotDotToken ? '*' : '', context.convert(node.name), suffix]);
 
     function renderStructProperty(prop: StructProperty): string {
       const sfx = structPropertyAcceptsUndefined(prop) ? '=None' : '';

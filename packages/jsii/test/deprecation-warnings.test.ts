@@ -78,8 +78,8 @@ function testpkg_Baz(p) {
         export interface Foo {}
         export interface Bar {}
         export interface Baz {
-          readonly foo: Foo; 
-          readonly bar: Bar; 
+          readonly foo: Foo;
+          readonly bar: Bar;
           readonly x: string;
         }
         `,
@@ -166,32 +166,13 @@ function testpkg_Baz(p) {
     );
   });
 
-  test('generates a call to print if the type is deprecated', async () => {
-    const result = await compileJsiiForTest(
-      `
-        ${DEPRECATED}
-        export interface Foo {}
-        `,
-      undefined /* callback */,
-      { addDeprecationWarnings: true },
-    );
-
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
-    if (p == null)
-        return;
-    visitedObjects.add(p);
-    print("testpkg.Foo", "Use something else");
-    visitedObjects.delete(p);
-}`);
-  });
-
   test('generates functions for enums', async () => {
     const result = await compileJsiiForTest(
       `
         export enum State {
           ON,
-          
-          ${DEPRECATED} 
+
+          ${DEPRECATED}
           OFF
         }
         `,
@@ -205,6 +186,8 @@ function testpkg_Baz(p) {
         return;
     visitedObjects.add(p);
     const ns = require("./index.js");
+    if (Object.values(ns.State).filter(x => x === p).length > 1)
+        return;
     if (p === ns.State.OFF)
         print("testpkg.State#OFF", "Use something else");
     visitedObjects.delete(p);
@@ -239,10 +222,10 @@ function testpkg_Baz(p) {
       export interface Bar {
         readonly x: string;
       }
-      
+
       export interface Foo {
         readonly y: string;
-    
+
         /** @deprecated kkkkkkkk */
         readonly bar: Bar;
       }
@@ -259,6 +242,32 @@ function testpkg_Baz(p) {
         print("testpkg.Foo#bar", "kkkkkkkk");
     if (!visitedObjects.has(p.bar))
         testpkg_Bar(p.bar);
+    visitedObjects.delete(p);
+}
+`);
+  });
+
+  test('generates calls for each property of a deprecated type', async () => {
+    const result = await compileJsiiForTest(
+      `
+      /** @deprecated use Bar instead */
+      export interface Foo {
+        readonly bar: string;
+        readonly baz: number;
+      }
+      `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    if ("bar" in p)
+        print("testpkg.Foo#bar", "use Bar instead");
+    if ("baz" in p)
+        print("testpkg.Foo#baz", "use Bar instead");
     visitedObjects.delete(p);
 }
 `);
@@ -316,15 +325,12 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    const expectedPath = ['..', '..', '.warnings.jsii.js'].join(path.sep);
-    const requireRegex = /const jsiiDeprecationWarnings = require\("(.+)"\);/g;
+    const expectedPath = ['..', '..', '.warnings.jsii.js'].join('/');
 
     const content = jsFile(result, 'some/folder/source');
-    const match = requireRegex.exec(content);
-    expect(match).toBeDefined();
-
-    const actualPath = match![1];
-    expect(path.normalize(actualPath)).toEqual(expectedPath);
+    expect(content).toContain(
+      `const jsiiDeprecationWarnings = require("${expectedPath}")`,
+    );
   });
 
   test('deprecated methods', async () => {
@@ -385,7 +391,7 @@ describe('Call injections', () => {
     export class Foo {
       private _x = 0;
       public get x(){return this._x}
-      
+
       ${DEPRECATED}
       public set x(_x: number) {this._x = _x;}
     }

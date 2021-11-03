@@ -1,6 +1,7 @@
 /**
  * A tree of nodes that can be ASCII visualized.
  */
+
 export class AsciiTree {
   /**
    * The parent node.
@@ -87,9 +88,13 @@ export class AsciiTree {
    */
   public toString() {
     let out = '';
-    this.printTree({
-      write: (data: any) => (out += data),
-    } as any);
+    const printer: Printer = {
+      write: (data: Uint8Array | string) => {
+        out += data;
+        return true;
+      },
+    };
+    this.printTree(printer);
     return out;
   }
 

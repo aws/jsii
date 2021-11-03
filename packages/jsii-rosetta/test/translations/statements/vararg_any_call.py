@@ -1,4 +1,4 @@
-def test(_args):
+def test(*_args):
     pass
 
 test({"Key": "Value", "also": 1337})

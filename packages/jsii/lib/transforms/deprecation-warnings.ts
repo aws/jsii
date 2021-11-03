@@ -42,10 +42,7 @@ export class DeprecationWarningsInjector {
         ),
       );
 
-      if (
-        spec.isDeprecated(type) &&
-        (spec.isEnumType(type) || (spec.isInterfaceType(type) && type.datatype))
-      ) {
+      if (spec.isDeprecated(type) && spec.isEnumType(type)) {
         // The type is deprecated
         statements.push(
           createWarningFunctionCall(type.fqn, type.docs?.deprecated),
@@ -55,8 +52,9 @@ export class DeprecationWarningsInjector {
 
       if (spec.isEnumType(type) && type.locationInModule?.filename) {
         statements.push(
-          createRequireStatement(type.locationInModule?.filename),
+          createEnumRequireStatement(type.locationInModule?.filename),
         );
+        statements.push(createDuplicateEnumValuesCheck(type));
 
         for (const member of Object.values(type.members ?? [])) {
           if (spec.isDeprecated(member)) {
@@ -77,12 +75,14 @@ export class DeprecationWarningsInjector {
         }
       } else if (spec.isInterfaceType(type) && type.datatype) {
         for (const prop of Object.values(type.properties ?? {})) {
-          if (spec.isDeprecated(prop)) {
-            // The property is deprecated
+          if (spec.isDeprecated(prop) || spec.isDeprecated(type)) {
+            // If the property individually is deprecated, or the entire type is deprecated
+            const deprecatedDocs =
+              prop.docs?.deprecated ?? type.docs?.deprecated;
             statements.push(
               createWarningFunctionCall(
                 `${type.fqn}#${prop.name}`,
-                prop.docs?.deprecated,
+                deprecatedDocs,
                 ts.createIdentifier(`"${prop.name}" in ${PARAMETER_NAME}`),
               ),
             );
@@ -334,16 +334,11 @@ class Transformer {
         this.projectRoot,
       );
       const importPath = importDir.startsWith('..')
-        ? path.join(importDir, FILE_NAME)
+        ? unixPath(path.join(importDir, FILE_NAME))
         : `./${FILE_NAME}`;
 
       return ts.updateSourceFileNode(result, [
-        ts.createImportEqualsDeclaration(
-          undefined,
-          undefined,
-          NAMESPACE,
-          ts.createExternalModuleReference(ts.createLiteral(importPath)),
-        ),
+        createRequireStatement(NAMESPACE, importPath),
         ...result.statements,
       ]) as any;
     }
@@ -525,13 +520,30 @@ function insertStatements(block: ts.Block, newStatements: ts.Statement[]) {
   return ts.createNodeArray(result);
 }
 
-function createRequireStatement(typeLocation: string): ts.ExpressionStatement {
+function createEnumRequireStatement(typeLocation: string): ts.Statement {
   const { ext } = path.parse(typeLocation);
   const jsFileName = typeLocation.replace(ext, '.js');
 
-  return ts.createExpressionStatement(
-    ts.createIdentifier(
-      `const ${LOCAL_ENUM_NAMESPACE} = require("./${jsFileName}")`,
+  return createRequireStatement(LOCAL_ENUM_NAMESPACE, `./${jsFileName}`);
+}
+
+function createRequireStatement(
+  name: string,
+  importPath: string,
+): ts.Statement {
+  return ts.createVariableStatement(
+    undefined,
+    ts.createVariableDeclarationList(
+      [
+        ts.createVariableDeclaration(
+          name,
+          undefined,
+          ts.createCall(ts.createIdentifier('require'), undefined, [
+            ts.createLiteral(importPath),
+          ]),
+        ),
+      ],
+      ts.NodeFlags.Const,
     ),
   );
 }
@@ -586,4 +598,74 @@ function createTypeHandlerCall(
       ),
     ),
   );
+}
+
+/**
+ * There is a chance an enum contains duplicates values with distinct keys,
+ * with one of those keys being deprecated. This is a potential pattern to "rename" an enum.
+ * In this case, we can't concretely determine if the deprecated member was used or not,
+ * so in those cases we skip the warnings altogether, rather than erroneously warning for valid usage.
+ * This create a statement to check if the enum value is a duplicate:
+ *
+ * if (Object.values(Foo).filter(x => x === p).length > 1) { return; }
+ *
+ * Note that we can't just check the assembly for these duplicates, due to:
+ * https://github.com/aws/jsii/issues/2782
+ */
+function createDuplicateEnumValuesCheck(
+  type: spec.TypeBase & spec.EnumType,
+): ts.Statement {
+  return ts.createIf(
+    ts.createBinary(
+      ts.createPropertyAccess(
+        ts.createCall(
+          ts.createPropertyAccess(
+            ts.createCall(ts.createIdentifier('Object.values'), undefined, [
+              ts.createIdentifier(`${LOCAL_ENUM_NAMESPACE}.${type.name}`),
+            ]),
+            ts.createIdentifier('filter'),
+          ),
+          undefined,
+          [
+            ts.createArrowFunction(
+              undefined,
+              undefined,
+              [ts.createParameter(undefined, undefined, undefined, 'x')],
+              undefined,
+              ts.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+              ts.createBinary(
+                ts.createIdentifier('x'),
+                ts.createToken(ts.SyntaxKind.EqualsEqualsEqualsToken),
+                ts.createIdentifier(PARAMETER_NAME),
+              ),
+            ),
+          ],
+        ),
+        ts.createIdentifier('length'),
+      ),
+      ts.createToken(ts.SyntaxKind.GreaterThanToken),
+      ts.createNumericLiteral('1'),
+    ),
+    ts.createReturn(),
+  );
+}
+
+/**
+ * Force a path to be UNIXy (use `/` as a separator)
+ *
+ * `path.join()` etc. will use the system-dependent path separator (either `/` or `\`
+ * depending on your platform).
+ *
+ * However, if we actually emit the path-dependent separator to the `.js` files, then
+ * files compiled with jsii on Windows cannot be used on any other platform. That seems
+ * like an unnecessary restriction, especially since a `/` will work fine on Windows,
+ * so make sure to always emit `/`.
+ *
+ * TSC itself always strictly emits `/` (or at least, emits the same what you put in).
+ */
+function unixPath(filePath: string) {
+  if (path.sep === '\\') {
+    return filePath.replace(/\\/g, '/');
+  }
+  return filePath;
 }

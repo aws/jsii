@@ -4,16 +4,17 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as yargs from 'yargs';
 
-import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
+import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
 import { extractSnippets } from '../lib/commands/extract';
+import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
 import { TargetLanguage } from '../lib/languages';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import * as logging from '../lib/logging';
-import { File, printDiagnostics, isErrorDiagnostic } from '../lib/util';
+import { File, fmap, printDiagnostics } from '../lib/util';
 
 function main() {
   const argv = yargs
@@ -41,7 +42,7 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateTypeScript(await makeFileSource(args.FILE ?? '-', 'stdin.ts'), makeVisitor(args));
-        renderResult(result);
+        handleSingleResult(result);
       }),
     )
     .command(
@@ -60,12 +61,66 @@ function main() {
           }),
       wrapHandler(async (args) => {
         const result = translateMarkdown(await makeFileSource(args.FILE ?? '-', 'stdin.md'), makeVisitor(args));
-        renderResult(result);
+        handleSingleResult(result);
+      }),
+    )
+    .command(
+      'infuse <TABLET> [ASSEMBLY..]',
+      '(EXPERIMENTAL) mutates one or more assemblies by adding documentation examples to top-level types',
+      (command) =>
+        command
+          .positional('TABLET', {
+            type: 'string',
+            required: true,
+            describe: 'Language tablet to read',
+          })
+          .positional('ASSEMBLY', {
+            type: 'string',
+            string: true,
+            default: new Array<string>(),
+            describe: 'Assembly or directory to mutate',
+          })
+          .option('log', {
+            alias: 'l',
+            type: 'boolean',
+            describe: 'Test all algorithms and log results to an html file',
+            default: false,
+          })
+          .option('output', {
+            alias: 'o',
+            type: 'string',
+            describe: 'Output file to store logging results. Ignored if -log is not true',
+            default: DEFAULT_INFUSION_RESULTS_NAME,
+          })
+          .demandOption('TABLET'),
+      wrapHandler(async (args) => {
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        const absOutput = path.resolve(args.output);
+        const result = await infuse(absAssemblies, args.TABLET, {
+          outputFile: absOutput,
+          log: args.log,
+        });
+
+        let totalTypes = 0;
+        let insertedExamples = 0;
+        for (const [directory, map] of Object.entries(result.coverageResults)) {
+          const commonName = directory.split('/').pop()!;
+          const newCoverage = roundPercentage(map.typesWithInsertedExamples / map.types);
+          process.stdout.write(
+            `${commonName}: Added ${map.typesWithInsertedExamples} examples to ${map.types} types.\n`,
+          );
+          process.stdout.write(`${commonName}: New coverage: ${newCoverage}%.\n`);
+
+          insertedExamples += map.typesWithInsertedExamples;
+          totalTypes += map.types;
+        }
+        const newCoverage = roundPercentage(insertedExamples / totalTypes);
+        process.stdout.write(`\n\nFinal Stats:\nNew coverage: ${newCoverage}%.\n`);
       }),
     )
     .command(
       ['extract [ASSEMBLY..]', '$0 [ASSEMBLY..]'],
-      'Extract code snippets from one or more assemblies into a language tablets',
+      'Extract code snippets from one or more assemblies into language tablets',
       (command) =>
         command
           .positional('ASSEMBLY', {
@@ -108,6 +163,14 @@ function main() {
             describe: 'Whether to validate loaded assemblies or not (this can be slow)',
             default: false,
           })
+          .option('cache-from', {
+            alias: 'C',
+            type: 'string',
+            // eslint-disable-next-line prettier/prettier
+            describe: 'Reuse translations from the given tablet file if the snippet and type definitions did not change',
+            requiresArg: true,
+            default: undefined,
+          })
           .option('strict', {
             alias: 'S',
             type: 'boolean',
@@ -129,6 +192,7 @@ function main() {
         // though.
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
         const absOutput = path.resolve(args.output);
+        const absCache = fmap(args['cache-from'], path.resolve);
         if (args.directory) {
           process.chdir(args.directory);
         }
@@ -138,17 +202,10 @@ function main() {
           includeCompilerDiagnostics: !!args.compile,
           validateAssemblies: args['validate-assemblies'],
           only: args.include,
+          cacheTabletFile: absCache,
         });
 
-        printDiagnostics(result.diagnostics, process.stderr);
-
-        if (result.diagnostics.length > 0) {
-          logging.warn(`${result.diagnostics.length} diagnostics encountered in ${result.tablet.count} snippets`);
-        }
-
-        if (result.diagnostics.some((diag) => isErrorDiagnostic(diag, { onlyStrict: !args.fail }))) {
-          process.exitCode = 1;
-        }
+        handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);
       }),
     )
     .command(
@@ -285,7 +342,9 @@ function wrapHandler<A extends { verbose?: number }, R>(handler: (x: A) => Promi
   return (argv: A) => {
     logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
     handler(argv).catch((e) => {
-      throw e;
+      logging.error(e.message);
+      logging.error(e.stack);
+      process.exitCode = 1;
     });
   };
 }
@@ -329,16 +388,67 @@ async function readStdin(): Promise<string> {
   });
 }
 
-function renderResult(result: TranslateResult) {
+function handleSingleResult(result: TranslateResult) {
   process.stdout.write(`${result.translation}\n`);
 
-  if (result.diagnostics.length > 0) {
-    printDiagnostics(result.diagnostics, process.stderr);
+  // For a single result, we always request implicit failure.
+  handleDiagnostics(result.diagnostics, 'implicit');
+}
 
-    if (result.diagnostics.some((diag) => isErrorDiagnostic(diag, { onlyStrict: false }))) {
-      process.exit(1);
+/**
+ * Print diagnostics and set exit code
+ *
+ * 'fail' is whether or not the user passed '--fail' for commands that accept
+ * it, or 'implicit' for commands that should always fail. 'implicit' will be
+ * treated as 'fail=true, but will not print to the user that the '--fail' is
+ * set (because for this particular command that switch does not exist and so it
+ * would be confusing).
+ */
+function handleDiagnostics(diagnostics: readonly RosettaDiagnostic[], fail: boolean | 'implicit', snippetCount = 1) {
+  if (fail !== false) {
+    // Fail on any diagnostic
+    if (diagnostics.length > 0) {
+      printDiagnostics(diagnostics, process.stderr);
+      logging.error(
+        [
+          `${diagnostics.length} diagnostics encountered in ${snippetCount} snippets`,
+          ...(fail === true ? ["(running with '--fail')"] : []),
+        ].join(' '),
+      );
+      process.exitCode = 1;
     }
+
+    return;
   }
+
+  // Otherwise fail only on strict diagnostics. If we have strict diagnostics, print only those
+  // (so it's very clear what is failing the build), otherwise print everything.
+  const strictDiagnostics = diagnostics.filter((diag) => diag.isFromStrictAssembly);
+  if (strictDiagnostics.length > 0) {
+    printDiagnostics(strictDiagnostics, process.stderr);
+    const remaining = diagnostics.length - strictDiagnostics.length;
+    logging.warn(
+      [
+        `${strictDiagnostics.length} diagnostics from assemblies with 'strict' mode on`,
+        ...(remaining > 0 ? [`(and ${remaining} more non-strict diagnostics)`] : []),
+      ].join(' '),
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (diagnostics.length > 0) {
+    printDiagnostics(diagnostics, process.stderr);
+    logging.warn(`${diagnostics.length} diagnostics encountered in ${snippetCount} snippets`);
+  }
+}
+
+/**
+ * Rounds a decimal number to two decimal points.
+ * The function is useful for fractions that need to be outputted as percentages.
+ */
+function roundPercentage(num: number): number {
+  return Math.round(10000 * num) / 100;
 }
 
 main();

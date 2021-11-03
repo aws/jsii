@@ -43,7 +43,7 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public document(_node: cm.Node, context: RendererContext) {
-    return stripTrailingWhitespace(collapseParaJava(context.content()));
+    return stripTrailingWhitespace(specialDocCommentEscape(collapseParaJava(context.content())));
   }
 
   public heading(node: cm.Node, context: RendererContext) {
@@ -79,4 +79,19 @@ export class JavaDocRenderer extends MarkdownRenderer {
 
 function collapseParaJava(x: string) {
   return collapsePara(x, '\n<p>\n');
+}
+
+/**
+ * A final single-pass escape of '* /' which might otherwise end a doc comment.
+ *
+ * We have to do this in one final pass because I've observed that in running
+ * next, the MarkDown parser will parse the two symbols to:
+ *
+ *    [..., text('*'), text('/'), ...]
+ *
+ * which means we have no other ability to observe the two-character combination
+ * properly.
+ */
+function specialDocCommentEscape(x: string) {
+  return x.replace(new RegExp('\\*\\/', 'g'), '*&#47;');
 }
