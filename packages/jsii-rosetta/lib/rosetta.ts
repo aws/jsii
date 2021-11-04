@@ -5,6 +5,7 @@ import { isError } from 'util';
 
 import { allTypeScriptSnippets } from './jsii/assemblies';
 import { TargetLanguage } from './languages';
+import * as logging from './logging';
 import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
@@ -109,7 +110,8 @@ export class Rosetta {
    * Add an assembly
    *
    * If a default tablet file is found in the assembly's directory, it will be
-   * loaded.
+   * loaded (and assumed to contain a complete list of translated snippets for
+   * this assembly already).
    *
    * Otherwise, if live conversion is enabled, the snippets in the assembly
    * become available for live translation later. This is necessary because we probably
@@ -117,9 +119,14 @@ export class Rosetta {
    * pacmak sends our way later on is not going to be enough to do that.
    */
   public async addAssembly(assembly: spec.Assembly, assemblyDir: string) {
-    if (await fs.pathExists(path.join(assemblyDir, DEFAULT_TABLET_NAME))) {
-      await this.loadTabletFromFile(path.join(assemblyDir, DEFAULT_TABLET_NAME));
-      return;
+    const defaultTablet = path.join(assemblyDir, DEFAULT_TABLET_NAME);
+    if (await fs.pathExists(defaultTablet)) {
+      try {
+        await this.loadTabletFromFile(defaultTablet);
+        return;
+      } catch (e) {
+        logging.warn(`Error loading ${defaultTablet}: ${e.message}. Skipped.`);
+      }
     }
 
     if (this.options.liveConversion) {
