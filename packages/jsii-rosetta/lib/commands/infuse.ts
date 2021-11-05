@@ -15,8 +15,9 @@ export interface InfuseTypes {
 }
 
 export interface InfuseOptions {
-  readonly outputFile: string;
-  readonly log: boolean;
+  readonly outputFile?: string;
+
+  readonly log?: boolean;
 
   /**
    * Where to write the updated tablet back
@@ -46,6 +47,10 @@ export async function infuse(
 ): Promise<InfuseResult> {
   let stream: fs.WriteStream | undefined = undefined;
   if (options?.log) {
+    if (!options.outputFile) {
+      throw new Error("If 'log' is set, 'outputFile' must be set as well.");
+    }
+
     // Create stream for html file and insert some styling
     stream = fs.createWriteStream(options.outputFile, {
       encoding: 'utf-8',

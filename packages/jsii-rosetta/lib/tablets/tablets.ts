@@ -59,10 +59,7 @@ export class LanguageTablet {
       );
     }
 
-    Object.assign(
-      this.snippets,
-      mapValues(obj.snippets, (schema: TranslatedSnippetSchema) => TranslatedSnippet.fromSchema(schema)),
-    );
+    Object.assign(this.snippets, mapValues(obj.snippets, TranslatedSnippet.fromSchema));
   }
 
   public get count() {
@@ -185,6 +182,10 @@ export class TranslatedSnippet {
       ...this.snippet,
       location,
     });
+  }
+
+  public toJSON() {
+    return this._snippet;
   }
 
   private asTypescriptSnippet(): TypeScriptSnippet {
