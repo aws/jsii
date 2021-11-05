@@ -88,6 +88,19 @@ test('Rosetta object can fail on untranslated snippet', () => {
   }).toThrow(/snippet was not found/);
 });
 
+test('Rosetta can give you an untranslated snippet back', () => {
+  // GIVEN
+  const rosetta = new Rosetta({
+    unknownSnippets: UnknownSnippetMode.VERBATIM,
+    targetLanguages: [TargetLanguage.PYTHON],
+  });
+
+  // WHEN
+  const translated = rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
+
+  expect(translated?.source).toEqual('callThisFunction();');
+});
+
 test('Rosetta object can do translation and annotation of snippets in MarkDown', () => {
   // GIVEN
   const rosetta = new Rosetta({
