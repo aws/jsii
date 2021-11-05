@@ -74,18 +74,16 @@ describe(findJsiiModules, () => {
       },
     });
 
-    const mods = flatten(
-      await findJsiiModules(
-        [
-          join(workDir, 'packageD'),
-          join(workDir, 'packageA'),
-          join(workDir, 'packageB'),
-          join(workDir, 'packageC'),
-        ],
-        false,
-      ),
+    const mods = await findJsiiModules(
+      [
+        join(workDir, 'packageD'),
+        join(workDir, 'packageA'),
+        join(workDir, 'packageB'),
+        join(workDir, 'packageC'),
+      ],
+      false,
     );
-    expect(mods.map((m) => m.name)).toEqual([
+    expect(flatten(mods).map((m) => m.name)).toEqual([
       'packageB',
       'packageA',
       'packageC',
@@ -115,12 +113,10 @@ describe(findJsiiModules, () => {
       },
     });
 
-    const mods = flatten(
-      await findJsiiModules(
-        [join(workDir, 'packageA'), join(workDir, 'packageB')],
-        false,
-      ),
+    const mods = await findJsiiModules(
+      [join(workDir, 'packageA'), join(workDir, 'packageB')],
+      false,
     );
-    expect(mods.map((m) => m.name)).toEqual(['packageA', 'packageB']);
+    expect(flatten(mods).map((m) => m.name)).toEqual(['packageA', 'packageB']);
   });
 });
