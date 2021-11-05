@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import { TargetLanguage } from '../languages';
-import { TypeScriptSnippet } from '../snippet';
+import { TypeScriptSnippet, SnippetLocation } from '../snippet';
 import { mapValues } from '../util';
 import { snippetKey } from './key';
 import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
@@ -177,6 +177,13 @@ export class TranslatedSnippet {
     return new TranslatedSnippet({
       ...this.snippet,
       fqnsFingerprint: fp,
+    });
+  }
+
+  public withLocation(location: SnippetLocation) {
+    return new TranslatedSnippet({
+      ...this.snippet,
+      location,
     });
   }
 
