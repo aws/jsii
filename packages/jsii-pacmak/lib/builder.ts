@@ -5,7 +5,8 @@ import * as logging from './logging';
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
 import { TargetName } from './targets';
-import { Scratch } from './util';
+import { Toposorted } from './toposort';
+import { Scratch, flatten } from './util';
 
 export interface BuildOptions {
   /**
@@ -62,19 +63,25 @@ export class OneByOneBuilder implements TargetBuilder {
   public constructor(
     private readonly targetName: TargetName,
     private readonly targetConstructor: TargetConstructor,
-    private readonly modules: readonly JsiiModule[],
+    private readonly modules: Toposorted<JsiiModule>,
     private readonly options: BuildOptions,
   ) {}
 
   public async buildModules(): Promise<void> {
-    for (const module of this.modules) {
-      if (this.options.codeOnly) {
-        // eslint-disable-next-line no-await-in-loop
-        await this.generateModuleCode(module, this.options);
-      } else {
-        // eslint-disable-next-line no-await-in-loop
-        await this.buildModule(module, this.options);
-      }
+    if (this.options.codeOnly) {
+      await Promise.all(
+        flatten(this.modules).map((module) =>
+          this.generateModuleCode(module, this.options),
+        ),
+      );
+      return;
+    }
+
+    for (const modules of this.modules) {
+      // eslint-disable-next-line no-await-in-loop
+      await Promise.all(
+        modules.map((module) => this.buildModule(module, this.options)),
+      );
     }
   }
 

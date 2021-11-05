@@ -1,5 +1,7 @@
 import { OneByOneBuilder, TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
+import { Toposorted } from '../toposort';
+import { flatten } from '../util';
 import { DotnetBuilder } from './dotnet';
 import { Golang } from './go';
 import { JavaBuilder } from './java';
@@ -15,14 +17,14 @@ export enum TargetName {
 }
 
 export type BuilderFactory = (
-  modules: readonly JsiiModule[],
+  modules: Toposorted<JsiiModule>,
   options: BuildOptions,
 ) => TargetBuilder;
 
 export const ALL_BUILDERS: { [key in TargetName]: BuilderFactory } = {
-  dotnet: (ms, o) => new DotnetBuilder(ms, o),
+  dotnet: (ms, o) => new DotnetBuilder(flatten(ms), o),
   go: (ms, o) => new OneByOneBuilder(TargetName.GO, Golang, ms, o),
-  java: (ms, o) => new JavaBuilder(ms, o),
+  java: (ms, o) => new JavaBuilder(flatten(ms), o),
   js: (ms, o) => new OneByOneBuilder(TargetName.JAVASCRIPT, JavaScript, ms, o),
   python: (ms, o) => new OneByOneBuilder(TargetName.PYTHON, Python, ms, o),
 };
