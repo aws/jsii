@@ -6,17 +6,23 @@ import { SnippetSelector, mean, meanLength, shortest, longest } from '../snippet
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 
 export interface InfuseResult {
-  coverageResults: Record<string, InfuseTypes>;
+  readonly coverageResults: Record<string, InfuseTypes>;
 }
 
 export interface InfuseTypes {
-  types: number;
-  typesWithInsertedExamples: number;
+  readonly types: number;
+  readonly typesWithInsertedExamples: number;
 }
 
 export interface InfuseOptions {
-  outputFile: string;
-  log: boolean;
+  readonly outputFile?: string;
+
+  readonly log?: boolean;
+
+  /**
+   * Where to write the updated tablet back
+   */
+  readonly tabletOutputFile?: string;
 }
 
 export const DEFAULT_INFUSION_RESULTS_NAME = 'infusion-results.html';
@@ -41,6 +47,10 @@ export async function infuse(
 ): Promise<InfuseResult> {
   let stream: fs.WriteStream | undefined = undefined;
   if (options?.log) {
+    if (!options.outputFile) {
+      throw new Error("If 'log' is set, 'outputFile' must be set as well.");
+    }
+
     // Create stream for html file and insert some styling
     stream = fs.createWriteStream(options.outputFile, {
       encoding: 'utf-8',
@@ -73,7 +83,7 @@ export async function infuse(
           };
           logOutput(stream, typeFqn, createHtmlEntry(selectedFromSelector));
         }
-        insertExample(meanResult.originalSource.source, type);
+        insertExample(meanResult, type, tab);
         typesWithInsertedExamples++;
       }
     }
@@ -87,6 +97,12 @@ export async function infuse(
   }
 
   stream?.close();
+
+  // If we copied examples onto different types, we'll also have inserted new snippets
+  // with different keys into the tablet. We must now write the updated tablet somewhere.
+  if (options?.tabletOutputFile) {
+    await tab.save(options.tabletOutputFile);
+  }
 
   return {
     coverageResults: coverageResults,
@@ -141,14 +157,21 @@ function filterForTypesWithoutExamples(types: { [fqn: string]: spec.Type }): Rec
 }
 
 /**
- * Insert an example into the docs of a type.
+ * Insert an example into the docs of a type, and insert it back into the tablet under a new key
  */
-function insertExample(example: string, type: spec.Type): void {
+function insertExample(example: TranslatedSnippet, type: spec.Type, tablet: LanguageTablet): void {
   if (type.docs) {
-    type.docs.example = example;
+    type.docs.example = example.originalSource.source;
   } else {
-    type.docs = { example: example };
+    type.docs = { example: example.originalSource.source };
   }
+
+  tablet.addSnippet(
+    example.withLocation({
+      api: { api: 'type', fqn: type.fqn },
+      field: { field: 'example' },
+    }),
+  );
 }
 
 /**
