@@ -17,17 +17,35 @@ import {
   ApiLocation,
   typeScriptSnippetFromSource,
 } from './snippet';
+import { snippetKey } from './tablets/key';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
 import { printDiagnostics } from './util';
+
+export enum UnknownSnippetMode {
+  /**
+   * Return the snippet as given (untranslated)
+   */
+  VERBATIM = 'verbatim',
+
+  /**
+   * Live-translate the snippet as best as we can
+   */
+  TRANSLATE = 'translate',
+
+  /**
+   * Throw an error if this occurs
+   */
+  FAIL = 'fail',
+}
 
 export interface RosettaOptions {
   /**
    * Whether or not to live-convert samples
    *
-   * @default false
+   * @default UnknownSnippetMode.VERBATIM
    */
-  readonly liveConversion?: boolean;
+  readonly unknownSnippets?: UnknownSnippetMode;
 
   /**
    * Target languages to use for live conversion
@@ -75,9 +93,11 @@ export class Rosetta {
   private readonly extractedSnippets = new Map<string, TypeScriptSnippet>();
   private readonly translator: Translator;
   private readonly loose: boolean;
+  private readonly unknownSnippets: UnknownSnippetMode;
 
   public constructor(private readonly options: RosettaOptions = {}) {
     this.loose = !!options.loose;
+    this.unknownSnippets = options.unknownSnippets ?? UnknownSnippetMode.VERBATIM;
     this.translator = new Translator(options.includeCompilerDiagnostics ?? false);
   }
 
@@ -115,7 +135,7 @@ export class Rosetta {
    *
    * Otherwise, if live conversion is enabled, the snippets in the assembly
    * become available for live translation later. This is necessary because we probably
-   * need to fixture snippets for successful compilation, and the information
+   * need to fixturize snippets for successful compilation, and the information
    * pacmak sends our way later on is not going to be enough to do that.
    */
   public async addAssembly(assembly: spec.Assembly, assemblyDir: string) {
@@ -129,9 +149,11 @@ export class Rosetta {
       }
     }
 
-    if (this.options.liveConversion) {
+    // Inventarize the snippets from this assembly, but only if there's a chance
+    // we're going to need them.
+    if (this.unknownSnippets === UnknownSnippetMode.TRANSLATE) {
       for (const tsnip of allTypeScriptSnippets([{ assembly, directory: assemblyDir }], this.loose)) {
-        this.extractedSnippets.set(tsnip.visibleSource, tsnip);
+        this.extractedSnippets.set(snippetKey(tsnip), tsnip);
       }
     }
   }
@@ -147,9 +169,16 @@ export class Rosetta {
    *   will be based on the snippet key, which consists of a hash of the
    *   visible source and the API location.
    * - Otherwise, translate the snippet as-is (without fixture information).
+   *
+   * This will do and store a full conversion the given snippet, even if it only
+   * returns one language. Subsequent retrievals for the same snippet but other
+   * languages will reuse the translation from cache.
+   *
+   * If you are calling this for the side effect of adding translations to the live
+   * tablet, you only need to do that for one language.
    */
   public translateSnippet(source: TypeScriptSnippet, targetLang: TargetLanguage): Translation | undefined {
-    // Look for it in loaded tablets
+    // Look for it in loaded tablets (or previous conversions)
     for (const tab of this.allTablets) {
       const ret = tab.lookup(source, targetLang);
       if (ret !== undefined) {
@@ -157,9 +186,23 @@ export class Rosetta {
       }
     }
 
-    if (!this.options.liveConversion) {
-      return undefined;
+    if (this.unknownSnippets === UnknownSnippetMode.VERBATIM) {
+      return {
+        language: targetLang,
+        source: source.visibleSource,
+      };
     }
+
+    if (this.unknownSnippets === UnknownSnippetMode.FAIL) {
+      const message = [
+        'The following snippet was not found in any of the loaded tablets:',
+        source.visibleSource,
+        `Location: ${JSON.stringify(source.location)}`,
+        `Language: ${targetLang}`,
+      ].join('\n');
+      throw new Error(message);
+    }
+
     if (this.options.targetLanguages && !this.options.targetLanguages.includes(targetLang)) {
       throw new Error(
         `Rosetta configured for live conversion to ${this.options.targetLanguages.join(
@@ -168,15 +211,16 @@ export class Rosetta {
       );
     }
 
-    // See if we're going to live-convert it with full source information
-    const extracted = this.extractedSnippets.get(source.visibleSource);
+    // See if we can find a fixturized version of this snippet. If so, use that do the live
+    // conversion.
+    const extracted = this.extractedSnippets.get(snippetKey(source));
     if (extracted !== undefined) {
       const snippet = this.translator.translate(extracted, this.options.targetLanguages);
       this.liveTablet.addSnippet(snippet);
       return snippet.get(targetLang);
     }
 
-    // Try to live-convert it on the spot (we won't have "where" information or fixtures)
+    // Try to live-convert it as-is.
     const snippet = this.translator.translate(source, this.options.targetLanguages);
     return snippet.get(targetLang);
   }
