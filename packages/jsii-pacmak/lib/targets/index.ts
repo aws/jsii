@@ -1,4 +1,4 @@
-import { OneByOneBuilder, TargetBuilder, BuildOptions } from '../builder';
+import { IndependentPackageBuilder, TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
 import { Toposorted } from '../toposort';
 import { flatten } from '../util';
@@ -23,10 +23,10 @@ export type BuilderFactory = (
 
 export const ALL_BUILDERS: { [key in TargetName]: BuilderFactory } = {
   dotnet: (ms, o) => new DotnetBuilder(flatten(ms), o),
-  go: (ms, o) => new OneByOneBuilder(TargetName.GO, Golang, ms, o),
+  go: (ms, o) => new IndependentPackageBuilder(TargetName.GO, Golang, ms, o),
   java: (ms, o) => new JavaBuilder(flatten(ms), o),
-  js: (ms, o) => new OneByOneBuilder(TargetName.JAVASCRIPT, JavaScript, ms, o),
-  python: (ms, o) => new OneByOneBuilder(TargetName.PYTHON, Python, ms, o),
+  js: (ms, o) => new IndependentPackageBuilder(TargetName.JAVASCRIPT, JavaScript, ms, o),
+  python: (ms, o) => new IndependentPackageBuilder(TargetName.PYTHON, Python, ms, o),
 };
 
 export const INCOMPLETE_DISCLAIMER_COMPILING =

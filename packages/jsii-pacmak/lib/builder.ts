@@ -57,9 +57,16 @@ export interface TargetBuilder {
 }
 
 /**
- * Builds the targets for the given language sequentially
+ * Base implementation, building the package targets for the given language independently of each other
+ *
+ * Some languages can gain substantial speedup in preparing an "uber project" for all packages
+ * and compiling them all in one go (Those will be implementing a custom Builder).
+ *
+ * For languages where it doesn't matter--or where we haven't figured out how to
+ * do that yet--this class can serve as a base class: it will build each package
+ * independently, taking care to build them in the right order.
  */
-export class OneByOneBuilder implements TargetBuilder {
+export class IndependentPackageBuilder implements TargetBuilder {
   public constructor(
     private readonly targetName: TargetName,
     private readonly targetConstructor: TargetConstructor,
