@@ -48,7 +48,7 @@ export async function pacmak({
   const modulesToPackageFlat = flatten(modulesToPackageSorted);
 
   logging.info(`Found ${modulesToPackageFlat.length} modules to package`);
-  if (modulesToPackageSorted.length === 0) {
+  if (modulesToPackageFlat.length === 0) {
     logging.warn('Nothing to do');
     return;
   }
