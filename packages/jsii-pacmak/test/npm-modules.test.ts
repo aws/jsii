@@ -3,6 +3,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 import { findJsiiModules } from '../lib/npm-modules';
+import { flatten } from '../lib/util';
 
 describe(findJsiiModules, () => {
   let workDir = tmpdir();
@@ -73,14 +74,16 @@ describe(findJsiiModules, () => {
       },
     });
 
-    const mods = await findJsiiModules(
-      [
-        join(workDir, 'packageD'),
-        join(workDir, 'packageA'),
-        join(workDir, 'packageB'),
-        join(workDir, 'packageC'),
-      ],
-      false,
+    const mods = flatten(
+      await findJsiiModules(
+        [
+          join(workDir, 'packageD'),
+          join(workDir, 'packageA'),
+          join(workDir, 'packageB'),
+          join(workDir, 'packageC'),
+        ],
+        false,
+      ),
     );
     expect(mods.map((m) => m.name)).toEqual([
       'packageB',
@@ -112,9 +115,11 @@ describe(findJsiiModules, () => {
       },
     });
 
-    const mods = await findJsiiModules(
-      [join(workDir, 'packageA'), join(workDir, 'packageB')],
-      false,
+    const mods = flatten(
+      await findJsiiModules(
+        [join(workDir, 'packageA'), join(workDir, 'packageB')],
+        false,
+      ),
     );
     expect(mods.map((m) => m.name)).toEqual(['packageA', 'packageB']);
   });
