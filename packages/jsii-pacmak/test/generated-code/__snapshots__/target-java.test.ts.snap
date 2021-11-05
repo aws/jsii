@@ -538,8 +538,8 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
      * A builder for {@link BaseProps}
      */
     public static final class Builder implements software.amazon.jsii.Builder<BaseProps> {
-        private java.lang.String bar;
-        private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
+        protected java.lang.String bar;
+        protected software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of {@link BaseProps#getBar}
@@ -568,7 +568,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
          */
         @Override
         public BaseProps build() {
-            return new Jsii$Proxy(bar, foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -593,10 +593,10 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String bar, final software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -1301,7 +1301,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link VeryBaseProps}
      */
     public static final class Builder implements software.amazon.jsii.Builder<VeryBaseProps> {
-        private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
+        protected software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of {@link VeryBaseProps#getFoo}
@@ -1320,7 +1320,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
          */
         @Override
         public VeryBaseProps build() {
-            return new Jsii$Proxy(foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -1343,9 +1343,9 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -1954,7 +1954,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         public static final class Builder implements software.amazon.jsii.Builder<NestedStruct> {
-            private java.lang.String name;
+            protected java.lang.String name;
 
             /**
              * Sets the value of {@link NestedStruct#getName}
@@ -1977,7 +1977,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
             @Deprecated
             @Override
             public NestedStruct build() {
-                return new Jsii$Proxy(name);
+                return new Jsii$Proxy(this);
             }
         }
 
@@ -2002,9 +2002,9 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
             /**
              * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
              */
-            protected Jsii$Proxy(final java.lang.String name) {
+            protected Jsii$Proxy(final Builder builder) {
                 super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-                this.name = java.util.Objects.requireNonNull(name, "name is required");
+                this.name = java.util.Objects.requireNonNull(builder.name, "name is required");
             }
 
             @Override
@@ -2089,8 +2089,8 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<ReflectableEntry> {
-        private java.lang.String key;
-        private java.lang.Object value;
+        protected java.lang.String key;
+        protected java.lang.Object value;
 
         /**
          * Sets the value of {@link ReflectableEntry#getKey}
@@ -2125,7 +2125,7 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
         @Deprecated
         @Override
         public ReflectableEntry build() {
-            return new Jsii$Proxy(key, value);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -2152,10 +2152,10 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String key, final java.lang.Object value) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.key = java.util.Objects.requireNonNull(key, "key is required");
-            this.value = java.util.Objects.requireNonNull(value, "value is required");
+            this.key = java.util.Objects.requireNonNull(builder.key, "key is required");
+            this.value = java.util.Objects.requireNonNull(builder.value, "value is required");
         }
 
         @Override
@@ -2419,8 +2419,8 @@ public interface DiamondLeft extends software.amazon.jsii.JsiiSerializable {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<DiamondLeft> {
-        private java.lang.String hoistedTop;
-        private java.lang.Number left;
+        protected java.lang.String hoistedTop;
+        protected java.lang.Number left;
 
         /**
          * Sets the value of {@link DiamondLeft#getHoistedTop}
@@ -2455,7 +2455,7 @@ public interface DiamondLeft extends software.amazon.jsii.JsiiSerializable {
         @Deprecated
         @Override
         public DiamondLeft build() {
-            return new Jsii$Proxy(hoistedTop, left);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -2482,10 +2482,10 @@ public interface DiamondLeft extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String hoistedTop, final java.lang.Number left) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.hoistedTop = hoistedTop;
-            this.left = left;
+            this.hoistedTop = builder.hoistedTop;
+            this.left = builder.left;
         }
 
         @Override
@@ -2585,8 +2585,8 @@ public interface DiamondRight extends software.amazon.jsii.JsiiSerializable {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<DiamondRight> {
-        private java.lang.String hoistedTop;
-        private java.lang.Boolean right;
+        protected java.lang.String hoistedTop;
+        protected java.lang.Boolean right;
 
         /**
          * Sets the value of {@link DiamondRight#getHoistedTop}
@@ -2621,7 +2621,7 @@ public interface DiamondRight extends software.amazon.jsii.JsiiSerializable {
         @Deprecated
         @Override
         public DiamondRight build() {
-            return new Jsii$Proxy(hoistedTop, right);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -2648,10 +2648,10 @@ public interface DiamondRight extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String hoistedTop, final java.lang.Boolean right) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.hoistedTop = hoistedTop;
-            this.right = right;
+            this.hoistedTop = builder.hoistedTop;
+            this.right = builder.right;
         }
 
         @Override
@@ -2985,9 +2985,9 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<MyFirstStruct> {
-        private java.lang.Number anumber;
-        private java.lang.String astring;
-        private java.util.List<java.lang.String> firstOptional;
+        protected java.lang.Number anumber;
+        protected java.lang.String astring;
+        protected java.util.List<java.lang.String> firstOptional;
 
         /**
          * Sets the value of {@link MyFirstStruct#getAnumber}
@@ -3034,7 +3034,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         @Deprecated
         @Override
         public MyFirstStruct build() {
-            return new Jsii$Proxy(anumber, astring, firstOptional);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -3063,11 +3063,11 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number anumber, final java.lang.String astring, final java.util.List<java.lang.String> firstOptional) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.anumber = java.util.Objects.requireNonNull(anumber, "anumber is required");
-            this.astring = java.util.Objects.requireNonNull(astring, "astring is required");
-            this.firstOptional = firstOptional;
+            this.anumber = java.util.Objects.requireNonNull(builder.anumber, "anumber is required");
+            this.astring = java.util.Objects.requireNonNull(builder.astring, "astring is required");
+            this.firstOptional = builder.firstOptional;
         }
 
         @Override
@@ -3368,9 +3368,9 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<StructWithOnlyOptionals> {
-        private java.lang.String optional1;
-        private java.lang.Number optional2;
-        private java.lang.Boolean optional3;
+        protected java.lang.String optional1;
+        protected java.lang.Number optional2;
+        protected java.lang.Boolean optional3;
 
         /**
          * Sets the value of {@link StructWithOnlyOptionals#getOptional1}
@@ -3417,7 +3417,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         @Deprecated
         @Override
         public StructWithOnlyOptionals build() {
-            return new Jsii$Proxy(optional1, optional2, optional3);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -3446,11 +3446,11 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String optional1, final java.lang.Number optional2, final java.lang.Boolean optional3) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.optional1 = optional1;
-            this.optional2 = optional2;
-            this.optional3 = optional3;
+            this.optional1 = builder.optional1;
+            this.optional2 = builder.optional2;
+            this.optional3 = builder.optional3;
         }
 
         @Override
@@ -5915,8 +5915,8 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<CalculatorProps> {
-        private java.lang.Number initialValue;
-        private java.lang.Number maximumValue;
+        protected java.lang.Number initialValue;
+        protected java.lang.Number maximumValue;
 
         /**
          * Sets the value of {@link CalculatorProps#getInitialValue}
@@ -5949,7 +5949,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public CalculatorProps build() {
-            return new Jsii$Proxy(initialValue, maximumValue);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -5975,10 +5975,10 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number initialValue, final java.lang.Number maximumValue) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.initialValue = initialValue;
-            this.maximumValue = maximumValue;
+            this.initialValue = builder.initialValue;
+            this.maximumValue = builder.maximumValue;
         }
 
         @Override
@@ -6064,8 +6064,8 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ChildStruct982> {
-        private java.lang.Number bar;
-        private java.lang.String foo;
+        protected java.lang.Number bar;
+        protected java.lang.String foo;
 
         /**
          * Sets the value of {@link ChildStruct982#getBar}
@@ -6097,7 +6097,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ChildStruct982 build() {
-            return new Jsii$Proxy(bar, foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -6123,10 +6123,10 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number bar, final java.lang.String foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -6888,7 +6888,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ConfusingToJacksonStruct> {
-        private java.lang.Object unionProperty;
+        protected java.lang.Object unionProperty;
 
         /**
          * Sets the value of {@link ConfusingToJacksonStruct#getUnionProperty}
@@ -6920,7 +6920,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ConfusingToJacksonStruct build() {
-            return new Jsii$Proxy(unionProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -6944,9 +6944,9 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Object unionProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.unionProperty = unionProperty;
+            this.unionProperty = builder.unionProperty;
         }
 
         @Override
@@ -7351,9 +7351,9 @@ public interface ContainerProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ContainerProps> {
-        private java.util.List<software.amazon.jsii.tests.calculator.DummyObj> arrayProp;
-        private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> objProp;
-        private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> recordProp;
+        protected java.util.List<software.amazon.jsii.tests.calculator.DummyObj> arrayProp;
+        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> objProp;
+        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> recordProp;
 
         /**
          * Sets the value of {@link ContainerProps#getArrayProp}
@@ -7399,7 +7399,7 @@ public interface ContainerProps extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ContainerProps build() {
-            return new Jsii$Proxy(arrayProp, objProp, recordProp);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -7428,11 +7428,11 @@ public interface ContainerProps extends software.amazon.jsii.JsiiSerializable {
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
         @SuppressWarnings("unchecked")
-        protected Jsii$Proxy(final java.util.List<? extends software.amazon.jsii.tests.calculator.DummyObj> arrayProp, final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> objProp, final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.DummyObj> recordProp) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.arrayProp = (java.util.List<software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(arrayProp, "arrayProp is required");
-            this.objProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(objProp, "objProp is required");
-            this.recordProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(recordProp, "recordProp is required");
+            this.arrayProp = (java.util.List<software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(builder.arrayProp, "arrayProp is required");
+            this.objProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(builder.objProp, "objProp is required");
+            this.recordProp = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj>)java.util.Objects.requireNonNull(builder.recordProp, "recordProp is required");
         }
 
         @Override
@@ -7866,7 +7866,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<DeprecatedStruct> {
-        private java.lang.String readonlyProperty;
+        protected java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link DeprecatedStruct#getReadonlyProperty}
@@ -7890,7 +7890,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
         @Deprecated
         @Override
         public DeprecatedStruct build() {
-            return new Jsii$Proxy(readonlyProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -7915,9 +7915,9 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String readonlyProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.readonlyProperty = java.util.Objects.requireNonNull(readonlyProperty, "readonlyProperty is required");
+            this.readonlyProperty = java.util.Objects.requireNonNull(builder.readonlyProperty, "readonlyProperty is required");
         }
 
         @Override
@@ -8025,15 +8025,15 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DerivedStruct> {
-        private java.time.Instant anotherRequired;
-        private java.lang.Boolean bool;
-        private software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive;
-        private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.NumericValue> anotherOptional;
-        private java.lang.Object optionalAny;
-        private java.util.List<java.lang.String> optionalArray;
-        private java.lang.Number anumber;
-        private java.lang.String astring;
-        private java.util.List<java.lang.String> firstOptional;
+        protected java.time.Instant anotherRequired;
+        protected java.lang.Boolean bool;
+        protected software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive;
+        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.NumericValue> anotherOptional;
+        protected java.lang.Object optionalAny;
+        protected java.util.List<java.lang.String> optionalArray;
+        protected java.lang.Number anumber;
+        protected java.lang.String astring;
+        protected java.util.List<java.lang.String> firstOptional;
 
         /**
          * Sets the value of {@link DerivedStruct#getAnotherRequired}
@@ -8146,7 +8146,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DerivedStruct build() {
-            return new Jsii$Proxy(anotherRequired, bool, nonPrimitive, anotherOptional, optionalAny, optionalArray, anumber, astring, firstOptional);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -8187,17 +8187,17 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
         @SuppressWarnings("unchecked")
-        protected Jsii$Proxy(final java.time.Instant anotherRequired, final java.lang.Boolean bool, final software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive, final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.lib.NumericValue> anotherOptional, final java.lang.Object optionalAny, final java.util.List<java.lang.String> optionalArray, final java.lang.Number anumber, final java.lang.String astring, final java.util.List<java.lang.String> firstOptional) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.anotherRequired = java.util.Objects.requireNonNull(anotherRequired, "anotherRequired is required");
-            this.bool = java.util.Objects.requireNonNull(bool, "bool is required");
-            this.nonPrimitive = java.util.Objects.requireNonNull(nonPrimitive, "nonPrimitive is required");
-            this.anotherOptional = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.NumericValue>)anotherOptional;
-            this.optionalAny = optionalAny;
-            this.optionalArray = optionalArray;
-            this.anumber = java.util.Objects.requireNonNull(anumber, "anumber is required");
-            this.astring = java.util.Objects.requireNonNull(astring, "astring is required");
-            this.firstOptional = firstOptional;
+            this.anotherRequired = java.util.Objects.requireNonNull(builder.anotherRequired, "anotherRequired is required");
+            this.bool = java.util.Objects.requireNonNull(builder.bool, "bool is required");
+            this.nonPrimitive = java.util.Objects.requireNonNull(builder.nonPrimitive, "nonPrimitive is required");
+            this.anotherOptional = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.NumericValue>)builder.anotherOptional;
+            this.optionalAny = builder.optionalAny;
+            this.optionalArray = builder.optionalArray;
+            this.anumber = java.util.Objects.requireNonNull(builder.anumber, "anumber is required");
+            this.astring = java.util.Objects.requireNonNull(builder.astring, "astring is required");
+            this.firstOptional = builder.firstOptional;
         }
 
         @Override
@@ -8354,10 +8354,10 @@ public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, so
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondBottom> {
-        private java.time.Instant bottom;
-        private java.lang.String hoistedTop;
-        private java.lang.Number left;
-        private java.lang.Boolean right;
+        protected java.time.Instant bottom;
+        protected java.lang.String hoistedTop;
+        protected java.lang.Number left;
+        protected java.lang.Boolean right;
 
         /**
          * Sets the value of {@link DiamondBottom#getBottom}
@@ -8414,7 +8414,7 @@ public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, so
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DiamondBottom build() {
-            return new Jsii$Proxy(bottom, hoistedTop, left, right);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -8444,12 +8444,12 @@ public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, so
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.time.Instant bottom, final java.lang.String hoistedTop, final java.lang.Number left, final java.lang.Boolean right) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bottom = bottom;
-            this.hoistedTop = hoistedTop;
-            this.left = left;
-            this.right = right;
+            this.bottom = builder.bottom;
+            this.hoistedTop = builder.hoistedTop;
+            this.left = builder.left;
+            this.right = builder.right;
         }
 
         @Override
@@ -8555,7 +8555,7 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceBaseLevelStruct> {
-        private java.lang.String baseLevelProperty;
+        protected java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceBaseLevelStruct#getBaseLevelProperty}
@@ -8576,7 +8576,7 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DiamondInheritanceBaseLevelStruct build() {
-            return new Jsii$Proxy(baseLevelProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -8600,9 +8600,9 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String baseLevelProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.baseLevelProperty = java.util.Objects.requireNonNull(baseLevelProperty, "baseLevelProperty is required");
+            this.baseLevelProperty = java.util.Objects.requireNonNull(builder.baseLevelProperty, "baseLevelProperty is required");
         }
 
         @Override
@@ -8676,8 +8676,8 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceFirstMidLevelStruct> {
-        private java.lang.String firstMidLevelProperty;
-        private java.lang.String baseLevelProperty;
+        protected java.lang.String firstMidLevelProperty;
+        protected java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceFirstMidLevelStruct#getFirstMidLevelProperty}
@@ -8709,7 +8709,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DiamondInheritanceFirstMidLevelStruct build() {
-            return new Jsii$Proxy(firstMidLevelProperty, baseLevelProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -8735,10 +8735,10 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String firstMidLevelProperty, final java.lang.String baseLevelProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.firstMidLevelProperty = java.util.Objects.requireNonNull(firstMidLevelProperty, "firstMidLevelProperty is required");
-            this.baseLevelProperty = java.util.Objects.requireNonNull(baseLevelProperty, "baseLevelProperty is required");
+            this.firstMidLevelProperty = java.util.Objects.requireNonNull(builder.firstMidLevelProperty, "firstMidLevelProperty is required");
+            this.baseLevelProperty = java.util.Objects.requireNonNull(builder.baseLevelProperty, "baseLevelProperty is required");
         }
 
         @Override
@@ -8820,8 +8820,8 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceSecondMidLevelStruct> {
-        private java.lang.String secondMidLevelProperty;
-        private java.lang.String baseLevelProperty;
+        protected java.lang.String secondMidLevelProperty;
+        protected java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceSecondMidLevelStruct#getSecondMidLevelProperty}
@@ -8853,7 +8853,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DiamondInheritanceSecondMidLevelStruct build() {
-            return new Jsii$Proxy(secondMidLevelProperty, baseLevelProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -8879,10 +8879,10 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String secondMidLevelProperty, final java.lang.String baseLevelProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.secondMidLevelProperty = java.util.Objects.requireNonNull(secondMidLevelProperty, "secondMidLevelProperty is required");
-            this.baseLevelProperty = java.util.Objects.requireNonNull(baseLevelProperty, "baseLevelProperty is required");
+            this.secondMidLevelProperty = java.util.Objects.requireNonNull(builder.secondMidLevelProperty, "secondMidLevelProperty is required");
+            this.baseLevelProperty = java.util.Objects.requireNonNull(builder.baseLevelProperty, "baseLevelProperty is required");
         }
 
         @Override
@@ -8969,10 +8969,10 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceTopLevelStruct> {
-        private java.lang.String topLevelProperty;
-        private java.lang.String firstMidLevelProperty;
-        private java.lang.String baseLevelProperty;
-        private java.lang.String secondMidLevelProperty;
+        protected java.lang.String topLevelProperty;
+        protected java.lang.String firstMidLevelProperty;
+        protected java.lang.String baseLevelProperty;
+        protected java.lang.String secondMidLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceTopLevelStruct#getTopLevelProperty}
@@ -9026,7 +9026,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DiamondInheritanceTopLevelStruct build() {
-            return new Jsii$Proxy(topLevelProperty, firstMidLevelProperty, baseLevelProperty, secondMidLevelProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -9056,12 +9056,12 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String topLevelProperty, final java.lang.String firstMidLevelProperty, final java.lang.String baseLevelProperty, final java.lang.String secondMidLevelProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.topLevelProperty = java.util.Objects.requireNonNull(topLevelProperty, "topLevelProperty is required");
-            this.firstMidLevelProperty = java.util.Objects.requireNonNull(firstMidLevelProperty, "firstMidLevelProperty is required");
-            this.baseLevelProperty = java.util.Objects.requireNonNull(baseLevelProperty, "baseLevelProperty is required");
-            this.secondMidLevelProperty = java.util.Objects.requireNonNull(secondMidLevelProperty, "secondMidLevelProperty is required");
+            this.topLevelProperty = java.util.Objects.requireNonNull(builder.topLevelProperty, "topLevelProperty is required");
+            this.firstMidLevelProperty = java.util.Objects.requireNonNull(builder.firstMidLevelProperty, "firstMidLevelProperty is required");
+            this.baseLevelProperty = java.util.Objects.requireNonNull(builder.baseLevelProperty, "baseLevelProperty is required");
+            this.secondMidLevelProperty = java.util.Objects.requireNonNull(builder.secondMidLevelProperty, "secondMidLevelProperty is required");
         }
 
         @Override
@@ -9477,7 +9477,7 @@ public interface DummyObj extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DummyObj> {
-        private java.lang.String example;
+        protected java.lang.String example;
 
         /**
          * Sets the value of {@link DummyObj#getExample}
@@ -9498,7 +9498,7 @@ public interface DummyObj extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DummyObj build() {
-            return new Jsii$Proxy(example);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -9522,9 +9522,9 @@ public interface DummyObj extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String example) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.example = java.util.Objects.requireNonNull(example, "example is required");
+            this.example = java.util.Objects.requireNonNull(builder.example, "example is required");
         }
 
         @Override
@@ -9882,8 +9882,8 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<EraseUndefinedHashValuesOptions> {
-        private java.lang.String option1;
-        private java.lang.String option2;
+        protected java.lang.String option1;
+        protected java.lang.String option2;
 
         /**
          * Sets the value of {@link EraseUndefinedHashValuesOptions#getOption1}
@@ -9915,7 +9915,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public EraseUndefinedHashValuesOptions build() {
-            return new Jsii$Proxy(option1, option2);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -9941,10 +9941,10 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String option1, final java.lang.String option2) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.option1 = option1;
-            this.option2 = option2;
+            this.option1 = builder.option1;
+            this.option2 = builder.option2;
         }
 
         @Override
@@ -10119,7 +10119,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static final class Builder implements software.amazon.jsii.Builder<ExperimentalStruct> {
-        private java.lang.String readonlyProperty;
+        protected java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link ExperimentalStruct#getReadonlyProperty}
@@ -10140,7 +10140,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public ExperimentalStruct build() {
-            return new Jsii$Proxy(readonlyProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -10164,9 +10164,9 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String readonlyProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.readonlyProperty = java.util.Objects.requireNonNull(readonlyProperty, "readonlyProperty is required");
+            this.readonlyProperty = java.util.Objects.requireNonNull(builder.readonlyProperty, "readonlyProperty is required");
         }
 
         @Override
@@ -10282,8 +10282,8 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ExtendsInternalInterface> {
-        private java.lang.Boolean boom;
-        private java.lang.String prop;
+        protected java.lang.Boolean boom;
+        protected java.lang.String prop;
 
         /**
          * Sets the value of {@link ExtendsInternalInterface#getBoom}
@@ -10315,7 +10315,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ExtendsInternalInterface build() {
-            return new Jsii$Proxy(boom, prop);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -10341,10 +10341,10 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Boolean boom, final java.lang.String prop) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.boom = java.util.Objects.requireNonNull(boom, "boom is required");
-            this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
+            this.boom = java.util.Objects.requireNonNull(builder.boom, "boom is required");
+            this.prop = java.util.Objects.requireNonNull(builder.prop, "prop is required");
         }
 
         @Override
@@ -10515,7 +10515,7 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ExternalStruct> {
-        private java.lang.String readonlyProperty;
+        protected java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link ExternalStruct#getReadonlyProperty}
@@ -10536,7 +10536,7 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ExternalStruct build() {
-            return new Jsii$Proxy(readonlyProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -10560,9 +10560,9 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String readonlyProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.readonlyProperty = java.util.Objects.requireNonNull(readonlyProperty, "readonlyProperty is required");
+            this.readonlyProperty = java.util.Objects.requireNonNull(builder.readonlyProperty, "readonlyProperty is required");
         }
 
         @Override
@@ -10708,7 +10708,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Greetee> {
-        private java.lang.String name;
+        protected java.lang.String name;
 
         /**
          * Sets the value of {@link Greetee#getName}
@@ -10729,7 +10729,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Greetee build() {
-            return new Jsii$Proxy(name);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -10753,9 +10753,9 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String name) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.name = name;
+            this.name = builder.name;
         }
 
         @Override
@@ -13781,9 +13781,9 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ImplictBaseOfBase> {
-        private java.time.Instant goo;
-        private java.lang.String bar;
-        private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
+        protected java.time.Instant goo;
+        protected java.lang.String bar;
+        protected software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of {@link ImplictBaseOfBase#getGoo}
@@ -13824,7 +13824,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ImplictBaseOfBase build() {
-            return new Jsii$Proxy(goo, bar, foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -13852,11 +13852,11 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.time.Instant goo, final java.lang.String bar, final software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.goo = java.util.Objects.requireNonNull(goo, "goo is required");
-            this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.goo = java.util.Objects.requireNonNull(builder.goo, "goo is required");
+            this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -15079,7 +15079,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static final class Builder implements software.amazon.jsii.Builder<PropBooleanValue> {
-            private java.lang.Boolean value;
+            protected java.lang.Boolean value;
 
             /**
              * Sets the value of {@link PropBooleanValue#getValue}
@@ -15100,7 +15100,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
             @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
             @Override
             public PropBooleanValue build() {
-                return new Jsii$Proxy(value);
+                return new Jsii$Proxy(this);
             }
         }
 
@@ -15124,9 +15124,9 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
             /**
              * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
              */
-            protected Jsii$Proxy(final java.lang.Boolean value) {
+            protected Jsii$Proxy(final Builder builder) {
                 super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-                this.value = java.util.Objects.requireNonNull(value, "value is required");
+                this.value = java.util.Objects.requireNonNull(builder.value, "value is required");
             }
 
             @Override
@@ -15193,7 +15193,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static final class Builder implements software.amazon.jsii.Builder<PropProperty> {
-            private software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop;
+            protected software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop;
 
             /**
              * Sets the value of {@link PropProperty#getProp}
@@ -15214,7 +15214,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
             @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
             @Override
             public PropProperty build() {
-                return new Jsii$Proxy(prop);
+                return new Jsii$Proxy(this);
             }
         }
 
@@ -15238,9 +15238,9 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
             /**
              * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
              */
-            protected Jsii$Proxy(final software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop) {
+            protected Jsii$Proxy(final Builder builder) {
                 super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-                this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
+                this.prop = java.util.Objects.requireNonNull(builder.prop, "prop is required");
             }
 
             @Override
@@ -15356,7 +15356,7 @@ public interface LevelOneProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<LevelOneProps> {
-        private software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop;
+        protected software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop;
 
         /**
          * Sets the value of {@link LevelOneProps#getProp}
@@ -15377,7 +15377,7 @@ public interface LevelOneProps extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public LevelOneProps build() {
-            return new Jsii$Proxy(prop);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -15401,9 +15401,9 @@ public interface LevelOneProps extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
+            this.prop = java.util.Objects.requireNonNull(builder.prop, "prop is required");
         }
 
         @Override
@@ -15549,11 +15549,11 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<LoadBalancedFargateServiceProps> {
-        private java.lang.Number containerPort;
-        private java.lang.String cpu;
-        private java.lang.String memoryMiB;
-        private java.lang.Boolean publicLoadBalancer;
-        private java.lang.Boolean publicTasks;
+        protected java.lang.Number containerPort;
+        protected java.lang.String cpu;
+        protected java.lang.String memoryMiB;
+        protected java.lang.Boolean publicLoadBalancer;
+        protected java.lang.Boolean publicTasks;
 
         /**
          * Sets the value of {@link LoadBalancedFargateServiceProps#getContainerPort}
@@ -15641,7 +15641,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public LoadBalancedFargateServiceProps build() {
-            return new Jsii$Proxy(containerPort, cpu, memoryMiB, publicLoadBalancer, publicTasks);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -15673,13 +15673,13 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number containerPort, final java.lang.String cpu, final java.lang.String memoryMiB, final java.lang.Boolean publicLoadBalancer, final java.lang.Boolean publicTasks) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.containerPort = containerPort;
-            this.cpu = cpu;
-            this.memoryMiB = memoryMiB;
-            this.publicLoadBalancer = publicLoadBalancer;
-            this.publicTasks = publicTasks;
+            this.containerPort = builder.containerPort;
+            this.cpu = builder.cpu;
+            this.memoryMiB = builder.memoryMiB;
+            this.publicLoadBalancer = builder.publicLoadBalancer;
+            this.publicTasks = builder.publicTasks;
         }
 
         @Override
@@ -16022,7 +16022,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<NestedStruct> {
-        private java.lang.Number numberProp;
+        protected java.lang.Number numberProp;
 
         /**
          * Sets the value of {@link NestedStruct#getNumberProp}
@@ -16043,7 +16043,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public NestedStruct build() {
-            return new Jsii$Proxy(numberProp);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -16067,9 +16067,9 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number numberProp) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.numberProp = java.util.Objects.requireNonNull(numberProp, "numberProp is required");
+            this.numberProp = java.util.Objects.requireNonNull(builder.numberProp, "numberProp is required");
         }
 
         @Override
@@ -16303,8 +16303,8 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<NullShouldBeTreatedAsUndefinedData> {
-        private java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
-        private java.lang.Object thisShouldBeUndefined;
+        protected java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        protected java.lang.Object thisShouldBeUndefined;
 
         /**
          * Sets the value of {@link NullShouldBeTreatedAsUndefinedData#getArrayWithThreeElementsAndUndefinedAsSecondArgument}
@@ -16337,7 +16337,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public NullShouldBeTreatedAsUndefinedData build() {
-            return new Jsii$Proxy(arrayWithThreeElementsAndUndefinedAsSecondArgument, thisShouldBeUndefined);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -16364,10 +16364,10 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
         @SuppressWarnings("unchecked")
-        protected Jsii$Proxy(final java.util.List<? extends java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument, final java.lang.Object thisShouldBeUndefined) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = (java.util.List<java.lang.Object>)java.util.Objects.requireNonNull(arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
-            this.thisShouldBeUndefined = thisShouldBeUndefined;
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = (java.util.List<java.lang.Object>)java.util.Objects.requireNonNull(builder.arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
+            this.thisShouldBeUndefined = builder.thisShouldBeUndefined;
         }
 
         @Override
@@ -16741,7 +16741,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<OptionalStruct> {
-        private java.lang.String field;
+        protected java.lang.String field;
 
         /**
          * Sets the value of {@link OptionalStruct#getField}
@@ -16762,7 +16762,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public OptionalStruct build() {
-            return new Jsii$Proxy(field);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -16786,9 +16786,9 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String field) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.field = field;
+            this.field = builder.field;
         }
 
         @Override
@@ -17073,7 +17073,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ParentStruct982> {
-        private java.lang.String foo;
+        protected java.lang.String foo;
 
         /**
          * Sets the value of {@link ParentStruct982#getFoo}
@@ -17094,7 +17094,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ParentStruct982 build() {
-            return new Jsii$Proxy(foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -17118,9 +17118,9 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -17794,8 +17794,8 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<RootStruct> {
-        private java.lang.String stringProp;
-        private software.amazon.jsii.tests.calculator.NestedStruct nestedStruct;
+        protected java.lang.String stringProp;
+        protected software.amazon.jsii.tests.calculator.NestedStruct nestedStruct;
 
         /**
          * Sets the value of {@link RootStruct#getStringProp}
@@ -17827,7 +17827,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public RootStruct build() {
-            return new Jsii$Proxy(stringProp, nestedStruct);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -17853,10 +17853,10 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String stringProp, final software.amazon.jsii.tests.calculator.NestedStruct nestedStruct) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.stringProp = java.util.Objects.requireNonNull(stringProp, "stringProp is required");
-            this.nestedStruct = nestedStruct;
+            this.stringProp = java.util.Objects.requireNonNull(builder.stringProp, "stringProp is required");
+            this.nestedStruct = builder.nestedStruct;
         }
 
         @Override
@@ -18079,8 +18079,8 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SecondLevelStruct> {
-        private java.lang.String deeperRequiredProp;
-        private java.lang.String deeperOptionalProp;
+        protected java.lang.String deeperRequiredProp;
+        protected java.lang.String deeperOptionalProp;
 
         /**
          * Sets the value of {@link SecondLevelStruct#getDeeperRequiredProp}
@@ -18112,7 +18112,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SecondLevelStruct build() {
-            return new Jsii$Proxy(deeperRequiredProp, deeperOptionalProp);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -18138,10 +18138,10 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String deeperRequiredProp, final java.lang.String deeperOptionalProp) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.deeperRequiredProp = java.util.Objects.requireNonNull(deeperRequiredProp, "deeperRequiredProp is required");
-            this.deeperOptionalProp = deeperOptionalProp;
+            this.deeperRequiredProp = java.util.Objects.requireNonNull(builder.deeperRequiredProp, "deeperRequiredProp is required");
+            this.deeperOptionalProp = builder.deeperOptionalProp;
         }
 
         @Override
@@ -18380,8 +18380,8 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SmellyStruct> {
-        private java.lang.String property;
-        private java.lang.Boolean yetAnoterOne;
+        protected java.lang.String property;
+        protected java.lang.Boolean yetAnoterOne;
 
         /**
          * Sets the value of {@link SmellyStruct#getProperty}
@@ -18413,7 +18413,7 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SmellyStruct build() {
-            return new Jsii$Proxy(property, yetAnoterOne);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -18439,10 +18439,10 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String property, final java.lang.Boolean yetAnoterOne) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.property = java.util.Objects.requireNonNull(property, "property is required");
-            this.yetAnoterOne = java.util.Objects.requireNonNull(yetAnoterOne, "yetAnoterOne is required");
+            this.property = java.util.Objects.requireNonNull(builder.property, "property is required");
+            this.yetAnoterOne = java.util.Objects.requireNonNull(builder.yetAnoterOne, "yetAnoterOne is required");
         }
 
         @Override
@@ -18656,7 +18656,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StableStruct> {
-        private java.lang.String readonlyProperty;
+        protected java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link StableStruct#getReadonlyProperty}
@@ -18677,7 +18677,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StableStruct build() {
-            return new Jsii$Proxy(readonlyProperty);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -18701,9 +18701,9 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String readonlyProperty) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.readonlyProperty = java.util.Objects.requireNonNull(readonlyProperty, "readonlyProperty is required");
+            this.readonlyProperty = java.util.Objects.requireNonNull(builder.readonlyProperty, "readonlyProperty is required");
         }
 
         @Override
@@ -19106,9 +19106,9 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructA> {
-        private java.lang.String requiredString;
-        private java.lang.Number optionalNumber;
-        private java.lang.String optionalString;
+        protected java.lang.String requiredString;
+        protected java.lang.Number optionalNumber;
+        protected java.lang.String optionalString;
 
         /**
          * Sets the value of {@link StructA#getRequiredString}
@@ -19151,7 +19151,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructA build() {
-            return new Jsii$Proxy(requiredString, optionalNumber, optionalString);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -19179,11 +19179,11 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String requiredString, final java.lang.Number optionalNumber, final java.lang.String optionalString) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.requiredString = java.util.Objects.requireNonNull(requiredString, "requiredString is required");
-            this.optionalNumber = optionalNumber;
-            this.optionalString = optionalString;
+            this.requiredString = java.util.Objects.requireNonNull(builder.requiredString, "requiredString is required");
+            this.optionalNumber = builder.optionalNumber;
+            this.optionalString = builder.optionalString;
         }
 
         @Override
@@ -19292,9 +19292,9 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructB> {
-        private java.lang.String requiredString;
-        private java.lang.Boolean optionalBoolean;
-        private software.amazon.jsii.tests.calculator.StructA optionalStructA;
+        protected java.lang.String requiredString;
+        protected java.lang.Boolean optionalBoolean;
+        protected software.amazon.jsii.tests.calculator.StructA optionalStructA;
 
         /**
          * Sets the value of {@link StructB#getRequiredString}
@@ -19337,7 +19337,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructB build() {
-            return new Jsii$Proxy(requiredString, optionalBoolean, optionalStructA);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -19365,11 +19365,11 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String requiredString, final java.lang.Boolean optionalBoolean, final software.amazon.jsii.tests.calculator.StructA optionalStructA) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.requiredString = java.util.Objects.requireNonNull(requiredString, "requiredString is required");
-            this.optionalBoolean = optionalBoolean;
-            this.optionalStructA = optionalStructA;
+            this.requiredString = java.util.Objects.requireNonNull(builder.requiredString, "requiredString is required");
+            this.optionalBoolean = builder.optionalBoolean;
+            this.optionalStructA = builder.optionalStructA;
         }
 
         @Override
@@ -19473,8 +19473,8 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructParameterType> {
-        private java.lang.String scope;
-        private java.lang.Boolean props;
+        protected java.lang.String scope;
+        protected java.lang.Boolean props;
 
         /**
          * Sets the value of {@link StructParameterType#getScope}
@@ -19506,7 +19506,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructParameterType build() {
-            return new Jsii$Proxy(scope, props);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -19532,10 +19532,10 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String scope, final java.lang.Boolean props) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.scope = java.util.Objects.requireNonNull(scope, "scope is required");
-            this.props = props;
+            this.scope = java.util.Objects.requireNonNull(builder.scope, "scope is required");
+            this.props = builder.props;
         }
 
         @Override
@@ -19715,8 +19715,8 @@ public interface StructWithEnum extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructWithEnum> {
-        private software.amazon.jsii.tests.calculator.StringEnum foo;
-        private software.amazon.jsii.tests.calculator.AllTypesEnum bar;
+        protected software.amazon.jsii.tests.calculator.StringEnum foo;
+        protected software.amazon.jsii.tests.calculator.AllTypesEnum bar;
 
         /**
          * Sets the value of {@link StructWithEnum#getFoo}
@@ -19748,7 +19748,7 @@ public interface StructWithEnum extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructWithEnum build() {
-            return new Jsii$Proxy(foo, bar);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -19774,10 +19774,10 @@ public interface StructWithEnum extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final software.amazon.jsii.tests.calculator.StringEnum foo, final software.amazon.jsii.tests.calculator.AllTypesEnum bar) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
-            this.bar = bar;
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            this.bar = builder.bar;
         }
 
         @Override
@@ -19882,10 +19882,10 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructWithJavaReservedWords> {
-        private java.lang.String defaultValue;
-        private java.lang.String assertValue;
-        private java.lang.String result;
-        private java.lang.String that;
+        protected java.lang.String defaultValue;
+        protected java.lang.String assertValue;
+        protected java.lang.String result;
+        protected java.lang.String that;
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getDefaultValue}
@@ -19939,7 +19939,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructWithJavaReservedWords build() {
-            return new Jsii$Proxy(defaultValue, assertValue, result, that);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -19969,12 +19969,12 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String defaultValue, final java.lang.String assertValue, final java.lang.String result, final java.lang.String that) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.defaultValue = java.util.Objects.requireNonNull(defaultValue, "defaultValue is required");
-            this.assertValue = assertValue;
-            this.result = result;
-            this.that = that;
+            this.defaultValue = java.util.Objects.requireNonNull(builder.defaultValue, "defaultValue is required");
+            this.assertValue = builder.assertValue;
+            this.result = builder.result;
+            this.that = builder.that;
         }
 
         @Override
@@ -20278,8 +20278,8 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SupportsNiceJavaBuilderProps> {
-        private java.lang.Number bar;
-        private java.lang.String id;
+        protected java.lang.Number bar;
+        protected java.lang.String id;
 
         /**
          * Sets the value of {@link SupportsNiceJavaBuilderProps#getBar}
@@ -20312,7 +20312,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SupportsNiceJavaBuilderProps build() {
-            return new Jsii$Proxy(bar, id);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -20338,10 +20338,10 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number bar, final java.lang.String id) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
-            this.id = id;
+            this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
+            this.id = builder.id;
         }
 
         @Override
@@ -20836,9 +20836,9 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<TopLevelStruct> {
-        private java.lang.String required;
-        private java.lang.Object secondLevel;
-        private java.lang.String optional;
+        protected java.lang.String required;
+        protected java.lang.Object secondLevel;
+        protected java.lang.String optional;
 
         /**
          * Sets the value of {@link TopLevelStruct#getRequired}
@@ -20892,7 +20892,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public TopLevelStruct build() {
-            return new Jsii$Proxy(required, secondLevel, optional);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -20920,11 +20920,11 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String required, final java.lang.Object secondLevel, final java.lang.String optional) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.required = java.util.Objects.requireNonNull(required, "required is required");
-            this.secondLevel = java.util.Objects.requireNonNull(secondLevel, "secondLevel is required");
-            this.optional = optional;
+            this.required = java.util.Objects.requireNonNull(builder.required, "required is required");
+            this.secondLevel = java.util.Objects.requireNonNull(builder.secondLevel, "secondLevel is required");
+            this.optional = builder.optional;
         }
 
         @Override
@@ -21196,8 +21196,8 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<UnionProperties> {
-        private java.lang.Object bar;
-        private java.lang.Object foo;
+        protected java.lang.Object bar;
+        protected java.lang.Object foo;
 
         /**
          * Sets the value of {@link UnionProperties#getBar}
@@ -21262,7 +21262,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public UnionProperties build() {
-            return new Jsii$Proxy(bar, foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -21288,10 +21288,10 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Object bar, final java.lang.Object foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
-            this.foo = foo;
+            this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
+            this.foo = builder.foo;
         }
 
         @Override
@@ -22189,7 +22189,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Hello> {
-        private java.lang.Number foo;
+        protected java.lang.Number foo;
 
         /**
          * Sets the value of {@link Hello#getFoo}
@@ -22210,7 +22210,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Hello build() {
-            return new Jsii$Proxy(foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -22234,9 +22234,9 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -22310,7 +22310,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Hello> {
-        private java.lang.Number foo;
+        protected java.lang.Number foo;
 
         /**
          * Sets the value of {@link Hello#getFoo}
@@ -22331,7 +22331,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Hello build() {
-            return new Jsii$Proxy(foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -22355,9 +22355,9 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -22701,8 +22701,8 @@ public interface MyStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<MyStruct> {
-        private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.base.BaseProps> baseMap;
-        private java.util.List<software.amazon.jsii.tests.calculator.lib.Number> numbers;
+        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.base.BaseProps> baseMap;
+        protected java.util.List<software.amazon.jsii.tests.calculator.lib.Number> numbers;
 
         /**
          * Sets the value of {@link MyStruct#getBaseMap}
@@ -22736,7 +22736,7 @@ public interface MyStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public MyStruct build() {
-            return new Jsii$Proxy(baseMap, numbers);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -22763,10 +22763,10 @@ public interface MyStruct extends software.amazon.jsii.JsiiSerializable {
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
         @SuppressWarnings("unchecked")
-        protected Jsii$Proxy(final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.base.BaseProps> baseMap, final java.util.List<? extends software.amazon.jsii.tests.calculator.lib.Number> numbers) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.baseMap = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.base.BaseProps>)java.util.Objects.requireNonNull(baseMap, "baseMap is required");
-            this.numbers = (java.util.List<software.amazon.jsii.tests.calculator.lib.Number>)java.util.Objects.requireNonNull(numbers, "numbers is required");
+            this.baseMap = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.base.BaseProps>)java.util.Objects.requireNonNull(builder.baseMap, "baseMap is required");
+            this.numbers = (java.util.List<software.amazon.jsii.tests.calculator.lib.Number>)java.util.Objects.requireNonNull(builder.numbers, "numbers is required");
         }
 
         @Override
@@ -22848,7 +22848,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Bar> {
-        private java.lang.String bar1;
+        protected java.lang.String bar1;
 
         /**
          * Sets the value of {@link Bar#getBar1}
@@ -22869,7 +22869,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Bar build() {
-            return new Jsii$Proxy(bar1);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -22893,9 +22893,9 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String bar1) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bar1 = java.util.Objects.requireNonNull(bar1, "bar1 is required");
+            this.bar1 = java.util.Objects.requireNonNull(builder.bar1, "bar1 is required");
         }
 
         @Override
@@ -22969,7 +22969,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Bar> {
-        private java.lang.String bar2;
+        protected java.lang.String bar2;
 
         /**
          * Sets the value of {@link Bar#getBar2}
@@ -22990,7 +22990,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Bar build() {
-            return new Jsii$Proxy(bar2);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -23014,9 +23014,9 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String bar2) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bar2 = java.util.Objects.requireNonNull(bar2, "bar2 is required");
+            this.bar2 = java.util.Objects.requireNonNull(builder.bar2, "bar2 is required");
         }
 
         @Override
@@ -23090,9 +23090,9 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable, software.ama
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-        private java.lang.String foo2;
-        private java.lang.String bar2;
-        private java.lang.String bar1;
+        protected java.lang.String foo2;
+        protected java.lang.String bar2;
+        protected java.lang.String bar1;
 
         /**
          * Sets the value of {@link Foo#getFoo2}
@@ -23135,7 +23135,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable, software.ama
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Foo build() {
-            return new Jsii$Proxy(foo2, bar2, bar1);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -23163,11 +23163,11 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable, software.ama
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String foo2, final java.lang.String bar2, final java.lang.String bar1) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo2 = java.util.Objects.requireNonNull(foo2, "foo2 is required");
-            this.bar2 = java.util.Objects.requireNonNull(bar2, "bar2 is required");
-            this.bar1 = java.util.Objects.requireNonNull(bar1, "bar1 is required");
+            this.foo2 = java.util.Objects.requireNonNull(builder.foo2, "foo2 is required");
+            this.bar2 = java.util.Objects.requireNonNull(builder.bar2, "bar2 is required");
+            this.bar1 = java.util.Objects.requireNonNull(builder.bar1, "bar1 is required");
         }
 
         @Override
@@ -24349,7 +24349,7 @@ public interface StructWithSelf extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructWithSelf> {
-        private java.lang.String self;
+        protected java.lang.String self;
 
         /**
          * Sets the value of {@link StructWithSelf#getSelf}
@@ -24370,7 +24370,7 @@ public interface StructWithSelf extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructWithSelf build() {
-            return new Jsii$Proxy(self);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -24394,9 +24394,9 @@ public interface StructWithSelf extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String self) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.self = java.util.Objects.requireNonNull(self, "self is required");
+            this.self = java.util.Objects.requireNonNull(builder.self, "self is required");
         }
 
         @Override
@@ -24473,7 +24473,7 @@ public interface Default extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Default> {
-        private java.lang.Number foo;
+        protected java.lang.Number foo;
 
         /**
          * Sets the value of {@link Default#getFoo}
@@ -24494,7 +24494,7 @@ public interface Default extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Default build() {
-            return new Jsii$Proxy(foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -24518,9 +24518,9 @@ public interface Default extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -24716,7 +24716,7 @@ public interface MyClassReference extends software.amazon.jsii.JsiiSerializable 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<MyClassReference> {
-        private software.amazon.jsii.tests.calculator.submodule.MyClass reference;
+        protected software.amazon.jsii.tests.calculator.submodule.MyClass reference;
 
         /**
          * Sets the value of {@link MyClassReference#getReference}
@@ -24737,7 +24737,7 @@ public interface MyClassReference extends software.amazon.jsii.JsiiSerializable 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public MyClassReference build() {
-            return new Jsii$Proxy(reference);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -24761,9 +24761,9 @@ public interface MyClassReference extends software.amazon.jsii.JsiiSerializable 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final software.amazon.jsii.tests.calculator.submodule.MyClass reference) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.reference = java.util.Objects.requireNonNull(reference, "reference is required");
+            this.reference = java.util.Objects.requireNonNull(builder.reference, "reference is required");
         }
 
         @Override
@@ -24923,8 +24923,8 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<KwargsProps> {
-        private java.lang.String extra;
-        private software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
+        protected java.lang.String extra;
+        protected software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
 
         /**
          * Sets the value of {@link KwargsProps#getExtra}
@@ -24956,7 +24956,7 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public KwargsProps build() {
-            return new Jsii$Proxy(extra, prop);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -24982,10 +24982,10 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String extra, final software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.extra = extra;
-            this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
+            this.extra = builder.extra;
+            this.prop = java.util.Objects.requireNonNull(builder.prop, "prop is required");
         }
 
         @Override
@@ -25125,7 +25125,7 @@ public interface SomeStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SomeStruct> {
-        private software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
+        protected software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
 
         /**
          * Sets the value of {@link SomeStruct#getProp}
@@ -25146,7 +25146,7 @@ public interface SomeStruct extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SomeStruct build() {
-            return new Jsii$Proxy(prop);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -25170,9 +25170,9 @@ public interface SomeStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
+            this.prop = java.util.Objects.requireNonNull(builder.prop, "prop is required");
         }
 
         @Override
@@ -25246,7 +25246,7 @@ public interface Structure extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Structure> {
-        private java.lang.Boolean bool;
+        protected java.lang.Boolean bool;
 
         /**
          * Sets the value of {@link Structure#getBool}
@@ -25267,7 +25267,7 @@ public interface Structure extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Structure build() {
-            return new Jsii$Proxy(bool);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -25291,9 +25291,9 @@ public interface Structure extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Boolean bool) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.bool = java.util.Objects.requireNonNull(bool, "bool is required");
+            this.bool = java.util.Objects.requireNonNull(builder.bool, "bool is required");
         }
 
         @Override
@@ -25528,7 +25528,7 @@ public interface SpecialParameter extends software.amazon.jsii.JsiiSerializable 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SpecialParameter> {
-        private java.lang.String value;
+        protected java.lang.String value;
 
         /**
          * Sets the value of {@link SpecialParameter#getValue}
@@ -25549,7 +25549,7 @@ public interface SpecialParameter extends software.amazon.jsii.JsiiSerializable 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SpecialParameter build() {
-            return new Jsii$Proxy(value);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -25573,9 +25573,9 @@ public interface SpecialParameter extends software.amazon.jsii.JsiiSerializable 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.String value) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.value = java.util.Objects.requireNonNull(value, "value is required");
+            this.value = java.util.Objects.requireNonNull(builder.value, "value is required");
         }
 
         @Override
