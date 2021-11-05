@@ -170,7 +170,7 @@ export class Rosetta {
    *   visible source and the API location.
    * - Otherwise, translate the snippet as-is (without fixture information).
    *
-   * This will do and store a full conversion the given snippet, even if it only
+   * This will do and store a full conversion of the given snippet, even if it only
    * returns one language. Subsequent retrievals for the same snippet in other
    * languages will reuse the translation from cache.
    *
