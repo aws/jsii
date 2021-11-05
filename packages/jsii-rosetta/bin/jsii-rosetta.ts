@@ -99,6 +99,7 @@ function main() {
         const result = await infuse(absAssemblies, args.TABLET, {
           outputFile: absOutput,
           log: args.log,
+          tabletOutputFile: args.TABLET,
         });
 
         let totalTypes = 0;
