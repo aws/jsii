@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
+import { LanguageTablet } from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../../lib/commands/infuse';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
@@ -19,7 +20,7 @@ const DUMMY_README = `
 const TABLET_FILE = 'text.tabl.json';
 
 let assembly: AssemblyFixture;
-beforeAll(async () => {
+beforeEach(async () => {
   // Create an assembly in a temp directory
   assembly = await AssemblyFixture.fromSource(
     {
@@ -52,7 +53,7 @@ beforeAll(async () => {
   });
 });
 
-afterAll(async () => assembly.cleanup());
+afterEach(async () => assembly.cleanup());
 
 test('examples are added in the assembly', async () => {
   await infuse([assembly.directory], path.join(assembly.directory, TABLET_FILE));
@@ -61,6 +62,20 @@ test('examples are added in the assembly', async () => {
   const types = assemblies[0].assembly.types;
   expect(types).toBeDefined();
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
+});
+
+test('examples are added to the tablet under new keys', async () => {
+  const originalTabletFile = path.join(assembly.directory, TABLET_FILE);
+  const updatedTabletFile = path.join(assembly.directory, 'tablet2.tabl.json');
+
+  await infuse([assembly.directory], originalTabletFile, {
+    tabletOutputFile: updatedTabletFile,
+  });
+
+  const original = await LanguageTablet.fromFile(originalTabletFile);
+  const updated = await LanguageTablet.fromFile(updatedTabletFile);
+
+  expect(updated.count).toEqual(original.count + 1);
 });
 
 test('can log to output file', async () => {
