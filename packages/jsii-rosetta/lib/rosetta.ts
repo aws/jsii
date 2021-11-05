@@ -178,6 +178,7 @@ export class Rosetta {
 
     // Try to live-convert it on the spot (we won't have "where" information or fixtures)
     const snippet = this.translator.translate(source, this.options.targetLanguages);
+    this.liveTablet.addSnippet(snippet);
     return snippet.get(targetLang);
   }
 
