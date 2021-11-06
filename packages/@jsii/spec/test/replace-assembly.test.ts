@@ -1,12 +1,12 @@
 import * as spec from '../lib/assembly';
 import { replaceAssembly } from '../lib/replace-assembly';
-import { makeType, TestJsiiModule } from './testutil';
+import { makeType, TestAssembly } from './testutil';
 
 const assemblyName = 'hello';
 const fingerprint = 'fingerprint';
 describe('replaceAssembly', () => {
   let assembly: spec.Assembly;
-  let module: TestJsiiModule;
+  let module: TestAssembly;
 
   beforeEach(async () => {
     // GIVEN
@@ -30,7 +30,7 @@ describe('replaceAssembly', () => {
       },
     };
     // Create a temp directory for the assembly
-    module = await TestJsiiModule.fromAssembly(assembly, {
+    module = await TestAssembly.fromAssembly(assembly, {
       name: assemblyName,
     });
   });
@@ -41,7 +41,7 @@ describe('replaceAssembly', () => {
     assembly.types!['org.jsii.TypeA'].docs = { example: 'new TypeA();' };
     // new assembly will have doc object for TypeA
     await replaceAssembly(assembly, {
-      directory: module.moduleDirectory,
+      directory: module.directory,
       fileExtension: '.jsii',
     });
 
@@ -59,7 +59,7 @@ describe('replaceAssembly', () => {
     // assert that the fingerprint is what we expect
     expect(assembly.fingerprint).toEqual(fingerprint);
     await replaceAssembly(assembly, {
-      directory: module.moduleDirectory,
+      directory: module.directory,
       fileExtension: '.jsii',
     });
 

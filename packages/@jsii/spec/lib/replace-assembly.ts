@@ -37,6 +37,9 @@ export async function replaceAssembly(
   });
 }
 
+/**
+ * Create a new fingerprint for the assembly.
+ */
 export function _fingerprint(assembly: Assembly): Assembly {
   delete (assembly as any).fingerprint;
   assembly = sortJson(assembly);

@@ -5,42 +5,39 @@ import * as path from 'path';
 import * as spec from '../lib/assembly';
 
 /**
- * Compile a jsii module from assembly, and produce an environment in which it is available as a module
+ * Construct a temp directory and write an assembly file inside it
  */
-export class TestJsiiModule {
+export class TestAssembly {
   public static async fromAssembly(
     assembly: spec.Assembly,
     packageInfo: { name: string },
   ) {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'spec'));
-    const modDir = path.join(tmpDir, 'node_modules', packageInfo.name);
-    await fs.ensureDir(modDir);
-
-    await fs.writeJSON(path.join(modDir, '.jsii'), assembly);
-    await fs.writeJSON(path.join(modDir, 'package.json'), {
+    await fs.writeJSON(path.join(tmpDir, '.jsii'), assembly);
+    await fs.writeJSON(path.join(tmpDir, 'package.json'), {
       name: packageInfo.name,
     });
-    return new TestJsiiModule(assembly, modDir, tmpDir);
+    return new TestAssembly(assembly, tmpDir);
   }
 
   private constructor(
     private _assembly: spec.Assembly,
-    public readonly moduleDirectory: string,
-    public readonly workspaceDirectory: string,
+    public readonly directory: string,
   ) {}
 
   public get assembly() {
     return this._assembly;
   }
 
+  /**
+   * Sync the _assembly property with the contents of the file.
+   */
   public async syncAssembly() {
-    this._assembly = await fs.readJSON(
-      path.join(this.moduleDirectory, '.jsii'),
-    );
+    this._assembly = await fs.readJSON(path.join(this.directory, '.jsii'));
   }
 
   public async cleanup() {
-    await fs.remove(this.moduleDirectory);
+    await fs.remove(this.directory);
   }
 }
 
