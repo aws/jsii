@@ -1,5 +1,6 @@
 import * as spec from '../lib/assembly';
 import { NameTree } from '../lib/name-tree';
+import { makeType } from './testutil';
 
 const assemblyName = '@foo/bar';
 
@@ -21,9 +22,13 @@ test('correctly represents sample assembly', () => {
     fingerprint: '<no-fingerprint>',
     targets: {},
     types: {
-      'org.jsii.TypeA': makeType('org.jsii', 'TypeA'),
-      'org.jsii.TypeA.NestedType': makeType('org.jsii.TypeA', 'NestedType'),
-      'org.jsii.enums.TypeB': makeType('org.jsii.enums', 'TypeB'),
+      'org.jsii.TypeA': makeType('org.jsii', 'TypeA', assemblyName),
+      'org.jsii.TypeA.NestedType': makeType(
+        'org.jsii.TypeA',
+        'NestedType',
+        assemblyName,
+      ),
+      'org.jsii.enums.TypeB': makeType('org.jsii.enums', 'TypeB', assemblyName),
     },
   };
 
@@ -60,8 +65,3 @@ test('correctly represents sample assembly', () => {
     nameTree.children.org.children.jsii.children.enums.children.TypeB.fqn,
   ).toBe('org.jsii.enums.TypeB');
 });
-
-function makeType(ns: string, name: string): spec.Type {
-  const fqn = `${ns}.${name}`;
-  return { fqn, name, assembly: assemblyName, kind: spec.TypeKind.Class };
-}
