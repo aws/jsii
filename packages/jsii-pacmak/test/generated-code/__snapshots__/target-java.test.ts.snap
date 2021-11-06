@@ -286,7 +286,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] =
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1004,7 +1004,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.x
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1696,7 +1696,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
@@ -1706,7 +1706,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -4149,17 +4149,17 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-lib</artifactId>
-      <version>(,0.0.1.DEVPREVIEW)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
