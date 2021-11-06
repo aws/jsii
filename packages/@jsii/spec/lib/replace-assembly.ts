@@ -37,7 +37,7 @@ export async function replaceAssembly(
   });
 }
 
-function _fingerprint(assembly: Assembly): Assembly {
+export function _fingerprint(assembly: Assembly): Assembly {
   delete (assembly as any).fingerprint;
   assembly = sortJson(assembly);
   const fingerprint = crypto

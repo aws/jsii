@@ -12,13 +12,6 @@ export class TestJsiiModule {
     assembly: spec.Assembly,
     packageInfo: { name: string },
   ) {
-    // The following is silly, however: the helper has compiled the given source to
-    // an assembly, and output files, and then removed their traces from disk.
-    // But for the purposes of Rosetta, we need those files back on disk. So write
-    // them back out again >_<
-    //
-    // In fact we will drop them in 'node_modules/<name>' so they can be imported
-    // as if they were installed.
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'spec'));
     const modDir = path.join(tmpDir, 'node_modules', packageInfo.name);
     await fs.ensureDir(modDir);
