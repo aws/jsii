@@ -479,6 +479,9 @@ interface JavaProp {
   // The original JSII property spec this struct was derived from
   spec: spec.Property;
 
+  // The original JSII type this property was defined on
+  definingType: spec.Type;
+
   // Canonical name of the Java property (eg: 'MyProperty')
   propName: string;
 
@@ -729,14 +732,14 @@ class JavaGenerator extends Generator {
   }
 
   protected onProperty(cls: spec.ClassType, prop: spec.Property) {
-    this.emitProperty(cls, prop);
+    this.emitProperty(cls, prop, cls);
   }
 
   protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
     if (prop.const) {
       this.emitConstProperty(cls, prop);
     } else {
-      this.emitProperty(cls, prop);
+      this.emitProperty(cls, prop, cls);
     }
   }
 
@@ -748,7 +751,7 @@ class JavaGenerator extends Generator {
     prop: spec.Property,
     _union: spec.UnionTypeReference,
   ) {
-    this.emitProperty(cls, prop);
+    this.emitProperty(cls, prop, cls);
   }
 
   protected onMethod(cls: spec.ClassType, method: spec.Method) {
@@ -1364,6 +1367,7 @@ class JavaGenerator extends Generator {
   private emitProperty(
     cls: spec.Type,
     prop: spec.Property,
+    definingType: spec.Type,
     {
       defaultImpl = false,
       final = false,
@@ -1396,7 +1400,7 @@ class JavaGenerator extends Generator {
       this.code.line();
       this.addJavaDocs(prop, {
         api: 'member',
-        fqn: cls.fqn,
+        fqn: definingType.fqn,
         memberName: prop.name,
       });
       if (overrides && !prop.static) {
@@ -1568,7 +1572,10 @@ class JavaGenerator extends Generator {
       const prop = clone(reflectProp.spec);
       prop.abstract = false;
       // Emitting "final" since this is a proxy and nothing will/should override this
-      this.emitProperty(type.spec, prop, { final: true, overrides: true });
+      this.emitProperty(type.spec, prop, reflectProp.definingType.spec, {
+        final: true,
+        overrides: true,
+      });
     }
 
     // emit all the methods
@@ -1620,7 +1627,7 @@ class JavaGenerator extends Generator {
         (prop.parentType.fqn === type.fqn ||
           !hasDefaultInterfaces(prop.assembly)),
     )) {
-      this.emitProperty(type.spec, property.spec, {
+      this.emitProperty(type.spec, property.spec, property.definingType.spec, {
         defaultImpl: true,
         overrides: type.isInterfaceType(),
       });
@@ -1676,13 +1683,18 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private toJavaProp(property: spec.Property, inherited: boolean): JavaProp {
+  private toJavaProp(
+    property: spec.Property,
+    definingType: spec.Type,
+    inherited: boolean,
+  ): JavaProp {
     const safeName = JavaGenerator.safeJavaPropertyName(property.name);
     const propName = jsiiToPascalCase(safeName);
 
     return {
       docs: property.docs,
       spec: property,
+      definingType,
       propName,
       jsiiName: property.name,
       nullable: !!property.optional,
@@ -1861,8 +1873,8 @@ class JavaGenerator extends Generator {
       })) {
         this.addJavaDocs(setter, {
           api: 'member',
-          fqn: cls.fqn,
-          memberName: setter.name,
+          fqn: prop.definingType.fqn, // Could be inherited
+          memberName: prop.name,
         });
         this.emitStabilityAnnotations(prop.spec);
         this.code.openBlock(
@@ -1940,7 +1952,7 @@ class JavaGenerator extends Generator {
         const remarks = markDownToJavaDoc(
           this.convertSamplesInMarkdown(prop.docs.remarks, {
             api: 'member',
-            fqn: parentType.fqn,
+            fqn: prop.definingType.fqn,
             memberName: prop.jsiiName,
           }),
         ).trimRight();
@@ -2050,7 +2062,7 @@ class JavaGenerator extends Generator {
       isBaseClass = false,
     ) {
       for (const property of currentIfc.properties ?? []) {
-        const javaProp = this.toJavaProp(property, isBaseClass);
+        const javaProp = this.toJavaProp(property, currentIfc, isBaseClass);
         propsByName[javaProp.propName] = javaProp;
       }
 
