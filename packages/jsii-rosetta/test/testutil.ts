@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { PackageInfo, compileJsiiForTest } from 'jsii';
 import * as os from 'os';
@@ -13,7 +14,10 @@ import {
 
 export type MultipleSources = { [key: string]: string; 'index.ts': string };
 
-export class AssemblyFixture {
+/**
+ * Compile a jsii module from source, and produce an environment in which it is available as a module
+ */
+export class TestJsiiModule {
   public static async fromSource(
     source: string | MultipleSources,
     packageInfo: Partial<PackageInfo> & { name: string },
@@ -43,10 +47,14 @@ export class AssemblyFixture {
       await fs.writeFile(path.join(modDir, fileName), fileContents);
     }
 
-    return new AssemblyFixture(modDir);
+    return new TestJsiiModule(assembly, modDir, tmpDir);
   }
 
-  private constructor(public readonly directory: string) {}
+  private constructor(
+    public readonly assembly: spec.Assembly,
+    public readonly moduleDirectory: string,
+    public readonly workspaceDirectory: string,
+  ) {}
 
   /**
    * Make a snippet translator for the given source w.r.t this compiled assembly
@@ -54,7 +62,7 @@ export class AssemblyFixture {
   public successfullyCompile(source: string) {
     const location = testSnippetLocation('testutil');
     const snippet = typeScriptSnippetFromSource(source, location, false, {
-      [SnippetParameters.$COMPILATION_DIRECTORY]: this.directory,
+      [SnippetParameters.$COMPILATION_DIRECTORY]: this.workspaceDirectory,
     });
     const ret = new SnippetTranslator(snippet, {
       includeCompilerDiagnostics: true,
@@ -69,7 +77,7 @@ export class AssemblyFixture {
   }
 
   public async cleanup() {
-    await fs.remove(this.directory);
+    await fs.remove(this.moduleDirectory);
   }
 }
 
