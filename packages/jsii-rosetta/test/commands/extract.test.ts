@@ -3,7 +3,7 @@ import * as path from 'path';
 import { LanguageTablet } from '../../lib';
 import * as extract from '../../lib/commands/extract';
 import { TARGET_LANGUAGES } from '../../lib/languages';
-import { AssemblyFixture, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
+import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
 
 const DUMMY_README = `
   Here is an example of how to use ClassA:
@@ -20,10 +20,10 @@ const defaultExtractOptions = {
   validateAssemblies: false,
 };
 
-let assembly: AssemblyFixture;
+let assembly: TestJsiiModule;
 beforeAll(async () => {
   // Create an assembly in a temp directory
-  assembly = await AssemblyFixture.fromSource(
+  assembly = await TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -43,8 +43,8 @@ beforeAll(async () => {
 afterAll(async () => assembly.cleanup());
 
 test('extract samples from test assembly', async () => {
-  const outputFile = path.join(assembly.directory, 'test.tabl.json');
-  await extract.extractSnippets([assembly.directory], {
+  const outputFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
+  await extract.extractSnippets([assembly.moduleDirectory], {
     outputFile,
     ...defaultExtractOptions,
   });
@@ -58,8 +58,8 @@ test('extract samples from test assembly', async () => {
 describe('with cache file', () => {
   let cacheTabletFile: string;
   beforeAll(async () => {
-    cacheTabletFile = path.join(assembly.directory, 'cache.tabl.json');
-    await extract.extractSnippets([assembly.directory], {
+    cacheTabletFile = path.join(assembly.moduleDirectory, 'cache.tabl.json');
+    await extract.extractSnippets([assembly.moduleDirectory], {
       outputFile: cacheTabletFile,
       ...defaultExtractOptions,
     });
@@ -68,8 +68,8 @@ describe('with cache file', () => {
   test('translation does not happen if it can be read from cache', async () => {
     const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
-    await extract.extractSnippets([assembly.directory], {
-      outputFile: path.join(assembly.directory, 'dummy.tabl.json'),
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
       cacheTabletFile,
       translationFunction,
       ...defaultExtractOptions,
@@ -84,8 +84,8 @@ describe('with cache file', () => {
     const oldJavaVersion = TARGET_LANGUAGES.java.version;
     (TARGET_LANGUAGES.java as any).version = '999';
     try {
-      await extract.extractSnippets([assembly.directory], {
-        outputFile: path.join(assembly.directory, 'dummy.tabl.json'),
+      await extract.extractSnippets([assembly.moduleDirectory], {
+        outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
         cacheTabletFile,
         translationFunction,
         ...defaultExtractOptions,
@@ -100,7 +100,7 @@ describe('with cache file', () => {
 
 test('do not ignore example strings', async () => {
   // Create an assembly in a temp directory
-  const otherAssembly = await AssemblyFixture.fromSource(
+  const otherAssembly = await TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -119,8 +119,8 @@ test('do not ignore example strings', async () => {
     },
   );
   try {
-    const outputFile = path.join(otherAssembly.directory, 'test.tabl.json');
-    await extract.extractSnippets([otherAssembly.directory], {
+    const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
       outputFile,
       ...defaultExtractOptions,
     });

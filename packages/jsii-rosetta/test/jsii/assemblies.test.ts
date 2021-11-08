@@ -1,9 +1,11 @@
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as mockfs from 'mock-fs';
 import * as path from 'path';
 
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
 import { SnippetParameters } from '../../lib/snippet';
+import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
 import { fakeAssembly } from './fake-assembly';
 
 test('Extract snippet from README', () => {
@@ -228,5 +230,42 @@ test('Backwards compatibility with literate integ tests', () => {
     );
   } finally {
     mockfs.restore();
+  }
+});
+
+test('rosetta fixture from submodule is preferred if it exists', async () => {
+  const jsiiModule = await TestJsiiModule.fromSource(
+    {
+      'index.ts': 'export * as submodule from "./submodule"',
+      'submodule.ts': `
+        /**
+         * @example new ClassA();
+         */
+        export class ClassA {
+          public someMethod() {
+          }
+        }`,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_ASSEMBLY_TARGETS,
+    },
+  );
+  try {
+    await fs.mkdirp(path.join(jsiiModule.moduleDirectory, 'rosetta', 'submodule'));
+    await fs.writeFile(
+      path.join(jsiiModule.moduleDirectory, 'rosetta', 'submodule', 'default.ts-fixture'),
+      'pick me\n/// here',
+    );
+    await fs.writeFile(
+      path.join(jsiiModule.moduleDirectory, 'rosetta', 'default.ts-fixture'),
+      'dont pick me\n/// here',
+    );
+
+    const snippets = allTypeScriptSnippets([{ assembly: jsiiModule.assembly, directory: jsiiModule.moduleDirectory }]);
+
+    expect(snippets[0].completeSource).toMatch(/^pick me/);
+  } finally {
+    await jsiiModule.cleanup();
   }
 });

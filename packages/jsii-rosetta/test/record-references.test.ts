@@ -1,8 +1,8 @@
-import { AssemblyFixture, DUMMY_ASSEMBLY_TARGETS } from './testutil';
+import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from './testutil';
 
-let assembly: AssemblyFixture;
+let assembly: TestJsiiModule;
 beforeAll(async () => {
-  assembly = await AssemblyFixture.fromSource(
+  assembly = await TestJsiiModule.fromSource(
     `
     export class ClassA {
       public someMethod() {
