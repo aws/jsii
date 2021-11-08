@@ -97,3 +97,39 @@ describe('with cache file', () => {
     }
   });
 });
+
+test('do not ignore example strings', async () => {
+  // Create an assembly in a temp directory
+  const otherAssembly = await AssemblyFixture.fromSource(
+    {
+      'index.ts': `
+      export class ClassA {
+        /**
+         * Some method
+         * @example x
+         */
+        public someMethod() {
+        }
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_ASSEMBLY_TARGETS,
+    },
+  );
+  try {
+    const outputFile = path.join(otherAssembly.directory, 'test.tabl.json');
+    await extract.extractSnippets([otherAssembly.directory], {
+      outputFile,
+      ...defaultExtractOptions,
+    });
+
+    const tablet = await LanguageTablet.fromFile(outputFile);
+    expect(tablet.count).toEqual(1);
+    const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
+    expect(tr?.originalSource.source).toEqual('x');
+  } finally {
+    await assembly.cleanup();
+  }
+});

@@ -159,13 +159,13 @@ export async function shell(
       const stdout = new Array<Buffer>();
       const stderr = new Array<Buffer>();
       child.stdout.on('data', (chunk) => {
-        if (logging.level >= logging.LEVEL_VERBOSE) {
+        if (logging.level >= logging.LEVEL_SILLY) {
           process.stderr.write(chunk); // notice - we emit all build output to stderr
         }
         stdout.push(Buffer.from(chunk));
       });
       child.stderr.on('data', (chunk) => {
-        if (logging.level >= logging.LEVEL_VERBOSE) {
+        if (logging.level >= logging.LEVEL_SILLY) {
           process.stderr.write(chunk);
         }
         stderr.push(Buffer.from(chunk));
