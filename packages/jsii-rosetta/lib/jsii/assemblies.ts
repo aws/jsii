@@ -104,7 +104,7 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
         location,
       });
     }
-    if (docs.example && exampleLooksLikeSource(docs.example)) {
+    if (docs.example) {
       ret.push({
         type: 'example',
         source: docs.example,
@@ -143,19 +143,6 @@ export function allTypeScriptSnippets(assemblies: readonly LoadedAssembly[], loo
 }
 
 /**
- * See if the given source text looks like a code sample
- *
- * Many @examples for properties are examples of values (ARNs, formatted strings)
- * not code samples, which should not be translated
- *
- * If the value contains whitespace (newline, space) then we'll assume it's a code
- * sample.
- */
-function exampleLooksLikeSource(text: string) {
-  return !!WHITESPACE.exec(text.trim());
-}
-
-/**
  * Replaces the file where the original assembly file *should* be found with a new assembly file.
  * Recalculates the fingerprint of the assembly to avoid tampering detection.
  */
@@ -177,5 +164,3 @@ function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   const fingerprint = crypto.createHash('sha256').update(JSON.stringify(assembly)).digest('base64');
   return { ...assembly, fingerprint };
 }
-
-const WHITESPACE = new RegExp('\\s');

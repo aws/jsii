@@ -222,6 +222,7 @@ export class Rosetta {
 
     // Try to live-convert it as-is.
     const snippet = this.translator.translate(source, this.options.targetLanguages);
+    this.liveTablet.addSnippet(snippet);
     return snippet.get(targetLang);
   }
 

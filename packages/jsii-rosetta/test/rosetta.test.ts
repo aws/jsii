@@ -6,6 +6,7 @@ import {
   TranslatedSnippet,
   TypeScriptSnippet,
   DEFAULT_TABLET_NAME,
+  Translation,
   UnknownSnippetMode,
 } from '../lib';
 import { TargetLanguage } from '../lib/languages';
@@ -17,20 +18,29 @@ const SAMPLE_CODE: TypeScriptSnippet = {
   location: testSnippetLocation('sample'),
 };
 
-test('Rosetta object can do live translation', () => {
-  // GIVEN
-  const rosetta = new Rosetta({
-    unknownSnippets: UnknownSnippetMode.TRANSLATE,
-    targetLanguages: [TargetLanguage.PYTHON],
+describe('Rosetta object can do live translation', () => {
+  let rosetta: Rosetta;
+  let translated: Translation | undefined;
+  beforeEach(() => {
+    // GIVEN
+    rosetta = new Rosetta({
+      unknownSnippets: UnknownSnippetMode.TRANSLATE,
+      targetLanguages: [TargetLanguage.PYTHON],
+    });
+
+    // WHEN
+    translated = rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
   });
 
-  // WHEN
-  const translated = rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
+  test('output is correct', () => {
+    expect(translated).toMatchObject({
+      source: 'call_this_function()',
+      language: 'python',
+    });
+  });
 
-  // THEN
-  expect(translated).toMatchObject({
-    source: 'call_this_function()',
-    language: 'python',
+  test('translations are added to liveTablet', () => {
+    expect(rosetta.liveTablet.count).toEqual(1);
   });
 });
 
