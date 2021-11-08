@@ -3,10 +3,12 @@ export enum Level {
   QUIET = 0,
   INFO = 1,
   VERBOSE = 2,
+  SILLY = 3,
 }
 
 export const LEVEL_INFO: number = Level.INFO;
 export const LEVEL_VERBOSE: number = Level.VERBOSE;
+export const LEVEL_SILLY: number = Level.SILLY;
 
 /** The minimal logging level for messages to be emitted. */
 export let level = Level.QUIET;
