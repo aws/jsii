@@ -159,9 +159,6 @@ function submodules(location: ApiLocation): string[] {
   }
 
   function middle(xs: string[]) {
-    if (xs.length <= 2) {
-      return [];
-    }
     return xs.slice(1, xs.length - 1);
   }
 }
