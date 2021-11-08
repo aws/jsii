@@ -538,8 +538,8 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
      * A builder for {@link BaseProps}
      */
     public static final class Builder implements software.amazon.jsii.Builder<BaseProps> {
-        protected java.lang.String bar;
-        protected software.amazon.jsii.tests.calculator.baseofbase.Very foo;
+        java.lang.String bar;
+        software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of {@link BaseProps#getBar}
@@ -1301,7 +1301,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link VeryBaseProps}
      */
     public static final class Builder implements software.amazon.jsii.Builder<VeryBaseProps> {
-        protected software.amazon.jsii.tests.calculator.baseofbase.Very foo;
+        software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of {@link VeryBaseProps#getFoo}
@@ -1954,7 +1954,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         public static final class Builder implements software.amazon.jsii.Builder<NestedStruct> {
-            protected java.lang.String name;
+            java.lang.String name;
 
             /**
              * Sets the value of {@link NestedStruct#getName}
@@ -2089,8 +2089,8 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<ReflectableEntry> {
-        protected java.lang.String key;
-        protected java.lang.Object value;
+        java.lang.String key;
+        java.lang.Object value;
 
         /**
          * Sets the value of {@link ReflectableEntry#getKey}
@@ -2419,8 +2419,8 @@ public interface DiamondLeft extends software.amazon.jsii.JsiiSerializable {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<DiamondLeft> {
-        protected java.lang.String hoistedTop;
-        protected java.lang.Number left;
+        java.lang.String hoistedTop;
+        java.lang.Number left;
 
         /**
          * Sets the value of {@link DiamondLeft#getHoistedTop}
@@ -2585,8 +2585,8 @@ public interface DiamondRight extends software.amazon.jsii.JsiiSerializable {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<DiamondRight> {
-        protected java.lang.String hoistedTop;
-        protected java.lang.Boolean right;
+        java.lang.String hoistedTop;
+        java.lang.Boolean right;
 
         /**
          * Sets the value of {@link DiamondRight#getHoistedTop}
@@ -2985,9 +2985,9 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<MyFirstStruct> {
-        protected java.lang.Number anumber;
-        protected java.lang.String astring;
-        protected java.util.List<java.lang.String> firstOptional;
+        java.lang.Number anumber;
+        java.lang.String astring;
+        java.util.List<java.lang.String> firstOptional;
 
         /**
          * Sets the value of {@link MyFirstStruct#getAnumber}
@@ -3368,9 +3368,9 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<StructWithOnlyOptionals> {
-        protected java.lang.String optional1;
-        protected java.lang.Number optional2;
-        protected java.lang.Boolean optional3;
+        java.lang.String optional1;
+        java.lang.Number optional2;
+        java.lang.Boolean optional3;
 
         /**
          * Sets the value of {@link StructWithOnlyOptionals#getOptional1}
@@ -5915,8 +5915,8 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<CalculatorProps> {
-        protected java.lang.Number initialValue;
-        protected java.lang.Number maximumValue;
+        java.lang.Number initialValue;
+        java.lang.Number maximumValue;
 
         /**
          * Sets the value of {@link CalculatorProps#getInitialValue}
@@ -6064,8 +6064,8 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ChildStruct982> {
-        protected java.lang.Number bar;
-        protected java.lang.String foo;
+        java.lang.Number bar;
+        java.lang.String foo;
 
         /**
          * Sets the value of {@link ChildStruct982#getBar}
@@ -6888,7 +6888,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ConfusingToJacksonStruct> {
-        protected java.lang.Object unionProperty;
+        java.lang.Object unionProperty;
 
         /**
          * Sets the value of {@link ConfusingToJacksonStruct#getUnionProperty}
@@ -7351,9 +7351,9 @@ public interface ContainerProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ContainerProps> {
-        protected java.util.List<software.amazon.jsii.tests.calculator.DummyObj> arrayProp;
-        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> objProp;
-        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> recordProp;
+        java.util.List<software.amazon.jsii.tests.calculator.DummyObj> arrayProp;
+        java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> objProp;
+        java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> recordProp;
 
         /**
          * Sets the value of {@link ContainerProps#getArrayProp}
@@ -7866,7 +7866,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public static final class Builder implements software.amazon.jsii.Builder<DeprecatedStruct> {
-        protected java.lang.String readonlyProperty;
+        java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link DeprecatedStruct#getReadonlyProperty}
@@ -8025,15 +8025,15 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DerivedStruct> {
-        protected java.time.Instant anotherRequired;
-        protected java.lang.Boolean bool;
-        protected software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive;
-        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.NumericValue> anotherOptional;
-        protected java.lang.Object optionalAny;
-        protected java.util.List<java.lang.String> optionalArray;
-        protected java.lang.Number anumber;
-        protected java.lang.String astring;
-        protected java.util.List<java.lang.String> firstOptional;
+        java.time.Instant anotherRequired;
+        java.lang.Boolean bool;
+        software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive;
+        java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.NumericValue> anotherOptional;
+        java.lang.Object optionalAny;
+        java.util.List<java.lang.String> optionalArray;
+        java.lang.Number anumber;
+        java.lang.String astring;
+        java.util.List<java.lang.String> firstOptional;
 
         /**
          * Sets the value of {@link DerivedStruct#getAnotherRequired}
@@ -8354,10 +8354,10 @@ public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, so
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondBottom> {
-        protected java.time.Instant bottom;
-        protected java.lang.String hoistedTop;
-        protected java.lang.Number left;
-        protected java.lang.Boolean right;
+        java.time.Instant bottom;
+        java.lang.String hoistedTop;
+        java.lang.Number left;
+        java.lang.Boolean right;
 
         /**
          * Sets the value of {@link DiamondBottom#getBottom}
@@ -8555,7 +8555,7 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceBaseLevelStruct> {
-        protected java.lang.String baseLevelProperty;
+        java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceBaseLevelStruct#getBaseLevelProperty}
@@ -8676,8 +8676,8 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceFirstMidLevelStruct> {
-        protected java.lang.String firstMidLevelProperty;
-        protected java.lang.String baseLevelProperty;
+        java.lang.String firstMidLevelProperty;
+        java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceFirstMidLevelStruct#getFirstMidLevelProperty}
@@ -8820,8 +8820,8 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceSecondMidLevelStruct> {
-        protected java.lang.String secondMidLevelProperty;
-        protected java.lang.String baseLevelProperty;
+        java.lang.String secondMidLevelProperty;
+        java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceSecondMidLevelStruct#getSecondMidLevelProperty}
@@ -8969,10 +8969,10 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceTopLevelStruct> {
-        protected java.lang.String topLevelProperty;
-        protected java.lang.String firstMidLevelProperty;
-        protected java.lang.String baseLevelProperty;
-        protected java.lang.String secondMidLevelProperty;
+        java.lang.String topLevelProperty;
+        java.lang.String firstMidLevelProperty;
+        java.lang.String baseLevelProperty;
+        java.lang.String secondMidLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceTopLevelStruct#getTopLevelProperty}
@@ -9477,7 +9477,7 @@ public interface DummyObj extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DummyObj> {
-        protected java.lang.String example;
+        java.lang.String example;
 
         /**
          * Sets the value of {@link DummyObj#getExample}
@@ -9882,8 +9882,8 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<EraseUndefinedHashValuesOptions> {
-        protected java.lang.String option1;
-        protected java.lang.String option2;
+        java.lang.String option1;
+        java.lang.String option2;
 
         /**
          * Sets the value of {@link EraseUndefinedHashValuesOptions#getOption1}
@@ -10119,7 +10119,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static final class Builder implements software.amazon.jsii.Builder<ExperimentalStruct> {
-        protected java.lang.String readonlyProperty;
+        java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link ExperimentalStruct#getReadonlyProperty}
@@ -10282,8 +10282,8 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ExtendsInternalInterface> {
-        protected java.lang.Boolean boom;
-        protected java.lang.String prop;
+        java.lang.Boolean boom;
+        java.lang.String prop;
 
         /**
          * Sets the value of {@link ExtendsInternalInterface#getBoom}
@@ -10515,7 +10515,7 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ExternalStruct> {
-        protected java.lang.String readonlyProperty;
+        java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link ExternalStruct#getReadonlyProperty}
@@ -10708,7 +10708,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Greetee> {
-        protected java.lang.String name;
+        java.lang.String name;
 
         /**
          * Sets the value of {@link Greetee#getName}
@@ -13781,9 +13781,9 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ImplictBaseOfBase> {
-        protected java.time.Instant goo;
-        protected java.lang.String bar;
-        protected software.amazon.jsii.tests.calculator.baseofbase.Very foo;
+        java.time.Instant goo;
+        java.lang.String bar;
+        software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of {@link ImplictBaseOfBase#getGoo}
@@ -15079,7 +15079,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static final class Builder implements software.amazon.jsii.Builder<PropBooleanValue> {
-            protected java.lang.Boolean value;
+            java.lang.Boolean value;
 
             /**
              * Sets the value of {@link PropBooleanValue#getValue}
@@ -15193,7 +15193,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static final class Builder implements software.amazon.jsii.Builder<PropProperty> {
-            protected software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop;
+            software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop;
 
             /**
              * Sets the value of {@link PropProperty#getProp}
@@ -15356,7 +15356,7 @@ public interface LevelOneProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<LevelOneProps> {
-        protected software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop;
+        software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop;
 
         /**
          * Sets the value of {@link LevelOneProps#getProp}
@@ -15549,11 +15549,11 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<LoadBalancedFargateServiceProps> {
-        protected java.lang.Number containerPort;
-        protected java.lang.String cpu;
-        protected java.lang.String memoryMiB;
-        protected java.lang.Boolean publicLoadBalancer;
-        protected java.lang.Boolean publicTasks;
+        java.lang.Number containerPort;
+        java.lang.String cpu;
+        java.lang.String memoryMiB;
+        java.lang.Boolean publicLoadBalancer;
+        java.lang.Boolean publicTasks;
 
         /**
          * Sets the value of {@link LoadBalancedFargateServiceProps#getContainerPort}
@@ -16022,7 +16022,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<NestedStruct> {
-        protected java.lang.Number numberProp;
+        java.lang.Number numberProp;
 
         /**
          * Sets the value of {@link NestedStruct#getNumberProp}
@@ -16303,8 +16303,8 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<NullShouldBeTreatedAsUndefinedData> {
-        protected java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
-        protected java.lang.Object thisShouldBeUndefined;
+        java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        java.lang.Object thisShouldBeUndefined;
 
         /**
          * Sets the value of {@link NullShouldBeTreatedAsUndefinedData#getArrayWithThreeElementsAndUndefinedAsSecondArgument}
@@ -16741,7 +16741,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<OptionalStruct> {
-        protected java.lang.String field;
+        java.lang.String field;
 
         /**
          * Sets the value of {@link OptionalStruct#getField}
@@ -17073,7 +17073,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ParentStruct982> {
-        protected java.lang.String foo;
+        java.lang.String foo;
 
         /**
          * Sets the value of {@link ParentStruct982#getFoo}
@@ -17794,8 +17794,8 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<RootStruct> {
-        protected java.lang.String stringProp;
-        protected software.amazon.jsii.tests.calculator.NestedStruct nestedStruct;
+        java.lang.String stringProp;
+        software.amazon.jsii.tests.calculator.NestedStruct nestedStruct;
 
         /**
          * Sets the value of {@link RootStruct#getStringProp}
@@ -18079,8 +18079,8 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SecondLevelStruct> {
-        protected java.lang.String deeperRequiredProp;
-        protected java.lang.String deeperOptionalProp;
+        java.lang.String deeperRequiredProp;
+        java.lang.String deeperOptionalProp;
 
         /**
          * Sets the value of {@link SecondLevelStruct#getDeeperRequiredProp}
@@ -18380,8 +18380,8 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SmellyStruct> {
-        protected java.lang.String property;
-        protected java.lang.Boolean yetAnoterOne;
+        java.lang.String property;
+        java.lang.Boolean yetAnoterOne;
 
         /**
          * Sets the value of {@link SmellyStruct#getProperty}
@@ -18656,7 +18656,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StableStruct> {
-        protected java.lang.String readonlyProperty;
+        java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link StableStruct#getReadonlyProperty}
@@ -19106,9 +19106,9 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructA> {
-        protected java.lang.String requiredString;
-        protected java.lang.Number optionalNumber;
-        protected java.lang.String optionalString;
+        java.lang.String requiredString;
+        java.lang.Number optionalNumber;
+        java.lang.String optionalString;
 
         /**
          * Sets the value of {@link StructA#getRequiredString}
@@ -19292,9 +19292,9 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructB> {
-        protected java.lang.String requiredString;
-        protected java.lang.Boolean optionalBoolean;
-        protected software.amazon.jsii.tests.calculator.StructA optionalStructA;
+        java.lang.String requiredString;
+        java.lang.Boolean optionalBoolean;
+        software.amazon.jsii.tests.calculator.StructA optionalStructA;
 
         /**
          * Sets the value of {@link StructB#getRequiredString}
@@ -19473,8 +19473,8 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructParameterType> {
-        protected java.lang.String scope;
-        protected java.lang.Boolean props;
+        java.lang.String scope;
+        java.lang.Boolean props;
 
         /**
          * Sets the value of {@link StructParameterType#getScope}
@@ -19715,8 +19715,8 @@ public interface StructWithEnum extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructWithEnum> {
-        protected software.amazon.jsii.tests.calculator.StringEnum foo;
-        protected software.amazon.jsii.tests.calculator.AllTypesEnum bar;
+        software.amazon.jsii.tests.calculator.StringEnum foo;
+        software.amazon.jsii.tests.calculator.AllTypesEnum bar;
 
         /**
          * Sets the value of {@link StructWithEnum#getFoo}
@@ -19882,10 +19882,10 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructWithJavaReservedWords> {
-        protected java.lang.String defaultValue;
-        protected java.lang.String assertValue;
-        protected java.lang.String result;
-        protected java.lang.String that;
+        java.lang.String defaultValue;
+        java.lang.String assertValue;
+        java.lang.String result;
+        java.lang.String that;
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getDefaultValue}
@@ -20278,8 +20278,8 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SupportsNiceJavaBuilderProps> {
-        protected java.lang.Number bar;
-        protected java.lang.String id;
+        java.lang.Number bar;
+        java.lang.String id;
 
         /**
          * Sets the value of {@link SupportsNiceJavaBuilderProps#getBar}
@@ -20836,9 +20836,9 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<TopLevelStruct> {
-        protected java.lang.String required;
-        protected java.lang.Object secondLevel;
-        protected java.lang.String optional;
+        java.lang.String required;
+        java.lang.Object secondLevel;
+        java.lang.String optional;
 
         /**
          * Sets the value of {@link TopLevelStruct#getRequired}
@@ -21196,8 +21196,8 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<UnionProperties> {
-        protected java.lang.Object bar;
-        protected java.lang.Object foo;
+        java.lang.Object bar;
+        java.lang.Object foo;
 
         /**
          * Sets the value of {@link UnionProperties#getBar}
@@ -22189,7 +22189,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Hello> {
-        protected java.lang.Number foo;
+        java.lang.Number foo;
 
         /**
          * Sets the value of {@link Hello#getFoo}
@@ -22310,7 +22310,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Hello> {
-        protected java.lang.Number foo;
+        java.lang.Number foo;
 
         /**
          * Sets the value of {@link Hello#getFoo}
@@ -22701,8 +22701,8 @@ public interface MyStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<MyStruct> {
-        protected java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.base.BaseProps> baseMap;
-        protected java.util.List<software.amazon.jsii.tests.calculator.lib.Number> numbers;
+        java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.base.BaseProps> baseMap;
+        java.util.List<software.amazon.jsii.tests.calculator.lib.Number> numbers;
 
         /**
          * Sets the value of {@link MyStruct#getBaseMap}
@@ -22848,7 +22848,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Bar> {
-        protected java.lang.String bar1;
+        java.lang.String bar1;
 
         /**
          * Sets the value of {@link Bar#getBar1}
@@ -22969,7 +22969,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Bar> {
-        protected java.lang.String bar2;
+        java.lang.String bar2;
 
         /**
          * Sets the value of {@link Bar#getBar2}
@@ -23090,9 +23090,9 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable, software.ama
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-        protected java.lang.String foo2;
-        protected java.lang.String bar2;
-        protected java.lang.String bar1;
+        java.lang.String foo2;
+        java.lang.String bar2;
+        java.lang.String bar1;
 
         /**
          * Sets the value of {@link Foo#getFoo2}
@@ -24349,7 +24349,7 @@ public interface StructWithSelf extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructWithSelf> {
-        protected java.lang.String self;
+        java.lang.String self;
 
         /**
          * Sets the value of {@link StructWithSelf#getSelf}
@@ -24473,7 +24473,7 @@ public interface Default extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Default> {
-        protected java.lang.Number foo;
+        java.lang.Number foo;
 
         /**
          * Sets the value of {@link Default#getFoo}
@@ -24716,7 +24716,7 @@ public interface MyClassReference extends software.amazon.jsii.JsiiSerializable 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<MyClassReference> {
-        protected software.amazon.jsii.tests.calculator.submodule.MyClass reference;
+        software.amazon.jsii.tests.calculator.submodule.MyClass reference;
 
         /**
          * Sets the value of {@link MyClassReference#getReference}
@@ -24923,8 +24923,8 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<KwargsProps> {
-        protected java.lang.String extra;
-        protected software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
+        java.lang.String extra;
+        software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
 
         /**
          * Sets the value of {@link KwargsProps#getExtra}
@@ -25125,7 +25125,7 @@ public interface SomeStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SomeStruct> {
-        protected software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
+        software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
 
         /**
          * Sets the value of {@link SomeStruct#getProp}
@@ -25246,7 +25246,7 @@ public interface Structure extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Structure> {
-        protected java.lang.Boolean bool;
+        java.lang.Boolean bool;
 
         /**
          * Sets the value of {@link Structure#getBool}
@@ -25528,7 +25528,7 @@ public interface SpecialParameter extends software.amazon.jsii.JsiiSerializable 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SpecialParameter> {
-        protected java.lang.String value;
+        java.lang.String value;
 
         /**
          * Sets the value of {@link SpecialParameter#getValue}

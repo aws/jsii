@@ -731,9 +731,9 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
      * A builder for {@link Baz}
      */
     public static final class Builder implements software.amazon.jsii.Builder<Baz> {
-        protected java.lang.Boolean baz;
-        protected java.lang.Number foo;
-        protected java.lang.String bar;
+        java.lang.Boolean baz;
+        java.lang.Number foo;
+        java.lang.String bar;
 
         /**
          * Sets the value of {@link Baz#getBaz}
@@ -909,7 +909,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link Foo}
      */
     public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-        protected java.lang.Number foo;
+        java.lang.Number foo;
 
         /**
          * Sets the value of {@link Foo#getFoo}
@@ -1023,8 +1023,8 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link FooBar}
      */
     public static final class Builder implements software.amazon.jsii.Builder<FooBar> {
-        protected java.lang.Number foo;
-        protected java.lang.String bar;
+        java.lang.Number foo;
+        java.lang.String bar;
 
         /**
          * Sets the value of {@link FooBar#getFoo}
@@ -2247,7 +2247,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
          * A builder for {@link Foo}
          */
         public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-            protected java.lang.String bar;
+            java.lang.String bar;
 
             /**
              * Sets the value of {@link Foo#getBar}

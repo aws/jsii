@@ -2009,7 +2009,7 @@ class JavaGenerator extends Generator {
     );
 
     props.forEach((prop) =>
-      this.code.line(`protected ${prop.fieldJavaType} ${prop.fieldName};`),
+      this.code.line(`${prop.fieldJavaType} ${prop.fieldName};`),
     );
     props.forEach((prop) =>
       this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec),
