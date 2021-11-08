@@ -7,6 +7,7 @@ import {
   TypeScriptSnippet,
   DEFAULT_TABLET_NAME,
   Translation,
+  UnknownSnippetMode,
 } from '../lib';
 import { TargetLanguage } from '../lib/languages';
 import { fakeAssembly } from './jsii/fake-assembly';
@@ -23,7 +24,7 @@ describe('Rosetta object can do live translation', () => {
   beforeEach(() => {
     // GIVEN
     rosetta = new Rosetta({
-      liveConversion: true,
+      unknownSnippets: UnknownSnippetMode.TRANSLATE,
       targetLanguages: [TargetLanguage.PYTHON],
     });
 
@@ -70,7 +71,7 @@ test('Can use preloaded tablet', () => {
 test('Rosetta object can do live translation', () => {
   // GIVEN
   const rosetta = new Rosetta({
-    liveConversion: true,
+    unknownSnippets: UnknownSnippetMode.TRANSLATE,
     targetLanguages: [TargetLanguage.PYTHON],
   });
 
@@ -84,10 +85,36 @@ test('Rosetta object can do live translation', () => {
   });
 });
 
+test('Rosetta object can fail on untranslated snippet', () => {
+  // GIVEN
+  const rosetta = new Rosetta({
+    unknownSnippets: UnknownSnippetMode.FAIL,
+    targetLanguages: [TargetLanguage.PYTHON],
+  });
+
+  // WHEN
+  expect(() => {
+    rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
+  }).toThrow(/snippet was not found/);
+});
+
+test('Rosetta can give you an untranslated snippet back', () => {
+  // GIVEN
+  const rosetta = new Rosetta({
+    unknownSnippets: UnknownSnippetMode.VERBATIM,
+    targetLanguages: [TargetLanguage.PYTHON],
+  });
+
+  // WHEN
+  const translated = rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
+
+  expect(translated?.source).toEqual('callThisFunction();');
+});
+
 test('Rosetta object can do translation and annotation of snippets in MarkDown', () => {
   // GIVEN
   const rosetta = new Rosetta({
-    liveConversion: true,
+    unknownSnippets: UnknownSnippetMode.TRANSLATE,
     targetLanguages: [TargetLanguage.PYTHON],
   });
 

@@ -1,5 +1,5 @@
 import { TypeSystem } from 'jsii-reflect';
-import { Rosetta } from 'jsii-rosetta';
+import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
 
 import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
@@ -31,10 +31,17 @@ export async function pacmak({
   rosettaTablet,
   targets = Object.values(TargetName),
   timers = new Timers(),
+  rosettaUnknownSnippets = undefined,
   updateNpmIgnoreFiles = false,
   validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
-  const rosetta = new Rosetta({ liveConversion: rosettaLiveConversion });
+  const unknownSnippets =
+    rosettaUnknownSnippets ??
+    (rosettaLiveConversion
+      ? UnknownSnippetMode.TRANSLATE
+      : UnknownSnippetMode.VERBATIM);
+
+  const rosetta = new Rosetta({ unknownSnippets });
   if (rosettaTablet) {
     await rosetta.loadTabletFromFile(rosettaTablet);
   }
@@ -219,8 +226,16 @@ export interface PacmakOptions {
    * already translated in the `rosettaTablet` file.
    *
    * @default false
+   * @deprecated Use `rosettaUnknownSnippets` instead.
    */
   readonly rosettaLiveConversion?: boolean;
+
+  /**
+   * How rosetta should treat snippets that cannot be loaded from a translation tablet.
+   *
+   * @default - falls back to the default of `rosettaLiveConversion`.
+   */
+  readonly rosettaUnknownSnippets?: UnknownSnippetMode;
 
   /**
    * A Rosetta tablet file where translations for code examples can be found.
