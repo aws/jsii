@@ -91,6 +91,10 @@ describe(toMavenVersionRange, () => {
   }
 });
 
+test('Maven dependency on jsii-runtime for a development version is workable', () => {
+  expect(toMavenVersionRange('^0.0.0')).toEqual('[0.0.0,)');
+});
+
 describe(toNuGetVersionRange, () => {
   for (const [semver, { nuget }] of Object.entries(examples)) {
     test(`${semver} translates to ${nuget}`, () =>

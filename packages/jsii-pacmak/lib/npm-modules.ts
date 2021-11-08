@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import * as logging from '../lib/logging';
 import { JsiiModule } from './packaging';
-import { topologicalSort } from './toposort';
+import { topologicalSort, Toposorted } from './toposort';
 import { resolveDependencyDirectory } from './util';
 
 /**
@@ -17,7 +17,7 @@ import { resolveDependencyDirectory } from './util';
 export async function findJsiiModules(
   directories: readonly string[],
   recurse: boolean,
-): Promise<JsiiModule[]> {
+): Promise<Toposorted<JsiiModule>> {
   const ret: JsiiModule[] = [];
   const visited = new Set<string>();
 

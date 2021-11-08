@@ -89,7 +89,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example.
     <EmbeddedResource Include="testpkg-0.0.1.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
@@ -528,7 +528,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1147,7 +1147,7 @@ testpkg.FooBar=example.test.demo.FooBar
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.1.0", "wheel~=0.37.0"]
+requires = ["setuptools~=58.3.0", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1503,7 +1503,7 @@ exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.cs
     <EmbeddedResource Include="testpkg-0.0.1.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="(,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
@@ -2027,7 +2027,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -2447,7 +2447,7 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.1.0", "wheel~=0.37.0"]
+requires = ["setuptools~=58.3.0", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
