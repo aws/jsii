@@ -25,7 +25,7 @@ beforeAll(async () => {
   );
 });
 
-afterAll(async () => assembly.cleanup());
+afterAll(() => assembly.cleanup());
 
 test('detect class instantiations', () => {
   const translator = assembly.successfullyCompile(`

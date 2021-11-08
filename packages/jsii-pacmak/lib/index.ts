@@ -6,6 +6,8 @@ import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
 import { JsiiModule } from './packaging';
 import { ALL_BUILDERS, TargetName } from './targets';
 import { Timers } from './timer';
+import { Toposorted } from './toposort';
+import { flatten } from './util';
 
 //#region Exported APIs
 
@@ -46,33 +48,38 @@ export async function pacmak({
     await rosetta.loadTabletFromFile(rosettaTablet);
   }
 
-  const modulesToPackage = await findJsiiModules(inputDirectories, recurse);
-  logging.info(`Found ${modulesToPackage.length} modules to package`);
-  if (modulesToPackage.length === 0) {
+  const modulesToPackageSorted = await findJsiiModules(
+    inputDirectories,
+    recurse,
+  );
+  const modulesToPackageFlat = flatten(modulesToPackageSorted);
+
+  logging.info(`Found ${modulesToPackageFlat.length} modules to package`);
+  if (modulesToPackageFlat.length === 0) {
     logging.warn('Nothing to do');
     return;
   }
 
   if (outputDirectory) {
-    for (const mod of modulesToPackage) {
+    for (const mod of modulesToPackageFlat) {
       mod.outputDirectory = outputDirectory;
     }
   } else if (updateNpmIgnoreFiles) {
     // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
     // defined via --out, don't perform this verification.
-    await updateAllNpmIgnores(modulesToPackage);
+    await updateAllNpmIgnores(modulesToPackageFlat);
   }
 
   await timers.recordAsync('npm pack', () => {
     logging.info('Packaging NPM bundles');
-    return Promise.all(modulesToPackage.map((m) => m.npmPack()));
+    return Promise.all(modulesToPackageFlat.map((m) => m.npmPack()));
   });
 
   await timers.recordAsync('load jsii', () => {
     logging.info('Loading jsii assemblies and translations');
     const system = new TypeSystem();
     return Promise.all(
-      modulesToPackage.map(async (m) => {
+      modulesToPackageFlat.map(async (m) => {
         await m.load(system, validateAssemblies);
         return rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
       }),
@@ -80,8 +87,12 @@ export async function pacmak({
   });
 
   try {
-    const targetSets = sliceTargets(modulesToPackage, targets, forceTarget);
-    if (targetSets.every((s) => s.modules.length === 0)) {
+    const targetSets = sliceTargets(
+      modulesToPackageSorted,
+      targets,
+      forceTarget,
+    );
+    if (targetSets.every((s) => s.modulesSorted.length === 0)) {
       throw new Error(
         `None of the requested packages had any targets to build for '${targets.join(
           ', ',
@@ -103,15 +114,19 @@ export async function pacmak({
           );
           return timers
             .recordAsync(targetSet.targetType, () =>
-              buildTargetsForLanguage(targetSet.targetType, targetSet.modules, {
-                argv,
-                clean,
-                codeOnly,
-                fingerprint,
-                force,
-                perLanguageDirectory,
-                rosetta,
-              }),
+              buildTargetsForLanguage(
+                targetSet.targetType,
+                targetSet.modulesSorted,
+                {
+                  argv,
+                  clean,
+                  codeOnly,
+                  fingerprint,
+                  force,
+                  perLanguageDirectory,
+                  rosetta,
+                },
+              ),
             )
             .then(
               () => logging.info(`${targetSet.targetType} finished`),
@@ -128,10 +143,10 @@ export async function pacmak({
     if (clean) {
       logging.debug('Cleaning up');
       await timers.recordAsync('cleanup', () =>
-        Promise.all(modulesToPackage.map((m) => m.cleanup())),
+        Promise.all(modulesToPackageFlat.map((m) => m.cleanup())),
       );
     } else {
-      logging.debug('Temporary directories retained (--no-clean)');
+      logging.info('Temporary directories retained (--no-clean)');
     }
   }
 
@@ -279,7 +294,7 @@ export interface PacmakOptions {
 
 async function buildTargetsForLanguage(
   targetLanguage: string,
-  modules: readonly JsiiModule[],
+  modules: Toposorted<JsiiModule>,
   {
     argv,
     clean,
@@ -324,11 +339,13 @@ async function buildTargetsForLanguage(
  */
 interface TargetSet {
   targetType: string;
-  modules: readonly JsiiModule[];
+
+  // Sorted into toposorted tranches
+  modulesSorted: Toposorted<JsiiModule>;
 }
 
 function sliceTargets(
-  modules: readonly JsiiModule[],
+  modulesSorted: Toposorted<JsiiModule>,
   requestedTargets: readonly TargetName[],
   force: boolean,
 ): readonly TargetSet[] {
@@ -336,9 +353,11 @@ function sliceTargets(
   for (const target of requestedTargets) {
     ret.push({
       targetType: target,
-      modules: modules.filter(
-        (m) => force || m.availableTargets.includes(target),
-      ),
+      modulesSorted: modulesSorted
+        .map((modules) =>
+          modules.filter((m) => force || m.availableTargets.includes(target)),
+        )
+        .filter((ms) => ms.length > 0),
     });
   }
   return ret;
@@ -374,10 +393,11 @@ function mapParallelOrSerial<T, R>(
 //#region Misc. Utilities
 
 function describePackages(target: TargetSet) {
-  if (target.modules.length > 0 && target.modules.length < 5) {
-    return target.modules.map((m) => m.name).join(', ');
+  const modules = flatten(target.modulesSorted);
+  if (modules.length > 0 && modules.length < 5) {
+    return modules.map((m) => m.name).join(', ');
   }
-  return `${target.modules.length} modules`;
+  return `${modules.length} modules`;
 }
 
 //#endregion
