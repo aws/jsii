@@ -100,7 +100,7 @@ describe('with cache file', () => {
 
 test('do not ignore example strings', async () => {
   // Create an assembly in a temp directory
-  const otherAssembly = await AssemblyFixture.fromSource(
+  const otherAssembly = await TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -119,8 +119,8 @@ test('do not ignore example strings', async () => {
     },
   );
   try {
-    const outputFile = path.join(otherAssembly.directory, 'test.tabl.json');
-    await extract.extractSnippets([otherAssembly.directory], {
+    const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
       outputFile,
       ...defaultExtractOptions,
     });

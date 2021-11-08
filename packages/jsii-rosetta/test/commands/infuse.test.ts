@@ -65,10 +65,10 @@ test('examples are added in the assembly', async () => {
 });
 
 test('examples are added to the tablet under new keys', async () => {
-  const originalTabletFile = path.join(assembly.directory, TABLET_FILE);
-  const updatedTabletFile = path.join(assembly.directory, 'tablet2.tabl.json');
+  const originalTabletFile = path.join(assembly.moduleDirectory, TABLET_FILE);
+  const updatedTabletFile = path.join(assembly.moduleDirectory, 'tablet2.tabl.json');
 
-  await infuse([assembly.directory], originalTabletFile, {
+  await infuse([assembly.moduleDirectory], originalTabletFile, {
     tabletOutputFile: updatedTabletFile,
   });
 
