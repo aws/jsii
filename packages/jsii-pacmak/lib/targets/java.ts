@@ -30,11 +30,7 @@ import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-  TargetName,
-} from '.';
+import { INCOMPLETE_DISCLAIMER_NONCOMPILING, TargetName } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -3013,9 +3009,6 @@ class JavaGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
-    }
     if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
       return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
     }
