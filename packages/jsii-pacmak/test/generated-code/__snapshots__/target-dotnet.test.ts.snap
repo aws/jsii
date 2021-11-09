@@ -4129,7 +4129,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Here's how you use it:
     ///
     /// <code><![CDATA[
-    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// Calculator calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
@@ -4139,8 +4138,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// I will repeat this example again, but in an @example tag.
     /// </remarks>
     /// <example>
-    /// <code>// Example automatically generated. See https://github.com/aws/jsii/issues/826
-    /// Calculator calculator = new Calculator();
+    /// <code>Calculator calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);</code>
@@ -4699,8 +4697,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <strong>CustomAttribute</strong>: hasAValue
     /// </remarks>
     /// <example>
-    /// <code>// Example automatically generated. See https://github.com/aws/jsii/issues/826
-    /// public void AnExample()
+    /// <code>public void AnExample()
     /// {
     /// }</code>
     /// </example>
@@ -6233,8 +6230,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
     /// <example>
-    /// <code>// Example automatically generated. See https://github.com/aws/jsii/issues/826
-    /// int x = 12 + 44;
+    /// <code>int x = 12 + 44;
     /// string s1 = "string";
     /// string s2 = @"string
     /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
@@ -13780,21 +13776,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// First, create a calculator:
     ///
     /// <code><![CDATA[
-    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// Calculator calculator = new Calculator();
     /// ]]></code>
     ///
     /// Then call some operations:
     ///
     /// <code><![CDATA[
-    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// calculator.Add(10);
     /// ]]></code>
     ///
     /// <h2>Code Samples</h2>
     ///
     /// <code><![CDATA[
-    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// /* This is totes a magic comment in here, just you wait! */
     /// string foo = "bar";
     /// ]]></code>

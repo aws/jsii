@@ -10,10 +10,7 @@ import {
 } from 'jsii-rosetta';
 import * as xmlbuilder from 'xmlbuilder';
 
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-} from '..';
+import { INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
 import { renderSummary } from '../_utils';
 import { DotNetNameUtils } from './nameutils';
 
@@ -188,9 +185,6 @@ export class DotNetDocGenerator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
-    }
     if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
       return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
     }
