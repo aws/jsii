@@ -153,11 +153,10 @@ export async function replaceAssembly(assembly: spec.Assembly, directory: string
 /**
  * Replaces the old fingerprint with '***********'.
  *
- * @rmuller says fingerprinting is useless, as it clearly does not
- * stop us from mutating the assembly as seen here. Instead of keeping
- * the old (wrong) fingerprint or calculating a new fingerprint, to hide
- * the fact that the assembly is mutated, we replace with '**********'\
- * to show that the fingerprint is both changed and useless.
+ * @rmuller says fingerprinting is useless, as we do not actually check
+ * if an assembly is changed. Instead of keeping the old (wrong) fingerprint
+ * or spending extra time calculating a new fingerprint, we replace with '**********'
+ * that demonstrates the fingerprint has changed.
  */
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   assembly.fingerprint = '*'.repeat(10);
