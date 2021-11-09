@@ -158,7 +158,7 @@ function toBracketNotation(
     target = TargetName.JAVASCRIPT,
   }: { semver?: boolean; target?: TargetName } = {},
 ): string {
-  if (semverRange === '*') {
+  if (semverRange === '*' || semverRange === '^0.0.0') {
     semverRange = '>=0.0.0';
   }
   const range = new Range(semverRange);

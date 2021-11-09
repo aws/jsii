@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import { fixturize } from '../fixtures';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
-import { Rosetta } from '../rosetta';
+import { Rosetta, UnknownSnippetMode } from '../rosetta';
 import { SnippetParameters, typeScriptSnippetFromSource, ApiLocation } from '../snippet';
 import { Translation } from '../tablets/tablets';
 
@@ -53,7 +53,7 @@ export async function transliterateAssembly(
 ): Promise<void> {
   const rosetta = new Rosetta({
     includeCompilerDiagnostics: true,
-    liveConversion: true,
+    unknownSnippets: UnknownSnippetMode.TRANSLATE,
     loose: options.loose,
     targetLanguages,
   });

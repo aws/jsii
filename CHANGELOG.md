@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.43.0](https://github.com/aws/jsii/compare/v1.42.0...v1.43.0) (2021-11-08)
+
+
+### Features
+
+* **pacmak:** fail on untranslated snippets ([#3127](https://github.com/aws/jsii/issues/3127)) ([874e8e2](https://github.com/aws/jsii/commit/874e8e2c6a4cc61ae049c5b23f25ff390504d345)), closes [cdklabs/cdk-ops#1777](https://github.com/cdklabs/cdk-ops/issues/1777)
+* **rosetta:** find fixtures based on submodules ([#3131](https://github.com/aws/jsii/issues/3131)) ([236dd88](https://github.com/aws/jsii/commit/236dd88f816f2251e62239feb8dfb51c729b7d30))
+
+
+### Bug Fixes
+
+* **pacmak:** add 'silly' loglevel for command output ([#3125](https://github.com/aws/jsii/issues/3125)) ([bf769da](https://github.com/aws/jsii/commit/bf769daa4785d1e2c686547bfb50577c3f5006a5))
+* **pacmak:** API locations for inherited members are incorrect ([#3130](https://github.com/aws/jsii/issues/3130)) ([8d0a248](https://github.com/aws/jsii/commit/8d0a24826052600c3ab51cac7e31a2666930ef39)), closes [cdklabs/cdk-ops#1777](https://github.com/cdklabs/cdk-ops/issues/1777)
+* **pacmak:** development version cannot pack java ([#3121](https://github.com/aws/jsii/issues/3121)) ([0d9cf51](https://github.com/aws/jsii/commit/0d9cf511e58d0329dbff7e749109be76c61fb84e)), closes [#3107](https://github.com/aws/jsii/issues/3107)
+* **pacmak:** re-introduce parallelism for Python and Go builds ([#3124](https://github.com/aws/jsii/issues/3124)) ([87ba35d](https://github.com/aws/jsii/commit/87ba35d894baff68b1ce3a1dec8b17f19667e162)), closes [#3045](https://github.com/aws/jsii/issues/3045)
+* **rosetta:** `infuse` creates untranslated examples ([#3126](https://github.com/aws/jsii/issues/3126)) ([ab60275](https://github.com/aws/jsii/commit/ab602757634b836728f32eca6620836d1b641ec4))
+* **rosetta:** crashes on outdated tablet files in a package ([#3119](https://github.com/aws/jsii/issues/3119)) ([80ff0dc](https://github.com/aws/jsii/commit/80ff0dc22f5d04016812c993f07ed3b4893e518d))
+* **rosetta:** remember live-translated snippets without fixtures ([#3129](https://github.com/aws/jsii/issues/3129)) ([0638345](https://github.com/aws/jsii/commit/0638345e7712638f01e809994f4b38b50523622e))
+* **rosetta:** stop skipping example values ([#3128](https://github.com/aws/jsii/issues/3128)) ([ee0620a](https://github.com/aws/jsii/commit/ee0620aa9d5fdc595d505be7fa4a7e30e827ad62))
+
 ## [1.42.0](https://github.com/aws/jsii/compare/v1.41.0...v1.42.0) (2021-11-02)
 
 
