@@ -36,7 +36,6 @@
     "commonmark": "^0.30.0",
     "fs-extra": "^9.1.0",
     "typescript": "~3.9.10",
-    "sort-json": "^2.0.0",
     "@xmldom/xmldom": "^0.7.5",
     "workerpool": "^6.1.5",
     "yargs": "^16.2.0"

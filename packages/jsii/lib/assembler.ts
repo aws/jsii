@@ -1,7 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as Case from 'case';
 import * as colors from 'colors/safe';
-import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
 import * as fs from 'fs-extra';
@@ -30,9 +29,6 @@ import { symbolIdentifier } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-const sortJson = require('sort-json');
 
 const LOG = log4js.getLogger('jsii/assembler');
 
@@ -2822,14 +2818,18 @@ interface SubmoduleSpec {
   readonly readme?: spec.ReadMe;
 }
 
+/**
+ * Replaces the old fingerprint with '***********'.
+ *
+ * @rmuller says fingerprinting is useless, as it clearly does not
+ * stop us from mutating the assembly as seen here. Instead of keeping
+ * the old (wrong) fingerprint or calculating a new fingerprint, to hide
+ * the fact that the assembly is mutated, we replace with '**********'\
+ * to show that the fingerprint is both changed and useless.
+ */
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
-  delete assembly.fingerprint;
-  assembly = sortJson(assembly);
-  const fingerprint = crypto
-    .createHash('sha256')
-    .update(JSON.stringify(assembly))
-    .digest('base64');
-  return { ...assembly, fingerprint };
+  assembly.fingerprint = '*'.repeat(10);
+  return assembly;
 }
 
 function _isAbstract(

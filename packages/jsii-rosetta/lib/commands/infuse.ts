@@ -159,7 +159,7 @@ function filterForTypesWithoutExamples(types: { [fqn: string]: spec.Type }): Rec
 /**
  * Insert an example into the docs of a type, and insert it back into the tablet under a new key
  */
-function insertExample(example: TranslatedSnippet, type: spec.Type, tablet: LanguageTablet): void {
+export function insertExample(example: TranslatedSnippet, type: spec.Type, tablet: LanguageTablet): void {
   if (type.docs) {
     type.docs.example = example.originalSource.source;
   } else {

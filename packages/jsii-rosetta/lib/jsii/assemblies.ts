@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -13,9 +12,6 @@ import {
   ApiLocation,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-const sortJson = require('sort-json');
 
 export interface LoadedAssembly {
   assembly: spec.Assembly;
@@ -155,12 +151,15 @@ export async function replaceAssembly(assembly: spec.Assembly, directory: string
 }
 
 /**
- * This function is copied from `packages/jsii/lib/assembler.ts`.
- * We should make sure not to change one without changing the other as well.
+ * Replaces the old fingerprint with '***********'.
+ *
+ * @rmuller says fingerprinting is useless, as it clearly does not
+ * stop us from mutating the assembly as seen here. Instead of keeping
+ * the old (wrong) fingerprint or calculating a new fingerprint, to hide
+ * the fact that the assembly is mutated, we replace with '**********'\
+ * to show that the fingerprint is both changed and useless.
  */
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
-  delete (assembly as any).fingerprint;
-  assembly = sortJson(assembly);
-  const fingerprint = crypto.createHash('sha256').update(JSON.stringify(assembly)).digest('base64');
-  return { ...assembly, fingerprint };
+  assembly.fingerprint = '*'.repeat(10);
+  return assembly;
 }
