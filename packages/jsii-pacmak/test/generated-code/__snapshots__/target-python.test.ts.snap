@@ -2383,21 +2383,18 @@ This library is used to demonstrate and test the features of JSII
 First, create a calculator:
 
 \`\`\`python
-# Example automatically generated. See https://github.com/aws/jsii/issues/826
 calculator = calc.Calculator()
 \`\`\`
 
 Then call some operations:
 
 \`\`\`python
-# Example automatically generated. See https://github.com/aws/jsii/issues/826
 calculator.add(10)
 \`\`\`
 
 ## Code Samples
 
 \`\`\`python
-# Example automatically generated. See https://github.com/aws/jsii/issues/826
 # This is totes a magic comment in here, just you wait!
 foo = "bar"
 \`\`\`
@@ -2525,21 +2522,18 @@ This library is used to demonstrate and test the features of JSII
 First, create a calculator:
 
 \`\`\`python
-# Example automatically generated. See https://github.com/aws/jsii/issues/826
 calculator = calc.Calculator()
 \`\`\`
 
 Then call some operations:
 
 \`\`\`python
-# Example automatically generated. See https://github.com/aws/jsii/issues/826
 calculator.add(10)
 \`\`\`
 
 ## Code Samples
 
 \`\`\`python
-# Example automatically generated. See https://github.com/aws/jsii/issues/826
 # This is totes a magic comment in here, just you wait!
 foo = "bar"
 \`\`\`
@@ -3119,7 +3113,6 @@ class Calculator(
 
     Here's how you use it::
 
-       # Example automatically generated. See https://github.com/aws/jsii/issues/826
        calculator = calc.Calculator()
        calculator.add(5)
        calculator.mul(3)
@@ -3129,7 +3122,6 @@ class Calculator(
 
     Example::
 
-        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         calculator = calc.Calculator()
         calculator.add(5)
         calculator.mul(3)
@@ -3419,7 +3411,6 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
 
     Example::
 
-        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         def an_example():
             pass
     '''
@@ -4525,7 +4516,6 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
 
     Example::
 
-        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         x = 12 + 44
         s1 = "string"
         s2 = """string

@@ -5612,7 +5612,6 @@ package software.amazon.jsii.tests.calculator;
  * Here's how you use it:
  * <p>
  * <blockquote><pre>
- * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
@@ -5624,7 +5623,6 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
@@ -6625,7 +6623,6 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * public void anExample() {
  * }
  * </pre></blockquote>
@@ -9298,7 +9295,6 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Number x = 12 + 44;
  * String s1 = "string";
  * String s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
@@ -24119,21 +24115,18 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * First, create a calculator:
  * <p>
  * <blockquote><pre>
- * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Calculator calculator = new Calculator();
  * </pre></blockquote>
  * <p>
  * Then call some operations:
  * <p>
  * <blockquote><pre>
- * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * calculator.add(10);
  * </pre></blockquote>
  * <p>
  * <h2>Code Samples</h2>
  * <p>
  * <blockquote><pre>
- * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * /* This is totes a magic comment in here, just you wait! *&#47;
  * String foo = "bar";
  * </pre></blockquote>
