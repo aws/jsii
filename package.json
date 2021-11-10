@@ -43,6 +43,7 @@
       "packages/*",
       "packages/@jsii/*",
       "packages/@scope/*",
+      "regression-tests/@*/*",
       "tools/*"
     ],
     "nohoist": [
