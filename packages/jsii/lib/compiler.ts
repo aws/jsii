@@ -138,7 +138,10 @@ export class Compiler implements Emitter {
         ...pi.tsc,
         ...BASE_COMPILER_OPTIONS,
         noEmitOnError: false,
-        tsBuildInfoFile: path.join(pi.tsc?.outDir ?? pi.tsc?.rootDir ?? pi.projectRoot, 'tsconfig.tsbuildinfo'),
+        tsBuildInfoFile: path.join(
+          pi.tsc?.outDir ?? pi.tsc?.rootDir ?? pi.projectRoot,
+          'tsconfig.tsbuildinfo',
+        ),
       },
       {
         ...ts.sys,
@@ -501,12 +504,13 @@ export class Compiler implements Emitter {
 
     if (files.length > 0) {
       for (const file of files) {
-        ret.add(file);
+        ret.add(path.resolve(this.options.projectInfo.projectRoot, file));
       }
     } else {
       const parseConfigHost = parseConfigHostFromCompilerHost(
         this.compilerHost,
       );
+      // Note: the fileNames here are resolved by the parseConfigHost.
       const { fileNames } = ts.parseJsonConfigFileContent(
         this.typescriptConfig,
         parseConfigHost,
@@ -523,7 +527,10 @@ export class Compiler implements Emitter {
     for (const assm of this.options.projectInfo.dependencyClosure) {
       const { resolvedModule } = ts.resolveModuleName(
         assm.name,
-        path.join(this.options.projectInfo.projectRoot, this.options.projectInfo.types),
+        path.join(
+          this.options.projectInfo.projectRoot,
+          this.options.projectInfo.types,
+        ),
         this.typescriptConfig?.compilerOptions ?? {},
         ts.sys,
       );
