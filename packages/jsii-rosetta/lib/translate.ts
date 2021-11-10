@@ -152,6 +152,7 @@ export class SnippetTranslator {
   public readonly compileDiagnostics: ts.Diagnostic[] = [];
   private readonly visibleSpans: Spans;
   private readonly compilation!: CompilationResult;
+  private readonly tryCompile: boolean;
 
   public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
     const compiler = options.compiler ?? new TypeScriptCompiler();
@@ -170,7 +171,9 @@ export class SnippetTranslator {
     this.visibleSpans = Spans.visibleSpansFromSource(source);
 
     // This makes it about 5x slower, so only do it on demand
-    if (options.includeCompilerDiagnostics || snippet.strict) {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    this.tryCompile = (options.includeCompilerDiagnostics || snippet.strict) ?? false;
+    if (this.tryCompile) {
       const program = this.compilation.program;
       const diagnostics = [
         ...neverThrowing(program.getGlobalDiagnostics)(),
@@ -208,8 +211,11 @@ export class SnippetTranslator {
     }
   }
 
+  /**
+   * Returns a boolean if compilation was attempted, and undefined if it was not.
+   */
   public get didSuccessfullyCompile() {
-    return this.compileDiagnostics.length === 0;
+    return this.tryCompile ? this.compileDiagnostics.length === 0 : undefined;
   }
 
   public renderUsing(visitor: AstHandler<any>) {

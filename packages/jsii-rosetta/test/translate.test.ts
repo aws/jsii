@@ -112,3 +112,35 @@ test('Snippets from different locations have different keys', () => {
 
   expect(snippetKey(snippet1)).not.toEqual(snippetKey(snippet2));
 });
+
+test('didSuccessfullyCompile is true when compilation is attempted', () => {
+  const visibleSource = 'console.log("banana");';
+
+  const snippet: TypeScriptSnippet = {
+    visibleSource,
+    location: { api: { api: 'type', fqn: 'my.class' } },
+  };
+
+  // WHEN
+  const subject = new SnippetTranslator(snippet, {
+    includeCompilerDiagnostics: true,
+  });
+  subject.renderUsing(new PythonVisitor());
+
+  expect(subject.didSuccessfullyCompile).toBeTruthy();
+});
+
+test('didSuccessfullyCompile is undefined when compilation is not attempted', () => {
+  const visibleSource = 'console.log("banana");';
+
+  const snippet: TypeScriptSnippet = {
+    visibleSource,
+    location: { api: { api: 'type', fqn: 'my.class' } },
+  };
+
+  // WHEN
+  const subject = new SnippetTranslator(snippet);
+  subject.renderUsing(new PythonVisitor());
+
+  expect(subject.didSuccessfullyCompile).toBeUndefined();
+});
