@@ -78,7 +78,7 @@ export async function extractSnippets(
 
     const delta = (Date.now() - startTime) / 1000;
     logging.info(
-      `Translated ${translateCount} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`,
+      `Translated ${translateCount} snippets in ${delta} seconds (${(delta / translateCount).toPrecision(3)}s/snippet)`,
     );
     diagnostics.push(...result.diagnostics);
   } else {

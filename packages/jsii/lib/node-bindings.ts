@@ -99,6 +99,15 @@ export const getParameterRelatedNode: (
   | ts.PropertySignature
   | undefined = getRelatedNode;
 
+export const getPropertyRelatedNode: (
+  object: spec.Parameter,
+) =>
+  | ts.AccessorDeclaration
+  | ts.ParameterPropertyDeclaration
+  | ts.PropertyDeclaration
+  | ts.PropertySignature
+  | undefined = getRelatedNode;
+
 export const getTypeRelatedNode: (
   object: spec.Type,
 ) =>

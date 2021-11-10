@@ -18,7 +18,7 @@ import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
-import { renderSummary } from './_utils';
+import { renderSummary, PropertyDefinition } from './_utils';
 import {
   NamingContext,
   toTypeName,
@@ -29,11 +29,7 @@ import {
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-  TargetName,
-} from '.';
+import { INCOMPLETE_DISCLAIMER_NONCOMPILING, TargetName } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -329,6 +325,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   public constructor(
     protected readonly generator: PythonGenerator,
     public readonly pythonName: string,
+    public readonly spec: spec.Type,
     public readonly fqn: string | undefined,
     opts: PythonTypeOpts,
     public readonly docs: spec.Docs | undefined,
@@ -474,7 +471,11 @@ abstract class BaseMethod implements PythonBase {
   }
 
   public get apiLocation(): ApiLocation {
-    return { api: 'member', fqn: this.parent.fqn, memberName: this.jsiiMethod };
+    return {
+      api: 'member',
+      fqn: this.parent.fqn,
+      memberName: this.jsName ?? '',
+    };
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -549,6 +550,14 @@ abstract class BaseMethod implements PythonBase {
     }
 
     const documentableArgs: DocumentableArgument[] = this.parameters
+      .map(
+        (p) =>
+          ({
+            name: p.name,
+            docs: p.docs,
+            definingType: this.parent,
+          } as DocumentableArgument),
+      )
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
       .filter((_, index) =>
         this.liftedProp != null ? index < this.parameters.length - 1 : true,
@@ -573,19 +582,28 @@ abstract class BaseMethod implements PythonBase {
 
         // Iterate over all of our props, and reflect them into our params.
         for (const prop of liftedProperties) {
-          const paramName = toPythonParameterName(prop.name);
-          const paramType = toTypeName(prop).pythonType({
+          const paramName = toPythonParameterName(prop.prop.name);
+          const paramType = toTypeName(prop.prop).pythonType({
             ...context,
             parameterType: true,
           });
-          const paramDefault = prop.optional ? ' = None' : '';
+          const paramDefault = prop.prop.optional ? ' = None' : '';
 
           pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
       }
 
       // Document them as keyword arguments
-      documentableArgs.push(...liftedProperties);
+      documentableArgs.push(
+        ...liftedProperties.map(
+          (p) =>
+            ({
+              name: p.prop.name,
+              docs: p.prop.docs,
+              definingType: p.definingType,
+            } as DocumentableArgument),
+        ),
+      );
     } else if (
       this.parameters.length >= 1 &&
       this.parameters[this.parameters.length - 1].variadic
@@ -701,7 +719,7 @@ abstract class BaseMethod implements PythonBase {
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specifiy to start with in our dictionary literal.
     const liftedProps = this.getLiftedProperties(context.resolver).map(
-      (p) => new StructField(this.generator, p, this.parent),
+      (p) => new StructField(this.generator, p.prop, p.definingType),
     );
     const assignments = liftedProps
       .map((p) => p.pythonName)
@@ -764,8 +782,8 @@ abstract class BaseMethod implements PythonBase {
     );
   }
 
-  private getLiftedProperties(resolver: TypeResolver): spec.Property[] {
-    const liftedProperties: spec.Property[] = [];
+  private getLiftedProperties(resolver: TypeResolver): PropertyDefinition[] {
+    const liftedProperties: PropertyDefinition[] = [];
 
     const stack = [this.liftedProp];
     const knownIfaces = new Set<string>();
@@ -794,7 +812,7 @@ abstract class BaseMethod implements PythonBase {
           if (knownProps.has(prop.name)) {
             continue;
           }
-          liftedProperties.push(prop);
+          liftedProperties.push({ prop, definingType: current });
           knownProps.add(prop.name);
         }
       }
@@ -1058,7 +1076,7 @@ class Struct extends BasePythonClassType {
    */
   private get allMembers(): StructField[] {
     return this.thisInterface.allProperties.map(
-      (x) => new StructField(this.generator, x.spec, this.thisInterface),
+      (x) => new StructField(this.generator, x.spec, x.definingType.spec),
     );
   }
 
@@ -1126,6 +1144,7 @@ class Struct extends BasePythonClassType {
     const args: DocumentableArgument[] = this.allMembers.map((m) => ({
       name: m.pythonName,
       docs: m.docs,
+      definingType: this.spec,
     }));
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       arguments: args,
@@ -1199,7 +1218,7 @@ class StructField implements PythonBase {
   public constructor(
     private readonly generator: PythonGenerator,
     public readonly prop: spec.Property,
-    private readonly parent: spec.NamedTypeReference,
+    private readonly definingType: spec.Type,
   ) {
     this.pythonName = toPythonPropertyName(prop.name);
     this.jsiiName = prop.name;
@@ -1208,7 +1227,11 @@ class StructField implements PythonBase {
   }
 
   public get apiLocation(): ApiLocation {
-    return { api: 'member', fqn: this.parent.fqn, memberName: this.jsiiName };
+    return {
+      api: 'member',
+      fqn: this.definingType.fqn,
+      memberName: this.jsiiName,
+    };
   }
 
   public get optional(): boolean {
@@ -1265,11 +1288,12 @@ class Class extends BasePythonClassType implements ISortableType {
   public constructor(
     generator: PythonGenerator,
     name: string,
+    spec: spec.Type,
     fqn: string,
     opts: ClassOpts,
     docs: spec.Docs | undefined,
   ) {
-    super(generator, name, fqn, opts, docs);
+    super(generator, name, spec, fqn, opts, docs);
 
     const { abstract = false, interfaces = [], abstractBases = [] } = opts;
 
@@ -2372,9 +2396,6 @@ class PythonGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
-      return `# ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
-    }
     if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
       return `# ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
     }
@@ -2483,6 +2504,7 @@ class PythonGenerator extends Generator {
     const klass = new Class(
       this,
       toPythonIdentifier(cls.name),
+      cls,
       cls.fqn,
       {
         abstract,
@@ -2625,6 +2647,7 @@ class PythonGenerator extends Generator {
       iface = new Struct(
         this,
         toPythonIdentifier(ifc.name),
+        ifc,
         ifc.fqn,
         { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
@@ -2633,6 +2656,7 @@ class PythonGenerator extends Generator {
       iface = new Interface(
         this,
         toPythonIdentifier(ifc.name),
+        ifc,
         ifc.fqn,
         { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
@@ -2684,7 +2708,7 @@ class PythonGenerator extends Generator {
 
   protected onBeginEnum(enm: spec.EnumType) {
     this.addPythonType(
-      new Enum(this, toPythonIdentifier(enm.name), enm.fqn, {}, enm.docs),
+      new Enum(this, toPythonIdentifier(enm.name), enm, enm.fqn, {}, enm.docs),
     );
   }
 
@@ -2800,6 +2824,7 @@ class PythonGenerator extends Generator {
  */
 interface DocumentableArgument {
   name: string;
+  definingType: spec.Type;
   docs?: spec.Docs;
 }
 
