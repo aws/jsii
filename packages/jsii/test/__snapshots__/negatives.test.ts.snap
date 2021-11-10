@@ -812,12 +812,3 @@ neg.submodules-must-be-camel-cased.ts:1:13 - error JSII8004: Submodule namespace
 
 
 `;
-
-exports[`use-of-unexported-type 1`] = `
-neg.use-of-unexported-type.ts:6:29 - error JSII3000: Exported APIs cannot use un-exported type "jsii.UnexportedProps"
-
-6   public constructor(props: UnexportedProps) {
-                              ~~~~~~~~~~~~~~~
-
-
-`;
