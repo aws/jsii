@@ -109,8 +109,21 @@ error JSII8000: Type names must be CamelCased. Rename "My_Enum" to "MyEnum"
 
 `;
 
+exports[`expose-unexported-type-constructor-param 1`] = `
+neg.expose-unexported-type-constructor-param.ts:6:29 - error JSII3000: Exported APIs cannot use un-exported type "jsii.UnexportedProps"
+
+6   public constructor(props: UnexportedProps) {
+                              ~~~~~~~~~~~~~~~
+
+
+`;
+
 exports[`expose-unexported-type-external 1`] = `
-error JSII3000: Exported APIs cannot use un-exported type "jsii.UnexportedType"
+neg.expose-unexported-type-external.ts:7:14 - error JSII3000: Exported APIs cannot use un-exported type "jsii.UnexportedType"
+
+7   public p?: UnexportedType;
+               ~~~~~~~~~~~~~~
+
 
 `;
 
@@ -641,6 +654,11 @@ error JSII8002: Method and property (unless they are static readonly) names must
 `;
 
 exports[`stripped-deprecated 1`] = `
+neg.stripped-deprecated.ts:11:25 - error JSII3000: Exported APIs cannot use un-exported type "jsii.DeprecatedInterface"
+
+11   public bad(parameter: DeprecatedInterface): DeprecatedInterface {
+                           ~~~~~~~~~~~~~~~~~~~
+
 neg.stripped-deprecated.ts:11:25 - error JSII3999: Parameter has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
 
 11   public bad(parameter: DeprecatedInterface): DeprecatedInterface {
@@ -650,6 +668,11 @@ neg.stripped-deprecated.ts:11:25 - error JSII3999: Parameter has @deprecated typ
     4 export interface DeprecatedInterface {}
                        ~~~~~~~~~~~~~~~~~~~
     The @deprecated type is declared here
+neg.stripped-deprecated.ts:11:47 - error JSII3000: Exported APIs cannot use un-exported type "jsii.DeprecatedInterface"
+
+11   public bad(parameter: DeprecatedInterface): DeprecatedInterface {
+                                                 ~~~~~~~~~~~~~~~~~~~
+
 neg.stripped-deprecated.ts:11:47 - error JSII3999: Method has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
 
 11   public bad(parameter: DeprecatedInterface): DeprecatedInterface {
@@ -659,6 +682,11 @@ neg.stripped-deprecated.ts:11:47 - error JSII3999: Method has @deprecated type j
     4 export interface DeprecatedInterface {}
                        ~~~~~~~~~~~~~~~~~~~
     The @deprecated type is declared here
+neg.stripped-deprecated.ts:7:17 - error JSII3000: Exported APIs cannot use un-exported type "jsii.DeprecatedInterface"
+
+7   public ouch?: DeprecatedInterface;
+                  ~~~~~~~~~~~~~~~~~~~
+
 neg.stripped-deprecated.ts:7:17 - error JSII3999: Property has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
 
 7   public ouch?: DeprecatedInterface;
@@ -668,6 +696,11 @@ neg.stripped-deprecated.ts:7:17 - error JSII3999: Property has @deprecated type 
     4 export interface DeprecatedInterface {}
                        ~~~~~~~~~~~~~~~~~~~
     The @deprecated type is declared here
+neg.stripped-deprecated.ts:9:42 - error JSII3000: Exported APIs cannot use un-exported type "jsii.DeprecatedInterface"
+
+9   public constructor(public readonly no: DeprecatedInterface) {}
+                                           ~~~~~~~~~~~~~~~~~~~
+
 neg.stripped-deprecated.ts:9:42 - error JSII3999: Parameter has @deprecated type jsii.DeprecatedInterface, and it is erased by --strip-deprecated.
 
 9   public constructor(public readonly no: DeprecatedInterface) {}
@@ -686,7 +719,6 @@ neg.stripped-deprecated.ts:9:42 - error JSII3999: Property has @deprecated type 
     4 export interface DeprecatedInterface {}
                        ~~~~~~~~~~~~~~~~~~~
     The @deprecated type is declared here
-error JSII3000: Exported APIs cannot use un-exported type "jsii.DeprecatedInterface"
 
 `;
 
