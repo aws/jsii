@@ -3212,7 +3212,7 @@ function inferRootDir(program: ts.Program): string | undefined {
     })
     .map((fileName) =>
       path.relative(program.getCurrentDirectory(), path.dirname(fileName)),
-  )
+    )
     .map(segmentPath)
     // Dependency entry points are in this path, and they MAY resolve from the
     // same mono-repo, in which case they won't appear to be external libraries,
