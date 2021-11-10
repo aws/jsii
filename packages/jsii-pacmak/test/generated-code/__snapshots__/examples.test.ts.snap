@@ -731,9 +731,9 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
      * A builder for {@link Baz}
      */
     public static final class Builder implements software.amazon.jsii.Builder<Baz> {
-        private java.lang.Boolean baz;
-        private java.lang.Number foo;
-        private java.lang.String bar;
+        java.lang.Boolean baz;
+        java.lang.Number foo;
+        java.lang.String bar;
 
         /**
          * Sets the value of {@link Baz#getBaz}
@@ -772,7 +772,7 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
          */
         @Override
         public Baz build() {
-            return new Jsii$Proxy(baz, foo, bar);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -799,11 +799,11 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Boolean baz, final java.lang.Number foo, final java.lang.String bar) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.baz = java.util.Objects.requireNonNull(baz, "baz is required");
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
-            this.bar = bar;
+            this.baz = java.util.Objects.requireNonNull(builder.baz, "baz is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            this.bar = builder.bar;
         }
 
         @Override
@@ -909,7 +909,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link Foo}
      */
     public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-        private java.lang.Number foo;
+        java.lang.Number foo;
 
         /**
          * Sets the value of {@link Foo#getFoo}
@@ -928,7 +928,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
          */
         @Override
         public Foo build() {
-            return new Jsii$Proxy(foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -951,9 +951,9 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -1023,8 +1023,8 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link FooBar}
      */
     public static final class Builder implements software.amazon.jsii.Builder<FooBar> {
-        private java.lang.Number foo;
-        private java.lang.String bar;
+        java.lang.Number foo;
+        java.lang.String bar;
 
         /**
          * Sets the value of {@link FooBar#getFoo}
@@ -1053,7 +1053,7 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
          */
         @Override
         public FooBar build() {
-            return new Jsii$Proxy(foo, bar);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -1078,10 +1078,10 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number foo, final java.lang.String bar) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
-            this.bar = bar;
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            this.bar = builder.bar;
         }
 
         @Override
@@ -2247,7 +2247,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
          * A builder for {@link Foo}
          */
         public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-            private java.lang.String bar;
+            java.lang.String bar;
 
             /**
              * Sets the value of {@link Foo#getBar}
@@ -2266,7 +2266,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
              */
             @Override
             public Foo build() {
-                return new Jsii$Proxy(bar);
+                return new Jsii$Proxy(this);
             }
         }
 
@@ -2289,9 +2289,9 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
             /**
              * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
              */
-            protected Jsii$Proxy(final java.lang.String bar) {
+            protected Jsii$Proxy(final Builder builder) {
                 super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-                this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
+                this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
             }
 
             @Override
