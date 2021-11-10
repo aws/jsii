@@ -3212,8 +3212,14 @@ function inferRootDir(program: ts.Program): string | undefined {
     })
     .map((fileName) =>
       path.relative(program.getCurrentDirectory(), path.dirname(fileName)),
-    )
-    .map(segmentPath);
+  )
+    .map(segmentPath)
+    // Dependency entry points are in this path, and they MAY resolve from the
+    // same mono-repo, in which case they won't appear to be external libraries,
+    // as there may not be a `/node_modules/` segment in their canonical path.
+    // They well however come from a parent directory, so their path segments
+    // will start with "..".
+    .filter(([head]) => head !== '..');
 
   const maxPrefix = Math.min(
     ...directories.map((segments) => segments.length - 1),

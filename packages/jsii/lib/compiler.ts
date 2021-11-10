@@ -504,7 +504,7 @@ export class Compiler implements Emitter {
 
     if (files.length > 0) {
       for (const file of files) {
-        ret.add(file);
+        ret.add(path.resolve(this.options.projectInfo.projectRoot, file));
       }
     } else {
       const parseConfigHost = parseConfigHostFromCompilerHost(
