@@ -234,14 +234,16 @@ function processInterfaceType(
   for (const interfaceName of type.interfaces ?? []) {
     const assemblies = projectInfo.dependencyClosure.concat(assembly);
     const superType = findType(interfaceName, assemblies);
-    processInterfaceType(
-      superType.type as spec.InterfaceType,
-      types,
-      assembly,
-      projectInfo,
-      statementsByProp,
-      excludedProps,
-    );
+    if (superType.type) {
+      processInterfaceType(
+        superType.type as spec.InterfaceType,
+        types,
+        assembly,
+        projectInfo,
+        statementsByProp,
+        excludedProps,
+      );
+    }
   }
   return { statementsByProp, excludedProps };
 }

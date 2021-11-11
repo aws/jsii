@@ -325,9 +325,13 @@ function testpkg_Baz(p) {
   });
 
   test('generates calls for types in other assemblies', async () => {
+    const calcBaseOfBaseRoot = resolveModuleDir(
+      '@scope/jsii-calc-base-of-base',
+    );
     const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
 
+    await compile(calcBaseOfBaseRoot, false);
     await compile(calcBaseRoot, true);
     await compile(calcLibRoot, true);
     const warningsFile = loadWarningsFile(calcBaseRoot);
@@ -341,7 +345,7 @@ function testpkg_Baz(p) {
     // Recompiling without deprecation warning to leave the packages in a clean state
     await compile(calcBaseRoot, false);
     await compile(calcLibRoot, false);
-  }, 25000);
+  }, 30000);
 });
 
 describe('Call injections', () => {
