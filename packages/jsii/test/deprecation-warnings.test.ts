@@ -195,28 +195,79 @@ function testpkg_Baz(p) {
 `);
   });
 
-  test('generates calls for supertypes', async () => {
+  test('generates calls for deprecated inherited properties', async () => {
     const result = await compileJsiiForTest(
       `
-        export interface Foo {}
-        export interface Bar {readonly foo: Foo;}
-        export interface Baz extends Bar {readonly x: string;}
+        export interface Baz {
+          /** @deprecated message from Baz */
+          readonly x: string;          
+        }
+        export interface Bar {
+          /** @deprecated message from Bar */
+          readonly x: string;          
+        }
+        export interface Foo extends Bar, Baz {
+        }
         `,
       undefined /* callback */,
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Baz(p) {
+    const warningsFileContent = jsFile(result, '.warnings.jsii');
+
+    // For each supertype, its corresponding function should be generated, as usual
+    expect(warningsFileContent).toMatch(`function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    testpkg_Bar(p);
+    if ("x" in p)
+        print("testpkg.Baz#x", "message from Baz");
     visitedObjects.delete(p);
-}
-`);
+}`);
+    expect(warningsFileContent).toMatch(`function testpkg_Bar(p) {
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    if ("x" in p)
+        print("testpkg.Bar#x", "message from Bar");
+    visitedObjects.delete(p);
+}`);
+
+    // But a call for one of the instances of the property should also be generated in the base function
+    expect(warningsFileContent).toMatch(`function testpkg_Foo(p) {
+    if (p == null)
+        return;
+    visitedObjects.add(p);
+    if ("x" in p)
+        print("testpkg.Baz#x", "message from Baz");
+    visitedObjects.delete(p);
+}`);
   });
 
-  test('generates calls for tyes with deprecated properties', async () => {
+  test('skips properties that are deprecated in one supertype but not the other', async () => {
+    const result = await compileJsiiForTest(
+      `
+        export interface Baz {
+          readonly x: string;          
+        }
+        export interface Bar {
+          /** @deprecated message from Bar */
+          readonly x: string;          
+        }
+        export interface Foo extends Bar, Baz {
+        }
+        `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    const warningsFileContent = jsFile(result, '.warnings.jsii');
+
+    expect(warningsFileContent).toMatch(`function testpkg_Foo(p) {
+}`);
+  });
+
+  test('generates calls for types with deprecated properties', async () => {
     const result = await compileJsiiForTest(
       `
       export interface Bar {
@@ -294,7 +345,7 @@ function testpkg_Baz(p) {
 });
 
 describe('Call injections', () => {
-  test('does not add warnings, by default', async () => {
+  test('does not add warnings by default', async () => {
     const result = await compileJsiiForTest(
       `
     export class Foo {
