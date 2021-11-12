@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import { TargetLanguage } from '../languages';
-import { TypeScriptSnippet, SnippetLocation } from '../snippet';
+import { TypeScriptSnippet, SnippetLocation, completeSource } from '../snippet';
 import { mapValues } from '../util';
 import { snippetKey } from './key';
 import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
@@ -18,9 +18,25 @@ export const CURRENT_SCHEMA_VERSION = '2';
  * A tablet containing various snippets in multiple languages
  */
 export class LanguageTablet {
+  /**
+   * Load a tablet from a file
+   */
   public static async fromFile(filename: string) {
     const ret = new LanguageTablet();
     await ret.load(filename);
+    return ret;
+  }
+
+  /**
+   * Load a tablet from a file that may not exist
+   *
+   * Will return an empty tablet if the file does not exist
+   */
+  public static async fromOptionalFile(filename: string) {
+    const ret = new LanguageTablet();
+    if (fs.existsSync(filename)) {
+      await ret.load(filename);
+    }
     return ret;
   }
 
@@ -35,13 +51,44 @@ export class LanguageTablet {
     return Object.keys(this.snippets);
   }
 
+  /**
+   * Add all snippets from the given tablet into this one
+   */
+  public addTablet(tablet: LanguageTablet) {
+    for (const snippet of Object.values(tablet.snippets)) {
+      this.addSnippet(snippet);
+    }
+  }
+
   public tryGetSnippet(key: string): TranslatedSnippet | undefined {
     return this.snippets[key];
   }
 
+  /**
+   * Look up a single translation of a source snippet
+   *
+   * @deprecated Use `lookupTranslationBySource` instead.
+   */
   public lookup(typeScriptSource: TypeScriptSnippet, language: TargetLanguage): Translation | undefined {
+    return this.lookupTranslationBySource(typeScriptSource, language);
+  }
+
+  /**
+   * Look up a single translation of a source snippet
+   */
+  public lookupTranslationBySource(
+    typeScriptSource: TypeScriptSnippet,
+    language: TargetLanguage,
+  ): Translation | undefined {
     const snippet = this.snippets[snippetKey(typeScriptSource)];
     return snippet?.get(language);
+  }
+
+  /**
+   * Lookup the translated verion of a TypeScript snippet
+   */
+  public lookupBySource(typeScriptSource: TypeScriptSnippet): TranslatedSnippet | undefined {
+    return this.snippets[snippetKey(typeScriptSource)];
   }
 
   public async load(filename: string) {
@@ -101,7 +148,7 @@ export class TranslatedSnippet {
       },
       didCompile: didCompile,
       location: original.location,
-      fullSource: original.completeSource,
+      fullSource: completeSource(original),
     });
   }
 

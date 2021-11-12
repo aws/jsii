@@ -1,11 +1,11 @@
 import { SPEC_FILE_NAME } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
-import * as os from 'os';
 import * as path from 'path';
 
 import { transliterateAssembly } from '../../lib/commands/transliterate';
 import { TargetLanguage } from '../../lib/languages/target-language';
+import { withTemporaryDirectory } from '../testutil';
 
 jest.setTimeout(60_000);
 
@@ -1339,8 +1339,3 @@ new SampleClass('omitted-literate');
     `,
     );
   }));
-
-async function withTemporaryDirectory<T>(callback: (dir: string) => Promise<T>): Promise<T> {
-  const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
-  return callback(tmpdir).finally(() => fs.removeSync(tmpdir));
-}

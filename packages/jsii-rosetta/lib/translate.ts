@@ -67,7 +67,7 @@ export class Translator {
       location: snip.location,
       didCompile: translator.didSuccessfullyCompile,
       fqnsReferenced: translator.fqnsReferenced(),
-      fullSource: snip.completeSource,
+      fullSource: completeSource(snip),
       syntaxKindCounter: translator.syntaxKindCounter(),
     });
   }
@@ -199,7 +199,7 @@ export class SnippetTranslator {
         try {
           return call(...args);
         } catch (err) {
-          const isExpectedTypescriptError = err.message.includes('Error: Debug Failure');
+          const isExpectedTypescriptError = err.message.includes('Debug Failure');
 
           if (!isExpectedTypescriptError) {
             console.error(`Failed to execute ${call.name}: ${err}`);
