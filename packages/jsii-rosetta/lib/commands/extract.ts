@@ -46,9 +46,13 @@ export async function extractSnippets(
     snippets = filterSnippets(snippets, only);
   }
 
-  const translator = (options.translatorFactory ?? mk(RosettaTranslator))({
+  const translatorOptions: RosettaTranslatorOptions = {
     assemblies: assemblies.map((a) => a.assembly),
-  });
+  };
+
+  const translator = options.translatorFactory
+    ? options.translatorFactory(translatorOptions)
+    : new RosettaTranslator(translatorOptions);
 
   if (options.cacheTabletFile) {
     await translator.loadCache(options.cacheTabletFile);
@@ -85,11 +89,4 @@ export async function extractSnippets(
  */
 function filterSnippets(ts: TypeScriptSnippet[], includeIds: string[]) {
   return ts.filter((t) => includeIds.includes(snippetKey(t)));
-}
-
-/**
- * Turn a constructor into a function that doesn't need the 'new' keyword
- */
-function mk<A, B>(x: new (opts: B) => A): (opts: B) => A {
-  return (opts: B) => new x(opts);
 }
