@@ -139,9 +139,6 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`csharp
-      // This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps { Foo = \\"bar\\" });
       object.Property = EnumType.OPTION_A;
       object.MethodCall();
@@ -165,10 +162,7 @@ export class ClassName implements IInterface {
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+                "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -207,10 +201,7 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName.StaticMethod();",
+                  "example": "ClassName.StaticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
@@ -304,10 +295,7 @@ export class ClassName implements IInterface {
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+              "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -318,19 +306,13 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_A });",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_A });",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 },
                 "name": "OPTION_B",
               },
@@ -350,10 +332,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.MethodCall();",
+                  "example": "iface.MethodCall();",
                   "summary": "An instance method call.",
                 },
                 "locationInModule": Object {
@@ -368,10 +347,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.Property = EnumType.OPTION_B;",
+                  "example": "iface.Property = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
@@ -421,9 +397,6 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`java
-      // This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps().foo(\\"bar\\"));
       object.getProperty() = EnumType.getOPTION_A();
       object.methodCall();
@@ -447,10 +420,7 @@ export class ClassName implements IInterface {
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+                "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -489,10 +459,7 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName.staticMethod();",
+                  "example": "ClassName.staticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
@@ -586,10 +553,7 @@ export class ClassName implements IInterface {
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+              "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -600,19 +564,13 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_A()));",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_A()));",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
                 },
                 "name": "OPTION_B",
               },
@@ -632,10 +590,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.methodCall();",
+                  "example": "iface.methodCall();",
                   "summary": "An instance method call.",
                 },
                 "locationInModule": Object {
@@ -650,10 +605,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.getProperty() = EnumType.getOPTION_B();",
+                  "example": "iface.getProperty() = EnumType.getOPTION_B();",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
@@ -703,9 +655,6 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`python
-      # This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
       object = ClassName(\\"this\\", 1337, foo=\\"bar\\")
       object.property = EnumType.OPTION_A
       object.method_call()
@@ -729,10 +678,7 @@ export class ClassName implements IInterface {
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+                "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -771,10 +717,7 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName.static_method()",
+                  "example": "ClassName.static_method()",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
@@ -868,10 +811,7 @@ export class ClassName implements IInterface {
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+              "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -882,19 +822,13 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_A)",
+                  "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_A)",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+                  "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
                 },
                 "name": "OPTION_B",
               },
@@ -914,10 +848,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.method_call()",
+                  "example": "iface.method_call()",
                   "summary": "An instance method call.",
                 },
                 "locationInModule": Object {
@@ -932,10 +863,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.property = EnumType.OPTION_B",
+                  "example": "iface.property = EnumType.OPTION_B",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
