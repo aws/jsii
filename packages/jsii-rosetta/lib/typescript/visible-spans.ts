@@ -85,6 +85,15 @@ export class Spans {
   }
 }
 
+export function trimCompleteSourceToVisible(source: string): string {
+  const spans = Spans.visibleSpansFromSource(source);
+
+  return spans.spans
+    .map((span) => source.substring(span.start, span.end))
+    .join('')
+    .trimRight();
+}
+
 export interface MarkedSpan {
   start: number;
   end: number;
@@ -92,7 +101,7 @@ export interface MarkedSpan {
 }
 
 function calculateMarkedSpans(source: string): MarkedSpan[] {
-  const regEx = /[/]{3}[ \t]*(!(?:show|hide))[ \t]*$/gm;
+  const regEx = /^[ \t]*[/]{3}[ \t]*(!(?:show|hide))[ \t]*$/gm;
 
   const ret = new Array<MarkedSpan>();
   let match;
@@ -111,7 +120,9 @@ function calculateMarkedSpans(source: string): MarkedSpan[] {
         ret.push({ start: spanStart, end: directiveStart, visible });
       }
       visible = isShow;
-      spanStart = match.index + match[0].length;
+
+      // A directive eats its trailing newline.
+      spanStart = match.index + match[0].length + 1;
     }
   }
 
@@ -119,7 +130,7 @@ function calculateMarkedSpans(source: string): MarkedSpan[] {
   ret.push({ start: spanStart ?? 0, end: source.length, visible });
 
   // Filter empty spans and return
-  return ret.filter((s) => s.start !== s.end);
+  return ret.filter((s) => s.start < s.end);
 }
 
 /**

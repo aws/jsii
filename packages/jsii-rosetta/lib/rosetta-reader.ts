@@ -69,7 +69,7 @@ export interface RosettaOptions {
 }
 
 /**
- * Entry point class for consumers for Rosetta functionality
+ * Entry point class for consumers of Rosetta tablets (primarily: pacmak)
  *
  * Rosetta can work in one of two modes:
  *
@@ -80,7 +80,7 @@ export interface RosettaOptions {
  * sample compilation and is recommended, but the first method will do
  * when the second one is not necessary.
  */
-export class Rosetta {
+export class RosettaTabletReader {
   /**
    * Newly translated samples
    *
@@ -110,6 +110,10 @@ export class Rosetta {
 
   /**
    * Load a tablet as a source for translateable snippets
+   *
+   * Note: the snippets loaded from this tablet will NOT be validated for
+   * their fingerprints or translator versions! If a matching snippet is found
+   * in the tablet, it will always be returned, whether or not it is stale.
    */
   public async loadTabletFromFile(tabletFile: string) {
     const tablet = new LanguageTablet();
@@ -298,3 +302,10 @@ export class Rosetta {
 function id(x: Translation) {
   return x;
 }
+
+/**
+ * Backwards compatibility
+ *
+ * @deprecated use RosettaTabletReader instead
+ */
+export class Rosetta extends RosettaTabletReader {}
