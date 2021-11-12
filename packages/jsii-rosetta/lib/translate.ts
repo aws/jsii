@@ -67,7 +67,7 @@ export class Translator {
       location: snip.location,
       didCompile: translator.didSuccessfullyCompile,
       fqnsReferenced: translator.fqnsReferenced(),
-      fullSource: snip.completeSource,
+      fullSource: completeSource(snip),
       syntaxKindCounter: translator.syntaxKindCounter(),
     });
   }

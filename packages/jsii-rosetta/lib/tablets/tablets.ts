@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import { TargetLanguage } from '../languages';
-import { TypeScriptSnippet, SnippetLocation } from '../snippet';
+import { TypeScriptSnippet, SnippetLocation, completeSource } from '../snippet';
 import { mapValues } from '../util';
 import { snippetKey } from './key';
 import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
@@ -148,7 +148,7 @@ export class TranslatedSnippet {
       },
       didCompile: didCompile,
       location: original.location,
-      fullSource: original.completeSource,
+      fullSource: completeSource(original),
     });
   }
 
