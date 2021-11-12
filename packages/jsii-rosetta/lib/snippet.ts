@@ -1,3 +1,5 @@
+import { trimCompleteSourceToVisible } from './typescript/visible-spans';
+
 /**
  * A piece of TypeScript code found in an assembly, ready to be translated
  */
@@ -101,9 +103,39 @@ export function renderApiLocation(apiLoc: ApiLocation): string {
 }
 
 /**
+ * Construct a TypeScript snippet from visible source
+ *
+ * Will parse parameters from a directive in the given source, but will not
+ * interpret `/// !show` and `/// !hide` directives.
+ *
+ * `/// !show` and `/// !hide` directives WILL affect what gets displayed by
+ * the translator, but they will NOT affect the snippet's cache key (i.e. the
+ * cache key will be based on the full source given here).
+ *
+ * Use this if you are looking up a snippet in a tablet, which has been translated
+ * previously using a fixture.
+ */
+export function typeScriptSnippetFromVisibleSource(
+  typeScriptSource: string,
+  location: SnippetLocation,
+  strict: boolean,
+  parameters: Record<string, string> = {},
+): TypeScriptSnippet {
+  const [source, sourceParameters] = parametersFromSourceDirectives(typeScriptSource);
+  const visibleSource = source.trimRight();
+
+  return {
+    visibleSource,
+    location,
+    parameters: Object.assign({}, parameters, sourceParameters),
+    strict,
+  };
+}
+
+/**
  * Construct a TypeScript snippet from literal source
  *
- * Will parse parameters from a directive in the given source.
+ * @deprecated Use `typeScriptSnippetFromVisibleSource`
  */
 export function typeScriptSnippetFromSource(
   typeScriptSource: string,
@@ -111,9 +143,36 @@ export function typeScriptSnippetFromSource(
   strict: boolean,
   parameters: Record<string, string> = {},
 ): TypeScriptSnippet {
+  return typeScriptSnippetFromVisibleSource(typeScriptSource, location, strict, parameters);
+}
+
+/**
+ * Construct a TypeScript snippet from complete source
+ *
+ * Will parse parameters from a directive in the given source, and will
+ * interpret `/// !show` and `/// !hide` directives.
+ *
+ * The snippet's cache key will be based on the source that remains after
+ * these directives are processed.
+ *
+ * Use this if you are building a snippet to be translated, and take care
+ * to store the return object's `visibleSource` in the assembly (not the original
+ * source you passed in).
+ */
+export function typeScriptSnippetFromCompleteSource(
+  typeScriptSource: string,
+  location: SnippetLocation,
+  strict: boolean,
+  parameters: Record<string, string> = {},
+): TypeScriptSnippet {
   const [source, sourceParameters] = parametersFromSourceDirectives(typeScriptSource);
+  const completeSource = source.trimRight();
+
+  const visibleSource = trimCompleteSourceToVisible(completeSource);
+
   return {
-    visibleSource: source.trimRight(),
+    visibleSource,
+    completeSource: visibleSource !== completeSource ? completeSource : undefined,
     location,
     parameters: Object.assign({}, parameters, sourceParameters),
     strict,

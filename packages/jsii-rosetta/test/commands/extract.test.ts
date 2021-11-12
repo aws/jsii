@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { LanguageTablet } from '../../lib';
+import { LanguageTablet, RosettaTranslator, RosettaTranslatorOptions } from '../../lib';
 import * as extract from '../../lib/commands/extract';
 import { TARGET_LANGUAGES } from '../../lib/languages';
 import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
@@ -71,7 +71,7 @@ describe('with cache file', () => {
     await extract.extractSnippets([assembly.moduleDirectory], {
       outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
       cacheTabletFile,
-      translationFunction,
+      translatorFactory: (o) => new MockTranslator(o, translationFunction),
       ...defaultExtractOptions,
     });
 
@@ -87,7 +87,7 @@ describe('with cache file', () => {
       await extract.extractSnippets([assembly.moduleDirectory], {
         outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
         cacheTabletFile,
-        translationFunction,
+        translatorFactory: (o) => new MockTranslator(o, translationFunction),
         ...defaultExtractOptions,
       });
 
@@ -133,3 +133,10 @@ test('do not ignore example strings', async () => {
     await assembly.cleanup();
   }
 });
+
+class MockTranslator extends RosettaTranslator {
+  public constructor(opts: RosettaTranslatorOptions, translatorFn: jest.Mock) {
+    super(opts);
+    this.translateAll = translatorFn;
+  }
+}
