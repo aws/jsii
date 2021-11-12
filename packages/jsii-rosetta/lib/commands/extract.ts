@@ -56,8 +56,9 @@ export async function extractSnippets(
 
   if (options.cacheTabletFile) {
     await translator.loadCache(options.cacheTabletFile);
-    const reused = translator.readFromCache(snippets);
-    logging.info(`Reused ${reused.length} translations from cache ${options.cacheTabletFile}`);
+    const { translations, remaining } = translator.readFromCache(snippets);
+    logging.info(`Reused ${translations.length} translations from cache ${options.cacheTabletFile}`);
+    snippets = remaining;
   }
 
   const diagnostics = [];

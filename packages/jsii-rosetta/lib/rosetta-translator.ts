@@ -65,26 +65,25 @@ export class RosettaTranslator {
    *
    * Will remove the cached snippets from the input array.
    */
-  public readFromCache(snippets: TypeScriptSnippet[], addToTablet = true): TranslatedSnippet[] {
-    if (!this.cache) {
-      return [];
-    }
+  public readFromCache(snippets: TypeScriptSnippet[], addToTablet = true): ReadFromCacheResults {
+    const remaining = [...snippets];
+    const translations = new Array<TranslatedSnippet>();
 
-    const ret = new Array<TranslatedSnippet>();
     let i = 0;
-    while (i < snippets.length) {
-      const fromCache = tryReadFromCache(snippets[i], this.cache, this.fingerprinter);
+    while (i < remaining.length) {
+      const fromCache = tryReadFromCache(remaining[i], this.cache, this.fingerprinter);
       if (fromCache) {
         if (addToTablet) {
           this.tablet.addSnippet(fromCache);
         }
-        snippets.splice(i, 1);
-        ret.push(fromCache);
+        remaining.splice(i, 1);
+        translations.push(fromCache);
       } else {
         i += 1;
       }
     }
-    return ret;
+
+    return { translations, remaining };
   }
 
   public async translateAll(snippets: TypeScriptSnippet[], addToTablet = true): Promise<TranslateAllResult> {
@@ -104,24 +103,6 @@ export class RosettaTranslator {
       translatedSnippets: fingerprinted,
       diagnostics: result.diagnostics,
     };
-  }
-
-  /**
-   * Insert an example into the docs of a type, and insert it back into the tablet under a new key
-   */
-  public insertExample(example: TranslatedSnippet, type: spec.Type): void {
-    if (type.docs) {
-      type.docs.example = example.originalSource.source;
-    } else {
-      type.docs = { example: example.originalSource.source };
-    }
-
-    this.tablet.addSnippet(
-      example.withLocation({
-        api: { api: 'type', fqn: type.fqn },
-        field: { field: 'example' },
-      }),
-    );
   }
 }
 
@@ -152,4 +133,9 @@ function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTable
     fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) === fromCache.snippet.fqnsFingerprint;
 
   return cacheable ? fromCache : undefined;
+}
+
+export interface ReadFromCacheResults {
+  readonly translations: TranslatedSnippet[];
+  readonly remaining: TypeScriptSnippet[];
 }
