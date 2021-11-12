@@ -18,7 +18,7 @@ export class TypeScriptCompiler {
 
     return {
       ...realHost,
-      fileExists: (filePath) => filePath === sourcePath || realHost.fileExists(filePath),
+      fileExists: (filePath) => filePath === sourcePath || this.fileCache.has(filePath) || realHost.fileExists(filePath),
       getCurrentDirectory: currentDirectory != null ? () => currentDirectory : realHost.getCurrentDirectory,
       getSourceFile: (fileName, languageVersion, onError, shouldCreateNewSourceFile) => {
         if (fileName === sourcePath) {
