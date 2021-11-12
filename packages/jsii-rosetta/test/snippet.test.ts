@@ -11,7 +11,7 @@ describe('construct TypeScriptSnippets', () => {
     expect(snippet.completeSource).toEqual(undefined);
   });
 
-  test('using typeScriptSnippetFromVisibleSource', () => {
+  test('using typeScriptSnippetFromCompleteSource', () => {
     const snippet = typeScriptSnippetFromCompleteSource(source, location, true);
 
     expect(snippet.visibleSource).toEqual('b');
