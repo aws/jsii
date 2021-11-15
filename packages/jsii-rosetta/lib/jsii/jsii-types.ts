@@ -61,7 +61,10 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
   }
 
   if (type.isUnion() || type.isIntersection()) {
-    return { kind: 'error', message: 'Type unions or intersections are not supported in examples' };
+    return {
+      kind: 'error',
+      message: `Type unions or intersections are not supported in examples, got: ${typeChecker.typeToString(type)}`,
+    };
   }
   return { kind: 'unknown' };
 }
@@ -94,10 +97,15 @@ export function analyzeObjectLiteral(
     return isDeclaredCall ? { kind: 'map' } : { kind: 'unknown' };
   }
 
-  const structType = analyzeStructType(type);
-  if (structType) {
-    return { kind: structType, type };
+  // If the type is a union between a struct and something else, return the first possible struct
+  const structCandidates = type.isUnion() ? type.types : [type];
+  for (const candidate of structCandidates) {
+    const structType = analyzeStructType(candidate);
+    if (structType) {
+      return { kind: structType, type: candidate };
+    }
   }
+
   return { kind: 'map' };
 }
 

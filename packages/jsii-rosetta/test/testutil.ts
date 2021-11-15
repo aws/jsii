@@ -103,3 +103,8 @@ export const DUMMY_ASSEMBLY_TARGETS = {
     module: 'example_test_demo',
   },
 };
+
+export async function withTemporaryDirectory<T>(callback: (dir: string) => Promise<T>): Promise<T> {
+  const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
+  return callback(tmpdir).finally(() => fs.removeSync(tmpdir));
+}

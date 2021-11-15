@@ -1,0 +1,30 @@
+{
+  "name": "@barrelimports/consumer",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "regression-tests/@barrelimports/provider"
+  },
+  "scripts": {
+    "build": "jsii"
+  },
+  "peerDependencies": {
+    "@barrelimports/provider": "0.0.0"
+  },
+  "devDependencies": {
+    "@barrelimports/provider": "0.0.0",
+    "jsii": "^0.0.0"
+  },
+  "jsii": {
+    "targets": {}
+  }
+}

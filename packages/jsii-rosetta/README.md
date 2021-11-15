@@ -199,3 +199,57 @@ If you get out of memory errors running too many workers, run a command like thi
 $ /sbin/sysctl -w vm.max_map_count=2251954
 ```
 
+## Infuse
+
+The `rosetta infuse` feature will copy code samples (for example, as found in
+the README), to the classes that are referenced in the code sample. This will make
+sure the same examples are rendered in multiple places, and increases their visibility
+without additional work on the author's part.
+
+The infuse command will modify the relevant assemblies and tablet files:
+
+- Assembly: it will add new `example` sections to types in the assembly.
+- Tablet: every newly added `example` will require a new copy of the example (with
+  a unique identifier) added to the tablet.
+
+### Data flow
+
+The diagram below shows how data flows through the jsii tools when used together:
+
+```text
+┌───────────┐
+│           │
+│  Source   ├───┐
+│           │   │    ╔══════════╗    ┌────────────┐     ╔═══════════════╗    ┌──────────┐
+└───────────┘   │    ║          ║    │            │     ║    rosetta    ║    │          │
+                ├───▶║   jsii   ║───▶│  assembly  │────▶║    extract    ║───▶│  tablet  │
+┌───────────┐   │    ║          ║    │            │     ║               ║    │          │
+│           │   │    ╚══════════╝    └────────────┘     ╚═══════════════╝    └──────────┘
+│  README   │───┘                           │                                      │
+│           │                               │                                      │
+└───────────┘                               │           ╔═══════════════╗          │
+                                            │           ║    rosetta    ║          │
+                                            └──────────▶║    infuse     ║◀─────────┘
+                                                        ║               ║
+                                                        ╚═══════════════╝
+                                                                │
+                                            ┌───────────────────┴───────────────────┐
+                                            │                                       │
+                                            ▼                                       ▼
+                                     ┌────────────┐                           ┌──────────┐
+                                     │            │                           │          │
+                                     │ assembly'  │                           │ tablet'  │
+                                     │            │                           │          │
+                                     └────────────┘                           └──────────┘
+                                            │                                       │
+                                            │                                       │
+                                            │                                       ▼              ┌─────────────┐
+                                            │                               ╔═══════════════╗     ┌┴────────────┐│
+                                            │                               ║               ║     │             ││
+                                            └──────────────────────────────▶║    pacmak     ║────▶│  packages   ││
+                                                                            ║               ║     │             ├┘
+                                                                            ╚═══════════════╝     └─────────────┘
+                                                                               (potentially
+                                                                             live-translates)
+```
+

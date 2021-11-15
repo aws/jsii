@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import { fixturize } from '../fixtures';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
-import { Rosetta, UnknownSnippetMode } from '../rosetta';
+import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { SnippetParameters, typeScriptSnippetFromSource, ApiLocation } from '../snippet';
 import { Translation } from '../tablets/tablets';
 
@@ -51,7 +51,7 @@ export async function transliterateAssembly(
   targetLanguages: readonly TargetLanguage[],
   options: TransliterateAssemblyOptions = {},
 ): Promise<void> {
-  const rosetta = new Rosetta({
+  const rosetta = new RosettaTabletReader({
     includeCompilerDiagnostics: true,
     unknownSnippets: UnknownSnippetMode.TRANSLATE,
     loose: options.loose,
@@ -110,7 +110,7 @@ export async function transliterateAssembly(
  */
 async function loadAssemblies(
   directories: readonly string[],
-  rosetta: Rosetta,
+  rosetta: RosettaTabletReader,
 ): Promise<ReadonlyMap<string, AssemblyLoader>> {
   const result = new Map<string, AssemblyLoader>();
 
@@ -157,7 +157,7 @@ function prefixDisclaimer(translation: Translation): string {
 
 function transliterateType(
   type: Type,
-  rosetta: Rosetta,
+  rosetta: RosettaTabletReader,
   language: TargetLanguage,
   workingDirectory: string,
   loose = false,
