@@ -28,3 +28,22 @@ test('Symbol map is generated', async () => {
   expect(types['testpkg.Bar'].symbolId).toEqual('some/nested/file:Bar');
   expect(types['testpkg.Baz'].symbolId).toEqual('some/nested/file:Baz');
 });
+
+test('Module declarations are included in symbolId', async () => {
+  const result = await compileJsiiForTest(
+    {
+      'index.ts': `
+        export namespace Foo {
+          export class Bar {
+            public baz() {}
+          }
+        }
+      `,
+    },
+    undefined /* callback */,
+    { stripDeprecated: true },
+  );
+
+  const types = result.assembly.types ?? {};
+  expect(types['testpkg.Foo.Bar'].symbolId).toEqual('index:Foo.Bar');
+});

@@ -178,6 +178,7 @@ export function symbolIdentifier(
       ts.isClassDeclaration(decl) ||
       ts.isNamespaceExportDeclaration(decl) ||
       ts.isNamespaceExport(decl) ||
+      ts.isModuleDeclaration(decl) ||
       ts.isEnumDeclaration(decl) ||
       ts.isEnumMember(decl) ||
       ts.isInterfaceDeclaration(decl) ||
@@ -197,7 +198,6 @@ export function symbolIdentifier(
   if (!decl) {
     return undefined;
   }
-
   const namespace = getNamespace(decl.getSourceFile().fileName);
 
   if (!namespace) {

@@ -167,6 +167,7 @@ function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string 
 
 function fqnFromTypeSymbol(typeChecker: ts.TypeChecker, typeSymbol: ts.Symbol, fileName: string): string | undefined {
   const symbolId = symbolIdentifier(typeChecker, typeSymbol);
+  console.log(symbolId);
   if (symbolId) {
     const assembly = findAssembly(fileName);
     if (assembly) {
@@ -203,6 +204,7 @@ function isDeclaration(x: ts.Node): x is ts.Declaration {
     ts.isClassDeclaration(x) ||
     ts.isNamespaceExportDeclaration(x) ||
     ts.isNamespaceExport(x) ||
+    ts.isModuleDeclaration(x) ||
     ts.isEnumDeclaration(x) ||
     ts.isEnumMember(x) ||
     ts.isInterfaceDeclaration(x) ||
@@ -223,7 +225,6 @@ let cacheAssembly: LoadedAssembly;
  * load the assembly into memory.
  */
 function findAssembly(directory: string): spec.Assembly | undefined {
-  console.log(directory);
   // Can't find an assembly anywhere in the path
   if (directory.length <= 1) {
     return undefined;
