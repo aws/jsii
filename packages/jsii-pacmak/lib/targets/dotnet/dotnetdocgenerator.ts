@@ -205,8 +205,10 @@ export class DotNetDocGenerator {
       xml.att(name, value);
     }
     const xmlstring = xml.end({ allowEmpty: true, pretty: false });
-
-    for (const line of xmlstring.split('\n').map((x) => x.trim())) {
+    const trimLeft = tag !== 'code';
+    for (const line of xmlstring
+      .split('\n')
+      .map((x) => (trimLeft ? x.trim() : x.trimRight()))) {
       this.code.line(`/// ${line}`);
     }
   }
