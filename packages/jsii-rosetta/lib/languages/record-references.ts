@@ -150,9 +150,7 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
  */
 function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string | undefined {
   const decl: ts.Node | undefined = sym.declarations[0];
-  // FIXME: which do we want and when
   const fileName = decl.getSourceFile().fileName;
-  // console.log('filename: ', fileName);
   if (isDeclaration(decl)) {
     const declSym = getSymbolFromDeclaration(decl, typeChecker);
     if (declSym) {
@@ -169,15 +167,12 @@ function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string 
 
 function fqnFromTypeSymbol(typeChecker: ts.TypeChecker, typeSymbol: ts.Symbol, fileName: string): string | undefined {
   const symbolId = symbolIdentifier(typeChecker, typeSymbol);
-  console.log(symbolId);
   if (symbolId) {
     const assembly = findAssembly(fileName);
     if (assembly) {
       const fqnMap = mapFqnToSymbolId(assembly);
       const symbolMap = invertMap(fqnMap);
-      // console.log(symbolMap[symbolId], symbolId);
       if (symbolMap[symbolId]) {
-        console.log(symbolMap[symbolId]);
         return symbolMap[symbolId];
       }
     }
@@ -231,7 +226,6 @@ function findAssembly(directory: string): spec.Assembly | undefined {
   console.log(directory);
   // Can't find an assembly anywhere in the path
   if (directory.length <= 1) {
-    // console.log('could not find directory!!!');
     return undefined;
   }
 
@@ -248,7 +242,6 @@ function findAssembly(directory: string): spec.Assembly | undefined {
   // console.log('miss');
   const assemblies = loadAssembliesSync([directory], false);
   cacheAssembly = assemblies[0];
-  // console.log('aaa', assemblies[0].directory);
   return assemblies[0].assembly;
 }
 
