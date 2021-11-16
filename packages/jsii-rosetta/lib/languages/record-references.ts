@@ -21,6 +21,7 @@ type RecordReferencesRenderer = AstRenderer<RecordReferencesContext>;
  * A visitor that collects all types referenced in a particular piece of sample code
  */
 export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesContext> {
+  public static VERSION: 2;
   public readonly language = TargetLanguage.PYTHON; // Doesn't matter, but we need it to use the visitor infra :(
   public readonly defaultContext = {};
   private readonly references = new Set<string>();
