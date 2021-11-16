@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
+import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { jsiiTargetParam } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, nimpl } from '../renderer';
@@ -426,11 +426,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    structType: ts.Type,
-    _definedInExample: boolean,
+    structType: ObjectLiteralStruct,
     renderer: CSharpRenderer,
   ): OTree {
-    return new OTree(['new ', structType.symbol.name, ' { '], renderer.convertAll(node.properties), {
+    return new OTree(['new ', structType.type.symbol.name, ' { '], renderer.convertAll(node.properties), {
       suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
       separator: ', ',
       indent: 4,

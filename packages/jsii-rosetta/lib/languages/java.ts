@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { determineJsiiType, JsiiType, analyzeObjectLiteral } from '../jsii/jsii-types';
+import { determineJsiiType, JsiiType, analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { jsiiTargetParam } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
@@ -487,8 +487,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    structType: ts.Type,
-    definedInExample: boolean,
+    structType: ObjectLiteralStruct,
     renderer: JavaRenderer,
   ): OTree {
     // Special case: we're rendering an object literal, but the containing constructor
@@ -500,10 +499,10 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
     // Jsii-generated classes have builders, classes we generated in the course of
     // this example do not.
-    const hasBuilder = !definedInExample;
+    const hasBuilder = structType.kind !== 'local-struct';
 
     return new OTree(
-      hasBuilder ? [structType.symbol.name, '.builder()'] : ['new ', structType.symbol.name, '()'],
+      hasBuilder ? [structType.type.symbol.name, '.builder()'] : ['new ', structType.type.symbol.name, '()'],
       [
         ...renderer.convertAll(node.properties),
         new OTree([renderer.mirrorNewlineBefore(node.properties[0])], [hasBuilder ? '.build()' : '']),

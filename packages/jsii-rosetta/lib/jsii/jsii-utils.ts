@@ -2,6 +2,7 @@ import * as ts from 'typescript';
 
 import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';
+import { ObjectLiteralStruct } from './jsii-types';
 import { findPackageJson } from './packages';
 
 export function isNamedLikeStruct(name: string) {
@@ -9,7 +10,7 @@ export function isNamedLikeStruct(name: string) {
   return !/^I[A-Z]/.test(name);
 }
 
-export function analyzeStructType(type: ts.Type): 'struct' | 'local-struct' | false {
+export function analyzeStructType(typeChecker: ts.TypeChecker, type: ts.Type): ObjectLiteralStruct | false {
   if (
     !type.isClassOrInterface() ||
     !hasAllFlags(type.objectFlags, ts.ObjectFlags.Interface) ||
@@ -18,11 +19,12 @@ export function analyzeStructType(type: ts.Type): 'struct' | 'local-struct' | fa
     return false;
   }
 
-  if (refersToJsiiSymbol(type.symbol)) {
-    return 'struct';
+  const jsiiFqn = refersToJsiiSymbol(typeChecker, type.symbol);
+  if (jsiiFqn) {
+    return { kind: 'struct', type, fqn: jsiiFqn };
   }
 
-  return 'local-struct';
+  return { kind: 'local-struct', type };
 }
 
 export function hasAllFlags<A extends number>(flags: A, test: A) {
@@ -81,17 +83,73 @@ export function structPropertyAcceptsUndefined(prop: StructProperty): boolean {
  * For tests, we also treat symbols in a file that has the string '/// fake-from-jsii'
  * as coming from jsii.
  */
-export function refersToJsiiSymbol(symbol: ts.Symbol): boolean {
+export function refersToJsiiSymbol(typeChecker: ts.TypeChecker, symbol: ts.Symbol): string | undefined {
   const declaration = symbol.declarations[0];
   if (!declaration) {
-    return false;
+    return undefined;
   }
 
   const declaringFile = declaration.getSourceFile();
   if (/^\/\/\/ fake-from-jsii/m.test(declaringFile.getFullText())) {
-    return true;
+    return `fake_jsii.${symbol.name}`;
   }
 
-  const pj = findPackageJson(declaringFile.fileName);
-  return !!(pj && pj.jsii);
+  return jsiiFqnFromSymbol(typeChecker, symbol);
+}
+
+/**
+ * Returns the jsii FQN for a TypeScript (class or type) symbol
+ *
+ * TypeScript only knows the symbol NAME plus the FILE the symbol is defined
+ * in. We need to extract two things:
+ *
+ * 1. The package name (extracted from the nearest `package.json`)
+ * 2. The submodule name (...?? don't know how to get this yet)
+ * 3. Any containing type names or namespace names.
+ */
+export function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string | undefined {
+  const inFileNameParts: string[] = [];
+
+  let decl: ts.Node | undefined = sym.declarations?.[0];
+  while (decl && !ts.isSourceFile(decl)) {
+    if (isDeclaration(decl)) {
+      const name = ts.getNameOfDeclaration(decl);
+      const declSym = name ? typeChecker.getSymbolAtLocation(name) : undefined;
+      if (declSym) {
+        inFileNameParts.unshift(declSym.name);
+        if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
+          // Add in a separator to show where we went from class/interface to
+          // member, replace that later to remove the '.'s on either side.
+          inFileNameParts.unshift('#');
+        }
+      }
+    }
+    decl = decl.parent;
+  }
+  if (!decl) {
+    return undefined;
+  }
+
+  const packageJson = findPackageJson(decl.fileName);
+  if (!packageJson || !packageJson.jsii) {
+    return undefined;
+  }
+
+  return `${packageJson.name}.${inFileNameParts.join('.')}`.replace(/\.#\./, '#');
+}
+
+function isDeclaration(x: ts.Node): x is ts.Declaration {
+  return (
+    ts.isClassDeclaration(x) ||
+    ts.isNamespaceExportDeclaration(x) ||
+    ts.isNamespaceExport(x) ||
+    ts.isModuleDeclaration(x) ||
+    ts.isEnumDeclaration(x) ||
+    ts.isEnumMember(x) ||
+    ts.isInterfaceDeclaration(x) ||
+    ts.isMethodDeclaration(x) ||
+    ts.isMethodSignature(x) ||
+    ts.isPropertyDeclaration(x) ||
+    ts.isPropertySignature(x)
+  );
 }

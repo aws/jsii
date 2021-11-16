@@ -5,11 +5,12 @@ import * as os from 'os';
 import * as path from 'path';
 
 import {
-  typeScriptSnippetFromSource,
   SnippetTranslator,
   SnippetParameters,
   rosettaDiagFromTypescript,
   SnippetLocation,
+  typeScriptSnippetFromCompleteSource,
+  Translator,
 } from '../lib';
 
 export type MultipleSources = { [key: string]: string; 'index.ts': string };
@@ -61,7 +62,7 @@ export class TestJsiiModule {
    */
   public successfullyCompile(source: string) {
     const location = testSnippetLocation('testutil');
-    const snippet = typeScriptSnippetFromSource(source, location, false, {
+    const snippet = typeScriptSnippetFromCompleteSource(source, location, false, {
       [SnippetParameters.$COMPILATION_DIRECTORY]: this.workspaceDirectory,
     });
     const ret = new SnippetTranslator(snippet, {
@@ -69,6 +70,23 @@ export class TestJsiiModule {
     });
     if (ret.compileDiagnostics.length > 0) {
       for (const diag of ret.compileDiagnostics.map(rosettaDiagFromTypescript)) {
+        console.error(diag.formattedMessage);
+      }
+      throw new Error('Compilation failures');
+    }
+    return ret;
+  }
+
+  public translateHere(source: string) {
+    const location = testSnippetLocation('testutil');
+    const snip = typeScriptSnippetFromCompleteSource(source, location, true, {
+      [SnippetParameters.$COMPILATION_DIRECTORY]: this.workspaceDirectory,
+    });
+
+    const trans = new Translator(true);
+    const ret = trans.translate(snip);
+    if (trans.diagnostics.length > 0) {
+      for (const diag of trans.diagnostics) {
         console.error(diag.formattedMessage);
       }
       throw new Error('Compilation failures');

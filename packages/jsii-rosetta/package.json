@@ -1,6 +1,6 @@
 {
   "name": "jsii-rosetta",
-  "version": "0.0.0",
+  "version": "1.44.0-rc.3",
   "description": "Translate TypeScript code snippets to other languages",
   "main": "lib/index.js",
   "bin": {
@@ -24,15 +24,15 @@
     "@types/workerpool": "^6.1.0",
     "eslint": "^7.32.0",
     "jest": "^27.2.4",
-    "jsii": "^0.0.0",
-    "jsii-build-tools": "^0.0.0",
+    "jsii": "^1.43.0",
+    "jsii-build-tools": "^1.43.0",
     "memory-streams": "^0.1.3",
     "mock-fs": "^5.1.1",
     "prettier": "^2.4.1"
   },
   "dependencies": {
-    "@jsii/check-node": "0.0.0",
-    "@jsii/spec": "^0.0.0",
+    "@jsii/check-node": "1.43.0",
+    "@jsii/spec": "^1.43.0",
     "commonmark": "^0.30.0",
     "fs-extra": "^9.1.0",
     "typescript": "~3.9.10",

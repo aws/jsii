@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
+import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
 import {
   propertiesOfStruct,
   StructProperty,
@@ -20,7 +20,7 @@ import {
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { parameterAcceptsUndefined } from '../typescript/types';
-import { startsWithUppercase, flat } from '../util';
+import { startsWithUppercase, flat, sortBy, groupBy } from '../util';
 import { DefaultVisitor } from './default';
 
 interface StructVar {
@@ -87,6 +87,11 @@ export interface PythonVisitorOptions {
   disclaimer?: string;
 }
 
+interface ImportedModule {
+  readonly importedFqn: string;
+  readonly importName: string;
+}
+
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   /**
    * Translation version
@@ -98,6 +103,16 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
+
+  /**
+   * Keep track of module imports we've seen, so that if we need to render a type we can pick from these modules
+   */
+  private readonly imports = new Array<ImportedModule>();
+
+  /**
+   * Synthetic imports that need to be added as a final step
+   */
+  private readonly syntheticFqnImportsToAdd = new Array<string>();
 
   protected statementTerminator = '';
 
@@ -125,9 +140,15 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public sourceFile(node: ts.SourceFile, context: PythonVisitorContext): OTree {
-    const rendered = super.sourceFile(node, context);
+    let rendered = super.sourceFile(node, context);
+
+    // Add synthetic imports
+    if (this.syntheticFqnImportsToAdd.length > 0) {
+      rendered = new OTree([...this.renderSyntheticImports(), rendered]);
+    }
+
     if (this.options.disclaimer) {
-      return new OTree([`# ${this.options.disclaimer}\n`, rendered]);
+      rendered = new OTree([`# ${this.options.disclaimer}\n`, rendered]);
     }
     return rendered;
   }
@@ -135,11 +156,25 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public importStatement(node: ImportStatement, context: PythonVisitorContext): OTree {
     const moduleName = this.convertModuleReference(node.packageName);
     if (node.imports.import === 'full') {
+      this.addImport({
+        importedFqn: node.packageName,
+        importName: node.imports.alias,
+      });
+
       return new OTree([`import ${moduleName} as ${mangleIdentifier(node.imports.alias)}`], [], {
         canBreakLine: true,
       });
     }
     if (node.imports.import === 'selective') {
+      for (const im of node.imports.elements) {
+        if (im.importedFqn) {
+          this.addImport({
+            importName: im.alias ? im.alias : im.sourceName,
+            importedFqn: im.importedFqn,
+          });
+        }
+      }
+
       const imports = node.imports.elements.map((im) =>
         im.alias
           ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(im.alias)}`
@@ -293,7 +328,11 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public parameterDeclaration(node: ts.ParameterDeclaration, context: PythonVisitorContext): OTree {
     const type = node.type && context.typeOfType(node.type);
 
-    if (context.currentContext.tailPositionParameter && type && analyzeStructType(type) !== false) {
+    if (
+      context.currentContext.tailPositionParameter &&
+      type &&
+      analyzeStructType(context.typeChecker, type) !== false
+    ) {
       // Return the parameter that we exploded so that we can use this information
       // while translating the body.
       if (context.currentContext.returnExplodedParameter) {
@@ -351,15 +390,18 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    structType: ts.Type,
-    _definedInExample: boolean,
+    structType: ObjectLiteralStruct,
     context: PythonVisitorContext,
   ): OTree {
     if (context.currentContext.tailPositionArgument) {
       // We know it's a struct we can DEFINITELY inline the args for
       return this.renderObjectLiteralExpression('', '', true, node, context);
     }
-    return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
+
+    const structName =
+      structType.kind === 'struct' ? this.importedNameForType(structType.fqn) : structType.type.symbol.name;
+
+    return this.renderObjectLiteralExpression(`${structName}(`, ')', true, node, context);
   }
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
@@ -699,6 +741,45 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
           }
       }
     }
+  }
+
+  private addImport(x: ImportedModule) {
+    this.imports.push(x);
+    // Sort in reverse order of FQN length
+    sortBy(this.imports, (i) => [-i.importedFqn.length]);
+  }
+
+  /**
+   * Find the import for the FQNs submodule, and return it and the rest of the name
+   */
+  private importedNameForType(fqn: string) {
+    for (const imp of this.imports) {
+      if (fqn.startsWith(`${imp.importedFqn}.`)) {
+        // Found it!
+        const remainder = fqn.substring(imp.importedFqn.length + 1);
+        return `${imp.importName}.${remainder}`;
+      }
+    }
+
+    // This actually requires adding a new import, but for now just return the last part of the name
+    // (Unless it's a fake jsii struct, then ignore)
+    if (!fqn.startsWith('fake_jsii.')) {
+      this.syntheticFqnImportsToAdd.push(fqn);
+    }
+
+    return fqn.split('.').slice(-1)[0];
+  }
+
+  private renderSyntheticImports(): string[] {
+    const grouped = groupBy(this.syntheticFqnImportsToAdd, (fqn) => fqn.split('.').slice(0, -1).join('.'));
+    return Object.entries(grouped).map(([namespaceFqn, fqns]) => {
+      // namespaceFqn might refer to a submodule or a class that holds other types
+      const namespaceParts = namespaceFqn.split('.');
+      namespaceParts[0] = this.convertModuleReference(namespaceParts[0]);
+      const simpleNames = fqns.map((fqn) => fqn.split('.').slice(-1)[0]);
+
+      return `from ${namespaceParts.join('.')} import ${simpleNames.join(', ')}\n`;
+    });
   }
 }
 
