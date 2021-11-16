@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.44.1](https://github.com/aws/jsii/compare/v1.44.0...v1.44.1) (2021-11-16)
+
+* revert "fix: dependency submodules may not be discovered" ([#3170](https://github.com/aws/jsii/pull/3170)) ([0449dd9](https://github.com/aws/jsii/commit/0449dd92ce3297b065c171efafc28d1f877432cc))
+
 ## [1.44.0](https://github.com/aws/jsii/compare/v1.43.0...v1.44.0) (2021-11-15)
 
 
