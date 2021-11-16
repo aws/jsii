@@ -133,15 +133,11 @@ export class Compiler implements Emitter {
     const pi = this.options.projectInfo;
     const projectRoot = pi.projectRoot;
     const host = ts.createWatchCompilerHost(
-      this.rootFiles,
+      this.configPath,
       {
         ...pi.tsc,
         ...BASE_COMPILER_OPTIONS,
         noEmitOnError: false,
-        tsBuildInfoFile: path.join(
-          pi.tsc?.outDir ?? pi.tsc?.rootDir ?? pi.projectRoot,
-          'tsconfig.tsbuildinfo',
-        ),
       },
       {
         ...ts.sys,
@@ -152,7 +148,6 @@ export class Compiler implements Emitter {
       ts.createEmitAndSemanticDiagnosticsBuilderProgram,
       opts?.reportDiagnostics,
       opts?.reportWatchStatus,
-      this.typescriptConfig?.references,
     );
     if (!host.getDefaultLibLocation) {
       throw new Error(
@@ -500,47 +495,23 @@ export class Compiler implements Emitter {
    * This makes it so that running 'tsc' and running 'jsii' has the same behavior.
    */
   private determineSources(files: string[]): string[] {
-    const ret = new Set<string>();
+    const ret = new Array<string>();
 
     if (files.length > 0) {
-      for (const file of files) {
-        ret.add(path.resolve(this.options.projectInfo.projectRoot, file));
-      }
+      ret.push(...files);
     } else {
       const parseConfigHost = parseConfigHostFromCompilerHost(
         this.compilerHost,
       );
-      // Note: the fileNames here are resolved by the parseConfigHost.
-      const { fileNames } = ts.parseJsonConfigFileContent(
+      const parsed = ts.parseJsonConfigFileContent(
         this.typescriptConfig,
         parseConfigHost,
         this.options.projectInfo.projectRoot,
       );
-      for (const file of fileNames) {
-        ret.add(file);
-      }
+      ret.push(...parsed.fileNames);
     }
 
-    // Bonus: ensure all dependencies' entry points are included in the compiler
-    // input path. This guarantees we have symbols for all types, from the
-    // module root, which is necessary in order to properly detect submodules.
-    for (const assm of this.options.projectInfo.dependencyClosure) {
-      const { resolvedModule } = ts.resolveModuleName(
-        assm.name,
-        path.join(
-          this.options.projectInfo.projectRoot,
-          this.options.projectInfo.types,
-        ),
-        this.typescriptConfig?.compilerOptions ?? {},
-        ts.sys,
-      );
-      if (!resolvedModule) {
-        continue;
-      }
-      ret.add(resolvedModule.resolvedFileName);
-    }
-
-    return Array.from(ret);
+    return ret;
   }
 
   /**
