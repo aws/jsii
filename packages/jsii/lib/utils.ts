@@ -198,7 +198,7 @@ export function symbolIdentifier(
   if (!decl) {
     return undefined;
   }
-  const namespace = getNamespace(decl.getSourceFile().fileName);
+  const namespace = assemblyRelativeSourceFile(decl.getSourceFile().fileName);
 
   if (!namespace) {
     return undefined;
@@ -207,7 +207,7 @@ export function symbolIdentifier(
   return `${namespace}:${inFileNameParts.join('.')}`;
 }
 
-export function getNamespace(sourceFileName: string) {
+function assemblyRelativeSourceFile(sourceFileName: string) {
   const packageJsonLocation = findPackageJsonLocation(
     path.dirname(sourceFileName),
   );

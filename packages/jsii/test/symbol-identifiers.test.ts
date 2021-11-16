@@ -7,7 +7,7 @@ test('Symbol map is generated', async () => {
         export * from './some/nested/file';
         export class Foo {
           public bar(){}
-        } 
+        }
       `,
       'some/nested/file.ts': `
         export interface Bar {
@@ -33,6 +33,10 @@ test('Module declarations are included in symbolId', async () => {
   const result = await compileJsiiForTest(
     {
       'index.ts': `
+        export class Foo {
+          constructor() {
+          }
+        }
         export namespace Foo {
           export class Bar {
             public baz() {}
