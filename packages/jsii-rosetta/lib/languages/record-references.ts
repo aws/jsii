@@ -1,7 +1,11 @@
+import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
+import { symbolIdentifier } from 'jsii/lib/utils';
+import * as path from 'path';
 import * as ts from 'typescript';
 
+import { loadAssembliesSync, LoadedAssembly } from '../jsii/assemblies';
 import { hasAnyFlag } from '../jsii/jsii-utils';
-import { findPackageJson } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
@@ -125,7 +129,6 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
     if (!symbol) {
       return;
     }
-
     const fqn = jsiiFqnFromSymbol(context.typeChecker, symbol);
     if (!fqn) {
       return;
@@ -146,34 +149,58 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
  * 3. Any containing type names or namespace names.
  */
 function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string | undefined {
-  const inFileNameParts: string[] = [];
+  const decl: ts.Node | undefined = sym.declarations[0];
+  // FIXME: which do we want and when
+  const fileName = decl.getSourceFile().fileName;
+  // console.log('filename: ', fileName);
+  if (isDeclaration(decl)) {
+    const declSym = getSymbolFromDeclaration(decl, typeChecker);
+    if (declSym) {
+      if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
+        const fqn = fqnFromMemberSymbol(typeChecker, sym, fileName);
+        return fqn;
+      }
+      const fqn = fqnFromTypeSymbol(typeChecker, sym, fileName);
+      return fqn;
+    }
+  }
+  return undefined;
+}
 
-  let decl: ts.Node | undefined = sym.declarations[0];
-  while (decl && !ts.isSourceFile(decl)) {
-    if (isDeclaration(decl)) {
-      const name = ts.getNameOfDeclaration(decl);
-      const declSym = name ? typeChecker.getSymbolAtLocation(name) : undefined;
-      if (declSym) {
-        inFileNameParts.unshift(declSym.name);
-        if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
-          // Add in a separator to show where we went from class/interface to
-          // member, replace that later to remove the '.'s on either side.
-          inFileNameParts.unshift('#');
-        }
+function fqnFromTypeSymbol(typeChecker: ts.TypeChecker, typeSymbol: ts.Symbol, fileName: string): string | undefined {
+  const symbolId = symbolIdentifier(typeChecker, typeSymbol);
+  console.log(symbolId);
+  if (symbolId) {
+    const assembly = findAssembly(fileName);
+    if (assembly) {
+      const fqnMap = mapFqnToSymbolId(assembly);
+      const symbolMap = invertMap(fqnMap);
+      // console.log(symbolMap[symbolId], symbolId);
+      if (symbolMap[symbolId]) {
+        console.log(symbolMap[symbolId]);
+        return symbolMap[symbolId];
       }
     }
-    decl = decl.parent;
   }
-  if (!decl) {
-    return undefined;
-  }
+  return undefined;
+}
 
-  const packageJson = findPackageJson(decl.fileName);
-  if (!packageJson) {
-    return undefined;
+function fqnFromMemberSymbol(
+  typeChecker: ts.TypeChecker,
+  memberSymbol: ts.Symbol,
+  fileName: string,
+): string | undefined {
+  const declParent = memberSymbol.declarations[0].parent;
+  if (isDeclaration(declParent)) {
+    const declParentSym = getSymbolFromDeclaration(declParent, typeChecker);
+    if (declParentSym) {
+      const result = fqnFromTypeSymbol(typeChecker, declParentSym, fileName);
+      if (result) {
+        return `${result}#${memberSymbol.name}`;
+      }
+    }
   }
-
-  return `${packageJson.name}.${inFileNameParts.join('.')}`.replace(/\.#\./, '#');
+  return undefined;
 }
 
 function isDeclaration(x: ts.Node): x is ts.Declaration {
@@ -189,4 +216,77 @@ function isDeclaration(x: ts.Node): x is ts.Declaration {
     ts.isPropertyDeclaration(x) ||
     ts.isPropertySignature(x)
   );
+}
+
+// Global cache
+let cacheAssembly: LoadedAssembly;
+
+/**
+ * Recursively searches for a .jsii file in the directory.
+ * When file is found, checks cache to see if we already
+ * stored the assembly in memory. If not, we synchronously
+ * load the assembly into memory.
+ */
+function findAssembly(directory: string): spec.Assembly | undefined {
+  console.log(directory);
+  // Can't find an assembly anywhere in the path
+  if (directory.length <= 1) {
+    // console.log('could not find directory!!!');
+    return undefined;
+  }
+
+  if (!hasAssembly(directory)) {
+    return findAssembly(getDirectoryOneLevelUp(directory));
+  }
+
+  // check cache
+  if (cacheAssembly && cacheAssembly.directory === directory) {
+    // console.log('hit');
+    return cacheAssembly.assembly;
+  }
+  // cache miss
+  // console.log('miss');
+  const assemblies = loadAssembliesSync([directory], false);
+  cacheAssembly = assemblies[0];
+  // console.log('aaa', assemblies[0].directory);
+  return assemblies[0].assembly;
+}
+
+function hasAssembly(directory: string) {
+  return fs.existsSync(path.join(directory, '.jsii'));
+}
+
+function getDirectoryOneLevelUp(directory: string) {
+  const pathToDirectory = directory.split(path.sep);
+  pathToDirectory.pop();
+  return pathToDirectory.join(path.sep);
+}
+
+function getSymbolFromDeclaration(decl: ts.Declaration, typeChecker: ts.TypeChecker): ts.Symbol | undefined {
+  const name = ts.getNameOfDeclaration(decl);
+  return name ? typeChecker.getSymbolAtLocation(name) : undefined;
+}
+
+/**
+ * Given an assembly, returns a map of Fqn to SymbolId.
+ */
+function mapFqnToSymbolId(assembly: spec.Assembly) {
+  const fqnMap: Record<string, string> = {};
+  for (const [typeFqn, type] of Object.entries(assembly.types ?? {})) {
+    if (type.symbolId) {
+      fqnMap[typeFqn] = type.symbolId;
+    }
+  }
+  return fqnMap;
+}
+
+/**
+ * Inverts a given map of string values and string keys.
+ */
+function invertMap(xs: { [key: string]: string }) {
+  const ys: { [key: string]: string } = {};
+  for (const [key, val] of Object.entries(xs)) {
+    ys[val] = key;
+  }
+  return ys;
 }

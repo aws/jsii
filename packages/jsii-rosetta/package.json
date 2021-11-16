@@ -39,7 +39,8 @@
     "sort-json": "^2.0.0",
     "@xmldom/xmldom": "^0.7.5",
     "workerpool": "^6.1.5",
-    "yargs": "^16.2.0"
+    "yargs": "^16.2.0",
+    "jsii": "^.0.0"
   },
   "license": "Apache-2.0",
   "author": {

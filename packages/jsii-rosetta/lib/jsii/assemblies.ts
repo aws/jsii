@@ -22,6 +22,29 @@ export interface LoadedAssembly {
   directory: string;
 }
 
+export function loadAssembliesSync(
+  assemblyLocations: readonly string[],
+  validateAssemblies: boolean,
+): readonly LoadedAssembly[] {
+  return assemblyLocations.map(loadAssemblySync);
+
+  function loadAssemblySync(location: string): LoadedAssembly {
+    const stat = fs.statSync(location);
+    if (stat.isDirectory()) {
+      return loadAssemblySync(path.join(location, '.jsii'));
+    }
+    return {
+      assembly: loadAssemblyFromFileSync(location, validateAssemblies),
+      directory: path.dirname(location),
+    };
+  }
+}
+
+function loadAssemblyFromFileSync(filename: string, validate: boolean): spec.Assembly {
+  const contents = fs.readJSONSync(filename, { encoding: 'utf-8' });
+  return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
+}
+
 /**
  * Load assemblies by filename or directory
  */
