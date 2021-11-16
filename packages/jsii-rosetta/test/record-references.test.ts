@@ -3,21 +3,30 @@ import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from './testutil';
 let assembly: TestJsiiModule;
 beforeAll(async () => {
   assembly = await TestJsiiModule.fromSource(
-    `
-    export class ClassA {
-      public someMethod() {
-      }
-    }
-    export class ClassB {
-      public argumentMethod(args: BeeArgs) {
-        Array.isArray(args);
-      }
-    }
+    {
+      'index.ts': `
+        export class ClassA {
+          public someMethod() {
+          }
+        }
+        export class ClassB {
+          public argumentMethod(args: BeeArgs) {
+            Array.isArray(args);
+          }
+        }
 
-    export interface BeeArgs { readonly value: string; readonly nested?: NestedType; }
+        export interface BeeArgs { readonly value: string; readonly nested?: NestedType; }
 
-    export interface NestedType { readonly x: number; }
-    `,
+        export interface NestedType { readonly x: number; }
+
+        export * as submod from './submodule';
+        `,
+
+      'submodule.ts': `
+        export class SubmoduleClass {
+        }
+      `,
+    },
     {
       name: 'my_assembly',
       jsii: DUMMY_ASSEMBLY_TARGETS,
@@ -77,4 +86,12 @@ test('detect nested types of parameter used in method calls', () => {
     b.argumentMethod({ value: 'hello', nested: { x: 3 } });
   `);
   expect(translator.fqnsReferenced()).toContain('my_assembly.NestedType');
+});
+
+test('detect types in submodules', () => {
+  const translator = assembly.successfullyCompile(`
+    import { submod as subby } from 'my_assembly';
+    const b = new subby.SubmoduleClass();
+  `);
+  expect(translator.fqnsReferenced()).toContain('my_assembly.submod.SubmoduleClass');
 });
