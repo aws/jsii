@@ -1,6 +1,6 @@
 {
   "name": "jsii-rosetta",
-  "version": "1.44.0-rc.3",
+  "version": "0.0.0",
   "description": "Translate TypeScript code snippets to other languages",
   "main": "lib/index.js",
   "bin": {
