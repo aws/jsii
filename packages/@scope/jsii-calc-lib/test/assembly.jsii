@@ -95,6 +95,7 @@
         "filename": "lib/index.ts",
         "line": 130
       },
+      "symbolId": "lib/submodule/index:",
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
@@ -948,5 +949,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "LN1bs46m2O4aR6AhHvi6UDh/f90EoUT3n5apMPzr9+c="
+  "fingerprint": "JgX4YJ8W1DfgIIOzHvT0dErUeskq/BI5oZctzlqE9z4="
 }

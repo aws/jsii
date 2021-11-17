@@ -6235,8 +6235,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// string s2 = @"string
     /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
     /// string s3 = @"string
-    ///             with
-    ///             new lines";</code>
+    /// with
+    /// new lines";</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
