@@ -45,6 +45,8 @@ export class TestJsiiModule {
     });
     for (const [fileName, fileContents] of Object.entries(files)) {
       // eslint-disable-next-line no-await-in-loop
+      await fs.ensureDir(path.dirname(path.join(modDir, fileName)));
+      // eslint-disable-next-line no-await-in-loop
       await fs.writeFile(path.join(modDir, fileName), fileContents);
     }
 
@@ -103,22 +105,24 @@ export function testSnippetLocation(fileName: string): SnippetLocation {
   return { api: { api: 'file', fileName }, field: { field: 'example' } };
 }
 
-export const DUMMY_ASSEMBLY_TARGETS = {
-  dotnet: {
-    namespace: 'Example.Test.Demo',
-    packageId: 'Example.Test.Demo',
-  },
-  go: { moduleName: 'example.test/demo' },
-  java: {
-    maven: {
-      groupId: 'example.test',
-      artifactId: 'demo',
+export const DUMMY_JSII_CONFIG = {
+  targets: {
+    dotnet: {
+      namespace: 'Example.Test.Demo',
+      packageId: 'Example.Test.Demo',
     },
-    package: 'example.test.demo',
-  },
-  python: {
-    distName: 'example-test.demo',
-    module: 'example_test_demo',
+    go: { moduleName: 'example.test/demo' },
+    java: {
+      maven: {
+        groupId: 'example.test',
+        artifactId: 'demo',
+      },
+      package: 'example.test.demo',
+    },
+    python: {
+      distName: 'example-test.demo',
+      module: 'example_test_demo',
+    },
   },
 };
 

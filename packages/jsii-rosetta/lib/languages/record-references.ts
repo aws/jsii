@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { jsiiFqnFromSymbol } from '../jsii/jsii-utils';
+import { lookupJsiiSymbol } from '../jsii/jsii-utils';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
@@ -126,11 +126,11 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
     if (!symbol) {
       return;
     }
-    const fqn = jsiiFqnFromSymbol(context.typeChecker, symbol);
-    if (!fqn) {
+    const jsiiSym = lookupJsiiSymbol(context.typeChecker, symbol);
+    if (!jsiiSym) {
       return;
     }
 
-    this.references.add(fqn);
+    this.references.add(jsiiSym.fqn);
   }
 }

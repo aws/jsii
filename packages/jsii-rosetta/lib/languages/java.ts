@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
 import { determineJsiiType, JsiiType, analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
-import { jsiiTargetParam } from '../jsii/packages';
+import { jsiiTargetParamFromPackageJson } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
@@ -635,7 +635,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   private lookupModuleNamespace(packageName: string): string {
     // get the Java package name from the referenced package (if available)
-    const resolvedNamespace = jsiiTargetParam(packageName, 'java.package');
+    const resolvedNamespace = jsiiTargetParamFromPackageJson(packageName, 'java.package');
 
     // return that or some default-derived module name representation
     return (

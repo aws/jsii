@@ -6,8 +6,9 @@ import {
   StructProperty,
   structPropertyAcceptsUndefined,
   analyzeStructType,
+  JsiiSymbol,
 } from '../jsii/jsii-utils';
-import { jsiiTargetParam } from '../jsii/packages';
+import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
 import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
@@ -20,7 +21,7 @@ import {
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { parameterAcceptsUndefined } from '../typescript/types';
-import { startsWithUppercase, flat, sortBy, groupBy } from '../util';
+import { startsWithUppercase, flat, sortBy, groupBy, fmap } from '../util';
 import { DefaultVisitor } from './default';
 
 interface StructVar {
@@ -112,7 +113,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   /**
    * Synthetic imports that need to be added as a final step
    */
-  private readonly syntheticFqnImportsToAdd = new Array<string>();
+  private readonly syntheticImportsToAdd = new Array<string>();
 
   protected statementTerminator = '';
 
@@ -143,7 +144,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     let rendered = super.sourceFile(node, context);
 
     // Add synthetic imports
-    if (this.syntheticFqnImportsToAdd.length > 0) {
+    if (this.syntheticImportsToAdd.length > 0) {
       rendered = new OTree([...this.renderSyntheticImports(), rendered]);
     }
 
@@ -154,10 +155,11 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public importStatement(node: ImportStatement, context: PythonVisitorContext): OTree {
-    const moduleName = this.convertModuleReference(node.packageName);
     if (node.imports.import === 'full') {
+      const moduleName = fmap(node.moduleSymbol, findPythonName) ?? guessPythonPackageName(node.packageName);
+
       this.addImport({
-        importedFqn: node.packageName,
+        importedFqn: node.moduleSymbol?.fqn ?? node.packageName,
         importName: node.imports.alias,
       });
 
@@ -167,10 +169,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     }
     if (node.imports.import === 'selective') {
       for (const im of node.imports.elements) {
-        if (im.importedFqn) {
+        if (im.importedSymbol) {
           this.addImport({
             importName: im.alias ? im.alias : im.sourceName,
-            importedFqn: im.importedFqn,
+            importedFqn: im.importedSymbol.fqn,
           });
         }
       }
@@ -180,6 +182,8 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
           ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(im.alias)}`
           : mangleIdentifier(im.sourceName),
       );
+
+      const moduleName = fmap(node.moduleSymbol, findPythonName) ?? guessPythonPackageName(node.packageName);
 
       return new OTree([`from ${moduleName} import ${imports.join(', ')}`], [], {
         canBreakLine: true,
@@ -399,7 +403,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     }
 
     const structName =
-      structType.kind === 'struct' ? this.importedNameForType(structType.fqn) : structType.type.symbol.name;
+      structType.kind === 'struct' ? this.importedNameForType(structType.jsiiSym) : structType.type.symbol.name;
 
     return this.renderObjectLiteralExpression(`${structName}(`, ')', true, node, context);
   }
@@ -632,15 +636,6 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return NO_SYNTAX;
   }
 
-  protected convertModuleReference(ref: string) {
-    // Get the Python target name from the referenced package (if available)
-    const resolvedPackage = jsiiTargetParam(ref, 'python.module');
-
-    // Return that or some default-derived module name representation
-
-    return resolvedPackage || ref.replace(/^@/, '').replace(/\//g, '.').replace(/-/g, '_');
-  }
-
   /**
    * Convert parameters
    *
@@ -752,33 +747,28 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   /**
    * Find the import for the FQNs submodule, and return it and the rest of the name
    */
-  private importedNameForType(fqn: string) {
+  private importedNameForType(jsiiSym: JsiiSymbol) {
+    // Look for an existing import that contains this symbol
     for (const imp of this.imports) {
-      if (fqn.startsWith(`${imp.importedFqn}.`)) {
-        // Found it!
-        const remainder = fqn.substring(imp.importedFqn.length + 1);
+      if (jsiiSym.fqn.startsWith(`${imp.importedFqn}.`)) {
+        const remainder = jsiiSym.fqn.substring(imp.importedFqn.length + 1);
         return `${imp.importName}.${remainder}`;
       }
     }
 
-    // This actually requires adding a new import, but for now just return the last part of the name
-    // (Unless it's a fake jsii struct, then ignore)
-    if (!fqn.startsWith('fake_jsii.')) {
-      this.syntheticFqnImportsToAdd.push(fqn);
+    // Otherwise look up the Python name of this symbol
+    const pythonName = findPythonName(jsiiSym);
+    if (pythonName) {
+      this.syntheticImportsToAdd.push(pythonName);
     }
-
-    return fqn.split('.').slice(-1)[0];
+    return simpleName(jsiiSym.fqn);
   }
 
   private renderSyntheticImports(): string[] {
-    const grouped = groupBy(this.syntheticFqnImportsToAdd, (fqn) => fqn.split('.').slice(0, -1).join('.'));
+    const grouped = groupBy(this.syntheticImportsToAdd, namespaceName);
     return Object.entries(grouped).map(([namespaceFqn, fqns]) => {
-      // namespaceFqn might refer to a submodule or a class that holds other types
-      const namespaceParts = namespaceFqn.split('.');
-      namespaceParts[0] = this.convertModuleReference(namespaceParts[0]);
-      const simpleNames = fqns.map((fqn) => fqn.split('.').slice(-1)[0]);
-
-      return `from ${namespaceParts.join('.')} import ${simpleNames.join(', ')}\n`;
+      const simpleNames = fqns.map(simpleName);
+      return `from ${namespaceFqn} import ${simpleNames.join(', ')}\n`;
     });
   }
 }
@@ -809,4 +799,52 @@ const IDENTIFIER_KEYWORDS: string[] = ['lambda'];
 
 function last<A>(xs: readonly A[]): A {
   return xs[xs.length - 1];
+}
+
+/**
+ * Get the last part of a dot-separated string
+ */
+function simpleName(x: string) {
+  return x.split('.').slice(-1)[0];
+}
+
+/**
+ * Get all parts except the last of a dot-separated string
+ */
+function namespaceName(x: string) {
+  return x.split('.').slice(0, -1).join('.');
+}
+
+/**
+ * Find the Python name of a module or type
+ */
+function findPythonName(jsiiSymbol: JsiiSymbol): string | undefined {
+  if (!jsiiSymbol.sourceAssembly?.assembly) {
+    // Don't have accurate info, just guess
+    return jsiiSymbol.symbolType !== 'module' ? simpleName(jsiiSymbol.fqn) : guessPythonPackageName(jsiiSymbol.fqn);
+  }
+
+  const asm = jsiiSymbol.sourceAssembly?.assembly;
+  return recurse(jsiiSymbol.fqn);
+
+  function recurse(fqn: string): string {
+    if (fqn === asm.name) {
+      return jsiiTargetParameter(asm, 'python.module') ?? guessPythonPackageName(fqn);
+    }
+    if (asm.submodules?.[fqn]) {
+      const modName = jsiiTargetParameter(asm.submodules[fqn], 'python.module');
+      if (modName) {
+        return modName;
+      }
+    }
+
+    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+  }
+}
+
+/**
+ * Pythonify an assembly name and hope it is correct
+ */
+function guessPythonPackageName(ref: string) {
+  return ref.replace(/^@/, '').replace(/\//g, '.').replace(/-/g, '_');
 }

@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
 import { inferredTypeOfExpression, BuiltInType, builtInTypeName, mapElementType } from '../typescript/types';
-import { hasAnyFlag, analyzeStructType } from './jsii-utils';
+import { hasAnyFlag, analyzeStructType, JsiiSymbol } from './jsii-utils';
 
 // eslint-disable-next-line prettier/prettier
 export type JsiiType =
@@ -72,7 +72,7 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
 export type ObjectLiteralAnalysis = ObjectLiteralStruct | { readonly kind: 'map' } | { readonly kind: 'unknown' };
 
 export type ObjectLiteralStruct =
-  | { readonly kind: 'struct'; readonly type: ts.Type; readonly fqn: string }
+  | { readonly kind: 'struct'; readonly type: ts.Type; readonly jsiiSym: JsiiSymbol }
   | { readonly kind: 'local-struct'; readonly type: ts.Type };
 
 export function analyzeObjectLiteral(

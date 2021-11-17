@@ -3,7 +3,8 @@ import * as ts from 'typescript';
 
 import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';
-import { findTypeLookupAssembly } from './assemblies';
+import { fmap } from '../util';
+import { findTypeLookupAssembly, TypeLookupAssembly } from './assemblies';
 import { ObjectLiteralStruct } from './jsii-types';
 
 export function isNamedLikeStruct(name: string) {
@@ -20,9 +21,9 @@ export function analyzeStructType(typeChecker: ts.TypeChecker, type: ts.Type): O
     return false;
   }
 
-  const jsiiFqn = refersToJsiiSymbol(typeChecker, type.symbol);
-  if (jsiiFqn) {
-    return { kind: 'struct', type, fqn: jsiiFqn };
+  const jsiiSym = lookupJsiiSymbol(typeChecker, type.symbol);
+  if (jsiiSym) {
+    return { kind: 'struct', type, jsiiSym };
   }
 
   return { kind: 'local-struct', type };
@@ -71,31 +72,32 @@ export function structPropertyAcceptsUndefined(prop: StructProperty): boolean {
 }
 
 /**
- * Whether or not the given call expression seems to refer to a jsii symbol
- *
- * If it does, we treat it differently than if it's a class or symbol defined
- * in the same example source.
- *
- * To do this, we look for whether it's defined in a directory that's compiled
- * for jsii and has a jsii assembly.
- *
- * FIXME: Look up the actual symbol identifier when we finally have those.
- *
- * For tests, we also treat symbols in a file that has the string '/// fake-from-jsii'
- * as coming from jsii.
+ * A TypeScript symbol resolved to its jsii type
  */
-export function refersToJsiiSymbol(typeChecker: ts.TypeChecker, symbol: ts.Symbol): string | undefined {
-  const declaration = symbol.declarations[0];
-  if (!declaration) {
-    return undefined;
-  }
+export interface JsiiSymbol {
+  /**
+   * FQN of the symbol
+   *
+   * Is either the FQN of a type (for a type). For a membr, the FQN looks like:
+   * 'type.fqn#memberName'.
+   */
+  readonly fqn: string;
 
-  const declaringFile = declaration.getSourceFile();
-  if (/^\/\/\/ fake-from-jsii/m.test(declaringFile.getFullText())) {
-    return `fake_jsii.${symbol.name}`;
-  }
+  /**
+   * What kind of symbol this is
+   */
+  readonly symbolType: 'module' | 'type' | 'member';
 
-  return jsiiFqnFromSymbol(typeChecker, symbol);
+  /**
+   * Assembly where the type was found
+   *
+   * Might be undefined if the type was FAKE from jsii (for tests)
+   */
+  readonly sourceAssembly?: TypeLookupAssembly;
+}
+
+export function lookupJsiiSymbolFromNode(typeChecker: ts.TypeChecker, node: ts.Node): JsiiSymbol | undefined {
+  return fmap(typeChecker.getSymbolAtLocation(node), (s) => lookupJsiiSymbol(typeChecker, s));
 }
 
 /**
@@ -107,11 +109,46 @@ export function refersToJsiiSymbol(typeChecker: ts.TypeChecker, symbol: ts.Symbo
  * 1. The package name (extracted from the nearest `package.json`)
  * 2. The submodule name (...?? don't know how to get this yet)
  * 3. Any containing type names or namespace names.
+ *
+ * For tests, we also treat symbols in a file that has the string '/// fake-from-jsii'
+ * as coming from jsii.
  */
-export function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string | undefined {
+export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): JsiiSymbol | undefined {
+  // Resolve alias, if it is one. This comes into play if the symbol refers to a module,
+  // we need to resolve the alias to find the ACTUAL module.
+  if (hasAnyFlag(sym.flags, ts.SymbolFlags.Alias)) {
+    sym = typeChecker.getAliasedSymbol(sym);
+  }
+
   const decl: ts.Node | undefined = sym.declarations?.[0];
-  if (!decl || !isDeclaration(decl)) {
+  if (!decl) {
     return undefined;
+  }
+
+  if (ts.isSourceFile(decl)) {
+    // This is a module.
+    // FIXME: for now assume this is the assembly root. Handle the case where it isn't later.
+    const sourceAssembly = findTypeLookupAssembly(decl.fileName);
+    return fmap(
+      sourceAssembly,
+      (asm) =>
+        ({
+          fqn:
+            fmap(symbolIdentifier(typeChecker, sym), (symbolId) => sourceAssembly?.symbolIdMap[symbolId]) ??
+            sourceAssembly?.assembly.name,
+          sourceAssembly: asm,
+          symbolType: 'module',
+        } as JsiiSymbol),
+    );
+  }
+
+  if (!isDeclaration(decl)) {
+    return undefined;
+  }
+
+  const declaringFile = decl.getSourceFile();
+  if (/^\/\/\/ fake-from-jsii/m.test(declaringFile.getFullText())) {
+    return { fqn: `fake_jsii.${sym.name}`, symbolType: 'type' };
   }
 
   const declSym = getSymbolFromDeclaration(decl, typeChecker);
@@ -121,9 +158,9 @@ export function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): 
 
   const fileName = decl.getSourceFile().fileName;
   if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
-    return fqnFromMemberSymbol(typeChecker, sym, fileName);
+    return lookupMemberSymbol(typeChecker, sym, fileName);
   }
-  return fqnFromTypeSymbol(typeChecker, sym, fileName);
+  return lookupTypeSymbol(typeChecker, sym, fileName);
 }
 
 function isDeclaration(x: ts.Node): x is ts.Declaration {
@@ -145,21 +182,25 @@ function isDeclaration(x: ts.Node): x is ts.Declaration {
 /**
  * Look up the jsii fqn for a given type symbol
  */
-function fqnFromTypeSymbol(typeChecker: ts.TypeChecker, typeSymbol: ts.Symbol, fileName: string): string | undefined {
+function lookupTypeSymbol(
+  typeChecker: ts.TypeChecker,
+  typeSymbol: ts.Symbol,
+  fileName: string,
+): JsiiSymbol | undefined {
   const symbolId = symbolIdentifier(typeChecker, typeSymbol);
   if (!symbolId) {
     return undefined;
   }
 
-  const assembly = findTypeLookupAssembly(fileName);
-  return assembly?.symbolIdMap[symbolId];
+  const sourceAssembly = findTypeLookupAssembly(fileName);
+  return fmap(sourceAssembly?.symbolIdMap[symbolId], (fqn) => ({ fqn, sourceAssembly, symbolType: 'type' }));
 }
 
-function fqnFromMemberSymbol(
+function lookupMemberSymbol(
   typeChecker: ts.TypeChecker,
   memberSymbol: ts.Symbol,
   fileName: string,
-): string | undefined {
+): JsiiSymbol | undefined {
   const declParent = memberSymbol.declarations?.[0]?.parent;
   if (!declParent || !isDeclaration(declParent)) {
     return undefined;
@@ -170,8 +211,8 @@ function fqnFromMemberSymbol(
     return undefined;
   }
 
-  const result = fqnFromTypeSymbol(typeChecker, declParentSym, fileName);
-  return result ? `${result}#${memberSymbol.name}` : undefined;
+  const result = lookupTypeSymbol(typeChecker, declParentSym, fileName);
+  return fmap(result, (result) => ({ ...result, fqn: `${result.fqn}#${memberSymbol.name}`, symbolType: 'member' }));
 }
 
 function getSymbolFromDeclaration(decl: ts.Node, typeChecker: ts.TypeChecker): ts.Symbol | undefined {
@@ -181,4 +222,17 @@ function getSymbolFromDeclaration(decl: ts.Node, typeChecker: ts.TypeChecker): t
 
   const name = ts.getNameOfDeclaration(decl);
   return name ? typeChecker.getSymbolAtLocation(name) : undefined;
+}
+
+export function parentSymbol(sym: JsiiSymbol): JsiiSymbol | undefined {
+  const parts = sym.fqn.split('.');
+  if (parts.length === 1) {
+    return undefined;
+  }
+
+  return {
+    fqn: parts.slice(0, -1).join('.'),
+    symbolType: 'module', // Might not be true, but probably good enough
+    sourceAssembly: sym.sourceAssembly,
+  };
 }

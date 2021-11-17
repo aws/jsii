@@ -192,7 +192,14 @@ export interface ReadMe {
  * The difference between a top-level module (the assembly) and a submodule is
  * that the submodule is annotated with its location in the repository.
  */
-export type Submodule = SourceLocatable & Targetable;
+export interface Submodule extends SourceLocatable, Targetable {
+  /**
+   * Identifier of the symbol that represents the root of this submodule
+   *
+   * Used to map from TypeScript code back into the assembly.
+   */
+  symbolId?: string;
+}
 
 /**
  * Versions of the JSII Assembly Specification.
@@ -814,6 +821,8 @@ export interface TypeBase extends Documentable, SourceLocatable {
 
   /**
    * Unique string representation of the corresponding Typescript symbol
+   *
+   * Used to map from TypeScript code back into the assembly.
    */
   symbolId?: string;
 }

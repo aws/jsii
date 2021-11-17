@@ -1,7 +1,7 @@
 // Test interactions with actual jsii assemblies
 
 import { TargetLanguage } from '../lib';
-import { MultipleSources, TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from './testutil';
+import { MultipleSources, TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
 
 describe('no submodule', () => {
   describe('package import', () => {
@@ -18,7 +18,7 @@ describe('no submodule', () => {
           `);
 
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'import my_assembly as masm',
+          'import example_test_demo as masm',
           'obj = masm.MyClass("value",',
           '    my_struct=masm.MyStruct(',
           '        value="v"',
@@ -41,7 +41,7 @@ describe('no submodule', () => {
           `);
 
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'import my_assembly as masm',
+          'import example_test_demo as masm',
           'obj = masm.MyClass("value",',
           '    my_struct=masm.MyClass.MyStruct(',
           '        value="v"',
@@ -66,9 +66,9 @@ describe('no submodule', () => {
         `);
 
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'from my_assembly import MyStruct',
+          'from example_test_demo import MyStruct',
           '', // FIXME: don't know where this newline is coming from but at least it compiles
-          'from my_assembly import MyClass',
+          'from example_test_demo import MyClass',
           'obj = MyClass("value",',
           '    my_struct=MyStruct(',
           '        value="v"',
@@ -91,7 +91,7 @@ describe('no submodule', () => {
         `);
 
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'from my_assembly import MyClass',
+          'from example_test_demo import MyClass',
           'obj = MyClass("value",',
           '    my_struct=MyClass.MyStruct(',
           '        value="v"',
@@ -109,8 +109,8 @@ describe('with submodule', () => {
       'top-level struct',
       withJsiiModule(makeModuleSource({ withModule: true, nestedStruct: false }), (module) => {
         const trans = module.translateHere(`
-            import { submod } from 'my_assembly';
-            const obj = new submod.MyClass('value', {
+            import { submod as mod } from 'my_assembly';
+            const obj = new mod.MyClass('value', {
               myStruct: {
                 value: 'v',
               },
@@ -118,7 +118,7 @@ describe('with submodule', () => {
           `);
 
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'from my_assembly import submod as mod',
+          'from example_test_demo import submod as mod',
           'obj = mod.MyClass("value",',
           '    my_struct=mod.MyStruct(',
           '        value="v"',
@@ -132,8 +132,8 @@ describe('with submodule', () => {
       'nested struct',
       withJsiiModule(makeModuleSource({ withModule: true, nestedStruct: true }), (module) => {
         const trans = module.translateHere(`
-            import { submod } from 'my_assembly';
-            const obj = new submod.MyClass('value', {
+            import { submod as mod } from 'my_assembly';
+            const obj = new mod.MyClass('value', {
               myStruct: {
                 value: 'v',
               },
@@ -141,7 +141,7 @@ describe('with submodule', () => {
           `);
 
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'from my_assembly import submod as mod',
+          'from example_test_demo import submod as mod',
           'obj = mod.MyClass("value",',
           '    my_struct=mod.MyClass.MyStruct(',
           '        value="v"',
@@ -157,7 +157,7 @@ function withJsiiModule<A>(sources: string | MultipleSources, cb: (m: TestJsiiMo
   return async () => {
     const module = await TestJsiiModule.fromSource(sources, {
       name: 'my_assembly',
-      jsii: DUMMY_ASSEMBLY_TARGETS,
+      jsii: DUMMY_JSII_CONFIG,
     });
     try {
       return await cb(module);
@@ -193,8 +193,17 @@ function makeModuleSource(options: { readonly withModule: boolean; readonly nest
 
   return options.withModule
     ? {
-        'index.ts': 'export * as submod from "./module";',
-        'module.ts': payload,
+        'index.ts': 'export * as submod from "./submodule/lib/module";',
+        'submodule/lib/module.ts': payload,
+        // Submodule needs to live 2 levels deep, because that' the only place jsii
+        // will look for a '.jsiirc.json',
+        'submodule/.jsiirc.json': JSON.stringify({
+          targets: {
+            python: {
+              module: 'example_test_demo.boop',
+            },
+          },
+        }),
       }
     : {
         'index.ts': payload,

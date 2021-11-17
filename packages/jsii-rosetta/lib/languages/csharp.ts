@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
 import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
-import { jsiiTargetParam } from '../jsii/packages';
+import { jsiiTargetParamFromPackageJson } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, nimpl } from '../renderer';
 import {
@@ -601,7 +601,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   protected lookupModuleNamespace(ref: string) {
     // Get the .NET namespace from the referenced package (if available)
-    const resolvedNamespace = jsiiTargetParam(ref, 'dotnet.namespace');
+    const resolvedNamespace = jsiiTargetParamFromPackageJson(ref, 'dotnet.namespace');
 
     // Return that or some default-derived module name representation
     return (
