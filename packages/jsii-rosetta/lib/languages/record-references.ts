@@ -16,7 +16,7 @@ type RecordReferencesRenderer = AstRenderer<RecordReferencesContext>;
  * A visitor that collects all types referenced in a particular piece of sample code
  */
 export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesContext> {
-  public static VERSION = '2';
+  public static readonly VERSION = '2';
 
   public readonly language = TargetLanguage.PYTHON; // Doesn't matter, but we need it to use the visitor infra :(
   public readonly defaultContext = {};
@@ -126,7 +126,6 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
     if (!symbol) {
       return;
     }
-
     const fqn = jsiiFqnFromSymbol(context.typeChecker, symbol);
     if (!fqn) {
       return;
