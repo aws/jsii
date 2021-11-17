@@ -756,9 +756,9 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       }
     }
 
-    // Otherwise look up the Python name of this symbol
+    // Otherwise look up the Python name of this symbol (but not for fake imports from tests)
     const pythonName = findPythonName(jsiiSym);
-    if (pythonName) {
+    if (!jsiiSym.fqn.startsWith('fake_jsii.') && pythonName) {
       this.syntheticImportsToAdd.push(pythonName);
     }
     return simpleName(jsiiSym.fqn);
