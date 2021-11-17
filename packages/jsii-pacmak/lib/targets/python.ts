@@ -1673,7 +1673,24 @@ class PythonModule implements PythonType {
       for (const module of this.modules.sort((l, r) =>
         l.pythonName.localeCompare(r.pythonName),
       )) {
-        code.line(`import ${module.pythonName}`);
+        // Rather than generating an absolute import like
+        // "import jsii_calc.submodule.nested_submodule.deeply_nested"
+        // this builds a relative import like
+        // "from .submodule.nested_submodule import deeply_nested"
+        const assemblyName = toSnakeCase(
+          module.assembly.name.replace('-', '_'),
+        );
+
+        const namespaces = module.pythonName.split('.');
+        const assemblyNameIndex = namespaces.indexOf(assemblyName) + 1;
+        const submodule = namespaces.slice(assemblyNameIndex);
+
+        const submodulePath = submodule
+          .slice(0, submodule.length - 1)
+          .join('.');
+        const submoduleName = submodule[submodule.length - 1];
+
+        code.line(`from .${submodulePath} import ${submoduleName}`);
       }
     }
   }
