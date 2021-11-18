@@ -145,6 +145,8 @@ export class Assembler implements Emitter {
    * @return the result of the assembly emission.
    */
   public async emit(): Promise<ts.EmitResult> {
+    let sourceFileNames = new Set<string>();
+
     this._diagnostics = [];
     if (!this.projectInfo.description) {
       this._diagnostics.push(
@@ -189,6 +191,15 @@ export class Assembler implements Emitter {
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
       if (symbol) {
         const moduleExports = this._typeChecker.getExportsOfModule(symbol);
+
+        sourceFileNames = new Set(
+          moduleExports
+            .flatMap((ex) => ex.getDeclarations())
+            .map((decl) => decl?.getSourceFile())
+            .filter((sourceFile) => sourceFile != null)
+            .map((sourceFile) => sourceFile!.fileName),
+        );
+
         await Promise.all(
           moduleExports.map((item) =>
             this._registerNamespaces(item, this.projectInfo.projectRoot),
@@ -276,7 +287,11 @@ export class Assembler implements Emitter {
       } else {
         assembly.metadata = { jsii: jsiiMetadata };
       }
-      this.warningsInjector.process(assembly, this.projectInfo);
+      this.warningsInjector.process(
+        assembly,
+        this.projectInfo,
+        sourceFileNames,
+      );
     }
 
     const validator = new Validator(this.projectInfo, assembly);

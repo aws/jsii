@@ -22,7 +22,11 @@ export class DeprecationWarningsInjector {
 
   public constructor(private readonly typeChecker: ts.TypeChecker) {}
 
-  public process(assembly: Assembly, projectInfo: ProjectInfo) {
+  public process(
+    assembly: Assembly,
+    projectInfo: ProjectInfo,
+    sourceFiles: Set<string>,
+  ) {
     const projectRoot = projectInfo.projectRoot;
     const functionDeclarations: ts.FunctionDeclaration[] = [];
 
@@ -126,6 +130,7 @@ export class DeprecationWarningsInjector {
             projectRoot,
             this.buildTypeIndex(assembly),
             assembly,
+            sourceFiles,
           );
           return transformer.transform.bind(transformer);
         },
@@ -339,12 +344,13 @@ class Transformer {
     private readonly projectRoot: string,
     private readonly typeIndex: Map<string, spec.Type>,
     private readonly assembly: Assembly,
+    private readonly sourceFileNames: Set<string>,
   ) {}
 
   public transform<T extends ts.Node>(node: T): T {
-    const result = this.visitEachChild(node);
+    if (ts.isSourceFile(node) && this.sourceFileNames.has(node.fileName)) {
+      const result = this.visitEachChild(node);
 
-    if (ts.isSourceFile(result)) {
       const importDir = path.relative(
         path.dirname(result.fileName),
         this.projectRoot,
@@ -358,7 +364,8 @@ class Transformer {
         ...result.statements,
       ]) as any;
     }
-    return result;
+
+    return node;
   }
 
   private visitEachChild<T extends ts.Node>(node: T): T {

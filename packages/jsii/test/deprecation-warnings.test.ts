@@ -388,6 +388,31 @@ describe('Call injections', () => {
     );
   });
 
+  test('does not generate a require statement for non-exported files', async () => {
+    const result = await compileJsiiForTest(
+      {
+        'index.ts': ``,
+        'some/folder/source.ts': `
+          export class Foo {
+            ${DEPRECATED}
+            public bar(){}
+          }
+        `,
+      },
+      (pi) => {
+        pi.main = '';
+      },
+      { addDeprecationWarnings: true },
+    );
+
+    const expectedPath = ['..', '..', '.warnings.jsii.js'].join('/');
+
+    const content = jsFile(result, 'some/folder/source');
+    expect(content).not.toContain(
+      `const jsiiDeprecationWarnings = require("${expectedPath}")`,
+    );
+  });
+
   test('deprecated methods', async () => {
     const result = await compileJsiiForTest(
       `
