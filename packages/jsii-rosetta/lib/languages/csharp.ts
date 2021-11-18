@@ -1,7 +1,8 @@
 import * as ts from 'typescript';
 
-import { determineJsiiType, JsiiType } from '../jsii/jsii-types';
-import { jsiiTargetParam } from '../jsii/packages';
+import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
+import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';
+import { jsiiTargetParameter } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, nimpl } from '../renderer';
 import {
@@ -21,7 +22,7 @@ import {
   inferMapElementType,
   determineReturnType,
 } from '../typescript/types';
-import { flat, partition, setExtend } from '../util';
+import { flat, fmap } from '../util';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
@@ -96,14 +97,21 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
    *
    * If these are encountered in the LHS of a property access, they will be dropped.
    */
-  private readonly importedModuleAliases = new Set<string>();
+  private readonly dropPropertyAccesses = new Set<string>();
 
   /**
-   * Elements imported into current namespace
-   *
-   * All namespace elements that can be imported need to be uppercased.
+   * Already imported modules so we don't emit duplicate imports
    */
-  private readonly importedModuleSymbols = new Set<string>();
+  private readonly alreadyImportedNamespaces = new Set<string>();
+
+  /**
+   * A map to undo import renames
+   *
+   * We will always reference the original name in the translation.
+   *
+   * Maps a local-name to a C# name.
+   */
+  private readonly renamedSymbols = new Map<string, string>();
 
   public mergeContext(old: CSharpLanguageContext, update: Partial<CSharpLanguageContext>): CSharpLanguageContext {
     return Object.assign({}, old, update);
@@ -128,28 +136,42 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public importStatement(importStatement: ImportStatement, context: CSharpRenderer): OTree {
-    const namespace = this.lookupModuleNamespace(importStatement.packageName);
+    const guessedNamespace = guessDotnetNamespace(importStatement.packageName);
+    const namespace = fmap(importStatement.moduleSymbol, findDotnetName) ?? guessedNamespace;
+
     if (importStatement.imports.import === 'full') {
-      this.importedModuleAliases.add(importStatement.imports.alias);
+      this.dropPropertyAccesses.add(importStatement.imports.alias);
+      this.alreadyImportedNamespaces.add(namespace);
       return new OTree([`using ${namespace};`], [], { canBreakLine: true });
     }
     if (importStatement.imports.import === 'selective') {
-      const statements = [];
-      const [withoutAlias, withAlias] = partition(importStatement.imports.elements, (im) => im.alias === undefined);
+      const statements = new Array<string>();
 
-      // If there's at least one import without an alias, emit a namespace import.
-      if (withoutAlias) {
-        statements.push(`using ${namespace};`);
-        setExtend(
-          this.importedModuleSymbols,
-          withoutAlias.map((w) => w.sourceName),
-        );
-      }
+      for (const el of importStatement.imports.elements) {
+        const dotnetNs = fmap(el.importedSymbol, findDotnetName) ?? `${guessedNamespace}.${ucFirst(el.sourceName)}`;
 
-      // For every aliased import, emit an aliasing 'using' statement
-      for (const aliasedImport of withAlias) {
-        statements.push(`using ${ucFirst(aliasedImport.alias!)} = ${namespace}.${ucFirst(aliasedImport.sourceName)};`);
-        this.importedModuleSymbols.add(aliasedImport.alias!);
+        // If this is an alias, we only honor it if it's NOT for sure a module
+        // (could be an alias import of a class or enum).
+        if (el.alias && el.importedSymbol?.symbolType !== 'module') {
+          this.renamedSymbols.set(el.alias, simpleName(dotnetNs));
+          statements.push(`using ${ucFirst(el.alias)} = ${dotnetNs};`);
+          continue;
+        }
+
+        // If we are importing a module directly, drop the occurrences of that
+        // identifier further down (turn `mod.MyClass` into `MyClass`).
+        if (el.importedSymbol?.symbolType === 'module') {
+          this.dropPropertyAccesses.add(el.alias ?? el.sourceName);
+        }
+
+        // Output an import statement for the containing namespace
+        const importableNamespace = el.importedSymbol?.symbolType === 'module' ? dotnetNs : namespaceName(dotnetNs);
+        if (this.alreadyImportedNamespaces.has(importableNamespace)) {
+          continue;
+        }
+
+        this.alreadyImportedNamespaces.add(importableNamespace);
+        statements.push(`using ${importableNamespace};`);
       }
 
       return new OTree([], statements, { canBreakLine: true, separator: '\n' });
@@ -316,7 +338,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     // Suppress the LHS of the dot operator if it's "this." (not necessary in C#)
     // or if it's an imported module reference (C# has namespace-wide imports).
     const objectExpression =
-      lhs === 'this' || this.importedModuleAliases.has(lhs)
+      lhs === 'this' || this.dropPropertyAccesses.has(lhs)
         ? []
         : [renderer.updateContext({ propertyOrMethod: false }).convert(node.expression), '.'];
 
@@ -426,11 +448,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    structType: ts.Type,
-    _definedInExample: boolean,
+    structType: ObjectLiteralStruct,
     renderer: CSharpRenderer,
   ): OTree {
-    return new OTree(['new ', structType.symbol.name, ' { '], renderer.convertAll(node.properties), {
+    return new OTree(['new ', structType.type.symbol.name, ' { '], renderer.convertAll(node.properties), {
       suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
       separator: ', ',
       indent: 4,
@@ -600,21 +621,6 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     });
   }
 
-  protected lookupModuleNamespace(ref: string) {
-    // Get the .NET namespace from the referenced package (if available)
-    const resolvedNamespace = jsiiTargetParam(ref, 'dotnet.namespace');
-
-    // Return that or some default-derived module name representation
-    return (
-      resolvedNamespace ||
-      ref
-        .split(/[^a-zA-Z0-9]+/g)
-        .filter((s) => s !== '')
-        .map(ucFirst)
-        .join('.')
-    );
-  }
-
   private renderTypeNode(typeNode: ts.TypeNode | undefined, questionMark: boolean, renderer: CSharpRenderer): string {
     if (!typeNode) {
       return 'void';
@@ -682,4 +688,39 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
  */
 function ucFirst(x: string) {
   return x.substr(0, 1).toUpperCase() + x.substr(1);
+}
+
+/**
+ * Find the Java name of a module or type
+ */
+function findDotnetName(jsiiSymbol: JsiiSymbol): string | undefined {
+  if (!jsiiSymbol.sourceAssembly?.assembly) {
+    // Don't have accurate info, just guess
+    return jsiiSymbol.symbolType !== 'module' ? simpleName(jsiiSymbol.fqn) : guessDotnetNamespace(jsiiSymbol.fqn);
+  }
+
+  const asm = jsiiSymbol.sourceAssembly?.assembly;
+  return recurse(jsiiSymbol.fqn);
+
+  function recurse(fqn: string): string {
+    if (fqn === asm.name) {
+      return jsiiTargetParameter(asm, 'dotnet.namespace') ?? guessDotnetNamespace(fqn);
+    }
+    if (asm.submodules?.[fqn]) {
+      const modName = jsiiTargetParameter(asm.submodules[fqn], 'dotnet.namespace');
+      if (modName) {
+        return modName;
+      }
+    }
+
+    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+  }
+}
+
+function guessDotnetNamespace(ref: string) {
+  return ref
+    .split(/[^a-zA-Z0-9]+/g)
+    .filter((s) => s !== '')
+    .map(ucFirst)
+    .join('.');
 }

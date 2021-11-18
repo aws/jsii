@@ -100,8 +100,30 @@ export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<
   return ret;
 }
 
-export function fmap<A, B>(value: NonNullable<A>, fn: (x: A) => B): B;
-export function fmap<A, B>(value: undefined, fn: (x: A) => B): undefined;
+/**
+ * Apply a function to a value, as long as it's not `undefined`
+ *
+ * This is a companion helper to TypeScript's nice `??` and `?.` nullish
+ * operators. Those operators are helpful if you're calling methods:
+ *
+ *    object?.method()  <- returns 'undefined' if 'object' is nullish
+ *
+ * But are no help when you want to use free functions:
+ *
+ *    func(object)      <- but what if 'object' is nullish and func
+ *                         expects it not to be?
+ *
+ * Yes you can write `object ? func(object) : undefined` but the trailing
+ * `: undefined` clutters your code. Instead, you write:
+ *
+ *    fmap(object, func)
+ *
+ * The name `fmap` is taken from Haskell: it's a "Functor-map" (although
+ * only for the `Maybe` Functor).
+ */
+export function fmap<A, B>(value: NonNullable<A>, fn: (x: NonNullable<A>) => B): B;
+export function fmap<A, B>(value: undefined, fn: (x: NonNullable<A>) => B): undefined;
+export function fmap<A, B>(value: A | undefined, fn: (x: A) => B): B | undefined;
 export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
   if (value === undefined) {
     return undefined;
@@ -113,6 +135,65 @@ export function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<
   const ret: Record<string, B> = {};
   for (const [key, value] of Object.entries(xs)) {
     ret[key] = fn(value);
+  }
+  return ret;
+}
+
+/**
+ * Sort an array by a key function.
+ *
+ * Instead of having to write your own comparators for your types any time you
+ * want to sort, you supply a function that maps a value to a compound sort key
+ * consisting of numbers or strings. The sorting will happen by that sort key
+ * instead.
+ */
+export function sortBy<A>(xs: A[], keyFn: (x: A) => Array<string | number>) {
+  return xs.sort((a, b) => {
+    const aKey = keyFn(a);
+    const bKey = keyFn(b);
+
+    for (let i = 0; i < Math.min(aKey.length, bKey.length); i++) {
+      // Compare aKey[i] to bKey[i]
+      const av = aKey[i];
+      const bv = bKey[i];
+
+      if (av === bv) {
+        continue;
+      }
+
+      if (typeof av !== typeof bv) {
+        throw new Error(`Type of sort key ${JSON.stringify(aKey)} not same as ${JSON.stringify(bKey)}`);
+      }
+
+      if (typeof av === 'number' && typeof bv === 'number') {
+        return av - bv;
+      }
+
+      if (typeof av === 'string' && typeof bv === 'string') {
+        return av.localeCompare(bv);
+      }
+    }
+
+    return aKey.length - bKey.length;
+  });
+}
+
+/**
+ * Group elements by a key
+ *
+ * Supply a function that maps each element to a key string.
+ *
+ * Returns a map of the key to the list of elements that map to that key.
+ */
+export function groupBy<A>(xs: A[], keyFn: (x: A) => string): Record<string, A[]> {
+  const ret: Record<string, A[]> = {};
+  for (const x of xs) {
+    const key = keyFn(x);
+    if (ret[key]) {
+      ret[key].push(x);
+    } else {
+      ret[key] = [x];
+    }
   }
   return ret;
 }

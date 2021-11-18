@@ -6,6 +6,11 @@ export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
   sym: ts.Symbol,
 ): string | undefined {
+  // If this symbol happens to be an alias, resolve it first
+  while ((sym.flags & ts.SymbolFlags.Alias) !== 0) {
+    sym = typeChecker.getAliasedSymbol(sym);
+  }
+
   const inFileNameParts: string[] = [];
 
   let decl: ts.Node | undefined = sym.declarations?.[0];
