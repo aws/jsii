@@ -1830,7 +1830,7 @@ __all__ = [
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
-import scope.jsii_calc_lib.custom_submodule_name
+from .scope.jsii_calc_lib import custom_submodule_name
 
 `;
 
@@ -10195,38 +10195,38 @@ __all__ = [
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
-import jsii_calc.cdk16625
-import jsii_calc.cdk16625.donotimport
-import jsii_calc.composition
-import jsii_calc.derived_class_has_no_properties
-import jsii_calc.interface_in_namespace_includes_classes
-import jsii_calc.interface_in_namespace_only_interface
-import jsii_calc.module2530
-import jsii_calc.module2617
-import jsii_calc.module2647
-import jsii_calc.module2689
-import jsii_calc.module2689.methods
-import jsii_calc.module2689.props
-import jsii_calc.module2689.retval
-import jsii_calc.module2689.structs
-import jsii_calc.module2692
-import jsii_calc.module2692.submodule1
-import jsii_calc.module2692.submodule2
-import jsii_calc.module2700
-import jsii_calc.module2702
-import jsii_calc.nodirect
-import jsii_calc.nodirect.sub1
-import jsii_calc.nodirect.sub2
-import jsii_calc.onlystatic
-import jsii_calc.python_self
-import jsii_calc.submodule
-import jsii_calc.submodule.back_references
-import jsii_calc.submodule.child
-import jsii_calc.submodule.isolated
-import jsii_calc.submodule.nested_submodule
-import jsii_calc.submodule.nested_submodule.deeply_nested
-import jsii_calc.submodule.param
-import jsii_calc.submodule.returnsparam
+from . import cdk16625
+from .cdk16625 import donotimport
+from . import composition
+from . import derived_class_has_no_properties
+from . import interface_in_namespace_includes_classes
+from . import interface_in_namespace_only_interface
+from . import module2530
+from . import module2617
+from . import module2647
+from . import module2689
+from .module2689 import methods
+from .module2689 import props
+from .module2689 import retval
+from .module2689 import structs
+from . import module2692
+from .module2692 import submodule1
+from .module2692 import submodule2
+from . import module2700
+from . import module2702
+from . import nodirect
+from .nodirect import sub1
+from .nodirect import sub2
+from . import onlystatic
+from . import python_self
+from . import submodule
+from .submodule import back_references
+from .submodule import child
+from .submodule import isolated
+from .submodule import nested_submodule
+from .submodule.nested_submodule import deeply_nested
+from .submodule import param
+from .submodule import returnsparam
 
 `;
 
