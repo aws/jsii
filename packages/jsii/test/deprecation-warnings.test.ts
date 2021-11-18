@@ -399,9 +399,7 @@ describe('Call injections', () => {
           }
         `,
       },
-      (pi) => {
-        pi.main = '';
-      },
+      undefined /* callback */,
       { addDeprecationWarnings: true },
     );
 
