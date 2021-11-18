@@ -1,7 +1,6 @@
 import * as ts from 'typescript';
 
-import { hasAnyFlag } from '../jsii/jsii-utils';
-import { findPackageJson } from '../jsii/packages';
+import { jsiiFqnFromSymbol } from '../jsii/jsii-utils';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
@@ -17,6 +16,8 @@ type RecordReferencesRenderer = AstRenderer<RecordReferencesContext>;
  * A visitor that collects all types referenced in a particular piece of sample code
  */
 export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesContext> {
+  public static readonly VERSION = '2';
+
   public readonly language = TargetLanguage.PYTHON; // Doesn't matter, but we need it to use the visitor infra :(
   public readonly defaultContext = {};
   private readonly references = new Set<string>();
@@ -125,7 +126,6 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
     if (!symbol) {
       return;
     }
-
     const fqn = jsiiFqnFromSymbol(context.typeChecker, symbol);
     if (!fqn) {
       return;
@@ -133,60 +133,4 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
 
     this.references.add(fqn);
   }
-}
-
-/**
- * Returns the jsii FQN for a TypeScript (class or type) symbol
- *
- * TypeScript only knows the symbol NAME plus the FILE the symbol is defined
- * in. We need to extract two things:
- *
- * 1. The package name (extracted from the nearest `package.json`)
- * 2. The submodule name (...?? don't know how to get this yet)
- * 3. Any containing type names or namespace names.
- */
-function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string | undefined {
-  const inFileNameParts: string[] = [];
-
-  let decl: ts.Node | undefined = sym.declarations[0];
-  while (decl && !ts.isSourceFile(decl)) {
-    if (isDeclaration(decl)) {
-      const name = ts.getNameOfDeclaration(decl);
-      const declSym = name ? typeChecker.getSymbolAtLocation(name) : undefined;
-      if (declSym) {
-        inFileNameParts.unshift(declSym.name);
-        if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
-          // Add in a separator to show where we went from class/interface to
-          // member, replace that later to remove the '.'s on either side.
-          inFileNameParts.unshift('#');
-        }
-      }
-    }
-    decl = decl.parent;
-  }
-  if (!decl) {
-    return undefined;
-  }
-
-  const packageJson = findPackageJson(decl.fileName);
-  if (!packageJson) {
-    return undefined;
-  }
-
-  return `${packageJson.name}.${inFileNameParts.join('.')}`.replace(/\.#\./, '#');
-}
-
-function isDeclaration(x: ts.Node): x is ts.Declaration {
-  return (
-    ts.isClassDeclaration(x) ||
-    ts.isNamespaceExportDeclaration(x) ||
-    ts.isNamespaceExport(x) ||
-    ts.isEnumDeclaration(x) ||
-    ts.isEnumMember(x) ||
-    ts.isInterfaceDeclaration(x) ||
-    ts.isMethodDeclaration(x) ||
-    ts.isMethodSignature(x) ||
-    ts.isPropertyDeclaration(x) ||
-    ts.isPropertySignature(x)
-  );
 }

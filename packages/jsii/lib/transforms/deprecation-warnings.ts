@@ -6,7 +6,7 @@ import { EmitHint, Statement } from 'typescript';
 import * as ts from 'typescript/lib/tsserverlibrary';
 
 import { ProjectInfo } from '../project-info';
-import { symbolIdentifier } from '../utils';
+import { symbolIdentifier } from '../symbol-id';
 
 const FILE_NAME = '.warnings.jsii.js';
 const WARNING_FUNCTION_NAME = 'print';

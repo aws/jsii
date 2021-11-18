@@ -1,7 +1,9 @@
+import { symbolIdentifier } from 'jsii';
 import * as ts from 'typescript';
 
 import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';
+import { findTypeLookupAssembly } from './assemblies';
 import { findPackageJson } from './packages';
 
 export function isNamedLikeStruct(name: string) {
@@ -94,4 +96,89 @@ export function refersToJsiiSymbol(symbol: ts.Symbol): boolean {
 
   const pj = findPackageJson(declaringFile.fileName);
   return !!(pj && pj.jsii);
+}
+
+/**
+ * Returns the jsii FQN for a TypeScript (class or type) symbol
+ *
+ * TypeScript only knows the symbol NAME plus the FILE the symbol is defined
+ * in. We need to extract two things:
+ *
+ * 1. The package name (extracted from the nearest `package.json`)
+ * 2. The submodule name (...?? don't know how to get this yet)
+ * 3. Any containing type names or namespace names.
+ */
+export function jsiiFqnFromSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): string | undefined {
+  const decl: ts.Node | undefined = sym.declarations?.[0];
+  if (!decl || !isDeclaration(decl)) {
+    return undefined;
+  }
+
+  const declSym = getSymbolFromDeclaration(decl, typeChecker);
+  if (!declSym) {
+    return undefined;
+  }
+
+  const fileName = decl.getSourceFile().fileName;
+  if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
+    return fqnFromMemberSymbol(typeChecker, sym, fileName);
+  }
+  return fqnFromTypeSymbol(typeChecker, sym, fileName);
+}
+
+/**
+ * Look up the jsii fqn for a given type symbol
+ */
+function fqnFromTypeSymbol(typeChecker: ts.TypeChecker, typeSymbol: ts.Symbol, fileName: string): string | undefined {
+  const symbolId = symbolIdentifier(typeChecker, typeSymbol);
+  if (!symbolId) {
+    return undefined;
+  }
+
+  const assembly = findTypeLookupAssembly(fileName);
+  return assembly?.symbolIdMap[symbolId];
+}
+
+function fqnFromMemberSymbol(
+  typeChecker: ts.TypeChecker,
+  memberSymbol: ts.Symbol,
+  fileName: string,
+): string | undefined {
+  const declParent = memberSymbol.declarations?.[0]?.parent;
+  if (!declParent || !isDeclaration(declParent)) {
+    return undefined;
+  }
+
+  const declParentSym = getSymbolFromDeclaration(declParent, typeChecker);
+  if (!declParentSym) {
+    return undefined;
+  }
+
+  const result = fqnFromTypeSymbol(typeChecker, declParentSym, fileName);
+  return result ? `${result}#${memberSymbol.name}` : undefined;
+}
+
+function isDeclaration(x: ts.Node): x is ts.Declaration {
+  return (
+    ts.isClassDeclaration(x) ||
+    ts.isNamespaceExportDeclaration(x) ||
+    ts.isNamespaceExport(x) ||
+    ts.isModuleDeclaration(x) ||
+    ts.isEnumDeclaration(x) ||
+    ts.isEnumMember(x) ||
+    ts.isInterfaceDeclaration(x) ||
+    ts.isMethodDeclaration(x) ||
+    ts.isMethodSignature(x) ||
+    ts.isPropertyDeclaration(x) ||
+    ts.isPropertySignature(x)
+  );
+}
+
+function getSymbolFromDeclaration(decl: ts.Node, typeChecker: ts.TypeChecker): ts.Symbol | undefined {
+  if (!isDeclaration(decl)) {
+    return undefined;
+  }
+
+  const name = ts.getNameOfDeclaration(decl);
+  return name ? typeChecker.getSymbolAtLocation(name) : undefined;
 }

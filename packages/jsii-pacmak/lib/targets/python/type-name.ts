@@ -373,7 +373,7 @@ class UserType implements TypeName {
   }
 }
 
-function toPythonFqn(fqn: string, rootAssm: Assembly) {
+export function toPythonFqn(fqn: string, rootAssm: Assembly) {
   const { assemblyName, packageName, tail } = getPackageName(fqn, rootAssm);
   const fqnParts: string[] = [packageName];
 

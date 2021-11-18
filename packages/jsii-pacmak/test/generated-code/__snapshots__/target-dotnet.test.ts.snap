@@ -995,6 +995,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┗━ 📁 CustomSubmoduleName
        ┃           ┣━ 📄 IReflectable.cs
        ┃           ┣━ 📄 IReflectableEntry.cs
+       ┃           ┣━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 NestingClass.cs
        ┃           ┣━ 📄 ReflectableEntry.cs
        ┃           ┗━ 📄 Reflector.cs
@@ -2249,6 +2250,24 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CustomSubmoduleName/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CustomSubmoduleName
+{
+    /// <remarks>
+    /// <h1>Submodule Readme</h1>
+    ///
+    /// This is a submodule readme.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CustomSubmoduleName/NestingClass.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -2894,11 +2913,6 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 Jsii487Derived.cs
        ┃           ┣━ 📄 Jsii496Derived.cs
        ┃           ┣━ 📄 JsiiAgent.cs
-       ┃           ┣━ 📁 JsiiCalc
-       ┃           ┃  ┗━ 📁 Submodule
-       ┃           ┃     ┣━ 📁 Isolated
-       ┃           ┃     ┃  ┗━ 📄 NamespaceDoc.cs
-       ┃           ┃     ┗━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 JSObjectLiteralForInterface.cs
        ┃           ┣━ 📄 JSObjectLiteralToNative.cs
        ┃           ┣━ 📄 JSObjectLiteralToNativeClass.cs
@@ -3035,8 +3049,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 Default.cs
        ┃           ┃  ┣━ 📄 IDefault.cs
        ┃           ┃  ┣━ 📁 Isolated
-       ┃           ┃  ┃  ┗━ 📄 Kwargs.cs
+       ┃           ┃  ┃  ┣━ 📄 Kwargs.cs
+       ┃           ┃  ┃  ┗━ 📄 NamespaceDoc.cs
        ┃           ┃  ┣━ 📄 MyClass.cs
+       ┃           ┃  ┣━ 📄 NamespaceDoc.cs
        ┃           ┃  ┣━ 📁 NestedSubmodule
        ┃           ┃  ┃  ┣━ 📁 DeeplyNested
        ┃           ┃  ┃  ┃  ┗━ 📄 INamespaced.cs
@@ -6235,8 +6251,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// string s2 = @"string
     /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
     /// string s3 = @"string
-    /// with
-    /// new lines";</code>
+    ///             with
+    ///             new lines";</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
@@ -12097,42 +12113,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsiiCalc/Submodule/Isolated/NamespaceDoc.cs 1`] = `
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Amazon.JSII.Tests.CalculatorNamespace.JsiiCalc.Submodule.Isolated
-{
-    /// <remarks>
-    /// <h1>Read you, read me</h1>
-    ///
-    /// This is the readme of the <c>jsii-calc.submodule.isolated</c> module.
-    /// </remarks>
-    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-    public class NamespaceDoc
-    {
-    }
-}
-
-`;
-
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsiiCalc/Submodule/NamespaceDoc.cs 1`] = `
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Amazon.JSII.Tests.CalculatorNamespace.JsiiCalc.Submodule
-{
-    /// <remarks>
-    /// <h1>Read you, read me</h1>
-    ///
-    /// This is the readme of the <c>jsii-calc.submodule</c> module.
-    /// </remarks>
-    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-    public class NamespaceDoc
-    {
-    }
-}
-
-`;
-
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsonFormatter.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -16945,6 +16925,24 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Isolated/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
+{
+    /// <remarks>
+    /// <h1>Read you, read me</h1>
+    ///
+    /// This is the readme of the <c>jsii-calc.submodule.isolated</c> module.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/MyClass.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -17010,6 +17008,24 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AllTypes?>();
             set => SetInstanceProperty(value);
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
+{
+    /// <remarks>
+    /// <h1>Read you, read me</h1>
+    ///
+    /// This is the readme of the <c>jsii-calc.submodule</c> module.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
     }
 }
 
