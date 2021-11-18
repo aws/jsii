@@ -3102,17 +3102,42 @@ function noEmptyDict<T>(
 function toDependencyClosure(assemblies: readonly spec.Assembly[]): {
   [name: string]: spec.AssemblyConfiguration;
 } {
-  const result: { [name: string]: spec.AssemblyTargets } = {};
+  const result: { [name: string]: spec.AssemblyConfiguration } = {};
   for (const assembly of assemblies) {
     if (!assembly.targets) {
       continue;
     }
     result[assembly.name] = {
-      submodules: assembly.submodules,
+      submodules: cleanUp(assembly.submodules),
       targets: assembly.targets,
     };
   }
   return result;
+
+  /**
+   * Removes unneeded fields from the entries part of the `dependencyClosure`
+   * property. Fields such as `readme` are not necessary and can bloat up the
+   * assembly object.
+   *
+   * This removes the `readme` and `locationInModule` fields from the submodule
+   * descriptios if present.
+   *
+   * @param submodules the submodules list to clean up.
+   *
+   * @returns the cleaned up submodules list.
+   */
+  function cleanUp(
+    submodules: spec.Assembly['submodules'],
+  ): spec.AssemblyConfiguration['submodules'] {
+    if (submodules == null) {
+      return submodules;
+    }
+    const result: spec.Assembly['submodules'] = {};
+    for (const [fqn, desc] of Object.entries(submodules)) {
+      result[fqn] = { ...desc, locationInModule: undefined, readme: undefined };
+    }
+    return result;
+  }
 }
 
 function toSubmoduleDeclarations(

@@ -95,10 +95,6 @@
     "@scope/jsii-calc-lib": {
       "submodules": {
         "@scope/jsii-calc-lib.submodule": {
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 130
-          },
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
@@ -16779,5 +16775,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "XZczlgiEPAQC/n86Dqa40vixNH4txnPoyuF1Q+jR6I0="
+  "fingerprint": "WpcHNV2L+v3B7Ou+8xsRMzye4rf1U+SURQA97A3JT6g="
 }
