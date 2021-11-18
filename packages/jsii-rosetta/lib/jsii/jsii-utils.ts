@@ -236,3 +236,17 @@ export function parentSymbol(sym: JsiiSymbol): JsiiSymbol | undefined {
     sourceAssembly: sym.sourceAssembly,
   };
 }
+
+/**
+ * Get the last part of a dot-separated string
+ */
+export function simpleName(x: string) {
+  return x.split('.').slice(-1)[0];
+}
+
+/**
+ * Get all parts except the last of a dot-separated string
+ */
+export function namespaceName(x: string) {
+  return x.split('.').slice(0, -1).join('.');
+}

@@ -1,13 +1,15 @@
 import * as ts from 'typescript';
 
 import { determineJsiiType, JsiiType, analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
-import { jsiiTargetParamFromPackageJson } from '../jsii/packages';
+import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';
+import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
+import { fmap } from '../util';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
@@ -109,15 +111,21 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public importStatement(importStatement: ImportStatement): OTree {
-    const namespace = this.lookupModuleNamespace(importStatement.packageName);
+    const guessedNamespace = guessJavaNamespaceName(importStatement.packageName);
+
     if (importStatement.imports.import === 'full') {
+      const namespace = fmap(importStatement.moduleSymbol, findJavaName) ?? guessedNamespace;
+
       return new OTree([`import ${namespace}.*;`], [], { canBreakLine: true });
     }
-    return new OTree(
-      [],
-      importStatement.imports.elements.map((importEl) => `import ${namespace}.${importEl.sourceName};`),
-      { canBreakLine: true, separator: '\n' },
-    );
+
+    const imports = importStatement.imports.elements.map((e) => {
+      const fqn = fmap(e.importedSymbol, findJavaName) ?? `${guessedNamespace}.${e.sourceName}`;
+
+      return e.importedSymbol?.symbolType === 'module' ? `import ${fqn}.*;\n` : `import ${fqn};\n`;
+    });
+
+    return new OTree([], imports, { canBreakLine: true, separator: '\n' });
   }
 
   public classDeclaration(node: ts.ClassDeclaration, renderer: JavaRenderer): OTree {
@@ -633,20 +641,6 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
-  private lookupModuleNamespace(packageName: string): string {
-    // get the Java package name from the referenced package (if available)
-    const resolvedNamespace = jsiiTargetParamFromPackageJson(packageName, 'java.package');
-
-    // return that or some default-derived module name representation
-    return (
-      resolvedNamespace ||
-      packageName
-        .split(/[^a-zA-Z0-9]+/g)
-        .filter((s) => s !== '')
-        .join('.')
-    );
-  }
-
   private renderClassDeclaration(node: ts.ClassDeclaration | ts.InterfaceDeclaration, renderer: JavaRenderer) {
     return new OTree(
       [
@@ -834,4 +828,38 @@ function capitalize(str: string): string {
 
 function lastElement(strings: string[]): string {
   return strings[strings.length - 1];
+}
+
+/**
+ * Find the Java name of a module or type
+ */
+function findJavaName(jsiiSymbol: JsiiSymbol): string | undefined {
+  if (!jsiiSymbol.sourceAssembly?.assembly) {
+    // Don't have accurate info, just guess
+    return jsiiSymbol.symbolType !== 'module' ? simpleName(jsiiSymbol.fqn) : guessJavaNamespaceName(jsiiSymbol.fqn);
+  }
+
+  const asm = jsiiSymbol.sourceAssembly?.assembly;
+  return recurse(jsiiSymbol.fqn);
+
+  function recurse(fqn: string): string {
+    if (fqn === asm.name) {
+      return jsiiTargetParameter(asm, 'java.package') ?? guessJavaNamespaceName(fqn);
+    }
+    if (asm.submodules?.[fqn]) {
+      const modName = jsiiTargetParameter(asm.submodules[fqn], 'java.package');
+      if (modName) {
+        return modName;
+      }
+    }
+
+    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+  }
+}
+
+function guessJavaNamespaceName(packageName: string) {
+  return packageName
+    .split(/[^a-zA-Z0-9]+/g)
+    .filter((s) => s !== '')
+    .join('.');
 }

@@ -1,4 +1,8 @@
-// Test interactions with actual jsii assemblies
+// Test translation of imports with actual jsii assemblies
+//
+// - For Python, there is a lot of variation in what imports get translated to (mirroring
+//   the style in TypeScript, occasionally adding extra imports as required).
+// - For other languages, we'll mostly translate the same thing.
 
 import { TargetLanguage, TranslatedSnippet } from '../lib';
 import { MultipleSources, TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
@@ -26,13 +30,21 @@ describe('no submodule', () => {
       });
 
       test('to Python', () => {
-        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
+        expectTranslation(trans, TargetLanguage.PYTHON, [
           'import example_test_demo as masm',
           'obj = masm.MyClass("value",',
           '    my_struct=masm.MyStruct(',
           '        value="v"',
           '    )',
           ')',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.*;',
+          ...DEFAULT_JAVA_CODE,
         ]);
       });
     });
@@ -52,7 +64,7 @@ describe('no submodule', () => {
       });
 
       test('to Python', () => {
-        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
+        expectTranslation(trans, TargetLanguage.PYTHON, [
           'from example_test_demo import MyStruct',
           'from example_test_demo import MyClass',
           'obj = MyClass("value",',
@@ -60,6 +72,15 @@ describe('no submodule', () => {
           '        value="v"',
           '    )',
           ')',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.MyClass;',
+          '',
+          ...DEFAULT_JAVA_CODE,
         ]);
       });
     });
@@ -86,13 +107,21 @@ describe('no submodule', () => {
       });
 
       test('to Python', () => {
-        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
+        expectTranslation(trans, TargetLanguage.PYTHON, [
           'import example_test_demo as masm',
           'obj = masm.MyClass("value",',
           '    my_struct=masm.MyClass.MyStruct(',
           '        value="v"',
           '    )',
           ')',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.*;',
+          ...DEFAULT_JAVA_CODE,
         ]);
       });
     });
@@ -111,13 +140,22 @@ describe('no submodule', () => {
       });
 
       test('to Python', () => {
-        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
+        expectTranslation(trans, TargetLanguage.PYTHON, [
           'from example_test_demo import MyClass',
           'obj = MyClass("value",',
           '    my_struct=MyClass.MyStruct(',
           '        value="v"',
           '    )',
           ')',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.MyClass;',
+          '',
+          ...DEFAULT_JAVA_CODE,
         ]);
       });
     });
@@ -147,13 +185,22 @@ describe('with submodule', () => {
       });
 
       test('to Python', () => {
-        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'from example_test_demo import submod as mod',
+        expectTranslation(trans, TargetLanguage.PYTHON, [
+          'from example_test_demo import boop as mod',
           'obj = mod.MyClass("value",',
           '    my_struct=mod.MyStruct(',
           '        value="v"',
           '    )',
           ')',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.boop.*;',
+          '',
+          ...DEFAULT_JAVA_CODE,
         ]);
       });
     });
@@ -181,13 +228,22 @@ describe('with submodule', () => {
       });
 
       test('to Python', () => {
-        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'from example_test_demo import submod as mod',
+        expectTranslation(trans, TargetLanguage.PYTHON, [
+          'from example_test_demo import boop as mod',
           'obj = mod.MyClass("value",',
           '    my_struct=mod.MyClass.MyStruct(',
           '        value="v"',
           '    )',
           ')',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.boop.*;',
+          '',
+          ...DEFAULT_JAVA_CODE,
         ]);
       });
     });
@@ -232,6 +288,12 @@ async function makeJsiiModule(options: {
             python: {
               module: 'example_test_demo.boop',
             },
+            java: {
+              package: 'example.test.demo.boop',
+            },
+            dotnet: {
+              namespace: 'Example.Test.Demo.Boop',
+            },
           },
         }),
       }
@@ -243,4 +305,20 @@ async function makeJsiiModule(options: {
     name: 'my_assembly',
     jsii: DUMMY_JSII_CONFIG,
   });
+}
+
+// The implementation part of the Java code is always the same
+const DEFAULT_JAVA_CODE = [
+  'MyClass obj = MyClass.Builder.create("value")',
+  '        .myStruct(MyStruct.builder()',
+  '                .value("v")',
+  '                .build())',
+  '        .build();',
+];
+
+/**
+ * Verify the Java output. All expected Java outputs look the same.
+ */
+function expectTranslation(trans: TranslatedSnippet, lang: TargetLanguage, expected: string[]) {
+  expect(trans.get(lang)?.source.split('\n')).toEqual(expected);
 }

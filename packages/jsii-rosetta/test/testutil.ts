@@ -81,7 +81,7 @@ export class TestJsiiModule {
 
   public translateHere(source: string) {
     const location = testSnippetLocation('testutil');
-    const snip = typeScriptSnippetFromCompleteSource(source, location, true, {
+    const snip = typeScriptSnippetFromCompleteSource(source.trimLeft(), location, true, {
       [SnippetParameters.$COMPILATION_DIRECTORY]: this.workspaceDirectory,
     });
 

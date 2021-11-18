@@ -7,6 +7,8 @@ import {
   structPropertyAcceptsUndefined,
   analyzeStructType,
   JsiiSymbol,
+  simpleName,
+  namespaceName,
 } from '../jsii/jsii-utils';
 import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
@@ -799,20 +801,6 @@ const IDENTIFIER_KEYWORDS: string[] = ['lambda'];
 
 function last<A>(xs: readonly A[]): A {
   return xs[xs.length - 1];
-}
-
-/**
- * Get the last part of a dot-separated string
- */
-function simpleName(x: string) {
-  return x.split('.').slice(-1)[0];
-}
-
-/**
- * Get all parts except the last of a dot-separated string
- */
-function namespaceName(x: string) {
-  return x.split('.').slice(0, -1).join('.');
 }
 
 /**
