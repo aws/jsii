@@ -98,6 +98,7 @@
       "readme": {
         "markdown": "# Submodule Readme\n\nThis is a submodule readme.\n"
       },
+      "symbolId": "lib/submodule/index:",
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
@@ -951,5 +952,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "fCLOsQQLslSg+W8rn7XDZ1RSenH5QeaoTna+j7o+URc="
+  "fingerprint": "BJ528BPiptJdqvxyoh4Ax2l2Knaz2KcuNYBYhVpyTw8="
 }

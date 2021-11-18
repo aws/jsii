@@ -181,145 +181,169 @@
       "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 325
-      }
+      },
+      "symbolId": "lib/compliance:DerivedClassHasNoProperties"
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses": {
       "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1206
-      }
+      },
+      "symbolId": "lib/compliance:InterfaceInNamespaceIncludesClasses"
     },
     "jsii-calc.InterfaceInNamespaceOnlyInterface": {
       "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1199
-      }
+      },
+      "symbolId": "lib/compliance:InterfaceInNamespaceOnlyInterface"
     },
     "jsii-calc.PythonSelf": {
       "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1090
-      }
+      },
+      "symbolId": "lib/compliance:PythonSelf"
     },
     "jsii-calc.cdk16625": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 23
-      }
+      },
+      "symbolId": "lib/cdk16625/index:"
     },
     "jsii-calc.cdk16625.donotimport": {
       "locationInModule": {
         "filename": "lib/cdk16625/index.ts",
         "line": 6
-      }
+      },
+      "symbolId": "lib/cdk16625/donotimport/index:"
     },
     "jsii-calc.composition": {
       "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 143
-      }
+      },
+      "symbolId": "lib/calculator:composition"
     },
     "jsii-calc.module2530": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 20
-      }
+      },
+      "symbolId": "lib/module2530/index:"
     },
     "jsii-calc.module2617": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 16
-      }
+      },
+      "symbolId": "lib/module2617/index:"
     },
     "jsii-calc.module2647": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 15
-      }
+      },
+      "symbolId": "lib/module2647/index:"
     },
     "jsii-calc.module2689": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 17
-      }
+      },
+      "symbolId": "lib/module2689/index:"
     },
     "jsii-calc.module2689.methods": {
       "locationInModule": {
         "filename": "lib/module2689/index.ts",
         "line": 8
-      }
+      },
+      "symbolId": "lib/module2689/methods/index:"
     },
     "jsii-calc.module2689.props": {
       "locationInModule": {
         "filename": "lib/module2689/index.ts",
         "line": 9
-      }
+      },
+      "symbolId": "lib/module2689/props/index:"
     },
     "jsii-calc.module2689.retval": {
       "locationInModule": {
         "filename": "lib/module2689/index.ts",
         "line": 10
-      }
+      },
+      "symbolId": "lib/module2689/retval/index:"
     },
     "jsii-calc.module2689.structs": {
       "locationInModule": {
         "filename": "lib/module2689/index.ts",
         "line": 7
-      }
+      },
+      "symbolId": "lib/module2689/structs/index:"
     },
     "jsii-calc.module2692": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 19
-      }
+      },
+      "symbolId": "lib/module2692/index:"
     },
     "jsii-calc.module2692.submodule1": {
       "locationInModule": {
         "filename": "lib/module2692/index.ts",
         "line": 1
-      }
+      },
+      "symbolId": "lib/module2692/submodule1/index:"
     },
     "jsii-calc.module2692.submodule2": {
       "locationInModule": {
         "filename": "lib/module2692/index.ts",
         "line": 2
-      }
+      },
+      "symbolId": "lib/module2692/submodule2/index:"
     },
     "jsii-calc.module2700": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 21
-      }
+      },
+      "symbolId": "lib/module2700/index:"
     },
     "jsii-calc.module2702": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 18
-      }
+      },
+      "symbolId": "lib/module2702/index:"
     },
     "jsii-calc.nodirect": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 14
-      }
+      },
+      "symbolId": "lib/no-direct-types/index:"
     },
     "jsii-calc.nodirect.sub1": {
       "locationInModule": {
         "filename": "lib/no-direct-types/index.ts",
         "line": 3
-      }
+      },
+      "symbolId": "lib/no-direct-types/sub1/index:"
     },
     "jsii-calc.nodirect.sub2": {
       "locationInModule": {
         "filename": "lib/no-direct-types/index.ts",
         "line": 4
-      }
+      },
+      "symbolId": "lib/no-direct-types/sub2/index:"
     },
     "jsii-calc.onlystatic": {
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 13
-      }
+      },
+      "symbolId": "lib/only-static/index:"
     },
     "jsii-calc.submodule": {
       "locationInModule": {
@@ -328,19 +352,22 @@
       },
       "readme": {
         "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule` module.\n"
-      }
+      },
+      "symbolId": "lib/submodule/index:"
     },
     "jsii-calc.submodule.back_references": {
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
         "line": 7
-      }
+      },
+      "symbolId": "lib/submodule/refers-to-parent/index:"
     },
     "jsii-calc.submodule.child": {
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
         "line": 1
-      }
+      },
+      "symbolId": "lib/submodule/child/index:"
     },
     "jsii-calc.submodule.isolated": {
       "locationInModule": {
@@ -349,31 +376,36 @@
       },
       "readme": {
         "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule.isolated` module.\n"
-      }
+      },
+      "symbolId": "lib/submodule/isolated:"
     },
     "jsii-calc.submodule.nested_submodule": {
       "locationInModule": {
         "filename": "lib/submodule/nested_submodule.ts",
         "line": 4
-      }
+      },
+      "symbolId": "lib/submodule/nested_submodule:nested_submodule"
     },
     "jsii-calc.submodule.nested_submodule.deeplyNested": {
       "locationInModule": {
         "filename": "lib/submodule/nested_submodule.ts",
         "line": 6
-      }
+      },
+      "symbolId": "lib/submodule/nested_submodule:nested_submodule.deeplyNested"
     },
     "jsii-calc.submodule.param": {
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
         "line": 3
-      }
+      },
+      "symbolId": "lib/submodule/param/index:"
     },
     "jsii-calc.submodule.returnsparam": {
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
         "line": 4
-      }
+      },
+      "symbolId": "lib/submodule/returns-param/index:"
     }
   },
   "targets": {
@@ -16775,5 +16807,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "WpcHNV2L+v3B7Ou+8xsRMzye4rf1U+SURQA97A3JT6g="
+  "fingerprint": "wBGhJE4ZhvVb8R2qk5FWg49mt+ZKqW60TjlMMtT1Klo="
 }

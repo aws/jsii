@@ -1,26 +1,39 @@
 import * as ts from 'typescript';
 
+import { JsiiSymbol, parentSymbol, lookupJsiiSymbolFromNode } from '../jsii/jsii-utils';
 import { AstRenderer } from '../renderer';
+import { fmap } from '../util';
 import { allOfType, matchAst, nodeOfType, stringFromLiteral } from './ast-utils';
 
 /**
  * Our own unification of import statements
  */
 export interface ImportStatement {
-  node: ts.Node;
-  packageName: string;
-  imports: FullImport | SelectiveImport;
+  readonly node: ts.Node;
+  readonly packageName: string;
+  readonly imports: FullImport | SelectiveImport;
+  readonly moduleSymbol?: JsiiSymbol;
 }
 
-export type FullImport = { import: 'full'; alias: string };
+export type FullImport = {
+  readonly import: 'full';
+  readonly alias: string;
+};
+
 export type SelectiveImport = {
-  import: 'selective';
-  elements: ImportBinding[];
+  readonly import: 'selective';
+  readonly elements: ImportBinding[];
 };
 
 export interface ImportBinding {
-  sourceName: string;
-  alias?: string;
+  readonly sourceName: string;
+
+  readonly alias?: string;
+
+  /**
+   * The JSII Symbol the import refers to
+   */
+  readonly importedSymbol?: JsiiSymbol;
 }
 
 export function analyzeImportEquals(node: ts.ImportEqualsDeclaration, context: AstRenderer<any>): ImportStatement {
@@ -32,6 +45,7 @@ export function analyzeImportEquals(node: ts.ImportEqualsDeclaration, context: A
   return {
     node,
     packageName: moduleName,
+    moduleSymbol: lookupJsiiSymbolFromNode(context.typeChecker, node.name),
     imports: { import: 'full', alias: context.textOf(node.name) },
   };
 }
@@ -51,6 +65,7 @@ export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: As
     return {
       node,
       packageName,
+      moduleSymbol: lookupJsiiSymbolFromNode(context.typeChecker, starBindings.namespace.name),
       imports: {
         import: 'full',
         alias: context.textOf(starBindings.namespace.name),
@@ -72,17 +87,22 @@ export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: As
   const elements: ImportBinding[] = [];
   if (namedBindings) {
     elements.push(
-      ...namedBindings.specifiers.map((spec) =>
+      ...namedBindings.specifiers.map((spec) => {
         // regular import { name }, renamed import { propertyName, name }
-        spec.propertyName
-          ? {
-              sourceName: context.textOf(spec.propertyName),
-              alias: spec.name ? context.textOf(spec.name) : '???',
-            }
-          : {
-              sourceName: spec.name ? context.textOf(spec.name) : '???',
-            },
-      ),
+        if (spec.propertyName) {
+          // Renamed import
+          return {
+            sourceName: context.textOf(spec.propertyName),
+            alias: context.textOf(spec.name),
+            importedSymbol: lookupJsiiSymbolFromNode(context.typeChecker, spec.propertyName),
+          } as ImportBinding;
+        }
+
+        return {
+          sourceName: context.textOf(spec.name),
+          importedSymbol: lookupJsiiSymbolFromNode(context.typeChecker, spec.name),
+        };
+      }),
     );
   }
 
@@ -90,5 +110,6 @@ export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: As
     node,
     packageName,
     imports: { import: 'selective', elements },
+    moduleSymbol: fmap(elements?.[0]?.importedSymbol, parentSymbol),
   };
 }

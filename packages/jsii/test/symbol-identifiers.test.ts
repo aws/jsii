@@ -51,3 +51,44 @@ test('Module declarations are included in symbolId', async () => {
   const types = result.assembly.types ?? {};
   expect(types['testpkg.Foo.Bar'].symbolId).toEqual('index:Foo.Bar');
 });
+
+test('Submodules also have symbol identifiers', async () => {
+  const result = await compileJsiiForTest(
+    {
+      'index.ts': `export * as submod from './submodule';`,
+      'submodule.ts': `
+        export class Foo {
+          constructor() {
+          }
+        }
+      `,
+    },
+    undefined /* callback */,
+    { stripDeprecated: true },
+  );
+
+  expect(result.assembly.submodules?.['testpkg.submod']?.symbolId).toEqual(
+    'submodule:',
+  );
+});
+
+test('Submodules also have symbol identifiers', async () => {
+  const result = await compileJsiiForTest(
+    {
+      'index.ts': `
+        export namespace cookie {
+          export class Foo {
+            constructor() {
+            }
+          }
+        }
+      `,
+    },
+    undefined /* callback */,
+    { stripDeprecated: true },
+  );
+
+  expect(result.assembly.submodules?.['testpkg.cookie']?.symbolId).toEqual(
+    'index:cookie',
+  );
+});
