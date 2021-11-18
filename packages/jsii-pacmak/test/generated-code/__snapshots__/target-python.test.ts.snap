@@ -1830,7 +1830,7 @@ __all__ = [
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
-from .scope.jsii_calc_lib import custom_submodule_name
+from . import custom_submodule_name
 
 `;
 

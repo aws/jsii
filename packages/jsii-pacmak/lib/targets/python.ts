@@ -25,6 +25,7 @@ import {
   PythonImports,
   mergePythonImports,
   toPackageName,
+  toPythonFqn,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -1677,19 +1678,21 @@ class PythonModule implements PythonType {
         // "import jsii_calc.submodule.nested_submodule.deeply_nested"
         // this builds a relative import like
         // "from .submodule.nested_submodule import deeply_nested"
-        const assemblyName = toSnakeCase(
-          module.assembly.name.replace('-', '_'),
-        );
+        // This enables distributing python packages and using the
+        // generated modules in the same codebase.
+        const assemblyName = toPythonFqn(
+          module.assembly.name,
+          module.assembly,
+        ).pythonFqn;
 
-        const namespaces = module.pythonName.split('.');
-        const assemblyNameIndex = namespaces.indexOf(assemblyName) + 1;
-        const submodule = namespaces.slice(assemblyNameIndex);
+        const submodule = module.pythonName
+          .replace(`${assemblyName}.`, '')
+          .split('.');
 
         const submodulePath = submodule
           .slice(0, submodule.length - 1)
           .join('.');
         const submoduleName = submodule[submodule.length - 1];
-
         code.line(`from .${submodulePath} import ${submoduleName}`);
       }
     }
