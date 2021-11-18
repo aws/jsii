@@ -30,11 +30,7 @@ import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-  TargetName,
-} from '.';
+import { INCOMPLETE_DISCLAIMER_NONCOMPILING, TargetName } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -2021,7 +2017,7 @@ class JavaGenerator extends Generator {
     );
 
     props.forEach((prop) =>
-      this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`),
+      this.code.line(`${prop.fieldJavaType} ${prop.fieldName};`),
     );
     props.forEach((prop) =>
       this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec),
@@ -2040,9 +2036,7 @@ class JavaGenerator extends Generator {
     this.code.line('@Override');
     this.code.openBlock(`public ${classSpec.name} build()`);
 
-    const propFields = props.map((prop) => prop.fieldName).join(', ');
-
-    this.code.line(`return new ${constructorName}(${propFields});`);
+    this.code.line(`return new ${constructorName}(this);`);
     this.code.closeBlock();
     // End build()
 
@@ -2116,7 +2110,7 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
     // End JSII reference constructor
 
-    // Start literal constructor
+    // Start builder constructor
     this.code.line();
     this.code.line('/**');
     this.code.line(
@@ -2126,11 +2120,8 @@ class JavaGenerator extends Generator {
     if (props.some((prop) => prop.fieldJavaType !== prop.paramJavaType)) {
       this.code.line('@SuppressWarnings("unchecked")');
     }
-    const constructorArgs = props
-      .map((prop) => `final ${prop.paramJavaType} ${prop.fieldName}`)
-      .join(', ');
     this.code.openBlock(
-      `protected ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
+      `protected ${INTERFACE_PROXY_CLASS_NAME}(final ${BUILDER_CLASS_NAME} builder)`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
@@ -2142,7 +2133,7 @@ class JavaGenerator extends Generator {
           : '';
       this.code.line(
         `this.${prop.fieldName} = ${explicitCast}${_validateIfNonOptional(
-          prop.fieldName,
+          `builder.${prop.fieldName}`,
           prop,
         )};`,
       );
@@ -3013,9 +3004,6 @@ class JavaGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
-    }
     if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
       return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
     }

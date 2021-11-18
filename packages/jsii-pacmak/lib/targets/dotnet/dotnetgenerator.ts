@@ -159,7 +159,9 @@ export class DotNetGenerator extends Generator {
       const dotnetNs = this.typeresolver.resolveNamespace(
         this.assembly,
         this.assembly.name,
-        jsiiNs,
+        // Strip the `${assmName}.` prefix here, as the "assembly-relative" NS
+        // is expected by `this.typeResolver.resovleNamespace`.
+        jsiiNs.substr(this.assembly.name.length + 1),
       );
       this.emitNamespaceDocs(dotnetNs, jsiiNs, submodule);
     }
@@ -1158,7 +1160,7 @@ export class DotNetGenerator extends Generator {
   private emitNamespaceDocs(
     namespace: string,
     jsiiFqn: string,
-    docSource: spec.Targetable,
+    docSource: spec.Targetable & spec.ReadMeContainer,
   ) {
     if (!docSource.readme) {
       return;

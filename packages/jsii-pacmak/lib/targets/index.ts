@@ -35,7 +35,5 @@ export const ALL_BUILDERS: { [key in TargetName]: BuilderFactory } = {
     new IndependentPackageBuilder(TargetName.PYTHON, Python, ms, o),
 };
 
-export const INCOMPLETE_DISCLAIMER_COMPILING =
-  'Example automatically generated. See https://github.com/aws/jsii/issues/826';
 export const INCOMPLETE_DISCLAIMER_NONCOMPILING =
-  'Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826';
+  'Example automatically generated from non-compiling source. May contain errors.';

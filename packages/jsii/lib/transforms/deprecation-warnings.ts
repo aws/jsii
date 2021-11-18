@@ -6,7 +6,7 @@ import { EmitHint, Statement } from 'typescript';
 import * as ts from 'typescript/lib/tsserverlibrary';
 
 import { ProjectInfo } from '../project-info';
-import { symbolIdentifier } from '../utils';
+import { symbolIdentifier } from '../symbol-id';
 
 const FILE_NAME = '.warnings.jsii.js';
 const WARNING_FUNCTION_NAME = 'print';
@@ -74,97 +74,17 @@ export class DeprecationWarningsInjector {
           }
         }
       } else if (spec.isInterfaceType(type) && type.datatype) {
-        for (const prop of Object.values(type.properties ?? {})) {
-          if (spec.isDeprecated(prop) || spec.isDeprecated(type)) {
-            // If the property individually is deprecated, or the entire type is deprecated
-            const deprecatedDocs =
-              prop.docs?.deprecated ?? type.docs?.deprecated;
-            statements.push(
-              createWarningFunctionCall(
-                `${type.fqn}#${prop.name}`,
-                deprecatedDocs,
-                ts.createIdentifier(`"${prop.name}" in ${PARAMETER_NAME}`),
-              ),
-            );
+        const { statementsByProp, excludedProps } = processInterfaceType(
+          type,
+          types,
+          assembly,
+          projectInfo,
+        );
+
+        for (const [name, statement] of statementsByProp.entries()) {
+          if (!excludedProps.has(name)) {
+            statements.push(statement);
             isEmpty = false;
-          }
-
-          if (
-            spec.isNamedTypeReference(prop.type) &&
-            Object.keys(types).includes(prop.type.fqn)
-          ) {
-            const functionName = importedFunctionName(
-              prop.type.fqn,
-              assembly,
-              projectInfo,
-            );
-            if (functionName) {
-              statements.push(
-                createTypeHandlerCall(
-                  functionName,
-                  `${PARAMETER_NAME}.${prop.name}`,
-                ),
-              );
-              isEmpty = false;
-            }
-          } else if (
-            spec.isCollectionTypeReference(prop.type) &&
-            spec.isNamedTypeReference(prop.type.collection.elementtype)
-          ) {
-            const functionName = importedFunctionName(
-              prop.type.collection.elementtype.fqn,
-              assembly,
-              projectInfo,
-            );
-            if (functionName) {
-              statements.push(
-                createTypeHandlerCall(
-                  functionName,
-                  `${PARAMETER_NAME}.${prop.name}`,
-                ),
-              );
-              isEmpty = false;
-            }
-          } else if (
-            spec.isUnionTypeReference(prop.type) &&
-            spec.isNamedTypeReference(prop.type.union.types[0]) &&
-            Object.keys(types).includes(prop.type.union.types[0].fqn)
-          ) {
-            const functionName = importedFunctionName(
-              prop.type.union.types[0].fqn,
-              assembly,
-              projectInfo,
-            );
-            if (functionName) {
-              statements.push(
-                createTypeHandlerCall(
-                  functionName,
-                  `${PARAMETER_NAME}.${prop.name}`,
-                ),
-              );
-              isEmpty = false;
-            }
-          }
-
-          // We also generate calls to all the supertypes
-          for (const iface of type.interfaces ?? []) {
-            const functionName = importedFunctionName(
-              iface,
-              assembly,
-              projectInfo,
-            );
-            if (functionName) {
-              statements.push(
-                ts.createExpressionStatement(
-                  ts.createCall(
-                    ts.createIdentifier(functionName),
-                    [],
-                    [ts.createIdentifier(PARAMETER_NAME)],
-                  ),
-                ),
-              );
-              isEmpty = false;
-            }
           }
         }
       }
@@ -230,6 +150,102 @@ export class DeprecationWarningsInjector {
 
     return result;
   }
+}
+
+function processInterfaceType(
+  type: spec.InterfaceType,
+  types: { [p: string]: spec.Type },
+  assembly: Assembly,
+  projectInfo: ProjectInfo,
+  statementsByProp: Map<string, Statement> = new Map<string, ts.Statement>(),
+  excludedProps: Set<string> = new Set<string>(),
+) {
+  for (const prop of Object.values(type.properties ?? {})) {
+    const fqn = `${type.fqn}#${prop.name}`;
+    if (spec.isDeprecated(prop) || spec.isDeprecated(type)) {
+      // If the property individually is deprecated, or the entire type is deprecated
+      const deprecatedDocs = prop.docs?.deprecated ?? type.docs?.deprecated;
+      const statement = createWarningFunctionCall(
+        fqn,
+        deprecatedDocs,
+        ts.createIdentifier(`"${prop.name}" in ${PARAMETER_NAME}`),
+      );
+      statementsByProp.set(prop.name, statement);
+    } else {
+      /* If a prop is not deprecated, we don't want to generate a warning for it,
+         even if another property with the same name is deprecated in another
+         super-interface. */
+      excludedProps.add(prop.name);
+    }
+
+    if (
+      spec.isNamedTypeReference(prop.type) &&
+      Object.keys(types).includes(prop.type.fqn)
+    ) {
+      const functionName = importedFunctionName(
+        prop.type.fqn,
+        assembly,
+        projectInfo,
+      );
+      if (functionName) {
+        const statement = createTypeHandlerCall(
+          functionName,
+          `${PARAMETER_NAME}.${prop.name}`,
+        );
+        statementsByProp.set(`${prop.name}_`, statement);
+      }
+    } else if (
+      spec.isCollectionTypeReference(prop.type) &&
+      spec.isNamedTypeReference(prop.type.collection.elementtype)
+    ) {
+      const functionName = importedFunctionName(
+        prop.type.collection.elementtype.fqn,
+        assembly,
+        projectInfo,
+      );
+      if (functionName) {
+        const statement = createTypeHandlerCall(
+          functionName,
+          `${PARAMETER_NAME}.${prop.name}`,
+        );
+        statementsByProp.set(`${prop.name}_`, statement);
+      }
+    } else if (
+      spec.isUnionTypeReference(prop.type) &&
+      spec.isNamedTypeReference(prop.type.union.types[0]) &&
+      Object.keys(types).includes(prop.type.union.types[0].fqn)
+    ) {
+      const functionName = importedFunctionName(
+        prop.type.union.types[0].fqn,
+        assembly,
+        projectInfo,
+      );
+      if (functionName) {
+        const statement = createTypeHandlerCall(
+          functionName,
+          `${PARAMETER_NAME}.${prop.name}`,
+        );
+        statementsByProp.set(`${prop.name}_`, statement);
+      }
+    }
+  }
+
+  // We also generate calls to all the supertypes
+  for (const interfaceName of type.interfaces ?? []) {
+    const assemblies = projectInfo.dependencyClosure.concat(assembly);
+    const superType = findType(interfaceName, assemblies);
+    if (superType.type) {
+      processInterfaceType(
+        superType.type as spec.InterfaceType,
+        types,
+        assembly,
+        projectInfo,
+        statementsByProp,
+        excludedProps,
+      );
+    }
+  }
+  return { statementsByProp, excludedProps };
 }
 
 function fnName(fqn: string): string {

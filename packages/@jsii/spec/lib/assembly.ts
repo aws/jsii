@@ -3,7 +3,10 @@ export const SPEC_FILE_NAME = '.jsii';
 /**
  * A JSII assembly specification.
  */
-export interface Assembly extends AssemblyConfiguration, Documentable {
+export interface Assembly
+  extends AssemblyConfiguration,
+    Documentable,
+    ReadMeContainer {
   /**
    * The version of the spec schema
    */
@@ -120,7 +123,7 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
    *
    * @default none
    */
-  dependencyClosure?: { [assembly: string]: AssemblyConfiguration };
+  dependencyClosure?: { [assembly: string]: DependencyConfiguration };
 
   /**
    * List if bundled dependencies (these are not expected to be jsii
@@ -157,6 +160,10 @@ export interface AssemblyConfiguration extends Targetable {
   submodules?: { [fqn: string]: Submodule };
 }
 
+export interface DependencyConfiguration extends Targetable {
+  submodules?: { [fqn: string]: Targetable };
+}
+
 /**
  * A targetable module-like thing
  *
@@ -170,7 +177,12 @@ export interface Targetable {
    * @default none
    */
   targets?: AssemblyTargets;
+}
 
+/**
+ * Elements that can contain a `readme` property.
+ */
+export interface ReadMeContainer {
   /**
    * The readme document for this module (if any).
    *
@@ -192,7 +204,7 @@ export interface ReadMe {
  * The difference between a top-level module (the assembly) and a submodule is
  * that the submodule is annotated with its location in the repository.
  */
-export type Submodule = SourceLocatable & Targetable;
+export type Submodule = ReadMeContainer & SourceLocatable & Targetable;
 
 /**
  * Versions of the JSII Assembly Specification.

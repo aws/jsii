@@ -95,10 +95,6 @@
     "@scope/jsii-calc-lib": {
       "submodules": {
         "@scope/jsii-calc-lib.submodule": {
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 130
-          },
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
@@ -4082,7 +4078,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:Base"
+      "symbolId": "lib/compliance:DerivedClassHasNoProperties.Base"
     },
     "jsii-calc.DerivedClassHasNoProperties.Derived": {
       "assembly": "jsii-calc",
@@ -4103,7 +4099,7 @@
       },
       "name": "Derived",
       "namespace": "DerivedClassHasNoProperties",
-      "symbolId": "lib/compliance:Derived"
+      "symbolId": "lib/compliance:DerivedClassHasNoProperties.Derived"
     },
     "jsii-calc.DerivedStruct": {
       "assembly": "jsii-calc",
@@ -7562,7 +7558,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:Foo"
+      "symbolId": "lib/compliance:InterfaceInNamespaceIncludesClasses.Foo"
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": {
       "assembly": "jsii-calc",
@@ -7595,7 +7591,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:Hello"
+      "symbolId": "lib/compliance:InterfaceInNamespaceIncludesClasses.Hello"
     },
     "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": {
       "assembly": "jsii-calc",
@@ -7628,7 +7624,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:Hello"
+      "symbolId": "lib/compliance:InterfaceInNamespaceOnlyInterface.Hello"
     },
     "jsii-calc.InterfacesMaker": {
       "assembly": "jsii-calc",
@@ -9004,7 +9000,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:PropBooleanValue"
+      "symbolId": "lib/compliance:LevelOne.PropBooleanValue"
     },
     "jsii-calc.LevelOne.PropProperty": {
       "assembly": "jsii-calc",
@@ -9037,7 +9033,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:PropProperty"
+      "symbolId": "lib/compliance:LevelOne.PropProperty"
     },
     "jsii-calc.LevelOneProps": {
       "assembly": "jsii-calc",
@@ -11141,7 +11137,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:ClassWithSelf"
+      "symbolId": "lib/compliance:PythonSelf.ClassWithSelf"
     },
     "jsii-calc.PythonSelf.ClassWithSelfKwarg": {
       "assembly": "jsii-calc",
@@ -11189,7 +11185,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:ClassWithSelfKwarg"
+      "symbolId": "lib/compliance:PythonSelf.ClassWithSelfKwarg"
     },
     "jsii-calc.PythonSelf.IInterfaceWithSelf": {
       "assembly": "jsii-calc",
@@ -11230,7 +11226,7 @@
       ],
       "name": "IInterfaceWithSelf",
       "namespace": "PythonSelf",
-      "symbolId": "lib/compliance:IInterfaceWithSelf"
+      "symbolId": "lib/compliance:PythonSelf.IInterfaceWithSelf"
     },
     "jsii-calc.PythonSelf.StructWithSelf": {
       "assembly": "jsii-calc",
@@ -11263,7 +11259,7 @@
           }
         }
       ],
-      "symbolId": "lib/compliance:StructWithSelf"
+      "symbolId": "lib/compliance:PythonSelf.StructWithSelf"
     },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
@@ -14863,7 +14859,7 @@
           }
         }
       ],
-      "symbolId": "lib/calculator:CompositeOperation"
+      "symbolId": "lib/calculator:composition.CompositeOperation"
     },
     "jsii-calc.composition.CompositeOperation.CompositionStringStyle": {
       "assembly": "jsii-calc",
@@ -14895,7 +14891,7 @@
       ],
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation",
-      "symbolId": "lib/calculator:CompositionStringStyle"
+      "symbolId": "lib/calculator:composition.CompositeOperation.CompositionStringStyle"
     },
     "jsii-calc.module2530.MyClass": {
       "assembly": "jsii-calc",
@@ -16673,7 +16669,7 @@
           }
         }
       ],
-      "symbolId": "lib/submodule/nested_submodule:Namespaced"
+      "symbolId": "lib/submodule/nested_submodule:nested_submodule.Namespaced"
     },
     "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced": {
       "assembly": "jsii-calc",
@@ -16705,7 +16701,7 @@
           }
         }
       ],
-      "symbolId": "lib/submodule/nested_submodule:INamespaced"
+      "symbolId": "lib/submodule/nested_submodule:nested_submodule.deeplyNested.INamespaced"
     },
     "jsii-calc.submodule.param.SpecialParameter": {
       "assembly": "jsii-calc",
@@ -16779,5 +16775,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "2ST30e+9gb6XYfIMHyGjwObar3fI+/BV0Ex1hIad+2s="
+  "fingerprint": "WpcHNV2L+v3B7Ou+8xsRMzye4rf1U+SURQA97A3JT6g="
 }

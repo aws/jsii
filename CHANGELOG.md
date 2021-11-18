@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.44.1](https://github.com/aws/jsii/compare/v1.44.0...v1.44.1) (2021-11-16)
+
+* revert "fix: dependency submodules may not be discovered" ([#3170](https://github.com/aws/jsii/pull/3170)) ([0449dd9](https://github.com/aws/jsii/commit/0449dd92ce3297b065c171efafc28d1f877432cc))
+
+## [1.44.0](https://github.com/aws/jsii/compare/v1.43.0...v1.44.0) (2021-11-15)
+
+
+### Features
+
+* **rosetta:** expose the 'extract' API ([#3161](https://github.com/aws/jsii/issues/3161)) ([c3b30c0](https://github.com/aws/jsii/commit/c3b30c093515e8bce4922eed1a88536e8c2080e8))
+
+
+### Bug Fixes
+
+* dependency submodules may not be discovered ([#3151](https://github.com/aws/jsii/issues/3151)) ([5768bb9](https://github.com/aws/jsii/commit/5768bb9951856f4a051c24db7f56d23fd8573815))
+* deprecation warnings are generated even when one property is not deprecated ([#3157](https://github.com/aws/jsii/issues/3157)) ([e566f37](https://github.com/aws/jsii/commit/e566f37802438a929d66448c1d67b7a2c2e901a1))
+* **jsii:** incorrectly allowed unexported type in constructor params ([#3147](https://github.com/aws/jsii/issues/3147)) ([7cd59fc](https://github.com/aws/jsii/commit/7cd59fc180648b6c4b873364ef301b3228e69885))
+* **pacmak:** remove disclaimer on compiling examples ([#3148](https://github.com/aws/jsii/issues/3148)) ([75e4093](https://github.com/aws/jsii/commit/75e4093af9123f50b2ba92c1f70be6e9a2ed46b6))
+* **pacmak:** Support more than 255 properties for interfaces in Java ([#3133](https://github.com/aws/jsii/issues/3133)) ([ba4a20d](https://github.com/aws/jsii/commit/ba4a20df41e7298ba6518652a5046deaac490c3b)), closes [#3132](https://github.com/aws/jsii/issues/3132) [#3132](https://github.com/aws/jsii/issues/3132)
+* **rosetta:** `didCompile` evaluates to true when compilation not attempted ([#3149](https://github.com/aws/jsii/issues/3149)) ([7ad9e0a](https://github.com/aws/jsii/commit/7ad9e0a9013316e730b89bdf3b9934ec0174c742))
+* **rosetta:** cache source file parses ([#3163](https://github.com/aws/jsii/issues/3163)) ([307d3ca](https://github.com/aws/jsii/commit/307d3ca09b6a2d1bae2754b9aaf1be98e77d016f))
+* **rosetta:** gets confused by type unions ([#3156](https://github.com/aws/jsii/issues/3156)) ([ca04dad](https://github.com/aws/jsii/commit/ca04dad3f54981d59177309b2d5c7626256ca3a9))
+* **rosetta:** snippet throughput incorrect ([#3145](https://github.com/aws/jsii/issues/3145)) ([91418d6](https://github.com/aws/jsii/commit/91418d60d5a0b10a32579a3393139d6f04853cde))
+
 ## [1.43.0](https://github.com/aws/jsii/compare/v1.42.0...v1.43.0) (2021-11-08)
 
 

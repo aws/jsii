@@ -12,10 +12,34 @@ import {
   ApiLocation,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
+import { mkDict } from '../util';
 
 export interface LoadedAssembly {
   assembly: spec.Assembly;
   directory: string;
+}
+
+export function loadAssembliesSync(
+  assemblyLocations: readonly string[],
+  validateAssemblies: boolean,
+): readonly LoadedAssembly[] {
+  return assemblyLocations.map(loadAssemblySync);
+
+  function loadAssemblySync(location: string): LoadedAssembly {
+    const stat = fs.statSync(location);
+    if (stat.isDirectory()) {
+      return loadAssemblySync(path.join(location, '.jsii'));
+    }
+    return {
+      assembly: loadAssemblyFromFileSync(location, validateAssemblies),
+      directory: path.dirname(location),
+    };
+  }
+}
+
+function loadAssemblyFromFileSync(filename: string, validate: boolean): spec.Assembly {
+  const contents = fs.readJSONSync(filename, { encoding: 'utf-8' });
+  return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
 }
 
 /**
@@ -161,4 +185,73 @@ export async function replaceAssembly(assembly: spec.Assembly, directory: string
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   assembly.fingerprint = '*'.repeat(10);
   return assembly;
+}
+
+export interface TypeLookupAssembly {
+  readonly assembly: spec.Assembly;
+  readonly assemblyFile: string;
+  readonly symbolIdMap: Record<string, string>;
+}
+
+const MAX_ASM_CACHE = 3;
+const ASM_CACHE: TypeLookupAssembly[] = [];
+
+/**
+ * Recursively searches for a .jsii file in the directory.
+ * When file is found, checks cache to see if we already
+ * stored the assembly in memory. If not, we synchronously
+ * load the assembly into memory.
+ */
+export function findTypeLookupAssembly(directory: string): TypeLookupAssembly | undefined {
+  const pjLocation = findPackageJsonLocation(path.resolve(directory));
+  if (!pjLocation) {
+    return undefined;
+  }
+
+  const assemblyFile = path.join(path.dirname(pjLocation), '.jsii');
+
+  const fromCache = ASM_CACHE.find((c) => c.assemblyFile === assemblyFile);
+  if (fromCache) {
+    return fromCache;
+  }
+
+  if (!fs.existsSync(assemblyFile)) {
+    return undefined;
+  }
+
+  const loaded = loadLookupAssembly(assemblyFile);
+  while (ASM_CACHE.length >= MAX_ASM_CACHE) {
+    ASM_CACHE.pop();
+  }
+  ASM_CACHE.unshift(loaded);
+  return loaded;
+}
+
+function loadLookupAssembly(assemblyFile: string): TypeLookupAssembly {
+  const assembly: spec.Assembly = fs.readJSONSync(assemblyFile, { encoding: 'utf-8' });
+  const symbolIdMap = mkDict(
+    Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
+  );
+
+  return {
+    assembly,
+    assemblyFile,
+    symbolIdMap,
+  };
+}
+
+function findPackageJsonLocation(currentPath: string): string | undefined {
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const candidate = path.join(currentPath, 'package.json');
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+
+    const parentPath = path.resolve(currentPath, '..');
+    if (parentPath === currentPath) {
+      return undefined;
+    }
+    currentPath = parentPath;
+  }
 }

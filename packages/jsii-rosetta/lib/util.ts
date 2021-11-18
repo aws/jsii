@@ -12,8 +12,15 @@ export interface File {
 }
 
 export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: NodeJS.WritableStream) {
-  for (const diag of diags) {
+  // Don't print too much, at some point it just clogs up the log
+  const maxDiags = 50;
+
+  for (const diag of diags.slice(0, maxDiags)) {
     stream.write(diag.formattedMessage);
+  }
+
+  if (diags.length > maxDiags) {
+    stream.write(`(...and ${maxDiags - diags.length} more diagnostics not shown)`);
   }
 }
 
