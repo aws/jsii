@@ -95,6 +95,9 @@
         "filename": "lib/index.ts",
         "line": 130
       },
+      "readme": {
+        "markdown": "# Submodule Readme\n\nThis is a submodule readme.\n"
+      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
@@ -948,5 +951,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "LN1bs46m2O4aR6AhHvi6UDh/f90EoUT3n5apMPzr9+c="
+  "fingerprint": "fCLOsQQLslSg+W8rn7XDZ1RSenH5QeaoTna+j7o+URc="
 }
