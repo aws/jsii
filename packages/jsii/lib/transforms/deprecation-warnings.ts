@@ -333,6 +333,8 @@ module.exports.DeprecationError = DeprecationError;
 }
 
 class Transformer {
+  private warningCallsWereInjected = false;
+
   public constructor(
     private readonly typeChecker: ts.TypeChecker,
     private readonly context: ts.TransformationContext,
@@ -342,9 +344,11 @@ class Transformer {
   ) {}
 
   public transform<T extends ts.Node>(node: T): T {
+    this.warningCallsWereInjected = false;
+
     const result = this.visitEachChild(node);
 
-    if (ts.isSourceFile(result)) {
+    if (ts.isSourceFile(result) && this.warningCallsWereInjected) {
       const importDir = path.relative(
         path.dirname(result.fileName),
         this.projectRoot,
@@ -368,6 +372,8 @@ class Transformer {
   private visitor<T extends ts.Node>(node: T): ts.VisitResult<T> {
     if (ts.isMethodDeclaration(node) && node.body != null) {
       const statements = this.getStatementsForDeclaration(node);
+      this.warningCallsWereInjected =
+        this.warningCallsWereInjected || statements.length > 0;
       return ts.updateMethod(
         node,
         node.decorators,
@@ -385,6 +391,8 @@ class Transformer {
       ) as any;
     } else if (ts.isGetAccessorDeclaration(node) && node.body != null) {
       const statements = this.getStatementsForDeclaration(node);
+      this.warningCallsWereInjected =
+        this.warningCallsWereInjected || statements.length > 0;
       return ts.updateGetAccessor(
         node,
         node.decorators,
@@ -399,6 +407,8 @@ class Transformer {
       ) as any;
     } else if (ts.isSetAccessorDeclaration(node) && node.body != null) {
       const statements = this.getStatementsForDeclaration(node);
+      this.warningCallsWereInjected =
+        this.warningCallsWereInjected || statements.length > 0;
       return ts.updateSetAccessor(
         node,
         node.decorators,
@@ -412,6 +422,8 @@ class Transformer {
       ) as any;
     } else if (ts.isConstructorDeclaration(node) && node.body != null) {
       const statements = this.getStatementsForDeclaration(node);
+      this.warningCallsWereInjected =
+        this.warningCallsWereInjected || statements.length > 0;
       return ts.updateConstructor(
         node,
         node.decorators,
