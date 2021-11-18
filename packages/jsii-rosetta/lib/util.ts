@@ -100,8 +100,29 @@ export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<
   return ret;
 }
 
-export function fmap<A, B>(value: NonNullable<A>, fn: (x: A) => B): B;
-export function fmap<A, B>(value: undefined, fn: (x: A) => B): undefined;
+/**
+ * Apply a function to a value, as long as it's not `undefined`
+ *
+ * This is a companion helper to TypeScript's nice `??` and `?.` nullish
+ * operators. Those operators are helpful if you're calling methods:
+ *
+ *    object?.method()  <- returns 'undefined' if 'object' is nullish
+ *
+ * But are no help when you want to use free functions:
+ *
+ *    func(object)      <- but what if 'object' is nullish and func
+ *                         expects it not to be?
+ *
+ * Yes you can write `object ? func(object) : undefined` but the trailing
+ * `: undefined` clutters your code. Instead, you write:
+ *
+ *    fmap(object, func)
+ *
+ * The name `fmap` is taken from Haskell: it's a "Functor-map" (although
+ * only for the `Maybe` Functor).
+ */
+export function fmap<A, B>(value: NonNullable<A>, fn: (x: NonNullable<A>) => B): B;
+export function fmap<A, B>(value: undefined, fn: (x: NonNullable<A>) => B): undefined;
 export function fmap<A, B>(value: A | undefined, fn: (x: A) => B): B | undefined;
 export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
   if (value === undefined) {
