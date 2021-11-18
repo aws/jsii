@@ -139,6 +139,14 @@ export function mapValues<A, B>(xs: Record<string, A>, fn: (x: A) => B): Record<
   return ret;
 }
 
+/**
+ * Sort an array by a key function.
+ *
+ * Instead of having to write your own comparators for your types any time you
+ * want to sort, you supply a function that maps a value to a compound sort key
+ * consisting of numbers or strings. The sorting will happen by that sort key
+ * instead.
+ */
 export function sortBy<A>(xs: A[], keyFn: (x: A) => Array<string | number>) {
   return xs.sort((a, b) => {
     const aKey = keyFn(a);
@@ -170,6 +178,13 @@ export function sortBy<A>(xs: A[], keyFn: (x: A) => Array<string | number>) {
   });
 }
 
+/**
+ * Group elements by a key
+ *
+ * Supply a function that maps each element to a key string.
+ *
+ * Returns a map of the key to the list of elements that map to that key.
+ */
 export function groupBy<A>(xs: A[], keyFn: (x: A) => string): Record<string, A[]> {
   const ret: Record<string, A[]> = {};
   for (const x of xs) {

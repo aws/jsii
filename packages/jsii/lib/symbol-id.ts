@@ -7,7 +7,7 @@ export function symbolIdentifier(
   sym: ts.Symbol,
 ): string | undefined {
   // If this symbol happens to be an alias, resolve it first
-  if ((sym.flags & ts.SymbolFlags.Alias) !== 0) {
+  while ((sym.flags & ts.SymbolFlags.Alias) !== 0) {
     sym = typeChecker.getAliasedSymbol(sym);
   }
 
