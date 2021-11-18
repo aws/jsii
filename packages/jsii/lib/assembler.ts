@@ -3100,9 +3100,9 @@ function noEmptyDict<T>(
 }
 
 function toDependencyClosure(assemblies: readonly spec.Assembly[]): {
-  [name: string]: spec.AssemblyConfiguration;
+  [name: string]: spec.DependencyConfiguration;
 } {
-  const result: { [name: string]: spec.AssemblyConfiguration } = {};
+  const result: { [name: string]: spec.DependencyConfiguration } = {};
   for (const assembly of assemblies) {
     if (!assembly.targets) {
       continue;
@@ -3128,13 +3128,13 @@ function toDependencyClosure(assemblies: readonly spec.Assembly[]): {
    */
   function cleanUp(
     submodules: spec.Assembly['submodules'],
-  ): spec.AssemblyConfiguration['submodules'] {
+  ): spec.DependencyConfiguration['submodules'] {
     if (submodules == null) {
       return submodules;
     }
-    const result: spec.Assembly['submodules'] = {};
-    for (const [fqn, desc] of Object.entries(submodules)) {
-      result[fqn] = { ...desc, locationInModule: undefined, readme: undefined };
+    const result: spec.DependencyConfiguration['submodules'] = {};
+    for (const [fqn, { targets }] of Object.entries(submodules)) {
+      result[fqn] = { targets };
     }
     return result;
   }

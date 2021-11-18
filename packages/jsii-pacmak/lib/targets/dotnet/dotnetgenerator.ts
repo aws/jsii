@@ -1160,7 +1160,7 @@ export class DotNetGenerator extends Generator {
   private emitNamespaceDocs(
     namespace: string,
     jsiiFqn: string,
-    docSource: spec.Targetable,
+    docSource: spec.Targetable & spec.ReadMeContainer,
   ) {
     if (!docSource.readme) {
       return;
