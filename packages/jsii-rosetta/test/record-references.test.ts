@@ -1,4 +1,4 @@
-import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from './testutil';
+import { TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
 
 let assembly: TestJsiiModule;
 beforeAll(async () => {
@@ -29,7 +29,7 @@ beforeAll(async () => {
     },
     {
       name: 'my_assembly',
-      jsii: DUMMY_ASSEMBLY_TARGETS,
+      jsii: DUMMY_JSII_CONFIG,
     },
   );
 });

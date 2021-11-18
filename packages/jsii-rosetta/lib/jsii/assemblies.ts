@@ -12,7 +12,7 @@ import {
   ApiLocation,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
-import { mkDict } from '../util';
+import { mkDict, sortBy } from '../util';
 
 export interface LoadedAssembly {
   assembly: spec.Assembly;
@@ -188,8 +188,9 @@ function _fingerprint(assembly: spec.Assembly): spec.Assembly {
 }
 
 export interface TypeLookupAssembly {
+  readonly packageJson: any;
   readonly assembly: spec.Assembly;
-  readonly assemblyFile: string;
+  readonly directory: string;
   readonly symbolIdMap: Record<string, string>;
 }
 
@@ -202,24 +203,23 @@ const ASM_CACHE: TypeLookupAssembly[] = [];
  * stored the assembly in memory. If not, we synchronously
  * load the assembly into memory.
  */
-export function findTypeLookupAssembly(directory: string): TypeLookupAssembly | undefined {
-  const pjLocation = findPackageJsonLocation(path.resolve(directory));
+export function findTypeLookupAssembly(startingDirectory: string): TypeLookupAssembly | undefined {
+  const pjLocation = findPackageJsonLocation(path.resolve(startingDirectory));
   if (!pjLocation) {
     return undefined;
   }
+  const directory = path.dirname(pjLocation);
 
-  const assemblyFile = path.join(path.dirname(pjLocation), '.jsii');
-
-  const fromCache = ASM_CACHE.find((c) => c.assemblyFile === assemblyFile);
+  const fromCache = ASM_CACHE.find((c) => c.directory === directory);
   if (fromCache) {
     return fromCache;
   }
 
-  if (!fs.existsSync(assemblyFile)) {
+  const loaded = loadLookupAssembly(directory);
+  if (!loaded) {
     return undefined;
   }
 
-  const loaded = loadLookupAssembly(assemblyFile);
   while (ASM_CACHE.length >= MAX_ASM_CACHE) {
     ASM_CACHE.pop();
   }
@@ -227,15 +227,23 @@ export function findTypeLookupAssembly(directory: string): TypeLookupAssembly | 
   return loaded;
 }
 
-function loadLookupAssembly(assemblyFile: string): TypeLookupAssembly {
+function loadLookupAssembly(directory: string): TypeLookupAssembly | undefined {
+  const assemblyFile = path.join(directory, '.jsii');
+  if (!fs.pathExistsSync(assemblyFile)) {
+    return undefined;
+  }
+
+  const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
   const assembly: spec.Assembly = fs.readJSONSync(assemblyFile, { encoding: 'utf-8' });
-  const symbolIdMap = mkDict(
-    Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
-  );
+  const symbolIdMap = mkDict([
+    ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
+    ...Object.entries(assembly.submodules ?? {}).map(([fqn, mod]) => [mod.symbolId ?? '', fqn] as const),
+  ]);
 
   return {
+    packageJson,
     assembly,
-    assemblyFile,
+    directory,
     symbolIdMap,
   };
 }
@@ -254,4 +262,20 @@ function findPackageJsonLocation(currentPath: string): string | undefined {
     }
     currentPath = parentPath;
   }
+}
+
+/**
+ * Find the jsii [sub]module that contains the given FQN
+ *
+ * @returns `undefined` if the type is a member of the assembly root.
+ */
+export function findContainingSubmodule(assembly: spec.Assembly, fqn: string): string | undefined {
+  const submoduleNames = Object.keys(assembly.submodules ?? {});
+  sortBy(submoduleNames, (s) => [-s.length]); // Longest first
+  for (const s of submoduleNames) {
+    if (fqn.startsWith(`${s}.`)) {
+      return s;
+    }
+  }
+  return undefined;
 }

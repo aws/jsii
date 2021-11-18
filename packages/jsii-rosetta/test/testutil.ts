@@ -5,11 +5,12 @@ import * as os from 'os';
 import * as path from 'path';
 
 import {
-  typeScriptSnippetFromSource,
   SnippetTranslator,
   SnippetParameters,
   rosettaDiagFromTypescript,
   SnippetLocation,
+  typeScriptSnippetFromCompleteSource,
+  Translator,
 } from '../lib';
 
 export type MultipleSources = { [key: string]: string; 'index.ts': string };
@@ -44,6 +45,8 @@ export class TestJsiiModule {
     });
     for (const [fileName, fileContents] of Object.entries(files)) {
       // eslint-disable-next-line no-await-in-loop
+      await fs.ensureDir(path.dirname(path.join(modDir, fileName)));
+      // eslint-disable-next-line no-await-in-loop
       await fs.writeFile(path.join(modDir, fileName), fileContents);
     }
 
@@ -61,7 +64,7 @@ export class TestJsiiModule {
    */
   public successfullyCompile(source: string) {
     const location = testSnippetLocation('testutil');
-    const snippet = typeScriptSnippetFromSource(source, location, false, {
+    const snippet = typeScriptSnippetFromCompleteSource(source, location, false, {
       [SnippetParameters.$COMPILATION_DIRECTORY]: this.workspaceDirectory,
     });
     const ret = new SnippetTranslator(snippet, {
@@ -69,6 +72,23 @@ export class TestJsiiModule {
     });
     if (ret.compileDiagnostics.length > 0) {
       for (const diag of ret.compileDiagnostics.map(rosettaDiagFromTypescript)) {
+        console.error(diag.formattedMessage);
+      }
+      throw new Error('Compilation failures');
+    }
+    return ret;
+  }
+
+  public translateHere(source: string) {
+    const location = testSnippetLocation('testutil');
+    const snip = typeScriptSnippetFromCompleteSource(source.trimLeft(), location, true, {
+      [SnippetParameters.$COMPILATION_DIRECTORY]: this.workspaceDirectory,
+    });
+
+    const trans = new Translator(true);
+    const ret = trans.translate(snip);
+    if (trans.diagnostics.length > 0) {
+      for (const diag of trans.diagnostics) {
         console.error(diag.formattedMessage);
       }
       throw new Error('Compilation failures');
@@ -85,22 +105,24 @@ export function testSnippetLocation(fileName: string): SnippetLocation {
   return { api: { api: 'file', fileName }, field: { field: 'example' } };
 }
 
-export const DUMMY_ASSEMBLY_TARGETS = {
-  dotnet: {
-    namespace: 'Example.Test.Demo',
-    packageId: 'Example.Test.Demo',
-  },
-  go: { moduleName: 'example.test/demo' },
-  java: {
-    maven: {
-      groupId: 'example.test',
-      artifactId: 'demo',
+export const DUMMY_JSII_CONFIG = {
+  targets: {
+    dotnet: {
+      namespace: 'Example.Test.Demo',
+      packageId: 'Example.Test.Demo',
     },
-    package: 'example.test.demo',
-  },
-  python: {
-    distName: 'example-test.demo',
-    module: 'example_test_demo',
+    go: { moduleName: 'example.test/demo' },
+    java: {
+      maven: {
+        groupId: 'example.test',
+        artifactId: 'demo',
+      },
+      package: 'example.test.demo',
+    },
+    python: {
+      distName: 'example-test.demo',
+      module: 'example_test_demo',
+    },
   },
 };
 

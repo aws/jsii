@@ -3,7 +3,7 @@ import * as path from 'path';
 import { LanguageTablet, RosettaTranslator, RosettaTranslatorOptions } from '../../lib';
 import * as extract from '../../lib/commands/extract';
 import { TARGET_LANGUAGES } from '../../lib/languages';
-import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
+import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 const DUMMY_README = `
   Here is an example of how to use ClassA:
@@ -35,7 +35,7 @@ beforeAll(async () => {
     },
     {
       name: 'my_assembly',
-      jsii: DUMMY_ASSEMBLY_TARGETS,
+      jsii: DUMMY_JSII_CONFIG,
     },
   );
 });
@@ -115,7 +115,7 @@ test('do not ignore example strings', async () => {
     },
     {
       name: 'my_assembly',
-      jsii: DUMMY_ASSEMBLY_TARGETS,
+      jsii: DUMMY_JSII_CONFIG,
     },
   );
   try {

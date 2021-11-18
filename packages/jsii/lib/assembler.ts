@@ -624,6 +624,7 @@ export class Assembler implements Emitter {
       this._submodules.set(symbol, {
         fqn,
         fqnResolutionPrefix,
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, symbol, packageRoot);
@@ -703,6 +704,7 @@ export class Assembler implements Emitter {
         fqnResolutionPrefix,
         targets,
         readme,
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, sourceModule, packageRoot);
@@ -2808,6 +2810,11 @@ interface SubmoduleSpec {
   readonly locationInModule: spec.SourceLocation;
 
   /**
+   * Symbol identifier of the root of the root file that represents this submodule
+   */
+  readonly symbolId?: string;
+
+  /**
    * Any customized configuration for the currentl submodule.
    */
   readonly targets?: spec.AssemblyTargets;
@@ -3149,6 +3156,7 @@ function toSubmoduleDeclarations(
       locationInModule: submodule.locationInModule,
       targets: submodule.targets,
       readme: submodule.readme,
+      symbolId: submodule.symbolId,
     };
   }
 
