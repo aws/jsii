@@ -95,6 +95,9 @@
         "filename": "lib/index.ts",
         "line": 130
       },
+      "readme": {
+        "markdown": "# Submodule Readme\n\nThis is a submodule readme.\n"
+      },
       "symbolId": "lib/submodule/index:",
       "targets": {
         "dotnet": {
@@ -949,5 +952,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "JgX4YJ8W1DfgIIOzHvT0dErUeskq/BI5oZctzlqE9z4="
+  "fingerprint": "BJ528BPiptJdqvxyoh4Ax2l2Knaz2KcuNYBYhVpyTw8="
 }

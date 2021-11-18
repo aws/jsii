@@ -15,7 +15,7 @@ export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: No
   // Don't print too much, at some point it just clogs up the log
   const maxDiags = 50;
 
-  for (const diag of diags.slice(maxDiags)) {
+  for (const diag of diags.slice(0, maxDiags)) {
     stream.write(diag.formattedMessage);
   }
 
