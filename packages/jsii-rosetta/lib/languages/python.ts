@@ -179,11 +179,14 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         }
       }
 
-      const imports = node.imports.elements.map((im) =>
-        im.alias
-          ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(im.alias)}`
-          : mangleIdentifier(im.sourceName),
-      );
+      const imports = node.imports.elements.map((im) => {
+        const localName = im.alias ?? im.sourceName;
+        const originalName = fmap(fmap(im.importedSymbol, findPythonName), simpleName) ?? im.sourceName;
+
+        return localName === originalName
+          ? mangleIdentifier(originalName)
+          : `${mangleIdentifier(originalName)} as ${mangleIdentifier(localName)}`;
+      });
 
       const moduleName = fmap(node.moduleSymbol, findPythonName) ?? guessPythonPackageName(node.packageName);
 

@@ -279,10 +279,8 @@ async function makeJsiiModule(options: {
 
   const source: MultipleSources = options.withModule
     ? {
-        'index.ts': 'export * as submod from "./submodule/lib/module";',
-        'submodule/lib/module.ts': payload,
-        // Submodule needs to live 2 levels deep, because that' the only place jsii
-        // will look for a '.jsiirc.json',
+        'index.ts': 'export * as submod from "./submodule/module";',
+        'submodule/module.ts': payload,
         'submodule/.jsiirc.json': JSON.stringify({
           targets: {
             python: {
