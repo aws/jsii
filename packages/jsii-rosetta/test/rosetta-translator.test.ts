@@ -3,6 +3,8 @@ import { withTemporaryDirectory } from './testutil';
 
 const location: SnippetLocation = { api: { api: 'file', fileName: 'test.ts' } };
 
+jest.setTimeout(60_000);
+
 test('translator can translate', async () => {
   const translator = new RosettaTranslator({
     includeCompilerDiagnostics: true,
