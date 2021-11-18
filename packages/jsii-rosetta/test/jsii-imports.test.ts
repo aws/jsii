@@ -47,6 +47,14 @@ describe('no submodule', () => {
           ...DEFAULT_JAVA_CODE,
         ]);
       });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo;',
+          ...DEFAULT_CSHARP_CODE,
+        ]);
+      });
     });
 
     describe('class import', () => {
@@ -79,8 +87,15 @@ describe('no submodule', () => {
         // eslint-disable-next-line prettier/prettier
         expectTranslation(trans, TargetLanguage.JAVA, [
           'import example.test.demo.MyClass;',
-          '',
           ...DEFAULT_JAVA_CODE,
+        ]);
+      });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo;',
+          ...DEFAULT_CSHARP_CODE,
         ]);
       });
     });
@@ -124,6 +139,14 @@ describe('no submodule', () => {
           ...DEFAULT_JAVA_CODE,
         ]);
       });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo;',
+          ...DEFAULT_CSHARP_CODE,
+        ]);
+      });
     });
 
     describe('class import', () => {
@@ -154,8 +177,15 @@ describe('no submodule', () => {
         // eslint-disable-next-line prettier/prettier
         expectTranslation(trans, TargetLanguage.JAVA, [
           'import example.test.demo.MyClass;',
-          '',
           ...DEFAULT_JAVA_CODE,
+        ]);
+      });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo;',
+          ...DEFAULT_CSHARP_CODE,
         ]);
       });
     });
@@ -199,8 +229,15 @@ describe('with submodule', () => {
         // eslint-disable-next-line prettier/prettier
         expectTranslation(trans, TargetLanguage.JAVA, [
           'import example.test.demo.boop.*;',
-          '',
           ...DEFAULT_JAVA_CODE,
+        ]);
+      });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo.Boop;',
+          ...DEFAULT_CSHARP_CODE,
         ]);
       });
     });
@@ -242,8 +279,15 @@ describe('with submodule', () => {
         // eslint-disable-next-line prettier/prettier
         expectTranslation(trans, TargetLanguage.JAVA, [
           'import example.test.demo.boop.*;',
-          '',
           ...DEFAULT_JAVA_CODE,
+        ]);
+      });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo.Boop;',
+          ...DEFAULT_CSHARP_CODE,
         ]);
       });
     });
@@ -312,6 +356,15 @@ const DEFAULT_JAVA_CODE = [
   '                .value("v")',
   '                .build())',
   '        .build();',
+];
+
+// The implementation part of the CSharp code is always the same
+const DEFAULT_CSHARP_CODE = [
+  'MyClass obj = new MyClass("value", new MyClassProps {',
+  '    MyStruct = new MyStruct {',
+  '        Value = "v"',
+  '    }',
+  '});',
 ];
 
 /**

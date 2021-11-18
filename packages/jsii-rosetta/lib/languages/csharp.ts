@@ -1,7 +1,8 @@
 import * as ts from 'typescript';
 
 import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
-import { jsiiTargetParamFromPackageJson } from '../jsii/packages';
+import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';
+import { jsiiTargetParameter } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, nimpl } from '../renderer';
 import {
@@ -21,7 +22,7 @@ import {
   inferMapElementType,
   determineReturnType,
 } from '../typescript/types';
-import { flat, partition, setExtend } from '../util';
+import { flat, setExtend, fmap } from '../util';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
@@ -105,6 +106,8 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
    */
   private readonly importedModuleSymbols = new Set<string>();
 
+  private readonly alreadyImportedNamespaces = new Set<string>();
+
   public mergeContext(old: CSharpLanguageContext, update: Partial<CSharpLanguageContext>): CSharpLanguageContext {
     return Object.assign({}, old, update);
   }
@@ -128,29 +131,26 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public importStatement(importStatement: ImportStatement, context: CSharpRenderer): OTree {
-    const namespace = this.lookupModuleNamespace(importStatement.packageName);
+    const guessedNamespace = guessDotnetNamespace(importStatement.packageName);
+    const namespace = fmap(importStatement.moduleSymbol, findDotnetName) ?? guessedNamespace;
+
     if (importStatement.imports.import === 'full') {
       this.importedModuleAliases.add(importStatement.imports.alias);
       return new OTree([`using ${namespace};`], [], { canBreakLine: true });
     }
     if (importStatement.imports.import === 'selective') {
-      const statements = [];
-      const [withoutAlias, withAlias] = partition(importStatement.imports.elements, (im) => im.alias === undefined);
+      const importableNamespaces = importStatement.imports.elements
+        .map((el) => {
+          const dotnetNs = fmap(el.importedSymbol, findDotnetName) ?? `${guessedNamespace}.${ucFirst(el.sourceName)}`;
+          return el.importedSymbol?.symbolType === 'module' ? dotnetNs : namespaceName(dotnetNs);
+        })
+        .filter((n) => !this.alreadyImportedNamespaces.has(n));
+      setExtend(this.alreadyImportedNamespaces, importableNamespaces);
 
-      // If there's at least one import without an alias, emit a namespace import.
-      if (withoutAlias) {
-        statements.push(`using ${namespace};`);
-        setExtend(
-          this.importedModuleSymbols,
-          withoutAlias.map((w) => w.sourceName),
-        );
-      }
+      const localNames = importStatement.imports.elements.map((el) => el.alias ?? el.sourceName);
+      setExtend(this.importedModuleAliases, localNames);
 
-      // For every aliased import, emit an aliasing 'using' statement
-      for (const aliasedImport of withAlias) {
-        statements.push(`using ${ucFirst(aliasedImport.alias!)} = ${namespace}.${ucFirst(aliasedImport.sourceName)};`);
-        this.importedModuleSymbols.add(aliasedImport.alias!);
-      }
+      const statements = importableNamespaces.map((ns) => `using ${ns};`);
 
       return new OTree([], statements, { canBreakLine: true, separator: '\n' });
     }
@@ -599,21 +599,6 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     });
   }
 
-  protected lookupModuleNamespace(ref: string) {
-    // Get the .NET namespace from the referenced package (if available)
-    const resolvedNamespace = jsiiTargetParamFromPackageJson(ref, 'dotnet.namespace');
-
-    // Return that or some default-derived module name representation
-    return (
-      resolvedNamespace ||
-      ref
-        .split(/[^a-zA-Z0-9]+/g)
-        .filter((s) => s !== '')
-        .map(ucFirst)
-        .join('.')
-    );
-  }
-
   private renderTypeNode(typeNode: ts.TypeNode | undefined, questionMark: boolean, renderer: CSharpRenderer): string {
     if (!typeNode) {
       return 'void';
@@ -681,4 +666,39 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
  */
 function ucFirst(x: string) {
   return x.substr(0, 1).toUpperCase() + x.substr(1);
+}
+
+/**
+ * Find the Java name of a module or type
+ */
+function findDotnetName(jsiiSymbol: JsiiSymbol): string | undefined {
+  if (!jsiiSymbol.sourceAssembly?.assembly) {
+    // Don't have accurate info, just guess
+    return jsiiSymbol.symbolType !== 'module' ? simpleName(jsiiSymbol.fqn) : guessDotnetNamespace(jsiiSymbol.fqn);
+  }
+
+  const asm = jsiiSymbol.sourceAssembly?.assembly;
+  return recurse(jsiiSymbol.fqn);
+
+  function recurse(fqn: string): string {
+    if (fqn === asm.name) {
+      return jsiiTargetParameter(asm, 'dotnet.namespace') ?? guessDotnetNamespace(fqn);
+    }
+    if (asm.submodules?.[fqn]) {
+      const modName = jsiiTargetParameter(asm.submodules[fqn], 'dotnet.namespace');
+      if (modName) {
+        return modName;
+      }
+    }
+
+    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+  }
+}
+
+function guessDotnetNamespace(ref: string) {
+  return ref
+    .split(/[^a-zA-Z0-9]+/g)
+    .filter((s) => s !== '')
+    .map(ucFirst)
+    .join('.');
 }

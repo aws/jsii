@@ -122,7 +122,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const imports = importStatement.imports.elements.map((e) => {
       const fqn = fmap(e.importedSymbol, findJavaName) ?? `${guessedNamespace}.${e.sourceName}`;
 
-      return e.importedSymbol?.symbolType === 'module' ? `import ${fqn}.*;\n` : `import ${fqn};\n`;
+      return e.importedSymbol?.symbolType === 'module' ? `import ${fqn}.*;` : `import ${fqn};`;
     });
 
     return new OTree([], imports, { canBreakLine: true, separator: '\n' });
