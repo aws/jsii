@@ -1863,6 +1863,11 @@ publication.publish()
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz 1`] = `python/src/scope/jsii_calc_lib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py 1`] = `
+'''
+# Submodule Readme
+
+This is a submodule readme.
+'''
 import abc
 import builtins
 import datetime
