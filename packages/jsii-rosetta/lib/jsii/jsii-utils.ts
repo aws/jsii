@@ -215,6 +215,26 @@ function lookupMemberSymbol(
   return fmap(result, (result) => ({ ...result, fqn: `${result.fqn}#${memberSymbol.name}`, symbolType: 'member' }));
 }
 
+/**
+ * If the given type is an enum literal, resolve to the enum type
+ */
+export function resolveEnumLiteral(typeChecker: ts.TypeChecker, type: ts.Type) {
+  if (!hasAnyFlag(type.flags, ts.TypeFlags.EnumLiteral)) {
+    return type;
+  }
+
+  const parentDeclaration = type.symbol.declarations?.[0]?.parent;
+  return fmap(parentDeclaration, typeChecker.getTypeAtLocation) ?? type;
+}
+
+export function resolvedSymbolAtLocation(typeChecker: ts.TypeChecker, node: ts.Node) {
+  let symbol = typeChecker.getSymbolAtLocation(node);
+  while (symbol && hasAnyFlag(symbol.flags, ts.SymbolFlags.Alias)) {
+    symbol = typeChecker.getAliasedSymbol(symbol);
+  }
+  return symbol;
+}
+
 function getSymbolFromDeclaration(decl: ts.Node, typeChecker: ts.TypeChecker): ts.Symbol | undefined {
   if (!isDeclaration(decl)) {
     return undefined;

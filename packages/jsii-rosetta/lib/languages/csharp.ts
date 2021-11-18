@@ -22,7 +22,7 @@ import {
   inferMapElementType,
   determineReturnType,
 } from '../typescript/types';
-import { flat, setExtend, fmap } from '../util';
+import { flat, fmap } from '../util';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
@@ -97,16 +97,21 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
    *
    * If these are encountered in the LHS of a property access, they will be dropped.
    */
-  private readonly importedModuleAliases = new Set<string>();
+  private readonly dropPropertyAccesses = new Set<string>();
 
   /**
-   * Elements imported into current namespace
-   *
-   * All namespace elements that can be imported need to be uppercased.
+   * Already imported modules so we don't emit duplicate imports
    */
-  private readonly importedModuleSymbols = new Set<string>();
-
   private readonly alreadyImportedNamespaces = new Set<string>();
+
+  /**
+   * A map to undo import renames
+   *
+   * We will always reference the original name in the translation.
+   *
+   * Maps a local-name to a C# name.
+   */
+  private readonly renamedSymbols = new Map<string, string>();
 
   public mergeContext(old: CSharpLanguageContext, update: Partial<CSharpLanguageContext>): CSharpLanguageContext {
     return Object.assign({}, old, update);
@@ -135,22 +140,39 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     const namespace = fmap(importStatement.moduleSymbol, findDotnetName) ?? guessedNamespace;
 
     if (importStatement.imports.import === 'full') {
-      this.importedModuleAliases.add(importStatement.imports.alias);
+      this.dropPropertyAccesses.add(importStatement.imports.alias);
+      this.alreadyImportedNamespaces.add(namespace);
       return new OTree([`using ${namespace};`], [], { canBreakLine: true });
     }
     if (importStatement.imports.import === 'selective') {
-      const importableNamespaces = importStatement.imports.elements
-        .map((el) => {
-          const dotnetNs = fmap(el.importedSymbol, findDotnetName) ?? `${guessedNamespace}.${ucFirst(el.sourceName)}`;
-          return el.importedSymbol?.symbolType === 'module' ? dotnetNs : namespaceName(dotnetNs);
-        })
-        .filter((n) => !this.alreadyImportedNamespaces.has(n));
-      setExtend(this.alreadyImportedNamespaces, importableNamespaces);
+      const statements = new Array<string>();
 
-      const localNames = importStatement.imports.elements.map((el) => el.alias ?? el.sourceName);
-      setExtend(this.importedModuleAliases, localNames);
+      for (const el of importStatement.imports.elements) {
+        const dotnetNs = fmap(el.importedSymbol, findDotnetName) ?? `${guessedNamespace}.${ucFirst(el.sourceName)}`;
 
-      const statements = importableNamespaces.map((ns) => `using ${ns};`);
+        // If this is an alias, we only honor it if it's NOT for sure a module
+        // (could be an alias import of a class or enum).
+        if (el.alias && el.importedSymbol?.symbolType !== 'module') {
+          this.renamedSymbols.set(el.alias, simpleName(dotnetNs));
+          statements.push(`using ${ucFirst(el.alias)} = ${dotnetNs};`);
+          continue;
+        }
+
+        // If we are importing a module directly, drop the occurrences of that
+        // identifier further down (turn `mod.MyClass` into `MyClass`).
+        if (el.importedSymbol?.symbolType === 'module') {
+          this.dropPropertyAccesses.add(el.alias ?? el.sourceName);
+        }
+
+        // Output an import statement for the containing namespace
+        const importableNamespace = el.importedSymbol?.symbolType === 'module' ? dotnetNs : namespaceName(dotnetNs);
+        if (this.alreadyImportedNamespaces.has(importableNamespace)) {
+          continue;
+        }
+
+        this.alreadyImportedNamespaces.add(importableNamespace);
+        statements.push(`using ${importableNamespace};`);
+      }
 
       return new OTree([], statements, { canBreakLine: true, separator: '\n' });
     }
@@ -316,7 +338,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     // Suppress the LHS of the dot operator if it's "this." (not necessary in C#)
     // or if it's an imported module reference (C# has namespace-wide imports).
     const objectExpression =
-      lhs === 'this' || this.importedModuleAliases.has(lhs)
+      lhs === 'this' || this.dropPropertyAccesses.has(lhs)
         ? []
         : [renderer.updateContext({ propertyOrMethod: false }).convert(node.expression), '.'];
 

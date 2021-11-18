@@ -190,6 +190,90 @@ describe('no submodule', () => {
       });
     });
   });
+
+  describe('enum', () => {
+    let module: TestJsiiModule;
+    beforeAll(async () => {
+      module = await TestJsiiModule.fromSource(
+        {
+          'index.ts': `export enum MyEnum { OPTION_A = 'a', OPTION_B = 'b' }`,
+        },
+        {
+          name: 'my_assembly',
+          jsii: DUMMY_JSII_CONFIG,
+        },
+      );
+    });
+
+    afterAll(() => module.cleanup());
+
+    describe('package import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(`
+            import * as masm from 'my_assembly';
+            const x = masm.MyEnum.OPTION_A;
+          `);
+      });
+
+      test('to Python', () => {
+        expectTranslation(trans, TargetLanguage.PYTHON, [
+          'import example_test_demo as masm',
+          'x = masm.MyEnum.OPTION_A',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.*;',
+          'MyEnum x = MyEnum.OPTION_A;',
+        ]);
+      });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo;',
+          'MyEnum x = MyEnum.OPTION_A;',
+        ]);
+      });
+    });
+
+    describe('direct import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(
+          `import { MyEnum } from 'my_assembly';
+          const x = MyEnum.OPTION_A;
+          `,
+        );
+      });
+
+      test('to Python', () => {
+        expectTranslation(trans, TargetLanguage.PYTHON, [
+          'from example_test_demo import MyEnum',
+          'x = MyEnum.OPTION_A',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.MyEnum;',
+          'MyEnum x = MyEnum.OPTION_A;',
+        ]);
+      });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo;',
+          'MyEnum x = MyEnum.OPTION_A;',
+        ]);
+      });
+    });
+  });
 });
 
 describe('with submodule', () => {

@@ -429,7 +429,7 @@ export interface SourceLocatable {
 }
 
 /**
- * Indicatese that an entity is mappable from TypeScript to its jsii equivalent
+ * Indicates that a jsii entity's origin can be traced to TypeScript code
  *
  * This is interface is not the same as `SourceLocatable`. SourceLocatable
  * identifies lines in source files in a source repository (in a `.ts` file,

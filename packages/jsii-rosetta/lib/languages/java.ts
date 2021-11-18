@@ -9,17 +9,19 @@ import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
-import { fmap } from '../util';
+import { fmap, setExtend } from '../util';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
   /**
    * Whether to ignore the left-hand part of a property access expression.
-   * Used to strip out TypeScript namespace prefixes from 'extends' and 'new' clauses.
+   *
+   * Used to strip out TypeScript namespace prefixes from 'extends' and 'new' clauses,
+   * EVEN if the source doesn't compile.
    *
    * @default false
    */
-  readonly ignorePropertyPrefix?: boolean;
+  readonly discardPropertyAccess?: boolean;
 
   /**
    * Whether a property access ('sth.b') should be substituted by a getter ('sth.getB()').
@@ -103,6 +105,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
    */
   public static readonly VERSION = '1';
 
+  /**
+   * Aliases for modules
+   *
+   * If these are encountered in the LHS of a property access, they will be dropped.
+   */
+  private readonly dropPropertyAccesses = new Set<string>();
+
   public readonly language = TargetLanguage.JAVA;
   public readonly defaultContext = {};
 
@@ -114,6 +123,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const guessedNamespace = guessJavaNamespaceName(importStatement.packageName);
 
     if (importStatement.imports.import === 'full') {
+      this.dropPropertyAccesses.add(importStatement.imports.alias);
       const namespace = fmap(importStatement.moduleSymbol, findJavaName) ?? guessedNamespace;
 
       return new OTree([`import ${namespace}.*;`], [], { canBreakLine: true });
@@ -124,6 +134,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
       return e.importedSymbol?.symbolType === 'module' ? `import ${fqn}.*;` : `import ${fqn};`;
     });
+
+    const localNames = importStatement.imports.elements
+      .filter((el) => el.importedSymbol?.symbolType === 'module')
+      .map((el) => el.alias ?? el.sourceName);
+    setExtend(this.dropPropertyAccesses, localNames);
 
     return new OTree([], imports, { canBreakLine: true, separator: '\n' });
   }
@@ -149,7 +164,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'public ',
         'interface ',
         renderer.convert(node.name),
-        ...this.typeHeritage(node, renderer.updateContext({ ignorePropertyPrefix: true })),
+        ...this.typeHeritage(node, renderer.updateContext({ discardPropertyAccess: true })),
         ' {',
       ],
       renderer
@@ -453,7 +468,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
     const className = renderer
       .updateContext({
-        ignorePropertyPrefix: true,
+        discardPropertyAccess: true,
         convertPropertyToGetter: false,
       })
       .convert(node.expression);
@@ -537,34 +552,30 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const rightHandSide = renderer.convert(node.name);
     let parts: Array<OTree | string | undefined>;
 
-    if (renderer.currentContext.ignorePropertyPrefix) {
-      // ignore al prefixes when resolving properties
-      // only used for type names, in things like
-      // 'MyClass extends cdk.Construct'
-      // and 'new' expressions
+    const leftHandSide = renderer.textOf(node.expression);
+
+    // Suppress the LHS of the dot operator if it matches an alias for a module import.
+    if (this.dropPropertyAccesses.has(leftHandSide) || renderer.currentContext.discardPropertyAccess) {
       parts = [rightHandSide];
+    } else if (leftHandSide === 'this') {
+      // for 'this', assume this is a field, and access it directly
+      parts = ['this', '.', rightHandSide];
     } else {
-      const leftHandSide = renderer.textOf(node.expression);
-      if (leftHandSide === 'this') {
-        // for 'this', assume this is a field, and access it directly
-        parts = ['this', '.', rightHandSide];
-      } else {
-        let convertToGetter = renderer.currentContext.convertPropertyToGetter !== false;
+      let convertToGetter = renderer.currentContext.convertPropertyToGetter !== false;
 
-        // See if we're not accessing an enum member or public static readonly property (const).
-        if (isEnumAccess(renderer.typeChecker, node)) {
-          convertToGetter = false;
-        }
-        if (isStaticReadonlyAccess(renderer.typeChecker, node)) {
-          convertToGetter = false;
-        }
-
-        // add a 'get' prefix to the property name, and change the access to a method call, if required
-        const renderedRightHandSide = convertToGetter ? `get${capitalize(node.name.text)}()` : rightHandSide;
-
-        // strip any trailing ! from the left-hand side, as they're not meaningful in Java
-        parts = [stripTrailingBang(leftHandSide), '.', renderedRightHandSide];
+      // See if we're not accessing an enum member or public static readonly property (const).
+      if (isEnumAccess(renderer.typeChecker, node)) {
+        convertToGetter = false;
       }
+      if (isStaticReadonlyAccess(renderer.typeChecker, node)) {
+        convertToGetter = false;
+      }
+
+      // add a 'get' prefix to the property name, and change the access to a method call, if required
+      const renderedRightHandSide = convertToGetter ? `get${capitalize(node.name.text)}()` : rightHandSide;
+
+      // strip any trailing ! from the left-hand side, as they're not meaningful in Java
+      parts = [renderer.convert(node.expression), '.', renderedRightHandSide];
     }
 
     return new OTree(parts);
@@ -647,7 +658,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'public ',
         'class ',
         renderer.convert(node.name),
-        ...this.typeHeritage(node, renderer.updateContext({ ignorePropertyPrefix: true })),
+        ...this.typeHeritage(node, renderer.updateContext({ discardPropertyAccess: true })),
         ' {',
       ],
       renderer.updateContext({ insideTypeDeclaration: { typeName: node.name } }).convertAll(node.members),
@@ -816,10 +827,6 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       suffix: '\n}',
     });
   }
-}
-
-function stripTrailingBang(str: string): string {
-  return str.replace(/!+$/, '');
 }
 
 function capitalize(str: string): string {
