@@ -1,14 +1,21 @@
 // Test interactions with actual jsii assemblies
 
-import { TargetLanguage } from '../lib';
+import { TargetLanguage, TranslatedSnippet } from '../lib';
 import { MultipleSources, TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
 
 describe('no submodule', () => {
-  describe('package import', () => {
-    test(
-      'top-level struct',
-      withJsiiModule(makeModuleSource({ withModule: false, nestedStruct: false }), (module) => {
-        const trans = module.translateHere(`
+  describe('top-level struct', () => {
+    let module: TestJsiiModule;
+    beforeAll(async () => {
+      module = await makeJsiiModule({ withModule: false, nestedStruct: false });
+    });
+
+    afterAll(() => module.cleanup());
+
+    describe('package import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(`
             import * as masm from 'my_assembly';
             const obj = new masm.MyClass('value', {
               myStruct: {
@@ -16,7 +23,9 @@ describe('no submodule', () => {
               },
             });
           `);
+      });
 
+      test('to Python', () => {
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
           'import example_test_demo as masm',
           'obj = masm.MyClass("value",',
@@ -25,13 +34,48 @@ describe('no submodule', () => {
           '    )',
           ')',
         ]);
-      }),
-    );
+      });
+    });
 
-    test(
-      'nested struct',
-      withJsiiModule(makeModuleSource({ withModule: false, nestedStruct: true }), (module) => {
-        const trans = module.translateHere(`
+    describe('class import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(
+          `import { MyClass } from 'my_assembly';
+            const obj = new MyClass('value', {
+              myStruct: {
+                value: 'v',
+              },
+            });
+          `,
+        );
+      });
+
+      test('to Python', () => {
+        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
+          'from example_test_demo import MyStruct',
+          'from example_test_demo import MyClass',
+          'obj = MyClass("value",',
+          '    my_struct=MyStruct(',
+          '        value="v"',
+          '    )',
+          ')',
+        ]);
+      });
+    });
+  });
+
+  describe('nested struct', () => {
+    let module: TestJsiiModule;
+    beforeAll(async () => {
+      module = await makeJsiiModule({ withModule: false, nestedStruct: true });
+    });
+    afterAll(() => module.cleanup());
+
+    describe('package import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(`
             import * as masm from 'my_assembly';
             const obj = new masm.MyClass('value', {
               myStruct: {
@@ -39,7 +83,9 @@ describe('no submodule', () => {
               },
             });
           `);
+      });
 
+      test('to Python', () => {
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
           'import example_test_demo as masm',
           'obj = masm.MyClass("value",',
@@ -48,48 +94,23 @@ describe('no submodule', () => {
           '    )',
           ')',
         ]);
-      }),
-    );
-  });
+      });
+    });
 
-  describe('class import', () => {
-    test(
-      'top-level struct',
-      withJsiiModule(makeModuleSource({ withModule: false, nestedStruct: false }), (module) => {
-        const trans = module.translateHere(`
-          import { MyClass } from 'my_assembly';
-          const obj = new MyClass('value', {
-            myStruct: {
-              value: 'v',
-            },
-          });
-        `);
+    describe('class import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(`
+            import { MyClass } from 'my_assembly';
+            const obj = new MyClass('value', {
+              myStruct: {
+                value: 'v',
+              },
+            });
+          `);
+      });
 
-        expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
-          'from example_test_demo import MyStruct',
-          '', // FIXME: don't know where this newline is coming from but at least it compiles
-          'from example_test_demo import MyClass',
-          'obj = MyClass("value",',
-          '    my_struct=MyStruct(',
-          '        value="v"',
-          '    )',
-          ')',
-        ]);
-      }),
-    );
-
-    test(
-      'nested struct',
-      withJsiiModule(makeModuleSource({ withModule: false, nestedStruct: true }), (module) => {
-        const trans = module.translateHere(`
-          import { MyClass } from 'my_assembly';
-          const obj = new MyClass('value', {
-            myStruct: {
-              value: 'v',
-            },
-          });
-        `);
-
+      test('to Python', () => {
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
           'from example_test_demo import MyClass',
           'obj = MyClass("value",',
@@ -98,17 +119,24 @@ describe('no submodule', () => {
           '    )',
           ')',
         ]);
-      }),
-    );
+      });
+    });
   });
 });
 
 describe('with submodule', () => {
-  describe('namespace import', () => {
-    test(
-      'top-level struct',
-      withJsiiModule(makeModuleSource({ withModule: true, nestedStruct: false }), (module) => {
-        const trans = module.translateHere(`
+  describe('top-level struct', () => {
+    let module: TestJsiiModule;
+    beforeAll(async () => {
+      module = await makeJsiiModule({ withModule: true, nestedStruct: false });
+    });
+
+    afterAll(() => module.cleanup());
+
+    describe('namespace import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(`
             import { submod as mod } from 'my_assembly';
             const obj = new mod.MyClass('value', {
               myStruct: {
@@ -116,7 +144,9 @@ describe('with submodule', () => {
               },
             });
           `);
+      });
 
+      test('to Python', () => {
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
           'from example_test_demo import submod as mod',
           'obj = mod.MyClass("value",',
@@ -125,13 +155,22 @@ describe('with submodule', () => {
           '    )',
           ')',
         ]);
-      }),
-    );
+      });
+    });
+  });
 
-    test(
-      'nested struct',
-      withJsiiModule(makeModuleSource({ withModule: true, nestedStruct: true }), (module) => {
-        const trans = module.translateHere(`
+  describe('nested struct', () => {
+    let module: TestJsiiModule;
+    beforeAll(async () => {
+      module = await makeJsiiModule({ withModule: true, nestedStruct: true });
+    });
+
+    afterAll(() => module.cleanup());
+
+    describe('namespace import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(`
             import { submod as mod } from 'my_assembly';
             const obj = new mod.MyClass('value', {
               myStruct: {
@@ -139,7 +178,9 @@ describe('with submodule', () => {
               },
             });
           `);
+      });
 
+      test('to Python', () => {
         expect(trans.get(TargetLanguage.PYTHON)?.source.split('\n')).toEqual([
           'from example_test_demo import submod as mod',
           'obj = mod.MyClass("value",',
@@ -148,26 +189,15 @@ describe('with submodule', () => {
           '    )',
           ')',
         ]);
-      }),
-    );
+      });
+    });
   });
 });
 
-function withJsiiModule<A>(sources: string | MultipleSources, cb: (m: TestJsiiModule) => A | Promise<A>) {
-  return async () => {
-    const module = await TestJsiiModule.fromSource(sources, {
-      name: 'my_assembly',
-      jsii: DUMMY_JSII_CONFIG,
-    });
-    try {
-      return await cb(module);
-    } finally {
-      await module.cleanup();
-    }
-  };
-}
-
-function makeModuleSource(options: { readonly withModule: boolean; readonly nestedStruct: boolean }): MultipleSources {
+async function makeJsiiModule(options: {
+  readonly withModule: boolean;
+  readonly nestedStruct: boolean;
+}): Promise<TestJsiiModule> {
   const nsRef = options.nestedStruct ? 'MyClass.' : '';
   const nsDeclBegin = options.nestedStruct ? 'export namespace MyClass {\n' : '';
   const nsDeclEnd = options.nestedStruct ? '}' : '';
@@ -191,7 +221,7 @@ function makeModuleSource(options: { readonly withModule: boolean; readonly nest
     ${nsDeclEnd}
     `;
 
-  return options.withModule
+  const source: MultipleSources = options.withModule
     ? {
         'index.ts': 'export * as submod from "./submodule/lib/module";',
         'submodule/lib/module.ts': payload,
@@ -208,4 +238,9 @@ function makeModuleSource(options: { readonly withModule: boolean; readonly nest
     : {
         'index.ts': payload,
       };
+
+  return TestJsiiModule.fromSource(source, {
+    name: 'my_assembly',
+    jsii: DUMMY_JSII_CONFIG,
+  });
 }
