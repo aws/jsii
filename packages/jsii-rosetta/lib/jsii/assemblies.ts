@@ -269,7 +269,7 @@ function findPackageJsonLocation(currentPath: string): string | undefined {
 /**
  * Find the jsii [sub]module that contains the given FQN
  *
- * Return `undefined` if the type is a member of the assembly root.
+ * @returns `undefined` if the type is a member of the assembly root.
  */
 export function findContainingSubmodule(assembly: spec.Assembly, fqn: string): string | undefined {
   const submoduleNames = Object.keys(assembly.submodules ?? {});
