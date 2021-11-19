@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { hasAllFlags, hasAnyFlag } from '../jsii/jsii-utils';
+import { hasAllFlags, hasAnyFlag, resolveEnumLiteral, resolvedSymbolAtLocation } from '../jsii/jsii-utils';
 
 /**
  * Return the first non-undefined type from a union
@@ -149,7 +149,8 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
 }
 
 export function typeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
-  return typeChecker.getContextualType(node) ?? typeChecker.getTypeAtLocation(node);
+  const t = typeChecker.getContextualType(node) ?? typeChecker.getTypeAtLocation(node);
+  return resolveEnumLiteral(typeChecker, t);
 }
 
 function isDefined<A>(x: A): x is NonNullable<A> {
@@ -174,12 +175,12 @@ export function isNumber(x: any): x is number {
 }
 
 export function isEnumAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
-  const symbol = typeChecker.getSymbolAtLocation(access.expression);
+  const symbol = resolvedSymbolAtLocation(typeChecker, access.expression);
   return symbol ? hasAnyFlag(symbol.flags, ts.SymbolFlags.Enum) : false;
 }
 
 export function isStaticReadonlyAccess(typeChecker: ts.TypeChecker, access: ts.PropertyAccessExpression) {
-  const symbol = typeChecker.getSymbolAtLocation(access);
+  const symbol = resolvedSymbolAtLocation(typeChecker, access);
   const decl = symbol?.getDeclarations();
   if (decl && decl[0] && ts.isPropertyDeclaration(decl[0])) {
     const flags = ts.getCombinedModifierFlags(decl[0]);

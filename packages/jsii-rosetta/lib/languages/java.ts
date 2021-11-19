@@ -1,23 +1,27 @@
 import * as ts from 'typescript';
 
-import { determineJsiiType, JsiiType, analyzeObjectLiteral } from '../jsii/jsii-types';
-import { jsiiTargetParam } from '../jsii/packages';
+import { determineJsiiType, JsiiType, analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
+import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';
+import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
+import { fmap, setExtend } from '../util';
 import { DefaultVisitor } from './default';
 
 interface JavaContext {
   /**
    * Whether to ignore the left-hand part of a property access expression.
-   * Used to strip out TypeScript namespace prefixes from 'extends' and 'new' clauses.
+   *
+   * Used to strip out TypeScript namespace prefixes from 'extends' and 'new' clauses,
+   * EVEN if the source doesn't compile.
    *
    * @default false
    */
-  readonly ignorePropertyPrefix?: boolean;
+  readonly discardPropertyAccess?: boolean;
 
   /**
    * Whether a property access ('sth.b') should be substituted by a getter ('sth.getB()').
@@ -101,6 +105,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
    */
   public static readonly VERSION = '1';
 
+  /**
+   * Aliases for modules
+   *
+   * If these are encountered in the LHS of a property access, they will be dropped.
+   */
+  private readonly dropPropertyAccesses = new Set<string>();
+
   public readonly language = TargetLanguage.JAVA;
   public readonly defaultContext = {};
 
@@ -109,15 +120,27 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public importStatement(importStatement: ImportStatement): OTree {
-    const namespace = this.lookupModuleNamespace(importStatement.packageName);
+    const guessedNamespace = guessJavaNamespaceName(importStatement.packageName);
+
     if (importStatement.imports.import === 'full') {
+      this.dropPropertyAccesses.add(importStatement.imports.alias);
+      const namespace = fmap(importStatement.moduleSymbol, findJavaName) ?? guessedNamespace;
+
       return new OTree([`import ${namespace}.*;`], [], { canBreakLine: true });
     }
-    return new OTree(
-      [],
-      importStatement.imports.elements.map((importEl) => `import ${namespace}.${importEl.sourceName};`),
-      { canBreakLine: true, separator: '\n' },
-    );
+
+    const imports = importStatement.imports.elements.map((e) => {
+      const fqn = fmap(e.importedSymbol, findJavaName) ?? `${guessedNamespace}.${e.sourceName}`;
+
+      return e.importedSymbol?.symbolType === 'module' ? `import ${fqn}.*;` : `import ${fqn};`;
+    });
+
+    const localNames = importStatement.imports.elements
+      .filter((el) => el.importedSymbol?.symbolType === 'module')
+      .map((el) => el.alias ?? el.sourceName);
+    setExtend(this.dropPropertyAccesses, localNames);
+
+    return new OTree([], imports, { canBreakLine: true, separator: '\n' });
   }
 
   public classDeclaration(node: ts.ClassDeclaration, renderer: JavaRenderer): OTree {
@@ -141,7 +164,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'public ',
         'interface ',
         renderer.convert(node.name),
-        ...this.typeHeritage(node, renderer.updateContext({ ignorePropertyPrefix: true })),
+        ...this.typeHeritage(node, renderer.updateContext({ discardPropertyAccess: true })),
         ' {',
       ],
       renderer
@@ -445,7 +468,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
     const className = renderer
       .updateContext({
-        ignorePropertyPrefix: true,
+        discardPropertyAccess: true,
         convertPropertyToGetter: false,
       })
       .convert(node.expression);
@@ -487,8 +510,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    structType: ts.Type,
-    definedInExample: boolean,
+    structType: ObjectLiteralStruct,
     renderer: JavaRenderer,
   ): OTree {
     // Special case: we're rendering an object literal, but the containing constructor
@@ -500,10 +522,10 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
     // Jsii-generated classes have builders, classes we generated in the course of
     // this example do not.
-    const hasBuilder = !definedInExample;
+    const hasBuilder = structType.kind !== 'local-struct';
 
     return new OTree(
-      hasBuilder ? [structType.symbol.name, '.builder()'] : ['new ', structType.symbol.name, '()'],
+      hasBuilder ? [structType.type.symbol.name, '.builder()'] : ['new ', structType.type.symbol.name, '()'],
       [
         ...renderer.convertAll(node.properties),
         new OTree([renderer.mirrorNewlineBefore(node.properties[0])], [hasBuilder ? '.build()' : '']),
@@ -530,34 +552,30 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const rightHandSide = renderer.convert(node.name);
     let parts: Array<OTree | string | undefined>;
 
-    if (renderer.currentContext.ignorePropertyPrefix) {
-      // ignore al prefixes when resolving properties
-      // only used for type names, in things like
-      // 'MyClass extends cdk.Construct'
-      // and 'new' expressions
+    const leftHandSide = renderer.textOf(node.expression);
+
+    // Suppress the LHS of the dot operator if it matches an alias for a module import.
+    if (this.dropPropertyAccesses.has(leftHandSide) || renderer.currentContext.discardPropertyAccess) {
       parts = [rightHandSide];
+    } else if (leftHandSide === 'this') {
+      // for 'this', assume this is a field, and access it directly
+      parts = ['this', '.', rightHandSide];
     } else {
-      const leftHandSide = renderer.textOf(node.expression);
-      if (leftHandSide === 'this') {
-        // for 'this', assume this is a field, and access it directly
-        parts = ['this', '.', rightHandSide];
-      } else {
-        let convertToGetter = renderer.currentContext.convertPropertyToGetter !== false;
+      let convertToGetter = renderer.currentContext.convertPropertyToGetter !== false;
 
-        // See if we're not accessing an enum member or public static readonly property (const).
-        if (isEnumAccess(renderer.typeChecker, node)) {
-          convertToGetter = false;
-        }
-        if (isStaticReadonlyAccess(renderer.typeChecker, node)) {
-          convertToGetter = false;
-        }
-
-        // add a 'get' prefix to the property name, and change the access to a method call, if required
-        const renderedRightHandSide = convertToGetter ? `get${capitalize(node.name.text)}()` : rightHandSide;
-
-        // strip any trailing ! from the left-hand side, as they're not meaningful in Java
-        parts = [stripTrailingBang(leftHandSide), '.', renderedRightHandSide];
+      // See if we're not accessing an enum member or public static readonly property (const).
+      if (isEnumAccess(renderer.typeChecker, node)) {
+        convertToGetter = false;
       }
+      if (isStaticReadonlyAccess(renderer.typeChecker, node)) {
+        convertToGetter = false;
+      }
+
+      // add a 'get' prefix to the property name, and change the access to a method call, if required
+      const renderedRightHandSide = convertToGetter ? `get${capitalize(node.name.text)}()` : rightHandSide;
+
+      // strip any trailing ! from the left-hand side, as they're not meaningful in Java
+      parts = [renderer.convert(node.expression), '.', renderedRightHandSide];
     }
 
     return new OTree(parts);
@@ -634,27 +652,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
-  private lookupModuleNamespace(packageName: string): string {
-    // get the Java package name from the referenced package (if available)
-    const resolvedNamespace = jsiiTargetParam(packageName, 'java.package');
-
-    // return that or some default-derived module name representation
-    return (
-      resolvedNamespace ||
-      packageName
-        .split(/[^a-zA-Z0-9]+/g)
-        .filter((s) => s !== '')
-        .join('.')
-    );
-  }
-
   private renderClassDeclaration(node: ts.ClassDeclaration | ts.InterfaceDeclaration, renderer: JavaRenderer) {
     return new OTree(
       [
         'public ',
         'class ',
         renderer.convert(node.name),
-        ...this.typeHeritage(node, renderer.updateContext({ ignorePropertyPrefix: true })),
+        ...this.typeHeritage(node, renderer.updateContext({ discardPropertyAccess: true })),
         ' {',
       ],
       renderer.updateContext({ insideTypeDeclaration: { typeName: node.name } }).convertAll(node.members),
@@ -825,14 +829,44 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 }
 
-function stripTrailingBang(str: string): string {
-  return str.replace(/!+$/, '');
-}
-
 function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function lastElement(strings: string[]): string {
   return strings[strings.length - 1];
+}
+
+/**
+ * Find the Java name of a module or type
+ */
+function findJavaName(jsiiSymbol: JsiiSymbol): string | undefined {
+  if (!jsiiSymbol.sourceAssembly?.assembly) {
+    // Don't have accurate info, just guess
+    return jsiiSymbol.symbolType !== 'module' ? simpleName(jsiiSymbol.fqn) : guessJavaNamespaceName(jsiiSymbol.fqn);
+  }
+
+  const asm = jsiiSymbol.sourceAssembly?.assembly;
+  return recurse(jsiiSymbol.fqn);
+
+  function recurse(fqn: string): string {
+    if (fqn === asm.name) {
+      return jsiiTargetParameter(asm, 'java.package') ?? guessJavaNamespaceName(fqn);
+    }
+    if (asm.submodules?.[fqn]) {
+      const modName = jsiiTargetParameter(asm.submodules[fqn], 'java.package');
+      if (modName) {
+        return modName;
+      }
+    }
+
+    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+  }
+}
+
+function guessJavaNamespaceName(packageName: string) {
+  return packageName
+    .split(/[^a-zA-Z0-9]+/g)
+    .filter((s) => s !== '')
+    .join('.');
 }

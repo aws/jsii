@@ -5,7 +5,7 @@ import { LanguageTablet } from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../../lib/commands/infuse';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
-import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
+import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 const DUMMY_README = `
   Here is an example of how to use ClassA:
@@ -41,7 +41,7 @@ beforeEach(async () => {
     },
     {
       name: 'my_assembly',
-      jsii: DUMMY_ASSEMBLY_TARGETS,
+      jsii: DUMMY_JSII_CONFIG,
     },
   );
 

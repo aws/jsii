@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.45.0](https://github.com/aws/jsii/compare/v1.44.1...v1.45.0) (2021-11-18)
+
+
+### Bug Fixes
+
+* C# NamespaceDoc emitted to wrong location ([#3183](https://github.com/aws/jsii/issues/3183)) ([0f5f349](https://github.com/aws/jsii/commit/0f5f349d2f6d7d916c59e4f13e0c5195cc0f80c9))
+* **jsii:** require statement for the warning file is generated when it's not used ([#3184](https://github.com/aws/jsii/issues/3184)) ([3d90ae6](https://github.com/aws/jsii/commit/3d90ae699fdcf6730d9b5559c55e78ec5f9c1260))
+* **pacmak:** dotnet code docs loses indentation ([#3180](https://github.com/aws/jsii/issues/3180)) ([ace0b83](https://github.com/aws/jsii/commit/ace0b83a0c951052349b102c3af34e92cae76767))
+* **pacmak:** Generate Relative Module Imports in Python ([#3181](https://github.com/aws/jsii/issues/3181)) ([b0afe51](https://github.com/aws/jsii/commit/b0afe51a8cb36a9ebdd39bd19a842285c58ee2c1))
+* **rosetta:** diagnostics not showing ([#3182](https://github.com/aws/jsii/issues/3182)) ([92a7d5e](https://github.com/aws/jsii/commit/92a7d5e3b10dc7c881ef70c12730f1f0cdcf9b63))
+* **rosetta:** Rosetta is not submodule-aware ([#3176](https://github.com/aws/jsii/issues/3176)) ([5c7d148](https://github.com/aws/jsii/commit/5c7d148104f6cfb54573a73a76efb288dd2f346b))
+* **rosetta:** types from submodules not recognized properly ([#3174](https://github.com/aws/jsii/issues/3174)) ([b009d07](https://github.com/aws/jsii/commit/b009d07c2ae34248d1e7beea3c66121b8deef957))
+
 ## [1.44.2](https://github.com/aws/jsii/compare/v1.44.1...v1.44.2) (2021-11-18)
 
 

@@ -1418,6 +1418,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                 ┣━ 📁 custom_submodule_name
           ┃                 ┃  ┣━ 📄 IReflectable.java
           ┃                 ┃  ┣━ 📄 NestingClass.java
+          ┃                 ┃  ┣━ 📄 package-info.java
           ┃                 ┃  ┣━ 📄 ReflectableEntry.java
           ┃                 ┃  ┗━ 📄 Reflector.java
           ┃                 ┗━ 📁 lib
@@ -2246,6 +2247,16 @@ public class Reflector extends software.amazon.jsii.JsiiObject {
         return java.util.Collections.unmodifiableMap(software.amazon.jsii.Kernel.call(this, "asMap", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class)), new Object[] { java.util.Objects.requireNonNull(reflectable, "reflectable is required") }));
     }
 }
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/custom_submodule_name/package-info.java 1`] = `
+/**
+ * <h1>Submodule Readme</h1>
+ * <p>
+ * This is a submodule readme.
+ */
+package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 `;
 
@@ -5615,7 +5626,7 @@ package software.amazon.jsii.tests.calculator;
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * System.out.println(calculator.expression.getValue());
+ * System.out.println(calculator.getExpression().getValue());
  * </pre></blockquote>
  * <p>
  * I will repeat this example again, but in an &#64;example tag.
@@ -5626,7 +5637,7 @@ package software.amazon.jsii.tests.calculator;
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * System.out.println(calculator.expression.getValue());
+ * System.out.println(calculator.getExpression().getValue());
  * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
 import { SnippetParameters } from '../../lib/snippet';
-import { TestJsiiModule, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
+import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 import { fakeAssembly } from './fake-assembly';
 
 test('Extract snippet from README', () => {
@@ -248,7 +248,7 @@ test('rosetta fixture from submodule is preferred if it exists', async () => {
     },
     {
       name: 'my_assembly',
-      jsii: DUMMY_ASSEMBLY_TARGETS,
+      jsii: DUMMY_JSII_CONFIG,
     },
   );
   try {

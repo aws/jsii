@@ -21,12 +21,12 @@ import * as literate from './literate';
 import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { symbolIdentifier } from './symbol-id';
 import { DeprecatedRemover } from './transforms/deprecated-remover';
 import { DeprecationWarningsInjector } from './transforms/deprecation-warnings';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { TsCommentReplacer } from './transforms/ts-comment-replacer';
 import { combinedTransformers } from './transforms/utils';
-import { symbolIdentifier } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
@@ -628,6 +628,7 @@ export class Assembler implements Emitter {
       this._submodules.set(symbol, {
         fqn,
         fqnResolutionPrefix,
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, symbol, packageRoot);
@@ -707,6 +708,7 @@ export class Assembler implements Emitter {
         fqnResolutionPrefix,
         targets,
         readme,
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, sourceModule, packageRoot);
@@ -2812,6 +2814,11 @@ interface SubmoduleSpec {
   readonly locationInModule: spec.SourceLocation;
 
   /**
+   * Symbol identifier of the root of the root file that represents this submodule
+   */
+  readonly symbolId?: string;
+
+  /**
    * Any customized configuration for the currentl submodule.
    */
   readonly targets?: spec.AssemblyTargets;
@@ -3100,19 +3107,44 @@ function noEmptyDict<T>(
 }
 
 function toDependencyClosure(assemblies: readonly spec.Assembly[]): {
-  [name: string]: spec.AssemblyConfiguration;
+  [name: string]: spec.DependencyConfiguration;
 } {
-  const result: { [name: string]: spec.AssemblyTargets } = {};
+  const result: { [name: string]: spec.DependencyConfiguration } = {};
   for (const assembly of assemblies) {
     if (!assembly.targets) {
       continue;
     }
     result[assembly.name] = {
-      submodules: assembly.submodules,
+      submodules: cleanUp(assembly.submodules),
       targets: assembly.targets,
     };
   }
   return result;
+
+  /**
+   * Removes unneeded fields from the entries part of the `dependencyClosure`
+   * property. Fields such as `readme` are not necessary and can bloat up the
+   * assembly object.
+   *
+   * This removes the `readme` and `locationInModule` fields from the submodule
+   * descriptios if present.
+   *
+   * @param submodules the submodules list to clean up.
+   *
+   * @returns the cleaned up submodules list.
+   */
+  function cleanUp(
+    submodules: spec.Assembly['submodules'],
+  ): spec.DependencyConfiguration['submodules'] {
+    if (submodules == null) {
+      return submodules;
+    }
+    const result: spec.DependencyConfiguration['submodules'] = {};
+    for (const [fqn, { targets }] of Object.entries(submodules)) {
+      result[fqn] = { targets };
+    }
+    return result;
+  }
 }
 
 function toSubmoduleDeclarations(
@@ -3125,6 +3157,7 @@ function toSubmoduleDeclarations(
       locationInModule: submodule.locationInModule,
       targets: submodule.targets,
       readme: submodule.readme,
+      symbolId: submodule.symbolId,
     };
   }
 

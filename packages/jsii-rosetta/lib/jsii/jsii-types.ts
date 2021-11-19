@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
 import { inferredTypeOfExpression, BuiltInType, builtInTypeName, mapElementType } from '../typescript/types';
-import { hasAnyFlag, analyzeStructType } from './jsii-utils';
+import { hasAnyFlag, analyzeStructType, JsiiSymbol } from './jsii-utils';
 
 // eslint-disable-next-line prettier/prettier
 export type JsiiType =
@@ -69,11 +69,11 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
   return { kind: 'unknown' };
 }
 
-export type ObjectLiteralAnalysis =
-  | { readonly kind: 'struct'; readonly type: ts.Type }
-  | { readonly kind: 'local-struct'; readonly type: ts.Type }
-  | { readonly kind: 'map' }
-  | { readonly kind: 'unknown' };
+export type ObjectLiteralAnalysis = ObjectLiteralStruct | { readonly kind: 'map' } | { readonly kind: 'unknown' };
+
+export type ObjectLiteralStruct =
+  | { readonly kind: 'struct'; readonly type: ts.Type; readonly jsiiSym: JsiiSymbol }
+  | { readonly kind: 'local-struct'; readonly type: ts.Type };
 
 export function analyzeObjectLiteral(
   typeChecker: ts.TypeChecker,
@@ -100,9 +100,9 @@ export function analyzeObjectLiteral(
   // If the type is a union between a struct and something else, return the first possible struct
   const structCandidates = type.isUnion() ? type.types : [type];
   for (const candidate of structCandidates) {
-    const structType = analyzeStructType(candidate);
+    const structType = analyzeStructType(typeChecker, candidate);
     if (structType) {
-      return { kind: structType, type: candidate };
+      return structType;
     }
   }
 

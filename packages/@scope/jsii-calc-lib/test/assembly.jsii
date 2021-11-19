@@ -95,6 +95,10 @@
         "filename": "lib/index.ts",
         "line": 130
       },
+      "readme": {
+        "markdown": "# Submodule Readme\n\nThis is a submodule readme.\n"
+      },
+      "symbolId": "lib/submodule/index:",
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
@@ -811,7 +815,7 @@
           }
         }
       ],
-      "symbolId": "lib/submodule/index:NestedClass"
+      "symbolId": "lib/submodule/index:NestingClass.NestedClass"
     },
     "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct": {
       "assembly": "@scope/jsii-calc-lib",
@@ -846,7 +850,7 @@
           }
         }
       ],
-      "symbolId": "lib/submodule/index:NestedStruct"
+      "symbolId": "lib/submodule/index:NestingClass.NestedStruct"
     },
     "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
       "assembly": "@scope/jsii-calc-lib",
@@ -948,5 +952,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "BXEo4aMVmNYUV0dd8hK2zOYLM8iFbpxQbUzGyGagFu8="
+  "fingerprint": "BJ528BPiptJdqvxyoh4Ax2l2Knaz2KcuNYBYhVpyTw8="
 }

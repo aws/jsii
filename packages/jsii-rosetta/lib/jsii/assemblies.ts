@@ -13,6 +13,7 @@ import {
   ApiLocation,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
+import { mkDict, sortBy } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -20,6 +21,29 @@ const sortJson = require('sort-json');
 export interface LoadedAssembly {
   assembly: spec.Assembly;
   directory: string;
+}
+
+export function loadAssembliesSync(
+  assemblyLocations: readonly string[],
+  validateAssemblies: boolean,
+): readonly LoadedAssembly[] {
+  return assemblyLocations.map(loadAssemblySync);
+
+  function loadAssemblySync(location: string): LoadedAssembly {
+    const stat = fs.statSync(location);
+    if (stat.isDirectory()) {
+      return loadAssemblySync(path.join(location, '.jsii'));
+    }
+    return {
+      assembly: loadAssemblyFromFileSync(location, validateAssemblies),
+      directory: path.dirname(location),
+    };
+  }
+}
+
+function loadAssemblyFromFileSync(filename: string, validate: boolean): spec.Assembly {
+  const contents = fs.readJSONSync(filename, { encoding: 'utf-8' });
+  return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
 }
 
 /**
@@ -163,4 +187,97 @@ function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   assembly = sortJson(assembly);
   const fingerprint = crypto.createHash('sha256').update(JSON.stringify(assembly)).digest('base64');
   return { ...assembly, fingerprint };
+}
+
+export interface TypeLookupAssembly {
+  readonly packageJson: any;
+  readonly assembly: spec.Assembly;
+  readonly directory: string;
+  readonly symbolIdMap: Record<string, string>;
+}
+
+const MAX_ASM_CACHE = 3;
+const ASM_CACHE: TypeLookupAssembly[] = [];
+
+/**
+ * Recursively searches for a .jsii file in the directory.
+ * When file is found, checks cache to see if we already
+ * stored the assembly in memory. If not, we synchronously
+ * load the assembly into memory.
+ */
+export function findTypeLookupAssembly(startingDirectory: string): TypeLookupAssembly | undefined {
+  const pjLocation = findPackageJsonLocation(path.resolve(startingDirectory));
+  if (!pjLocation) {
+    return undefined;
+  }
+  const directory = path.dirname(pjLocation);
+
+  const fromCache = ASM_CACHE.find((c) => c.directory === directory);
+  if (fromCache) {
+    return fromCache;
+  }
+
+  const loaded = loadLookupAssembly(directory);
+  if (!loaded) {
+    return undefined;
+  }
+
+  while (ASM_CACHE.length >= MAX_ASM_CACHE) {
+    ASM_CACHE.pop();
+  }
+  ASM_CACHE.unshift(loaded);
+  return loaded;
+}
+
+function loadLookupAssembly(directory: string): TypeLookupAssembly | undefined {
+  const assemblyFile = path.join(directory, '.jsii');
+  if (!fs.pathExistsSync(assemblyFile)) {
+    return undefined;
+  }
+
+  const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
+  const assembly: spec.Assembly = fs.readJSONSync(assemblyFile, { encoding: 'utf-8' });
+  const symbolIdMap = mkDict([
+    ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
+    ...Object.entries(assembly.submodules ?? {}).map(([fqn, mod]) => [mod.symbolId ?? '', fqn] as const),
+  ]);
+
+  return {
+    packageJson,
+    assembly,
+    directory,
+    symbolIdMap,
+  };
+}
+
+function findPackageJsonLocation(currentPath: string): string | undefined {
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const candidate = path.join(currentPath, 'package.json');
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+
+    const parentPath = path.resolve(currentPath, '..');
+    if (parentPath === currentPath) {
+      return undefined;
+    }
+    currentPath = parentPath;
+  }
+}
+
+/**
+ * Find the jsii [sub]module that contains the given FQN
+ *
+ * @returns `undefined` if the type is a member of the assembly root.
+ */
+export function findContainingSubmodule(assembly: spec.Assembly, fqn: string): string | undefined {
+  const submoduleNames = Object.keys(assembly.submodules ?? {});
+  sortBy(submoduleNames, (s) => [-s.length]); // Longest first
+  for (const s of submoduleNames) {
+    if (fqn.startsWith(`${s}.`)) {
+      return s;
+    }
+  }
+  return undefined;
 }
