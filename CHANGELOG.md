@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.44.2](https://github.com/aws/jsii/compare/v1.44.1...v1.44.2) (2021-11-18)
+
+
+### Bug Fixes
+
+* **jsii:** require statement for the warning file is generated when it's not used ([#3184](https://github.com/aws/jsii/issues/3184)) ([8f53f89](https://github.com/aws/jsii/commit/8f53f897ebc03e3b3f9e5837fea988e7af592571))
+
 ## [1.44.1](https://github.com/aws/jsii/compare/v1.44.0...v1.44.1) (2021-11-16)
 
 * revert "fix: dependency submodules may not be discovered" ([#3170](https://github.com/aws/jsii/pull/3170)) ([0449dd9](https://github.com/aws/jsii/commit/0449dd92ce3297b065c171efafc28d1f877432cc))
