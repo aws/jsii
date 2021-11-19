@@ -196,7 +196,14 @@ describe('no submodule', () => {
     beforeAll(async () => {
       module = await TestJsiiModule.fromSource(
         {
-          'index.ts': `export enum MyEnum { OPTION_A = 'a', OPTION_B = 'b' }`,
+          'index.ts': `export enum MyEnum { OPTION_A = 'a', OPTION_B = 'b' }
+
+          export interface MyProps { readonly prop: MyEnum }
+
+          export function myFun(props: MyProps) {
+            Array.isArray(props);
+          }
+          `,
         },
         {
           name: 'my_assembly',
@@ -270,6 +277,40 @@ describe('no submodule', () => {
         expectTranslation(trans, TargetLanguage.CSHARP, [
           'using Example.Test.Demo;',
           'MyEnum x = MyEnum.OPTION_A;',
+        ]);
+      });
+    });
+
+    describe('implicit import', () => {
+      let trans: TranslatedSnippet;
+      beforeAll(() => {
+        trans = module.translateHere(
+          `import * as masm from 'my_assembly';
+          masm.myFun({ prop: masm.MyEnum.OPTION_A });
+          `,
+        );
+      });
+
+      test('to Python', () => {
+        expectTranslation(trans, TargetLanguage.PYTHON, [
+          'import example_test_demo as masm',
+          'masm.my_fun(prop=masm.MyEnum.OPTION_A)',
+        ]);
+      });
+
+      test('to Java', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.JAVA, [
+          'import example.test.demo.*;',
+          'myFun(MyProps.builder().prop(MyEnum.OPTION_A).build());',
+        ]);
+      });
+
+      test('to C#', () => {
+        // eslint-disable-next-line prettier/prettier
+        expectTranslation(trans, TargetLanguage.CSHARP, [
+          'using Example.Test.Demo;',
+          'MyFun(new MyProps { Prop = MyEnum.OPTION_A });',
         ]);
       });
     });

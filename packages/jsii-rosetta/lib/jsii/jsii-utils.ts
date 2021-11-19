@@ -223,8 +223,7 @@ export function resolveEnumLiteral(typeChecker: ts.TypeChecker, type: ts.Type) {
     return type;
   }
 
-  const parentDeclaration = type.symbol.declarations?.[0]?.parent;
-  return fmap(parentDeclaration, typeChecker.getTypeAtLocation) ?? type;
+  return typeChecker.getBaseTypeOfLiteralType(type);
 }
 
 export function resolvedSymbolAtLocation(typeChecker: ts.TypeChecker, node: ts.Node) {
