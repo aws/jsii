@@ -17,6 +17,14 @@ import { loadProjectInfo, ProjectInfo } from './project-info';
 import { formatDiagnostic } from './utils';
 
 /**
+ * A set of source files for `sourceToAssemblyHelper`, at least containing 'index.ts'
+ */
+export type MultipleSourceFiles = {
+  'index.ts': string;
+  [name: string]: string;
+};
+
+/**
  * Compile a piece of source and return the JSII assembly for it
  *
  * Only usable for trivial cases and tests.
@@ -25,7 +33,7 @@ import { formatDiagnostic } from './utils';
  *               a map of fileName to content, which *must* include `index.ts`.
  */
 export async function sourceToAssemblyHelper(
-  source: string | { 'index.ts': string; [name: string]: string },
+  source: string | MultipleSourceFiles,
   cb?: (obj: PackageInfo) => void,
 ): Promise<spec.Assembly> {
   return (await compileJsiiForTest(source, cb)).assembly;
