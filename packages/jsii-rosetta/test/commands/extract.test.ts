@@ -96,6 +96,20 @@ describe('with cache file', () => {
       (TARGET_LANGUAGES.java as any).version = oldJavaVersion;
     }
   });
+
+  test('compiler diagnostics property is passed on', async () => {
+    const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
+      validateAssemblies: false,
+      includeCompilerDiagnostics: true,
+      translatorFactory: (o) => {
+        expect(o.includeCompilerDiagnostics).toEqual(true);
+        return new MockTranslator(o, translationFunction);
+      },
+    });
+  });
 });
 
 test('do not ignore example strings', async () => {
