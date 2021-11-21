@@ -6,6 +6,7 @@ import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { Generator, Legalese } from '../../generator';
+import { MethodDefinition, PropertyDefinition } from '../_utils';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
@@ -158,7 +159,9 @@ export class DotNetGenerator extends Generator {
       const dotnetNs = this.typeresolver.resolveNamespace(
         this.assembly,
         this.assembly.name,
-        jsiiNs,
+        // Strip the `${assmName}.` prefix here, as the "assembly-relative" NS
+        // is expected by `this.typeResolver.resovleNamespace`.
+        jsiiNs.substr(this.assembly.name.length + 1),
       );
       this.emitNamespaceDocs(dotnetNs, jsiiNs, submodule);
     }
@@ -419,7 +422,7 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onMethod(cls: spec.ClassType, method: spec.Method) {
-    this.emitMethod(cls, method);
+    this.emitMethod(cls, method, cls);
   }
 
   protected onMethodOverload(
@@ -431,11 +434,11 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onProperty(cls: spec.ClassType, prop: spec.Property) {
-    this.emitProperty(cls, prop);
+    this.emitProperty(cls, prop, cls);
   }
 
   protected onStaticMethod(cls: spec.ClassType, method: spec.Method) {
-    this.emitMethod(cls, method);
+    this.emitMethod(cls, method, cls);
   }
 
   protected onStaticMethodOverload(
@@ -443,14 +446,14 @@ export class DotNetGenerator extends Generator {
     overload: spec.Method,
     _originalMethod: spec.Method,
   ) {
-    this.emitMethod(cls, overload);
+    this.emitMethod(cls, overload, cls);
   }
 
   protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
     if (prop.const) {
       this.emitConstProperty(cls, prop);
     } else {
-      this.emitProperty(cls, prop);
+      this.emitProperty(cls, prop, cls);
     }
   }
 
@@ -459,7 +462,7 @@ export class DotNetGenerator extends Generator {
     prop: spec.Property,
     _union: spec.UnionTypeReference,
   ) {
-    this.emitProperty(cls, prop);
+    this.emitProperty(cls, prop, cls);
   }
 
   protected onBeginEnum(enm: spec.EnumType) {
@@ -516,6 +519,7 @@ export class DotNetGenerator extends Generator {
   private emitMethod(
     cls: spec.ClassType | spec.InterfaceType,
     method: spec.Method,
+    definingType: spec.Type,
     emitForProxyOrDatatype = false,
   ): void {
     this.emitNewLineIfNecessary();
@@ -568,7 +572,7 @@ export class DotNetGenerator extends Generator {
 
     this.dotnetDocGenerator.emitDocs(method, {
       api: 'member',
-      fqn: cls.fqn,
+      fqn: definingType.fqn,
       memberName: method.name,
     });
     this.dotnetRuntimeGenerator.emitAttributesForMethod(
@@ -813,7 +817,7 @@ export class DotNetGenerator extends Generator {
     proxy: boolean,
   ): void {
     // The key is in the form 'method.name;parameter1;parameter2;' etc
-    const methods: Map<string, spec.Method> = new Map<string, spec.Method>();
+    const methods = new Map<string, MethodDefinition>();
     /*
           Only get the first declaration encountered, and keep it if it is abstract. The list contains ALL
           methods and properties encountered, in the order encountered. An abstract class can have concrete
@@ -822,7 +826,7 @@ export class DotNetGenerator extends Generator {
         */
     const excludedMethod: string[] = []; // Keeps track of the methods we already ran into and don't want to emit
     const excludedProperties: string[] = []; // Keeps track of the properties we already ran into and don't want to emit
-    const properties: { [name: string]: spec.Property } = {};
+    const properties: { [name: string]: PropertyDefinition } = {};
     const collectAbstractMembers = (
       currentType: spec.InterfaceType | spec.ClassType,
     ) => {
@@ -830,7 +834,7 @@ export class DotNetGenerator extends Generator {
         if (!excludedProperties.includes(prop.name)) {
           // If we have never run into this property before and it is abstract, we keep it
           if (prop.abstract) {
-            properties[prop.name] = prop;
+            properties[prop.name] = { prop, definingType: currentType };
           }
           excludedProperties.push(prop.name);
         }
@@ -848,7 +852,10 @@ export class DotNetGenerator extends Generator {
         if (!excludedMethod.includes(`${method.name}${methodParameters}`)) {
           // If we have never run into this method before and it is abstract, we keep it
           if (method.abstract) {
-            methods.set(`${method.name}${methodParameters}`, method);
+            methods.set(`${method.name}${methodParameters}`, {
+              method,
+              definingType: currentType,
+            });
           }
           excludedMethod.push(`${method.name}${methodParameters}`);
         }
@@ -879,24 +886,30 @@ export class DotNetGenerator extends Generator {
     // emit all properties
     for (const propName of Object.keys(properties)) {
       const prop = clone(properties[propName]);
-      prop.abstract = false;
-      this.emitProperty(ifc, prop, datatype, proxy);
+      prop.prop.abstract = false;
+      this.emitProperty(ifc, prop.prop, prop.definingType, datatype, proxy);
     }
     // emit all the methods
     for (const methodNameAndParameters of methods.keys()) {
       const originalMethod = methods.get(methodNameAndParameters);
       if (originalMethod) {
         const method = clone(originalMethod);
-        method.abstract = false;
-        this.emitMethod(ifc, method, /* emitForProxyOrDatatype */ true);
+        method.method.abstract = false;
+        this.emitMethod(
+          ifc,
+          method.method,
+          method.definingType,
+          /* emitForProxyOrDatatype */ true,
+        );
 
         for (const overloadedMethod of this.createOverloadsForOptionals(
-          method,
+          method.method,
         )) {
           overloadedMethod.abstract = false;
           this.emitMethod(
             ifc,
             overloadedMethod,
+            method.definingType,
             /* emitForProxyOrDatatype */ true,
           );
         }
@@ -910,6 +923,7 @@ export class DotNetGenerator extends Generator {
   private emitProperty(
     cls: spec.Type,
     prop: spec.Property,
+    definingType: spec.Type,
     datatype = false,
     proxy = false,
   ): void {
@@ -922,7 +936,7 @@ export class DotNetGenerator extends Generator {
 
     this.dotnetDocGenerator.emitDocs(prop, {
       api: 'member',
-      fqn: cls.fqn,
+      fqn: definingType.fqn,
       memberName: prop.name,
     });
     if (prop.optional) {
@@ -1146,7 +1160,7 @@ export class DotNetGenerator extends Generator {
   private emitNamespaceDocs(
     namespace: string,
     jsiiFqn: string,
-    docSource: spec.Targetable,
+    docSource: spec.Targetable & spec.ReadMeContainer,
   ) {
     if (!docSource.readme) {
       return;

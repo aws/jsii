@@ -7,6 +7,7 @@ import * as ts from 'typescript';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { getRelatedNode } from './node-bindings';
+import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 
 export class Validator implements Emitter {
@@ -187,7 +188,8 @@ function _defaultValidations(): ValidationFunction[] {
       if (assembly.name === assm) {
         if (!(typeRef.fqn in (assembly.types ?? {}))) {
           diagnostic(
-            JsiiDiagnostic.JSII_3000_EXPORTED_API_USES_HIDDEN_TYPE.createDetached(
+            JsiiDiagnostic.JSII_3000_EXPORTED_API_USES_HIDDEN_TYPE.create(
+              typeRef.node!, // Pretend there is always a value
               typeRef.fqn,
             ),
           );
@@ -607,39 +609,85 @@ function _allMembers(
   return [..._allMethods(assm), ..._allProperties(assm)];
 }
 
-function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
-  const typeReferences = new Array<spec.NamedTypeReference>();
+interface AnnotatedTypeReference extends spec.NamedTypeReference {
+  readonly node: ts.Node | undefined;
+}
+
+function _allTypeReferences(
+  assm: spec.Assembly,
+): readonly AnnotatedTypeReference[] {
+  const typeReferences = new Array<AnnotatedTypeReference>();
   for (const type of _allTypes(assm)) {
     if (!spec.isClassOrInterfaceType(type)) {
       continue;
     }
-    if (spec.isClassType(type) && type.base) {
-      typeReferences.push({ fqn: type.base });
+    if (spec.isClassType(type)) {
+      const node = bindings.getClassRelatedNode(type);
+      if (type.base) {
+        typeReferences.push({
+          fqn: type.base,
+          node: node?.heritageClauses?.find(
+            (hc) => hc.token === ts.SyntaxKind.ExtendsKeyword,
+          )?.types[0],
+        });
+      }
+      if (type.initializer?.parameters) {
+        for (const param of type.initializer.parameters) {
+          _collectTypeReferences(
+            param.type,
+            bindings.getParameterRelatedNode(param)?.type,
+          );
+        }
+      }
     }
     if (type.interfaces) {
-      type.interfaces.forEach((iface) => typeReferences.push({ fqn: iface }));
+      const node = bindings.getClassOrInterfaceRelatedNode(type);
+      type.interfaces.forEach((iface) =>
+        typeReferences.push({
+          fqn: iface,
+          node: node?.heritageClauses?.find(
+            (hc) =>
+              hc.token ===
+              (spec.isInterfaceType(type)
+                ? ts.SyntaxKind.ImplementsKeyword
+                : ts.SyntaxKind.ExtendsKeyword),
+          ),
+        }),
+      );
     }
   }
   for (const { member: prop } of _allProperties(assm)) {
-    _collectTypeReferences(prop.type);
+    _collectTypeReferences(
+      prop.type,
+      bindings.getPropertyRelatedNode(prop)?.type,
+    );
   }
   for (const { member: meth } of _allMethods(assm)) {
     if (meth.returns) {
-      _collectTypeReferences(meth.returns.type);
+      _collectTypeReferences(
+        meth.returns.type,
+        bindings.getMethodRelatedNode(meth)?.type,
+      );
     }
     for (const param of meth.parameters ?? []) {
-      _collectTypeReferences(param.type);
+      _collectTypeReferences(
+        param.type,
+        bindings.getParameterRelatedNode(param)?.type,
+      );
     }
   }
   return typeReferences;
 
-  function _collectTypeReferences(type: spec.TypeReference): void {
+  function _collectTypeReferences(
+    type: spec.TypeReference,
+    node: ts.Node | undefined,
+  ): void {
     if (spec.isNamedTypeReference(type)) {
-      typeReferences.push(type);
+      typeReferences.push({ ...type, node });
     } else if (spec.isCollectionTypeReference(type)) {
-      _collectTypeReferences(type.collection.elementtype);
+      _collectTypeReferences(type.collection.elementtype, node);
     } else if (spec.isUnionTypeReference(type)) {
-      type.union.types.forEach(_collectTypeReferences);
+      type.union.types.forEach((type) => _collectTypeReferences(type, node));
     }
   }
 }

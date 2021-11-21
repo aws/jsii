@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import '@jsii/check-node/run';
 
+import { UnknownSnippetMode } from 'jsii-rosetta';
 import * as yargs from 'yargs';
 
 import { pacmak, configureLogging, TargetName } from '../lib';
@@ -93,8 +94,19 @@ import { VERSION_DESC } from '../lib/version';
     })
     .option('rosetta-translate-live', {
       type: 'boolean',
-      desc: "Translate code samples on-the-fly if they can't be found in the samples tablet",
+      desc: "Translate code samples on-the-fly if they can't be found in the samples tablet (deprecated)",
       default: true,
+    })
+    .option('rosetta-unknown-snippets', {
+      type: 'string',
+      requiresArg: true,
+      optional: true,
+      choices: [
+        UnknownSnippetMode.VERBATIM,
+        UnknownSnippetMode.TRANSLATE,
+        UnknownSnippetMode.FAIL,
+      ],
+      desc: "What to do with code samples if they can't be found in the samples tablet",
     })
     .option('parallel', {
       type: 'boolean',
@@ -136,6 +148,9 @@ import { VERSION_DESC } from '../lib/version';
     parallel: argv.parallel,
     recurse: argv.recurse,
     rosettaLiveConversion: argv['rosetta-translate-live'],
+    rosettaUnknownSnippets: argv['rosetta-unknown-snippets'] as
+      | UnknownSnippetMode
+      | undefined,
     rosettaTablet: argv['rosetta-tablet'],
     targets: argv.targets?.map((target) => target as TargetName),
     updateNpmIgnoreFiles: argv.npmignore,

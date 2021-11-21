@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { analyzeObjectLiteral } from '../jsii/jsii-types';
+import { analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { isNamedLikeStruct } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
@@ -160,7 +160,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
         return this.unknownTypeObjectLiteralExpression(node, context);
       case 'struct':
       case 'local-struct':
-        return this.knownStructObjectLiteralExpression(node, lit.type, lit.kind === 'local-struct', context);
+        return this.knownStructObjectLiteralExpression(node, lit, context);
       case 'map':
         return this.keyValueObjectLiteralExpression(node, context);
     }
@@ -172,8 +172,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    _structType: ts.Type,
-    _definedInExample: boolean,
+    _structType: ObjectLiteralStruct,
     context: AstRenderer<C>,
   ): OTree {
     return this.notImplemented(node, context);

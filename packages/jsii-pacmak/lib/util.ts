@@ -302,3 +302,7 @@ export async function filterAsync<A>(
 export async function wait(ms: number): Promise<void> {
   return new Promise((ok) => setTimeout(ok, ms));
 }
+
+export function flatten<A>(xs: readonly A[][]): A[] {
+  return Array.prototype.concat.call([], ...xs);
+}

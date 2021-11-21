@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
 import { inferredTypeOfExpression, BuiltInType, builtInTypeName, mapElementType } from '../typescript/types';
-import { hasAnyFlag, analyzeStructType } from './jsii-utils';
+import { hasAnyFlag, analyzeStructType, JsiiSymbol } from './jsii-utils';
 
 // eslint-disable-next-line prettier/prettier
 export type JsiiType =
@@ -61,16 +61,19 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
   }
 
   if (type.isUnion() || type.isIntersection()) {
-    return { kind: 'error', message: 'Type unions or intersections are not supported in examples' };
+    return {
+      kind: 'error',
+      message: `Type unions or intersections are not supported in examples, got: ${typeChecker.typeToString(type)}`,
+    };
   }
   return { kind: 'unknown' };
 }
 
-export type ObjectLiteralAnalysis =
-  | { readonly kind: 'struct'; readonly type: ts.Type }
-  | { readonly kind: 'local-struct'; readonly type: ts.Type }
-  | { readonly kind: 'map' }
-  | { readonly kind: 'unknown' };
+export type ObjectLiteralAnalysis = ObjectLiteralStruct | { readonly kind: 'map' } | { readonly kind: 'unknown' };
+
+export type ObjectLiteralStruct =
+  | { readonly kind: 'struct'; readonly type: ts.Type; readonly jsiiSym: JsiiSymbol }
+  | { readonly kind: 'local-struct'; readonly type: ts.Type };
 
 export function analyzeObjectLiteral(
   typeChecker: ts.TypeChecker,
@@ -94,10 +97,15 @@ export function analyzeObjectLiteral(
     return isDeclaredCall ? { kind: 'map' } : { kind: 'unknown' };
   }
 
-  const structType = analyzeStructType(type);
-  if (structType) {
-    return { kind: structType, type };
+  // If the type is a union between a struct and something else, return the first possible struct
+  const structCandidates = type.isUnion() ? type.types : [type];
+  for (const candidate of structCandidates) {
+    const structType = analyzeStructType(typeChecker, candidate);
+    if (structType) {
+      return structType;
+    }
   }
+
   return { kind: 'map' };
 }
 

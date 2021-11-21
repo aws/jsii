@@ -5,7 +5,7 @@ import { LanguageTablet } from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../../lib/commands/infuse';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
-import { AssemblyFixture, DUMMY_ASSEMBLY_TARGETS } from '../testutil';
+import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 const DUMMY_README = `
   Here is an example of how to use ClassA:
@@ -19,10 +19,10 @@ const DUMMY_README = `
 
 const TABLET_FILE = 'text.tabl.json';
 
-let assembly: AssemblyFixture;
+let assembly: TestJsiiModule;
 beforeEach(async () => {
   // Create an assembly in a temp directory
-  assembly = await AssemblyFixture.fromSource(
+  assembly = await TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -41,13 +41,13 @@ beforeEach(async () => {
     },
     {
       name: 'my_assembly',
-      jsii: DUMMY_ASSEMBLY_TARGETS,
+      jsii: DUMMY_JSII_CONFIG,
     },
   );
 
   // Create a tabletFile in the same directory
-  await extractSnippets([assembly.directory], {
-    outputFile: path.join(assembly.directory, TABLET_FILE),
+  await extractSnippets([assembly.moduleDirectory], {
+    outputFile: path.join(assembly.moduleDirectory, TABLET_FILE),
     includeCompilerDiagnostics: false,
     validateAssemblies: false,
   });
@@ -56,19 +56,19 @@ beforeEach(async () => {
 afterEach(async () => assembly.cleanup());
 
 test('examples are added in the assembly', async () => {
-  await infuse([assembly.directory], path.join(assembly.directory, TABLET_FILE));
+  await infuse([assembly.moduleDirectory], path.join(assembly.moduleDirectory, TABLET_FILE));
 
-  const assemblies = await loadAssemblies([assembly.directory], false);
+  const assemblies = await loadAssemblies([assembly.moduleDirectory], false);
   const types = assemblies[0].assembly.types;
   expect(types).toBeDefined();
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
 
 test('examples are added to the tablet under new keys', async () => {
-  const originalTabletFile = path.join(assembly.directory, TABLET_FILE);
-  const updatedTabletFile = path.join(assembly.directory, 'tablet2.tabl.json');
+  const originalTabletFile = path.join(assembly.moduleDirectory, TABLET_FILE);
+  const updatedTabletFile = path.join(assembly.moduleDirectory, 'tablet2.tabl.json');
 
-  await infuse([assembly.directory], originalTabletFile, {
+  await infuse([assembly.moduleDirectory], originalTabletFile, {
     tabletOutputFile: updatedTabletFile,
   });
 
@@ -79,13 +79,13 @@ test('examples are added to the tablet under new keys', async () => {
 });
 
 test('can log to output file', async () => {
-  await infuse([assembly.directory], path.join(assembly.directory, TABLET_FILE), {
+  await infuse([assembly.moduleDirectory], path.join(assembly.moduleDirectory, TABLET_FILE), {
     log: true,
-    outputFile: path.join(assembly.directory, DEFAULT_INFUSION_RESULTS_NAME),
+    outputFile: path.join(assembly.moduleDirectory, DEFAULT_INFUSION_RESULTS_NAME),
   });
 
   // assert that the output file exists and there is some information in the file.
-  const stats = await fs.stat(path.join(assembly.directory, DEFAULT_INFUSION_RESULTS_NAME));
+  const stats = await fs.stat(path.join(assembly.moduleDirectory, DEFAULT_INFUSION_RESULTS_NAME));
 
   expect(stats.isFile()).toBeTruthy();
   expect(stats.size).toBeGreaterThan(0);

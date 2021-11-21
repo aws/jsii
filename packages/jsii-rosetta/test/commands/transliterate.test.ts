@@ -1,11 +1,11 @@
 import { SPEC_FILE_NAME } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
-import * as os from 'os';
 import * as path from 'path';
 
 import { transliterateAssembly } from '../../lib/commands/transliterate';
 import { TargetLanguage } from '../../lib/languages/target-language';
+import { withTemporaryDirectory } from '../testutil';
 
 jest.setTimeout(60_000);
 
@@ -425,10 +425,10 @@ export class ClassName implements IInterface {
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps().foo(\\"bar\\"));
-      object.getProperty() = EnumType.getOPTION_A();
+      object.getProperty() = EnumType.OPTION_A;
       object.methodCall();
 
-      ClassName.staticMethod(EnumType.getOPTION_B());
+      ClassName.staticMethod(EnumType.OPTION_B);
       \`\`\`",
         },
         "repository": Object {
@@ -450,7 +450,7 @@ export class ClassName implements IInterface {
                 "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -589,7 +589,7 @@ export class ClassName implements IInterface {
               "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -603,7 +603,7 @@ export class ClassName implements IInterface {
                   "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_A()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_A));",
                 },
                 "name": "OPTION_A",
               },
@@ -612,7 +612,7 @@ export class ClassName implements IInterface {
                   "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 },
                 "name": "OPTION_B",
               },
@@ -653,7 +653,7 @@ export class ClassName implements IInterface {
                   "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      iface.getProperty() = EnumType.getOPTION_B();",
+      iface.getProperty() = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
@@ -1339,8 +1339,3 @@ new SampleClass('omitted-literate');
     `,
     );
   }));
-
-async function withTemporaryDirectory<T>(callback: (dir: string) => Promise<T>): Promise<T> {
-  const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
-  return callback(tmpdir).finally(() => fs.removeSync(tmpdir));
-}

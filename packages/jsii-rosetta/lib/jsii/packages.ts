@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -40,11 +41,9 @@ export function findPackageJson(fileName: string) {
   }
 }
 
-export function jsiiTargetParam(packageName: string, field: string) {
-  const pkgJson = resolvePackage(packageName);
-
-  const path = ['jsii', 'targets', ...field.split('.')];
-  let r = pkgJson;
+export function jsiiTargetParameter(target: spec.Targetable, field: string) {
+  const path = field.split('.');
+  let r: any = target.targets;
   while (path.length > 0 && typeof r === 'object' && r !== null) {
     r = r[path.splice(0, 1)[0]];
   }

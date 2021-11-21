@@ -3,6 +3,11 @@ import * as ts from 'typescript';
 export class TypeScriptCompiler {
   private readonly realHost = ts.createCompilerHost(STANDARD_COMPILER_OPTIONS, true);
 
+  /**
+   * A compiler-scoped cache to avoid having to re-parse the same library files for every compilation
+   */
+  private readonly fileCache = new Map<string, ts.SourceFile | undefined>();
+
   public createInMemoryCompilerHost(
     sourcePath: string,
     sourceContents: string,
@@ -13,12 +18,23 @@ export class TypeScriptCompiler {
 
     return {
       ...realHost,
-      fileExists: (filePath) => filePath === sourcePath || realHost.fileExists(filePath),
+      fileExists: (filePath) =>
+        filePath === sourcePath || this.fileCache.has(filePath) || realHost.fileExists(filePath),
       getCurrentDirectory: currentDirectory != null ? () => currentDirectory : realHost.getCurrentDirectory,
-      getSourceFile: (fileName, languageVersion, onError, shouldCreateNewSourceFile) =>
-        fileName === sourcePath
-          ? sourceFile
-          : realHost.getSourceFile(fileName, languageVersion, onError, shouldCreateNewSourceFile),
+      getSourceFile: (fileName, languageVersion, onError, shouldCreateNewSourceFile) => {
+        if (fileName === sourcePath) {
+          return sourceFile;
+        }
+
+        const existing = this.fileCache.get(fileName);
+        if (existing) {
+          return existing;
+        }
+
+        const parsed = realHost.getSourceFile(fileName, languageVersion, onError, shouldCreateNewSourceFile);
+        this.fileCache.set(fileName, parsed);
+        return parsed;
+      },
       readFile: (filePath) => (filePath === sourcePath ? sourceContents : realHost.readFile(filePath)),
       writeFile: () => void undefined,
     };
