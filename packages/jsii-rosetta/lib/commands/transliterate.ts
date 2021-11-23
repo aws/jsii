@@ -6,7 +6,7 @@ import { fixturize } from '../fixtures';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
-import { SnippetParameters, typeScriptSnippetFromSource, ApiLocation } from '../snippet';
+import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseKeyValueList } from '../snippet';
 import { Translation } from '../tablets/tablets';
 
 export interface TransliterateAssemblyOptions {
@@ -215,9 +215,13 @@ function transliterateType(
 
     if (docs?.example) {
       const location = { api, field: { field: 'example' } } as const;
+      const metadata = docs.custom?.exampleMetadata
+        ? parseKeyValueList(parseMetadata(docs.custom?.exampleMetadata))
+        : {};
       const snippet = fixturize(
-        typeScriptSnippetFromSource(docs.example, location, true /* strict */, {
+        typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */, {
           [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory,
+          ...metadata,
         }),
         loose,
       );
@@ -227,4 +231,12 @@ function transliterateType(
       }
     }
   }
+}
+
+export function parseMetadata(metadata: string) {
+  return metadata
+    .trim()
+    .split(' ')
+    .map((s) => s.trim())
+    .filter((s) => s !== '');
 }

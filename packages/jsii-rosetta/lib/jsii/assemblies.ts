@@ -3,6 +3,7 @@ import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
+import { parseMetadata } from '../commands/transliterate';
 import { fixturize } from '../fixtures';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import {
@@ -11,6 +12,7 @@ import {
   updateParameters,
   SnippetParameters,
   ApiLocation,
+  parseKeyValueList,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
 import { mkDict, sortBy } from '../util';
@@ -74,7 +76,7 @@ async function loadAssemblyFromFile(filename: string, validate: boolean): Promis
 
 export type AssemblySnippetSource =
   | { type: 'markdown'; markdown: string; location: ApiLocation }
-  | { type: 'example'; source: string; location: ApiLocation };
+  | { type: 'example'; source: string; metadata: { [key: string]: any } | undefined; location: ApiLocation };
 
 /**
  * Return all markdown and example snippets from the given assembly
@@ -132,6 +134,9 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
       ret.push({
         type: 'example',
         source: docs.example,
+        metadata: docs.custom?.exampleMetadata
+          ? parseKeyValueList(parseMetadata(docs.custom.exampleMetadata))
+          : undefined,
         location,
       });
     }
@@ -147,9 +152,9 @@ export function allTypeScriptSnippets(assemblies: readonly LoadedAssembly[], loo
       switch (source.type) {
         case 'example':
           const location = { api: source.location, field: { field: 'example' } } as const;
-
           const snippet = updateParameters(typeScriptSnippetFromSource(source.source, location, strict), {
             [SnippetParameters.$PROJECT_DIRECTORY]: directory,
+            ...source.metadata,
           });
           ret.push(fixturize(snippet, loose));
           break;
