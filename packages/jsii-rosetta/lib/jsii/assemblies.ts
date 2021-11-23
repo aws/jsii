@@ -3,7 +3,6 @@ import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-import { parseMetadata } from '../commands/transliterate';
 import { fixturize } from '../fixtures';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import {
@@ -12,7 +11,7 @@ import {
   updateParameters,
   SnippetParameters,
   ApiLocation,
-  parseKeyValueList,
+  parseMetadataLine,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
 import { mkDict, sortBy } from '../util';
@@ -134,9 +133,7 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
       ret.push({
         type: 'example',
         source: docs.example,
-        metadata: docs.custom?.exampleMetadata
-          ? parseKeyValueList(parseMetadata(docs.custom.exampleMetadata))
-          : undefined,
+        metadata: docs.custom?.exampleMetadata ? parseMetadataLine(docs.custom.exampleMetadata) : undefined,
         location,
       });
     }

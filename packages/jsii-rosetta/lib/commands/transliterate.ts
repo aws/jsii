@@ -6,7 +6,7 @@ import { fixturize } from '../fixtures';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
-import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseKeyValueList } from '../snippet';
+import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
 import { Translation } from '../tablets/tablets';
 
 export interface TransliterateAssemblyOptions {
@@ -215,9 +215,7 @@ function transliterateType(
 
     if (docs?.example) {
       const location = { api, field: { field: 'example' } } as const;
-      const metadata = docs.custom?.exampleMetadata
-        ? parseKeyValueList(parseMetadata(docs.custom?.exampleMetadata))
-        : {};
+      const metadata = docs.custom?.exampleMetadata ? parseMetadataLine(docs.custom?.exampleMetadata) : {};
       const snippet = fixturize(
         typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */, {
           [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory,
