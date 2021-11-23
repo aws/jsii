@@ -3,7 +3,7 @@ import { Stability } from '@jsii/spec';
 import * as path from 'path';
 
 import { TypeSystem } from '../lib';
-import { typeSystemFromSource } from './util';
+import { typeSystemFromSource, assemblyFromSource } from './util';
 
 let typesys: TypeSystem;
 
@@ -409,6 +409,15 @@ test('TypeSystem.methods', async () => {
   }
   `);
   expect(ts.methods).toHaveLength(2);
+});
+
+test('Assembly allTypes includes submodule types', async () => {
+  const asm = await assemblyFromSource({
+    'index.ts': 'export * as submod from "./submod";',
+    'submod.ts': `export class Foo {}`,
+  });
+
+  expect(asm.allTypes.map((t) => t.fqn)).toEqual(['testpkg.submod.Foo']);
 });
 
 function resolveModuleDir(name: string) {
