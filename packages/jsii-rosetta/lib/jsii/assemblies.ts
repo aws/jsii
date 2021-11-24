@@ -14,7 +14,7 @@ import {
   parseMetadataLine,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
-import { mkDict, sortBy } from '../util';
+import { fmap, mkDict, sortBy } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
