@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.46.0](https://github.com/aws/jsii/compare/v1.45.0...v1.46.0) (2021-11-21)
+
+
+### Bug Fixes
+
+* **rosetta:** `extract` ignores `--compile` option ([#3193](https://github.com/aws/jsii/issues/3193)) ([639c510](https://github.com/aws/jsii/commit/639c510ba6d07b26bf35d0c8d3c9cdcced6d916a))
+* **rosetta:** enum resolution breaks for properties ([#3190](https://github.com/aws/jsii/issues/3190)) ([3b49066](https://github.com/aws/jsii/commit/3b49066e4dd960385709dbdce1d9c1fbfb2f20cf))
+
 ## [1.45.0](https://github.com/aws/jsii/compare/v1.44.1...v1.45.0) (2021-11-18)
 
 
