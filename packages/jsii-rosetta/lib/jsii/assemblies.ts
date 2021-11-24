@@ -133,7 +133,7 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
       ret.push({
         type: 'example',
         source: docs.example,
-        metadata: docs.custom?.exampleMetadata ? parseMetadataLine(docs.custom.exampleMetadata) : undefined,
+        metadata: fmap(docs.custom?.exampleMetadata, parseMetadataLine),
         location,
       });
     }
