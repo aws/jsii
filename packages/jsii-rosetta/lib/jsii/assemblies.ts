@@ -75,7 +75,7 @@ async function loadAssemblyFromFile(filename: string, validate: boolean): Promis
 
 export type AssemblySnippetSource =
   | { type: 'markdown'; markdown: string; location: ApiLocation }
-  | { type: 'example'; source: string; metadata: { [key: string]: any } | undefined; location: ApiLocation };
+  | { type: 'example'; source: string; metadata: { [key: string]: string } | undefined; location: ApiLocation };
 
 /**
  * Return all markdown and example snippets from the given assembly
