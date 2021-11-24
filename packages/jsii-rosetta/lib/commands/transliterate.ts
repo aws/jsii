@@ -230,11 +230,3 @@ function transliterateType(
     }
   }
 }
-
-export function parseMetadata(metadata: string) {
-  return metadata
-    .trim()
-    .split(' ')
-    .map((s) => s.trim())
-    .filter((s) => s !== '');
-}
