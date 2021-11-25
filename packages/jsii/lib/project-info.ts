@@ -55,6 +55,9 @@ export interface ProjectInfo {
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
   readonly bin?: { readonly [name: string]: string };
+  readonly exports?: {
+    readonly [name: string]: string | { readonly [name: string]: string };
+  };
 }
 
 export interface ProjectInfoResult {
@@ -213,6 +216,7 @@ export async function loadProjectInfo(
       rootDir: pkg.jsii?.tsc?.rootDir,
     },
     bin: pkg.bin,
+    exports: pkg.exports,
     diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
   return { projectInfo, diagnostics };

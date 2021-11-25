@@ -9,6 +9,7 @@ import { Assembler } from './assembler';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
+import { WARNINGSCODE_FILE_NAME } from './transforms/deprecation-warnings';
 import * as utils from './utils';
 
 const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
@@ -290,6 +291,26 @@ export class Compiler implements Emitter {
       LOG.error(
         'Compilation errors prevented the JSII assembly from being created',
       );
+    }
+
+    // Some extra validation on the config.
+    // Make sure that { "./.warnings.jsii.js": "./.warnings.jsii.js" } is in the set of
+    // exports, if they are specified.
+    if (
+      this.options.addDeprecationWarnings &&
+      this.options.projectInfo.exports !== undefined
+    ) {
+      const expected = `./${WARNINGSCODE_FILE_NAME}`;
+      const warningsExport = Object.entries(
+        this.options.projectInfo.exports,
+      ).filter(([k, v]) => k === expected && v === expected);
+
+      if (warningsExport.length === 0) {
+        hasErrors = true;
+        diagnostics.push(
+          JsiiDiagnostic.JSII_0007_MISSING_WARNINGS_EXPORT.createDetached(),
+        );
+      }
     }
 
     return {

@@ -8,7 +8,7 @@ import * as ts from 'typescript/lib/tsserverlibrary';
 import { ProjectInfo } from '../project-info';
 import { symbolIdentifier } from '../symbol-id';
 
-const FILE_NAME = '.warnings.jsii.js';
+export const WARNINGSCODE_FILE_NAME = '.warnings.jsii.js';
 const WARNING_FUNCTION_NAME = 'print';
 const PARAMETER_NAME = 'p';
 const NAMESPACE = 'jsiiDeprecationWarnings';
@@ -316,7 +316,7 @@ module.exports.DeprecationError = DeprecationError;
 
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
   const resultFile = ts.createSourceFile(
-    path.join(projectRoot, FILE_NAME),
+    path.join(projectRoot, WARNINGSCODE_FILE_NAME),
     functionText,
     ts.ScriptTarget.Latest,
     false,
@@ -329,7 +329,7 @@ module.exports.DeprecationError = DeprecationError;
 
   const content = declarations.concat(printer.printFile(resultFile)).join('\n');
 
-  fs.writeFileSync(path.join(projectRoot, FILE_NAME), content);
+  fs.writeFileSync(path.join(projectRoot, WARNINGSCODE_FILE_NAME), content);
 }
 
 class Transformer {
@@ -354,8 +354,8 @@ class Transformer {
         this.projectRoot,
       );
       const importPath = importDir.startsWith('..')
-        ? unixPath(path.join(importDir, FILE_NAME))
-        : `./${FILE_NAME}`;
+        ? unixPath(path.join(importDir, WARNINGSCODE_FILE_NAME))
+        : `./${WARNINGSCODE_FILE_NAME}`;
 
       return ts.updateSourceFileNode(result, [
         createRequireStatement(NAMESPACE, importPath),
@@ -588,7 +588,7 @@ function importedFunctionName(
   const { type, moduleName } = findType(typeName, assemblies);
   if (type) {
     return moduleName !== assembly.name
-      ? `require("${moduleName}/${FILE_NAME}").${fnName(type.fqn)}`
+      ? `require("${moduleName}/${WARNINGSCODE_FILE_NAME}").${fnName(type.fqn)}`
       : fnName(type.fqn);
   }
   return undefined;
