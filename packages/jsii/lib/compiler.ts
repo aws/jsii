@@ -530,23 +530,31 @@ export class Compiler implements Emitter {
   private async findMonorepoPeerTsconfig(
     depName: string,
   ): Promise<string | undefined> {
-    const depDir = await utils.findDependencyDirectory(
-      depName,
-      this.options.projectInfo.projectRoot,
-    );
+    try {
+      const depDir = await utils.findDependencyDirectory(
+        depName,
+        this.options.projectInfo.projectRoot,
+      );
 
-    const dep = path.join(depDir, 'tsconfig.json');
-    if (!(await fs.pathExists(dep))) {
-      return undefined;
+      const dep = path.join(depDir, 'tsconfig.json');
+      if (!(await fs.pathExists(dep))) {
+        return undefined;
+      }
+
+      // Resolve symlinks, to check if this is a monorepo peer
+      const dependencyRealPath = await fs.realpath(dep);
+      if (dependencyRealPath.split(path.sep).includes('node_modules')) {
+        return undefined;
+      }
+
+      return dependencyRealPath;
+    } catch (e) {
+      // @types modules cannot be required, for example
+      if (e.code === 'MODULE_NOT_FOUND') {
+        return undefined;
+      }
+      throw e;
     }
-
-    // Resolve symlinks, to check if this is a monorepo peer
-    const dependencyRealPath = await fs.realpath(dep);
-    if (dependencyRealPath.split(path.sep).includes('node_modules')) {
-      return undefined;
-    }
-
-    return dependencyRealPath;
   }
 
   private diagsHaveAbortableErrors(diags: readonly ts.Diagnostic[]) {
