@@ -1339,3 +1339,105 @@ new SampleClass('omitted-literate');
     `,
     );
   }));
+
+test('single assembly with example metadata', () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = await jsii.compileJsiiForTest({
+      'index.ts': `
+/**
+ * @exampleMetadata fixture=custom
+ * @example
+ * const object: IInterface = new ClassName('this', 1337, { foo: 'bar' });
+ * object.property = EnumType.OPTION_A;
+ * object.methodCall();
+ */
+export enum EnumType {
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_A });
+   */
+  OPTION_A = 1,
+
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  OPTION_B = 2,
+}
+
+export interface IInterface {
+  /**
+   * A property value.
+   *
+   * @exampleMetadata nofixture
+   * @example
+   * import { EnumType, IInterface, ClassName } from '.';
+   * declare const iface: IInterface;
+   * iface.property = EnumType.OPTION_A;
+   */
+  property: EnumType;
+
+  /**
+   * An instance method call.
+   *
+   * @example
+   *    iface.methodCall();
+   */
+  methodCall(): void;
+}
+
+export interface ClassNameProps {
+  readonly property?: EnumType;
+  readonly foo?: string;
+}
+
+export class ClassName implements IInterface {
+  /**
+   * A static method. It can be invoked easily.
+   *
+   * @example ClassName.staticMethod();
+   */
+  public static staticMethod(_enm?: EnumType): void {
+    // ...
+  }
+
+  public property: EnumType;
+
+  /**
+   * Create a new instance of ClassName.
+   *
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  public constructor(_this: string, _elite: number, props: ClassNameProps) {
+    this.property = props.property ?? EnumType.OPTION_A;
+  }
+
+  public methodCall(): void {
+    // ...
+  }
+}`,
+    });
+    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
+      spaces: 2,
+    });
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+    fs.mkdirSync(path.resolve(tmpDir, 'rosetta'));
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'default.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';\ndeclare const iface: IInterface;\n/// here`,
+      'utf-8',
+    );
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'custom.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';/// here`,
+      'utf-8',
+    );
+
+    // THEN
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        strict: true,
+      }),
+    ).resolves.not.toThrow();
+  }));
