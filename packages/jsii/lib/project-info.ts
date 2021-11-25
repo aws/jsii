@@ -7,7 +7,7 @@ import { intersect } from 'semver-intersect';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
-import { parsePerson, parseRepository } from './utils';
+import { parsePerson, parseRepository, findUp, findDependencyDirectory } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
@@ -256,7 +256,7 @@ async function _loadDependencies(
         `Invalid semver expression for ${name}: ${versionString}`,
       );
     }
-    const pkg = _tryResolveAssembly(name, localPackage, searchPath);
+    const pkg = await _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
     const assm = await loadAndValidateAssembly(pkg, assemblyCache);
@@ -346,11 +346,11 @@ function _toRepository(value: any): {
   };
 }
 
-function _tryResolveAssembly(
+async function _tryResolveAssembly(
   mod: string,
   localPackage: string | undefined,
   searchPath: string,
-): string {
+): Promise<string> {
   if (localPackage) {
     const result = path.join(localPackage, '.jsii');
     if (!fs.existsSync(result)) {
@@ -359,11 +359,11 @@ function _tryResolveAssembly(
     return result;
   }
   try {
-    const paths = [searchPath, path.join(searchPath, 'node_modules')];
-    return require.resolve(path.join(mod, '.jsii'), { paths });
-  } catch {
+    const dependencyDir = await findDependencyDirectory(searchPath, mod);
+    return await fs.readJson(path.join(dependencyDir, '.jsii'));
+  } catch (e) {
     throw new Error(
-      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies.`,
+      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );
   }
 }

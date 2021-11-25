@@ -10,7 +10,7 @@ import { Method } from './method';
 import { ModuleLike } from './module-like';
 import { Property } from './property';
 import { Type } from './type';
-import { findUp } from './util';
+import { findDependencyDirectory } from './util';
 
 export class TypeSystem {
   /**
@@ -345,26 +345,4 @@ function flatMap<T, R>(
   return collection
     .map(mapper)
     .reduce((acc, elt) => acc.concat(elt), new Array<R>());
-}
-
-/**
- * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
- */
-async function findDependencyDirectory(
-  dependencyName: string,
-  searchStart: string,
-) {
-  // Explicitly do not use 'require("dep/package.json")' because that will fail if the
-  // package does not export that particular file.
-
-  const packageMain = require.resolve(dependencyName, { paths: [searchStart] });
-
-  // eslint-disable-next-line no-await-in-loop
-  const depPkgJsonPath = await findUp(packageMain, 'package.json');
-  if (!depPkgJsonPath) {
-    throw new Error(
-      `Could not find dependency '${dependencyName}' from '${searchStart}'`,
-    );
-  }
-  return path.dirname(depPkgJsonPath);
 }

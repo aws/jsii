@@ -530,15 +530,13 @@ export class Compiler implements Emitter {
   private async findMonorepoPeerTsconfig(
     depName: string,
   ): Promise<string | undefined> {
-    const paths = nodeJsCompatibleSearchPaths(
+    const depDir = await utils.findDependencyDirectory(
+      depName,
       this.options.projectInfo.projectRoot,
     );
 
-    let dep;
-    try {
-      dep = require.resolve(`${depName}/tsconfig.json`, { paths });
-    } catch {
-      // Package does not have a tsconfig.json
+    const dep = path.join(depDir, 'tsconfig.json');
+    if (!(await fs.pathExists(dep))) {
       return undefined;
     }
 
