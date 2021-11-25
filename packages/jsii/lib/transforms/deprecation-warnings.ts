@@ -514,9 +514,8 @@ function createWarningStatementForElement(
   if (spec.isDeprecated(element)) {
     const elementName = (element as spec.Method | spec.Property).name;
     const fqn = elementName ? `${classType.fqn}#${elementName}` : classType.fqn;
-    return [
-      createWarningFunctionCall(fqn, element.docs?.deprecated, undefined, true),
-    ];
+    const message = element.docs?.deprecated ?? classType.docs?.deprecated;
+    return [createWarningFunctionCall(fqn, message, undefined, true)];
   }
   return [];
 }
