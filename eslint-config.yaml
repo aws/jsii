@@ -241,6 +241,7 @@ rules:
   # This is not a bad rule but it got sprung on us and our code loudly fails it
   # Disable to get the eslint upgrade to pass.
   '@typescript-eslint/no-unsafe-argument': off
+  '@typescript-eslint/explicit-member-accessibility': off
 
   # 'consistent-return' actually decreases safety. Its use will enforce useless `throws`
   # statements, forcing a runtime error that occlude cases where the TypeScript type
