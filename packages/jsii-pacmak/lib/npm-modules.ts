@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as logging from '../lib/logging';
 import { JsiiModule } from './packaging';
 import { topologicalSort, Toposorted } from './toposort';
-import { resolveDependencyDirectory } from './util';
+import { findDependencyDirectory } from './util';
 
 /**
  * Find all modules that need to be packagerd
@@ -67,9 +67,9 @@ export async function findJsiiModules(
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
       await Promise.all(
-        dependencyNames
-          .map((dep) => resolveDependencyDirectory(realPath, dep))
-          .map((depDir) => visitPackage(depDir, false)),
+        dependencyNames.map(async (dep) =>
+          visitPackage(await findDependencyDirectory(dep, realPath), false),
+        ),
       );
     }
 
