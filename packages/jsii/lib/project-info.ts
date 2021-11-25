@@ -7,7 +7,7 @@ import { intersect } from 'semver-intersect';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
-import { parsePerson, parseRepository, findUp, findDependencyDirectory } from './utils';
+import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
@@ -256,6 +256,7 @@ async function _loadDependencies(
         `Invalid semver expression for ${name}: ${versionString}`,
       );
     }
+    // eslint-disable-next-line no-await-in-loop
     const pkg = await _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop

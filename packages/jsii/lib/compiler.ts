@@ -605,22 +605,6 @@ function _pathOfLibraries(
   return BASE_COMPILER_OPTIONS.lib.map((name) => path.join(lib, name));
 }
 
-/**
- * Return all possible 'node_modules' directories from a given starting directory.
- */
-function nodeJsCompatibleSearchPaths(dir: string): string[] {
-  const ret = new Array<string>();
-
-  let lastDir;
-  do {
-    ret.push(path.join(dir, 'node_modules'));
-    lastDir = dir;
-    dir = path.dirname(dir);
-  } while (dir !== lastDir); // path.dirname('/') === '/', also works on Windows
-
-  return ret;
-}
-
 function parseConfigHostFromCompilerHost(
   host: ts.CompilerHost,
 ): ts.ParseConfigHost {
