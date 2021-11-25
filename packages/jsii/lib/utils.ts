@@ -1,4 +1,6 @@
+import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
+import * as path from 'path';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
@@ -161,5 +163,30 @@ export function parseRepository(value: string): { url: string } {
       return { url: `https://gitlab.com/${slug}.git` };
     default:
       throw new Error(`Unknown host service: ${host}`);
+  }
+}
+
+/**
+ * Find a file up the tree given a starting directory
+ *
+ * Will return `undefined` if a package.json could not be found.
+ */
+export async function findUp(
+  directory: string,
+  fileName: string,
+): Promise<string | undefined> {
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const candidatePath = path.join(directory, fileName);
+    // eslint-disable-next-line no-await-in-loop
+    if (await fs.pathExists(candidatePath)) {
+      return candidatePath;
+    }
+
+    const parent = path.dirname(directory);
+    if (parent === directory) {
+      return undefined;
+    }
+    directory = parent;
   }
 }

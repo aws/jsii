@@ -67,7 +67,7 @@ export async function loadProjectInfo(
 ): Promise<ProjectInfoResult> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
-  const pkg = require(packageJsonPath);
+  const pkg = await fs.readJson(packageJsonPath);
 
   const diagnostics: ts.Diagnostic[] = [];
 
@@ -432,7 +432,9 @@ function _resolveVersion(
   return {
     // Rendering as a caret version to maintain uniformity against the "standard".
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    version: `^${require(path.join(localPackage, 'package.json')).version}`,
+    version: `^${
+      fs.readJsonSync(path.join(localPackage, 'package.json')).version
+    }`,
     localPackage,
   };
 }
