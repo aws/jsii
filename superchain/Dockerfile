@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y curl gpg tar zsh
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.8.3"
+ARG M2_VERSION="3.8.4"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -sL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                               \
