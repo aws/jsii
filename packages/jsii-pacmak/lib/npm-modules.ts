@@ -67,9 +67,18 @@ export async function findJsiiModules(
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
       await Promise.all(
-        dependencyNames.map(async (dep) =>
-          visitPackage(await findDependencyDirectory(dep, realPath), false),
-        ),
+        dependencyNames.flatMap(async (dep) => {
+          try {
+            const depDir = await findDependencyDirectory(dep, realPath);
+            return [await visitPackage(depDir, false)];
+          } catch (e) {
+            // Some modules like `@types/node` cannot be require()d, but we also don't need them.
+            if (e.code !== 'MODULE_NOT_FOUND') {
+              throw e;
+            }
+            return [];
+          }
+        }),
       );
     }
 
