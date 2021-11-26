@@ -153,6 +153,11 @@ function main() {
             describe: 'Extract only snippets with given ids',
             default: new Array<string>(),
           })
+          .option('infuse', {
+            type: 'boolean',
+            describe: 'bundle this command with the infuse command',
+            default: false,
+          })
           .option('fail', {
             alias: 'f',
             type: 'boolean',
@@ -207,6 +212,12 @@ function main() {
         });
 
         handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);
+
+        if (process.exitCode !== 1 && args.infuse) {
+          await infuse(absAssemblies, absOutput, {
+            tabletOutputFile: absOutput,
+          });
+        }
       }),
     )
     .command(
