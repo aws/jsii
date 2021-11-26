@@ -364,8 +364,8 @@ async function _tryResolveAssembly(
     return result;
   }
   try {
-    const dependencyDir = await findDependencyDirectory(searchPath, mod);
-    return await fs.readJson(path.join(dependencyDir, '.jsii'));
+    const dependencyDir = await findDependencyDirectory(mod, searchPath);
+    return path.join(dependencyDir, '.jsii');
   } catch (e) {
     throw new Error(
       `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
