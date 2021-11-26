@@ -1002,7 +1002,10 @@ export class Assembler implements Emitter {
       return [];
     }
 
-    jsiiType.symbolId = this.getSymbolId(node);
+    // If symbolId hasn't been set yet, set it here
+    if (!jsiiType.symbolId) {
+      jsiiType.symbolId = this.getSymbolId(node);
+    }
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
@@ -1703,56 +1706,68 @@ export class Assembler implements Emitter {
     }
 
     // Forcefully resolving to the EnumDeclaration symbol for single-valued enums
-    const symbol: ts.Symbol = type.isLiteral()
-      ? (type.symbol as any).parent
-      : type.symbol;
-    if (!symbol) {
+    let decl: ts.Node | undefined = type.symbol.declarations[0];
+    let enumSymbol: ts.Symbol | undefined;
+    if (ts.isEnumMember(decl)) {
+      decl = decl?.parent;
+    }
+    if (ts.isEnumDeclaration(decl)) {
+      enumSymbol = getSymbolFromDeclaration(decl, this._typeChecker);
+    }
+    if (!decl || !enumSymbol || !ts.isEnumDeclaration(decl)) {
       throw new Error(
         `Unable to resolve enum declaration for ${type.symbol.name}!`,
       );
     }
 
-    if (_hasInternalJsDocTag(symbol)) {
+    if (_hasInternalJsDocTag(enumSymbol)) {
       return Promise.resolve(undefined);
     }
 
     this._warnAboutReservedWords(type.symbol);
 
-    const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
     if (flags & ts.ModifierFlags.Const) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_1000_NO_CONST_ENUM.create(
-          (decl as ts.EnumDeclaration).modifiers?.find(
+          decl.modifiers?.find(
             (mod) => mod.kind === ts.SyntaxKind.ConstKeyword,
           ) ?? decl,
         ),
       );
     }
 
-    const { docs } = this._visitDocumentation(symbol, ctx);
+    const { docs } = this._visitDocumentation(enumSymbol, ctx);
 
     const typeContext = ctx.replaceStability(docs?.stability);
-    const members = type.isUnion() ? type.types : [type];
 
     const jsiiType: spec.EnumType = bindings.setEnumRelatedNode(
       {
         assembly: this.projectInfo.name,
         fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
-          symbol.name
+          enumSymbol.name
         }`,
         kind: spec.TypeKind.Enum,
-        members: members.map((m) => {
-          const { docs } = this._visitDocumentation(m.symbol, typeContext);
-          this.overrideDocComment(m.symbol, docs);
-          return { name: m.symbol.name, docs };
+        members: decl.members.flatMap((m) => {
+          const symbol = getSymbolFromDeclaration(m, this._typeChecker);
+          if (!symbol) {
+            return [];
+          }
+
+          const { docs } = this._visitDocumentation(symbol, typeContext);
+          this.overrideDocComment(symbol, docs);
+          return [{ name: symbol.name, docs }];
         }),
-        name: symbol.name,
+        name: enumSymbol.name,
         namespace:
           ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
         docs,
+
+        // Set SymbolId here instead of later, as by default TS will pick single-enum members
+        // as the target symbol if possible.
+        symbolId: symbolIdentifier(this._typeChecker, enumSymbol),
       },
-      decl as ts.EnumDeclaration,
+      decl,
     );
 
     this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
@@ -3371,3 +3386,19 @@ type TypeUseKind =
   | 'parameter type'
   | 'property type'
   | 'return type';
+
+function getSymbolFromDeclaration(
+  decl: ts.Declaration,
+  typeChecker: ts.TypeChecker,
+): ts.Symbol | undefined {
+  const name = ts.getNameOfDeclaration(decl);
+  return name ? typeChecker.getSymbolAtLocation(name) : undefined;
+}
+
+export function resolveEnumLiteral(typeChecker: ts.TypeChecker, type: ts.Type) {
+  if ((type.flags & ts.TypeFlags.EnumLiteral) === 0) {
+    return type;
+  }
+
+  return typeChecker.getBaseTypeOfLiteralType(type);
+}
