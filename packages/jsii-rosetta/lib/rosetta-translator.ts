@@ -33,6 +33,14 @@ export interface RosettaTranslatorOptions {
    * @default false
    */
   readonly includeCompilerDiagnostics?: boolean;
+
+  /**
+   * Bring in an existing tablet. If not specified, a new tablet will be created when
+   * the RosettaTranslator is created.
+   *
+   * @default No tablet.
+   */
+  readonly tablet?: LanguageTablet;
 }
 
 /**
@@ -42,7 +50,7 @@ export interface RosettaTranslatorOptions {
  * be achieved by the rosetta CLI, use this class.
  */
 export class RosettaTranslator {
-  public readonly tablet = new LanguageTablet();
+  public readonly tablet: LanguageTablet;
   private readonly fingerprinter: TypeFingerprinter;
   private readonly cache = new LanguageTablet();
   private readonly includeCompilerDiagnostics: boolean;
@@ -50,6 +58,7 @@ export class RosettaTranslator {
   public constructor(options: RosettaTranslatorOptions = {}) {
     this.fingerprinter = new TypeFingerprinter(options?.assemblies ?? []);
     this.includeCompilerDiagnostics = options.includeCompilerDiagnostics ?? false;
+    this.tablet = options.tablet ?? new LanguageTablet();
   }
 
   public async loadCache(fileName: string) {

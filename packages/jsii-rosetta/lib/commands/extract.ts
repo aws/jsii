@@ -13,6 +13,7 @@ export interface ExtractResult {
 
 export interface ExtractOptions {
   readonly outputFile: string;
+  readonly append?: boolean;
   readonly includeCompilerDiagnostics: boolean;
   readonly validateAssemblies: boolean;
   readonly only?: string[];
@@ -49,6 +50,7 @@ export async function extractSnippets(
   const translatorOptions: RosettaTranslatorOptions = {
     includeCompilerDiagnostics: options.includeCompilerDiagnostics,
     assemblies: assemblies.map((a) => a.assembly),
+    tablet: options.append ? await LanguageTablet.fromFile(options.outputFile) : undefined,
   };
 
   const translator = options.translatorFactory

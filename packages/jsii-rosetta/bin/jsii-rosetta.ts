@@ -136,6 +136,12 @@ function main() {
             describe: 'Output file where to store the sample tablets',
             default: DEFAULT_TABLET_NAME,
           })
+          .option('append', {
+            alias: 'a',
+            type: 'boolean',
+            describe: 'Append instead of overwrite the output file',
+            default: false,
+          })
           .option('compile', {
             alias: 'c',
             type: 'boolean',
@@ -205,6 +211,7 @@ function main() {
 
         const result = await extractSnippets(absAssemblies, {
           outputFile: absOutput,
+          append: args.append,
           includeCompilerDiagnostics: !!args.compile,
           validateAssemblies: args['validate-assemblies'],
           only: args.include,
