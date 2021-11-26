@@ -3394,11 +3394,3 @@ function getSymbolFromDeclaration(
   const name = ts.getNameOfDeclaration(decl);
   return name ? typeChecker.getSymbolAtLocation(name) : undefined;
 }
-
-export function resolveEnumLiteral(typeChecker: ts.TypeChecker, type: ts.Type) {
-  if ((type.flags & ts.TypeFlags.EnumLiteral) === 0) {
-    return type;
-  }
-
-  return typeChecker.getBaseTypeOfLiteralType(type);
-}
