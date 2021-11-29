@@ -5,6 +5,7 @@ import { TypeScriptSnippet } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet } from '../tablets/tablets';
 import { RosettaDiagnostic } from '../translate';
+import { infuse } from './infuse';
 
 export interface ExtractResult {
   diagnostics: RosettaDiagnostic[];
@@ -29,6 +30,18 @@ export interface ExtractOptions {
   readonly translatorFactory?: (opts: RosettaTranslatorOptions) => RosettaTranslator;
 }
 
+export async function extractAndInfuse(
+  assemblyLocations: string[],
+  options: ExtractOptions,
+  loose = false,
+): Promise<ExtractResult> {
+  const result = await extractSnippets(assemblyLocations, options, loose);
+  await infuse(assemblyLocations, options.outputFile, {
+    tabletOutputFile: options.outputFile,
+  });
+  return result;
+}
+
 /**
  * Extract all samples from the given assemblies into a tablet
  */
@@ -50,17 +63,19 @@ export async function extractSnippets(
   const translatorOptions: RosettaTranslatorOptions = {
     includeCompilerDiagnostics: options.includeCompilerDiagnostics,
     assemblies: assemblies.map((a) => a.assembly),
-    tablet: options.append ? await LanguageTablet.fromFile(options.outputFile) : undefined,
+    tablet: options.append ? await LanguageTablet.fromOptionalFile(options.outputFile) : undefined,
   };
 
   const translator = options.translatorFactory
     ? options.translatorFactory(translatorOptions)
     : new RosettaTranslator(translatorOptions);
 
-  if (options.cacheTabletFile) {
-    await translator.loadCache(options.cacheTabletFile);
+  // Choose the cache if provided, or the output file if we plan to append to it.
+  const cacheTabletFile = options.cacheTabletFile ?? (options.append ? options.outputFile : undefined);
+  if (cacheTabletFile) {
+    await translator.loadCache(cacheTabletFile);
     const { translations, remaining } = translator.readFromCache(snippets);
-    logging.info(`Reused ${translations.length} translations from cache ${options.cacheTabletFile}`);
+    logging.info(`Reused ${translations.length} translations from cache ${cacheTabletFile}`);
     snippets = remaining;
   }
 

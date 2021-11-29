@@ -6,7 +6,7 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
-import { extractSnippets } from '../lib/commands/extract';
+import { extractAndInfuse, ExtractResult, extractSnippets } from '../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
@@ -209,22 +209,28 @@ function main() {
           process.chdir(args.directory);
         }
 
-        const result = await extractSnippets(absAssemblies, {
-          outputFile: absOutput,
-          append: args.append,
-          includeCompilerDiagnostics: !!args.compile,
-          validateAssemblies: args['validate-assemblies'],
-          only: args.include,
-          cacheTabletFile: absCache,
-        });
-
-        handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);
-
-        if (process.exitCode !== 1 && args.infuse) {
-          await infuse(absAssemblies, absOutput, {
-            tabletOutputFile: absOutput,
+        let result: ExtractResult;
+        if (args.infuse) {
+          result = await extractAndInfuse(absAssemblies, {
+            outputFile: absOutput,
+            append: args.append,
+            includeCompilerDiagnostics: !!args.compile,
+            validateAssemblies: args['validate-assemblies'],
+            only: args.include,
+            cacheTabletFile: absCache,
+          });
+        } else {
+          result = await extractSnippets(absAssemblies, {
+            outputFile: absOutput,
+            append: args.append,
+            includeCompilerDiagnostics: !!args.compile,
+            validateAssemblies: args['validate-assemblies'],
+            only: args.include,
+            cacheTabletFile: absCache,
           });
         }
+
+        handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);
       }),
     )
     .command(
