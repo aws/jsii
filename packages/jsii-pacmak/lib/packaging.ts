@@ -54,7 +54,6 @@ export class JsiiModule {
    */
   public async npmPack() {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      logging.debug(`Running "npm pack ${this.moduleDirectory}" in ${tmpdir}`);
       // Quoting (JSON-stringifying) the module directory in order to avoid
       // problems if there are spaces or other special characters in the path.
       const args = ['pack', JSON.stringify(this.moduleDirectory)];

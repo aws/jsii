@@ -1,4 +1,4 @@
-public void Test(Array _args)
+public void Test(params object[] _args)
 {
 }
 

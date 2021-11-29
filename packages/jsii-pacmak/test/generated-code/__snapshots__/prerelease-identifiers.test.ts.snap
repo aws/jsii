@@ -208,7 +208,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -416,7 +416,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.1.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.1.1", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -717,7 +717,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -925,7 +925,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.1.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.1.1", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1214,7 +1214,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1414,7 +1414,7 @@ foo
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.1.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.1.1", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1700,7 +1700,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>(,0.0.1)</version>
+      <version>[0.0.0,)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1900,7 +1900,7 @@ foo
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.1.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.1.1", "wheel~=0.37.0"]
 build-backend = "setuptools.build_meta"
 
 `;

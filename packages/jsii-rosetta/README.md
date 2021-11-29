@@ -189,6 +189,67 @@ terminate the option list by passing `--`).
 Since TypeScript compilation takes a lot of time, much time can be gained by using the CPUs in your system effectively.
 `jsii-rosetta extract` will run the compilations in parallel if support for NodeJS Worker Threads is detected.
 
-If worker thread support is available, `jsii-rosetta` will use a number of workers equal to half the number of CPU cores,
+`jsii-rosetta` will use a number of workers equal to half the number of CPU cores,
 up to a maximum of 16 workers. This default maximum can be overridden by setting the `JSII_ROSETTA_MAX_WORKER_COUNT`
 environment variable.
+
+If you get out of memory errors running too many workers, run a command like this to up the memory allowed for your workers:
+
+```
+$ /sbin/sysctl -w vm.max_map_count=2251954
+```
+
+## Infuse
+
+The `rosetta infuse` feature will copy code samples (for example, as found in
+the README), to the classes that are referenced in the code sample. This will make
+sure the same examples are rendered in multiple places, and increases their visibility
+without additional work on the author's part.
+
+The infuse command will modify the relevant assemblies and tablet files:
+
+- Assembly: it will add new `example` sections to types in the assembly.
+- Tablet: every newly added `example` will require a new copy of the example (with
+  a unique identifier) added to the tablet.
+
+### Data flow
+
+The diagram below shows how data flows through the jsii tools when used together:
+
+```text
+┌───────────┐
+│           │
+│  Source   ├───┐
+│           │   │    ╔══════════╗    ┌────────────┐     ╔═══════════════╗    ┌──────────┐
+└───────────┘   │    ║          ║    │            │     ║    rosetta    ║    │          │
+                ├───▶║   jsii   ║───▶│  assembly  │────▶║    extract    ║───▶│  tablet  │
+┌───────────┐   │    ║          ║    │            │     ║               ║    │          │
+│           │   │    ╚══════════╝    └────────────┘     ╚═══════════════╝    └──────────┘
+│  README   │───┘                           │                                      │
+│           │                               │                                      │
+└───────────┘                               │           ╔═══════════════╗          │
+                                            │           ║    rosetta    ║          │
+                                            └──────────▶║    infuse     ║◀─────────┘
+                                                        ║               ║
+                                                        ╚═══════════════╝
+                                                                │
+                                            ┌───────────────────┴───────────────────┐
+                                            │                                       │
+                                            ▼                                       ▼
+                                     ┌────────────┐                           ┌──────────┐
+                                     │            │                           │          │
+                                     │ assembly'  │                           │ tablet'  │
+                                     │            │                           │          │
+                                     └────────────┘                           └──────────┘
+                                            │                                       │
+                                            │                                       │
+                                            │                                       ▼              ┌─────────────┐
+                                            │                               ╔═══════════════╗     ┌┴────────────┐│
+                                            │                               ║               ║     │             ││
+                                            └──────────────────────────────▶║    pacmak     ║────▶│  packages   ││
+                                                                            ║               ║     │             ├┘
+                                                                            ╚═══════════════╝     └─────────────┘
+                                                                               (potentially
+                                                                             live-translates)
+```
+

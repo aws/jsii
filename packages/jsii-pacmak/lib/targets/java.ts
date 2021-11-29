@@ -6,10 +6,10 @@ import * as reflect from 'jsii-reflect';
 import {
   Rosetta,
   TargetLanguage,
-  typeScriptSnippetFromSource,
   Translation,
   enforcesStrictMode,
   markDownToJavaDoc,
+  ApiLocation,
 } from 'jsii-rosetta';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
@@ -30,11 +30,7 @@ import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-  TargetName,
-} from '.';
+import { INCOMPLETE_DISCLAIMER_NONCOMPILING, TargetName } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -479,6 +475,9 @@ interface JavaProp {
   // The original JSII property spec this struct was derived from
   spec: spec.Property;
 
+  // The original JSII type this property was defined on
+  definingType: spec.Type;
+
   // Canonical name of the Java property (eg: 'MyProperty')
   propName: string;
 
@@ -641,7 +640,7 @@ class JavaGenerator extends Generator {
 
   protected onBeginClass(cls: spec.ClassType, abstract: boolean) {
     this.openFileIfNeeded(cls);
-    this.addJavaDocs(cls);
+    this.addJavaDocs(cls, { api: 'type', fqn: cls.fqn });
 
     const classBase = this.getClassBase(cls);
     const extendsExpression = classBase ? ` extends ${classBase}` : '';
@@ -688,7 +687,7 @@ class JavaGenerator extends Generator {
     this.code.line();
 
     // If needed, patching up the documentation to point users at the builder pattern
-    this.addJavaDocs(method);
+    this.addJavaDocs(method, { api: 'initializer', fqn: cls.fqn });
     this.emitStabilityAnnotations(method);
 
     // Abstract classes should have protected initializers
@@ -729,14 +728,14 @@ class JavaGenerator extends Generator {
   }
 
   protected onProperty(cls: spec.ClassType, prop: spec.Property) {
-    this.emitProperty(cls, prop);
+    this.emitProperty(cls, prop, cls);
   }
 
   protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
     if (prop.const) {
-      this.emitConstProperty(prop);
+      this.emitConstProperty(cls, prop);
     } else {
-      this.emitProperty(cls, prop);
+      this.emitProperty(cls, prop, cls);
     }
   }
 
@@ -748,7 +747,7 @@ class JavaGenerator extends Generator {
     prop: spec.Property,
     _union: spec.UnionTypeReference,
   ) {
-    this.emitProperty(cls, prop);
+    this.emitProperty(cls, prop, cls);
   }
 
   protected onMethod(cls: spec.ClassType, method: spec.Method) {
@@ -777,7 +776,7 @@ class JavaGenerator extends Generator {
 
   protected onBeginEnum(enm: spec.EnumType) {
     this.openFileIfNeeded(enm);
-    this.addJavaDocs(enm);
+    this.addJavaDocs(enm, { api: 'type', fqn: enm.fqn });
     if (!this.isNested(enm)) {
       this.emitGeneratedAnnotation();
     }
@@ -791,8 +790,12 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
     this.closeFileIfNeeded(enm);
   }
-  protected onEnumMember(_: spec.EnumType, member: spec.EnumMember) {
-    this.addJavaDocs(member);
+  protected onEnumMember(parentType: spec.EnumType, member: spec.EnumMember) {
+    this.addJavaDocs(member, {
+      api: 'member',
+      fqn: parentType.fqn,
+      memberName: member.name,
+    });
     this.emitStabilityAnnotations(member);
     this.code.line(`${member.name},`);
   }
@@ -815,7 +818,7 @@ class JavaGenerator extends Generator {
 
   protected onBeginInterface(ifc: spec.InterfaceType) {
     this.openFileIfNeeded(ifc);
-    this.addJavaDocs(ifc);
+    this.addJavaDocs(ifc, { api: 'type', fqn: ifc.fqn });
 
     // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
     const interfaces = ifc.interfaces ?? [];
@@ -863,12 +866,16 @@ class JavaGenerator extends Generator {
     this.closeFileIfNeeded(ifc);
   }
 
-  protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
+  protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
     this.code.line();
     const returnType = method.returns
       ? this.toDecoratedJavaType(method.returns)
       : 'void';
-    this.addJavaDocs(method);
+    this.addJavaDocs(method, {
+      api: 'member',
+      fqn: ifc.fqn,
+      memberName: method.name,
+    });
     this.emitStabilityAnnotations(method);
     this.code.line(
       `${returnType} ${method.name}(${this.renderMethodParameters(method)});`,
@@ -883,7 +890,7 @@ class JavaGenerator extends Generator {
     this.onInterfaceMethod(ifc, overload);
   }
 
-  protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
+  protected onInterfaceProperty(ifc: spec.InterfaceType, prop: spec.Property) {
     const getterType = this.toDecoratedJavaType(prop);
     const propName = jsiiToPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
@@ -891,7 +898,11 @@ class JavaGenerator extends Generator {
 
     // for unions we only generate overloads for setters, not getters.
     this.code.line();
-    this.addJavaDocs(prop);
+    this.addJavaDocs(prop, {
+      api: 'member',
+      fqn: ifc.fqn,
+      memberName: prop.name,
+    });
     this.emitStabilityAnnotations(prop);
     if (prop.optional) {
       if (prop.overrides) {
@@ -908,7 +919,11 @@ class JavaGenerator extends Generator {
       const setterTypes = this.toDecoratedJavaTypes(prop);
       for (const type of setterTypes) {
         this.code.line();
-        this.addJavaDocs(prop);
+        this.addJavaDocs(prop, {
+          api: 'member',
+          fqn: ifc.fqn,
+          memberName: prop.name,
+        });
         if (prop.optional) {
           if (prop.overrides) {
             this.code.line('@Override');
@@ -997,7 +1012,10 @@ class JavaGenerator extends Generator {
     this.code.line('/**');
     if (mod.readme) {
       for (const line of markDownToJavaDoc(
-        this.convertSamplesInMarkdown(mod.readme.markdown),
+        this.convertSamplesInMarkdown(mod.readme.markdown, {
+          api: 'moduleReadme',
+          moduleFqn: mod.name,
+        }),
       ).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
@@ -1028,7 +1046,10 @@ class JavaGenerator extends Generator {
     this.code.line('/**');
     if (mod.readme) {
       for (const line of markDownToJavaDoc(
-        this.convertSamplesInMarkdown(mod.readme.markdown),
+        this.convertSamplesInMarkdown(mod.readme.markdown, {
+          api: 'moduleReadme',
+          moduleFqn,
+        }),
       ).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
@@ -1324,13 +1345,17 @@ class JavaGenerator extends Generator {
     return this.code.toSnakeCase(prop.name).toLocaleUpperCase(); // java consts are SNAKE_UPPER_CASE
   }
 
-  private emitConstProperty(prop: spec.Property) {
+  private emitConstProperty(parentType: spec.Type, prop: spec.Property) {
     const propType = this.toJavaType(prop.type);
     const propName = this.renderConstName(prop);
     const access = this.renderAccessLevel(prop);
 
     this.code.line();
-    this.addJavaDocs(prop);
+    this.addJavaDocs(prop, {
+      api: 'member',
+      fqn: parentType.fqn,
+      memberName: prop.name,
+    });
     this.emitStabilityAnnotations(prop);
     this.code.line(`${access} final static ${propType} ${propName};`);
   }
@@ -1338,6 +1363,7 @@ class JavaGenerator extends Generator {
   private emitProperty(
     cls: spec.Type,
     prop: spec.Property,
+    definingType: spec.Type,
     {
       defaultImpl = false,
       final = false,
@@ -1368,7 +1394,11 @@ class JavaGenerator extends Generator {
     // for unions we only generate overloads for setters, not getters.
     if (includeGetter) {
       this.code.line();
-      this.addJavaDocs(prop);
+      this.addJavaDocs(prop, {
+        api: 'member',
+        fqn: definingType.fqn,
+        memberName: prop.name,
+      });
       if (overrides && !prop.static) {
         this.code.line('@Override');
       }
@@ -1401,7 +1431,11 @@ class JavaGenerator extends Generator {
     if (!prop.immutable) {
       for (const type of setterTypes) {
         this.code.line();
-        this.addJavaDocs(prop);
+        this.addJavaDocs(prop, {
+          api: 'member',
+          fqn: cls.fqn,
+          memberName: prop.name,
+        });
         if (overrides && !prop.static) {
           this.code.line('@Override');
         }
@@ -1457,7 +1491,11 @@ class JavaGenerator extends Generator {
       method,
     )})`;
     this.code.line();
-    this.addJavaDocs(method);
+    this.addJavaDocs(method, {
+      api: 'member',
+      fqn: cls.fqn,
+      memberName: method.name,
+    });
     this.emitStabilityAnnotations(method);
     if (overrides && !method.static) {
       this.code.line('@Override');
@@ -1530,7 +1568,10 @@ class JavaGenerator extends Generator {
       const prop = clone(reflectProp.spec);
       prop.abstract = false;
       // Emitting "final" since this is a proxy and nothing will/should override this
-      this.emitProperty(type.spec, prop, { final: true, overrides: true });
+      this.emitProperty(type.spec, prop, reflectProp.definingType.spec, {
+        final: true,
+        overrides: true,
+      });
     }
 
     // emit all the methods
@@ -1582,7 +1623,7 @@ class JavaGenerator extends Generator {
         (prop.parentType.fqn === type.fqn ||
           !hasDefaultInterfaces(prop.assembly)),
     )) {
-      this.emitProperty(type.spec, property.spec, {
+      this.emitProperty(type.spec, property.spec, property.definingType.spec, {
         defaultImpl: true,
         overrides: type.isInterfaceType(),
       });
@@ -1638,13 +1679,18 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private toJavaProp(property: spec.Property, inherited: boolean): JavaProp {
+  private toJavaProp(
+    property: spec.Property,
+    definingType: spec.Type,
+    inherited: boolean,
+  ): JavaProp {
     const safeName = JavaGenerator.safeJavaPropertyName(property.name);
     const propName = jsiiToPascalCase(safeName);
 
     return {
       docs: property.docs,
       spec: property,
+      definingType,
       propName,
       jsiiName: property.name,
       nullable: !!property.optional,
@@ -1738,7 +1784,11 @@ class JavaGenerator extends Generator {
         name: 'create',
         parameters: params.map((param) => param.param),
       };
-      this.addJavaDocs(dummyMethod);
+      this.addJavaDocs(dummyMethod, {
+        api: 'member',
+        fqn: cls.fqn,
+        memberName: dummyMethod.name,
+      });
       this.emitStabilityAnnotations(cls.initializer);
       this.code.openBlock(
         `public static ${BUILDER_CLASS_NAME} create(${params
@@ -1817,7 +1867,11 @@ class JavaGenerator extends Generator {
       for (const javaType of this.toJavaTypes(prop.type.spec!, {
         covariant: true,
       })) {
-        this.addJavaDocs(setter);
+        this.addJavaDocs(setter, {
+          api: 'member',
+          fqn: prop.definingType.fqn, // Could be inherited
+          memberName: prop.name,
+        });
         this.emitStabilityAnnotations(prop.spec);
         this.code.openBlock(
           `public ${BUILDER_CLASS_NAME} ${fieldName}(final ${javaType} ${fieldName})`,
@@ -1875,13 +1929,13 @@ class JavaGenerator extends Generator {
   private emitBuilderSetter(
     prop: JavaProp,
     builderName: string,
-    builtType: string,
+    parentType: spec.InterfaceType,
   ) {
     for (const type of prop.javaTypes) {
       this.code.line();
       this.code.line('/**');
       this.code.line(
-        ` * Sets the value of {@link ${builtType}#${getterFor(
+        ` * Sets the value of {@link ${parentType.name}#${getterFor(
           prop.fieldName,
         )}}`,
       );
@@ -1892,7 +1946,11 @@ class JavaGenerator extends Generator {
       if (prop.docs?.remarks != null) {
         const indent = ' '.repeat(7 + prop.fieldName.length);
         const remarks = markDownToJavaDoc(
-          this.convertSamplesInMarkdown(prop.docs.remarks),
+          this.convertSamplesInMarkdown(prop.docs.remarks, {
+            api: 'member',
+            fqn: prop.definingType.fqn,
+            memberName: prop.jsiiName,
+          }),
         ).trimRight();
         for (const line of remarks.split('\n')) {
           this.code.line(` * ${indent} ${line}`);
@@ -1959,10 +2017,10 @@ class JavaGenerator extends Generator {
     );
 
     props.forEach((prop) =>
-      this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`),
+      this.code.line(`${prop.fieldJavaType} ${prop.fieldName};`),
     );
     props.forEach((prop) =>
-      this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec.name),
+      this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec),
     );
 
     // Start build()
@@ -1978,9 +2036,7 @@ class JavaGenerator extends Generator {
     this.code.line('@Override');
     this.code.openBlock(`public ${classSpec.name} build()`);
 
-    const propFields = props.map((prop) => prop.fieldName).join(', ');
-
-    this.code.line(`return new ${constructorName}(${propFields});`);
+    this.code.line(`return new ${constructorName}(this);`);
     this.code.closeBlock();
     // End build()
 
@@ -2000,7 +2056,7 @@ class JavaGenerator extends Generator {
       isBaseClass = false,
     ) {
       for (const property of currentIfc.properties ?? []) {
-        const javaProp = this.toJavaProp(property, isBaseClass);
+        const javaProp = this.toJavaProp(property, currentIfc, isBaseClass);
         propsByName[javaProp.propName] = javaProp;
       }
 
@@ -2054,7 +2110,7 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
     // End JSII reference constructor
 
-    // Start literal constructor
+    // Start builder constructor
     this.code.line();
     this.code.line('/**');
     this.code.line(
@@ -2064,11 +2120,8 @@ class JavaGenerator extends Generator {
     if (props.some((prop) => prop.fieldJavaType !== prop.paramJavaType)) {
       this.code.line('@SuppressWarnings("unchecked")');
     }
-    const constructorArgs = props
-      .map((prop) => `final ${prop.paramJavaType} ${prop.fieldName}`)
-      .join(', ');
     this.code.openBlock(
-      `protected ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
+      `protected ${INTERFACE_PROXY_CLASS_NAME}(final ${BUILDER_CLASS_NAME} builder)`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
@@ -2080,7 +2133,7 @@ class JavaGenerator extends Generator {
           : '';
       this.code.line(
         `this.${prop.fieldName} = ${explicitCast}${_validateIfNonOptional(
-          prop.fieldName,
+          `builder.${prop.fieldName}`,
           prop,
         )};`,
       );
@@ -2301,7 +2354,11 @@ class JavaGenerator extends Generator {
   }
 
   // eslint-disable-next-line complexity
-  private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
+  private addJavaDocs(
+    doc: spec.Documentable,
+    apiLoc: ApiLocation,
+    defaultText?: string,
+  ) {
     if (
       !defaultText &&
       Object.keys(doc.docs ?? {}).length === 0 &&
@@ -2325,7 +2382,7 @@ class JavaGenerator extends Generator {
     if (docs.remarks) {
       paras.push(
         markDownToJavaDoc(
-          this.convertSamplesInMarkdown(docs.remarks),
+          this.convertSamplesInMarkdown(docs.remarks, apiLoc),
         ).trimRight(),
       );
     }
@@ -2336,10 +2393,22 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
+
+      const convertedExample = this.convertExample(docs.example, apiLoc);
+
+      // We used to use the slightly nicer `<pre>{@code ...}</pre>`, which doesn't
+      // require (and therefore also doesn't allow) escaping special characters.
+      //
+      // However, code samples may contain block quotes of their own ('*/') that
+      // would terminate the block comment from the PoV of the Java tokenizer, and
+      // since `{@code ... }` doesn't allow any escaping, there's also no way to encode
+      // '*/' in a way that would (a) hide it from the tokenizer and (b) give '*/' back
+      // after processing JavaDocs.
+      //
+      // Hence, we just resort to HTML-encoding everything (same as we do for code
+      // examples that have been translated from MarkDown).
       paras.push(
-        `<blockquote><pre>{@code\n${this.convertExample(
-          docs.example,
-        )}}</pre></blockquote>`,
+        markDownToJavaDoc(['```', convertedExample, '```'].join('\n')),
       );
     }
 
@@ -2911,24 +2980,19 @@ class JavaGenerator extends Generator {
     );
   }
 
-  private convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(
+  private convertExample(example: string, api: ApiLocation): string {
+    const translated = this.rosetta.translateExample(
+      api,
       example,
-      'example',
+      TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
     );
-    const translated = this.rosetta.translateSnippet(
-      snippet,
-      TargetLanguage.JAVA,
-    );
-    if (!translated) {
-      return example;
-    }
     return this.prefixDisclaimer(translated);
   }
 
-  private convertSamplesInMarkdown(markdown: string): string {
+  private convertSamplesInMarkdown(markdown: string, api: ApiLocation): string {
     return this.rosetta.translateSnippetsInMarkdown(
+      api,
       markdown,
       TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
@@ -2940,9 +3004,6 @@ class JavaGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
-    }
     if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
       return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
     }

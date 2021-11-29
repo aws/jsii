@@ -8,7 +8,7 @@ export const schema: Schema = require('../schema/jsii-spec.schema.json');
 export function validateAssembly(obj: any): Assembly {
   const validator = new Validator();
   validator.addSchema(schema); // For definitions
-  const result = validator.validate(obj, schema, { nestedErrors: true } as any); // nestedErrors does exist but is not in the TypeScript definitions
+  const result = validator.validate(obj, schema, { nestedErrors: true });
   if (result.valid) {
     return obj;
   }

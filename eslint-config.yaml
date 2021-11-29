@@ -238,6 +238,10 @@ rules:
   'no-case-declarations': off
   'require-atomic-updates': off
 
+  # This is not a bad rule but it got sprung on us and our code loudly fails it
+  # Disable to get the eslint upgrade to pass.
+  '@typescript-eslint/no-unsafe-argument': off
+
   # 'consistent-return' actually decreases safety. Its use will enforce useless `throws`
   # statements, forcing a runtime error that occlude cases where the TypeScript type
   # checker would actually have caught something like a non-exhaustive `switch` statement

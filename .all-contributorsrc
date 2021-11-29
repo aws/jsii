@@ -1233,6 +1233,73 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "otaviomacedo",
+      "name": "Otavio Macedo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/288203?v=4",
+      "profile": "https://otaviomacedo.github.io/",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "kaizen3031593",
+      "name": "Kaizen Conroy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36202692?v=4",
+      "profile": "https://github.com/kaizen3031593",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "madeline-k",
+      "name": "Madeline Kusters",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80541297?v=4",
+      "profile": "https://github.com/madeline-k",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "comcalvi",
+      "name": "Calvin Combs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66279577?v=4",
+      "profile": "https://github.com/comcalvi",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "peterwoodworth",
+      "name": "Peter Woodworth",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44349620?v=4",
+      "profile": "https://github.com/peterwoodworth",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "mergify",
+      "name": "mergify",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18240476?v=4",
+      "profile": "https://github.com/mergify",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "oieduardorabelo",
+      "name": "Eduardo Rabelo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/829902?v=4",
+      "profile": "https://eduardorabelo.me/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoType": "github",

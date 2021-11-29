@@ -3,7 +3,10 @@ export const SPEC_FILE_NAME = '.jsii';
 /**
  * A JSII assembly specification.
  */
-export interface Assembly extends AssemblyConfiguration, Documentable {
+export interface Assembly
+  extends AssemblyConfiguration,
+    Documentable,
+    ReadMeContainer {
   /**
    * The version of the spec schema
    */
@@ -120,7 +123,7 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
    *
    * @default none
    */
-  dependencyClosure?: { [assembly: string]: AssemblyConfiguration };
+  dependencyClosure?: { [assembly: string]: DependencyConfiguration };
 
   /**
    * List if bundled dependencies (these are not expected to be jsii
@@ -157,6 +160,10 @@ export interface AssemblyConfiguration extends Targetable {
   submodules?: { [fqn: string]: Submodule };
 }
 
+export interface DependencyConfiguration extends Targetable {
+  submodules?: { [fqn: string]: Targetable };
+}
+
 /**
  * A targetable module-like thing
  *
@@ -170,7 +177,12 @@ export interface Targetable {
    * @default none
    */
   targets?: AssemblyTargets;
+}
 
+/**
+ * Elements that can contain a `readme` property.
+ */
+export interface ReadMeContainer {
   /**
    * The readme document for this module (if any).
    *
@@ -192,7 +204,10 @@ export interface ReadMe {
  * The difference between a top-level module (the assembly) and a submodule is
  * that the submodule is annotated with its location in the repository.
  */
-export type Submodule = SourceLocatable & Targetable;
+export type Submodule = ReadMeContainer &
+  SourceLocatable &
+  Targetable &
+  TypeScriptLocatable;
 
 /**
  * Versions of the JSII Assembly Specification.
@@ -426,6 +441,26 @@ export interface SourceLocatable {
    * @default none
    */
   locationInModule?: SourceLocation;
+}
+
+/**
+ * Indicates that a jsii entity's origin can be traced to TypeScript code
+ *
+ * This is interface is not the same as `SourceLocatable`. SourceLocatable
+ * identifies lines in source files in a source repository (in a `.ts` file,
+ * with respect to a git root).
+ *
+ * On the other hand, `TypeScriptLocatable` identifies a symbol name inside a
+ * potentially distributed TypeScript file (in either a `.d.ts` or `.ts`
+ * file, with respect to the package root).
+ */
+export interface TypeScriptLocatable {
+  /**
+   * Unique string representation of the corresponding Typescript symbol
+   *
+   * Used to map from TypeScript code back into the assembly.
+   */
+  symbolId?: string;
 }
 
 /**
@@ -767,7 +802,10 @@ export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
 /**
  * Common attributes of a type definition.
  */
-export interface TypeBase extends Documentable, SourceLocatable {
+export interface TypeBase
+  extends Documentable,
+    SourceLocatable,
+    TypeScriptLocatable {
   /**
    * The fully qualified name of the type (``<assembly>.<namespace>.<name>``)
    *
@@ -811,11 +849,6 @@ export interface TypeBase extends Documentable, SourceLocatable {
    * The kind of the type.
    */
   kind: TypeKind;
-
-  /**
-   * Unique string representation of the corresponding Typescript symbol
-   */
-  symbolId?: string;
 }
 
 /**

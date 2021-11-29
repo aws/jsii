@@ -169,6 +169,20 @@ export class Assembly extends ModuleLike {
     return Object.values(submodules);
   }
 
+  /**
+   * All types, even those in submodules and nested submodules.
+   */
+  public get types(): readonly Type[] {
+    return Object.values(this.typeMap);
+  }
+
+  /**
+   * Return all types in the current assembly/submodule and all submodules underneath
+   */
+  public get allTypes(): readonly Type[] {
+    return [...this.types, ...this.allSubmodules.flatMap((s) => s.types)];
+  }
+
   public findType(fqn: string) {
     const type = this.tryFindType(fqn);
     if (!type) {

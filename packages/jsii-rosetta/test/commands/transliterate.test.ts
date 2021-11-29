@@ -1,11 +1,11 @@
 import { SPEC_FILE_NAME } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
-import * as os from 'os';
 import * as path from 'path';
 
 import { transliterateAssembly } from '../../lib/commands/transliterate';
 import { TargetLanguage } from '../../lib/languages/target-language';
+import { withTemporaryDirectory } from '../testutil';
 
 jest.setTimeout(60_000);
 
@@ -425,10 +425,10 @@ export class ClassName implements IInterface {
       // See https://github.com/aws/jsii/issues/826 for more information.
 
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps().foo(\\"bar\\"));
-      object.getProperty() = EnumType.getOPTION_A();
+      object.getProperty() = EnumType.OPTION_A;
       object.methodCall();
 
-      ClassName.staticMethod(EnumType.getOPTION_B());
+      ClassName.staticMethod(EnumType.OPTION_B);
       \`\`\`",
         },
         "repository": Object {
@@ -450,7 +450,7 @@ export class ClassName implements IInterface {
                 "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -589,7 +589,7 @@ export class ClassName implements IInterface {
               "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -603,7 +603,7 @@ export class ClassName implements IInterface {
                   "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_A()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_A));",
                 },
                 "name": "OPTION_A",
               },
@@ -612,7 +612,7 @@ export class ClassName implements IInterface {
                   "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 },
                 "name": "OPTION_B",
               },
@@ -653,7 +653,7 @@ export class ClassName implements IInterface {
                   "example": "// This example was automatically transliterated.
       // See https://github.com/aws/jsii/issues/826 for more information.
 
-      iface.getProperty() = EnumType.getOPTION_B();",
+      iface.getProperty() = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
@@ -1340,7 +1340,104 @@ new SampleClass('omitted-literate');
     );
   }));
 
-async function withTemporaryDirectory<T>(callback: (dir: string) => Promise<T>): Promise<T> {
-  const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
-  return callback(tmpdir).finally(() => fs.removeSync(tmpdir));
+test('single assembly with example metadata', () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = await jsii.compileJsiiForTest({
+      'index.ts': `
+/**
+ * @exampleMetadata fixture=custom
+ * @example
+ * const object: IInterface = new ClassName('this', 1337, { foo: 'bar' });
+ * object.property = EnumType.OPTION_A;
+ * object.methodCall();
+ */
+export enum EnumType {
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_A });
+   */
+  OPTION_A = 1,
+
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  OPTION_B = 2,
 }
+
+export interface IInterface {
+  /**
+   * A property value.
+   *
+   * @exampleMetadata nofixture
+   * @example
+   * import { EnumType, IInterface, ClassName } from '.';
+   * declare const iface: IInterface;
+   * iface.property = EnumType.OPTION_A;
+   */
+  property: EnumType;
+
+  /**
+   * An instance method call.
+   *
+   * @example
+   *    iface.methodCall();
+   */
+  methodCall(): void;
+}
+
+export interface ClassNameProps {
+  readonly property?: EnumType;
+  readonly foo?: string;
+}
+
+export class ClassName implements IInterface {
+  /**
+   * A static method. It can be invoked easily.
+   *
+   * @example ClassName.staticMethod();
+   */
+  public static staticMethod(_enm?: EnumType): void {
+    // ...
+  }
+
+  public property: EnumType;
+
+  /**
+   * Create a new instance of ClassName.
+   *
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  public constructor(_this: string, _elite: number, props: ClassNameProps) {
+    this.property = props.property ?? EnumType.OPTION_A;
+  }
+
+  public methodCall(): void {
+    // ...
+  }
+}`,
+    });
+    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
+      spaces: 2,
+    });
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+    fs.mkdirSync(path.resolve(tmpDir, 'rosetta'));
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'default.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';\ndeclare const iface: IInterface;\n/// here`,
+      'utf-8',
+    );
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'custom.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';/// here`,
+      'utf-8',
+    );
+
+    // THEN
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        strict: true,
+      }),
+    ).resolves.not.toThrow();
+  }));

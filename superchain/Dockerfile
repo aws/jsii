@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y curl gpg tar zsh
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.8.3"
+ARG M2_VERSION="3.8.4"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -sL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                               \
@@ -107,6 +107,7 @@ RUN apt-get update                                                              
                         git                                                                                             \
                         gnupg                                                                                           \
                         gzip                                                                                            \
+                        libffi-dev                                                                                      \
                         libicu63                                                                                        \
                         libssl-dev                                                                                      \
                         openssl                                                                                         \
@@ -125,14 +126,6 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
   && apt-get -y install mono-devel                                                                                      \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Python 3
-RUN apt-get update                                                                                                      \
-  && apt-get -y install python3 python3-pip python3-venv                                                                \
-  && python3 -m pip install --no-input --upgrade pip                                                                    \
-  && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
-  && rm -rf $(pip cache dir)                                                                                            \
-  && rm -rf /var/lib/apt/lists/*
-
 # Install Rust (required for https://pypi.org/project/cryptography/ in certain circumstances... like ARM64 arch)
 ENV RUSTUP_HOME=/usr/local/rustup                                                                                       \
     CARGO_HOME=/usr/local/cargo
@@ -141,6 +134,14 @@ RUN set -eo pipefail                                                            
   && echo "source ${CARGO_HOME}/env" >> /etc/profile.d/cargo.sh                                                         \
   && chmod -R a+rw ${CARGO_HOME}
 ENV PATH=$PATH:${CARGO_HOME}/bin
+
+# Install Python 3
+RUN apt-get update                                                                                                      \
+  && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
+  && python3 -m pip install --no-input --upgrade pip                                                                    \
+  && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
+  && rm -rf $(pip cache dir)                                                                                            \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install JDK8 (Amazon Corretto 8)
 COPY superchain/gpg/corretto.asc /tmp/corretto.asc
