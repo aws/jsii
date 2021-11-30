@@ -95,6 +95,11 @@ export class RosettaTranslator {
     return { translations, remaining };
   }
 
+  public async addToCache(filename: string) {
+    const tab = await LanguageTablet.fromOptionalFile(filename);
+    this.cache.addTablet(tab);
+  }
+
   public async translateAll(snippets: TypeScriptSnippet[], addToTablet = true): Promise<TranslateAllResult> {
     const result = await translateAll(snippets, this.includeCompilerDiagnostics);
 

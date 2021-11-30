@@ -14,7 +14,6 @@ export interface ExtractResult {
 
 export interface ExtractOptions {
   readonly outputFile: string;
-  readonly append?: boolean;
   readonly includeCompilerDiagnostics: boolean;
   readonly validateAssemblies: boolean;
   readonly only?: string[];
@@ -63,21 +62,20 @@ export async function extractSnippets(
   const translatorOptions: RosettaTranslatorOptions = {
     includeCompilerDiagnostics: options.includeCompilerDiagnostics,
     assemblies: assemblies.map((a) => a.assembly),
-    tablet: options.append ? await LanguageTablet.fromOptionalFile(options.outputFile) : undefined,
+    tablet: await LanguageTablet.fromOptionalFile(options.outputFile),
   };
 
   const translator = options.translatorFactory
     ? options.translatorFactory(translatorOptions)
     : new RosettaTranslator(translatorOptions);
 
-  // Choose the cache if provided, or the output file if we plan to append to it.
-  const cacheTabletFile = options.cacheTabletFile ?? (options.append ? options.outputFile : undefined);
-  if (cacheTabletFile) {
-    await translator.loadCache(cacheTabletFile);
-    const { translations, remaining } = translator.readFromCache(snippets);
-    logging.info(`Reused ${translations.length} translations from cache ${cacheTabletFile}`);
-    snippets = remaining;
+  if (options.cacheTabletFile) {
+    await translator.addToCache(options.cacheTabletFile);
   }
+  await translator.addToCache(options.outputFile);
+  const { translations, remaining } = translator.readFromCache(snippets);
+  logging.info(`Reused ${translations.length} translations from cache`);
+  snippets = remaining;
 
   const diagnostics = [];
   if (snippets.length > 0) {

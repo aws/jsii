@@ -89,7 +89,6 @@ describe('with cache file', () => {
 
       await extract.extractSnippets([assembly.moduleDirectory], {
         outputFile: cacheTabletFile,
-        append: true,
         translatorFactory: (o) => new MockTranslator(o, translationFunction),
         ...defaultExtractOptions,
       });
@@ -128,7 +127,6 @@ describe('with cache file', () => {
 
     await extract.extractSnippets([assembly.moduleDirectory], {
       outputFile: cacheTabletFile,
-      append: true,
       translatorFactory: (o) => new MockTranslator(o, translationFunction),
       ...defaultExtractOptions,
     });
