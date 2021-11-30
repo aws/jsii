@@ -69,6 +69,15 @@ export class RosettaTranslator {
     }
   }
 
+  public async addToCache(filename: string) {
+    const tab = await LanguageTablet.fromOptionalFile(filename);
+    this.cache.addTablet(tab);
+  }
+
+  public hasCache() {
+    return this.cache.count > 0;
+  }
+
   /**
    * For all the given snippets, try to read translations from the cache
    *
@@ -93,11 +102,6 @@ export class RosettaTranslator {
     }
 
     return { translations, remaining };
-  }
-
-  public async addToCache(filename: string) {
-    const tab = await LanguageTablet.fromOptionalFile(filename);
-    this.cache.addTablet(tab);
   }
 
   public async translateAll(snippets: TypeScriptSnippet[], addToTablet = true): Promise<TranslateAllResult> {

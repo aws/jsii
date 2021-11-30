@@ -73,9 +73,11 @@ export async function extractSnippets(
     await translator.addToCache(options.cacheTabletFile);
   }
   await translator.addToCache(options.outputFile);
-  const { translations, remaining } = translator.readFromCache(snippets);
-  logging.info(`Reused ${translations.length} translations from cache`);
-  snippets = remaining;
+  if (translator.hasCache()) {
+    const { translations, remaining } = translator.readFromCache(snippets);
+    logging.info(`Reused ${translations.length} translations from cache`);
+    snippets = remaining;
+  }
 
   const diagnostics = [];
   if (snippets.length > 0) {
