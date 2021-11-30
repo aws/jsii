@@ -62,7 +62,6 @@ export async function extractSnippets(
   const translatorOptions: RosettaTranslatorOptions = {
     includeCompilerDiagnostics: options.includeCompilerDiagnostics,
     assemblies: assemblies.map((a) => a.assembly),
-    tablet: await LanguageTablet.fromOptionalFile(options.outputFile),
   };
 
   const translator = options.translatorFactory

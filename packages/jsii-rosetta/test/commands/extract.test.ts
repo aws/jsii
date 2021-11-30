@@ -84,7 +84,7 @@ describe('with cache file', () => {
       expect(translationFunction).not.toHaveBeenCalled();
     });
 
-    test('because append to file acts as cache', async () => {
+    test('because output file acts as cache', async () => {
       const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
       await extract.extractSnippets([assembly.moduleDirectory], {
@@ -116,7 +116,7 @@ describe('with cache file', () => {
     }
   });
 
-  test('append to existing tablet', async () => {
+  test('existing tablet is updated when assembly changes', async () => {
     // Modify the assembly with a new example
     assembly.assembly.types!['my_assembly.ClassB'].docs = {
       example: 'ClassB.anotherMethod();',
