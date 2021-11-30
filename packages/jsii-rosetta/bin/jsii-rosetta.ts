@@ -139,8 +139,8 @@ function main() {
           .option('compile', {
             alias: 'c',
             type: 'boolean',
-            describe: 'Try compiling',
-            default: false,
+            describe: 'Try compiling (on by default, use --no-compile to switch off)',
+            default: true,
           })
           .option('directory', {
             alias: 'd',
