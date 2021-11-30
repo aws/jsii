@@ -52,12 +52,24 @@ export class RosettaTranslator {
     this.includeCompilerDiagnostics = options.includeCompilerDiagnostics ?? false;
   }
 
+  /**
+   * @deprecated use `addToCache` instead
+   */
   public async loadCache(fileName: string) {
     try {
       await this.cache.load(fileName);
     } catch (e) {
       logging.warn(`Error reading cache ${fileName}: ${e.message}`);
     }
+  }
+
+  public async addToCache(filename: string) {
+    const tab = await LanguageTablet.fromOptionalFile(filename);
+    this.cache.addTablet(tab);
+  }
+
+  public hasCache() {
+    return this.cache.count > 0;
   }
 
   /**

@@ -2,6 +2,7 @@ import * as path from 'path';
 
 import { LanguageTablet, RosettaTranslator, RosettaTranslatorOptions } from '../../lib';
 import * as extract from '../../lib/commands/extract';
+import { loadAssemblies } from '../../lib/jsii/assemblies';
 import { TARGET_LANGUAGES } from '../../lib/languages';
 import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
@@ -21,13 +22,17 @@ const defaultExtractOptions = {
 };
 
 let assembly: TestJsiiModule;
-beforeAll(async () => {
+beforeEach(async () => {
   // Create an assembly in a temp directory
   assembly = await TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
         public someMethod() {
+        }
+      }
+      export class ClassB {
+        public anotherMethod() {
         }
       }
       `,
@@ -40,7 +45,7 @@ beforeAll(async () => {
   );
 });
 
-afterAll(async () => assembly.cleanup());
+afterEach(async () => assembly.cleanup());
 
 test('extract samples from test assembly', async () => {
   const outputFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
@@ -57,7 +62,7 @@ test('extract samples from test assembly', async () => {
 
 describe('with cache file', () => {
   let cacheTabletFile: string;
-  beforeAll(async () => {
+  beforeEach(async () => {
     cacheTabletFile = path.join(assembly.moduleDirectory, 'cache.tabl.json');
     await extract.extractSnippets([assembly.moduleDirectory], {
       outputFile: cacheTabletFile,
@@ -65,17 +70,31 @@ describe('with cache file', () => {
     });
   });
 
-  test('translation does not happen if it can be read from cache', async () => {
-    const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+  describe('translation does not happen ', () => {
+    test('if it can be read from cache', async () => {
+      const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
-    await extract.extractSnippets([assembly.moduleDirectory], {
-      outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
-      cacheTabletFile,
-      translatorFactory: (o) => new MockTranslator(o, translationFunction),
-      ...defaultExtractOptions,
+      await extract.extractSnippets([assembly.moduleDirectory], {
+        outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
+        cacheTabletFile,
+        translatorFactory: (o) => new MockTranslator(o, translationFunction),
+        ...defaultExtractOptions,
+      });
+
+      expect(translationFunction).not.toHaveBeenCalled();
     });
 
-    expect(translationFunction).not.toHaveBeenCalled();
+    test('because output file acts as cache', async () => {
+      const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+
+      await extract.extractSnippets([assembly.moduleDirectory], {
+        outputFile: cacheTabletFile,
+        translatorFactory: (o) => new MockTranslator(o, translationFunction),
+        ...defaultExtractOptions,
+      });
+
+      expect(translationFunction).not.toHaveBeenCalled();
+    });
   });
 
   test('translation does happen if translator version is different', async () => {
@@ -95,6 +114,25 @@ describe('with cache file', () => {
     } finally {
       (TARGET_LANGUAGES.java as any).version = oldJavaVersion;
     }
+  });
+
+  test('existing tablet is updated when assembly changes', async () => {
+    // Modify the assembly with a new example
+    assembly.assembly.types!['my_assembly.ClassB'].docs = {
+      example: 'ClassB.anotherMethod();',
+    };
+    await assembly.updateAssembly();
+
+    const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      outputFile: cacheTabletFile,
+      translatorFactory: (o) => new MockTranslator(o, translationFunction),
+      ...defaultExtractOptions,
+    });
+
+    // There are two examples, one should be cached and the other should be translated
+    expect(translationFunction).toHaveBeenCalledTimes(1);
   });
 
   test('compiler diagnostics property is passed on', async () => {
@@ -144,8 +182,38 @@ test('do not ignore example strings', async () => {
     const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
     expect(tr?.originalSource.source).toEqual('x');
   } finally {
-    await assembly.cleanup();
+    await otherAssembly.cleanup();
   }
+});
+
+test('extract and infuse in one command', async () => {
+  const outputFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
+  await extract.extractAndInfuse([assembly.moduleDirectory], {
+    outputFile,
+    ...defaultExtractOptions,
+  });
+
+  const tablet = new LanguageTablet();
+  await tablet.load(outputFile);
+
+  // extract works as expected, with a caveat
+  // the infuse part of this call will re-insert the example back
+  // into the tablet under a new key and new location.
+  // so we confirm that the locations of the snippets are as expected.
+  expect(tablet.snippetKeys.length).toEqual(2);
+  const locations = new Set();
+  for (const key of tablet.snippetKeys) {
+    locations.add(tablet.tryGetSnippet(key)?.snippet.location.api.api);
+  }
+  expect(locations).toContain('type');
+  expect(locations).toContain('moduleReadme');
+
+  const assemblies = await loadAssemblies([assembly.moduleDirectory], false);
+  const types = assemblies[0].assembly.types;
+
+  // infuse works as expected
+  expect(types).toBeDefined();
+  expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
 
 class MockTranslator extends RosettaTranslator {

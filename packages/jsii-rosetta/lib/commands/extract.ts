@@ -5,6 +5,7 @@ import { TypeScriptSnippet } from '../snippet';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet } from '../tablets/tablets';
 import { RosettaDiagnostic } from '../translate';
+import { infuse } from './infuse';
 
 export interface ExtractResult {
   diagnostics: RosettaDiagnostic[];
@@ -26,6 +27,18 @@ export interface ExtractOptions {
    * Make a translator (just for testing)
    */
   readonly translatorFactory?: (opts: RosettaTranslatorOptions) => RosettaTranslator;
+}
+
+export async function extractAndInfuse(
+  assemblyLocations: string[],
+  options: ExtractOptions,
+  loose = false,
+): Promise<ExtractResult> {
+  const result = await extractSnippets(assemblyLocations, options, loose);
+  await infuse(assemblyLocations, options.outputFile, {
+    tabletOutputFile: options.outputFile,
+  });
+  return result;
 }
 
 /**
@@ -56,9 +69,12 @@ export async function extractSnippets(
     : new RosettaTranslator(translatorOptions);
 
   if (options.cacheTabletFile) {
-    await translator.loadCache(options.cacheTabletFile);
+    await translator.addToCache(options.cacheTabletFile);
+  }
+  await translator.addToCache(options.outputFile);
+  if (translator.hasCache()) {
     const { translations, remaining } = translator.readFromCache(snippets);
-    logging.info(`Reused ${translations.length} translations from cache ${options.cacheTabletFile}`);
+    logging.info(`Reused ${translations.length} translations from cache`);
     snippets = remaining;
   }
 
