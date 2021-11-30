@@ -107,7 +107,7 @@ To specify fixtures in an `@example` block, use an accompanying `@exampleMetadat
 /**
  * My cool class
  *
- * @exampleMetdata fixture=with-setup
+ * @exampleMetadata fixture=with-setup
  * @example
  *
  * new MyCoolClass();
