@@ -139,7 +139,9 @@ import { VERSION_DESC } from '../lib/version';
     argv['rosetta-translate-live'] !== undefined &&
     argv['rosetta-unknown-snippets'] !== undefined
   ) {
-    throw new Error('Prefer using --rosetta-unknown-snippets over --rosetta-translate-live');
+    throw new Error(
+      'Prefer using --rosetta-unknown-snippets over --rosetta-translate-live',
+    );
   }
 
   const rosettaUnknownSnippets =
