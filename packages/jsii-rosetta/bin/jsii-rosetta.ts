@@ -6,7 +6,7 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
-import { extractSnippets } from '../lib/commands/extract';
+import { extractAndInfuse, ExtractResult, extractSnippets } from '../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
@@ -139,8 +139,8 @@ function main() {
           .option('compile', {
             alias: 'c',
             type: 'boolean',
-            describe: 'Try compiling',
-            default: false,
+            describe: 'Try compiling (on by default, use --no-compile to switch off)',
+            default: true,
           })
           .option('directory', {
             alias: 'd',
@@ -152,6 +152,11 @@ function main() {
             type: 'array',
             describe: 'Extract only snippets with given ids',
             default: new Array<string>(),
+          })
+          .option('infuse', {
+            type: 'boolean',
+            describe: 'bundle this command with the infuse command',
+            default: false,
           })
           .option('fail', {
             alias: 'f',
@@ -198,13 +203,24 @@ function main() {
           process.chdir(args.directory);
         }
 
-        const result = await extractSnippets(absAssemblies, {
-          outputFile: absOutput,
-          includeCompilerDiagnostics: !!args.compile,
-          validateAssemblies: args['validate-assemblies'],
-          only: args.include,
-          cacheTabletFile: absCache,
-        });
+        let result: ExtractResult;
+        if (args.infuse) {
+          result = await extractAndInfuse(absAssemblies, {
+            outputFile: absOutput,
+            includeCompilerDiagnostics: !!args.compile,
+            validateAssemblies: args['validate-assemblies'],
+            only: args.include,
+            cacheTabletFile: absCache,
+          });
+        } else {
+          result = await extractSnippets(absAssemblies, {
+            outputFile: absOutput,
+            includeCompilerDiagnostics: !!args.compile,
+            validateAssemblies: args['validate-assemblies'],
+            only: args.include,
+            cacheTabletFile: absCache,
+          });
+        }
 
         handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);
       }),
