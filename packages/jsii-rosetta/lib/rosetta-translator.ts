@@ -68,6 +68,12 @@ export class RosettaTranslator {
     this.cache.addTablet(tab);
   }
 
+  public addTabletsToCache(...tablets: LanguageTablet[]) {
+    for (const tab of tablets) {
+      this.cache.addTablet(tab);
+    }
+  }
+
   public hasCache() {
     return this.cache.count > 0;
   }

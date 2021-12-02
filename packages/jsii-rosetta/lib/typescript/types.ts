@@ -1,6 +1,7 @@
 import * as ts from 'typescript';
 
 import { hasAllFlags, hasAnyFlag, resolveEnumLiteral, resolvedSymbolAtLocation } from '../jsii/jsii-utils';
+import { isDefined } from '../util';
 
 /**
  * Return the first non-undefined type from a union
@@ -151,10 +152,6 @@ export function arrayElementType(type: ts.Type): ts.Type | undefined {
 export function typeOfExpression(typeChecker: ts.TypeChecker, node: ts.Expression) {
   const t = typeChecker.getContextualType(node) ?? typeChecker.getTypeAtLocation(node);
   return resolveEnumLiteral(typeChecker, t);
-}
-
-function isDefined<A>(x: A): x is NonNullable<A> {
-  return x !== undefined;
 }
 
 /**

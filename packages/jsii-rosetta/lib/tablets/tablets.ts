@@ -2,6 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import { TargetLanguage } from '../languages';
+import * as logging from '../logging';
 import { TypeScriptSnippet, SnippetLocation, completeSource } from '../snippet';
 import { mapValues } from '../util';
 import { snippetKey } from './key';
@@ -35,16 +36,22 @@ export class LanguageTablet {
   public static async fromOptionalFile(filename: string) {
     const ret = new LanguageTablet();
     if (fs.existsSync(filename)) {
-      await ret.load(filename);
+      try {
+        await ret.load(filename);
+      } catch (e) {
+        logging.warn(`${filename}: ${e}`);
+      }
     }
     return ret;
   }
 
   private readonly snippets: Record<string, TranslatedSnippet> = {};
 
-  public addSnippet(snippet: TranslatedSnippet) {
-    const existingSnippet = this.snippets[snippet.key];
-    this.snippets[snippet.key] = existingSnippet ? existingSnippet.mergeTranslations(snippet) : snippet;
+  public addSnippet(...snippets: TranslatedSnippet[]) {
+    for (const snippet of snippets) {
+      const existingSnippet = this.snippets[snippet.key];
+      this.snippets[snippet.key] = existingSnippet ? existingSnippet.mergeTranslations(snippet) : snippet;
+    }
   }
 
   public get snippetKeys() {
@@ -54,9 +61,11 @@ export class LanguageTablet {
   /**
    * Add all snippets from the given tablet into this one
    */
-  public addTablet(tablet: LanguageTablet) {
-    for (const snippet of Object.values(tablet.snippets)) {
-      this.addSnippet(snippet);
+  public addTablet(...tablets: LanguageTablet[]) {
+    for (const tablet of tablets) {
+      for (const snippet of Object.values(tablet.snippets)) {
+        this.addSnippet(snippet);
+      }
     }
   }
 
@@ -111,6 +120,10 @@ export class LanguageTablet {
 
   public get count() {
     return Object.keys(this.snippets).length;
+  }
+
+  public get translatedSnippets() {
+    return Object.values(this.snippets);
   }
 
   public async save(filename: string) {

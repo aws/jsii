@@ -14,37 +14,31 @@ import {
   parseMetadataLine,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
+import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
 import { fmap, mkDict, sortBy } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
 
+/**
+ * The JSDoc tag users can use to associate non-visible metadata with an example
+ *
+ * In a Markdown section, metadata goes after the code block fence, where it will
+ * be attached to the example but invisible.
+ *
+ *    ```ts metadata=goes here
+ *
+ * But in doc comments, '@example' already delineates the example, and any metadata
+ * in there added by the '///' tags becomes part of the visible code (there is no
+ * place to put hidden information).
+ *
+ * We introduce the '@exampleMetadata' tag to put that additional information.
+ */
+export const EXAMPLE_METADATA_JSDOCTAG = 'exampleMetadata';
+
 export interface LoadedAssembly {
-  assembly: spec.Assembly;
-  directory: string;
-}
-
-export function loadAssembliesSync(
-  assemblyLocations: readonly string[],
-  validateAssemblies: boolean,
-): readonly LoadedAssembly[] {
-  return assemblyLocations.map(loadAssemblySync);
-
-  function loadAssemblySync(location: string): LoadedAssembly {
-    const stat = fs.statSync(location);
-    if (stat.isDirectory()) {
-      return loadAssemblySync(path.join(location, '.jsii'));
-    }
-    return {
-      assembly: loadAssemblyFromFileSync(location, validateAssemblies),
-      directory: path.dirname(location),
-    };
-  }
-}
-
-function loadAssemblyFromFileSync(filename: string, validate: boolean): spec.Assembly {
-  const contents = fs.readJSONSync(filename, { encoding: 'utf-8' });
-  return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
+  readonly assembly: spec.Assembly;
+  readonly directory: string;
 }
 
 /**
@@ -61,6 +55,7 @@ export async function loadAssemblies(
     if (stat.isDirectory()) {
       return loadAssembly(path.join(location, '.jsii'));
     }
+
     return {
       assembly: await loadAssemblyFromFile(location, validateAssemblies),
       directory: path.dirname(location),
@@ -73,9 +68,25 @@ async function loadAssemblyFromFile(filename: string, validate: boolean): Promis
   return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
 }
 
+/**
+ * Load the default tablets for every assembly, if available
+ *
+ * Returns a map of { directory -> tablet }.
+ */
+export async function loadAllDefaultTablets(asms: readonly LoadedAssembly[]): Promise<Record<string, LanguageTablet>> {
+  return mkDict(
+    await Promise.all(
+      asms.map(
+        async (a) =>
+          [a.directory, await LanguageTablet.fromOptionalFile(path.join(a.directory, DEFAULT_TABLET_NAME))] as const,
+      ),
+    ),
+  );
+}
+
 export type AssemblySnippetSource =
   | { type: 'markdown'; markdown: string; location: ApiLocation }
-  | { type: 'example'; source: string; metadata: { [key: string]: string } | undefined; location: ApiLocation };
+  | { type: 'example'; source: string; metadata?: { [key: string]: string }; location: ApiLocation };
 
 /**
  * Return all markdown and example snippets from the given assembly
@@ -133,7 +144,7 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
       ret.push({
         type: 'example',
         source: docs.example,
-        metadata: fmap(docs.custom?.exampleMetadata, parseMetadataLine),
+        metadata: fmap(docs.custom?.[EXAMPLE_METADATA_JSDOCTAG], parseMetadataLine),
         location,
       });
     }
