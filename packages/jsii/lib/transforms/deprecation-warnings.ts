@@ -2,8 +2,7 @@ import * as spec from '@jsii/spec';
 import { Assembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as path from 'path';
-import { EmitHint, Statement } from 'typescript';
-import * as ts from 'typescript/lib/tsserverlibrary';
+import * as ts from 'typescript';
 
 import { ProjectInfo } from '../project-info';
 import { symbolIdentifier } from '../symbol-id';
@@ -28,7 +27,7 @@ export class DeprecationWarningsInjector {
 
     const types = assembly.types ?? {};
     for (const type of Object.values(types)) {
-      const statements: Statement[] = [];
+      const statements: ts.Statement[] = [];
       let isEmpty = true;
 
       // This will add the parameter to the set of visited objects, to prevent infinite recursion
@@ -157,7 +156,7 @@ function processInterfaceType(
   types: { [p: string]: spec.Type },
   assembly: Assembly,
   projectInfo: ProjectInfo,
-  statementsByProp: Map<string, Statement> = new Map<string, ts.Statement>(),
+  statementsByProp: Map<string, ts.Statement> = new Map<string, ts.Statement>(),
   excludedProps: Set<string> = new Set<string>(),
 ) {
   for (const prop of Object.values(type.properties ?? {})) {
@@ -252,7 +251,7 @@ function fnName(fqn: string): string {
   return fqn.replace(/[^\w\d]/g, '_');
 }
 
-function createFunctionBlock(statements: Statement[]): ts.Block {
+function createFunctionBlock(statements: ts.Statement[]): ts.Block {
   if (statements.length > 0) {
     const validation = ts.createIf(
       ts.createIdentifier(`${PARAMETER_NAME} == null`),
@@ -268,7 +267,7 @@ function createWarningFunctionCall(
   message = '',
   condition?: ts.Identifier,
   includeNamespace = false,
-): Statement {
+): ts.Statement {
   const functionName = includeNamespace
     ? `${NAMESPACE}.${WARNING_FUNCTION_NAME}`
     : WARNING_FUNCTION_NAME;
@@ -291,7 +290,7 @@ function generateWarningsFile(
   const names = [...functionDeclarations]
     .map((d) => d.name?.text)
     .filter(Boolean);
-  const exports = [WARNING_FUNCTION_NAME, ...names].join(',');
+  const exportedSymbols = [WARNING_FUNCTION_NAME, ...names].join(',');
 
   const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage) {
   const deprecated = process.env.JSII_DEPRECATED;
@@ -310,7 +309,7 @@ const ${VISITED_OBJECTS_SET_NAME} = new Set();
 
 class DeprecationError extends Error {}
 
-module.exports = {${exports}}
+module.exports = {${exportedSymbols}}
 module.exports.DeprecationError = DeprecationError;
 `;
 
@@ -324,7 +323,7 @@ module.exports.DeprecationError = DeprecationError;
   );
 
   const declarations = functionDeclarations.map((declaration) =>
-    printer.printNode(EmitHint.Unspecified, declaration, resultFile),
+    printer.printNode(ts.EmitHint.Unspecified, declaration, resultFile),
   );
 
   const content = declarations.concat(printer.printFile(resultFile)).join('\n');
@@ -614,7 +613,7 @@ function findType(typeName: string, assemblies: Assembly[]) {
 function createTypeHandlerCall(
   functionName: string,
   parameter: string,
-): Statement {
+): ts.Statement {
   return ts.createIf(
     ts.createIdentifier(`!${VISITED_OBJECTS_SET_NAME}.has(${parameter})`),
     ts.createExpressionStatement(
