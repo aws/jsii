@@ -1,4 +1,11 @@
-import { ensureDir, mkdtemp, remove, writeFile, readFile, readJson } from 'fs-extra';
+import {
+  ensureDir,
+  mkdtemp,
+  remove,
+  writeFile,
+  readFile,
+  readJson,
+} from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -134,7 +141,6 @@ describe(Compiler, () => {
       await compiler.emit();
 
       const assembly = await readJson(join(sourceDir, '.jsii'), 'utf-8');
-      console.log(assembly);
       expect(assembly.metadata).toEqual({
         tscRootDir: rootDir,
       });
