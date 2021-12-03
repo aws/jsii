@@ -130,7 +130,7 @@ export async function extractSnippets(
       const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
 
       const asmTablet = new LanguageTablet();
-      asmTablet.addSnippet(...translations);
+      asmTablet.addSnippets(...translations);
       await asmTablet.save(asmTabletFile);
     }),
   );

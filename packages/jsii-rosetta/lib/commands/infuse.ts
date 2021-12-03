@@ -73,7 +73,7 @@ export async function infuse(assemblyLocations: string[], options?: InfuseOption
   if (options?.cacheFromFile) {
     availableTranslations.addTablet(await LanguageTablet.fromOptionalFile(options.cacheFromFile));
   }
-  availableTranslations.addTablet(...Object.values(defaultTablets));
+  availableTranslations.addTablets(...Object.values(defaultTablets));
 
   const { translationsByFqn, originalsByKey } = availableSnippetsPerFqn(assemblies, availableTranslations);
 

@@ -24,7 +24,7 @@ export async function trimCache(options: TrimCacheOptions): Promise<void> {
 
   const original = await LanguageTablet.fromFile(options.cacheFile);
   const updated = new LanguageTablet();
-  updated.addSnippet(...snippets.map((snip) => original.tryGetSnippet(snippetKey(snip))).filter(isDefined));
+  updated.addSnippets(...snippets.map((snip) => original.tryGetSnippet(snippetKey(snip))).filter(isDefined));
   await updated.save(options.cacheFile);
 
   // eslint-disable-next-line prettier/prettier

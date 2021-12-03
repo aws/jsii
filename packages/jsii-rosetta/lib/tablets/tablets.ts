@@ -47,11 +47,23 @@ export class LanguageTablet {
 
   private readonly snippets: Record<string, TranslatedSnippet> = {};
 
-  public addSnippet(...snippets: TranslatedSnippet[]) {
+  /**
+   * Add one or more snippets to this tablet
+   */
+  public addSnippets(...snippets: TranslatedSnippet[]) {
     for (const snippet of snippets) {
       const existingSnippet = this.snippets[snippet.key];
       this.snippets[snippet.key] = existingSnippet ? existingSnippet.mergeTranslations(snippet) : snippet;
     }
+  }
+
+  /**
+   * Add one snippet to this tablet
+   *
+   * @deprecated use addSnippets instead
+   */
+  public addSnippet(snippet: TranslatedSnippet) {
+    this.addSnippets(snippet);
   }
 
   public get snippetKeys() {
@@ -59,14 +71,23 @@ export class LanguageTablet {
   }
 
   /**
-   * Add all snippets from the given tablet into this one
+   * Add all snippets from the given tablets into this one
    */
-  public addTablet(...tablets: LanguageTablet[]) {
+  public addTablets(...tablets: LanguageTablet[]) {
     for (const tablet of tablets) {
       for (const snippet of Object.values(tablet.snippets)) {
         this.addSnippet(snippet);
       }
     }
+  }
+
+  /**
+   * Add all snippets from the given tablet into this one
+   *
+   * @deprecated Use `addTablets()` instead.
+   */
+  public addTablet(tablet: LanguageTablet) {
+    this.addTablets(tablet);
   }
 
   public tryGetSnippet(key: string): TranslatedSnippet | undefined {
