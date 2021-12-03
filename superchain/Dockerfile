@@ -34,12 +34,12 @@ SHELL ["/bin/zsh", "-c"]
 ARG M2_VERSION="3.8.4"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
-  && curl -sL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                               \
-         -o /tmp/apache-maven.tar.gz                                                                                    \
-  && curl -sL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc"                           \
-          -o /tmp/apache-maven.tar.gz.asc                                                                               \
+  && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
+  -o /tmp/apache-maven.tar.gz                                                                                           \
+  && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc"                         \
+  -o /tmp/apache-maven.tar.gz.asc                                                                                       \
   && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
-  && curl -sL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                          \
+  && curl -fSsL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                        \
   && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
   && mkdir -p /opt/apache/maven                                                                                         \
   && tar xzf /tmp/apache-maven.tar.gz -C /opt/apache/maven --strip-components=1
@@ -50,7 +50,7 @@ ENV DOTNET_FEED="https://dotnetcli.azureedge.net/dotnet"
 RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.version")                                  \
   && DOTNET_ASSET="dotnet-sdk-${DOTNET_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                     \
   && curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_VERSION}/${DOTNET_ASSET}"                                                  \
-    -o /tmp/dotnet.tar.gz                                                                                               \
+  -o /tmp/dotnet.tar.gz                                                                                                 \
   && mkdir -p /opt/microsoft/dotnet                                                                                     \
   && tar zxf /tmp/dotnet.tar.gz -C /opt/microsoft/dotnet
 
@@ -60,7 +60,7 @@ RUN POWERSHELL_RELEASE=$(curl -fSsL "https://aka.ms/powershell-release?tag=lts" 
   && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
   && ASSET="powershell-${POWERSHELL_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                        \
   && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}"                                       \
-      -o /tmp/powershell.tar.gz                                                                                         \
+  -o /tmp/powershell.tar.gz                                                                                             \
   && mkdir -p /opt/microsoft/powershell                                                                                 \
   && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell                                                        \
   && chmod +x /opt/microsoft/powershell/pwsh
@@ -84,51 +84,51 @@ SHELL ["/bin/bash", "-c"]
 
 # Set locale and some other interesting environment variables
 ENV LANG="C.UTF-8"                                                                                                      \
-    LC_ALL="C.UTF-8"                                                                                                    \
-    CHARSET="UTF-8"                                                                                                     \
-                                                                                                                        \
-    DOTNET_RUNNING_IN_CONTAINER="true"                                                                                  \
-    DOTNET_USE_POLLING_FILE_WATCHER="true"                                                                              \
-    NUGET_XMLDOC_MODE="skip"                                                                                            \
-                                                                                                                        \
-    M2_HOME="/opt/apache/maven"                                                                                         \
-    M2="/opt/apache/maven/bin"                                                                                          \
-                                                                                                                        \
-    GOROOT="/opt/golang/go"
+  LC_ALL="C.UTF-8"                                                                                                      \
+  CHARSET="UTF-8"                                                                                                       \
+  \
+  DOTNET_RUNNING_IN_CONTAINER="true"                                                                                    \
+  DOTNET_USE_POLLING_FILE_WATCHER="true"                                                                                \
+  NUGET_XMLDOC_MODE="skip"                                                                                              \
+  \
+  M2_HOME="/opt/apache/maven"                                                                                           \
+  M2="/opt/apache/maven/bin"                                                                                            \
+  \
+  GOROOT="/opt/golang/go"
 
 # Installing the system dependencies we need...
 RUN apt-get update                                                                                                      \
   && apt-get -y install                                                                                                 \
-                        apt-transport-https                                                                             \
-                        build-essential                                                                                 \
-                        ca-certificates                                                                                 \
-                        curl                                                                                            \
-                        dirmngr                                                                                         \
-                        git                                                                                             \
-                        gnupg                                                                                           \
-                        gzip                                                                                            \
-                        libffi-dev                                                                                      \
-                        libicu63                                                                                        \
-                        libssl-dev                                                                                      \
-                        openssl                                                                                         \
-                        rsync                                                                                           \
-                        sudo                                                                                            \
-                        unzip                                                                                           \
-                        zip                                                                                             \
+  apt-transport-https                                                                                                   \
+  build-essential                                                                                                       \
+  ca-certificates                                                                                                       \
+  curl                                                                                                                  \
+  dirmngr                                                                                                               \
+  git                                                                                                                   \
+  gnupg                                                                                                                 \
+  gzip                                                                                                                  \
+  libffi-dev                                                                                                            \
+  libicu63                                                                                                              \
+  libssl-dev                                                                                                            \
+  openssl                                                                                                               \
+  rsync                                                                                                                 \
+  sudo                                                                                                                  \
+  unzip                                                                                                                 \
+  zip                                                                                                                   \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
 COPY superchain/gpg/mono.asc /tmp/mono.asc
 RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                                                                       \
   && echo "deb https://download.mono-project.com/repo/debian stable-buster main"                                        \
-      > /etc/apt/sources.list.d/mono-official-stable.list                                                               \
+  > /etc/apt/sources.list.d/mono-official-stable.list                                                                   \
   && apt-get update                                                                                                     \
   && apt-get -y install mono-devel                                                                                      \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Rust (required for https://pypi.org/project/cryptography/ in certain circumstances... like ARM64 arch)
 ENV RUSTUP_HOME=/usr/local/rustup                                                                                       \
-    CARGO_HOME=/usr/local/cargo
+  CARGO_HOME=/usr/local/cargo
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "https://sh.rustup.rs" | sh -s -- -y --no-modify-path --profile=minimal                                 \
   && echo "source ${CARGO_HOME}/env" >> /etc/profile.d/cargo.sh                                                         \
@@ -165,9 +165,9 @@ VOLUME /var/lib/docker
 # Install GitHub CLI
 ARG GITHUB_CLI_VERSION="1.13.1"
 RUN BASE="https://github.com/cli/cli/releases/download"                                                                 \
-  && echo "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb" \
+  && echo "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"                  \
   && curl -fSsL "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"            \
-      -o /tmp/gh.deb                                                                                                    \
+  -o /tmp/gh.deb                                                                                                        \
   && apt-get update                                                                                                     \
   && apt-get -y install /tmp/gh.deb                                                                                     \
   && rm /tmp/gh.deb                                                                                                     \
@@ -194,7 +194,7 @@ COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \
   && echo "deb https://deb.nodesource.com/node_${NODE_MAJOR_VERSION}.x buster main"                                     \
-      > /etc/apt/sources.list.d/nodesource.list                                                                         \
+  > /etc/apt/sources.list.d/nodesource.list                                                                             \
   && apt-key add /tmp/yarn.asc && rm /tmp/yarn.asc                                                                      \
   && echo "deb https://dl.yarnpkg.com/debian stable main" > /etc/apt/sources.list.d/yarnpkg.list                        \
   && apt-get update                                                                                                     \
@@ -218,6 +218,105 @@ RUN chmod 600 /home/superchain/.ssh/config
 # Add the source used to build this Docker image (to facilitate re-builds, forensics)
 COPY superchain /docker-source
 
+# Create the attributions document
+RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc"                    \
+  && RUSTUP_VERSION=$(rustup --version 2>/dev/null | cut -d' ' -f2)                                                     \
+  && echo "This jsii/superchain image includes the following third-party software/licensing:" > /NOTICE                 \
+  && echo "" >> /NOTICE                                                                                                 \
+  # Start with the packages that didn't come from "apt-get" or don't have a copyright file
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "docker-ce:" >> /NOTICE                                                                                       \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ NOTICE ------------------------------------" >> /NOTICE                 \
+  && curl -fSsL "https://github.com/docker/cli/raw/master/NOTICE" >> /NOTICE                                            \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && curl -fSsL "https://github.com/docker/cli/raw/master/LICENSE" >> /NOTICE                                           \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "docker-ce-cli:" >> /NOTICE                                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ NOTICE ------------------------------------" >> /NOTICE                 \
+  && curl -fSsL "https://github.com/moby/moby/raw/master/NOTICE" >> /NOTICE                                             \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && curl -fSsL "https://github.com/moby/moby/raw/master/LICENSE" >> /NOTICE                                            \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "dotnet:" >> /NOTICE                                                                                          \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat /opt/microsoft/dotnet/LICENSE.txt >> /NOTICE                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
+  && cat /opt/microsoft/dotnet/ThirdPartyNotices.txt >> /NOTICE                                                         \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "gh:" >> /NOTICE                                                                                              \
+  && curl -fSsL "https://github.com/cli/cli/raw/trunk/LICENSE" >> /NOTICE                                               \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "go:" >> /NOTICE                                                                                              \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat ${GOROOT}/LICENSE  >> /NOTICE                                                                                  \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ PATENTS ------------------------------------" >> /NOTICE                \
+  && cat ${GOROOT}/PATENTS >> /NOTICE                                                                                   \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "java-1.8.0-amazon-corretto-jdk:" >> /NOTICE                                                                  \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/LICENSE >> /NOTICE                                                     \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
+  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/THIRD_PARTY_README >> /NOTICE                                          \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "maven:" >> /NOTICE                                                                                           \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ NOTICE ------------------------------------" >> /NOTICE                 \
+  && cat ${M2_HOME}/NOTICE >> /NOTICE                                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat ${M2_HOME}/LICENSE >> /NOTICE                                                                                  \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "cargo:" >> /NOTICE                                                                                           \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (APACHE) ------------------------------------" >> /NOTICE       \
+  && cat ${RUST_DOCS}/cargo/LICENSE-APACHE >> /NOTICE                                                                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (MIT) ------------------------------------" >> /NOTICE          \
+  && cat ${RUST_DOCS}/cargo/LICENSE-MIT >> /NOTICE                                                                      \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY LICENSES ------------------------------------" >> /NOTICE   \
+  && cat ${RUST_DOCS}/cargo/LICENSE-THIRD-PARTY >> /NOTICE                                                              \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "rust:" >> /NOTICE                                                                                            \
+  && cat ${RUST_DOCS}/rust/COPYRIGHT >> /NOTICE                                                                         \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "rustup:" >> /NOTICE                                                                                          \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (APACHE) ------------------------------------" >> /NOTICE       \
+  && curl -fSsL "https://github.com/rust-lang/rustup/raw/${RUSTUP_VERSION}/LICENSE-APACHE" >> /NOTICE                   \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE (MIT) ------------------------------------" >> /NOTICE          \
+  && curl -fSsL "https://github.com/rust-lang/rustup/raw/${RUSTUP_VERSION}/LICENSE-MIT" >> /NOTICE                      \
+  && echo "################################################################################" >> /NOTICE                 \
+  && echo "powershell:" >> /NOTICE                                                                                      \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
+  && cat /opt/microsoft/powershell/LICENSE.txt >> /NOTICE                                                               \
+  && echo "" >> /NOTICE                                                                                                 \
+  && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
+  && cat /opt/microsoft/powershell/ThirdPartyNotices.txt >> /NOTICE                                                     \
+  && echo "################################################################################" >> /NOTICE                 \
+  # Clean up
+  && unset RUST_DOCS RUSTUP_VERSION                                                                                     \
+  # And then aggregate everything that came from dpkg which ships a copyright file
+  && for PKG in $(dpkg-query --show --showformat='${package}\n'); do                                                    \
+  if [[ -f "/usr/share/doc/${PKG}/copyright" ]]; then                                                                   \
+  echo "${PKG}:" >> /NOTICE                                                                                             \
+  && cat /usr/share/doc/${PKG}/copyright >> /NOTICE                                                                     \
+  && echo '################################################################################' >> /NOTICE                 \
+  ;fi                                                                                                                   \
+  ;done
+
 CMD ["/bin/bash"]
 
 ########################################################################################################################
@@ -226,22 +325,22 @@ CMD ["/bin/bash"]
 FROM scratch as superchain
 # Set locale and some other interesting environment variables
 ENV LANG="C.UTF-8"                                                                                                      \
-    LC_ALL="C.UTF-8"                                                                                                    \
-    CHARSET="UTF-8"                                                                                                     \
-                                                                                                                        \
-    DOTNET_CLI_TELEMETRY_OPTOUT="true"                                                                                  \
-    DOTNET_RUNNING_IN_CONTAINER="true"                                                                                  \
-    DOTNET_NOLOGO="true"                                                                                                \
-    DOTNET_USE_POLLING_FILE_WATCHER="true"                                                                              \
-    NUGET_XMLDOC_MODE="skip"                                                                                            \
-                                                                                                                        \
-    M2_HOME="/opt/apache/maven"                                                                                         \
-    M2="/opt/apache/maven/bin"                                                                                          \
-    MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
-                                                                                                                        \
-    GOROOT="/opt/golang/go"                                                                                             \
-    RUSTUP_HOME="/usr/local/rustup"                                                                                     \
-    CARGO_HOME="/usr/local/cargo"
+  LC_ALL="C.UTF-8"                                                                                                      \
+  CHARSET="UTF-8"                                                                                                       \
+  \
+  DOTNET_CLI_TELEMETRY_OPTOUT="true"                                                                                    \
+  DOTNET_RUNNING_IN_CONTAINER="true"                                                                                    \
+  DOTNET_NOLOGO="true"                                                                                                  \
+  DOTNET_USE_POLLING_FILE_WATCHER="true"                                                                                \
+  NUGET_XMLDOC_MODE="skip"                                                                                              \
+  \
+  M2_HOME="/opt/apache/maven"                                                                                           \
+  M2="/opt/apache/maven/bin"                                                                                            \
+  MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                        \
+  \
+  GOROOT="/opt/golang/go"                                                                                               \
+  RUSTUP_HOME="/usr/local/rustup"                                                                                       \
+  CARGO_HOME="/usr/local/cargo"
 ENV PATH="${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}"
 
 COPY --from=staging / /
@@ -251,12 +350,12 @@ VOLUME /var/lib/docker
 ARG BUILD_TIMESTAMP
 ARG COMMIT_ID
 LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
-      org.opencontainers.image.title="jsii/superchain"                                                                  \
-      org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                   \
-      org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                   \
-      org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
-      org.opencontainers.image.revision=$COMMIT_ID                                                                      \
-      org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
+  org.opencontainers.image.title="jsii/superchain"                                                                      \
+  org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                       \
+  org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                       \
+  org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                     \
+  org.opencontainers.image.revision=$COMMIT_ID                                                                          \
+  org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
 USER superchain:superchain
 
