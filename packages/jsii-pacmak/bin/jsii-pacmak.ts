@@ -95,7 +95,7 @@ import { VERSION_DESC } from '../lib/version';
     .option('rosetta-translate-live', {
       type: 'boolean',
       desc: "Translate code samples on-the-fly if they can't be found in the samples tablet (deprecated)",
-      default: true,
+      default: undefined,
     })
     .option('rosetta-unknown-snippets', {
       type: 'string',
@@ -135,6 +135,21 @@ import { VERSION_DESC } from '../lib/version';
   // Default to 4 threads in case of concurrency, good enough for most situations
   debug('command line arguments:', argv);
 
+  if (
+    argv['rosetta-translate-live'] !== undefined &&
+    argv['rosetta-unknown-snippets'] !== undefined
+  ) {
+    throw new Error(
+      'Prefer using --rosetta-unknown-snippets over --rosetta-translate-live',
+    );
+  }
+
+  const rosettaUnknownSnippets =
+    (argv['rosetta-unknown-snippets'] as UnknownSnippetMode | undefined) ??
+    (argv['rosetta-translate-live']
+      ? UnknownSnippetMode.TRANSLATE
+      : UnknownSnippetMode.VERBATIM);
+
   return pacmak({
     argv,
     clean: argv.clean,
@@ -147,10 +162,7 @@ import { VERSION_DESC } from '../lib/version';
     outputDirectory: argv.outdir,
     parallel: argv.parallel,
     recurse: argv.recurse,
-    rosettaLiveConversion: argv['rosetta-translate-live'],
-    rosettaUnknownSnippets: argv['rosetta-unknown-snippets'] as
-      | UnknownSnippetMode
-      | undefined,
+    rosettaUnknownSnippets,
     rosettaTablet: argv['rosetta-tablet'],
     targets: argv.targets?.map((target) => target as TargetName),
     updateNpmIgnoreFiles: argv.npmignore,
