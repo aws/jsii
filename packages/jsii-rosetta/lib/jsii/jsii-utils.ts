@@ -129,13 +129,16 @@ export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): J
     // This is a module.
     // FIXME: for now assume this is the assembly root. Handle the case where it isn't later.
     const sourceAssembly = findTypeLookupAssembly(decl.fileName);
+    const tscRootDir = sourceAssembly?.assembly.metadata?.tscRootDir;
     return fmap(
       sourceAssembly,
       (asm) =>
         ({
           fqn:
-            fmap(symbolIdentifier(typeChecker, sym), (symbolId) => sourceAssembly?.symbolIdMap[symbolId]) ??
-            sourceAssembly?.assembly.name,
+            fmap(
+              symbolIdentifier(typeChecker, sym, false, tscRootDir),
+              (symbolId) => sourceAssembly?.symbolIdMap[symbolId],
+            ) ?? sourceAssembly?.assembly.name,
           sourceAssembly: asm,
           symbolType: 'module',
         } as JsiiSymbol),
@@ -187,12 +190,13 @@ function lookupTypeSymbol(
   typeSymbol: ts.Symbol,
   fileName: string,
 ): JsiiSymbol | undefined {
-  const symbolId = symbolIdentifier(typeChecker, typeSymbol);
+  const sourceAssembly = findTypeLookupAssembly(fileName);
+  const tscRootDir = sourceAssembly?.assembly.metadata?.tscRootDir;
+  const symbolId = symbolIdentifier(typeChecker, typeSymbol, false, tscRootDir);
   if (!symbolId) {
     return undefined;
   }
 
-  const sourceAssembly = findTypeLookupAssembly(fileName);
   return fmap(sourceAssembly?.symbolIdMap[symbolId], (fqn) => ({ fqn, sourceAssembly, symbolType: 'type' }));
 }
 

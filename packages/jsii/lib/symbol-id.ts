@@ -5,6 +5,8 @@ import * as ts from 'typescript';
 export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
   sym: ts.Symbol,
+  valueAsIs = true,
+  tscRootDir?: string,
 ): string | undefined {
   // If this symbol happens to be an alias, resolve it first
   while ((sym.flags & ts.SymbolFlags.Alias) !== 0) {
@@ -39,7 +41,11 @@ export function symbolIdentifier(
   if (!decl) {
     return undefined;
   }
-  const namespace = assemblyRelativeSourceFile(decl.getSourceFile().fileName);
+  const namespace = assemblyRelativeSourceFile(
+    decl.getSourceFile().fileName,
+    valueAsIs,
+    tscRootDir,
+  );
 
   if (!namespace) {
     return undefined;
@@ -48,7 +54,11 @@ export function symbolIdentifier(
   return `${namespace}:${inFileNameParts.join('.')}`;
 }
 
-function assemblyRelativeSourceFile(sourceFileName: string) {
+function assemblyRelativeSourceFile(
+  sourceFileName: string,
+  valueAsIs: boolean,
+  tscRootDir?: string,
+) {
   const packageJsonLocation = findPackageJsonLocation(
     path.dirname(sourceFileName),
   );
@@ -61,11 +71,27 @@ function assemblyRelativeSourceFile(sourceFileName: string) {
     fs.readFileSync(packageJsonLocation).toString(),
   );
 
-  const sourcePath = removePrefix(
+  let sourcePath = removePrefix(
     packageJson.jsii?.outdir ?? '',
     path.relative(path.dirname(packageJsonLocation), sourceFileName),
   );
 
+  // Modify the namespace if we allow changes and if the outDir exists.
+  // We should only allow changes if we call the function from rosetta.
+  if (!valueAsIs && packageJson.jsii?.tsc?.outDir) {
+    const paths = path.normalize(sourcePath).split(path.sep);
+    const pathDir = paths.shift();
+    const outDir = path.normalize(packageJson.jsii.tsc.outDir);
+    // Theoretically we should always find tscRootDir if valueAsIs is false.
+    const rootDir =
+      packageJson.jsii.tsc.rootDir ??
+      (tscRootDir !== undefined ? path.normalize(tscRootDir) : undefined);
+    // If we find our outDir, replace it with rootDir
+    if (outDir === pathDir && rootDir) {
+      sourcePath =
+        rootDir === '.' ? paths.join('/') : `${rootDir}/${paths.join('/')}`;
+    }
+  }
   return sourcePath.replace(/(\.d)?\.ts$/, '');
 
   function findPackageJsonLocation(currentPath: string): string | undefined {

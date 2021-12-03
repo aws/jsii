@@ -45,7 +45,7 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
         (node.type && renderer.typeOfType(node.type)) ||
         (node.initializer && renderer.typeOfExpression(node.initializer));
 
-      this.recordSymbol(type?.symbol, renderer);
+      this.recordSymbol(type.symbol, renderer);
     }
 
     return super.variableDeclaration(node, renderer);

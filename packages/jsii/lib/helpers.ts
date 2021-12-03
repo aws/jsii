@@ -97,8 +97,12 @@ export async function compileJsiiForTest(
     const files: Record<string, string> = {};
 
     for (const filename of Object.keys(source)) {
-      const jsFile = filename.replace(/\.ts$/, '.js');
-      const dtsFile = filename.replace(/\.ts$/, '.d.ts');
+      let jsFile = filename.replace(/\.ts$/, '.js');
+      let dtsFile = filename.replace(/\.ts$/, '.d.ts');
+      if (projectInfo.tsc?.outDir && filename !== 'README.md') {
+        jsFile = path.join(projectInfo.tsc.outDir, jsFile);
+        dtsFile = path.join(projectInfo.tsc.outDir, dtsFile);
+      }
 
       // eslint-disable-next-line no-await-in-loop
       files[jsFile] = await fs.readFile(jsFile, { encoding: 'utf-8' });

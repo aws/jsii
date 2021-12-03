@@ -186,6 +186,45 @@ test('do not ignore example strings', async () => {
   }
 });
 
+describe('can find fqns via symbolId when ', () => {
+  test('there is an outDir', async () => {
+    const outDir = 'jsii-outDir';
+    const otherAssembly = await createAssemblyWithDirectories(undefined, outDir);
+    try {
+      const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+      await extract.extractSnippets([otherAssembly.moduleDirectory], {
+        outputFile,
+        ...defaultExtractOptions,
+      });
+
+      const tablet = await LanguageTablet.fromFile(outputFile);
+      const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
+      expect(tr?.fqnsReferenced()).toEqual(['my_assembly.ClassA']);
+    } finally {
+      await otherAssembly.cleanup();
+    }
+  });
+
+  test('there is an outDir and rootDir', async () => {
+    const outDir = 'jsii-outDir';
+    const rootDir = '.';
+    const otherAssembly = await createAssemblyWithDirectories(rootDir, outDir);
+    try {
+      const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+      await extract.extractSnippets([otherAssembly.moduleDirectory], {
+        outputFile,
+        ...defaultExtractOptions,
+      });
+
+      const tablet = await LanguageTablet.fromFile(outputFile);
+      const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
+      expect(tr?.fqnsReferenced()).toEqual(['my_assembly.ClassA']);
+    } finally {
+      await otherAssembly.cleanup();
+    }
+  });
+});
+
 test('extract and infuse in one command', async () => {
   const outputFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
   await extract.extractAndInfuse([assembly.moduleDirectory], {
@@ -221,4 +260,37 @@ class MockTranslator extends RosettaTranslator {
     super(opts);
     this.translateAll = translatorFn;
   }
+}
+
+async function createAssemblyWithDirectories(rootDir?: string, outDir?: string) {
+  return TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      export class ClassA {
+        /**
+         * Some method
+         *
+         * @example
+         * import * as ass from 'my_assembly';
+         * new ass.ClassA.someMethod();
+         */
+        public someMethod() {
+        }
+      }
+      `,
+      'README.md': '',
+    },
+    {
+      name: 'my_assembly',
+      main: `${outDir}/index.js`,
+      types: `${outDir}/index.d.ts`,
+      jsii: {
+        ...DUMMY_JSII_CONFIG,
+        tsc: {
+          outDir,
+          rootDir,
+        },
+      },
+    },
+  );
 }
