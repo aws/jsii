@@ -235,6 +235,15 @@ export function parseMetadataLine(metadata: string): Record<string, string> {
   }
 }
 
+export function renderMetadataline(metadata: Record<string, string> = {}): string | undefined {
+  const line = Object.entries(metadata)
+    .filter(([key, _]) => !key.startsWith('$'))
+    .map(([key, value]) => (value !== '' ? `${key}=${value}` : key))
+    .join(' ');
+
+  return line ? line : undefined;
+}
+
 /**
  * Recognized snippet parameters
  */

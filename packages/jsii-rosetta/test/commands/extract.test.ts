@@ -1,10 +1,18 @@
+import * as fs from 'fs-extra';
 import * as path from 'path';
 
-import { LanguageTablet, RosettaTranslator, RosettaTranslatorOptions } from '../../lib';
+import {
+  LanguageTablet,
+  RosettaTranslator,
+  RosettaTranslatorOptions,
+  DEFAULT_TABLET_NAME,
+  TranslatedSnippet,
+  typeScriptSnippetFromVisibleSource,
+} from '../../lib';
 import * as extract from '../../lib/commands/extract';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
 import { TARGET_LANGUAGES } from '../../lib/languages';
-import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
+import { TestJsiiModule, DUMMY_JSII_CONFIG, testSnippetLocation } from '../testutil';
 
 const DUMMY_README = `
   Here is an example of how to use ClassA:
@@ -48,14 +56,14 @@ beforeEach(async () => {
 afterEach(async () => assembly.cleanup());
 
 test('extract samples from test assembly', async () => {
-  const outputFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
+  const cacheToFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
   await extract.extractSnippets([assembly.moduleDirectory], {
-    outputFile,
+    cacheToFile,
     ...defaultExtractOptions,
   });
 
   const tablet = new LanguageTablet();
-  await tablet.load(outputFile);
+  await tablet.load(cacheToFile);
 
   expect(tablet.snippetKeys.length).toEqual(1);
 });
@@ -65,18 +73,26 @@ describe('with cache file', () => {
   beforeEach(async () => {
     cacheTabletFile = path.join(assembly.moduleDirectory, 'cache.tabl.json');
     await extract.extractSnippets([assembly.moduleDirectory], {
-      outputFile: cacheTabletFile,
+      cacheToFile: cacheTabletFile,
       ...defaultExtractOptions,
     });
   });
+
+  async function givenThatDefaultTabletDoesNotExist() {
+    await fs.unlink(path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME));
+  }
 
   describe('translation does not happen ', () => {
     test('if it can be read from cache', async () => {
       const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
+      // GIVEN
+      await givenThatDefaultTabletDoesNotExist();
+
+      // WHEN
       await extract.extractSnippets([assembly.moduleDirectory], {
-        outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
-        cacheTabletFile,
+        cacheToFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
+        cacheFromFile: cacheTabletFile,
         translatorFactory: (o) => new MockTranslator(o, translationFunction),
         ...defaultExtractOptions,
       });
@@ -87,8 +103,24 @@ describe('with cache file', () => {
     test('because output file acts as cache', async () => {
       const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
+      // GIVEN
+      await givenThatDefaultTabletDoesNotExist();
+
+      // WHEN
       await extract.extractSnippets([assembly.moduleDirectory], {
-        outputFile: cacheTabletFile,
+        cacheFromFile: cacheTabletFile,
+        translatorFactory: (o) => new MockTranslator(o, translationFunction),
+        ...defaultExtractOptions,
+      });
+
+      expect(translationFunction).not.toHaveBeenCalled();
+    });
+
+    test('because default tablet file acts as cache', async () => {
+      const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+
+      // WHEN
+      await extract.extractSnippets([assembly.moduleDirectory], {
         translatorFactory: (o) => new MockTranslator(o, translationFunction),
         ...defaultExtractOptions,
       });
@@ -100,12 +132,16 @@ describe('with cache file', () => {
   test('translation does happen if translator version is different', async () => {
     const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
+    // GIVEN
+    await givenThatDefaultTabletDoesNotExist();
+
+    // WHEN
     const oldJavaVersion = TARGET_LANGUAGES.java.version;
     (TARGET_LANGUAGES.java as any).version = '999';
     try {
       await extract.extractSnippets([assembly.moduleDirectory], {
-        outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
-        cacheTabletFile,
+        cacheToFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
+        cacheFromFile: cacheTabletFile,
         translatorFactory: (o) => new MockTranslator(o, translationFunction),
         ...defaultExtractOptions,
       });
@@ -114,6 +150,78 @@ describe('with cache file', () => {
     } finally {
       (TARGET_LANGUAGES.java as any).version = oldJavaVersion;
     }
+  });
+
+  test('both default and explicit tablet are written', async () => {
+    // WHEN
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      cacheToFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
+      ...defaultExtractOptions,
+    });
+
+    // THEN
+    expect(await fs.pathExists(path.join(assembly.moduleDirectory, 'dummy.tabl.json'))).toBeTruthy();
+    expect(await fs.pathExists(path.join(assembly.moduleDirectory, '.jsii.tabl.json'))).toBeTruthy();
+  });
+
+  describe('when the cache output tablet has unrelated snippets', () => {
+    let cacheToFile: string;
+    beforeEach(async () => {
+      cacheToFile = path.join(assembly.moduleDirectory, 'dummy.tabl.json');
+
+      const tbl = new LanguageTablet();
+      tbl.addSnippet(bogusTranslatedSnippet());
+      await tbl.save(cacheToFile);
+    });
+
+    test('it is not trimmed by default', async () => {
+      // WHEN
+      await extract.extractSnippets([assembly.moduleDirectory], {
+        cacheToFile,
+        ...defaultExtractOptions,
+      });
+
+      // THEN
+      const cacheTablet = await LanguageTablet.fromFile(cacheToFile);
+
+      expect(cacheTablet.count).toEqual(2);
+    });
+
+    test('it can be trimmed with an option', async () => {
+      // WHEN
+      await extract.extractSnippets([assembly.moduleDirectory], {
+        cacheToFile,
+        trimCache: true,
+        ...defaultExtractOptions,
+      });
+
+      // THEN
+      const cacheTablet = await LanguageTablet.fromFile(cacheToFile);
+
+      expect(cacheTablet.count).toEqual(1);
+    });
+  });
+
+  test('default tablet is always trimmed', async () => {
+    const defaultTabletFile = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME);
+
+    // GIVEN - the '.jsii.tabl.json' file contains something already
+    const tbl = new LanguageTablet();
+    tbl.addSnippet(bogusTranslatedSnippet());
+    await tbl.save(defaultTabletFile);
+
+    // WHEN - we run extract
+    await extract.extractSnippets([assembly.moduleDirectory], defaultExtractOptions);
+
+    // THEN - the default tablet file now only contains one snippet, the new one
+    const defaultTablet = await LanguageTablet.fromFile(defaultTabletFile);
+
+    expect(defaultTablet.translatedSnippets.map((s) => s.snippet.location)).toEqual([
+      {
+        api: { api: 'moduleReadme', moduleFqn: 'my_assembly' },
+        field: { field: 'markdown', line: 4 },
+      },
+    ]);
   });
 
   test('existing tablet is updated when assembly changes', async () => {
@@ -126,7 +234,7 @@ describe('with cache file', () => {
     const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
     await extract.extractSnippets([assembly.moduleDirectory], {
-      outputFile: cacheTabletFile,
+      cacheToFile: cacheTabletFile,
       translatorFactory: (o) => new MockTranslator(o, translationFunction),
       ...defaultExtractOptions,
     });
@@ -139,7 +247,7 @@ describe('with cache file', () => {
     const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
     await extract.extractSnippets([assembly.moduleDirectory], {
-      outputFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
+      cacheToFile: path.join(assembly.moduleDirectory, 'dummy.tabl.json'),
       validateAssemblies: false,
       includeCompilerDiagnostics: true,
       translatorFactory: (o) => {
@@ -171,13 +279,13 @@ test('do not ignore example strings', async () => {
     },
   );
   try {
-    const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+    const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
     await extract.extractSnippets([otherAssembly.moduleDirectory], {
-      outputFile,
+      cacheToFile,
       ...defaultExtractOptions,
     });
 
-    const tablet = await LanguageTablet.fromFile(outputFile);
+    const tablet = await LanguageTablet.fromFile(cacheToFile);
     expect(tablet.count).toEqual(1);
     const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
     expect(tr?.originalSource.source).toEqual('x');
@@ -187,14 +295,14 @@ test('do not ignore example strings', async () => {
 });
 
 test('extract and infuse in one command', async () => {
-  const outputFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
+  const cacheToFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
   await extract.extractAndInfuse([assembly.moduleDirectory], {
-    outputFile,
+    cacheToFile,
     ...defaultExtractOptions,
   });
 
   const tablet = new LanguageTablet();
-  await tablet.load(outputFile);
+  await tablet.load(cacheToFile);
 
   // extract works as expected, with a caveat
   // the infuse part of this call will re-insert the example back
@@ -221,4 +329,11 @@ class MockTranslator extends RosettaTranslator {
     super(opts);
     this.translateAll = translatorFn;
   }
+}
+
+function bogusTranslatedSnippet() {
+  return TranslatedSnippet.fromTypeScript(
+    typeScriptSnippetFromVisibleSource('console.log("hello");', testSnippetLocation('x.ts'), true),
+    true,
+  );
 }
