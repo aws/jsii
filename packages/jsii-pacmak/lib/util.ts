@@ -53,7 +53,7 @@ export async function findPackageJsonUp(
 /**
  * Find a directory up the tree from a starting directory matching a condition
  *
- * Will return `undefined` if a no directory matches
+ * Will return `undefined` if no directory matches
  */
 export async function findUp(
   directory: string,
