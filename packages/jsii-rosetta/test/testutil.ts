@@ -96,6 +96,13 @@ export class TestJsiiModule {
     return ret;
   }
 
+  /**
+   * Update the file to reflect the latest changes to the assembly object.
+   */
+  public async updateAssembly() {
+    await fs.writeJSON(path.join(this.moduleDirectory, '.jsii'), this.assembly);
+  }
+
   public async cleanup() {
     await fs.remove(this.moduleDirectory);
   }

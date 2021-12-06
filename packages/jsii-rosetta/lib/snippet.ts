@@ -201,12 +201,7 @@ function parametersFromSourceDirectives(source: string): [string, Record<string,
   // Also extract parameters from an initial line starting with '/// ' (getting rid of that line).
   const m = /[/]{3}(.*)$/.exec(firstLine);
   if (m) {
-    const paramClauses = m[1]
-      .trim()
-      .split(' ')
-      .map((s) => s.trim())
-      .filter((s) => s !== '');
-    return [rest.join('\n'), parseKeyValueList(paramClauses)];
+    return [rest.join('\n'), parseMetadataLine(m[1])];
   }
 
   return [source, {}];
@@ -225,8 +220,28 @@ export function parseKeyValueList(parameters: string[]): Record<string, string> 
       ret[parts[0]] = '';
     }
   }
-
   return ret;
+}
+
+export function parseMetadataLine(metadata: string): Record<string, string> {
+  return parseKeyValueList(parseMetadata(metadata));
+
+  function parseMetadata(metadata: string): string[] {
+    return metadata
+      .trim()
+      .split(' ')
+      .map((s) => s.trim())
+      .filter((s) => s !== '');
+  }
+}
+
+export function renderMetadataline(metadata: Record<string, string> = {}): string | undefined {
+  const line = Object.entries(metadata)
+    .filter(([key, _]) => !key.startsWith('$'))
+    .map(([key, value]) => (value !== '' ? `${key}=${value}` : key))
+    .join(' ');
+
+  return line ? line : undefined;
 }
 
 /**

@@ -1,10 +1,14 @@
-import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
+import * as path from 'path';
+
+import { loadAssemblies, allTypeScriptSnippets, loadAllDefaultTablets } from '../jsii/assemblies';
 import * as logging from '../logging';
 import { RosettaTranslator, RosettaTranslatorOptions } from '../rosetta-translator';
-import { TypeScriptSnippet } from '../snippet';
+import { TypeScriptSnippet, SnippetParameters } from '../snippet';
 import { snippetKey } from '../tablets/key';
-import { LanguageTablet } from '../tablets/tablets';
+import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
 import { RosettaDiagnostic } from '../translate';
+import { groupBy, isDefined } from '../util';
+import { infuse } from './infuse';
 
 export interface ExtractResult {
   diagnostics: RosettaDiagnostic[];
@@ -12,15 +16,26 @@ export interface ExtractResult {
 }
 
 export interface ExtractOptions {
-  readonly outputFile: string;
-  readonly includeCompilerDiagnostics: boolean;
-  readonly validateAssemblies: boolean;
+  readonly includeCompilerDiagnostics?: boolean;
+  readonly validateAssemblies?: boolean;
   readonly only?: string[];
 
   /**
    * A tablet file to be loaded and used as a source for caching
    */
-  readonly cacheTabletFile?: string;
+  readonly cacheFromFile?: string;
+
+  /**
+   * A tablet file to append translated snippets to
+   */
+  readonly cacheToFile?: string;
+
+  /**
+   * Trim cache to only contain translations found in the current assemblies
+   *
+   * @default false
+   */
+  readonly trimCache?: boolean;
 
   /**
    * Make a translator (just for testing)
@@ -28,26 +43,46 @@ export interface ExtractOptions {
   readonly translatorFactory?: (opts: RosettaTranslatorOptions) => RosettaTranslator;
 }
 
+export async function extractAndInfuse(
+  assemblyLocations: string[],
+  options: ExtractOptions,
+  loose = false,
+): Promise<ExtractResult> {
+  const result = await extractSnippets(assemblyLocations, options, loose);
+  await infuse(assemblyLocations, {
+    cacheFromFile: options.cacheFromFile,
+    cacheToFile: options.cacheToFile,
+  });
+  return result;
+}
+
 /**
  * Extract all samples from the given assemblies into a tablet
  */
 export async function extractSnippets(
   assemblyLocations: string[],
-  options: ExtractOptions,
+  options: ExtractOptions = {},
   loose = false,
 ): Promise<ExtractResult> {
   const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies);
+  const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies ?? false);
 
   let snippets = Array.from(allTypeScriptSnippets(assemblies, loose));
   if (only.length > 0) {
     snippets = filterSnippets(snippets, only);
   }
 
+  // Map every assembly to a list of snippets, so that we know what implicit
+  // tablet to write the translations to later on.
+  const snippetsPerAssembly = groupBy(
+    snippets.map((s) => ({ key: snippetKey(s), location: projectDirectory(s) })),
+    (x) => x.location,
+  );
+
   const translatorOptions: RosettaTranslatorOptions = {
-    includeCompilerDiagnostics: options.includeCompilerDiagnostics,
+    includeCompilerDiagnostics: options.includeCompilerDiagnostics ?? false,
     assemblies: assemblies.map((a) => a.assembly),
   };
 
@@ -55,10 +90,17 @@ export async function extractSnippets(
     ? options.translatorFactory(translatorOptions)
     : new RosettaTranslator(translatorOptions);
 
-  if (options.cacheTabletFile) {
-    await translator.loadCache(options.cacheTabletFile);
+  // Prime the snippet cache with:
+  // - Cache source file
+  // - Default tablets found next to each assembly
+  if (options.cacheFromFile) {
+    await translator.addToCache(options.cacheFromFile);
+  }
+  translator.addTabletsToCache(...Object.values(await loadAllDefaultTablets(assemblies)));
+
+  if (translator.hasCache()) {
     const { translations, remaining } = translator.readFromCache(snippets);
-    logging.info(`Reused ${translations.length} translations from cache ${options.cacheTabletFile}`);
+    logging.info(`Reused ${translations.length} translations from cache`);
     snippets = remaining;
   }
 
@@ -80,8 +122,27 @@ export async function extractSnippets(
     logging.info('Nothing left to translate');
   }
 
-  logging.info(`Saving language tablet to ${options.outputFile}`);
-  await translator.tablet.save(options.outputFile);
+  // Save to individual tablet files, and optionally append to the output file
+  await Promise.all(
+    Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
+      const asmTabletFile = path.join(location, DEFAULT_TABLET_NAME);
+      logging.debug(`Writing ${snips.length} translations to ${asmTabletFile}`);
+      const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
+
+      const asmTablet = new LanguageTablet();
+      asmTablet.addSnippets(...translations);
+      await asmTablet.save(asmTabletFile);
+    }),
+  );
+
+  if (options.cacheToFile) {
+    logging.info(`Adding translations to ${options.cacheToFile}`);
+    const output = options.trimCache
+      ? new LanguageTablet()
+      : await LanguageTablet.fromOptionalFile(options.cacheToFile);
+    output.addTablet(translator.tablet);
+    await output.save(options.cacheToFile);
+  }
 
   return { diagnostics, tablet: translator.tablet };
 }
@@ -91,4 +152,12 @@ export async function extractSnippets(
  */
 function filterSnippets(ts: TypeScriptSnippet[], includeIds: string[]) {
   return ts.filter((t) => includeIds.includes(snippetKey(t)));
+}
+
+function projectDirectory(ts: TypeScriptSnippet) {
+  const dir = ts.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
+  if (!dir) {
+    throw new Error(`Snippet does not have associated project directory: ${JSON.stringify(ts.location)}`);
+  }
+  return dir;
 }

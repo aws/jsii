@@ -35,7 +35,7 @@ setuptools.setup(
         "cattrs~=1.8.0 ; python_version >= '3.7'",
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
-        "typing_extensions~=3.7",
+        "typing_extensions>=3.7,<5.0",
     ],
     python_requires="~=3.6",
     classifiers=[

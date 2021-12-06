@@ -493,7 +493,7 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatch(
-      'constructor() { jsiiDeprecationWarnings.print("testpkg.Foo", ""); }',
+      'constructor() { jsiiDeprecationWarnings.print("testpkg.Foo", "Use something else"); }',
     );
   });
 });

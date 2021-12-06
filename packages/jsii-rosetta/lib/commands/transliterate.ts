@@ -3,11 +3,13 @@ import { readJson, writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
 import { fixturize } from '../fixtures';
+import { EXAMPLE_METADATA_JSDOCTAG } from '../jsii/assemblies';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
-import { SnippetParameters, typeScriptSnippetFromSource, ApiLocation } from '../snippet';
+import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
 import { Translation } from '../tablets/tablets';
+import { fmap } from '../util';
 
 export interface TransliterateAssemblyOptions {
   /**
@@ -215,9 +217,11 @@ function transliterateType(
 
     if (docs?.example) {
       const location = { api, field: { field: 'example' } } as const;
+      const metadata = fmap(docs.custom?.[EXAMPLE_METADATA_JSDOCTAG], parseMetadataLine) ?? {};
       const snippet = fixturize(
-        typeScriptSnippetFromSource(docs.example, location, true /* strict */, {
+        typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */, {
           [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory,
+          ...metadata,
         }),
         loose,
       );

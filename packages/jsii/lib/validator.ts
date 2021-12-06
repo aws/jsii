@@ -87,7 +87,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
 
       for (const member of type.members) {
-        if (member.name && member.name !== Case.constant(member.name)) {
+        if (member.name && !isConstantCase(member.name)) {
           diagnostic(
             JsiiDiagnostic.JSII_8001_ALL_CAPS_ENUM_MEMBERS.createDetached(
               member.name,
@@ -130,7 +130,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
       if (
         member.name &&
-        member.name !== Case.constant(member.name) &&
+        !isConstantCase(member.name) &&
         member.name !== Case.pascal(member.name) &&
         member.name !== Case.camel(member.name)
       ) {
@@ -712,4 +712,16 @@ function _dereference(
 
 function _isEmpty(array: undefined | any[]): array is undefined {
   return array == null || array.length === 0;
+}
+
+/**
+ * Return whether an identifier only consists of upperchase characters, digits and underscores
+ *
+ * We have our own check here (isConstantCase) which is more lenient than what
+ * `case.constant()` prescribes. We also want to allow combinations of letters
+ * and digits without underscores: `C5A`, which `case` would force to `C5_A`.
+ * The hint we print will still use `case.constant()` but that is fine.
+ */
+function isConstantCase(x: string) {
+  return !/[^A-Z0-9_]/.exec(x);
 }
