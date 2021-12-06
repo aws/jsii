@@ -1,12 +1,16 @@
+import { Assembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
 
+interface SymbolIdOptions {
+  readonly assembly: Assembly;
+}
+
 export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
   sym: ts.Symbol,
-  valueAsIs = true,
-  tscRootDir?: string,
+  options?: SymbolIdOptions,
 ): string | undefined {
   // If this symbol happens to be an alias, resolve it first
   while ((sym.flags & ts.SymbolFlags.Alias) !== 0) {
@@ -41,10 +45,10 @@ export function symbolIdentifier(
   if (!decl) {
     return undefined;
   }
+
   const namespace = assemblyRelativeSourceFile(
     decl.getSourceFile().fileName,
-    valueAsIs,
-    tscRootDir,
+    options,
   );
 
   if (!namespace) {
@@ -56,8 +60,7 @@ export function symbolIdentifier(
 
 function assemblyRelativeSourceFile(
   sourceFileName: string,
-  valueAsIs: boolean,
-  tscRootDir?: string,
+  options?: SymbolIdOptions,
 ) {
   const packageJsonLocation = findPackageJsonLocation(
     path.dirname(sourceFileName),
@@ -76,18 +79,16 @@ function assemblyRelativeSourceFile(
     path.relative(path.dirname(packageJsonLocation), sourceFileName),
   );
 
-  // Modify the namespace if we allow changes and if the outDir exists.
-  // We should only allow changes if we call the function from rosetta.
-  if (!valueAsIs && packageJson.jsii?.tsc?.outDir) {
+  // Modify the namespace if we send in the assembly.
+  const tscRootDir = options?.assembly.metadata?.tscRootDir;
+  const tscOutDir = packageJson.jsii?.tsc?.outDir;
+  if (tscRootDir !== undefined && tscOutDir !== undefined) {
     const paths = path.normalize(sourcePath).split(path.sep);
     const pathDir = paths.shift();
-    const outDir = path.normalize(packageJson.jsii.tsc.outDir);
-    // Theoretically we should always find tscRootDir if valueAsIs is false.
-    const rootDir =
-      packageJson.jsii.tsc.rootDir ??
-      (tscRootDir !== undefined ? path.normalize(tscRootDir) : undefined);
+    const outDir = path.normalize(tscOutDir);
+    const rootDir = packageJson.jsii.tsc.rootDir ?? path.normalize(tscRootDir);
     // If we find our outDir, replace it with rootDir
-    if (outDir === pathDir && rootDir) {
+    if (outDir === pathDir) {
       sourcePath =
         rootDir === '.' ? paths.join('/') : `${rootDir}/${paths.join('/')}`;
     }
