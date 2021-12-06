@@ -14,34 +14,56 @@ export async function findDependencyDirectory(
 ) {
   // Explicitly do not use 'require("dep/package.json")' because that will fail if the
   // package does not export that particular file.
+  const entryPoint = require.resolve(dependencyName, {
+    paths: [searchStart],
+  });
 
-  const packageMain = require.resolve(dependencyName, { paths: [searchStart] });
+  // Search up from the given directory, looking for a package.json that matches
+  // the dependency name (so we don't accidentally find stray 'package.jsons').
+  const depPkgJsonPath = await findPackageJsonUp(
+    dependencyName,
+    path.dirname(entryPoint),
+  );
 
-  // eslint-disable-next-line no-await-in-loop
-  const depPkgJsonPath = await findUp(packageMain, 'package.json');
   if (!depPkgJsonPath) {
     throw new Error(
       `Could not find dependency '${dependencyName}' from '${searchStart}'`,
     );
   }
-  return path.dirname(depPkgJsonPath);
+
+  return depPkgJsonPath;
 }
 
 /**
- * Find a file up the tree given a starting directory
+ * Find the package.json for a given package upwards from the given directory
+ */
+export async function findPackageJsonUp(
+  packageName: string,
+  directory: string,
+) {
+  return findUp(directory, async (dir) => {
+    const pjFile = path.join(dir, 'package.json');
+    return (
+      (await fs.pathExists(pjFile)) &&
+      (await fs.readJson(pjFile)).name === packageName
+    );
+  });
+}
+
+/**
+ * Find a directory up the tree from a starting directory matching a condition
  *
- * Will return `undefined` if a package.json could not be found.
+ * Will return `undefined` if a no directory matches
  */
 export async function findUp(
   directory: string,
-  fileName: string,
+  pred: (dir: string) => Promise<boolean>,
 ): Promise<string | undefined> {
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    const candidatePath = path.join(directory, fileName);
     // eslint-disable-next-line no-await-in-loop
-    if (await fs.pathExists(candidatePath)) {
-      return candidatePath;
+    if (await pred(directory)) {
+      return directory;
     }
 
     const parent = path.dirname(directory);
