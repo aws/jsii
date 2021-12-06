@@ -2,6 +2,34 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
 
+/**
+ * Return a symbol identifier for the given symbol
+ *
+ * The symbol identifier identifies a TypeScript symbol in a source file inside
+ * a package. We can use this to map between jsii entries in the manifest, and
+ * entities in the TypeScript source code.
+ *
+ * Going via symbol id is the only way to identify symbols in submodules. Otherwise,
+ * all the TypeScript compiler sees is:
+ *
+ * ```
+ * /my/package/lib/source/directory/dist.js <containing> MyClass
+ * ```
+ *
+ * And there's no way to figure out what submodule name
+ * `lib/source/directory/dist` is exported as.
+ *
+ * The format of a symbol id is:
+ *
+ * ```
+ * relative/source/file:Name.space.Class[#member]
+ * ```
+ *
+ * We used to build this identifier ourselves. Turns out there was a built-in
+ * way to get pretty much the same, by calling `typeChecker.getFullyQualifiedName()`.
+ * Whoops ^_^ (this historical accident is why the format is similar to but
+ * different from what the TS checker erturns).
+ */
 export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
   sym: ts.Symbol,
@@ -11,41 +39,21 @@ export function symbolIdentifier(
     sym = typeChecker.getAliasedSymbol(sym);
   }
 
-  const inFileNameParts: string[] = [];
-
-  let decl: ts.Node | undefined = sym.declarations?.[0];
-  while (decl && !ts.isSourceFile(decl)) {
-    if (
-      ts.isClassDeclaration(decl) ||
-      ts.isNamespaceExportDeclaration(decl) ||
-      ts.isNamespaceExport(decl) ||
-      ts.isModuleDeclaration(decl) ||
-      ts.isEnumDeclaration(decl) ||
-      ts.isEnumMember(decl) ||
-      ts.isInterfaceDeclaration(decl) ||
-      ts.isMethodDeclaration(decl) ||
-      ts.isMethodSignature(decl) ||
-      ts.isPropertyDeclaration(decl) ||
-      ts.isPropertySignature(decl)
-    ) {
-      const name = ts.getNameOfDeclaration(decl);
-      const declSym = name ? typeChecker.getSymbolAtLocation(name) : undefined;
-      if (declSym) {
-        inFileNameParts.unshift(declSym.name);
-      }
-    }
-    decl = decl.parent;
-  }
-  if (!decl) {
-    return undefined;
-  }
-  const namespace = assemblyRelativeSourceFile(decl.getSourceFile().fileName);
-
-  if (!namespace) {
+  const tsName = typeChecker.getFullyQualifiedName(sym);
+  // TypeScript fqn looks like "/path/to/file"[.name.in.file]
+  const groups = /^"([^"]+)"(?:\.(.*))?$/.exec(tsName);
+  if (!groups) {
     return undefined;
   }
 
-  return `${namespace}:${inFileNameParts.join('.')}`;
+  const [, fileName, typeName] = groups; // typeName may be absent
+
+  const relFile = assemblyRelativeSourceFile(fileName);
+  if (!relFile) {
+    return undefined;
+  }
+
+  return `${relFile}:${typeName ?? ''}`;
 }
 
 function assemblyRelativeSourceFile(sourceFileName: string) {
