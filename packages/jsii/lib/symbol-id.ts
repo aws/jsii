@@ -3,7 +3,17 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
 
+/**
+ * Additional options that may be provided to the symbolIdentifier.
+ */
 interface SymbolIdOptions {
+  /**
+   * The assembly that the symbol is found in.
+   * This is used to provide the correct root directory
+   * as specified in the assembly metadata. In turn,
+   * the root directory is used to ensure that the
+   * symbolId comes from source code and not compiled code.
+   */
   readonly assembly: Assembly;
 }
 
@@ -80,19 +90,12 @@ function assemblyRelativeSourceFile(
   );
 
   // Modify the namespace if we send in the assembly.
-  const tscRootDir = options?.assembly.metadata?.tscRootDir;
-  const tscOutDir = packageJson.jsii?.tsc?.outDir;
-  if (tscRootDir !== undefined && tscOutDir !== undefined) {
-    const paths = path.normalize(sourcePath).split(path.sep);
-    const pathDir = paths.shift();
-    const outDir = path.normalize(tscOutDir);
-    const rootDir = packageJson.jsii.tsc.rootDir ?? path.normalize(tscRootDir);
-    // If we find our outDir, replace it with rootDir
-    if (outDir === pathDir) {
-      sourcePath =
-        rootDir === '.' ? paths.join('/') : `${rootDir}/${paths.join('/')}`;
-    }
+  if (options) {
+    const tscRootDir = packageJson.jsii?.tsc?.rootDir ?? options?.assembly.metadata?.tscRootDir;
+    const tscOutDir = packageJson.jsii?.tsc?.outDir;
+    sourcePath = normalizePath(sourcePath, tscRootDir, tscOutDir);
   }
+
   return sourcePath.replace(/(\.d)?\.ts$/, '');
 
   function findPackageJsonLocation(currentPath: string): string | undefined {
@@ -114,5 +117,39 @@ function assemblyRelativeSourceFile(
       i++;
     }
     return pathParts.slice(i).join('/');
+  }
+}
+
+export function normalizePath(
+  sourcePath: string,
+  rootDir?: string,
+  outDir?: string,
+): string {
+  if (rootDir === undefined || outDir === undefined) {
+    return sourcePath;
+  }
+
+  outDir = removeEndSlash(path.normalize(outDir));
+  const outDirLength = outDir.split(path.sep).length;
+  rootDir = removeEndSlash(path.normalize(rootDir));
+
+  let paths = path.normalize(sourcePath).split(path.sep);
+  const pathDir = paths.slice(0, outDirLength).join(path.sep);
+
+  if (outDir === pathDir || outDir === '.') {
+    // outDir === '.' is a special case where we do not want
+    // to remove any paths from the list.
+    if (outDir !== '.') {
+      paths = paths.slice(outDirLength);
+    }
+    sourcePath =
+      rootDir === '.' ? paths.join('/') : `${rootDir}/${paths.join('/')}`;
+  }
+  return sourcePath;
+
+  function removeEndSlash(filePath: string) {
+    return filePath.endsWith(path.sep)
+      ? filePath.slice(0, filePath.length - 1)
+      : filePath;
   }
 }
