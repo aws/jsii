@@ -104,6 +104,9 @@ describe(normalizePath, () => {
     expect(normalizePath('out/filename.ts', 'root', undefined)).toEqual(
       'out/filename.ts',
     );
+    expect(normalizePath('out/filename.ts', undefined, undefined)).toEqual(
+      'out/filename.ts',
+    );
   });
 
   test('extra slashes in directories', () => {

@@ -120,6 +120,13 @@ function assemblyRelativeSourceFile(
   }
 }
 
+/**
+ * Ensures that the sourcePath is pointing to the source code
+ * and not compiled code. This can happen if the root directory
+ * and/or out directory is set for the project. We check to see
+ * if the out directory is present in the sourcePath, and if so,
+ * we replace it with the root directory.
+ */
 export function normalizePath(
   sourcePath: string,
   rootDir?: string,
