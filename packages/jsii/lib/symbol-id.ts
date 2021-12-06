@@ -28,7 +28,7 @@ import * as ts from 'typescript';
  * We used to build this identifier ourselves. Turns out there was a built-in
  * way to get pretty much the same, by calling `typeChecker.getFullyQualifiedName()`.
  * Whoops ^_^ (this historical accident is why the format is similar to but
- * different from what the TS checker erturns).
+ * different from what the TS checker returns).
  */
 export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
