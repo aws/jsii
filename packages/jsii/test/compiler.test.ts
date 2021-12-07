@@ -141,8 +141,9 @@ describe(Compiler, () => {
       await compiler.emit();
 
       const assembly = await readJson(join(sourceDir, '.jsii'), 'utf-8');
-      expect(assembly.metadata).toEqual(expect.objectContaining({
-        tscRootDir: rootDir,
+      expect(assembly.metadata).toEqual(
+        expect.objectContaining({
+          tscRootDir: rootDir,
         }),
       );
     } finally {
