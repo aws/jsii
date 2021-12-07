@@ -80,7 +80,8 @@
       "rosetta": {
         "strict": true
       }
-    }
+    },
+    "tscRootDir": "lib"
   },
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -952,5 +953,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "BJ528BPiptJdqvxyoh4Ax2l2Knaz2KcuNYBYhVpyTw8="
+  "fingerprint": "wtswDMhtuMcC4+ami5KddQIznqdpVjt8qc7Ba2QnnHk="
 }
