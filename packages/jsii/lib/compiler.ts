@@ -18,7 +18,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   declaration: true,
   experimentalDecorators: true,
   incremental: true,
-  inlineSourceMap: true,
+  sourceMap: true,
   inlineSources: true,
   lib: ['lib.es2019.d.ts'],
   module: ts.ModuleKind.CommonJS,
