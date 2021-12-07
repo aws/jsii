@@ -11,6 +11,9 @@ export function indexBy<T>(xs: T[], f: (x: T) => string): { [key: string]: T } {
 
 /**
  * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
  */
 export async function findDependencyDirectory(
   dependencyName: string,
@@ -40,6 +43,9 @@ export async function findDependencyDirectory(
 
 /**
  * Find the package.json for a given package upwards from the given directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
  */
 export async function findPackageJsonUp(
   packageName: string,
@@ -58,6 +64,9 @@ export async function findPackageJsonUp(
  * Find a directory up the tree from a starting directory matching a condition
  *
  * Will return `undefined` if a no directory matches
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
  */
 export async function findUp(
   directory: string,
