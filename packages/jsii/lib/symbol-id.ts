@@ -14,7 +14,7 @@ interface SymbolIdOptions {
    * the root directory is used to ensure that the
    * symbolId comes from source code and not compiled code.
    */
-  readonly assembly: Assembly;
+  readonly assembly?: Assembly;
 }
 
 export function symbolIdentifier(
