@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.47.0](https://github.com/aws/jsii/compare/v1.45.0...v1.47.0) (2021-12-06)
+
+
+### Features
+
+* **reflect:** add `allTypes` accessor ([#3194](https://github.com/aws/jsii/issues/3194)) ([41f301a](https://github.com/aws/jsii/commit/41f301a8304bd1ed6ed7ec4e31bd23ffd1a2ed8b))
+* **rosetta:**  metadata tag for fixtures in docs ([#3200](https://github.com/aws/jsii/issues/3200)) ([8cefa8b](https://github.com/aws/jsii/commit/8cefa8bc8c9554913960b48226531aff874ee247))
+* **rosetta:** generate rosetta tablets next to each assembly ([#3223](https://github.com/aws/jsii/issues/3223)) ([1e7b604](https://github.com/aws/jsii/commit/1e7b604c15a0083f27ceafd8ca32ff9b6cf61759))
+* **rosetta:** reuse output file as additional cache and introduce `--infuse` option for `extract` ([#3210](https://github.com/aws/jsii/issues/3210)) ([ccb3c57](https://github.com/aws/jsii/commit/ccb3c57b834225f16ec619f55a7976e59b7a53c3))
+
+
+### Bug Fixes
+
+* **jsii:** constants can't mix letters and digits ([#3209](https://github.com/aws/jsii/issues/3209)) ([a444e29](https://github.com/aws/jsii/commit/a444e2993b73dc002586e2c4a3446121c279eb65)), closes [#3208](https://github.com/aws/jsii/issues/3208)
+* **jsii:** deprecation message is not displayed for deprecated classes ([#3206](https://github.com/aws/jsii/issues/3206)) ([3841538](https://github.com/aws/jsii/commit/3841538179226b67c756ca8689ac1a3de4bec521))
+* **pacmak:** don't automatically translate examples without asking ([#3219](https://github.com/aws/jsii/issues/3219)) ([937f8c3](https://github.com/aws/jsii/commit/937f8c3753bec27269ce9213a6bc55fea79647b0))
+* **rosetta:** `extract` ignores `--compile` option ([#3193](https://github.com/aws/jsii/issues/3193)) ([639c510](https://github.com/aws/jsii/commit/639c510ba6d07b26bf35d0c8d3c9cdcced6d916a))
+* **rosetta:** enum resolution breaks for properties ([#3190](https://github.com/aws/jsii/issues/3190)) ([3b49066](https://github.com/aws/jsii/commit/3b49066e4dd960385709dbdce1d9c1fbfb2f20cf))
+* **rosetta:** use `--compile` flag by default ([#3218](https://github.com/aws/jsii/issues/3218)) ([9df7950](https://github.com/aws/jsii/commit/9df7950f263aae045877accb45007e0f9a5b03bd))
+
 ## [1.46.0](https://github.com/aws/jsii/compare/v1.45.0...v1.46.0) (2021-11-21)
 
 

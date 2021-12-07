@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -5,9 +6,9 @@ import { Callback, traverseDependencyGraph } from '../lib/dependency-graph';
 
 const mockHost = {
   readJson: jest.fn<Promise<any>, [string]>().mockName('fs.readJson'),
-  resolveDependencyDirectory: jest
-    .fn<string, [string, string]>()
-    .mockName('resolveDependencyDirectory'),
+  findDependencyDirectory: jest
+    .fn<Promise<string>, [string, string]>()
+    .mockName('findDependencyDirectory'),
 };
 
 afterEach((done) => {
@@ -42,7 +43,7 @@ test('de-duplicates package root directories', async () => {
       : Promise.reject(new Error(`Unexpected file access: ${file}`));
   });
 
-  mockHost.resolveDependencyDirectory.mockImplementation((_dir, dep) => {
+  mockHost.findDependencyDirectory.mockImplementation(async (dep, _dir) => {
     const result = packages[dep]?.root;
     if (result == null) {
       throw new Error(`Unknown dependency: ${dep}`);
@@ -63,7 +64,7 @@ test('de-duplicates package root directories', async () => {
   }
 
   expect(mockHost.readJson).toHaveBeenCalledTimes(3);
-  expect(mockHost.resolveDependencyDirectory).toHaveBeenCalledTimes(3);
+  expect(mockHost.findDependencyDirectory).toHaveBeenCalledTimes(3);
 });
 
 test('stops traversing when callback returns false', async () => {
@@ -90,7 +91,7 @@ test('stops traversing when callback returns false', async () => {
       : Promise.reject(new Error(`Unexpected file access: ${file}`));
   });
 
-  mockHost.resolveDependencyDirectory.mockImplementation((_dir, dep) => {
+  mockHost.findDependencyDirectory.mockImplementation(async (dep, _dir) => {
     const result = packages[dep]?.root;
     if (result == null) {
       throw new Error(`Unknown dependency: ${dep}`);
@@ -110,5 +111,5 @@ test('stops traversing when callback returns false', async () => {
   expect(cb).toHaveBeenCalledWith(packages.B.root, packages.B.meta, false);
 
   expect(mockHost.readJson).toHaveBeenCalledTimes(2);
-  expect(mockHost.resolveDependencyDirectory).toHaveBeenCalledTimes(1);
+  expect(mockHost.findDependencyDirectory).toHaveBeenCalledTimes(1);
 });

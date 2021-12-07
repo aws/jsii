@@ -21,7 +21,7 @@ export async function traverseDependencyGraph(
   callback: Callback,
   host: TraverseDependencyGraphHost = {
     readJson: fs.readJson,
-    resolveDependencyDirectory: util.resolveDependencyDirectory,
+    findDependencyDirectory: util.findDependencyDirectory,
   },
 ): Promise<void> {
   return real$traverseDependencyGraph(packageDir, callback, host, new Set());
@@ -49,7 +49,7 @@ export type Callback = (
  */
 export interface TraverseDependencyGraphHost {
   readonly readJson: typeof fs.readJson;
-  readonly resolveDependencyDirectory: typeof util.resolveDependencyDirectory;
+  readonly findDependencyDirectory: typeof util.findDependencyDirectory;
 }
 
 /**
@@ -87,8 +87,8 @@ async function real$traverseDependencyGraph(
     ...Object.keys(meta.peerDependencies ?? {}),
   ]);
   return Promise.all(
-    Array.from(deps).map((dep) => {
-      const dependencyDir = host.resolveDependencyDirectory(packageDir, dep);
+    Array.from(deps).map(async (dep) => {
+      const dependencyDir = await host.findDependencyDirectory(dep, packageDir);
       return real$traverseDependencyGraph(
         dependencyDir,
         callback,

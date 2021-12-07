@@ -100,6 +100,8 @@ async function mockSourceDirectory<T>(
         },
         { spaces: 2 },
       );
+      // Necessary otherwise 'require.resolve()' will fail
+      await fs.writeFile(join(pkgDir, 'index.js'), 'module.exports = {};');
     }
     /* eslint-enable no-await-in-loop */
 

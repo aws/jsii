@@ -1,9 +1,19 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
+import * as path from 'path';
 
-import { loadAssemblies, replaceAssembly } from '../jsii/assemblies';
+import {
+  loadAssemblies,
+  replaceAssembly,
+  loadAllDefaultTablets,
+  LoadedAssembly,
+  allTypeScriptSnippets,
+} from '../jsii/assemblies';
+import { renderMetadataline, TypeScriptSnippet } from '../snippet';
 import { SnippetSelector, mean, meanLength, shortest, longest } from '../snippet-selectors';
-import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
+import { snippetKey } from '../tablets/key';
+import { LanguageTablet, TranslatedSnippet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
+import { isDefined, mkDict, fmap, indexBy } from '../util';
 
 export interface InfuseResult {
   readonly coverageResults: Record<string, InfuseTypes>;
@@ -15,14 +25,17 @@ export interface InfuseTypes {
 }
 
 export interface InfuseOptions {
-  readonly outputFile?: string;
-
-  readonly log?: boolean;
+  readonly logFile?: string;
 
   /**
-   * Where to write the updated tablet back
+   * Where to read additional translations
    */
-  readonly tabletOutputFile?: string;
+  readonly cacheFromFile?: string;
+
+  /**
+   * In addition to the implicit tablets, also write all added examples to this additional output tablet
+   */
+  readonly cacheToFile?: string;
 }
 
 export const DEFAULT_INFUSION_RESULTS_NAME = 'infusion-results.html';
@@ -40,73 +53,102 @@ class DefaultRecord<A> {
   }
 }
 
-export async function infuse(
-  assemblyLocations: string[],
-  tabletFile: string,
-  options?: InfuseOptions,
-): Promise<InfuseResult> {
+/**
+ * Infuse will analyze the snippets in a set of tablets, and update the assembly to add
+ * examples to types that don't have any yet, based on snippets that use the given type.
+ */
+export async function infuse(assemblyLocations: string[], options?: InfuseOptions): Promise<InfuseResult> {
   let stream: fs.WriteStream | undefined = undefined;
-  if (options?.log) {
-    if (!options.outputFile) {
-      throw new Error("If 'log' is set, 'outputFile' must be set as well.");
-    }
-
+  if (options?.logFile) {
     // Create stream for html file and insert some styling
-    stream = fs.createWriteStream(options.outputFile, {
-      encoding: 'utf-8',
-    });
+    stream = fs.createWriteStream(options.logFile, { encoding: 'utf-8' });
     startFile(stream);
   }
 
   // Load tablet file and assemblies
-  const tab = new LanguageTablet();
-  await tab.load(tabletFile);
-  const assemblies = await loadAssemblies(assemblyLocations, true);
+  const assemblies = await loadAssemblies(assemblyLocations, false);
+  const defaultTablets = await loadAllDefaultTablets(assemblies);
 
-  const snippetsFromFqn = mapFqns(tab);
-  const coverageResults: Record<string, InfuseTypes> = {};
-  for (const { assembly, directory } of assemblies) {
-    stream?.write(`<h1>@aws-cdk/${directory.split('/').pop()}</h1>\n`);
-
-    let typesWithInsertedExamples = 0;
-    const filteredTypes = filterForTypesWithoutExamples(assembly.types ?? {});
-    for (const [typeFqn, type] of Object.entries(filteredTypes)) {
-      if (snippetsFromFqn[typeFqn] !== undefined) {
-        const meanResult = mean(snippetsFromFqn[typeFqn]);
-        if (options?.log) {
-          const selected = Object.entries(ADDITIONAL_SELECTORS).map(
-            ([name, fn]) => [name, fn(snippetsFromFqn[typeFqn])] as const,
-          );
-          const selectedFromSelector = {
-            ...makeDict(selected),
-            mean: meanResult,
-          };
-          logOutput(stream, typeFqn, createHtmlEntry(selectedFromSelector));
-        }
-        insertExample(meanResult, type, tab);
-        typesWithInsertedExamples++;
-      }
-    }
-
-    // eslint-disable-next-line no-await-in-loop
-    await replaceAssembly(assembly, directory);
-    coverageResults[directory] = {
-      types: Object.keys(filteredTypes).length,
-      typesWithInsertedExamples,
-    };
+  const availableTranslations = new LanguageTablet();
+  if (options?.cacheFromFile) {
+    availableTranslations.addTablet(await LanguageTablet.fromOptionalFile(options.cacheFromFile));
   }
+  availableTranslations.addTablets(...Object.values(defaultTablets));
+
+  const { translationsByFqn, originalsByKey } = availableSnippetsPerFqn(assemblies, availableTranslations);
+
+  const additionalOutputTablet = options?.cacheToFile
+    ? await LanguageTablet.fromOptionalFile(options?.cacheToFile)
+    : new LanguageTablet();
+
+  const coverageResults = mkDict(
+    await Promise.all(
+      assemblies.map(async ({ assembly, directory }) => {
+        stream?.write(`<h1>${assembly.name}</h1>\n`);
+
+        const implicitTablet = defaultTablets[directory];
+        if (!implicitTablet) {
+          throw new Error(`No tablet found for ${directory}`);
+        }
+
+        let insertedExamples = 0;
+        const filteredTypes = filterForTypesWithoutExamples(assembly.types ?? {});
+        for (const [typeFqn, type] of Object.entries(filteredTypes)) {
+          const available = translationsByFqn[typeFqn];
+          if (!available) {
+            continue;
+          }
+
+          const example = pickBestExample(typeFqn, available, stream);
+          const original = originalsByKey[example.key];
+          insertExample(example, original, type, [implicitTablet, additionalOutputTablet]);
+          insertedExamples++;
+        }
+
+        if (insertedExamples > 0) {
+          // Save the updated assembly and implicit tablets
+          // eslint-disable-next-line no-await-in-loop
+          await Promise.all([
+            replaceAssembly(assembly, directory),
+            implicitTablet.save(path.join(directory, DEFAULT_TABLET_NAME)),
+          ]);
+        }
+
+        return [
+          directory,
+          {
+            types: Object.keys(filteredTypes).length,
+            typesWithInsertedExamples: insertedExamples,
+          } as InfuseTypes,
+        ] as const;
+      }),
+    ),
+  );
 
   stream?.close();
 
   // If we copied examples onto different types, we'll also have inserted new snippets
   // with different keys into the tablet. We must now write the updated tablet somewhere.
-  if (options?.tabletOutputFile) {
-    await tab.save(options.tabletOutputFile);
+  if (options?.cacheToFile) {
+    await additionalOutputTablet.save(options.cacheToFile);
   }
 
   return {
     coverageResults: coverageResults,
   };
+}
+
+function pickBestExample(typeFqn: string, choices: TranslatedSnippet[], logStream?: fs.WriteStream) {
+  const meanResult = mean(choices);
+  if (logStream) {
+    const selected = Object.entries(ADDITIONAL_SELECTORS).map(([name, fn]) => [name, fn(choices)] as const);
+    const selectedFromSelector = {
+      ...makeDict(selected),
+      mean: meanResult,
+    };
+    logOutput(logStream, typeFqn, createHtmlEntry(selectedFromSelector));
+  }
+  return meanResult;
 }
 
 function startFile(stream: fs.WriteStream) {
@@ -159,34 +201,62 @@ function filterForTypesWithoutExamples(types: { [fqn: string]: spec.Type }): Rec
 /**
  * Insert an example into the docs of a type, and insert it back into the tablet under a new key
  */
-function insertExample(example: TranslatedSnippet, type: spec.Type, tablet: LanguageTablet): void {
+function insertExample(
+  example: TranslatedSnippet,
+  original: TypeScriptSnippet | undefined,
+  type: spec.Type,
+  tablets: LanguageTablet[],
+): void {
+  const exampleMetadata = fmap(original?.parameters, renderMetadataline);
+
   if (type.docs) {
     type.docs.example = example.originalSource.source;
+    if (exampleMetadata) {
+      type.docs.custom = { ...type.docs.custom, exampleMetadata };
+    }
   } else {
-    type.docs = { example: example.originalSource.source };
+    type.docs = {
+      example: example.originalSource.source,
+      custom: fmap(exampleMetadata, (exampleMetadata) => ({ exampleMetadata })),
+    };
   }
 
-  tablet.addSnippet(
-    example.withLocation({
-      api: { api: 'type', fqn: type.fqn },
-      field: { field: 'example' },
-    }),
-  );
+  for (const tablet of tablets) {
+    tablet.addSnippet(
+      example.withLocation({
+        api: { api: 'type', fqn: type.fqn },
+        field: { field: 'example' },
+      }),
+    );
+  }
 }
 
 /**
+ * Return a map of FQN -> snippet keys that exercise that FQN.
+ *
+ * For a snippet to qualify, it must both:
+ *
+ * a) be current (i.e.: exist in the input assemblies)
+ * b) have been analyzed (i.e.: exist in one of the translated tablets)
+ *
  * Returns a map of fqns to a list of keys that represent snippets that include the fqn.
  */
-function mapFqns(tab: LanguageTablet): Record<string, TranslatedSnippet[]> {
-  const fqnsReferencedMap = new DefaultRecord<TranslatedSnippet>();
+function availableSnippetsPerFqn(asms: readonly LoadedAssembly[], translationsTablet: LanguageTablet) {
+  const ret = new DefaultRecord<TranslatedSnippet>();
 
-  for (const key of tab.snippetKeys) {
-    const snippet = tab.tryGetSnippet(key)!;
-    for (const fqn of snippet.snippet.fqnsReferenced ?? []) {
-      fqnsReferencedMap.add(fqn, snippet);
+  const originalsByKey = indexBy(allTypeScriptSnippets(asms), snippetKey);
+
+  const translations = Object.keys(originalsByKey)
+    .map((key) => translationsTablet.tryGetSnippet(key))
+    .filter(isDefined);
+
+  for (const trans of translations) {
+    for (const fqn of trans.snippet.fqnsReferenced ?? []) {
+      ret.add(fqn, trans);
     }
   }
-  return fqnsReferencedMap.index;
+
+  return { originalsByKey, translationsByFqn: ret.index };
 }
 
 function makeDict<A>(xs: Array<readonly [string, A]>): Record<string, A> {

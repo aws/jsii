@@ -1,6 +1,6 @@
 import * as jsii from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as path from 'path';
-import { promisify } from 'util';
 
 import { Assembly } from './assembly';
 import { ClassType } from './class';
@@ -10,6 +10,7 @@ import { Method } from './method';
 import { ModuleLike } from './module-like';
 import { Property } from './property';
 import { Type } from './type';
+import { findDependencyDirectory } from './util';
 
 export class TypeSystem {
   /**
@@ -34,30 +35,32 @@ export class TypeSystem {
     packageRoot: string,
     options: { validate?: boolean } = {},
   ): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-    const pkg = require(path.resolve(packageRoot, 'package.json'));
+    const pkg = await fs.readJson(path.resolve(packageRoot, 'package.json'));
 
     for (const dep of dependenciesOf(pkg)) {
-      // Filter jsii dependencies
-      const depPkgJsonPath = require.resolve(`${dep}/package.json`, {
-        paths: [packageRoot],
-      });
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-      const depPkgJson = require(depPkgJsonPath);
+      // eslint-disable-next-line no-await-in-loop
+      const depDir = await findDependencyDirectory(dep, packageRoot);
+
+      // eslint-disable-next-line no-await-in-loop
+      const depPkgJson = await fs.readJson(path.join(depDir, 'package.json'));
       if (!depPkgJson.jsii) {
         continue;
       }
 
       // eslint-disable-next-line no-await-in-loop
-      await this.loadModule(path.dirname(depPkgJsonPath), options);
+      await this.loadModule(depDir, options);
     }
   }
 
   /**
    * Loads a jsii module or a single .jsii file into the type system.
    *
+   * If `fileOrDirectory` is a directory, it will be treated as a jsii npm module,
+   * and its dependencies (as determined by its 'package.json' file) will be loaded
+   * as well.
+   *
    * If `fileOrDirectory` is a file, it will be treated as a single .jsii file.
-   * If `fileOrDirectory` is a directory, it will be treated as a jsii npm module.
+   * No dependencies will be loaded. You almost never want this.
    *
    * Not validating makes the difference between loading assemblies with lots
    * of dependencies (such as app-delivery) in 90ms vs 3500ms.
@@ -69,7 +72,7 @@ export class TypeSystem {
     fileOrDirectory: string,
     options: { validate?: boolean } = {},
   ) {
-    if ((await stat(fileOrDirectory)).isDirectory()) {
+    if ((await fs.stat(fileOrDirectory)).isDirectory()) {
       return this.loadModule(fileOrDirectory, options);
     }
     return this.loadFile(fileOrDirectory, { ...options, isRoot: true });
@@ -92,7 +95,9 @@ export class TypeSystem {
       isRoot = false,
     ) {
       const filePath = path.join(moduleDirectory, 'package.json');
-      const pkg = JSON.parse((await readFile(filePath)).toString());
+      const pkg = JSON.parse(
+        await fs.readFile(filePath, { encoding: 'utf-8' }),
+      );
       if (!pkg.jsii) {
         throw new Error(`No "jsii" section in ${filePath}`);
       }
@@ -134,11 +139,11 @@ export class TypeSystem {
           continue;
         }
 
-        const depDir = require.resolve(`${name}/package.json`, {
-          paths: [moduleDirectory],
-        });
         // eslint-disable-next-line no-await-in-loop
-        await _loadModule.call(this, path.dirname(depDir));
+        const depDir = await findDependencyDirectory(name, moduleDirectory);
+
+        // eslint-disable-next-line no-await-in-loop
+        await _loadModule.call(this, depDir);
       }
 
       return root;
@@ -300,7 +305,7 @@ export class TypeSystem {
    * @param validate Whether to validate the assembly or just assume it matches the schema
    */
   private async loadAssembly(file: string, validate = true) {
-    const spec = JSON.parse((await readFile(file)).toString());
+    const spec = JSON.parse(await fs.readFile(file, { encoding: 'utf-8' }));
     const ass = validate
       ? jsii.validateAssembly(spec)
       : (spec as jsii.Assembly);
@@ -340,18 +345,4 @@ function flatMap<T, R>(
   return collection
     .map(mapper)
     .reduce((acc, elt) => acc.concat(elt), new Array<R>());
-}
-
-function stat(p: string) {
-  // just-in-time require so that this file can be loaded in browsers as well.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-  const fs = require('fs');
-  return promisify(fs.stat)(p);
-}
-
-function readFile(p: string) {
-  // just-in-time require so that this file can be loaded in browsers as well.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-  const fs = require('fs');
-  return promisify(fs.readFile)(p);
 }

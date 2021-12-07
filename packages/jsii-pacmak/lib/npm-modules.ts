@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as logging from '../lib/logging';
 import { JsiiModule } from './packaging';
 import { topologicalSort, Toposorted } from './toposort';
-import { resolveDependencyDirectory } from './util';
+import { findDependencyDirectory } from './util';
 
 /**
  * Find all modules that need to be packagerd
@@ -67,9 +67,18 @@ export async function findJsiiModules(
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
       await Promise.all(
-        dependencyNames
-          .map((dep) => resolveDependencyDirectory(realPath, dep))
-          .map((depDir) => visitPackage(depDir, false)),
+        dependencyNames.flatMap(async (dep) => {
+          try {
+            const depDir = await findDependencyDirectory(dep, realPath);
+            return [await visitPackage(depDir, false)];
+          } catch (e) {
+            // Some modules like `@types/node` cannot be require()d, but we also don't need them.
+            if (e.code !== 'MODULE_NOT_FOUND') {
+              throw e;
+            }
+            return [];
+          }
+        }),
       );
     }
 
