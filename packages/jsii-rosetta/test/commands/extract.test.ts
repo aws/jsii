@@ -301,7 +301,7 @@ describe('can find fqns via symbolId when ', () => {
     try {
       const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
       await extract.extractSnippets([otherAssembly.moduleDirectory], {
-        outputFile,
+        cacheToFile: outputFile,
         ...defaultExtractOptions,
       });
 
@@ -320,7 +320,7 @@ describe('can find fqns via symbolId when ', () => {
     try {
       const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
       await extract.extractSnippets([otherAssembly.moduleDirectory], {
-        outputFile,
+        cacheToFile: outputFile,
         ...defaultExtractOptions,
       });
 
