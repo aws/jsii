@@ -63,7 +63,7 @@ export async function findPackageJsonUp(
 /**
  * Find a directory up the tree from a starting directory matching a condition
  *
- * Will return `undefined` if a no directory matches
+ * Will return `undefined` if no directory matches
  *
  * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
  * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
