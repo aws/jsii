@@ -1,7 +1,9 @@
 import { Assembly } from '@jsii/spec';
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as ts from 'typescript';
+
+import { findUp } from './utils';
 
 /**
  * Additional options that may be provided to the symbolIdentifier.
@@ -55,39 +57,52 @@ export function symbolIdentifier(
     sym = typeChecker.getAliasedSymbol(sym);
   }
 
+  const isMember =
+    (sym.flags &
+      (ts.SymbolFlags.Method |
+        ts.SymbolFlags.Property |
+        ts.SymbolFlags.EnumMember)) !==
+    0;
+
   const tsName = typeChecker.getFullyQualifiedName(sym);
+
   // TypeScript fqn looks like "/path/to/file"[.name.in.file]
   const groups = /^"([^"]+)"(?:\.(.*))?$/.exec(tsName);
   if (!groups) {
     return undefined;
   }
 
-  const [, fileName, typeName] = groups; // typeName may be absent
+  const [, fileName, inFileName] = groups; // inFileName may be absent
 
   const relFile = assemblyRelativeSourceFile(fileName, options?.assembly);
   if (!relFile) {
     return undefined;
   }
 
-  return `${relFile}:${typeName ?? ''}`;
+  // If this is a member symbol, replace the final '.' with a '#'
+  const typeSymbol = isMember
+    ? (inFileName ?? '').replace(/\.([^.]+)$/, '#$1')
+    : inFileName;
+
+  return `${relFile}:${typeSymbol}`;
 }
 
 function assemblyRelativeSourceFile(sourceFileName: string, asm?: Assembly) {
-  const packageJsonLocation = findPackageJsonLocation(
-    path.dirname(sourceFileName),
+  const packageJsonDir = findUp(path.dirname(sourceFileName), (dir) =>
+    fs.pathExistsSync(path.join(dir, 'package.json')),
   );
 
-  if (!packageJsonLocation) {
+  if (!packageJsonDir) {
     return undefined;
   }
 
-  const packageJson = JSON.parse(
-    fs.readFileSync(packageJsonLocation).toString(),
+  const packageJson = fs.readJsonSync(
+    path.join(packageJsonDir, 'package.json'),
   );
 
   let sourcePath = removePrefix(
     packageJson.jsii?.outdir ?? '',
-    path.relative(path.dirname(packageJsonLocation), sourceFileName),
+    path.relative(packageJsonDir, sourceFileName),
   );
 
   // Modify the namespace if we send in the assembly.
@@ -99,17 +114,6 @@ function assemblyRelativeSourceFile(sourceFileName: string, asm?: Assembly) {
   }
 
   return sourcePath.replace(/(\.d)?\.ts$/, '');
-
-  function findPackageJsonLocation(currentPath: string): string | undefined {
-    const candidate = path.join(currentPath, 'package.json');
-    if (fs.existsSync(candidate)) {
-      return candidate;
-    }
-    const parentPath = path.resolve(currentPath, '..');
-    return parentPath !== currentPath
-      ? findPackageJsonLocation(parentPath)
-      : undefined;
-  }
 
   function removePrefix(prefix: string, filePath: string) {
     const prefixParts = prefix.split(/[/\\]/g);

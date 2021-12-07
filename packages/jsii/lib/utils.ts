@@ -225,21 +225,37 @@ export async function findPackageJsonUp(
  * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
  * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
  */
-export async function findUp(
+export function findUp(
   directory: string,
   pred: (dir: string) => Promise<boolean>,
-): Promise<string | undefined> {
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    // eslint-disable-next-line no-await-in-loop
-    if (await pred(directory)) {
-      return directory;
-    }
+): Promise<string | undefined>;
+export function findUp(
+  directory: string,
+  pred: (dir: string) => boolean,
+): string | undefined;
+// eslint-disable-next-line @typescript-eslint/promise-function-async
+export function findUp(
+  directory: string,
+  pred: ((dir: string) => boolean) | ((dir: string) => Promise<boolean>),
+): Promise<string | undefined> | string | undefined {
+  const result = pred(directory);
+  if (isPromise(result)) {
+    return result.then((thisDirectory) =>
+      thisDirectory ? directory : recurse(),
+    );
+  }
 
+  return result ? directory : recurse();
+
+  function recurse() {
     const parent = path.dirname(directory);
     if (parent === directory) {
       return undefined;
     }
-    directory = parent;
+    return findUp(parent, pred as any);
   }
+}
+
+function isPromise<A>(x: A | Promise<A>): x is Promise<A> {
+  return typeof x === 'object' && (x as any).then;
 }
