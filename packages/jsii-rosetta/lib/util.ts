@@ -197,3 +197,11 @@ export function groupBy<A>(xs: A[], keyFn: (x: A) => string): Record<string, A[]
   }
   return ret;
 }
+
+export function isDefined<A>(x: A): x is NonNullable<A> {
+  return x !== undefined;
+}
+
+export function indexBy<A>(xs: A[], fn: (x: A) => string): Record<string, A> {
+  return mkDict(xs.map((x) => [fn(x), x] as const));
+}
