@@ -46,6 +46,7 @@ export class Assembler implements Emitter {
   private readonly warningsInjector?: DeprecationWarningsInjector;
 
   private readonly mainFile: string;
+  private readonly tscRootDir?: string;
 
   private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
@@ -113,10 +114,10 @@ export class Assembler implements Emitter {
 
       // rootDir may be set explicitly or not. If not, inferRootDir replicates
       // tsc's behavior of using the longest prefix of all built source files.
-      const tscRootDir =
+      this.tscRootDir =
         program.getCompilerOptions().rootDir ?? inferRootDir(program);
-      if (tscRootDir != null) {
-        mainFile = path.join(tscRootDir, mainFile);
+      if (this.tscRootDir != null) {
+        mainFile = path.join(this.tscRootDir, mainFile);
       }
     }
 
@@ -253,7 +254,13 @@ export class Assembler implements Emitter {
       types: this._types,
       submodules: noEmptyDict(toSubmoduleDeclarations(this.mySubmodules())),
       targets: this.projectInfo.targets,
-      metadata: this.projectInfo.metadata,
+      metadata: {
+        ...this.projectInfo.metadata,
+
+        // Downstream consumers need this to map a symbolId in the outDir to a
+        // symbolId in the rootDir.
+        tscRootDir: this.tscRootDir,
+      },
       docs,
       readme,
       jsiiVersion,
