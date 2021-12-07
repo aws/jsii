@@ -20,7 +20,7 @@ interface SymbolIdOptions {
 export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
   sym: ts.Symbol,
-  options?: SymbolIdOptions,
+  options: SymbolIdOptions = {},
 ): string | undefined {
   // If this symbol happens to be an alias, resolve it first
   while ((sym.flags & ts.SymbolFlags.Alias) !== 0) {
@@ -58,7 +58,7 @@ export function symbolIdentifier(
 
   const namespace = assemblyRelativeSourceFile(
     decl.getSourceFile().fileName,
-    options,
+    options?.assembly,
   );
 
   if (!namespace) {
@@ -68,10 +68,7 @@ export function symbolIdentifier(
   return `${namespace}:${inFileNameParts.join('.')}`;
 }
 
-function assemblyRelativeSourceFile(
-  sourceFileName: string,
-  options?: SymbolIdOptions,
-) {
+function assemblyRelativeSourceFile(sourceFileName: string, asm?: Assembly) {
   const packageJsonLocation = findPackageJsonLocation(
     path.dirname(sourceFileName),
   );
@@ -90,8 +87,9 @@ function assemblyRelativeSourceFile(
   );
 
   // Modify the namespace if we send in the assembly.
-  if (options) {
-    const tscRootDir = packageJson.jsii?.tsc?.rootDir ?? options?.assembly.metadata?.tscRootDir;
+  if (asm) {
+    const tscRootDir =
+      packageJson.jsii?.tsc?.rootDir ?? asm.metadata?.tscRootDir;
     const tscOutDir = packageJson.jsii?.tsc?.outDir;
     sourcePath = normalizePath(sourcePath, tscRootDir, tscOutDir);
   }

@@ -256,6 +256,9 @@ export class Assembler implements Emitter {
       targets: this.projectInfo.targets,
       metadata: {
         ...this.projectInfo.metadata,
+
+        // Downstream consumers need this to map a symbolId in the outDir to a
+        // symbolId in the rootDir.
         tscRootDir: this.tscRootDir,
       },
       docs,
