@@ -150,11 +150,18 @@ export function normalizePath(
     sourcePath =
       rootDir === '.' ? paths.join('/') : `${rootDir}/${paths.join('/')}`;
   }
-  return sourcePath;
+  return unixize(sourcePath);
 
   function removeEndSlash(filePath: string) {
     return filePath.endsWith(path.sep)
       ? filePath.slice(0, filePath.length - 1)
       : filePath;
   }
+}
+
+/**
+ * Turn backslashes in a path into forward slashes
+ */
+function unixize(p: string) {
+  return p.replace(/\\/g, '/');
 }
