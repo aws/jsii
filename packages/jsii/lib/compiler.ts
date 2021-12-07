@@ -9,6 +9,7 @@ import { Assembler } from './assembler';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
+import { WARNINGSCODE_FILE_NAME } from './transforms/deprecation-warnings';
 import * as utils from './utils';
 
 const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
@@ -292,6 +293,26 @@ export class Compiler implements Emitter {
       );
     }
 
+    // Some extra validation on the config.
+    // Make sure that { "./.warnings.jsii.js": "./.warnings.jsii.js" } is in the set of
+    // exports, if they are specified.
+    if (
+      this.options.addDeprecationWarnings &&
+      this.options.projectInfo.exports !== undefined
+    ) {
+      const expected = `./${WARNINGSCODE_FILE_NAME}`;
+      const warningsExport = Object.entries(
+        this.options.projectInfo.exports,
+      ).filter(([k, v]) => k === expected && v === expected);
+
+      if (warningsExport.length === 0) {
+        hasErrors = true;
+        diagnostics.push(
+          JsiiDiagnostic.JSII_0007_MISSING_WARNINGS_EXPORT.createDetached(),
+        );
+      }
+    }
+
     return {
       emitSkipped: hasErrors,
       diagnostics: ts.sortAndDeduplicateDiagnostics(diagnostics),
@@ -530,25 +551,31 @@ export class Compiler implements Emitter {
   private async findMonorepoPeerTsconfig(
     depName: string,
   ): Promise<string | undefined> {
-    const paths = nodeJsCompatibleSearchPaths(
-      this.options.projectInfo.projectRoot,
-    );
-
-    let dep;
     try {
-      dep = require.resolve(`${depName}/tsconfig.json`, { paths });
-    } catch {
-      // Package does not have a tsconfig.json
-      return undefined;
-    }
+      const depDir = await utils.findDependencyDirectory(
+        depName,
+        this.options.projectInfo.projectRoot,
+      );
 
-    // Resolve symlinks, to check if this is a monorepo peer
-    const dependencyRealPath = await fs.realpath(dep);
-    if (dependencyRealPath.split(path.sep).includes('node_modules')) {
-      return undefined;
-    }
+      const dep = path.join(depDir, 'tsconfig.json');
+      if (!(await fs.pathExists(dep))) {
+        return undefined;
+      }
 
-    return dependencyRealPath;
+      // Resolve symlinks, to check if this is a monorepo peer
+      const dependencyRealPath = await fs.realpath(dep);
+      if (dependencyRealPath.split(path.sep).includes('node_modules')) {
+        return undefined;
+      }
+
+      return dependencyRealPath;
+    } catch (e) {
+      // @types modules cannot be required, for example
+      if (e.code === 'MODULE_NOT_FOUND') {
+        return undefined;
+      }
+      throw e;
+    }
   }
 
   private diagsHaveAbortableErrors(diags: readonly ts.Diagnostic[]) {
@@ -605,22 +632,6 @@ function _pathOfLibraries(
     );
   }
   return BASE_COMPILER_OPTIONS.lib.map((name) => path.join(lib, name));
-}
-
-/**
- * Return all possible 'node_modules' directories from a given starting directory.
- */
-function nodeJsCompatibleSearchPaths(dir: string): string[] {
-  const ret = new Array<string>();
-
-  let lastDir;
-  do {
-    ret.push(path.join(dir, 'node_modules'));
-    lastDir = dir;
-    dir = path.dirname(dir);
-  } while (dir !== lastDir); // path.dirname('/') === '/', also works on Windows
-
-  return ret;
 }
 
 function parseConfigHostFromCompilerHost(

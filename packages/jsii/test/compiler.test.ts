@@ -1,4 +1,11 @@
-import { mkdtemp, remove, writeFile, readFile, readJson } from 'fs-extra';
+import {
+  ensureDir,
+  mkdtemp,
+  remove,
+  writeFile,
+  readFile,
+  readJson,
+} from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -40,6 +47,7 @@ describe(Compiler, () => {
       ).toEqual(expectedTypeScriptConfig());
     });
   });
+
   test('"watch" mode', async () => {
     // This can be a little slow, allowing 15 seconds maximum here (default is 5 seconds)
     jest.setTimeout(15_000);
@@ -99,6 +107,45 @@ describe(Compiler, () => {
         },
       });
       await watchClosed;
+    } finally {
+      await remove(sourceDir);
+    }
+  });
+
+  test('rootDir is added to assembly', async () => {
+    const outDir = 'jsii-outdir';
+    const rootDir = 'jsii-rootdir';
+    const sourceDir = await mkdtemp(join(tmpdir(), 'jsii-tmpdir'));
+    await ensureDir(join(sourceDir, rootDir));
+
+    try {
+      await writeFile(
+        join(sourceDir, rootDir, 'index.ts'),
+        'export class MarkerA {}',
+      );
+      // Intentionally using lower case name - it should be case-insensitive
+      await writeFile(join(sourceDir, rootDir, 'readme.md'), '# Test Package');
+
+      const compiler = new Compiler({
+        projectInfo: {
+          ..._makeProjectInfo(sourceDir, join(outDir, 'index.d.ts')),
+          tsc: {
+            outDir,
+            rootDir,
+          },
+        },
+        failOnWarnings: true,
+        projectReferences: false,
+      });
+
+      await compiler.emit();
+
+      const assembly = await readJson(join(sourceDir, '.jsii'), 'utf-8');
+      expect(assembly.metadata).toEqual(
+        expect.objectContaining({
+          tscRootDir: rootDir,
+        }),
+      );
     } finally {
       await remove(sourceDir);
     }

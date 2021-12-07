@@ -3,6 +3,7 @@ import { camel, constant as allCaps, pascal } from 'case';
 import * as ts from 'typescript';
 
 import { TypeSystemHints } from './docs';
+import { WARNINGSCODE_FILE_NAME } from './transforms/deprecation-warnings';
 import { JSII_DIAGNOSTICS_CODE, _formatDiagnostic } from './utils';
 
 /**
@@ -252,6 +253,15 @@ export class JsiiDiagnostic implements ts.Diagnostic {
       `should take a "devDependency" on "${dependencyName}" at "${minVersion}" ` +
       `(found "${actual}")"`,
     name: 'metadata/missing-dev-dependency',
+  });
+
+  public static readonly JSII_0007_MISSING_WARNINGS_EXPORT = Code.error({
+    code: 7,
+    formatter: () =>
+      'If you are compiling with --add-deprecation-warnings and your package.json ' +
+      `declares subpath exports, you must include { "./${WARNINGSCODE_FILE_NAME}": "./${WARNINGSCODE_FILE_NAME}" } ` +
+      'in the set of exports.',
+    name: 'metadata/missing-warnings-export',
   });
 
   //////////////////////////////////////////////////////////////////////////////

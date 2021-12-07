@@ -1,6 +1,21 @@
+import { Assembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
+
+/**
+ * Additional options that may be provided to the symbolIdentifier.
+ */
+interface SymbolIdOptions {
+  /**
+   * The assembly that the symbol is found in.
+   * This is used to provide the correct root directory
+   * as specified in the assembly metadata. In turn,
+   * the root directory is used to ensure that the
+   * symbolId comes from source code and not compiled code.
+   */
+  readonly assembly?: Assembly;
+}
 
 /**
  * Return a symbol identifier for the given symbol
@@ -33,6 +48,7 @@ import * as ts from 'typescript';
 export function symbolIdentifier(
   typeChecker: ts.TypeChecker,
   sym: ts.Symbol,
+  options: SymbolIdOptions = {},
 ): string | undefined {
   // If this symbol happens to be an alias, resolve it first
   while ((sym.flags & ts.SymbolFlags.Alias) !== 0) {
@@ -48,7 +64,7 @@ export function symbolIdentifier(
 
   const [, fileName, typeName] = groups; // typeName may be absent
 
-  const relFile = assemblyRelativeSourceFile(fileName);
+  const relFile = assemblyRelativeSourceFile(fileName, options?.assembly);
   if (!relFile) {
     return undefined;
   }
@@ -56,7 +72,7 @@ export function symbolIdentifier(
   return `${relFile}:${typeName ?? ''}`;
 }
 
-function assemblyRelativeSourceFile(sourceFileName: string) {
+function assemblyRelativeSourceFile(sourceFileName: string, asm?: Assembly) {
   const packageJsonLocation = findPackageJsonLocation(
     path.dirname(sourceFileName),
   );
@@ -69,10 +85,18 @@ function assemblyRelativeSourceFile(sourceFileName: string) {
     fs.readFileSync(packageJsonLocation).toString(),
   );
 
-  const sourcePath = removePrefix(
+  let sourcePath = removePrefix(
     packageJson.jsii?.outdir ?? '',
     path.relative(path.dirname(packageJsonLocation), sourceFileName),
   );
+
+  // Modify the namespace if we send in the assembly.
+  if (asm) {
+    const tscRootDir =
+      packageJson.jsii?.tsc?.rootDir ?? asm.metadata?.tscRootDir;
+    const tscOutDir = packageJson.jsii?.tsc?.outDir;
+    sourcePath = normalizePath(sourcePath, tscRootDir, tscOutDir);
+  }
 
   return sourcePath.replace(/(\.d)?\.ts$/, '');
 
@@ -96,4 +120,52 @@ function assemblyRelativeSourceFile(sourceFileName: string) {
     }
     return pathParts.slice(i).join('/');
   }
+}
+
+/**
+ * Ensures that the sourcePath is pointing to the source code
+ * and not compiled code. This can happen if the root directory
+ * and/or out directory is set for the project. We check to see
+ * if the out directory is present in the sourcePath, and if so,
+ * we replace it with the root directory.
+ */
+export function normalizePath(
+  sourcePath: string,
+  rootDir?: string,
+  outDir?: string,
+): string {
+  if (rootDir === undefined || outDir === undefined) {
+    return sourcePath;
+  }
+
+  outDir = removeEndSlash(path.normalize(outDir));
+  const outDirLength = outDir.split(path.sep).length;
+  rootDir = removeEndSlash(path.normalize(rootDir));
+
+  let paths = path.normalize(sourcePath).split(path.sep);
+  const pathDir = paths.slice(0, outDirLength).join(path.sep);
+
+  if (outDir === pathDir || outDir === '.') {
+    // outDir === '.' is a special case where we do not want
+    // to remove any paths from the list.
+    if (outDir !== '.') {
+      paths = paths.slice(outDirLength);
+    }
+    sourcePath =
+      rootDir === '.' ? paths.join('/') : `${rootDir}/${paths.join('/')}`;
+  }
+  return unixize(sourcePath);
+
+  function removeEndSlash(filePath: string) {
+    return filePath.endsWith(path.sep)
+      ? filePath.slice(0, filePath.length - 1)
+      : filePath;
+  }
+}
+
+/**
+ * Turn backslashes in a path into forward slashes
+ */
+function unixize(p: string) {
+  return p.replace(/\\/g, '/');
 }

@@ -21,7 +21,7 @@ export type MultipleSources = { [key: string]: string; 'index.ts': string };
 export class TestJsiiModule {
   public static async fromSource(
     source: string | MultipleSources,
-    packageInfo: Partial<PackageInfo> & { name: string },
+    packageInfo: Partial<PackageInfo> & { name: string; main?: string; types?: string },
   ) {
     const { assembly, files } = await compileJsiiForTest(source, (pi) => {
       Object.assign(pi, packageInfo);
@@ -41,6 +41,8 @@ export class TestJsiiModule {
     await fs.writeJSON(path.join(modDir, '.jsii'), assembly);
     await fs.writeJSON(path.join(modDir, 'package.json'), {
       name: packageInfo.name,
+      main: packageInfo.main,
+      types: packageInfo.types,
       jsii: packageInfo.jsii,
     });
     for (const [fileName, fileContents] of Object.entries(files)) {

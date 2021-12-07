@@ -134,8 +134,17 @@ export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): J
       (asm) =>
         ({
           fqn:
-            fmap(symbolIdentifier(typeChecker, sym), (symbolId) => sourceAssembly?.symbolIdMap[symbolId]) ??
-            sourceAssembly?.assembly.name,
+            fmap(
+              symbolIdentifier(
+                typeChecker,
+                sym,
+                //sourceAssembly ? { assembly: sourceAssembly.assembly } : undefined,
+                fmap(sourceAssembly, (sa) => {
+                  return { assembly: sa.assembly };
+                }),
+              ),
+              (symbolId) => sourceAssembly?.symbolIdMap[symbolId],
+            ) ?? sourceAssembly?.assembly.name,
           sourceAssembly: asm,
           symbolType: 'module',
         } as JsiiSymbol),
@@ -187,12 +196,18 @@ function lookupTypeSymbol(
   typeSymbol: ts.Symbol,
   fileName: string,
 ): JsiiSymbol | undefined {
-  const symbolId = symbolIdentifier(typeChecker, typeSymbol);
+  const sourceAssembly = findTypeLookupAssembly(fileName);
+  const symbolId = symbolIdentifier(
+    typeChecker,
+    typeSymbol,
+    fmap(sourceAssembly, (sa) => {
+      return { assembly: sa.assembly };
+    }),
+  );
   if (!symbolId) {
     return undefined;
   }
 
-  const sourceAssembly = findTypeLookupAssembly(fileName);
   return fmap(sourceAssembly?.symbolIdMap[symbolId], (fqn) => ({ fqn, sourceAssembly, symbolType: 'type' }));
 }
 
