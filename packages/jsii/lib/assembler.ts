@@ -1009,7 +1009,10 @@ export class Assembler implements Emitter {
       return [];
     }
 
-    jsiiType.symbolId = this.getSymbolId(node);
+    // If symbolId hasn't been set yet, set it here
+    if (!jsiiType.symbolId) {
+      jsiiType.symbolId = this.getSymbolId(node);
+    }
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
@@ -1710,10 +1713,15 @@ export class Assembler implements Emitter {
     }
 
     // Forcefully resolving to the EnumDeclaration symbol for single-valued enums
-    const symbol: ts.Symbol = type.isLiteral()
-      ? (type.symbol as any).parent
-      : type.symbol;
-    if (!symbol) {
+    let decl: ts.Node | undefined = type.symbol.declarations[0];
+    let symbol: ts.Symbol | undefined;
+    if (ts.isEnumMember(decl)) {
+      decl = decl?.parent;
+    }
+    if (ts.isEnumDeclaration(decl)) {
+      symbol = getSymbolFromDeclaration(decl, this._typeChecker);
+    }
+    if (!decl || !symbol || !ts.isEnumDeclaration(decl)) {
       throw new Error(
         `Unable to resolve enum declaration for ${type.symbol.name}!`,
       );
@@ -1723,14 +1731,13 @@ export class Assembler implements Emitter {
       return Promise.resolve(undefined);
     }
 
-    this._warnAboutReservedWords(type.symbol);
+    this._warnAboutReservedWords(symbol);
 
-    const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
     if (flags & ts.ModifierFlags.Const) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_1000_NO_CONST_ENUM.create(
-          (decl as ts.EnumDeclaration).modifiers?.find(
+          decl.modifiers?.find(
             (mod) => mod.kind === ts.SyntaxKind.ConstKeyword,
           ) ?? decl,
         ),
@@ -1758,8 +1765,12 @@ export class Assembler implements Emitter {
         namespace:
           ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
         docs,
+
+        // Set SymbolId here instead of later, as by default TS will pick single-enum members
+        // as the target symbol if possible.
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
       },
-      decl as ts.EnumDeclaration,
+      decl,
     );
 
     this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
@@ -3378,3 +3389,11 @@ type TypeUseKind =
   | 'parameter type'
   | 'property type'
   | 'return type';
+
+function getSymbolFromDeclaration(
+  decl: ts.Declaration,
+  typeChecker: ts.TypeChecker,
+): ts.Symbol | undefined {
+  const name = ts.getNameOfDeclaration(decl);
+  return name ? typeChecker.getSymbolAtLocation(name) : undefined;
+}

@@ -29,6 +29,23 @@ test('Symbol map is generated', async () => {
   expect(types['testpkg.Baz'].symbolId).toEqual('some/nested/file:Baz');
 });
 
+test('Symbol id for single-value enum correctly identifies enum', async () => {
+  const result = await compileJsiiForTest(
+    {
+      'index.ts': `
+        export enum SomeEnum {
+          SINGLETON_VALUE = 'value',
+        }
+      `,
+    },
+    undefined /* callback */,
+    { stripDeprecated: true },
+  );
+
+  const types = result.assembly.types ?? {};
+  expect(types['testpkg.SomeEnum'].symbolId).toEqual('index:SomeEnum');
+});
+
 test('Module declarations are included in symbolId', async () => {
   const result = await compileJsiiForTest(
     {
