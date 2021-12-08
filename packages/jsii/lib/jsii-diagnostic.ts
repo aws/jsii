@@ -316,7 +316,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE = Code.error({
     code: 3002,
-    formatter: (fqn: string, typeUse: string, pkg: spec.Assembly) =>
+    formatter: (fqn: string, typeUse: string, pkg: { readonly name: string }) =>
       `Type "${fqn}" cannot be used as a ${typeUse} because it is not exported from ${pkg.name}`,
     name: 'type-model/unexported-foreign-type',
   });
