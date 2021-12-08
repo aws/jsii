@@ -11760,7 +11760,7 @@
         }
       ],
       "name": "SingletonIntEnum",
-      "symbolId": "lib/compliance:SingletonIntEnum.SINGLETON_INT"
+      "symbolId": "lib/compliance:SingletonIntEnum"
     },
     "jsii-calc.SingletonString": {
       "assembly": "jsii-calc",
@@ -11825,7 +11825,7 @@
         }
       ],
       "name": "SingletonStringEnum",
-      "symbolId": "lib/compliance:SingletonStringEnum.SINGLETON_STRING"
+      "symbolId": "lib/compliance:SingletonStringEnum"
     },
     "jsii-calc.SmellyStruct": {
       "assembly": "jsii-calc",
@@ -16363,7 +16363,7 @@
       ],
       "name": "Awesomeness",
       "namespace": "submodule.child",
-      "symbolId": "lib/submodule/child/index:Awesomeness.AWESOME"
+      "symbolId": "lib/submodule/child/index:Awesomeness"
     },
     "jsii-calc.submodule.child.Goodness": {
       "assembly": "jsii-calc",
@@ -16541,7 +16541,7 @@
       ],
       "name": "SomeEnum",
       "namespace": "submodule.child",
-      "symbolId": "lib/submodule/child/index:SomeEnum.SOME"
+      "symbolId": "lib/submodule/child/index:SomeEnum"
     },
     "jsii-calc.submodule.child.SomeStruct": {
       "assembly": "jsii-calc",
@@ -16807,5 +16807,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "wBGhJE4ZhvVb8R2qk5FWg49mt+ZKqW60TjlMMtT1Klo="
+  "fingerprint": "w6AJ35Nh9lBusQyMGP28WJp5MNbg527uO9TsHaP+DiE="
 }
