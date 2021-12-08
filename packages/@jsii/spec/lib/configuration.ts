@@ -87,6 +87,16 @@ export interface Config {
   metadata?: {
     [key: string]: any;
   };
+
+  /**
+   * TypeScript compiler options
+   */
+  tsc?: {
+    outDir?: string;
+    rootDir?: string;
+
+    [key: string]: any;
+  };
 }
 
 /**
