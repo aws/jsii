@@ -14006,7 +14006,7 @@
         },
         "locationInModule": {
           "filename": "lib/submodules.ts",
-          "line": 21
+          "line": 9
         },
         "parameters": [
           {
@@ -14028,40 +14028,21 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/submodules.ts",
-        "line": 7
+        "line": 6
       },
       "name": "UpcasingReflectable",
       "properties": [
         {
           "const": true,
           "docs": {
-            "stability": "stable",
-            "summary": "Check that we can reference a type from a submodule using a scoped name."
+            "stability": "stable"
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodules.ts",
-            "line": 11
+            "line": 7
           },
           "name": "reflector",
-          "static": true,
-          "type": {
-            "fqn": "@scope/jsii-calc-lib.submodule.Reflector"
-          }
-        },
-        {
-          "const": true,
-          "docs": {
-            "remarks": "We don't need to use the type, just referencing it and having the jsii compiler\nnot throw an error is good enough.",
-            "stability": "stable",
-            "summary": "Check that we can reference a type from a submodule if we import it directly."
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/submodules.ts",
-            "line": 19
-          },
-          "name": "reflector2",
           "static": true,
           "type": {
             "fqn": "@scope/jsii-calc-lib.submodule.Reflector"
@@ -14074,7 +14055,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodules.ts",
-            "line": 23
+            "line": 11
           },
           "name": "entries",
           "overrides": "@scope/jsii-calc-lib.submodule.IReflectable",
@@ -16826,5 +16807,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "wV7roqVrFTLoWZbEhujiYQQs7OgMyWAajyaynt01Qkw="
+  "fingerprint": "w6AJ35Nh9lBusQyMGP28WJp5MNbg527uO9TsHaP+DiE="
 }
