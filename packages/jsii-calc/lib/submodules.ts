@@ -1,5 +1,5 @@
 import { submodule } from '@scope/jsii-calc-lib';
-import { Reflector } from '@scope/jsii-calc-lib/lib/submodule';
+import { Reflector } from '@scope/jsii-calc-lib/build/submodule';
 
 /**
  * Ensures submodule-imported types from dependencies can be used correctly.
