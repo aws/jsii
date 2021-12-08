@@ -541,6 +541,12 @@ export class Assembler implements Emitter {
     const dep = this.projectInfo.dependencyClosure.find(
       (d) => d.name === pkg.name,
     );
+    if (!dep) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_9000_UNKNOWN_MODULE.createDetached(pkg.name),
+      );
+      return `unknown.${typeName}`;
+    }
     const symbolId = symbolIdentifier(this._typeChecker, sym, {
       assembly: dep,
     });
