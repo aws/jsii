@@ -158,6 +158,7 @@ async function inTempDir<T>(block: () => Promise<T>): Promise<T> {
 }
 
 function inOtherDir(dir: string) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
   return async <T extends unknown>(block: () => Promise<T>): Promise<T> => {
     const origDir = process.cwd();
     process.chdir(dir);
