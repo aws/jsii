@@ -11,7 +11,11 @@ test('get full github source location for a class or method', async () => {
       }
     }
   `.trim(),
-    (obj) => (obj.repository.directory = 'some/sub/dir'),
+    (obj) => {
+      if (typeof obj.repository === 'object') {
+        obj.repository.directory = 'some/sub/dir';
+      }
+    },
   );
 
   // THEN
