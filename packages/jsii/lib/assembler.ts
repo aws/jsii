@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import { PackageJson } from '@jsii/spec';
 import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';
@@ -463,31 +464,19 @@ export class Assembler implements Emitter {
     typeUse: TypeUseKind,
     isThisType: boolean,
   ): Promise<string> {
-    const singleValuedEnum = isSingleValuedEnum(type, this._typeChecker);
+    const sym = symbolFromType(type, this._typeChecker);
 
-    const tsFullName = this._typeChecker.getFullyQualifiedName(type.symbol);
-    const tsName = singleValuedEnum
-      ? // If it's a single-valued enum, we need to remove the last qualifier to get back to the enum.
-        tsFullName.replace(/\.[^.]+$/, '')
-      : tsFullName;
-
-    let typeDeclaration = singleValuedEnum
-      ? // If it's a single-valued enum, we need to move to the parent to have the enum declaration
-        type.symbol.valueDeclaration.parent
-      : type.symbol.valueDeclaration;
-    if (!typeDeclaration && type.symbol.declarations.length > 0) {
-      typeDeclaration = type.symbol.declarations[0];
-    }
+    const typeDeclaration = sym.valueDeclaration ?? sym.declarations?.[0];
 
     // Set to true to prevent further adding of Error diagnostics for known-bad reference
     let hasError = false;
 
-    if (this._isPrivateOrInternal(type.symbol)) {
+    if (this._isPrivateOrInternal(sym)) {
       // Check if this type is "this" (explicit or inferred method return type).
       this._diagnostics.push(
         JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
           typeAnnotationNode,
-          type.symbol,
+          sym,
           isThisType,
           typeUse,
         ).addRelatedInformation(
@@ -499,13 +488,14 @@ export class Assembler implements Emitter {
       hasError = true;
     }
 
+    const tsName = this._typeChecker.getFullyQualifiedName(sym);
     const groups = /^"([^"]+)"\.(.*)$/.exec(tsName);
     if (!groups) {
       if (!hasError) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
             typeAnnotationNode,
-            type.symbol,
+            sym,
             isThisType,
             typeUse,
           ).addRelatedInformation(
@@ -535,22 +525,39 @@ export class Assembler implements Emitter {
       return `unknown.${typeName}`;
     }
 
-    const submodule = this._submoduleMap.get(type.symbol);
-    if (submodule != null) {
-      const submoduleNs = this._submodules.get(submodule)!.fqnResolutionPrefix;
-      return `${submoduleNs}.${typeName}`;
+    // If the symbol comes from the current assembly, look up in the tables we are currently building
+    if (pkg.name === this.projectInfo.name) {
+      const submodule = this._submoduleMap.get(sym);
+      if (submodule != null) {
+        const submoduleNs =
+          this._submodules.get(submodule)!.fqnResolutionPrefix;
+        return `${submoduleNs}.${typeName}`;
+      }
+
+      return `${this.projectInfo.name}.${typeName}`;
     }
 
-    const fqn = `${pkg.name}.${typeName}`;
-    if (
-      pkg.name !== this.projectInfo.name &&
-      !this._dereference({ fqn }, type.symbol.valueDeclaration)
-    ) {
+    // Otherwise look up the symbol identifier in the dependency assemblies
+    const dep = this.projectInfo.dependencyClosure.find(
+      (d) => d.name === pkg.name,
+    );
+    if (!dep) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_9000_UNKNOWN_MODULE.createDetached(pkg.name),
+      );
+      return `unknown.${typeName}`;
+    }
+    const symbolId = symbolIdentifier(this._typeChecker, sym, {
+      assembly: dep,
+    });
+    const fqn = dep && symbolId ? symbolIdIndex(dep)[symbolId] : undefined;
+
+    if (!fqn || !this._dereference({ fqn }, sym.valueDeclaration)) {
       if (!hasError) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE.create(
             typeAnnotationNode,
-            fqn,
+            fqn ?? tsName,
             typeUse,
             pkg,
           ).addRelatedInformation(
@@ -561,7 +568,8 @@ export class Assembler implements Emitter {
         hasError = true;
       }
     }
-    return fqn;
+
+    return fqn ?? `unknown.${typeName}`;
   }
 
   /**
@@ -739,7 +747,9 @@ export class Assembler implements Emitter {
       const symbolLocation = sym
         .getDeclarations()?.[0]
         ?.getSourceFile()?.fileName;
-      const pkgInfo = symbolLocation && (await findPackageInfo(symbolLocation));
+      const pkgInfo = symbolLocation
+        ? await findPackageInfo(symbolLocation)
+        : undefined;
       const assemblyName: string = pkgInfo?.name ?? this.projectInfo.name;
       const fqn = `${assemblyName}.${sym.name}`;
       return {
@@ -1009,7 +1019,10 @@ export class Assembler implements Emitter {
       return [];
     }
 
-    jsiiType.symbolId = this.getSymbolId(node);
+    // If symbolId hasn't been set yet, set it here
+    if (!jsiiType.symbolId) {
+      jsiiType.symbolId = this.getSymbolId(node);
+    }
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
@@ -1710,10 +1723,15 @@ export class Assembler implements Emitter {
     }
 
     // Forcefully resolving to the EnumDeclaration symbol for single-valued enums
-    const symbol: ts.Symbol = type.isLiteral()
-      ? (type.symbol as any).parent
-      : type.symbol;
-    if (!symbol) {
+    let decl: ts.Node | undefined = type.symbol.declarations[0];
+    let symbol: ts.Symbol | undefined;
+    if (ts.isEnumMember(decl)) {
+      decl = decl?.parent;
+    }
+    if (ts.isEnumDeclaration(decl)) {
+      symbol = getSymbolFromDeclaration(decl, this._typeChecker);
+    }
+    if (!decl || !symbol || !ts.isEnumDeclaration(decl)) {
       throw new Error(
         `Unable to resolve enum declaration for ${type.symbol.name}!`,
       );
@@ -1723,14 +1741,13 @@ export class Assembler implements Emitter {
       return Promise.resolve(undefined);
     }
 
-    this._warnAboutReservedWords(type.symbol);
+    this._warnAboutReservedWords(symbol);
 
-    const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
     if (flags & ts.ModifierFlags.Const) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_1000_NO_CONST_ENUM.create(
-          (decl as ts.EnumDeclaration).modifiers?.find(
+          decl.modifiers?.find(
             (mod) => mod.kind === ts.SyntaxKind.ConstKeyword,
           ) ?? decl,
         ),
@@ -1758,8 +1775,12 @@ export class Assembler implements Emitter {
         namespace:
           ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
         docs,
+
+        // Set SymbolId here instead of later, as by default TS will pick single-enum members
+        // as the target symbol if possible.
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
       },
-      decl as ts.EnumDeclaration,
+      decl,
     );
 
     this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
@@ -3307,7 +3328,9 @@ function isSingleValuedEnum(
   return false;
 }
 
-async function findPackageInfo(fromDir: string): Promise<any> {
+async function findPackageInfo(
+  fromDir: string,
+): Promise<PackageJson | undefined> {
   const filePath = path.join(fromDir, 'package.json');
   if (await fs.pathExists(filePath)) {
     return fs.readJson(filePath);
@@ -3378,3 +3401,70 @@ type TypeUseKind =
   | 'parameter type'
   | 'property type'
   | 'return type';
+
+/**
+ * Resolve a Type to Symbol, taking into account single-valued enums which have a bug
+ *
+ * Bug reference: https://github.com/microsoft/TypeScript/issues/46755
+ */
+function symbolFromType(type: ts.Type, typeChecker: ts.TypeChecker): ts.Symbol {
+  if ((type.flags & ts.TypeFlags.EnumLiteral) === 0) {
+    return type.symbol;
+  }
+
+  const decl = type.symbol.declarations?.[0];
+  if (!decl) {
+    return type.symbol;
+  }
+
+  if (!ts.isEnumMember(decl)) {
+    return type.symbol;
+  }
+
+  const parentDecl = decl.parent;
+  if (!parentDecl || !ts.isEnumDeclaration(parentDecl)) {
+    return type.symbol;
+  }
+
+  const name = ts.getNameOfDeclaration(parentDecl);
+  if (!name) {
+    return type.symbol;
+  }
+  return typeChecker.getSymbolAtLocation(name) ?? type.symbol;
+}
+
+const SYMBOLID_CACHE = new WeakMap<spec.Assembly, Record<string, string>>();
+
+/**
+ * Build and return an index of { symbolId -> fqn }
+ *
+ * Uses a cache for performance reasons.
+ */
+function symbolIdIndex(asm: spec.Assembly): Record<string, string> {
+  const existing = SYMBOLID_CACHE.get(asm);
+  if (existing) {
+    return existing;
+  }
+
+  const ret = buildIndex();
+  SYMBOLID_CACHE.set(asm, ret);
+  return ret;
+
+  function buildIndex() {
+    const ret: Record<string, string> = {};
+    for (const [fqn, type] of Object.entries(asm.types ?? {})) {
+      if (type.symbolId) {
+        ret[type.symbolId] = fqn;
+      }
+    }
+    return ret;
+  }
+}
+
+function getSymbolFromDeclaration(
+  decl: ts.Declaration,
+  typeChecker: ts.TypeChecker,
+): ts.Symbol | undefined {
+  const name = ts.getNameOfDeclaration(decl);
+  return name ? typeChecker.getSymbolAtLocation(name) : undefined;
+}
