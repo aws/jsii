@@ -182,10 +182,6 @@ export async function findDependencyDirectory(
     paths: [searchStart],
   });
 
-  if (dependencyName === 'punycode') {
-    console.log(searchStart, entryPoint);
-  }
-
   // Search up from the given directory, looking for a package.json that matches
   // the dependency name (so we don't accidentally find stray 'package.jsons').
   const depPkgJsonPath = await findPackageJsonUp(
