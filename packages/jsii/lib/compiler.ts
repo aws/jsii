@@ -551,6 +551,13 @@ export class Compiler implements Emitter {
   private async findMonorepoPeerTsconfig(
     depName: string,
   ): Promise<string | undefined> {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+    const { builtinModules } = require('module');
+    if ((builtinModules ?? []).includes(depName)) {
+      // Can happen for modules like 'punycode' which are declared as dependency for polyfill purposes
+      return undefined;
+    }
+
     try {
       const depDir = await utils.findDependencyDirectory(
         depName,
@@ -571,7 +578,9 @@ export class Compiler implements Emitter {
       return dependencyRealPath;
     } catch (e) {
       // @types modules cannot be required, for example
-      if (e.code === 'MODULE_NOT_FOUND') {
+      if (
+        ['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(e.code)
+      ) {
         return undefined;
       }
       throw e;
