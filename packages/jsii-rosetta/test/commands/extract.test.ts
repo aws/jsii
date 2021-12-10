@@ -388,7 +388,8 @@ test('infused examples skip loose mode', async () => {
     const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
 
     // Without exampleMetadata infused=true, expect an error
-    await expect(extract.extractSnippets([otherAssembly.moduleDirectory], {
+    await expect(
+      extract.extractSnippets([otherAssembly.moduleDirectory], {
         cacheToFile,
         ...defaultExtractOptions,
       }),
