@@ -207,7 +207,11 @@ function insertExample(
   type: spec.Type,
   tablets: LanguageTablet[],
 ): void {
-  const exampleMetadata = fmap(original?.parameters, renderMetadataline);
+  const parameters = {
+    ...original?.parameters,
+    infused: 'true',
+  };
+  const exampleMetadata = renderMetadataline(parameters);
 
   if (type.docs) {
     type.docs.example = example.originalSource.source;

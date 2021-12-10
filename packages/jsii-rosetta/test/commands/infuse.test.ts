@@ -72,7 +72,7 @@ test('infuse copies example metadata', async () => {
   const updatedAssembly = (await fs.readJson(path.join(assembly.moduleDirectory, '.jsii'))) as spec.Assembly;
 
   const typeDocs = updatedAssembly.types?.['my_assembly.ClassA']?.docs;
-  expect(typeDocs?.custom?.exampleMetadata).toEqual('some=metadata');
+  expect(typeDocs?.custom?.exampleMetadata).toEqual('some=metadata infused=true');
 });
 
 test('examples are added to the tablet under new keys', async () => {
