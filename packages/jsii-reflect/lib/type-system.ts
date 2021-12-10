@@ -10,7 +10,7 @@ import { Method } from './method';
 import { ModuleLike } from './module-like';
 import { Property } from './property';
 import { Type } from './type';
-import { findDependencyDirectory } from './util';
+import { findDependencyDirectory, isBuiltinModule } from './util';
 
 export class TypeSystem {
   /**
@@ -38,6 +38,10 @@ export class TypeSystem {
     const pkg = await fs.readJson(path.resolve(packageRoot, 'package.json'));
 
     for (const dep of dependenciesOf(pkg)) {
+      if (isBuiltinModule(dep)) {
+        continue;
+      }
+
       // eslint-disable-next-line no-await-in-loop
       const depDir = await findDependencyDirectory(dep, packageRoot);
 
