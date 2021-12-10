@@ -66,7 +66,7 @@ function main() {
       }),
     )
     .command(
-      'infuse <TABLET> [ASSEMBLY..]',
+      'infuse [ASSEMBLY..]',
       '(EXPERIMENTAL) mutates one or more assemblies by adding documentation examples to top-level types',
       (command) =>
         command
