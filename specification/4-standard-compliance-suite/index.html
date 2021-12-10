@@ -1791,7 +1791,9 @@ notation:</p>
 <p>Is there a need to support some form of a capture mechanism to provision for non-deterministic results, or
 non-normative elements such as the exact Object IDs issued for created instances?</p>
 </div>
-<details class="example"><summary>Show Template</summary><p>Below is the template markdown to copy-paste when introducing a new test case in the compliance suite. New tests should
+<details class="example">
+<summary>Show Template</summary>
+<p>Below is the template markdown to copy-paste when introducing a new test case in the compliance suite. New tests should
 always be added at the very end of the category they belong to, right after the last test in said category.</p>
 <div class="highlight"><pre><span></span><code><span class="gu">### Test Category</span>
 
@@ -1873,7 +1875,9 @@ written. They are going to be gradually replaced by more focused tests with bett
 <p>In certain cases, two or more types in a <em>Type Union</em> can overlap in such a way that they are all valid structural types
 for the value. Statically typed languages however will not be satisfied with structural typing only, and require the
 correct declared type to be preserved.</p>
-<details class="example"><summary>Show test</summary><h5 id="reference-implementation">Reference Implementation</h5>
+<details class="example">
+<summary>Show test</summary>
+<h5 id="reference-implementation">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">BluePill</span> <span class="p">{</span>
   <span class="k">readonly</span> <span class="nx">offeredTo</span>: <span class="kt">string</span><span class="p">;</span>
@@ -1958,7 +1962,9 @@ reference is surfaced as. It may be necessary to introduce a helper akin to <cod
 identity predicates to be used. Other helper functions may be necessary, too, such as one to obtain a "consistent"
 object hash for instances in Java (so they can be safely used with <code>HashMap</code>, ...).</p>
 </div>
-<details class="example"><summary>Show test</summary><h5 id="reference-implementation_1">Reference Implementation</h5>
+<details class="example">
+<summary>Show test</summary>
+<h5 id="reference-implementation_1">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
 <span class="k">export</span> <span class="k">abstract</span> <span class="kd">class</span> <span class="nx">PartiallyInitializedThisConsumer</span> <span class="p">{</span>
   <span class="k">public</span> <span class="k">abstract</span> <span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">ConstructorPassesThisOut</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span><span class="p">;</span>
@@ -2011,7 +2017,9 @@ properties can be used by <strong>JavaScript</strong> code within the Kernel pro
 <p>The Python Runtime currently expects a somewhat un-pythonic way to implement interfaces, which requires decorating
 the implementing class with <code>@jsii.implements("implemented-type.JsiiInterfaceFQN")</code>.</p>
 </div>
-<details class="example"><summary>Show test</summary><h5 id="reference-implementation_2">Reference Implementation</h5>
+<details class="example">
+<summary>Show test</summary>
+<h5 id="reference-implementation_2">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">IBehavioralInterface</span> <span class="p">{</span>
   <span class="nx">methodCall</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
@@ -2059,7 +2067,9 @@ the implementing class with <code>@jsii.implements("implemented-type.JsiiInterfa
 <h4 id="ambiguous-arguments-are-handled-correctly">Ambiguous arguments are handled correctly</h4>
 <p>When a method accepts both a positional parameter named <code>foo</code> and a struct parameter with a property named <code>foo</code>, the
 respective values are passed in the correct parameter location when calling into the <strong>JavaScript</strong> code.</p>
-<details class="example"><summary>Show test</summary><h5 id="reference-implementation_3">Reference Implementation</h5>
+<details class="example">
+<summary>Show test</summary>
+<h5 id="reference-implementation_3">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
   <span class="k">readonly</span> <span class="nx">foo</span>: <span class="kt">string</span><span class="p">;</span>
@@ -2095,7 +2105,9 @@ respective values are passed in the correct parameter location when calling into
 <h4 id="struct-elements-of-list-are-deserialized-to-the-correct-apparent-type">Struct elements of <code>List</code> are deserialized to the correct apparent type</h4>
 <p>When the declared element type of a <code>List</code> is a <em>struct</em>, the resulting list must contain elements of the correct static
 type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
-<details class="example"><summary>Show test</summary><h5 id="reference-implementation_4">Reference Implementation</h5>
+<details class="example">
+<summary>Show test</summary>
+<h5 id="reference-implementation_4">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
   <span class="k">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
@@ -2127,7 +2139,9 @@ type. This is a requirement for statically typed languages such as Java where ty
 <h4 id="struct-elements-of-map-are-deserialized-to-the-correct-apparent-type">Struct elements of <code>Map</code> are deserialized to the correct apparent type</h4>
 <p>When the declared element type of a <code>Map</code> is a <em>struct</em>, the resulting list must contain elements of the correct static
 type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
-<details class="example"><summary>Show test</summary><h5 id="reference-implementation_5">Reference Implementation</h5>
+<details class="example">
+<summary>Show test</summary>
+<h5 id="reference-implementation_5">Reference Implementation</h5>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
 <span class="k">export</span> <span class="kd">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
   <span class="k">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
@@ -2164,7 +2178,7 @@ type. This is a requirement for statically typed languages such as Java where ty
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-11-11
+      Last update: 2021-12-10
     
   </small>
 </div>
