@@ -557,7 +557,9 @@ export class Assembler implements Emitter {
     const symbolId = symbolIdentifier(this._typeChecker, sym, {
       assembly: dep,
     });
-    const fqn = dep && symbolId ? symbolIdIndex(dep)[symbolId] : undefined;
+    const fqn =
+      (dep && symbolId ? symbolIdIndex(dep)[symbolId] : undefined) ??
+      fallbackFqn;
 
     if (!fqn || !this._dereference({ fqn }, sym.valueDeclaration)) {
       if (!hasError) {
@@ -576,7 +578,7 @@ export class Assembler implements Emitter {
       }
     }
 
-    return fqn ?? fallbackFqn;
+    return fqn;
   }
 
   /**
