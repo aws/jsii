@@ -38,6 +38,18 @@ export async function findDependencyDirectory(
 }
 
 /**
+ * Whether the given dependency is a built-in
+ *
+ * Some dependencies that occur in `package.json` are also built-ins in modern Node
+ * versions (most egregious example: 'punycode'). Detect those and filter them out.
+ */
+export function isBuiltinModule(depName: string) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+  const { builtinModules } = require('module');
+  return (builtinModules ?? []).includes(depName);
+}
+
+/**
  * Find the package.json for a given package upwards from the given directory
  *
  * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
