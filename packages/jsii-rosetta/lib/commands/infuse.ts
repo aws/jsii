@@ -13,7 +13,7 @@ import { renderMetadataline, TypeScriptSnippet } from '../snippet';
 import { SnippetSelector, mean, meanLength, shortest, longest } from '../snippet-selectors';
 import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
-import { isDefined, mkDict, fmap, indexBy } from '../util';
+import { isDefined, mkDict, indexBy } from '../util';
 
 export interface InfuseResult {
   readonly coverageResults: Record<string, InfuseTypes>;
@@ -211,17 +211,16 @@ function insertExample(
     ...original?.parameters,
     infused: 'true',
   };
-  const exampleMetadata = renderMetadataline(parameters);
+  // exampleMetadata should always be nonempty since we always have a parameter.
+  const exampleMetadata = renderMetadataline(parameters) ?? '';
 
   if (type.docs) {
     type.docs.example = example.originalSource.source;
-    if (exampleMetadata) {
-      type.docs.custom = { ...type.docs.custom, exampleMetadata };
-    }
+    type.docs.custom = { ...type.docs.custom, exampleMetadata };
   } else {
     type.docs = {
       example: example.originalSource.source,
-      custom: fmap(exampleMetadata, (exampleMetadata) => ({ exampleMetadata })),
+      custom: { exampleMetadata },
     };
   }
 
