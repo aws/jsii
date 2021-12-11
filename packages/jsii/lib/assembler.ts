@@ -525,7 +525,8 @@ export class Assembler implements Emitter {
       return `unknown.${typeName}`;
     }
 
-    // If the symbol comes from the current assembly, look up in the tables we are currently building
+    // If the symbol comes from the current assembly or an assembly whose
+    // submodules we've already spidered, look up in the tables we are currently building
     if (pkg.name === this.projectInfo.name) {
       const submodule = this._submoduleMap.get(sym);
       if (submodule != null) {
@@ -537,6 +538,12 @@ export class Assembler implements Emitter {
       return `${this.projectInfo.name}.${typeName}`;
     }
 
+    // This is the fallback: in case we can't find a symbolId for the given
+    // type, we're return this value. This is for backwards compatibility with
+    // modules that haven't been compiled to have symbolId support. Those also
+    // most likely won't be using submodules so this legacy guess will be correct.
+    const fallbackFqn = `${pkg.name}.${typeName}`;
+
     // Otherwise look up the symbol identifier in the dependency assemblies
     const dep = this.projectInfo.dependencyClosure.find(
       (d) => d.name === pkg.name,
@@ -545,12 +552,14 @@ export class Assembler implements Emitter {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_9000_UNKNOWN_MODULE.createDetached(pkg.name),
       );
-      return `unknown.${typeName}`;
+      return fallbackFqn;
     }
     const symbolId = symbolIdentifier(this._typeChecker, sym, {
       assembly: dep,
     });
-    const fqn = dep && symbolId ? symbolIdIndex(dep)[symbolId] : undefined;
+    const fqn =
+      (dep && symbolId ? symbolIdIndex(dep)[symbolId] : undefined) ??
+      fallbackFqn;
 
     if (!fqn || !this._dereference({ fqn }, sym.valueDeclaration)) {
       if (!hasError) {
@@ -569,7 +578,7 @@ export class Assembler implements Emitter {
       }
     }
 
-    return fqn ?? `unknown.${typeName}`;
+    return fqn;
   }
 
   /**
