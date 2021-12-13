@@ -7,7 +7,7 @@ import { intersect } from 'semver-intersect';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
-import { parsePerson, parseRepository } from './utils';
+import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
@@ -55,6 +55,9 @@ export interface ProjectInfo {
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
   readonly bin?: { readonly [name: string]: string };
+  readonly exports?: {
+    readonly [name: string]: string | { readonly [name: string]: string };
+  };
 }
 
 export interface ProjectInfoResult {
@@ -67,7 +70,7 @@ export async function loadProjectInfo(
 ): Promise<ProjectInfoResult> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
-  const pkg = require(packageJsonPath);
+  const pkg = await fs.readJson(packageJsonPath);
 
   const diagnostics: ts.Diagnostic[] = [];
 
@@ -213,6 +216,7 @@ export async function loadProjectInfo(
       rootDir: pkg.jsii?.tsc?.rootDir,
     },
     bin: pkg.bin,
+    exports: pkg.exports,
     diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
   return { projectInfo, diagnostics };
@@ -256,7 +260,8 @@ async function _loadDependencies(
         `Invalid semver expression for ${name}: ${versionString}`,
       );
     }
-    const pkg = _tryResolveAssembly(name, localPackage, searchPath);
+    // eslint-disable-next-line no-await-in-loop
+    const pkg = await _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
     const assm = await loadAndValidateAssembly(pkg, assemblyCache);
@@ -346,11 +351,11 @@ function _toRepository(value: any): {
   };
 }
 
-function _tryResolveAssembly(
+async function _tryResolveAssembly(
   mod: string,
   localPackage: string | undefined,
   searchPath: string,
-): string {
+): Promise<string> {
   if (localPackage) {
     const result = path.join(localPackage, '.jsii');
     if (!fs.existsSync(result)) {
@@ -359,11 +364,11 @@ function _tryResolveAssembly(
     return result;
   }
   try {
-    const paths = [searchPath, path.join(searchPath, 'node_modules')];
-    return require.resolve(path.join(mod, '.jsii'), { paths });
-  } catch {
+    const dependencyDir = await findDependencyDirectory(mod, searchPath);
+    return path.join(dependencyDir, '.jsii');
+  } catch (e) {
     throw new Error(
-      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies.`,
+      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );
   }
 }
@@ -432,7 +437,9 @@ function _resolveVersion(
   return {
     // Rendering as a caret version to maintain uniformity against the "standard".
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    version: `^${require(path.join(localPackage, 'package.json')).version}`,
+    version: `^${
+      fs.readJsonSync(path.join(localPackage, 'package.json')).version
+    }`,
     localPackage,
   };
 }

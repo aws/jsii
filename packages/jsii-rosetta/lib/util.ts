@@ -122,10 +122,10 @@ export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<
  * only for the `Maybe` Functor).
  */
 export function fmap<A, B>(value: NonNullable<A>, fn: (x: NonNullable<A>) => B): B;
-export function fmap<A, B>(value: undefined, fn: (x: NonNullable<A>) => B): undefined;
-export function fmap<A, B>(value: A | undefined, fn: (x: A) => B): B | undefined;
+export function fmap<A, B>(value: undefined | null, fn: (x: NonNullable<A>) => B): undefined;
+export function fmap<A, B>(value: A | undefined | null, fn: (x: A) => B): B | undefined;
 export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
-  if (value === undefined) {
+  if (value == null) {
     return undefined;
   }
   return fn(value);

@@ -82,7 +82,10 @@ pull_request_rules:
       queue:
         name: default
         method: squash
-        commit_message: title+body
+        commit_message_template: |-
+          {{ title }} (#{{ number }})
+
+          {{ body }}
       comment:
         message: Merging (with squash)...
     conditions:
@@ -130,7 +133,10 @@ pull_request_rules:
       queue:
         name: default
         method: merge
-        commit_message: title+body
+        commit_message_template: |-
+          {{ title }} (#{{ number }})
+
+          {{ body }}
       comment:
         message: Merging (no-squash)...
     conditions:

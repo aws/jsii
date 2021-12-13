@@ -127,15 +127,20 @@ export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): J
 
   if (ts.isSourceFile(decl)) {
     // This is a module.
-    // FIXME: for now assume this is the assembly root. Handle the case where it isn't later.
     const sourceAssembly = findTypeLookupAssembly(decl.fileName);
     return fmap(
       sourceAssembly,
       (asm) =>
         ({
           fqn:
-            fmap(symbolIdentifier(typeChecker, sym), (symbolId) => sourceAssembly?.symbolIdMap[symbolId]) ??
-            sourceAssembly?.assembly.name,
+            fmap(
+              symbolIdentifier(
+                typeChecker,
+                sym,
+                fmap(sourceAssembly, (sa) => ({ assembly: sa.assembly })),
+              ),
+              (symbolId) => sourceAssembly?.symbolIdMap[symbolId],
+            ) ?? sourceAssembly?.assembly.name,
           sourceAssembly: asm,
           symbolType: 'module',
         } as JsiiSymbol),
@@ -157,10 +162,23 @@ export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): J
   }
 
   const fileName = decl.getSourceFile().fileName;
-  if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
-    return lookupMemberSymbol(typeChecker, sym, fileName);
+  const sourceAssembly = findTypeLookupAssembly(fileName);
+  const symbolId = symbolIdentifier(typeChecker, declSym, { assembly: sourceAssembly?.assembly });
+  if (!symbolId) {
+    return undefined;
   }
-  return lookupTypeSymbol(typeChecker, sym, fileName);
+
+  return fmap(/([^#]*)(#.*)?/.exec(symbolId), ([, typeSymbolId, memberFragment]) => {
+    if (memberFragment) {
+      return fmap(sourceAssembly?.symbolIdMap[typeSymbolId], (fqn) => ({
+        fqn: `${fqn}${memberFragment}`,
+        sourceAssembly,
+        symbolType: 'member',
+      }));
+    }
+
+    return fmap(sourceAssembly?.symbolIdMap[typeSymbolId], (fqn) => ({ fqn, sourceAssembly, symbolType: 'type' }));
+  });
 }
 
 function isDeclaration(x: ts.Node): x is ts.Declaration {
@@ -177,42 +195,6 @@ function isDeclaration(x: ts.Node): x is ts.Declaration {
     ts.isPropertyDeclaration(x) ||
     ts.isPropertySignature(x)
   );
-}
-
-/**
- * Look up the jsii fqn for a given type symbol
- */
-function lookupTypeSymbol(
-  typeChecker: ts.TypeChecker,
-  typeSymbol: ts.Symbol,
-  fileName: string,
-): JsiiSymbol | undefined {
-  const symbolId = symbolIdentifier(typeChecker, typeSymbol);
-  if (!symbolId) {
-    return undefined;
-  }
-
-  const sourceAssembly = findTypeLookupAssembly(fileName);
-  return fmap(sourceAssembly?.symbolIdMap[symbolId], (fqn) => ({ fqn, sourceAssembly, symbolType: 'type' }));
-}
-
-function lookupMemberSymbol(
-  typeChecker: ts.TypeChecker,
-  memberSymbol: ts.Symbol,
-  fileName: string,
-): JsiiSymbol | undefined {
-  const declParent = memberSymbol.declarations?.[0]?.parent;
-  if (!declParent || !isDeclaration(declParent)) {
-    return undefined;
-  }
-
-  const declParentSym = getSymbolFromDeclaration(declParent, typeChecker);
-  if (!declParentSym) {
-    return undefined;
-  }
-
-  const result = lookupTypeSymbol(typeChecker, declParentSym, fileName);
-  return fmap(result, (result) => ({ ...result, fqn: `${result.fqn}#${memberSymbol.name}`, symbolType: 'member' }));
 }
 
 /**

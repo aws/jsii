@@ -19,7 +19,8 @@
       "rosetta": {
         "strict": true
       }
-    }
+    },
+    "tscRootDir": "."
   },
   "name": "@scope/jsii-calc-base-of-base",
   "repository": {
@@ -165,5 +166,5 @@
     }
   },
   "version": "2.1.1",
-  "fingerprint": "6Qes5fbC/YvlKQaK6Oqw0RGgsr/feI/vaRWDYXJJaU8="
+  "fingerprint": "BYVFW3VSnno85aN3BfEZ3Px9cEKhgfteosHUXjQW0rw="
 }
