@@ -23,10 +23,10 @@
     "@types/jest": "^27.0.3",
     "@types/node": "^12.20.37",
     "@types/yargs": "^17.0.7",
-    "eslint": "^8.3.0",
-    "jest": "^27.3.1",
+    "eslint": "^8.4.1",
+    "jest": "^27.4.4",
     "jest-expect-message": "^1.0.2",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.1",
     "typescript": "~3.9.10"
   },
   "dependencies": {
