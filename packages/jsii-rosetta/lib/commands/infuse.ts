@@ -209,7 +209,7 @@ function insertExample(
 ): void {
   const parameters = {
     ...original?.parameters,
-    infused: 'true',
+    infused: '',
   };
   // exampleMetadata should always be nonempty since we always have a parameter.
   const exampleMetadata = renderMetadataline(parameters) ?? '';
