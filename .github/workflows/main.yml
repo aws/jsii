@@ -241,7 +241,6 @@ jobs:
             python: '3.6'
           - java: '8'
             dotnet: '6.0.x'
-            dotnet-prerelease: true
             go: '1.16'
             node: '12'
             os: ubuntu-latest
