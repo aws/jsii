@@ -39,9 +39,9 @@
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.0.3",
     "@types/node": "^12.20.37",
-    "eslint": "^8.3.0",
-    "jest": "^27.3.1",
-    "prettier": "^2.4.1",
+    "eslint": "^8.4.1",
+    "jest": "^27.4.4",
+    "prettier": "^2.5.1",
     "typescript": "~3.9.10"
   }
 }
