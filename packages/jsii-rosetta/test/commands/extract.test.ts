@@ -363,6 +363,58 @@ test('extract and infuse in one command', async () => {
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
 
+test('infused examples skip loose mode', async () => {
+  const otherAssembly = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      /**
+       * ClassA
+       * 
+       * @exampleMetadata lit=integ.test.ts
+       * @example x
+       */
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+
+    // Without exampleMetadata infused=true, expect an error
+    await expect(
+      extract.extractSnippets([otherAssembly.moduleDirectory], {
+        cacheToFile,
+        ...defaultExtractOptions,
+      }),
+    ).rejects.toThrowError(/Sample uses literate source/);
+
+    // Add infused=true to metadata and update assembly
+    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
+      'lit=integ.test.ts infused=true';
+    await otherAssembly.updateAssembly();
+
+    // Expect same function call to succeed now
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile,
+      ...defaultExtractOptions,
+    });
+
+    const tablet = await LanguageTablet.fromFile(cacheToFile);
+    expect(tablet.count).toEqual(1);
+    const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
+    expect(tr?.originalSource.source).toEqual('x');
+  } finally {
+    await otherAssembly.cleanup();
+  }
+});
+
 class MockTranslator extends RosettaTranslator {
   public constructor(opts: RosettaTranslatorOptions, translatorFn: jest.Mock) {
     super(opts);

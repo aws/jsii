@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **rosetta:** infuse drops first assembly ([#3243](https://github.com/aws/jsii/issues/3243)) ([29a6a84](https://github.com/aws/jsii/commit/29a6a848e2cada2a695d0d1a852c6c53c24d35ac))
 * **rosetta:** use `--compile` flag by default ([#3218](https://github.com/aws/jsii/issues/3218)) ([9df7950](https://github.com/aws/jsii/commit/9df7950f263aae045877accb45007e0f9a5b03bd))
 
+
 ## [1.47.0](https://github.com/aws/jsii/compare/v1.45.0...v1.47.0) (2021-12-06)
 
 
