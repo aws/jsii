@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.48.0](https://github.com/aws/jsii/compare/v1.45.0...v1.48.0) (2021-12-13)
+
+
+### Features
+
+* **reflect:** add `allTypes` accessor ([#3194](https://github.com/aws/jsii/issues/3194)) ([41f301a](https://github.com/aws/jsii/commit/41f301a8304bd1ed6ed7ec4e31bd23ffd1a2ed8b))
+* **rosetta:**  metadata tag for fixtures in docs ([#3200](https://github.com/aws/jsii/issues/3200)) ([8cefa8b](https://github.com/aws/jsii/commit/8cefa8bc8c9554913960b48226531aff874ee247))
+* **rosetta:** generate rosetta tablets next to each assembly ([#3223](https://github.com/aws/jsii/issues/3223)) ([1e7b604](https://github.com/aws/jsii/commit/1e7b604c15a0083f27ceafd8ca32ff9b6cf61759))
+* **rosetta:** reuse output file as additional cache and introduce `--infuse` option for `extract` ([#3210](https://github.com/aws/jsii/issues/3210)) ([ccb3c57](https://github.com/aws/jsii/commit/ccb3c57b834225f16ec619f55a7976e59b7a53c3))
+
+
+### Bug Fixes
+
+* improve compatibility with restricted-export modules ([#3205](https://github.com/aws/jsii/issues/3205)) ([31a7172](https://github.com/aws/jsii/commit/31a71721bfaff28876ce0554230e63803591e112))
+* **jsii:** constants can't mix letters and digits ([#3209](https://github.com/aws/jsii/issues/3209)) ([a444e29](https://github.com/aws/jsii/commit/a444e2993b73dc002586e2c4a3446121c279eb65)), closes [#3208](https://github.com/aws/jsii/issues/3208)
+* **jsii:** correctly identify types regardless of import method ([#3233](https://github.com/aws/jsii/issues/3233)) ([aa37d62](https://github.com/aws/jsii/commit/aa37d623f866d2b2a3802a90578e8e85227b37b1)), closes [aws/aws-cdk#17860](https://github.com/aws/aws-cdk/issues/17860)
+* **jsii:** deprecation message is not displayed for deprecated classes ([#3206](https://github.com/aws/jsii/issues/3206)) ([3841538](https://github.com/aws/jsii/commit/3841538179226b67c756ca8689ac1a3de4bec521))
+* **jsii:** handle imports from libraries compiled with old jsii ([#3245](https://github.com/aws/jsii/issues/3245)) ([133d1cf](https://github.com/aws/jsii/commit/133d1cf371367b1516b175aa9ed904eb701fac0f)), closes [#3233](https://github.com/aws/jsii/issues/3233) [#3233](https://github.com/aws/jsii/issues/3233)
+* **jsii:** symbolid for single-valued enums is incorrect ([#3234](https://github.com/aws/jsii/issues/3234)) ([83d3fc8](https://github.com/aws/jsii/commit/83d3fc805874a72b7a76d08f62e8b10121b4777b))
+* **pacmak:** don't automatically translate examples without asking ([#3219](https://github.com/aws/jsii/issues/3219)) ([937f8c3](https://github.com/aws/jsii/commit/937f8c3753bec27269ce9213a6bc55fea79647b0))
+* **rosetta:** `extract` ignores `--compile` option ([#3193](https://github.com/aws/jsii/issues/3193)) ([639c510](https://github.com/aws/jsii/commit/639c510ba6d07b26bf35d0c8d3c9cdcced6d916a))
+* **rosetta:** classes are not correctly identified if package uses an outDir ([#3225](https://github.com/aws/jsii/issues/3225)) ([05631a7](https://github.com/aws/jsii/commit/05631a723b8c08d8d82e9ec50c6adaee1e2d693e))
+* **rosetta:** enum resolution breaks for properties ([#3190](https://github.com/aws/jsii/issues/3190)) ([3b49066](https://github.com/aws/jsii/commit/3b49066e4dd960385709dbdce1d9c1fbfb2f20cf))
+* **rosetta:** infuse drops first assembly ([#3243](https://github.com/aws/jsii/issues/3243)) ([29a6a84](https://github.com/aws/jsii/commit/29a6a848e2cada2a695d0d1a852c6c53c24d35ac))
+* **rosetta:** use `--compile` flag by default ([#3218](https://github.com/aws/jsii/issues/3218)) ([9df7950](https://github.com/aws/jsii/commit/9df7950f263aae045877accb45007e0f9a5b03bd))
+
+
 ## [1.47.0](https://github.com/aws/jsii/compare/v1.45.0...v1.47.0) (2021-12-06)
 
 
