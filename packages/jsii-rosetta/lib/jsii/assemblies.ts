@@ -159,12 +159,16 @@ export function allTypeScriptSnippets(assemblies: readonly LoadedAssembly[], loo
     for (const source of allSnippetSources(assembly)) {
       switch (source.type) {
         case 'example':
+          // If an example is an infused example, we do not care about compiler errors.
+          // We are relying on the tablet cache to have this example stored already.
+          const [strictForExample, looseForExample] =
+            source.metadata?.infused !== undefined ? [false, true] : [strict, loose];
           const location = { api: source.location, field: { field: 'example' } } as const;
-          const snippet = updateParameters(typeScriptSnippetFromSource(source.source, location, strict), {
+          const snippet = updateParameters(typeScriptSnippetFromSource(source.source, location, strictForExample), {
             [SnippetParameters.$PROJECT_DIRECTORY]: directory,
             ...source.metadata,
           });
-          ret.push(fixturize(snippet, loose));
+          ret.push(fixturize(snippet, looseForExample));
           break;
         case 'markdown':
           for (const snippet of extractTypescriptSnippetsFromMarkdown(source.markdown, source.location, strict)) {

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.49.0](https://github.com/aws/jsii/compare/v1.48.0...v1.49.0) (2021-12-14)
+
+
+### Bug Fixes
+
+* improve compatibility with restricted-export modules ([#3205](https://github.com/aws/jsii/issues/3205)) ([31a7172](https://github.com/aws/jsii/commit/31a71721bfaff28876ce0554230e63803591e112))
+* **jsii:** correctly identify types regardless of import method ([#3233](https://github.com/aws/jsii/issues/3233)) ([aa37d62](https://github.com/aws/jsii/commit/aa37d623f866d2b2a3802a90578e8e85227b37b1)), closes [aws/aws-cdk#17860](https://github.com/aws/aws-cdk/issues/17860)
+* **jsii:** handle imports from libraries compiled with old jsii ([#3245](https://github.com/aws/jsii/issues/3245)) ([133d1cf](https://github.com/aws/jsii/commit/133d1cf371367b1516b175aa9ed904eb701fac0f)), closes [#3233](https://github.com/aws/jsii/issues/3233) [#3233](https://github.com/aws/jsii/issues/3233)
+* **jsii:** symbolid for single-valued enums is incorrect ([#3234](https://github.com/aws/jsii/issues/3234)) ([83d3fc8](https://github.com/aws/jsii/commit/83d3fc805874a72b7a76d08f62e8b10121b4777b))
+* **rosetta:** `rosetta extract` fails if run after `rosetta infuse` ([#3248](https://github.com/aws/jsii/issues/3248)) ([e3ec929](https://github.com/aws/jsii/commit/e3ec92921c10bf397e740d45ad7c5a39a21dc800))
+* **rosetta:** classes are not correctly identified if package uses an outDir ([#3225](https://github.com/aws/jsii/issues/3225)) ([05631a7](https://github.com/aws/jsii/commit/05631a723b8c08d8d82e9ec50c6adaee1e2d693e))
+* **rosetta:** infuse drops first assembly ([#3243](https://github.com/aws/jsii/issues/3243)) ([29a6a84](https://github.com/aws/jsii/commit/29a6a848e2cada2a695d0d1a852c6c53c24d35ac))
+
 ## [1.48.0](https://github.com/aws/jsii/compare/v1.45.0...v1.48.0) (2021-12-13)
 
 
@@ -27,6 +40,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **rosetta:** enum resolution breaks for properties ([#3190](https://github.com/aws/jsii/issues/3190)) ([3b49066](https://github.com/aws/jsii/commit/3b49066e4dd960385709dbdce1d9c1fbfb2f20cf))
 * **rosetta:** infuse drops first assembly ([#3243](https://github.com/aws/jsii/issues/3243)) ([29a6a84](https://github.com/aws/jsii/commit/29a6a848e2cada2a695d0d1a852c6c53c24d35ac))
 * **rosetta:** use `--compile` flag by default ([#3218](https://github.com/aws/jsii/issues/3218)) ([9df7950](https://github.com/aws/jsii/commit/9df7950f263aae045877accb45007e0f9a5b03bd))
+
 
 ## [1.47.0](https://github.com/aws/jsii/compare/v1.45.0...v1.47.0) (2021-12-06)
 
