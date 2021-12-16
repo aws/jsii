@@ -258,6 +258,75 @@ describe('with cache file', () => {
   });
 });
 
+describe('non-compiling cached examples', () => {
+  let otherAssembly: TestJsiiModule;
+  let cacheToFile: string;
+  beforeEach(async () => {
+    // Create an assembly in a temp directory
+    otherAssembly = await TestJsiiModule.fromSource(
+      {
+        'index.ts': `
+        export class ClassA {
+          /**
+           * Some method
+           * @example x
+           */
+          public someMethod() {
+          }
+        }
+        `,
+      },
+      {
+        name: 'my_assembly',
+        jsii: DUMMY_JSII_CONFIG,
+      },
+    );
+
+    // add non-compiling snippet to cache
+    cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile,
+      includeCompilerDiagnostics: true,
+      validateAssemblies: false,
+    });
+
+    const tablet = await LanguageTablet.fromFile(cacheToFile);
+    expect(tablet.count).toEqual(1);
+    const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
+    expect(tr?.snippet.didCompile).toBeFalsy();
+  });
+
+  afterEach(async () => assembly.cleanup());
+
+  test('are ignored with strict mode', async () => {
+    // second run of extract snippets should still evaluate the snippet
+    // even though it is present in the cache
+    const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile,
+      cacheFromFile: cacheToFile,
+      includeCompilerDiagnostics: true,
+      validateAssemblies: false,
+      translatorFactory: (o) => new MockTranslator(o, translationFunction),
+    });
+
+    expect(translationFunction).toHaveBeenCalledTimes(1);
+  });
+
+  test('are utilized with strict mode off', async () => {
+    const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile,
+      cacheFromFile: cacheToFile,
+      includeCompilerDiagnostics: false,
+      validateAssemblies: false,
+      translatorFactory: (o) => new MockTranslator(o, translationFunction),
+    });
+
+    expect(translationFunction).toHaveBeenCalledTimes(0);
+  });
+});
+
 test('do not ignore example strings', async () => {
   // Create an assembly in a temp directory
   const otherAssembly = await TestJsiiModule.fromSource(
@@ -361,6 +430,58 @@ test('extract and infuse in one command', async () => {
   // infuse works as expected
   expect(types).toBeDefined();
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
+});
+
+test('infused examples skip loose mode', async () => {
+  const otherAssembly = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      /**
+       * ClassA
+       * 
+       * @exampleMetadata lit=integ.test.ts
+       * @example x
+       */
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+
+    // Without exampleMetadata infused=true, expect an error
+    await expect(
+      extract.extractSnippets([otherAssembly.moduleDirectory], {
+        cacheToFile,
+        ...defaultExtractOptions,
+      }),
+    ).rejects.toThrowError(/Sample uses literate source/);
+
+    // Add infused=true to metadata and update assembly
+    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
+      'lit=integ.test.ts infused=true';
+    await otherAssembly.updateAssembly();
+
+    // Expect same function call to succeed now
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile,
+      ...defaultExtractOptions,
+    });
+
+    const tablet = await LanguageTablet.fromFile(cacheToFile);
+    expect(tablet.count).toEqual(1);
+    const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
+    expect(tr?.originalSource.source).toEqual('x');
+  } finally {
+    await otherAssembly.cleanup();
+  }
 });
 
 class MockTranslator extends RosettaTranslator {

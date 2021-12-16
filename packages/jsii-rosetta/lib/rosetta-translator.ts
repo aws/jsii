@@ -83,14 +83,15 @@ export class RosettaTranslator {
    *
    * Will remove the cached snippets from the input array.
    */
-  public readFromCache(snippets: TypeScriptSnippet[], addToTablet = true): ReadFromCacheResults {
+  public readFromCache(snippets: TypeScriptSnippet[], addToTablet = true, compiledOnly = false): ReadFromCacheResults {
     const remaining = [...snippets];
     const translations = new Array<TranslatedSnippet>();
 
     let i = 0;
     while (i < remaining.length) {
       const fromCache = tryReadFromCache(remaining[i], this.cache, this.fingerprinter);
-      if (fromCache) {
+      // If compiledOnly is set, do not consider cached snippets that do not compile
+      if (fromCache && (!compiledOnly || fromCache.snippet.didCompile)) {
         if (addToTablet) {
           this.tablet.addSnippet(fromCache);
         }
