@@ -99,7 +99,7 @@ export async function extractSnippets(
   translator.addTabletsToCache(...Object.values(await loadAllDefaultTablets(assemblies)));
 
   if (translator.hasCache()) {
-    const { translations, remaining } = translator.readFromCache(snippets);
+    const { translations, remaining } = translator.readFromCache(snippets, true, options.includeCompilerDiagnostics);
     logging.info(`Reused ${translations.length} translations from cache`);
     snippets = remaining;
   }
