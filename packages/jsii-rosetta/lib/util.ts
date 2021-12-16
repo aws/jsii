@@ -205,3 +205,5 @@ export function isDefined<A>(x: A): x is NonNullable<A> {
 export function indexBy<A>(xs: A[], fn: (x: A) => string): Record<string, A> {
   return mkDict(xs.map((x) => [fn(x), x] as const));
 }
+
+export type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };

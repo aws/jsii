@@ -9,7 +9,7 @@ import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
 import { Translation } from '../tablets/tablets';
-import { fmap } from '../util';
+import { fmap, Mutable } from '../util';
 
 export interface TransliterateAssemblyOptions {
   /**
@@ -126,7 +126,6 @@ async function loadAssemblies(
   return result;
 }
 
-type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
 type AssemblyLoader = () => Promise<Mutable<Assembly>>;
 
 function prefixDisclaimer(translation: Translation): string {

@@ -171,5 +171,7 @@ export interface PackageJson {
    */
   devDependencies?: Record<string, string>;
 
+  bundledDependencies?: string[];
+
   [key: string]: unknown;
 }
