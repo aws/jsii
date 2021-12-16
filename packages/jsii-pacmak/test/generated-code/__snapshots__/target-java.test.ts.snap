@@ -5626,7 +5626,7 @@ package software.amazon.jsii.tests.calculator;
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * System.out.println(calculator.expression.getValue());
+ * System.out.println(calculator.getExpression().getValue());
  * </pre></blockquote>
  * <p>
  * I will repeat this example again, but in an &#64;example tag.
@@ -5637,7 +5637,7 @@ package software.amazon.jsii.tests.calculator;
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * System.out.println(calculator.expression.getValue());
+ * System.out.println(calculator.getExpression().getValue());
  * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
