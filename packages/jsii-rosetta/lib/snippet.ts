@@ -55,13 +55,26 @@ export interface SnippetLocation {
   readonly field?: FieldLocation;
 }
 
+/**
+ * How to represent the initializer in a 'parameter' type.
+ *
+ * (Don't feel like making everyone's `case` statement worse by adding an
+ * 'initializer-parameter' variant).
+ */
+export const INITIALIZER_METHOD_NAME = '<initializer>';
+
 export type ApiLocation =
   | { readonly api: 'file'; readonly fileName: string }
   | { readonly api: 'moduleReadme'; readonly moduleFqn: string }
   | { readonly api: 'type'; readonly fqn: string }
   | { readonly api: 'initializer'; readonly fqn: string }
   | { readonly api: 'member'; readonly fqn: string; readonly memberName: string }
-  | { readonly api: 'parameter'; readonly fqn: string; readonly methodName: string; readonly parameterName: string };
+  | {
+      readonly api: 'parameter';
+      readonly fqn: string;
+      readonly methodName: string | typeof INITIALIZER_METHOD_NAME;
+      readonly parameterName: string;
+    };
 
 export type FieldLocation = { readonly field: 'markdown'; readonly line: number } | { readonly field: 'example' };
 
