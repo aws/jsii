@@ -14,6 +14,7 @@ import {
   ApiLocation,
   parseMetadataLine,
   CompilationDependency,
+  INITIALIZER_METHOD_NAME,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
 import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
@@ -134,14 +135,33 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
       if (spec.isEnumType(type)) {
         type.members.forEach((m) => emitDocs(m.docs, { api: 'member', fqn: type.fqn, memberName: m.name }));
       }
+      if (spec.isClassType(type)) {
+        emitDocsForCallable(type.initializer, type.fqn);
+      }
       if (spec.isClassOrInterfaceType(type)) {
-        (type.methods ?? []).forEach((m) => emitDocs(m.docs, { api: 'member', fqn: type.fqn, memberName: m.name }));
+        (type.methods ?? []).forEach((m) => emitDocsForCallable(m, type.fqn, m.name));
         (type.properties ?? []).forEach((m) => emitDocs(m.docs, { api: 'member', fqn: type.fqn, memberName: m.name }));
       }
     });
   }
 
   return ret;
+
+  function emitDocsForCallable(callable: spec.Callable | undefined, fqn: string, memberName?: string) {
+    if (!callable) {
+      return;
+    }
+    emitDocs(callable.docs, memberName ? { api: 'member', fqn, memberName } : { api: 'initializer', fqn });
+
+    for (const parameter of callable.parameters ?? []) {
+      emitDocs(parameter.docs, {
+        api: 'parameter',
+        fqn: fqn,
+        methodName: memberName ?? INITIALIZER_METHOD_NAME,
+        parameterName: parameter.name,
+      });
+    }
+  }
 
   function emitDocs(docs: spec.Docs | undefined, location: ApiLocation) {
     if (!docs) {

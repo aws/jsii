@@ -10,6 +10,7 @@ import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
 import { Translation } from '../tablets/tablets';
 import { fmap, Mutable } from '../util';
+import { extractSnippets } from './extract';
 
 export interface TransliterateAssemblyOptions {
   /**
@@ -53,15 +54,31 @@ export async function transliterateAssembly(
   targetLanguages: readonly TargetLanguage[],
   options: TransliterateAssemblyOptions = {},
 ): Promise<void> {
-  const rosetta = new RosettaTabletReader({
+  // Start by doing an 'extract' for all these assemblies
+  //
+  // This will locate all examples that haven't been translated yet and translate
+  // them. Importantly: it will translate them in parallel, which is going to improve
+  // performance a lot. We ignore diagnostics.
+  const { tablet } = await extractSnippets(assemblyLocations, {
     includeCompilerDiagnostics: true,
-    unknownSnippets: UnknownSnippetMode.TRANSLATE,
     loose: options.loose,
+    cacheFromFile: options.tablet,
+    writeToImplicitTablets: false,
+  });
+
+  // Now do a regular "tablet reader" cycle, expecting everything to be translated already,
+  // and therefore it doesn't matter that we do this all in a single-threaded loop.
+  const rosetta = new RosettaTabletReader({
+    unknownSnippets: UnknownSnippetMode.FAIL,
     targetLanguages,
   });
+  // Put in the same caching tablet here
   if (options.tablet) {
     await rosetta.loadTabletFromFile(options.tablet);
   }
+  // Any fresh translations we just came up with
+  rosetta.addTablet(tablet);
+
   const assemblies = await loadAssemblies(assemblyLocations, rosetta);
 
   for (const [location, loadAssembly] of assemblies.entries()) {

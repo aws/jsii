@@ -44,7 +44,13 @@ export interface RosettaTranslatorOptions {
  * be achieved by the rosetta CLI, use this class.
  */
 export class RosettaTranslator {
+  /**
+   * Tablet with fresh translations
+   *
+   * All new translations (not read from cache) are added to this tablet.
+   */
   public readonly tablet = new LanguageTablet();
+
   private readonly fingerprinter: TypeFingerprinter;
   private readonly cache = new LanguageTablet();
   private readonly includeCompilerDiagnostics: boolean;
