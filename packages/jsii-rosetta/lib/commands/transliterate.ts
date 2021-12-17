@@ -69,9 +69,7 @@ export async function transliterateAssembly(
   // Now do a regular "tablet reader" cycle, expecting everything to be translated already,
   // and therefore it doesn't matter that we do this all in a single-threaded loop.
   const rosetta = new RosettaTabletReader({
-    includeCompilerDiagnostics: true,
     unknownSnippets: UnknownSnippetMode.FAIL,
-    loose: options.loose,
     targetLanguages,
   });
   // Put in the same caching tablet here
