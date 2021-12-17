@@ -58,7 +58,7 @@ export interface SnippetLocation {
 /**
  * How to represent the initializer in a 'parameter' type.
  *
- * (Don't feel like making everyone's `case` statement worse wby adding an
+ * (Don't feel like making everyone's `case` statement worse by adding an
  * 'initializer-parameter' variant).
  */
 export const INITIALIZER_METHOD_NAME = '<initializer>';
