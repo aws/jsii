@@ -33,7 +33,7 @@
     "test": "npm run test:unit && npm run test:build",
     "test:unit": "jest",
     "test:build": "bash test/build-test.sh",
-    "test:update": "true",
+    "test:update": "jest -u && npm run test:build",
     "package": "package-js"
   },
   "dependencies": {
