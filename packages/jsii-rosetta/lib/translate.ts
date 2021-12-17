@@ -15,6 +15,11 @@ import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler'
 import { Spans } from './typescript/visible-spans';
 import { annotateStrictDiagnostic, File, hasStrictBranding, mkDict } from './util';
 
+export enum Disclaimer {
+  GENERATED = 'This example was generated. You may have to change the values.',
+  NONCOMPILING = 'This example comes from a non-compiling source. May contain errors.',
+}
+
 export function translateTypeScript(
   source: File,
   visitor: AstHandler<any>,
@@ -59,12 +64,22 @@ export class Translator {
 
     this.#diagnostics.push(...translator.diagnostics);
 
+    let disclaimer: Disclaimer | undefined = undefined;
+    if (translator.didSuccessfullyCompile === false) {
+      disclaimer = Disclaimer.NONCOMPILING;
+    }
+    // change this to generated metadata when possible
+    if (snip.parameters?.fixture === '_generated') {
+      disclaimer = Disclaimer.GENERATED;
+    }
+
     return TranslatedSnippet.fromSchema({
       translations: {
         ...translations,
         [ORIGINAL_SNIPPET_KEY]: { source: snip.visibleSource, version: '0' },
       },
       location: snip.location,
+      disclaimer,
       didCompile: translator.didSuccessfullyCompile,
       fqnsReferenced: translator.fqnsReferenced(),
       fullSource: completeSource(snip),

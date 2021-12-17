@@ -1,4 +1,5 @@
 import { SnippetLocation } from '../snippet';
+import { Disclaimer } from '../translate';
 
 /**
  * Tablet file schema
@@ -45,6 +46,11 @@ export interface TranslatedSnippetSchema {
    * A description of the location this code snippet was found
    */
   readonly location: SnippetLocation;
+
+  /**
+   * Optionally add a disclaimer to the top of the snippet
+   */
+  readonly disclaimer?: Disclaimer;
 
   /**
    * Whether this was compiled without errors

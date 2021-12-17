@@ -4,6 +4,7 @@ import * as path from 'path';
 import { TargetLanguage } from '../languages';
 import * as logging from '../logging';
 import { TypeScriptSnippet, SnippetLocation, completeSource } from '../snippet';
+import { Disclaimer } from '../translate';
 import { mapValues } from '../util';
 import { snippetKey } from './key';
 import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
@@ -175,11 +176,12 @@ export class TranslatedSnippet {
     return new TranslatedSnippet(schema);
   }
 
-  public static fromTypeScript(original: TypeScriptSnippet, didCompile?: boolean) {
+  public static fromTypeScript(original: TypeScriptSnippet, didCompile?: boolean, disclaimer?: Disclaimer) {
     return new TranslatedSnippet({
       translations: {
         [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource, version: '0' },
       },
+      disclaimer: disclaimer,
       didCompile: didCompile,
       location: original.location,
       fullSource: completeSource(original),
@@ -208,6 +210,7 @@ export class TranslatedSnippet {
       source: this.snippet.translations[ORIGINAL_SNIPPET_KEY].source,
       language: 'typescript',
       didCompile: this.snippet.didCompile,
+      disclaimer: this.snippet.disclaimer,
     };
   }
 
@@ -218,6 +221,7 @@ export class TranslatedSnippet {
       source: translation,
       language,
       didCompile: this.snippet.didCompile,
+      disclaimer: this.snippet.disclaimer,
     };
   }
 
@@ -241,7 +245,14 @@ export class TranslatedSnippet {
 
   public get(language: TargetLanguage): Translation | undefined {
     const t = this.snippet.translations[language];
-    return t && { source: t.source, language, didCompile: this.snippet.didCompile };
+    return (
+      t && {
+        source: t.source,
+        language,
+        didCompile: this.snippet.didCompile,
+        disclaimer: this.snippet.disclaimer,
+      }
+    );
   }
 
   public mergeTranslations(other: TranslatedSnippet) {
@@ -281,6 +292,7 @@ export interface Translation {
   source: string;
   language: string;
   didCompile?: boolean;
+  disclaimer?: Disclaimer;
 }
 
 type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };

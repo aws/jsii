@@ -3004,8 +3004,8 @@ class JavaGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    if (translated.disclaimer) {
+      return `// ${translated.disclaimer}\n${translated.source}`;
     }
     return translated.source;
   }
