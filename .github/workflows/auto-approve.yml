@@ -20,14 +20,16 @@ jobs:
 
     steps:
       # Check whether the PR needs an automated approval or not. We will only add an automated
-      # approval if the PR currently has no reviews on it. This way, the automated workflow will not
-      # do anything if a manual review has already been done for the PR (implicit opt-out).
+      # approval if the PR currently has no reviews on it. Dismissed reviews are ignored in the
+      # context of this check. This way, the automated workflow will not do anything if a manual
+      # review has already been done for the PR (implicit opt-out).
       - uses: actions/github-script@0.3.0
         id: needs-approving
         with:
           script: |-
             const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
-            const reviews = github.pulls.listReviewComments({ owner, repo, pull_number });
+            const reviews = github.pulls.listReviews({ owner, repo, pull_number })
+              .filter((review) => review.state !== 'DISMISSED');
             core.setOutput('result', `${reviews.length === 0}`);
 
       # If this is NOT a dependabot PR, just approve it.
