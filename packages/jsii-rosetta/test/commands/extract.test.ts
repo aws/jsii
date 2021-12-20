@@ -15,6 +15,8 @@ import { loadAssemblies } from '../../lib/jsii/assemblies';
 import { TARGET_LANGUAGES } from '../../lib/languages';
 import { TestJsiiModule, DUMMY_JSII_CONFIG, testSnippetLocation } from '../testutil';
 
+jest.setTimeout(30_000);
+
 const DUMMY_README = `
   Here is an example of how to use ClassA:
 
