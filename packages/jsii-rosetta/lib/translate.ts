@@ -57,7 +57,7 @@ export class Translator {
       }),
     );
 
-    if (snip.strict) {
+    if (snip.parameters?.infused === undefined) {
       this.#diagnostics.push(...translator.diagnostics);
     }
 
