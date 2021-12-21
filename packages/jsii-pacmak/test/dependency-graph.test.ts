@@ -113,3 +113,41 @@ test('stops traversing when callback returns false', async () => {
   expect(mockHost.readJson).toHaveBeenCalledTimes(2);
   expect(mockHost.findDependencyDirectory).toHaveBeenCalledTimes(1);
 });
+
+test('dont call findDependencyDirectory for bundledDependencies', async () => {
+  // GIVEN the following package dependency graph:
+  //    A -> B -> C
+  const packages: Record<string, { root: string; meta: any }> = {
+    A: {
+      root: join(tmpdir(), 'A'),
+      meta: { dependencies: { B: '*' }, bundledDependencies: ['B'] },
+    },
+  };
+
+  const cb: Callback = jest.fn().mockName('callback').mockReturnValue(true);
+
+  mockHost.readJson.mockImplementation((file) => {
+    const result = Object.values(packages).find(
+      ({ root }) => file === join(root, 'package.json'),
+    )?.meta;
+    return result != null
+      ? Promise.resolve(result)
+      : Promise.reject(new Error(`Unexpected file access: ${file}`));
+  });
+
+  mockHost.findDependencyDirectory.mockImplementation(async (dep, _dir) => {
+    const result = packages[dep]?.root;
+    if (result == null) {
+      throw new Error(`Unknown dependency: ${dep}`);
+    }
+    return result;
+  });
+
+  // WHEN
+  await expect(
+    traverseDependencyGraph(packages.A.root, cb, mockHost),
+  ).resolves.not.toThrow();
+
+  // THEN
+  expect(mockHost.findDependencyDirectory).not.toHaveBeenCalled();
+});
