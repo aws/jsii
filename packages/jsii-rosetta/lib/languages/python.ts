@@ -9,6 +9,7 @@ import {
   JsiiSymbol,
   simpleName,
   namespaceName,
+  isJsiiProtocolType,
 } from '../jsii/jsii-utils';
 import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
@@ -23,7 +24,7 @@ import {
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { parameterAcceptsUndefined } from '../typescript/types';
-import { startsWithUppercase, flat, sortBy, groupBy, fmap } from '../util';
+import { startsWithUppercase, sortBy, groupBy, fmap } from '../util';
 import { DefaultVisitor } from './default';
 
 interface StructVar {
@@ -532,10 +533,18 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public classDeclaration(node: ts.ClassDeclaration, context: PythonVisitorContext): OTree {
-    const heritage = flat(Array.from(node.heritageClauses ?? []).map((h) => Array.from(h.types))).map((t) =>
-      context.convert(t.expression),
+    const allHeritageClauses = Array.from(node.heritageClauses ?? []).flatMap((h) => Array.from(h.types));
+
+    // List of booleans matching `allHeritage` array
+    const isJsii = allHeritageClauses.map(
+      (e) =>
+        fmap(context.typeOfExpression(e.expression), (type) => isJsiiProtocolType(context.typeChecker, type)) ?? false,
     );
-    const hasHeritage = heritage.length > 0;
+
+    const jsiiImplements = allHeritageClauses.filter((_, i) => isJsii[i]);
+
+    const inlineHeritage = allHeritageClauses.filter((_, i) => !isJsii[i]);
+    const hasHeritage = inlineHeritage.length > 0;
 
     const members = context.updateContext({ inClass: true }).convertAll(node.members);
     if (members.length === 0) {
@@ -544,10 +553,11 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
     const ret = new OTree(
       [
+        ...jsiiImplements.flatMap((i) => ['@jsii.implements(', context.convert(i.expression), ')\n']),
         'class ',
         node.name ? context.textOf(node.name) : '???',
         hasHeritage ? '(' : '',
-        ...heritage,
+        ...inlineHeritage.map((t) => context.convert(t.expression)),
         hasHeritage ? ')' : '',
         ': ',
       ],
