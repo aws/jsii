@@ -490,7 +490,7 @@ test('infused examples have no diagnostics', async () => {
       /**
        * ClassA
        * 
-       * @exampleMetadata lit=integ.test.ts infused
+       * @exampleMetadata infused
        * @example x
        */
       export class ClassA {
