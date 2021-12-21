@@ -58,6 +58,7 @@ export interface TraverseDependencyGraphHost {
 export interface PackageJson {
   readonly dependencies?: { readonly [name: string]: string };
   readonly peerDependencies?: { readonly [name: string]: string };
+  readonly bundleDependencies?: string[];
   readonly bundledDependencies?: string[];
 
   readonly [key: string]: unknown;
@@ -93,7 +94,7 @@ async function real$traverseDependencyGraph(
       .filter(
         (m) =>
           !util.isBuiltinModule(m) &&
-          !(meta.bundledDependencies ?? []).includes(m),
+          (meta.bundledDependencies ?? meta.bundleDependencies)?.includes(m),
       )
       .map(async (dep) => {
         const dependencyDir = await host.findDependencyDirectory(
