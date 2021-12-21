@@ -57,7 +57,9 @@ export class Translator {
       }),
     );
 
-    this.#diagnostics.push(...translator.diagnostics);
+    if (snip.strict) {
+      this.#diagnostics.push(...translator.diagnostics);
+    }
 
     return TranslatedSnippet.fromSchema({
       translations: {
