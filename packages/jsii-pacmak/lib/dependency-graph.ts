@@ -58,6 +58,7 @@ export interface TraverseDependencyGraphHost {
 export interface PackageJson {
   readonly dependencies?: { readonly [name: string]: string };
   readonly peerDependencies?: { readonly [name: string]: string };
+  readonly bundledDependencies?: string[];
 
   readonly [key: string]: unknown;
 }
@@ -88,7 +89,12 @@ async function real$traverseDependencyGraph(
   ]);
   return Promise.all(
     Array.from(deps)
-      .filter((m) => !util.isBuiltinModule(m))
+      // No need to pacmak the dependency if it's built-in, or if it's bundled
+      .filter(
+        (m) =>
+          !util.isBuiltinModule(m) &&
+          !(meta.bundledDependencies ?? []).includes(m),
+      )
       .map(async (dep) => {
         const dependencyDir = await host.findDependencyDirectory(
           dep,
