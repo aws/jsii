@@ -140,11 +140,11 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
   cp.execSync(`npm install ${symbolicInstalls.join(' ')}`, { cwd: tmpDir, encoding: 'utf-8' });
 
   // Symlink the rest
+  const modDir = path.join(tmpDir, 'node_modules');
+  await fs.mkdirp(modDir);
   await Promise.all(
     Object.entries(linkedInstalls).map(async ([name, source]) => {
-      const modDir = path.join(tmpDir, 'node_modules');
-      await fs.mkdirp(modDir);
-      await fs.symlink(path.join(modDir, name), source);
+      await fs.symlink(source, path.join(modDir, name), 'dir');
     }),
   );
 
