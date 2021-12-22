@@ -130,7 +130,13 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
   await fs.writeJson(path.join(tmpDir, 'package.json'), packageJson, { spaces: 2 });
 
   // Run 'npm install' on it
-  cp.execSync('npm install', { cwd: tmpDir, encoding: 'utf-8' });
+  try {
+    cp.execSync('npm install', { cwd: tmpDir, encoding: 'utf-8' });
+  } catch (e) {
+    logging.error('Failed installing dependency closure from:');
+    logging.error(JSON.stringify(packageJson.dependencies, undefined, 2));
+    throw e;
+  }
 
   return tmpDir;
 }
@@ -143,6 +149,10 @@ async function scanMonoRepos(startingDirs: string[]): Promise<Record<string, str
   for (const dir of startingDirs) {
     // eslint-disable-next-line no-await-in-loop
     setExtend(globs, await findMonoRepoGlobs(dir));
+  }
+
+  if (globs.size > 0) {
+    logging.debug(`Monorepo package sources: ${Array.from(globs).join(', ')}`);
   }
 
   const packageDirectories = await fastGlob(Array.from(globs), { onlyDirectories: true });

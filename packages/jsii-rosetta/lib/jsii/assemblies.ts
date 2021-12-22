@@ -377,7 +377,11 @@ async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet)
       await Promise.all(
         Object.keys({ ...asm.packageJson?.dependencies, ...asm.packageJson?.peerDependencies })
           .filter((name) => !isBuiltinModule(name))
-          .filter((name) => !(asm.packageJson?.bundledDependencies ?? []).includes(name))
+          .filter(
+            (name) =>
+              !asm.packageJson?.bundledDependencies?.includes(name) &&
+              !asm.packageJson?.bundleDependencies?.includes(name),
+          )
           .map(
             async (name) =>
               [
