@@ -94,7 +94,8 @@ async function real$traverseDependencyGraph(
       .filter(
         (m) =>
           !util.isBuiltinModule(m) &&
-          !(meta.bundledDependencies ?? meta.bundleDependencies)?.includes(m),
+          !meta.bundledDependencies?.includes(m) &&
+          !meta.bundleDependencies?.includes(m),
       )
       .map(async (dep) => {
         const dependencyDir = await host.findDependencyDirectory(
