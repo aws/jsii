@@ -111,32 +111,42 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rosetta'));
   logging.info(`Preparing dependency closure at ${tmpDir}`);
 
-  const packageJson = {
-    name: 'examples',
-    version: '0.0.1',
-    private: true,
-    dependencies: {} as Record<string, string>,
-  };
-
-  for (const [name, dep] of Object.entries(deps)) {
-    packageJson.dependencies[name] =
+  // Resolved symbolic packages against monorepo
+  const resolvedDeps = mkDict(
+    Object.entries(deps).map(([name, dep]) => [
+      name,
       dep.type === 'concrete'
-        ? `file:${dep.resolvedDirectory}`
-        : monorepoPackages[name]
-        ? `file:${monorepoPackages[name]}`
-        : dep.versionRange;
-  }
+        ? dep
+        : ((monorepoPackages[name]
+            ? { type: 'concrete', resolvedDirectory: monorepoPackages[name] }
+            : dep) as CompilationDependency),
+    ]),
+  );
 
-  await fs.writeJson(path.join(tmpDir, 'package.json'), packageJson, { spaces: 2 });
+  // Use 'npm install' only for the symbolic packages. For the concrete packages,
+  // npm is going to try and find transitive dependencies as well and it won't know
+  // about monorepos.
+  const symbolicInstalls = Object.entries(resolvedDeps).flatMap(([name, dep]) =>
+    isSymbolic(dep) ? [`${name}@${dep.versionRange}`] : [],
+  );
+  const linkedInstalls = mkDict(
+    Object.entries(resolvedDeps).flatMap(([name, dep]) =>
+      isConcrete(dep) ? [[name, dep.resolvedDirectory] as const] : [],
+    ),
+  );
 
   // Run 'npm install' on it
-  try {
-    cp.execSync('npm install', { cwd: tmpDir, encoding: 'utf-8' });
-  } catch (e) {
-    logging.error('Failed installing dependency closure from:');
-    logging.error(JSON.stringify(packageJson.dependencies, undefined, 2));
-    throw e;
-  }
+  logging.debug(`Installing example dependencies: ${symbolicInstalls.join(' ')}`);
+  cp.execSync(`npm install ${symbolicInstalls.join(' ')}`, { cwd: tmpDir, encoding: 'utf-8' });
+
+  // Symlink the rest
+  await Promise.all(
+    Object.entries(linkedInstalls).map(async ([name, source]) => {
+      const modDir = path.join(tmpDir, 'node_modules');
+      await fs.mkdirp(modDir);
+      await fs.symlink(source, path.join(modDir, name));
+    }),
+  );
 
   return tmpDir;
 }
@@ -197,6 +207,10 @@ async function findMonoRepoGlobs(startingDir: string): Promise<Set<string>> {
   }
 
   return ret;
+}
+
+function isSymbolic(x: CompilationDependency): x is Extract<CompilationDependency, { type: 'symbolic' }> {
+  return x.type === 'symbolic';
 }
 
 function isConcrete(x: CompilationDependency): x is Extract<CompilationDependency, { type: 'concrete' }> {
