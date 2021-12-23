@@ -20,7 +20,7 @@ export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: No
   }
 
   if (diags.length > maxDiags) {
-    stream.write(`(...and ${maxDiags - diags.length} more diagnostics not shown)`);
+    stream.write(`(...and ${diags.length - maxDiags} more diagnostics not shown)`);
   }
 }
 
