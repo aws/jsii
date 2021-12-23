@@ -23,34 +23,32 @@ jobs:
       # approval if the PR currently has no reviews on it. Dismissed reviews are ignored in the
       # context of this check. This way, the automated workflow will not do anything if a manual
       # review has already been done for the PR (implicit opt-out).
-      - uses: actions/github-script@0.3.0
+      - uses: actions/github-script@v5.0.0
         id: needs-approving
         with:
           script: |-
             const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
-            const reviews = github.pulls.listReviews({ owner, repo, pull_number })
+            const reviews = (await github.rest.pulls.listReviews({ owner, repo, pull_number })).data
               .filter((review) => review.state !== 'DISMISSED');
-            core.setOutput('result', `${reviews.length === 0}`);
+            return reviews.length === 0;
 
       # If this is NOT a dependabot PR, just approve it.
-      - uses: actions/github-script@0.3.0
+      - uses: actions/github-script@v5.0.0
         if: steps.needs-approving.outputs.result == 'true' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
           script: |-
             const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
-            github.pulls.createReview({
+            github.rest.pulls.createReview({
               owner, repo, pull_number,
               event: 'APPROVE',
             });
       # If this IS a dependabot PR, approve it and ask dependabot to squash-and-merge it when CI passes.
-      - uses: actions/github-script@0.3.0
+      - uses: actions/github-script@v5.0.0
         if: steps.needs-approving.outputs.result == 'true' && (github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]')
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
           script: |-
             const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
-            github.pulls.createReview({
+            github.rest.pulls.createReview({
               owner, repo, pull_number,
               body: '@dependabot squash and merge',
               event: 'APPROVE',
