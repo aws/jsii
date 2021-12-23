@@ -456,7 +456,7 @@ test('infused examples skip loose mode', async () => {
   try {
     const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
 
-    // Without exampleMetadata infused=true, expect an error
+    // Without exampleMetadata infused, expect an error
     await expect(
       extract.extractSnippets([otherAssembly.moduleDirectory], {
         cacheToFile,
@@ -465,8 +465,7 @@ test('infused examples skip loose mode', async () => {
     ).rejects.toThrowError(/Sample uses literate source/);
 
     // Add infused=true to metadata and update assembly
-    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
-      'lit=integ.test.ts infused=true';
+    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts infused';
     await otherAssembly.updateAssembly();
 
     // Expect same function call to succeed now
