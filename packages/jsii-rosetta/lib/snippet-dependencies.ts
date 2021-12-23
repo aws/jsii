@@ -141,10 +141,11 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
 
   // Symlink the rest
   const modDir = path.join(tmpDir, 'node_modules');
-  await fs.mkdirp(modDir);
   await Promise.all(
     Object.entries(linkedInstalls).map(async ([name, source]) => {
-      await fs.symlink(source, path.join(modDir, name), 'dir');
+      const target = path.join(modDir, name);
+      await fs.mkdirp(path.dirname(target));
+      await fs.symlink(source, target, 'dir');
     }),
   );
 
