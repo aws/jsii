@@ -136,6 +136,7 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
   );
 
   // Run 'npm install' on it
+  await fs.mkdirp(tmpDir);
   logging.debug(`Installing example dependencies: ${symbolicInstalls.join(' ')}`);
   cp.execSync(`npm install ${symbolicInstalls.join(' ')}`, { cwd: tmpDir, encoding: 'utf-8' });
 
