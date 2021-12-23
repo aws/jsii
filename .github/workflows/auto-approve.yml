@@ -30,8 +30,7 @@ jobs:
             const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
             const reviews = (await github.rest.pulls.listReviews({ owner, repo, pull_number })).data
               .filter((review) => review.state !== 'DISMISSED');
-            console.log(`Found ${reviews.length} reviews`);
-            core.setOutput('result', `${reviews.length === 0}`);
+            return reviews.length === 0;
 
       # If this is NOT a dependabot PR, just approve it.
       - uses: actions/github-script@v5.0.0
