@@ -432,6 +432,56 @@ test('extract and infuse in one command', async () => {
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
 
+test('infused examples always returned from cache', async () => {
+  const otherAssembly = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      /**
+       * ClassA
+       * 
+       * @exampleMetadata infused 
+       * @example x
+       */
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    const cacheFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+
+    // Cache to file
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile: cacheFile,
+      ...defaultExtractOptions,
+    });
+
+    // Update the example with a fixture that would fail compilation
+    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
+      'infused fixture=myfix.ts-fixture';
+    await otherAssembly.updateAssembly();
+
+    // Expect to return cached snippet regardless of change
+    // No compilation should happen
+    const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheFromFile: cacheFile,
+      ...defaultExtractOptions,
+      translatorFactory: (o) => new MockTranslator(o, translationFunction),
+    });
+
+    expect(translationFunction).not.toHaveBeenCalled();
+  } finally {
+    await otherAssembly.cleanup();
+  }
+});
+
 test('infused examples skip loose mode', async () => {
   const otherAssembly = await TestJsiiModule.fromSource(
     {
@@ -464,7 +514,7 @@ test('infused examples skip loose mode', async () => {
       }),
     ).rejects.toThrowError(/Sample uses literate source/);
 
-    // Add infused=true to metadata and update assembly
+    // Add infused to metadata and update assembly
     otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts infused';
     await otherAssembly.updateAssembly();
 
