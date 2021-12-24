@@ -82,19 +82,39 @@ function main() {
             describe: 'Output file to store logging results. Ignored if -log is not true',
             default: DEFAULT_INFUSION_RESULTS_NAME,
           })
+          .option('cache-from', {
+            alias: 'C',
+            type: 'string',
+            // eslint-disable-next-line prettier/prettier
+            describe:
+              'Reuse translations from the given tablet file if the snippet and type definitions did not change',
+            requiresArg: true,
+            default: undefined,
+          })
           .option('cache-to', {
             alias: 'o',
             type: 'string',
             describe: 'Append all translated snippets to the given tablet file',
             requiresArg: true,
             default: undefined,
-          }),
+          })
+          .option('cache', {
+            alias: 'k',
+            type: 'string',
+            describe: 'Alias for --cache-from and --cache-to together',
+            requiresArg: true,
+            default: undefined,
+          })
+          .conflicts('cache', 'cache-from')
+          .conflicts('cache', 'cache-to'),
       wrapHandler(async (args) => {
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
-        const cacheToFile = fmap(args['cache-to'], path.resolve);
+        const absCacheFrom = fmap(args.cache ?? args['cache-from'], path.resolve);
+        const absCacheTo = fmap(args.cache ?? args['cache-to'], path.resolve);
         const result = await infuse(absAssemblies, {
           logFile: args['log-file'],
-          cacheToFile: cacheToFile,
+          cacheToFile: absCacheTo,
+          cacheFromFile: absCacheFrom,
         });
 
         let totalTypes = 0;
