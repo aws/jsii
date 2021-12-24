@@ -459,7 +459,7 @@ test('infused examples skip loose mode', async () => {
   try {
     const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
 
-    // Without exampleMetadata infused=true, expect an error
+    // Without exampleMetadata infused, expect an error
     await expect(
       extract.extractSnippets([otherAssembly.moduleDirectory], {
         cacheToFile,
@@ -468,8 +468,7 @@ test('infused examples skip loose mode', async () => {
     ).rejects.toThrowError(/Sample uses literate source/);
 
     // Add infused=true to metadata and update assembly
-    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
-      'lit=integ.test.ts infused=true';
+    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts infused';
     await otherAssembly.updateAssembly();
 
     // Expect same function call to succeed now
@@ -576,6 +575,44 @@ test('can use additional dependencies from NPM', async () => {
     // THEN -- did not throw an error
   } finally {
     await asm.cleanup();
+  }
+});
+
+test('infused examples have no diagnostics', async () => {
+  const otherAssembly = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      /**
+       * ClassA
+       *
+       * @exampleMetadata infused
+       * @example x
+       */
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: {
+        ...DUMMY_JSII_CONFIG,
+      },
+    },
+  );
+  try {
+    const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+
+    const results = await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile,
+      includeCompilerDiagnostics: true,
+      loose: false,
+    });
+
+    expect(results.diagnostics).toEqual([]);
+  } finally {
+    await otherAssembly.cleanup();
   }
 });
 

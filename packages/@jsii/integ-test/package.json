@@ -20,7 +20,7 @@
     "@octokit/rest": "^18.12.0",
     "dotenv": "^8.6.0",
     "fs-extra": "^9.1.0",
-    "jest": "^27.4.4",
+    "jest": "^27.4.5",
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
@@ -30,9 +30,9 @@
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.0.3",
-    "@types/node": "^12.20.37",
+    "@types/node": "^12.20.38",
     "@types/tar": "^6.1.1",
-    "eslint": "^8.4.1",
+    "eslint": "^8.5.0",
     "prettier": "^2.5.1",
     "typescript": "~3.9.10"
   }
