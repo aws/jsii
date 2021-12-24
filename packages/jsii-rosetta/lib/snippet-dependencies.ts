@@ -175,7 +175,7 @@ async function scanMonoRepos(startingDirs: string[]): Promise<Record<string, str
 
   logging.debug(`Monorepo package sources: ${Array.from(globs).join(', ')}`);
 
-  const packageDirectories = await fastGlob(Array.from(globs), { onlyDirectories: true });
+  const packageDirectories = await fastGlob(Array.from(globs).map(windowsToUnix), { onlyDirectories: true });
   const results = mkDict(
     (
       await Promise.all(
@@ -189,7 +189,7 @@ async function scanMonoRepos(startingDirs: string[]): Promise<Record<string, str
     ).flat(),
   );
 
-  logging.debug(`Found packages in monorepo: ${formatList(Object.keys(results))}`);
+  logging.debug(`Found ${Object.keys(results).length} packages in monorepo: ${formatList(Object.keys(results))}`);
   return results;
 }
 
@@ -235,4 +235,11 @@ function setExtend<A>(xs: Set<A>, ys: Set<A>) {
     xs.add(y);
   }
   return xs;
+}
+
+/**
+ * Necessary for fastGlob
+ */
+function windowsToUnix(x: string) {
+  return x.replace(/\\/g, '/');
 }
