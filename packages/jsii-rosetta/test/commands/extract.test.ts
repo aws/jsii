@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import * as logging from '../../lib/logging';
 import { compileJsiiForTest } from 'jsii';
 import * as path from 'path';
 
@@ -487,6 +488,7 @@ test('infused examples skip loose mode', async () => {
 });
 
 test('can use additional dependencies from monorepo', async () => {
+  logging.configure({ level: logging.Level.VERBOSE });
   const asm = await TestJsiiModule.fromSource(
     {
       'index.ts': `

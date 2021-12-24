@@ -9,7 +9,7 @@ import { intersect } from 'semver-intersect';
 import { findDependencyDirectory, findUp } from './find-utils';
 import * as logging from './logging';
 import { TypeScriptSnippet, CompilationDependency } from './snippet';
-import { mkDict } from './util';
+import { mkDict, formatList } from './util';
 
 /**
  * Collect the dependencies of a bunch of snippets together in one declaration
@@ -169,12 +169,14 @@ async function scanMonoRepos(startingDirs: string[]): Promise<Record<string, str
     setExtend(globs, await findMonoRepoGlobs(dir));
   }
 
-  if (globs.size > 0) {
-    logging.debug(`Monorepo package sources: ${Array.from(globs).join(', ')}`);
+  if (globs.size === 0) {
+    return {};
   }
 
+  logging.debug(`Monorepo package sources: ${Array.from(globs).join(', ')}`);
+
   const packageDirectories = await fastGlob(Array.from(globs), { onlyDirectories: true });
-  return mkDict(
+  const results = mkDict(
     (
       await Promise.all(
         packageDirectories.map(async (directory) => {
@@ -186,6 +188,9 @@ async function scanMonoRepos(startingDirs: string[]): Promise<Record<string, str
       )
     ).flat(),
   );
+
+  logging.debug(`Found packages in monorepo: ${formatList(Object.keys(results))}`);
+  return results;
 }
 
 async function findMonoRepoGlobs(startingDir: string): Promise<Set<string>> {
