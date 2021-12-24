@@ -137,18 +137,24 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
 
   // Run 'npm install' on it
   await fs.mkdirp(tmpDir);
-  logging.debug(`Installing example dependencies: ${symbolicInstalls.join(' ')}`);
-  cp.execSync(`npm install ${symbolicInstalls.join(' ')}`, { cwd: tmpDir, encoding: 'utf-8' });
+
+  if (symbolicInstalls.length > 0) {
+    logging.debug(`Installing example dependencies: ${symbolicInstalls.join(' ')}`);
+    cp.execSync(`npm install ${symbolicInstalls.join(' ')}`, { cwd: tmpDir, encoding: 'utf-8' });
+  }
 
   // Symlink the rest
-  const modDir = path.join(tmpDir, 'node_modules');
-  await Promise.all(
-    Object.entries(linkedInstalls).map(async ([name, source]) => {
-      const target = path.join(modDir, name);
-      await fs.mkdirp(path.dirname(target));
-      await fs.symlink(source, target, 'dir');
-    }),
-  );
+  if (Object.keys(linkedInstalls).length > 0) {
+    logging.debug(`Symlinking example dependencies: ${Object.values(linkedInstalls).join(' ')}`);
+    const modDir = path.join(tmpDir, 'node_modules');
+    await Promise.all(
+      Object.entries(linkedInstalls).map(async ([name, source]) => {
+        const target = path.join(modDir, name);
+        await fs.mkdirp(path.dirname(target));
+        await fs.symlink(source, target, 'dir');
+      }),
+    );
+  }
 
   return tmpDir;
 }
