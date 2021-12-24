@@ -243,7 +243,7 @@ scope.jsii-calc-base
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -723,7 +723,7 @@ scope.jsii-calc-base-of-base
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1176,7 +1176,7 @@ scope.jsii-calc-lib
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1312,8 +1312,8 @@ class DiamondLeft:
         left: typing.Optional[jsii.Number] = None,
     ) -> None:
         '''
-        :param hoisted_top: 
-        :param left: 
+        :param hoisted_top:
+        :param left:
 
         :stability: deprecated
         '''
@@ -1364,8 +1364,8 @@ class DiamondRight:
         right: typing.Optional[builtins.bool] = None,
     ) -> None:
         '''
-        :param hoisted_top: 
-        :param right: 
+        :param hoisted_top:
+        :param right:
 
         :stability: deprecated
         '''
@@ -1566,7 +1566,7 @@ class MyFirstStruct:
 
         :param anumber: (deprecated) An awesome number value.
         :param astring: (deprecated) A string value.
-        :param first_optional: 
+        :param first_optional:
 
         :stability: deprecated
         '''
@@ -1723,8 +1723,8 @@ class StructWithOnlyOptionals:
         '''(deprecated) This is a struct with only optional properties.
 
         :param optional1: (deprecated) The first optional!
-        :param optional2: 
-        :param optional3: 
+        :param optional2:
+        :param optional3:
 
         :stability: deprecated
         '''
@@ -1958,7 +1958,7 @@ class NestingClass(
 
             Normal.
 
-            :param name: 
+            :param name:
 
             :stability: deprecated
             '''
@@ -1995,8 +1995,8 @@ class NestingClass(
 class ReflectableEntry:
     def __init__(self, *, key: builtins.str, value: typing.Any) -> None:
         '''
-        :param key: 
-        :param value: 
+        :param key:
+        :param value:
 
         :stability: deprecated
         '''
@@ -2408,7 +2408,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -2944,8 +2944,8 @@ class AmbiguousParameters(
     ) -> None:
         '''
         :param scope_: -
-        :param scope: 
-        :param props: 
+        :param scope:
+        :param props:
         '''
         props_ = StructParameterType(scope=scope, props=props)
 
@@ -3375,9 +3375,9 @@ class ClassWithContainerTypes(
         :param array: -
         :param record: -
         :param obj: -
-        :param array_prop: 
-        :param obj_prop: 
-        :param record_prop: 
+        :param array_prop:
+        :param obj_prop:
+        :param record_prop:
         '''
         props = ContainerProps(
             array_prop=array_prop, obj_prop=obj_prop, record_prop=record_prop
@@ -3510,7 +3510,7 @@ class ConfusingToJacksonStruct:
         union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.Sequence[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]] = None,
     ) -> None:
         '''
-        :param union_property: 
+        :param union_property:
         '''
         self._values: typing.Dict[str, typing.Any] = {}
         if union_property is not None:
@@ -3751,9 +3751,9 @@ class ContainerProps:
         record_prop: typing.Mapping[builtins.str, "DummyObj"],
     ) -> None:
         '''
-        :param array_prop: 
-        :param obj_prop: 
-        :param record_prop: 
+        :param array_prop:
+        :param obj_prop:
+        :param record_prop:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "array_prop": array_prop,
@@ -3808,7 +3808,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         '''
         :param anumber: (deprecated) An awesome number value.
         :param astring: (deprecated) A string value.
-        :param first_optional: 
+        :param first_optional:
         '''
         data = scope.jsii_calc_lib.MyFirstStruct(
             anumber=anumber, astring=astring, first_optional=first_optional
@@ -3990,7 +3990,7 @@ class DeprecatedEnum(enum.Enum):
 class DeprecatedStruct:
     def __init__(self, *, readonly_property: builtins.str) -> None:
         '''
-        :param readonly_property: 
+        :param readonly_property:
 
         :deprecated: it just wraps a string
 
@@ -4056,13 +4056,13 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
         :param anumber: (deprecated) An awesome number value.
         :param astring: (deprecated) A string value.
-        :param first_optional: 
-        :param another_required: 
-        :param bool: 
+        :param first_optional:
+        :param another_required:
+        :param bool:
         :param non_primitive: An example of a non primitive property.
         :param another_optional: This is optional.
-        :param optional_any: 
-        :param optional_array: 
+        :param optional_any:
+        :param optional_array:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "anumber": anumber,
@@ -4179,10 +4179,10 @@ class DiamondBottom(scope.jsii_calc_lib.DiamondLeft, scope.jsii_calc_lib.Diamond
         bottom: typing.Optional[datetime.datetime] = None,
     ) -> None:
         '''
-        :param hoisted_top: 
-        :param left: 
-        :param right: 
-        :param bottom: 
+        :param hoisted_top:
+        :param left:
+        :param right:
+        :param bottom:
         '''
         self._values: typing.Dict[str, typing.Any] = {}
         if hoisted_top is not None:
@@ -4243,7 +4243,7 @@ class DiamondBottom(scope.jsii_calc_lib.DiamondLeft, scope.jsii_calc_lib.Diamond
 class DiamondInheritanceBaseLevelStruct:
     def __init__(self, *, base_level_property: builtins.str) -> None:
         '''
-        :param base_level_property: 
+        :param base_level_property:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "base_level_property": base_level_property,
@@ -4283,8 +4283,8 @@ class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
         first_mid_level_property: builtins.str,
     ) -> None:
         '''
-        :param base_level_property: 
-        :param first_mid_level_property: 
+        :param base_level_property:
+        :param first_mid_level_property:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "base_level_property": base_level_property,
@@ -4331,8 +4331,8 @@ class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
         second_mid_level_property: builtins.str,
     ) -> None:
         '''
-        :param base_level_property: 
-        :param second_mid_level_property: 
+        :param base_level_property:
+        :param second_mid_level_property:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "base_level_property": base_level_property,
@@ -4388,10 +4388,10 @@ class DiamondInheritanceTopLevelStruct(
         top_level_property: builtins.str,
     ) -> None:
         '''
-        :param base_level_property: 
-        :param first_mid_level_property: 
-        :param second_mid_level_property: 
-        :param top_level_property: 
+        :param base_level_property:
+        :param first_mid_level_property:
+        :param second_mid_level_property:
+        :param top_level_property:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "base_level_property": base_level_property,
@@ -4587,7 +4587,7 @@ class DontComplainAboutVariadicAfterOptional(
 class DummyObj:
     def __init__(self, *, example: builtins.str) -> None:
         '''
-        :param example: 
+        :param example:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "example": example,
@@ -4776,8 +4776,8 @@ class EraseUndefinedHashValuesOptions:
         option2: typing.Optional[builtins.str] = None,
     ) -> None:
         '''
-        :param option1: 
-        :param option2: 
+        :param option1:
+        :param option2:
         '''
         self._values: typing.Dict[str, typing.Any] = {}
         if option1 is not None:
@@ -4880,7 +4880,7 @@ class ExperimentalEnum(enum.Enum):
 class ExperimentalStruct:
     def __init__(self, *, readonly_property: builtins.str) -> None:
         '''
-        :param readonly_property: 
+        :param readonly_property:
 
         :stability: experimental
         '''
@@ -4933,8 +4933,8 @@ class ExportedBaseClass(
 class ExtendsInternalInterface:
     def __init__(self, *, boom: builtins.bool, prop: builtins.str) -> None:
         '''
-        :param boom: 
-        :param prop: 
+        :param boom:
+        :param prop:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "boom": boom,
@@ -5035,7 +5035,7 @@ class ExternalEnum(enum.Enum):
 class ExternalStruct:
     def __init__(self, *, readonly_property: builtins.str) -> None:
         '''
-        :param readonly_property: 
+        :param readonly_property:
 
         :external: true
         '''
@@ -5084,15 +5084,15 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
     ) -> scope.jsii_calc_lib.MyFirstStruct:
         '''Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 
-        :param another_required: 
-        :param bool: 
+        :param another_required:
+        :param bool:
         :param non_primitive: An example of a non primitive property.
         :param another_optional: This is optional.
-        :param optional_any: 
-        :param optional_array: 
+        :param optional_any:
+        :param optional_array:
         :param anumber: (deprecated) An awesome number value.
         :param astring: (deprecated) A string value.
-        :param first_optional: 
+        :param first_optional:
         '''
         derived = DerivedStruct(
             another_required=another_required,
@@ -5124,15 +5124,15 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
     ) -> "DoubleTrouble":
         '''Returns the boolean from a DerivedStruct struct.
 
-        :param another_required: 
-        :param bool: 
+        :param another_required:
+        :param bool:
         :param non_primitive: An example of a non primitive property.
         :param another_optional: This is optional.
-        :param optional_any: 
-        :param optional_array: 
+        :param optional_any:
+        :param optional_array:
         :param anumber: (deprecated) An awesome number value.
         :param astring: (deprecated) A string value.
-        :param first_optional: 
+        :param first_optional:
         '''
         derived = DerivedStruct(
             another_required=another_required,
@@ -5160,7 +5160,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
 
         :param anumber: (deprecated) An awesome number value.
         :param astring: (deprecated) A string value.
-        :param first_optional: 
+        :param first_optional:
         '''
         first = scope.jsii_calc_lib.MyFirstStruct(
             anumber=anumber, astring=astring, first_optional=first_optional
@@ -6331,7 +6331,7 @@ class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps):
         '''
         :param foo: -
         :param bar: -
-        :param goo: 
+        :param goo:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -6866,7 +6866,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
 
     def __init__(self, *, prop: "LevelOne.PropProperty") -> None:
         '''
-        :param prop: 
+        :param prop:
         '''
         props = LevelOneProps(prop=prop)
 
@@ -6885,7 +6885,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
     class PropBooleanValue:
         def __init__(self, *, value: builtins.bool) -> None:
             '''
-            :param value: 
+            :param value:
             '''
             self._values: typing.Dict[str, typing.Any] = {
                 "value": value,
@@ -6916,7 +6916,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
     class PropProperty:
         def __init__(self, *, prop: "LevelOne.PropBooleanValue") -> None:
             '''
-            :param prop: 
+            :param prop:
             '''
             if isinstance(prop, dict):
                 prop = PropBooleanValue(**prop)
@@ -6950,7 +6950,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
 class LevelOneProps:
     def __init__(self, *, prop: LevelOne.PropProperty) -> None:
         '''
-        :param prop: 
+        :param prop:
         '''
         if isinstance(prop, dict):
             prop = LevelOne.PropProperty(**prop)
@@ -7277,8 +7277,8 @@ class NullShouldBeTreatedAsUndefined(
         this_should_be_undefined: typing.Any = None,
     ) -> None:
         '''
-        :param array_with_three_elements_and_undefined_as_second_argument: 
-        :param this_should_be_undefined: 
+        :param array_with_three_elements_and_undefined_as_second_argument:
+        :param this_should_be_undefined:
         '''
         input = NullShouldBeTreatedAsUndefinedData(
             array_with_three_elements_and_undefined_as_second_argument=array_with_three_elements_and_undefined_as_second_argument,
@@ -7317,8 +7317,8 @@ class NullShouldBeTreatedAsUndefinedData:
         this_should_be_undefined: typing.Any = None,
     ) -> None:
         '''
-        :param array_with_three_elements_and_undefined_as_second_argument: 
-        :param this_should_be_undefined: 
+        :param array_with_three_elements_and_undefined_as_second_argument:
+        :param this_should_be_undefined:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "array_with_three_elements_and_undefined_as_second_argument": array_with_three_elements_and_undefined_as_second_argument,
@@ -7506,7 +7506,7 @@ class OptionalConstructorArgument(
 class OptionalStruct:
     def __init__(self, *, field: typing.Optional[builtins.str] = None) -> None:
         '''
-        :param field: 
+        :param field:
         '''
         self._values: typing.Dict[str, typing.Any] = {}
         if field is not None:
@@ -7535,7 +7535,7 @@ class OptionalStructConsumer(
 ):
     def __init__(self, *, field: typing.Optional[builtins.str] = None) -> None:
         '''
-        :param field: 
+        :param field:
         '''
         optional_struct = OptionalStruct(field=field)
 
@@ -7614,7 +7614,7 @@ class ParentStruct982:
     def __init__(self, *, foo: builtins.str) -> None:
         '''https://github.com/aws/jsii/issues/982.
 
-        :param foo: 
+        :param foo:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -7969,7 +7969,7 @@ class RootStruct:
         idiomatic" way for Pythonists.
 
         :param string_prop: May not be empty.
-        :param nested_struct: 
+        :param nested_struct:
         '''
         if isinstance(nested_struct, dict):
             nested_struct = NestedStruct(**nested_struct)
@@ -8017,7 +8017,7 @@ class RootStructValidator(
     ) -> None:
         '''
         :param string_prop: May not be empty.
-        :param nested_struct: 
+        :param nested_struct:
         '''
         struct = RootStruct(string_prop=string_prop, nested_struct=nested_struct)
 
@@ -8198,8 +8198,8 @@ class SmellyStruct:
         yet_anoter_one: builtins.bool,
     ) -> None:
         '''
-        :param property: 
-        :param yet_anoter_one: 
+        :param property:
+        :param yet_anoter_one:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "property": property,
@@ -8290,7 +8290,7 @@ class StableEnum(enum.Enum):
 class StableStruct:
     def __init__(self, *, readonly_property: builtins.str) -> None:
         '''
-        :param readonly_property: 
+        :param readonly_property:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "readonly_property": readonly_property,
@@ -8471,9 +8471,9 @@ class StructA:
     ) -> None:
         '''We can serialize and deserialize structs without silently ignoring optional fields.
 
-        :param required_string: 
-        :param optional_number: 
-        :param optional_string: 
+        :param required_string:
+        :param optional_number:
+        :param optional_string:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "required_string": required_string,
@@ -8530,9 +8530,9 @@ class StructB:
     ) -> None:
         '''This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
 
-        :param required_string: 
-        :param optional_boolean: 
-        :param optional_struct_a: 
+        :param required_string:
+        :param optional_boolean:
+        :param optional_struct_a:
         '''
         if isinstance(optional_struct_a, dict):
             optional_struct_a = StructA(**optional_struct_a)
@@ -8588,8 +8588,8 @@ class StructParameterType:
 
         See: https://github.com/aws/aws-cdk/issues/4302
 
-        :param scope: 
-        :param props: 
+        :param scope:
+        :param props:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "scope": scope,
@@ -8753,10 +8753,10 @@ class StructWithJavaReservedWords:
         that: typing.Optional[builtins.str] = None,
     ) -> None:
         '''
-        :param default: 
-        :param assert_: 
-        :param result: 
-        :param that: 
+        :param default:
+        :param assert_:
+        :param result:
+        :param that:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "default": default,
@@ -9237,8 +9237,8 @@ class UnionProperties:
         foo: typing.Optional[typing.Union[builtins.str, jsii.Number]] = None,
     ) -> None:
         '''
-        :param bar: 
-        :param foo: 
+        :param bar:
+        :param foo:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "bar": bar,
@@ -9601,8 +9601,8 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
 class ChildStruct982(ParentStruct982):
     def __init__(self, *, foo: builtins.str, bar: jsii.Number) -> None:
         '''
-        :param foo: 
-        :param bar: 
+        :param foo:
+        :param bar:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -10591,7 +10591,7 @@ class Foo(
 class Hello:
     def __init__(self, *, foo: jsii.Number) -> None:
         '''
-        :param foo: 
+        :param foo:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -10646,7 +10646,7 @@ from .._jsii import *
 class Hello:
     def __init__(self, *, foo: jsii.Number) -> None:
         '''
-        :param foo: 
+        :param foo:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -10996,8 +10996,8 @@ class MyStruct:
         numbers: typing.Sequence[scope.jsii_calc_lib.Number],
     ) -> None:
         '''
-        :param base_map: 
-        :param numbers: 
+        :param base_map:
+        :param numbers:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "base_map": base_map,
@@ -11077,7 +11077,7 @@ from ..._jsii import *
 class Bar:
     def __init__(self, *, bar1: builtins.str) -> None:
         '''
-        :param bar1: 
+        :param bar1:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "bar1": bar1,
@@ -11133,7 +11133,7 @@ from ..submodule1 import Bar as _Bar_ec7eccad
 class Bar:
     def __init__(self, *, bar2: builtins.str) -> None:
         '''
-        :param bar2: 
+        :param bar2:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "bar2": bar2,
@@ -11171,9 +11171,9 @@ class Foo(Bar, _Bar_ec7eccad):
         foo2: builtins.str,
     ) -> None:
         '''
-        :param bar2: 
-        :param bar1: 
-        :param foo2: 
+        :param bar2:
+        :param bar1:
+        :param foo2:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "bar2": bar2,
@@ -11697,7 +11697,7 @@ class ClassWithSelfKwarg(
 ):
     def __init__(self_, *, self: builtins.str) -> None:
         '''
-        :param self: 
+        :param self:
         '''
         props = StructWithSelf(self=self)
 
@@ -11741,7 +11741,7 @@ typing.cast(typing.Any, IInterfaceWithSelf).__jsii_proxy_class__ = lambda : _IIn
 class StructWithSelf:
     def __init__(self_, *, self: builtins.str) -> None:
         '''
-        :param self: 
+        :param self:
         '''
         self_._values: typing.Dict[str, typing.Any] = {
             "self": self,
@@ -11814,7 +11814,7 @@ class Default:
     def __init__(self, *, foo: jsii.Number) -> None:
         '''A struct named "Default".
 
-        :param foo: 
+        :param foo:
 
         :see: https://github.com/aws/jsii/issues/2637
         '''
@@ -11844,7 +11844,7 @@ class Default:
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     def __init__(self, *, prop: _SomeEnum_b2e41d92) -> None:
         '''
-        :param prop: 
+        :param prop:
         '''
         props = _SomeStruct_91627123(prop=prop)
 
@@ -11853,7 +11853,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     @jsii.member(jsii_name="methodWithSpecialParam")
     def method_with_special_param(self, *, value: builtins.str) -> builtins.str:
         '''
-        :param value: 
+        :param value:
         '''
         param = _SpecialParameter_5bbf34a2(value=value)
 
@@ -11922,7 +11922,7 @@ from .. import MyClass as _MyClass_a2fdc0b6
 class MyClassReference:
     def __init__(self, *, reference: _MyClass_a2fdc0b6) -> None:
         '''
-        :param reference: 
+        :param reference:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "reference": reference,
@@ -12028,7 +12028,7 @@ class SomeEnum(enum.Enum):
 class SomeStruct:
     def __init__(self, *, prop: SomeEnum) -> None:
         '''
-        :param prop: 
+        :param prop:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "prop": prop,
@@ -12060,7 +12060,7 @@ class SomeStruct:
 class Structure:
     def __init__(self, *, bool: builtins.bool) -> None:
         '''
-        :param bool: 
+        :param bool:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "bool": bool,
@@ -12097,8 +12097,8 @@ class KwargsProps(SomeStruct):
         extra: typing.Optional[builtins.str] = None,
     ) -> None:
         '''
-        :param prop: 
-        :param extra: 
+        :param prop:
+        :param extra:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "prop": prop,
@@ -12179,8 +12179,8 @@ class Kwargs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.isolated.Kw
         prop: _SomeEnum_b2e41d92,
     ) -> builtins.bool:
         '''
-        :param extra: 
-        :param prop: 
+        :param extra:
+        :param prop:
         '''
         props = _KwargsProps_c7855dcf(extra=extra, prop=prop)
 
@@ -12313,7 +12313,7 @@ from ..._jsii import *
 class SpecialParameter:
     def __init__(self, *, value: builtins.str) -> None:
         '''
-        :param value: 
+        :param value:
         '''
         self._values: typing.Dict[str, typing.Any] = {
             "value": value,
