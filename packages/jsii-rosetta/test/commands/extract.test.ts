@@ -520,6 +520,44 @@ describe('infused examples', () => {
   });
 });
 
+test('infused examples have no diagnostics', async () => {
+  const otherAssembly = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      /**
+       * ClassA
+       * 
+       * @exampleMetadata infused
+       * @example x
+       */
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: {
+        ...DUMMY_JSII_CONFIG,
+      },
+    },
+  );
+  try {
+    const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
+
+    const results = await extract.extractSnippets([otherAssembly.moduleDirectory], {
+      cacheToFile,
+      includeCompilerDiagnostics: true,
+      loose: false,
+    });
+
+    expect(results.diagnostics).toEqual([]);
+  } finally {
+    await otherAssembly.cleanup();
+  }
+});
+
 class MockTranslator extends RosettaTranslator {
   public constructor(opts: RosettaTranslatorOptions, translatorFn: jest.Mock) {
     super(opts);

@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
-    "@types/node": "^12.20.37",
+    "@types/node": "^12.20.38",
     "@types/semver": "^7.3.9",
     "jsii-build-tools": "^0.0.0",
     "semver": "^7.3.5",
