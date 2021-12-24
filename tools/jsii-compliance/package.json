@@ -16,8 +16,8 @@
     "tablemark": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^12.20.37",
-    "eslint": "^8.4.1",
+    "@types/node": "^12.20.38",
+    "eslint": "^8.5.0",
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",
     "typescript": "~3.9.10"

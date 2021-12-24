@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.50.0](https://github.com/aws/jsii/compare/v1.49.0...v1.50.0) (2021-12-24)
+
+
+### Bug Fixes
+
+* **jsii:** color codes are logged to logfiles ([#3284](https://github.com/aws/jsii/issues/3284)) ([2c8c647](https://github.com/aws/jsii/commit/2c8c647356345981cc2f9416449d48b660b5da44))
+* **jsii:** slow with deep dependency tree ([#3294](https://github.com/aws/jsii/issues/3294)) ([04d64c9](https://github.com/aws/jsii/commit/04d64c91da5e8a0eccd06cd03a4b7a20bce55845))
+* **pacmak:** fails on bundled dependency without entry point ([#3277](https://github.com/aws/jsii/issues/3277)) ([6e5a0b5](https://github.com/aws/jsii/commit/6e5a0b50e19af6cb0c1817fe3c447a24a9632a7b)), closes [#3275](https://github.com/aws/jsii/issues/3275)
+* **rosetta:** diagnostics from infused snippets were not ignored ([#3282](https://github.com/aws/jsii/issues/3282)) ([ad7f6a4](https://github.com/aws/jsii/commit/ad7f6a4a20564e733bf29a70956bbbe54d66562e))
+* **rosetta:** infused snippets not returned from cache ([#3291](https://github.com/aws/jsii/issues/3291)) ([dd44431](https://github.com/aws/jsii/commit/dd444313b4177babce8d972da01071f308600416))
+* **rosetta:** non-compiling snippets not reported on subsequent extracts ([#3260](https://github.com/aws/jsii/issues/3260)) ([771190b](https://github.com/aws/jsii/commit/771190b5435a82fe6033a05247bfa828276f0130))
+* **rosetta:** transliterate command does not translate in parallel ([#3262](https://github.com/aws/jsii/issues/3262)) ([beeadaa](https://github.com/aws/jsii/commit/beeadaa21d5bd5a34e97691c2410366f475d3da3))
+
 ## [1.49.0](https://github.com/aws/jsii/compare/v1.48.0...v1.49.0) (2021-12-14)
 
 

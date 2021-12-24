@@ -42,7 +42,13 @@ export interface RosettaTranslatorOptions {
  * be achieved by the rosetta CLI, use this class.
  */
 export class RosettaTranslator {
+  /**
+   * Tablet with fresh translations
+   *
+   * All new translations (not read from cache) are added to this tablet.
+   */
   public readonly tablet = new LanguageTablet();
+
   private readonly fingerprinter: TypeFingerprinter;
   private readonly cache = new LanguageTablet();
   private readonly includeCompilerDiagnostics: boolean;
@@ -83,14 +89,15 @@ export class RosettaTranslator {
    *
    * Will remove the cached snippets from the input array.
    */
-  public readFromCache(snippets: TypeScriptSnippet[], addToTablet = true): ReadFromCacheResults {
+  public readFromCache(snippets: TypeScriptSnippet[], addToTablet = true, compiledOnly = false): ReadFromCacheResults {
     const remaining = [...snippets];
     const translations = new Array<TranslatedSnippet>();
 
     let i = 0;
     while (i < remaining.length) {
       const fromCache = tryReadFromCache(remaining[i], this.cache, this.fingerprinter);
-      if (fromCache) {
+      // If compiledOnly is set, do not consider cached snippets that do not compile
+      if (fromCache && (!compiledOnly || fromCache.snippet.didCompile)) {
         if (addToTablet) {
           this.tablet.addSnippet(fromCache);
         }
@@ -142,6 +149,13 @@ export class RosettaTranslator {
 function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTablet, fingerprinter: TypeFingerprinter) {
   const fromCache = cache.tryGetSnippet(snippetKey(sourceSnippet));
 
+  // infused snippets won't pass the full source check or the fingerprinter
+  // but there is no reason to try to recompile it, so return cached snippet
+  // if there exists one.
+  if (isInfused(sourceSnippet)) {
+    return fromCache;
+  }
+
   const cacheable =
     fromCache &&
     completeSource(sourceSnippet) === fromCache.snippet.fullSource &&
@@ -151,6 +165,10 @@ function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTable
     fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) === fromCache.snippet.fqnsFingerprint;
 
   return cacheable ? fromCache : undefined;
+}
+
+function isInfused(snippet: TypeScriptSnippet) {
+  return snippet.parameters?.infused !== undefined;
 }
 
 export interface ReadFromCacheResults {

@@ -38,17 +38,30 @@ export interface ExtractOptions {
   readonly trimCache?: boolean;
 
   /**
+   * Write translations to implicit tablets (`.jsii.tabl.json`)
+   *
+   * @default true
+   */
+  readonly writeToImplicitTablets?: boolean;
+
+  /**
    * Make a translator (just for testing)
    */
   readonly translatorFactory?: (opts: RosettaTranslatorOptions) => RosettaTranslator;
+
+  /**
+   * Turn on 'loose mode' or not
+   *
+   * Loose mode ignores failures during fixturizing, and undoes 'strict mode' for
+   * diagnostics.
+   *
+   * @default false
+   */
+  readonly loose?: boolean;
 }
 
-export async function extractAndInfuse(
-  assemblyLocations: string[],
-  options: ExtractOptions,
-  loose = false,
-): Promise<ExtractResult> {
-  const result = await extractSnippets(assemblyLocations, options, loose);
+export async function extractAndInfuse(assemblyLocations: string[], options: ExtractOptions): Promise<ExtractResult> {
+  const result = await extractSnippets(assemblyLocations, options);
   await infuse(assemblyLocations, {
     cacheFromFile: options.cacheFromFile,
     cacheToFile: options.cacheToFile,
@@ -60,16 +73,15 @@ export async function extractAndInfuse(
  * Extract all samples from the given assemblies into a tablet
  */
 export async function extractSnippets(
-  assemblyLocations: string[],
+  assemblyLocations: readonly string[],
   options: ExtractOptions = {},
-  loose = false,
 ): Promise<ExtractResult> {
   const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies ?? false);
 
-  let snippets = Array.from(allTypeScriptSnippets(assemblies, loose));
+  let snippets = Array.from(allTypeScriptSnippets(assemblies, options.loose));
   if (only.length > 0) {
     snippets = filterSnippets(snippets, only);
   }
@@ -99,7 +111,7 @@ export async function extractSnippets(
   translator.addTabletsToCache(...Object.values(await loadAllDefaultTablets(assemblies)));
 
   if (translator.hasCache()) {
-    const { translations, remaining } = translator.readFromCache(snippets);
+    const { translations, remaining } = translator.readFromCache(snippets, true, options.includeCompilerDiagnostics);
     logging.info(`Reused ${translations.length} translations from cache`);
     snippets = remaining;
   }
@@ -123,17 +135,19 @@ export async function extractSnippets(
   }
 
   // Save to individual tablet files, and optionally append to the output file
-  await Promise.all(
-    Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
-      const asmTabletFile = path.join(location, DEFAULT_TABLET_NAME);
-      logging.debug(`Writing ${snips.length} translations to ${asmTabletFile}`);
-      const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
+  if (options.writeToImplicitTablets ?? true) {
+    await Promise.all(
+      Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
+        const asmTabletFile = path.join(location, DEFAULT_TABLET_NAME);
+        logging.debug(`Writing ${snips.length} translations to ${asmTabletFile}`);
+        const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
 
-      const asmTablet = new LanguageTablet();
-      asmTablet.addSnippets(...translations);
-      await asmTablet.save(asmTabletFile);
-    }),
-  );
+        const asmTablet = new LanguageTablet();
+        asmTablet.addSnippets(...translations);
+        await asmTablet.save(asmTabletFile);
+      }),
+    );
+  }
 
   if (options.cacheToFile) {
     logging.info(`Adding translations to ${options.cacheToFile}`);

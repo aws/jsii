@@ -121,9 +121,7 @@ export class RosettaTabletReader {
   }
 
   /**
-   * Directly add a tablet
-   *
-   * Should only be needed for testing, use `loadTabletFromFile` and `addAssembly` instead.
+   * Directly add a tablet to the list of tablets to load translations from
    */
   public addTablet(tablet: LanguageTablet) {
     this.loadedTablets.push(tablet);
