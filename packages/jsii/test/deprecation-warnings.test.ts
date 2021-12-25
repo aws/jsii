@@ -200,11 +200,11 @@ function testpkg_Baz(p) {
       `
         export interface Baz {
           /** @deprecated message from Baz */
-          readonly x: string;          
+          readonly x: string;
         }
         export interface Bar {
           /** @deprecated message from Bar */
-          readonly x: string;          
+          readonly x: string;
         }
         export interface Foo extends Bar, Baz {
         }
@@ -248,11 +248,11 @@ function testpkg_Baz(p) {
     const result = await compileJsiiForTest(
       `
         export interface Baz {
-          readonly x: string;          
+          readonly x: string;
         }
         export interface Bar {
           /** @deprecated message from Bar */
-          readonly x: string;          
+          readonly x: string;
         }
         export interface Foo extends Bar, Baz {
         }
@@ -345,7 +345,7 @@ function testpkg_Baz(p) {
     // Recompiling without deprecation warning to leave the packages in a clean state
     await compile(calcBaseRoot, false);
     await compile(calcLibRoot, false);
-  }, 50000);
+  }, 120000);
 });
 
 describe('Call injections', () => {
@@ -386,7 +386,7 @@ describe('Call injections', () => {
     expect(content).toContain(
       `const jsiiDeprecationWarnings = require("${expectedPath}")`,
     );
-  });
+  }, 60000);
 
   test('does not generate a require statement when no calls were injected', async () => {
     const result = await compileJsiiForTest(
@@ -406,7 +406,7 @@ describe('Call injections', () => {
     expect(content).not.toContain(
       `const jsiiDeprecationWarnings = require("${expectedPath}")`,
     );
-  });
+  }, 60000);
 
   test('deprecated methods', async () => {
     const result = await compileJsiiForTest(
@@ -440,7 +440,7 @@ describe('Call injections', () => {
     expect(jsFile(result)).toMatch(
       'bar(a, b) { jsiiDeprecationWarnings.testpkg_A(a); return a.x + b; }',
     );
-  });
+  }, 60000);
 
   test('deprecated getters', async () => {
     const result = await compileJsiiForTest(
