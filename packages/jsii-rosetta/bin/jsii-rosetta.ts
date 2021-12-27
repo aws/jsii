@@ -221,7 +221,15 @@ function main() {
             describe:
               'Require all code samples compile, and fail if one does not. Strict mode always enables --compile and --fail',
             default: false,
-          }),
+          })
+          .options('loose', {
+            alias: 'l',
+            describe: 'Ignore missing fixtures and literate markdown files instead of failing',
+            type: 'boolean',
+            default: false,
+          })
+          .conflicts('loose', 'strict')
+          .conflicts('loose', 'fail'),
       wrapHandler(async (args) => {
         // `--strict` is short for `--compile --fail`, and we'll override those even if they're set to `false`, such as
         // using `--no-(compile|fail)`, because yargs does not quite give us a better option that does not hurt CX.
@@ -250,6 +258,7 @@ function main() {
           cacheFromFile: absCacheFrom,
           cacheToFile: absCacheTo,
           trimCache: args['trim-cache'],
+          loose: args.loose,
         };
 
         const result = args.infuse
