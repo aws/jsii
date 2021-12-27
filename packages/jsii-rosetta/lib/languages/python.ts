@@ -103,7 +103,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
    * Bump this when you change something in the implementation to invalidate
    * existing cached translations.
    */
-  public static readonly VERSION = '1';
+  public static readonly VERSION = '2';
 
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
