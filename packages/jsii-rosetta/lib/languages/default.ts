@@ -359,6 +359,22 @@ const UNARY_OPS: { [op in ts.PrefixUnaryOperator]: string } = {
   [ts.SyntaxKind.ExclamationToken]: '!',
 };
 
+/**
+ * Whether the given expression evaluates to a value that is of type "function"
+ *
+ * Examples of function types:
+ *
+ * ```ts
+ * // GIVEN
+ * function someFunction() { }
+ *
+ * // THEN
+ * const x = someFunction; // <- function type
+ * const y = () => 42; // <- function type
+ * const z = x; // <- function type
+ * Array.isArray; // <- function type
+ * ```
+ */
 function isExpressionOfFunctionType(typeChecker: ts.TypeChecker, expr: ts.Expression) {
   const type = typeChecker.getTypeAtLocation(expr).getNonNullableType();
   return type.getCallSignatures().length > 0;

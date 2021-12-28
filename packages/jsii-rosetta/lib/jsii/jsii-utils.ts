@@ -30,6 +30,41 @@ export function analyzeStructType(typeChecker: ts.TypeChecker, type: ts.Type): O
   return { kind: 'local-struct', type };
 }
 
+/**
+ * Whether the given type is a protocol AND comes from jsii
+ *
+ * - Protocol: a TypeScript interface that is *not* a "struct" type.
+ *   A.k.a. "behavioral interface".
+ * - From jsii: whether the interface type is defined in and exported
+ *   via a jsii assembly. There can be literal interfaces defined
+ *   in an example, and they will not be mangled in the same way
+ *   as a jsii interface would be.
+ *
+ *
+ * Examples:
+ *
+ * ```ts
+ * // isJsiiProtocolType() -> false: not a protocol
+ * interface Banana {
+ *   readonly arc: number;
+ * }
+ *
+ * // isJsiiProtocolType() -> might be true: depends on whether it was defined
+ * // in a jsii assembly.
+ * interface IHello {
+ *   sayIt(): void;
+ * }
+ *
+ * // isJsiiProtocolType() -> false: declared to not be a protocol, even though
+ * // it has the naming scheme of one
+ * /**
+ *  * @struct
+ *  * /
+ * interface IPAddress {
+ *   readonly octets: number[];
+ * }
+ * ```
+ */
 export function isJsiiProtocolType(typeChecker: ts.TypeChecker, type: ts.Type): boolean | undefined {
   if (!type.isClassOrInterface() || !hasAllFlags(type.objectFlags, ts.ObjectFlags.Interface)) {
     return false;
