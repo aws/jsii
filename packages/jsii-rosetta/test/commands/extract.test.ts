@@ -432,14 +432,102 @@ test('extract and infuse in one command', async () => {
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
 
-test('infused examples skip loose mode', async () => {
+describe('infused examples', () => {
+  let infusedAssembly: TestJsiiModule;
+  beforeEach(async () => {
+    infusedAssembly = await TestJsiiModule.fromSource(
+      {
+        'index.ts': `
+        /**
+         * ClassA
+         * 
+         * @exampleMetadata infused 
+         * @example x
+         */
+        export class ClassA {
+          public someMethod() {
+          }
+        }
+        `,
+      },
+      {
+        name: 'my_assembly',
+        jsii: DUMMY_JSII_CONFIG,
+      },
+    );
+  });
+
+  afterEach(async () => {
+    await infusedAssembly.cleanup();
+  });
+
+  test('always returned from cache', async () => {
+    const cacheFile = path.join(infusedAssembly.moduleDirectory, 'test.tabl.json');
+
+    // Cache to file
+    await extract.extractSnippets([infusedAssembly.moduleDirectory], {
+      cacheToFile: cacheFile,
+      ...defaultExtractOptions,
+    });
+
+    // Update the example with a fixture that would fail compilation
+    // Nothing like this should happen in practice
+    infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
+      'infused fixture=myfix.ts-fixture';
+    await infusedAssembly.updateAssembly();
+
+    // Expect to return cached snippet regardless of change
+    // No compilation should happen
+    const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
+    await extract.extractSnippets([infusedAssembly.moduleDirectory], {
+      cacheFromFile: cacheFile,
+      ...defaultExtractOptions,
+      translatorFactory: (o) => new MockTranslator(o, translationFunction),
+    });
+
+    expect(translationFunction).not.toHaveBeenCalled();
+  });
+
+  test('skip loose mode', async () => {
+    // Remove infused for now and add lit metadata that should fail
+    infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts';
+    await infusedAssembly.updateAssembly();
+
+    const cacheToFile = path.join(infusedAssembly.moduleDirectory, 'test.tabl.json');
+
+    // Without exampleMetadata infused, expect an error
+    await expect(
+      extract.extractSnippets([infusedAssembly.moduleDirectory], {
+        cacheToFile,
+        ...defaultExtractOptions,
+      }),
+    ).rejects.toThrowError(/Sample uses literate source/);
+
+    // Add infused to metadata and update assembly
+    infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts infused';
+    await infusedAssembly.updateAssembly();
+
+    // Expect same function call to succeed now
+    await extract.extractSnippets([infusedAssembly.moduleDirectory], {
+      cacheToFile,
+      ...defaultExtractOptions,
+    });
+
+    const tablet = await LanguageTablet.fromFile(cacheToFile);
+    expect(tablet.count).toEqual(1);
+    const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
+    expect(tr?.originalSource.source).toEqual('x');
+  });
+});
+
+test('infused examples have no diagnostics', async () => {
   const otherAssembly = await TestJsiiModule.fromSource(
     {
       'index.ts': `
       /**
        * ClassA
        * 
-       * @exampleMetadata lit=integ.test.ts
+       * @exampleMetadata infused
        * @example x
        */
       export class ClassA {
@@ -450,35 +538,21 @@ test('infused examples skip loose mode', async () => {
     },
     {
       name: 'my_assembly',
-      jsii: DUMMY_JSII_CONFIG,
+      jsii: {
+        ...DUMMY_JSII_CONFIG,
+      },
     },
   );
   try {
     const cacheToFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
 
-    // Without exampleMetadata infused=true, expect an error
-    await expect(
-      extract.extractSnippets([otherAssembly.moduleDirectory], {
-        cacheToFile,
-        ...defaultExtractOptions,
-      }),
-    ).rejects.toThrowError(/Sample uses literate source/);
-
-    // Add infused=true to metadata and update assembly
-    otherAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
-      'lit=integ.test.ts infused=true';
-    await otherAssembly.updateAssembly();
-
-    // Expect same function call to succeed now
-    await extract.extractSnippets([otherAssembly.moduleDirectory], {
+    const results = await extract.extractSnippets([otherAssembly.moduleDirectory], {
       cacheToFile,
-      ...defaultExtractOptions,
+      includeCompilerDiagnostics: true,
+      loose: false,
     });
 
-    const tablet = await LanguageTablet.fromFile(cacheToFile);
-    expect(tablet.count).toEqual(1);
-    const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
-    expect(tr?.originalSource.source).toEqual('x');
+    expect(results.diagnostics).toEqual([]);
   } finally {
     await otherAssembly.cleanup();
   }

@@ -2,6 +2,7 @@ import '@jsii/check-node/run';
 
 import * as log4js from 'log4js';
 import * as path from 'path';
+import * as util from 'util';
 import * as yargs from 'yargs';
 
 import { Compiler } from '../lib/compiler';
@@ -132,15 +133,26 @@ const warningTypes = Object.keys(enabledWarnings);
 });
 
 function _configureLog4js(verbosity: number) {
+  const stderrColor = !!process.stderr.isTTY;
+  const stdoutColor = !!process.stdout.isTTY;
+
+  log4js.addLayout('passThroughNoColor', () => {
+    return (loggingEvent) => stripAnsi(util.format(...loggingEvent.data));
+  });
+
   log4js.configure({
     appenders: {
       console: {
         type: 'stderr',
-        layout: { type: 'colored' },
+        layout: { type: stderrColor ? 'colored' : 'basic' },
       },
       [utils.DIAGNOSTICS]: {
         type: 'stdout',
-        layout: { type: 'messagePassThrough' },
+        layout: {
+          type: stdoutColor
+            ? 'messagePassThrough'
+            : ('passThroughNoColor' as any),
+        },
       },
     },
     categories: {
@@ -167,4 +179,12 @@ function _configureLog4js(verbosity: number) {
         return 'ALL';
     }
   }
+}
+
+const ANSI_REGEX =
+  // eslint-disable-next-line no-control-regex
+  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+
+function stripAnsi(x: string): string {
+  return x.replace(ANSI_REGEX, '');
 }

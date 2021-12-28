@@ -1,4 +1,4 @@
-# Approve PRs with "pr/auto-approve". mergify takes care of the actual merge.
+# Approve PRs with "auto-approve". mergify takes care of the actual merge.
 
 name: auto-approve
 on:
@@ -12,46 +12,11 @@ on:
 
 jobs:
   auto-approve:
-    if: contains(github.event.pull_request.labels.*.name, 'pr/auto-approve') || github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
-
+    if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
-
     steps:
-      # Check whether the PR needs an automated approval or not. We will only add an automated
-      # approval if the PR currently has no reviews on it. Dismissed reviews are ignored in the
-      # context of this check. This way, the automated workflow will not do anything if a manual
-      # review has already been done for the PR (implicit opt-out).
-      - uses: actions/github-script@0.3.0
-        id: needs-approving
-        with:
-          script: |-
-            const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
-            const reviews = github.pulls.listReviews({ owner, repo, pull_number })
-              .filter((review) => review.state !== 'DISMISSED');
-            core.setOutput('result', `${reviews.length === 0}`);
-
-      # If this is NOT a dependabot PR, just approve it.
-      - uses: actions/github-script@0.3.0
-        if: steps.needs-approving.outputs.result == 'true' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |-
-            const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
-            github.pulls.createReview({
-              owner, repo, pull_number,
-              event: 'APPROVE',
-            });
-      # If this IS a dependabot PR, approve it and ask dependabot to squash-and-merge it when CI passes.
-      - uses: actions/github-script@0.3.0
-        if: steps.needs-approving.outputs.result == 'true' && (github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]')
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |-
-            const { issue: { number: pull_number }, repo: { owner, repo }  } = context;
-            github.pulls.createReview({
-              owner, repo, pull_number,
-              body: '@dependabot squash and merge',
-              event: 'APPROVE',
-            });
+    - uses: hmarr/auto-approve-action@v2.1.0
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
