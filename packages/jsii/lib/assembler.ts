@@ -525,17 +525,14 @@ export class Assembler implements Emitter {
       return `unknown.${typeName}`;
     }
 
-    // If the symbol comes from the current assembly or an assembly whose
-    // submodules we've already spidered, look up in the tables we are currently building
-    if (pkg.name === this.projectInfo.name) {
-      const submodule = this._submoduleMap.get(sym);
-      if (submodule != null) {
-        const submoduleNs =
-          this._submodules.get(submodule)!.fqnResolutionPrefix;
-        return `${submoduleNs}.${typeName}`;
-      }
-
-      return `${this.projectInfo.name}.${typeName}`;
+    // If the symbol comes from an assembly whose submodules we've already
+    // spidered (or from the current assembly), look up there. This relies
+    // on an entry-point import of the library having been done first
+    // (`import * as x from 'module-root';`)
+    const submodule = this._submoduleMap.get(sym);
+    if (submodule != null) {
+      const submoduleNs = this._submodules.get(submodule)!.fqnResolutionPrefix;
+      return `${submoduleNs}.${typeName}`;
     }
 
     // This is the fallback: in case we can't find a symbolId for the given
@@ -544,13 +541,24 @@ export class Assembler implements Emitter {
     // most likely won't be using submodules so this legacy guess will be correct.
     const fallbackFqn = `${pkg.name}.${typeName}`;
 
+    // If the type is coming from the current module, we won't find it in a dependency
+    if (pkg.name === this.projectInfo.name) {
+      return fallbackFqn;
+    }
+
     // Otherwise look up the symbol identifier in the dependency assemblies
+    // This is now the preferred mechanism but we can't do this as the only mechanism,
+    // as we may still have compile against very old assemblies that don't have a
+    // symbol identifier table at all.
     const dep = this.projectInfo.dependencyClosure.find(
       (d) => d.name === pkg.name,
     );
     if (!dep) {
       this._diagnostics.push(
-        JsiiDiagnostic.JSII_9000_UNKNOWN_MODULE.createDetached(pkg.name),
+        JsiiDiagnostic.JSII_9000_UNKNOWN_MODULE.create(
+          typeAnnotationNode,
+          pkg.name,
+        ),
       );
       return fallbackFqn;
     }
