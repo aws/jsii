@@ -3163,7 +3163,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "abstractMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"name\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "abstractMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"name\\"}]")]
         public abstract string AbstractMethod(string name);
 
 
@@ -3192,7 +3192,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 get => GetInstanceProperty<string>()!;
             }
 
-            [JsiiMethod(name: "abstractMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"name\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+            [JsiiMethod(name: "abstractMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"name\\"}]")]
             public override string AbstractMethod(string name)
             {
                 return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{name})!;
@@ -3334,13 +3334,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "someMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"str\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "someMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"str\\"}]")]
         protected abstract string SomeMethod(string str);
 
 
         /// <summary>Sets \`seed\` to \`this.property\`, then calls \`someMethod\` with \`this.property\` and returns the result.</summary>
         /// <param name="seed">a \`string\`.</param>
-        [JsiiMethod(name: "workItAll", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"a \`string\`.\\"},\\"name\\":\\"seed\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "workItAll", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"seed\\",\\"docs\\":{\\"summary\\":\\"a \`string\`.\\"}}]")]
         public virtual string WorkItAll(string seed)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{seed})!;
@@ -3368,7 +3368,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 set => SetInstanceProperty(value);
             }
 
-            [JsiiMethod(name: "someMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"str\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+            [JsiiMethod(name: "someMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"str\\"}]")]
             protected override string SomeMethod(string str)
             {
                 return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{str})!;
@@ -3387,7 +3387,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The "+" binary operation.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Add), fullyQualifiedName: "jsii-calc.Add", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"Left-hand side operand.\\"},\\"name\\":\\"lhs\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}},{\\"docs\\":{\\"summary\\":\\"Right-hand side operand.\\"},\\"name\\":\\"rhs\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Add), fullyQualifiedName: "jsii-calc.Add", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"lhs\\",\\"docs\\":{\\"summary\\":\\"Left-hand side operand.\\"}},{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"rhs\\",\\"docs\\":{\\"summary\\":\\"Right-hand side operand.\\"}}]")]
     public class Add : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation
     {
         /// <summary>Creates a BinaryOperation.</summary>
@@ -3462,7 +3462,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "anyIn", parametersJson: "[{\\"name\\":\\"inp\\",\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
+        [JsiiMethod(name: "anyIn", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"inp\\"}]")]
         public virtual void AnyIn(object inp)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{inp});
@@ -3474,7 +3474,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{})!;
         }
 
-        [JsiiMethod(name: "enumMethod", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.StringEnum\\"}}", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StringEnum\\"}}]")]
+        [JsiiMethod(name: "enumMethod", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.StringEnum\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.StringEnum\\"},\\"name\\":\\"value\\"}]")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum EnumMethod(Amazon.JSII.Tests.CalculatorNamespace.StringEnum @value)
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.StringEnum)}, new object[]{@value})!;
@@ -3667,27 +3667,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "getBar", parametersJson: "[{\\"name\\":\\"_p1\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"_p2\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "getBar", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"_p1\\"},{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"_p2\\"}]")]
         public virtual void GetBar(string p1, double p2)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double)}, new object[]{p1, p2});
         }
 
         /// <summary>getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.</summary>
-        [JsiiMethod(name: "getFoo", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"withParam\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "getFoo", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"withParam\\"}]")]
         public virtual string GetFoo(string withParam)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{withParam})!;
         }
 
-        [JsiiMethod(name: "setBar", parametersJson: "[{\\"name\\":\\"_x\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"_y\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"_z\\",\\"type\\":{\\"primitive\\":\\"boolean\\"}}]")]
+        [JsiiMethod(name: "setBar", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"_x\\"},{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"_y\\"},{\\"type\\":{\\"primitive\\":\\"boolean\\"},\\"name\\":\\"_z\\"}]")]
         public virtual void SetBar(string x, double y, bool z)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double), typeof(bool)}, new object[]{x, y, z});
         }
 
         /// <summary>setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.</summary>
-        [JsiiMethod(name: "setFoo", parametersJson: "[{\\"name\\":\\"_x\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"_y\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "setFoo", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"_x\\"},{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"_y\\"}]")]
         public virtual void SetFoo(string x, double y)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double)}, new object[]{x, y});
@@ -3704,7 +3704,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AmbiguousParameters), fullyQualifiedName: "jsii-calc.AmbiguousParameters", parametersJson: "[{\\"name\\":\\"scope\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"}},{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructParameterType\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AmbiguousParameters), fullyQualifiedName: "jsii-calc.AmbiguousParameters", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"},\\"name\\":\\"scope\\"},{\\"type\\":{\\"fqn\\":\\"jsii-calc.StructParameterType\\"},\\"name\\":\\"props\\"}]")]
     public class AmbiguousParameters : DeputyBase
     {
         public AmbiguousParameters(Amazon.JSII.Tests.CalculatorNamespace.Bell scope, Amazon.JSII.Tests.CalculatorNamespace.IStructParameterType props): base(new DeputyProps(new object?[]{scope, props}))
@@ -3844,7 +3844,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
         }
 
-        [JsiiMethod(name: "overrideMe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"mult\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]", isAsync: true)]
+        [JsiiMethod(name: "overrideMe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"mult\\"}]", isAsync: true)]
         public virtual double OverrideMe(double mult)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{mult})!;
@@ -3989,7 +3989,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Represents an operation with two operands.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"Left-hand side operand.\\"},\\"name\\":\\"lhs\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}},{\\"docs\\":{\\"summary\\":\\"Right-hand side operand.\\"},\\"name\\":\\"rhs\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"lhs\\",\\"docs\\":{\\"summary\\":\\"Left-hand side operand.\\"}},{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"rhs\\",\\"docs\\":{\\"summary\\":\\"Right-hand side operand.\\"}}]")]
     public abstract class BinaryOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
     {
         /// <summary>Creates a BinaryOperation.</summary>
@@ -4107,7 +4107,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Implement this method and have it return it's parameter.</summary>
         /// <param name="value">the value that should be returned.</param>
         /// <returns>\`value\`</returns>
-        [JsiiMethod(name: "giveItBack", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value that should be returned.\\"},\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
+        [JsiiMethod(name: "giveItBack", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"value\\",\\"docs\\":{\\"summary\\":\\"the value that should be returned.\\"}}]")]
         public abstract object GiveItBack(object @value);
 
 
@@ -4122,7 +4122,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// <summary>Implement this method and have it return it's parameter.</summary>
             /// <param name="value">the value that should be returned.</param>
             /// <returns>\`value\`</returns>
-            [JsiiMethod(name: "giveItBack", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value that should be returned.\\"},\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
+            [JsiiMethod(name: "giveItBack", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"value\\",\\"docs\\":{\\"summary\\":\\"the value that should be returned.\\"}}]")]
             public override object GiveItBack(object @value)
             {
                 return InvokeInstanceMethod<object>(new System.Type[]{typeof(object)}, new object[]{@value})!;
@@ -4159,7 +4159,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);</code>
     /// </example>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"Initialization properties.\\"},\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.CalculatorProps\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.CalculatorProps\\"},\\"name\\":\\"props\\",\\"docs\\":{\\"summary\\":\\"Initialization properties.\\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
         /// <summary>Creates a Calculator object.</summary>
@@ -4183,14 +4183,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Adds a number to the current value.</summary>
-        [JsiiMethod(name: "add", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "add", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"value\\"}]")]
         public virtual void Add(double @value)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
         }
 
         /// <summary>Multiplies the current value by a number.</summary>
-        [JsiiMethod(name: "mul", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "mul", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"value\\"}]")]
         public virtual void Mul(double @value)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
@@ -4204,7 +4204,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Raises the current value by a power.</summary>
-        [JsiiMethod(name: "pow", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "pow", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"value\\"}]")]
         public virtual void Pow(double @value)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
@@ -4346,7 +4346,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625
 
         /// <summary>Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).</summary>
         /// <param name="gen">a VERY pseudo random number generator.</param>
-        [JsiiMethod(name: "unwrap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"a VERY pseudo random number generator.\\"},\\"name\\":\\"gen\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"}}]")]
+        [JsiiMethod(name: "unwrap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"},\\"name\\":\\"gen\\",\\"docs\\":{\\"summary\\":\\"a VERY pseudo random number generator.\\"}}]")]
         protected abstract double Unwrap(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator gen);
 
 
@@ -4359,7 +4359,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625
 
             /// <summary>Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).</summary>
             /// <param name="gen">a VERY pseudo random number generator.</param>
-            [JsiiMethod(name: "unwrap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"a VERY pseudo random number generator.\\"},\\"name\\":\\"gen\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"}}]")]
+            [JsiiMethod(name: "unwrap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"},\\"name\\":\\"gen\\",\\"docs\\":{\\"summary\\":\\"a VERY pseudo random number generator.\\"}}]")]
             protected override double Unwrap(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator gen)
             {
                 return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator)}, new object[]{gen})!;
@@ -4385,7 +4385,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport
     ///
     /// <strong>See</strong>: https://github.com/aws/aws-cdk/issues/16625
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport.UnimportedSubmoduleType), fullyQualifiedName: "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport.UnimportedSubmoduleType), fullyQualifiedName: "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"value\\"}]")]
     public class UnimportedSubmoduleType : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
     {
         public UnimportedSubmoduleType(double @value): base(new DeputyProps(new object?[]{@value}))
@@ -4575,7 +4575,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollections), fullyQualifiedName: "jsii-calc.ClassWithCollections", parametersJson: "[{\\"name\\":\\"map\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"array\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollections), fullyQualifiedName: "jsii-calc.ClassWithCollections", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"map\\"},{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}},\\"name\\":\\"array\\"}]")]
     public class ClassWithCollections : DeputyBase
     {
         public ClassWithCollections(System.Collections.Generic.IDictionary<string, string> map, string[] array): base(new DeputyProps(new object?[]{map, array}))
@@ -4647,7 +4647,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithContainerTypes), fullyQualifiedName: "jsii-calc.ClassWithContainerTypes", parametersJson: "[{\\"name\\":\\"array\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}},{\\"name\\":\\"record\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"obj\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.ContainerProps\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithContainerTypes), fullyQualifiedName: "jsii-calc.ClassWithContainerTypes", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}},\\"name\\":\\"array\\"},{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"record\\"},{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"obj\\"},{\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.ContainerProps\\"},\\"name\\":\\"props\\"}]")]
     public class ClassWithContainerTypes : DeputyBase
     {
         public ClassWithContainerTypes(Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] array, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> record, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> obj, Amazon.JSII.Tests.CalculatorNamespace.IContainerProps? props = null): base(new DeputyProps(new object?[]{array, record, obj, props}))
@@ -4749,7 +4749,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithJavaReservedWords), fullyQualifiedName: "jsii-calc.ClassWithJavaReservedWords", parametersJson: "[{\\"name\\":\\"int\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithJavaReservedWords), fullyQualifiedName: "jsii-calc.ClassWithJavaReservedWords", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"int\\"}]")]
     public class ClassWithJavaReservedWords : DeputyBase
     {
         public ClassWithJavaReservedWords(string @int): base(new DeputyProps(new object?[]{@int}))
@@ -4770,7 +4770,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "import", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"assert\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "import", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"assert\\"}]")]
         public virtual string Import(string assert)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{assert})!;
@@ -4850,7 +4850,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "create", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\\"}}", parametersJson: "[{\\"name\\":\\"readOnlyString\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"readWriteString\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "create", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"readOnlyString\\"},{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"readWriteString\\"}]")]
         public static Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties Create(string readOnlyString, string readWriteString)
         {
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties), new System.Type[]{typeof(string), typeof(string)}, new object[]{readOnlyString, readWriteString})!;
@@ -5066,7 +5066,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut), fullyQualifiedName: "jsii-calc.ConstructorPassesThisOut", parametersJson: "[{\\"name\\":\\"consumer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.PartiallyInitializedThisConsumer\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut), fullyQualifiedName: "jsii-calc.ConstructorPassesThisOut", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.PartiallyInitializedThisConsumer\\"},\\"name\\":\\"consumer\\"}]")]
     public class ConstructorPassesThisOut : DeputyBase
     {
         public ConstructorPassesThisOut(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer consumer): base(new DeputyProps(new object?[]{consumer}))
@@ -5172,7 +5172,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumePureInterface), fullyQualifiedName: "jsii-calc.ConsumePureInterface", parametersJson: "[{\\"name\\":\\"delegate\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IStructReturningDelegate\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumePureInterface), fullyQualifiedName: "jsii-calc.ConsumePureInterface", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStructReturningDelegate\\"},\\"name\\":\\"delegate\\"}]")]
     public class ConsumePureInterface : DeputyBase
     {
         public ConsumePureInterface(Amazon.JSII.Tests.CalculatorNamespace.IStructReturningDelegate @delegate): base(new DeputyProps(new object?[]{@delegate}))
@@ -5240,7 +5240,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Returns whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "staticImplementedByObjectLiteral", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"}}]")]
+        [JsiiMethod(name: "staticImplementedByObjectLiteral", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public static bool StaticImplementedByObjectLiteral(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger ringer)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer})!;
@@ -5250,7 +5250,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Return whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "staticImplementedByPrivateClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"}}]")]
+        [JsiiMethod(name: "staticImplementedByPrivateClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public static bool StaticImplementedByPrivateClass(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger ringer)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer})!;
@@ -5260,7 +5260,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Return whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "staticImplementedByPublicClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"}}]")]
+        [JsiiMethod(name: "staticImplementedByPublicClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public static bool StaticImplementedByPublicClass(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger ringer)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer})!;
@@ -5270,7 +5270,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Return whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "staticWhenTypedAsClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IConcreteBellRinger\\"}}]")]
+        [JsiiMethod(name: "staticWhenTypedAsClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IConcreteBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public static bool StaticWhenTypedAsClass(Amazon.JSII.Tests.CalculatorNamespace.IConcreteBellRinger ringer)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IConcreteBellRinger)}, new object[]{ringer})!;
@@ -5280,7 +5280,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Returns whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "implementedByObjectLiteral", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"}}]")]
+        [JsiiMethod(name: "implementedByObjectLiteral", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public virtual bool ImplementedByObjectLiteral(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger ringer)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer})!;
@@ -5290,7 +5290,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Return whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "implementedByPrivateClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"}}]")]
+        [JsiiMethod(name: "implementedByPrivateClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public virtual bool ImplementedByPrivateClass(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger ringer)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer})!;
@@ -5300,7 +5300,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Return whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "implementedByPublicClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"}}]")]
+        [JsiiMethod(name: "implementedByPublicClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public virtual bool ImplementedByPublicClass(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger ringer)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer})!;
@@ -5310,7 +5310,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Return whether the bell was rung.
         /// </remarks>
-        [JsiiMethod(name: "whenTypedAsClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"ringer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IConcreteBellRinger\\"}}]")]
+        [JsiiMethod(name: "whenTypedAsClass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IConcreteBellRinger\\"},\\"name\\":\\"ringer\\"}]")]
         public virtual bool WhenTypedAsClass(Amazon.JSII.Tests.CalculatorNamespace.IConcreteBellRinger ringer)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IConcreteBellRinger)}, new object[]{ringer})!;
@@ -5348,13 +5348,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "consumeAnotherPublicInterface", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IAnotherPublicInterface\\"}}]")]
+        [JsiiMethod(name: "consumeAnotherPublicInterface", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IAnotherPublicInterface\\"},\\"name\\":\\"obj\\"}]")]
         public virtual string ConsumeAnotherPublicInterface(Amazon.JSII.Tests.CalculatorNamespace.IAnotherPublicInterface obj)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IAnotherPublicInterface)}, new object[]{obj})!;
         }
 
-        [JsiiMethod(name: "consumeNonInternalInterface", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.INonInternalInterface\\"}}]")]
+        [JsiiMethod(name: "consumeNonInternalInterface", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.INonInternalInterface\\"},\\"name\\":\\"obj\\"}]")]
         public virtual object ConsumeNonInternalInterface(Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface obj)
         {
             return InvokeInstanceMethod<object>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface)}, new object[]{obj})!;
@@ -5430,19 +5430,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "render", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"data\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.MyFirstStruct\\"}}]")]
+        [JsiiMethod(name: "render", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.MyFirstStruct\\"},\\"name\\":\\"data\\",\\"optional\\":true}]")]
         public virtual string Render(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct? data = null)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct)}, new object?[]{data})!;
         }
 
-        [JsiiMethod(name: "renderArbitrary", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"data\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"map\\"}}}]")]
+        [JsiiMethod(name: "renderArbitrary", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"data\\"}]")]
         public virtual string RenderArbitrary(System.Collections.Generic.IDictionary<string, object> data)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{data})!;
         }
 
-        [JsiiMethod(name: "renderMap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"map\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"map\\"}}}]")]
+        [JsiiMethod(name: "renderMap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"map\\"}]")]
         public virtual string RenderMap(System.Collections.Generic.IDictionary<string, object> map)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{map})!;
@@ -5501,7 +5501,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DefaultedConstructorArgument), fullyQualifiedName: "jsii-calc.DefaultedConstructorArgument", parametersJson: "[{\\"name\\":\\"arg1\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"arg2\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg3\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DefaultedConstructorArgument), fullyQualifiedName: "jsii-calc.DefaultedConstructorArgument", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"arg1\\",\\"optional\\":true},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"arg2\\"},{\\"type\\":{\\"primitive\\":\\"date\\"},\\"name\\":\\"arg3\\",\\"optional\\":true}]")]
     public class DefaultedConstructorArgument : DeputyBase
     {
         public DefaultedConstructorArgument(double? arg1 = null, string? arg2 = null, System.DateTime? arg3 = null): base(new DeputyProps(new object?[]{arg1, arg2, arg3}))
@@ -5606,7 +5606,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DeprecatedClass), fullyQualifiedName: "jsii-calc.DeprecatedClass", parametersJson: "[{\\"name\\":\\"readonlyString\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"mutableNumber\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DeprecatedClass), fullyQualifiedName: "jsii-calc.DeprecatedClass", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"readonlyString\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"mutableNumber\\"}]")]
     [System.Obsolete("a pretty boring class")]
     public class DeprecatedClass : DeputyBase
     {
@@ -6170,7 +6170,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "changePrivatePropertyValue", parametersJson: "[{\\"name\\":\\"newValue\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "changePrivatePropertyValue", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"newValue\\"}]")]
         public virtual void ChangePrivatePropertyValue(string newValue)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string)}, new object[]{newValue});
@@ -6221,7 +6221,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "method", parametersJson: "[{\\"name\\":\\"_requiredAny\\",\\"type\\":{\\"primitive\\":\\"any\\"}},{\\"name\\":\\"_optionalAny\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"any\\"}},{\\"name\\":\\"_optionalString\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "method", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"_requiredAny\\"},{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"_optionalAny\\",\\"optional\\":true},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"_optionalString\\"}]")]
         public virtual void Method(object requiredAny, object? optionalAny = null, string? optionalString = null)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(object), typeof(object), typeof(string)}, new object?[]{requiredAny, optionalAny, optionalString});
@@ -6282,7 +6282,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// This will print out a friendly greeting intended for the indicated person.
         /// </remarks>
-        [JsiiMethod(name: "greet", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"The person to be greeted.\\"},\\"name\\":\\"greetee\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.Greetee\\"}}]")]
+        [JsiiMethod(name: "greet", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.Greetee\\"},\\"name\\":\\"greetee\\",\\"optional\\":true,\\"docs\\":{\\"summary\\":\\"The person to be greeted.\\"}}]")]
         public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee? greetee = null)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IGreetee)}, new object?[]{greetee})!;
@@ -6330,7 +6330,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "optionalAndVariadic", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"optional\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"things\\",\\"type\\":{\\"primitive\\":\\"string\\"},\\"variadic\\":true}]")]
+        [JsiiMethod(name: "optionalAndVariadic", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"optional\\"},{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"things\\",\\"variadic\\":true}]")]
         public virtual string OptionalAndVariadic(string? optional = null, params string[] things)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string), typeof(string[])}, new object?[]{optional, things})!;
@@ -6417,7 +6417,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Ensures we can override a dynamic property that was inherited.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearer), fullyQualifiedName: "jsii-calc.DynamicPropertyBearer", parametersJson: "[{\\"name\\":\\"valueStore\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearer), fullyQualifiedName: "jsii-calc.DynamicPropertyBearer", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"valueStore\\"}]")]
     public class DynamicPropertyBearer : DeputyBase
     {
         public DynamicPropertyBearer(string valueStore): base(new DeputyProps(new object?[]{valueStore}))
@@ -6463,7 +6463,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearerChild), fullyQualifiedName: "jsii-calc.DynamicPropertyBearerChild", parametersJson: "[{\\"name\\":\\"originalValue\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearerChild), fullyQualifiedName: "jsii-calc.DynamicPropertyBearerChild", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"originalValue\\"}]")]
     public class DynamicPropertyBearerChild : Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearer
     {
         public DynamicPropertyBearerChild(string originalValue): base(new DeputyProps(new object?[]{originalValue}))
@@ -6487,7 +6487,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Sets \`this.dynamicProperty\` to the new value, and returns the old value.</summary>
         /// <param name="newValue">the new value to be set.</param>
         /// <returns>the old value that was set.</returns>
-        [JsiiMethod(name: "overrideValue", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the new value to be set.\\"},\\"name\\":\\"newValue\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "overrideValue", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"newValue\\",\\"docs\\":{\\"summary\\":\\"the new value to be set.\\"}}]")]
         public virtual string OverrideValue(string newValue)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{newValue})!;
@@ -6511,7 +6511,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Entropy), fullyQualifiedName: "jsii-calc.Entropy", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"your implementation of \`WallClock\`.\\"},\\"name\\":\\"clock\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IWallClock\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Entropy), fullyQualifiedName: "jsii-calc.Entropy", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IWallClock\\"},\\"name\\":\\"clock\\",\\"docs\\":{\\"summary\\":\\"your implementation of \`WallClock\`.\\"}}]")]
     public abstract class Entropy : DeputyBase
     {
         /// <summary>Creates a new instance of Entropy.</summary>
@@ -6545,7 +6545,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Implement this method such that it returns \`word\`.</summary>
         /// <param name="word">the value to return.</param>
         /// <returns>\`word\`.</returns>
-        [JsiiMethod(name: "repeat", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value to return.\\"},\\"name\\":\\"word\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "repeat", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"word\\",\\"docs\\":{\\"summary\\":\\"the value to return.\\"}}]")]
         public abstract string Repeat(string word);
 
 
@@ -6560,7 +6560,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// <summary>Implement this method such that it returns \`word\`.</summary>
             /// <param name="word">the value to return.</param>
             /// <returns>\`word\`.</returns>
-            [JsiiMethod(name: "repeat", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value to return.\\"},\\"name\\":\\"word\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+            [JsiiMethod(name: "repeat", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"word\\",\\"docs\\":{\\"summary\\":\\"the value to return.\\"}}]")]
             public override string Repeat(string word)
             {
                 return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{word})!;
@@ -6644,7 +6644,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// Used to check that undefined/null hash values
         /// are being erased when sending values from native code to JS.
         /// </remarks>
-        [JsiiMethod(name: "doesKeyExist", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"opts\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.EraseUndefinedHashValuesOptions\\"}},{\\"name\\":\\"key\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "doesKeyExist", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.EraseUndefinedHashValuesOptions\\"},\\"name\\":\\"opts\\"},{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"key\\"}]")]
         public static bool DoesKeyExist(Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions opts, string key)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions), typeof(string)}, new object[]{opts, key})!;
@@ -6708,7 +6708,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExperimentalClass), fullyQualifiedName: "jsii-calc.ExperimentalClass", parametersJson: "[{\\"name\\":\\"readonlyString\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"mutableNumber\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExperimentalClass), fullyQualifiedName: "jsii-calc.ExperimentalClass", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"readonlyString\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"mutableNumber\\"}]")]
     public class ExperimentalClass : DeputyBase
     {
         /// <remarks>
@@ -6830,7 +6830,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExportedBaseClass), fullyQualifiedName: "jsii-calc.ExportedBaseClass", parametersJson: "[{\\"name\\":\\"success\\",\\"type\\":{\\"primitive\\":\\"boolean\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExportedBaseClass), fullyQualifiedName: "jsii-calc.ExportedBaseClass", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"boolean\\"},\\"name\\":\\"success\\"}]")]
     public class ExportedBaseClass : DeputyBase
     {
         public ExportedBaseClass(bool success): base(new DeputyProps(new object?[]{success}))
@@ -6901,7 +6901,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// <strong>External</strong>: true
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExternalClass), fullyQualifiedName: "jsii-calc.ExternalClass", parametersJson: "[{\\"name\\":\\"readonlyString\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"mutableNumber\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExternalClass), fullyQualifiedName: "jsii-calc.ExternalClass", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"readonlyString\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"mutableNumber\\"}]")]
     public class ExternalClass : DeputyBase
     {
         /// <remarks>
@@ -7045,21 +7045,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.</summary>
-        [JsiiMethod(name: "derivedToFirst", returnsJson: "{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.MyFirstStruct\\"}}", parametersJson: "[{\\"name\\":\\"derived\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.DerivedStruct\\"}}]")]
+        [JsiiMethod(name: "derivedToFirst", returnsJson: "{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.MyFirstStruct\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.DerivedStruct\\"},\\"name\\":\\"derived\\"}]")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct DerivedToFirst(Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct derived)
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct)}, new object[]{derived})!;
         }
 
         /// <summary>Returns the boolean from a DerivedStruct struct.</summary>
-        [JsiiMethod(name: "readDerivedNonPrimitive", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.DoubleTrouble\\"}}", parametersJson: "[{\\"name\\":\\"derived\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.DerivedStruct\\"}}]")]
+        [JsiiMethod(name: "readDerivedNonPrimitive", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.DoubleTrouble\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.DerivedStruct\\"},\\"name\\":\\"derived\\"}]")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble ReadDerivedNonPrimitive(Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct derived)
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct)}, new object[]{derived})!;
         }
 
         /// <summary>Returns the "anumber" from a MyFirstStruct struct;</summary>
-        [JsiiMethod(name: "readFirstNumber", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"first\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.MyFirstStruct\\"}}]")]
+        [JsiiMethod(name: "readFirstNumber", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.MyFirstStruct\\"},\\"name\\":\\"first\\"}]")]
         public virtual double ReadFirstNumber(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct first)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct)}, new object[]{first})!;
@@ -7130,7 +7130,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "betterGreeting", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"friendly\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}}]")]
+        [JsiiMethod(name: "betterGreeting", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},\\"name\\":\\"friendly\\"}]")]
         public virtual string BetterGreeting(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly friendly)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)}, new object[]{friendly})!;
@@ -7301,7 +7301,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IBellRinger), fullyQualifiedName: "jsii-calc.IBellRinger")]
     public interface IBellRinger
     {
-        [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"name\\":\\"bell\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBell\\"}}]")]
+        [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBell\\"},\\"name\\":\\"bell\\"}]")]
         void YourTurn(Amazon.JSII.Tests.CalculatorNamespace.IBell bell);
 
         /// <summary>Takes the object parameter as an interface.</summary>
@@ -7312,7 +7312,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
             }
 
-            [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"name\\":\\"bell\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IBell\\"}}]")]
+            [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IBell\\"},\\"name\\":\\"bell\\"}]")]
             public void YourTurn(Amazon.JSII.Tests.CalculatorNamespace.IBell bell)
             {
                 InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBell)}, new object[]{bell});
@@ -7452,7 +7452,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IConcreteBellRinger), fullyQualifiedName: "jsii-calc.IConcreteBellRinger")]
     public interface IConcreteBellRinger
     {
-        [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"name\\":\\"bell\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"}}]")]
+        [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"},\\"name\\":\\"bell\\"}]")]
         void YourTurn(Amazon.JSII.Tests.CalculatorNamespace.Bell bell);
 
         /// <summary>Takes the object parameter as a calss.</summary>
@@ -7463,7 +7463,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
             }
 
-            [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"name\\":\\"bell\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"}}]")]
+            [JsiiMethod(name: "yourTurn", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"},\\"name\\":\\"bell\\"}]")]
             public void YourTurn(Amazon.JSII.Tests.CalculatorNamespace.Bell bell)
             {
                 InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Bell)}, new object[]{bell});
@@ -8862,7 +8862,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IInterfaceWithOptionalMethodArguments), fullyQualifiedName: "jsii-calc.IInterfaceWithOptionalMethodArguments")]
     public interface IInterfaceWithOptionalMethodArguments
     {
-        [JsiiMethod(name: "hello", parametersJson: "[{\\"name\\":\\"arg1\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg2\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "hello", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"arg1\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"arg2\\"}]")]
         void Hello(string arg1, double? arg2 = null);
 
         /// <summary>awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.</summary>
@@ -8873,7 +8873,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
             }
 
-            [JsiiMethod(name: "hello", parametersJson: "[{\\"name\\":\\"arg1\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg2\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+            [JsiiMethod(name: "hello", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"arg1\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"arg2\\"}]")]
             public void Hello(string arg1, double? arg2 = null)
             {
                 InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double)}, new object?[]{arg1, arg2});
@@ -11274,7 +11274,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "makeInterfaces", returnsJson: "{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.IDoublable\\"},\\"kind\\":\\"array\\"}}}", parametersJson: "[{\\"name\\":\\"count\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "makeInterfaces", returnsJson: "{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.IDoublable\\"},\\"kind\\":\\"array\\"}}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"count\\"}]")]
         public static Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable[] MakeInterfaces(double count)
         {
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.InterfacesMaker), new System.Type[]{typeof(double)}, new object[]{count})!;
@@ -11436,7 +11436,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417Derived), fullyQualifiedName: "jsii-calc.JSII417Derived", parametersJson: "[{\\"name\\":\\"property\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417Derived), fullyQualifiedName: "jsii-calc.JSII417Derived", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"property\\"}]")]
     public class JSII417Derived : Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase
     {
         public JSII417Derived(string property): base(new DeputyProps(new object?[]{property}))
@@ -12219,7 +12219,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{})!;
         }
 
-        [JsiiMethod(name: "stringify", returnsJson: "{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"value\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
+        [JsiiMethod(name: "stringify", returnsJson: "{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"value\\",\\"optional\\":true}]")]
         public static string? Stringify(object? @value = null)
         {
             return InvokeStaticMethod<string?>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{typeof(object)}, new object?[]{@value});
@@ -12237,7 +12237,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Validates that nested classes get correct code generation for the occasional forward reference.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LevelOne), fullyQualifiedName: "jsii-calc.LevelOne", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.LevelOneProps\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LevelOne), fullyQualifiedName: "jsii-calc.LevelOne", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.LevelOneProps\\"},\\"name\\":\\"props\\"}]")]
     public class LevelOne : DeputyBase
     {
         public LevelOne(Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps props): base(new DeputyProps(new object?[]{props}))
@@ -12517,7 +12517,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2530
     /// <remarks>
     /// <strong>See</strong>: https://github.com/aws/jsii/issues/2530
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2530.MyClass), fullyQualifiedName: "jsii-calc.module2530.MyClass", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2530.MyClass), fullyQualifiedName: "jsii-calc.module2530.MyClass", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"_\\"}]")]
     public class MyClass : DeputyBase
     {
         public MyClass(double _): base(new DeputyProps(new object?[]{_}))
@@ -12538,13 +12538,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2530
         {
         }
 
-        [JsiiMethod(name: "bar", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"boolean\\"}}]")]
+        [JsiiMethod(name: "bar", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"boolean\\"},\\"name\\":\\"_\\"}]")]
         public static void Bar(bool _)
         {
             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2530.MyClass), new System.Type[]{typeof(bool)}, new object[]{_});
         }
 
-        [JsiiMethod(name: "foo", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "foo", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"_\\"}]")]
         public virtual void Foo(string _)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string)}, new object[]{_});
@@ -12605,7 +12605,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2647
     /// <remarks>
     /// <strong>See</strong>: https://github.com/aws/jsii/issues/2647
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2647.ExtendAndImplement), fullyQualifiedName: "jsii-calc.module2647.ExtendAndImplement", parametersJson: "[{\\"name\\":\\"very\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2647.ExtendAndImplement), fullyQualifiedName: "jsii-calc.module2647.ExtendAndImplement", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"},\\"name\\":\\"very\\"}]")]
     public class ExtendAndImplement : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.BaseFor2647, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
     {
         /// <remarks>
@@ -12677,13 +12677,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2689.Methods
         {
         }
 
-        [JsiiMethod(name: "bar", parametersJson: "[{\\"name\\":\\"_bar\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-base.BaseProps\\"},\\"kind\\":\\"map\\"}}}]")]
+        [JsiiMethod(name: "bar", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-base.BaseProps\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"_bar\\"}]")]
         public virtual void Bar(System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps> bar)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps>)}, new object[]{bar});
         }
 
-        [JsiiMethod(name: "foo", parametersJson: "[{\\"name\\":\\"_values\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"},\\"kind\\":\\"array\\"}}}]")]
+        [JsiiMethod(name: "foo", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"},\\"kind\\":\\"array\\"}},\\"name\\":\\"_values\\"}]")]
         public virtual void Foo(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number[] values)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number[])}, new object[]{values});
@@ -13678,7 +13678,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The "*" binary operation.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"Left-hand side operand.\\"},\\"name\\":\\"lhs\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}},{\\"docs\\":{\\"summary\\":\\"Right-hand side operand.\\"},\\"name\\":\\"rhs\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"lhs\\",\\"docs\\":{\\"summary\\":\\"Left-hand side operand.\\"}},{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"rhs\\",\\"docs\\":{\\"summary\\":\\"Right-hand side operand.\\"}}]")]
     public class Multiply : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
     {
         /// <summary>Creates a BinaryOperation.</summary>
@@ -13788,7 +13788,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The negation operation ("-value").</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Negate), fullyQualifiedName: "jsii-calc.Negate", parametersJson: "[{\\"name\\":\\"operand\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Negate), fullyQualifiedName: "jsii-calc.Negate", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"operand\\"}]")]
     public class Negate : Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier
     {
         public Negate(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand): base(new DeputyProps(new object?[]{operand}))
@@ -14054,7 +14054,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#282, aws-cdk#157: null should be treated as "undefined".</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\\"name\\":\\"_param1\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"optional\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"_param1\\"},{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"optional\\",\\"optional\\":true}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {
         public NullShouldBeTreatedAsUndefined(string param1, object? optional = null): base(new DeputyProps(new object?[]{param1, optional}))
@@ -14075,13 +14075,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\\"name\\":\\"value\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
+        [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"value\\",\\"optional\\":true}]")]
         public virtual void GiveMeUndefined(object? @value = null)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object?[]{@value});
         }
 
-        [JsiiMethod(name: "giveMeUndefinedInsideAnObject", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.NullShouldBeTreatedAsUndefinedData\\"}}]")]
+        [JsiiMethod(name: "giveMeUndefinedInsideAnObject", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.NullShouldBeTreatedAsUndefinedData\\"},\\"name\\":\\"input\\"}]")]
         public virtual void GiveMeUndefinedInsideAnObject(Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData input)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData)}, new object[]{input});
@@ -14144,7 +14144,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This allows us to test that a reference can be stored for objects that implement interfaces.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NumberGenerator), fullyQualifiedName: "jsii-calc.NumberGenerator", parametersJson: "[{\\"name\\":\\"generator\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NumberGenerator), fullyQualifiedName: "jsii-calc.NumberGenerator", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"},\\"name\\":\\"generator\\"}]")]
     public class NumberGenerator : DeputyBase
     {
         public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator generator): base(new DeputyProps(new object?[]{generator}))
@@ -14165,7 +14165,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "isSameGenerator", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"gen\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"}}]")]
+        [JsiiMethod(name: "isSameGenerator", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"},\\"name\\":\\"gen\\"}]")]
         public virtual bool IsSameGenerator(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator gen)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator)}, new object[]{gen})!;
@@ -14218,14 +14218,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Returns the sum of all values.</summary>
-        [JsiiMethod(name: "sumFromArray", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"values\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"kind\\":\\"array\\"}}}]")]
+        [JsiiMethod(name: "sumFromArray", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"kind\\":\\"array\\"}},\\"name\\":\\"values\\"}]")]
         public virtual double SumFromArray(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue[] values)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue[])}, new object[]{values})!;
         }
 
         /// <summary>Returns the sum of all values in a map.</summary>
-        [JsiiMethod(name: "sumFromMap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"values\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"kind\\":\\"map\\"}}}]")]
+        [JsiiMethod(name: "sumFromMap", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"values\\"}]")]
         public virtual double SumFromMap(System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue> values)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue>)}, new object[]{values})!;
@@ -14359,7 +14359,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalArgumentInvoker), fullyQualifiedName: "jsii-calc.OptionalArgumentInvoker", parametersJson: "[{\\"name\\":\\"delegate\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithOptionalMethodArguments\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalArgumentInvoker), fullyQualifiedName: "jsii-calc.OptionalArgumentInvoker", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithOptionalMethodArguments\\"},\\"name\\":\\"delegate\\"}]")]
     public class OptionalArgumentInvoker : DeputyBase
     {
         public OptionalArgumentInvoker(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithOptionalMethodArguments @delegate): base(new DeputyProps(new object?[]{@delegate}))
@@ -14403,7 +14403,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalConstructorArgument), fullyQualifiedName: "jsii-calc.OptionalConstructorArgument", parametersJson: "[{\\"name\\":\\"arg1\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"arg2\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg3\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalConstructorArgument), fullyQualifiedName: "jsii-calc.OptionalConstructorArgument", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"arg1\\"},{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"arg2\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"},\\"name\\":\\"arg3\\"}]")]
     public class OptionalConstructorArgument : DeputyBase
     {
         public OptionalConstructorArgument(double arg1, string arg2, System.DateTime? arg3 = null): base(new DeputyProps(new object?[]{arg1, arg2, arg3}))
@@ -14476,7 +14476,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalStructConsumer), fullyQualifiedName: "jsii-calc.OptionalStructConsumer", parametersJson: "[{\\"name\\":\\"optionalStruct\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.OptionalStruct\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalStructConsumer), fullyQualifiedName: "jsii-calc.OptionalStructConsumer", parametersJson: "[{\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.OptionalStruct\\"},\\"name\\":\\"optionalStruct\\"}]")]
     public class OptionalStructConsumer : DeputyBase
     {
         public OptionalStructConsumer(Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct? optionalStruct = null): base(new DeputyProps(new object?[]{optionalStruct}))
@@ -14608,7 +14608,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "test", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IReturnsNumber\\"}}]")]
+        [JsiiMethod(name: "test", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IReturnsNumber\\"},\\"name\\":\\"obj\\"}]")]
         public virtual double Test(Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber obj)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber)}, new object[]{obj})!;
@@ -14670,7 +14670,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "consumePartiallyInitializedThis", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.ConstructorPassesThisOut\\"}},{\\"name\\":\\"dt\\",\\"type\\":{\\"primitive\\":\\"date\\"}},{\\"name\\":\\"ev\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}}]")]
+        [JsiiMethod(name: "consumePartiallyInitializedThis", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.ConstructorPassesThisOut\\"},\\"name\\":\\"obj\\"},{\\"type\\":{\\"primitive\\":\\"date\\"},\\"name\\":\\"dt\\"},{\\"type\\":{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"},\\"name\\":\\"ev\\"}]")]
         public abstract string ConsumePartiallyInitializedThis(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut obj, System.DateTime dt, Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum ev);
 
 
@@ -14681,7 +14681,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
             }
 
-            [JsiiMethod(name: "consumePartiallyInitializedThis", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.ConstructorPassesThisOut\\"}},{\\"name\\":\\"dt\\",\\"type\\":{\\"primitive\\":\\"date\\"}},{\\"name\\":\\"ev\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}}]")]
+            [JsiiMethod(name: "consumePartiallyInitializedThis", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.ConstructorPassesThisOut\\"},\\"name\\":\\"obj\\"},{\\"type\\":{\\"primitive\\":\\"date\\"},\\"name\\":\\"dt\\"},{\\"type\\":{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"},\\"name\\":\\"ev\\"}]")]
             public override string ConsumePartiallyInitializedThis(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut obj, System.DateTime dt, Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum ev)
             {
                 return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut), typeof(System.DateTime), typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum)}, new object[]{obj, dt, ev})!;
@@ -14720,7 +14720,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "sayHello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"friendly\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}}]")]
+        [JsiiMethod(name: "sayHello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},\\"name\\":\\"friendly\\"}]")]
         public virtual string SayHello(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly friendly)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)}, new object[]{friendly})!;
@@ -14738,7 +14738,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The power operation.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"The base of the power.\\"},\\"name\\":\\"base\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}},{\\"docs\\":{\\"summary\\":\\"The number of times to multiply.\\"},\\"name\\":\\"pow\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"base\\",\\"docs\\":{\\"summary\\":\\"The base of the power.\\"}},{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"pow\\",\\"docs\\":{\\"summary\\":\\"The number of times to multiply.\\"}}]")]
     public class Power : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
         /// <summary>Creates a Power operation.</summary>
@@ -15104,7 +15104,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.ClassWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.ClassWithSelf", parametersJson: "[{\\"name\\":\\"self\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.ClassWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.ClassWithSelf", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"self\\"}]")]
     public class ClassWithSelf : DeputyBase
     {
         public ClassWithSelf(string self): base(new DeputyProps(new object?[]{self}))
@@ -15125,7 +15125,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
         {
         }
 
-        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"self\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"self\\"}]")]
         public virtual string Method(double self)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(double)}, new object[]{self})!;
@@ -15148,7 +15148,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.ClassWithSelfKwarg), fullyQualifiedName: "jsii-calc.PythonSelf.ClassWithSelfKwarg", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.PythonSelf.StructWithSelf\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.ClassWithSelfKwarg), fullyQualifiedName: "jsii-calc.PythonSelf.ClassWithSelfKwarg", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.PythonSelf.StructWithSelf\\"},\\"name\\":\\"props\\"}]")]
     public class ClassWithSelfKwarg : DeputyBase
     {
         public ClassWithSelfKwarg(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf props): base(new DeputyProps(new object?[]{props}))
@@ -15189,7 +15189,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
     [JsiiInterface(nativeType: typeof(IInterfaceWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.IInterfaceWithSelf")]
     public interface IInterfaceWithSelf
     {
-        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"self\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"self\\"}]")]
         string Method(double self);
 
         [JsiiTypeProxy(nativeType: typeof(IInterfaceWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.IInterfaceWithSelf")]
@@ -15199,7 +15199,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
             {
             }
 
-            [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"self\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+            [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"self\\"}]")]
             public string Method(double self)
             {
                 return InvokeInstanceMethod<string>(new System.Type[]{typeof(double)}, new object[]{self})!;
@@ -15302,7 +15302,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule?>(new System.Type[]{}, new object[]{});
         }
 
-        [JsiiMethod(name: "saveFoo", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.EnumFromScopedModule\\"}}]")]
+        [JsiiMethod(name: "saveFoo", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.EnumFromScopedModule\\"},\\"name\\":\\"value\\"}]")]
         public virtual void SaveFoo(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule @value)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule)}, new object[]{@value});
@@ -15424,7 +15424,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "validate", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.RootStruct\\"}}]")]
+        [JsiiMethod(name: "validate", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.RootStruct\\"},\\"name\\":\\"struct\\"}]")]
         public static void Validate(Amazon.JSII.Tests.CalculatorNamespace.IRootStruct @struct)
         {
             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.RootStructValidator), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IRootStruct)}, new object[]{@struct});
@@ -15462,20 +15462,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "methodWithDefaultedArguments", parametersJson: "[{\\"name\\":\\"arg1\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"arg2\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg3\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"}}]")]
+        [JsiiMethod(name: "methodWithDefaultedArguments", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"arg1\\",\\"optional\\":true},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"arg2\\"},{\\"type\\":{\\"primitive\\":\\"date\\"},\\"name\\":\\"arg3\\",\\"optional\\":true}]")]
         public virtual void MethodWithDefaultedArguments(double? arg1 = null, string? arg2 = null, System.DateTime? arg3 = null)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double), typeof(string), typeof(System.DateTime)}, new object?[]{arg1, arg2, arg3});
         }
 
-        [JsiiMethod(name: "methodWithOptionalAnyArgument", parametersJson: "[{\\"name\\":\\"arg\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
+        [JsiiMethod(name: "methodWithOptionalAnyArgument", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"any\\"},\\"name\\":\\"arg\\",\\"optional\\":true}]")]
         public virtual void MethodWithOptionalAnyArgument(object? arg = null)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object?[]{arg});
         }
 
         /// <summary>Used to verify verification of number of method arguments.</summary>
-        [JsiiMethod(name: "methodWithOptionalArguments", parametersJson: "[{\\"name\\":\\"arg1\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"arg2\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg3\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"}}]")]
+        [JsiiMethod(name: "methodWithOptionalArguments", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"arg1\\"},{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"arg2\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"},\\"name\\":\\"arg3\\"}]")]
         public virtual void MethodWithOptionalArguments(double arg1, string arg2, System.DateTime? arg3 = null)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double), typeof(string), typeof(System.DateTime)}, new object?[]{arg1, arg2, arg3});
@@ -15596,7 +15596,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "isSingletonInt", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "isSingletonInt", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"value\\"}]")]
         public virtual bool IsSingletonInt(double @value)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(double)}, new object[]{@value})!;
@@ -15654,7 +15654,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "isSingletonString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "isSingletonString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"value\\"}]")]
         public virtual bool IsSingletonString(string @value)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(string)}, new object[]{@value})!;
@@ -15765,7 +15765,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StableClass), fullyQualifiedName: "jsii-calc.StableClass", parametersJson: "[{\\"name\\":\\"readonlyString\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"mutableNumber\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StableClass), fullyQualifiedName: "jsii-calc.StableClass", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"readonlyString\\"},{\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"mutableNumber\\"}]")]
     public class StableClass : DeputyBase
     {
         public StableClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object?[]{readonlyString, mutableNumber}))
@@ -15995,7 +15995,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), fullyQualifiedName: "jsii-calc.Statics", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), fullyQualifiedName: "jsii-calc.Statics", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"value\\"}]")]
     public class Statics : DeputyBase
     {
         public Statics(string @value): base(new DeputyProps(new object?[]{@value}))
@@ -16018,7 +16018,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Jsdocs for static method.</summary>
         /// <param name="name">The name of the person to say hello to.</param>
-        [JsiiMethod(name: "staticMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"The name of the person to say hello to.\\"},\\"name\\":\\"name\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "staticMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"name\\",\\"docs\\":{\\"summary\\":\\"The name of the person to say hello to.\\"}}]")]
         public static string StaticMethod(string name)
         {
             return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), new System.Type[]{typeof(string)}, new object[]{name})!;
@@ -16294,13 +16294,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"_positional\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"inputs\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.TopLevelStruct\\"},\\"variadic\\":true}]")]
+        [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"_positional\\"},{\\"type\\":{\\"fqn\\":\\"jsii-calc.TopLevelStruct\\"},\\"name\\":\\"inputs\\",\\"variadic\\":true}]")]
         public static double HowManyVarArgsDidIPass(double positional, params Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct[] inputs)
         {
             return InvokeStaticMethod<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), new System.Type[]{typeof(double), typeof(Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct[])}, new object[]{positional, inputs})!;
         }
 
-        [JsiiMethod(name: "roundTrip", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.TopLevelStruct\\"}}", parametersJson: "[{\\"name\\":\\"_positional\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.TopLevelStruct\\"}}]")]
+        [JsiiMethod(name: "roundTrip", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.TopLevelStruct\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"_positional\\"},{\\"type\\":{\\"fqn\\":\\"jsii-calc.TopLevelStruct\\"},\\"name\\":\\"input\\"}]")]
         public static Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct RoundTrip(double positional, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct input)
         {
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), new System.Type[]{typeof(double), typeof(Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct)}, new object[]{positional, input})!;
@@ -16334,13 +16334,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "isStructA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
+        [JsiiMethod(name: "isStructA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"name\\":\\"struct\\"}]")]
         public static bool IsStructA(object @struct)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
         }
 
-        [JsiiMethod(name: "isStructB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
+        [JsiiMethod(name: "isStructB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"name\\":\\"struct\\"}]")]
         public static bool IsStructB(object @struct)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
@@ -16915,7 +16915,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
         {
         }
 
-        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.child.KwargsProps\\"}}]")]
+        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.child.KwargsProps\\"},\\"name\\":\\"props\\"}]")]
         public static bool Method(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IKwargsProps? props = null)
         {
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated.Kwargs), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IKwargsProps)}, new object?[]{props})!;
@@ -16950,7 +16950,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass), fullyQualifiedName: "jsii-calc.submodule.MyClass", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.child.SomeStruct\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass), fullyQualifiedName: "jsii-calc.submodule.MyClass", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.child.SomeStruct\\"},\\"name\\":\\"props\\"}]")]
     public class MyClass : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.DeeplyNested.INamespaced
     {
         public MyClass(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct props): base(new DeputyProps(new object?[]{props}))
@@ -16971,7 +16971,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
         {
         }
 
-        [JsiiMethod(name: "methodWithSpecialParam", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.param.SpecialParameter\\"}}]")]
+        [JsiiMethod(name: "methodWithSpecialParam", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.param.SpecialParameter\\"},\\"name\\":\\"param\\"}]")]
         public virtual string MethodWithSpecialParam(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter param)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter)}, new object[]{param})!;
@@ -17272,7 +17272,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilder), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilder", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"some identifier.\\"},\\"name\\":\\"id\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"docs\\":{\\"summary\\":\\"the default value of \`bar\`.\\"},\\"name\\":\\"defaultBar\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"docs\\":{\\"summary\\":\\"some props once can provide.\\"},\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.SupportsNiceJavaBuilderProps\\"}},{\\"docs\\":{\\"summary\\":\\"a variadic continuation.\\"},\\"name\\":\\"rest\\",\\"type\\":{\\"primitive\\":\\"string\\"},\\"variadic\\":true}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilder), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilder", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"id\\",\\"docs\\":{\\"summary\\":\\"some identifier.\\"}},{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"defaultBar\\",\\"optional\\":true,\\"docs\\":{\\"summary\\":\\"the default value of \`bar\`.\\"}},{\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.SupportsNiceJavaBuilderProps\\"},\\"name\\":\\"props\\",\\"docs\\":{\\"summary\\":\\"some props once can provide.\\"}},{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"rest\\",\\"variadic\\":true,\\"docs\\":{\\"summary\\":\\"a variadic continuation.\\"}}]")]
     public class SupportsNiceJavaBuilder : Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilderWithRequiredProps
     {
         /// <param name="id">some identifier.</param>
@@ -17358,7 +17358,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>We can generate fancy builders in Java for classes which take a mix of positional &amp; struct parameters.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilderWithRequiredProps), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"some identifier of your choice.\\"},\\"name\\":\\"id\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"docs\\":{\\"summary\\":\\"some properties.\\"},\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.SupportsNiceJavaBuilderProps\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilderWithRequiredProps), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"id\\",\\"docs\\":{\\"summary\\":\\"some identifier of your choice.\\"}},{\\"type\\":{\\"fqn\\":\\"jsii-calc.SupportsNiceJavaBuilderProps\\"},\\"name\\":\\"props\\",\\"docs\\":{\\"summary\\":\\"some properties.\\"}}]")]
     public class SupportsNiceJavaBuilderWithRequiredProps : DeputyBase
     {
         /// <param name="id">some identifier of your choice.</param>
@@ -17445,13 +17445,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
         }
 
-        [JsiiMethod(name: "modifyOtherProperty", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "modifyOtherProperty", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"value\\"}]")]
         public virtual void ModifyOtherProperty(string @value)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string)}, new object[]{@value});
         }
 
-        [JsiiMethod(name: "modifyValueOfTheProperty", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "modifyValueOfTheProperty", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"value\\"}]")]
         public virtual void ModifyValueOfTheProperty(string @value)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string)}, new object[]{@value});
@@ -17481,13 +17481,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
-        [JsiiMethod(name: "virtualMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"n\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "virtualMethod", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"n\\"}]")]
         public virtual double VirtualMethod(double n)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{n})!;
         }
 
-        [JsiiMethod(name: "writeA", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "writeA", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"value\\"}]")]
         public virtual void WriteA(double @value)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
@@ -17567,14 +17567,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Returns true if \`foo\` is \`StringEnum.A\`.</summary>
-        [JsiiMethod(name: "isStringEnumA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}}]")]
+        [JsiiMethod(name: "isStringEnumA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"},\\"name\\":\\"input\\"}]")]
         public virtual bool IsStringEnumA(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum input)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum)}, new object[]{input})!;
         }
 
         /// <summary>Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.</summary>
-        [JsiiMethod(name: "isStringEnumB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"}}]")]
+        [JsiiMethod(name: "isStringEnumB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.StructWithEnum\\"},\\"name\\":\\"input\\"}]")]
         public virtual bool IsStringEnumB(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum input)
         {
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum)}, new object[]{input})!;
@@ -17802,7 +17802,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>An operation on a single operand.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation", parametersJson: "[{\\"name\\":\\"operand\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"name\\":\\"operand\\"}]")]
     public abstract class UnaryOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
         protected UnaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand): base(new DeputyProps(new object?[]{operand}))
@@ -17903,7 +17903,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Ensures submodule-imported types from dependencies can be used correctly.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable), fullyQualifiedName: "jsii-calc.UpcasingReflectable", parametersJson: "[{\\"name\\":\\"delegate\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"map\\"}}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable), fullyQualifiedName: "jsii-calc.UpcasingReflectable", parametersJson: "[{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"map\\"}},\\"name\\":\\"delegate\\"}]")]
     public class UpcasingReflectable : DeputyBase, Amazon.JSII.Tests.CustomSubmoduleName.IReflectable
     {
         public UpcasingReflectable(System.Collections.Generic.IDictionary<string, object> @delegate): base(new DeputyProps(new object?[]{@delegate}))
@@ -18025,7 +18025,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UsesInterfaceWithProperties), fullyQualifiedName: "jsii-calc.UsesInterfaceWithProperties", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithProperties\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UsesInterfaceWithProperties), fullyQualifiedName: "jsii-calc.UsesInterfaceWithProperties", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithProperties\\"},\\"name\\":\\"obj\\"}]")]
     public class UsesInterfaceWithProperties : DeputyBase
     {
         public UsesInterfaceWithProperties(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties obj): base(new DeputyProps(new object?[]{obj}))
@@ -18052,13 +18052,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
-        [JsiiMethod(name: "readStringAndNumber", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"ext\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithPropertiesExtension\\"}}]")]
+        [JsiiMethod(name: "readStringAndNumber", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithPropertiesExtension\\"},\\"name\\":\\"ext\\"}]")]
         public virtual string ReadStringAndNumber(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithPropertiesExtension ext)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithPropertiesExtension)}, new object[]{ext})!;
         }
 
-        [JsiiMethod(name: "writeAndRead", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [JsiiMethod(name: "writeAndRead", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"value\\"}]")]
         public virtual string WriteAndRead(string @value)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{@value})!;
@@ -18081,7 +18081,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicInvoker), fullyQualifiedName: "jsii-calc.VariadicInvoker", parametersJson: "[{\\"name\\":\\"method\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.VariadicMethod\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicInvoker), fullyQualifiedName: "jsii-calc.VariadicInvoker", parametersJson: "[{\\"type\\":{\\"fqn\\":\\"jsii-calc.VariadicMethod\\"},\\"name\\":\\"method\\"}]")]
     public class VariadicInvoker : DeputyBase
     {
         public VariadicInvoker(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod method): base(new DeputyProps(new object?[]{method}))
@@ -18102,7 +18102,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "asArray", returnsJson: "{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"number\\"},\\"kind\\":\\"array\\"}}}", parametersJson: "[{\\"name\\":\\"values\\",\\"type\\":{\\"primitive\\":\\"number\\"},\\"variadic\\":true}]")]
+        [JsiiMethod(name: "asArray", returnsJson: "{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"number\\"},\\"kind\\":\\"array\\"}}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"values\\",\\"variadic\\":true}]")]
         public virtual double[] AsArray(params double[] values)
         {
             return InvokeInstanceMethod<double[]>(new System.Type[]{typeof(double[])}, new object[]{values})!;
@@ -18119,7 +18119,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod), fullyQualifiedName: "jsii-calc.VariadicMethod", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"a prefix that will be use for all values returned by \`#asArray\`.\\"},\\"name\\":\\"prefix\\",\\"type\\":{\\"primitive\\":\\"number\\"},\\"variadic\\":true}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod), fullyQualifiedName: "jsii-calc.VariadicMethod", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"prefix\\",\\"variadic\\":true,\\"docs\\":{\\"summary\\":\\"a prefix that will be use for all values returned by \`#asArray\`.\\"}}]")]
     public class VariadicMethod : DeputyBase
     {
         /// <param name="prefix">a prefix that will be use for all values returned by \`#asArray\`.</param>
@@ -18143,7 +18143,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <param name="first">the first element of the array to be returned (after the \`prefix\` provided at construction time).</param>
         /// <param name="others">other elements to be included in the array.</param>
-        [JsiiMethod(name: "asArray", returnsJson: "{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"number\\"},\\"kind\\":\\"array\\"}}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the first element of the array to be returned (after the \`prefix\` provided at construction time).\\"},\\"name\\":\\"first\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"docs\\":{\\"summary\\":\\"other elements to be included in the array.\\"},\\"name\\":\\"others\\",\\"type\\":{\\"primitive\\":\\"number\\"},\\"variadic\\":true}]")]
+        [JsiiMethod(name: "asArray", returnsJson: "{\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"number\\"},\\"kind\\":\\"array\\"}}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"first\\",\\"docs\\":{\\"summary\\":\\"the first element of the array to be returned (after the \`prefix\` provided at construction time).\\"}},{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"others\\",\\"variadic\\":true,\\"docs\\":{\\"summary\\":\\"other elements to be included in the array.\\"}}]")]
         public virtual double[] AsArray(double first, params double[] others)
         {
             return InvokeInstanceMethod<double[]>(new System.Type[]{typeof(double), typeof(double[])}, new object[]{first, others})!;
@@ -18181,31 +18181,31 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "overrideMeAsync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"index\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]", isAsync: true)]
+        [JsiiMethod(name: "overrideMeAsync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"index\\"}]", isAsync: true)]
         public virtual double OverrideMeAsync(double index)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{index})!;
         }
 
-        [JsiiMethod(name: "overrideMeSync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"index\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "overrideMeSync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"index\\"}]")]
         public virtual double OverrideMeSync(double index)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{index})!;
         }
 
-        [JsiiMethod(name: "parallelSumAsync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"count\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]", isAsync: true)]
+        [JsiiMethod(name: "parallelSumAsync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"count\\"}]", isAsync: true)]
         public virtual double ParallelSumAsync(double count)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{count})!;
         }
 
-        [JsiiMethod(name: "serialSumAsync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"count\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]", isAsync: true)]
+        [JsiiMethod(name: "serialSumAsync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"count\\"}]", isAsync: true)]
         public virtual double SerialSumAsync(double count)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{count})!;
         }
 
-        [JsiiMethod(name: "sumSync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"count\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        [JsiiMethod(name: "sumSync", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"number\\"},\\"name\\":\\"count\\"}]")]
         public virtual double SumSync(double count)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{count})!;
@@ -18301,7 +18301,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Verifies that private property declarations in constructor arguments are hidden.</summary>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.WithPrivatePropertyInConstructor), fullyQualifiedName: "jsii-calc.WithPrivatePropertyInConstructor", parametersJson: "[{\\"name\\":\\"privateField\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.WithPrivatePropertyInConstructor), fullyQualifiedName: "jsii-calc.WithPrivatePropertyInConstructor", parametersJson: "[{\\"type\\":{\\"primitive\\":\\"string\\"},\\"name\\":\\"privateField\\",\\"optional\\":true}]")]
     public class WithPrivatePropertyInConstructor : DeputyBase
     {
         public WithPrivatePropertyInConstructor(string? privateField = null): base(new DeputyProps(new object?[]{privateField}))

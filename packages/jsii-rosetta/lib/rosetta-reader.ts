@@ -19,7 +19,7 @@ import {
 import { snippetKey } from './tablets/key';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
-import { printDiagnostics } from './util';
+import { commentToken, printDiagnostics } from './util';
 
 export enum UnknownSnippetMode {
   /**
@@ -178,20 +178,27 @@ export class RosettaTabletReader {
    * If you are calling this for the side effect of adding translations to the live
    * tablet, you only need to do that for one language.
    */
-  public translateSnippet(source: TypeScriptSnippet, targetLang: TargetLanguage): Translation | undefined {
+  public translateSnippet(
+    source: TypeScriptSnippet,
+    targetLang: TargetLanguage,
+    prefixDisclaimer = false,
+  ): Translation | undefined {
     // Look for it in loaded tablets (or previous conversions)
     for (const tab of this.allTablets) {
       const ret = tab.lookup(source, targetLang);
       if (ret !== undefined) {
-        return ret;
+        return this.prefixDisclaimer(ret, prefixDisclaimer);
       }
     }
 
     if (this.unknownSnippets === UnknownSnippetMode.VERBATIM) {
-      return {
-        language: targetLang,
-        source: source.visibleSource,
-      };
+      return this.prefixDisclaimer(
+        {
+          language: targetLang,
+          source: source.visibleSource,
+        },
+        prefixDisclaimer,
+      );
     }
 
     if (this.unknownSnippets === UnknownSnippetMode.FAIL) {
@@ -218,13 +225,13 @@ export class RosettaTabletReader {
     if (extracted !== undefined) {
       const snippet = this.translator.translate(extracted, this.options.targetLanguages);
       this.liveTablet.addSnippet(snippet);
-      return snippet.get(targetLang);
+      return this.prefixDisclaimer(snippet.get(targetLang), prefixDisclaimer);
     }
 
     // Try to live-convert it as-is.
     const snippet = this.translator.translate(source, this.options.targetLanguages);
     this.liveTablet.addSnippet(snippet);
-    return snippet.get(targetLang);
+    return this.prefixDisclaimer(snippet.get(targetLang), prefixDisclaimer);
   }
 
   /**
@@ -238,6 +245,7 @@ export class RosettaTabletReader {
     targetLang: TargetLanguage,
     strict: boolean,
     compileDirectory = process.cwd(),
+    prefixDisclaimer = false,
   ): Translation {
     const location = { api: apiLocation, field: { field: 'example' } } as const;
 
@@ -245,7 +253,7 @@ export class RosettaTabletReader {
       [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,
     });
 
-    const translated = this.translateSnippet(snippet, targetLang);
+    const translated = this.translateSnippet(snippet, targetLang, prefixDisclaimer);
 
     return translated ?? { language: 'typescript', source: example };
   }
@@ -263,6 +271,7 @@ export class RosettaTabletReader {
     strict: boolean,
     translationToCodeBlock: (x: Translation) => CodeBlock = id,
     compileDirectory = process.cwd(),
+    prefixDisclaimer = false,
   ): string {
     return transformMarkdown(
       markdown,
@@ -273,6 +282,7 @@ export class RosettaTabletReader {
             [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,
           }),
           targetLang,
+          prefixDisclaimer,
         );
         if (!translated) {
           return undefined;
@@ -293,6 +303,22 @@ export class RosettaTabletReader {
 
   private get allTablets(): LanguageTablet[] {
     return [...this.loadedTablets, this.liveTablet];
+  }
+
+  /**
+   * Adds a disclaimer to the front of the example if the prefixDisclaimer
+   * flag is set and we know it does not compile.
+   */
+  private prefixDisclaimer(translation: Translation | undefined, prefixDisclaimer: boolean): Translation | undefined {
+    if (!prefixDisclaimer || translation?.didCompile !== false) {
+      return translation;
+    }
+    const comment = commentToken(translation.language);
+    const disclaimer = 'Example automatically generated from non-compiling source. May contain errors.';
+    return {
+      ...translation,
+      source: `${comment} ${disclaimer}\n${translation.source}`,
+    };
   }
 }
 

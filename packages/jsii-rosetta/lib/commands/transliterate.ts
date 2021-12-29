@@ -8,7 +8,6 @@ import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
-import { Translation } from '../tablets/tablets';
 import { fmap } from '../util';
 import { extractSnippets } from './extract';
 
@@ -92,11 +91,9 @@ export async function transliterateAssembly(
           result.readme.markdown,
           language,
           true /* strict */,
-          (translation) => ({
-            language: translation.language,
-            source: prefixDisclaimer(translation),
-          }),
+          undefined,
           location,
+          true /* prefix disclaimer */,
         );
       }
       for (const type of Object.values(result.types ?? {})) {
@@ -145,34 +142,6 @@ async function loadAssemblies(
 
 type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
 type AssemblyLoader = () => Promise<Mutable<Assembly>>;
-
-function prefixDisclaimer(translation: Translation): string {
-  const comment = commentToken();
-  const disclaimer = translation.didCompile
-    ? 'This example was automatically transliterated.'
-    : 'This example was automatically transliterated with incomplete type information. It may not work as-is.';
-
-  return [
-    `${comment} ${disclaimer}`,
-    `${comment} See https://github.com/aws/jsii/issues/826 for more information.`,
-    '',
-    translation.source,
-  ].join('\n');
-
-  function commentToken() {
-    // This is future-proofed a bit, but don't read too much in this...
-    switch (translation.language) {
-      case 'python':
-      case 'ruby':
-        return '#';
-      case 'csharp':
-      case 'java':
-      case 'go':
-      default:
-        return '//';
-    }
-  }
-}
 
 function transliterateType(
   type: Type,
@@ -224,11 +193,9 @@ function transliterateType(
         docs.remarks,
         language,
         true /* strict */,
-        (translation) => ({
-          language: translation.language,
-          source: prefixDisclaimer(translation),
-        }),
+        undefined,
         workingDirectory,
+        true /* prefix disclaimer */,
       );
     }
 
@@ -242,9 +209,9 @@ function transliterateType(
         }),
         loose,
       );
-      const translation = rosetta.translateSnippet(snippet, language);
+      const translation = rosetta.translateSnippet(snippet, language, true);
       if (translation != null) {
-        docs.example = prefixDisclaimer(translation);
+        docs.example = translation.source;
       }
     }
   }

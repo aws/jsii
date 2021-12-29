@@ -6,7 +6,6 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
   TargetLanguage,
-  Translation,
   Rosetta,
   enforcesStrictMode,
   ApiLocation,
@@ -30,7 +29,7 @@ import {
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 
-import { INCOMPLETE_DISCLAIMER_NONCOMPILING, TargetName } from '.';
+import { TargetName } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -2398,8 +2397,10 @@ class PythonGenerator extends Generator {
       example,
       TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
+      undefined,
+      true /* prefix disclaimer */,
     );
-    return this.prefixDisclaimer(translated);
+    return translated.source;
   }
 
   public convertMarkdown(markdown: string, apiLoc: ApiLocation): string {
@@ -2408,18 +2409,10 @@ class PythonGenerator extends Generator {
       markdown,
       TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
-      (trans) => ({
-        language: trans.language,
-        source: this.prefixDisclaimer(trans),
-      }),
+      undefined,
+      undefined,
+      true /* prefix disclaimer */,
     );
-  }
-
-  private prefixDisclaimer(translated: Translation) {
-    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
-      return `# ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
-    }
-    return translated.source;
   }
 
   public getPythonType(fqn: string): PythonType {

@@ -6,7 +6,6 @@ import * as reflect from 'jsii-reflect';
 import {
   Rosetta,
   TargetLanguage,
-  Translation,
   enforcesStrictMode,
   markDownToJavaDoc,
   ApiLocation,
@@ -30,7 +29,7 @@ import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
-import { INCOMPLETE_DISCLAIMER_NONCOMPILING, TargetName } from '.';
+import { TargetName } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -2986,8 +2985,10 @@ class JavaGenerator extends Generator {
       example,
       TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
+      undefined,
+      true /* prefix disclaimer */,
     );
-    return this.prefixDisclaimer(translated);
+    return translated.source;
   }
 
   private convertSamplesInMarkdown(markdown: string, api: ApiLocation): string {
@@ -2996,18 +2997,10 @@ class JavaGenerator extends Generator {
       markdown,
       TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
-      (trans) => ({
-        language: trans.language,
-        source: this.prefixDisclaimer(trans),
-      }),
+      undefined,
+      undefined,
+      true /* prefix disclaimer */,
     );
-  }
-
-  private prefixDisclaimer(translated: Translation) {
-    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
-    }
-    return translated.source;
   }
 
   /**
