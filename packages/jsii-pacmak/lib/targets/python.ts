@@ -2398,7 +2398,6 @@ class PythonGenerator extends Generator {
       TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
       undefined,
-      true /* prefix disclaimer */,
     );
     return translated.source;
   }
@@ -2411,7 +2410,6 @@ class PythonGenerator extends Generator {
       enforcesStrictMode(this.assembly),
       undefined,
       undefined,
-      true /* prefix disclaimer */,
     );
   }
 

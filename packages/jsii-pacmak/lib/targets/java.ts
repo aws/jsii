@@ -2986,7 +2986,6 @@ class JavaGenerator extends Generator {
       TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
       undefined,
-      true /* prefix disclaimer */,
     );
     return translated.source;
   }
@@ -2999,7 +2998,6 @@ class JavaGenerator extends Generator {
       enforcesStrictMode(this.assembly),
       undefined,
       undefined,
-      true /* prefix disclaimer */,
     );
   }
 

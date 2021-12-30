@@ -166,7 +166,6 @@ export class DotNetDocGenerator {
       TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
       undefined,
-      true /* prefix disclaimer */,
     );
     return translated.source;
   }
@@ -179,7 +178,6 @@ export class DotNetDocGenerator {
       enforcesStrictMode(this.assembly),
       undefined,
       undefined,
-      true /* prefix disclaimer */,
     );
   }
 

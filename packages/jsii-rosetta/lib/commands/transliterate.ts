@@ -70,6 +70,7 @@ export async function transliterateAssembly(
   const rosetta = new RosettaTabletReader({
     unknownSnippets: UnknownSnippetMode.FAIL,
     targetLanguages,
+    prefixDisclaimer: true,
   });
   // Put in the same caching tablet here
   if (options.tablet) {
@@ -93,7 +94,6 @@ export async function transliterateAssembly(
           true /* strict */,
           undefined,
           location,
-          true /* prefix disclaimer */,
         );
       }
       for (const type of Object.values(result.types ?? {})) {
@@ -195,7 +195,6 @@ function transliterateType(
         true /* strict */,
         undefined,
         workingDirectory,
-        true /* prefix disclaimer */,
       );
     }
 
@@ -209,7 +208,7 @@ function transliterateType(
         }),
         loose,
       );
-      const translation = rosetta.translateSnippet(snippet, language, true);
+      const translation = rosetta.translateSnippet(snippet, language);
       if (translation != null) {
         docs.example = translation.source;
       }

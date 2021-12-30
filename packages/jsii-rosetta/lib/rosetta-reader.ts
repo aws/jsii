@@ -65,6 +65,13 @@ export interface RosettaOptions {
    * @default false
    */
   readonly loose?: boolean;
+
+  /**
+   * Adds a disclaimer to start of snippet if it did not compile.
+   *
+   * @default false
+   */
+  readonly prefixDisclaimer?: boolean;
 }
 
 /**
@@ -93,11 +100,13 @@ export class RosettaTabletReader {
   private readonly translator: Translator;
   private readonly loose: boolean;
   private readonly unknownSnippets: UnknownSnippetMode;
+  private readonly _prefixDisclaimer: boolean;
 
   public constructor(private readonly options: RosettaOptions = {}) {
     this.loose = !!options.loose;
     this.unknownSnippets = options.unknownSnippets ?? UnknownSnippetMode.VERBATIM;
     this.translator = new Translator(options.includeCompilerDiagnostics ?? false);
+    this._prefixDisclaimer = options.prefixDisclaimer ?? false;
   }
 
   /**
@@ -178,16 +187,12 @@ export class RosettaTabletReader {
    * If you are calling this for the side effect of adding translations to the live
    * tablet, you only need to do that for one language.
    */
-  public translateSnippet(
-    source: TypeScriptSnippet,
-    targetLang: TargetLanguage,
-    prefixDisclaimer = false,
-  ): Translation | undefined {
+  public translateSnippet(source: TypeScriptSnippet, targetLang: TargetLanguage): Translation | undefined {
     // Look for it in loaded tablets (or previous conversions)
     for (const tab of this.allTablets) {
       const ret = tab.lookup(source, targetLang);
       if (ret !== undefined) {
-        return this.prefixDisclaimer(ret, prefixDisclaimer);
+        return this.prefixDisclaimer(ret, this._prefixDisclaimer);
       }
     }
 
@@ -197,7 +202,7 @@ export class RosettaTabletReader {
           language: targetLang,
           source: source.visibleSource,
         },
-        prefixDisclaimer,
+        this._prefixDisclaimer,
       );
     }
 
@@ -225,13 +230,13 @@ export class RosettaTabletReader {
     if (extracted !== undefined) {
       const snippet = this.translator.translate(extracted, this.options.targetLanguages);
       this.liveTablet.addSnippet(snippet);
-      return this.prefixDisclaimer(snippet.get(targetLang), prefixDisclaimer);
+      return this.prefixDisclaimer(snippet.get(targetLang), this._prefixDisclaimer);
     }
 
     // Try to live-convert it as-is.
     const snippet = this.translator.translate(source, this.options.targetLanguages);
     this.liveTablet.addSnippet(snippet);
-    return this.prefixDisclaimer(snippet.get(targetLang), prefixDisclaimer);
+    return this.prefixDisclaimer(snippet.get(targetLang), this._prefixDisclaimer);
   }
 
   /**
@@ -245,7 +250,6 @@ export class RosettaTabletReader {
     targetLang: TargetLanguage,
     strict: boolean,
     compileDirectory = process.cwd(),
-    prefixDisclaimer = false,
   ): Translation {
     const location = { api: apiLocation, field: { field: 'example' } } as const;
 
@@ -253,7 +257,7 @@ export class RosettaTabletReader {
       [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,
     });
 
-    const translated = this.translateSnippet(snippet, targetLang, prefixDisclaimer);
+    const translated = this.translateSnippet(snippet, targetLang);
 
     return translated ?? { language: 'typescript', source: example };
   }
@@ -271,7 +275,6 @@ export class RosettaTabletReader {
     strict: boolean,
     translationToCodeBlock: (x: Translation) => CodeBlock = id,
     compileDirectory = process.cwd(),
-    prefixDisclaimer = false,
   ): string {
     return transformMarkdown(
       markdown,
@@ -282,7 +285,6 @@ export class RosettaTabletReader {
             [SnippetParameters.$COMPILATION_DIRECTORY]: compileDirectory,
           }),
           targetLang,
-          prefixDisclaimer,
         );
         if (!translated) {
           return undefined;

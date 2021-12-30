@@ -170,12 +170,13 @@ describe('Rosetta object with disclaimers', () => {
       includeCompilerDiagnostics: true,
       unknownSnippets: UnknownSnippetMode.TRANSLATE,
       targetLanguages: [TargetLanguage.PYTHON],
+      prefixDisclaimer: true,
     });
   });
 
   test('compiling source code has no disclaimer', () => {
     // WHEN
-    const translated = rosetta.translateSnippet(SAMPLE_CODE_COMPILING, TargetLanguage.PYTHON, true);
+    const translated = rosetta.translateSnippet(SAMPLE_CODE_COMPILING, TargetLanguage.PYTHON);
 
     // THEN
     expect(translated).toMatchObject({
@@ -186,7 +187,7 @@ describe('Rosetta object with disclaimers', () => {
 
   test('noncompiling source code has disclaimer', () => {
     // WHEN
-    const translated = rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON, true);
+    const translated = rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
 
     // THEN
     expect(translated).toMatchObject({
@@ -201,10 +202,11 @@ describe('Rosetta object with disclaimers', () => {
       includeCompilerDiagnostics: false,
       unknownSnippets: UnknownSnippetMode.TRANSLATE,
       targetLanguages: [TargetLanguage.PYTHON],
+      prefixDisclaimer: true,
     });
 
     // WHEN
-    const translated = rosettaNoCompile.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON, true);
+    const translated = rosettaNoCompile.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
 
     // THEN
     expect(translated).toMatchObject({
