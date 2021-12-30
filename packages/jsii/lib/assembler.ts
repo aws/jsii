@@ -530,12 +530,6 @@ export class Assembler implements Emitter {
     // on an entry-point import of the library having been done first
     // (`import * as x from 'module-root';`)
     const submodule = this._submoduleMap.get(sym);
-    console.log(
-      'submodule',
-      this._typeChecker.getFullyQualifiedName(sym),
-      submodule,
-      Array.from(this._submoduleMap.keys()).length,
-    );
     if (submodule != null) {
       const submoduleNs = this._submodules.get(submodule)!.fqnResolutionPrefix;
       return `${submoduleNs}.${typeName}`;
@@ -574,8 +568,6 @@ export class Assembler implements Emitter {
     const fqn =
       (dep && symbolId ? symbolIdIndex(dep)[symbolId] : undefined) ??
       fallbackFqn;
-
-    console.log('symbolId', symbolId, fqn, 'from', dep.name);
 
     if (!fqn || !this._dereference({ fqn }, sym.valueDeclaration)) {
       if (!hasError) {
