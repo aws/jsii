@@ -36,7 +36,10 @@ export async function pacmak({
   updateNpmIgnoreFiles = false,
   validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
-  const rosetta = new Rosetta({ unknownSnippets: rosettaUnknownSnippets });
+  const rosetta = new Rosetta({
+    unknownSnippets: rosettaUnknownSnippets,
+    prefixDisclaimer: true,
+  });
   if (rosettaTablet) {
     await rosetta.loadTabletFromFile(rosettaTablet);
   }

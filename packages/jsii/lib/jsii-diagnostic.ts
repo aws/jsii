@@ -741,7 +741,8 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_9000_UNKNOWN_MODULE = Code.error({
     code: 9000,
-    formatter: (moduleName) => `Encountered unknown module: "${moduleName}"`,
+    formatter: (moduleName) =>
+      `Encountered use of module that is not declared in "dependencies" or "peerDependencies": "${moduleName}"`,
     name: 'miscellaneous/unknown-module',
   });
 
