@@ -226,7 +226,6 @@ function main() {
             alias: 'l',
             describe: 'Ignore missing fixtures and literate markdown files instead of failing',
             type: 'boolean',
-            default: false,
           })
           .conflicts('loose', 'strict')
           .conflicts('loose', 'fail'),
