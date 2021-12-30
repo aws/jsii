@@ -2,12 +2,10 @@ import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind } from '@jsii/spec';
 import { readJson, writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
-import { EXAMPLE_METADATA_JSDOCTAG } from '../jsii/assemblies';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
-import { typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
-import { fmap } from '../util';
+import { typeScriptSnippetFromVisibleSource, ApiLocation} from '../snippet';
 import { extractSnippets } from './extract';
 
 export interface TransliterateAssemblyOptions {
@@ -183,8 +181,7 @@ function transliterateType(type: Type, rosetta: RosettaTabletReader, language: T
 
     if (docs?.example) {
       const location = { api, field: { field: 'example' } } as const;
-      const metadata = fmap(docs.custom?.[EXAMPLE_METADATA_JSDOCTAG], parseMetadataLine) ?? {};
-      const snippet = typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */, metadata);
+      const snippet = typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */);
       const translation = rosetta.translateSnippet(snippet, language);
       if (translation != null) {
         docs.example = translation.source;
