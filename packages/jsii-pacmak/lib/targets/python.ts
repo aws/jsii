@@ -2397,7 +2397,6 @@ class PythonGenerator extends Generator {
       example,
       TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
-      undefined,
     );
     return translated.source;
   }
@@ -2408,8 +2407,6 @@ class PythonGenerator extends Generator {
       markdown,
       TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
-      undefined,
-      undefined,
     );
   }
 

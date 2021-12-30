@@ -165,7 +165,6 @@ export class DotNetDocGenerator {
       example,
       TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
-      undefined,
     );
     return translated.source;
   }
@@ -176,11 +175,8 @@ export class DotNetDocGenerator {
       markdown,
       TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
-      undefined,
-      undefined,
     );
   }
-
   private emitXmlDoc(
     tag: string,
     content: string,

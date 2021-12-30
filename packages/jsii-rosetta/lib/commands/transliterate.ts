@@ -92,8 +92,6 @@ export async function transliterateAssembly(
           result.readme.markdown,
           language,
           true /* strict */,
-          undefined,
-          location,
         );
       }
       for (const type of Object.values(result.types ?? {})) {
@@ -150,35 +148,34 @@ function transliterateType(
   workingDirectory: string,
   loose = false,
 ): void {
-  transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs, workingDirectory);
+  transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs);
   switch (type.kind) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore 7029
     case TypeKind.Class:
       if (type.initializer) {
-        transliterateDocs({ api: 'initializer', fqn: type.fqn }, type.initializer.docs, workingDirectory);
+        transliterateDocs({ api: 'initializer', fqn: type.fqn }, type.initializer.docs);
       }
 
     // fallthrough
     case TypeKind.Interface:
       for (const method of type.methods ?? []) {
-        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: method.name }, method.docs, workingDirectory);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: method.name }, method.docs);
         for (const parameter of method.parameters ?? []) {
           transliterateDocs(
             { api: 'parameter', fqn: type.fqn, methodName: method.name, parameterName: parameter.name },
             parameter.docs,
-            workingDirectory,
           );
         }
       }
       for (const property of type.properties ?? []) {
-        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: property.name }, property.docs, workingDirectory);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: property.name }, property.docs);
       }
       break;
 
     case TypeKind.Enum:
       for (const member of type.members) {
-        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: member.name }, member.docs, workingDirectory);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: member.name }, member.docs);
       }
       break;
 
@@ -186,16 +183,9 @@ function transliterateType(
       throw new Error(`Unsupported type kind: ${(type as any).kind}`);
   }
 
-  function transliterateDocs(api: ApiLocation, docs: Docs | undefined, workingDirectory: string) {
+  function transliterateDocs(api: ApiLocation, docs: Docs | undefined) {
     if (docs?.remarks) {
-      docs.remarks = rosetta.translateSnippetsInMarkdown(
-        api,
-        docs.remarks,
-        language,
-        true /* strict */,
-        undefined,
-        workingDirectory,
-      );
+      docs.remarks = rosetta.translateSnippetsInMarkdown(api, docs.remarks, language, true /* strict */);
     }
 
     if (docs?.example) {

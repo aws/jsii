@@ -2985,7 +2985,6 @@ class JavaGenerator extends Generator {
       example,
       TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
-      undefined,
     );
     return translated.source;
   }
@@ -2996,8 +2995,6 @@ class JavaGenerator extends Generator {
       markdown,
       TargetLanguage.JAVA,
       enforcesStrictMode(this.assembly),
-      undefined,
-      undefined,
     );
   }
 
