@@ -692,7 +692,7 @@ export class Assembler implements Emitter {
       (packageRoot === this.projectInfo.projectRoot &&
         resolution.resolvedModule.isExternalLibraryImport) ||
       // Or the module resolves outside of the current dependency's tree entirely
-      !resolution.resolvedModule.resolvedFileName.startsWith(packageRoot) ||
+      !isUnder(resolution.resolvedModule.resolvedFileName, packageRoot) ||
       // Or the module is under one the current dependency's node_modules subtree
       resolution.resolvedModule.resolvedFileName
         .split('/') // Separator is always '/', even on Windows
@@ -2593,11 +2593,6 @@ export class Assembler implements Emitter {
       }
       // Not a primitive type!
       return undefined;
-
-      function isUnder(file: string, dir: string): boolean {
-        const relative = path.relative(dir, file);
-        return !relative.startsWith(path.sep) && !relative.startsWith('..');
-      }
     }
 
     async function _unionType(this: Assembler): Promise<spec.OptionalValue> {
@@ -3480,4 +3475,9 @@ function getSymbolFromDeclaration(
 ): ts.Symbol | undefined {
   const name = ts.getNameOfDeclaration(decl);
   return name ? typeChecker.getSymbolAtLocation(name) : undefined;
+}
+
+function isUnder(file: string, dir: string): boolean {
+  const relative = path.relative(dir, file);
+  return !relative.startsWith(path.sep) && !relative.startsWith('..');
 }
