@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@jest/types": "^27.4.2",
-    "@typescript-eslint/eslint-plugin": "^5.8.0",
-    "@typescript-eslint/parser": "^5.8.0",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
     "all-contributors-cli": "^6.20.0",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
