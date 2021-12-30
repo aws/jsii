@@ -1,0 +1,8 @@
+{
+    "name": "Dev Container Definition - AWS JSII",
+    "image": "jsii/superchain:1-buster-slim",
+    "postCreateCommand": "yarn install && yarn build",
+    "extensions": [
+        "dbaeumer.vscode-eslint@2.1.5"
+    ]
+}
