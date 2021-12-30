@@ -2,12 +2,11 @@ import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind } from '@jsii/spec';
 import { readJson, writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
-import { fixturize } from '../fixtures';
 import { EXAMPLE_METADATA_JSDOCTAG } from '../jsii/assemblies';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
-import { SnippetParameters, typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
+import { typeScriptSnippetFromVisibleSource, ApiLocation, parseMetadataLine } from '../snippet';
 import { fmap } from '../util';
 import { extractSnippets } from './extract';
 
@@ -95,7 +94,7 @@ export async function transliterateAssembly(
         );
       }
       for (const type of Object.values(result.types ?? {})) {
-        transliterateType(type, rosetta, language, location, options.loose);
+        transliterateType(type, rosetta, language);
       }
       // eslint-disable-next-line no-await-in-loop
       await writeJson(resolve(location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
@@ -141,13 +140,7 @@ async function loadAssemblies(
 type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
 type AssemblyLoader = () => Promise<Mutable<Assembly>>;
 
-function transliterateType(
-  type: Type,
-  rosetta: RosettaTabletReader,
-  language: TargetLanguage,
-  workingDirectory: string,
-  loose = false,
-): void {
+function transliterateType(type: Type, rosetta: RosettaTabletReader, language: TargetLanguage): void {
   transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs);
   switch (type.kind) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -191,13 +184,7 @@ function transliterateType(
     if (docs?.example) {
       const location = { api, field: { field: 'example' } } as const;
       const metadata = fmap(docs.custom?.[EXAMPLE_METADATA_JSDOCTAG], parseMetadataLine) ?? {};
-      const snippet = fixturize(
-        typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */, {
-          [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory,
-          ...metadata,
-        }),
-        loose,
-      );
+      const snippet = typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */, metadata);
       const translation = rosetta.translateSnippet(snippet, language);
       if (translation != null) {
         docs.example = translation.source;
