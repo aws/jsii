@@ -29,7 +29,7 @@ import {
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 
-import { TargetName } from '.';
+import { TargetName } from './index';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');

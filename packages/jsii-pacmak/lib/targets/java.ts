@@ -29,7 +29,7 @@ import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
-import { TargetName } from '.';
+import { TargetName } from './index';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
