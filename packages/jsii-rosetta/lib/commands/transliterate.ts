@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
-import { typeScriptSnippetFromVisibleSource, ApiLocation} from '../snippet';
+import { typeScriptSnippetFromVisibleSource, ApiLocation } from '../snippet';
 import { extractSnippets } from './extract';
 
 export interface TransliterateAssemblyOptions {
