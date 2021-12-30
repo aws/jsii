@@ -687,10 +687,6 @@ export class Assembler implements Emitter {
       return;
     }
 
-    // Normalize the path so the correct separator is in use (Looking at you, Windows)
-    resolution.resolvedModule.resolvedFileName = path.normalize(
-      resolution.resolvedModule.resolvedFileName,
-    );
     if (
       // We're not looking into a dependency's namespace exports, and the resolution says it's external
       (packageRoot === this.projectInfo.projectRoot &&
@@ -699,9 +695,9 @@ export class Assembler implements Emitter {
       !resolution.resolvedModule.resolvedFileName.startsWith(packageRoot) ||
       // Or the module is under one the current dependency's node_modules subtree
       resolution.resolvedModule.resolvedFileName
-        .split(path.sep)
+        .split('/') // Separator is always '/', even on Windows
         .filter((entry) => entry === 'node_modules').length !==
-        packageRoot.split(path.sep).filter((entry) => entry === 'node_modules')
+        packageRoot.split('/').filter((entry) => entry === 'node_modules')
           .length
     ) {
       // External re-exports are "pure-javascript" sugar; they need not be
