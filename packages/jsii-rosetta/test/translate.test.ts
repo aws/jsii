@@ -144,3 +144,41 @@ test('didSuccessfullyCompile is undefined when compilation is not attempted', ()
 
   expect(subject.didSuccessfullyCompile).toBeUndefined();
 });
+
+test('refuse to translate object literal with function member', () => {
+  const visibleSource = 'const x: any = { mem: () => 42 };';
+
+  const snippet: TypeScriptSnippet = {
+    visibleSource,
+    location: { api: { api: 'type', fqn: 'my.class' } },
+  };
+
+  // WHEN
+  const subject = new SnippetTranslator(snippet);
+  subject.renderUsing(new PythonVisitor());
+
+  expect(subject.diagnostics).toContainEqual(
+    expect.objectContaining({
+      messageText: expect.stringMatching(/You cannot use an object literal/),
+    }),
+  );
+});
+
+test('refuse to translate object literal with function member in shorthand property', () => {
+  const visibleSource = 'const mem = () => 42; const x: any = { mem };';
+
+  const snippet: TypeScriptSnippet = {
+    visibleSource,
+    location: { api: { api: 'type', fqn: 'my.class' } },
+  };
+
+  // WHEN
+  const subject = new SnippetTranslator(snippet);
+  subject.renderUsing(new PythonVisitor());
+
+  expect(subject.diagnostics).toContainEqual(
+    expect.objectContaining({
+      messageText: expect.stringMatching(/You cannot use an object literal/),
+    }),
+  );
+});

@@ -1,4 +1,6 @@
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 import {
   sourceToAssemblyHelper,
@@ -72,17 +74,7 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
       // We need to support both import styles.
 
       // Dependency that exports a submodule
-      await ws.addDependency(
-        await compileJsiiForTest({
-          'index.ts': 'export * as submodule from "./subdir"',
-          'subdir/index.ts': [
-            'export class Foo { };',
-            'export interface FooInterface { readonly value?: string }',
-            'export interface IProtocol { readonly value?: string; }',
-          ].join('\n'),
-          'subdir/README.md': 'This is the README',
-        }),
-      );
+      await ws.addDependency(await makeDependencyWithSubmodule());
 
       let importStatement;
       let prefix;
@@ -167,20 +159,7 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
       // We need to support both import styles.
 
       // Dependency that exports a submodule
-      await ws.addDependency(
-        await compileJsiiForTest({
-          'index.ts': 'export * as submodule from "./subdir"',
-          'subdir/index.ts': [
-            'export class Namespace {};',
-            'export namespace Namespace {',
-            '  export class Foo { };',
-            '  export interface FooInterface { readonly value?: string }',
-            '  export interface IProtocol { readonly value?: string; }',
-            '}',
-          ].join('\n'),
-          'subdir/README.md': 'This is the README',
-        }),
-      );
+      await ws.addDependency(await makeDependencyWithSubmoduleAndNamespace());
 
       let importStatement;
       let prefix;
@@ -251,3 +230,68 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
       ]);
     }),
 );
+
+// Backwards compatibility test, for versions of libraries compiled before jsii 1.39.0
+// which introduced the symbol identifier table
+test('will detect types from submodules even if the symbol identifier table is missing', () =>
+  TestWorkspace.withWorkspace(async (ws) => {
+    await ws.addDependency(await makeDependencyWithSubmodule());
+
+    // Strip the symbolidentifiers from the assembly
+    const asmFile = path.join(ws.dependencyDir('testpkg'), '.jsii');
+    const asm: spec.Assembly = await fs.readJson(asmFile);
+    for (const mod of Object.values(asm.submodules ?? {})) {
+      delete mod.symbolId;
+    }
+    for (const type of Object.values(asm.types ?? {})) {
+      delete type.symbolId;
+    }
+    await fs.writeJson(asmFile, asm);
+
+    // We can still use those types if we have a full-library import
+    await compileJsiiForTest(
+      {
+        'index.ts': `
+          import { submodule } from 'testpkg';
+          export class Bar {
+            constructor(public readonly foo: submodule.Foo) {}
+          }
+      `,
+      },
+      {
+        packageJson: {
+          // Must be a different name from the dependency
+          name: 'consumerpkg',
+          peerDependencies: { testpkg: '*' },
+        },
+        compilationDirectory: ws.rootDirectory,
+      },
+    );
+  }));
+
+async function makeDependencyWithSubmodule() {
+  return compileJsiiForTest({
+    'index.ts': 'export * as submodule from "./subdir"',
+    'subdir/index.ts': [
+      'export class Foo { };',
+      'export interface FooInterface { readonly value?: string }',
+      'export interface IProtocol { readonly value?: string; }',
+    ].join('\n'),
+    'subdir/README.md': 'This is the README',
+  });
+}
+
+async function makeDependencyWithSubmoduleAndNamespace() {
+  return compileJsiiForTest({
+    'index.ts': 'export * as submodule from "./subdir"',
+    'subdir/index.ts': [
+      'export class Namespace {};',
+      'export namespace Namespace {',
+      '  export class Foo { };',
+      '  export interface FooInterface { readonly value?: string }',
+      '  export interface IProtocol { readonly value?: string; }',
+      '}',
+    ].join('\n'),
+    'subdir/README.md': 'This is the README',
+  });
+}
