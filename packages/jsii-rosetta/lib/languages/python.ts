@@ -720,9 +720,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
    * Not usually a thing in Python, but useful for declared variables.
    */
   private renderType(owningNode: ts.Node, type: ts.Type, renderer: PythonVisitorContext, fallback: string): string {
-    const r = doRender(determineJsiiType(renderer.typeChecker, type));
-    console.log(r);
-    return r;
+    return doRender(determineJsiiType(renderer.typeChecker, type));
 
     // eslint-disable-next-line consistent-return
     function doRender(jsiiType: JsiiType): string {
