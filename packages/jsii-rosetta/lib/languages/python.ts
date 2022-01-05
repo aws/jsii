@@ -501,7 +501,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         (node.initializer && context.typeOfExpression(node.initializer));
 
       const renderedType = type ? this.renderType(node, type, context, fallback) : fallback;
-      return new OTree(['# ', context.convert(node.name), ' is of type ', renderedType], []);
+      return new OTree(['# ', context.convert(node.name), ': ', renderedType], []);
     }
 
     return new OTree([context.convert(node.name), ' = ', context.convert(node.initializer)], [], {
@@ -731,22 +731,22 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
           renderer.report(owningNode, jsiiType.message);
           return fallback;
         case 'map':
-          return `dictionary of string to ${doRender(jsiiType.elementType)}`;
+          return `Dict[str, ${doRender(jsiiType.elementType)}]`;
         case 'list':
-          return `list of ${doRender(jsiiType.elementType)}`;
+          return `List[${doRender(jsiiType.elementType)}]`;
         case 'namedType':
           // in this case, the fallback will hold more information than jsiiType.name
           return fallback;
         case 'builtIn':
           switch (jsiiType.builtIn) {
             case 'boolean':
-              return 'boolean';
+              return 'bool';
             case 'number':
               return 'number';
             case 'string':
-              return 'string';
+              return 'str';
             case 'any':
-              return 'object';
+              return 'Any';
             default:
               return jsiiType.builtIn;
           }

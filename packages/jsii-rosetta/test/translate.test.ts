@@ -210,7 +210,7 @@ test('declarations are translated correctly in all jsii languages', async () => 
     );
 
     expect(ts.get(TargetLanguage.PYTHON)?.source).toEqual(
-      ['import example_test_demo as masm', '# class_a is of type masm.ClassA'].join('\n'),
+      ['import example_test_demo as masm', '# class_a: masm.ClassA'].join('\n'),
     );
     expect(ts.get(TargetLanguage.JAVA)?.source).toEqual(['import example.test.demo.*;', 'ClassA classA;'].join('\n'));
     expect(ts.get(TargetLanguage.CSHARP)?.source).toEqual(['using Example.Test.Demo;', 'ClassA classA;'].join('\n'));
