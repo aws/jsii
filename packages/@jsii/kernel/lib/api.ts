@@ -7,11 +7,9 @@ export const TOKEN_STRUCT = '$jsii.struct';
 
 export interface ObjRef {
   readonly [TOKEN_REF]: string;
-}
-
-export interface AnnotatedObjRef extends ObjRef {
   [TOKEN_INTERFACES]?: readonly string[];
 }
+
 
 export function isObjRef(value: any): value is ObjRef {
   return typeof value === 'object' && value !== null && TOKEN_REF in value;
@@ -138,8 +136,7 @@ export interface CreateRequest {
   readonly overrides?: Override[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface CreateResponse extends AnnotatedObjRef {}
+export type CreateResponse = ObjRef;
 
 export interface DelRequest {
   readonly objref: ObjRef;

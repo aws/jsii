@@ -34,7 +34,7 @@ export function jsiiTypeFqn(obj: any): string | undefined {
  *
  * This is to retain object identity across invocations.
  */
-export function objectReference(obj: unknown): api.AnnotatedObjRef | undefined {
+export function objectReference(obj: unknown): api.ObjRef | undefined {
   // If this object as already returned
   if ((obj as any)[OBJID_SYMBOL]) {
     return {
@@ -92,7 +92,7 @@ export class ObjectTable {
     obj: unknown,
     fqn: string,
     interfaces?: string[],
-  ): api.AnnotatedObjRef {
+  ): api.ObjRef {
     if (fqn === undefined) {
       throw new Error('FQN cannot be undefined');
     }
@@ -135,6 +135,26 @@ export class ObjectTable {
     if (!obj) {
       throw new Error(`Object ${objid} not found`);
     }
+
+    // If there are "additional" interfaces declared on the objref, merge them
+    // into the returned object. This is used to support client-side forced
+    // down-casting (a.k.a: unsafe casting). We do NOT register the extra
+    // interfaces here so that if the client provided an interface that is
+    // actually not implemented, we aren't "poisoning" our state with that
+    // incorrect information.
+    let additionalInterfaces = objref[api.TOKEN_INTERFACES];
+    if (additionalInterfaces != null && additionalInterfaces.length > 0) {
+      return {
+        ...obj,
+        interfaces: [
+          ...obj.interfaces ?? [],
+          // We append at the end so "registered" interface information has
+          // precedence over client-declared ones.
+          ...additionalInterfaces,
+        ],
+      };
+    }
+
     return obj;
   }
 

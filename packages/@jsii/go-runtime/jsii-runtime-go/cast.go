@@ -44,6 +44,12 @@ func UnsafeCast(from interface{}, into interface{}) {
 	if objID, found := client.FindObjectRef(rfrom); found {
 		// Ensures the value is initialized properly. Panics if the target value is not a jsii interface type.
 		client.Types().InitJsiiProxy(rinto)
+
+		// If the target type is a behavioral interface, add it to the ObjectRef.Interfaces list.
+		if fqn, found := client.Types().InterfaceFQN(rinto.Type()); found {
+			objID.Interfaces = append(objID.Interfaces, fqn)
+		}
+
 		// Make the new value an alias to the old value.
 		client.RegisterInstance(rinto, objID)
 		return
