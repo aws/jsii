@@ -66,7 +66,7 @@ RUN POWERSHELL_RELEASE=$(curl -fSsL "https://aka.ms/powershell-release?tag=lts" 
   && chmod +x /opt/microsoft/powershell/pwsh
 
 # Prepare Go distribution
-ARG GO_VERSION="1.16.7"
+ARG GO_VERSION="1.17.5"
 RUN curl -fSsL "https://golang.org/dl/go${GO_VERSION}.linux-${TARGETPLATFORM#linux/}.tar.gz" -o /tmp/go.tar.gz          \
   && mkdir -p /opt/golang/go                                                                                            \
   && tar -xzf /tmp/go.tar.gz -C /opt/golang/go --strip-components=1
