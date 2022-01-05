@@ -80,7 +80,7 @@ func TestTargetIsSubclassOfSource(t *testing.T) {
 func TestRegistersAlias(t *testing.T) {
 	client := kernel.GetClient()
 
-	objid := "Object@1337#42"
+	objid := api.ObjectRef{InstanceID: "Object@1337#42"}
 	from := NewMockInterfaceA()
 	client.RegisterInstance(reflect.ValueOf(from), objid)
 
@@ -95,7 +95,7 @@ func TestRegistersAlias(t *testing.T) {
 
 	if refid, found := client.FindObjectRef(reflect.ValueOf(into)); !found {
 		t.Fail()
-	} else if refid != objid {
+	} else if refid.InstanceID != objid.InstanceID {
 		t.Fail()
 	}
 }
