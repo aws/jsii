@@ -142,12 +142,12 @@ export class ObjectTable {
     // interfaces here so that if the client provided an interface that is
     // actually not implemented, we aren't "poisoning" our state with that
     // incorrect information.
-    let additionalInterfaces = objref[api.TOKEN_INTERFACES];
+    const additionalInterfaces = objref[api.TOKEN_INTERFACES];
     if (additionalInterfaces != null && additionalInterfaces.length > 0) {
       return {
         ...obj,
         interfaces: [
-          ...obj.interfaces ?? [],
+          ...(obj.interfaces ?? []),
           // We append at the end so "registered" interface information has
           // precedence over client-declared ones.
           ...additionalInterfaces,

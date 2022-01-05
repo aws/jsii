@@ -10,7 +10,6 @@ export interface ObjRef {
   [TOKEN_INTERFACES]?: readonly string[];
 }
 
-
 export function isObjRef(value: any): value is ObjRef {
   return typeof value === 'object' && value !== null && TOKEN_REF in value;
 }
