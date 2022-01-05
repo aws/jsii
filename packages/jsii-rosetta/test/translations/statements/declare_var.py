@@ -1,1 +1,1 @@
-# variable is of type Type
+# variable: Type

@@ -1,6 +1,7 @@
-import { SnippetTranslator, TypeScriptSnippet, PythonVisitor } from '../lib';
+import { SnippetTranslator, TypeScriptSnippet, PythonVisitor, TargetLanguage } from '../lib';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import { snippetKey } from '../lib/tablets/key';
+import { TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
 
 const location = {
   api: { api: 'moduleReadme', moduleFqn: '@aws-cdk/aws-apigateway' },
@@ -181,4 +182,39 @@ test('refuse to translate object literal with function member in shorthand prope
       messageText: expect.stringMatching(/You cannot use an object literal/),
     }),
   );
+});
+
+test('declarations are translated correctly in all jsii languages', async () => {
+  // Create an assembly in a temp directory
+  const assembly = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      export class ClassB {
+        public anotherMethod() {
+        }
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    const ts = assembly.translateHere(
+      ["import * as masm from 'my_assembly';", 'declare const classA: masm.ClassA;'].join('\n'),
+    );
+
+    expect(ts.get(TargetLanguage.PYTHON)?.source).toEqual(
+      ['import example_test_demo as masm', '# class_a: masm.ClassA'].join('\n'),
+    );
+    expect(ts.get(TargetLanguage.JAVA)?.source).toEqual(['import example.test.demo.*;', 'ClassA classA;'].join('\n'));
+    expect(ts.get(TargetLanguage.CSHARP)?.source).toEqual(['using Example.Test.Demo;', 'ClassA classA;'].join('\n'));
+  } finally {
+    await assembly.cleanup();
+  }
 });
