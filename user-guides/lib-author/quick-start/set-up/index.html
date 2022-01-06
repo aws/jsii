@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/quick-start/set-up/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1288,24 +1288,24 @@
 <p>Then, add the mandatory information to the new <code>package.json</code> file that was created. Specifically, <em>jsii modules</em> must
 have an <code>author</code> and <code>repository</code> setting (those are necessary to generate <em>valid</em> libraries for certain distribution
 points, such as <em>Maven Central</em>):</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;project-name&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-<span class="hll">  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;A demonstration jsii library&quot;</span><span class="p">,</span>
-</span>  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;index.js&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;keywords&quot;</span><span class="p">:</span> <span class="p">[],</span>
-<span class="hll">  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span class="hll">    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.doe@acme.com&quot;</span>
-</span><span class="hll">  <span class="p">},</span>
-</span><span class="hll">  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span class="hll">    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/acme/project-name.git&quot;</span>
-</span><span class="hll">  <span class="p">},</span>
-</span>  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project-name&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A demonstration jsii library&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="w">  </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;index.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;test&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;John Doe&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;john.doe@acme.com&quot;</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="p">},</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="nt">&quot;repository&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/acme/project-name.git&quot;</span><span class="w"></span>
+</span><span class="hll"><span class="w">  </span><span class="p">},</span><span class="w"></span>
+</span><span class="w">  </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ISC&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1352,19 +1352,19 @@ points, such as <em>Maven Central</em>):</p>
 <h2 id="set-up-essential-scripts">Set up essential scripts</h2>
 <p>Finally, you might want to configure convenience scripts in your <code>package.json</code> file in order to facilitate working with
 your project:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;project-name&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;A demonstration jsii library&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;index.js&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-<span class="hll">    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;jsii&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;build:watch&quot;</span><span class="p">:</span> <span class="s2">&quot;jsii --watch&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;package&quot;</span><span class="p">:</span> <span class="s2">&quot;jsii-pacmak&quot;</span>
-</span>  <span class="p">},</span>
-  <span class="nt">&quot;keywords&quot;</span><span class="p">:</span> <span class="p">[]</span>
-  <span class="err">//</span> <span class="err">...</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project-name&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A demonstration jsii library&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;index.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jsii&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;build:watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jsii --watch&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">&quot;package&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jsii-pacmak&quot;</span><span class="w"></span>
+</span><span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
+<span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Those scripts have the following effect:</p>
 <table>
@@ -1395,7 +1395,7 @@ your project:</p>
   <small>
     
       Last update:
-      2021-12-23
+      2022-01-06
     
   </small>
 </div>
@@ -1478,10 +1478,10 @@ your project:</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
     
   </body>

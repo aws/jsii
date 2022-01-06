@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/specification/2-type-system/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -2006,13 +2006,13 @@ the behavior dictated by the declared element type of the list, combined with th
 <p>JSON has no standard expression for <code>Date</code>. A special JSON object representation is used to allow unambiguously
 conveying a date. The wrapper has a single key (<code>$jsii.date</code>) with the <a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-1:ed-1:v1:en">ISO 8601-1</a> UTC representation of the <code>Date</code>
 value:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span> <span class="nt">&quot;$jsii.date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-20T14:04:00.000Z&quot;</span> <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-20T14:04:00.000Z&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="enum-serialization">Enum Serialization</h3>
 <p>In <strong>JavaScript</strong>, <code>enum</code> entries are represented by their value equivalent. In order to support statically typed
 representations in other languages, these are serialized using a dedicated wrapper object, using a single key
 (<code>$jsii.enum</code>) with the fully qualified name of the <code>enum</code> entry (formatted as <code>&lt;enum type fqn&gt;/&lt;entry name&gt;</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span> <span class="nt">&quot;$jsii.enum&quot;</span><span class="p">:</span> <span class="s2">&quot;@scope/module.EnumType/ENTRY_NAME&quot;</span> <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.EnumType/ENTRY_NAME&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="identity-serialization">Identity Serialization</h3>
 <p>The identity serialization is achieved by using the standard JSON representation of the primitive type. JSON strings are
@@ -2021,24 +2021,24 @@ expressed using the <code>UTF-8</code> character set.</p>
 <p>Key-value pairs are passed by-value between the processes and is wrapped using a single-key (<code>$jsii.map</code>) associated
 with the JSON representation of the encoded object; where values are serialized according to the behavior dictated by
 the element type of the mapping, combined with the dynamic type of the value itself:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;$jsii.map&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;foo&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$jsii.date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-20T14:04:00.000Z&quot;</span> <span class="p">},</span>
-      <span class="nt">&quot;map&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$jsii.map&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;$jsii.map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-20T14:04:00.000Z&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="reference-serialization">Reference Serialization</h3>
 <p>Objects serialized by reference are passed using a special object that provides sufficient information to tie back to
 the instance within its owning process. It includes a <code>$jsii.byref</code> key associated with a string that uniquely
 identifies the instance, and an optional <code>$jsii.interfaces</code> key that provides a list of interfaces that the object
 implements.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;$jsii.byref&quot;</span><span class="p">:</span> <span class="s2">&quot;@scope/module.Foo@1337&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;$jsii.interfaces&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;@scope/module.IBar&quot;</span><span class="p">,</span> <span class="s2">&quot;@scope/module.IBaz&quot;</span><span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;$jsii.byref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.Foo@1337&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;$jsii.interfaces&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;@scope/module.IBar&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@scope/module.IBaz&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="value-serialization">Value Serialization</h3>
 <p><em>Structs</em> can be serialized by-value. In those cases, the value is wrapped using a special object that encapsulates the
@@ -2046,15 +2046,15 @@ type information for the provided data as well as the <em>struct</em>'s members.
 <p>The wrapper uses a single <code>$jsii.struct</code> key with a <code>fqn</code> key that indicates the fully qualified name of the <em>struct</em>
 type, and a <code>data</code> key that contains the members of the <em>struct</em>, serialized according to the behavior described in this
 document.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;$jsii.struct&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;fqn&quot;</span><span class="p">:</span> <span class="s2">&quot;@scope/module.StructType&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;enumValue&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$jsii.enum&quot;</span><span class="p">:</span> <span class="s2">&quot;@scope/module.EnumType.ENTRY_NAME&quot;</span> <span class="p">},</span>
-      <span class="nt">&quot;stringProperty&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello, I&#39;m a string!&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;$jsii.struct&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;fqn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.StructType&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;enumValue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.EnumType.ENTRY_NAME&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;stringProperty&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello, I&#39;m a string!&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="submodules">Submodules</h2>
 <h3 id="overview">Overview</h3>
@@ -2129,7 +2129,7 @@ basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</s
   <small>
     
       Last update:
-      2021-12-23
+      2022-01-06
     
   </small>
 </div>
@@ -2212,10 +2212,10 @@ basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</s
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
     
   </body>
