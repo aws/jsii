@@ -5,7 +5,7 @@
 This section details the current state of each language binding with respect to our standard compliance suite.
 
 
-| number | test                                                                                                                                                             | java (99.16%) | golang (78.15%)                              | Dotnet | Python |
+| number | test                                                                                                                                                             | java (98.33%) | golang (78.33%)                              | Dotnet | Python |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------- | ------ | ------ |
 | 1      | asyncOverrides_overrideCallsSuper                                                                                                                                | 🟢            | [🔴](https://github.com/aws/jsii/issues/2670) | ⭕      | ⭕      |
 | 2      | [arrayReturnedByMethodCanBeRead]("Array created in the kernel can be queried for its elements")                                                                  | 🟢            | 🟢                                           | ⭕      | ⭕      |
@@ -126,3 +126,4 @@ This section details the current state of each language binding with respect to 
 | 117    | testInterfaces                                                                                                                                                   | 🟢            | 🟢                                           | ⭕      | ⭕      |
 | 118    | [callbackParameterIsInterface]("Validates pure interfaces can be passed to callbacks")                                                                           | ⭕             | 🟢                                           | ⭕      | ⭕      |
 | 119    | [classCanBeUsedWhenNotExpressedlyLoaded]("Validates that types not explicitly loaded by the user can safely be returned by JS code")                             | 🟢            | 🟢                                           | ⭕      | ⭕      |
+| 120    | [downcasting]("Ensures unsafe-cast features work as expected")                                                                                                   | ⭕             | 🟢                                           | ⭕      | ⭕      |
