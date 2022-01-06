@@ -205,3 +205,17 @@ export function isDefined<A>(x: A): x is NonNullable<A> {
 export function indexBy<A>(xs: A[], fn: (x: A) => string): Record<string, A> {
   return mkDict(xs.map((x) => [fn(x), x] as const));
 }
+
+export function commentToken(language: string) {
+  // This is future-proofed a bit, but don't read too much in this...
+  switch (language) {
+    case 'python':
+    case 'ruby':
+      return '#';
+    case 'csharp':
+    case 'java':
+    case 'go':
+    default:
+      return '//';
+  }
+}

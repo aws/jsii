@@ -493,7 +493,7 @@ const DEFAULT_CSHARP_CODE = [
 ];
 
 /**
- * Verify the Java output. All expected Java outputs look the same.
+ * Verify the output in the given language. All expected outputs look the same.
  */
 function expectTranslation(trans: TranslatedSnippet, lang: TargetLanguage, expected: string[]) {
   expect(trans.get(lang)?.source.split('\n')).toEqual(expected);

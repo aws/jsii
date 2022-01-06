@@ -18,6 +18,11 @@ const SAMPLE_CODE: TypeScriptSnippet = {
   location: testSnippetLocation('sample'),
 };
 
+const SAMPLE_CODE_COMPILING: TypeScriptSnippet = {
+  visibleSource: 'console.log("hello");',
+  location: testSnippetLocation('sample'),
+};
+
 describe('Rosetta object can do live translation', () => {
   let rosetta: Rosetta;
   let translated: Translation | undefined;
@@ -155,6 +160,60 @@ test('Rosetta object can do translation and annotation of snippets in MarkDown',
       'That was it, thank you for your attention.',
     ].join('\n'),
   );
+});
+
+describe('Rosetta object with disclaimers', () => {
+  let rosetta: Rosetta;
+  beforeEach(() => {
+    // GIVEN
+    rosetta = new Rosetta({
+      includeCompilerDiagnostics: true,
+      unknownSnippets: UnknownSnippetMode.TRANSLATE,
+      targetLanguages: [TargetLanguage.PYTHON],
+      prefixDisclaimer: true,
+    });
+  });
+
+  test('compiling source code has no disclaimer', () => {
+    // WHEN
+    const translated = rosetta.translateSnippet(SAMPLE_CODE_COMPILING, TargetLanguage.PYTHON);
+
+    // THEN
+    expect(translated).toMatchObject({
+      source: 'print("hello")',
+      language: 'python',
+    });
+  });
+
+  test('noncompiling source code has disclaimer', () => {
+    // WHEN
+    const translated = rosetta.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
+
+    // THEN
+    expect(translated).toMatchObject({
+      source: '# Example automatically generated from non-compiling source. May contain errors.\ncall_this_function()',
+      language: 'python',
+    });
+  });
+
+  test('source with no compilation information has no disclaimer', () => {
+    // GIVEN
+    const rosettaNoCompile = new Rosetta({
+      includeCompilerDiagnostics: false,
+      unknownSnippets: UnknownSnippetMode.TRANSLATE,
+      targetLanguages: [TargetLanguage.PYTHON],
+      prefixDisclaimer: true,
+    });
+
+    // WHEN
+    const translated = rosettaNoCompile.translateSnippet(SAMPLE_CODE, TargetLanguage.PYTHON);
+
+    // THEN
+    expect(translated).toMatchObject({
+      source: 'call_this_function()',
+      language: 'python',
+    });
+  });
 });
 
 describe('with mocked filesystem', () => {
