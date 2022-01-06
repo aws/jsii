@@ -1,11 +1,13 @@
-import { SPEC_FILE_NAME } from '@jsii/spec';
+import { Assembly, SPEC_FILE_NAME } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
 import * as path from 'path';
 
+import { extractSnippets } from '../../lib/commands/extract';
 import { transliterateAssembly } from '../../lib/commands/transliterate';
 import { TargetLanguage } from '../../lib/languages/target-language';
-import { withTemporaryDirectory } from '../testutil';
+import { TabletSchema } from '../../lib/tablets/schema';
+import { withTemporaryDirectory, TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 jest.setTimeout(60_000);
 
@@ -1345,3 +1347,47 @@ export class ClassName implements IInterface {
       }),
     ).resolves.not.toThrow();
   }));
+
+test('will read translations from cache even if they are dirty', async () => {
+  const infusedAssembly = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+        /**
+         * ClassA
+         *
+         * @example x
+         */
+        export class ClassA {
+          public someMethod() {
+          }
+        }
+        `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    // Run an extract
+    await extractSnippets([infusedAssembly.moduleDirectory]);
+
+    // Mess up the extracted source file
+    const schema: TabletSchema = await fs.readJson(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'));
+    for (const snippet of Object.values(schema.snippets)) {
+      snippet.translations[TargetLanguage.PYTHON] = {
+        source: 'oops',
+        version: '999',
+      };
+    }
+    await fs.writeJson(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'), schema);
+
+    // Run a transliterate, should have used the translation from the cache even though the version is wrong
+    await transliterateAssembly([infusedAssembly.moduleDirectory], [TargetLanguage.PYTHON]);
+
+    const translated: Assembly = await fs.readJson(path.join(infusedAssembly.moduleDirectory, '.jsii.python'));
+    expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('oops');
+  } finally {
+    await infusedAssembly.cleanup();
+  }
+});
