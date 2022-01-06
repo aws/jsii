@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.51.0](https://github.com/aws/jsii/compare/v1.50.0...v1.51.0) (2022-01-06)
+
+
+### Features
+
+* **pacmak:** go yaml struct tags ([#3299](https://github.com/aws/jsii/issues/3299)) ([63132cf](https://github.com/aws/jsii/commit/63132cf30ad62ba59d2a8cdfaba60b92819352cd)), closes [#3293](https://github.com/aws/jsii/issues/3293)
+
+
+### Bug Fixes
+
+* **jsii:** cannot use submodule types from assemblies before 1.39.0 ([#3306](https://github.com/aws/jsii/issues/3306)) ([949d5f0](https://github.com/aws/jsii/commit/949d5f00df6a44c4fbacc06dc9f4f239c68c583e)), closes [#3233](https://github.com/aws/jsii/issues/3233)
+* **rosetta:** Python translation for `implements` is wrong ([#3280](https://github.com/aws/jsii/issues/3280)) ([a833a1d](https://github.com/aws/jsii/commit/a833a1d2f1335e9447fd5702b9e4f9c6166abe67)), closes [aws/aws-cdk#17928](https://github.com/aws/aws-cdk/issues/17928)
+
 ## [1.50.0](https://github.com/aws/jsii/compare/v1.49.0...v1.50.0) (2021-12-24)
 
 
