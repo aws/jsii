@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.52.0](https://github.com/aws/jsii/compare/v1.51.0...v1.52.0) (2022-01-07)
+
+
+### Bug Fixes
+
+* **rosetta:** `transliterate` tries to recompile samples from tablets ([#3324](https://github.com/aws/jsii/issues/3324)) ([7aa69a7](https://github.com/aws/jsii/commit/7aa69a7c51b31ab1adb37b9d5cab682b5da6c715)), closes [#3262](https://github.com/aws/jsii/issues/3262)
+
 ## [1.51.0](https://github.com/aws/jsii/compare/v1.50.0...v1.51.0) (2022-01-06)
 
 
