@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.52.1](https://github.com/aws/jsii/compare/v1.52.0...v1.52.1) (2022-01-09)
+## [1.52.1](https://github.com/aws/jsii/compare/v1.52.0...v1.52.1) (2022-01-09)
 
 
 ### Bug Fixes
