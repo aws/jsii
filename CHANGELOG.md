@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.52.1](https://github.com/aws/jsii/compare/v1.52.0...v1.52.1) (2022-01-09)
+
+
+### Bug Fixes
+
+* **jsii:** breaks due to faulty version of `colors` ([#3328](https://github.com/aws/jsii/issues/3328)) ([5bd5e04](https://github.com/aws/jsii/commit/5bd5e04bc401bdf6c1bc1f3aba9e6401f7347478))
+
 ## [1.52.0](https://github.com/aws/jsii/compare/v1.51.0...v1.52.0) (2022-01-07)
 
 
