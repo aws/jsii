@@ -1227,9 +1227,9 @@ export class Assembler implements Emitter {
   ): Promise<spec.ClassType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing class: ${chalk.gray(
-          ctx.namespace.join('.'),
-        )}.${chalk.cyan(type.symbol.name)}`,
+        `Processing class: ${chalk.gray(ctx.namespace.join('.'))}.${chalk.cyan(
+          type.symbol.name,
+        )}`,
       );
     }
 
