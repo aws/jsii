@@ -38,7 +38,7 @@
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "^0.0.0",
     "case": "^1.6.3",
-    "colors": "1.4.0",
+    "chalk": "^4",
     "deep-equal": "^2.0.5",
     "fs-extra": "^9.1.0",
     "log4js": "^6.3.0",

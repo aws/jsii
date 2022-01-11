@@ -1,7 +1,7 @@
 import * as spec from '@jsii/spec';
 import { PackageJson } from '@jsii/spec';
 import * as Case from 'case';
-import * as colors from 'colors/safe';
+import * as chalk from 'chalk';
 import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
@@ -183,7 +183,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Processing source file: ${colors.blue(
+          `Processing source file: ${chalk.blue(
             path.relative(this.projectInfo.projectRoot, sourceFile.fileName),
           )}`,
         );
@@ -291,7 +291,7 @@ export class Assembler implements Emitter {
     const validationResult = await validator.emit();
     if (!validationResult.emitSkipped) {
       const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
-      LOG.trace(`Emitting assembly: ${colors.blue(assemblyPath)}`);
+      LOG.trace(`Emitting assembly: ${chalk.blue(assemblyPath)}`);
       await fs.writeJson(assemblyPath, _fingerprint(assembly), {
         encoding: 'utf8',
         spaces: 2,
@@ -917,7 +917,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Entering submodule: ${colors.cyan(
+          `Entering submodule: ${chalk.cyan(
             [...context.namespace, symbol.name].join('.'),
           )}`,
         );
@@ -932,7 +932,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Leaving submodule: ${colors.cyan(
+          `Leaving submodule: ${chalk.cyan(
             [...context.namespace, symbol.name].join('.'),
           )}`,
         );
@@ -994,7 +994,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Entering namespace: ${colors.cyan(
+          `Entering namespace: ${chalk.cyan(
             [...context.namespace, name].join('.'),
           )}`,
         );
@@ -1013,7 +1013,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Leaving namespace:  ${colors.cyan(
+          `Leaving namespace:  ${chalk.cyan(
             [...context.namespace, name].join('.'),
           )}`,
         );
@@ -1069,7 +1069,7 @@ export class Assembler implements Emitter {
 
     if (LOG.isInfoEnabled()) {
       LOG.info(
-        `Registering JSII ${colors.magenta(jsiiType.kind)}: ${colors.green(
+        `Registering JSII ${chalk.magenta(jsiiType.kind)}: ${chalk.green(
           jsiiType.fqn,
         )}`,
       );
@@ -1227,9 +1227,9 @@ export class Assembler implements Emitter {
   ): Promise<spec.ClassType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing class: ${colors.gray(
-          ctx.namespace.join('.'),
-        )}.${colors.cyan(type.symbol.name)}`,
+        `Processing class: ${chalk.gray(ctx.namespace.join('.'))}.${chalk.cyan(
+          type.symbol.name,
+        )}`,
       );
     }
 
@@ -1274,7 +1274,7 @@ export class Assembler implements Emitter {
       // erased, and identify the closest exported base class, should there be one.
       while (base && this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(
-          `Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(
+          `Base class of ${chalk.green(jsiiType.fqn)} named ${chalk.green(
             base.symbol.name,
           )} is not exported, erasing it...`,
         );
@@ -1688,7 +1688,7 @@ export class Assembler implements Emitter {
 
     if (_isPrivate(symbol)) {
       LOG.trace(
-        `${colors.cyan(
+        `${chalk.cyan(
           symbol.name,
         )} is marked "private", or is an unexported type declaration`,
       );
@@ -1729,7 +1729,7 @@ export class Assembler implements Emitter {
   ): Promise<spec.EnumType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing enum: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(
+        `Processing enum: ${chalk.gray(ctx.namespace.join('.'))}.${chalk.cyan(
           type.symbol.name,
         )}`,
       );
@@ -1880,9 +1880,9 @@ export class Assembler implements Emitter {
   ): Promise<spec.InterfaceType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing interface: ${colors.gray(
+        `Processing interface: ${chalk.gray(
           ctx.namespace.join('.'),
-        )}.${colors.cyan(type.symbol.name)}`,
+        )}.${chalk.cyan(type.symbol.name)}`,
       );
     }
 
@@ -2120,7 +2120,7 @@ export class Assembler implements Emitter {
   ) {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing method: ${colors.green(type.fqn)}#${colors.cyan(
+        `Processing method: ${chalk.green(type.fqn)}#${chalk.cyan(
           symbol.name,
         )}`,
       );
@@ -2241,7 +2241,7 @@ export class Assembler implements Emitter {
       ) != null
     ) {
       LOG.trace(
-        `Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(
+        `Dropping re-declaration of ${chalk.green(type.fqn)}#${chalk.cyan(
           method.name,
         )}`,
       );
@@ -2285,7 +2285,7 @@ export class Assembler implements Emitter {
 
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing property: ${colors.green(type.fqn)}#${colors.cyan(
+        `Processing property: ${chalk.green(type.fqn)}#${chalk.cyan(
           symbol.name,
         )}`,
       );
@@ -2373,7 +2373,7 @@ export class Assembler implements Emitter {
       ) != null
     ) {
       LOG.trace(
-        `Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(
+        `Dropping re-declaration of ${chalk.green(type.fqn)}#${chalk.cyan(
           property.name,
         )}`,
       );
@@ -2388,7 +2388,7 @@ export class Assembler implements Emitter {
     ctx: EmitContext,
   ): Promise<spec.Parameter> {
     if (LOG.isTraceEnabled()) {
-      LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
+      LOG.trace(`Processing parameter: ${chalk.cyan(paramSymbol.name)}`);
     }
     const paramDeclaration =
       paramSymbol.valueDeclaration as ts.ParameterDeclaration;
