@@ -60,6 +60,7 @@ export async function transliterateAssembly(
     loose: options.loose,
     cacheFromFile: options.tablet,
     writeToImplicitTablets: false,
+    allowDirtyTranslations: true,
   });
 
   // Now do a regular "tablet reader" cycle, expecting everything to be translated already,
