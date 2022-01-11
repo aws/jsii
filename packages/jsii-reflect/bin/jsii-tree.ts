@@ -1,6 +1,6 @@
 import '@jsii/check-node/run';
 
-import * as colors from 'colors/safe';
+import * as chalk from 'chalk';
 import * as yargs from 'yargs';
 
 import { TypeSystem, TypeSystemTree } from '../lib';
@@ -109,6 +109,6 @@ async function main() {
 }
 
 main().catch((e) => {
-  console.log(colors.red(e));
+  console.log(chalk.red(e));
   process.exit(1);
 });
