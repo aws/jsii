@@ -6,6 +6,7 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
+import { checkCoverage } from '../lib/commands/coverage';
 import { extractAndInfuse, extractSnippets, ExtractOptions } from '../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
@@ -346,6 +347,21 @@ function main() {
           cacheFile: args.TABLET,
           assemblyLocations: args.ASSEMBLY,
         });
+      }),
+    )
+    .command(
+      'coverage [ASSEMBLY..]',
+      'Check the translation coverage of implicit tablets for the given assemblies',
+      (command) =>
+        command.positional('ASSEMBLY', {
+          type: 'string',
+          string: true,
+          default: ['.'],
+          describe: 'Assembly or directory to search',
+        }),
+      wrapHandler(async (args) => {
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        await checkCoverage(absAssemblies);
       }),
     )
     .command(
