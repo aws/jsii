@@ -12,6 +12,8 @@
             "COMMIT_ID": "head"
         }
     },
+    "containerUser": "root",
+    "remoteUser": "root",
     "postCreateCommand": "yarn install && yarn build",
     "extensions": [
         "dbaeumer.vscode-eslint@2.1.5"
