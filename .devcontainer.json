@@ -1,6 +1,17 @@
 {
     "name": "Dev Container Definition - AWS JSII",
-    "image": "jsii/superchain:1-buster-slim",
+    "build": {
+        "dockerfile": "superchain/Dockerfile",
+        "context": ".",
+        "target": "superchain",
+        "args": {
+            "BUILDPLATFORM": "linux/amd64",
+            "TARGETPLATFORM": "linux/amd64",
+            "BUILD_TIMESTAMP": "unknown",
+            "REGISTRY": "docker.io/library",
+            "COMMIT_ID": "head"
+        }
+    },
     "postCreateCommand": "yarn install && yarn build",
     "extensions": [
         "dbaeumer.vscode-eslint@2.1.5"
