@@ -6,6 +6,7 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
+import { checkCoverage } from '../lib/commands/coverage';
 import { extractAndInfuse, extractSnippets, ExtractOptions } from '../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
@@ -221,7 +222,14 @@ function main() {
             describe:
               'Require all code samples compile, and fail if one does not. Strict mode always enables --compile and --fail',
             default: false,
-          }),
+          })
+          .options('loose', {
+            alias: 'l',
+            describe: 'Ignore missing fixtures and literate markdown files instead of failing',
+            type: 'boolean',
+          })
+          .conflicts('loose', 'strict')
+          .conflicts('loose', 'fail'),
       wrapHandler(async (args) => {
         // `--strict` is short for `--compile --fail`, and we'll override those even if they're set to `false`, such as
         // using `--no-(compile|fail)`, because yargs does not quite give us a better option that does not hurt CX.
@@ -250,6 +258,7 @@ function main() {
           cacheFromFile: absCacheFrom,
           cacheToFile: absCacheTo,
           trimCache: args['trim-cache'],
+          loose: args.loose,
         };
 
         const result = args.infuse
@@ -338,6 +347,21 @@ function main() {
           cacheFile: args.TABLET,
           assemblyLocations: args.ASSEMBLY,
         });
+      }),
+    )
+    .command(
+      'coverage [ASSEMBLY..]',
+      'Check the translation coverage of implicit tablets for the given assemblies',
+      (command) =>
+        command.positional('ASSEMBLY', {
+          type: 'string',
+          string: true,
+          default: ['.'],
+          describe: 'Assembly or directory to search',
+        }),
+      wrapHandler(async (args) => {
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        await checkCoverage(absAssemblies);
       }),
     )
     .command(

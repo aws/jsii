@@ -510,6 +510,10 @@ export const suite: schema.Suite = {
     {
       name: 'classCanBeUsedWhenNotExpressedlyLoaded',
       description: 'Validates that types not explicitly loaded by the user can safely be returned by JS code',
+    },
+    {
+      name: 'downcasting',
+      description: 'Ensures unsafe-cast features work as expected',
     }
   ],
 };

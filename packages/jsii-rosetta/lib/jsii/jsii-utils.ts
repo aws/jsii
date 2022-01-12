@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import { symbolIdentifier } from 'jsii';
 import * as ts from 'typescript';
 
@@ -27,6 +28,60 @@ export function analyzeStructType(typeChecker: ts.TypeChecker, type: ts.Type): O
   }
 
   return { kind: 'local-struct', type };
+}
+
+/**
+ * Whether the given type is a protocol AND comes from jsii
+ *
+ * - Protocol: a TypeScript interface that is *not* a "struct" type.
+ *   A.k.a. "behavioral interface".
+ * - From jsii: whether the interface type is defined in and exported
+ *   via a jsii assembly. There can be literal interfaces defined
+ *   in an example, and they will not be mangled in the same way
+ *   as a jsii interface would be.
+ *
+ *
+ * Examples:
+ *
+ * ```ts
+ * // isJsiiProtocolType() -> false: not a protocol
+ * interface Banana {
+ *   readonly arc: number;
+ * }
+ *
+ * // isJsiiProtocolType() -> might be true: depends on whether it was defined
+ * // in a jsii assembly.
+ * interface IHello {
+ *   sayIt(): void;
+ * }
+ *
+ * // isJsiiProtocolType() -> false: declared to not be a protocol, even though
+ * // it has the naming scheme of one
+ * /**
+ *  * @struct
+ *  * /
+ * interface IPAddress {
+ *   readonly octets: number[];
+ * }
+ * ```
+ */
+export function isJsiiProtocolType(typeChecker: ts.TypeChecker, type: ts.Type): boolean | undefined {
+  if (!type.isClassOrInterface() || !hasAllFlags(type.objectFlags, ts.ObjectFlags.Interface)) {
+    return false;
+  }
+
+  const sym = lookupJsiiSymbol(typeChecker, type.symbol);
+  if (!sym) {
+    return false;
+  }
+
+  if (!sym.sourceAssembly) {
+    // No source assembly, so this is a 'fake-from-jsii' type
+    return !isNamedLikeStruct(type.symbol.name);
+  }
+
+  const jsiiType = resolveJsiiSymbolType(sym);
+  return spec.isInterfaceType(jsiiType) && !jsiiType.datatype;
 }
 
 export function hasAllFlags<A extends number>(flags: A, test: A) {
@@ -98,6 +153,26 @@ export interface JsiiSymbol {
 
 export function lookupJsiiSymbolFromNode(typeChecker: ts.TypeChecker, node: ts.Node): JsiiSymbol | undefined {
   return fmap(typeChecker.getSymbolAtLocation(node), (s) => lookupJsiiSymbol(typeChecker, s));
+}
+
+export function resolveJsiiSymbolType(jsiiSymbol: JsiiSymbol): spec.Type {
+  if (jsiiSymbol.symbolType !== 'type') {
+    throw new Error(
+      `Expected symbol to refer to a 'type', got '${jsiiSymbol.fqn}' which is a '${jsiiSymbol.symbolType}'`,
+    );
+  }
+
+  if (!jsiiSymbol.sourceAssembly) {
+    throw new Error('`resolveJsiiSymbolType: requires an actual source assembly');
+  }
+
+  const type = jsiiSymbol.sourceAssembly?.assembly.types?.[jsiiSymbol.fqn];
+  if (!type) {
+    throw new Error(
+      `resolveJsiiSymbolType: ${jsiiSymbol.fqn} not found in assembly ${jsiiSymbol.sourceAssembly.assembly.name}`,
+    );
+  }
+  return type;
 }
 
 /**

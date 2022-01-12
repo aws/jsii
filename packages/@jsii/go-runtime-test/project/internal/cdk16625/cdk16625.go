@@ -11,7 +11,7 @@ func New() abc.Cdk16625 {
 	return c
 }
 
-type cdk16625 struct{
+type cdk16625 struct {
 	abc.Cdk16625
 }
 
