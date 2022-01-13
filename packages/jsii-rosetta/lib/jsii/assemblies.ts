@@ -17,9 +17,6 @@ import { enforcesStrictMode } from '../strict';
 import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
 import { fmap, mkDict, sortBy } from '../util';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-const sortJson = require('sort-json');
-
 /**
  * The JSDoc tag users can use to associate non-visible metadata with an example
  *

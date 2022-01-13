@@ -2,7 +2,6 @@ import * as spec from '@jsii/spec';
 import { PackageJson } from '@jsii/spec';
 import * as Case from 'case';
 import * as chalk from 'chalk';
-import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
 import * as fs from 'fs-extra';
