@@ -203,6 +203,9 @@ export interface ReadFromCacheResults {
 }
 
 export interface TranslateAllOptions {
+  /**
+   * @default - Create a temporary directory with all necessary packages
+   */
   readonly compilationDirectory?: string;
 
   /**

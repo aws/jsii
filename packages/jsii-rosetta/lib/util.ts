@@ -27,7 +27,7 @@ export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: No
 export function formatList(xs: string[], n = 5) {
   const tooMany = xs.length - n;
 
-  return tooMany > 0 ? `${xs.join(', ')} (and ${tooMany} more)` : xs.join(', ');
+  return tooMany > 0 ? `${xs.slice(0, n).join(', ')} (and ${tooMany} more)` : xs.join(', ');
 }
 
 export const StrictBrand = 'jsii.strict';

@@ -136,8 +136,6 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
   );
 
   // Run 'npm install' on it
-  await fs.mkdirp(tmpDir);
-
   if (symbolicInstalls.length > 0) {
     logging.debug(`Installing example dependencies: ${symbolicInstalls.join(' ')}`);
     cp.execSync(`npm install ${symbolicInstalls.join(' ')}`, { cwd: tmpDir, encoding: 'utf-8' });
@@ -150,8 +148,11 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
     await Promise.all(
       Object.entries(linkedInstalls).map(async ([name, source]) => {
         const target = path.join(modDir, name);
-        await fs.mkdirp(path.dirname(target));
-        await fs.symlink(source, target, 'dir');
+        if (!(await fs.pathExists(target))) {
+          // Package could be namespaced, so ensure the namespace dir exists
+          await fs.mkdirp(path.dirname(target));
+          await fs.symlink(source, target, 'dir');
+        }
       }),
     );
   }
@@ -162,7 +163,7 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
 /**
  * Map package name to directory
  */
-async function scanMonoRepos(startingDirs: string[]): Promise<Record<string, string>> {
+async function scanMonoRepos(startingDirs: readonly string[]): Promise<Record<string, string>> {
   const globs = new Set<string>();
   for (const dir of startingDirs) {
     // eslint-disable-next-line no-await-in-loop

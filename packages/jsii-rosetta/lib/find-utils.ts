@@ -51,10 +51,10 @@ export function findUp(directory: string, pred: (dir: string) => boolean): strin
 // eslint-disable-next-line @typescript-eslint/promise-function-async
 export function findUp(
   directory: string,
-  pred: ((dir: string) => boolean) | ((dir: string) => Promise<boolean>),
+  pred: (dir: string) => boolean | Promise<boolean>,
 ): Promise<string | undefined> | string | undefined {
   const result = pred(directory);
-  if (isPromise(result)) {
+  if (result instanceof Promise) {
     return result.then((thisDirectory) => (thisDirectory ? directory : recurse()));
   }
 
@@ -67,10 +67,6 @@ export function findUp(
     }
     return findUp(parent, pred as any);
   }
-}
-
-function isPromise<A>(x: A | Promise<A>): x is Promise<A> {
-  return typeof x === 'object' && (x as any).then;
 }
 
 /**

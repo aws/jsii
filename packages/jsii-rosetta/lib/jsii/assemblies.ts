@@ -216,7 +216,7 @@ export async function allTypeScriptSnippets(
         }
       })
       .map(async ({ snippet, loaded }) => {
-        const isInfused = snippet.parameters?.infused !== undefined;
+        const isInfused = snippet.parameters?.infused != null;
 
         // Ignore fixturization errors if requested on this command, or if the snippet was infused
         const ignoreFixtureErrors = loose || isInfused;
