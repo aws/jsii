@@ -7,7 +7,7 @@ export async function checkCoverage(assemblyLocations: readonly string[]): Promi
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations, false);
 
-  const snippets = Array.from(allTypeScriptSnippets(assemblies, true));
+  const snippets = Array.from(await allTypeScriptSnippets(assemblies, true));
 
   const translator = new RosettaTranslator({
     assemblies: assemblies.map((a) => a.assembly),
