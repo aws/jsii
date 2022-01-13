@@ -16,7 +16,7 @@ SDK             | Version
 `Javascript`    | `node >= 12.7.0` OR `node >= 14.16.0` OR `node >= 16.0.0` with `npm >= 6.14.11` (see [NodeJS and NPM](#nodejs-and-npm))
 `PowerShell`    | `pwsh >= 7.1.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
-`Go`            | `go >= 1.16`
+`Go`            | `go >= 1.17`
 
 ## Image tags
 

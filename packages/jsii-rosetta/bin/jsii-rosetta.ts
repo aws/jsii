@@ -6,6 +6,7 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
+import { checkCoverage } from '../lib/commands/coverage';
 import { extractAndInfuse, extractSnippets, ExtractOptions } from '../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
@@ -82,19 +83,39 @@ function main() {
             describe: 'Output file to store logging results. Ignored if -log is not true',
             default: DEFAULT_INFUSION_RESULTS_NAME,
           })
+          .option('cache-from', {
+            alias: 'C',
+            type: 'string',
+            // eslint-disable-next-line prettier/prettier
+            describe:
+              'Reuse translations from the given tablet file if the snippet and type definitions did not change',
+            requiresArg: true,
+            default: undefined,
+          })
           .option('cache-to', {
             alias: 'o',
             type: 'string',
             describe: 'Append all translated snippets to the given tablet file',
             requiresArg: true,
             default: undefined,
-          }),
+          })
+          .option('cache', {
+            alias: 'k',
+            type: 'string',
+            describe: 'Alias for --cache-from and --cache-to together',
+            requiresArg: true,
+            default: undefined,
+          })
+          .conflicts('cache', 'cache-from')
+          .conflicts('cache', 'cache-to'),
       wrapHandler(async (args) => {
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
-        const cacheToFile = fmap(args['cache-to'], path.resolve);
+        const absCacheFrom = fmap(args.cache ?? args['cache-from'], path.resolve);
+        const absCacheTo = fmap(args.cache ?? args['cache-to'], path.resolve);
         const result = await infuse(absAssemblies, {
           logFile: args['log-file'],
-          cacheToFile: cacheToFile,
+          cacheToFile: absCacheTo,
+          cacheFromFile: absCacheFrom,
         });
 
         let totalTypes = 0;
@@ -201,7 +222,14 @@ function main() {
             describe:
               'Require all code samples compile, and fail if one does not. Strict mode always enables --compile and --fail',
             default: false,
-          }),
+          })
+          .options('loose', {
+            alias: 'l',
+            describe: 'Ignore missing fixtures and literate markdown files instead of failing',
+            type: 'boolean',
+          })
+          .conflicts('loose', 'strict')
+          .conflicts('loose', 'fail'),
       wrapHandler(async (args) => {
         // `--strict` is short for `--compile --fail`, and we'll override those even if they're set to `false`, such as
         // using `--no-(compile|fail)`, because yargs does not quite give us a better option that does not hurt CX.
@@ -223,6 +251,7 @@ function main() {
           cacheFromFile: absCacheFrom,
           cacheToFile: absCacheTo,
           trimCache: args['trim-cache'],
+          loose: args.loose,
         };
 
         const result = args.infuse
@@ -311,6 +340,21 @@ function main() {
           cacheFile: args.TABLET,
           assemblyLocations: args.ASSEMBLY,
         });
+      }),
+    )
+    .command(
+      'coverage [ASSEMBLY..]',
+      'Check the translation coverage of implicit tablets for the given assemblies',
+      (command) =>
+        command.positional('ASSEMBLY', {
+          type: 'string',
+          string: true,
+          default: ['.'],
+          describe: 'Assembly or directory to search',
+        }),
+      wrapHandler(async (args) => {
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        await checkCoverage(absAssemblies);
       }),
     )
     .command(

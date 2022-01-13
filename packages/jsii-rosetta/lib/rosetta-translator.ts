@@ -35,6 +35,13 @@ export interface RosettaTranslatorOptions {
    * @default false
    */
   readonly includeCompilerDiagnostics?: boolean;
+
+  /**
+   * Allow reading dirty translations from cache
+   *
+   * @default false
+   */
+  readonly allowDirtyTranslations?: boolean;
 }
 
 /**
@@ -51,13 +58,16 @@ export class RosettaTranslator {
    */
   public readonly tablet = new LanguageTablet();
 
+  public readonly cache = new LanguageTablet();
+
   private readonly fingerprinter: TypeFingerprinter;
-  private readonly cache = new LanguageTablet();
   private readonly includeCompilerDiagnostics: boolean;
+  private readonly allowDirtyTranslations: boolean;
 
   public constructor(options: RosettaTranslatorOptions = {}) {
     this.fingerprinter = new TypeFingerprinter(options?.assemblies ?? []);
     this.includeCompilerDiagnostics = options.includeCompilerDiagnostics ?? false;
+    this.allowDirtyTranslations = options.allowDirtyTranslations ?? false;
   }
 
   /**
@@ -92,25 +102,58 @@ export class RosettaTranslator {
    * Will remove the cached snippets from the input array.
    */
   public readFromCache(snippets: TypeScriptSnippet[], addToTablet = true, compiledOnly = false): ReadFromCacheResults {
-    const remaining = [...snippets];
     const translations = new Array<TranslatedSnippet>();
+    const remaining = new Array<TypeScriptSnippet>();
 
-    let i = 0;
-    while (i < remaining.length) {
-      const fromCache = tryReadFromCache(remaining[i], this.cache, this.fingerprinter);
-      // If compiledOnly is set, do not consider cached snippets that do not compile
-      if (fromCache && (!compiledOnly || fromCache.snippet.didCompile)) {
-        if (addToTablet) {
-          this.tablet.addSnippet(fromCache);
-        }
-        remaining.splice(i, 1);
-        translations.push(fromCache);
-      } else {
-        i += 1;
+    let infusedCount = 0;
+    let dirtyCount = 0;
+    let dirtySourceCount = 0;
+    let dirtyTypesCount = 0;
+    let dirtyTranslatorCount = 0;
+    let dirtyDidntCompile = 0;
+
+    for (const snippet of snippets) {
+      const fromCache = tryReadFromCache(snippet, this.cache, this.fingerprinter, compiledOnly);
+      switch (fromCache.type) {
+        case 'hit':
+          if (addToTablet) {
+            this.tablet.addSnippet(fromCache.snippet);
+          }
+          translations.push(fromCache.snippet);
+
+          infusedCount += fromCache.infused ? 1 : 0;
+          break;
+
+        case 'dirty':
+          dirtyCount += 1;
+          dirtySourceCount += fromCache.dirtySource ? 1 : 0;
+          dirtyTranslatorCount += fromCache.dirtyTranslator ? 1 : 0;
+          dirtyTypesCount += fromCache.dirtyTypes ? 1 : 0;
+          dirtyDidntCompile += fromCache.dirtyDidntCompile ? 1 : 0;
+
+          if (this.allowDirtyTranslations) {
+            translations.push(fromCache.translation);
+          } else {
+            remaining.push(snippet);
+          }
+          break;
+
+        case 'miss':
+          remaining.push(snippet);
+          break;
       }
     }
 
-    return { translations, remaining };
+    return {
+      translations,
+      remaining,
+      infusedCount,
+      dirtyCount,
+      dirtySourceCount,
+      dirtyTranslatorCount,
+      dirtyTypesCount,
+      dirtyDidntCompile,
+    };
   }
 
   public async translateAll(snippets: TypeScriptSnippet[], addToTablet?: boolean): Promise<TranslateAllResult>;
@@ -183,23 +226,77 @@ export class RosettaTranslator {
  * doesn't really make a lot of difference.  So, for simplification's sake,
  * we'll regen all translations if there's at least one that's outdated.
  */
-function tryReadFromCache(sourceSnippet: TypeScriptSnippet, cache: LanguageTablet, fingerprinter: TypeFingerprinter) {
+function tryReadFromCache(
+  sourceSnippet: TypeScriptSnippet,
+  cache: LanguageTablet,
+  fingerprinter: TypeFingerprinter,
+  compiledOnly: boolean,
+): CacheHit {
   const fromCache = cache.tryGetSnippet(snippetKey(sourceSnippet));
 
-  const cacheable =
-    fromCache &&
-    completeSource(sourceSnippet) === fromCache.snippet.fullSource &&
-    Object.entries(TARGET_LANGUAGES).every(
-      ([lang, translator]) => fromCache.snippet.translations?.[lang]?.version === translator.version,
-    ) &&
-    fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) === fromCache.snippet.fqnsFingerprint;
+  if (!fromCache) {
+    return { type: 'miss' };
+  }
 
-  return cacheable ? fromCache : undefined;
+  // infused snippets won't pass the full source check or the fingerprinter
+  // but there is no reason to try to recompile it, so return cached snippet
+  // if there exists one.
+  if (isInfused(sourceSnippet)) {
+    return { type: 'hit', snippet: fromCache, infused: true };
+  }
+
+  const dirtySource = completeSource(sourceSnippet) !== fromCache.snippet.fullSource;
+  const dirtyTranslator = !Object.entries(TARGET_LANGUAGES).every(
+    ([lang, translator]) => fromCache.snippet.translations?.[lang]?.version === translator.version,
+  );
+  const dirtyTypes = fingerprinter.fingerprintAll(fromCache.fqnsReferenced()) !== fromCache.snippet.fqnsFingerprint;
+  const dirtyDidntCompile = compiledOnly && !fromCache.snippet.didCompile;
+
+  if (dirtySource || dirtyTranslator || dirtyTypes || dirtyDidntCompile) {
+    return { type: 'dirty', translation: fromCache, dirtySource, dirtyTranslator, dirtyTypes, dirtyDidntCompile };
+  }
+  return { type: 'hit', snippet: fromCache, infused: false };
+}
+
+export type CacheHit =
+  | { readonly type: 'miss' }
+  | { readonly type: 'hit'; readonly snippet: TranslatedSnippet; readonly infused: boolean }
+  | {
+      readonly type: 'dirty';
+      readonly translation: TranslatedSnippet;
+      readonly dirtySource: boolean;
+      readonly dirtyTranslator: boolean;
+      readonly dirtyTypes: boolean;
+      readonly dirtyDidntCompile: boolean;
+    };
+
+function isInfused(snippet: TypeScriptSnippet) {
+  return snippet.parameters?.infused !== undefined;
 }
 
 export interface ReadFromCacheResults {
+  /**
+   * Successful translations
+   */
   readonly translations: TranslatedSnippet[];
+
+  /**
+   * Successful but dirty hits
+   */
   readonly remaining: TypeScriptSnippet[];
+
+  /**
+   * How many successfully hit translations were infused
+   */
+  readonly infusedCount: number;
+
+  readonly dirtyCount: number;
+
+  // Counts for dirtiness (a single snippet may be dirty for more than one reason)
+  readonly dirtySourceCount: number;
+  readonly dirtyTranslatorCount: number;
+  readonly dirtyTypesCount: number;
+  readonly dirtyDidntCompile: number;
 }
 
 export interface TranslateAllOptions {

@@ -213,3 +213,17 @@ export function indexBy<A>(xs: A[], fn: (x: A) => string): Record<string, A> {
 }
 
 export type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };
+
+export function commentToken(language: string) {
+  // This is future-proofed a bit, but don't read too much in this...
+  switch (language) {
+    case 'python':
+    case 'ruby':
+      return '#';
+    case 'csharp':
+    case 'java':
+    case 'go':
+    default:
+      return '//';
+  }
+}

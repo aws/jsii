@@ -31,17 +31,17 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x'
-      - name: Set up Go 1.16
+      - name: Set up Go 1.17
         uses: actions/setup-go@v2
         with:
-          go-version: '1.16'
+          go-version: '1.17'
       - name: Set up Java 8
         uses: actions/setup-java@v2
         with:
           java-version: '8'
           distribution: 'zulu'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           cache: yarn
           node-version: '12'
@@ -125,17 +125,17 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x'
-      - name: Set up Go 1.16
+      - name: Set up Go 1.17
         uses: actions/setup-go@v2
         with:
-          go-version: '1.16'
+          go-version: '1.17'
       - name: Set up Java 8
         uses: actions/setup-java@v2
         with:
           java-version: '8'
           distribution: 'zulu'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           cache: yarn
           node-version: '12'
@@ -211,7 +211,7 @@ jobs:
       matrix:
         # All currently supported node versions (Maintenance LTS, Active LTS, Current)
         dotnet: ['3.1.x']
-        go: ['1.16']
+        go: ['1.17']
         java: ['8']
         node: ['12', '14', '16']
         os: [ubuntu-latest]
@@ -221,53 +221,53 @@ jobs:
           # Test using Windows
           - os: windows-latest
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.17'
             java: '8'
             node: '12'
             python: '3.6'
           # Test using macOS
           - os: macos-latest
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.17'
             java: '8'
             node: '12'
             python: '3.6'
           # Test alternate .NETs
           - java: '8'
             dotnet: '5.0.x'
-            go: '1.16'
+            go: '1.17'
             node: '12'
             os: ubuntu-latest
             python: '3.6'
           - java: '8'
             dotnet: '6.0.x'
-            go: '1.16'
+            go: '1.17'
             node: '12'
             os: ubuntu-latest
             python: '3.6'
           # Test alternate Javas
           - java: '11'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.17'
             node: '12'
             os: ubuntu-latest
             python: '3.6'
           # Test alternate Pythons
           - python: '3.7'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.17'
             java: '8'
             node: '12'
             os: ubuntu-latest
           - python: '3.8'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.17'
             java: '8'
             node: '12'
             os: ubuntu-latest
           - python: '3.9'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.17'
             java: '8'
             node: '12'
             os: ubuntu-latest
@@ -303,7 +303,7 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'zulu'
       - name: Set up Node ${{ matrix.node }}
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           cache: yarn
           node-version: ${{ matrix.node }}

@@ -66,6 +66,13 @@ export interface ExtractOptions {
    * @default false
    */
   readonly loose?: boolean;
+
+  /**
+   * Accept dirty translations from the cache
+   *
+   * @default false
+   */
+  readonly allowDirtyTranslations?: boolean;
 }
 
 export async function extractAndInfuse(assemblyLocations: string[], options: ExtractOptions): Promise<ExtractResult> {
@@ -104,6 +111,7 @@ export async function extractSnippets(
   const translatorOptions: RosettaTranslatorOptions = {
     includeCompilerDiagnostics: options.includeCompilerDiagnostics ?? false,
     assemblies: assemblies.map((a) => a.assembly),
+    allowDirtyTranslations: options.allowDirtyTranslations,
   };
 
   const translator = options.translatorFactory
