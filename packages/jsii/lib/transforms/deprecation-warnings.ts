@@ -2,13 +2,12 @@ import * as spec from '@jsii/spec';
 import { Assembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as path from 'path';
-import { EmitHint, Statement } from 'typescript';
-import * as ts from 'typescript/lib/tsserverlibrary';
+import * as ts from 'typescript';
 
 import { ProjectInfo } from '../project-info';
 import { symbolIdentifier } from '../symbol-id';
 
-const FILE_NAME = '.warnings.jsii.js';
+export const WARNINGSCODE_FILE_NAME = '.warnings.jsii.js';
 const WARNING_FUNCTION_NAME = 'print';
 const PARAMETER_NAME = 'p';
 const NAMESPACE = 'jsiiDeprecationWarnings';
@@ -28,7 +27,7 @@ export class DeprecationWarningsInjector {
 
     const types = assembly.types ?? {};
     for (const type of Object.values(types)) {
-      const statements: Statement[] = [];
+      const statements: ts.Statement[] = [];
       let isEmpty = true;
 
       // This will add the parameter to the set of visited objects, to prevent infinite recursion
@@ -157,7 +156,7 @@ function processInterfaceType(
   types: { [p: string]: spec.Type },
   assembly: Assembly,
   projectInfo: ProjectInfo,
-  statementsByProp: Map<string, Statement> = new Map<string, ts.Statement>(),
+  statementsByProp: Map<string, ts.Statement> = new Map<string, ts.Statement>(),
   excludedProps: Set<string> = new Set<string>(),
 ) {
   for (const prop of Object.values(type.properties ?? {})) {
@@ -252,7 +251,7 @@ function fnName(fqn: string): string {
   return fqn.replace(/[^\w\d]/g, '_');
 }
 
-function createFunctionBlock(statements: Statement[]): ts.Block {
+function createFunctionBlock(statements: ts.Statement[]): ts.Block {
   if (statements.length > 0) {
     const validation = ts.createIf(
       ts.createIdentifier(`${PARAMETER_NAME} == null`),
@@ -268,7 +267,7 @@ function createWarningFunctionCall(
   message = '',
   condition?: ts.Identifier,
   includeNamespace = false,
-): Statement {
+): ts.Statement {
   const functionName = includeNamespace
     ? `${NAMESPACE}.${WARNING_FUNCTION_NAME}`
     : WARNING_FUNCTION_NAME;
@@ -291,7 +290,7 @@ function generateWarningsFile(
   const names = [...functionDeclarations]
     .map((d) => d.name?.text)
     .filter(Boolean);
-  const exports = [WARNING_FUNCTION_NAME, ...names].join(',');
+  const exportedSymbols = [WARNING_FUNCTION_NAME, ...names].join(',');
 
   const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage) {
   const deprecated = process.env.JSII_DEPRECATED;
@@ -310,13 +309,13 @@ const ${VISITED_OBJECTS_SET_NAME} = new Set();
 
 class DeprecationError extends Error {}
 
-module.exports = {${exports}}
+module.exports = {${exportedSymbols}}
 module.exports.DeprecationError = DeprecationError;
 `;
 
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
   const resultFile = ts.createSourceFile(
-    path.join(projectRoot, FILE_NAME),
+    path.join(projectRoot, WARNINGSCODE_FILE_NAME),
     functionText,
     ts.ScriptTarget.Latest,
     false,
@@ -324,12 +323,12 @@ module.exports.DeprecationError = DeprecationError;
   );
 
   const declarations = functionDeclarations.map((declaration) =>
-    printer.printNode(EmitHint.Unspecified, declaration, resultFile),
+    printer.printNode(ts.EmitHint.Unspecified, declaration, resultFile),
   );
 
   const content = declarations.concat(printer.printFile(resultFile)).join('\n');
 
-  fs.writeFileSync(path.join(projectRoot, FILE_NAME), content);
+  fs.writeFileSync(path.join(projectRoot, WARNINGSCODE_FILE_NAME), content);
 }
 
 class Transformer {
@@ -354,8 +353,8 @@ class Transformer {
         this.projectRoot,
       );
       const importPath = importDir.startsWith('..')
-        ? unixPath(path.join(importDir, FILE_NAME))
-        : `./${FILE_NAME}`;
+        ? unixPath(path.join(importDir, WARNINGSCODE_FILE_NAME))
+        : `./${WARNINGSCODE_FILE_NAME}`;
 
       return ts.updateSourceFileNode(result, [
         createRequireStatement(NAMESPACE, importPath),
@@ -514,9 +513,8 @@ function createWarningStatementForElement(
   if (spec.isDeprecated(element)) {
     const elementName = (element as spec.Method | spec.Property).name;
     const fqn = elementName ? `${classType.fqn}#${elementName}` : classType.fqn;
-    return [
-      createWarningFunctionCall(fqn, element.docs?.deprecated, undefined, true),
-    ];
+    const message = element.docs?.deprecated ?? classType.docs?.deprecated;
+    return [createWarningFunctionCall(fqn, message, undefined, true)];
   }
   return [];
 }
@@ -588,7 +586,7 @@ function importedFunctionName(
   const { type, moduleName } = findType(typeName, assemblies);
   if (type) {
     return moduleName !== assembly.name
-      ? `require("${moduleName}/${FILE_NAME}").${fnName(type.fqn)}`
+      ? `require("${moduleName}/${WARNINGSCODE_FILE_NAME}").${fnName(type.fqn)}`
       : fnName(type.fqn);
   }
   return undefined;
@@ -615,7 +613,7 @@ function findType(typeName: string, assemblies: Assembly[]) {
 function createTypeHandlerCall(
   functionName: string,
   parameter: string,
-): Statement {
+): ts.Statement {
   return ts.createIf(
     ts.createIdentifier(`!${VISITED_OBJECTS_SET_NAME}.has(${parameter})`),
     ts.createExpressionStatement(

@@ -57,7 +57,9 @@ export class Translator {
       }),
     );
 
-    this.#diagnostics.push(...translator.diagnostics);
+    if (snip.parameters?.infused === undefined) {
+      this.#diagnostics.push(...translator.diagnostics);
+    }
 
     return TranslatedSnippet.fromSchema({
       translations: {
@@ -157,7 +159,6 @@ export class SnippetTranslator {
   public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
     const compiler = options.compiler ?? new TypeScriptCompiler();
     const source = completeSource(snippet);
-
     const fakeCurrentDirectory =
       snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY] ??
       snippet.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];

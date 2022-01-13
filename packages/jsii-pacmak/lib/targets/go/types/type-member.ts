@@ -76,8 +76,10 @@ export class GoProperty implements GoTypeMember {
         ? `*${this.returnType}`
         : this.returnType;
 
-    // Adds json tags for easy deserialization
-    code.line(`${this.name} ${memberType} \`json:"${this.property.name}"\``);
+    // Adds json and yaml tags for easy deserialization
+    code.line(
+      `${this.name} ${memberType} \`json:"${this.property.name}" yaml:"${this.property.name}"\``,
+    );
     // TODO add newline if not the last member
   }
 

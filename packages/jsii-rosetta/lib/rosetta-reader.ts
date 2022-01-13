@@ -1,7 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { isError } from 'util';
 
 import { allTypeScriptSnippets } from './jsii/assemblies';
 import { TargetLanguage } from './languages';
@@ -20,7 +19,7 @@ import {
 import { snippetKey } from './tablets/key';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
-import { printDiagnostics } from './util';
+import { commentToken, printDiagnostics } from './util';
 
 export enum UnknownSnippetMode {
   /**
@@ -66,6 +65,13 @@ export interface RosettaOptions {
    * @default false
    */
   readonly loose?: boolean;
+
+  /**
+   * Adds a disclaimer to start of snippet if it did not compile.
+   *
+   * @default false
+   */
+  readonly prefixDisclaimer?: boolean;
 }
 
 /**
@@ -94,11 +100,13 @@ export class RosettaTabletReader {
   private readonly translator: Translator;
   private readonly loose: boolean;
   private readonly unknownSnippets: UnknownSnippetMode;
+  private readonly _prefixDisclaimer: boolean;
 
   public constructor(private readonly options: RosettaOptions = {}) {
     this.loose = !!options.loose;
     this.unknownSnippets = options.unknownSnippets ?? UnknownSnippetMode.VERBATIM;
     this.translator = new Translator(options.includeCompilerDiagnostics ?? false);
+    this._prefixDisclaimer = options.prefixDisclaimer ?? false;
   }
 
   /**
@@ -122,9 +130,7 @@ export class RosettaTabletReader {
   }
 
   /**
-   * Directly add a tablet
-   *
-   * Should only be needed for testing, use `loadTabletFromFile` and `addAssembly` instead.
+   * Directly add a tablet to the list of tablets to load translations from
    */
   public addTablet(tablet: LanguageTablet) {
     this.loadedTablets.push(tablet);
@@ -186,15 +192,18 @@ export class RosettaTabletReader {
     for (const tab of this.allTablets) {
       const ret = tab.lookup(source, targetLang);
       if (ret !== undefined) {
-        return ret;
+        return this.prefixDisclaimer(ret, this._prefixDisclaimer);
       }
     }
 
     if (this.unknownSnippets === UnknownSnippetMode.VERBATIM) {
-      return {
-        language: targetLang,
-        source: source.visibleSource,
-      };
+      return this.prefixDisclaimer(
+        {
+          language: targetLang,
+          source: source.visibleSource,
+        },
+        this._prefixDisclaimer,
+      );
     }
 
     if (this.unknownSnippets === UnknownSnippetMode.FAIL) {
@@ -221,13 +230,13 @@ export class RosettaTabletReader {
     if (extracted !== undefined) {
       const snippet = this.translator.translate(extracted, this.options.targetLanguages);
       this.liveTablet.addSnippet(snippet);
-      return snippet.get(targetLang);
+      return this.prefixDisclaimer(snippet.get(targetLang), this._prefixDisclaimer);
     }
 
     // Try to live-convert it as-is.
     const snippet = this.translator.translate(source, this.options.targetLanguages);
     this.liveTablet.addSnippet(snippet);
-    return snippet.get(targetLang);
+    return this.prefixDisclaimer(snippet.get(targetLang), this._prefixDisclaimer);
   }
 
   /**
@@ -291,11 +300,27 @@ export class RosettaTabletReader {
   }
 
   public get hasErrors() {
-    return this.diagnostics.some(isError);
+    return this.diagnostics.some((d) => d.isError);
   }
 
   private get allTablets(): LanguageTablet[] {
     return [...this.loadedTablets, this.liveTablet];
+  }
+
+  /**
+   * Adds a disclaimer to the front of the example if the prefixDisclaimer
+   * flag is set and we know it does not compile.
+   */
+  private prefixDisclaimer(translation: Translation | undefined, prefixDisclaimer: boolean): Translation | undefined {
+    if (!prefixDisclaimer || translation?.didCompile !== false) {
+      return translation;
+    }
+    const comment = commentToken(translation.language);
+    const disclaimer = 'Example automatically generated from non-compiling source. May contain errors.';
+    return {
+      ...translation,
+      source: `${comment} ${disclaimer}\n${translation.source}`,
+    };
   }
 }
 

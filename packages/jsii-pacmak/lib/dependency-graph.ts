@@ -21,7 +21,7 @@ export async function traverseDependencyGraph(
   callback: Callback,
   host: TraverseDependencyGraphHost = {
     readJson: fs.readJson,
-    resolveDependencyDirectory: util.resolveDependencyDirectory,
+    findDependencyDirectory: util.findDependencyDirectory,
   },
 ): Promise<void> {
   return real$traverseDependencyGraph(packageDir, callback, host, new Set());
@@ -49,7 +49,7 @@ export type Callback = (
  */
 export interface TraverseDependencyGraphHost {
   readonly readJson: typeof fs.readJson;
-  readonly resolveDependencyDirectory: typeof util.resolveDependencyDirectory;
+  readonly findDependencyDirectory: typeof util.findDependencyDirectory;
 }
 
 /**
@@ -58,6 +58,8 @@ export interface TraverseDependencyGraphHost {
 export interface PackageJson {
   readonly dependencies?: { readonly [name: string]: string };
   readonly peerDependencies?: { readonly [name: string]: string };
+  readonly bundleDependencies?: string[];
+  readonly bundledDependencies?: string[];
 
   readonly [key: string]: unknown;
 }
@@ -87,15 +89,26 @@ async function real$traverseDependencyGraph(
     ...Object.keys(meta.peerDependencies ?? {}),
   ]);
   return Promise.all(
-    Array.from(deps).map((dep) => {
-      const dependencyDir = host.resolveDependencyDirectory(packageDir, dep);
-      return real$traverseDependencyGraph(
-        dependencyDir,
-        callback,
-        host,
-        visited,
-      );
-    }),
+    Array.from(deps)
+      // No need to pacmak the dependency if it's built-in, or if it's bundled
+      .filter(
+        (m) =>
+          !util.isBuiltinModule(m) &&
+          !meta.bundledDependencies?.includes(m) &&
+          !meta.bundleDependencies?.includes(m),
+      )
+      .map(async (dep) => {
+        const dependencyDir = await host.findDependencyDirectory(
+          dep,
+          packageDir,
+        );
+        return real$traverseDependencyGraph(
+          dependencyDir,
+          callback,
+          host,
+          visited,
+        );
+      }),
     // The following ".then" literally just turns a `Promise<T>` into a `Promise<void>`. Convenient!
   ).then();
 }

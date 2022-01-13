@@ -4,12 +4,14 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as yargs from 'yargs';
 
-import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript, RosettaDiagnostic } from '../lib';
+import { TranslateResult, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
-import { extractSnippets } from '../lib/commands/extract';
+import { checkCoverage } from '../lib/commands/coverage';
+import { extractAndInfuse, extractSnippets, ExtractOptions } from '../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
 import { transliterateAssembly } from '../lib/commands/transliterate';
+import { trimCache } from '../lib/commands/trim-cache';
 import { TargetLanguage } from '../lib/languages';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
@@ -65,41 +67,55 @@ function main() {
       }),
     )
     .command(
-      'infuse <TABLET> [ASSEMBLY..]',
+      'infuse [ASSEMBLY..]',
       '(EXPERIMENTAL) mutates one or more assemblies by adding documentation examples to top-level types',
       (command) =>
         command
-          .positional('TABLET', {
-            type: 'string',
-            required: true,
-            describe: 'Language tablet to read',
-          })
           .positional('ASSEMBLY', {
             type: 'string',
             string: true,
             default: new Array<string>(),
             describe: 'Assembly or directory to mutate',
           })
-          .option('log', {
+          .option('log-file', {
             alias: 'l',
-            type: 'boolean',
-            describe: 'Test all algorithms and log results to an html file',
-            default: false,
-          })
-          .option('output', {
-            alias: 'o',
             type: 'string',
             describe: 'Output file to store logging results. Ignored if -log is not true',
             default: DEFAULT_INFUSION_RESULTS_NAME,
           })
-          .demandOption('TABLET'),
+          .option('cache-from', {
+            alias: 'C',
+            type: 'string',
+            // eslint-disable-next-line prettier/prettier
+            describe:
+              'Reuse translations from the given tablet file if the snippet and type definitions did not change',
+            requiresArg: true,
+            default: undefined,
+          })
+          .option('cache-to', {
+            alias: 'o',
+            type: 'string',
+            describe: 'Append all translated snippets to the given tablet file',
+            requiresArg: true,
+            default: undefined,
+          })
+          .option('cache', {
+            alias: 'k',
+            type: 'string',
+            describe: 'Alias for --cache-from and --cache-to together',
+            requiresArg: true,
+            default: undefined,
+          })
+          .conflicts('cache', 'cache-from')
+          .conflicts('cache', 'cache-to'),
       wrapHandler(async (args) => {
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
-        const absOutput = path.resolve(args.output);
-        const result = await infuse(absAssemblies, args.TABLET, {
-          outputFile: absOutput,
-          log: args.log,
-          tabletOutputFile: args.TABLET,
+        const absCacheFrom = fmap(args.cache ?? args['cache-from'], path.resolve);
+        const absCacheTo = fmap(args.cache ?? args['cache-to'], path.resolve);
+        const result = await infuse(absAssemblies, {
+          logFile: args['log-file'],
+          cacheToFile: absCacheTo,
+          cacheFromFile: absCacheFrom,
         });
 
         let totalTypes = 0;
@@ -131,16 +147,16 @@ function main() {
             describe: 'Assembly or directory to extract from',
           })
           .option('output', {
-            alias: 'o',
             type: 'string',
-            describe: 'Output file where to store the sample tablets',
-            default: DEFAULT_TABLET_NAME,
+            describe: 'Additional output file where to store translated samples (deprecated, alias for --cache-to)',
+            requiresArg: true,
+            default: undefined,
           })
           .option('compile', {
             alias: 'c',
             type: 'boolean',
-            describe: 'Try compiling',
-            default: false,
+            describe: 'Try compiling (on by default, use --no-compile to switch off)',
+            default: true,
           })
           .option('directory', {
             alias: 'd',
@@ -152,6 +168,11 @@ function main() {
             type: 'array',
             describe: 'Extract only snippets with given ids',
             default: new Array<string>(),
+          })
+          .option('infuse', {
+            type: 'boolean',
+            describe: 'bundle this command with the infuse command',
+            default: false,
           })
           .option('fail', {
             alias: 'f',
@@ -168,9 +189,32 @@ function main() {
             alias: 'C',
             type: 'string',
             // eslint-disable-next-line prettier/prettier
-            describe: 'Reuse translations from the given tablet file if the snippet and type definitions did not change',
+            describe:
+              'Reuse translations from the given tablet file if the snippet and type definitions did not change',
             requiresArg: true,
             default: undefined,
+          })
+          .option('cache-to', {
+            alias: 'o',
+            type: 'string',
+            describe: 'Append all translated snippets to the given tablet file',
+            requiresArg: true,
+            default: undefined,
+          })
+          .conflicts('cache-to', 'output')
+          .option('cache', {
+            alias: 'k',
+            type: 'string',
+            describe: 'Alias for --cache-from and --cache-to together',
+            requiresArg: true,
+            default: undefined,
+          })
+          .conflicts('cache', 'cache-from')
+          .conflicts('cache', 'cache-to')
+          .option('trim-cache', {
+            alias: 'T',
+            type: 'boolean',
+            describe: 'Remove translations that are not referenced by any of the assemblies anymore from the cache',
           })
           .option('strict', {
             alias: 'S',
@@ -178,7 +222,14 @@ function main() {
             describe:
               'Require all code samples compile, and fail if one does not. Strict mode always enables --compile and --fail',
             default: false,
-          }),
+          })
+          .options('loose', {
+            alias: 'l',
+            describe: 'Ignore missing fixtures and literate markdown files instead of failing',
+            type: 'boolean',
+          })
+          .conflicts('loose', 'strict')
+          .conflicts('loose', 'fail'),
       wrapHandler(async (args) => {
         // `--strict` is short for `--compile --fail`, and we'll override those even if they're set to `false`, such as
         // using `--no-(compile|fail)`, because yargs does not quite give us a better option that does not hurt CX.
@@ -192,19 +243,27 @@ function main() {
         // compilerhost. Have to make all file references absolute before we chdir
         // though.
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
-        const absOutput = path.resolve(args.output);
-        const absCache = fmap(args['cache-from'], path.resolve);
+
+        const absCacheFrom = fmap(args.cache ?? args['cache-from'], path.resolve);
+        const absCacheTo = fmap(args.cache ?? args['cache-to'] ?? args.output, path.resolve);
+
         if (args.directory) {
           process.chdir(args.directory);
         }
 
-        const result = await extractSnippets(absAssemblies, {
-          outputFile: absOutput,
+        const extractOptions: ExtractOptions = {
           includeCompilerDiagnostics: !!args.compile,
           validateAssemblies: args['validate-assemblies'],
           only: args.include,
-          cacheTabletFile: absCache,
-        });
+          cacheFromFile: absCacheFrom,
+          cacheToFile: absCacheTo,
+          trimCache: args['trim-cache'],
+          loose: args.loose,
+        };
+
+        const result = args.infuse
+          ? await extractAndInfuse(absAssemblies, extractOptions)
+          : await extractSnippets(absAssemblies, extractOptions);
 
         handleDiagnostics(result.diagnostics, args.fail, result.tablet.count);
       }),
@@ -264,6 +323,45 @@ function main() {
               })
             : Object.values(TargetLanguage);
         return transliterateAssembly(assemblies, languages, args);
+      }),
+    )
+    .command(
+      'trim-cache <TABLET> [ASSEMBLY..]',
+      'Retain only those snippets in the cache which occur in one of the given assemblies',
+      (command) =>
+        command
+          .positional('TABLET', {
+            type: 'string',
+            required: true,
+            describe: 'Language tablet to trim',
+          })
+          .positional('ASSEMBLY', {
+            type: 'string',
+            string: true,
+            default: new Array<string>(),
+            describe: 'Assembly or directory to search',
+          })
+          .demandOption('TABLET'),
+      wrapHandler(async (args) => {
+        await trimCache({
+          cacheFile: args.TABLET,
+          assemblyLocations: args.ASSEMBLY,
+        });
+      }),
+    )
+    .command(
+      'coverage [ASSEMBLY..]',
+      'Check the translation coverage of implicit tablets for the given assemblies',
+      (command) =>
+        command.positional('ASSEMBLY', {
+          type: 'string',
+          string: true,
+          default: ['.'],
+          describe: 'Assembly or directory to search',
+        }),
+      wrapHandler(async (args) => {
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        await checkCoverage(absAssemblies);
       }),
     )
     .command(

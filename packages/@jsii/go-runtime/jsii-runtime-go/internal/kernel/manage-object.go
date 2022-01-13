@@ -26,7 +26,7 @@ func (c *Client) ManageObject(v reflect.Value) (ref api.ObjectRef, err error) {
 	})
 
 	if err == nil {
-		if err = c.objects.Register(v, resp.InstanceID); err == nil {
+		if err = c.objects.Register(v, api.ObjectRef{InstanceID: resp.InstanceID, Interfaces: interfaces}); err == nil {
 			ref.InstanceID = resp.InstanceID
 		}
 	}

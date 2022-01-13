@@ -39,8 +39,6 @@ pull_request_rules:
       label:
         add: [pr/ready-to-merge]
     conditions:
-      - author!=dependabot[bot]
-      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=pr/blocked
       - label!=pr/do-not-merge
@@ -82,12 +80,13 @@ pull_request_rules:
       queue:
         name: default
         method: squash
-        commit_message: title+body
+        commit_message_template: |-
+          {{ title }} (#{{ number }})
+
+          {{ body }}
       comment:
         message: Merging (with squash)...
     conditions:
-      - author!=dependabot[bot]
-      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=pr/blocked
       - label!=pr/do-not-merge
@@ -130,12 +129,13 @@ pull_request_rules:
       queue:
         name: default
         method: merge
-        commit_message: title+body
+        commit_message_template: |-
+          {{ title }} (#{{ number }})
+
+          {{ body }}
       comment:
         message: Merging (no-squash)...
     conditions:
-      - author!=dependabot[bot]
-      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=pr/blocked
       - label!=pr/do-not-merge

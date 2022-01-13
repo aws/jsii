@@ -3,6 +3,7 @@ import { camel, constant as allCaps, pascal } from 'case';
 import * as ts from 'typescript';
 
 import { TypeSystemHints } from './docs';
+import { WARNINGSCODE_FILE_NAME } from './transforms/deprecation-warnings';
 import { JSII_DIAGNOSTICS_CODE, _formatDiagnostic } from './utils';
 
 /**
@@ -254,6 +255,15 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'metadata/missing-dev-dependency',
   });
 
+  public static readonly JSII_0007_MISSING_WARNINGS_EXPORT = Code.error({
+    code: 7,
+    formatter: () =>
+      'If you are compiling with --add-deprecation-warnings and your package.json ' +
+      `declares subpath exports, you must include { "./${WARNINGSCODE_FILE_NAME}": "./${WARNINGSCODE_FILE_NAME}" } ` +
+      'in the set of exports.',
+    name: 'metadata/missing-warnings-export',
+  });
+
   //////////////////////////////////////////////////////////////////////////////
   // 1000 => 1999 -- TYPESCRIPT LANGUAGE RESTRICTIONS
 
@@ -306,7 +316,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE = Code.error({
     code: 3002,
-    formatter: (fqn: string, typeUse: string, pkg: spec.Assembly) =>
+    formatter: (fqn: string, typeUse: string, pkg: { readonly name: string }) =>
       `Type "${fqn}" cannot be used as a ${typeUse} because it is not exported from ${pkg.name}`,
     name: 'type-model/unexported-foreign-type',
   });
@@ -731,7 +741,8 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_9000_UNKNOWN_MODULE = Code.error({
     code: 9000,
-    formatter: (moduleName) => `Encountered unknown module: "${moduleName}"`,
+    formatter: (moduleName) =>
+      `Encountered use of module that is not declared in "dependencies" or "peerDependencies": "${moduleName}"`,
     name: 'miscellaneous/unknown-module',
   });
 

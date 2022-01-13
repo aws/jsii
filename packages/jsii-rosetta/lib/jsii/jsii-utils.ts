@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import { symbolIdentifier } from 'jsii';
 import * as ts from 'typescript';
 
@@ -27,6 +28,60 @@ export function analyzeStructType(typeChecker: ts.TypeChecker, type: ts.Type): O
   }
 
   return { kind: 'local-struct', type };
+}
+
+/**
+ * Whether the given type is a protocol AND comes from jsii
+ *
+ * - Protocol: a TypeScript interface that is *not* a "struct" type.
+ *   A.k.a. "behavioral interface".
+ * - From jsii: whether the interface type is defined in and exported
+ *   via a jsii assembly. There can be literal interfaces defined
+ *   in an example, and they will not be mangled in the same way
+ *   as a jsii interface would be.
+ *
+ *
+ * Examples:
+ *
+ * ```ts
+ * // isJsiiProtocolType() -> false: not a protocol
+ * interface Banana {
+ *   readonly arc: number;
+ * }
+ *
+ * // isJsiiProtocolType() -> might be true: depends on whether it was defined
+ * // in a jsii assembly.
+ * interface IHello {
+ *   sayIt(): void;
+ * }
+ *
+ * // isJsiiProtocolType() -> false: declared to not be a protocol, even though
+ * // it has the naming scheme of one
+ * /**
+ *  * @struct
+ *  * /
+ * interface IPAddress {
+ *   readonly octets: number[];
+ * }
+ * ```
+ */
+export function isJsiiProtocolType(typeChecker: ts.TypeChecker, type: ts.Type): boolean | undefined {
+  if (!type.isClassOrInterface() || !hasAllFlags(type.objectFlags, ts.ObjectFlags.Interface)) {
+    return false;
+  }
+
+  const sym = lookupJsiiSymbol(typeChecker, type.symbol);
+  if (!sym) {
+    return false;
+  }
+
+  if (!sym.sourceAssembly) {
+    // No source assembly, so this is a 'fake-from-jsii' type
+    return !isNamedLikeStruct(type.symbol.name);
+  }
+
+  const jsiiType = resolveJsiiSymbolType(sym);
+  return spec.isInterfaceType(jsiiType) && !jsiiType.datatype;
 }
 
 export function hasAllFlags<A extends number>(flags: A, test: A) {
@@ -100,6 +155,26 @@ export function lookupJsiiSymbolFromNode(typeChecker: ts.TypeChecker, node: ts.N
   return fmap(typeChecker.getSymbolAtLocation(node), (s) => lookupJsiiSymbol(typeChecker, s));
 }
 
+export function resolveJsiiSymbolType(jsiiSymbol: JsiiSymbol): spec.Type {
+  if (jsiiSymbol.symbolType !== 'type') {
+    throw new Error(
+      `Expected symbol to refer to a 'type', got '${jsiiSymbol.fqn}' which is a '${jsiiSymbol.symbolType}'`,
+    );
+  }
+
+  if (!jsiiSymbol.sourceAssembly) {
+    throw new Error('`resolveJsiiSymbolType: requires an actual source assembly');
+  }
+
+  const type = jsiiSymbol.sourceAssembly?.assembly.types?.[jsiiSymbol.fqn];
+  if (!type) {
+    throw new Error(
+      `resolveJsiiSymbolType: ${jsiiSymbol.fqn} not found in assembly ${jsiiSymbol.sourceAssembly.assembly.name}`,
+    );
+  }
+  return type;
+}
+
 /**
  * Returns the jsii FQN for a TypeScript (class or type) symbol
  *
@@ -127,15 +202,20 @@ export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): J
 
   if (ts.isSourceFile(decl)) {
     // This is a module.
-    // FIXME: for now assume this is the assembly root. Handle the case where it isn't later.
     const sourceAssembly = findTypeLookupAssembly(decl.fileName);
     return fmap(
       sourceAssembly,
       (asm) =>
         ({
           fqn:
-            fmap(symbolIdentifier(typeChecker, sym), (symbolId) => sourceAssembly?.symbolIdMap[symbolId]) ??
-            sourceAssembly?.assembly.name,
+            fmap(
+              symbolIdentifier(
+                typeChecker,
+                sym,
+                fmap(sourceAssembly, (sa) => ({ assembly: sa.assembly })),
+              ),
+              (symbolId) => sourceAssembly?.symbolIdMap[symbolId],
+            ) ?? sourceAssembly?.assembly.name,
           sourceAssembly: asm,
           symbolType: 'module',
         } as JsiiSymbol),
@@ -157,10 +237,23 @@ export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): J
   }
 
   const fileName = decl.getSourceFile().fileName;
-  if (hasAnyFlag(declSym.flags, ts.SymbolFlags.Method | ts.SymbolFlags.Property | ts.SymbolFlags.EnumMember)) {
-    return lookupMemberSymbol(typeChecker, sym, fileName);
+  const sourceAssembly = findTypeLookupAssembly(fileName);
+  const symbolId = symbolIdentifier(typeChecker, declSym, { assembly: sourceAssembly?.assembly });
+  if (!symbolId) {
+    return undefined;
   }
-  return lookupTypeSymbol(typeChecker, sym, fileName);
+
+  return fmap(/([^#]*)(#.*)?/.exec(symbolId), ([, typeSymbolId, memberFragment]) => {
+    if (memberFragment) {
+      return fmap(sourceAssembly?.symbolIdMap[typeSymbolId], (fqn) => ({
+        fqn: `${fqn}${memberFragment}`,
+        sourceAssembly,
+        symbolType: 'member',
+      }));
+    }
+
+    return fmap(sourceAssembly?.symbolIdMap[typeSymbolId], (fqn) => ({ fqn, sourceAssembly, symbolType: 'type' }));
+  });
 }
 
 function isDeclaration(x: ts.Node): x is ts.Declaration {
@@ -180,42 +273,6 @@ function isDeclaration(x: ts.Node): x is ts.Declaration {
 }
 
 /**
- * Look up the jsii fqn for a given type symbol
- */
-function lookupTypeSymbol(
-  typeChecker: ts.TypeChecker,
-  typeSymbol: ts.Symbol,
-  fileName: string,
-): JsiiSymbol | undefined {
-  const symbolId = symbolIdentifier(typeChecker, typeSymbol);
-  if (!symbolId) {
-    return undefined;
-  }
-
-  const sourceAssembly = findTypeLookupAssembly(fileName);
-  return fmap(sourceAssembly?.symbolIdMap[symbolId], (fqn) => ({ fqn, sourceAssembly, symbolType: 'type' }));
-}
-
-function lookupMemberSymbol(
-  typeChecker: ts.TypeChecker,
-  memberSymbol: ts.Symbol,
-  fileName: string,
-): JsiiSymbol | undefined {
-  const declParent = memberSymbol.declarations?.[0]?.parent;
-  if (!declParent || !isDeclaration(declParent)) {
-    return undefined;
-  }
-
-  const declParentSym = getSymbolFromDeclaration(declParent, typeChecker);
-  if (!declParentSym) {
-    return undefined;
-  }
-
-  const result = lookupTypeSymbol(typeChecker, declParentSym, fileName);
-  return fmap(result, (result) => ({ ...result, fqn: `${result.fqn}#${memberSymbol.name}`, symbolType: 'member' }));
-}
-
-/**
  * If the given type is an enum literal, resolve to the enum type
  */
 export function resolveEnumLiteral(typeChecker: ts.TypeChecker, type: ts.Type) {
@@ -223,8 +280,7 @@ export function resolveEnumLiteral(typeChecker: ts.TypeChecker, type: ts.Type) {
     return type;
   }
 
-  const parentDeclaration = type.symbol.declarations?.[0]?.parent;
-  return fmap(parentDeclaration, typeChecker.getTypeAtLocation) ?? type;
+  return typeChecker.getBaseTypeOfLiteralType(type);
 }
 
 export function resolvedSymbolAtLocation(typeChecker: ts.TypeChecker, node: ts.Node) {

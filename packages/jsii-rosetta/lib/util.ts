@@ -20,7 +20,7 @@ export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: No
   }
 
   if (diags.length > maxDiags) {
-    stream.write(`(...and ${maxDiags - diags.length} more diagnostics not shown)`);
+    stream.write(`(...and ${diags.length - maxDiags} more diagnostics not shown)`);
   }
 }
 
@@ -122,10 +122,10 @@ export function mkDict<A extends string, B>(xs: Array<readonly [A, B]>): Record<
  * only for the `Maybe` Functor).
  */
 export function fmap<A, B>(value: NonNullable<A>, fn: (x: NonNullable<A>) => B): B;
-export function fmap<A, B>(value: undefined, fn: (x: NonNullable<A>) => B): undefined;
-export function fmap<A, B>(value: A | undefined, fn: (x: A) => B): B | undefined;
+export function fmap<A, B>(value: undefined | null, fn: (x: NonNullable<A>) => B): undefined;
+export function fmap<A, B>(value: A | undefined | null, fn: (x: A) => B): B | undefined;
 export function fmap<A, B>(value: A, fn: (x: A) => B): B | undefined {
-  if (value === undefined) {
+  if (value == null) {
     return undefined;
   }
   return fn(value);
@@ -196,4 +196,26 @@ export function groupBy<A>(xs: A[], keyFn: (x: A) => string): Record<string, A[]
     }
   }
   return ret;
+}
+
+export function isDefined<A>(x: A): x is NonNullable<A> {
+  return x !== undefined;
+}
+
+export function indexBy<A>(xs: A[], fn: (x: A) => string): Record<string, A> {
+  return mkDict(xs.map((x) => [fn(x), x] as const));
+}
+
+export function commentToken(language: string) {
+  // This is future-proofed a bit, but don't read too much in this...
+  switch (language) {
+    case 'python':
+    case 'ruby':
+      return '#';
+    case 'csharp':
+    case 'java':
+    case 'go':
+    default:
+      return '//';
+  }
 }

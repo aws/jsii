@@ -95,29 +95,35 @@ func (c *Client) Types() *typeregistry.TypeRegistry {
 	return types
 }
 
-func (c *Client) RegisterInstance(instance reflect.Value, instanceID string) error {
-	return c.objects.Register(instance, instanceID)
+func (c *Client) RegisterInstance(instance reflect.Value, objectRef api.ObjectRef) error {
+	return c.objects.Register(instance, objectRef)
 }
 
 func (c *Client) request(req kernelRequester, res kernelResponder) error {
 	return c.process.Request(req, res)
 }
 
-func (c *Client) FindObjectRef(obj reflect.Value) (string, bool) {
+func (c *Client) FindObjectRef(obj reflect.Value) (ref api.ObjectRef, found bool) {
+	ref = api.ObjectRef{}
+	found = false
+
 	switch obj.Kind() {
 	case reflect.Struct:
 		// Structs can be checked only if they are addressable, meaning
 		// they are obtained from fields of an addressable struct.
 		if !obj.CanAddr() {
-			return "", false
+			return
 		}
 		obj = obj.Addr()
 		fallthrough
 	case reflect.Interface, reflect.Ptr:
-		return c.objects.InstanceID(obj)
+		if ref.InstanceID, found = c.objects.InstanceID(obj); found {
+			ref.Interfaces = c.objects.Interfaces(ref.InstanceID)
+		}
+		return
 	default:
 		// Other types cannot possibly be object references!
-		return "", false
+		return
 	}
 }
 

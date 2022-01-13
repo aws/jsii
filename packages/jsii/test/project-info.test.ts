@@ -320,14 +320,16 @@ async function _withTestProject<T>(
     );
 
     const jsiiTestDep = path.join(tmpdir, 'node_modules', 'jsii-test-dep');
-    await fs.mkdirs(jsiiTestDep);
+    await writeNpmPackageSkeleton(jsiiTestDep);
+
     await fs.writeJson(path.join(jsiiTestDep, '.jsii'), TEST_DEP_ASSEMBLY);
     const jsiiTestDepDep = path.join(
       jsiiTestDep,
       'node_modules',
       'jsii-test-dep-dep',
     );
-    await fs.mkdirs(jsiiTestDepDep);
+
+    await writeNpmPackageSkeleton(jsiiTestDepDep);
     await fs.writeJson(
       path.join(jsiiTestDepDep, '.jsii'),
       TEST_DEP_DEP_ASSEMBLY,
@@ -337,6 +339,20 @@ async function _withTestProject<T>(
   } finally {
     await fs.remove(tmpdir);
   }
+}
+
+/**
+ * Write a package.json and an index.js so the package is mostly well-formed
+ */
+async function writeNpmPackageSkeleton(directory: string) {
+  await fs.mkdirs(directory);
+  await fs.writeJson(path.join(directory, 'package.json'), {
+    name: path.basename(directory),
+  });
+  await fs.writeFile(
+    path.join(directory, 'index.js'),
+    '// There should be some JS',
+  );
 }
 
 /**
