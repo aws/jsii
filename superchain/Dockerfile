@@ -25,7 +25,11 @@ ARG BUILDPLATFORM
 ARG TARGETPLATFORM
 
 # We require a couple of tools to be available in order to work here...
-RUN apt-get update && apt-get install -y curl gpg tar zsh
+RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sources.list.d/buster-backports.list       \
+  && apt-get update                                                                                                     \
+  && apt-get install -y gpg tar zsh                                                                                     \
+  # We need a "recent" (>= 7.71) version of curl for --retry-all-errors, so we get it from backports...
+  && apt-get install -y -t buster-backports curl
 
 # We'll be using zsh substitutions, so ensuring this is the shell we use
 SHELL ["/bin/zsh", "-c"]
