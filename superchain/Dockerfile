@@ -56,7 +56,8 @@ RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.ver
 
 # Prepare PowerShell LTS distribution
 ENV POWERSHELL_RELEASES="https://github.com/PowerShell/PowerShell/releases"
-RUN POWERSHELL_RELEASE=$(curl -fSsL "https://aka.ms/powershell-release?tag=lts" -o /dev/null -w %{url_effective})       \
+RUN set -x \
+  && POWERSHELL_RELEASE=$(curl -fSsL "https://aka.ms/powershell-release?tag=lts" -o /dev/null -w %{url_effective})      \
   && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
   && ASSET="powershell-${POWERSHELL_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                        \
   && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}"                                       \
