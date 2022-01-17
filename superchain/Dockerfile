@@ -57,11 +57,11 @@ RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.ver
 # Prepare PowerShell LTS distribution
 ENV POWERSHELL_RELEASES="https://github.com/PowerShell/PowerShell/releases"
 RUN POWERSHELL_RELEASE=$(curl -X GET -fSsIL "https://aka.ms/powershell-release?tag=lts" -o /dev/null                    \
-                              --retry=5 --retry-all-errors -w %{url_effective})                                         \
+                              --retry 5 --retry-all-errors -w %{url_effective})                                         \
   && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
   && ASSET="powershell-${POWERSHELL_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                        \
-  && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}" --retry=5 --retry-all-errors          \
-  -o /tmp/powershell.tar.gz                                                                                             \
+  && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}" --retry 5 --retry-all-errors          \
+          -o /tmp/powershell.tar.gz                                                                                     \
   && mkdir -p /opt/microsoft/powershell                                                                                 \
   && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell                                                        \
   && chmod +x /opt/microsoft/powershell/pwsh
