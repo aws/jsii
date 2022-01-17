@@ -53,7 +53,7 @@ type ManagedObject = {
 
 function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
   const privateField: Omit<PropertyDescriptor, 'value' | 'get' | 'set'> = {
-    // Make sure the filed does not show in `JSON.stringify` outputs, and is not
+    // Make sure the field does not show in `JSON.stringify` outputs, and is not
     // copied by splat expressions (`{...obj}`), as this would be problematic.
     // See https://github.com/aws/aws-cdk/issues/17876 for an example of the
     // consequences this could have.
@@ -130,7 +130,7 @@ export class ObjectTable {
         for (const iface of existingRef[api.TOKEN_INTERFACES] ?? []) {
           allIfaces.add(iface);
         }
-        // Note - obj[INTERFACES_SYMBOL] should already have been delcared as a
+        // Note - obj[INTERFACES_SYMBOL] should already have been declared as a
         // private property by a previous call to tagObject  at this stage.
         if (!Object.prototype.hasOwnProperty.call(obj, IFACES_SYMBOL)) {
           console.error(
