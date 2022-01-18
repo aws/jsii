@@ -523,7 +523,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
       newOptional = false,
       oldOptional = false,
     ) =>
-      `"${newElement}" turns  ${
+      `"${newElement}" turns ${
         newOptional ? 'optional' : 'required'
       } when ${action}. Make it ${oldOptional ? 'optional' : 'required'}`,
     name: 'language-compatibility/override-changes-prop-optional',
@@ -534,12 +534,12 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     formatter: (
       newElement: string,
       action: string,
-      newMutable = false,
-      oldMutable = false,
+      newReadonly = false,
+      oldReadonly = false,
     ) =>
       `"${newElement}" turns ${
-        newMutable ? 'mutable' : 'readonly'
-      } when ${action}. Make it ${oldMutable ? 'mutable' : 'readonly'}`,
+        newReadonly ? 'readonly' : 'mutable'
+      } when ${action}. Make it ${oldReadonly ? 'readonly' : 'mutable'}`,
     name: 'language-compatibility/override-changes-mutability',
   });
 
@@ -854,6 +854,30 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     node: ts.Node,
     message: JsiiDiagnostic['messageText'],
   ): this {
+    this.relatedInformation.push(
+      JsiiDiagnostic.JSII_9999_RELATED_INFO.create(node, message),
+    );
+    // Clearing out #formatted, as this would no longer be the correct string.
+    this.#formatted = undefined;
+    return this;
+  }
+
+  /**
+   * Adds related information to this `JsiiDiagnostic` instance if the provided
+   * `node` is defined.
+   *
+   * @param node    the node to bind as related information, or `undefined`.
+   * @param message the message to attach to the related information.
+   *
+   * @returns `this`
+   */
+  public maybeAddRelatedInformation(
+    node: ts.Node | undefined,
+    message: JsiiDiagnostic['messageText'],
+  ): this {
+    if (node == null) {
+      return this;
+    }
     this.relatedInformation.push(
       JsiiDiagnostic.JSII_9999_RELATED_INFO.create(node, message),
     );
