@@ -52,9 +52,35 @@ type ManagedObject = {
 };
 
 function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
-  const managed = obj as ManagedObject;
-  managed[OBJID_SYMBOL] = objid;
-  managed[IFACES_SYMBOL] = interfaces;
+  const privateField: Omit<PropertyDescriptor, 'value' | 'get' | 'set'> = {
+    // Make sure the field does not show in `JSON.stringify` outputs, and is not
+    // copied by splat expressions (`{...obj}`), as this would be problematic.
+    // See https://github.com/aws/aws-cdk/issues/17876 for an example of the
+    // consequences this could have.
+    enumerable: false,
+    // Probably not necessary, but allow the property to be re-configured (it
+    // would be good to make this `false` in the future, but might cause weird
+    // bugs, so not doing it now...)
+    configurable: true,
+    writable: true,
+  };
+
+  // Log a warning in case we are re-tagging this value, so we can hopefully
+  // discover about the bugs we'd have if we did not make it configurable nor
+  // writable.
+  if (Object.prototype.hasOwnProperty.call(obj, OBJID_SYMBOL)) {
+    console.error(
+      `[jsii/kernel] WARNING: object ${JSON.stringify(
+        obj as any,
+      )} was already tagged as ${(obj as any)[OBJID_SYMBOL]}!`,
+    );
+  }
+
+  Object.defineProperty(obj, OBJID_SYMBOL, { ...privateField, value: objid });
+  Object.defineProperty(obj, IFACES_SYMBOL, {
+    ...privateField,
+    value: interfaces,
+  });
 }
 
 /**
@@ -104,6 +130,16 @@ export class ObjectTable {
         for (const iface of existingRef[api.TOKEN_INTERFACES] ?? []) {
           allIfaces.add(iface);
         }
+        // Note - obj[INTERFACES_SYMBOL] should already have been declared as a
+        // private property by a previous call to tagObject  at this stage.
+        if (!Object.prototype.hasOwnProperty.call(obj, IFACES_SYMBOL)) {
+          console.error(
+            `[jsii/kernel] WARNING: referenced object ${
+              existingRef[api.TOKEN_REF]
+            } does not have the ${String(IFACES_SYMBOL)} property!`,
+          );
+        }
+
         this.objects[existingRef[api.TOKEN_REF]].interfaces =
           (obj as any)[IFACES_SYMBOL] =
           existingRef[api.TOKEN_INTERFACES] =
