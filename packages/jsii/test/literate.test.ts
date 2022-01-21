@@ -99,10 +99,17 @@ test('can do example inclusion', async () => {
 
   const fakeLoader = (fileName: string) => {
     expect(fileName).toBe('test/something.lit.ts');
-    return ['const x = 1;', '/// This is how we print x', 'console.log(x);'];
+    return {
+      fullPath: fileName,
+      lines: ['const x = 1;', '/// This is how we print x', 'console.log(x);'],
+    };
   };
 
-  const rendered = await includeAndRenderExamples(inputMarkDown, fakeLoader);
+  const rendered = await includeAndRenderExamples(
+    inputMarkDown,
+    fakeLoader,
+    '.',
+  );
 
   expect(rendered).toEqual([
     'This is a preamble',

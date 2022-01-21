@@ -71,7 +71,14 @@ export function typescriptSourceToMarkdown(
   return markdownLines;
 }
 
-export type FileLoader = (relativePath: string) => string[] | Promise<string[]>;
+export interface LoadedFile {
+  readonly fullPath: string;
+  readonly lines: string[];
+}
+
+export type FileLoader = (
+  relativePath: string,
+) => LoadedFile | Promise<LoadedFile>;
 
 /**
  * Given MarkDown source, find source files to include and render
@@ -84,6 +91,7 @@ export type FileLoader = (relativePath: string) => string[] | Promise<string[]>;
 export async function includeAndRenderExamples(
   lines: string[],
   loader: FileLoader,
+  projectRoot: string,
 ): Promise<string[]> {
   const ret: string[] = [];
 
@@ -94,9 +102,12 @@ export async function includeAndRenderExamples(
       // Found an include
       const filename = m[2];
       // eslint-disable-next-line no-await-in-loop
-      const source = await loader(filename);
+      const { lines: source, fullPath } = await loader(filename);
       // 'lit' source attribute will make snippet compiler know to extract the same source
-      const imported = typescriptSourceToMarkdown(source, [`lit=${filename}`]);
+      // Needs to be relative to the project root.
+      const imported = typescriptSourceToMarkdown(source, [
+        `lit=${path.relative(projectRoot, fullPath)}`,
+      ]);
       ret.push(...imported);
     } else {
       ret.push(line);
@@ -125,7 +136,10 @@ export function contentToLines(content: string): string[] {
  * Return a file system loader given a base directory
  */
 export function fileSystemLoader(directory: string): FileLoader {
-  return (fileName) => loadFromFile(path.resolve(directory, fileName));
+  return async (fileName) => {
+    const fullPath = path.resolve(directory, fileName);
+    return { fullPath, lines: await loadFromFile(fullPath) };
+  };
 }
 
 const RELEVANT_TAG = '/// !show';

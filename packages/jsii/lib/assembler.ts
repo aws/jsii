@@ -320,11 +320,7 @@ export class Assembler implements Emitter {
         return undefined;
       }
       const readmePath = path.join(this.projectInfo.projectRoot, fileName);
-      const renderedLines = await literate.includeAndRenderExamples(
-        await literate.loadFromFile(readmePath),
-        literate.fileSystemLoader(this.projectInfo.projectRoot),
-      );
-      return { markdown: renderedLines.join('\n') };
+      return loadAndRenderReadme(readmePath, this.projectInfo.projectRoot);
     }
 
     function _loadDocs(this: Assembler): spec.Docs | undefined {
@@ -729,7 +725,10 @@ export class Assembler implements Emitter {
         symbol,
       );
       const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
-      const readme = await loadSubmoduleReadMe(sourceFile.fileName);
+      const readme = await loadSubmoduleReadMe(
+        sourceFile.fileName,
+        this.projectInfo.projectRoot,
+      );
 
       this._submodules.set(symbol, {
         fqn,
@@ -793,18 +792,13 @@ export class Assembler implements Emitter {
      */
     async function loadSubmoduleReadMe(
       submoduleMain: string,
+      projectRoot: string,
     ): Promise<SubmoduleSpec['readme']> {
       const fileBase = path.basename(submoduleMain).replace(/(\.d)?\.ts$/, '');
       const readMeName =
         fileBase === 'index' ? `README.md` : `${fileBase}.README.md`;
       const fullPath = path.join(path.dirname(submoduleMain), readMeName);
-
-      if (!(await fs.pathExists(fullPath))) {
-        return undefined;
-      }
-      return {
-        markdown: await fs.readFile(fullPath, { encoding: 'utf-8' }),
-      };
+      return loadAndRenderReadme(fullPath, projectRoot);
     }
   }
 
@@ -3480,4 +3474,20 @@ function getSymbolFromDeclaration(
 function isUnder(file: string, dir: string): boolean {
   const relative = path.relative(dir, file);
   return !relative.startsWith(path.sep) && !relative.startsWith('..');
+}
+
+async function loadAndRenderReadme(readmePath: string, projectRoot: string) {
+  if (!(await fs.pathExists(readmePath))) {
+    return undefined;
+  }
+
+  return {
+    markdown: (
+      await literate.includeAndRenderExamples(
+        await literate.loadFromFile(readmePath),
+        literate.fileSystemLoader(path.dirname(readmePath)),
+        projectRoot,
+      )
+    ).join('\n'),
+  };
 }

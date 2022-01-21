@@ -60,6 +60,29 @@ test('submodules loaded from directories can have targets', async () => {
   );
 });
 
+test('submodule READMEs can have literate source references', async () => {
+  const assembly = await sourceToAssemblyHelper({
+    'index.ts': 'export * as submodule from "./subdir"',
+    'subdir/index.ts': 'export class Foo { }',
+    'subdir/README.md': 'This is the README\n\n[includable](./test/includeme.lit.ts)',
+    'subdir/test/includeme.lit.ts': '// Include me',
+  });
+
+  expect(assembly.submodules!['testpkg.submodule']).toEqual(
+    expect.objectContaining({
+      readme: {
+        markdown: [
+          'This is the README',
+          '',
+          '```ts lit=subdir/test/includeme.lit.ts',
+          '// Include me',
+          '```',
+        ].join('\n'),
+      },
+    }),
+  );
+});
+
 type ImportStyle = 'directly' | 'as namespace' | 'with alias';
 
 test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
