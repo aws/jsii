@@ -106,7 +106,7 @@ export async function includeAndRenderExamples(
       // 'lit' source attribute will make snippet compiler know to extract the same source
       // Needs to be relative to the project root.
       const imported = typescriptSourceToMarkdown(source, [
-        `lit=${path.posix.relative(projectRoot, fullPath)}`,
+        `lit=${toUnixPath(path.relative(projectRoot, fullPath))}`,
       ]);
       ret.push(...imported);
     } else {
@@ -228,4 +228,8 @@ function markdownify(
       typescriptLines.splice(0); // Clear
     }
   }
+}
+
+function toUnixPath(x: string) {
+  return x.replace(/\\/g, '/');
 }
