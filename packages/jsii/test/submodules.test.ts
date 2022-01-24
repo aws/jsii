@@ -64,7 +64,8 @@ test('submodule READMEs can have literate source references', async () => {
   const assembly = await sourceToAssemblyHelper({
     'index.ts': 'export * as submodule from "./subdir"',
     'subdir/index.ts': 'export class Foo { }',
-    'subdir/README.md': 'This is the README\n\n[includable](./test/includeme.lit.ts)',
+    'subdir/README.md':
+      'This is the README\n\n[includable](./test/includeme.lit.ts)',
     'subdir/test/includeme.lit.ts': '// Include me',
   });
 
