@@ -169,7 +169,9 @@ class SubclassNativeFriendlyRandom(Number):
         return next_
 
 
-class SubclassNativeFriendlyRandom_Inheritance(Number, IFriendly, IRandomNumberGenerator):
+class SubclassNativeFriendlyRandom_Inheritance(
+    Number, IFriendly, IRandomNumberGenerator
+):
     def __init__(self):
         super().__init__(908)
         self.next_number = 100
@@ -181,6 +183,7 @@ class SubclassNativeFriendlyRandom_Inheritance(Number, IFriendly, IRandomNumberG
         next_ = self.next_number
         self.next_number += 100
         return next_
+
 
 @jsii.implements(IFriendlyRandomGenerator)
 class PureNativeFriendlyRandom:

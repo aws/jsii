@@ -970,7 +970,10 @@ class Interface extends BasePythonClassType {
         if (this.separateMembers) {
           code.line();
         }
-        member.emit(code, context, { forceEmitBody: true, renderAbstract: false });
+        member.emit(code, context, {
+          forceEmitBody: true,
+          renderAbstract: false,
+        });
       }
     } else {
       code.line('pass');
