@@ -399,9 +399,10 @@ class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
 @jsii.interface(jsii_type="@scope/jsii-calc-base.IBaseInterface")
 class IBaseInterface(
     scope.jsii_calc_base_of_base.IVeryBaseInterface,
-    typing_extensions.Protocol,
+    metaclass = jsii.JSIIAbstractClass,
 ):
-    @jsii.member(jsii_name="bar")
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @abc.abstractmethod
     def bar(self) -> None:
         ...
 
@@ -808,8 +809,9 @@ from ._jsii import *
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-base-of-base.IVeryBaseInterface")
-class IVeryBaseInterface(typing_extensions.Protocol):
-    @jsii.member(jsii_name="foo")
+class IVeryBaseInterface(metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="foo") # type: ignore[misc]
+    @abc.abstractmethod
     def foo(self) -> None:
         ...
 
@@ -1423,7 +1425,7 @@ class EnumFromScopedModule(enum.Enum):
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
-class IDoublable(typing_extensions.Protocol):
+class IDoublable(metaclass = jsii.JSIIAbstractClass):
     '''(deprecated) The general contract for a concrete number.
 
     :stability: deprecated
@@ -1431,6 +1433,7 @@ class IDoublable(typing_extensions.Protocol):
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="doubleValue")
+    @abc.abstractmethod
     def double_value(self) -> jsii.Number:
         '''
         :stability: deprecated
@@ -1459,7 +1462,7 @@ typing.cast(typing.Any, IDoublable).__jsii_proxy_class__ = lambda : _IDoublableP
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IFriendly")
-class IFriendly(typing_extensions.Protocol):
+class IFriendly(metaclass = jsii.JSIIAbstractClass):
     '''(deprecated) Applies to classes that are considered friendly.
 
     These classes can be greeted with
@@ -1468,7 +1471,8 @@ class IFriendly(typing_extensions.Protocol):
     :stability: deprecated
     '''
 
-    @jsii.member(jsii_name="hello")
+    @jsii.member(jsii_name="hello") # type: ignore[misc]
+    @abc.abstractmethod
     def hello(self) -> builtins.str:
         '''(deprecated) Say hello!
 
@@ -1503,7 +1507,7 @@ typing.cast(typing.Any, IFriendly).__jsii_proxy_class__ = lambda : _IFriendlyPro
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IThreeLevelsInterface")
 class IThreeLevelsInterface(
     scope.jsii_calc_base.IBaseInterface,
-    typing_extensions.Protocol,
+    metaclass = jsii.JSIIAbstractClass,
 ):
     '''(deprecated) Interface that inherits from packages 2 levels up the tree.
 
@@ -1513,7 +1517,8 @@ class IThreeLevelsInterface(
     :stability: deprecated
     '''
 
-    @jsii.member(jsii_name="baz")
+    @jsii.member(jsii_name="baz") # type: ignore[misc]
+    @abc.abstractmethod
     def baz(self) -> None:
         '''
         :stability: deprecated
@@ -1882,13 +1887,14 @@ from .._jsii import *
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.submodule.IReflectable")
-class IReflectable(typing_extensions.Protocol):
+class IReflectable(metaclass = jsii.JSIIAbstractClass):
     '''
     :stability: deprecated
     '''
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="entries")
+    @abc.abstractmethod
     def entries(self) -> typing.List["ReflectableEntry"]:
         '''
         :stability: deprecated
@@ -5226,14 +5232,16 @@ class GreetingAugmenter(
 
 
 @jsii.interface(jsii_type="jsii-calc.IAnonymousImplementationProvider")
-class IAnonymousImplementationProvider(typing_extensions.Protocol):
+class IAnonymousImplementationProvider(metaclass = jsii.JSIIAbstractClass):
     '''We can return an anonymous interface implementation from an override without losing the interface declarations.'''
 
-    @jsii.member(jsii_name="provideAsClass")
+    @jsii.member(jsii_name="provideAsClass") # type: ignore[misc]
+    @abc.abstractmethod
     def provide_as_class(self) -> "Implementation":
         ...
 
-    @jsii.member(jsii_name="provideAsInterface")
+    @jsii.member(jsii_name="provideAsInterface") # type: ignore[misc]
+    @abc.abstractmethod
     def provide_as_interface(self) -> "IAnonymouslyImplementMe":
         ...
 
@@ -5256,13 +5264,15 @@ typing.cast(typing.Any, IAnonymousImplementationProvider).__jsii_proxy_class__ =
 
 
 @jsii.interface(jsii_type="jsii-calc.IAnonymouslyImplementMe")
-class IAnonymouslyImplementMe(typing_extensions.Protocol):
+class IAnonymouslyImplementMe(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
+    @abc.abstractmethod
     def value(self) -> jsii.Number:
         ...
 
-    @jsii.member(jsii_name="verb")
+    @jsii.member(jsii_name="verb") # type: ignore[misc]
+    @abc.abstractmethod
     def verb(self) -> builtins.str:
         ...
 
@@ -5284,13 +5294,15 @@ typing.cast(typing.Any, IAnonymouslyImplementMe).__jsii_proxy_class__ = lambda :
 
 
 @jsii.interface(jsii_type="jsii-calc.IAnotherPublicInterface")
-class IAnotherPublicInterface(typing_extensions.Protocol):
+class IAnotherPublicInterface(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="a")
+    @abc.abstractmethod
     def a(self) -> builtins.str:
         ...
 
     @a.setter
+    @abc.abstractmethod
     def a(self, value: builtins.str) -> None:
         ...
 
@@ -5312,8 +5324,9 @@ typing.cast(typing.Any, IAnotherPublicInterface).__jsii_proxy_class__ = lambda :
 
 
 @jsii.interface(jsii_type="jsii-calc.IBell")
-class IBell(typing_extensions.Protocol):
-    @jsii.member(jsii_name="ring")
+class IBell(metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="ring") # type: ignore[misc]
+    @abc.abstractmethod
     def ring(self) -> None:
         ...
 
@@ -5330,10 +5343,11 @@ typing.cast(typing.Any, IBell).__jsii_proxy_class__ = lambda : _IBellProxy
 
 
 @jsii.interface(jsii_type="jsii-calc.IBellRinger")
-class IBellRinger(typing_extensions.Protocol):
+class IBellRinger(metaclass = jsii.JSIIAbstractClass):
     '''Takes the object parameter as an interface.'''
 
-    @jsii.member(jsii_name="yourTurn")
+    @jsii.member(jsii_name="yourTurn") # type: ignore[misc]
+    @abc.abstractmethod
     def your_turn(self, bell: IBell) -> None:
         '''
         :param bell: -
@@ -5358,10 +5372,11 @@ typing.cast(typing.Any, IBellRinger).__jsii_proxy_class__ = lambda : _IBellRinge
 
 
 @jsii.interface(jsii_type="jsii-calc.IConcreteBellRinger")
-class IConcreteBellRinger(typing_extensions.Protocol):
+class IConcreteBellRinger(metaclass = jsii.JSIIAbstractClass):
     '''Takes the object parameter as a calss.'''
 
-    @jsii.member(jsii_name="yourTurn")
+    @jsii.member(jsii_name="yourTurn") # type: ignore[misc]
+    @abc.abstractmethod
     def your_turn(self, bell: "Bell") -> None:
         '''
         :param bell: -
@@ -5386,7 +5401,7 @@ typing.cast(typing.Any, IConcreteBellRinger).__jsii_proxy_class__ = lambda : _IC
 
 
 @jsii.interface(jsii_type="jsii-calc.IDeprecatedInterface")
-class IDeprecatedInterface(typing_extensions.Protocol):
+class IDeprecatedInterface(metaclass = jsii.JSIIAbstractClass):
     '''
     :deprecated: useless interface
 
@@ -5395,6 +5410,7 @@ class IDeprecatedInterface(typing_extensions.Protocol):
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="mutableProperty")
+    @abc.abstractmethod
     def mutable_property(self) -> typing.Optional[jsii.Number]:
         '''
         :deprecated: could be better
@@ -5404,10 +5420,12 @@ class IDeprecatedInterface(typing_extensions.Protocol):
         ...
 
     @mutable_property.setter
+    @abc.abstractmethod
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
-    @jsii.member(jsii_name="method")
+    @jsii.member(jsii_name="method") # type: ignore[misc]
+    @abc.abstractmethod
     def method(self) -> None:
         '''
         :deprecated: services no purpose
@@ -5454,13 +5472,14 @@ typing.cast(typing.Any, IDeprecatedInterface).__jsii_proxy_class__ = lambda : _I
 
 
 @jsii.interface(jsii_type="jsii-calc.IExperimentalInterface")
-class IExperimentalInterface(typing_extensions.Protocol):
+class IExperimentalInterface(metaclass = jsii.JSIIAbstractClass):
     '''
     :stability: experimental
     '''
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="mutableProperty")
+    @abc.abstractmethod
     def mutable_property(self) -> typing.Optional[jsii.Number]:
         '''
         :stability: experimental
@@ -5468,10 +5487,12 @@ class IExperimentalInterface(typing_extensions.Protocol):
         ...
 
     @mutable_property.setter
+    @abc.abstractmethod
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
-    @jsii.member(jsii_name="method")
+    @jsii.member(jsii_name="method") # type: ignore[misc]
+    @abc.abstractmethod
     def method(self) -> None:
         '''
         :stability: experimental
@@ -5510,18 +5531,21 @@ typing.cast(typing.Any, IExperimentalInterface).__jsii_proxy_class__ = lambda : 
 
 
 @jsii.interface(jsii_type="jsii-calc.IExtendsPrivateInterface")
-class IExtendsPrivateInterface(typing_extensions.Protocol):
+class IExtendsPrivateInterface(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="moreThings")
+    @abc.abstractmethod
     def more_things(self) -> typing.List[builtins.str]:
         ...
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="private")
+    @abc.abstractmethod
     def private(self) -> builtins.str:
         ...
 
     @private.setter
+    @abc.abstractmethod
     def private(self, value: builtins.str) -> None:
         ...
 
@@ -5548,13 +5572,14 @@ typing.cast(typing.Any, IExtendsPrivateInterface).__jsii_proxy_class__ = lambda 
 
 
 @jsii.interface(jsii_type="jsii-calc.IExternalInterface")
-class IExternalInterface(typing_extensions.Protocol):
+class IExternalInterface(metaclass = jsii.JSIIAbstractClass):
     '''
     :external: true
     '''
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="mutableProperty")
+    @abc.abstractmethod
     def mutable_property(self) -> typing.Optional[jsii.Number]:
         '''
         :external: true
@@ -5562,10 +5587,12 @@ class IExternalInterface(typing_extensions.Protocol):
         ...
 
     @mutable_property.setter
+    @abc.abstractmethod
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
-    @jsii.member(jsii_name="method")
+    @jsii.member(jsii_name="method") # type: ignore[misc]
+    @abc.abstractmethod
     def method(self) -> None:
         '''
         :external: true
@@ -5604,15 +5631,17 @@ typing.cast(typing.Any, IExternalInterface).__jsii_proxy_class__ = lambda : _IEx
 
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlier")
-class IFriendlier(scope.jsii_calc_lib.IFriendly, typing_extensions.Protocol):
+class IFriendlier(scope.jsii_calc_lib.IFriendly, metaclass = jsii.JSIIAbstractClass):
     '''Even friendlier classes can implement this interface.'''
 
-    @jsii.member(jsii_name="farewell")
+    @jsii.member(jsii_name="farewell") # type: ignore[misc]
+    @abc.abstractmethod
     def farewell(self) -> builtins.str:
         '''Say farewell.'''
         ...
 
-    @jsii.member(jsii_name="goodbye")
+    @jsii.member(jsii_name="goodbye") # type: ignore[misc]
+    @abc.abstractmethod
     def goodbye(self) -> builtins.str:
         '''Say goodbye.
 
@@ -5646,11 +5675,12 @@ typing.cast(typing.Any, IFriendlier).__jsii_proxy_class__ = lambda : _IFriendlie
 
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceImplementedByAbstractClass")
-class IInterfaceImplementedByAbstractClass(typing_extensions.Protocol):
+class IInterfaceImplementedByAbstractClass(metaclass = jsii.JSIIAbstractClass):
     '''awslabs/jsii#220 Abstract return type.'''
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="propFromInterface")
+    @abc.abstractmethod
     def prop_from_interface(self) -> builtins.str:
         ...
 
@@ -5670,8 +5700,9 @@ typing.cast(typing.Any, IInterfaceImplementedByAbstractClass).__jsii_proxy_class
 
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithInternal")
-class IInterfaceWithInternal(typing_extensions.Protocol):
-    @jsii.member(jsii_name="visible")
+class IInterfaceWithInternal(metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="visible") # type: ignore[misc]
+    @abc.abstractmethod
     def visible(self) -> None:
         ...
 
@@ -5688,13 +5719,15 @@ typing.cast(typing.Any, IInterfaceWithInternal).__jsii_proxy_class__ = lambda : 
 
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithMethods")
-class IInterfaceWithMethods(typing_extensions.Protocol):
+class IInterfaceWithMethods(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
+    @abc.abstractmethod
     def value(self) -> builtins.str:
         ...
 
-    @jsii.member(jsii_name="doThings")
+    @jsii.member(jsii_name="doThings") # type: ignore[misc]
+    @abc.abstractmethod
     def do_things(self) -> None:
         ...
 
@@ -5716,10 +5749,11 @@ typing.cast(typing.Any, IInterfaceWithMethods).__jsii_proxy_class__ = lambda : _
 
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithOptionalMethodArguments")
-class IInterfaceWithOptionalMethodArguments(typing_extensions.Protocol):
+class IInterfaceWithOptionalMethodArguments(metaclass = jsii.JSIIAbstractClass):
     '''awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.'''
 
-    @jsii.member(jsii_name="hello")
+    @jsii.member(jsii_name="hello") # type: ignore[misc]
+    @abc.abstractmethod
     def hello(
         self,
         arg1: builtins.str,
@@ -5754,18 +5788,21 @@ typing.cast(typing.Any, IInterfaceWithOptionalMethodArguments).__jsii_proxy_clas
 
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithProperties")
-class IInterfaceWithProperties(typing_extensions.Protocol):
+class IInterfaceWithProperties(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="readOnlyString")
+    @abc.abstractmethod
     def read_only_string(self) -> builtins.str:
         ...
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="readWriteString")
+    @abc.abstractmethod
     def read_write_string(self) -> builtins.str:
         ...
 
     @read_write_string.setter
+    @abc.abstractmethod
     def read_write_string(self, value: builtins.str) -> None:
         ...
 
@@ -5794,14 +5831,16 @@ typing.cast(typing.Any, IInterfaceWithProperties).__jsii_proxy_class__ = lambda 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithPropertiesExtension")
 class IInterfaceWithPropertiesExtension(
     IInterfaceWithProperties,
-    typing_extensions.Protocol,
+    metaclass = jsii.JSIIAbstractClass,
 ):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="foo")
+    @abc.abstractmethod
     def foo(self) -> jsii.Number:
         ...
 
     @foo.setter
+    @abc.abstractmethod
     def foo(self, value: jsii.Number) -> None:
         ...
 
@@ -5825,13 +5864,15 @@ typing.cast(typing.Any, IInterfaceWithPropertiesExtension).__jsii_proxy_class__ 
 
 
 @jsii.interface(jsii_type="jsii-calc.IJSII417PublicBaseOfBase")
-class IJSII417PublicBaseOfBase(typing_extensions.Protocol):
+class IJSII417PublicBaseOfBase(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="hasRoot")
+    @abc.abstractmethod
     def has_root(self) -> builtins.bool:
         ...
 
-    @jsii.member(jsii_name="foo")
+    @jsii.member(jsii_name="foo") # type: ignore[misc]
+    @abc.abstractmethod
     def foo(self) -> None:
         ...
 
@@ -5853,7 +5894,7 @@ typing.cast(typing.Any, IJSII417PublicBaseOfBase).__jsii_proxy_class__ = lambda 
 
 
 @jsii.interface(jsii_type="jsii-calc.IJsii487External")
-class IJsii487External(typing_extensions.Protocol):
+class IJsii487External(metaclass = jsii.JSIIAbstractClass):
     pass
 
 
@@ -5866,7 +5907,7 @@ typing.cast(typing.Any, IJsii487External).__jsii_proxy_class__ = lambda : _IJsii
 
 
 @jsii.interface(jsii_type="jsii-calc.IJsii487External2")
-class IJsii487External2(typing_extensions.Protocol):
+class IJsii487External2(metaclass = jsii.JSIIAbstractClass):
     pass
 
 
@@ -5879,7 +5920,7 @@ typing.cast(typing.Any, IJsii487External2).__jsii_proxy_class__ = lambda : _IJsi
 
 
 @jsii.interface(jsii_type="jsii-calc.IJsii496")
-class IJsii496(typing_extensions.Protocol):
+class IJsii496(metaclass = jsii.JSIIAbstractClass):
     pass
 
 
@@ -5892,13 +5933,15 @@ typing.cast(typing.Any, IJsii496).__jsii_proxy_class__ = lambda : _IJsii496Proxy
 
 
 @jsii.interface(jsii_type="jsii-calc.IMutableObjectLiteral")
-class IMutableObjectLiteral(typing_extensions.Protocol):
+class IMutableObjectLiteral(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
+    @abc.abstractmethod
     def value(self) -> builtins.str:
         ...
 
     @value.setter
+    @abc.abstractmethod
     def value(self, value: builtins.str) -> None:
         ...
 
@@ -5920,22 +5963,29 @@ typing.cast(typing.Any, IMutableObjectLiteral).__jsii_proxy_class__ = lambda : _
 
 
 @jsii.interface(jsii_type="jsii-calc.INonInternalInterface")
-class INonInternalInterface(IAnotherPublicInterface, typing_extensions.Protocol):
+class INonInternalInterface(
+    IAnotherPublicInterface,
+    metaclass = jsii.JSIIAbstractClass,
+):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="b")
+    @abc.abstractmethod
     def b(self) -> builtins.str:
         ...
 
     @b.setter
+    @abc.abstractmethod
     def b(self, value: builtins.str) -> None:
         ...
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="c")
+    @abc.abstractmethod
     def c(self) -> builtins.str:
         ...
 
     @c.setter
+    @abc.abstractmethod
     def c(self, value: builtins.str) -> None:
         ...
 
@@ -5968,19 +6018,22 @@ typing.cast(typing.Any, INonInternalInterface).__jsii_proxy_class__ = lambda : _
 
 
 @jsii.interface(jsii_type="jsii-calc.IObjectWithProperty")
-class IObjectWithProperty(typing_extensions.Protocol):
+class IObjectWithProperty(metaclass = jsii.JSIIAbstractClass):
     '''Make sure that setters are properly called on objects with interfaces.'''
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="property")
+    @abc.abstractmethod
     def property(self) -> builtins.str:
         ...
 
     @property.setter
+    @abc.abstractmethod
     def property(self, value: builtins.str) -> None:
         ...
 
-    @jsii.member(jsii_name="wasSet")
+    @jsii.member(jsii_name="wasSet") # type: ignore[misc]
+    @abc.abstractmethod
     def was_set(self) -> builtins.bool:
         ...
 
@@ -6008,10 +6061,11 @@ typing.cast(typing.Any, IObjectWithProperty).__jsii_proxy_class__ = lambda : _IO
 
 
 @jsii.interface(jsii_type="jsii-calc.IOptionalMethod")
-class IOptionalMethod(typing_extensions.Protocol):
+class IOptionalMethod(metaclass = jsii.JSIIAbstractClass):
     '''Checks that optional result from interface method code generates correctly.'''
 
-    @jsii.member(jsii_name="optional")
+    @jsii.member(jsii_name="optional") # type: ignore[misc]
+    @abc.abstractmethod
     def optional(self) -> typing.Optional[builtins.str]:
         ...
 
@@ -6030,9 +6084,10 @@ typing.cast(typing.Any, IOptionalMethod).__jsii_proxy_class__ = lambda : _IOptio
 
 
 @jsii.interface(jsii_type="jsii-calc.IPrivatelyImplemented")
-class IPrivatelyImplemented(typing_extensions.Protocol):
+class IPrivatelyImplemented(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="success")
+    @abc.abstractmethod
     def success(self) -> builtins.bool:
         ...
 
@@ -6050,8 +6105,9 @@ typing.cast(typing.Any, IPrivatelyImplemented).__jsii_proxy_class__ = lambda : _
 
 
 @jsii.interface(jsii_type="jsii-calc.IPublicInterface")
-class IPublicInterface(typing_extensions.Protocol):
-    @jsii.member(jsii_name="bye")
+class IPublicInterface(metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="bye") # type: ignore[misc]
+    @abc.abstractmethod
     def bye(self) -> builtins.str:
         ...
 
@@ -6068,8 +6124,9 @@ typing.cast(typing.Any, IPublicInterface).__jsii_proxy_class__ = lambda : _IPubl
 
 
 @jsii.interface(jsii_type="jsii-calc.IPublicInterface2")
-class IPublicInterface2(typing_extensions.Protocol):
-    @jsii.member(jsii_name="ciao")
+class IPublicInterface2(metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="ciao") # type: ignore[misc]
+    @abc.abstractmethod
     def ciao(self) -> builtins.str:
         ...
 
@@ -6086,10 +6143,11 @@ typing.cast(typing.Any, IPublicInterface2).__jsii_proxy_class__ = lambda : _IPub
 
 
 @jsii.interface(jsii_type="jsii-calc.IRandomNumberGenerator")
-class IRandomNumberGenerator(typing_extensions.Protocol):
+class IRandomNumberGenerator(metaclass = jsii.JSIIAbstractClass):
     '''Generates random numbers.'''
 
-    @jsii.member(jsii_name="next")
+    @jsii.member(jsii_name="next") # type: ignore[misc]
+    @abc.abstractmethod
     def next(self) -> jsii.Number:
         '''Returns another random number.
 
@@ -6116,11 +6174,12 @@ typing.cast(typing.Any, IRandomNumberGenerator).__jsii_proxy_class__ = lambda : 
 
 
 @jsii.interface(jsii_type="jsii-calc.IReturnJsii976")
-class IReturnJsii976(typing_extensions.Protocol):
+class IReturnJsii976(metaclass = jsii.JSIIAbstractClass):
     '''Returns a subclass of a known class which implements an interface.'''
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="foo")
+    @abc.abstractmethod
     def foo(self) -> jsii.Number:
         ...
 
@@ -6140,13 +6199,15 @@ typing.cast(typing.Any, IReturnJsii976).__jsii_proxy_class__ = lambda : _IReturn
 
 
 @jsii.interface(jsii_type="jsii-calc.IReturnsNumber")
-class IReturnsNumber(typing_extensions.Protocol):
+class IReturnsNumber(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="numberProp")
+    @abc.abstractmethod
     def number_prop(self) -> scope.jsii_calc_lib.Number:
         ...
 
-    @jsii.member(jsii_name="obtainNumber")
+    @jsii.member(jsii_name="obtainNumber") # type: ignore[misc]
+    @abc.abstractmethod
     def obtain_number(self) -> scope.jsii_calc_lib.IDoublable:
         ...
 
@@ -6168,17 +6229,20 @@ typing.cast(typing.Any, IReturnsNumber).__jsii_proxy_class__ = lambda : _IReturn
 
 
 @jsii.interface(jsii_type="jsii-calc.IStableInterface")
-class IStableInterface(typing_extensions.Protocol):
+class IStableInterface(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="mutableProperty")
+    @abc.abstractmethod
     def mutable_property(self) -> typing.Optional[jsii.Number]:
         ...
 
     @mutable_property.setter
+    @abc.abstractmethod
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
-    @jsii.member(jsii_name="method")
+    @jsii.member(jsii_name="method") # type: ignore[misc]
+    @abc.abstractmethod
     def method(self) -> None:
         ...
 
@@ -6204,10 +6268,11 @@ typing.cast(typing.Any, IStableInterface).__jsii_proxy_class__ = lambda : _IStab
 
 
 @jsii.interface(jsii_type="jsii-calc.IStructReturningDelegate")
-class IStructReturningDelegate(typing_extensions.Protocol):
+class IStructReturningDelegate(metaclass = jsii.JSIIAbstractClass):
     '''Verifies that a "pure" implementation of an interface works correctly.'''
 
-    @jsii.member(jsii_name="returnStruct")
+    @jsii.member(jsii_name="returnStruct") # type: ignore[misc]
+    @abc.abstractmethod
     def return_struct(self) -> "StructB":
         ...
 
@@ -6226,10 +6291,11 @@ typing.cast(typing.Any, IStructReturningDelegate).__jsii_proxy_class__ = lambda 
 
 
 @jsii.interface(jsii_type="jsii-calc.IWallClock")
-class IWallClock(typing_extensions.Protocol):
+class IWallClock(metaclass = jsii.JSIIAbstractClass):
     '''Implement this interface.'''
 
-    @jsii.member(jsii_name="iso8601Now")
+    @jsii.member(jsii_name="iso8601Now") # type: ignore[misc]
+    @abc.abstractmethod
     def iso8601_now(self) -> builtins.str:
         '''Returns the current time, formatted as an ISO-8601 string.'''
         ...
@@ -9762,7 +9828,7 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
 class IFriendlyRandomGenerator(
     IRandomNumberGenerator,
     scope.jsii_calc_lib.IFriendly,
-    typing_extensions.Protocol,
+    metaclass = jsii.JSIIAbstractClass,
 ):
     pass
 
@@ -9781,12 +9847,13 @@ typing.cast(typing.Any, IFriendlyRandomGenerator).__jsii_proxy_class__ = lambda 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceThatShouldNotBeADataType")
 class IInterfaceThatShouldNotBeADataType(
     IInterfaceWithMethods,
-    typing_extensions.Protocol,
+    metaclass = jsii.JSIIAbstractClass,
 ):
     '''Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.'''
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="otherValue")
+    @abc.abstractmethod
     def other_value(self) -> builtins.str:
         ...
 
@@ -9808,17 +9875,20 @@ typing.cast(typing.Any, IInterfaceThatShouldNotBeADataType).__jsii_proxy_class__
 
 
 @jsii.interface(jsii_type="jsii-calc.IJSII417Derived")
-class IJSII417Derived(IJSII417PublicBaseOfBase, typing_extensions.Protocol):
+class IJSII417Derived(IJSII417PublicBaseOfBase, metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="property")
+    @abc.abstractmethod
     def property(self) -> builtins.str:
         ...
 
-    @jsii.member(jsii_name="bar")
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @abc.abstractmethod
     def bar(self) -> None:
         ...
 
-    @jsii.member(jsii_name="baz")
+    @jsii.member(jsii_name="baz") # type: ignore[misc]
+    @abc.abstractmethod
     def baz(self) -> None:
         ...
 
@@ -11235,13 +11305,15 @@ from .._jsii import *
 
 
 @jsii.interface(jsii_type="jsii-calc.module2700.IFoo")
-class IFoo(typing_extensions.Protocol):
+class IFoo(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="baz")
+    @abc.abstractmethod
     def baz(self) -> jsii.Number:
         ...
 
-    @jsii.member(jsii_name="bar")
+    @jsii.member(jsii_name="bar") # type: ignore[misc]
+    @abc.abstractmethod
     def bar(self) -> builtins.str:
         ...
 
@@ -11359,8 +11431,9 @@ class Class3(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Class3"):
 
 
 @jsii.interface(jsii_type="jsii-calc.module2702.IBaz")
-class IBaz(scope.jsii_calc_base.IBaseInterface, typing_extensions.Protocol):
-    @jsii.member(jsii_name="bazMethod")
+class IBaz(scope.jsii_calc_base.IBaseInterface, metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="bazMethod") # type: ignore[misc]
+    @abc.abstractmethod
     def baz_method(self) -> None:
         ...
 
@@ -11379,8 +11452,9 @@ typing.cast(typing.Any, IBaz).__jsii_proxy_class__ = lambda : _IBazProxy
 
 
 @jsii.interface(jsii_type="jsii-calc.module2702.IConstruct")
-class IConstruct(typing_extensions.Protocol):
-    @jsii.member(jsii_name="constructMethod")
+class IConstruct(metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="constructMethod") # type: ignore[misc]
+    @abc.abstractmethod
     def construct_method(self) -> None:
         ...
 
@@ -11397,9 +11471,10 @@ typing.cast(typing.Any, IConstruct).__jsii_proxy_class__ = lambda : _IConstructP
 
 
 @jsii.interface(jsii_type="jsii-calc.module2702.IFoo")
-class IFoo(scope.jsii_calc_base.IBaseInterface, typing_extensions.Protocol):
+class IFoo(scope.jsii_calc_base.IBaseInterface, metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="iBaseInterface")
+    @abc.abstractmethod
     def i_base_interface(self) -> builtins.str:
         ...
 
@@ -11419,8 +11494,9 @@ typing.cast(typing.Any, IFoo).__jsii_proxy_class__ = lambda : _IFooProxy
 
 
 @jsii.interface(jsii_type="jsii-calc.module2702.IResource")
-class IResource(IConstruct, typing_extensions.Protocol):
-    @jsii.member(jsii_name="resourceMethod")
+class IResource(IConstruct, metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="resourceMethod") # type: ignore[misc]
+    @abc.abstractmethod
     def resource_method(self) -> None:
         ...
 
@@ -11439,8 +11515,9 @@ typing.cast(typing.Any, IResource).__jsii_proxy_class__ = lambda : _IResourcePro
 
 
 @jsii.interface(jsii_type="jsii-calc.module2702.IVpc")
-class IVpc(IResource, typing_extensions.Protocol):
-    @jsii.member(jsii_name="vpcMethod")
+class IVpc(IResource, metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="vpcMethod") # type: ignore[misc]
+    @abc.abstractmethod
     def vpc_method(self) -> None:
         ...
 
@@ -11710,8 +11787,9 @@ class ClassWithSelfKwarg(
 
 
 @jsii.interface(jsii_type="jsii-calc.PythonSelf.IInterfaceWithSelf")
-class IInterfaceWithSelf(typing_extensions.Protocol):
-    @jsii.member(jsii_name="method")
+class IInterfaceWithSelf(metaclass = jsii.JSIIAbstractClass):
+    @jsii.member(jsii_name="method") # type: ignore[misc]
+    @abc.abstractmethod
     def method(self_, self: jsii.Number) -> builtins.str:
         '''
         :param self: -
@@ -12264,9 +12342,10 @@ from ...._jsii import *
 @jsii.interface(
     jsii_type="jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"
 )
-class INamespaced(typing_extensions.Protocol):
+class INamespaced(metaclass = jsii.JSIIAbstractClass):
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="definedAt")
+    @abc.abstractmethod
     def defined_at(self) -> builtins.str:
         ...
 

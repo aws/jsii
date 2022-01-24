@@ -3,13 +3,12 @@ import os
 
 import attr
 
-from typing import cast, Any, Callable, ClassVar, List, Optional, Mapping, Type, TypeVar
+from typing import cast, Any, Callable, List, Optional, Mapping, Type, TypeVar
 
 from . import _reference_map
 from ._compat import importlib_resources
 from ._kernel import Kernel
 from .python import _ClassPropertyMeta
-from ._kernel.types import ObjRef
 
 
 # Yea, a global here is kind of gross, however, there's not really a better way of
@@ -144,6 +143,8 @@ def implements(*interfaces: Type[Any]) -> Callable[[T], T]:
 def interface(*, jsii_type: str) -> Callable[[T], T]:
     def deco(iface):
         iface.__jsii_type__ = jsii_type
+        # This interface "implements itself" - this is a trick to ease up implementation discovery.
+        iface.__jsii_ifaces__ = [iface]
         _reference_map.register_interface(iface)
         return iface
 

@@ -508,10 +508,8 @@ abstract class BaseMethod implements PythonBase {
   public emit(
     code: CodeMaker,
     context: EmitContext,
-    opts?: BaseMethodEmitOpts,
+    { renderAbstract = true, forceEmitBody = false }: BaseMethodEmitOpts = {},
   ) {
-    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
-
     const returnType: string = toTypeName(this.returns).pythonType(context);
 
     // We cannot (currently?) blindly use the names given to us by the JSII for
@@ -874,9 +872,8 @@ abstract class BaseProperty implements PythonBase {
   public emit(
     code: CodeMaker,
     context: EmitContext,
-    opts?: BasePropertyEmitOpts,
+    { renderAbstract = true, forceEmitBody = false }: BasePropertyEmitOpts = {},
   ) {
-    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType(context);
 
     // "# type: ignore[misc]" is needed because mypy cannot check decorated things
@@ -973,7 +970,7 @@ class Interface extends BasePythonClassType {
         if (this.separateMembers) {
           code.line();
         }
-        member.emit(code, context, { forceEmitBody: true });
+        member.emit(code, context, { forceEmitBody: true, renderAbstract: false });
       }
     } else {
       code.line('pass');
@@ -998,7 +995,8 @@ class Interface extends BasePythonClassType {
       toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
     );
 
-    params.push('typing_extensions.Protocol');
+    // Interfaces are kind of like abstract classes. We type them the same way.
+    params.push('metaclass = jsii.JSIIAbstractClass');
 
     return params;
   }
@@ -1009,12 +1007,16 @@ class Interface extends BasePythonClassType {
 }
 
 class InterfaceMethod extends BaseMethod {
+  // Interface members are always abstract
+  public readonly abstract = true;
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiMethod: string = 'invoke';
   protected readonly shouldEmitBody: boolean = false;
 }
 
 class InterfaceProperty extends BaseProperty {
+  // Interface members are always abstract
+  public readonly abstract = true;
   protected readonly decorator: string = 'builtins.property';
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiGetMethod: string = 'get';

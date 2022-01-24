@@ -169,6 +169,19 @@ class SubclassNativeFriendlyRandom(Number):
         return next_
 
 
+class SubclassNativeFriendlyRandom_Inheritance(Number, IFriendly, IRandomNumberGenerator):
+    def __init__(self):
+        super().__init__(908)
+        self.next_number = 100
+
+    def hello(self):
+        return "SubclassNativeFriendlyRandom"
+
+    def next(self):
+        next_ = self.next_number
+        self.next_number += 100
+        return next_
+
 @jsii.implements(IFriendlyRandomGenerator)
 class PureNativeFriendlyRandom:
     """
@@ -753,6 +766,10 @@ def test_testInterfaces():
         poly.say_hello(SubclassNativeFriendlyRandom())
         == "oh, SubclassNativeFriendlyRandom"
     )
+    assert (
+        poly.say_hello(SubclassNativeFriendlyRandom_Inheritance())
+        == "oh, SubclassNativeFriendlyRandom"
+    )
     assert poly.say_hello(PureNativeFriendlyRandom()) == "oh, I am a native!"
 
 
@@ -776,6 +793,20 @@ def test_testNativeObjectsWithInterfaces():
     generator_bound_to_pure_native.is_same_generator(pure_native)
     assert generator_bound_to_pure_native.next_times100() == 100_000
     assert generator_bound_to_pure_native.next_times100() == 200_000
+
+    ###
+    # One more time, but this time implementing the interface via "classic" inheritance.
+    ###
+    subclassed_native = SubclassNativeFriendlyRandom_Inheritance()
+    generator_bound_to_p_subclassed_object = NumberGenerator(subclassed_native)
+
+    assert generator_bound_to_p_subclassed_object.generator is subclassed_native
+    generator_bound_to_p_subclassed_object.is_same_generator(subclassed_native)
+    assert generator_bound_to_p_subclassed_object.next_times100() == 10000
+
+    # When we invoke nextTimes100 again, it will use the objref and call into the same
+    # object.
+    assert generator_bound_to_p_subclassed_object.next_times100() == 20000
 
 
 def test_testLiteralInterface():
