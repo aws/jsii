@@ -1778,9 +1778,9 @@ class StructWithOnlyOptionals:
         )
 
 
-@jsii.implements(IDoublable)
 class Number(
     NumericValue,
+    IDoublable,
     metaclass=jsii.JSIIMeta,
     jsii_type="@scope/jsii-calc-lib.Number",
 ):
@@ -3028,9 +3028,9 @@ class BaseJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.BaseJsii976"):
         jsii.create(self.__class__, self, [])
 
 
-@jsii.implements(scope.jsii_calc_lib.IFriendly)
 class BinaryOperation(
     scope.jsii_calc_lib.Operation,
+    scope.jsii_calc_lib.IFriendly,
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.BinaryOperation",
 ):
@@ -6342,8 +6342,8 @@ class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementatio
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
-@jsii.implements(IInterfaceWithInternal)
 class ImplementsInterfaceWithInternal(
+    IInterfaceWithInternal,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ImplementsInterfaceWithInternal",
 ):
@@ -6822,14 +6822,21 @@ class JavaReservedWords(
         jsii.set(self, "while", value)
 
 
-@jsii.implements(IJsii487External2, IJsii487External)
-class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derived"):
+class Jsii487Derived(
+    IJsii487External2,
+    IJsii487External,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.Jsii487Derived",
+):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
 
-@jsii.implements(IJsii496)
-class Jsii496Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii496Derived"):
+class Jsii496Derived(
+    IJsii496,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.Jsii496Derived",
+):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -7183,9 +7190,10 @@ class MethodNamedProperty(
         return typing.cast(jsii.Number, jsii.get(self, "elite"))
 
 
-@jsii.implements(IFriendlier, IRandomNumberGenerator)
 class Multiply(
     BinaryOperation,
+    IFriendlier,
+    IRandomNumberGenerator,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.Multiply",
 ):
@@ -9335,8 +9343,8 @@ class UnionProperties:
         )
 
 
-@jsii.implements(scope.jsii_calc_lib.custom_submodule_name.IReflectable)
 class UpcasingReflectable(
+    scope.jsii_calc_lib.custom_submodule_name.IReflectable,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.UpcasingReflectable",
 ):
@@ -9555,9 +9563,9 @@ class WithPrivatePropertyInConstructor(
         return typing.cast(builtins.bool, jsii.get(self, "success"))
 
 
-@jsii.implements(IInterfaceImplementedByAbstractClass)
 class AbstractClass(
     AbstractClassBase,
+    IInterfaceImplementedByAbstractClass,
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.AbstractClass",
 ):
@@ -9623,8 +9631,8 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
-@jsii.implements(IAnonymousImplementationProvider)
 class AnonymousImplementationProvider(
+    IAnonymousImplementationProvider,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.AnonymousImplementationProvider",
 ):
@@ -9640,8 +9648,7 @@ class AnonymousImplementationProvider(
         return typing.cast(IAnonymouslyImplementMe, jsii.invoke(self, "provideAsInterface", []))
 
 
-@jsii.implements(IBell)
-class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
+class Bell(IBell, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -9699,8 +9706,8 @@ class ChildStruct982(ParentStruct982):
         )
 
 
-@jsii.implements(INonInternalInterface)
 class ClassThatImplementsTheInternalInterface(
+    INonInternalInterface,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ClassThatImplementsTheInternalInterface",
 ):
@@ -9744,8 +9751,8 @@ class ClassThatImplementsTheInternalInterface(
         jsii.set(self, "d", value)
 
 
-@jsii.implements(INonInternalInterface)
 class ClassThatImplementsThePrivateInterface(
+    INonInternalInterface,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ClassThatImplementsThePrivateInterface",
 ):
@@ -9789,8 +9796,8 @@ class ClassThatImplementsThePrivateInterface(
         jsii.set(self, "e", value)
 
 
-@jsii.implements(IInterfaceWithProperties)
 class ClassWithPrivateConstructorAndAutomaticProperties(
+    IInterfaceWithProperties,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
 ):
@@ -9915,9 +9922,9 @@ class _IJSII417DerivedProxy(
 typing.cast(typing.Any, IJSII417Derived).__jsii_proxy_class__ = lambda : _IJSII417DerivedProxy
 
 
-@jsii.implements(IPublicInterface2)
 class InbetweenClass(
     PublicClass,
+    IPublicInterface2,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.InbetweenClass",
 ):
@@ -9954,8 +9961,12 @@ class JSII417Derived(
         return typing.cast(builtins.str, jsii.get(self, "property"))
 
 
-@jsii.implements(IFriendlier)
-class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negate"):
+class Negate(
+    UnaryOperation,
+    IFriendlier,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.Negate",
+):
     '''The negation operation ("-value").'''
 
     def __init__(self, operand: scope.jsii_calc_lib.NumericValue) -> None:
@@ -10039,8 +10050,11 @@ class SupportsNiceJavaBuilder(
         return typing.cast(typing.List[builtins.str], jsii.get(self, "rest"))
 
 
-@jsii.implements(IFriendlyRandomGenerator)
-class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"):
+class DoubleTrouble(
+    IFriendlyRandomGenerator,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.DoubleTrouble",
+):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -10422,8 +10436,8 @@ from ..._jsii import *
 from ... import IRandomNumberGenerator as _IRandomNumberGenerator_9643a8b9
 
 
-@jsii.implements(_IRandomNumberGenerator_9643a8b9)
 class UnimportedSubmoduleType(
+    _IRandomNumberGenerator_9643a8b9,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
 ):
@@ -10852,9 +10866,9 @@ import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 
 
-@jsii.implements(scope.jsii_calc_lib.IFriendly)
 class ExtendAndImplement(
     scope.jsii_calc_lib.BaseFor2647,
+    scope.jsii_calc_lib.IFriendly,
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.module2647.ExtendAndImplement",
 ):
@@ -11334,8 +11348,7 @@ class _IFooProxy:
 typing.cast(typing.Any, IFoo).__jsii_proxy_class__ = lambda : _IFooProxy
 
 
-@jsii.implements(IFoo)
-class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base"):
+class Base(IFoo, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -11349,8 +11362,12 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base"):
         return typing.cast(jsii.Number, jsii.get(self, "baz"))
 
 
-@jsii.implements(IFoo)
-class Derived(Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Derived"):
+class Derived(
+    Base,
+    IFoo,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2700.Derived",
+):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -11412,8 +11429,11 @@ class Class2(
         return typing.cast(builtins.str, jsii.get(self, "base"))
 
 
-@jsii.implements(scope.jsii_calc_base.IBaseInterface)
-class Class3(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Class3"):
+class Class3(
+    scope.jsii_calc_base.IBaseInterface,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2702.Class3",
+):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -11535,8 +11555,7 @@ class _IVpcProxy(
 typing.cast(typing.Any, IVpc).__jsii_proxy_class__ = lambda : _IVpcProxy
 
 
-@jsii.implements(IBaz)
-class Baz(Class3, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Baz"):
+class Baz(Class3, IBaz, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Baz"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -11545,8 +11564,11 @@ class Baz(Class3, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Baz")
         return typing.cast(None, jsii.invoke(self, "bazMethod", []))
 
 
-@jsii.implements(IConstruct)
-class Construct(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Construct"):
+class Construct(
+    IConstruct,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2702.Construct",
+):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -11555,9 +11577,9 @@ class Construct(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Constru
         return typing.cast(None, jsii.invoke(self, "constructMethod", []))
 
 
-@jsii.implements(IResource)
 class Resource(
     Construct,
+    IResource,
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.module2702.Resource",
 ):
@@ -11576,8 +11598,12 @@ class _ResourceProxy(Resource):
 typing.cast(typing.Any, Resource).__jsii_proxy_class__ = lambda : _ResourceProxy
 
 
-@jsii.implements(IVpc)
-class Vpc(Resource, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2702.Vpc"):
+class Vpc(
+    Resource,
+    IVpc,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.module2702.Vpc",
+):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
@@ -11918,8 +11944,11 @@ class Default:
         )
 
 
-@jsii.implements(_INamespaced_e2f386ad)
-class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
+class MyClass(
+    _INamespaced_e2f386ad,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.submodule.MyClass",
+):
     def __init__(self, *, prop: _SomeEnum_b2e41d92) -> None:
         '''
         :param prop: 
@@ -12290,8 +12319,8 @@ from ..child import Goodness as _Goodness_2df26737
 from .deeply_nested import INamespaced as _INamespaced_e2f386ad
 
 
-@jsii.implements(_INamespaced_e2f386ad)
 class Namespaced(
+    _INamespaced_e2f386ad,
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.submodule.nested_submodule.Namespaced",
 ):

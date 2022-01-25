@@ -327,11 +327,9 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     public readonly pythonName: string,
     public readonly spec: spec.Type,
     public readonly fqn: string | undefined,
-    opts: PythonTypeOpts,
+    { bases = [] }: PythonTypeOpts,
     public readonly docs: spec.Docs | undefined,
   ) {
-    const { bases = [] } = opts;
-
     this.bases = bases;
     this.members = [];
   }
@@ -1348,14 +1346,6 @@ class Class extends BasePythonClassType implements ISortableType {
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
-    // First we emit our implments decorator
-    if (this.interfaces.length > 0) {
-      const interfaces: string[] = this.interfaces.map((b) =>
-        toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
-      );
-      code.line(`@jsii.implements(${interfaces.join(', ')})`);
-    }
-
     // Then we do our normal class logic for emitting our members.
     super.emit(code, context);
 
@@ -1414,15 +1404,18 @@ class Class extends BasePythonClassType implements ISortableType {
   }
 
   protected getClassParams(context: EmitContext): string[] {
-    const params: string[] = this.bases.map((b) =>
-      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
-    );
     const metaclass: string = this.abstract ? 'JSIIAbstractClass' : 'JSIIMeta';
 
-    params.push(`metaclass=jsii.${metaclass}`);
-    params.push(`jsii_type="${this.fqn}"`);
-
-    return params;
+    return [
+      ...this.bases.map((b) =>
+        toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+      ),
+      ...this.interfaces.map((i) =>
+        toTypeName(i).pythonType({ ...context, typeAnnotation: false }),
+      ),
+      `metaclass=jsii.${metaclass}`,
+      `jsii_type="${this.fqn}"`,
+    ];
   }
 
   private get proxyClassName(): string {
