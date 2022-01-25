@@ -26,8 +26,10 @@ from jsii_dependency import IJsiiInterface
 class MyNewClass(IJsiiInterface):
     """ Traditional implementation of an interface in Python.
 
-    This will not work with interfaces defined by jsii modules, as this will
-    likely cause a metaclass conflict that the user cannot solve.
+    In multiple inheritance scenarios, you may encouter a metaclass conflict
+    if one of the ancestor interfaces is from a library generated with jsii-pacmak
+    releases <= 1.52.1. In this case, you may need to use the "Legacy Style" (see
+    below) declaration with the affected interfaces.
     """
 
     # Member implementations...
