@@ -2571,13 +2571,15 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             )
 
     @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
-    class IBar(typing_extensions.Protocol):
+    class IBar(metaclass = jsii.JSIIAbstractClass):
         @builtins.property # type: ignore[misc]
         @jsii.member(jsii_name="bar")
+        @abc.abstractmethod
         def bar(self) -> builtins.str:
             ...
 
-        @jsii.member(jsii_name="method")
+        @jsii.member(jsii_name="method") # type: ignore[misc]
+        @abc.abstractmethod
         def method(self) -> None:
             ...
 
