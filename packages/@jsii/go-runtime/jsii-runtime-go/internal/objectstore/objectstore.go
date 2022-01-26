@@ -22,10 +22,15 @@ type ObjectStore struct {
 	// passed to the Register method.
 	objectToID map[uintptr]string
 
-	// idToObject associates an instanceID with the reflect.Value that
-	// represents the top-level object that was registered with the instanceID
-	// via the Register method.
+	// idToObject associates an instanceID with the first reflect.Value instance
+	// that represents the top-level object that was registered with the
+	// instanceID first via the Register method.
 	idToObject map[string]reflect.Value
+
+	// idToObjects associates an instanceID with the reflect.Value instances that
+	// represent the top-level objects that were registered with the instanceID
+	// via the Register method.
+	idToObjects map[string]map[reflect.Value]struct{}
 
 	// idToInterfaces associates an instanceID with the set of interfaces that it
 	// is known to implement.
@@ -40,6 +45,7 @@ func New() *ObjectStore {
 	return &ObjectStore{
 		objectToID:     make(map[uintptr]string),
 		idToObject:     make(map[string]reflect.Value),
+		idToObjects:    make(map[string]map[reflect.Value]struct{}),
 		idToInterfaces: make(map[string]stringSet),
 	}
 }
@@ -73,15 +79,17 @@ func (o *ObjectStore) Register(value reflect.Value, objectRef api.ObjectRef) err
 
 	aliases := findAliases(value)
 
-	if existing, found := o.idToObject[objectRef.InstanceID]; found {
-		if existing == value {
+	if existing, found := o.idToObjects[objectRef.InstanceID]; found {
+		if _, found := existing[value]; found {
 			o.mergeInterfaces(objectRef)
 			return nil
 		}
 		// Value already exists (e.g: a constructor made a callback with "this"
-		// passed as an argument). We make the current value an alias of the new
+		// passed as an argument). We make the current value(s) an alias of the new
 		// one.
-		aliases = append(aliases, existing)
+		for existing := range existing {
+			aliases = append(aliases, existing)
+		}
 	}
 
 	for _, alias := range aliases {
@@ -92,7 +100,14 @@ func (o *ObjectStore) Register(value reflect.Value, objectRef api.ObjectRef) err
 	}
 
 	o.objectToID[ptr] = objectRef.InstanceID
-	o.idToObject[objectRef.InstanceID] = value
+	// Only add to idToObject if this is the first time this InstanceID is registered
+	if _, found := o.idToObject[objectRef.InstanceID]; !found {
+		o.idToObject[objectRef.InstanceID] = value
+	}
+	if _, found := o.idToObjects[objectRef.InstanceID]; !found {
+		o.idToObjects[objectRef.InstanceID] = make(map[reflect.Value]struct{})
+	}
+	o.idToObjects[objectRef.InstanceID][value] = struct{}{}
 	for _, alias := range aliases {
 		o.objectToID[alias.Pointer()] = objectRef.InstanceID
 	}
@@ -166,6 +181,27 @@ func (o *ObjectStore) Interfaces(instanceID string) []api.FQN {
 // registered with the ObjectStore.
 func (o *ObjectStore) GetObject(instanceID string) (value reflect.Value, found bool) {
 	value, found = o.idToObject[instanceID]
+	return
+}
+
+// GetObjectAs attempts to retrieve the object value associated with the given
+// instanceID, compatible with the given type. Returns the existing value and a
+// boolean informing whether a value was associated with this instanceID and
+// compatible with this type or not.
+//
+// The GetObjectAs method is safe to call with an instanceID that was never
+// registered with the ObjectStore.
+func (o *ObjectStore) GetObjectAs(instanceID string, typ reflect.Type) (value reflect.Value, found bool) {
+	found = false
+	if values, exists := o.idToObjects[instanceID]; exists {
+		for value = range values {
+			if value.CanConvert(typ) {
+				value = value.Convert(typ)
+				found = true
+				return
+			}
+		}
+	}
 	return
 }
 

@@ -64,7 +64,7 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		}
 
 		// If it's currently tracked, return the current instance
-		if object, ok := c.objects.GetObject(ref.InstanceID); ok {
+		if object, ok := c.objects.GetObjectAs(ref.InstanceID, ptr.Type()); ok {
 			ptr.Set(object)
 			return
 		}
