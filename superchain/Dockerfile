@@ -25,7 +25,11 @@ ARG BUILDPLATFORM
 ARG TARGETPLATFORM
 
 # We require a couple of tools to be available in order to work here...
-RUN apt-get update && apt-get install -y curl gpg tar zsh
+RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sources.list.d/buster-backports.list       \
+  && apt-get update                                                                                                     \
+  && apt-get install -y gpg tar zsh                                                                                     \
+  # We need a "recent" (>= 7.71) version of curl for --retry-all-errors, so we get it from backports...
+  && apt-get install -y -t buster-backports curl
 
 # We'll be using zsh substitutions, so ensuring this is the shell we use
 SHELL ["/bin/zsh", "-c"]
@@ -56,11 +60,12 @@ RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.ver
 
 # Prepare PowerShell LTS distribution
 ENV POWERSHELL_RELEASES="https://github.com/PowerShell/PowerShell/releases"
-RUN POWERSHELL_RELEASE=$(curl -fSsL "https://aka.ms/powershell-release?tag=lts" -o /dev/null -w %{url_effective})       \
+RUN POWERSHELL_RELEASE=$(curl -X GET -fSsIL "https://aka.ms/powershell-release?tag=lts" -o /dev/null                    \
+                              --retry 5 --retry-all-errors -w %{url_effective})                                         \
   && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
   && ASSET="powershell-${POWERSHELL_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                        \
-  && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}"                                       \
-  -o /tmp/powershell.tar.gz                                                                                             \
+  && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}" --retry 5 --retry-all-errors          \
+          -o /tmp/powershell.tar.gz                                                                                     \
   && mkdir -p /opt/microsoft/powershell                                                                                 \
   && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell                                                        \
   && chmod +x /opt/microsoft/powershell/pwsh
