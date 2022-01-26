@@ -13,10 +13,10 @@ import sys
 import tempfile
 import threading
 
-from typing import TYPE_CHECKING, Type, Union, Mapping, IO, Any, AnyStr, Optional
+from typing import Type, Union, Mapping, IO, Any, AnyStr, Optional
 
 import attr
-import cattr  # type: ignore
+import cattr
 import dateutil.parser
 
 import jsii._embedded.jsii

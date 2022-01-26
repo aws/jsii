@@ -3,7 +3,7 @@ import inspect
 import itertools
 from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
-from typing import Any, List, Optional, Type, Union
+from typing import Any, Callable, List, Optional, Type
 
 import functools
 
@@ -137,7 +137,7 @@ def _recursize_dereference(kernel, d):
         return d
 
 
-def _dereferenced(fn):
+def _dereferenced(fn: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(fn)
     def wrapped(kernel, *args, **kwargs):
         return _recursize_dereference(kernel, fn(kernel, *args, **kwargs))
@@ -224,22 +224,21 @@ def _handle_callback(kernel, callback):
 def _callback_till_result(
     kernel, response: Callback, response_type: Type[KernelResponse]
 ) -> Any:
-    while isinstance(response, Callback):
+    current: Any = response
+    while isinstance(current, Callback):
         try:
-            result = _handle_callback(kernel, response)
+            result = _handle_callback(kernel, current)
         except Exception as exc:
-            response = kernel.sync_complete(
-                response.cbid, str(exc), None, response_type
-            )
+            current = kernel.sync_complete(current.cbid, str(exc), None, response_type)
         else:
-            response = kernel.sync_complete(response.cbid, None, result, response_type)
+            current = kernel.sync_complete(current.cbid, None, result, response_type)
 
-    if isinstance(response, InvokeResponse):
-        return response.result
-    elif isinstance(response, GetResponse):
-        return response.value
+    if isinstance(current, InvokeResponse):
+        return current.result
+    elif isinstance(current, GetResponse):
+        return current.value
     else:
-        return response
+        return current
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

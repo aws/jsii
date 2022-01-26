@@ -144,7 +144,7 @@ def interface(*, jsii_type: str) -> Callable[[T], T]:
     def deco(iface):
         iface.__jsii_type__ = jsii_type
         # This interface "implements itself" - this is a trick to ease up implementation discovery.
-        iface.__jsii_ifaces__ = [iface]
+        iface.__jsii_ifaces__ = [iface] + getattr(iface, "__jsii_ifaces__", [])
         _reference_map.register_interface(iface)
         return iface
 

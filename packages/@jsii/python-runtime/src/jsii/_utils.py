@@ -1,6 +1,6 @@
 import functools
 
-from typing import Any, Mapping, Type
+from typing import Any, Callable, List, Mapping, Type, TypeVar
 
 
 class Singleton(type):
@@ -14,8 +14,11 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-def memoized_property(fgetter):
-    stored = []
+T = TypeVar("T", bound=Any)
+
+
+def memoized_property(fgetter: Callable[[Any], T]) -> property:
+    stored: List[T] = []
 
     @functools.wraps(fgetter)
     def wrapped(self):

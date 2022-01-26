@@ -315,10 +315,12 @@ function isSortableType(arg: unknown): arg is ISortableType {
 
 interface PythonTypeOpts {
   bases?: spec.TypeReference[];
+  interfaces?: readonly spec.NamedTypeReference[];
 }
 
 abstract class BasePythonClassType implements PythonType, ISortableType {
   protected bases: spec.TypeReference[];
+  protected interfaces: readonly spec.NamedTypeReference[];
   protected members: PythonBase[];
   protected readonly separateMembers: boolean = true;
 
@@ -327,10 +329,11 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     public readonly pythonName: string,
     public readonly spec: spec.Type,
     public readonly fqn: string | undefined,
-    { bases = [] }: PythonTypeOpts,
+    { bases = [], interfaces = [] }: PythonTypeOpts,
     public readonly docs: spec.Docs | undefined,
   ) {
     this.bases = bases;
+    this.interfaces = interfaces;
     this.members = [];
   }
 
@@ -338,10 +341,12 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     const dependencies = new Array<PythonType>();
     const parent = resolver.getParent(this.fqn!);
 
-    // We need to return any bases that are in the same module at the same level of
-    // nesting.
+    // We need to return any bases that are in the same module at the same level
+    // of nesting. For the purpose of this function, interfaces are also bases
+    // (those are python base classes, and we'll extend interfaces being
+    // implemented)
     const seen = new Set<string>();
-    for (const base of this.bases) {
+    for (const base of [...this.bases, ...this.interfaces]) {
       if (spec.isNamedTypeReference(base)) {
         if (resolver.isInModule(base)) {
           // Given a base, we need to locate the base's parent that is the same as
@@ -937,9 +942,30 @@ abstract class BaseProperty implements PythonBase {
 }
 
 class Interface extends BasePythonClassType {
+  public constructor(
+    generator: PythonGenerator,
+    pythonName: string,
+    spec: spec.Type,
+    fqn: string | undefined,
+    opts: Omit<PythonTypeOpts, 'bases'> & { readonly bases?: never },
+    docs: spec.Docs | undefined,
+  ) {
+    super(generator, pythonName, spec, fqn, opts, docs);
+  }
+
   public emit(code: CodeMaker, context: EmitContext) {
     context = nestedContext(context, this.fqn);
     emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
+
+    const interfaces = this.interfaces
+      // Only emit decorators for foreign interfaces (those could be Protocols, we don't know yet)
+      .filter((iface) => !context.resolver.isInModule(iface))
+      // Turn all those interface types to type reference names...
+      .map((iface) => toTypeName(iface).pythonType(context));
+    // If we have anything, emit an `@jsii.implements` declaration.
+    if (interfaces.length > 0) {
+      code.line(`@jsii.implements(${interfaces.join(', ')})`);
+    }
 
     // First we do our normal class logic for emitting our members.
     super.emit(code, context);
@@ -948,10 +974,10 @@ class Interface extends BasePythonClassType {
     code.line();
 
     // Then, we have to emit a Proxy class which implements our proxy interface.
-    const proxyBases: string[] = this.bases.map(
-      (b) =>
+    const proxyBases: string[] = this.interfaces.map(
+      (iface) =>
         // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
-        `jsii.proxy_for(${toTypeName(b).pythonType({
+        `jsii.proxy_for(${toTypeName(iface).pythonType({
           ...context,
           typeAnnotation: false,
         })}) # type: ignore[misc]`,
@@ -992,9 +1018,15 @@ class Interface extends BasePythonClassType {
   }
 
   protected getClassParams(context: EmitContext): string[] {
-    const params: string[] = this.bases.map((b) =>
-      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
-    );
+    const params: string[] = this.interfaces.map((iface) => {
+      const rawType = toTypeName(iface).pythonType({ ...context, typeAnnotation: false });
+      return context.resolver.isInModule(iface)
+        ? rawType
+        // If the interface is a protocol, we cannot "directly" extend it, as that would end up
+        // causing a metaclass conflict. Those will effectively be "duck typed" in, so that is okay.
+        // The "erasure" is achieved by splat-ing an empty tuple in case it's a Protocol.
+        : `*(() if type(${rawType}) is typing_extensions.Protocol else (${rawType},))`;
+    });
 
     // Interfaces are kind of like abstract classes. We type them the same way.
     params.push('metaclass = jsii.JSIIAbstractClass');
@@ -1286,7 +1318,6 @@ interface ClassOpts extends PythonTypeOpts {
 class Class extends BasePythonClassType implements ISortableType {
   private readonly abstract: boolean;
   private readonly abstractBases: spec.ClassType[];
-  private readonly interfaces: spec.NamedTypeReference[];
 
   public constructor(
     generator: PythonGenerator,
@@ -1298,10 +1329,9 @@ class Class extends BasePythonClassType implements ISortableType {
   ) {
     super(generator, name, spec, fqn, opts, docs);
 
-    const { abstract = false, interfaces = [], abstractBases = [] } = opts;
+    const { abstract = false, abstractBases = [] } = opts;
 
     this.abstract = abstract;
-    this.interfaces = interfaces;
     this.abstractBases = abstractBases;
   }
 
@@ -1410,8 +1440,15 @@ class Class extends BasePythonClassType implements ISortableType {
       ...this.bases.map((b) =>
         toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
       ),
-      ...this.interfaces.map((i) =>
-        toTypeName(i).pythonType({ ...context, typeAnnotation: false }),
+      ...this.interfaces.map((i) => {
+        const rawTypeName = toTypeName(i).pythonType({ ...context, typeAnnotation: false });
+        // If the interface is a protocol, we cannot "directly" extend it, as that would end up
+        // causing a metaclass conflict. Those will effectively be "duck typed" in, so that is okay.
+        // The "erasure" is achieved by splat-ing an empty tuple in case it's a Protocol.
+        return context.resolver.isInModule(i)
+          ? rawTypeName
+          : `*(() if type(${rawTypeName}) is typing_extensions.Protocol else (${rawTypeName},))`;
+      },
       ),
       `metaclass=jsii.${metaclass}`,
       `jsii_type="${this.fqn}"`,
@@ -2664,7 +2701,7 @@ class PythonGenerator extends Generator {
         toPythonIdentifier(ifc.name),
         ifc,
         ifc.fqn,
-        { bases: ifc.interfaces?.map((base) => this.findType(base)) },
+        { interfaces: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
       );
     }
