@@ -3,6 +3,10 @@
 import { copyFileSync, readdirSync, statSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
+// Ensure we use a version number that is coherent with Python specifics.
+import { TargetName } from 'jsii-pacmak/lib/targets';
+import { toReleaseVersion } from 'jsii-pacmak/lib/targets/version-utils';
+
 const EMBEDDED_SOURCE = resolve(__dirname, '..', '..', 'runtime', 'webpack');
 const EMBEDDED_INFO = resolve(__dirname, '..', '..', 'runtime', 'package.json');
 
@@ -13,7 +17,7 @@ writeFileSync(
   resolve(__dirname, '..', 'src', 'jsii', '_metadata.json'),
   JSON.stringify(
     {
-      version: data.version,
+      version: toReleaseVersion(data.version, TargetName.PYTHON),
       description: data.description,
       license: data.license,
       author: data.author.name,

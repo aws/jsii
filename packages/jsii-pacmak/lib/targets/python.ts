@@ -1019,13 +1019,16 @@ class Interface extends BasePythonClassType {
 
   protected getClassParams(context: EmitContext): string[] {
     const params: string[] = this.interfaces.map((iface) => {
-      const rawType = toTypeName(iface).pythonType({ ...context, typeAnnotation: false });
+      const rawType = toTypeName(iface).pythonType({
+        ...context,
+        typeAnnotation: false,
+      });
       return context.resolver.isInModule(iface)
         ? rawType
-        // If the interface is a protocol, we cannot "directly" extend it, as that would end up
-        // causing a metaclass conflict. Those will effectively be "duck typed" in, so that is okay.
-        // The "erasure" is achieved by splat-ing an empty tuple in case it's a Protocol.
-        : `*(() if type(${rawType}) is typing_extensions.Protocol else (${rawType},))`;
+        : // If the interface is a protocol, we cannot "directly" extend it, as that would end up
+          // causing a metaclass conflict. Those will effectively be "duck typed" in, so that is okay.
+          // The "erasure" is achieved by splat-ing an empty tuple in case it's a Protocol.
+          `*(() if type(${rawType}) is typing_extensions.Protocol else (${rawType},))`;
     });
 
     // Interfaces are kind of like abstract classes. We type them the same way.
@@ -1441,15 +1444,17 @@ class Class extends BasePythonClassType implements ISortableType {
         toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
       ),
       ...this.interfaces.map((i) => {
-        const rawTypeName = toTypeName(i).pythonType({ ...context, typeAnnotation: false });
+        const rawTypeName = toTypeName(i).pythonType({
+          ...context,
+          typeAnnotation: false,
+        });
         // If the interface is a protocol, we cannot "directly" extend it, as that would end up
         // causing a metaclass conflict. Those will effectively be "duck typed" in, so that is okay.
         // The "erasure" is achieved by splat-ing an empty tuple in case it's a Protocol.
         return context.resolver.isInModule(i)
           ? rawTypeName
           : `*(() if type(${rawTypeName}) is typing_extensions.Protocol else (${rawTypeName},))`;
-      },
-      ),
+      }),
       `metaclass=jsii.${metaclass}`,
       `jsii_type="${this.fqn}"`,
     ];
