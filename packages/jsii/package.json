@@ -41,7 +41,7 @@
     "chalk": "^4",
     "deep-equal": "^2.0.5",
     "fs-extra": "^9.1.0",
-    "log4js": "^6.3.0",
+    "log4js": "^6.4.1",
     "semver": "^7.3.5",
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.0",
