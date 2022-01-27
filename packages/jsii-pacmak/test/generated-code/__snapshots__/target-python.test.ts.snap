@@ -11369,12 +11369,7 @@ class Base(IFoo, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base")
         return typing.cast(jsii.Number, jsii.get(self, "baz"))
 
 
-class Derived(
-    Base,
-    IFoo,
-    metaclass=jsii.JSIIMeta,
-    jsii_type="jsii-calc.module2700.Derived",
-):
+class Derived(Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Derived"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 

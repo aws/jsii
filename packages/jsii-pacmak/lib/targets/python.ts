@@ -2557,7 +2557,7 @@ class PythonGenerator extends Generator {
       {
         abstract,
         bases: cls.base ? [this.findType(cls.base)] : undefined,
-        interfaces: cls.interfaces?.map((base) => this.findType(base)),
+        interfaces: this.deduplicatedInterfaces(cls.interfaces, cls.base),
         abstractBases: abstract ? this.getAbstractBases(cls) : [],
       },
       cls.docs,
@@ -2706,7 +2706,7 @@ class PythonGenerator extends Generator {
         toPythonIdentifier(ifc.name),
         ifc,
         ifc.fqn,
-        { interfaces: ifc.interfaces?.map((base) => this.findType(base)) },
+        { interfaces: this.deduplicatedInterfaces(ifc.interfaces) },
         ifc.docs,
       );
     }
@@ -2794,6 +2794,40 @@ class PythonGenerator extends Generator {
     _originalMethod: spec.Method,
   ) {
     throw new Error('Unhandled Type: StaticMethodOverload');
+  }
+
+  /**
+   * De-duplicates a list of interfaces, removing those that are already transitively implemented.
+   * This is useful as Python will not manage to create a consistent MRO in case the same interface
+   * is both directly and transitively extended (as a consistent MRO would then require that
+   * interface to be at two different locations in the list).
+   *
+   * @param fqns a possibly empty set of interface FQNs to de-duplicate.
+   * @param baseFqns the list of base classes that may also implement interfaces
+   *
+   * @returns the de-duplicated list of interface types.
+   */
+  private deduplicatedInterfaces(fqns: readonly string[] | undefined, baseFqn?: string) {
+    if (fqns == null) {
+      return [];
+    }
+
+    const result = new Array<spec.InterfaceType>();
+
+    const interfaces = fqns.map((fqn) => this.findReflectType(fqn) as reflect.InterfaceType).reverse();
+    const base = baseFqn == null ? undefined : this.findReflectType(baseFqn) as reflect.ClassType;
+    while (interfaces.length > 0) {
+      const iface = interfaces.pop()!;
+      if (interfaces.some((other) => other.getInterfaces(true).some(({fqn}) => fqn === iface.fqn))) {
+        continue;
+      }
+      if (base?.getInterfaces(true).some(({ fqn }) => fqn === iface.fqn)) {
+        continue;
+      }
+      result.push(iface.spec);
+    }
+
+    return result;
   }
 
   private getAssemblyModuleName(assm: spec.Assembly): string {
