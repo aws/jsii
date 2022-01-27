@@ -2807,18 +2807,30 @@ class PythonGenerator extends Generator {
    *
    * @returns the de-duplicated list of interface types.
    */
-  private deduplicatedInterfaces(fqns: readonly string[] | undefined, baseFqn?: string) {
+  private deduplicatedInterfaces(
+    fqns: readonly string[] | undefined,
+    baseFqn?: string,
+  ) {
     if (fqns == null) {
       return [];
     }
 
     const result = new Array<spec.InterfaceType>();
 
-    const interfaces = fqns.map((fqn) => this.findReflectType(fqn) as reflect.InterfaceType).reverse();
-    const base = baseFqn == null ? undefined : this.findReflectType(baseFqn) as reflect.ClassType;
+    const interfaces = fqns
+      .map((fqn) => this.findReflectType(fqn) as reflect.InterfaceType)
+      .reverse();
+    const base =
+      baseFqn == null
+        ? undefined
+        : (this.findReflectType(baseFqn) as reflect.ClassType);
     while (interfaces.length > 0) {
       const iface = interfaces.pop()!;
-      if (interfaces.some((other) => other.getInterfaces(true).some(({fqn}) => fqn === iface.fqn))) {
+      if (
+        interfaces.some((other) =>
+          other.getInterfaces(true).some(({ fqn }) => fqn === iface.fqn),
+        )
+      ) {
         continue;
       }
       if (base?.getInterfaces(true).some(({ fqn }) => fqn === iface.fqn)) {
