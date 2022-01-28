@@ -1232,7 +1232,7 @@ from ._jsii import *
 
 
 class Consumer(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Consumer"):
-    @jsii.member(jsii_name="consumeBaz") # type: ignore[misc]
+    @jsii.member(jsii_name="consumeBaz")
     @builtins.classmethod
     def consume_baz(
         cls,
@@ -2572,13 +2572,13 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
 
     @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
     class IBar(metaclass = jsii.JSIIAbstractClass):
-        @builtins.property # type: ignore[misc]
+        @builtins.property
         @jsii.member(jsii_name="bar")
         @abc.abstractmethod
         def bar(self) -> builtins.str:
             ...
 
-        @jsii.member(jsii_name="method") # type: ignore[misc]
+        @jsii.member(jsii_name="method")
         @abc.abstractmethod
         def method(self) -> None:
             ...
@@ -2587,7 +2587,7 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
     class _IBarProxy:
         __jsii_type__: typing.ClassVar[str] = "testpkg.Namespace1.IBar"
 
-        @builtins.property # type: ignore[misc]
+        @builtins.property
         @jsii.member(jsii_name="bar")
         def bar(self) -> builtins.str:
             return typing.cast(builtins.str, jsii.get(self, "bar"))
@@ -2616,7 +2616,7 @@ class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
             def __init__(self) -> None:
                 jsii.create(self.__class__, self, [])
 
-            @builtins.property # type: ignore[misc]
+            @builtins.property
             @jsii.member(jsii_name="done")
             def done(self) -> builtins.bool:
                 return typing.cast(builtins.bool, jsii.get(self, "done"))

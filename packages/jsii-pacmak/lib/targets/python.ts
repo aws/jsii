@@ -624,7 +624,6 @@ abstract class BaseMethod implements PythonBase {
     const decorators = new Array<string>();
 
     if (this.jsName !== undefined) {
-      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
       decorators.push(`@jsii.member(jsii_name="${this.jsName}")`);
     }
 
@@ -637,10 +636,7 @@ abstract class BaseMethod implements PythonBase {
     }
 
     if (decorators.length > 0) {
-      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
-      for (const decorator of decorators
-        .join(' # type: ignore[misc]\n')
-        .split('\n')) {
+      for (const decorator of decorators) {
         code.line(decorator);
       }
     }
@@ -879,8 +875,7 @@ abstract class BaseProperty implements PythonBase {
   ) {
     const pythonType = toTypeName(this.type).pythonType(context);
 
-    // "# type: ignore[misc]" is needed because mypy cannot check decorated things
-    code.line(`@${this.decorator} # type: ignore[misc]`);
+    code.line(`@${this.decorator}`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
@@ -976,11 +971,10 @@ class Interface extends BasePythonClassType {
     // Then, we have to emit a Proxy class which implements our proxy interface.
     const proxyBases: string[] = this.interfaces.map(
       (iface) =>
-        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
         `jsii.proxy_for(${toTypeName(iface).pythonType({
           ...context,
           typeAnnotation: false,
-        })}) # type: ignore[misc]`,
+        })})`,
     );
     openSignature(code, 'class', this.proxyClassName, proxyBases);
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
@@ -1390,12 +1384,11 @@ class Class extends BasePythonClassType implements ISortableType {
 
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
-        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
         proxyBases.push(
           `jsii.proxy_for(${toTypeName(base).pythonType({
             ...context,
             typeAnnotation: false,
-          })}) # type: ignore[misc]`,
+          })})`,
         );
       }
 

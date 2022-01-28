@@ -151,7 +151,10 @@ def interface(*, jsii_type: str) -> Callable[[T], T]:
     return deco
 
 
-def proxy_for(abstract_class: Type[Any]) -> Type[Any]:
+T = TypeVar("T")
+
+
+def proxy_for(abstract_class: Type[T]) -> Type[T]:
     if not hasattr(abstract_class, "__jsii_proxy_class__"):
         raise TypeError(f"{abstract_class} is not a JSII Abstract class.")
 
