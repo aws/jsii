@@ -374,7 +374,9 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
   public requiredImports(context: EmitContext): PythonImports {
     return mergePythonImports(
-      ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
+      ...[...this.bases, ...this.interfaces].map((base) =>
+        toTypeName(base).requiredImports(context),
+      ),
       ...this.members.map((mem) => mem.requiredImports(context)),
     );
   }
@@ -1361,15 +1363,6 @@ class Class extends BasePythonClassType implements ISortableType {
     }
 
     return dependencies;
-  }
-
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      super.requiredImports(context), // Takes care of base & members
-      ...this.interfaces.map((base) =>
-        toTypeName(base).requiredImports(context),
-      ),
-    );
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
