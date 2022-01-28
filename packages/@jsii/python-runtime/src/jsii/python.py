@@ -1,5 +1,5 @@
 class _ClassProperty:
-    def __init__(self, fget, fset=None):
+    def __init__(self, fget: property, fset=None) -> None:
         self.fget = fget
         self.fset = fset
 
@@ -24,12 +24,18 @@ class _ClassProperty:
         return self
 
 
-def classproperty(func):
+# The name `class_property` with the underscore is used because this is what
+# will be causing PyCharm to consider the annotated member as a property.
+def class_property(func: property) -> _ClassProperty:
     return _ClassProperty(func)
 
 
+# Aliased to maintain backwards compatibility with code generated with <=1.52.2
+classproperty = class_property
+
+
 class _ClassPropertyMeta(type):
-    def __setattr__(self, key, value):
+    def __setattr__(self, key, value) -> None:
         obj = getattr(self, key, None)
         if isinstance(obj, _ClassProperty):
             return obj.__set__(self, value)

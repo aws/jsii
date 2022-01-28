@@ -1475,7 +1475,7 @@ class AsyncMethod extends BaseMethod {
 }
 
 class StaticProperty extends BaseProperty {
-  protected readonly decorator: string = 'jsii.python.classproperty';
+  protected readonly decorator: string = 'jsii.python.class_property';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiGetMethod: string = 'sget';
   protected readonly jsiiSetMethod: string = 'sset';

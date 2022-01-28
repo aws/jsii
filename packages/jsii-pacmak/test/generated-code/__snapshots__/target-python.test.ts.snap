@@ -3323,7 +3323,7 @@ class ClassWithCollections(
     def create_a_map(cls) -> typing.Mapping[builtins.str, builtins.str]:
         return typing.cast(typing.Mapping[builtins.str, builtins.str], jsii.sinvoke(cls, "createAMap", []))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="staticArray")
     def static_array(cls) -> typing.List[builtins.str]:
         return typing.cast(typing.List[builtins.str], jsii.sget(cls, "staticArray"))
@@ -3332,7 +3332,7 @@ class ClassWithCollections(
     def static_array(cls, value: typing.List[builtins.str]) -> None:
         jsii.sset(cls, "staticArray", value)
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="staticMap")
     def static_map(cls) -> typing.Mapping[builtins.str, builtins.str]:
         return typing.cast(typing.Mapping[builtins.str, builtins.str], jsii.sget(cls, "staticMap"))
@@ -4448,7 +4448,7 @@ class DisappointingCollectionSource(
     This source of collections is disappointing - it'll always give you nothing :(
     '''
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="maybeList")
     def MAYBE_LIST(cls) -> typing.Optional[typing.List[builtins.str]]:
         '''Some List of strings, maybe?
@@ -4457,7 +4457,7 @@ class DisappointingCollectionSource(
         '''
         return typing.cast(typing.Optional[typing.List[builtins.str]], jsii.sget(cls, "maybeList"))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="maybeMap")
     def MAYBE_MAP(cls) -> typing.Optional[typing.Mapping[builtins.str, jsii.Number]]:
         '''Some Map of strings to numbers, maybe?
@@ -6842,7 +6842,7 @@ class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="value")
     def value(cls) -> typing.Optional[builtins.str]:
         '''Returns the value of the JSII_AGENT environment variable.'''
@@ -8394,7 +8394,7 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
     def can_access_static_context(cls) -> builtins.bool:
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "canAccessStaticContext", []))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="staticVariable")
     def static_variable(cls) -> builtins.bool:
         return typing.cast(builtins.bool, jsii.sget(cls, "staticVariable"))
@@ -8423,7 +8423,7 @@ class StaticHelloParent(
     def method(cls) -> None:
         return typing.cast(None, jsii.sinvoke(cls, "method", []))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="property")
     def property(cls) -> jsii.Number:
         return typing.cast(jsii.Number, jsii.sget(cls, "property"))
@@ -8449,30 +8449,30 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     def just_method(self) -> builtins.str:
         return typing.cast(builtins.str, jsii.invoke(self, "justMethod", []))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="BAR")
     def BAR(cls) -> jsii.Number:
         '''Constants may also use all-caps.'''
         return typing.cast(jsii.Number, jsii.sget(cls, "BAR"))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="ConstObj")
     def CONST_OBJ(cls) -> "DoubleTrouble":
         return typing.cast("DoubleTrouble", jsii.sget(cls, "ConstObj"))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="Foo")
     def FOO(cls) -> builtins.str:
         '''Jsdocs for static property.'''
         return typing.cast(builtins.str, jsii.sget(cls, "Foo"))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="zooBar")
     def ZOO_BAR(cls) -> typing.Mapping[builtins.str, builtins.str]:
         '''Constants can also use camelCase.'''
         return typing.cast(typing.Mapping[builtins.str, builtins.str], jsii.sget(cls, "zooBar"))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="instance")
     def instance(cls) -> "Statics":
         '''Jsdocs for static getter.
@@ -8485,7 +8485,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     def instance(cls, value: "Statics") -> None:
         jsii.sset(cls, "instance", value)
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="nonConstStatic")
     def non_const_static(cls) -> jsii.Number:
         return typing.cast(jsii.Number, jsii.sget(cls, "nonConstStatic"))
@@ -9352,7 +9352,7 @@ class UpcasingReflectable(
         '''
         jsii.create(self.__class__, self, [delegate])
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="reflector")
     def REFLECTOR(cls) -> scope.jsii_calc_lib.custom_submodule_name.Reflector:
         return typing.cast(scope.jsii_calc_lib.custom_submodule_name.Reflector, jsii.sget(cls, "reflector"))
@@ -10003,7 +10003,7 @@ class StaticHelloChild(
     def method(cls) -> None:
         return typing.cast(None, jsii.sinvoke(cls, "method", []))
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="property")
     def property(cls) -> jsii.Number:
         return typing.cast(jsii.Number, jsii.sget(cls, "property"))
@@ -12084,7 +12084,7 @@ class InnerClass(
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
-    @jsii.python.classproperty
+    @jsii.python.class_property
     @jsii.member(jsii_name="staticProp")
     def STATIC_PROP(cls) -> "SomeStruct":
         return typing.cast("SomeStruct", jsii.sget(cls, "staticProp"))
