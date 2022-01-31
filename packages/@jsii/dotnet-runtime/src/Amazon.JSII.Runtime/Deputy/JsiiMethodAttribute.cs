@@ -12,6 +12,7 @@ namespace Amazon.JSII.Runtime.Deputy
             string? returnsJson = null,
             string? parametersJson = null,
             bool isAsync = false,
+            // Unused, retained for backwards-compatibility
             bool isOverride = false)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -23,7 +24,6 @@ namespace Amazon.JSII.Runtime.Deputy
                 : JsonConvert.DeserializeObject<Parameter[]>(parametersJson)
                   ?? throw new ArgumentException("Invalid JSON descriptor", nameof(parametersJson));
             IsAsync = isAsync;
-            IsOverride = isOverride;
         }
 
         public string Name { get; }
@@ -34,7 +34,5 @@ namespace Amazon.JSII.Runtime.Deputy
 
 
         public bool IsAsync { get; }
-
-        public bool IsOverride { get; }
     }
 }
