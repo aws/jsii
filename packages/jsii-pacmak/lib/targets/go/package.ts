@@ -324,7 +324,10 @@ export class RootPackage extends Package {
   // This cache of root packages is shared across all root packages derived created by this one (via dependencies).
   private readonly rootPackageCache: Map<string, RootPackage>;
 
-  public constructor(assembly: Assembly, rootPackageCache = new Map<string, RootPackage>()) {
+  public constructor(
+    assembly: Assembly,
+    rootPackageCache = new Map<string, RootPackage>(),
+  ) {
     const goConfig = assembly.targets?.go ?? {};
     const packageName = goPackageNameForAssembly(assembly);
     const filePath = '';
@@ -429,8 +432,8 @@ export class RootPackage extends Package {
   public get packageDependencies(): RootPackage[] {
     return this.assembly.dependencies.map(
       (dep) =>
-        this.rootPackageCache.get(dep.assembly.name) ?? new RootPackage(dep.assembly, this.rootPackageCache)
-    ,
+        this.rootPackageCache.get(dep.assembly.name) ??
+        new RootPackage(dep.assembly, this.rootPackageCache),
     );
   }
 
