@@ -41,7 +41,7 @@ export abstract class Package {
   public readonly submodules: InternalPackage[];
   public readonly types: GoType[];
 
-  private readonly embeddedTypes: { [fqn: string]: EmbeddedType } = {};
+  private readonly embeddedTypes = new Map<string, EmbeddedType>();
 
   public constructor(
     private readonly typeSpec: readonly Type[],
@@ -158,7 +158,7 @@ export abstract class Package {
       };
     }
 
-    const exists = this.embeddedTypes[type.fqn];
+    const exists = this.embeddedTypes.get(type.fqn);
     if (exists) {
       return exists;
     }
@@ -169,14 +169,15 @@ export abstract class Package {
     const slug = original.replace(/[^A-Za-z0-9]/g, '');
     const aliasName = `Type__${slug}`;
 
-    this.embeddedTypes[type.fqn] = {
+    const embeddedType: EmbeddedType = {
       foriegnTypeName: original,
       foriegnType: typeref,
       fieldName: aliasName,
       embed: `${INTERNAL_PACKAGE_NAME}.${aliasName}`,
     };
+    this.embeddedTypes.set(type.fqn, embeddedType);
 
-    return this.resolveEmbeddedType(type);
+    return embeddedType;
   }
 
   protected emitHeader(code: CodeMaker) {
@@ -272,9 +273,7 @@ export abstract class Package {
   }
 
   private emitInternal(context: EmitContext) {
-    const aliases = Object.values(this.embeddedTypes);
-
-    if (aliases.length === 0) {
+    if (this.embeddedTypes.size === 0) {
       return;
     }
 
@@ -287,7 +286,7 @@ export abstract class Package {
 
     const imports = new Set<string>();
 
-    for (const alias of aliases) {
+    for (const alias of this.embeddedTypes.values()) {
       if (!alias.foriegnType) {
         continue;
       }
@@ -303,7 +302,7 @@ export abstract class Package {
     }
     code.close(')');
 
-    for (const alias of aliases) {
+    for (const alias of this.embeddedTypes.values()) {
       code.line(`type ${alias.fieldName} = ${alias.foriegnTypeName}`);
     }
 
@@ -322,7 +321,13 @@ export class RootPackage extends Package {
   private readonly readme?: ReadmeFile;
   private readonly versionFile: VersionFile;
 
-  public constructor(assembly: Assembly) {
+  // This cache of root packages is shared across all root packages derived created by this one (via dependencies).
+  private readonly rootPackageCache: Map<string, RootPackage>;
+
+  public constructor(
+    assembly: Assembly,
+    rootPackageCache = new Map<string, RootPackage>(),
+  ) {
     const goConfig = assembly.targets?.go ?? {};
     const packageName = goPackageNameForAssembly(assembly);
     const filePath = '';
@@ -337,6 +342,9 @@ export class RootPackage extends Package {
       moduleName,
       version,
     );
+
+    this.rootPackageCache = rootPackageCache;
+    this.rootPackageCache.set(assembly.name, this);
 
     this.assembly = assembly;
     this.version = version;
@@ -423,7 +431,9 @@ export class RootPackage extends Package {
    */
   public get packageDependencies(): RootPackage[] {
     return this.assembly.dependencies.map(
-      (dep) => new RootPackage(dep.assembly),
+      (dep) =>
+        this.rootPackageCache.get(dep.assembly.name) ??
+        new RootPackage(dep.assembly, this.rootPackageCache),
     );
   }
 

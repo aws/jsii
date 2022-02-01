@@ -1,8 +1,15 @@
-import { Callable, Method, Parameter, Property } from 'jsii-reflect';
+import {
+  Callable,
+  Method,
+  Parameter,
+  Property,
+  TypeReference,
+} from 'jsii-reflect';
 
 import { jsiiToPascalCase } from '../../../naming-util';
 import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
+import { Package } from '../package';
 import { GetProperty, JSII_RT_ALIAS, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
 
@@ -26,7 +33,6 @@ export interface GoTypeMember {
 */
 export class GoProperty implements GoTypeMember {
   public readonly name: string;
-  public readonly reference?: GoTypeRef;
   public readonly immutable: boolean;
 
   public constructor(
@@ -35,10 +41,10 @@ export class GoProperty implements GoTypeMember {
   ) {
     this.name = jsiiToPascalCase(this.property.name);
     this.immutable = property.immutable;
+  }
 
-    if (property.type) {
-      this.reference = new GoTypeRef(parent.pkg.root, property.type);
-    }
+  public get reference(): GoTypeRef {
+    return new GoTypeRef(this.parent.pkg.root, this.property.type);
   }
 
   public get specialDependencies(): SpecialDependencies {
@@ -143,7 +149,6 @@ export class GoProperty implements GoTypeMember {
 
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
-  public readonly reference?: GoTypeRef;
   public readonly parameters: GoParameter[];
 
   public constructor(
@@ -151,9 +156,6 @@ export abstract class GoMethod implements GoTypeMember {
     public readonly method: Callable,
   ) {
     this.name = jsiiToPascalCase(method.name);
-    if (Method.isMethod(method) && method.returns.type) {
-      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
-    }
     this.parameters = this.method.parameters.map(
       (param) => new GoParameter(parent, param),
     );
@@ -162,6 +164,13 @@ export abstract class GoMethod implements GoTypeMember {
   public abstract emit(context: EmitContext): void;
 
   public abstract get specialDependencies(): SpecialDependencies;
+
+  public get reference(): GoTypeRef | undefined {
+    if (Method.isMethod(this.method) && this.method.returns.type) {
+      return new GoTypeRef(this.parent.pkg.root, this.method.returns.type);
+    }
+    return undefined;
+  }
 
   public get returnsRef(): boolean {
     if (
@@ -197,18 +206,23 @@ export abstract class GoMethod implements GoTypeMember {
 
 export class GoParameter {
   public readonly name: string;
-  public readonly reference: GoTypeRef;
+  public readonly isVariadic: boolean;
+  private readonly type: TypeReference;
+  private readonly pkg: Package;
 
-  public constructor(
-    public parent: GoClass | GoInterface,
-    public readonly parameter: Parameter,
-  ) {
+  public constructor(parent: GoClass | GoInterface, parameter: Parameter) {
     this.name = substituteReservedWords(parameter.name);
-    this.reference = new GoTypeRef(parent.pkg.root, parameter.type);
+    this.isVariadic = parameter.variadic;
+    this.type = parameter.type;
+    this.pkg = parent.pkg;
+  }
+
+  public get reference(): GoTypeRef {
+    return new GoTypeRef(this.pkg.root, this.type);
   }
 
   public toString(): string {
-    const paramType = this.reference.scopedReference(this.parent.pkg);
-    return `${this.name} ${this.parameter.variadic ? '...' : ''}${paramType}`;
+    const paramType = this.reference.scopedReference(this.pkg);
+    return `${this.name} ${this.isVariadic ? '...' : ''}${paramType}`;
   }
 }

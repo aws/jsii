@@ -19,7 +19,7 @@ export function emitArguments(
   if (argsList.length === 0) {
     return undefined;
   }
-  if (parameters[parameters.length - 1].parameter.variadic) {
+  if (parameters[parameters.length - 1].isVariadic) {
     // For variadic methods, we must build up the []interface{} slice by hand,
     // as there would not be any implicit conversion happening when passing
     // the variadic argument as a splat to the append function...
