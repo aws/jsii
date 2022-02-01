@@ -23,7 +23,7 @@ import { GoMethod, GoProperty, GoTypeMember } from './type-member';
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
  */
-export class GoClass extends GoType {
+export class GoClass extends GoType<ClassType> {
   public readonly methods: ClassMethod[];
   public readonly staticMethods: StaticMethod[];
   public readonly properties: GoProperty[];
@@ -34,7 +34,7 @@ export class GoClass extends GoType {
 
   private readonly initializer?: GoClassConstructor;
 
-  public constructor(pkg: Package, public type: ClassType) {
+  public constructor(pkg: Package, type: ClassType) {
     super(pkg, type);
 
     const methods = new Array<ClassMethod>();
