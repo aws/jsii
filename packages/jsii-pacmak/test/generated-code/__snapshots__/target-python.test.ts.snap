@@ -243,7 +243,7 @@ scope.jsii-calc-base
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.5.3", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -723,7 +723,7 @@ scope.jsii-calc-base-of-base
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.5.3", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1176,7 +1176,7 @@ scope.jsii-calc-lib
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.5.3", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1830,7 +1830,7 @@ __all__ = [
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
-import scope.jsii_calc_lib.custom_submodule_name
+from . import custom_submodule_name
 
 `;
 
@@ -1863,6 +1863,11 @@ publication.publish()
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz 1`] = `python/src/scope/jsii_calc_lib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py 1`] = `
+'''
+# Submodule Readme
+
+This is a submodule readme.
+'''
 import abc
 import builtins
 import datetime
@@ -2403,7 +2408,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.5.3", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -10195,38 +10200,38 @@ __all__ = [
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
-import jsii_calc.cdk16625
-import jsii_calc.cdk16625.donotimport
-import jsii_calc.composition
-import jsii_calc.derived_class_has_no_properties
-import jsii_calc.interface_in_namespace_includes_classes
-import jsii_calc.interface_in_namespace_only_interface
-import jsii_calc.module2530
-import jsii_calc.module2617
-import jsii_calc.module2647
-import jsii_calc.module2689
-import jsii_calc.module2689.methods
-import jsii_calc.module2689.props
-import jsii_calc.module2689.retval
-import jsii_calc.module2689.structs
-import jsii_calc.module2692
-import jsii_calc.module2692.submodule1
-import jsii_calc.module2692.submodule2
-import jsii_calc.module2700
-import jsii_calc.module2702
-import jsii_calc.nodirect
-import jsii_calc.nodirect.sub1
-import jsii_calc.nodirect.sub2
-import jsii_calc.onlystatic
-import jsii_calc.python_self
-import jsii_calc.submodule
-import jsii_calc.submodule.back_references
-import jsii_calc.submodule.child
-import jsii_calc.submodule.isolated
-import jsii_calc.submodule.nested_submodule
-import jsii_calc.submodule.nested_submodule.deeply_nested
-import jsii_calc.submodule.param
-import jsii_calc.submodule.returnsparam
+from . import cdk16625
+from .cdk16625 import donotimport
+from . import composition
+from . import derived_class_has_no_properties
+from . import interface_in_namespace_includes_classes
+from . import interface_in_namespace_only_interface
+from . import module2530
+from . import module2617
+from . import module2647
+from . import module2689
+from .module2689 import methods
+from .module2689 import props
+from .module2689 import retval
+from .module2689 import structs
+from . import module2692
+from .module2692 import submodule1
+from .module2692 import submodule2
+from . import module2700
+from . import module2702
+from . import nodirect
+from .nodirect import sub1
+from .nodirect import sub2
+from . import onlystatic
+from . import python_self
+from . import submodule
+from .submodule import back_references
+from .submodule import child
+from .submodule import isolated
+from .submodule import nested_submodule
+from .submodule.nested_submodule import deeply_nested
+from .submodule import param
+from .submodule import returnsparam
 
 `;
 

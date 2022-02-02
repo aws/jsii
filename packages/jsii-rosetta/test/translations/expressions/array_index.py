@@ -1,3 +1,3 @@
-# array is of type list of string
+# array: List[str]
 
 print(array[3])

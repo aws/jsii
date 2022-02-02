@@ -47,6 +47,7 @@ type TypeMap =
  */
 export class GoTypeRef {
   private _typeMap?: TypeMap;
+
   public constructor(
     public readonly root: Package,
     public readonly reference: TypeReference,
@@ -126,18 +127,18 @@ export class GoTypeRef {
     switch (this.typeMap.type) {
       case 'interface':
         if (this.type?.pkg) {
-          ret.push(this.type?.pkg);
+          ret.push(this.type.pkg);
         }
         break;
 
       case 'array':
       case 'map':
-        ret.push(...(this.typeMap.value.dependencies ?? []));
+        ret.push(...this.typeMap.value.dependencies);
         break;
 
       case 'union':
         for (const t of this.typeMap.value) {
-          ret.push(...(t.dependencies ?? []));
+          ret.push(...t.dependencies);
         }
         break;
 

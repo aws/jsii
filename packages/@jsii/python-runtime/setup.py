@@ -32,10 +32,10 @@ setuptools.setup(
     install_requires=[
         "attrs~=21.2",
         "cattrs~=1.0.0 ; python_version < '3.7'",
-        "cattrs~=1.8.0 ; python_version >= '3.7'",
+        "cattrs>=1.8,<1.11 ; python_version >= '3.7'",
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
-        "typing_extensions~=3.7",
+        "typing_extensions>=3.7,<5.0",
     ],
     python_requires="~=3.6",
     classifiers=[

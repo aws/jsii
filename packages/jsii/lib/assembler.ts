@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
+import { PackageJson } from '@jsii/spec';
 import * as Case from 'case';
-import * as colors from 'colors/safe';
+import * as chalk from 'chalk';
 import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
@@ -21,12 +22,12 @@ import * as literate from './literate';
 import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { symbolIdentifier } from './symbol-id';
 import { DeprecatedRemover } from './transforms/deprecated-remover';
 import { DeprecationWarningsInjector } from './transforms/deprecation-warnings';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { TsCommentReplacer } from './transforms/ts-comment-replacer';
 import { combinedTransformers } from './transforms/utils';
-import { symbolIdentifier } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
@@ -46,6 +47,7 @@ export class Assembler implements Emitter {
   private readonly warningsInjector?: DeprecationWarningsInjector;
 
   private readonly mainFile: string;
+  private readonly tscRootDir?: string;
 
   private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
@@ -113,10 +115,10 @@ export class Assembler implements Emitter {
 
       // rootDir may be set explicitly or not. If not, inferRootDir replicates
       // tsc's behavior of using the longest prefix of all built source files.
-      const tscRootDir =
+      this.tscRootDir =
         program.getCompilerOptions().rootDir ?? inferRootDir(program);
-      if (tscRootDir != null) {
-        mainFile = path.join(tscRootDir, mainFile);
+      if (this.tscRootDir != null) {
+        mainFile = path.join(this.tscRootDir, mainFile);
       }
     }
 
@@ -181,7 +183,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Processing source file: ${colors.blue(
+          `Processing source file: ${chalk.blue(
             path.relative(this.projectInfo.projectRoot, sourceFile.fileName),
           )}`,
         );
@@ -253,7 +255,13 @@ export class Assembler implements Emitter {
       types: this._types,
       submodules: noEmptyDict(toSubmoduleDeclarations(this.mySubmodules())),
       targets: this.projectInfo.targets,
-      metadata: this.projectInfo.metadata,
+      metadata: {
+        ...this.projectInfo.metadata,
+
+        // Downstream consumers need this to map a symbolId in the outDir to a
+        // symbolId in the rootDir.
+        tscRootDir: this.tscRootDir,
+      },
       docs,
       readme,
       jsiiVersion,
@@ -283,7 +291,7 @@ export class Assembler implements Emitter {
     const validationResult = await validator.emit();
     if (!validationResult.emitSkipped) {
       const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
-      LOG.trace(`Emitting assembly: ${colors.blue(assemblyPath)}`);
+      LOG.trace(`Emitting assembly: ${chalk.blue(assemblyPath)}`);
       await fs.writeJson(assemblyPath, _fingerprint(assembly), {
         encoding: 'utf8',
         spaces: 2,
@@ -312,11 +320,7 @@ export class Assembler implements Emitter {
         return undefined;
       }
       const readmePath = path.join(this.projectInfo.projectRoot, fileName);
-      const renderedLines = await literate.includeAndRenderExamples(
-        await literate.loadFromFile(readmePath),
-        literate.fileSystemLoader(this.projectInfo.projectRoot),
-      );
-      return { markdown: renderedLines.join('\n') };
+      return loadAndRenderReadme(readmePath, this.projectInfo.projectRoot);
     }
 
     function _loadDocs(this: Assembler): spec.Docs | undefined {
@@ -456,31 +460,19 @@ export class Assembler implements Emitter {
     typeUse: TypeUseKind,
     isThisType: boolean,
   ): Promise<string> {
-    const singleValuedEnum = isSingleValuedEnum(type, this._typeChecker);
+    const sym = symbolFromType(type, this._typeChecker);
 
-    const tsFullName = this._typeChecker.getFullyQualifiedName(type.symbol);
-    const tsName = singleValuedEnum
-      ? // If it's a single-valued enum, we need to remove the last qualifier to get back to the enum.
-        tsFullName.replace(/\.[^.]+$/, '')
-      : tsFullName;
-
-    let typeDeclaration = singleValuedEnum
-      ? // If it's a single-valued enum, we need to move to the parent to have the enum declaration
-        type.symbol.valueDeclaration.parent
-      : type.symbol.valueDeclaration;
-    if (!typeDeclaration && type.symbol.declarations.length > 0) {
-      typeDeclaration = type.symbol.declarations[0];
-    }
+    const typeDeclaration = sym.valueDeclaration ?? sym.declarations?.[0];
 
     // Set to true to prevent further adding of Error diagnostics for known-bad reference
     let hasError = false;
 
-    if (this._isPrivateOrInternal(type.symbol)) {
+    if (this._isPrivateOrInternal(sym)) {
       // Check if this type is "this" (explicit or inferred method return type).
       this._diagnostics.push(
         JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
           typeAnnotationNode,
-          type.symbol,
+          sym,
           isThisType,
           typeUse,
         ).addRelatedInformation(
@@ -492,13 +484,14 @@ export class Assembler implements Emitter {
       hasError = true;
     }
 
+    const tsName = this._typeChecker.getFullyQualifiedName(sym);
     const groups = /^"([^"]+)"\.(.*)$/.exec(tsName);
     if (!groups) {
       if (!hasError) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
             typeAnnotationNode,
-            type.symbol,
+            sym,
             isThisType,
             typeUse,
           ).addRelatedInformation(
@@ -528,22 +521,56 @@ export class Assembler implements Emitter {
       return `unknown.${typeName}`;
     }
 
-    const submodule = this._submoduleMap.get(type.symbol);
+    // If the symbol comes from an assembly whose submodules we've already
+    // spidered (or from the current assembly), look up there. This relies
+    // on an entry-point import of the library having been done first
+    // (`import * as x from 'module-root';`)
+    const submodule = this._submoduleMap.get(sym);
     if (submodule != null) {
       const submoduleNs = this._submodules.get(submodule)!.fqnResolutionPrefix;
       return `${submoduleNs}.${typeName}`;
     }
 
-    const fqn = `${pkg.name}.${typeName}`;
-    if (
-      pkg.name !== this.projectInfo.name &&
-      !this._dereference({ fqn }, type.symbol.valueDeclaration)
-    ) {
+    // This is the fallback: in case we can't find a symbolId for the given
+    // type, we're return this value. This is for backwards compatibility with
+    // modules that haven't been compiled to have symbolId support. Those also
+    // most likely won't be using submodules so this legacy guess will be correct.
+    const fallbackFqn = `${pkg.name}.${typeName}`;
+
+    // If the type is coming from the current module, we won't find it in a dependency
+    if (pkg.name === this.projectInfo.name) {
+      return fallbackFqn;
+    }
+
+    // Otherwise look up the symbol identifier in the dependency assemblies
+    // This is now the preferred mechanism but we can't do this as the only mechanism,
+    // as we may still have compile against very old assemblies that don't have a
+    // symbol identifier table at all.
+    const dep = this.projectInfo.dependencyClosure.find(
+      (d) => d.name === pkg.name,
+    );
+    if (!dep) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_9000_UNKNOWN_MODULE.create(
+          typeAnnotationNode,
+          pkg.name,
+        ),
+      );
+      return fallbackFqn;
+    }
+    const symbolId = symbolIdentifier(this._typeChecker, sym, {
+      assembly: dep,
+    });
+    const fqn =
+      (dep && symbolId ? symbolIdIndex(dep)[symbolId] : undefined) ??
+      fallbackFqn;
+
+    if (!fqn || !this._dereference({ fqn }, sym.valueDeclaration)) {
       if (!hasError) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE.create(
             typeAnnotationNode,
-            fqn,
+            fqn ?? tsName,
             typeUse,
             pkg,
           ).addRelatedInformation(
@@ -554,6 +581,7 @@ export class Assembler implements Emitter {
         hasError = true;
       }
     }
+
     return fqn;
   }
 
@@ -628,6 +656,7 @@ export class Assembler implements Emitter {
       this._submodules.set(symbol, {
         fqn,
         fqnResolutionPrefix,
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, symbol, packageRoot);
@@ -654,21 +683,17 @@ export class Assembler implements Emitter {
       return;
     }
 
-    // Normalize the path so the correct separator is in use (Looking at you, Windows)
-    resolution.resolvedModule.resolvedFileName = path.normalize(
-      resolution.resolvedModule.resolvedFileName,
-    );
     if (
       // We're not looking into a dependency's namespace exports, and the resolution says it's external
       (packageRoot === this.projectInfo.projectRoot &&
         resolution.resolvedModule.isExternalLibraryImport) ||
       // Or the module resolves outside of the current dependency's tree entirely
-      !resolution.resolvedModule.resolvedFileName.startsWith(packageRoot) ||
+      !isUnder(resolution.resolvedModule.resolvedFileName, packageRoot) ||
       // Or the module is under one the current dependency's node_modules subtree
       resolution.resolvedModule.resolvedFileName
-        .split(path.sep)
+        .split('/') // Separator is always '/', even on Windows
         .filter((entry) => entry === 'node_modules').length !==
-        packageRoot.split(path.sep).filter((entry) => entry === 'node_modules')
+        packageRoot.split('/').filter((entry) => entry === 'node_modules')
           .length
     ) {
       // External re-exports are "pure-javascript" sugar; they need not be
@@ -700,13 +725,17 @@ export class Assembler implements Emitter {
         symbol,
       );
       const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
-      const readme = await loadSubmoduleReadMe(sourceFile.fileName);
+      const readme = await loadSubmoduleReadMe(
+        sourceFile.fileName,
+        this.projectInfo.projectRoot,
+      );
 
       this._submodules.set(symbol, {
         fqn,
         fqnResolutionPrefix,
         targets,
         readme,
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
         locationInModule: this.declarationLocation(declaration),
       });
       await this._addToSubmodule(symbol, sourceModule, packageRoot);
@@ -730,7 +759,9 @@ export class Assembler implements Emitter {
       const symbolLocation = sym
         .getDeclarations()?.[0]
         ?.getSourceFile()?.fileName;
-      const pkgInfo = symbolLocation && (await findPackageInfo(symbolLocation));
+      const pkgInfo = symbolLocation
+        ? await findPackageInfo(symbolLocation)
+        : undefined;
       const assemblyName: string = pkgInfo?.name ?? this.projectInfo.name;
       const fqn = `${assemblyName}.${sym.name}`;
       return {
@@ -761,18 +792,13 @@ export class Assembler implements Emitter {
      */
     async function loadSubmoduleReadMe(
       submoduleMain: string,
+      projectRoot: string,
     ): Promise<SubmoduleSpec['readme']> {
       const fileBase = path.basename(submoduleMain).replace(/(\.d)?\.ts$/, '');
       const readMeName =
         fileBase === 'index' ? `README.md` : `${fileBase}.README.md`;
       const fullPath = path.join(path.dirname(submoduleMain), readMeName);
-
-      if (!(await fs.pathExists(fullPath))) {
-        return undefined;
-      }
-      return {
-        markdown: await fs.readFile(fullPath, { encoding: 'utf-8' }),
-      };
+      return loadAndRenderReadme(fullPath, projectRoot);
     }
   }
 
@@ -885,7 +911,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Entering submodule: ${colors.cyan(
+          `Entering submodule: ${chalk.cyan(
             [...context.namespace, symbol.name].join('.'),
           )}`,
         );
@@ -900,7 +926,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Leaving submodule: ${colors.cyan(
+          `Leaving submodule: ${chalk.cyan(
             [...context.namespace, symbol.name].join('.'),
           )}`,
         );
@@ -962,7 +988,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Entering namespace: ${colors.cyan(
+          `Entering namespace: ${chalk.cyan(
             [...context.namespace, name].join('.'),
           )}`,
         );
@@ -981,7 +1007,7 @@ export class Assembler implements Emitter {
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
-          `Leaving namespace:  ${colors.cyan(
+          `Leaving namespace:  ${chalk.cyan(
             [...context.namespace, name].join('.'),
           )}`,
         );
@@ -1000,7 +1026,10 @@ export class Assembler implements Emitter {
       return [];
     }
 
-    jsiiType.symbolId = this.getSymbolId(node);
+    // If symbolId hasn't been set yet, set it here
+    if (!jsiiType.symbolId) {
+      jsiiType.symbolId = this.getSymbolId(node);
+    }
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
@@ -1034,7 +1063,7 @@ export class Assembler implements Emitter {
 
     if (LOG.isInfoEnabled()) {
       LOG.info(
-        `Registering JSII ${colors.magenta(jsiiType.kind)}: ${colors.green(
+        `Registering JSII ${chalk.magenta(jsiiType.kind)}: ${chalk.green(
           jsiiType.fqn,
         )}`,
       );
@@ -1192,9 +1221,9 @@ export class Assembler implements Emitter {
   ): Promise<spec.ClassType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing class: ${colors.gray(
-          ctx.namespace.join('.'),
-        )}.${colors.cyan(type.symbol.name)}`,
+        `Processing class: ${chalk.gray(ctx.namespace.join('.'))}.${chalk.cyan(
+          type.symbol.name,
+        )}`,
       );
     }
 
@@ -1239,7 +1268,7 @@ export class Assembler implements Emitter {
       // erased, and identify the closest exported base class, should there be one.
       while (base && this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(
-          `Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(
+          `Base class of ${chalk.green(jsiiType.fqn)} named ${chalk.green(
             base.symbol.name,
           )} is not exported, erasing it...`,
         );
@@ -1653,7 +1682,7 @@ export class Assembler implements Emitter {
 
     if (_isPrivate(symbol)) {
       LOG.trace(
-        `${colors.cyan(
+        `${chalk.cyan(
           symbol.name,
         )} is marked "private", or is an unexported type declaration`,
       );
@@ -1694,17 +1723,22 @@ export class Assembler implements Emitter {
   ): Promise<spec.EnumType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing enum: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(
+        `Processing enum: ${chalk.gray(ctx.namespace.join('.'))}.${chalk.cyan(
           type.symbol.name,
         )}`,
       );
     }
 
     // Forcefully resolving to the EnumDeclaration symbol for single-valued enums
-    const symbol: ts.Symbol = type.isLiteral()
-      ? (type.symbol as any).parent
-      : type.symbol;
-    if (!symbol) {
+    let decl: ts.Node | undefined = type.symbol.declarations[0];
+    let symbol: ts.Symbol | undefined;
+    if (ts.isEnumMember(decl)) {
+      decl = decl?.parent;
+    }
+    if (ts.isEnumDeclaration(decl)) {
+      symbol = getSymbolFromDeclaration(decl, this._typeChecker);
+    }
+    if (!decl || !symbol || !ts.isEnumDeclaration(decl)) {
       throw new Error(
         `Unable to resolve enum declaration for ${type.symbol.name}!`,
       );
@@ -1714,14 +1748,13 @@ export class Assembler implements Emitter {
       return Promise.resolve(undefined);
     }
 
-    this._warnAboutReservedWords(type.symbol);
+    this._warnAboutReservedWords(symbol);
 
-    const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
     if (flags & ts.ModifierFlags.Const) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_1000_NO_CONST_ENUM.create(
-          (decl as ts.EnumDeclaration).modifiers?.find(
+          decl.modifiers?.find(
             (mod) => mod.kind === ts.SyntaxKind.ConstKeyword,
           ) ?? decl,
         ),
@@ -1749,8 +1782,12 @@ export class Assembler implements Emitter {
         namespace:
           ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
         docs,
+
+        // Set SymbolId here instead of later, as by default TS will pick single-enum members
+        // as the target symbol if possible.
+        symbolId: symbolIdentifier(this._typeChecker, symbol),
       },
-      decl as ts.EnumDeclaration,
+      decl,
     );
 
     this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
@@ -1837,9 +1874,9 @@ export class Assembler implements Emitter {
   ): Promise<spec.InterfaceType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing interface: ${colors.gray(
+        `Processing interface: ${chalk.gray(
           ctx.namespace.join('.'),
-        )}.${colors.cyan(type.symbol.name)}`,
+        )}.${chalk.cyan(type.symbol.name)}`,
       );
     }
 
@@ -2077,7 +2114,7 @@ export class Assembler implements Emitter {
   ) {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing method: ${colors.green(type.fqn)}#${colors.cyan(
+        `Processing method: ${chalk.green(type.fqn)}#${chalk.cyan(
           symbol.name,
         )}`,
       );
@@ -2198,7 +2235,7 @@ export class Assembler implements Emitter {
       ) != null
     ) {
       LOG.trace(
-        `Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(
+        `Dropping re-declaration of ${chalk.green(type.fqn)}#${chalk.cyan(
           method.name,
         )}`,
       );
@@ -2242,7 +2279,7 @@ export class Assembler implements Emitter {
 
     if (LOG.isTraceEnabled()) {
       LOG.trace(
-        `Processing property: ${colors.green(type.fqn)}#${colors.cyan(
+        `Processing property: ${chalk.green(type.fqn)}#${chalk.cyan(
           symbol.name,
         )}`,
       );
@@ -2330,7 +2367,7 @@ export class Assembler implements Emitter {
       ) != null
     ) {
       LOG.trace(
-        `Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(
+        `Dropping re-declaration of ${chalk.green(type.fqn)}#${chalk.cyan(
           property.name,
         )}`,
       );
@@ -2345,7 +2382,7 @@ export class Assembler implements Emitter {
     ctx: EmitContext,
   ): Promise<spec.Parameter> {
     if (LOG.isTraceEnabled()) {
-      LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
+      LOG.trace(`Processing parameter: ${chalk.cyan(paramSymbol.name)}`);
     }
     const paramDeclaration =
       paramSymbol.valueDeclaration as ts.ParameterDeclaration;
@@ -2550,11 +2587,6 @@ export class Assembler implements Emitter {
       }
       // Not a primitive type!
       return undefined;
-
-      function isUnder(file: string, dir: string): boolean {
-        const relative = path.relative(dir, file);
-        return !relative.startsWith(path.sep) && !relative.startsWith('..');
-      }
     }
 
     async function _unionType(this: Assembler): Promise<spec.OptionalValue> {
@@ -2810,6 +2842,11 @@ interface SubmoduleSpec {
    * The location of the submodule definition in the source.
    */
   readonly locationInModule: spec.SourceLocation;
+
+  /**
+   * Symbol identifier of the root of the root file that represents this submodule
+   */
+  readonly symbolId?: string;
 
   /**
    * Any customized configuration for the currentl submodule.
@@ -3100,19 +3137,44 @@ function noEmptyDict<T>(
 }
 
 function toDependencyClosure(assemblies: readonly spec.Assembly[]): {
-  [name: string]: spec.AssemblyConfiguration;
+  [name: string]: spec.DependencyConfiguration;
 } {
-  const result: { [name: string]: spec.AssemblyTargets } = {};
+  const result: { [name: string]: spec.DependencyConfiguration } = {};
   for (const assembly of assemblies) {
     if (!assembly.targets) {
       continue;
     }
     result[assembly.name] = {
-      submodules: assembly.submodules,
+      submodules: cleanUp(assembly.submodules),
       targets: assembly.targets,
     };
   }
   return result;
+
+  /**
+   * Removes unneeded fields from the entries part of the `dependencyClosure`
+   * property. Fields such as `readme` are not necessary and can bloat up the
+   * assembly object.
+   *
+   * This removes the `readme` and `locationInModule` fields from the submodule
+   * descriptios if present.
+   *
+   * @param submodules the submodules list to clean up.
+   *
+   * @returns the cleaned up submodules list.
+   */
+  function cleanUp(
+    submodules: spec.Assembly['submodules'],
+  ): spec.DependencyConfiguration['submodules'] {
+    if (submodules == null) {
+      return submodules;
+    }
+    const result: spec.DependencyConfiguration['submodules'] = {};
+    for (const [fqn, { targets }] of Object.entries(submodules)) {
+      result[fqn] = { targets };
+    }
+    return result;
+  }
 }
 
 function toSubmoduleDeclarations(
@@ -3125,6 +3187,7 @@ function toSubmoduleDeclarations(
       locationInModule: submodule.locationInModule,
       targets: submodule.targets,
       readme: submodule.readme,
+      symbolId: submodule.symbolId,
     };
   }
 
@@ -3267,7 +3330,9 @@ function isSingleValuedEnum(
   return false;
 }
 
-async function findPackageInfo(fromDir: string): Promise<any> {
+async function findPackageInfo(
+  fromDir: string,
+): Promise<PackageJson | undefined> {
   const filePath = path.join(fromDir, 'package.json');
   if (await fs.pathExists(filePath)) {
     return fs.readJson(filePath);
@@ -3338,3 +3403,91 @@ type TypeUseKind =
   | 'parameter type'
   | 'property type'
   | 'return type';
+
+/**
+ * Resolve a Type to Symbol, taking into account single-valued enums which have a bug
+ *
+ * Bug reference: https://github.com/microsoft/TypeScript/issues/46755
+ */
+function symbolFromType(type: ts.Type, typeChecker: ts.TypeChecker): ts.Symbol {
+  if ((type.flags & ts.TypeFlags.EnumLiteral) === 0) {
+    return type.symbol;
+  }
+
+  const decl = type.symbol.declarations?.[0];
+  if (!decl) {
+    return type.symbol;
+  }
+
+  if (!ts.isEnumMember(decl)) {
+    return type.symbol;
+  }
+
+  const parentDecl = decl.parent;
+  if (!parentDecl || !ts.isEnumDeclaration(parentDecl)) {
+    return type.symbol;
+  }
+
+  const name = ts.getNameOfDeclaration(parentDecl);
+  if (!name) {
+    return type.symbol;
+  }
+  return typeChecker.getSymbolAtLocation(name) ?? type.symbol;
+}
+
+const SYMBOLID_CACHE = new WeakMap<spec.Assembly, Record<string, string>>();
+
+/**
+ * Build and return an index of { symbolId -> fqn }
+ *
+ * Uses a cache for performance reasons.
+ */
+function symbolIdIndex(asm: spec.Assembly): Record<string, string> {
+  const existing = SYMBOLID_CACHE.get(asm);
+  if (existing) {
+    return existing;
+  }
+
+  const ret = buildIndex();
+  SYMBOLID_CACHE.set(asm, ret);
+  return ret;
+
+  function buildIndex() {
+    const ret: Record<string, string> = {};
+    for (const [fqn, type] of Object.entries(asm.types ?? {})) {
+      if (type.symbolId) {
+        ret[type.symbolId] = fqn;
+      }
+    }
+    return ret;
+  }
+}
+
+function getSymbolFromDeclaration(
+  decl: ts.Declaration,
+  typeChecker: ts.TypeChecker,
+): ts.Symbol | undefined {
+  const name = ts.getNameOfDeclaration(decl);
+  return name ? typeChecker.getSymbolAtLocation(name) : undefined;
+}
+
+function isUnder(file: string, dir: string): boolean {
+  const relative = path.relative(dir, file);
+  return !relative.startsWith(path.sep) && !relative.startsWith('..');
+}
+
+async function loadAndRenderReadme(readmePath: string, projectRoot: string) {
+  if (!(await fs.pathExists(readmePath))) {
+    return undefined;
+  }
+
+  return {
+    markdown: (
+      await literate.includeAndRenderExamples(
+        await literate.loadFromFile(readmePath),
+        literate.fileSystemLoader(path.dirname(readmePath)),
+        projectRoot,
+      )
+    ).join('\n'),
+  };
+}

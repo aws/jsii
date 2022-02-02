@@ -127,14 +127,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
     [JsiiByValue(fqn: "@scope/jsii-calc-base.BaseProps")]
     public class BaseProps : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps
     {
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Bar
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
         {
             get;
@@ -733,7 +733,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
     [JsiiByValue(fqn: "@scope/jsii-calc-base-of-base.VeryBaseProps")]
     public class VeryBaseProps : Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.IVeryBaseProps
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
         {
             get;
@@ -995,6 +995,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┗━ 📁 CustomSubmoduleName
        ┃           ┣━ 📄 IReflectable.cs
        ┃           ┣━ 📄 IReflectableEntry.cs
+       ┃           ┣━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 NestingClass.cs
        ┃           ┣━ 📄 ReflectableEntry.cs
        ┃           ┗━ 📄 Reflector.cs
@@ -1124,7 +1125,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         [System.Obsolete()]
         public string? HoistedTop
         {
@@ -1136,7 +1137,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
         [System.Obsolete()]
         public double? Left
         {
@@ -1165,7 +1166,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         [System.Obsolete()]
         public string? HoistedTop
         {
@@ -1177,7 +1178,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
         [System.Obsolete()]
         public bool? Right
         {
@@ -1807,7 +1808,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiProperty(name: "anumber", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "anumber", typeJson: "{\\"primitive\\":\\"number\\"}")]
         [System.Obsolete()]
         public double Anumber
         {
@@ -1819,7 +1820,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiProperty(name: "astring", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "astring", typeJson: "{\\"primitive\\":\\"string\\"}")]
         [System.Obsolete()]
         public string Astring
         {
@@ -1831,7 +1832,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "firstOptional", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "firstOptional", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}", isOptional: true)]
         [System.Obsolete()]
         public string[]? FirstOptional
         {
@@ -2030,7 +2031,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         [System.Obsolete()]
         public override abstract string ToString();
 
@@ -2062,7 +2063,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             /// <remarks>
             /// <strong>Stability</strong>: Deprecated
             /// </remarks>
-            [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+            [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
             [System.Obsolete()]
             public override string ToString()
             {
@@ -2093,7 +2094,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "optional1", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optional1", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         [System.Obsolete()]
         public string? Optional1
         {
@@ -2105,7 +2106,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "optional2", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optional2", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
         [System.Obsolete()]
         public double? Optional2
         {
@@ -2117,7 +2118,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "optional3", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optional3", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
         [System.Obsolete()]
         public bool? Optional3
         {
@@ -2244,6 +2245,24 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
                 get => GetInstanceProperty<object>()!;
             }
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CustomSubmoduleName/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CustomSubmoduleName
+{
+    /// <remarks>
+    /// <h1>Submodule Readme</h1>
+    ///
+    /// This is a submodule readme.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
     }
 }
 
@@ -2378,7 +2397,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
             /// <remarks>
             /// <strong>Stability</strong>: Deprecated
             /// </remarks>
-            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
             [System.Obsolete()]
             public string Name
             {
@@ -2409,7 +2428,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiProperty(name: "key", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "key", typeJson: "{\\"primitive\\":\\"string\\"}")]
         [System.Obsolete()]
         public string Key
         {
@@ -2420,7 +2439,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"any\\"}", isOverride: true)]
+        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"any\\"}")]
         [System.Obsolete()]
         public object Value
         {
@@ -2894,11 +2913,6 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 Jsii487Derived.cs
        ┃           ┣━ 📄 Jsii496Derived.cs
        ┃           ┣━ 📄 JsiiAgent.cs
-       ┃           ┣━ 📁 JsiiCalc
-       ┃           ┃  ┗━ 📁 Submodule
-       ┃           ┃     ┣━ 📁 Isolated
-       ┃           ┃     ┃  ┗━ 📄 NamespaceDoc.cs
-       ┃           ┃     ┗━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 JSObjectLiteralForInterface.cs
        ┃           ┣━ 📄 JSObjectLiteralToNative.cs
        ┃           ┣━ 📄 JSObjectLiteralToNativeClass.cs
@@ -3035,8 +3049,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 Default.cs
        ┃           ┃  ┣━ 📄 IDefault.cs
        ┃           ┃  ┣━ 📁 Isolated
-       ┃           ┃  ┃  ┗━ 📄 Kwargs.cs
+       ┃           ┃  ┃  ┣━ 📄 Kwargs.cs
+       ┃           ┃  ┃  ┗━ 📄 NamespaceDoc.cs
        ┃           ┃  ┣━ 📄 MyClass.cs
+       ┃           ┃  ┣━ 📄 NamespaceDoc.cs
        ┃           ┃  ┣━ 📁 NestedSubmodule
        ┃           ┃  ┃  ┣━ 📁 DeeplyNested
        ┃           ┃  ┃  ┃  ┗━ 📄 INamespaced.cs
@@ -3396,7 +3412,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>(deprecated) String representation of the value.</summary>
-        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -3753,13 +3769,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "provideAsClass", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.Implementation\\"}}", isOverride: true)]
+        [JsiiMethod(name: "provideAsClass", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.Implementation\\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Implementation ProvideAsClass()
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.Implementation>(new System.Type[]{}, new object[]{})!;
         }
 
-        [JsiiMethod(name: "provideAsInterface", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IAnonymouslyImplementMe\\"}}", isOverride: true)]
+        [JsiiMethod(name: "provideAsInterface", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IAnonymouslyImplementMe\\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe ProvideAsInterface()
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe>(new System.Type[]{}, new object[]{})!;
@@ -3948,7 +3964,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "ring", isOverride: true)]
+        [JsiiMethod(name: "ring")]
         public virtual void Ring()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
@@ -3998,7 +4014,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>(deprecated) Say hello!</summary>
-        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -4041,7 +4057,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// <remarks>
             /// <strong>Stability</strong>: Deprecated
             /// </remarks>
-            [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+            [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
             [System.Obsolete()]
             public override string ToString()
             {
@@ -4270,7 +4286,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: 0
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "initialValue", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "initialValue", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
         public double? InitialValue
         {
             get;
@@ -4282,7 +4298,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: none
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "maximumValue", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "maximumValue", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
         public double? MaximumValue
         {
             get;
@@ -4392,7 +4408,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport
 
         /// <summary>Not quite random, but it'll do.</summary>
         /// <returns>1337</returns>
-        [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", isOverride: true)]
+        [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
@@ -4414,14 +4430,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.ChildStruct982")]
     public class ChildStruct982 : Amazon.JSII.Tests.CalculatorNamespace.IChildStruct982
     {
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Bar
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Foo
         {
             get;
@@ -4887,7 +4903,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
         }
 
         /// <summary>(deprecated) String representation of the value.</summary>
-        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -5032,7 +5048,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class ConfusingToJacksonStruct : Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct
     {
         [JsiiOptional]
-        [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.AbstractClass\\"}]}},\\"kind\\":\\"array\\"}}]}}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.AbstractClass\\"}]}},\\"kind\\":\\"array\\"}}]}}", isOptional: true)]
         public object? UnionProperty
         {
             get;
@@ -5360,21 +5376,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.ContainerProps")]
     public class ContainerProps : Amazon.JSII.Tests.CalculatorNamespace.IContainerProps
     {
-        [JsiiProperty(name: "arrayProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}", isOverride: true)]
+        [JsiiProperty(name: "arrayProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}")]
         public Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] ArrayProp
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "objProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}", isOverride: true)]
+        [JsiiProperty(name: "objProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
         public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> ObjProp
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "recordProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}", isOverride: true)]
+        [JsiiProperty(name: "recordProp", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}")]
         public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> RecordProp
         {
             get;
@@ -5704,7 +5720,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         [System.Obsolete("well, yeah")]
         public string ReadonlyProperty
         {
@@ -5800,14 +5816,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.DerivedStruct")]
     public class DerivedStruct : Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
     {
-        [JsiiProperty(name: "anotherRequired", typeJson: "{\\"primitive\\":\\"date\\"}", isOverride: true)]
+        [JsiiProperty(name: "anotherRequired", typeJson: "{\\"primitive\\":\\"date\\"}")]
         public System.DateTime AnotherRequired
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "bool", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+        [JsiiProperty(name: "bool", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
         public bool Bool
         {
             get;
@@ -5815,7 +5831,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty(name: "nonPrimitive", typeJson: "{\\"fqn\\":\\"jsii-calc.DoubleTrouble\\"}", isOverride: true)]
+        [JsiiProperty(name: "nonPrimitive", typeJson: "{\\"fqn\\":\\"jsii-calc.DoubleTrouble\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble NonPrimitive
         {
             get;
@@ -5824,7 +5840,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>This is optional.</summary>
         [JsiiOptional]
-        [JsiiProperty(name: "anotherOptional", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"kind\\":\\"map\\"}}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "anotherOptional", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"},\\"kind\\":\\"map\\"}}", isOptional: true)]
         public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue>? AnotherOptional
         {
             get;
@@ -5832,7 +5848,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "optionalAny", typeJson: "{\\"primitive\\":\\"any\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optionalAny", typeJson: "{\\"primitive\\":\\"any\\"}", isOptional: true)]
         public object? OptionalAny
         {
             get;
@@ -5840,7 +5856,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "optionalArray", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optionalArray", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}", isOptional: true)]
         public string[]? OptionalArray
         {
             get;
@@ -5851,7 +5867,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiProperty(name: "anumber", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "anumber", typeJson: "{\\"primitive\\":\\"number\\"}")]
         [System.Obsolete()]
         public double Anumber
         {
@@ -5863,7 +5879,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
-        [JsiiProperty(name: "astring", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "astring", typeJson: "{\\"primitive\\":\\"string\\"}")]
         [System.Obsolete()]
         public string Astring
         {
@@ -5875,7 +5891,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "firstOptional", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "firstOptional", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}", isOptional: true)]
         [System.Obsolete()]
         public string[]? FirstOptional
         {
@@ -5898,7 +5914,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class DiamondBottom : Amazon.JSII.Tests.CalculatorNamespace.IDiamondBottom
     {
         [JsiiOptional]
-        [JsiiProperty(name: "bottom", typeJson: "{\\"primitive\\":\\"date\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "bottom", typeJson: "{\\"primitive\\":\\"date\\"}", isOptional: true)]
         public System.DateTime? Bottom
         {
             get;
@@ -5909,7 +5925,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "hoistedTop", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         [System.Obsolete()]
         public string? HoistedTop
         {
@@ -5921,7 +5937,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "left", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
         [System.Obsolete()]
         public double? Left
         {
@@ -5933,7 +5949,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "right", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
         [System.Obsolete()]
         public bool? Right
         {
@@ -5957,7 +5973,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.DiamondInheritanceBaseLevelStruct")]
     public class DiamondInheritanceBaseLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceBaseLevelStruct
     {
-        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string BaseLevelProperty
         {
             get;
@@ -5980,14 +5996,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.DiamondInheritanceFirstMidLevelStruct")]
     public class DiamondInheritanceFirstMidLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceFirstMidLevelStruct
     {
-        [JsiiProperty(name: "firstMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "firstMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string FirstMidLevelProperty
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string BaseLevelProperty
         {
             get;
@@ -6010,14 +6026,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.DiamondInheritanceSecondMidLevelStruct")]
     public class DiamondInheritanceSecondMidLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceSecondMidLevelStruct
     {
-        [JsiiProperty(name: "secondMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "secondMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string SecondMidLevelProperty
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string BaseLevelProperty
         {
             get;
@@ -6040,28 +6056,28 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.DiamondInheritanceTopLevelStruct")]
     public class DiamondInheritanceTopLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.IDiamondInheritanceTopLevelStruct
     {
-        [JsiiProperty(name: "topLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "topLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string TopLevelProperty
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "firstMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "firstMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string FirstMidLevelProperty
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "baseLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string BaseLevelProperty
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "secondMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "secondMidLevelProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string SecondMidLevelProperty
         {
             get;
@@ -6235,8 +6251,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// string s2 = @"string
     /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
     /// string s3 = @"string
-    /// with
-    /// new lines";</code>
+    ///             with
+    ///             new lines";</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
@@ -6353,14 +6369,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>(deprecated) Say hello!</summary>
-        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
         /// <summary>Returns another random number.</summary>
-        [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", isOverride: true)]
+        [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
@@ -6382,7 +6398,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.DummyObj")]
     public class DummyObj : Amazon.JSII.Tests.CalculatorNamespace.IDummyObj
     {
-        [JsiiProperty(name: "example", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "example", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Example
         {
             get;
@@ -6663,7 +6679,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class EraseUndefinedHashValuesOptions : Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions
     {
         [JsiiOptional]
-        [JsiiProperty(name: "option1", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "option1", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Option1
         {
             get;
@@ -6671,7 +6687,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "option2", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "option2", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Option2
         {
             get;
@@ -6796,7 +6812,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string ReadonlyProperty
         {
             get;
@@ -6857,14 +6873,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.ExtendsInternalInterface")]
     public class ExtendsInternalInterface : Amazon.JSII.Tests.CalculatorNamespace.IExtendsInternalInterface
     {
-        [JsiiProperty(name: "boom", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+        [JsiiProperty(name: "boom", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
         public bool Boom
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "prop", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "prop", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Prop
         {
             get;
@@ -6989,7 +7005,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>External</strong>: true
         /// </remarks>
-        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string ReadonlyProperty
         {
             get;
@@ -7075,7 +7091,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: world
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Name
         {
             get;
@@ -10867,7 +10883,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "visible", isOverride: true)]
+        [JsiiMethod(name: "visible")]
         public virtual void Visible()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
@@ -10960,21 +10976,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.ImplictBaseOfBase")]
     public class ImplictBaseOfBase : Amazon.JSII.Tests.CalculatorNamespace.IImplictBaseOfBase
     {
-        [JsiiProperty(name: "goo", typeJson: "{\\"primitive\\":\\"date\\"}", isOverride: true)]
+        [JsiiProperty(name: "goo", typeJson: "{\\"primitive\\":\\"date\\"}")]
         public System.DateTime Goo
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Bar
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-base-of-base.Very\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
         {
             get;
@@ -11013,7 +11029,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "ciao", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "ciao", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Ciao()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -11131,7 +11147,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
     [JsiiByValue(fqn: "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello")]
     public class Hello : Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses.IHello
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -11188,7 +11204,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterfac
     [JsiiByValue(fqn: "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello")]
     public class Hello : Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterface.IHello
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -12097,42 +12113,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsiiCalc/Submodule/Isolated/NamespaceDoc.cs 1`] = `
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Amazon.JSII.Tests.CalculatorNamespace.JsiiCalc.Submodule.Isolated
-{
-    /// <remarks>
-    /// <h1>Read you, read me</h1>
-    ///
-    /// This is the readme of the <c>jsii-calc.submodule.isolated</c> module.
-    /// </remarks>
-    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-    public class NamespaceDoc
-    {
-    }
-}
-
-`;
-
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsiiCalc/Submodule/NamespaceDoc.cs 1`] = `
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Amazon.JSII.Tests.CalculatorNamespace.JsiiCalc.Submodule
-{
-    /// <remarks>
-    /// <h1>Read you, read me</h1>
-    ///
-    /// This is the readme of the <c>jsii-calc.submodule</c> module.
-    /// </remarks>
-    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-    public class NamespaceDoc
-    {
-    }
-}
-
-`;
-
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsonFormatter.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -12311,7 +12291,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiByValue(fqn: "jsii-calc.LevelOne.PropBooleanValue")]
         public class PropBooleanValue : Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue
         {
-            [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+            [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
             public bool Value
             {
                 get;
@@ -12346,7 +12326,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiByValue(fqn: "jsii-calc.LevelOne.PropProperty")]
         public class PropProperty : Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty
         {
-            [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropBooleanValue\\"}", isOverride: true)]
+            [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropBooleanValue\\"}")]
             public Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue Prop
             {
                 get;
@@ -12370,7 +12350,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.LevelOneProps")]
     public class LevelOneProps : Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps
     {
-        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropProperty\\"}", isOverride: true)]
+        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropProperty\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty Prop
         {
             get;
@@ -12399,7 +12379,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: 80
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "containerPort", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "containerPort", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
         public double? ContainerPort
         {
             get;
@@ -12420,7 +12400,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: 256
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "cpu", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "cpu", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Cpu
         {
             get;
@@ -12447,7 +12427,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: 512
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "memoryMiB", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "memoryMiB", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? MemoryMiB
         {
             get;
@@ -12459,7 +12439,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: true
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
         public bool? PublicLoadBalancer
         {
             get;
@@ -12471,7 +12451,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: false
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "publicTasks", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "publicTasks", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
         public bool? PublicTasks
         {
             get;
@@ -12653,7 +12633,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2647
         }
 
         /// <summary>(deprecated) Say hello!</summary>
-        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -12859,14 +12839,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2689.Structs
     [JsiiByValue(fqn: "jsii-calc.module2689.structs.MyStruct")]
     public class MyStruct : Amazon.JSII.Tests.CalculatorNamespace.Module2689.Structs.IMyStruct
     {
-        [JsiiProperty(name: "baseMap", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-base.BaseProps\\"},\\"kind\\":\\"map\\"}}", isOverride: true)]
+        [JsiiProperty(name: "baseMap", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-base.BaseProps\\"},\\"kind\\":\\"map\\"}}")]
         public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps> BaseMap
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "numbers", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"},\\"kind\\":\\"array\\"}}", isOverride: true)]
+        [JsiiProperty(name: "numbers", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"},\\"kind\\":\\"array\\"}}")]
         public Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number[] Numbers
         {
             get;
@@ -12889,7 +12869,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule1
     [JsiiByValue(fqn: "jsii-calc.module2692.submodule1.Bar")]
     public class Bar : Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule1.IBar
     {
-        [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Bar1
         {
             get;
@@ -12946,7 +12926,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2
     [JsiiByValue(fqn: "jsii-calc.module2692.submodule2.Bar")]
     public class Bar : Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2.IBar
     {
-        [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Bar2
         {
             get;
@@ -12969,21 +12949,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2
     [JsiiByValue(fqn: "jsii-calc.module2692.submodule2.Foo")]
     public class Foo : Amazon.JSII.Tests.CalculatorNamespace.Module2692.Submodule2.IFoo
     {
-        [JsiiProperty(name: "foo2", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo2", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Foo2
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar2", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Bar2
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar1", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Bar1
         {
             get;
@@ -13102,7 +13082,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2700
         {
         }
 
-        [JsiiMethod(name: "bar", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "bar", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Bar()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -13226,7 +13206,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
         {
         }
 
-        [JsiiMethod(name: "bazMethod", isOverride: true)]
+        [JsiiMethod(name: "bazMethod")]
         public virtual void BazMethod()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
@@ -13340,13 +13320,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
         {
         }
 
-        [JsiiMethod(name: "bar", isOverride: true)]
+        [JsiiMethod(name: "bar")]
         public virtual void Bar()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        [JsiiMethod(name: "foo", isOverride: true)]
+        [JsiiMethod(name: "foo")]
         public virtual void Foo()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
@@ -13390,7 +13370,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
         {
         }
 
-        [JsiiMethod(name: "constructMethod", isOverride: true)]
+        [JsiiMethod(name: "constructMethod")]
         public virtual void ConstructMethod()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
@@ -13628,7 +13608,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
         {
         }
 
-        [JsiiMethod(name: "resourceMethod", isOverride: true)]
+        [JsiiMethod(name: "resourceMethod")]
         public virtual void ResourceMethod()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
@@ -13680,7 +13660,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
         {
         }
 
-        [JsiiMethod(name: "vpcMethod", isOverride: true)]
+        [JsiiMethod(name: "vpcMethod")]
         public virtual void VpcMethod()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
@@ -13723,28 +13703,28 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say farewell.</summary>
-        [JsiiMethod(name: "farewell", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "farewell", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
         /// <summary>Say goodbye.</summary>
-        [JsiiMethod(name: "goodbye", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "goodbye", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
         /// <summary>Returns another random number.</summary>
-        [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", isOverride: true)]
+        [JsiiMethod(name: "next", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
         }
 
         /// <summary>(deprecated) String representation of the value.</summary>
-        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -13830,28 +13810,28 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say farewell.</summary>
-        [JsiiMethod(name: "farewell", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "farewell", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
         /// <summary>Say goodbye.</summary>
-        [JsiiMethod(name: "goodbye", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "goodbye", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
         /// <summary>(deprecated) Say hello!</summary>
-        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
         /// <summary>(deprecated) String representation of the value.</summary>
-        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
@@ -13915,7 +13895,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class NestedStruct : Amazon.JSII.Tests.CalculatorNamespace.INestedStruct
     {
         /// <summary>When provided, must be &gt; 0.</summary>
-        [JsiiProperty(name: "numberProp", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "numberProp", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double NumberProp
         {
             get;
@@ -14137,7 +14117,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.NullShouldBeTreatedAsUndefinedData")]
     public class NullShouldBeTreatedAsUndefinedData : Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData
     {
-        [JsiiProperty(name: "arrayWithThreeElementsAndUndefinedAsSecondArgument", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"array\\"}}", isOverride: true)]
+        [JsiiProperty(name: "arrayWithThreeElementsAndUndefinedAsSecondArgument", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"array\\"}}")]
         public object[] ArrayWithThreeElementsAndUndefinedAsSecondArgument
         {
             get;
@@ -14145,7 +14125,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "thisShouldBeUndefined", typeJson: "{\\"primitive\\":\\"any\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "thisShouldBeUndefined", typeJson: "{\\"primitive\\":\\"any\\"}", isOptional: true)]
         public object? ThisShouldBeUndefined
         {
             get;
@@ -14478,7 +14458,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class OptionalStruct : Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct
     {
         [JsiiOptional]
-        [JsiiProperty(name: "field", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "field", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Field
         {
             get;
@@ -14651,7 +14631,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.ParentStruct982")]
     public class ParentStruct982 : Amazon.JSII.Tests.CalculatorNamespace.IParentStruct982
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Foo
         {
             get;
@@ -15276,7 +15256,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
     [JsiiByValue(fqn: "jsii-calc.PythonSelf.StructWithSelf")]
     public class StructWithSelf : Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf
     {
-        [JsiiProperty(name: "self", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "self", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Self
         {
             get;
@@ -15401,7 +15381,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class RootStruct : Amazon.JSII.Tests.CalculatorNamespace.IRootStruct
     {
         /// <summary>May not be empty.</summary>
-        [JsiiProperty(name: "stringProp", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "stringProp", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string StringProp
         {
             get;
@@ -15409,7 +15389,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "nestedStruct", typeJson: "{\\"fqn\\":\\"jsii-calc.NestedStruct\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "nestedStruct", typeJson: "{\\"fqn\\":\\"jsii-calc.NestedStruct\\"}", isOptional: true)]
         public Amazon.JSII.Tests.CalculatorNamespace.INestedStruct? NestedStruct
         {
             get;
@@ -15518,7 +15498,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class SecondLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct
     {
         /// <summary>It's long and required.</summary>
-        [JsiiProperty(name: "deeperRequiredProp", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "deeperRequiredProp", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string DeeperRequiredProp
         {
             get;
@@ -15527,7 +15507,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>It's long, but you'll almost never pass it.</summary>
         [JsiiOptional]
-        [JsiiProperty(name: "deeperOptionalProp", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "deeperOptionalProp", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? DeeperOptionalProp
         {
             get;
@@ -15716,14 +15696,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.SmellyStruct")]
     public class SmellyStruct : Amazon.JSII.Tests.CalculatorNamespace.ISmellyStruct
     {
-        [JsiiProperty(name: "property", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "property", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Property
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "yetAnoterOne", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+        [JsiiProperty(name: "yetAnoterOne", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
         public bool YetAnoterOne
         {
             get;
@@ -15862,7 +15842,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.StableStruct")]
     public class StableStruct : Amazon.JSII.Tests.CalculatorNamespace.IStableStruct
     {
-        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "readonlyProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string ReadonlyProperty
         {
             get;
@@ -15942,7 +15922,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "method", isOverride: true)]
+        [JsiiMethod(name: "method")]
         public static new void Method()
         {
             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloChild), new System.Type[]{}, new object[]{});
@@ -16183,7 +16163,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.StructA")]
     public class StructA : Amazon.JSII.Tests.CalculatorNamespace.IStructA
     {
-        [JsiiProperty(name: "requiredString", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "requiredString", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string RequiredString
         {
             get;
@@ -16191,7 +16171,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "optionalNumber", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optionalNumber", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
         public double? OptionalNumber
         {
             get;
@@ -16199,7 +16179,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "optionalString", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optionalString", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? OptionalString
         {
             get;
@@ -16223,7 +16203,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.StructB")]
     public class StructB : Amazon.JSII.Tests.CalculatorNamespace.IStructB
     {
-        [JsiiProperty(name: "requiredString", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "requiredString", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string RequiredString
         {
             get;
@@ -16231,7 +16211,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "optionalBoolean", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optionalBoolean", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
         public bool? OptionalBoolean
         {
             get;
@@ -16239,7 +16219,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "optionalStructA", typeJson: "{\\"fqn\\":\\"jsii-calc.StructA\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optionalStructA", typeJson: "{\\"fqn\\":\\"jsii-calc.StructA\\"}", isOptional: true)]
         public Amazon.JSII.Tests.CalculatorNamespace.IStructA? OptionalStructA
         {
             get;
@@ -16266,7 +16246,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.StructParameterType")]
     public class StructParameterType : Amazon.JSII.Tests.CalculatorNamespace.IStructParameterType
     {
-        [JsiiProperty(name: "scope", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "scope", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Scope
         {
             get;
@@ -16274,7 +16254,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "props", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "props", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOptional: true)]
         public bool? Props
         {
             get;
@@ -16383,7 +16363,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class StructWithEnum : Amazon.JSII.Tests.CalculatorNamespace.IStructWithEnum
     {
         /// <summary>An enum value.</summary>
-        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"fqn\\":\\"jsii-calc.StringEnum\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.StringEnum Foo
         {
             get;
@@ -16395,7 +16375,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Default</strong>: AllTypesEnum.YOUR_ENUM_VALUE
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"fqn\\":\\"jsii-calc.AllTypesEnum\\"}", isOptional: true)]
         public Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum? Bar
         {
             get;
@@ -16418,7 +16398,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.StructWithJavaReservedWords")]
     public class StructWithJavaReservedWords : Amazon.JSII.Tests.CalculatorNamespace.IStructWithJavaReservedWords
     {
-        [JsiiProperty(name: "default", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "default", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Default
         {
             get;
@@ -16426,7 +16406,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "assert", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "assert", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Assert
         {
             get;
@@ -16434,7 +16414,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "result", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "result", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Result
         {
             get;
@@ -16442,7 +16422,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "that", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "that", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? That
         {
             get;
@@ -16499,7 +16479,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.BackReferences
     [JsiiByValue(fqn: "jsii-calc.submodule.back_references.MyClassReference")]
     public class MyClassReference : Amazon.JSII.Tests.CalculatorNamespace.Submodule.BackReferences.IMyClassReference
     {
-        [JsiiProperty(name: "reference", typeJson: "{\\"fqn\\":\\"jsii-calc.submodule.MyClass\\"}", isOverride: true)]
+        [JsiiProperty(name: "reference", typeJson: "{\\"fqn\\":\\"jsii-calc.submodule.MyClass\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass Reference
         {
             get;
@@ -16717,14 +16697,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
     public class KwargsProps : Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IKwargsProps
     {
         [JsiiOptional]
-        [JsiiProperty(name: "extra", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "extra", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Extra
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.submodule.child.SomeEnum\\"}", isOverride: true)]
+        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.submodule.child.SomeEnum\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.SomeEnum Prop
         {
             get;
@@ -16807,7 +16787,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
     [JsiiByValue(fqn: "jsii-calc.submodule.child.SomeStruct")]
     public class SomeStruct : Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct
     {
-        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.submodule.child.SomeEnum\\"}", isOverride: true)]
+        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.submodule.child.SomeEnum\\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.SomeEnum Prop
         {
             get;
@@ -16830,7 +16810,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
     [JsiiByValue(fqn: "jsii-calc.submodule.child.Structure")]
     public class Structure : Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IStructure
     {
-        [JsiiProperty(name: "bool", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+        [JsiiProperty(name: "bool", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
         public bool Bool
         {
             get;
@@ -16857,7 +16837,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
     [JsiiByValue(fqn: "jsii-calc.submodule.Default")]
     public class Default : Amazon.JSII.Tests.CalculatorNamespace.Submodule.IDefault
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -16945,6 +16925,24 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Isolated/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
+{
+    /// <remarks>
+    /// <h1>Read you, read me</h1>
+    ///
+    /// This is the readme of the <c>jsii-calc.submodule.isolated</c> module.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/MyClass.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -17010,6 +17008,24 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AllTypes?>();
             set => SetInstanceProperty(value);
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
+{
+    /// <remarks>
+    /// <h1>Read you, read me</h1>
+    ///
+    /// This is the readme of the <c>jsii-calc.submodule</c> module.
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
     }
 }
 
@@ -17149,7 +17165,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param
     [JsiiByValue(fqn: "jsii-calc.submodule.param.SpecialParameter")]
     public class SpecialParameter : Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter
     {
-        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Value
         {
             get;
@@ -17311,7 +17327,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class SupportsNiceJavaBuilderProps : Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps
     {
         /// <summary>Some number, like 42.</summary>
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Bar
         {
             get;
@@ -17323,7 +17339,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// But here we are, doing it like we didn't care.
         /// </remarks>
         [JsiiOptional]
-        [JsiiProperty(name: "id", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "id", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Id
         {
             get;
@@ -17633,7 +17649,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class TopLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct
     {
         /// <summary>This is a required field.</summary>
-        [JsiiProperty(name: "required", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        [JsiiProperty(name: "required", typeJson: "{\\"primitive\\":\\"string\\"}")]
         public string Required
         {
             get;
@@ -17641,7 +17657,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>A union to really stress test our serialization.</summary>
-        [JsiiProperty(name: "secondLevel", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"jsii-calc.SecondLevelStruct\\"}]}}", isOverride: true)]
+        [JsiiProperty(name: "secondLevel", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"jsii-calc.SecondLevelStruct\\"}]}}")]
         public object SecondLevel
         {
             get;
@@ -17650,7 +17666,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>You don't have to pass this.</summary>
         [JsiiOptional]
-        [JsiiProperty(name: "optional", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "optional", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Optional
         {
             get;
@@ -17836,7 +17852,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             /// <remarks>
             /// <strong>Stability</strong>: Deprecated
             /// </remarks>
-            [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
+            [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
             [System.Obsolete()]
             public override string ToString()
             {
@@ -17860,7 +17876,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.UnionProperties")]
     public class UnionProperties : Amazon.JSII.Tests.CalculatorNamespace.IUnionProperties
     {
-        [JsiiProperty(name: "bar", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"jsii-calc.AllTypes\\"}]}}", isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"jsii-calc.AllTypes\\"}]}}")]
         public object Bar
         {
             get;
@@ -17868,7 +17884,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "foo", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"}]}}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"}]}}", isOptional: true)]
         public object? Foo
         {
             get;

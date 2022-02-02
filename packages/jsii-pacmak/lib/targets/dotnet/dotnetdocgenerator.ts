@@ -3,14 +3,12 @@ import { CodeMaker } from 'codemaker';
 import {
   Rosetta,
   TargetLanguage,
-  Translation,
   enforcesStrictMode,
   markDownToXmlDoc,
   ApiLocation,
 } from 'jsii-rosetta';
 import * as xmlbuilder from 'xmlbuilder';
 
-import { INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
 import { renderSummary } from '../_utils';
 import { DotNetNameUtils } from './nameutils';
 
@@ -168,7 +166,7 @@ export class DotNetDocGenerator {
       TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
     );
-    return this.prefixDisclaimer(translated);
+    return translated.source;
   }
 
   private convertSamplesInMarkdown(markdown: string, api: ApiLocation): string {
@@ -177,20 +175,8 @@ export class DotNetDocGenerator {
       markdown,
       TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
-      (trans) => ({
-        language: trans.language,
-        source: this.prefixDisclaimer(trans),
-      }),
     );
   }
-
-  private prefixDisclaimer(translated: Translation) {
-    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
-    }
-    return translated.source;
-  }
-
   private emitXmlDoc(
     tag: string,
     content: string,
@@ -205,8 +191,10 @@ export class DotNetDocGenerator {
       xml.att(name, value);
     }
     const xmlstring = xml.end({ allowEmpty: true, pretty: false });
-
-    for (const line of xmlstring.split('\n').map((x) => x.trim())) {
+    const trimLeft = tag !== 'code';
+    for (const line of xmlstring
+      .split('\n')
+      .map((x) => (trimLeft ? x.trim() : x.trimRight()))) {
       this.code.line(`/// ${line}`);
     }
   }

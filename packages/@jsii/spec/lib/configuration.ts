@@ -7,7 +7,7 @@ export interface Config {
   /**
    * Output directory of typescript compiler
    */
-  outdir: string;
+  outdir?: string;
 
   /**
    * Determines the format of the jsii toolchain version string that will be
@@ -19,12 +19,12 @@ export interface Config {
    * short - only the version number of jsii will be used
    * example: 0.14.3
    */
-  versionFormat: 'full' | 'short';
+  versionFormat?: 'full' | 'short';
 
   /**
    * Defines which target languages the module supports.
    */
-  targets: {
+  targets?: {
     java?: {
       /*
        * generated maven package name
@@ -87,6 +87,16 @@ export interface Config {
   metadata?: {
     [key: string]: any;
   };
+
+  /**
+   * TypeScript compiler options
+   */
+  tsc?: {
+    outDir?: string;
+    rootDir?: string;
+
+    [key: string]: any;
+  };
 }
 
 /**
@@ -145,6 +155,21 @@ export interface PackageJson {
    * module's api stability level
    */
   stability?: Stability;
+
+  /**
+   * Run-time dependencies that are private to this assembly
+   */
+  dependencies?: Record<string, string>;
+
+  /**
+   * Run-time dependencies that will be shared with other assemblies
+   */
+  peerDependencies?: Record<string, string>;
+
+  /**
+   * Build-time dependencies
+   */
+  devDependencies?: Record<string, string>;
 
   [key: string]: unknown;
 }

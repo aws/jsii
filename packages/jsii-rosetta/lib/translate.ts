@@ -57,7 +57,9 @@ export class Translator {
       }),
     );
 
-    this.#diagnostics.push(...translator.diagnostics);
+    if (snip.parameters?.infused === undefined) {
+      this.#diagnostics.push(...translator.diagnostics);
+    }
 
     return TranslatedSnippet.fromSchema({
       translations: {
@@ -67,7 +69,7 @@ export class Translator {
       location: snip.location,
       didCompile: translator.didSuccessfullyCompile,
       fqnsReferenced: translator.fqnsReferenced(),
-      fullSource: snip.completeSource,
+      fullSource: completeSource(snip),
       syntaxKindCounter: translator.syntaxKindCounter(),
     });
   }
@@ -157,7 +159,6 @@ export class SnippetTranslator {
   public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
     const compiler = options.compiler ?? new TypeScriptCompiler();
     const source = completeSource(snippet);
-
     const fakeCurrentDirectory =
       snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY] ??
       snippet.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
@@ -199,7 +200,7 @@ export class SnippetTranslator {
         try {
           return call(...args);
         } catch (err) {
-          const isExpectedTypescriptError = err.message.includes('Error: Debug Failure');
+          const isExpectedTypescriptError = err.message.includes('Debug Failure');
 
           if (!isExpectedTypescriptError) {
             console.error(`Failed to execute ${call.name}: ${err}`);

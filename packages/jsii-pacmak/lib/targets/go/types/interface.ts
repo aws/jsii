@@ -11,13 +11,13 @@ import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { GoMethod, GoProperty } from './type-member';
 
-export class GoInterface extends GoType {
+export class GoInterface extends GoType<InterfaceType> {
   public readonly methods: InterfaceMethod[];
   public readonly reimplementedMethods?: readonly InterfaceMethod[];
   public readonly properties: InterfaceProperty[];
   public readonly reimplementedProperties?: readonly InterfaceProperty[];
 
-  public constructor(pkg: Package, public type: InterfaceType) {
+  public constructor(pkg: Package, type: InterfaceType) {
     super(pkg, type);
 
     this.methods = type.ownMethods
@@ -191,8 +191,6 @@ export class GoInterface extends GoType {
 }
 
 class InterfaceProperty extends GoProperty {
-  public readonly reference?: GoTypeRef;
-
   public constructor(
     public readonly parent: GoInterface,
     public readonly property: Property,
@@ -201,10 +199,7 @@ class InterfaceProperty extends GoProperty {
   }
 
   public get returnType(): string {
-    return (
-      this.reference?.scopedReference(this.parent.pkg) ??
-      this.property.type.toString()
-    );
+    return this.reference.scopedReference(this.parent.pkg);
   }
 
   public emit({ code, documenter }: EmitContext) {

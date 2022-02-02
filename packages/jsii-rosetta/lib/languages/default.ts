@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
-import { analyzeObjectLiteral } from '../jsii/jsii-types';
-import { isNamedLikeStruct } from '../jsii/jsii-utils';
+import { analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
+import { isNamedLikeStruct, isJsiiProtocolType } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
@@ -153,6 +153,22 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
       context.report(unsup, `Use of ${ts.SyntaxKind[unsup.kind]} in an object literal is not supported.`);
     }
 
+    const anyMembersFunctions = node.properties.some((p) =>
+      ts.isPropertyAssignment(p)
+        ? isExpressionOfFunctionType(context.typeChecker, p.initializer)
+        : ts.isShorthandPropertyAssignment(p)
+        ? isExpressionOfFunctionType(context.typeChecker, p.name)
+        : false,
+    );
+
+    const inferredType = context.inferredTypeOfExpression(node);
+    if ((inferredType && isJsiiProtocolType(context.typeChecker, inferredType)) || anyMembersFunctions) {
+      context.report(
+        node,
+        `You cannot use an object literal to make an instance of an interface. Define a class instead.`,
+      );
+    }
+
     const lit = analyzeObjectLiteral(context.typeChecker, node);
 
     switch (lit.kind) {
@@ -160,7 +176,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
         return this.unknownTypeObjectLiteralExpression(node, context);
       case 'struct':
       case 'local-struct':
-        return this.knownStructObjectLiteralExpression(node, lit.type, lit.kind === 'local-struct', context);
+        return this.knownStructObjectLiteralExpression(node, lit, context);
       case 'map':
         return this.keyValueObjectLiteralExpression(node, context);
     }
@@ -172,8 +188,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    _structType: ts.Type,
-    _definedInExample: boolean,
+    _structType: ObjectLiteralStruct,
     context: AstRenderer<C>,
   ): OTree {
     return this.notImplemented(node, context);
@@ -343,3 +358,24 @@ const UNARY_OPS: { [op in ts.PrefixUnaryOperator]: string } = {
   [ts.SyntaxKind.TildeToken]: '~',
   [ts.SyntaxKind.ExclamationToken]: '!',
 };
+
+/**
+ * Whether the given expression evaluates to a value that is of type "function"
+ *
+ * Examples of function types:
+ *
+ * ```ts
+ * // GIVEN
+ * function someFunction() { }
+ *
+ * // THEN
+ * const x = someFunction; // <- function type
+ * const y = () => 42; // <- function type
+ * const z = x; // <- function type
+ * Array.isArray; // <- function type
+ * ```
+ */
+function isExpressionOfFunctionType(typeChecker: ts.TypeChecker, expr: ts.Expression) {
+  const type = typeChecker.getTypeAtLocation(expr).getNonNullableType();
+  return type.getCallSignatures().length > 0;
+}

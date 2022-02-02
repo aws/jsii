@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
@@ -166,85 +166,96 @@ export function parseRepository(value: string): { url: string } {
   }
 }
 
-export function symbolIdentifier(
-  typeChecker: ts.TypeChecker,
-  sym: ts.Symbol,
-): string | undefined {
-  const inFileNameParts: string[] = [];
+/**
+ * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export async function findDependencyDirectory(
+  dependencyName: string,
+  searchStart: string,
+) {
+  // Explicitly do not use 'require("dep/package.json")' because that will fail if the
+  // package does not export that particular file.
+  const entryPoint = require.resolve(dependencyName, {
+    paths: [searchStart],
+  });
 
-  let decl: ts.Node | undefined = sym.declarations[0];
-  while (decl && !ts.isSourceFile(decl)) {
-    if (
-      ts.isClassDeclaration(decl) ||
-      ts.isNamespaceExportDeclaration(decl) ||
-      ts.isNamespaceExport(decl) ||
-      ts.isEnumDeclaration(decl) ||
-      ts.isEnumMember(decl) ||
-      ts.isInterfaceDeclaration(decl) ||
-      ts.isMethodDeclaration(decl) ||
-      ts.isMethodSignature(decl) ||
-      ts.isPropertyDeclaration(decl) ||
-      ts.isPropertySignature(decl)
-    ) {
-      const name = ts.getNameOfDeclaration(decl);
-      const declSym = name ? typeChecker.getSymbolAtLocation(name) : undefined;
-      if (declSym) {
-        inFileNameParts.unshift(declSym.name);
-      }
-    }
-    decl = decl.parent;
-  }
-  if (!decl) {
-    return undefined;
+  // Search up from the given directory, looking for a package.json that matches
+  // the dependency name (so we don't accidentally find stray 'package.jsons').
+  const depPkgJsonPath = await findPackageJsonUp(
+    dependencyName,
+    path.dirname(entryPoint),
+  );
+
+  if (!depPkgJsonPath) {
+    throw new Error(
+      `Could not find dependency '${dependencyName}' from '${searchStart}'`,
+    );
   }
 
-  const namespace = getNamespace(decl.getSourceFile().fileName);
-
-  if (!namespace) {
-    return undefined;
-  }
-
-  return `${namespace}:${inFileNameParts.join('.')}`;
+  return depPkgJsonPath;
 }
 
-export function getNamespace(sourceFileName: string) {
-  const packageJsonLocation = findPackageJsonLocation(
-    path.dirname(sourceFileName),
-  );
+/**
+ * Find the package.json for a given package upwards from the given directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export async function findPackageJsonUp(
+  packageName: string,
+  directory: string,
+) {
+  return findUp(directory, async (dir) => {
+    const pjFile = path.join(dir, 'package.json');
+    return (
+      (await fs.pathExists(pjFile)) &&
+      (await fs.readJson(pjFile)).name === packageName
+    );
+  });
+}
 
-  if (!packageJsonLocation) {
-    return undefined;
+/**
+ * Find a directory up the tree from a starting directory matching a condition
+ *
+ * Will return `undefined` if no directory matches
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export function findUp(
+  directory: string,
+  pred: (dir: string) => Promise<boolean>,
+): Promise<string | undefined>;
+export function findUp(
+  directory: string,
+  pred: (dir: string) => boolean,
+): string | undefined;
+// eslint-disable-next-line @typescript-eslint/promise-function-async
+export function findUp(
+  directory: string,
+  pred: ((dir: string) => boolean) | ((dir: string) => Promise<boolean>),
+): Promise<string | undefined> | string | undefined {
+  const result = pred(directory);
+  if (isPromise(result)) {
+    return result.then((thisDirectory) =>
+      thisDirectory ? directory : recurse(),
+    );
   }
 
-  const packageJson = JSON.parse(
-    fs.readFileSync(packageJsonLocation).toString(),
-  );
+  return result ? directory : recurse();
 
-  const sourcePath = removePrefix(
-    packageJson.jsii?.outdir ?? '',
-    path.relative(path.dirname(packageJsonLocation), sourceFileName),
-  );
-
-  return sourcePath.replace(/(\.d)?\.ts$/, '');
-
-  function findPackageJsonLocation(currentPath: string): string | undefined {
-    const candidate = path.join(currentPath, 'package.json');
-    if (fs.existsSync(candidate)) {
-      return candidate;
+  function recurse() {
+    const parent = path.dirname(directory);
+    if (parent === directory) {
+      return undefined;
     }
-    const parentPath = path.resolve(currentPath, '..');
-    return parentPath !== currentPath
-      ? findPackageJsonLocation(parentPath)
-      : undefined;
+    return findUp(parent, pred as any);
   }
+}
 
-  function removePrefix(prefix: string, filePath: string) {
-    const prefixParts = prefix.split(/[/\\]/g);
-    const pathParts = filePath.split(/[/\\]/g);
-    let i = 0;
-    while (prefixParts[i] === pathParts[i]) {
-      i++;
-    }
-    return pathParts.slice(i).join('/');
-  }
+function isPromise<A>(x: A | Promise<A>): x is Promise<A> {
+  return typeof x === 'object' && (x as any).then;
 }

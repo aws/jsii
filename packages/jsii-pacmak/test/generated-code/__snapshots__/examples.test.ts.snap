@@ -114,14 +114,14 @@ namespace Example.Test.Demo
     [JsiiByValue(fqn: "testpkg.Baz")]
     public class Baz_ : Example.Test.Demo.IBaz
     {
-        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
         public bool Baz
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -129,7 +129,7 @@ namespace Example.Test.Demo
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Bar
         {
             get;
@@ -186,7 +186,7 @@ namespace Example.Test.Demo
     [JsiiByValue(fqn: "testpkg.Foo")]
     public class Foo_ : Example.Test.Demo.IFoo
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -209,7 +209,7 @@ namespace Example.Test.Demo
     [JsiiByValue(fqn: "testpkg.FooBar")]
     public class FooBar : Example.Test.Demo.IFooBar
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -217,7 +217,7 @@ namespace Example.Test.Demo
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Bar
         {
             get;
@@ -421,9 +421,9 @@ import (
 )
 
 type Baz struct {
-	Foo *float64 \`json:"foo"\`
-	Bar *string \`json:"bar"\`
-	Baz *bool \`json:"baz"\`
+	Foo *float64 \`json:"foo" yaml:"foo"\`
+	Bar *string \`json:"bar" yaml:"bar"\`
+	Baz *bool \`json:"baz" yaml:"baz"\`
 }
 
 type Consumer interface {
@@ -445,12 +445,12 @@ func Consumer_ConsumeBaz(baz *Baz) {
 }
 
 type Foo struct {
-	Foo *float64 \`json:"foo"\`
+	Foo *float64 \`json:"foo" yaml:"foo"\`
 }
 
 type FooBar struct {
-	Foo *float64 \`json:"foo"\`
-	Bar *string \`json:"bar"\`
+	Foo *float64 \`json:"foo" yaml:"foo"\`
+	Bar *string \`json:"bar" yaml:"bar"\`
 }
 
 
@@ -731,9 +731,9 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
      * A builder for {@link Baz}
      */
     public static final class Builder implements software.amazon.jsii.Builder<Baz> {
-        private java.lang.Boolean baz;
-        private java.lang.Number foo;
-        private java.lang.String bar;
+        java.lang.Boolean baz;
+        java.lang.Number foo;
+        java.lang.String bar;
 
         /**
          * Sets the value of {@link Baz#getBaz}
@@ -772,7 +772,7 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
          */
         @Override
         public Baz build() {
-            return new Jsii$Proxy(baz, foo, bar);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -799,11 +799,11 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Boolean baz, final java.lang.Number foo, final java.lang.String bar) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.baz = java.util.Objects.requireNonNull(baz, "baz is required");
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
-            this.bar = bar;
+            this.baz = java.util.Objects.requireNonNull(builder.baz, "baz is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            this.bar = builder.bar;
         }
 
         @Override
@@ -909,7 +909,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link Foo}
      */
     public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-        private java.lang.Number foo;
+        java.lang.Number foo;
 
         /**
          * Sets the value of {@link Foo#getFoo}
@@ -928,7 +928,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
          */
         @Override
         public Foo build() {
-            return new Jsii$Proxy(foo);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -951,9 +951,9 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number foo) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
         }
 
         @Override
@@ -1023,8 +1023,8 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link FooBar}
      */
     public static final class Builder implements software.amazon.jsii.Builder<FooBar> {
-        private java.lang.Number foo;
-        private java.lang.String bar;
+        java.lang.Number foo;
+        java.lang.String bar;
 
         /**
          * Sets the value of {@link FooBar#getFoo}
@@ -1053,7 +1053,7 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
          */
         @Override
         public FooBar build() {
-            return new Jsii$Proxy(foo, bar);
+            return new Jsii$Proxy(this);
         }
     }
 
@@ -1078,10 +1078,10 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        protected Jsii$Proxy(final java.lang.Number foo, final java.lang.String bar) {
+        protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
-            this.bar = bar;
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            this.bar = builder.bar;
         }
 
         @Override
@@ -1147,7 +1147,7 @@ testpkg.FooBar=example.test.demo.FooBar
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.5.3", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1592,7 +1592,7 @@ namespace Example.Test.Demo
         [JsiiByValue(fqn: "testpkg.Namespace1.Foo")]
         public class Foo : Example.Test.Demo.Namespace1.IFoo
         {
-            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
             public string Bar
             {
                 get;
@@ -1796,7 +1796,7 @@ func (n *jsiiProxy_Namespace1) Foo() {
 }
 
 type Namespace1_Foo struct {
-	Bar *string \`json:"bar"\`
+	Bar *string \`json:"bar" yaml:"bar"\`
 }
 
 type Namespace1_IBar interface {
@@ -2247,7 +2247,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
          * A builder for {@link Foo}
          */
         public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-            private java.lang.String bar;
+            java.lang.String bar;
 
             /**
              * Sets the value of {@link Foo#getBar}
@@ -2266,7 +2266,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
              */
             @Override
             public Foo build() {
-                return new Jsii$Proxy(bar);
+                return new Jsii$Proxy(this);
             }
         }
 
@@ -2289,9 +2289,9 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
             /**
              * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
              */
-            protected Jsii$Proxy(final java.lang.String bar) {
+            protected Jsii$Proxy(final Builder builder) {
                 super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-                this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
+                this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
             }
 
             @Override
@@ -2447,7 +2447,7 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=58.5.3", "wheel~=0.37.0"]
+requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;

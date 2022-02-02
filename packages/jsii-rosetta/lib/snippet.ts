@@ -1,3 +1,5 @@
+import { trimCompleteSourceToVisible } from './typescript/visible-spans';
+
 /**
  * A piece of TypeScript code found in an assembly, ready to be translated
  */
@@ -53,13 +55,26 @@ export interface SnippetLocation {
   readonly field?: FieldLocation;
 }
 
+/**
+ * How to represent the initializer in a 'parameter' type.
+ *
+ * (Don't feel like making everyone's `case` statement worse by adding an
+ * 'initializer-parameter' variant).
+ */
+export const INITIALIZER_METHOD_NAME = '<initializer>';
+
 export type ApiLocation =
   | { readonly api: 'file'; readonly fileName: string }
   | { readonly api: 'moduleReadme'; readonly moduleFqn: string }
   | { readonly api: 'type'; readonly fqn: string }
   | { readonly api: 'initializer'; readonly fqn: string }
   | { readonly api: 'member'; readonly fqn: string; readonly memberName: string }
-  | { readonly api: 'parameter'; readonly fqn: string; readonly methodName: string; readonly parameterName: string };
+  | {
+      readonly api: 'parameter';
+      readonly fqn: string;
+      readonly methodName: string | typeof INITIALIZER_METHOD_NAME;
+      readonly parameterName: string;
+    };
 
 export type FieldLocation = { readonly field: 'markdown'; readonly line: number } | { readonly field: 'example' };
 
@@ -101,9 +116,39 @@ export function renderApiLocation(apiLoc: ApiLocation): string {
 }
 
 /**
+ * Construct a TypeScript snippet from visible source
+ *
+ * Will parse parameters from a directive in the given source, but will not
+ * interpret `/// !show` and `/// !hide` directives.
+ *
+ * `/// !show` and `/// !hide` directives WILL affect what gets displayed by
+ * the translator, but they will NOT affect the snippet's cache key (i.e. the
+ * cache key will be based on the full source given here).
+ *
+ * Use this if you are looking up a snippet in a tablet, which has been translated
+ * previously using a fixture.
+ */
+export function typeScriptSnippetFromVisibleSource(
+  typeScriptSource: string,
+  location: SnippetLocation,
+  strict: boolean,
+  parameters: Record<string, string> = {},
+): TypeScriptSnippet {
+  const [source, sourceParameters] = parametersFromSourceDirectives(typeScriptSource);
+  const visibleSource = source.trimRight();
+
+  return {
+    visibleSource,
+    location,
+    parameters: Object.assign({}, parameters, sourceParameters),
+    strict,
+  };
+}
+
+/**
  * Construct a TypeScript snippet from literal source
  *
- * Will parse parameters from a directive in the given source.
+ * @deprecated Use `typeScriptSnippetFromVisibleSource`
  */
 export function typeScriptSnippetFromSource(
   typeScriptSource: string,
@@ -111,9 +156,36 @@ export function typeScriptSnippetFromSource(
   strict: boolean,
   parameters: Record<string, string> = {},
 ): TypeScriptSnippet {
+  return typeScriptSnippetFromVisibleSource(typeScriptSource, location, strict, parameters);
+}
+
+/**
+ * Construct a TypeScript snippet from complete source
+ *
+ * Will parse parameters from a directive in the given source, and will
+ * interpret `/// !show` and `/// !hide` directives.
+ *
+ * The snippet's cache key will be based on the source that remains after
+ * these directives are processed.
+ *
+ * Use this if you are building a snippet to be translated, and take care
+ * to store the return object's `visibleSource` in the assembly (not the original
+ * source you passed in).
+ */
+export function typeScriptSnippetFromCompleteSource(
+  typeScriptSource: string,
+  location: SnippetLocation,
+  strict: boolean,
+  parameters: Record<string, string> = {},
+): TypeScriptSnippet {
   const [source, sourceParameters] = parametersFromSourceDirectives(typeScriptSource);
+  const completeSource = source.trimRight();
+
+  const visibleSource = trimCompleteSourceToVisible(completeSource);
+
   return {
-    visibleSource: source.trimRight(),
+    visibleSource,
+    completeSource: visibleSource !== completeSource ? completeSource : undefined,
     location,
     parameters: Object.assign({}, parameters, sourceParameters),
     strict,
@@ -142,12 +214,7 @@ function parametersFromSourceDirectives(source: string): [string, Record<string,
   // Also extract parameters from an initial line starting with '/// ' (getting rid of that line).
   const m = /[/]{3}(.*)$/.exec(firstLine);
   if (m) {
-    const paramClauses = m[1]
-      .trim()
-      .split(' ')
-      .map((s) => s.trim())
-      .filter((s) => s !== '');
-    return [rest.join('\n'), parseKeyValueList(paramClauses)];
+    return [rest.join('\n'), parseMetadataLine(m[1])];
   }
 
   return [source, {}];
@@ -166,8 +233,28 @@ export function parseKeyValueList(parameters: string[]): Record<string, string> 
       ret[parts[0]] = '';
     }
   }
-
   return ret;
+}
+
+export function parseMetadataLine(metadata: string): Record<string, string> {
+  return parseKeyValueList(parseMetadata(metadata));
+
+  function parseMetadata(metadata: string): string[] {
+    return metadata
+      .trim()
+      .split(' ')
+      .map((s) => s.trim())
+      .filter((s) => s !== '');
+  }
+}
+
+export function renderMetadataline(metadata: Record<string, string> = {}): string | undefined {
+  const line = Object.entries(metadata)
+    .filter(([key, _]) => !key.startsWith('$'))
+    .map(([key, value]) => (value !== '' ? `${key}=${value}` : key))
+    .join(' ');
+
+  return line ? line : undefined;
 }
 
 /**

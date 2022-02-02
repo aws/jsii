@@ -3,11 +3,10 @@ import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
-import { intersect } from 'semver-intersect';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
-import { parsePerson, parseRepository } from './utils';
+import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
@@ -55,6 +54,9 @@ export interface ProjectInfo {
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
   readonly bin?: { readonly [name: string]: string };
+  readonly exports?: {
+    readonly [name: string]: string | { readonly [name: string]: string };
+  };
 }
 
 export interface ProjectInfoResult {
@@ -67,7 +69,7 @@ export async function loadProjectInfo(
 ): Promise<ProjectInfoResult> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
-  const pkg = require(packageJsonPath);
+  const pkg = await fs.readJson(packageJsonPath);
 
   const diagnostics: ts.Diagnostic[] = [];
 
@@ -117,23 +119,19 @@ export async function loadProjectInfo(
     }
   }
 
-  const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
-  const assemblyCache = new Map<string, spec.Assembly>();
-  const dependencies = await _loadDependencies(
-    pkg.dependencies,
-    projectRoot,
-    transitiveAssemblies,
-    assemblyCache,
-    new Set<string>(Object.keys(bundleDependencies ?? {})),
+  const bundled = new Set(Object.keys(bundleDependencies ?? {}));
+  const dependencies: Record<string, string> = filterDictByKey(
+    pkg.dependencies ?? {},
+    (depName) => !bundled.has(depName),
   );
-  const peerDependencies = await _loadDependencies(
-    pkg.peerDependencies,
-    projectRoot,
-    transitiveAssemblies,
-    assemblyCache,
-  );
+  const peerDependencies: Record<string, string> = pkg.peerDependencies ?? {};
 
-  const transitiveDependencies = Object.values(transitiveAssemblies);
+  const resolver = new DependencyResolver();
+  const resolved = await resolver.discoverDependencyTree(projectRoot, {
+    ...dependencies,
+    ...peerDependencies,
+  });
+  const transitiveDependencies = resolver.assemblyClosure(resolved);
 
   const metadata = mergeMetadata(
     {
@@ -213,6 +211,7 @@ export async function loadProjectInfo(
       rootDir: pkg.jsii?.tsc?.rootDir,
     },
     bin: pkg.bin,
+    exports: pkg.exports,
     diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
   return { projectInfo, diagnostics };
@@ -231,24 +230,72 @@ function _guessRepositoryType(url: string): string {
   );
 }
 
-async function _loadDependencies(
-  dependencies: { [name: string]: string } | undefined,
-  searchPath: string,
-  transitiveAssemblies: { [name: string]: spec.Assembly },
-  assemblyCache: Map<string, spec.Assembly>,
-  bundled = new Set<string>(),
-): Promise<{ [name: string]: string }> {
-  if (!dependencies) {
-    return {};
-  }
-  const packageVersions: { [name: string]: string } = {};
-  for (const name of Object.keys(dependencies)) {
-    if (bundled.has(name)) {
-      continue;
+interface DependencyInfo {
+  readonly assembly: spec.Assembly;
+  readonly resolvedDependencies: Record<string, string>;
+}
+
+class DependencyResolver {
+  private readonly cache = new Map<string, DependencyInfo>();
+
+  /**
+   * Discover the dependency tree starting at 'root', validating versions as we go along
+   *
+   * This primes the data structures in this class and should be called first.
+   *
+   * Return the resolved jsii dependency paths
+   */
+  public async discoverDependencyTree(
+    root: string,
+    dependencies: Record<string, string>,
+  ): Promise<Record<string, string>> {
+    const ret: Record<string, string> = {};
+    for (const [name, declaration] of Object.entries(dependencies)) {
+      // eslint-disable-next-line no-await-in-loop
+      const resolved = await this.resolveDependency(root, name, declaration);
+
+      const actualVersion = resolved.dependencyInfo.assembly.version;
+      if (!semver.satisfies(actualVersion, declaration)) {
+        throw new Error(
+          `Declared dependency on version ${declaration} of ${name}, but version ${actualVersion} was found`,
+        );
+      }
+
+      ret[name] = resolved.resolvedFile;
     }
+    return ret;
+  }
+
+  /**
+   * From a set of resolved paths, recursively return all assemblies
+   */
+  public assemblyClosure(resolved: Record<string, string>): spec.Assembly[] {
+    const closure = new Map<string, spec.Assembly>();
+    const queue = Array.from(Object.values(resolved));
+    while (queue.length > 0) {
+      const next = queue.shift()!;
+      const resolved = this.cache.get(next);
+      if (!resolved) {
+        throw new Error(`Path ${next} not seen before`);
+      }
+      if (closure.has(next)) {
+        continue;
+      }
+
+      closure.set(next, resolved.assembly);
+      queue.push(...Object.values(resolved.resolvedDependencies));
+    }
+    return Array.from(closure.values());
+  }
+
+  private async resolveDependency(
+    root: string,
+    name: string,
+    declaration: string,
+  ) {
     const { version: versionString, localPackage } = _resolveVersion(
-      dependencies[name],
-      searchPath,
+      declaration,
+      root,
     );
     const version = new semver.Range(versionString);
     if (!version) {
@@ -256,49 +303,50 @@ async function _loadDependencies(
         `Invalid semver expression for ${name}: ${versionString}`,
       );
     }
-    const pkg = _tryResolveAssembly(name, localPackage, searchPath);
-    LOG.debug(`Resolved dependency ${name} to ${pkg}`);
-    // eslint-disable-next-line no-await-in-loop
-    const assm = await loadAndValidateAssembly(pkg, assemblyCache);
-    if (!semver.satisfies(assm.version, version)) {
-      throw new Error(
-        `Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`,
-      );
-    }
-    packageVersions[assm.name] =
-      packageVersions[assm.name] != null
-        ? intersect(versionString, packageVersions[assm.name])
-        : versionString;
-    transitiveAssemblies[assm.name] = assm;
-    const pkgDir = path.dirname(pkg);
-    if (assm.dependencies) {
-      // eslint-disable-next-line no-await-in-loop
-      await _loadDependencies(
-        assm.dependencies,
-        pkgDir,
-        transitiveAssemblies,
-        assemblyCache,
-      );
-    }
+    const jsiiFile = await _tryResolveAssembly(name, localPackage, root);
+    LOG.debug(`Resolved dependency ${name} to ${jsiiFile}`);
+    return {
+      resolvedVersion: versionString,
+      resolvedFile: jsiiFile,
+      dependencyInfo: await this.loadAssemblyAndRecurse(jsiiFile),
+    };
   }
-  return packageVersions;
-}
 
-/**
- * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
- */
-async function loadAndValidateAssembly(
-  jsiiFileName: string,
-  cache: Map<string, spec.Assembly>,
-): Promise<spec.Assembly> {
-  if (!cache.has(jsiiFileName)) {
+  private async loadAssemblyAndRecurse(jsiiFile: string) {
+    // Only recurse if we haven't seen this assembly yet
+    if (this.cache.has(jsiiFile)) {
+      return this.cache.get(jsiiFile)!;
+    }
+
+    // eslint-disable-next-line no-await-in-loop
+    const assembly = await this.loadAssembly(jsiiFile);
+    // Continue loading any dependencies declared in the asm
+
+    const resolvedDependencies = assembly.dependencies
+      ? await this.discoverDependencyTree(
+          path.dirname(jsiiFile),
+          assembly.dependencies,
+        )
+      : {};
+
+    const depInfo: DependencyInfo = {
+      assembly,
+      resolvedDependencies,
+    };
+    this.cache.set(jsiiFile, depInfo);
+    return depInfo;
+  }
+
+  /**
+   * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
+   */
+  private async loadAssembly(jsiiFileName: string): Promise<spec.Assembly> {
     try {
-      cache.set(jsiiFileName, await fs.readJson(jsiiFileName));
+      return await fs.readJson(jsiiFileName);
     } catch (e) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
   }
-  return cache.get(jsiiFileName)!;
 }
 
 function _required<T>(value: T, message: string): T {
@@ -346,11 +394,11 @@ function _toRepository(value: any): {
   };
 }
 
-function _tryResolveAssembly(
+async function _tryResolveAssembly(
   mod: string,
   localPackage: string | undefined,
   searchPath: string,
-): string {
+): Promise<string> {
   if (localPackage) {
     const result = path.join(localPackage, '.jsii');
     if (!fs.existsSync(result)) {
@@ -359,11 +407,11 @@ function _tryResolveAssembly(
     return result;
   }
   try {
-    const paths = [searchPath, path.join(searchPath, 'node_modules')];
-    return require.resolve(path.join(mod, '.jsii'), { paths });
-  } catch {
+    const dependencyDir = await findDependencyDirectory(mod, searchPath);
+    return path.join(dependencyDir, '.jsii');
+  } catch (e) {
     throw new Error(
-      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies.`,
+      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );
   }
 }
@@ -432,7 +480,9 @@ function _resolveVersion(
   return {
     // Rendering as a caret version to maintain uniformity against the "standard".
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    version: `^${require(path.join(localPackage, 'package.json')).version}`,
+    version: `^${
+      fs.readJsonSync(path.join(localPackage, 'package.json')).version
+    }`,
     localPackage,
   };
 }
@@ -510,4 +560,17 @@ function _loadDiagnostics(entries?: { [key: string]: string }):
     result[code] = category;
   }
   return result;
+}
+
+function filterDictByKey<A>(
+  xs: Record<string, A>,
+  predicate: (key: string) => boolean,
+): Record<string, A> {
+  const ret: Record<string, A> = {};
+  for (const [key, value] of Object.entries(xs)) {
+    if (predicate(key)) {
+      ret[key] = value;
+    }
+  }
+  return ret;
 }

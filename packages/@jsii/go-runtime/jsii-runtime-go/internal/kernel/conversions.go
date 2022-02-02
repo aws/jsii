@@ -64,14 +64,14 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		}
 
 		// If it's currently tracked, return the current instance
-		if object, ok := c.objects.GetObject(ref.InstanceID); ok {
+		if object, ok := c.objects.GetObjectAs(ref.InstanceID, ptr.Type()); ok {
 			ptr.Set(object)
 			return
 		}
 
 		// If return data is jsii object references, add to objects table.
 		if err := c.Types().InitJsiiProxy(ptr); err == nil {
-			if err = c.RegisterInstance(ptr, ref.InstanceID); err != nil {
+			if err = c.RegisterInstance(ptr, ref); err != nil {
 				panic(err)
 			}
 		} else {
@@ -157,7 +157,7 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 
 	case reflect.Interface, reflect.Ptr:
 		if valref, valHasRef := c.FindObjectRef(dataVal); valHasRef {
-			return api.ObjectRef{InstanceID: valref}
+			return valref
 		}
 
 		// In case we got a pointer to a map, slice, enum, ...

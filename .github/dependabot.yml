@@ -48,6 +48,8 @@ updates:
     labels:
       - dependencies
       - language/python
+    ignore:
+      - dependency-name: "setuptools"
 
   - package-ecosystem: gomod
     directory: '/packages/@jsii/go-runtime'

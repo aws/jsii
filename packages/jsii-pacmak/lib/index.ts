@@ -29,7 +29,6 @@ export async function pacmak({
   outputDirectory,
   parallel = true,
   recurse = false,
-  rosettaLiveConversion,
   rosettaTablet,
   targets = Object.values(TargetName),
   timers = new Timers(),
@@ -37,13 +36,10 @@ export async function pacmak({
   updateNpmIgnoreFiles = false,
   validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
-  const unknownSnippets =
-    rosettaUnknownSnippets ??
-    (rosettaLiveConversion
-      ? UnknownSnippetMode.TRANSLATE
-      : UnknownSnippetMode.VERBATIM);
-
-  const rosetta = new Rosetta({ unknownSnippets });
+  const rosetta = new Rosetta({
+    unknownSnippets: rosettaUnknownSnippets,
+    prefixDisclaimer: true,
+  });
   if (rosettaTablet) {
     await rosetta.loadTabletFromFile(rosettaTablet);
   }
@@ -237,18 +233,9 @@ export interface PacmakOptions {
   readonly recurse?: boolean;
 
   /**
-   * Whether `jsii-rosetta` conversion should be performed in-band for examples found in documentation which are not
-   * already translated in the `rosettaTablet` file.
-   *
-   * @default false
-   * @deprecated Use `rosettaUnknownSnippets` instead.
-   */
-  readonly rosettaLiveConversion?: boolean;
-
-  /**
    * How rosetta should treat snippets that cannot be loaded from a translation tablet.
    *
-   * @default - falls back to the default of `rosettaLiveConversion`.
+   * @default UnknownSnippetMode.VERBATIM
    */
   readonly rosettaUnknownSnippets?: UnknownSnippetMode;
 
