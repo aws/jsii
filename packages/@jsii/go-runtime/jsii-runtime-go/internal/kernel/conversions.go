@@ -65,6 +65,7 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 
 		targetType := ptr.Type()
 		if typ, ok := c.Types().FindType(ref.TypeFQN()); ok && typ.AssignableTo(ptr.Type()) {
+            // Specialize the return type to be the dynamic value type
 			targetType = typ
 		}
 
