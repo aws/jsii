@@ -45,6 +45,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree([JSON.stringify(node.text)]);
   }
 
+  public numericLiteral(node: ts.NumericLiteral, _children: AstRenderer<C>): OTree {
+    return new OTree([node.text]);
+  }
+
   public identifier(node: ts.Identifier, _children: AstRenderer<C>): OTree {
     return new OTree([node.text]);
   }

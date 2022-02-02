@@ -401,6 +401,14 @@ export function isReadOnly(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclar
   return (flags & ts.ModifierFlags.Readonly) !== 0;
 }
 
+export function isExported(x: ts.Declaration) {
+  const flags = ts.getCombinedModifierFlags(x);
+  if (flags & ts.ModifierFlags.Export) {
+    return true;
+  }
+  return false;
+}
+
 /**
  * Return the super() call from a method body if found
  */
