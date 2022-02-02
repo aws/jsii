@@ -28,4 +28,4 @@ jobs:
     - run: gh pr review --approve ${{ github.event.pull_request.number }} --body "@dependabot squash and merge" -R ${{ github.repository }}
       if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'dependabot-preview[bot]'
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
