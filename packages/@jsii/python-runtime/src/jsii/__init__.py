@@ -37,10 +37,11 @@ stats = kernel.stats
 
 
 if sys.version_info < (3, 7):
+    from platform import python_version
     import warnings
 
     warnings.warn(
-        f"WARNING: You are using python release {sys.version}, which has reached end-of-life! Support for EOL Python releases may be dropped in the future. Please consider upgrading to Python >= 3.7 as soon as possible.",
+        f"WARNING: You are using python release {python_version()}, which has reached end-of-life! Support for EOL Python releases may be dropped in the future. Please consider upgrading to Python >= 3.7 as soon as possible.",
     )
 
 
