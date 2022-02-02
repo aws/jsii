@@ -1,4 +1,4 @@
-# Approve PRs with "auto-approve". mergify takes care of the actual merge.
+# Approve PRs with "auto-approve". mergify or dependabot takes care of the actual merge.
 
 name: auto-approve
 on:
@@ -14,9 +14,18 @@ jobs:
   auto-approve:
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
     permissions:
+      actions: write
+      issues: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - uses: hmarr/auto-approve-action@v2.1.0
-      with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
+    # This is not a dependabot PR so we'll simply approve it
+    - run: gh pr review --approve ${{ github.event.pull_request.number }} -R ${{ github.repository }}
+      if: github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.user.login != 'dependabot-preview[bot]'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # This is a dependabot PR, so we'll also comment "@dependabot squash and merge"
+    - run: gh pr review --approve ${{ github.event.pull_request.number }} --body "@dependabot squash and merge" -R ${{ github.repository }}
+      if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'dependabot-preview[bot]'
+      env:
+        GITHUB_TOKEN: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
