@@ -1,3 +1,4 @@
+import sys
 from typing import Union
 
 from .__meta__ import __version__, __jsii_runtime_version__
@@ -33,6 +34,17 @@ invoke = kernel.invoke
 ainvoke = kernel.ainvoke
 sinvoke = kernel.sinvoke
 stats = kernel.stats
+
+
+if sys.version_info < (3, 7):
+    print(
+        f"WARNING: You are using python release {sys.version}, which has reached end-of-life!",
+        file=sys.stderr,
+    )
+    print(
+        "Support for EOL Python releases may be dropped in the future. Please consider upgrading to Python >= 3.7 as soon as possible.",
+        file=sys.stderr,
+    )
 
 
 __all__ = [
