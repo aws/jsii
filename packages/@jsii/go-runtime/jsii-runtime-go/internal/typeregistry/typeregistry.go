@@ -89,9 +89,7 @@ func (t *TypeRegistry) FindType(fqn api.FQN) (typ reflect.Type, ok bool) {
 // InitJsiiProxy initializes a jsii proxy value at the provided pointer. It
 // returns an error if the pointer does not have a value of a registered
 // proxyable type (that is, a class or interface type).
-func (t *TypeRegistry) InitJsiiProxy(val reflect.Value) error {
-	valType := val.Type()
-
+func (t *TypeRegistry) InitJsiiProxy(val reflect.Value, valType reflect.Type) error {
 	switch valType.Kind() {
 	case reflect.Interface:
 		if maker, ok := t.proxyMakers[valType]; ok {
@@ -115,7 +113,7 @@ func (t *TypeRegistry) InitJsiiProxy(val reflect.Value) error {
 			if !field.Anonymous {
 				return fmt.Errorf("refusing to initialize non-anonymous field %s of %v", field.Name, val)
 			}
-			if err := t.InitJsiiProxy(val.Field(i)); err != nil {
+			if err := t.InitJsiiProxy(val.Field(i), field.Type); err != nil {
 				return err
 			}
 		}
