@@ -63,14 +63,20 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 			return
 		}
 
+		targetType := ptr.Type()
+		if typ, ok := c.Types().FindType(ref.TypeFQN()); ok && typ.AssignableTo(ptr.Type()) {
+            // Specialize the return type to be the dynamic value type
+			targetType = typ
+		}
+
 		// If it's currently tracked, return the current instance
-		if object, ok := c.objects.GetObjectAs(ref.InstanceID, ptr.Type()); ok {
+		if object, ok := c.objects.GetObjectAs(ref.InstanceID, targetType); ok {
 			ptr.Set(object)
 			return
 		}
 
 		// If return data is jsii object references, add to objects table.
-		if err := c.Types().InitJsiiProxy(ptr); err == nil {
+		if err := c.Types().InitJsiiProxy(ptr, targetType); err == nil {
 			if err = c.RegisterInstance(ptr, ref); err != nil {
 				panic(err)
 			}
