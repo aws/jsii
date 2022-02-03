@@ -1302,6 +1302,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "arnogeurts-sqills",
+      "name": "arnogeurts-sqills",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79304871?v=4",
+      "profile": "https://github.com/arnogeurts-sqills",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "repoType": "github",
