@@ -899,16 +899,6 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     }
     return this.#formatted;
   }
-
-  /**
-   * Ensures the formatted diagnostic is prepared for later re-use.
-   *
-   * @returns `this`
-   */
-  public preformat(projectRoot: string): this {
-    this.format(projectRoot);
-    return this;
-  }
 }
 
 export type DiagnosticMessageFormatter = (

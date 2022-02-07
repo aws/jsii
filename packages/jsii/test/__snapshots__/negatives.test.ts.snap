@@ -843,17 +843,17 @@ neg.struct-hint-on-enum.ts:4:4 - error JSII7001: Illegal use of "@struct" hint. 
 `;
 
 exports[`struct-hint-with-methods 1`] = `
-neg.struct-hint-with-methods.ts:1:72 - error JSII7001: Illegal use of "@struct" hint. It is only valid on interfaces with only readonly properties.
+neg.struct-hint-with-methods.ts:4:4 - error JSII7001: Illegal use of "@struct" hint. It is only valid on interfaces with only readonly properties.
 
-1 
-  
+4  * @struct
+     ~~~~~~~
 
-  neg.struct-hint-with-methods.ts:2:18
-    2 export interface INotAStruct {
+  neg.struct-hint-with-methods.ts:6:18
+    6 export interface INotAStruct {
                        ~~~~~~~~~~~
     The annotated declartion is here
-  neg.struct-hint-with-methods.ts:3:3
-    3   method(): void;
+  neg.struct-hint-with-methods.ts:7:3
+    7   method(): void;
         ~~~~~~
     A method is declared here
 
