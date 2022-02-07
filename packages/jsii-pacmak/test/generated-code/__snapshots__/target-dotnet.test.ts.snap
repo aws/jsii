@@ -3411,14 +3411,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>(deprecated) String representation of the value.</summary>
+        /// <summary>String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
-        /// <summary>(deprecated) The value.</summary>
+        /// <summary>The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -4013,7 +4013,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>(deprecated) Say hello!</summary>
+        /// <summary>Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
@@ -4902,7 +4902,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
         {
         }
 
-        /// <summary>(deprecated) String representation of the value.</summary>
+        /// <summary>String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
@@ -4919,7 +4919,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             get;
         }
 
-        /// <summary>(deprecated) The value.</summary>
+        /// <summary>The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -6368,7 +6368,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>(deprecated) Say hello!</summary>
+        /// <summary>Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
@@ -12632,7 +12632,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2647
         {
         }
 
-        /// <summary>(deprecated) Say hello!</summary>
+        /// <summary>Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
@@ -13723,14 +13723,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
         }
 
-        /// <summary>(deprecated) String representation of the value.</summary>
+        /// <summary>String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
-        /// <summary>(deprecated) The value.</summary>
+        /// <summary>The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -13823,21 +13823,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
-        /// <summary>(deprecated) Say hello!</summary>
+        /// <summary>Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
-        /// <summary>(deprecated) String representation of the value.</summary>
+        /// <summary>String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
 
-        /// <summary>(deprecated) The value.</summary>
+        /// <summary>The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
