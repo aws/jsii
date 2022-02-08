@@ -78,8 +78,6 @@ export class DotNetRuntimeGenerator {
     cls: spec.ClassType | spec.InterfaceType,
     method: spec.Method /*, emitForProxyOrDatatype: boolean = false*/,
   ): void {
-    const isOverride =
-      spec.isClassType(cls) && method.overrides ? ', isOverride: true' : '';
     const isAsync =
       spec.isClassType(cls) && method.async ? ', isAsync: true' : '';
     const parametersJson = method.parameters
@@ -92,7 +90,7 @@ export class DotNetRuntimeGenerator {
           .replace(/"/g, '\\"')
           .replace(/\\{2}"/g, 'test')}"`
       : '';
-    const jsiiAttribute = `[JsiiMethod(name: "${method.name}"${returnsJson}${parametersJson}${isAsync}${isOverride})]`;
+    const jsiiAttribute = `[JsiiMethod(name: "${method.name}"${returnsJson}${parametersJson}${isAsync})]`;
     this.code.line(jsiiAttribute);
     this.emitDeprecatedAttributeIfNecessary(method);
   }
@@ -100,20 +98,15 @@ export class DotNetRuntimeGenerator {
   /**
    * Emits the proper jsii .NET attribute for a property
    *
-   * Ex: [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}", isOptional: true, isOverride: true)]
+   * Ex: [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}", isOptional: true)]
    */
-  public emitAttributesForProperty(
-    prop: spec.Property,
-    datatype = false,
-  ): void {
-    // If we are on a datatype then we want the property to override in Jsii
-    const isJsiiOverride = datatype ? ', isOverride: true' : '';
+  public emitAttributesForProperty(prop: spec.Property): void {
     const isOptionalJsii = prop.optional ? ', isOptional: true' : '';
     const jsiiAttribute =
       `[JsiiProperty(name: "${prop.name}", ` +
       `typeJson: "${JSON.stringify(prop.type)
         .replace(/"/g, '\\"')
-        .replace(/\\{2}"/g, 'test')}"${isOptionalJsii}${isJsiiOverride})]`;
+        .replace(/\\{2}"/g, 'test')}"${isOptionalJsii})]`;
     this.code.line(jsiiAttribute);
     this.emitDeprecatedAttributeIfNecessary(prop);
   }

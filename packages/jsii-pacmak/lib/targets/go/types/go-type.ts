@@ -8,12 +8,12 @@ import { JSII_RT_ALIAS } from '../runtime';
 import { GoClass } from './class';
 import { GoInterface } from './interface';
 
-export abstract class GoType {
+export abstract class GoType<T extends Type = Type> {
   public readonly name: string;
   public readonly fqn: string;
   public readonly proxyName: string;
 
-  public constructor(public pkg: Package, public type: Type) {
+  public constructor(public readonly pkg: Package, public readonly type: T) {
     this.name = type.name;
 
     // Prefix with the nesting parent name(s), using an _ delimiter.

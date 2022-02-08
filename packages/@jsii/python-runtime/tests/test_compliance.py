@@ -351,7 +351,7 @@ def test_getSetPrimitiveProperties():
     assert number.double_value == 40
     assert Negate(Add(Number(20), Number(10))).value == -30
     assert Multiply(Add(Number(5), Number(5)), Number(2)).value == 20
-    assert Power(Number(3), Number(4)).value == 3 ** 4
+    assert Power(Number(3), Number(4)).value == 3**4
     assert Power(Number(999), Number(1)).value == 999
     assert Power(Number(999), Number(0)).value == 1
 
@@ -366,7 +366,7 @@ def test_callMethods():
     assert calc.value == 20
 
     calc.pow(5)
-    assert calc.value == 20 ** 5
+    assert calc.value == 20**5
 
     calc.neg()
     assert calc.value == -3_200_000
@@ -464,7 +464,7 @@ def test_unionProperties():
     calc3.union_property = Power(Number(10), Number(3))
 
     assert isinstance(calc3.union_property, Power)
-    assert calc3.read_union_value() == 10 ** 3
+    assert calc3.read_union_value() == 10**3
 
 
 def test_subclassing():

@@ -3050,7 +3050,7 @@ class BinaryOperation(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @builtins.property
@@ -7229,13 +7229,13 @@ class Multiply(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
@@ -9621,13 +9621,13 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
@@ -9986,18 +9986,18 @@ class Negate(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
@@ -10059,7 +10059,7 @@ class DoubleTrouble(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @jsii.member(jsii_name="next")
@@ -10500,7 +10500,7 @@ class CompositeOperation(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property
@@ -10516,7 +10516,7 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
     @builtins.property
@@ -10886,7 +10886,7 @@ class ExtendAndImplement(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @jsii.member(jsii_name="localMethod")

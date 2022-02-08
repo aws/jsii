@@ -13,10 +13,10 @@ import { GoProperty } from './type-member';
 /*
  * Struct wraps a JSII datatype interface aka, structs
  */
-export class Struct extends GoType {
+export class Struct extends GoType<InterfaceType> {
   private readonly properties: readonly GoProperty[];
 
-  public constructor(parent: Package, public readonly type: InterfaceType) {
+  public constructor(parent: Package, type: InterfaceType) {
     super(parent, type);
 
     assert(

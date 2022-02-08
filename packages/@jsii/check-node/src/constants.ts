@@ -63,5 +63,7 @@ export const VERSION_SUPPORT: { readonly [range: string]: SupportLevel } = {
   '^15.0.0-0': SupportLevel.END_OF_LIFE,
   '<16.3.0': SupportLevel.UNSUPPORTED,
   '^16.3.0': SupportLevel.SUPPORTED,
+  '<17.3.0': SupportLevel.UNSUPPORTED,
+  '^17.3.0': SupportLevel.SUPPORTED,
   // Anything else will be treated as SupportLevel.UNTESTED.
 };
