@@ -397,7 +397,9 @@ class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-base.IBaseInterface")
-@jsii.implements(scope.jsii_calc_base_of_base.IVeryBaseInterface)
+@jsii.implements(
+    *((scope.jsii_calc_base_of_base.IVeryBaseInterface,) if type(scope.jsii_calc_base_of_base.IVeryBaseInterface) is type(typing_extensions.Protocol) else ())
+)
 class IBaseInterface(
     *(() if type(scope.jsii_calc_base_of_base.IVeryBaseInterface) is type(typing_extensions.Protocol) else (scope.jsii_calc_base_of_base.IVeryBaseInterface,)),
     metaclass = jsii.JSIIAbstractClass,
@@ -1506,7 +1508,9 @@ typing.cast(typing.Any, IFriendly).__jsii_proxy_class__ = lambda : _IFriendlyPro
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IThreeLevelsInterface")
-@jsii.implements(scope.jsii_calc_base.IBaseInterface)
+@jsii.implements(
+    *((scope.jsii_calc_base.IBaseInterface,) if type(scope.jsii_calc_base.IBaseInterface) is type(typing_extensions.Protocol) else ())
+)
 class IThreeLevelsInterface(
     *(() if type(scope.jsii_calc_base.IBaseInterface) is type(typing_extensions.Protocol) else (scope.jsii_calc_base.IBaseInterface,)),
     metaclass = jsii.JSIIAbstractClass,
@@ -5628,7 +5632,9 @@ typing.cast(typing.Any, IExternalInterface).__jsii_proxy_class__ = lambda : _IEx
 
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlier")
-@jsii.implements(scope.jsii_calc_lib.IFriendly)
+@jsii.implements(
+    *((scope.jsii_calc_lib.IFriendly,) if type(scope.jsii_calc_lib.IFriendly) is type(typing_extensions.Protocol) else ())
+)
 class IFriendlier(
     *(() if type(scope.jsii_calc_lib.IFriendly) is type(typing_extensions.Protocol) else (scope.jsii_calc_lib.IFriendly,)),
     metaclass = jsii.JSIIAbstractClass,
@@ -9826,7 +9832,9 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
 
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlyRandomGenerator")
-@jsii.implements(scope.jsii_calc_lib.IFriendly)
+@jsii.implements(
+    *((scope.jsii_calc_lib.IFriendly,) if type(scope.jsii_calc_lib.IFriendly) is type(typing_extensions.Protocol) else ())
+)
 class IFriendlyRandomGenerator(
     IRandomNumberGenerator,
     *(() if type(scope.jsii_calc_lib.IFriendly) is type(typing_extensions.Protocol) else (scope.jsii_calc_lib.IFriendly,)),
@@ -11437,7 +11445,9 @@ class Class3(
 
 
 @jsii.interface(jsii_type="jsii-calc.module2702.IBaz")
-@jsii.implements(scope.jsii_calc_base.IBaseInterface)
+@jsii.implements(
+    *((scope.jsii_calc_base.IBaseInterface,) if type(scope.jsii_calc_base.IBaseInterface) is type(typing_extensions.Protocol) else ())
+)
 class IBaz(
     *(() if type(scope.jsii_calc_base.IBaseInterface) is type(typing_extensions.Protocol) else (scope.jsii_calc_base.IBaseInterface,)),
     metaclass = jsii.JSIIAbstractClass,
@@ -11479,7 +11489,9 @@ typing.cast(typing.Any, IConstruct).__jsii_proxy_class__ = lambda : _IConstructP
 
 
 @jsii.interface(jsii_type="jsii-calc.module2702.IFoo")
-@jsii.implements(scope.jsii_calc_base.IBaseInterface)
+@jsii.implements(
+    *((scope.jsii_calc_base.IBaseInterface,) if type(scope.jsii_calc_base.IBaseInterface) is type(typing_extensions.Protocol) else ())
+)
 class IFoo(
     *(() if type(scope.jsii_calc_base.IBaseInterface) is type(typing_extensions.Protocol) else (scope.jsii_calc_base.IBaseInterface,)),
     metaclass = jsii.JSIIAbstractClass,

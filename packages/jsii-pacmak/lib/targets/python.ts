@@ -961,7 +961,16 @@ class Interface extends BasePythonClassType {
       .map((iface) => toTypeName(iface).pythonType(context));
     // If we have anything, emit an `@jsii.implements` declaration.
     if (interfaces.length > 0) {
-      code.line(`@jsii.implements(${interfaces.join(', ')})`);
+      emitList(
+        code,
+        '@jsii.implements(',
+        interfaces.map(
+          (iface) =>
+            // Only list the interface if it's a Protocol, as otherwise this will trigger a warning.
+            `*((${iface},) if type(${iface}) is type(typing_extensions.Protocol) else ())`,
+        ),
+        ')',
+      );
     }
 
     // First we do our normal class logic for emitting our members.

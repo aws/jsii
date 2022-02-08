@@ -1,9 +1,11 @@
 import abc
 import os
+import warnings
 
 import attr
 
-from typing import cast, Any, Callable, List, Optional, Mapping, Type, TypeVar
+from typing import cast, Any, Callable, List, Mapping, Optional, Type, TypeVar
+from typing_extensions import Protocol
 
 from . import _reference_map
 from ._compat import importlib_resources
@@ -66,7 +68,7 @@ class JSIIMeta(_ClassPropertyMeta, type):
         # Since their parent class will have the __jsii_type__ variable defined, they
         # will as well anyways.
         if jsii_type is not None:
-            attrs["__jsii_type__"] = jsii_type
+            attrs["__jsii_class__"] = attrs["__jsii_type__"] = jsii_type
         # The declared type should NOT be inherited by subclasses. This way we can identify whether
         # an MRO entry corresponds to a possible overrides contributor or not.
         attrs["__jsii_declared_type__"] = jsii_type
@@ -80,14 +82,6 @@ class JSIIMeta(_ClassPropertyMeta, type):
             _reference_map.register_type(obj)
 
         return cast("JSIIMeta", obj)
-
-    def __call__(cls: Type[Any], *args: Any, **kwargs) -> Any:
-        inst = super().__call__(*args, **kwargs)
-
-        # Register this instance with our reference map.
-        _reference_map.register_reference(inst)
-
-        return inst
 
 
 class JSIIAbstractClass(abc.ABCMeta, JSIIMeta):
@@ -132,7 +126,19 @@ def member(*, jsii_name: str) -> Callable[[F], F]:
 
 
 def implements(*interfaces: Type[Any]) -> Callable[[T], T]:
-    def deco(cls):
+    def deco(cls: T) -> T:
+        # In the past, interfaces were rendered as Protocols, so they could not
+        # be directly extended. The @jsii.implements annotation was created to
+        # register the nominal type relationship. Now, interfaces are rendered
+        # as fully abstract base classes, and they should simply be extended. We
+        # emit a warning when the legacy usage is detected.
+        for interface in interfaces:
+            if type(interface) is not type(Protocol):
+                warnings.warn(
+                    f"{interface.__name__} is no longer a Protocol. Use of @jsii.implements with it is deprecated. Move this interface to the class' inhertiance list of {cls.__name__} instead!",
+                    stacklevel=2,
+                )
+
         cls.__jsii_type__ = getattr(cls, "__jsii_type__", None)
         cls.__jsii_ifaces__ = getattr(cls, "__jsii_ifaces__", []) + list(interfaces)
         return cls
@@ -142,6 +148,8 @@ def implements(*interfaces: Type[Any]) -> Callable[[T], T]:
 
 def interface(*, jsii_type: str) -> Callable[[T], T]:
     def deco(iface):
+        # Un-set __jsii_class__ as this is an interface, and not a class.
+        iface.__jsii_class__ = None
         iface.__jsii_type__ = jsii_type
         # This interface "implements itself" - this is a trick to ease up implementation discovery.
         iface.__jsii_ifaces__ = [iface] + getattr(iface, "__jsii_ifaces__", [])

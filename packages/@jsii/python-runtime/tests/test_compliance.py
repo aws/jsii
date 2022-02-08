@@ -153,9 +153,7 @@ class SyncOverrides(SyncVirtualMethods):
         self.another_the_property = value
 
 
-@jsii.implements(IFriendly)
-@jsii.implements(IRandomNumberGenerator)
-class SubclassNativeFriendlyRandom(Number):
+class SubclassNativeFriendlyRandom(Number, IFriendly, IRandomNumberGenerator):
     def __init__(self):
         super().__init__(908)
         self.next_number = 100
@@ -185,8 +183,7 @@ class SubclassNativeFriendlyRandom_Inheritance(
         return next_
 
 
-@jsii.implements(IFriendlyRandomGenerator)
-class PureNativeFriendlyRandom:
+class PureNativeFriendlyRandom(IFriendlyRandomGenerator):
     """
     In this case, the class does not derive from the JsiiObject hierarchy. It means
     that when we pass it along to javascript, we won't have an objref. This should
@@ -654,8 +651,7 @@ def test_propertyOverrides_set_throws():
 
 
 def test_propertyOverrides_interfaces():
-    @jsii.implements(IInterfaceWithProperties)
-    class TInterfaceWithProperties:
+    class TInterfaceWithProperties(IInterfaceWithProperties):
 
         x = None
 
@@ -679,8 +675,7 @@ def test_propertyOverrides_interfaces():
 
 
 def test_interfaceBuilder():
-    @jsii.implements(IInterfaceWithProperties)
-    class TInterfaceWithProperties:
+    class TInterfaceWithProperties(IInterfaceWithProperties):
 
         x = "READ_WRITE"
 
@@ -1140,14 +1135,12 @@ def test_structs_can_be_downcasted_to_parent_type():
     assert Demonstrate982.take_this_too() is not None
 
 
-@jsii.implements(IBellRinger)
-class PythonBellRinger:
+class PythonBellRinger(IBellRinger):
     def your_turn(self, bell):
         bell.ring()
 
 
-@jsii.implements(IConcreteBellRinger)
-class PythonConcreteBellRinger:
+class PythonConcreteBellRinger(IConcreteBellRinger):
     def your_turn(self, bell):
         bell.ring()
 
@@ -1184,8 +1177,7 @@ def test_can_obtain_struct_reference_with_overloaded_setter():
 def test_pure_interfaces_can_be_used_transparently():
     expected = StructB(required_string="It's Britney b**ch!")
 
-    @jsii.implements(IStructReturningDelegate)
-    class StructReturningDelegate:
+    class StructReturningDelegate(IStructReturningDelegate):
         def return_struct(self):
             return expected
 
@@ -1197,8 +1189,7 @@ def test_pure_interfaces_can_be_used_transparently():
 def test_pure_interfaces_can_be_used_transparently_when_transitively_implementing():
     expected = StructB(required_string="It's Britney b**ch!")
 
-    @jsii.implements(IStructReturningDelegate)
-    class ImplementsStructReturningDelegate:
+    class ImplementsStructReturningDelegate(IStructReturningDelegate):
         def return_struct(self):
             return expected
 
@@ -1215,8 +1206,7 @@ def test_pure_interfaces_can_be_used_transparently_when_transitively_implementin
 def test_pure_interfaces_can_be_used_transparently_when_added_to_jsii_type():
     expected = StructB(required_string="It's Britney b**ch!")
 
-    @jsii.implements(IStructReturningDelegate)
-    class ImplementsAdditionalInterface(AllTypes):
+    class ImplementsAdditionalInterface(AllTypes, IStructReturningDelegate):
         def return_struct(self):
             return expected
 
@@ -1306,8 +1296,7 @@ def test_kwargs_from_superinterface_are_working():
 
 
 def test_iso8601_does_not_deserialize_to_date():
-    @jsii.implements(IWallClock)
-    class WallClock:
+    class WallClock(IWallClock):
         def __init__(self, now: str):
             self.now = now
 
@@ -1335,8 +1324,7 @@ def test_class_can_extend_and_implement_from_jsii():
     See also https://github.com/aws/jsii/issues/2963
     """
 
-    @jsii.implements(IWallClock)
-    class WallClock(ClassWithSelf):
+    class WallClock(ClassWithSelf, IWallClock):
         def __init__(self, now: str):
             super().__init__(now)
             self.now = now
