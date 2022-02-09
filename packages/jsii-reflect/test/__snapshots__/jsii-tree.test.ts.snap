@@ -718,6 +718,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ methodTwo() method (stable)
  │   │     └── returns: void
+ │   ├─┬ class BaseClass (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ method() method (stable)
+ │   │   │ └── returns: number
+ │   │   └─┬ property property (stable)
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ class BaseJsii976 (stable)
  │   │ └─┬ members
  │   │   └── <initializer>() initializer (stable)
@@ -1252,6 +1260,10 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ mutableProperty property (stable)
  │   │     └── type: Optional<number>
+ │   ├─┬ class FullCombo (stable)
+ │   │ ├── base: BaseClass
+ │   │ ├── interfaces: IIndirectlyImplemented
+ │   │ └── members
  │   ├─┬ class GiveMeStructs (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -2612,6 +2624,15 @@ exports[`jsii-tree --all 1`] = `
  │   │ │ ├── IRandomNumberGenerator
  │   │ │ └── IFriendly
  │   │ └── members
+ │   ├─┬ interface IIndirectlyImplemented (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ method() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: number
+ │   │   └─┬ property property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface IInterfaceImplementedByAbstractClass (stable)
  │   │ └─┬ members
  │   │   └─┬ propFromInterface property (stable)
@@ -3416,6 +3437,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IAnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class BaseClass
  │   ├── class BaseJsii976
  │   ├─┬ class Bell
  │   │ └── interfaces: IBell
@@ -3463,6 +3485,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
  │   ├── class ExternalClass
+ │   ├─┬ class FullCombo
+ │   │ ├── base: BaseClass
+ │   │ └── interfaces: IIndirectlyImplemented
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
@@ -3607,6 +3632,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └─┬ interfaces
  │   │   ├── IRandomNumberGenerator
  │   │   └── IFriendly
+ │   ├── interface IIndirectlyImplemented
  │   ├── interface IInterfaceImplementedByAbstractClass
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ interfaces
@@ -4098,6 +4124,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── methodOne() method
  │   │   └── methodTwo() method
+ │   ├─┬ class BaseClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── method() method
+ │   │   └── property property
  │   ├─┬ class BaseJsii976
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
@@ -4312,6 +4343,8 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── method() method
  │   │   ├── readonlyProperty property
  │   │   └── mutableProperty property
+ │   ├─┬ class FullCombo
+ │   │ └── members
  │   ├─┬ class GiveMeStructs
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4908,6 +4941,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   └── goodbye() method
  │   ├─┬ interface IFriendlyRandomGenerator
  │   │ └── members
+ │   ├─┬ interface IIndirectlyImplemented
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── property property
  │   ├─┬ interface IInterfaceImplementedByAbstractClass
  │   │ └─┬ members
  │   │   └── propFromInterface property
@@ -5397,6 +5434,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class BaseClass
  │   ├── class BaseJsii976
  │   ├── class Bell
  │   ├── class BinaryOperation
@@ -5435,6 +5473,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
  │   ├── class ExternalClass
+ │   ├── class FullCombo
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
@@ -5543,6 +5582,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IExternalInterface
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
+ │   ├── interface IIndirectlyImplemented
  │   ├── interface IInterfaceImplementedByAbstractClass
  │   ├── interface IInterfaceThatShouldNotBeADataType
  │   ├── interface IInterfaceWithInternal

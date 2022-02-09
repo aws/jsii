@@ -26,7 +26,7 @@ async function jsiiTree(...args: string[]) {
     process.execPath,
     ...process.execArgv,
     path.join(__dirname, '..', 'bin', 'jsii-tree'),
-    args.join(' '),
+    ...args,
     '--no-colors',
     path.dirname(require.resolve('jsii-calc/package.json')),
   ].join(' ');

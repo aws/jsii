@@ -3591,6 +3591,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 AnonymousImplementationProvider.java
           ┃                 ┣━ 📄 AsyncVirtualMethods.java
           ┃                 ┣━ 📄 AugmentableClass.java
+          ┃                 ┣━ 📄 BaseClass.java
           ┃                 ┣━ 📄 BaseJsii976.java
           ┃                 ┣━ 📄 Bell.java
           ┃                 ┣━ 📄 BinaryOperation.java
@@ -3657,6 +3658,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 ExternalClass.java
           ┃                 ┣━ 📄 ExternalEnum.java
           ┃                 ┣━ 📄 ExternalStruct.java
+          ┃                 ┣━ 📄 FullCombo.java
           ┃                 ┣━ 📄 GiveMeStructs.java
           ┃                 ┣━ 📄 Greetee.java
           ┃                 ┣━ 📄 GreetingAugmenter.java
@@ -3672,6 +3674,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 IExternalInterface.java
           ┃                 ┣━ 📄 IFriendlier.java
           ┃                 ┣━ 📄 IFriendlyRandomGenerator.java
+          ┃                 ┣━ 📄 IIndirectlyImplemented.java
           ┃                 ┣━ 📄 IInterfaceImplementedByAbstractClass.java
           ┃                 ┣━ 📄 IInterfaceThatShouldNotBeADataType.java
           ┃                 ┣━ 📄 IInterfaceWithInternal.java
@@ -5372,6 +5375,59 @@ public class AugmentableClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void methodTwo() {
         software.amazon.jsii.Kernel.call(this, "methodTwo", software.amazon.jsii.NativeType.VOID);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/BaseClass.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.BaseClass")
+public abstract class BaseClass extends software.amazon.jsii.JsiiObject {
+
+    protected BaseClass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected BaseClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    protected BaseClass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Number method() {
+        return software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
+        return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    private static final class Jsii$Proxy extends software.amazon.jsii.tests.calculator.BaseClass {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
     }
 }
 
@@ -10615,6 +10671,27 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/FullCombo.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.FullCombo")
+public class FullCombo extends software.amazon.jsii.tests.calculator.BaseClass implements software.amazon.jsii.tests.calculator.IIndirectlyImplemented {
+
+    protected FullCombo(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected FullCombo(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/GiveMeStructs.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -11809,6 +11886,79 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         @Override
         default @org.jetbrains.annotations.NotNull java.lang.String hello() {
             return software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IIndirectlyImplemented.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IIndirectlyImplemented")
+@software.amazon.jsii.Jsii.Proxy(IIndirectlyImplemented.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IIndirectlyImplemented extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getProperty();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.Number method();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IIndirectlyImplemented.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public final @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
+            return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Number method() {
+            return software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IIndirectlyImplemented}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IIndirectlyImplemented {
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        default @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
+            return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.Number method() {
+            return software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
     }
 }
@@ -25674,6 +25824,7 @@ jsii-calc.AmbiguousParameters=software.amazon.jsii.tests.calculator.AmbiguousPar
 jsii-calc.AnonymousImplementationProvider=software.amazon.jsii.tests.calculator.AnonymousImplementationProvider
 jsii-calc.AsyncVirtualMethods=software.amazon.jsii.tests.calculator.AsyncVirtualMethods
 jsii-calc.AugmentableClass=software.amazon.jsii.tests.calculator.AugmentableClass
+jsii-calc.BaseClass=software.amazon.jsii.tests.calculator.BaseClass
 jsii-calc.BaseJsii976=software.amazon.jsii.tests.calculator.BaseJsii976
 jsii-calc.Bell=software.amazon.jsii.tests.calculator.Bell
 jsii-calc.BinaryOperation=software.amazon.jsii.tests.calculator.BinaryOperation
@@ -25733,6 +25884,7 @@ jsii-calc.ExtendsInternalInterface=software.amazon.jsii.tests.calculator.Extends
 jsii-calc.ExternalClass=software.amazon.jsii.tests.calculator.ExternalClass
 jsii-calc.ExternalEnum=software.amazon.jsii.tests.calculator.ExternalEnum
 jsii-calc.ExternalStruct=software.amazon.jsii.tests.calculator.ExternalStruct
+jsii-calc.FullCombo=software.amazon.jsii.tests.calculator.FullCombo
 jsii-calc.GiveMeStructs=software.amazon.jsii.tests.calculator.GiveMeStructs
 jsii-calc.Greetee=software.amazon.jsii.tests.calculator.Greetee
 jsii-calc.GreetingAugmenter=software.amazon.jsii.tests.calculator.GreetingAugmenter
@@ -25748,6 +25900,7 @@ jsii-calc.IExtendsPrivateInterface=software.amazon.jsii.tests.calculator.IExtend
 jsii-calc.IExternalInterface=software.amazon.jsii.tests.calculator.IExternalInterface
 jsii-calc.IFriendlier=software.amazon.jsii.tests.calculator.IFriendlier
 jsii-calc.IFriendlyRandomGenerator=software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator
+jsii-calc.IIndirectlyImplemented=software.amazon.jsii.tests.calculator.IIndirectlyImplemented
 jsii-calc.IInterfaceImplementedByAbstractClass=software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass
 jsii-calc.IInterfaceThatShouldNotBeADataType=software.amazon.jsii.tests.calculator.IInterfaceThatShouldNotBeADataType
 jsii-calc.IInterfaceWithInternal=software.amazon.jsii.tests.calculator.IInterfaceWithInternal

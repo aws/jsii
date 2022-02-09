@@ -868,6 +868,14 @@ exports[`showAll 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ methodTwo() method
  │   │     └── returns: void
+ │   ├─┬ class BaseClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ method() method
+ │   │   │ └── returns: number
+ │   │   └─┬ property property
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ class BaseJsii976
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
@@ -1402,6 +1410,10 @@ exports[`showAll 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ mutableProperty property
  │   │     └── type: Optional<number>
+ │   ├─┬ class FullCombo
+ │   │ ├── base: BaseClass
+ │   │ ├── interfaces: IIndirectlyImplemented
+ │   │ └── members
  │   ├─┬ class GiveMeStructs
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2762,6 +2774,15 @@ exports[`showAll 1`] = `
  │   │ │ ├── IRandomNumberGenerator
  │   │ │ └── IFriendly
  │   │ └── members
+ │   ├─┬ interface IIndirectlyImplemented
+ │   │ └─┬ members
+ │   │   ├─┬ method() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: number
+ │   │   └─┬ property property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface IInterfaceImplementedByAbstractClass
  │   │ └─┬ members
  │   │   └─┬ propFromInterface property
@@ -3579,6 +3600,7 @@ exports[`types 1`] = `
  │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class BaseClass
  │   ├── class BaseJsii976
  │   ├── class Bell
  │   ├── class BinaryOperation
@@ -3617,6 +3639,7 @@ exports[`types 1`] = `
  │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
  │   ├── class ExternalClass
+ │   ├── class FullCombo
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
@@ -3725,6 +3748,7 @@ exports[`types 1`] = `
  │   ├── interface IExternalInterface
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
+ │   ├── interface IIndirectlyImplemented
  │   ├── interface IInterfaceImplementedByAbstractClass
  │   ├── interface IInterfaceThatShouldNotBeADataType
  │   ├── interface IInterfaceWithInternal
