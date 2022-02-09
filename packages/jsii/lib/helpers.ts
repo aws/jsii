@@ -217,11 +217,15 @@ export interface TestCompilationOptions {
 
   /**
    * Parts of projectInfo to override (package name etc)
+   *
+   * @deprecated Prefer using `packageJson` instead.
    */
   readonly projectInfo?: Partial<PackageJson>;
 
   /**
    * Parts of projectInfo to override (package name etc)
+   *
+   * @default - Use some default values
    */
   readonly packageJson?: Partial<PackageJson>;
 }

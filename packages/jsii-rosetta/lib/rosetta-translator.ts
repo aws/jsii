@@ -1,9 +1,11 @@
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 
 import { TypeFingerprinter } from './jsii/fingerprinting';
 import { TARGET_LANGUAGES } from './languages';
 import * as logging from './logging';
 import { TypeScriptSnippet, completeSource } from './snippet';
+import { collectDependencies, validateAvailableDependencies, prepareDependencyDirectory } from './snippet-dependencies';
 import { snippetKey } from './tablets/key';
 import { LanguageTablet, TranslatedSnippet } from './tablets/tablets';
 import { translateAll, TranslateAllResult } from './translate_all';
@@ -154,14 +156,49 @@ export class RosettaTranslator {
     };
   }
 
-  public async translateAll(snippets: TypeScriptSnippet[], addToTablet = true): Promise<TranslateAllResult> {
-    const result = await translateAll(snippets, this.includeCompilerDiagnostics);
+  public async translateAll(snippets: TypeScriptSnippet[], addToTablet?: boolean): Promise<TranslateAllResult>;
+  public async translateAll(snippets: TypeScriptSnippet[], options?: TranslateAllOptions): Promise<TranslateAllResult>;
+  public async translateAll(
+    snippets: TypeScriptSnippet[],
+    optionsOrAddToTablet?: boolean | TranslateAllOptions,
+  ): Promise<TranslateAllResult> {
+    const options =
+      optionsOrAddToTablet && typeof optionsOrAddToTablet === 'object'
+        ? optionsOrAddToTablet
+        : { addToTablet: optionsOrAddToTablet };
+
+    const exampleDependencies = collectDependencies(snippets);
+
+    let compilationDirectory;
+    let cleanCompilationDir = false;
+    if (options?.compilationDirectory) {
+      // If the user provided a directory, we're going to trust-but-confirm.
+      await validateAvailableDependencies(options.compilationDirectory, exampleDependencies);
+      compilationDirectory = options.compilationDirectory;
+    } else {
+      compilationDirectory = await prepareDependencyDirectory(exampleDependencies);
+      cleanCompilationDir = true;
+    }
+
+    const origDir = process.cwd();
+    // Easiest way to get a fixed working directory (for sources) in is to chdir
+    process.chdir(compilationDirectory);
+
+    let result;
+    try {
+      result = await translateAll(snippets, this.includeCompilerDiagnostics);
+    } finally {
+      process.chdir(origDir);
+      if (cleanCompilationDir) {
+        await fs.remove(compilationDirectory);
+      }
+    }
 
     const fingerprinted = result.translatedSnippets.map((snippet) =>
       snippet.withFingerprint(this.fingerprinter.fingerprintAll(snippet.fqnsReferenced())),
     );
 
-    if (addToTablet) {
+    if (options?.addToTablet ?? true) {
       for (const translation of fingerprinted) {
         this.tablet.addSnippet(translation);
       }
@@ -260,4 +297,16 @@ export interface ReadFromCacheResults {
   readonly dirtyTranslatorCount: number;
   readonly dirtyTypesCount: number;
   readonly dirtyDidntCompile: number;
+}
+
+export interface TranslateAllOptions {
+  /**
+   * @default - Create a temporary directory with all necessary packages
+   */
+  readonly compilationDirectory?: string;
+
+  /**
+   * @default true
+   */
+  readonly addToTablet?: boolean;
 }

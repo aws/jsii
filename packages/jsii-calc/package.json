@@ -33,7 +33,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "jsii --project-references --silence-warnings reserved-word && npm run lint && jsii-rosetta --compile",
+    "build": "jsii --project-references --silence-warnings reserved-word && npm run lint && jsii-rosetta --compile --verbose",
     "watch": "jsii --project-references -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
