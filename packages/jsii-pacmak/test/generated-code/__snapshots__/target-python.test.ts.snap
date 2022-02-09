@@ -3017,6 +3017,27 @@ class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Augmentable
         return typing.cast(None, jsii.invoke(self, "methodTwo", []))
 
 
+class BaseClass(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.BaseClass"):
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.invoke(self, "method", []))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="property")
+    def property(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "property"))
+
+
+class _BaseClassProxy(BaseClass):
+    pass
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
+typing.cast(typing.Any, BaseClass).__jsii_proxy_class__ = lambda : _BaseClassProxy
+
+
 class BaseJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.BaseJsii976"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
@@ -5643,6 +5664,34 @@ class _IFriendlierProxy(
 
 # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
 typing.cast(typing.Any, IFriendlier).__jsii_proxy_class__ = lambda : _IFriendlierProxy
+
+
+@jsii.interface(jsii_type="jsii-calc.IIndirectlyImplemented")
+class IIndirectlyImplemented(typing_extensions.Protocol):
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="property")
+    def property(self) -> builtins.str:
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> jsii.Number:
+        ...
+
+
+class _IIndirectlyImplementedProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.IIndirectlyImplemented"
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="property")
+    def property(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "property"))
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.invoke(self, "method", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IIndirectlyImplemented).__jsii_proxy_class__ = lambda : _IIndirectlyImplementedProxy
 
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceImplementedByAbstractClass")
@@ -9758,6 +9807,11 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
         jsii.set(self, "readWriteString", value)
 
 
+@jsii.implements(IIndirectlyImplemented)
+class FullCombo(BaseClass, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.FullCombo"):
+    pass
+
+
 @jsii.interface(jsii_type="jsii-calc.IFriendlyRandomGenerator")
 class IFriendlyRandomGenerator(
     IRandomNumberGenerator,
@@ -9998,6 +10052,7 @@ __all__ = [
     "AnonymousImplementationProvider",
     "AsyncVirtualMethods",
     "AugmentableClass",
+    "BaseClass",
     "BaseJsii976",
     "Bell",
     "BinaryOperation",
@@ -10055,6 +10110,7 @@ __all__ = [
     "ExternalClass",
     "ExternalEnum",
     "ExternalStruct",
+    "FullCombo",
     "GiveMeStructs",
     "Greetee",
     "GreetingAugmenter",
@@ -10070,6 +10126,7 @@ __all__ = [
     "IExternalInterface",
     "IFriendlier",
     "IFriendlyRandomGenerator",
+    "IIndirectlyImplemented",
     "IInterfaceImplementedByAbstractClass",
     "IInterfaceThatShouldNotBeADataType",
     "IInterfaceWithInternal",

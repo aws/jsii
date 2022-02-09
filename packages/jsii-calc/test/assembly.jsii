@@ -208,7 +208,7 @@
     "jsii-calc.cdk16625": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 23
+        "line": 24
       },
       "symbolId": "lib/cdk16625/index:"
     },
@@ -229,28 +229,28 @@
     "jsii-calc.module2530": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 20
+        "line": 21
       },
       "symbolId": "lib/module2530/index:"
     },
     "jsii-calc.module2617": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 16
+        "line": 17
       },
       "symbolId": "lib/module2617/index:"
     },
     "jsii-calc.module2647": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 16
       },
       "symbolId": "lib/module2647/index:"
     },
     "jsii-calc.module2689": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 17
+        "line": 18
       },
       "symbolId": "lib/module2689/index:"
     },
@@ -285,7 +285,7 @@
     "jsii-calc.module2692": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 19
+        "line": 20
       },
       "symbolId": "lib/module2692/index:"
     },
@@ -306,21 +306,21 @@
     "jsii-calc.module2700": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 21
+        "line": 22
       },
       "symbolId": "lib/module2700/index:"
     },
     "jsii-calc.module2702": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 18
+        "line": 19
       },
       "symbolId": "lib/module2702/index:"
     },
     "jsii-calc.nodirect": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 14
+        "line": 15
       },
       "symbolId": "lib/no-direct-types/index:"
     },
@@ -341,14 +341,14 @@
     "jsii-calc.onlystatic": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 13
+        "line": 14
       },
       "symbolId": "lib/only-static/index:"
     },
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 12
+        "line": 13
       },
       "readme": {
         "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule` module.\n"
@@ -1651,6 +1651,63 @@
       ],
       "name": "AugmentableClass",
       "symbolId": "lib/compliance:AugmentableClass"
+    },
+    "jsii-calc.BaseClass": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.BaseClass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/indirect-implementation.ts",
+          "line": 9
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/indirect-implementation.ts",
+        "line": 6
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/indirect-implementation.ts",
+            "line": 11
+          },
+          "name": "method",
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          }
+        }
+      ],
+      "name": "BaseClass",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/indirect-implementation.ts",
+            "line": 7
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/indirect-implementation:BaseClass"
     },
     "jsii-calc.BaseJsii976": {
       "assembly": "jsii-calc",
@@ -5652,6 +5709,24 @@
       ],
       "symbolId": "lib/stability:ExternalStruct"
     },
+    "jsii-calc.FullCombo": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.BaseClass",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.FullCombo",
+      "interfaces": [
+        "jsii-calc.IIndirectlyImplemented"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/indirect-implementation.ts",
+        "line": 16
+      },
+      "name": "FullCombo",
+      "symbolId": "lib/indirect-implementation:FullCombo"
+    },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "docs": {
@@ -6334,6 +6409,55 @@
       },
       "name": "IFriendlyRandomGenerator",
       "symbolId": "lib/calculator:IFriendlyRandomGenerator"
+    },
+    "jsii-calc.IIndirectlyImplemented": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.IIndirectlyImplemented",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/indirect-implementation.ts",
+        "line": 1
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/indirect-implementation.ts",
+            "line": 3
+          },
+          "name": "method",
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          }
+        }
+      ],
+      "name": "IIndirectlyImplemented",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/indirect-implementation.ts",
+            "line": 2
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/indirect-implementation:IIndirectlyImplemented"
     },
     "jsii-calc.IInterfaceImplementedByAbstractClass": {
       "assembly": "jsii-calc",
@@ -16807,5 +16931,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "lt+IM5wKyCp+HghCCEt9CX5x65ePqyHvu/emNzsxqbg="
+  "fingerprint": "sqJBfFAp4Hg5OgntWB3IRyRS7mpPF7G3qoh4NYSDeSw="
 }
