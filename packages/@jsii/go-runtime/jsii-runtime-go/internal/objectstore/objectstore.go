@@ -195,7 +195,7 @@ func (o *ObjectStore) GetObjectAs(instanceID string, typ reflect.Type) (value re
 	found = false
 	if values, exists := o.idToObjects[instanceID]; exists {
 		for value = range values {
-			if value.CanConvert(typ) {
+			if value.Type().AssignableTo(typ) {
 				value = value.Convert(typ)
 				found = true
 				return
