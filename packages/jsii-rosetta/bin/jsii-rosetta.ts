@@ -238,20 +238,13 @@ function main() {
           args.fail = args.f = true;
         }
 
-        // Easiest way to get a fixed working directory (for sources) in is to
-        // chdir, since underneath the in-memory layer we're using a regular TS
-        // compilerhost. Have to make all file references absolute before we chdir
-        // though.
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
 
         const absCacheFrom = fmap(args.cache ?? args['cache-from'], path.resolve);
         const absCacheTo = fmap(args.cache ?? args['cache-to'] ?? args.output, path.resolve);
 
-        if (args.directory) {
-          process.chdir(args.directory);
-        }
-
         const extractOptions: ExtractOptions = {
+          compilationDirectory: args.directory,
           includeCompilerDiagnostics: !!args.compile,
           validateAssemblies: args['validate-assemblies'],
           only: args.include,

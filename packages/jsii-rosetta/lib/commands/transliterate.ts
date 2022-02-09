@@ -6,6 +6,7 @@ import { TargetLanguage } from '../languages';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { typeScriptSnippetFromVisibleSource, ApiLocation } from '../snippet';
+import { Mutable } from '../util';
 import { extractSnippets } from './extract';
 
 export interface TransliterateAssemblyOptions {
@@ -136,7 +137,6 @@ async function loadAssemblies(
   return result;
 }
 
-type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
 type AssemblyLoader = () => Promise<Mutable<Assembly>>;
 
 function transliterateType(type: Type, rosetta: RosettaTabletReader, language: TargetLanguage): void {

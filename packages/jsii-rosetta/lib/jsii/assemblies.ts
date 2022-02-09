@@ -3,6 +3,7 @@ import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
+import { findDependencyDirectory, isBuiltinModule } from '../find-utils';
 import { fixturize } from '../fixtures';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import {
@@ -12,6 +13,7 @@ import {
   SnippetParameters,
   ApiLocation,
   parseMetadataLine,
+  CompilationDependency,
   INITIALIZER_METHOD_NAME,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
@@ -37,9 +39,17 @@ const sortJson = require('sort-json');
  */
 export const EXAMPLE_METADATA_JSDOCTAG = 'exampleMetadata';
 
+interface RosettaPackageJson extends spec.PackageJson {
+  readonly jsiiRosetta?: {
+    readonly strict?: boolean;
+    readonly exampleDependencies?: Record<string, string>;
+  };
+}
+
 export interface LoadedAssembly {
   readonly assembly: spec.Assembly;
   readonly directory: string;
+  readonly packageJson?: RosettaPackageJson;
 }
 
 /**
@@ -57,10 +67,15 @@ export async function loadAssemblies(
       return loadAssembly(path.join(location, '.jsii'));
     }
 
-    return {
-      assembly: await loadAssemblyFromFile(location, validateAssemblies),
-      directory: path.dirname(location),
-    };
+    const directory = path.dirname(location);
+    const pjLocation = path.join(directory, 'package.json');
+
+    const [assembly, packageJson] = await Promise.all([
+      loadAssemblyFromFile(location, validateAssemblies),
+      (await fs.pathExists(pjLocation)) ? fs.readJSON(pjLocation, { encoding: 'utf-8' }) : Promise.resolve(undefined),
+    ]);
+
+    return { assembly, directory, packageJson };
   }
 }
 
@@ -171,36 +186,50 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
   }
 }
 
-export function allTypeScriptSnippets(assemblies: readonly LoadedAssembly[], loose = false): TypeScriptSnippet[] {
-  const ret = new Array<TypeScriptSnippet>();
+export async function allTypeScriptSnippets(
+  assemblies: readonly LoadedAssembly[],
+  loose = false,
+): Promise<TypeScriptSnippet[]> {
+  return Promise.all(
+    assemblies
+      .flatMap((loaded) => allSnippetSources(loaded.assembly).map((source) => ({ source, loaded })))
+      .flatMap(({ source, loaded }) => {
+        switch (source.type) {
+          case 'example':
+            return [
+              {
+                snippet: updateParameters(
+                  typeScriptSnippetFromSource(
+                    source.source,
+                    { api: source.location, field: { field: 'example' } },
+                    isStrict(loaded),
+                  ),
+                  source.metadata ?? {},
+                ),
+                loaded,
+              },
+            ];
+          case 'markdown':
+            return extractTypescriptSnippetsFromMarkdown(source.markdown, source.location, isStrict(loaded)).map(
+              (snippet) => ({ snippet, loaded }),
+            );
+        }
+      })
+      .map(async ({ snippet, loaded }) => {
+        const isInfused = snippet.parameters?.infused != null;
 
-  for (const { assembly, directory } of assemblies) {
-    const strict = enforcesStrictMode(assembly);
-    for (const source of allSnippetSources(assembly)) {
-      switch (source.type) {
-        case 'example':
-          // If an example is an infused example, we do not care about compiler errors.
-          // We are relying on the tablet cache to have this example stored already.
-          const [strictForExample, looseForExample] =
-            source.metadata?.infused !== undefined ? [false, true] : [strict, loose];
-          const location = { api: source.location, field: { field: 'example' } } as const;
-          const snippet = updateParameters(typeScriptSnippetFromSource(source.source, location, strictForExample), {
-            [SnippetParameters.$PROJECT_DIRECTORY]: directory,
-            ...source.metadata,
-          });
-          ret.push(fixturize(snippet, looseForExample));
-          break;
-        case 'markdown':
-          for (const snippet of extractTypescriptSnippetsFromMarkdown(source.markdown, source.location, strict)) {
-            const withDirectory = updateParameters(snippet, {
-              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
-            });
-            ret.push(fixturize(withDirectory, loose));
-          }
-      }
-    }
-  }
-  return ret;
+        // Ignore fixturization errors if requested on this command, or if the snippet was infused
+        const ignoreFixtureErrors = loose || isInfused;
+
+        // Also if the snippet was infused: switch off 'strict' mode if it was set
+        if (isInfused) {
+          snippet = { ...snippet, strict: false };
+        }
+
+        snippet = await withDependencies(loaded, withProjectDirectory(loaded.directory, snippet));
+        return fixturize(snippet, ignoreFixtureErrors);
+      }),
+  );
 }
 
 /**
@@ -317,4 +346,76 @@ export function findContainingSubmodule(assembly: spec.Assembly, fqn: string): s
     }
   }
   return undefined;
+}
+
+function withProjectDirectory(dir: string, snippet: TypeScriptSnippet) {
+  return updateParameters(snippet, {
+    [SnippetParameters.$PROJECT_DIRECTORY]: dir,
+  });
+}
+
+/**
+ * Return a TypeScript snippet with dependencies added
+ *
+ * The dependencies will be taken from the package.json, and will consist of:
+ *
+ * - The package itself
+ * - The package's dependencies and peerDependencies
+ * - Any additional dependencies declared in `jsiiRosetta.exampleDependencies`.
+ */
+async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet): Promise<TypeScriptSnippet> {
+  const compilationDependencies: Record<string, CompilationDependency> = {};
+
+  compilationDependencies[asm.assembly.name] = {
+    type: 'concrete',
+    resolvedDirectory: await fs.realpath(asm.directory),
+  };
+
+  Object.assign(
+    compilationDependencies,
+    mkDict(
+      await Promise.all(
+        Object.keys({ ...asm.packageJson?.dependencies, ...asm.packageJson?.peerDependencies })
+          .filter((name) => !isBuiltinModule(name))
+          .filter(
+            (name) =>
+              !asm.packageJson?.bundledDependencies?.includes(name) &&
+              !asm.packageJson?.bundleDependencies?.includes(name),
+          )
+          .map(
+            async (name) =>
+              [
+                name,
+                {
+                  type: 'concrete',
+                  resolvedDirectory: await fs.realpath(await findDependencyDirectory(name, asm.directory)),
+                },
+              ] as const,
+          ),
+      ),
+    ),
+  );
+
+  Object.assign(
+    compilationDependencies,
+    mkDict(
+      Object.entries(asm.packageJson?.jsiiRosetta?.exampleDependencies ?? {}).map(
+        ([name, versionRange]) => [name, { type: 'symbolic', versionRange }] as const,
+      ),
+    ),
+  );
+
+  return {
+    ...snippet,
+    compilationDependencies,
+  };
+}
+
+/**
+ * Whether samples in the assembly should be treated as strict
+ *
+ * True if the strict flag is found in the package.json (modern) or the assembly itself (legacy).
+ */
+function isStrict(loaded: LoadedAssembly) {
+  return loaded.packageJson?.jsiiRosetta?.strict ?? enforcesStrictMode(loaded.assembly);
 }

@@ -162,7 +162,7 @@ export class RosettaTabletReader {
     // Inventarize the snippets from this assembly, but only if there's a chance
     // we're going to need them.
     if (this.unknownSnippets === UnknownSnippetMode.TRANSLATE) {
-      for (const tsnip of allTypeScriptSnippets([{ assembly, directory: assemblyDir }], this.loose)) {
+      for (const tsnip of await allTypeScriptSnippets([{ assembly, directory: assemblyDir }], this.loose)) {
         this.extractedSnippets.set(snippetKey(tsnip), tsnip);
       }
     }

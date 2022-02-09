@@ -75,7 +75,7 @@ export async function infuse(assemblyLocations: string[], options?: InfuseOption
   }
   availableTranslations.addTablets(...Object.values(defaultTablets));
 
-  const { translationsByFqn, originalsByKey } = availableSnippetsPerFqn(assemblies, availableTranslations);
+  const { translationsByFqn, originalsByKey } = await availableSnippetsPerFqn(assemblies, availableTranslations);
 
   const additionalOutputTablet = options?.cacheToFile
     ? await LanguageTablet.fromOptionalFile(options?.cacheToFile)
@@ -244,10 +244,10 @@ function insertExample(
  *
  * Returns a map of fqns to a list of keys that represent snippets that include the fqn.
  */
-function availableSnippetsPerFqn(asms: readonly LoadedAssembly[], translationsTablet: LanguageTablet) {
+async function availableSnippetsPerFqn(asms: readonly LoadedAssembly[], translationsTablet: LanguageTablet) {
   const ret = new DefaultRecord<TranslatedSnippet>();
 
-  const originalsByKey = indexBy(allTypeScriptSnippets(asms), snippetKey);
+  const originalsByKey = indexBy(await allTypeScriptSnippets(asms), snippetKey);
 
   const translations = Object.keys(originalsByKey)
     .map((key) => translationsTablet.tryGetSnippet(key))

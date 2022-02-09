@@ -44,20 +44,14 @@ someObject.someMethod('foo', {
 ### Enforcing correct examples
 
 By default, Rosetta will accept non-compiling examples. If you set
-`jsii.metadata.jsii.rosetta.strict` to `true` in your `package.json`,
+`jsiiRosetta.strict` to `true` in your `package.json`,
 the Rosetta command will fail if any example contains an error:
 
 ```js
 /// package.json
 {
-  "jsii": {
-    "metadata": {
-      "jsii": {
-        "rosetta": {
-          "strict": true
-        }
-      }
-    }
+  "jsiiRosetta": {
+    "strict": true
   }
 }
 ```
@@ -113,6 +107,32 @@ To specify fixtures in an `@example` block, use an accompanying `@exampleMetadat
  * new MyCoolClass();
  */
 ````
+
+### Dependencies
+
+When compiling examples, Rosetta will make sure your package itself and all of
+its `dependencies` and `peerDependencies` are available in the dependency
+closure that your examples will be compiled in.
+
+If there are packages you want to use in an example that should *not* be part
+of your package's dependencies, declare them in `jsiiRosetta.exampleDependencies`
+in your `package.json`:
+
+```js
+/// package.json
+{
+  "jsiiRosetta": {
+    "exampleDependencies": {
+      "@some-other/package": "^1.2.3",
+      "@yet-another/package": "*",
+    }
+  }
+}
+```
+
+You can also set up a directory with correct dependencies yourself, and pass
+`--directory` when running `jsii-rosetta extract`. We recommend using the
+automatic closure building mechanism and specifying `exampleDependencies` though.
 
 ## Rosetta for package publishers
 

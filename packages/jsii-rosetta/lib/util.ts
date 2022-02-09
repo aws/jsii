@@ -24,6 +24,12 @@ export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: No
   }
 }
 
+export function formatList(xs: string[], n = 5) {
+  const tooMany = xs.length - n;
+
+  return tooMany > 0 ? `${xs.slice(0, n).join(', ')} (and ${tooMany} more)` : xs.join(', ');
+}
+
 export const StrictBrand = 'jsii.strict';
 interface MaybeStrictDiagnostic {
   readonly [StrictBrand]?: boolean;
@@ -205,6 +211,8 @@ export function isDefined<A>(x: A): x is NonNullable<A> {
 export function indexBy<A>(xs: A[], fn: (x: A) => string): Record<string, A> {
   return mkDict(xs.map((x) => [fn(x), x] as const));
 }
+
+export type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };
 
 export function commentToken(language: string) {
   // This is future-proofed a bit, but don't read too much in this...
