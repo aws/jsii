@@ -2603,7 +2603,7 @@ func (j *jsiiProxy_CompositeOperation) SetStringStyle(val CompositeOperation_Com
 	)
 }
 
-// (deprecated) String representation of the value.
+// String representation of the value.
 func (c *jsiiProxy_CompositeOperation) ToString() *string {
 	var returns *string
 
@@ -3366,7 +3366,7 @@ func NewAdd_Override(a Add, lhs scopejsiicalclib.NumericValue, rhs scopejsiicalc
 	)
 }
 
-// (deprecated) Say hello!
+// Say hello!
 func (a *jsiiProxy_Add) Hello() *string {
 	var returns *string
 
@@ -3380,7 +3380,7 @@ func (a *jsiiProxy_Add) Hello() *string {
 	return returns
 }
 
-// (deprecated) String representation of the value.
+// String representation of the value.
 func (a *jsiiProxy_Add) ToString() *string {
 	var returns *string
 
@@ -4224,6 +4224,50 @@ func (a *jsiiProxy_AugmentableClass) MethodTwo() {
 	)
 }
 
+type BaseClass interface {
+	Property() *string
+	Method() *float64
+}
+
+// The jsii proxy struct for BaseClass
+type jsiiProxy_BaseClass struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_BaseClass) Property() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"property",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewBaseClass_Override(b BaseClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.BaseClass",
+		nil, // no parameters
+		b,
+	)
+}
+
+func (b *jsiiProxy_BaseClass) Method() *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		b,
+		"method",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
 type BaseJsii976 interface {
 }
 
@@ -4379,7 +4423,7 @@ func NewBinaryOperation_Override(b BinaryOperation, lhs scopejsiicalclib.Numeric
 	)
 }
 
-// (deprecated) Say hello!
+// Say hello!
 func (b *jsiiProxy_BinaryOperation) Hello() *string {
 	var returns *string
 
@@ -4744,7 +4788,7 @@ func (c *jsiiProxy_Calculator) ReadUnionValue() *float64 {
 	return returns
 }
 
-// (deprecated) String representation of the value.
+// String representation of the value.
 func (c *jsiiProxy_Calculator) ToString() *string {
 	var returns *string
 
@@ -6663,7 +6707,7 @@ func NewDoubleTrouble_Override(d DoubleTrouble) {
 	)
 }
 
-// (deprecated) Say hello!
+// Say hello!
 func (d *jsiiProxy_DoubleTrouble) Hello() *string {
 	var returns *string
 
@@ -7275,6 +7319,43 @@ type ExternalStruct struct {
 	ReadonlyProperty *string \`json:"readonlyProperty" yaml:"readonlyProperty"\`
 }
 
+type FullCombo interface {
+	BaseClass
+	IIndirectlyImplemented
+	Property() *string
+	Method() *float64
+}
+
+// The jsii proxy struct for FullCombo
+type jsiiProxy_FullCombo struct {
+	jsiiProxy_BaseClass
+	jsiiProxy_IIndirectlyImplemented
+}
+
+func (j *jsiiProxy_FullCombo) Property() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"property",
+		&returns,
+	)
+	return returns
+}
+
+
+func (f *jsiiProxy_FullCombo) Method() *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		f,
+		"method",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
 type GiveMeStructs interface {
 	StructLiteral() *scopejsiicalclib.StructWithOnlyOptionals
 	DerivedToFirst(derived *DerivedStruct) *scopejsiicalclib.MyFirstStruct
@@ -7801,6 +7882,39 @@ func (i *jsiiProxy_IFriendlyRandomGenerator) Next() *float64 {
 		&returns,
 	)
 
+	return returns
+}
+
+type IIndirectlyImplemented interface {
+	Method() *float64
+	Property() *string
+}
+
+// The jsii proxy for IIndirectlyImplemented
+type jsiiProxy_IIndirectlyImplemented struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IIndirectlyImplemented) Method() *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		i,
+		"method",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (j *jsiiProxy_IIndirectlyImplemented) Property() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"property",
+		&returns,
+	)
 	return returns
 }
 
@@ -10399,7 +10513,7 @@ func (m *jsiiProxy_Multiply) Goodbye() *string {
 	return returns
 }
 
-// (deprecated) Say hello!
+// Say hello!
 func (m *jsiiProxy_Multiply) Hello() *string {
 	var returns *string
 
@@ -10427,7 +10541,7 @@ func (m *jsiiProxy_Multiply) Next() *float64 {
 	return returns
 }
 
-// (deprecated) String representation of the value.
+// String representation of the value.
 func (m *jsiiProxy_Multiply) ToString() *string {
 	var returns *string
 
@@ -10547,7 +10661,7 @@ func (n *jsiiProxy_Negate) Goodbye() *string {
 	return returns
 }
 
-// (deprecated) Say hello!
+// Say hello!
 func (n *jsiiProxy_Negate) Hello() *string {
 	var returns *string
 
@@ -10561,7 +10675,7 @@ func (n *jsiiProxy_Negate) Hello() *string {
 	return returns
 }
 
-// (deprecated) String representation of the value.
+// String representation of the value.
 func (n *jsiiProxy_Negate) ToString() *string {
 	var returns *string
 
@@ -11568,7 +11682,7 @@ func (j *jsiiProxy_Power) SetStringStyle(val composition.CompositeOperation_Comp
 	)
 }
 
-// (deprecated) String representation of the value.
+// String representation of the value.
 func (p *jsiiProxy_Power) ToString() *string {
 	var returns *string
 
@@ -13148,7 +13262,7 @@ func (j *jsiiProxy_Sum) SetStringStyle(val composition.CompositeOperation_Compos
 	)
 }
 
-// (deprecated) String representation of the value.
+// String representation of the value.
 func (s *jsiiProxy_Sum) ToString() *string {
 	var returns *string
 
@@ -14684,6 +14798,17 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.BaseClass",
+		reflect.TypeOf((*BaseClass)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "method", GoMethod: "Method"},
+			_jsii_.MemberProperty{JsiiProperty: "property", GoGetter: "Property"},
+		},
+		func() interface{} {
+			return &jsiiProxy_BaseClass{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.BaseJsii976",
 		reflect.TypeOf((*BaseJsii976)(nil)).Elem(),
 		nil, // no members
@@ -15211,6 +15336,20 @@ func init() {
 		reflect.TypeOf((*ExternalStruct)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.FullCombo",
+		reflect.TypeOf((*FullCombo)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "method", GoMethod: "Method"},
+			_jsii_.MemberProperty{JsiiProperty: "property", GoGetter: "Property"},
+		},
+		func() interface{} {
+			j := jsiiProxy_FullCombo{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_BaseClass)
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IIndirectlyImplemented)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.GiveMeStructs",
 		reflect.TypeOf((*GiveMeStructs)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -15369,6 +15508,17 @@ func init() {
 			_jsii_.InitJsiiProxy(&j.Type__scopejsiicalclibIFriendly)
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_IRandomNumberGenerator)
 			return &j
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.IIndirectlyImplemented",
+		reflect.TypeOf((*IIndirectlyImplemented)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "method", GoMethod: "Method"},
+			_jsii_.MemberProperty{JsiiProperty: "property", GoGetter: "Property"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IIndirectlyImplemented{}
 		},
 	)
 	_jsii_.RegisterInterface(
@@ -16936,7 +17086,7 @@ func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
 	)
 }
 
-// (deprecated) Say hello!
+// Say hello!
 func (e *jsiiProxy_ExtendAndImplement) Hello() *string {
 	var returns *string
 

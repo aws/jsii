@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import { compileJsiiForTest } from 'jsii';
 import * as path from 'path';
 
 import {
@@ -12,7 +13,10 @@ import {
 import * as extract from '../../lib/commands/extract';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
 import { TARGET_LANGUAGES } from '../../lib/languages';
+import * as logging from '../../lib/logging';
 import { TestJsiiModule, DUMMY_JSII_CONFIG, testSnippetLocation } from '../testutil';
+
+jest.setTimeout(30_000);
 
 const DUMMY_README = `
   Here is an example of how to use ClassA:
@@ -440,8 +444,8 @@ describe('infused examples', () => {
         'index.ts': `
         /**
          * ClassA
-         * 
-         * @exampleMetadata infused 
+         *
+         * @exampleMetadata infused
          * @example x
          */
         export class ClassA {
@@ -520,13 +524,106 @@ describe('infused examples', () => {
   });
 });
 
+test('can use additional dependencies from monorepo', async () => {
+  logging.configure({ level: logging.Level.VERBOSE });
+  const asm = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+        /**
+         * Class to hold values
+         *
+         * @example
+         * import { ValueHolder } from 'my_assembly';
+         * import { SomeClass } from 'otherModule';
+         * new ValueHolder(new SomeClass());
+         */
+        export class ValueHolder {
+          constructor(public readonly theValue: any) { }
+        }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+      jsiiRosetta: {
+        exampleDependencies: {
+          // This relies on the fact that Rosetta will find the package in the monorepo
+          otherModule: '*',
+        },
+      },
+    },
+  );
+  try {
+    // GIVEN - install some random other module
+    await asm.workspace.addDependency(
+      await compileJsiiForTest(
+        {
+          'index.ts': 'export class SomeClass { }',
+        },
+        {
+          packageJson: {
+            name: 'otherModule',
+          },
+        },
+      ),
+    );
+    // GIVEN - a lerna.json that would find that package
+    await fs.writeJson(path.join(asm.workspaceDirectory, 'lerna.json'), {
+      packages: ['node_modules/*'],
+    });
+
+    // WHEN
+    await extract.extractSnippets([asm.moduleDirectory], defaultExtractOptions);
+    // THEN -- did not throw an error
+  } finally {
+    await asm.cleanup();
+  }
+});
+
+test('can use additional dependencies from NPM', async () => {
+  const asm = await TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+        /**
+         * Class to hold values
+         *
+         * @example
+         * import { ValueHolder } from 'my_assembly';
+         * import { ConstructOrder } from 'constructs';
+         * new ValueHolder(ConstructOrder.PREORDER);
+         */
+        export class ValueHolder {
+          constructor(public readonly theValue: any) { }
+        }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+      jsiiRosetta: {
+        exampleDependencies: {
+          // This relies on the fact that Rosetta will find the package in the monorepo
+          constructs: '^10.0.0',
+        },
+      },
+    },
+  );
+  try {
+    // WHEN
+    await extract.extractSnippets([asm.moduleDirectory], defaultExtractOptions);
+    // THEN -- did not throw an error
+  } finally {
+    await asm.cleanup();
+  }
+});
+
 test('infused examples have no diagnostics', async () => {
   const otherAssembly = await TestJsiiModule.fromSource(
     {
       'index.ts': `
       /**
        * ClassA
-       * 
+       *
        * @exampleMetadata infused
        * @example x
        */

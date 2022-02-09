@@ -114,14 +114,14 @@ namespace Example.Test.Demo
     [JsiiByValue(fqn: "testpkg.Baz")]
     public class Baz_ : Example.Test.Demo.IBaz
     {
-        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
         public bool Baz
         {
             get;
             set;
         }
 
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -129,7 +129,7 @@ namespace Example.Test.Demo
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Bar
         {
             get;
@@ -186,7 +186,7 @@ namespace Example.Test.Demo
     [JsiiByValue(fqn: "testpkg.Foo")]
     public class Foo_ : Example.Test.Demo.IFoo
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -209,7 +209,7 @@ namespace Example.Test.Demo
     [JsiiByValue(fqn: "testpkg.FooBar")]
     public class FooBar : Example.Test.Demo.IFooBar
     {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}", isOverride: true)]
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public double Foo
         {
             get;
@@ -217,7 +217,7 @@ namespace Example.Test.Demo
         }
 
         [JsiiOptional]
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true, isOverride: true)]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
         public string? Bar
         {
             get;
@@ -1592,7 +1592,7 @@ namespace Example.Test.Demo
         [JsiiByValue(fqn: "testpkg.Namespace1.Foo")]
         public class Foo : Example.Test.Demo.Namespace1.IFoo
         {
-            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}")]
             public string Bar
             {
                 get;

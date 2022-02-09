@@ -14,9 +14,10 @@ jobs:
   auto-approve:
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
     permissions:
+      actions: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - uses: hmarr/auto-approve-action@v2.1.0
-      with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
+    - run: gh pr review --approve ${{ github.event.pull_request.number }} -R ${{ github.repository }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

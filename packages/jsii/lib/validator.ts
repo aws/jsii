@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import * as assert from 'assert';
 import * as Case from 'case';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
@@ -231,17 +232,66 @@ function _defaultValidations(): ValidationFunction[] {
         spec.isClassOrInterfaceType(type) &&
         (type.interfaces?.length ?? 0) > 0
       ) {
-        for (const method of type.methods ?? []) {
-          // Overrides "win" over implementations
-          if (method.overrides) {
-            continue;
-          }
+        for (const method of _allImplementations(type, (t) => t.methods)) {
           _validateMethodImplementation(method, type);
         }
-        for (const property of type.properties ?? []) {
+        for (const property of _allImplementations(type, (t) => t.properties)) {
           _validatePropertyImplementation(property, type);
         }
       }
+    }
+
+    /**
+     * Lists all "implementations" from the given type, using the provided
+     * implementation getter. Note that abstract members may be part of the
+     * result (in particular, if `type` is an interface type, or if it's an
+     * abstract class with unimplemented members) -- I just couldn't come up
+     * with a name that actually describes this.
+     *
+     * @param type   the type which implemented members are needed.
+     * @param getter the getter to obtain methods or properties from the type.
+     *
+     * @returns a list of members (possibly empty, always defined)
+     */
+    function _allImplementations<T extends spec.Property | spec.Method>(
+      type: spec.ClassType | spec.InterfaceType,
+      getter: (type: spec.ClassType | spec.InterfaceType) => T[] | undefined,
+    ): T[] {
+      const result = new Array<T>();
+      const known = new Set<string>();
+
+      for (const member of getter(type) ?? []) {
+        result.push(member);
+        known.add(member.name);
+      }
+
+      if (spec.isClassType(type) && type.base) {
+        // We have a parent class, collect their concrete members, too (recursively)...
+        const base = _dereference(type.base, assembly, validator);
+        assert(base != null && spec.isClassType(base));
+        for (const member of _allImplementations(base, getter)) {
+          if (known.has(member.name)) {
+            continue;
+          }
+          // The member is copied, so that its `overrides` property won't be
+          // altered, since this member is "borrowed" from a parent type. We
+          // only check it, but should not record `overrides` relationships to
+          // it as those could be invalid per the parent type (i.e: the parent
+          // member may not be able to implement an interface, if that type does
+          // not actually declare implementing that).
+          const memberCopy = { ...member };
+          // Forward the related node if there's one, so diagnostics are bound.
+          const node = bindings.getRelatedNode(member);
+          if (node != null) {
+            bindings.setRelatedNode(memberCopy, node);
+          }
+
+          result.push(memberCopy);
+          known.add(member.name);
+        }
+      }
+
+      return result;
     }
 
     function _validateMethodOverride(
@@ -336,7 +386,9 @@ function _defaultValidations(): ValidationFunction[] {
             `${type.fqn}#${method.name}`,
             `implementing ${ifaceType.fqn}`,
           );
-          method.overrides = iface;
+          // We won't replace a previous overrides declaration from a method override, as those have
+          // higher precedence than an initial implementation.
+          method.overrides = method.overrides ?? iface;
           return true;
         }
         if (_validateMethodImplementation(method, ifaceType)) {
@@ -376,7 +428,9 @@ function _defaultValidations(): ValidationFunction[] {
             `${type.fqn}#${property.name}`,
             `implementing ${ifaceType.fqn}`,
           );
-          property.overrides = ifaceType.fqn;
+          // We won't replace a previous overrides declaration from a property override, as those
+          // have higher precedence than an initial implementation.
+          property.overrides = property.overrides ?? ifaceType.fqn;
           return true;
         }
         if (_validatePropertyImplementation(property, ifaceType)) {
@@ -472,45 +526,79 @@ function _defaultValidations(): ValidationFunction[] {
       label: string,
       action: string,
     ) {
+      const actualNode = bindings.getPropertyRelatedNode(actual);
+      const expectedNode = bindings.getPropertyRelatedNode(expected);
       if (!!expected.protected !== !!actual.protected) {
         const expVisibility = expected.protected ? 'protected' : 'public';
         const actVisibility = actual.protected ? 'protected' : 'public';
         diagnostic(
-          JsiiDiagnostic.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.createDetached(
+          JsiiDiagnostic.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.create(
+            actualNode?.modifiers?.find(
+              (mod) =>
+                mod.kind === ts.SyntaxKind.PublicKeyword ||
+                mod.kind === ts.SyntaxKind.ProtectedKeyword,
+            ) ?? declarationName(actualNode),
             label,
             action,
             actVisibility,
             expVisibility,
+          ).maybeAddRelatedInformation(
+            expectedNode?.modifiers?.find(
+              (mod) =>
+                mod.kind === ts.SyntaxKind.PublicKeyword ||
+                mod.kind === ts.SyntaxKind.ProtectedKeyword,
+            ) ?? declarationName(expectedNode),
+            'The implemented delcaration is here.',
           ),
         );
       }
       if (!deepEqual(expected.type, actual.type)) {
         diagnostic(
-          JsiiDiagnostic.JSII_5004_OVERRIDE_CHANGES_PROP_TYPE.createDetached(
+          JsiiDiagnostic.JSII_5004_OVERRIDE_CHANGES_PROP_TYPE.create(
+            actualNode?.type ?? declarationName(actualNode),
             label,
             action,
             actual.type,
             expected.type,
+          ).maybeAddRelatedInformation(
+            expectedNode?.type ?? declarationName(expectedNode),
+            'The implemented delcaration is here.',
           ),
         );
       }
       if (expected.immutable !== actual.immutable) {
         diagnostic(
-          JsiiDiagnostic.JSII_5010_OVERRIDE_CHANGES_MUTABILITY.createDetached(
+          JsiiDiagnostic.JSII_5010_OVERRIDE_CHANGES_MUTABILITY.create(
+            actualNode?.modifiers?.find(
+              (mod) => mod.kind === ts.SyntaxKind.ReadonlyKeyword,
+            ) ?? declarationName(actualNode),
             label,
             action,
             actual.immutable,
             expected.immutable,
+          ).maybeAddRelatedInformation(
+            expectedNode?.modifiers?.find(
+              (mod) => mod.kind === ts.SyntaxKind.ReadonlyKeyword,
+            ) ?? declarationName(expectedNode),
+            'The implemented delcaration is here.',
           ),
         );
       }
       if (expected.optional !== actual.optional) {
         diagnostic(
-          JsiiDiagnostic.JSII_5009_OVERRIDE_CHANGES_PROP_OPTIONAL.createDetached(
+          JsiiDiagnostic.JSII_5009_OVERRIDE_CHANGES_PROP_OPTIONAL.create(
+            actualNode?.questionToken ??
+              actualNode?.type ??
+              declarationName(actualNode),
             label,
             action,
             actual.optional,
             expected.optional,
+          ).maybeAddRelatedInformation(
+            expectedNode?.questionToken ??
+              expectedNode?.type ??
+              declarationName(expectedNode),
+            'The implemented delcaration is here.',
           ),
         );
       }
@@ -724,4 +812,27 @@ function _isEmpty(array: undefined | any[]): array is undefined {
  */
 function isConstantCase(x: string) {
   return !/[^A-Z0-9_]/.exec(x);
+}
+
+/**
+ * Obtains the name of the given declaration, if it has one, or returns the declaration itself.
+ * This function is meant to be used as a convenience to obtain the `ts.Node` to bind a
+ * `JsiiDianostic` instance on.
+ *
+ * It may return `undefined` but is typed as `ts.Node` so that it is easier to use with
+ * `JsiiDiagnostic` factories.
+ *
+ * @param decl the declaration which name is needed.
+ *
+ * @returns the name of the declaration if it has one, or the declaration itself. Might return
+ *          `undefined` if the provided declaration is undefined.
+ */
+function declarationName(
+  decl: ts.Declaration | ts.Expression | undefined,
+): ts.Node {
+  if (decl == null) {
+    // Pretend we returned a node - this is used to create diagnostics, worst case it'll be unbound.
+    return decl as any;
+  }
+  return ts.getNameOfDeclaration(decl) ?? decl;
 }

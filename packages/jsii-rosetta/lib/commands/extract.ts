@@ -45,6 +45,14 @@ export interface ExtractOptions {
   readonly writeToImplicitTablets?: boolean;
 
   /**
+   * What directory to compile the samples in
+   *
+   * @default - Rosetta manages the compilation directory
+   * @deprecated Samples declare their own dependencies instead
+   */
+  readonly compilationDirectory?: string;
+
+  /**
    * Make a translator (just for testing)
    */
   readonly translatorFactory?: (opts: RosettaTranslatorOptions) => RosettaTranslator;
@@ -88,7 +96,7 @@ export async function extractSnippets(
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies ?? false);
 
-  let snippets = Array.from(allTypeScriptSnippets(assemblies, options.loose));
+  let snippets = Array.from(await allTypeScriptSnippets(assemblies, options.loose));
   if (only.length > 0) {
     snippets = filterSnippets(snippets, only);
   }

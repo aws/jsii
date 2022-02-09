@@ -96,7 +96,12 @@ func (t *TypeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overri
 		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
 	}
 
+	if existing, exists := t.typeToInterfaceFQN[iface]; exists && existing != fqn {
+		return fmt.Errorf("anoter FQN was already registered with %v: %s", iface, existing)
+	}
+
 	t.fqnToType[fqn] = registeredType{iface, interfaceType}
+	t.typeToInterfaceFQN[iface] = fqn
 	t.proxyMakers[iface] = maker
 
 	// Skipping registration if there are no members, as this would have no use.

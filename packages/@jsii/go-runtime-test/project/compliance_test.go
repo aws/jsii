@@ -1462,7 +1462,6 @@ func (suite *ComplianceSuite) TestCanLeverageIndirectInterfacePolymorphism() {
 	require := suite.Require()
 	require.Equal(float64(1337), *provider.ProvideAsClass().Value())
 
-	suite.FailTest("Unable to reuse instances between parent/child interfaces", "https://github.com/aws/jsii/issues/2688")
 	require.Equal(float64(1337), *provider.ProvideAsInterface().Value())
 	require.Equal("to implement", *provider.ProvideAsInterface().Verb())
 }
@@ -1645,6 +1644,16 @@ func (suite *ComplianceSuite) TestClassCanBeUsedWhenNotExpressedlyLoaded() {
 	cdk16625.New().Test()
 }
 
+func (suite *ComplianceSuite) TestDownCasting() {
+	require := suite.Require()
+
+	anyValue := calc.SomeTypeJsii976_ReturnAnonymous()
+	var realValue calc.IReturnJsii976
+
+	jsii.UnsafeCast(anyValue, &realValue)
+
+	require.Equal(realValue.Foo(), jsii.Number(1337))
+}
 
 // required to make `go test` recognize the suite.
 func TestComplianceSuite(t *testing.T) {

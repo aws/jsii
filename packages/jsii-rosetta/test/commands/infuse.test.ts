@@ -8,6 +8,8 @@ import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../../lib/commands/infuse
 import { loadAssemblies } from '../../lib/jsii/assemblies';
 import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
+jest.setTimeout(30_000);
+
 const DUMMY_README = `
   Here is an example of how to use ClassA:
 
