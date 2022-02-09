@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.53.0](https://github.com/aws/jsii/compare/v1.52.1...v1.53.0) (2022-02-09)
+
+
+### Features
+
+* add configuration for Visual Studio Code ([#3309](https://github.com/aws/jsii/issues/3309)) ([3edf74c](https://github.com/aws/jsii/commit/3edf74cdc6486f35352aec5c98bf5a01657a1209))
+* **go:** add UnsafeCast function ([#3316](https://github.com/aws/jsii/issues/3316)) ([19da85e](https://github.com/aws/jsii/commit/19da85e57e544761b83c6c0dfc4bc3432ce4a2b3))
+* **go:** Use type registry to find the correct target type for JSII Proxy ([#3354](https://github.com/aws/jsii/issues/3354)) ([75d94ef](https://github.com/aws/jsii/commit/75d94effb71bcbdb0ab30c9b468024e0939d2084)), closes [#3353](https://github.com/aws/jsii/issues/3353) [#2819](https://github.com/aws/jsii/issues/2819)
+* **rosetta:** Rosetta manages dependencies automatically ([#3269](https://github.com/aws/jsii/issues/3269)) ([f0b811b](https://github.com/aws/jsii/commit/f0b811b5642e1093a0b59b170a70df258df39fab))
+
+
+### Bug Fixes
+
+* **dontet:** excessive overrides generated ([#3355](https://github.com/aws/jsii/issues/3355)) ([5460d66](https://github.com/aws/jsii/commit/5460d66f2db6441f7d8cfc849d16f89d3548b82a))
+* **go:** replace uses of CanConvert to Type.AssignableTo ([#3373](https://github.com/aws/jsii/issues/3373)) ([ae4ea62](https://github.com/aws/jsii/commit/ae4ea624ad4bcac7da90734ed385b0716375ee5d))
+* **go:** unable to reuse instances between child/parent interfaces ([#3321](https://github.com/aws/jsii/issues/3321)) ([70be636](https://github.com/aws/jsii/commit/70be636e2eb3e5144dab16cae62162420a4fe5a8))
+* **jsii:** breaks due to faulty version of `colors` ([#3328](https://github.com/aws/jsii/issues/3328)) ([13c0737](https://github.com/aws/jsii/commit/13c073793a9fc5b45cad93801634ce6397a2e007))
+* **jsii:** compiler allows inheriting interface-violating members ([#3343](https://github.com/aws/jsii/issues/3343)) ([b5037b9](https://github.com/aws/jsii/commit/b5037b9adf74c1978f1fd940921ce6c2050c297b)), closes [#3342](https://github.com/aws/jsii/issues/3342)
+* **jsii:** excessive overrides declarations registered ([#3375](https://github.com/aws/jsii/issues/3375)) ([64a5984](https://github.com/aws/jsii/commit/64a598487f81339e63a0aec5f7428eb99b6c7eb1))
+* **jsii:** submodule READMEs don't have literate examples ([#3347](https://github.com/aws/jsii/issues/3347)) ([5769771](https://github.com/aws/jsii/commit/576977133bd9ea0997d9bc1dd114c9407d9b5b12)), closes [aws/aws-cdk#18589](https://github.com/aws/aws-cdk/issues/18589)
+* **kernel:** kernel's private object annotations are enumerable ([#3339](https://github.com/aws/jsii/issues/3339)) ([d361c7b](https://github.com/aws/jsii/commit/d361c7bdb2d269e6fcc9c06e55d23e8fe19859a5))
+* **pacmak:** greatly reduce go code-gen memory footprint ([#3362](https://github.com/aws/jsii/issues/3362)) ([77b520f](https://github.com/aws/jsii/commit/77b520fb47989bd0dbc0c5af53a17eba0c54a439))
+* **python:** cannot call a method that takes an empty struct ([#3372](https://github.com/aws/jsii/issues/3372)) ([c36b67c](https://github.com/aws/jsii/commit/c36b67cbcd125f6b89bedf7be4ebc8fa30e1ba90)), closes [#2846](https://github.com/aws/jsii/issues/2846)
+* remove the "comments rewriter" ([#3368](https://github.com/aws/jsii/issues/3368)) ([50dd3b0](https://github.com/aws/jsii/commit/50dd3b051727a64950165efc191d554831812447))
+* **superchain:** failure to download PowerShell ([#3340](https://github.com/aws/jsii/issues/3340)) ([59eaaa3](https://github.com/aws/jsii/commit/59eaaa33734bc44d31c483cb81dc5c70b1e24dd8))
+
 ## [1.52.1](https://github.com/aws/jsii/compare/v1.52.0...v1.52.1) (2022-01-09)
 
 
