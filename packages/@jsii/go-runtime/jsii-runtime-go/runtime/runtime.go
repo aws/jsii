@@ -102,7 +102,7 @@ func RegisterStruct(fqn FQN, strct reflect.Type) {
 // element of it is not a registered jsii interface or class type).
 func InitJsiiProxy(ptr interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
-	if err := kernel.GetClient().Types().InitJsiiProxy(ptrVal); err != nil {
+	if err := kernel.GetClient().Types().InitJsiiProxy(ptrVal, ptrVal.Type()); err != nil {
 		panic(err)
 	}
 }
@@ -127,7 +127,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 			if !fieldVal.IsNil() {
 				continue
 			}
-			if err := client.Types().InitJsiiProxy(fieldVal); err != nil {
+			if err := client.Types().InitJsiiProxy(fieldVal, fieldVal.Type()); err != nil {
 				panic(err)
 			}
 
@@ -136,7 +136,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 			if !fieldVal.IsZero() {
 				continue
 			}
-			if err := client.Types().InitJsiiProxy(fieldVal); err != nil {
+			if err := client.Types().InitJsiiProxy(fieldVal, fieldVal.Type()); err != nil {
 				panic(err)
 			}
 		}

@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
-    "@types/node": "^12.20.41",
-    "eslint": "^8.6.0",
+    "@types/node": "^12.20.43",
+    "eslint": "^8.8.0",
     "jest": "^27.4.7",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.5.1",

@@ -4661,7 +4661,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * (deprecated) String representation of the value.
+     * String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -4670,7 +4670,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * (deprecated) The value.
+     * The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -5489,7 +5489,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * (deprecated) Say hello!
+     * Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -9436,7 +9436,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     }
 
     /**
-     * (deprecated) Say hello!
+     * Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -15876,7 +15876,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * (deprecated) String representation of the value.
+     * String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -15885,7 +15885,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * (deprecated) The value.
+     * The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -15943,7 +15943,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * (deprecated) Say hello!
+     * Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -15952,7 +15952,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * (deprecated) String representation of the value.
+     * String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -15961,7 +15961,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * (deprecated) The value.
+     * The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -21939,7 +21939,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * (deprecated) String representation of the value.
+     * String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -21956,7 +21956,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     public abstract @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue getExpression();
 
     /**
-     * (deprecated) The value.
+     * The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22526,7 +22526,7 @@ public class ExtendAndImplement extends software.amazon.jsii.tests.calculator.li
     }
 
     /**
-     * (deprecated) Say hello!
+     * Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override

@@ -169,7 +169,7 @@ def _make_reference_for_native(kernel, d):
         from .._runtime import python_jsii_mapping
 
         mapping = python_jsii_mapping(d)
-        if mapping:  # This means we are handling a data_type (aka Struct)
+        if mapping is not None:  # This means we are handling a data_type (aka Struct)
             return {
                 "$jsii.struct": {
                     "fqn": typeFqn,

@@ -76,7 +76,7 @@ namespace Amazon.JSII.Runtime.Deputy
                     var inheritedAttribute = method.GetAttribute<JsiiMethodAttribute>();
                     var uninheritedAttribute = method.GetAttribute<JsiiMethodAttribute>(false);
 
-                    if ((inheritedAttribute != null && uninheritedAttribute == null) || uninheritedAttribute?.IsOverride == true)
+                    if (inheritedAttribute != null && uninheritedAttribute == null)
                     {
                         yield return new Override(method: (inheritedAttribute ?? uninheritedAttribute)!.Name);
                     }
@@ -93,7 +93,7 @@ namespace Amazon.JSII.Runtime.Deputy
                     var inheritedAttribute = property.GetAttribute<JsiiPropertyAttribute>();
                     var uninheritedAttribute = property.GetAttribute<JsiiPropertyAttribute>(false);
 
-                    if ((inheritedAttribute != null && uninheritedAttribute == null) || uninheritedAttribute?.IsOverride == true)
+                    if (inheritedAttribute != null && uninheritedAttribute == null)
                     {
                         yield return new Override(property: (inheritedAttribute ?? uninheritedAttribute)!.Name);
                     }
