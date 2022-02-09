@@ -20,7 +20,7 @@
     "@octokit/rest": "^18.12.0",
     "dotenv": "^8.6.0",
     "fs-extra": "^9.1.0",
-    "jest": "^27.4.7",
+    "jest": "^27.5.1",
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
