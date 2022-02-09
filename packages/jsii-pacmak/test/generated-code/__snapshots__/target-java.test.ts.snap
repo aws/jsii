@@ -5409,14 +5409,12 @@ public abstract class BaseClass extends software.amazon.jsii.JsiiObject {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    @Override
     public @org.jetbrains.annotations.NotNull java.lang.Number method() {
         return software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
      */
-    @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
         return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
