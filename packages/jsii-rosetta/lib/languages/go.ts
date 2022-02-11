@@ -3,10 +3,10 @@
 import * as ts from 'typescript';
 
 import { analyzeObjectLiteral, determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
-import { warn } from '../logging';
 import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isExported } from '../typescript/ast-utils';
+import { ImportStatement } from '../typescript/imports';
 import { determineReturnType, inferMapElementType } from '../typescript/types';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
@@ -153,7 +153,14 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       if (ts.isIdentifier(expr)) {
         return { className: this.goName(expr.text, renderer.updateContext({ isExported: true })) };
       }
-      warn(`Unsupported class expression in "new expression" node: ${ts.SyntaxKind[expr.kind]}`);
+      if (ts.isPropertyAccessExpression(expr)) {
+        if (ts.isIdentifier(expr.expression)) {
+          return { className: expr.name.text, classNamespace: expr.expression.text };
+        }
+        renderer.reportUnsupported(expr.expression, TargetLanguage.GO);
+        return { className: expr.name.text, classNamespace: '#error#' };
+      }
+      renderer.reportUnsupported(expr, TargetLanguage.GO);
       return { className: expr.getText(expr.getSourceFile()) };
     }
   }
@@ -274,6 +281,21 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     );
   }
 
+  public importStatement(node: ImportStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
+    if (node.imports.import === 'full') {
+      const packageName =
+        node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.packageName ??
+        this.goName(node.packageName, renderer);
+      const moduleName = node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.moduleName
+        ? `${node.moduleSymbol.sourceAssembly.packageJson.jsii.targets.go.moduleName}/${packageName}`
+        : `github.com/aws-samples/dummy/${packageName}`;
+      return new OTree(['import ', this.goName(node.imports.alias, renderer), ' "', moduleName, '"']);
+    }
+
+    renderer.reportUnsupported(node.node, TargetLanguage.GO);
+    return new OTree([`import "${node.packageName}"`]);
+  }
+
   private defaultArgValues(params: ts.NodeArray<ts.ParameterDeclaration>, renderer: GoRenderer) {
     return new OTree(
       params.reduce((accum: OTree[], param) => {
@@ -352,7 +374,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
    * Guess an item's go name based on it's TS name and context
    */
   private goName(input: string, renderer: GoRenderer) {
-    let text = input;
+    let text = input.replace(/[^a-z0-9_]/ig, '');;
     const prev = this.idMap.get(input);
     const deref =
       renderer.currentContext.deref ||
