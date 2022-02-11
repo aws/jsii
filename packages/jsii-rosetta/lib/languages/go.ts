@@ -3,6 +3,7 @@
 import * as ts from 'typescript';
 
 import { analyzeObjectLiteral, determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
+import { warn } from '../logging';
 import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isExported } from '../typescript/ast-utils';
@@ -66,6 +67,8 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
    */
   public static readonly VERSION = '1';
 
+  public readonly indentChar = '\t';
+
   public readonly language = TargetLanguage.GO;
 
   private readonly idMap: Map<string, { type: DeclarationType; formatted: string }> = new Map();
@@ -88,7 +91,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public block(node: ts.Block, renderer: GoRenderer): OTree {
     return new OTree(['\n{'], [...renderer.convertAll(node.statements)], {
-      indent: 4,
+      indent: 1,
       suffix: '\n}',
     });
   }
@@ -119,7 +122,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       ],
       [
         new OTree(['{'], [this.defaultArgValues(node.parameters, renderer.updateContext({ wrapPtr: true })), ...body], {
-          indent: 4,
+          indent: 1,
           suffix: '\n}',
         }),
       ],
@@ -131,6 +134,28 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public identifier(node: ts.Identifier | ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, renderer: GoRenderer) {
     return new OTree([this.goName(node.text, renderer)]);
+  }
+
+  public newExpression(node: ts.NewExpression, renderer: GoRenderer): OTree {
+    const { classNamespace, className } = determineClassName.call(this, node.expression);
+    return new OTree(
+      [
+        ...(classNamespace ? [`${classNamespace}.`] : []),
+        'New', // Should this be "new" if the class is unexported?
+        className,
+        '(',
+      ],
+      renderer.convertAll(node.arguments ?? []),
+      { suffix: ')' },
+    );
+
+    function determineClassName(this: GoVisitor, expr: ts.Expression): { classNamespace?: string; className: string } {
+      if (ts.isIdentifier(expr)) {
+        return { className: this.goName(expr.text, renderer.updateContext({ isExported: true })) };
+      }
+      warn(`Unsupported class expression in "new expression" node: ${ts.SyntaxKind[expr.kind]}`);
+      return { className: expr.getText(expr.getSourceFile()) };
+    }
   }
 
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: GoRenderer): OTree {
@@ -163,12 +188,13 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     const valueType = inferMapElementType(node.properties, renderer.typeChecker);
 
     return new OTree(
-      [`map[string]`, this.renderType(node, valueType, renderer.currentContext.isPtr, `interface{}`, renderer), `{`],
+      [`map[string]`, this.renderType(node, valueType, true, `interface{}`, renderer), `{`],
       renderer.updateContext({ inMapLiteral: true }).convertAll(node.properties),
       {
         suffix: '}',
-        separator: ', ',
-        indent: 4,
+        separator: ',',
+        trailingSeparator: true,
+        indent: 1,
       },
     );
   }
@@ -181,7 +207,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     return new OTree([this.goName(structType.type.symbol.name, renderer), '{'], renderer.convertAll(node.properties), {
       suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
       separator: ', ',
-      indent: 4,
+      indent: 1,
     });
   }
 
@@ -241,7 +267,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       ['type ', renderer.updateContext({ isStruct: true }).convert(node.name), ' struct {'],
       renderer.updateContext({ isStruct: true, isPtr: true }).convertAll(node.members),
       {
-        indent: 4,
+        indent: 1,
         canBreakLine: true,
         suffix: '\n}',
       },
@@ -259,7 +285,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
         return [
           ...accum,
           new OTree(['\n', 'if ', name, ' = nil {'], ['\n', name, ' = ', renderer.convert(param.initializer)], {
-            indent: 4,
+            indent: 1,
             suffix: '\n}',
           }),
         ];

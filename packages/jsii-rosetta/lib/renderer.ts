@@ -455,6 +455,7 @@ export class AstRenderer<C> {
  */
 export interface AstHandler<C> {
   readonly defaultContext: C;
+  readonly indentChar?: ' ' | '\t';
   mergeContext(old: C, update: Partial<C>): C;
 
   sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree;
