@@ -61,7 +61,16 @@ export interface OTreeOptions {
  */
 export class OTree implements OTree {
   public static simplify(xs: Array<OTree | string | undefined>): Array<OTree | string> {
-    return xs.filter(notUndefined).filter(notEmpty);
+    const result = new Array<OTree | string>();
+    // Pre-concatenate all the literal strings sequences after having removed undefined & empty items.
+    for (const item of xs.filter(notUndefined).filter(notEmpty)) {
+      if (typeof item !== 'string' || result.length === 0 || typeof result[result.length - 1] !== 'string') {
+        result.push(item);
+      } else {
+        result[result.length - 1] += item;
+      }
+    }
+    return result;
   }
 
   public readonly attachComment: boolean;
@@ -131,16 +140,6 @@ export class OTree implements OTree {
 
   public get isEmpty() {
     return this.prefix.length + this.children.length === 0;
-  }
-
-  public get isMultiLine(): boolean {
-    return (
-      this.prefix.some((p) => (typeof p === 'string' ? p.includes('\n') : p.isMultiLine)) ||
-      this.children.some((c) => (typeof c === 'string' ? c.includes('\n') : c.isMultiLine)) ||
-      (this.options.separator != null &&
-        (this.options.trailingSeparator || (this.options.separator.includes('\n') && this.children.length > 1))) ||
-      !!this.options.suffix?.includes('\n')
-    );
   }
 
   public toString() {

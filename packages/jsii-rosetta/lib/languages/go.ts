@@ -71,7 +71,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public readonly language = TargetLanguage.GO;
 
-  private readonly idMap: Map<string, { type: DeclarationType; formatted: string }> = new Map();
+  private readonly idMap = new Map<string, { readonly type: DeclarationType; readonly formatted: string }>();
 
   public readonly defaultContext: GoLanguageContext = {
     isExported: false,
@@ -90,10 +90,9 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public block(node: ts.Block, renderer: GoRenderer): OTree {
-    const children = renderer.convertAll(node.statements);
-    return new OTree(['{'], children, {
+    return new OTree(['{'], renderer.convertAll(node.statements), {
       indent: 1,
-      suffix: children.some((otree) => otree.isMultiLine) ? '\n}' : '}',
+      suffix: renderer.mirrorNewlineBefore(node.statements[0], '}'),
     });
   }
 
@@ -141,25 +140,31 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     const { classNamespace, className } = determineClassName.call(this, node.expression);
     return new OTree(
       [
-        ...(classNamespace ? [`${classNamespace}.`] : []),
+        ...(classNamespace ? [classNamespace, '.'] : []),
         'New', // Should this be "new" if the class is unexported?
         className,
         '(',
       ],
-      renderer.convertAll(node.arguments ?? []),
-      { suffix: ')' },
+      renderer.updateContext({ wrapPtr: true }).convertAll(node.arguments ?? []),
+      { canBreakLine: true, separator: ', ', suffix: ')' },
     );
 
-    function determineClassName(this: GoVisitor, expr: ts.Expression): { classNamespace?: string; className: string } {
+    function determineClassName(this: GoVisitor, expr: ts.Expression): { classNamespace?: OTree; className: string } {
       if (ts.isIdentifier(expr)) {
-        return { className: this.goName(expr.text, renderer.updateContext({ isExported: true })) };
+        return { className: ucFirst(expr.text) };
       }
       if (ts.isPropertyAccessExpression(expr)) {
         if (ts.isIdentifier(expr.expression)) {
-          return { className: expr.name.text, classNamespace: expr.expression.text };
+          return {
+            className: ucFirst(expr.name.text),
+            classNamespace: renderer.updateContext({ isExported: false }).convert(expr.expression),
+          };
         }
         renderer.reportUnsupported(expr.expression, TargetLanguage.GO);
-        return { className: expr.name.text, classNamespace: '#error#' };
+        return {
+          className: ucFirst(expr.name.text),
+          classNamespace: new OTree(['#error#']),
+        };
       }
       renderer.reportUnsupported(expr, TargetLanguage.GO);
       return { className: expr.getText(expr.getSourceFile()) };
@@ -183,9 +188,31 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   public propertyAssignment(node: ts.PropertyAssignment, renderer: GoRenderer): OTree {
     const name = renderer.convert(node.name);
     const key = renderer.currentContext.inMapLiteral ? ['"', name, '"'] : [name];
-    return new OTree([...key, ': ', renderer.convert(node.initializer)], [], {
-      canBreakLine: true,
-    });
+    // Struct member values are always pointers...
+    return new OTree(
+      [...key, ': ', renderer.updateContext({ isPtr: renderer.currentContext.isStruct }).convert(node.initializer)],
+      [],
+      {
+        canBreakLine: true,
+      },
+    );
+  }
+
+  public token<A extends ts.SyntaxKind>(node: ts.Token<A>, renderer: GoRenderer): OTree {
+    switch (node.kind) {
+      case ts.SyntaxKind.FalseKeyword:
+      case ts.SyntaxKind.TrueKeyword:
+        if (renderer.currentContext.wrapPtr) {
+          return new OTree(['jsii.Boolean(', node.getText(), ')']);
+        }
+        return new OTree([node.getText()]);
+
+      case ts.SyntaxKind.NullKeyword:
+      case ts.SyntaxKind.UndefinedKeyword:
+        return new OTree(['nil']);
+      default:
+        return super.token(node, renderer);
+    }
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: GoRenderer): OTree {
@@ -212,11 +239,16 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     structType: ObjectLiteralStruct,
     renderer: GoRenderer,
   ): OTree {
-    return new OTree([this.goName(structType.type.symbol.name, renderer), '{'], renderer.convertAll(node.properties), {
-      suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
-      separator: ', ',
-      indent: 1,
-    });
+    return new OTree(
+      ['&', this.goName(structType.type.symbol.name, renderer.updateContext({ isPtr: false })), '{'],
+      renderer.updateContext({ isStruct: true }).convertAll(node.properties),
+      {
+        suffix: '}',
+        separator: ',',
+        trailingSeparator: true,
+        indent: 1,
+      },
+    );
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: GoRenderer): OTree {
@@ -227,7 +259,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: GoRenderer): OTree {
     const renderedArgs = this.argumentList(args, renderer.updateContext({ deref: true }));
-
+    // TODO: This might render illegal Go if there are > 1 arguments / it's not a string...
     return new OTree(['fmt.Println(', renderedArgs, ')']);
   }
 
@@ -293,7 +325,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public stringLiteral(node: ts.StringLiteral, renderer: GoRenderer): OTree {
-    const text = `"${node.text}"`;
+    const text = JSON.stringify(node.text);
 
     return new OTree([`${renderer.currentContext.wrapPtr ? jsiiStr(text) : text}`]);
   }
@@ -351,6 +383,23 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     renderer.reportUnsupported(node.node, TargetLanguage.GO);
     return new OTree([`import "${node.packageName}"`]);
+  }
+
+  public variableDeclaration(node: ts.VariableDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
+    if (!node.initializer) {
+      return new OTree([
+        'var ',
+        renderer.updateContext({ isExported: isExported(node) }).convert(node.name),
+        ' ',
+        this.renderTypeNode(node.type, false, renderer) || 'interface{}',
+      ]);
+    }
+
+    return new OTree([
+      renderer.updateContext({ isExported: false }).convert(node.name),
+      ' := ',
+      renderer.convert(node.initializer),
+    ]);
   }
 
   private defaultArgValues(params: ts.NodeArray<ts.ParameterDeclaration>, renderer: GoRenderer) {
@@ -435,9 +484,6 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   private goName(input: string, renderer: GoRenderer) {
     let text = input.replace(/[^a-z0-9_]/gi, '');
     const prev = this.idMap.get(input);
-    const deref =
-      renderer.currentContext.deref ||
-      (renderer.currentContext.isPtr && prev && prev?.type !== DeclarationType.INTERFACE);
 
     if (prev) {
       // If an identifier has been renamed go get it
@@ -456,8 +502,13 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       this.idMap.set(input, { formatted: text, type: getDeclarationType(renderer.currentContext) });
     }
 
-    const prefix = deref ? '*' : '';
-    return `${prefix}${text}`;
+    if (
+      renderer.currentContext.deref ||
+      (renderer.currentContext.isPtr && prev && prev?.type !== DeclarationType.INTERFACE)
+    ) {
+      return `*${text}`;
+    }
+    return text;
   }
 }
 
