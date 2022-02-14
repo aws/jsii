@@ -16,7 +16,7 @@ export function firstTypeInUnion(typeChecker: ts.TypeChecker, type: ts.Type): ts
   return type.types[0];
 }
 
-export type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
+export type BuiltInType = 'any' | 'boolean' | 'number' | 'string' | 'void';
 export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
   if (hasAnyFlag(type.flags, ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
     return 'any';

@@ -66,6 +66,11 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
       message: `Type unions or intersections are not supported in examples, got: ${typeChecker.typeToString(type)}`,
     };
   }
+
+  if ((type.flags & (ts.TypeFlags.Void | ts.TypeFlags.VoidLike)) !== 0) {
+    return { kind: 'builtIn', builtIn: 'void' };
+  }
+
   return { kind: 'unknown' };
 }
 

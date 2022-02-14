@@ -5,18 +5,13 @@ import * as ts from 'typescript';
 import { analyzeObjectLiteral, determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
-import { isExported } from '../typescript/ast-utils';
+import { isExported, isPublic, isReadOnly } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { determineReturnType, inferMapElementType } from '../typescript/types';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
 interface GoLanguageContext {
-  /**
-   * Properties are made public by starting their name with a capital letter in Go.
-   */
-  isPublic: boolean;
-
   /**
    * Free floating symbols are made importable across packages by naming with a capital in Go.
    */
@@ -31,6 +26,11 @@ interface GoLanguageContext {
    * Whether context is within a struct declaration
    */
   isStruct: boolean;
+
+  /**
+   * Whether the context is within an interface delcaration.
+   */
+  isInterface: boolean;
 
   /**
    * Whether properties are being intialized within a `map` type
@@ -73,11 +73,11 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   private readonly idMap: Map<string, { type: DeclarationType; formatted: string }> = new Map();
 
-  public readonly defaultContext = {
-    isPublic: false,
+  public readonly defaultContext: GoLanguageContext = {
     isExported: false,
     isPtr: false,
     isStruct: false,
+    isInterface: false,
     inMapLiteral: false,
     deref: false,
     wrapPtr: false,
@@ -240,10 +240,44 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     ]);
   }
 
+  public methodSignature(node: ts.MethodSignature, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const type = this.renderTypeNode(node.type, true, renderer);
+    return new OTree(
+      [
+        renderer.updateContext({ isExported: renderer.currentContext.isExported && isPublic(node) }).convert(node.name),
+        '(',
+      ],
+      renderer.convertAll(node.parameters),
+      { suffix: `) ${type}`, canBreakLine: true },
+    );
+  }
+
   public propertySignature(node: ts.PropertySignature, renderer: GoRenderer): OTree {
+    if (renderer.currentContext.isInterface) {
+      const type = this.renderTypeNode(node.type, true, renderer);
+      const getter = new OTree([
+        renderer.updateContext({ isExported: renderer.currentContext.isExported && isPublic(node) }).convert(node.name),
+        '() ',
+        type,
+      ]);
+      if (isReadOnly(node)) {
+        return getter;
+      }
+      const setter = new OTree([
+        '\n',
+        renderer.currentContext.isExported && isPublic(node) ? 'S' : 's',
+        'et',
+        renderer.updateContext({ isExported: true }).convert(node.name),
+        '(value ',
+        type,
+        ')',
+      ]);
+      return new OTree([getter, setter]);
+    }
+
     return new OTree([
       '\n',
-      renderer.convert(node.name),
+      renderer.updateContext({ isExported: renderer.currentContext.isExported && isPublic(node) }).convert(node.name),
       ' ',
       this.renderTypeNode(node.type, renderer.currentContext.isPtr, renderer),
     ]);
@@ -274,11 +308,16 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     return new OTree(
       ['type ', renderer.updateContext({ isStruct: true }).convert(node.name), ' struct {'],
       renderer.updateContext({ isStruct: true, isPtr: true }).convertAll(node.members),
-      {
-        indent: 1,
-        canBreakLine: true,
-        suffix: '\n}',
-      },
+      { indent: 1, canBreakLine: true, separator: '\n', trailingSeparator: true, suffix: '}' },
+    );
+  }
+
+  public regularInterfaceDeclaration(node: ts.InterfaceDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const name = this.goName(node.name.text, renderer.updateContext({ isExported: isExported(node) }));
+    return new OTree(
+      [`type ${name} interface {`],
+      renderer.updateContext({ isInterface: true, isExported: isExported(node) }).convertAll(node.members),
+      { indent: 1, canBreakLine: true, separator: '\n', trailingSeparator: true, suffix: '}' },
     );
   }
 
@@ -381,6 +420,8 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
               return `${prefix}string`;
             case 'any':
               return 'interface{}';
+            case 'void':
+              return '';
           }
       }
     };
@@ -401,7 +442,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     if (prev) {
       // If an identifier has been renamed go get it
       text = prev.formatted;
-    } else if (renderer.currentContext.isPublic || renderer.currentContext.isExported) {
+    } else if (renderer.currentContext.isExported) {
       // Uppercase exported and public symbols/members
       text = ucFirst(text);
     } else {
