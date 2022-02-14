@@ -7,7 +7,7 @@ import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isExported, isPublic, isReadOnly } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { determineReturnType, inferMapElementType } from '../typescript/types';
+import { determineReturnType, inferMapElementType, inferredTypeOfExpression } from '../typescript/types';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
@@ -169,6 +169,20 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       renderer.reportUnsupported(expr, TargetLanguage.GO);
       return { className: expr.getText(expr.getSourceFile()) };
     }
+  }
+
+  public arrayLiteralExpression(node: ts.ArrayLiteralExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const arrayType =
+      inferredTypeOfExpression(renderer.typeChecker, node) ?? renderer.typeChecker.getTypeAtLocation(node);
+    const [elementType] = renderer.typeChecker.getTypeArguments(arrayType as ts.TypeReference);
+    const typeName = elementType ? this.renderType(node, elementType, true, 'interface{}', renderer) : 'interface{}';
+
+    return new OTree(['[]', typeName, '{'], renderer.convertAll(node.elements), {
+      separator: ',',
+      trailingSeparator: true,
+      suffix: '}',
+      indent: 1,
+    });
   }
 
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: GoRenderer): OTree {
@@ -354,20 +368,54 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public ifStatement(node: ts.IfStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
-    const ifStmt = new OTree(['if ', renderer.convert(node.expression), ' '], [renderer.convert(node.thenStatement)], {
-      canBreakLine: true,
-    });
+    const [ifPrefix, ifSuffix, ifIndent] = ts.isBlock(node.thenStatement) ? [' '] : [' {\n', '\n}', 1];
+    const ifStmt = new OTree(
+      ['if ', renderer.convert(node.expression)],
+      [ifPrefix, renderer.convert(node.thenStatement)],
+      {
+        canBreakLine: true,
+        suffix: ifSuffix,
+        indent: ifIndent,
+      },
+    );
     if (!node.elseStatement) {
       return ifStmt;
     }
-    const elseStmt = new OTree(['else '], [renderer.convert(node.elseStatement)], {
+
+    const [elsePrefix, elseSuffix, elseIndent] = ts.isBlock(node.elseStatement) ? [' '] : [' {\n', '\n}', 1];
+    const elseStmt = new OTree(['else'], [elsePrefix, renderer.convert(node.elseStatement)], {
       canBreakLine: true,
+      suffix: elseSuffix,
+      indent: elseIndent,
     });
 
     return new OTree([], [ifStmt, elseStmt], {
       separator: ' ',
       canBreakLine: true,
     });
+  }
+
+  public forOfStatement(node: ts.ForOfStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const [prefix, suffix, indent] = ts.isBlock(node.statement) ? [' '] : [' {\n', '\n}', 1];
+    return new OTree(
+      ['for _, ', nameOf(node.initializer), ' := range ', renderer.convert(node.expression)],
+      [prefix, renderer.convert(node.statement)],
+      { canBreakLine: true, suffix, indent },
+    );
+
+    function nameOf(decl: ts.ForInitializer | ts.Declaration): string | OTree {
+      if (ts.isVariableDeclarationList(decl)) {
+        if (decl.declarations.length !== 1) {
+          renderer.reportUnsupported(decl.declarations[1], TargetLanguage.GO);
+        }
+        return nameOf(decl.declarations[0]);
+      }
+      if (ts.isVariableDeclaration(decl)) {
+        return decl.name.getText(decl.name.getSourceFile());
+      }
+      renderer.reportUnsupported(decl, TargetLanguage.GO);
+      return renderer.convert(decl);
+    }
   }
 
   public importStatement(node: ImportStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
@@ -488,10 +536,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     if (prev) {
       // If an identifier has been renamed go get it
       text = prev.formatted;
-    } else if (renderer.currentContext.isExported) {
+    } else if (renderer.currentContext.isExported && !renderer.currentContext.inMapLiteral) {
       // Uppercase exported and public symbols/members
       text = ucFirst(text);
-    } else {
+    } else if (!renderer.currentContext.inMapLiteral) {
       // Lowercase unexported items that are capitalized in TS like structs/interfaces/classes
       text = lcFirst(text);
     }
