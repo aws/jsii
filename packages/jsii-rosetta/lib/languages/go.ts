@@ -90,9 +90,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public block(node: ts.Block, renderer: GoRenderer): OTree {
-    return new OTree(['\n{'], [...renderer.convertAll(node.statements)], {
+    const children = renderer.convertAll(node.statements);
+    return new OTree(['{'], children, {
       indent: 1,
-      suffix: '\n}',
+      suffix: children.some((otree) => otree.isMultiLine) ? '\n}' : '}',
     });
   }
 
@@ -196,7 +197,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     return new OTree(
       [`map[string]`, this.renderType(node, valueType, true, `interface{}`, renderer), `{`],
-      renderer.updateContext({ inMapLiteral: true }).convertAll(node.properties),
+      renderer.updateContext({ inMapLiteral: true, wrapPtr: true }).convertAll(node.properties),
       {
         suffix: '}',
         separator: ',',
@@ -279,6 +280,23 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
         suffix: '\n}',
       },
     );
+  }
+
+  public ifStatement(node: ts.IfStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const ifStmt = new OTree(['if ', renderer.convert(node.expression), ' '], [renderer.convert(node.thenStatement)], {
+      canBreakLine: true,
+    });
+    if (!node.elseStatement) {
+      return ifStmt;
+    }
+    const elseStmt = new OTree(['else '], [renderer.convert(node.elseStatement)], {
+      canBreakLine: true,
+    });
+
+    return new OTree([], [ifStmt, elseStmt], {
+      separator: ' ',
+      canBreakLine: true,
+    });
   }
 
   public importStatement(node: ImportStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
@@ -374,7 +392,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
    * Guess an item's go name based on it's TS name and context
    */
   private goName(input: string, renderer: GoRenderer) {
-    let text = input.replace(/[^a-z0-9_]/ig, '');;
+    let text = input.replace(/[^a-z0-9_]/gi, '');
     const prev = this.idMap.get(input);
     const deref =
       renderer.currentContext.deref ||

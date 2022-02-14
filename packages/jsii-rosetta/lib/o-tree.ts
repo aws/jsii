@@ -133,6 +133,16 @@ export class OTree implements OTree {
     return this.prefix.length + this.children.length === 0;
   }
 
+  public get isMultiLine(): boolean {
+    return (
+      this.prefix.some((p) => (typeof p === 'string' ? p.includes('\n') : p.isMultiLine)) ||
+      this.children.some((c) => (typeof c === 'string' ? c.includes('\n') : c.isMultiLine)) ||
+      (this.options.separator != null &&
+        (this.options.trailingSeparator || (this.options.separator.includes('\n') && this.children.length > 1))) ||
+      !!this.options.suffix?.includes('\n')
+    );
+  }
+
   public toString() {
     return `<INCORRECTLY STRINGIFIED ${this.prefix.toString()}>`;
   }
