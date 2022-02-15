@@ -63,7 +63,7 @@
     "@types/node": "^12.20.43",
     "@types/semver": "^7.3.9",
     "eslint": "^8.8.0",
-    "jest": "^27.4.7",
+    "jest": "^27.5.1",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",

@@ -19,7 +19,7 @@
     "@types/node": "^12.20.43",
     "eslint": "^8.8.0",
     "prettier": "^2.5.1",
-    "ts-node": "^10.4.0",
+    "ts-node": "^10.5.0",
     "typescript": "~3.9.10"
   }
 }

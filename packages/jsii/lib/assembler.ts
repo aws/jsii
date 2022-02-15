@@ -721,10 +721,17 @@ export class Assembler implements Emitter {
         symbol,
       );
       const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
-      const readme = await loadSubmoduleReadMe(
-        sourceFile.fileName,
-        this.projectInfo.projectRoot,
-      );
+      // There is no need to process the README file for submodules that are
+      // external (i.e: from a dependency), as these will not be emitted in the
+      // assembly. That'd be wasted effort, and could fail if the README file
+      // refers to literate examples that are not packaged in the dependency.
+      const readme =
+        packageRoot === this.projectInfo.projectRoot
+          ? await loadSubmoduleReadMe(
+              sourceFile.fileName,
+              this.projectInfo.projectRoot,
+            )
+          : undefined;
 
       this._submodules.set(symbol, {
         fqn,

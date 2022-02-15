@@ -34,7 +34,7 @@
     "@types/jest": "^27.4.0",
     "@types/node": "^12.20.43",
     "eslint": "^8.8.0",
-    "jest": "^27.4.7",
+    "jest": "^27.5.1",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.5.1",
     "typescript": "~3.9.10"
