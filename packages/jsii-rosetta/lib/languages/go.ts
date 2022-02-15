@@ -117,11 +117,12 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
         new OTree([], renderer.updateContext({ isPtr: true }).convertAll(node.parameters), {
           separator: ', ',
         }),
-        ') ',
+        ')',
+        retType ? ' '  : '',
         retType,
       ],
       [
-        new OTree(['{'], [this.defaultArgValues(node.parameters, renderer.updateContext({ wrapPtr: true })), ...body], {
+        new OTree([' {'], [this.defaultArgValues(node.parameters, renderer.updateContext({ wrapPtr: true })), ...body], {
           indent: 1,
           suffix: '\n}',
         }),
@@ -267,13 +268,15 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: GoRenderer): OTree {
     const nodeName = renderer.convert(node.name);
-    const typeNode = this.renderTypeNode(node.type, renderer.currentContext.isPtr, renderer);
+    const nodeType = node.dotDotDotToken
+      ? (node.type as ts.ArrayTypeNode | undefined)?.elementType
+      : node.type;
+    const typeNode = this.renderTypeNode(nodeType, renderer.currentContext.isPtr, renderer);
     return new OTree([...(node.dotDotDotToken ? ['...'] : []), nodeName, ' ', typeNode]);
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: GoRenderer): OTree {
     const renderedArgs = this.argumentList(args, renderer.updateContext({ deref: true }));
-    // TODO: This might render illegal Go if there are > 1 arguments / it's not a string...
     return new OTree(['fmt.Println(', renderedArgs, ')']);
   }
 
@@ -336,6 +339,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       this.argumentList(node.arguments, renderer.updateContext({ wrapPtr: true })),
       ')',
     ]);
+  }
+
+  public returnStatement(node: ts.ReturnStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
+    return new OTree(['\nreturn ', renderer.convert(node.expression)]);
   }
 
   public stringLiteral(node: ts.StringLiteral, renderer: GoRenderer): OTree {
