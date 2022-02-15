@@ -7,7 +7,12 @@ import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isExported, isPublic, isReadOnly } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { determineReturnType, inferMapElementType, inferredTypeOfExpression } from '../typescript/types';
+import {
+  determineReturnType,
+  inferMapElementType,
+  inferredTypeOfExpression,
+  typeOfExpression,
+} from '../typescript/types';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
@@ -58,6 +63,10 @@ enum DeclarationType {
 
 type GoRenderer = AstRenderer<GoLanguageContext>;
 
+interface FormattedId {
+  readonly type: DeclarationType;
+  readonly formatted: string;
+}
 export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   /**
    * Translation version
@@ -71,7 +80,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public readonly language = TargetLanguage.GO;
 
-  private readonly idMap = new Map<string, { readonly type: DeclarationType; readonly formatted: string }>();
+  private readonly idMap = new Map<ts.Symbol | string, FormattedId>();
 
   public readonly defaultContext: GoLanguageContext = {
     isExported: false,
@@ -106,7 +115,15 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public functionDeclaration(node: ts.FunctionDeclaration, renderer: GoRenderer): OTree {
     const funcName = renderer.updateContext({ isExported: isExported(node) }).convert(node.name);
-    const retType = this.renderType(node, determineReturnType(renderer.typeChecker, node), true, '', renderer);
+    const returnType = determineReturnType(renderer.typeChecker, node);
+    const goType = this.renderType(
+      node.type ?? node,
+      returnType?.symbol,
+      returnType,
+      true,
+      '',
+      renderer,
+    );
 
     const body = node.body?.statements ? renderer.convertAll(node.body.statements) : [];
     return new OTree(
@@ -118,14 +135,18 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
           separator: ', ',
         }),
         ')',
-        retType ? ' '  : '',
-        retType,
+        goType ? ' ' : '',
+        goType,
       ],
       [
-        new OTree([' {'], [this.defaultArgValues(node.parameters, renderer.updateContext({ wrapPtr: true })), ...body], {
-          indent: 1,
-          suffix: '\n}',
-        }),
+        new OTree(
+          [' {'],
+          [this.defaultArgValues(node.parameters, renderer.updateContext({ wrapPtr: true })), ...body],
+          {
+            indent: 1,
+            suffix: '\n}',
+          },
+        ),
       ],
       {
         canBreakLine: true,
@@ -134,7 +155,8 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public identifier(node: ts.Identifier | ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, renderer: GoRenderer) {
-    return new OTree([this.goName(node.text, renderer)]);
+    const symbol = renderer.typeChecker.getSymbolAtLocation(node);
+    return new OTree([this.goName(node.text, renderer, symbol)]);
   }
 
   public newExpression(node: ts.NewExpression, renderer: GoRenderer): OTree {
@@ -176,7 +198,9 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     const arrayType =
       inferredTypeOfExpression(renderer.typeChecker, node) ?? renderer.typeChecker.getTypeAtLocation(node);
     const [elementType] = renderer.typeChecker.getTypeArguments(arrayType as ts.TypeReference);
-    const typeName = elementType ? this.renderType(node, elementType, true, 'interface{}', renderer) : 'interface{}';
+    const typeName = elementType
+      ? this.renderType(node, elementType.symbol, elementType, true, 'interface{}', renderer)
+      : 'interface{}';
 
     return new OTree(['[]', typeName, '{'], renderer.convertAll(node.elements), {
       separator: ',',
@@ -238,7 +262,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     const valueType = inferMapElementType(node.properties, renderer.typeChecker);
 
     return new OTree(
-      [`map[string]`, this.renderType(node, valueType, true, `interface{}`, renderer), `{`],
+      [`map[string]`, this.renderType(node, valueType?.symbol, valueType, true, `interface{}`, renderer), `{`],
       renderer.updateContext({ inMapLiteral: true, wrapPtr: true }).convertAll(node.properties),
       {
         suffix: '}',
@@ -255,7 +279,11 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     renderer: GoRenderer,
   ): OTree {
     return new OTree(
-      ['&', this.goName(structType.type.symbol.name, renderer.updateContext({ isPtr: false })), '{'],
+      [
+        '&',
+        this.goName(structType.type.symbol.name, renderer.updateContext({ isPtr: false }), structType.type.symbol),
+        '{',
+      ],
       renderer.updateContext({ isStruct: true }).convertAll(node.properties),
       {
         suffix: '}',
@@ -268,9 +296,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: GoRenderer): OTree {
     const nodeName = renderer.convert(node.name);
-    const nodeType = node.dotDotDotToken
-      ? (node.type as ts.ArrayTypeNode | undefined)?.elementType
-      : node.type;
+    const nodeType = node.dotDotDotToken ? (node.type as ts.ArrayTypeNode | undefined)?.elementType : node.type;
     const typeNode = this.renderTypeNode(nodeType, renderer.currentContext.isPtr, renderer);
     return new OTree([...(node.dotDotDotToken ? ['...'] : []), nodeName, ' ', typeNode]);
   }
@@ -342,7 +368,17 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public returnStatement(node: ts.ReturnStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
-    return new OTree(['\nreturn ', renderer.convert(node.expression)]);
+    return new OTree(['return ', renderer.updateContext({ wrapPtr: true }).convert(node.expression)], [], {
+      canBreakLine: true,
+    });
+  }
+
+  public binaryExpression(node: ts.BinaryExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const output = super.binaryExpression(node, renderer.updateContext({ wrapPtr: false, isPtr: false }));
+    if (!renderer.currentContext.wrapPtr) {
+      return output;
+    }
+    return wrapPtrExpression(renderer.typeChecker, node, output);
   }
 
   public stringLiteral(node: ts.StringLiteral, renderer: GoRenderer): OTree {
@@ -366,7 +402,8 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public regularInterfaceDeclaration(node: ts.InterfaceDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
-    const name = this.goName(node.name.text, renderer.updateContext({ isExported: isExported(node) }));
+    const symbol = renderer.typeChecker.getSymbolAtLocation(node.name);
+    const name = this.goName(node.name.text, renderer.updateContext({ isExported: isExported(node) }), symbol);
     return new OTree(
       [`type ${name} interface {`],
       renderer.updateContext({ isInterface: true, isExported: isExported(node) }).convertAll(node.members),
@@ -429,11 +466,11 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     if (node.imports.import === 'full') {
       const packageName =
         node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.packageName ??
-        this.goName(node.packageName, renderer);
+        this.goName(node.packageName, renderer, undefined);
       const moduleName = node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.moduleName
         ? `${node.moduleSymbol.sourceAssembly.packageJson.jsii.targets.go.moduleName}/${packageName}`
         : `github.com/aws-samples/dummy/${packageName}`;
-      return new OTree(['import ', this.goName(node.imports.alias, renderer), ' "', moduleName, '"']);
+      return new OTree(['import ', this.goName(node.imports.alias, renderer, undefined), ' "', moduleName, '"']);
     }
 
     renderer.reportUnsupported(node.node, TargetLanguage.GO);
@@ -464,10 +501,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
           return accum;
         }
 
-        const name = renderer.convert(param.name);
+        const name = renderer.updateContext({ isPtr: true }).convert(param.name);
         return [
           ...accum,
-          new OTree(['\n', 'if ', name, ' = nil {'], ['\n', name, ' = ', renderer.convert(param.initializer)], {
+          new OTree(['\n', 'if ', name, ' == nil {'], ['\n', name, ' = ', renderer.convert(param.initializer)], {
             indent: 1,
             suffix: '\n}',
           }),
@@ -484,11 +521,19 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     if (!typeNode) {
       return '';
     }
-    return this.renderType(typeNode, renderer.typeOfType(typeNode), isPtr, renderer.textOf(typeNode), renderer);
+    return this.renderType(
+      typeNode,
+      renderer.typeChecker.getTypeFromTypeNode(typeNode).symbol,
+      renderer.typeOfType(typeNode),
+      isPtr,
+      renderer.textOf(typeNode),
+      renderer,
+    );
   }
 
   private renderType(
     typeNode: ts.Node,
+    typeSymbol: ts.Symbol | undefined,
     type: ts.Type | undefined,
     isPtr: boolean,
     fallback: string,
@@ -500,7 +545,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     const jsiiType = determineJsiiType(renderer.typeChecker, type);
 
-    const doRender = (jsiiType: JsiiType, isPtr: boolean): string => {
+    const doRender = (jsiiType: JsiiType, isPtr: boolean, typeSymbol: ts.Symbol | undefined): string => {
       const prefix = isPtr ? '*' : '';
       switch (jsiiType.kind) {
         case 'unknown':
@@ -509,11 +554,11 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
           renderer.report(typeNode, jsiiType.message);
           return fallback;
         case 'map':
-          return `map[string]${doRender(jsiiType.elementType, isPtr)}`;
+          return `map[string]${doRender(jsiiType.elementType, isPtr, jsiiType.elementTypeSymbol)}`;
         case 'list':
-          return `[]${doRender(jsiiType.elementType, isPtr)}`;
+          return `[]${doRender(jsiiType.elementType, isPtr, jsiiType.elementTypeSymbol)}`;
         case 'namedType':
-          return this.goName(jsiiType.name, renderer);
+          return this.goName(jsiiType.name, renderer, typeSymbol);
         case 'builtIn':
           switch (jsiiType.builtIn) {
             case 'boolean':
@@ -530,15 +575,15 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       }
     };
 
-    return doRender(jsiiType, isPtr);
+    return doRender(jsiiType, isPtr, typeSymbol);
   }
 
   /**
    * Guess an item's go name based on it's TS name and context
    */
-  private goName(input: string, renderer: GoRenderer) {
+  private goName(input: string, renderer: GoRenderer, symbol: ts.Symbol | undefined) {
     let text = input.replace(/[^a-z0-9_]/gi, '');
-    const prev = this.idMap.get(input);
+    const prev = this.idMap.get(symbol ?? input) ?? this.idMap.get(input);
 
     if (prev) {
       // If an identifier has been renamed go get it
@@ -553,12 +598,15 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     text = prefixReserved(text);
 
-    if (text !== input) {
-      this.idMap.set(input, { formatted: text, type: getDeclarationType(renderer.currentContext) });
+    if (text !== input && prev == null) {
+      this.idMap.set(symbol ?? input, { formatted: text, type: getDeclarationType(renderer.currentContext) });
     }
 
     if (
       renderer.currentContext.deref ||
+      // Non-pointer references to parameters need to be de-referenced
+      (!renderer.currentContext.isPtr && symbol?.valueDeclaration?.kind === ts.SyntaxKind.Parameter) ||
+      // Pointer reference to non-interfaces are prefixed with *
       (renderer.currentContext.isPtr && prev && prev?.type !== DeclarationType.INTERFACE)
     ) {
       return `*${text}`;
@@ -579,6 +627,25 @@ function ucFirst(x: string) {
  */
 function lcFirst(x: string) {
   return x.substring(0, 1).toLowerCase() + x.substring(1);
+}
+
+function wrapPtrExpression(typeChecker: ts.TypeChecker, node: ts.Expression, unwrapped: OTree): OTree {
+  const type = typeOfExpression(typeChecker, node);
+  const jsiiType = determineJsiiType(typeChecker, type);
+  if (jsiiType.kind !== 'builtIn') {
+    return unwrapped;
+  }
+  switch (jsiiType.builtIn) {
+    case 'boolean':
+      return new OTree(['jsii.Boolean(', unwrapped, ')']);
+    case 'number':
+      return new OTree(['jsii.Number(', unwrapped, ')']);
+    case 'string':
+      return new OTree(['jsii.String(', unwrapped, ')']);
+    case 'any':
+    case 'void':
+      return unwrapped;
+  }
 }
 
 /**
