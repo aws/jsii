@@ -382,6 +382,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     );
   }
 
+  public propertyDeclaration(node: ts.PropertyDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
+    return new OTree(['(PropertyDeclaration)', renderer.updateContext({ isExported: isPublic(node) }).convert(node.name)]);
+  }
+
   public propertySignature(node: ts.PropertySignature, renderer: GoRenderer): OTree {
     if (renderer.currentContext.isInterface) {
       const type = this.renderTypeNode(node.type, true, renderer);
