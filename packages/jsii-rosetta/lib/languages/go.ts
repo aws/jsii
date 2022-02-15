@@ -357,10 +357,16 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: GoRenderer): OTree {
+    const expressionType = typeOfExpression(renderer.typeChecker, node.expression);
+    const isClass = expressionType?.symbol?.valueDeclaration != null && ts.isClassDeclaration(expressionType.symbol.valueDeclaration);
+    const isEnum = expressionType?.symbol?.valueDeclaration != null && ts.isEnumDeclaration(expressionType.symbol.valueDeclaration);
+    const delimiter = isEnum || isClass ? '_' : '.';
+
     return new OTree([
       renderer.convert(node.expression),
-      '.',
-      renderer.convert(node.name),
+      delimiter,
+      renderer.updateContext({ isExported: isClass || isEnum }).convert(node.name),
+      ...(isClass ? ['()'] : []),
     ]);
   }
 
