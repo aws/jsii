@@ -43,11 +43,6 @@ interface GoLanguageContext {
   inMapLiteral: boolean;
 
   /**
-   * Whether to dereference a value if it's a pointer type, for example as part of printing the value.
-   */
-  deref: boolean;
-
-  /**
    * Wheter to wrap a literal in a pointer constructor ie: jsii.String.
    */
   wrapPtr: boolean;
@@ -88,7 +83,6 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     isStruct: false,
     isInterface: false,
     inMapLiteral: false,
-    deref: false,
     wrapPtr: false,
   };
 
@@ -225,16 +219,51 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, renderer: GoRenderer): OTree {
-    const name = renderer.convert(node.name);
-    const key = renderer.currentContext.inMapLiteral ? ['"', name, '"'] : [name];
+    const key = ts.isStringLiteralLike(node.name) || ts.isIdentifier(node.name)
+      ? renderer.currentContext.inMapLiteral ? JSON.stringify(node.name.text) : this.goName(node.name.text, renderer, renderer.typeChecker.getSymbolAtLocation(node.name))
+      : renderer.convert(node.name);
     // Struct member values are always pointers...
     return new OTree(
-      [...key, ': ', renderer.updateContext({ isPtr: renderer.currentContext.isStruct }).convert(node.initializer)],
+      [key, ': ', renderer.updateContext({ wrapPtr: renderer.currentContext.isStruct || renderer.currentContext.inMapLiteral, isPtr: renderer.currentContext.isStruct }).convert(node.initializer)],
       [],
       {
         canBreakLine: true,
       },
     );
+  }
+
+  public templateExpression(node: ts.TemplateExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
+    let template = '';
+    const parameters = new Array<OTree>();
+
+    if (node.head.rawText) {
+      template += node.head.rawText;
+    }
+
+    for (const span of node.templateSpans) {
+      template += '%v';
+      parameters.push(
+        renderer
+          .convert(span.expression),
+      );
+      if (span.literal.rawText) {
+        template += span.literal.rawText;
+      }
+    }
+
+    if (parameters.length === 0) {
+      return new OTree([JSON.stringify(template)]);
+    }
+
+    return new OTree([
+      'fmt.Sprintf('
+    ],[
+      JSON.stringify(template),
+      ...parameters.reduce((list, element) => list.concat(', ', element), new Array<string | OTree>()),
+    ], {
+      canBreakLine: true,
+     suffix: ')',
+    }    );
   }
 
   public token<A extends ts.SyntaxKind>(node: ts.Token<A>, renderer: GoRenderer): OTree {
@@ -294,6 +323,27 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     );
   }
 
+  public asExpression(node: ts.AsExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const jsiiType = determineJsiiType(renderer.typeChecker, renderer.typeChecker.getTypeFromTypeNode( node.type));
+    switch (jsiiType.kind) {
+      case 'builtIn':
+        switch (jsiiType.builtIn) {
+          case 'boolean':
+            return new OTree(['bool(', renderer.convert(node.expression), ')'], [], {canBreakLine: true});
+          case 'number':
+            return new OTree(['f64(', renderer.convert(node.expression), ')'], [], {canBreakLine: true});
+          case 'string':
+            return new OTree(['string(', renderer.convert(node.expression), ')'], [], {canBreakLine: true});
+          case 'any':
+          case 'void':
+            // Just return the value as-is... Everything is compatible with `interface{}`.
+            return renderer.convert(node.expression);
+        }
+      default:
+        return new OTree([renderer.convert(node.expression), '.(', this.renderTypeNode(node.type, false, renderer), ')'], [], {canBreakLine: true});
+    }
+  }
+
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: GoRenderer): OTree {
     const nodeName = renderer.convert(node.name);
     const nodeType = node.dotDotDotToken ? (node.type as ts.ArrayTypeNode | undefined)?.elementType : node.type;
@@ -302,7 +352,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: GoRenderer): OTree {
-    const renderedArgs = this.argumentList(args, renderer.updateContext({ deref: true }));
+    const renderedArgs = this.argumentList(args, renderer);
     return new OTree(['fmt.Println(', renderedArgs, ')']);
   }
 
@@ -310,8 +360,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     return new OTree([
       renderer.convert(node.expression),
       '.',
-      // Don't deref beyond the first level of access
-      renderer.updateContext({ deref: false }).convert(node.name),
+      renderer.convert(node.name),
     ]);
   }
 
@@ -603,7 +652,6 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     }
 
     if (
-      renderer.currentContext.deref ||
       // Non-pointer references to parameters need to be de-referenced
       (!renderer.currentContext.isPtr && symbol?.valueDeclaration?.kind === ts.SyntaxKind.Parameter) ||
       // Pointer reference to non-interfaces are prefixed with *
