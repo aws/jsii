@@ -603,9 +603,9 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
           renderer.report(typeNode, jsiiType.message);
           return fallback;
         case 'map':
-          return `map[string]${doRender(jsiiType.elementType, isPtr, jsiiType.elementTypeSymbol)}`;
+          return `map[string]${doRender(jsiiType.elementType, true, jsiiType.elementTypeSymbol)}`;
         case 'list':
-          return `[]${doRender(jsiiType.elementType, isPtr, jsiiType.elementTypeSymbol)}`;
+          return `[]${doRender(jsiiType.elementType, true, jsiiType.elementTypeSymbol)}`;
         case 'namedType':
           return this.goName(jsiiType.name, renderer, typeSymbol);
         case 'builtIn':
