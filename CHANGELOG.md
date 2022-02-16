@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.54.0](https://github.com/aws/jsii/compare/v1.53.0...v1.54.0) (2022-02-15)
+
+
+### Bug Fixes
+
+* **jsii:** dependencies' README files are unnecessarily re-rendered ([#3380](https://github.com/aws/jsii/issues/3380)) ([ec4edc5](https://github.com/aws/jsii/commit/ec4edc5458d9b146ebd4a2d0c9c6cca1ed03dfaf))
+
 ## [1.53.0](https://github.com/aws/jsii/compare/v1.52.1...v1.53.0) (2022-02-09)
 
 
