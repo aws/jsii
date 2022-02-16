@@ -120,6 +120,7 @@ RUN apt-get update                                                              
   sudo                                                                                                                  \
   unzip                                                                                                                 \
   zip                                                                                                                   \
+  wget                                                                                                                  \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
@@ -205,6 +206,14 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
   && apt-get update                                                                                                     \
   && apt-get -y install nodejs yarn                                                                                     \
   && rm -rf /var/lib/apt/lists/*
+
+# Install SAM CLI
+ARG SAM_CLI_SOURCE="https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip"
+RUN wget -O /tmp/aws-sam-cli-linux-x86_64.zip ${SAM_CLI_SOURCE}                                                         \
+  && unzip /tmp/aws-sam-cli-linux-x86_64.zip -d /tmp/sam-installation                                                   \
+  && sudo ./tmp/sam-installation/install                                                                                \
+  && rm -rf /tmp/aws-sam-cli-linux-x86_64.zip /tmp/sam-installation                                                     \
+  && sam --version
 
 # Install some configuration
 COPY superchain/ssh_config /root/.ssh/config
