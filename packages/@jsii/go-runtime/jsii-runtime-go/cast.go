@@ -34,7 +34,7 @@ func UnsafeCast(from interface{}, into interface{}) {
 	}
 
 	// If rfrom can be directly converted to rinto, just do it.
-	if rfrom.CanConvert(rinto.Type()) {
+	if rfrom.Type().AssignableTo(rinto.Type()) {
 		rfrom = rfrom.Convert(rinto.Type())
 		rinto.Set(rfrom)
 		return

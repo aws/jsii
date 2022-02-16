@@ -35,7 +35,7 @@ export class TestJsiiModule {
   public readonly moduleDirectory: string;
   public readonly workspaceDirectory: string;
 
-  private constructor(public readonly assembly: spec.Assembly, private readonly workspace: TestWorkspace) {
+  private constructor(public readonly assembly: spec.Assembly, public readonly workspace: TestWorkspace) {
     this.moduleDirectory = workspace.dependencyDir(assembly.name);
     this.workspaceDirectory = workspace.rootDirectory;
   }

@@ -273,7 +273,20 @@ function _defaultValidations(): ValidationFunction[] {
           if (known.has(member.name)) {
             continue;
           }
-          result.push(member);
+          // The member is copied, so that its `overrides` property won't be
+          // altered, since this member is "borrowed" from a parent type. We
+          // only check it, but should not record `overrides` relationships to
+          // it as those could be invalid per the parent type (i.e: the parent
+          // member may not be able to implement an interface, if that type does
+          // not actually declare implementing that).
+          const memberCopy = { ...member };
+          // Forward the related node if there's one, so diagnostics are bound.
+          const node = bindings.getRelatedNode(member);
+          if (node != null) {
+            bindings.setRelatedNode(memberCopy, node);
+          }
+
+          result.push(memberCopy);
           known.add(member.name);
         }
       }

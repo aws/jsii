@@ -1,5 +1,6 @@
 import { Stability } from '@jsii/spec';
-import * as chalk from 'chalk';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import chalk = require('chalk');
 import { AsciiTree } from 'oo-ascii-tree';
 
 import { Assembly } from './assembly';
@@ -390,15 +391,15 @@ class FlagNode extends AsciiTree {
  * Invokes `block` with colors enabled/disabled and reverts to old value afterwards.
  */
 function withColors(enabled: boolean, block: () => void) {
-  const oldChalkColorValue = process.env.FORCE_COLOR;
+  const oldLevel = chalk.level;
   try {
     if (!enabled) {
-      process.env.FORCE_COLOR = '0';
+      chalk.level = 0; // No colors at all
     }
 
     block();
   } finally {
-    process.env.FORCE_COLOR = oldChalkColorValue;
+    chalk.level = oldLevel;
   }
 }
 

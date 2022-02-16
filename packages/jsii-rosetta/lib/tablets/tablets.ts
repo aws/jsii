@@ -4,7 +4,7 @@ import * as path from 'path';
 import { TargetLanguage } from '../languages';
 import * as logging from '../logging';
 import { TypeScriptSnippet, SnippetLocation, completeSource } from '../snippet';
-import { mapValues } from '../util';
+import { mapValues, Mutable } from '../util';
 import { snippetKey } from './key';
 import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
 
@@ -282,5 +282,3 @@ export interface Translation {
   language: string;
   didCompile?: boolean;
 }
-
-type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };

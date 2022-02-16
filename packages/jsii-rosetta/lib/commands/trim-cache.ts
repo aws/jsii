@@ -20,7 +20,7 @@ export async function trimCache(options: TrimCacheOptions): Promise<void> {
   logging.info(`Loading ${options.assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(options.assemblyLocations, false);
 
-  const snippets = Array.from(allTypeScriptSnippets(assemblies));
+  const snippets = Array.from(await allTypeScriptSnippets(assemblies));
 
   const original = await LanguageTablet.fromFile(options.cacheFile);
   const updated = new LanguageTablet();

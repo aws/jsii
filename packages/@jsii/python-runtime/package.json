@@ -41,7 +41,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-pacmak": "^0.0.0",
-    "ts-node": "^10.4.0",
+    "ts-node": "^10.5.0",
     "typescript": "~3.9.10"
   }
 }

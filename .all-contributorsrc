@@ -1312,6 +1312,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "zxkane",
+      "name": "Meng Xin Zhu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/843303?v=4",
+      "profile": "https://kane.mx",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",

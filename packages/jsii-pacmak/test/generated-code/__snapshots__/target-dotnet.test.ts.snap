@@ -2743,6 +2743,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 AnonymousImplementationProvider.cs
        ┃           ┣━ 📄 AsyncVirtualMethods.cs
        ┃           ┣━ 📄 AugmentableClass.cs
+       ┃           ┣━ 📄 BaseClass.cs
        ┃           ┣━ 📄 BaseJsii976.cs
        ┃           ┣━ 📄 Bell.cs
        ┃           ┣━ 📄 BinaryOperation.cs
@@ -2809,6 +2810,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ExternalClass.cs
        ┃           ┣━ 📄 ExternalEnum.cs
        ┃           ┣━ 📄 ExternalStruct.cs
+       ┃           ┣━ 📄 FullCombo.cs
        ┃           ┣━ 📄 GiveMeStructs.cs
        ┃           ┣━ 📄 Greetee.cs
        ┃           ┣━ 📄 GreetingAugmenter.cs
@@ -2842,6 +2844,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IFriendlyRandomGenerator.cs
        ┃           ┣━ 📄 IGreetee.cs
        ┃           ┣━ 📄 IImplictBaseOfBase.cs
+       ┃           ┣━ 📄 IIndirectlyImplemented.cs
        ┃           ┣━ 📄 IInterfaceImplementedByAbstractClass.cs
        ┃           ┣━ 📄 IInterfaceThatShouldNotBeADataType.cs
        ┃           ┣━ 📄 IInterfaceWithInternal.cs
@@ -3898,6 +3901,58 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual void MethodTwo()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/BaseClass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseClass), fullyQualifiedName: "jsii-calc.BaseClass")]
+    public abstract class BaseClass : DeputyBase
+    {
+        protected BaseClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected BaseClass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected BaseClass(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
+        public virtual double Method()
+        {
+            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "property", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public virtual string Property
+        {
+            get => GetInstanceProperty<string>()!;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseClass), fullyQualifiedName: "jsii-calc.BaseClass")]
+        internal sealed class _Proxy : Amazon.JSII.Tests.CalculatorNamespace.BaseClass
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
         }
     }
 }
@@ -7016,6 +7071,34 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/FullCombo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.FullCombo), fullyQualifiedName: "jsii-calc.FullCombo")]
+    public class FullCombo : Amazon.JSII.Tests.CalculatorNamespace.BaseClass, Amazon.JSII.Tests.CalculatorNamespace.IIndirectlyImplemented
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected FullCombo(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected FullCombo(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/GiveMeStructs.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -8687,6 +8770,48 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
             {
                 get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IIndirectlyImplemented.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IIndirectlyImplemented), fullyQualifiedName: "jsii-calc.IIndirectlyImplemented")]
+    public interface IIndirectlyImplemented
+    {
+        [JsiiProperty(name: "property", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Property
+        {
+            get;
+        }
+        [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
+        double Method();
+
+        [JsiiTypeProxy(nativeType: typeof(IIndirectlyImplemented), fullyQualifiedName: "jsii-calc.IIndirectlyImplemented")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIndirectlyImplemented
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "property", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Property
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+
+            [JsiiMethod(name: "method", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
+            public double Method()
+            {
+                return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
             }
         }
     }
