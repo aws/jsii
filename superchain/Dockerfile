@@ -208,10 +208,10 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
 
 # Install SAM CLI
 ARG SAM_CLI_SOURCE="https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip"
-RUN curl -L -o aws-sam-cli-linux-x86_64.zip ${SAM_CLI_SOURCE}                                                      \
-  && unzip -qq aws-sam-cli-linux-x86_64.zip -d sam-installation                                                   \
-  && sudo ./sam-installation/install                                                                                \
-  && rm -rf aws-sam-cli-linux-x86_64.zip sam-installation                                                     \
+RUN curl -fSsL ${SAM_CLI_SOURCE} -o aws-sam-cli-linux-x86_64.zip                                                        \
+  && unzip -qq aws-sam-cli-linux-x86_64.zip -d sam-installation                                                         \
+  && sudo ./sam-installation/install                                                                                    \
+  && rm -rf aws-sam-cli-linux-x86_64.zip sam-installation                                                               \
   && sam --version
 
 # Install some configuration
