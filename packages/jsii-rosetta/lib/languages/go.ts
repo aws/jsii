@@ -478,9 +478,13 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       return new OTree([
         renderer.convert(node.left),
         ' = ',
-        renderer.updateContext({
-          isPtrAssignmentRValue: symbol?.valueDeclaration && (ts.isParameter(symbol.valueDeclaration) || ts.isPropertyDeclaration(symbol.valueDeclaration))
-        }).convert(node.right),
+        renderer
+          .updateContext({
+            isPtrAssignmentRValue:
+              symbol?.valueDeclaration &&
+              (ts.isParameter(symbol.valueDeclaration) || ts.isPropertyDeclaration(symbol.valueDeclaration)),
+          })
+          .convert(node.right),
       ]);
     }
 
@@ -523,11 +527,13 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     const methods = [
       node.members.length > 0
-        // Ensure there is a blank line between thre struct and the first member, but don't put two if there's already
-        // one as part of the first member's leading trivia.
-        ? new OTree(['\n\n'], [], { renderOnce: `ws-${node.members[0].getFullStart()}` })
+        ? // Ensure there is a blank line between thre struct and the first member, but don't put two if there's already
+          // one as part of the first member's leading trivia.
+          new OTree(['\n\n'], [], { renderOnce: `ws-${node.members[0].getFullStart()}` })
         : '',
-      ...renderer.convertAll(node.members.filter((member) => !ts.isPropertyDeclaration(member) || (isExported(node) && !isPrivate(member)))),
+      ...renderer.convertAll(
+        node.members.filter((member) => !ts.isPropertyDeclaration(member) || (isExported(node) && !isPrivate(member))),
+      ),
     ];
 
     return new OTree([struct], methods, { canBreakLine: true });
@@ -722,22 +728,27 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     // We'll just create local type aliases for all imported types. This is not very go-idiomatic, but simplifies things elsewhere...
     const elements = node.imports.elements
       .filter((element) => element.importedSymbol?.symbolType === 'type')
-      .map((element) =>
-      new OTree(['type ', element.alias ?? element.sourceName, ' ', packageName, '.', element.sourceName])
-    );
+      .map(
+        (element) =>
+          new OTree(['type ', element.alias ?? element.sourceName, ' ', packageName, '.', element.sourceName]),
+      );
 
     const submodules = node.imports.elements
       .filter((element) => element.importedSymbol?.symbolType === 'module')
-      .map((element) => new OTree([
-        'import ', element.alias ?? element.sourceName, ' "', moduleName, '/', element.sourceName, '"',
-      ]));
+      .map(
+        (element) =>
+          new OTree(['import ', element.alias ?? element.sourceName, ' "', moduleName, '/', element.sourceName, '"']),
+      );
 
     if (elements.length === 0 && submodules.length === 0) {
       // This is a blank import (for side-effects only)
       return new OTree(['import _ "', moduleName, '"']);
     }
 
-    const mainImport = new OTree(['import ', packageName, ' "', moduleName, '"'], elements, { canBreakLine: true, separator: '\n' });
+    const mainImport = new OTree(['import ', packageName, ' "', moduleName, '"'], elements, {
+      canBreakLine: true,
+      separator: '\n',
+    });
     return new OTree([mainImport, ...submodules]);
   }
 
