@@ -61,16 +61,7 @@ export interface OTreeOptions {
  */
 export class OTree implements OTree {
   public static simplify(xs: Array<OTree | string | undefined>): Array<OTree | string> {
-    const result = new Array<OTree | string>();
-    // Pre-concatenate all the literal strings sequences after having removed undefined & empty items.
-    for (const item of xs.filter(notUndefined).filter(notEmpty)) {
-      if (typeof item !== 'string' || result.length === 0 || typeof result[result.length - 1] !== 'string') {
-        result.push(item);
-      } else {
-        result[result.length - 1] += item;
-      }
-    }
-    return result;
+    return xs.filter(notUndefined).filter(notEmpty);
   }
 
   public readonly attachComment: boolean;

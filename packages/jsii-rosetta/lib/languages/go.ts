@@ -708,18 +708,37 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public importStatement(node: ImportStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const packageName =
+      node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.packageName ??
+      this.goName(node.packageName, renderer, undefined);
+    const moduleName = node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.moduleName
+      ? `${node.moduleSymbol.sourceAssembly.packageJson.jsii.targets.go.moduleName}/${packageName}`
+      : `github.com/aws-samples/dummy/${packageName}`;
+
     if (node.imports.import === 'full') {
-      const packageName =
-        node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.packageName ??
-        this.goName(node.packageName, renderer, undefined);
-      const moduleName = node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.moduleName
-        ? `${node.moduleSymbol.sourceAssembly.packageJson.jsii.targets.go.moduleName}/${packageName}`
-        : `github.com/aws-samples/dummy/${packageName}`;
       return new OTree(['import ', this.goName(node.imports.alias, renderer, undefined), ' "', moduleName, '"']);
     }
 
-    renderer.reportUnsupported(node.node, TargetLanguage.GO);
-    return new OTree([`import "${node.packageName}"`]);
+    // We'll just create local type aliases for all imported types. This is not very go-idiomatic, but simplifies things elsewhere...
+    const elements = node.imports.elements
+      .filter((element) => element.importedSymbol?.symbolType === 'type')
+      .map((element) =>
+      new OTree(['type ', element.alias ?? element.sourceName, ' ', packageName, '.', element.sourceName])
+    );
+
+    const submodules = node.imports.elements
+      .filter((element) => element.importedSymbol?.symbolType === 'module')
+      .map((element) => new OTree([
+        'import ', element.alias ?? element.sourceName, ' "', moduleName, '/', element.sourceName, '"',
+      ]));
+
+    if (elements.length === 0 && submodules.length === 0) {
+      // This is a blank import (for side-effects only)
+      return new OTree(['import _ "', moduleName, '"']);
+    }
+
+    const mainImport = new OTree(['import ', packageName, ' "', moduleName, '"'], elements, { canBreakLine: true, separator: '\n' });
+    return new OTree([mainImport, ...submodules]);
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
