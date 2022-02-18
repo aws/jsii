@@ -413,6 +413,7 @@ export function isPublic(x: ts.Declaration) {
   // In TypeScript, anything not explicitly marked private or protected is public.
   return !isPrivate(x) && !isProtected(x);
 }
+export const isStatic = hasFlag(ts.ModifierFlags.Static);
 
 /**
  * Return the super() call from a method body if found

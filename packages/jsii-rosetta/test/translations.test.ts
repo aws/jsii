@@ -93,7 +93,7 @@ for (const typeScriptTest of typeScriptTests) {
         const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
         try {
           const translation = translator.renderUsing(visitorFactory.createVisitor());
-          expect(stripEmptyLines(translation)).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
+          expect(stripEmptyLines(translation)).toBe(stripEmptyLines(stripCommonWhitespace(expected)));
         } catch (e) {
           anyFailed = true;
           throw e;

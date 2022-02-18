@@ -1,11 +1,12 @@
 // import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';
 // import { jsiiTargetParameter } from '../jsii/packages';
+import { AssertionError } from 'assert';
 import * as ts from 'typescript';
 
 import { analyzeObjectLiteral, determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
-import { isExported, isPublic, isReadOnly } from '../typescript/ast-utils';
+import { isExported, isPublic, isPrivate, isReadOnly, isStatic } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import {
   determineReturnType,
@@ -26,6 +27,16 @@ interface GoLanguageContext {
    * Whether type should be converted a pointer type
    */
   isPtr: boolean;
+
+  /**
+   * Whether this is the R-Value in an assignment expression to a pointer value.
+   */
+  isPtrAssignmentRValue: boolean;
+
+  /**
+   * Whether the current element is a parameter delcaration name.
+   */
+  isParameterName: boolean;
 
   /**
    * Whether context is within a struct declaration
@@ -80,8 +91,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   public readonly defaultContext: GoLanguageContext = {
     isExported: false,
     isPtr: false,
+    isPtrAssignmentRValue: false,
     isStruct: false,
     isInterface: false,
+    isParameterName: false,
     inMapLiteral: false,
     wrapPtr: false,
   };
@@ -110,14 +123,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   public functionDeclaration(node: ts.FunctionDeclaration, renderer: GoRenderer): OTree {
     const funcName = renderer.updateContext({ isExported: isExported(node) }).convert(node.name);
     const returnType = determineReturnType(renderer.typeChecker, node);
-    const goType = this.renderType(
-      node.type ?? node,
-      returnType?.symbol,
-      returnType,
-      true,
-      '',
-      renderer,
-    );
+    const goType = this.renderType(node.type ?? node, returnType?.symbol, returnType, true, '', renderer);
 
     const body = node.body?.statements ? renderer.convertAll(node.body.statements) : [];
     return new OTree(
@@ -219,12 +225,24 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, renderer: GoRenderer): OTree {
-    const key = ts.isStringLiteralLike(node.name) || ts.isIdentifier(node.name)
-      ? renderer.currentContext.inMapLiteral ? JSON.stringify(node.name.text) : this.goName(node.name.text, renderer, renderer.typeChecker.getSymbolAtLocation(node.name))
-      : renderer.convert(node.name);
+    const key =
+      ts.isStringLiteralLike(node.name) || ts.isIdentifier(node.name)
+        ? renderer.currentContext.inMapLiteral
+          ? JSON.stringify(node.name.text)
+          : this.goName(node.name.text, renderer, renderer.typeChecker.getSymbolAtLocation(node.name))
+        : renderer.convert(node.name);
     // Struct member values are always pointers...
     return new OTree(
-      [key, ': ', renderer.updateContext({ wrapPtr: renderer.currentContext.isStruct || renderer.currentContext.inMapLiteral, isPtr: renderer.currentContext.isStruct }).convert(node.initializer)],
+      [
+        key,
+        ': ',
+        renderer
+          .updateContext({
+            wrapPtr: renderer.currentContext.isStruct || renderer.currentContext.inMapLiteral,
+            isPtr: renderer.currentContext.isStruct,
+          })
+          .convert(node.initializer),
+      ],
       [],
       {
         canBreakLine: true,
@@ -242,10 +260,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     for (const span of node.templateSpans) {
       template += '%v';
-      parameters.push(
-        renderer
-          .convert(span.expression),
-      );
+      parameters.push(renderer.convert(span.expression));
       if (span.literal.rawText) {
         template += span.literal.rawText;
       }
@@ -255,15 +270,17 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       return new OTree([JSON.stringify(template)]);
     }
 
-    return new OTree([
-      'fmt.Sprintf('
-    ],[
-      JSON.stringify(template),
-      ...parameters.reduce((list, element) => list.concat(', ', element), new Array<string | OTree>()),
-    ], {
-      canBreakLine: true,
-     suffix: ')',
-    }    );
+    return new OTree(
+      ['fmt.Sprintf('],
+      [
+        JSON.stringify(template),
+        ...parameters.reduce((list, element) => list.concat(', ', element), new Array<string | OTree>()),
+      ],
+      {
+        canBreakLine: true,
+        suffix: ')',
+      },
+    );
   }
 
   public token<A extends ts.SyntaxKind>(node: ts.Token<A>, renderer: GoRenderer): OTree {
@@ -324,30 +341,36 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public asExpression(node: ts.AsExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
-    const jsiiType = determineJsiiType(renderer.typeChecker, renderer.typeChecker.getTypeFromTypeNode( node.type));
+    const jsiiType = determineJsiiType(renderer.typeChecker, renderer.typeChecker.getTypeFromTypeNode(node.type));
     switch (jsiiType.kind) {
       case 'builtIn':
         switch (jsiiType.builtIn) {
           case 'boolean':
-            return new OTree(['bool(', renderer.convert(node.expression), ')'], [], {canBreakLine: true});
+            return new OTree(['bool(', renderer.convert(node.expression), ')'], [], { canBreakLine: true });
           case 'number':
-            return new OTree(['f64(', renderer.convert(node.expression), ')'], [], {canBreakLine: true});
+            return new OTree(['f64(', renderer.convert(node.expression), ')'], [], { canBreakLine: true });
           case 'string':
-            return new OTree(['string(', renderer.convert(node.expression), ')'], [], {canBreakLine: true});
+            return new OTree(['string(', renderer.convert(node.expression), ')'], [], { canBreakLine: true });
           case 'any':
           case 'void':
             // Just return the value as-is... Everything is compatible with `interface{}`.
             return renderer.convert(node.expression);
         }
+        // To make linter understand there is no fall-through here...
+        throw new AssertionError({ message: 'unreachable' });
       default:
-        return new OTree([renderer.convert(node.expression), '.(', this.renderTypeNode(node.type, false, renderer), ')'], [], {canBreakLine: true});
+        return new OTree(
+          [renderer.convert(node.expression), '.(', this.renderTypeNode(node.type, false, renderer), ')'],
+          [],
+          { canBreakLine: true },
+        );
     }
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: GoRenderer): OTree {
-    const nodeName = renderer.convert(node.name);
+    const nodeName = renderer.updateContext({ isParameterName: true, isPtr: false }).convert(node.name);
     const nodeType = node.dotDotDotToken ? (node.type as ts.ArrayTypeNode | undefined)?.elementType : node.type;
-    const typeNode = this.renderTypeNode(nodeType, renderer.currentContext.isPtr, renderer);
+    const typeNode = this.renderTypeNode(nodeType, true, renderer);
     return new OTree([...(node.dotDotDotToken ? ['...'] : []), nodeName, ' ', typeNode]);
   }
 
@@ -358,15 +381,23 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: GoRenderer): OTree {
     const expressionType = typeOfExpression(renderer.typeChecker, node.expression);
-    const isClass = expressionType?.symbol?.valueDeclaration != null && ts.isClassDeclaration(expressionType.symbol.valueDeclaration);
-    const isEnum = expressionType?.symbol?.valueDeclaration != null && ts.isEnumDeclaration(expressionType.symbol.valueDeclaration);
-    const delimiter = isEnum || isClass ? '_' : '.';
+    const valueSymbol = renderer.typeChecker.getSymbolAtLocation(node.name);
+
+    const isClassStaticMember =
+      expressionType?.symbol?.valueDeclaration != null &&
+      ts.isClassDeclaration(expressionType.symbol.valueDeclaration) &&
+      valueSymbol?.valueDeclaration != null &&
+      ts.isPropertyDeclaration(valueSymbol.valueDeclaration) &&
+      isStatic(valueSymbol.valueDeclaration);
+    const isEnum =
+      expressionType?.symbol?.valueDeclaration != null && ts.isEnumDeclaration(expressionType.symbol.valueDeclaration);
+    const delimiter = isEnum || isClassStaticMember ? '_' : '.';
 
     return new OTree([
       renderer.convert(node.expression),
       delimiter,
-      renderer.updateContext({ isExported: isClass || isEnum }).convert(node.name),
-      ...(isClass ? ['()'] : []),
+      renderer.updateContext({ isExported: isClassStaticMember || isEnum }).convert(node.name),
+      ...(isClassStaticMember ? ['()'] : []),
     ]);
   }
 
@@ -383,7 +414,17 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public propertyDeclaration(node: ts.PropertyDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
-    return new OTree(['(PropertyDeclaration)', renderer.updateContext({ isExported: isPublic(node) }).convert(node.name)]);
+    return new OTree(
+      [
+        renderer
+          .updateContext({ isExported: (renderer.currentContext.isExported && isPublic(node)) || isStatic(node) })
+          .convert(node.name),
+        ' ',
+        this.renderTypeNode(node.type, true, renderer),
+      ],
+      [],
+      { canBreakLine: true },
+    );
   }
 
   public propertySignature(node: ts.PropertySignature, renderer: GoRenderer): OTree {
@@ -399,8 +440,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       }
       const setter = new OTree([
         '\n',
-        renderer.currentContext.isExported && isPublic(node) ? 'S' : 's',
-        'et',
+        renderer.currentContext.isExported && isPublic(node) ? 'Set' : 'set',
         renderer.updateContext({ isExported: true }).convert(node.name),
         '(value ',
         type,
@@ -433,6 +473,17 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public binaryExpression(node: ts.BinaryExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
+    if (node.operatorToken.kind === ts.SyntaxKind.EqualsToken) {
+      const symbol = symbolFor(renderer.typeChecker, node.left);
+      return new OTree([
+        renderer.convert(node.left),
+        ' = ',
+        renderer.updateContext({
+          isPtrAssignmentRValue: symbol?.valueDeclaration && (ts.isParameter(symbol.valueDeclaration) || ts.isPropertyDeclaration(symbol.valueDeclaration))
+        }).convert(node.right),
+      ]);
+    }
+
     const output = super.binaryExpression(node, renderer.updateContext({ wrapPtr: false, isPtr: false }));
     if (!renderer.currentContext.wrapPtr) {
       return output;
@@ -452,6 +503,36 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     return new OTree([`${renderer.currentContext.wrapPtr ? jsiiNum(text) : text}`]);
   }
 
+  public classDeclaration(node: ts.ClassDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const className = node.name
+      ? renderer.updateContext({ isExported: isExported(node) }).convert(node.name)
+      : 'anonymous';
+
+    const extendsClause = node.heritageClauses?.find((clause) => clause.token === ts.SyntaxKind.ExtendsKeyword);
+    const base = extendsClause && this.renderTypeNode(extendsClause.types[0], false, renderer);
+
+    const properties = node.members
+      .filter(ts.isPropertyDeclaration)
+      .map((prop) => renderer.updateContext({ isStruct: true, isPtr: true }).convert(prop));
+
+    const struct = new OTree(['type ', className, ' struct {'], [...(base ? ['\n', base] : []), ...properties], {
+      canBreakLine: true,
+      suffix: properties.length > 0 ? renderer.mirrorNewlineBefore(node.members[0], '}') : '\n}',
+      indent: 1,
+    });
+
+    const methods = [
+      node.members.length > 0
+        // Ensure there is a blank line between thre struct and the first member, but don't put two if there's already
+        // one as part of the first member's leading trivia.
+        ? new OTree(['\n\n'], [], { renderOnce: `ws-${node.members[0].getFullStart()}` })
+        : '',
+      ...renderer.convertAll(node.members.filter((member) => !ts.isPropertyDeclaration(member) || (isExported(node) && !isPrivate(member)))),
+    ];
+
+    return new OTree([struct], methods, { canBreakLine: true });
+  }
+
   public structInterfaceDeclaration(node: ts.InterfaceDeclaration, renderer: GoRenderer): OTree {
     return new OTree(
       ['type ', renderer.updateContext({ isStruct: true }).convert(node.name), ' struct {'],
@@ -461,12 +542,117 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public regularInterfaceDeclaration(node: ts.InterfaceDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
+    if (node.members.length === 0) {
+      // Erase empty interfaces as they have no bearing in Go
+      return new OTree([]);
+    }
+
     const symbol = renderer.typeChecker.getSymbolAtLocation(node.name);
     const name = this.goName(node.name.text, renderer.updateContext({ isExported: isExported(node) }), symbol);
     return new OTree(
       [`type ${name} interface {`],
       renderer.updateContext({ isInterface: true, isExported: isExported(node) }).convertAll(node.members),
       { indent: 1, canBreakLine: true, separator: '\n', trailingSeparator: true, suffix: '}' },
+    );
+  }
+
+  public constructorDeclaration(node: ts.ConstructorDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
+    const className = node.parent.name
+      ? this.goName(
+          node.parent.name.text,
+          renderer.updateContext({ isExported: isExported(node.parent) }),
+          renderer.typeChecker.getSymbolAtLocation(node.parent.name),
+        )
+      : 'anonymous';
+
+    const defaultArgValues = this.defaultArgValues(node.parameters, renderer);
+
+    return new OTree(
+      [
+        'func ',
+        isExported(node.parent) ? 'New' : 'new',
+        ucFirst(className),
+        '(',
+        new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
+        ') *',
+        className,
+        ' {',
+        new OTree([], [defaultArgValues, '\nthis := &', className, '{}'], {
+          indent: 1,
+        }),
+      ],
+      node.body ? renderer.convertAll(node.body.statements) : [],
+      { canBreakLine: true, suffix: '\n\treturn this\n}', indent: 1 },
+    );
+  }
+
+  public superCallExpression(node: ts.CallExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
+    // We're on a `super` call, so we must be extending a base class.
+    const base = findUp(node, ts.isConstructorDeclaration).parent.heritageClauses!.find(
+      (clause) => clause.token === ts.SyntaxKind.ExtendsKeyword,
+    )!.types[0].expression;
+    const baseConstructor = ts.isPropertyAccessExpression(base)
+      ? new OTree([
+          renderer.convert(base.expression),
+          '.New',
+          ucFirst(this.goName(base.name.text, renderer, renderer.typeChecker.getSymbolAtLocation(base.name))),
+        ])
+      : ts.isIdentifier(base)
+      ? `new${ucFirst(this.goName(base.text, renderer, renderer.typeChecker.getSymbolAtLocation(base)))}`
+      : (function () {
+          renderer.reportUnsupported(node, TargetLanguage.GO);
+          return renderer.convert(base);
+        })();
+
+    return new OTree(
+      [
+        baseConstructor,
+        '_Override(this, ',
+        this.argumentList(node.arguments, renderer.updateContext({ wrapPtr: true, isPtr: true })),
+        ')',
+      ],
+      [],
+      {
+        canBreakLine: true,
+      },
+    );
+  }
+
+  public methodDeclaration(node: ts.MethodDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
+    if (ts.isObjectLiteralExpression(node.parent)) {
+      return super.methodDeclaration(node, renderer);
+    }
+
+    const className = node.parent.name
+      ? this.goName(
+          node.parent.name.text,
+          renderer.updateContext({ isExported: isExported(node.parent) }),
+          renderer.typeChecker.getSymbolAtLocation(node.parent.name),
+        )
+      : 'anonymous';
+
+    const returnType = determineReturnType(renderer.typeChecker, node);
+    const goReturnType =
+      returnType && this.renderType(node.type ?? node, returnType.symbol, returnType, true, 'interface{}', renderer);
+
+    return new OTree(
+      [
+        'func (this *',
+        className,
+        ') ',
+        renderer.updateContext({ isExported: renderer.currentContext.isExported && isPublic(node) }).convert(node.name),
+        '(',
+        new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
+        ') ',
+        goReturnType,
+        goReturnType ? ' ' : '',
+        '{',
+      ],
+      [
+        this.defaultArgValues(node.parameters, renderer),
+        ...(node.body ? renderer.convertAll(node.body.statements) : []),
+      ],
+      { canBreakLine: true, suffix: node.body && node.body.statements.length > 0 ? '\n}' : '}', indent: 1 },
     );
   }
 
@@ -563,10 +749,14 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
         const name = renderer.updateContext({ isPtr: true }).convert(param.name);
         return [
           ...accum,
-          new OTree(['\n', 'if ', name, ' == nil {'], ['\n', name, ' = ', renderer.convert(param.initializer)], {
-            indent: 1,
-            suffix: '\n}',
-          }),
+          new OTree(
+            ['\n', 'if ', name, ' == nil {'],
+            ['\n', name, ' = ', renderer.updateContext({ wrapPtr: true }).convert(param.initializer)],
+            {
+              indent: 1,
+              suffix: '\n}',
+            },
+          ),
         ];
       }, []),
     );
@@ -663,7 +853,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     if (
       // Non-pointer references to parameters need to be de-referenced
-      (!renderer.currentContext.isPtr && symbol?.valueDeclaration?.kind === ts.SyntaxKind.Parameter) ||
+      (!renderer.currentContext.isPtr &&
+        !renderer.currentContext.isParameterName &&
+        symbol?.valueDeclaration?.kind === ts.SyntaxKind.Parameter &&
+        !renderer.currentContext.isPtrAssignmentRValue) ||
       // Pointer reference to non-interfaces are prefixed with *
       (renderer.currentContext.isPtr && prev && prev?.type !== DeclarationType.INTERFACE)
     ) {
@@ -736,4 +929,25 @@ function getDeclarationType(ctx: GoLanguageContext) {
   }
 
   return DeclarationType.UNKNOWN;
+}
+
+function findUp<T extends ts.Node>(node: ts.Node, predicate: (node: ts.Node) => node is T): T {
+  if (predicate(node)) {
+    return node;
+  }
+  if (node.parent == null) {
+    throw new Error(`Unable to find parent node matching predicate: ${predicate.name ?? predicate}`);
+  }
+  return findUp(node.parent, predicate);
+}
+
+function symbolFor(typeChecker: ts.TypeChecker, node: ts.Node): ts.Symbol | undefined {
+  if (ts.isIdentifier(node)) {
+    return typeChecker.getSymbolAtLocation(node);
+  }
+  if (ts.isPropertyAccessExpression(node)) {
+    return typeChecker.getSymbolAtLocation(node.name);
+  }
+  // I don't know 🤷🏻‍♂️
+  return undefined;
 }

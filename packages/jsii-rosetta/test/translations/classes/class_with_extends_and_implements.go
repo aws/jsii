@@ -1,0 +1,3 @@
+type myClass struct {
+	SomeOtherClass
+}
