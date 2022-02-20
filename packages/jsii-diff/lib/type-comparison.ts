@@ -187,7 +187,7 @@ export abstract class ComparableType<T> {
   }
 
   /**
-   * Mark this type as occuring in an input rule.
+   * Mark this type as occurring in an input rule.
    *
    * All types reachable from this type will be marked as input types as well.
    */
@@ -201,7 +201,7 @@ export abstract class ComparableType<T> {
   }
 
   /**
-   * Mark this type as occuring in an input rule.
+   * Mark this type as occurring in an input rule.
    *
    * All types reachable from this type will be marked as input types as well.
    */

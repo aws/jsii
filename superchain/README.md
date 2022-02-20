@@ -81,6 +81,7 @@ Tool / Utility | Version
 `yarn`         | `>= 1.21.1`
 `zip` & `unzip`| `>= 6.0-19`
 `gh`           | `>= 1.9.2`
+`sam`          | `>= 1.37.0`
 
 ## License
 
