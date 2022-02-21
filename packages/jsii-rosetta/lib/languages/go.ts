@@ -250,6 +250,25 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     );
   }
 
+  public shorthandPropertyAssignment(
+    node: ts.ShorthandPropertyAssignment,
+    renderer: AstRenderer<GoLanguageContext>,
+  ): OTree {
+    const key =
+      ts.isStringLiteralLike(node.name) || ts.isIdentifier(node.name)
+        ? renderer.currentContext.inMapLiteral
+          ? JSON.stringify(node.name.text)
+          : this.goName(node.name.text, renderer, renderer.typeChecker.getSymbolAtLocation(node.name))
+        : renderer.convert(node.name);
+
+    const rawValue = renderer.updateContext({ wrapPtr: true, isStruct: false }).convert(node.name);
+    const value = isPointerValue(renderer.typeChecker, node.name)
+      ? rawValue
+      : wrapPtrExpression(renderer.typeChecker, node.name, rawValue);
+
+    return new OTree([key, ': ', value], [], { canBreakLine: true });
+  }
+
   public templateExpression(node: ts.TemplateExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
     let template = '';
     const parameters = new Array<OTree>();
@@ -389,15 +408,33 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       valueSymbol?.valueDeclaration != null &&
       ts.isPropertyDeclaration(valueSymbol.valueDeclaration) &&
       isStatic(valueSymbol.valueDeclaration);
+
+    // When the expression has an unknown type (unresolved symbol), and has an upper-case first
+    // letter, we assume it's a type name... In such cases, what comes after can be considered a
+    // static member access. Note that the expression might be further qualified, so we check using
+    // a regex that checks for the last "."-delimited segment if there's dots in there...
+    const expressionLooksLikeTypeReference =
+      expressionType.symbol == null &&
+      /(?:\.|^)[A-Z][^.]*$/.exec(node.expression.getText(node.expression.getSourceFile())) != null;
+
     const isEnum =
       expressionType?.symbol?.valueDeclaration != null && ts.isEnumDeclaration(expressionType.symbol.valueDeclaration);
-    const delimiter = isEnum || isClassStaticMember ? '_' : '.';
+
+    const delimiter = isEnum || isClassStaticMember || expressionLooksLikeTypeReference ? '_' : '.';
 
     return new OTree([
       renderer.convert(node.expression),
       delimiter,
-      renderer.updateContext({ isExported: isClassStaticMember || isEnum }).convert(node.name),
-      ...(isClassStaticMember ? ['()'] : []),
+      renderer
+        .updateContext({ isExported: isClassStaticMember || expressionLooksLikeTypeReference || isEnum })
+        .convert(node.name),
+      ...(isClassStaticMember
+        ? ['()']
+        : // If the parent's not a call-like expression, and it's an inferred static property access, we need to put call
+        // parentheses at the end, as static properties are accessed via synthetic readers.
+        expressionLooksLikeTypeReference && findUp(node, ts.isCallLikeExpression) == null
+        ? ['()']
+        : []),
     ]);
   }
 
@@ -540,9 +577,11 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   }
 
   public structInterfaceDeclaration(node: ts.InterfaceDeclaration, renderer: GoRenderer): OTree {
+    const bases =
+      node.heritageClauses?.flatMap((hc) => hc.types).map((t) => this.renderTypeNode(t, false, renderer)) ?? [];
     return new OTree(
       ['type ', renderer.updateContext({ isStruct: true }).convert(node.name), ' struct {'],
-      renderer.updateContext({ isStruct: true, isPtr: true }).convertAll(node.members),
+      [...bases, ...renderer.updateContext({ isStruct: true, isPtr: true }).convertAll(node.members)],
       { indent: 1, canBreakLine: true, separator: '\n', trailingSeparator: true, suffix: '}' },
     );
   }
@@ -594,7 +633,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public superCallExpression(node: ts.CallExpression, renderer: AstRenderer<GoLanguageContext>): OTree {
     // We're on a `super` call, so we must be extending a base class.
-    const base = findUp(node, ts.isConstructorDeclaration).parent.heritageClauses!.find(
+    const base = findUp(node, ts.isConstructorDeclaration)!.parent.heritageClauses!.find(
       (clause) => clause.token === ts.SyntaxKind.ExtendsKeyword,
     )!.types[0].expression;
     const baseConstructor = ts.isPropertyAccessExpression(base)
@@ -961,12 +1000,12 @@ function getDeclarationType(ctx: GoLanguageContext) {
   return DeclarationType.UNKNOWN;
 }
 
-function findUp<T extends ts.Node>(node: ts.Node, predicate: (node: ts.Node) => node is T): T {
+function findUp<T extends ts.Node>(node: ts.Node, predicate: (node: ts.Node) => node is T): T | undefined {
   if (predicate(node)) {
     return node;
   }
   if (node.parent == null) {
-    throw new Error(`Unable to find parent node matching predicate: ${predicate.name ?? predicate}`);
+    return undefined;
   }
   return findUp(node.parent, predicate);
 }
@@ -980,4 +1019,34 @@ function symbolFor(typeChecker: ts.TypeChecker, node: ts.Node): ts.Symbol | unde
   }
   // I don't know 🤷🏻‍♂️
   return undefined;
+}
+
+/**
+ * Checks whether the provided node corresponds to a pointer-value.
+ *
+ * NOTE: This currently only checkes for parameter declarations. This is
+ * presently used only to determine whether a variable reference needs to be
+ * wrapped or not (i.e: "jsii.String(varStr)"), and parameter references are the
+ * only "always pointer" values possible in that particular context.
+ *
+ * @param typeChecker a TypeChecker to use to resolve the node's symbol.
+ * @param node        the node to be checked.
+ *
+ * @returns true if the node corresponds to a pointer-value.
+ */
+function isPointerValue(typeChecker: ts.TypeChecker, node: ts.Node): boolean {
+  const symbol = typeChecker.getSymbolAtLocation(node);
+  if (symbol == null) {
+    // Can't find symbol, assuming it's a pointer...
+    return true;
+  }
+
+  const declaration = symbol.valueDeclaration;
+  if (declaration == null) {
+    // Doesn't have declaration, assuming it's a pointer...
+    return true;
+  }
+
+  // Now check if this is known pointer kind or not....
+  return ts.isParameter(node);
 }
