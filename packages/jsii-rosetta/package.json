@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/commonmark": "^0.27.5",
     "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.4.1",
     "@types/mock-fs": "^4.13.1",
     "@types/node": "^12.20.46",
     "@types/workerpool": "^6.1.0",
