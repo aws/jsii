@@ -257,6 +257,9 @@ export class AstRenderer<C> {
     if (ts.isStringLiteral(tree) || ts.isNoSubstitutionTemplateLiteral(tree)) {
       return visitor.stringLiteral(tree, this);
     }
+    if (ts.isNumericLiteral(tree)) {
+      return visitor.numericLiteral(tree, this);
+    }
     if (ts.isFunctionDeclaration(tree)) {
       return visitor.functionDeclaration(tree, this);
     }
@@ -452,12 +455,14 @@ export class AstRenderer<C> {
  */
 export interface AstHandler<C> {
   readonly defaultContext: C;
+  readonly indentChar?: ' ' | '\t';
   mergeContext(old: C, update: Partial<C>): C;
 
   sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree;
   commentRange(node: CommentSyntax, context: AstRenderer<C>): OTree;
   importStatement(node: ImportStatement, context: AstRenderer<C>): OTree;
   stringLiteral(node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, children: AstRenderer<C>): OTree;
+  numericLiteral(node: ts.NumericLiteral, children: AstRenderer<C>): OTree;
   functionDeclaration(node: ts.FunctionDeclaration, children: AstRenderer<C>): OTree;
   identifier(node: ts.Identifier, children: AstRenderer<C>): OTree;
   block(node: ts.Block, children: AstRenderer<C>): OTree;

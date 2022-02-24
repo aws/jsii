@@ -18,6 +18,7 @@ import { testSnippetLocation } from './testutil';
 //    yarn test test/translations.test -t 'Translating .* to Python'
 //    yarn test test/translations.test -t 'Translating .* to Java'
 //    yarn test test/translations.test -t 'Translating .* to C#'
+//    yarn test test/translations.test -t 'Translating .* to Go'
 //
 // To narrow it down even more you can of course replace the '.*' regex with
 // whatever file indication you desire.
@@ -45,6 +46,11 @@ export const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
     name: 'C#',
     extension: '.cs',
     visitorFactory: TARGET_LANGUAGES[TargetLanguage.CSHARP],
+  },
+  {
+    name: 'Go',
+    extension: '.go',
+    visitorFactory: TARGET_LANGUAGES[TargetLanguage.GO],
   },
 );
 
@@ -87,7 +93,7 @@ for (const typeScriptTest of typeScriptTests) {
         const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
         try {
           const translation = translator.renderUsing(visitorFactory.createVisitor());
-          expect(stripEmptyLines(translation)).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
+          expect(stripEmptyLines(translation)).toBe(stripEmptyLines(stripCommonWhitespace(expected)));
         } catch (e) {
           anyFailed = true;
           throw e;
