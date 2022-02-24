@@ -420,7 +420,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       */
 
       host.debug('Returning value type by reference');
-      return host.objects.registerObject(value, 'Object', [
+      return host.objects.registerObject(value, EMPTY_OBJECT_FQN, [
         (optionalValue.type as spec.NamedTypeReference).fqn,
       ]);
     },
@@ -520,7 +520,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         : undefined;
       const jsiiType =
         jsiiTypeFqn(value) ??
-        (spec.isClassType(expectedType) ? expectedType.fqn : 'Object');
+        (spec.isClassType(expectedType) ? expectedType.fqn : EMPTY_OBJECT_FQN);
 
       return host.objects.registerObject(value, jsiiType, interfaces);
     },

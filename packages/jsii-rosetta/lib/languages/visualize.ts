@@ -38,6 +38,10 @@ export class VisualizeAstVisitor implements AstHandler<void> {
     return this.defaultNode('stringLiteral', node, children);
   }
 
+  public numericLiteral(node: ts.NumericLiteral, children: AstRenderer<void>): OTree {
+    return this.defaultNode('numericLiteral', node, children);
+  }
+
   public identifier(node: ts.Identifier, children: AstRenderer<void>): OTree {
     return this.defaultNode('identifier', node, children);
   }

@@ -1,5 +1,6 @@
 import { Stability } from '@jsii/spec';
-import * as colors from 'colors/safe';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import chalk = require('chalk');
 import { AsciiTree } from 'oo-ascii-tree';
 
 import { Assembly } from './assembly';
@@ -98,7 +99,7 @@ export class TypeSystemTree extends AsciiTree {
 
 class AssemblyNode extends AsciiTree {
   public constructor(assembly: Assembly, options: TypeSystemTreeOptions) {
-    super(colors.green(assembly.name));
+    super(chalk.green(assembly.name));
 
     if (options.dependencies && assembly.dependencies.length > 0) {
       const deps = new TitleNode('dependencies');
@@ -129,7 +130,7 @@ class AssemblyNode extends AsciiTree {
 
 class SubmoduleNode extends AsciiTree {
   public constructor(submodule: Submodule, options: TypeSystemTreeOptions) {
-    super(colors.green(submodule.name));
+    super(chalk.green(submodule.name));
 
     const submodules = submodule.submodules;
     if (submodules.length > 0) {
@@ -154,7 +155,7 @@ class MethodNode extends AsciiTree {
   public constructor(method: Method, options: TypeSystemTreeOptions) {
     const args = method.parameters.map((p) => p.name).join(',');
     super(
-      `${maybeStatic(method)}${method.name}(${args}) ${colors.gray(
+      `${maybeStatic(method)}${method.name}(${args}) ${chalk.gray(
         'method',
       )}${describeStability(method, options)}`,
     );
@@ -197,7 +198,7 @@ class InitializerNode extends AsciiTree {
   public constructor(initializer: Initializer, options: TypeSystemTreeOptions) {
     const args = initializer.parameters.map((p) => p.name).join(',');
     super(
-      `${initializer.name}(${args}) ${colors.gray(
+      `${initializer.name}(${args}) ${chalk.gray(
         'initializer',
       )}${describeStability(initializer, options)}`,
     );
@@ -236,7 +237,7 @@ class ParameterNode extends AsciiTree {
 class PropertyNode extends AsciiTree {
   public constructor(property: Property, options: TypeSystemTreeOptions) {
     super(
-      `${maybeStatic(property)}${property.name} ${colors.gray(
+      `${maybeStatic(property)}${property.name} ${chalk.gray(
         'property',
       )}${describeStability(property, options)}`,
     );
@@ -277,14 +278,14 @@ class OptionalValueNode extends AsciiTree {
     if (asPromise) {
       type = `Promise<${type}>`;
     }
-    super(`${colors.underline(name)}: ${type}`);
+    super(`${chalk.underline(name)}: ${type}`);
   }
 }
 
 class ClassNode extends AsciiTree {
   public constructor(type: ClassType, options: TypeSystemTreeOptions) {
     super(
-      `${colors.gray('class')} ${colors.cyan(type.name)}${describeStability(
+      `${chalk.gray('class')} ${chalk.cyan(type.name)}${describeStability(
         type,
         options,
       )}`,
@@ -320,7 +321,7 @@ class ClassNode extends AsciiTree {
 class InterfaceNode extends AsciiTree {
   public constructor(type: InterfaceType, options: TypeSystemTreeOptions) {
     super(
-      `${colors.gray('interface')} ${colors.cyan(type.name)}${describeStability(
+      `${chalk.gray('interface')} ${chalk.cyan(type.name)}${describeStability(
         type,
         options,
       )}`,
@@ -346,7 +347,7 @@ class InterfaceNode extends AsciiTree {
 class EnumNode extends AsciiTree {
   public constructor(enumType: EnumType, options: TypeSystemTreeOptions) {
     super(
-      `${colors.gray('enum')} ${colors.cyan(enumType.name)}${describeStability(
+      `${chalk.gray('enum')} ${chalk.cyan(enumType.name)}${describeStability(
         enumType,
         options,
       )}`,
@@ -368,13 +369,13 @@ class DependencyNode extends AsciiTree {
 
 class TitleNode extends AsciiTree {
   public constructor(name: string, children: AsciiTree[] = []) {
-    super(colors.underline(name), ...children);
+    super(chalk.underline(name), ...children);
   }
 }
 
 class KeyValueNode extends AsciiTree {
   public constructor(key: string, value: any) {
-    super(`${colors.underline(key)}: ${value}`);
+    super(`${chalk.underline(key)}: ${value}`);
   }
 }
 
@@ -382,7 +383,7 @@ class TextNode extends AsciiTree {}
 
 class FlagNode extends AsciiTree {
   public constructor(flag: string) {
-    super(colors.italic(flag));
+    super(chalk.italic(flag));
   }
 }
 
@@ -390,21 +391,15 @@ class FlagNode extends AsciiTree {
  * Invokes `block` with colors enabled/disabled and reverts to old value afterwards.
  */
 function withColors(enabled: boolean, block: () => void) {
-  const oldEnabled = colors.enabled;
+  const oldLevel = chalk.level;
   try {
-    if (enabled) {
-      colors.enable();
-    } else {
-      colors.disable();
+    if (!enabled) {
+      chalk.level = 0; // No colors at all
     }
 
     block();
   } finally {
-    if (oldEnabled) {
-      colors.enable();
-    } else {
-      colors.disable();
-    }
+    chalk.level = oldLevel;
   }
 }
 
@@ -418,13 +413,13 @@ function describeStability(
 
   switch (thing.docs.stability) {
     case Stability.Stable:
-      return ` (${colors.green('stable')})`;
+      return ` (${chalk.green('stable')})`;
     case Stability.External:
-      return ` (${colors.green('external')})`;
+      return ` (${chalk.green('external')})`;
     case Stability.Experimental:
-      return ` (${colors.yellow('experimental')})`;
+      return ` (${chalk.yellow('experimental')})`;
     case Stability.Deprecated:
-      return ` (${colors.red('deprecated')})`;
+      return ` (${chalk.red('deprecated')})`;
     default:
       return '';
   }
@@ -439,5 +434,5 @@ function maybeStatic(mem: Property | Method) {
     isStatic = !!mem.static;
   }
 
-  return isStatic ? `${colors.grey('static')} ` : '';
+  return isStatic ? `${chalk.grey('static')} ` : '';
 }

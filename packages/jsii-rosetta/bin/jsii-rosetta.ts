@@ -6,6 +6,7 @@ import * as yargs from 'yargs';
 
 import { TranslateResult, translateTypeScript, RosettaDiagnostic } from '../lib';
 import { translateMarkdown } from '../lib/commands/convert';
+import { checkCoverage } from '../lib/commands/coverage';
 import { extractAndInfuse, extractSnippets, ExtractOptions } from '../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../lib/commands/infuse';
 import { readTablet } from '../lib/commands/read';
@@ -221,7 +222,14 @@ function main() {
             describe:
               'Require all code samples compile, and fail if one does not. Strict mode always enables --compile and --fail',
             default: false,
-          }),
+          })
+          .options('loose', {
+            alias: 'l',
+            describe: 'Ignore missing fixtures and literate markdown files instead of failing',
+            type: 'boolean',
+          })
+          .conflicts('loose', 'strict')
+          .conflicts('loose', 'fail'),
       wrapHandler(async (args) => {
         // `--strict` is short for `--compile --fail`, and we'll override those even if they're set to `false`, such as
         // using `--no-(compile|fail)`, because yargs does not quite give us a better option that does not hurt CX.
@@ -230,26 +238,20 @@ function main() {
           args.fail = args.f = true;
         }
 
-        // Easiest way to get a fixed working directory (for sources) in is to
-        // chdir, since underneath the in-memory layer we're using a regular TS
-        // compilerhost. Have to make all file references absolute before we chdir
-        // though.
         const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
 
         const absCacheFrom = fmap(args.cache ?? args['cache-from'], path.resolve);
         const absCacheTo = fmap(args.cache ?? args['cache-to'] ?? args.output, path.resolve);
 
-        if (args.directory) {
-          process.chdir(args.directory);
-        }
-
         const extractOptions: ExtractOptions = {
+          compilationDirectory: args.directory,
           includeCompilerDiagnostics: !!args.compile,
           validateAssemblies: args['validate-assemblies'],
           only: args.include,
           cacheFromFile: absCacheFrom,
           cacheToFile: absCacheTo,
           trimCache: args['trim-cache'],
+          loose: args.loose,
         };
 
         const result = args.infuse
@@ -338,6 +340,21 @@ function main() {
           cacheFile: args.TABLET,
           assemblyLocations: args.ASSEMBLY,
         });
+      }),
+    )
+    .command(
+      'coverage [ASSEMBLY..]',
+      'Check the translation coverage of implicit tablets for the given assemblies',
+      (command) =>
+        command.positional('ASSEMBLY', {
+          type: 'string',
+          string: true,
+          default: ['.'],
+          describe: 'Assembly or directory to search',
+        }),
+      wrapHandler(async (args) => {
+        const absAssemblies = (args.ASSEMBLY.length > 0 ? args.ASSEMBLY : ['.']).map((x) => path.resolve(x));
+        await checkCoverage(absAssemblies);
       }),
     )
     .command(

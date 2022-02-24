@@ -8,9 +8,9 @@ import { SnippetParameters } from '../../lib/snippet';
 import { TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 import { fakeAssembly } from './fake-assembly';
 
-test('Extract snippet from README', () => {
+test('Extract snippet from README', async () => {
   const snippets = Array.from(
-    allTypeScriptSnippets([
+    await allTypeScriptSnippets([
       {
         assembly: fakeAssembly({
           readme: {
@@ -25,9 +25,9 @@ test('Extract snippet from README', () => {
   expect(snippets[0].visibleSource).toEqual('someExample();');
 });
 
-test('Extract snippet from submodule READMEs', () => {
+test('Extract snippet from submodule READMEs', async () => {
   const snippets = Array.from(
-    allTypeScriptSnippets([
+    await allTypeScriptSnippets([
       {
         assembly: fakeAssembly({
           submodules: {
@@ -46,9 +46,9 @@ test('Extract snippet from submodule READMEs', () => {
   expect(snippets[0].visibleSource).toEqual('someExample();');
 });
 
-test('Extract snippet from type docstring', () => {
+test('Extract snippet from type docstring', async () => {
   const snippets = Array.from(
-    allTypeScriptSnippets([
+    await allTypeScriptSnippets([
       {
         assembly: fakeAssembly({
           types: {
@@ -72,9 +72,9 @@ test('Extract snippet from type docstring', () => {
   expect(snippets[0].visibleSource).toEqual('someExample();');
 });
 
-test('Snippet can include fixture', () => {
+test('Snippet can include fixture', async () => {
   const snippets = Array.from(
-    allTypeScriptSnippets([
+    await allTypeScriptSnippets([
       {
         assembly: fakeAssembly({
           readme: {
@@ -109,9 +109,9 @@ test('Snippet can include fixture', () => {
   `);
 });
 
-test('Use fixture from example', () => {
+test('Use fixture from example', async () => {
   const snippets = Array.from(
-    allTypeScriptSnippets([
+    await allTypeScriptSnippets([
       {
         assembly: fakeAssembly({
           types: {
@@ -148,9 +148,9 @@ test('Use fixture from example', () => {
   expect(snippets[0].visibleSource).toEqual('someExample();');
 });
 
-test('Fixture allows use of import statements', () => {
+test('Fixture allows use of import statements', async () => {
   const snippets = Array.from(
-    allTypeScriptSnippets([
+    await allTypeScriptSnippets([
       {
         assembly: fakeAssembly({
           types: {
@@ -198,14 +198,14 @@ test('Fixture allows use of import statements', () => {
   );
 });
 
-test('Backwards compatibility with literate integ tests', () => {
+test('Backwards compatibility with literate integ tests', async () => {
   mockfs({
     '/package/test/integ.example.lit.ts': '# Some literate source file',
   });
 
   try {
     const snippets = Array.from(
-      allTypeScriptSnippets([
+      await allTypeScriptSnippets([
         {
           assembly: fakeAssembly({
             readme: {
@@ -262,7 +262,9 @@ test('rosetta fixture from submodule is preferred if it exists', async () => {
       'dont pick me\n/// here',
     );
 
-    const snippets = allTypeScriptSnippets([{ assembly: jsiiModule.assembly, directory: jsiiModule.moduleDirectory }]);
+    const snippets = await allTypeScriptSnippets([
+      { assembly: jsiiModule.assembly, directory: jsiiModule.moduleDirectory },
+    ]);
 
     expect(snippets[0].completeSource).toMatch(/^pick me/);
   } finally {

@@ -3017,6 +3017,27 @@ class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Augmentable
         return typing.cast(None, jsii.invoke(self, "methodTwo", []))
 
 
+class BaseClass(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.BaseClass"):
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.invoke(self, "method", []))
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="property")
+    def property(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "property"))
+
+
+class _BaseClassProxy(BaseClass):
+    pass
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
+typing.cast(typing.Any, BaseClass).__jsii_proxy_class__ = lambda : _BaseClassProxy
+
+
 class BaseJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.BaseJsii976"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
@@ -3044,7 +3065,7 @@ class BinaryOperation(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @builtins.property # type: ignore[misc]
@@ -5645,6 +5666,34 @@ class _IFriendlierProxy(
 typing.cast(typing.Any, IFriendlier).__jsii_proxy_class__ = lambda : _IFriendlierProxy
 
 
+@jsii.interface(jsii_type="jsii-calc.IIndirectlyImplemented")
+class IIndirectlyImplemented(typing_extensions.Protocol):
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="property")
+    def property(self) -> builtins.str:
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> jsii.Number:
+        ...
+
+
+class _IIndirectlyImplementedProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.IIndirectlyImplemented"
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="property")
+    def property(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "property"))
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.invoke(self, "method", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IIndirectlyImplemented).__jsii_proxy_class__ = lambda : _IIndirectlyImplementedProxy
+
+
 @jsii.interface(jsii_type="jsii-calc.IInterfaceImplementedByAbstractClass")
 class IInterfaceImplementedByAbstractClass(typing_extensions.Protocol):
     '''awslabs/jsii#220 Abstract return type.'''
@@ -7154,13 +7203,13 @@ class Multiply(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
@@ -9547,13 +9596,13 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
@@ -9758,6 +9807,11 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
         jsii.set(self, "readWriteString", value)
 
 
+@jsii.implements(IIndirectlyImplemented)
+class FullCombo(BaseClass, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.FullCombo"):
+    pass
+
+
 @jsii.interface(jsii_type="jsii-calc.IFriendlyRandomGenerator")
 class IFriendlyRandomGenerator(
     IRandomNumberGenerator,
@@ -9906,18 +9960,18 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
 
@@ -9976,7 +10030,7 @@ class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @jsii.member(jsii_name="next")
@@ -9998,6 +10052,7 @@ __all__ = [
     "AnonymousImplementationProvider",
     "AsyncVirtualMethods",
     "AugmentableClass",
+    "BaseClass",
     "BaseJsii976",
     "Bell",
     "BinaryOperation",
@@ -10055,6 +10110,7 @@ __all__ = [
     "ExternalClass",
     "ExternalEnum",
     "ExternalStruct",
+    "FullCombo",
     "GiveMeStructs",
     "Greetee",
     "GreetingAugmenter",
@@ -10070,6 +10126,7 @@ __all__ = [
     "IExternalInterface",
     "IFriendlier",
     "IFriendlyRandomGenerator",
+    "IIndirectlyImplemented",
     "IInterfaceImplementedByAbstractClass",
     "IInterfaceThatShouldNotBeADataType",
     "IInterfaceWithInternal",
@@ -10417,7 +10474,7 @@ class CompositeOperation(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        '''(deprecated) String representation of the value.'''
+        '''String representation of the value.'''
         return typing.cast(builtins.str, jsii.invoke(self, "toString", []))
 
     @builtins.property # type: ignore[misc]
@@ -10433,7 +10490,7 @@ class CompositeOperation(
     @builtins.property # type: ignore[misc]
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        '''(deprecated) The value.'''
+        '''The value.'''
         return typing.cast(jsii.Number, jsii.get(self, "value"))
 
     @builtins.property # type: ignore[misc]
@@ -10803,7 +10860,7 @@ class ExtendAndImplement(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        '''(deprecated) Say hello!'''
+        '''Say hello!'''
         return typing.cast(builtins.str, jsii.invoke(self, "hello", []))
 
     @jsii.member(jsii_name="localMethod")

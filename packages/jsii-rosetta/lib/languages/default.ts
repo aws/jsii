@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
 import { analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
-import { isNamedLikeStruct } from '../jsii/jsii-utils';
+import { isNamedLikeStruct, isJsiiProtocolType } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { voidExpressionString } from '../typescript/ast-utils';
@@ -43,6 +43,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public stringLiteral(node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, _renderer: AstRenderer<C>): OTree {
     return new OTree([JSON.stringify(node.text)]);
+  }
+
+  public numericLiteral(node: ts.NumericLiteral, _children: AstRenderer<C>): OTree {
+    return new OTree([node.text]);
   }
 
   public identifier(node: ts.Identifier, _children: AstRenderer<C>): OTree {
@@ -151,6 +155,22 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     );
     for (const unsup of unsupported) {
       context.report(unsup, `Use of ${ts.SyntaxKind[unsup.kind]} in an object literal is not supported.`);
+    }
+
+    const anyMembersFunctions = node.properties.some((p) =>
+      ts.isPropertyAssignment(p)
+        ? isExpressionOfFunctionType(context.typeChecker, p.initializer)
+        : ts.isShorthandPropertyAssignment(p)
+        ? isExpressionOfFunctionType(context.typeChecker, p.name)
+        : false,
+    );
+
+    const inferredType = context.inferredTypeOfExpression(node);
+    if ((inferredType && isJsiiProtocolType(context.typeChecker, inferredType)) || anyMembersFunctions) {
+      context.report(
+        node,
+        `You cannot use an object literal to make an instance of an interface. Define a class instead.`,
+      );
     }
 
     const lit = analyzeObjectLiteral(context.typeChecker, node);
@@ -342,3 +362,24 @@ const UNARY_OPS: { [op in ts.PrefixUnaryOperator]: string } = {
   [ts.SyntaxKind.TildeToken]: '~',
   [ts.SyntaxKind.ExclamationToken]: '!',
 };
+
+/**
+ * Whether the given expression evaluates to a value that is of type "function"
+ *
+ * Examples of function types:
+ *
+ * ```ts
+ * // GIVEN
+ * function someFunction() { }
+ *
+ * // THEN
+ * const x = someFunction; // <- function type
+ * const y = () => 42; // <- function type
+ * const z = x; // <- function type
+ * Array.isArray; // <- function type
+ * ```
+ */
+function isExpressionOfFunctionType(typeChecker: ts.TypeChecker, expr: ts.Expression) {
+  const type = typeChecker.getTypeAtLocation(expr).getNonNullableType();
+  return type.getCallSignatures().length > 0;
+}

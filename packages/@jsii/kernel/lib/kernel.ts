@@ -965,7 +965,7 @@ export class Kernel {
     interfaces: string[] = [],
   ): spec.Method | undefined {
     for (const fqn of [classFqn, ...interfaces]) {
-      if (fqn === 'Object') {
+      if (fqn === wire.EMPTY_OBJECT_FQN) {
         continue;
       }
       const typeinfo = this._typeInfoForFqn(fqn);

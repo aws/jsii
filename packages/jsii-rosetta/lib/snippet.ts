@@ -30,7 +30,21 @@ export interface TypeScriptSnippet {
    * @default false
    */
   readonly strict?: boolean;
+
+  /**
+   * Dependencies necessary to compile this snippet
+   *
+   * Value is a regular { name -> semver } map like NPM's `dependencies`,
+   * `devDependencies` etc.
+   *
+   * @default none
+   */
+  readonly compilationDependencies?: Record<string, CompilationDependency>;
 }
+
+export type CompilationDependency =
+  | { readonly type: 'concrete'; readonly resolvedDirectory: string }
+  | { readonly type: 'symbolic'; readonly versionRange: string };
 
 /**
  * Description of a location where the snippet is found
@@ -278,6 +292,20 @@ export enum SnippetParameters {
    * process as usual.
    */
   LITERATE_SOURCE = 'lit',
+
+  /**
+   * This snippet has been infused
+   *
+   * This means it has been copied from a different location, and potentially
+   * even from a different assembly. If so, we can't expect it to compile in
+   * the future, and if doesn't, we ignore the errors.
+   *
+   * N.B: this shouldn't make a difference in normal operation, as the `infuse`
+   * command will duplicate the translation to the target tablet. This only
+   * matters if we remove the tablet and try to re-extract an assembly with
+   * infused examples from somewher else.
+   */
+  INFUSED = 'infused',
 
   /**
    * What directory to resolve fixtures in for this snippet (system parameter)

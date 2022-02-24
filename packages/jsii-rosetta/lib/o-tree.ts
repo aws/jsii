@@ -18,6 +18,14 @@ export interface OTreeOptions {
   separator?: string;
 
   /**
+   * Whether trailing separators should be output. This imples children will be
+   * writen each on a new line.
+   *
+   * @default false
+   */
+  trailingSeparator?: boolean;
+
+  /**
    * Suffix the token after outdenting
    *
    * @default ''
@@ -92,17 +100,30 @@ export class OTree implements OTree {
 
     const popIndent = sink.requestIndentChange(meVisible ? this.options.indent ?? 0 : 0);
     let mark = sink.mark();
+
     for (const child of this.children ?? []) {
-      if (this.options.separator && mark.wroteNonWhitespaceSinceMark) {
-        sink.write(this.options.separator);
+      if (this.options.separator) {
+        if (this.options.trailingSeparator) {
+          sink.ensureNewLine();
+        } else if (mark.wroteNonWhitespaceSinceMark) {
+          sink.write(this.options.separator);
+        }
       }
       mark = sink.mark();
 
       sink.write(child);
+
+      if (this.options.separator && this.options.trailingSeparator) {
+        sink.write(this.options.separator.trimEnd());
+      }
     }
+
     popIndent();
 
     if (this.options.suffix) {
+      if (this.options.separator && this.options.trailingSeparator) {
+        sink.ensureNewLine();
+      }
       sink.renderingForSpan(this.span);
       sink.write(this.options.suffix);
     }
@@ -126,7 +147,17 @@ export interface SinkMark {
 }
 
 export interface OTreeSinkOptions {
+  /**
+   * @default ' '
+   */
+  indentChar?: ' ' | '\t';
   visibleSpans?: Spans;
+}
+
+interface ConditionalNewLine {
+  readonly conditionalNewLine: {
+    readonly indent: number;
+  };
 }
 
 /**
@@ -139,13 +170,16 @@ export interface OTreeSinkOptions {
  * tree :).
  */
 export class OTreeSink {
+  private readonly indentChar: ' ' | '\t';
   private readonly indentLevels: number[] = [0];
-  private readonly fragments = new Array<string>();
+  private readonly fragments = new Array<string | ConditionalNewLine>();
   private readonly singletonsRendered = new Set<string>();
   private pendingIndentChange = 0;
   private rendering = true;
 
-  public constructor(private readonly options: OTreeSinkOptions = {}) {}
+  public constructor(private readonly options: OTreeSinkOptions = {}) {
+    this.indentChar = options.indentChar ?? ' ';
+  }
 
   public tagOnce(key: string | undefined): boolean {
     if (key === undefined) {
@@ -170,7 +204,7 @@ export class OTreeSink {
 
     return {
       get wroteNonWhitespaceSinceMark(): boolean {
-        return self.fragments.slice(markIndex).some((s) => /[^\s]/.exec(s) != null);
+        return self.fragments.slice(markIndex).some((s) => typeof s !== 'object' && /[^\s]/.exec(s) != null);
       },
     };
   }
@@ -186,8 +220,18 @@ export class OTreeSink {
       if (containsNewline(text)) {
         this.applyPendingIndentChange();
       }
-      this.append(text.replace(/\n/g, `\n${' '.repeat(this.currentIndent)}`));
+      this.append(text.replace(/\n/g, `\n${this.indentChar.repeat(this.currentIndent)}`));
     }
+  }
+
+  /**
+   * Ensures the following tokens will be output on a new line (emits a new line
+   * and indent unless immediately preceded or followed by a newline, ignoring
+   * surrounding white space).
+   */
+  public ensureNewLine(): void {
+    this.applyPendingIndentChange();
+    this.fragments.push({ conditionalNewLine: { indent: this.currentIndent } });
   }
 
   public renderingForSpan(span?: Span): boolean {
@@ -216,6 +260,48 @@ export class OTreeSink {
   public toString() {
     // Strip trailing whitespace from every line, and empty lines from the start and end
     return this.fragments
+      .map((item, index, fragments) => {
+        if (typeof item !== 'object') {
+          return item;
+        }
+        const ignore = '';
+
+        const leading = fragments.slice(0, index).reverse();
+        for (const fragment of leading) {
+          if (typeof fragment === 'object') {
+            // We don't emit if there was already a conditional newline just before
+            return ignore;
+          }
+          // If there's a trailing newline, then we don't emit this one
+          if (/\n\s*$/m.exec(fragment)) {
+            return ignore;
+          }
+          // If it contained non-whitespace characters, we need to check trailing data...
+          if (/[^\s]/.exec(fragment)) {
+            break;
+          }
+        }
+
+        const newlineAndIndent = `\n${this.indentChar.repeat(item.conditionalNewLine.indent)}`;
+
+        const trailing = fragments.slice(index + 1);
+        for (const fragment of trailing) {
+          if (typeof fragment === 'object') {
+            // We're the first of a sequence, so we must emit (unless we returned earlier, of course)
+            return newlineAndIndent;
+          }
+          // If there's a leading newline, then we don't emit this one
+          if (/^\s*\n/m.exec(fragment)) {
+            return ignore;
+          }
+          // If it contained non-whitespace characters, we emit this one
+          if (/[^\s]/.exec(fragment)) {
+            return newlineAndIndent;
+          }
+        }
+
+        return ignore;
+      })
       .join('')
       .replace(/[ \t]+$/gm, '')
       .replace(/^\n+/, '')

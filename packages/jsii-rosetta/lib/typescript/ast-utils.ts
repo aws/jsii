@@ -396,10 +396,24 @@ export function visibility(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclar
   return 'public';
 }
 
-export function isReadOnly(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase) {
-  const flags = ts.getCombinedModifierFlags(x);
-  return (flags & ts.ModifierFlags.Readonly) !== 0;
+function hasFlag<T extends ts.Declaration>(flag: ts.ModifierFlags) {
+  return (x: T) => {
+    const flags = ts.getCombinedModifierFlags(x);
+    return (flags & flag) !== 0;
+  };
 }
+
+export const isReadOnly = hasFlag<ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase>(
+  ts.ModifierFlags.Readonly,
+);
+export const isExported = hasFlag(ts.ModifierFlags.Export);
+export const isPrivate = hasFlag(ts.ModifierFlags.Private);
+export const isProtected = hasFlag(ts.ModifierFlags.Private);
+export function isPublic(x: ts.Declaration) {
+  // In TypeScript, anything not explicitly marked private or protected is public.
+  return !isPrivate(x) && !isProtected(x);
+}
+export const isStatic = hasFlag(ts.ModifierFlags.Static);
 
 /**
  * Return the super() call from a method body if found

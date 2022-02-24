@@ -7,10 +7,10 @@ import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
 import { GoType } from './go-type';
 
-export class Enum extends GoType {
+export class Enum extends GoType<EnumType> {
   private readonly members: readonly GoEnumMember[];
 
-  public constructor(pkg: Package, public type: EnumType) {
+  public constructor(pkg: Package, type: EnumType) {
     super(pkg, type);
 
     this.members = type.members.map((mem) => new GoEnumMember(this, mem));

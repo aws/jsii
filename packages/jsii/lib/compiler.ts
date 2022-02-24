@@ -1,5 +1,5 @@
 import * as Case from 'case';
-import * as colors from 'colors/safe';
+import * as chalk from 'chalk';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
@@ -413,7 +413,7 @@ export class Compiler implements Emitter {
       },
     };
 
-    LOG.debug(`Creating or updating ${colors.blue(this.configPath)}`);
+    LOG.debug(`Creating or updating ${chalk.blue(this.configPath)}`);
     await fs.writeJson(this.configPath, outputConfig, {
       encoding: 'utf8',
       spaces: 2,
