@@ -44,7 +44,7 @@ export class Struct extends GoType<InterfaceType> {
 
   public emit(context: EmitContext): void {
     const { code, documenter } = context;
-    documenter.emit(this.type.docs);
+    documenter.emit(this.type.docs, this.apiLocation);
     code.openBlock(`type ${this.name} struct`);
     for (const property of this.properties) {
       property.emitStructMember(context);
