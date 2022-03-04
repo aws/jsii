@@ -1,5 +1,6 @@
 import { CodeMaker } from 'codemaker';
 import { Type } from 'jsii-reflect';
+import { ApiLocation } from 'jsii-rosetta';
 
 import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
@@ -12,6 +13,7 @@ export abstract class GoType<T extends Type = Type> {
   public readonly name: string;
   public readonly fqn: string;
   public readonly proxyName: string;
+  protected readonly apiLocation: ApiLocation;
 
   public constructor(public readonly pkg: Package, public readonly type: T) {
     this.name = type.name;
@@ -30,6 +32,8 @@ export abstract class GoType<T extends Type = Type> {
     this.proxyName = `jsiiProxy_${this.name}`;
 
     this.fqn = type.fqn;
+
+    this.apiLocation = { api: 'type', fqn: this.fqn };
   }
 
   public abstract emit(context: EmitContext): void;
@@ -44,7 +48,7 @@ export abstract class GoType<T extends Type = Type> {
   }
 
   public emitDocs(context: EmitContext): void {
-    context.documenter.emit(this.type.docs);
+    context.documenter.emit(this.type.docs, this.apiLocation);
   }
 
   protected emitStability(context: EmitContext): void {

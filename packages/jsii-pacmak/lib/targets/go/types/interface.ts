@@ -203,11 +203,14 @@ class InterfaceProperty extends GoProperty {
   }
 
   public emit({ code, documenter }: EmitContext) {
-    documenter.emit(this.property.docs);
+    documenter.emit(this.property.docs, this.apiLocation);
     code.line(`${this.name}() ${this.returnType}`);
 
     if (!this.property.immutable) {
-      documenter.emit(this.property.docs);
+      // For setters, only emit the stability. Copying the documentation from
+      // the getter might result in confusing documentation. This is an "okay"
+      // middle-ground.
+      documenter.emitStability(this.property.docs);
       code.line(
         `Set${this.name}(${this.name[0].toLowerCase()} ${this.returnType})`,
       );
@@ -226,12 +229,8 @@ class InterfaceMethod extends GoMethod {
     this.runtimeCall = new MethodCall(this);
   }
 
-  public emitDecl(context: EmitContext) {
-    const docs = this.method.docs;
-    if (docs) {
-      context.documenter.emit(docs);
-    }
-    const { code } = context;
+  public emitDecl({ code, documenter }: EmitContext) {
+    documenter.emit(this.method.docs, this.apiLocation);
     code.line(`${this.name}(${this.paramString()})${this.returnTypeString}`);
   }
 
