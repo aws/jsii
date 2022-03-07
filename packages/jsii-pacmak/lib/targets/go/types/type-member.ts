@@ -1,10 +1,12 @@
 import {
   Callable,
+  MemberKind,
   Method,
   Parameter,
   Property,
   TypeReference,
 } from 'jsii-reflect';
+import { ApiLocation } from 'jsii-rosetta';
 
 import { jsiiToPascalCase } from '../../../naming-util';
 import { SpecialDependencies } from '../dependencies';
@@ -34,6 +36,7 @@ export interface GoTypeMember {
 export class GoProperty implements GoTypeMember {
   public readonly name: string;
   public readonly immutable: boolean;
+  protected readonly apiLocation: ApiLocation;
 
   public constructor(
     public parent: GoType,
@@ -41,6 +44,11 @@ export class GoProperty implements GoTypeMember {
   ) {
     this.name = jsiiToPascalCase(this.property.name);
     this.immutable = property.immutable;
+    this.apiLocation = {
+      api: 'member',
+      fqn: this.parent.fqn,
+      memberName: this.property.name,
+    };
   }
 
   public get reference(): GoTypeRef {
@@ -76,7 +84,7 @@ export class GoProperty implements GoTypeMember {
   }
 
   public emitStructMember({ code, documenter }: EmitContext) {
-    documenter.emit(this.property.docs);
+    documenter.emit(this.property.docs, this.apiLocation);
     const memberType =
       this.reference?.type?.name === this.parent.name
         ? `*${this.returnType}`
@@ -89,16 +97,15 @@ export class GoProperty implements GoTypeMember {
     // TODO add newline if not the last member
   }
 
-  public emitGetterDecl(context: EmitContext) {
-    const { code } = context;
+  public emitGetterDecl({ code, documenter }: EmitContext) {
+    documenter.emit(this.property.docs, this.apiLocation);
     code.line(`${this.name}() ${this.returnType}`);
   }
 
-  public emitGetter({ code, documenter }: EmitContext): void {
+  public emitGetter({ code }: EmitContext): void {
     const receiver = this.parent.name;
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-    documenter.emit(this.property.docs);
     code.openBlock(
       `func (${instanceArg} *${receiver}) Get${this.name}() ${this.returnType}`,
     );
@@ -106,9 +113,12 @@ export class GoProperty implements GoTypeMember {
     code.closeBlock();
   }
 
-  public emitSetterDecl(context: EmitContext) {
-    const { code } = context;
+  public emitSetterDecl({ code, documenter }: EmitContext) {
     if (!this.immutable) {
+      // For setters, only emit the stability. Copying the documentation from
+      // the getter might result in confusing documentation. This is an "okay"
+      // middle-ground.
+      documenter.emitStability(this.property.docs);
       code.line(`Set${this.name}(val ${this.returnType})`);
     }
   }
@@ -150,6 +160,7 @@ export class GoProperty implements GoTypeMember {
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
   public readonly parameters: GoParameter[];
+  protected readonly apiLocation: ApiLocation;
 
   public constructor(
     public readonly parent: GoClass | GoInterface,
@@ -159,6 +170,11 @@ export abstract class GoMethod implements GoTypeMember {
     this.parameters = this.method.parameters.map(
       (param) => new GoParameter(parent, param),
     );
+
+    this.apiLocation =
+      method.kind === MemberKind.Initializer
+        ? { api: 'initializer', fqn: parent.fqn }
+        : { api: 'member', fqn: parent.fqn, memberName: method.name };
   }
 
   public abstract emit(context: EmitContext): void;

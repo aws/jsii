@@ -1,10 +1,13 @@
 import { Stability } from '@jsii/spec';
 import { CodeMaker } from 'codemaker';
 import { Docs } from 'jsii-reflect';
-import { Rosetta } from 'jsii-rosetta';
+import { ApiLocation, Rosetta, TargetLanguage } from 'jsii-rosetta';
 
 export class Documentation {
-  public constructor(private readonly code: CodeMaker, _rosetta: Rosetta) {}
+  public constructor(
+    private readonly code: CodeMaker,
+    private readonly rosetta: Rosetta,
+  ) {}
 
   /**
    * Emits all documentation depending on what is available in the jsii model
@@ -13,11 +16,11 @@ export class Documentation {
    * Order should be
    * Summary + Remarks
    * Returns
-   * Examples TODO rosetta stuff
+   * Examples <transliterated example code>
    * Link
    * Stability/Deprecation description
    */
-  public emit(docs: Docs): void {
+  public emit(docs: Docs, apiLocation: ApiLocation): void {
     let firstLine = true;
     if (docs.toString() !== '') {
       this.emitComment(docs.toString());
@@ -38,7 +41,18 @@ export class Documentation {
       }
       firstLine = false;
       // TODO: Translate code examples to Go with Rosetta (not implemented there yet)
-      this.emitComment('TODO: EXAMPLE');
+      this.code.line('// Example:');
+      const goExample = this.rosetta.translateExample(
+        apiLocation,
+        docs.example,
+        TargetLanguage.GO,
+        false,
+      );
+      const lines = goExample.source.split('\n');
+      for (const line of lines) {
+        // Inline code needs to be intented one level deeper than regular text.
+        this.code.line(`//   ${line}`.trim());
+      }
       this.emitComment();
     }
 
@@ -62,7 +76,16 @@ export class Documentation {
   }
 
   private emitComment(text = '') {
-    for (const line of text.split('\n')) {
+    const lines = text.trim().split('\n');
+
+    // Ensure the comment always ends with a final period, conform with GoDoc conventions.
+    const lastLine = lines[lines.length - 1];
+    if (lastLine.trim() !== '' && !/\p{Sentence_Terminal}/u.test(lastLine)) {
+      lines[lines.length - 1] = `${lastLine.trim()}.`;
+    }
+
+    for (const line of lines) {
+      // Final trim() here is to avoid trailing whitespace on empty comment lines.
       this.code.line(`// ${line}`.trim());
     }
   }
