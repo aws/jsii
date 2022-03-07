@@ -292,6 +292,12 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'typescript-restrictions/unsupported-type',
   });
 
+  public static readonly JSII_1004_DUPLICATE_ENUM_VALUE = Code.error({
+    code: 1004,
+    formatter: (messageText) => messageText,
+    name: 'typescript-restrictions/duplicate-enum-value',
+  });
+
   //////////////////////////////////////////////////////////////////////////////
   // 2000 => 2999 -- RESERVED
 
