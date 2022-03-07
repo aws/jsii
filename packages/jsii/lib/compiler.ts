@@ -156,6 +156,10 @@ export class Compiler implements Emitter {
       );
     }
     const orig = host.afterProgramCreate;
+    // This is a callback cascade, so it's "okay" to return an unhandled promise there. This may
+    // cause an unhandled promise rejection warning, but that's not a big deal.
+    //
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     host.afterProgramCreate = async (builderProgram) => {
       const emitResult = await this._consumeProgram(
         builderProgram.getProgram(),
