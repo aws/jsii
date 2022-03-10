@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.8'
       - name: Check out
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
       - name: Locate Caches
         id: cache-locations
         run: |-
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
         with:
           ref: gh-pages
           token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}

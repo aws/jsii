@@ -25,10 +25,10 @@ jobs:
     steps:
       # Check out the code
       - name: Check out
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
       # Set up all of our standard runtimes
       - name: Set up .NET 5
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
@@ -46,7 +46,7 @@ jobs:
           cache: yarn
           node-version: '12'
       - name: Set up Python 3.6
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.6'
       - name: Install python3-venv
@@ -119,10 +119,10 @@ jobs:
     steps:
       # Check out the code
       - name: Check out
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
       # Set up all of our standard runtimes
       - name: Set up .NET 5
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
@@ -140,7 +140,7 @@ jobs:
           cache: yarn
           node-version: '12'
       - name: Set up Python 3.6
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.6'
       - name: Install python3-venv
@@ -289,7 +289,7 @@ jobs:
           rm built-tree.tgz
       # Set up all of our standard runtimes (this is matrix-based)
       - name: Set up .NET ${{ matrix.dotnet }}
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ matrix.dotnet }}
           include-prerelease: ${{ matrix.dotnet-prerelease }}
@@ -308,7 +308,7 @@ jobs:
           cache: yarn
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python }}
       - name: 'Linux: Install python3-venv'

@@ -20,10 +20,10 @@
   },
   "devDependencies": {
     "@types/inquirer": "^8.2.0",
-    "@types/jest": "^27.4.0",
-    "@types/node": "^12.20.43",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^12.20.46",
     "@types/yargs": "^17.0.8",
-    "eslint": "^8.8.0",
+    "eslint": "^8.10.0",
     "jest": "^27.5.1",
     "jest-expect-message": "^1.0.2",
     "prettier": "^2.5.1",

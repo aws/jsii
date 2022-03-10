@@ -171,7 +171,7 @@ export class GoClass extends GoType<ClassType> {
 
   protected emitInterface(context: EmitContext): void {
     const { code, documenter } = context;
-    documenter.emit(this.type.docs);
+    documenter.emit(this.type.docs, this.apiLocation);
     code.openBlock(`type ${this.name} interface`);
 
     // embed extended interfaces
@@ -313,7 +313,7 @@ export class GoClassConstructor extends GoMethod {
         ? ''
         : this.parameters.map((p) => p.toString()).join(', ');
 
-    documenter.emit(this.type.docs);
+    documenter.emit(this.type.docs, this.apiLocation);
     code.openBlock(`func ${constr}(${paramString}) ${this.parent.name}`);
     this.constructorRuntimeCall.emit(code);
     code.closeBlock();
@@ -328,7 +328,7 @@ export class GoClassConstructor extends GoMethod {
     const instanceVar = slugify(this.parent.name[0].toLowerCase(), params);
     params.unshift(`${instanceVar} ${this.parent.name}`);
 
-    documenter.emit(this.type.docs);
+    documenter.emit(this.type.docs, this.apiLocation);
     code.openBlock(`func ${constr}(${params.join(', ')})`);
     this.constructorRuntimeCall.emitOverride(code, instanceVar);
     code.closeBlock();
@@ -348,11 +348,10 @@ export class ClassMethod extends GoMethod {
   }
 
   /* emit generates method implementation on the class */
-  public emit({ code, documenter }: EmitContext) {
+  public emit({ code }: EmitContext) {
     const name = this.name;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
-    documenter.emit(this.method.docs);
     code.openBlock(
       `func (${this.instanceArg} *${
         this.parent.proxyName
@@ -366,9 +365,9 @@ export class ClassMethod extends GoMethod {
   }
 
   /* emitDecl generates method declaration in the class interface */
-  public emitDecl(context: EmitContext) {
-    const { code } = context;
+  public emitDecl({ code, documenter }: EmitContext) {
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
+    documenter.emit(this.method.docs, this.apiLocation);
     code.line(`${this.name}(${this.paramString()})${returnTypeString}`);
   }
 
@@ -400,7 +399,7 @@ export class StaticMethod extends ClassMethod {
     const name = `${this.parent.name}_${this.name}`;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
-    documenter.emit(this.method.docs);
+    documenter.emit(this.method.docs, this.apiLocation);
     code.openBlock(`func ${name}(${this.paramString()})${returnTypeString}`);
 
     this.runtimeCall.emit(code);

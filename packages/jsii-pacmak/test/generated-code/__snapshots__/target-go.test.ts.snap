@@ -263,6 +263,7 @@ import (
 
 // A base class.
 type Base interface {
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -281,7 +282,6 @@ func NewBase_Override(b Base) {
 	)
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (b *jsiiProxy_Base) TypeName() interface{} {
 	var returns interface{}
 
@@ -771,6 +771,7 @@ func StaticConsumer_Consume(_args ...interface{}) {
 // Something here.
 // Experimental.
 type Very interface {
+	// Experimental.
 	Hey() *float64
 }
 
@@ -805,7 +806,6 @@ func NewVery_Override(v Very) {
 	)
 }
 
-// Experimental.
 func (v *jsiiProxy_Very) Hey() *float64 {
 	var returns *float64
 
@@ -1150,6 +1150,7 @@ type jsiiProxy_NestingClass struct {
 // This class is here to show we can use nested classes across module boundaries.
 // Deprecated.
 type NestingClass_NestedClass interface {
+	// Deprecated.
 	Property() *string
 }
 
@@ -1214,6 +1215,7 @@ type ReflectableEntry struct {
 
 // Deprecated.
 type Reflector interface {
+	// Deprecated.
 	AsMap(reflectable IReflectable) *map[string]interface{}
 }
 
@@ -1248,7 +1250,6 @@ func NewReflector_Override(r Reflector) {
 	)
 }
 
-// Deprecated.
 func (r *jsiiProxy_Reflector) AsMap(reflectable IReflectable) *map[string]interface{} {
 	var returns *map[string]interface{}
 
@@ -1404,6 +1405,7 @@ import (
 //
 // Deprecated.
 type BaseFor2647 interface {
+	// Deprecated.
 	Foo(obj jcb.IBaseInterface)
 }
 
@@ -1438,7 +1440,6 @@ func NewBaseFor2647_Override(b BaseFor2647, very scopejsiicalcbaseofbase.Very) {
 	)
 }
 
-// Deprecated.
 func (b *jsiiProxy_BaseFor2647) Foo(obj jcb.IBaseInterface) {
 	_jsii_.InvokeVoid(
 		b,
@@ -1465,12 +1466,14 @@ type DiamondRight struct {
 
 // Check that enums from \\@scoped packages can be references.
 //
-// See awslabs/jsii#138
+// See awslabs/jsii#138.
 // Deprecated.
 type EnumFromScopedModule string
 
 const (
+	// Deprecated.
 	EnumFromScopedModule_VALUE1 EnumFromScopedModule = "VALUE1"
+	// Deprecated.
 	EnumFromScopedModule_VALUE2 EnumFromScopedModule = "VALUE2"
 )
 
@@ -1567,9 +1570,17 @@ type MyFirstStruct struct {
 type Number interface {
 	NumericValue
 	IDoublable
+	// The number multiplied by 2.
+	// Deprecated.
 	DoubleValue() *float64
+	// The number.
+	// Deprecated.
 	Value() *float64
+	// String representation of the value.
+	// Deprecated.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
+	// Deprecated.
 	TypeName() interface{}
 }
 
@@ -1628,8 +1639,6 @@ func NewNumber_Override(n Number, value *float64) {
 	)
 }
 
-// String representation of the value.
-// Deprecated.
 func (n *jsiiProxy_Number) ToString() *string {
 	var returns *string
 
@@ -1643,8 +1652,6 @@ func (n *jsiiProxy_Number) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
-// Deprecated.
 func (n *jsiiProxy_Number) TypeName() interface{} {
 	var returns interface{}
 
@@ -1662,8 +1669,14 @@ func (n *jsiiProxy_Number) TypeName() interface{} {
 // Deprecated.
 type NumericValue interface {
 	jcb.Base
+	// The value.
+	// Deprecated.
 	Value() *float64
+	// String representation of the value.
+	// Deprecated.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
+	// Deprecated.
 	TypeName() interface{}
 }
 
@@ -1694,8 +1707,6 @@ func NewNumericValue_Override(n NumericValue) {
 	)
 }
 
-// String representation of the value.
-// Deprecated.
 func (n *jsiiProxy_NumericValue) ToString() *string {
 	var returns *string
 
@@ -1709,8 +1720,6 @@ func (n *jsiiProxy_NumericValue) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
-// Deprecated.
 func (n *jsiiProxy_NumericValue) TypeName() interface{} {
 	var returns interface{}
 
@@ -1728,8 +1737,14 @@ func (n *jsiiProxy_NumericValue) TypeName() interface{} {
 // Deprecated.
 type Operation interface {
 	NumericValue
+	// The value.
+	// Deprecated.
 	Value() *float64
+	// String representation of the value.
+	// Deprecated.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
+	// Deprecated.
 	TypeName() interface{}
 }
 
@@ -1760,8 +1775,6 @@ func NewOperation_Override(o Operation) {
 	)
 }
 
-// String representation of the value.
-// Deprecated.
 func (o *jsiiProxy_Operation) ToString() *string {
 	var returns *string
 
@@ -1775,8 +1788,6 @@ func (o *jsiiProxy_Operation) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
-// Deprecated.
 func (o *jsiiProxy_Operation) TypeName() interface{} {
 	var returns interface{}
 
@@ -2311,7 +2322,9 @@ import (
 )
 
 type Cdk16625 interface {
+	// Run this function to verify that everything is working as it should.
 	Test()
+	// Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
 	Unwrap(gen jsiicalc.IRandomNumberGenerator) *float64
 }
 
@@ -2330,7 +2343,6 @@ func NewCdk16625_Override(c Cdk16625) {
 	)
 }
 
-// Run this function to verify that everything is working as it should.
 func (c *jsiiProxy_Cdk16625) Test() {
 	_jsii_.InvokeVoid(
 		c,
@@ -2339,7 +2351,6 @@ func (c *jsiiProxy_Cdk16625) Test() {
 	)
 }
 
-// Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
 func (c *jsiiProxy_Cdk16625) Unwrap(gen jsiicalc.IRandomNumberGenerator) *float64 {
 	var returns *float64
 
@@ -2401,6 +2412,9 @@ import (
 //
 type UnimportedSubmoduleType interface {
 	jsiicalc.IRandomNumberGenerator
+	// Not quite random, but it'll do.
+	//
+	// Returns: 1337.
 	Next() *float64
 }
 
@@ -2433,9 +2447,6 @@ func NewUnimportedSubmoduleType_Override(u UnimportedSubmoduleType, value *float
 	)
 }
 
-// Not quite random, but it'll do.
-//
-// Returns: 1337
 func (u *jsiiProxy_UnimportedSubmoduleType) Next() *float64 {
 	var returns *float64
 
@@ -2501,15 +2512,24 @@ import (
 // Abstract operation composed from an expression of other operations.
 type CompositeOperation interface {
 	scopejsiicalclib.Operation
+	// A set of postfixes to include in a decorated .toString().
 	DecorationPostfixes() *[]*string
 	SetDecorationPostfixes(val *[]*string)
+	// A set of prefixes to include in a decorated .toString().
 	DecorationPrefixes() *[]*string
 	SetDecorationPrefixes(val *[]*string)
+	// The expression that this operation consists of.
+	//
+	// Must be implemented by derived classes.
 	Expression() scopejsiicalclib.NumericValue
+	// The .toString() style.
 	StringStyle() CompositeOperation_CompositionStringStyle
 	SetStringStyle(val CompositeOperation_CompositionStringStyle)
+	// The value.
 	Value() *float64
+	// String representation of the value.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -2603,7 +2623,6 @@ func (j *jsiiProxy_CompositeOperation) SetStringStyle(val CompositeOperation_Com
 	)
 }
 
-// String representation of the value.
 func (c *jsiiProxy_CompositeOperation) ToString() *string {
 	var returns *string
 
@@ -2617,7 +2636,6 @@ func (c *jsiiProxy_CompositeOperation) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (c *jsiiProxy_CompositeOperation) TypeName() interface{} {
 	var returns interface{}
 
@@ -2635,7 +2653,9 @@ func (c *jsiiProxy_CompositeOperation) TypeName() interface{} {
 type CompositeOperation_CompositionStringStyle string
 
 const (
+	// Normal string expression.
 	CompositeOperation_CompositionStringStyle_NORMAL CompositeOperation_CompositionStringStyle = "NORMAL"
+	// Decorated string expression.
 	CompositeOperation_CompositionStringStyle_DECORATED CompositeOperation_CompositionStringStyle = "DECORATED"
 )
 
@@ -3229,6 +3249,7 @@ type AbstractSuite interface {
 	Property() *string
 	SetProperty(val *string)
 	SomeMethod(str *string) *string
+	// Sets \`seed\` to \`this.property\`, then calls \`someMethod\` with \`this.property\` and returns the result.
 	WorkItAll(seed *string) *string
 }
 
@@ -3279,7 +3300,6 @@ func (a *jsiiProxy_AbstractSuite) SomeMethod(str *string) *string {
 	return returns
 }
 
-// Sets \`seed\` to \`this.property\`, then calls \`someMethod\` with \`this.property\` and returns the result.
 func (a *jsiiProxy_AbstractSuite) WorkItAll(seed *string) *string {
 	var returns *string
 
@@ -3296,11 +3316,17 @@ func (a *jsiiProxy_AbstractSuite) WorkItAll(seed *string) *string {
 // The "+" binary operation.
 type Add interface {
 	BinaryOperation
+	// Left-hand side operand.
 	Lhs() scopejsiicalclib.NumericValue
+	// Right-hand side operand.
 	Rhs() scopejsiicalclib.NumericValue
+	// The value.
 	Value() *float64
+	// Say hello!
 	Hello() *string
+	// String representation of the value.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -3366,7 +3392,6 @@ func NewAdd_Override(a Add, lhs scopejsiicalclib.NumericValue, rhs scopejsiicalc
 	)
 }
 
-// Say hello!
 func (a *jsiiProxy_Add) Hello() *string {
 	var returns *string
 
@@ -3380,7 +3405,6 @@ func (a *jsiiProxy_Add) Hello() *string {
 	return returns
 }
 
-// String representation of the value.
 func (a *jsiiProxy_Add) ToString() *string {
 	var returns *string
 
@@ -3394,7 +3418,6 @@ func (a *jsiiProxy_Add) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (a *jsiiProxy_Add) TypeName() interface{} {
 	var returns interface{}
 
@@ -3863,8 +3886,10 @@ const (
 
 type AllowedMethodNames interface {
 	GetBar(_p1 *string, _p2 *float64)
+	// getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
 	GetFoo(withParam *string) *string
 	SetBar(_x *string, _y *float64, _z *bool)
+	// setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
 	SetFoo(_x *string, _y *float64)
 }
 
@@ -3905,7 +3930,6 @@ func (a *jsiiProxy_AllowedMethodNames) GetBar(_p1 *string, _p2 *float64) {
 	)
 }
 
-// getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
 func (a *jsiiProxy_AllowedMethodNames) GetFoo(withParam *string) *string {
 	var returns *string
 
@@ -3927,7 +3951,6 @@ func (a *jsiiProxy_AllowedMethodNames) SetBar(_x *string, _y *float64, _z *bool)
 	)
 }
 
-// setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
 func (a *jsiiProxy_AllowedMethodNames) SetFoo(_x *string, _y *float64) {
 	_jsii_.InvokeVoid(
 		a,
@@ -4054,7 +4077,13 @@ func (a *jsiiProxy_AnonymousImplementationProvider) ProvideAsInterface() IAnonym
 
 type AsyncVirtualMethods interface {
 	CallMe() *float64
+	// Just calls "overrideMeToo".
 	CallMe2() *float64
+	// This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
+	//
+	// This is a "double promise" situation, which
+	// means that callbacks are not going to be available immediate, but only
+	// after an "immediates" cycle.
 	CallMeDoublePromise() *float64
 	DontOverrideMe() *float64
 	OverrideMe(mult *float64) *float64
@@ -4103,7 +4132,6 @@ func (a *jsiiProxy_AsyncVirtualMethods) CallMe() *float64 {
 	return returns
 }
 
-// Just calls "overrideMeToo".
 func (a *jsiiProxy_AsyncVirtualMethods) CallMe2() *float64 {
 	var returns *float64
 
@@ -4117,11 +4145,6 @@ func (a *jsiiProxy_AsyncVirtualMethods) CallMe2() *float64 {
 	return returns
 }
 
-// This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
-//
-// This is a "double promise" situation, which
-// means that callbacks are not going to be available immediate, but only
-// after an "immediates" cycle.
 func (a *jsiiProxy_AsyncVirtualMethods) CallMeDoublePromise() *float64 {
 	var returns *float64
 
@@ -4367,11 +4390,19 @@ func (b *jsiiProxy_Bell) Ring() {
 type BinaryOperation interface {
 	scopejsiicalclib.Operation
 	scopejsiicalclib.IFriendly
+	// Left-hand side operand.
 	Lhs() scopejsiicalclib.NumericValue
+	// Right-hand side operand.
 	Rhs() scopejsiicalclib.NumericValue
+	// The value.
+	// Deprecated.
 	Value() *float64
+	// Say hello!
 	Hello() *string
+	// String representation of the value.
+	// Deprecated.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -4423,7 +4454,6 @@ func NewBinaryOperation_Override(b BinaryOperation, lhs scopejsiicalclib.Numeric
 	)
 }
 
-// Say hello!
 func (b *jsiiProxy_BinaryOperation) Hello() *string {
 	var returns *string
 
@@ -4437,8 +4467,6 @@ func (b *jsiiProxy_BinaryOperation) Hello() *string {
 	return returns
 }
 
-// String representation of the value.
-// Deprecated.
 func (b *jsiiProxy_BinaryOperation) ToString() *string {
 	var returns *string
 
@@ -4452,7 +4480,6 @@ func (b *jsiiProxy_BinaryOperation) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (b *jsiiProxy_BinaryOperation) TypeName() interface{} {
 	var returns interface{}
 
@@ -4469,6 +4496,9 @@ func (b *jsiiProxy_BinaryOperation) TypeName() interface{} {
 // See https://github.com/aws/aws-cdk/issues/7977.
 type BurriedAnonymousObject interface {
 	Check() *bool
+	// Implement this method and have it return it's parameter.
+	//
+	// Returns: \`value\`.
 	GiveItBack(value interface{}) interface{}
 }
 
@@ -4500,9 +4530,6 @@ func (b *jsiiProxy_BurriedAnonymousObject) Check() *bool {
 	return returns
 }
 
-// Implement this method and have it return it's parameter.
-//
-// Returns: \`value\`
 func (b *jsiiProxy_BurriedAnonymousObject) GiveItBack(value interface{}) interface{} {
 	var returns interface{}
 
@@ -4529,32 +4556,53 @@ func (b *jsiiProxy_BurriedAnonymousObject) GiveItBack(value interface{}) interfa
 //
 // I will repeat this example again, but in an @example tag.
 //
-// TODO: EXAMPLE
+// Example:
+//   calculator := calc.NewCalculator()
+//   calculator.add(jsii.Number(5))
+//   calculator.mul(jsii.Number(3))
+//   fmt.Println(calculator.expression.value)
 //
 type Calculator interface {
 	composition.CompositeOperation
+	// The current value.
 	Curr() scopejsiicalclib.NumericValue
 	SetCurr(val scopejsiicalclib.NumericValue)
+	// A set of postfixes to include in a decorated .toString().
 	DecorationPostfixes() *[]*string
 	SetDecorationPostfixes(val *[]*string)
+	// A set of prefixes to include in a decorated .toString().
 	DecorationPrefixes() *[]*string
 	SetDecorationPrefixes(val *[]*string)
+	// Returns the expression.
 	Expression() scopejsiicalclib.NumericValue
+	// The maximum value allows in this calculator.
 	MaxValue() *float64
 	SetMaxValue(val *float64)
+	// A log of all operations.
 	OperationsLog() *[]scopejsiicalclib.NumericValue
+	// A map of per operation name of all operations performed.
 	OperationsMap() *map[string]*[]scopejsiicalclib.NumericValue
+	// The .toString() style.
 	StringStyle() composition.CompositeOperation_CompositionStringStyle
 	SetStringStyle(val composition.CompositeOperation_CompositionStringStyle)
+	// Example of a property that accepts a union of types.
 	UnionProperty() interface{}
 	SetUnionProperty(val interface{})
+	// The value.
 	Value() *float64
+	// Adds a number to the current value.
 	Add(value *float64)
+	// Multiplies the current value by a number.
 	Mul(value *float64)
+	// Negates the current value.
 	Neg()
+	// Raises the current value by a power.
 	Pow(value *float64)
+	// Returns teh value of the union property (if defined).
 	ReadUnionValue() *float64
+	// String representation of the value.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -4738,7 +4786,6 @@ func (j *jsiiProxy_Calculator) SetUnionProperty(val interface{}) {
 	)
 }
 
-// Adds a number to the current value.
 func (c *jsiiProxy_Calculator) Add(value *float64) {
 	_jsii_.InvokeVoid(
 		c,
@@ -4747,7 +4794,6 @@ func (c *jsiiProxy_Calculator) Add(value *float64) {
 	)
 }
 
-// Multiplies the current value by a number.
 func (c *jsiiProxy_Calculator) Mul(value *float64) {
 	_jsii_.InvokeVoid(
 		c,
@@ -4756,7 +4802,6 @@ func (c *jsiiProxy_Calculator) Mul(value *float64) {
 	)
 }
 
-// Negates the current value.
 func (c *jsiiProxy_Calculator) Neg() {
 	_jsii_.InvokeVoid(
 		c,
@@ -4765,7 +4810,6 @@ func (c *jsiiProxy_Calculator) Neg() {
 	)
 }
 
-// Raises the current value by a power.
 func (c *jsiiProxy_Calculator) Pow(value *float64) {
 	_jsii_.InvokeVoid(
 		c,
@@ -4774,7 +4818,6 @@ func (c *jsiiProxy_Calculator) Pow(value *float64) {
 	)
 }
 
-// Returns teh value of the union property (if defined).
 func (c *jsiiProxy_Calculator) ReadUnionValue() *float64 {
 	var returns *float64
 
@@ -4788,7 +4831,6 @@ func (c *jsiiProxy_Calculator) ReadUnionValue() *float64 {
 	return returns
 }
 
-// String representation of the value.
 func (c *jsiiProxy_Calculator) ToString() *string {
 	var returns *string
 
@@ -4802,7 +4844,6 @@ func (c *jsiiProxy_Calculator) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (c *jsiiProxy_Calculator) TypeName() interface{} {
 	var returns interface{}
 
@@ -5283,7 +5324,9 @@ func NewClassWithContainerTypes_Override(c ClassWithContainerTypes, array *[]*Du
 //
 // The docs are great. They're a bunch of tags.
 //
-// TODO: EXAMPLE
+// Example:
+//   func anExample() {
+//   }
 //
 // See: https://aws.amazon.com/
 //
@@ -5773,9 +5816,21 @@ func (c *jsiiProxy_ConsumePureInterface) WorkItBaby() *StructB {
 // Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
 // the method on the argument that they're passed...
 type ConsumerCanRingBell interface {
+	// ...if the interface is implemented using an object literal.
+	//
+	// Returns whether the bell was rung.
 	ImplementedByObjectLiteral(ringer IBellRinger) *bool
+	// ...if the interface is implemented using a private class.
+	//
+	// Return whether the bell was rung.
 	ImplementedByPrivateClass(ringer IBellRinger) *bool
+	// ...if the interface is implemented using a public class.
+	//
+	// Return whether the bell was rung.
 	ImplementedByPublicClass(ringer IBellRinger) *bool
+	// If the parameter is a concrete class instead of an interface.
+	//
+	// Return whether the bell was rung.
 	WhenTypedAsClass(ringer IConcreteBellRinger) *bool
 }
 
@@ -5880,9 +5935,6 @@ func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRinger) *boo
 	return returns
 }
 
-// ...if the interface is implemented using an object literal.
-//
-// Returns whether the bell was rung.
 func (c *jsiiProxy_ConsumerCanRingBell) ImplementedByObjectLiteral(ringer IBellRinger) *bool {
 	var returns *bool
 
@@ -5896,9 +5948,6 @@ func (c *jsiiProxy_ConsumerCanRingBell) ImplementedByObjectLiteral(ringer IBellR
 	return returns
 }
 
-// ...if the interface is implemented using a private class.
-//
-// Return whether the bell was rung.
 func (c *jsiiProxy_ConsumerCanRingBell) ImplementedByPrivateClass(ringer IBellRinger) *bool {
 	var returns *bool
 
@@ -5912,9 +5961,6 @@ func (c *jsiiProxy_ConsumerCanRingBell) ImplementedByPrivateClass(ringer IBellRi
 	return returns
 }
 
-// ...if the interface is implemented using a public class.
-//
-// Return whether the bell was rung.
 func (c *jsiiProxy_ConsumerCanRingBell) ImplementedByPublicClass(ringer IBellRinger) *bool {
 	var returns *bool
 
@@ -5928,9 +5974,6 @@ func (c *jsiiProxy_ConsumerCanRingBell) ImplementedByPublicClass(ringer IBellRin
 	return returns
 }
 
-// If the parameter is a concrete class instead of an interface.
-//
-// Return whether the bell was rung.
 func (c *jsiiProxy_ConsumerCanRingBell) WhenTypedAsClass(ringer IConcreteBellRinger) *bool {
 	var returns *bool
 
@@ -6263,11 +6306,15 @@ func Demonstrate982_TakeThisToo() *ParentStruct982 {
 	return returns
 }
 
-// Deprecated: a pretty boring class
+// Deprecated: a pretty boring class.
 type DeprecatedClass interface {
+	// Deprecated: shouldn't have been mutable.
 	MutableProperty() *float64
+	// Deprecated: shouldn't have been mutable.
 	SetMutableProperty(val *float64)
+	// Deprecated: this is not always "wazoo", be ready to be disappointed.
 	ReadonlyProperty() *string
+	// Deprecated: it was a bad idea.
 	Method()
 }
 
@@ -6297,7 +6344,7 @@ func (j *jsiiProxy_DeprecatedClass) ReadonlyProperty() *string {
 }
 
 
-// Deprecated: this constructor is "just" okay
+// Deprecated: this constructor is "just" okay.
 func NewDeprecatedClass(readonlyString *string, mutableNumber *float64) DeprecatedClass {
 	_init_.Initialize()
 
@@ -6312,7 +6359,7 @@ func NewDeprecatedClass(readonlyString *string, mutableNumber *float64) Deprecat
 	return &j
 }
 
-// Deprecated: this constructor is "just" okay
+// Deprecated: this constructor is "just" okay.
 func NewDeprecatedClass_Override(d DeprecatedClass, readonlyString *string, mutableNumber *float64) {
 	_init_.Initialize()
 
@@ -6331,7 +6378,6 @@ func (j *jsiiProxy_DeprecatedClass) SetMutableProperty(val *float64) {
 	)
 }
 
-// Deprecated: it was a bad idea
 func (d *jsiiProxy_DeprecatedClass) Method() {
 	_jsii_.InvokeVoid(
 		d,
@@ -6340,17 +6386,19 @@ func (d *jsiiProxy_DeprecatedClass) Method() {
 	)
 }
 
-// Deprecated: your deprecated selection of bad options
+// Deprecated: your deprecated selection of bad options.
 type DeprecatedEnum string
 
 const (
+	// Deprecated: option A is not great.
 	DeprecatedEnum_OPTION_A DeprecatedEnum = "OPTION_A"
+	// Deprecated: option B is kinda bad, too.
 	DeprecatedEnum_OPTION_B DeprecatedEnum = "OPTION_B"
 )
 
-// Deprecated: it just wraps a string
+// Deprecated: it just wraps a string.
 type DeprecatedStruct struct {
-	// Deprecated: well, yeah
+	// Deprecated: well, yeah.
 	ReadonlyProperty *string \`json:"readonlyProperty" yaml:"readonlyProperty"\`
 }
 
@@ -6407,7 +6455,7 @@ type DiamondInheritanceTopLevelStruct struct {
 
 // Verifies that null/undefined can be returned for optional collections.
 //
-// This source of collections is disappointing - it'll always give you nothing :(
+// This source of collections is disappointing - it'll always give you nothing :(.
 type DisappointingCollectionSource interface {
 }
 
@@ -6556,10 +6604,22 @@ func (d *jsiiProxy_DoNotRecognizeAnyAsOptional) Method(_requiredAny interface{},
 //
 // Multiple paragraphs are separated by an empty line.
 //
-// TODO: EXAMPLE
+// Example:
+//   x := 12 + 44
+//   s1 := "string"
+//   s2 := "string \\nwith new newlines" // see https://github.com/aws/jsii/issues/2569
+//   s3 := "string\\n            with\\n            new lines"
 //
 type DocumentedClass interface {
+	// Greet the indicated person.
+	//
+	// This will print out a friendly greeting intended for the indicated person.
+	//
+	// Returns: A number that everyone knows very well and represents the answer
+	// to the ultimate question.
 	Greet(greetee *Greetee) *float64
+	// Say ¡Hola!
+	// Experimental.
 	Hola()
 }
 
@@ -6592,12 +6652,6 @@ func NewDocumentedClass_Override(d DocumentedClass) {
 	)
 }
 
-// Greet the indicated person.
-//
-// This will print out a friendly greeting intended for the indicated person.
-//
-// Returns: A number that everyone knows very well and represents the answer
-// to the ultimate question
 func (d *jsiiProxy_DocumentedClass) Greet(greetee *Greetee) *float64 {
 	var returns *float64
 
@@ -6611,8 +6665,6 @@ func (d *jsiiProxy_DocumentedClass) Greet(greetee *Greetee) *float64 {
 	return returns
 }
 
-// Say ¡Hola!
-// Experimental.
 func (d *jsiiProxy_DocumentedClass) Hola() {
 	_jsii_.InvokeVoid(
 		d,
@@ -6674,7 +6726,9 @@ func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(o
 
 type DoubleTrouble interface {
 	IFriendlyRandomGenerator
+	// Say hello!
 	Hello() *string
+	// Returns another random number.
 	Next() *float64
 }
 
@@ -6707,7 +6761,6 @@ func NewDoubleTrouble_Override(d DoubleTrouble) {
 	)
 }
 
-// Say hello!
 func (d *jsiiProxy_DoubleTrouble) Hello() *string {
 	var returns *string
 
@@ -6721,7 +6774,6 @@ func (d *jsiiProxy_DoubleTrouble) Hello() *string {
 	return returns
 }
 
-// Returns another random number.
 func (d *jsiiProxy_DoubleTrouble) Next() *float64 {
 	var returns *float64
 
@@ -6820,6 +6872,9 @@ type DynamicPropertyBearerChild interface {
 	OriginalValue() *string
 	ValueStore() *string
 	SetValueStore(val *string)
+	// Sets \`this.dynamicProperty\` to the new value, and returns the old value.
+	//
+	// Returns: the old value that was set.
 	OverrideValue(newValue *string) *string
 }
 
@@ -6899,9 +6954,6 @@ func (j *jsiiProxy_DynamicPropertyBearerChild) SetValueStore(val *string) {
 	)
 }
 
-// Sets \`this.dynamicProperty\` to the new value, and returns the old value.
-//
-// Returns: the old value that was set.
 func (d *jsiiProxy_DynamicPropertyBearerChild) OverrideValue(newValue *string) *string {
 	var returns *string
 
@@ -6917,7 +6969,13 @@ func (d *jsiiProxy_DynamicPropertyBearerChild) OverrideValue(newValue *string) *
 
 // This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).
 type Entropy interface {
+	// Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
+	//
+	// Returns: the time from the \`WallClock\`.
 	Increase() *string
+	// Implement this method such that it returns \`word\`.
+	//
+	// Returns: \`word\`.
 	Repeat(word *string) *string
 }
 
@@ -6937,9 +6995,6 @@ func NewEntropy_Override(e Entropy, clock IWallClock) {
 	)
 }
 
-// Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
-//
-// Returns: the time from the \`WallClock\`.
 func (e *jsiiProxy_Entropy) Increase() *string {
 	var returns *string
 
@@ -6953,9 +7008,6 @@ func (e *jsiiProxy_Entropy) Increase() *string {
 	return returns
 }
 
-// Implement this method such that it returns \`word\`.
-//
-// Returns: \`word\`.
 func (e *jsiiProxy_Entropy) Repeat(word *string) *string {
 	var returns *string
 
@@ -7097,9 +7149,13 @@ type EraseUndefinedHashValuesOptions struct {
 
 // Experimental.
 type ExperimentalClass interface {
+	// Experimental.
 	MutableProperty() *float64
+	// Experimental.
 	SetMutableProperty(val *float64)
+	// Experimental.
 	ReadonlyProperty() *string
+	// Experimental.
 	Method()
 }
 
@@ -7163,7 +7219,6 @@ func (j *jsiiProxy_ExperimentalClass) SetMutableProperty(val *float64) {
 	)
 }
 
-// Experimental.
 func (e *jsiiProxy_ExperimentalClass) Method() {
 	_jsii_.InvokeVoid(
 		e,
@@ -7176,7 +7231,9 @@ func (e *jsiiProxy_ExperimentalClass) Method() {
 type ExperimentalEnum string
 
 const (
+	// Experimental.
 	ExperimentalEnum_OPTION_A ExperimentalEnum = "OPTION_A"
+	// Experimental.
 	ExperimentalEnum_OPTION_B ExperimentalEnum = "OPTION_B"
 )
 
@@ -7358,8 +7415,11 @@ func (f *jsiiProxy_FullCombo) Method() *float64 {
 
 type GiveMeStructs interface {
 	StructLiteral() *scopejsiicalclib.StructWithOnlyOptionals
+	// Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 	DerivedToFirst(derived *DerivedStruct) *scopejsiicalclib.MyFirstStruct
+	// Returns the boolean from a DerivedStruct struct.
 	ReadDerivedNonPrimitive(derived *DerivedStruct) DoubleTrouble
+	// Returns the "anumber" from a MyFirstStruct struct;.
 	ReadFirstNumber(first *scopejsiicalclib.MyFirstStruct) *float64
 }
 
@@ -7403,7 +7463,6 @@ func NewGiveMeStructs_Override(g GiveMeStructs) {
 	)
 }
 
-// Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 func (g *jsiiProxy_GiveMeStructs) DerivedToFirst(derived *DerivedStruct) *scopejsiicalclib.MyFirstStruct {
 	var returns *scopejsiicalclib.MyFirstStruct
 
@@ -7417,7 +7476,6 @@ func (g *jsiiProxy_GiveMeStructs) DerivedToFirst(derived *DerivedStruct) *scopej
 	return returns
 }
 
-// Returns the boolean from a DerivedStruct struct.
 func (g *jsiiProxy_GiveMeStructs) ReadDerivedNonPrimitive(derived *DerivedStruct) DoubleTrouble {
 	var returns DoubleTrouble
 
@@ -7431,7 +7489,6 @@ func (g *jsiiProxy_GiveMeStructs) ReadDerivedNonPrimitive(derived *DerivedStruct
 	return returns
 }
 
-// Returns the "anumber" from a MyFirstStruct struct;
 func (g *jsiiProxy_GiveMeStructs) ReadFirstNumber(first *scopejsiicalclib.MyFirstStruct) *float64 {
 	var returns *float64
 
@@ -7648,13 +7705,13 @@ func (i *jsiiProxy_IConcreteBellRinger) YourTurn(bell Bell) {
 	)
 }
 
-// Deprecated: useless interface
+// Deprecated: useless interface.
 type IDeprecatedInterface interface {
-	// Deprecated: services no purpose
+	// Deprecated: services no purpose.
 	Method()
-	// Deprecated: could be better
+	// Deprecated: could be better.
 	MutableProperty() *float64
-	// Deprecated: could be better
+	// Deprecated: could be better.
 	SetMutableProperty(m *float64)
 }
 
@@ -10410,14 +10467,23 @@ type Multiply interface {
 	BinaryOperation
 	IFriendlier
 	IRandomNumberGenerator
+	// Left-hand side operand.
 	Lhs() scopejsiicalclib.NumericValue
+	// Right-hand side operand.
 	Rhs() scopejsiicalclib.NumericValue
+	// The value.
 	Value() *float64
+	// Say farewell.
 	Farewell() *string
+	// Say goodbye.
 	Goodbye() *string
+	// Say hello!
 	Hello() *string
+	// Returns another random number.
 	Next() *float64
+	// String representation of the value.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -10485,7 +10551,6 @@ func NewMultiply_Override(m Multiply, lhs scopejsiicalclib.NumericValue, rhs sco
 	)
 }
 
-// Say farewell.
 func (m *jsiiProxy_Multiply) Farewell() *string {
 	var returns *string
 
@@ -10499,7 +10564,6 @@ func (m *jsiiProxy_Multiply) Farewell() *string {
 	return returns
 }
 
-// Say goodbye.
 func (m *jsiiProxy_Multiply) Goodbye() *string {
 	var returns *string
 
@@ -10513,7 +10577,6 @@ func (m *jsiiProxy_Multiply) Goodbye() *string {
 	return returns
 }
 
-// Say hello!
 func (m *jsiiProxy_Multiply) Hello() *string {
 	var returns *string
 
@@ -10527,7 +10590,6 @@ func (m *jsiiProxy_Multiply) Hello() *string {
 	return returns
 }
 
-// Returns another random number.
 func (m *jsiiProxy_Multiply) Next() *float64 {
 	var returns *float64
 
@@ -10541,7 +10603,6 @@ func (m *jsiiProxy_Multiply) Next() *float64 {
 	return returns
 }
 
-// String representation of the value.
 func (m *jsiiProxy_Multiply) ToString() *string {
 	var returns *string
 
@@ -10555,7 +10616,6 @@ func (m *jsiiProxy_Multiply) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (m *jsiiProxy_Multiply) TypeName() interface{} {
 	var returns interface{}
 
@@ -10574,11 +10634,17 @@ type Negate interface {
 	UnaryOperation
 	IFriendlier
 	Operand() scopejsiicalclib.NumericValue
+	// The value.
 	Value() *float64
+	// Say farewell.
 	Farewell() *string
+	// Say goodbye.
 	Goodbye() *string
+	// Say hello!
 	Hello() *string
+	// String representation of the value.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -10633,7 +10699,6 @@ func NewNegate_Override(n Negate, operand scopejsiicalclib.NumericValue) {
 	)
 }
 
-// Say farewell.
 func (n *jsiiProxy_Negate) Farewell() *string {
 	var returns *string
 
@@ -10647,7 +10712,6 @@ func (n *jsiiProxy_Negate) Farewell() *string {
 	return returns
 }
 
-// Say goodbye.
 func (n *jsiiProxy_Negate) Goodbye() *string {
 	var returns *string
 
@@ -10661,7 +10725,6 @@ func (n *jsiiProxy_Negate) Goodbye() *string {
 	return returns
 }
 
-// Say hello!
 func (n *jsiiProxy_Negate) Hello() *string {
 	var returns *string
 
@@ -10675,7 +10738,6 @@ func (n *jsiiProxy_Negate) Hello() *string {
 	return returns
 }
 
-// String representation of the value.
 func (n *jsiiProxy_Negate) ToString() *string {
 	var returns *string
 
@@ -10689,7 +10751,6 @@ func (n *jsiiProxy_Negate) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (n *jsiiProxy_Negate) TypeName() interface{} {
 	var returns interface{}
 
@@ -10733,9 +10794,19 @@ type NestedStruct struct {
 
 // Test fixture to verify that jsii modules can use the node standard library.
 type NodeStandardLibrary interface {
+	// Returns the current os.platform() from the "os" node module.
 	OsPlatform() *string
+	// Uses node.js "crypto" module to calculate sha256 of a string.
+	//
+	// Returns: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50".
 	CryptoSha256() *string
+	// Reads a local resource file (resource.txt) asynchronously.
+	//
+	// Returns: "Hello, resource!"
 	FsReadFile() *string
+	// Sync version of fsReadFile.
+	//
+	// Returns: "Hello, resource! SYNC!"
 	FsReadFileSync() *string
 }
 
@@ -10779,9 +10850,6 @@ func NewNodeStandardLibrary_Override(n NodeStandardLibrary) {
 	)
 }
 
-// Uses node.js "crypto" module to calculate sha256 of a string.
-//
-// Returns: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
 func (n *jsiiProxy_NodeStandardLibrary) CryptoSha256() *string {
 	var returns *string
 
@@ -10795,9 +10863,6 @@ func (n *jsiiProxy_NodeStandardLibrary) CryptoSha256() *string {
 	return returns
 }
 
-// Reads a local resource file (resource.txt) asynchronously.
-//
-// Returns: "Hello, resource!"
 func (n *jsiiProxy_NodeStandardLibrary) FsReadFile() *string {
 	var returns *string
 
@@ -10811,9 +10876,6 @@ func (n *jsiiProxy_NodeStandardLibrary) FsReadFile() *string {
 	return returns
 }
 
-// Sync version of fsReadFile.
-//
-// Returns: "Hello, resource! SYNC!"
 func (n *jsiiProxy_NodeStandardLibrary) FsReadFileSync() *string {
 	var returns *string
 
@@ -10997,7 +11059,9 @@ func (n *jsiiProxy_NumberGenerator) NextTimes100() *float64 {
 
 // Verify that object references can be passed inside collections.
 type ObjectRefsInCollections interface {
+	// Returns the sum of all values.
 	SumFromArray(values *[]scopejsiicalclib.NumericValue) *float64
+	// Returns the sum of all values in a map.
 	SumFromMap(values *map[string]scopejsiicalclib.NumericValue) *float64
 }
 
@@ -11030,7 +11094,6 @@ func NewObjectRefsInCollections_Override(o ObjectRefsInCollections) {
 	)
 }
 
-// Returns the sum of all values.
 func (o *jsiiProxy_ObjectRefsInCollections) SumFromArray(values *[]scopejsiicalclib.NumericValue) *float64 {
 	var returns *float64
 
@@ -11044,7 +11107,6 @@ func (o *jsiiProxy_ObjectRefsInCollections) SumFromArray(values *[]scopejsiicalc
 	return returns
 }
 
-// Returns the sum of all values in a map.
 func (o *jsiiProxy_ObjectRefsInCollections) SumFromMap(values *map[string]scopejsiicalclib.NumericValue) *float64 {
 	var returns *float64
 
@@ -11083,8 +11145,11 @@ func ObjectWithPropertyProvider_Provide() IObjectWithProperty {
 
 // Old class.
 // Deprecated: Use the new class or the old class whatever you want because
-// whatever you like is always the best
+// whatever you like is always the best.
 type Old interface {
+	// Doo wop that thing.
+	// Deprecated: Use the new class or the old class whatever you want because
+	// whatever you like is always the best.
 	DoAThing()
 }
 
@@ -11094,7 +11159,7 @@ type jsiiProxy_Old struct {
 }
 
 // Deprecated: Use the new class or the old class whatever you want because
-// whatever you like is always the best
+// whatever you like is always the best.
 func NewOld() Old {
 	_init_.Initialize()
 
@@ -11110,7 +11175,7 @@ func NewOld() Old {
 }
 
 // Deprecated: Use the new class or the old class whatever you want because
-// whatever you like is always the best
+// whatever you like is always the best.
 func NewOld_Override(o Old) {
 	_init_.Initialize()
 
@@ -11121,9 +11186,6 @@ func NewOld_Override(o Old) {
 	)
 }
 
-// Doo wop that thing.
-// Deprecated: Use the new class or the old class whatever you want because
-// whatever you like is always the best
 func (o *jsiiProxy_Old) DoAThing() {
 	_jsii_.InvokeVoid(
 		o,
@@ -11542,17 +11604,28 @@ func (p *jsiiProxy_Polymorphism) SayHello(friendly scopejsiicalclib.IFriendly) *
 // The power operation.
 type Power interface {
 	composition.CompositeOperation
+	// The base of the power.
 	Base() scopejsiicalclib.NumericValue
+	// A set of postfixes to include in a decorated .toString().
 	DecorationPostfixes() *[]*string
 	SetDecorationPostfixes(val *[]*string)
+	// A set of prefixes to include in a decorated .toString().
 	DecorationPrefixes() *[]*string
 	SetDecorationPrefixes(val *[]*string)
+	// The expression that this operation consists of.
+	//
+	// Must be implemented by derived classes.
 	Expression() scopejsiicalclib.NumericValue
+	// The number of times to multiply.
 	Pow() scopejsiicalclib.NumericValue
+	// The .toString() style.
 	StringStyle() composition.CompositeOperation_CompositionStringStyle
 	SetStringStyle(val composition.CompositeOperation_CompositionStringStyle)
+	// The value.
 	Value() *float64
+	// String representation of the value.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -11682,7 +11755,6 @@ func (j *jsiiProxy_Power) SetStringStyle(val composition.CompositeOperation_Comp
 	)
 }
 
-// String representation of the value.
 func (p *jsiiProxy_Power) ToString() *string {
 	var returns *string
 
@@ -11696,7 +11768,6 @@ func (p *jsiiProxy_Power) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (p *jsiiProxy_Power) TypeName() interface{} {
 	var returns interface{}
 
@@ -12284,6 +12355,7 @@ func RootStructValidator_Validate(struct_ *RootStruct) {
 type RuntimeTypeChecking interface {
 	MethodWithDefaultedArguments(arg1 *float64, arg2 *string, arg3 *time.Time)
 	MethodWithOptionalAnyArgument(arg interface{})
+	// Used to verify verification of number of method arguments.
 	MethodWithOptionalArguments(arg1 *float64, arg2 *string, arg3 *time.Time)
 }
 
@@ -12332,7 +12404,6 @@ func (r *jsiiProxy_RuntimeTypeChecking) MethodWithOptionalAnyArgument(arg interf
 	)
 }
 
-// Used to verify verification of number of method arguments.
 func (r *jsiiProxy_RuntimeTypeChecking) MethodWithOptionalArguments(arg1 *float64, arg2 *string, arg3 *time.Time) {
 	_jsii_.InvokeVoid(
 		r,
@@ -12442,6 +12513,7 @@ func (s *jsiiProxy_SingletonInt) IsSingletonInt(value *float64) *bool {
 type SingletonIntEnum string
 
 const (
+	// Elite!
 	SingletonIntEnum_SINGLETON_INT SingletonIntEnum = "SINGLETON_INT"
 )
 
@@ -12474,6 +12546,7 @@ func (s *jsiiProxy_SingletonString) IsSingletonString(value *string) *bool {
 type SingletonStringEnum string
 
 const (
+	// 1337.
 	SingletonStringEnum_SINGLETON_STRING SingletonStringEnum = "SINGLETON_STRING"
 )
 
@@ -13126,17 +13199,27 @@ type StructWithJavaReservedWords struct {
 // An operation that sums multiple values.
 type Sum interface {
 	composition.CompositeOperation
+	// A set of postfixes to include in a decorated .toString().
 	DecorationPostfixes() *[]*string
 	SetDecorationPostfixes(val *[]*string)
+	// A set of prefixes to include in a decorated .toString().
 	DecorationPrefixes() *[]*string
 	SetDecorationPrefixes(val *[]*string)
+	// The expression that this operation consists of.
+	//
+	// Must be implemented by derived classes.
 	Expression() scopejsiicalclib.NumericValue
+	// The parts to sum.
 	Parts() *[]scopejsiicalclib.NumericValue
 	SetParts(val *[]scopejsiicalclib.NumericValue)
+	// The .toString() style.
 	StringStyle() composition.CompositeOperation_CompositionStringStyle
 	SetStringStyle(val composition.CompositeOperation_CompositionStringStyle)
+	// The value.
 	Value() *float64
+	// String representation of the value.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -13262,7 +13345,6 @@ func (j *jsiiProxy_Sum) SetStringStyle(val composition.CompositeOperation_Compos
 	)
 }
 
-// String representation of the value.
 func (s *jsiiProxy_Sum) ToString() *string {
 	var returns *string
 
@@ -13276,7 +13358,6 @@ func (s *jsiiProxy_Sum) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (s *jsiiProxy_Sum) TypeName() interface{} {
 	var returns interface{}
 
@@ -13293,6 +13374,7 @@ func (s *jsiiProxy_Sum) TypeName() interface{} {
 type SupportsNiceJavaBuilder interface {
 	SupportsNiceJavaBuilderWithRequiredProps
 	Bar() *float64
+	// some identifier.
 	Id() *float64
 	PropId() *string
 	Rest() *[]*string
@@ -13390,6 +13472,7 @@ type SupportsNiceJavaBuilderProps struct {
 // We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
 type SupportsNiceJavaBuilderWithRequiredProps interface {
 	Bar() *float64
+	// some identifier of your choice.
 	Id() *float64
 	PropId() *string
 }
@@ -13724,9 +13807,13 @@ func (s *jsiiProxy_SyncVirtualMethods) WriteA(value *float64) {
 }
 
 type TestStructWithEnum interface {
+	// Returns \`foo: StringEnum.A\`.
 	StructWithFoo() *StructWithEnum
+	// Returns \`foo: StringEnum.C\` and \`bar: AllTypesEnum.MY_ENUM_VALUE\`.
 	StructWithFooBar() *StructWithEnum
+	// Returns true if \`foo\` is \`StringEnum.A\`.
 	IsStringEnumA(input *StructWithEnum) *bool
+	// Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.
 	IsStringEnumB(input *StructWithEnum) *bool
 }
 
@@ -13780,7 +13867,6 @@ func NewTestStructWithEnum_Override(t TestStructWithEnum) {
 	)
 }
 
-// Returns true if \`foo\` is \`StringEnum.A\`.
 func (t *jsiiProxy_TestStructWithEnum) IsStringEnumA(input *StructWithEnum) *bool {
 	var returns *bool
 
@@ -13794,7 +13880,6 @@ func (t *jsiiProxy_TestStructWithEnum) IsStringEnumA(input *StructWithEnum) *boo
 	return returns
 }
 
-// Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.
 func (t *jsiiProxy_TestStructWithEnum) IsStringEnumB(input *StructWithEnum) *bool {
 	var returns *bool
 
@@ -13863,9 +13948,12 @@ type TopLevelStruct struct {
 //
 type TwoMethodsWithSimilarCapitalization interface {
 	FooBar() *float64
+	// Deprecated: YES.
 	FooBAR() *float64
 	ToIsoString() *string
+	// Deprecated: python requires that all alternatives are deprecated.
 	ToIsOString() *string
+	// Deprecated: python requires that all alternatives are deprecated.
 	ToISOString() *string
 }
 
@@ -13932,7 +14020,6 @@ func (t *jsiiProxy_TwoMethodsWithSimilarCapitalization) ToIsoString() *string {
 	return returns
 }
 
-// Deprecated: python requires that all alternatives are deprecated
 func (t *jsiiProxy_TwoMethodsWithSimilarCapitalization) ToIsOString() *string {
 	var returns *string
 
@@ -13946,7 +14033,6 @@ func (t *jsiiProxy_TwoMethodsWithSimilarCapitalization) ToIsOString() *string {
 	return returns
 }
 
-// Deprecated: python requires that all alternatives are deprecated
 func (t *jsiiProxy_TwoMethodsWithSimilarCapitalization) ToISOString() *string {
 	var returns *string
 
@@ -13991,8 +14077,13 @@ func UmaskCheck_Mode() *float64 {
 type UnaryOperation interface {
 	scopejsiicalclib.Operation
 	Operand() scopejsiicalclib.NumericValue
+	// The value.
+	// Deprecated.
 	Value() *float64
+	// String representation of the value.
+	// Deprecated.
 	ToString() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -14032,8 +14123,6 @@ func NewUnaryOperation_Override(u UnaryOperation, operand scopejsiicalclib.Numer
 	)
 }
 
-// String representation of the value.
-// Deprecated.
 func (u *jsiiProxy_UnaryOperation) ToString() *string {
 	var returns *string
 
@@ -14047,7 +14136,6 @@ func (u *jsiiProxy_UnaryOperation) ToString() *string {
 	return returns
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (u *jsiiProxy_UnaryOperation) TypeName() interface{} {
 	var returns interface{}
 
@@ -17040,7 +17128,9 @@ import (
 type ExtendAndImplement interface {
 	scopejsiicalclib.BaseFor2647
 	scopejsiicalclib.IFriendly
+	// Deprecated.
 	Foo(obj jcb.IBaseInterface)
+	// Say hello!
 	Hello() *string
 	LocalMethod() *string
 }
@@ -17077,7 +17167,6 @@ func NewExtendAndImplement_Override(e ExtendAndImplement, very scopejsiicalcbase
 	)
 }
 
-// Deprecated.
 func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
 	_jsii_.InvokeVoid(
 		e,
@@ -17086,7 +17175,6 @@ func (e *jsiiProxy_ExtendAndImplement) Foo(obj jcb.IBaseInterface) {
 	)
 }
 
-// Say hello!
 func (e *jsiiProxy_ExtendAndImplement) Hello() *string {
 	var returns *string
 
@@ -17869,6 +17957,7 @@ func (b *jsiiProxy_Baz) IBaseInterface() {
 type Class1 interface {
 	jcb.Base
 	Base()
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -17909,7 +17998,6 @@ func (c *jsiiProxy_Class1) Base() {
 	)
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (c *jsiiProxy_Class1) TypeName() interface{} {
 	var returns interface{}
 
@@ -17926,6 +18014,7 @@ func (c *jsiiProxy_Class1) TypeName() interface{} {
 type Class2 interface {
 	jcb.Base
 	Base() *string
+	// Returns: the name of the class (to verify native type names are created for derived classes).
 	TypeName() interface{}
 }
 
@@ -17969,7 +18058,6 @@ func NewClass2_Override(c Class2) {
 	)
 }
 
-// Returns: the name of the class (to verify native type names are created for derived classes).
 func (c *jsiiProxy_Class2) TypeName() interface{} {
 	var returns interface{}
 
@@ -18913,14 +19001,18 @@ import (
 type Awesomeness string
 
 const (
+	// It was awesome!
 	Awesomeness_AWESOME Awesomeness = "AWESOME"
 )
 
 type Goodness string
 
 const (
+	// It's pretty good.
 	Goodness_PRETTY_GOOD Goodness = "PRETTY_GOOD"
+	// It's really good.
 	Goodness_REALLY_GOOD Goodness = "REALLY_GOOD"
+	// It's amazingly good.
 	Goodness_AMAZINGLY_GOOD Goodness = "AMAZINGLY_GOOD"
 )
 

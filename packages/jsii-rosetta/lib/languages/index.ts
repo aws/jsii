@@ -1,5 +1,6 @@
 import { AstHandler } from '../renderer';
 import { CSharpVisitor } from './csharp';
+import { GoVisitor } from './go';
 import { JavaVisitor } from './java';
 import { PythonVisitor } from './python';
 import { TargetLanguage } from './target-language';
@@ -23,5 +24,9 @@ export const TARGET_LANGUAGES: { [key in TargetLanguage]: VisitorFactory } = {
   java: {
     version: JavaVisitor.VERSION,
     createVisitor: () => new JavaVisitor(),
+  },
+  go: {
+    version: GoVisitor.VERSION,
+    createVisitor: () => new GoVisitor(),
   },
 };

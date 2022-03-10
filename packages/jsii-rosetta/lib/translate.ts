@@ -228,7 +228,7 @@ export class SnippetTranslator {
     );
     const converted = converter.convert(this.compilation.rootFile);
     this.translateDiagnostics.push(...filterVisibleDiagnostics(converter.diagnostics, this.visibleSpans));
-    return renderTree(converted, { visibleSpans: this.visibleSpans });
+    return renderTree(converted, { indentChar: visitor.indentChar, visibleSpans: this.visibleSpans });
   }
 
   public syntaxKindCounter(): Record<string, number> {

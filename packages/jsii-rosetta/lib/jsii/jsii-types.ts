@@ -7,8 +7,7 @@ import { hasAnyFlag, analyzeStructType, JsiiSymbol } from './jsii-utils';
 export type JsiiType =
   | { kind: 'unknown' }
   | { kind: 'error'; message: string }
-  | { kind: 'map'; elementType: JsiiType }
-  | { kind: 'list'; elementType: JsiiType }
+  | { kind: 'map' | 'list'; elementType: JsiiType; elementTypeSymbol: ts.Symbol | undefined }
   | { kind: 'namedType'; name: string }
   | { kind: 'builtIn'; builtIn: BuiltInType };
 
@@ -28,6 +27,7 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
       elementType: mapValuesType.elementType
         ? determineJsiiType(typeChecker, mapValuesType.elementType)
         : { kind: 'builtIn', builtIn: 'any' },
+      elementTypeSymbol: mapValuesType.elementType?.symbol,
     };
   }
 
@@ -38,12 +38,14 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
       return {
         kind: 'list',
         elementType: determineJsiiType(typeChecker, typeRef.typeArguments[0]),
+        elementTypeSymbol: typeRef.typeArguments[0].symbol,
       };
     }
 
     return {
       kind: 'list',
       elementType: { kind: 'builtIn', builtIn: 'any' },
+      elementTypeSymbol: undefined,
     };
   }
 
@@ -66,6 +68,11 @@ export function determineJsiiType(typeChecker: ts.TypeChecker, type: ts.Type): J
       message: `Type unions or intersections are not supported in examples, got: ${typeChecker.typeToString(type)}`,
     };
   }
+
+  if ((type.flags & (ts.TypeFlags.Void | ts.TypeFlags.VoidLike)) !== 0) {
+    return { kind: 'builtIn', builtIn: 'void' };
+  }
+
   return { kind: 'unknown' };
 }
 

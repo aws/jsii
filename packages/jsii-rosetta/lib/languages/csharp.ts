@@ -669,6 +669,8 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
               return 'string';
             case 'any':
               return 'object';
+            case 'void':
+              return 'void';
           }
       }
     }

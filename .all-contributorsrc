@@ -1321,6 +1321,24 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "mmogylenko",
+      "name": "Mykola Mogylenko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7536624?v=4",
+      "profile": "https://github.com/mmogylenko",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "z3r0w0n",
+      "name": "Kaushik Borra",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6740347?v=4",
+      "profile": "https://github.com/z3r0w0n",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",

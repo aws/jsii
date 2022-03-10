@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.55.0](https://github.com/aws/jsii/compare/v1.54.0...v1.55.0) (2022-03-10)
+
+
+### Features
+
+* rosetta go support ([#3376](https://github.com/aws/jsii/issues/3376)) ([015e663](https://github.com/aws/jsii/commit/015e66374a5a846741a54efd610cf351516dbe44))
+
+
+### Bug Fixes
+
+* **go:** lots of documentation is missing from generated code ([#3409](https://github.com/aws/jsii/issues/3409)) ([69d28bb](https://github.com/aws/jsii/commit/69d28bb467113c5d5e91493b0846616685c64678))
+
 ## [1.54.0](https://github.com/aws/jsii/compare/v1.53.0...v1.54.0) (2022-02-15)
 
 

@@ -206,6 +206,10 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
   && apt-get -y install nodejs yarn                                                                                     \
   && rm -rf /var/lib/apt/lists/*
 
+# Install SAM CLI
+RUN pip install aws-sam-cli                                                                                             \
+  && sam --version
+
 # Install some configuration
 COPY superchain/ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
