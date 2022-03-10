@@ -109,7 +109,7 @@ export class Code<
    *
    * @param code            the numeric code for the diagnostic
    * @param name            the symbolic name for the diagnostic
-   * @param defaultCategory the default category this diagnostic ransk in
+   * @param defaultCategory the default category this diagnostic ranks in
    * @param formatter       a message formatter for easy creation of diagnostics
    */
   private constructor(
@@ -294,7 +294,10 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_1004_DUPLICATE_ENUM_VALUE = Code.error({
     code: 1004,
-    formatter: (messageText) => messageText,
+    formatter: (enumValue: string, enumMemberNames: string[]) =>
+      `Value ${enumValue} is used for multiple enum values: ${enumMemberNames.join(
+        ', ',
+      )}`,
     name: 'typescript-restrictions/duplicate-enum-value',
   });
 

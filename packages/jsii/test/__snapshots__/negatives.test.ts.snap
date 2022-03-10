@@ -102,6 +102,28 @@ neg.downgrade-to-readonly.ts:8:24 - error JSII5010: "jsii.Implementation#propert
 
 `;
 
+exports[`enum-duplicate-values 1`] = `
+neg.enum-duplicate-values.ts:2:3 - error JSII1004: Value 'foo' is used for multiple enum values: FOO, FOO_DUPLICATE
+
+2   FOO = 'foo',
+    ~~~
+
+  neg.enum-duplicate-values.ts:3:3
+    3   FOO_DUPLICATE = 'foo',
+        ~~~~~~~~~~~~~
+    The conflicting declaration is here
+neg.enum-duplicate-values.ts:4:3 - error JSII1004: Value 'bar' is used for multiple enum values: BAR, BAR_COPY
+
+4   BAR = 'bar',
+    ~~~
+
+  neg.enum-duplicate-values.ts:5:3
+    5   BAR_COPY = 'bar',
+        ~~~~~~~~
+    The conflicting declaration is here
+
+`;
+
 exports[`enum-members.1 1`] = `
 error JSII8001: Enum members must be ALL_CAPS. Rename "jsii.MyEnum.Goo" to "GOO"
 

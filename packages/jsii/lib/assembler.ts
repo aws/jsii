@@ -1827,16 +1827,13 @@ export class Assembler implements Emitter {
         if (enumValueMap[duplicateValue].length > 1) {
           const err = JsiiDiagnostic.JSII_1004_DUPLICATE_ENUM_VALUE.create(
             enumValueMap[duplicateValue][0].decl!,
-            `Value ${duplicateValue} is used for multiple enum values: ${enumValueMap[
-              duplicateValue
-            ]
-              .map((e: any) => e.name)
-              .join(', ')}`,
+            duplicateValue,
+            enumValueMap[duplicateValue].map((v) => v.name),
           );
           for (let i = 1; i < enumValueMap[duplicateValue].length; i++) {
             err.addRelatedInformation(
               enumValueMap[duplicateValue][i].decl!,
-              'Same value assigned here',
+              'The conflicting declaration is here',
             );
           }
           this._diagnostics.push(err);
