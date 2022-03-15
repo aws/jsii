@@ -11,3 +11,6 @@ dist/
 *.tabl.json
 *.swp
 *.snk
+build/
+coverage/
+jsii-outdir/
