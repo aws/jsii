@@ -284,13 +284,12 @@ function createWarningFunctionCall(
 }
 
 /**
- * The deprecation check statement
- * @param statements that will be wrapped with try catch block
- * will throw an DeprecationError when property/method or a class is deprecated,but the
+ * The deprecation check statement will throw an DeprecationError when property/method or a class is deprecated, but the
  *  but the generated stack trace includes internal implementation functions which dont provide any useful
  *  information. More over when the file is minimized, the trace can include a mountain of text when used with jest.
  *  To avoid this, we wrap the deprecation check with a try catch block and throw the same error from where the deprecation
- * check is preformed.
+ *  check is preformed.
+ * @param statements that will be wrapped with try catch block
  * @returns try/catch block with the deprecation check statement
  */
 function wrapDeprecationErrorWithTryCatch(
