@@ -420,26 +420,68 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'bar() { jsiiDeprecationWarnings.print("testpkg.Foo#bar", "Use something else"); }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          /** @deprecated Use something else */
+          bar() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\");
+          }
+          catch (err) {
+              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
+                  // creating a new error of same type to clean error stack
+                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
+              }
+              throw err;
+          } }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFDZCxxQ0FBcUM7SUFDOUIsR0FBRzs7Ozs7Ozs7O09BQUk7O0FBRmhCLGtCQUdDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICAvKiogQGRlcHJlY2F0ZWQgVXNlIHNvbWV0aGluZyBlbHNlICovXG4gICAgICBwdWJsaWMgYmFyKCl7fVxuICAgIH1cbiAgIl19"
+    `);
   });
 
   test('methods with parameters', async () => {
     const result = await compileJsiiForTest(
       `
-    export interface A {readonly x: number;}
-    export class Foo {
-      public bar(a: A, b: number){return a.x + b;}
-    }
-  `,
+        export interface A {readonly x: number;}
+         export class Foo {
+          public bar(a: A, b: number){return a.x + b;}
+         }`,
       undefined /* callback */,
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'bar(a, b) { jsiiDeprecationWarnings.testpkg_A(a); return a.x + b; }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          bar(a, b) { try {
+              jsiiDeprecationWarnings.testpkg_A(a);
+          }
+          catch (err) {
+              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
+                  // creating a new error of same type to clean error stack
+                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
+              }
+              throw err;
+          } return a.x + b; }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFUyxNQUFhLEdBQUc7SUFDUixHQUFHLENBQUMsQ0FBSSxFQUFFLENBQVM7Ozs7Ozs7OztNQUFFLE9BQU8sQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsRUFBQzs7QUFEN0Msa0JBRUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICAgICAgZXhwb3J0IGludGVyZmFjZSBBIHtyZWFkb25seSB4OiBudW1iZXI7fVxuICAgICAgICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICAgICAgcHVibGljIGJhcihhOiBBLCBiOiBudW1iZXIpe3JldHVybiBhLnggKyBiO31cbiAgICAgICAgIH0iXX0="
+    `);
   }, 60000);
 
   test('deprecated getters', async () => {
@@ -455,9 +497,34 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'get x() { jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else"); return this._x; }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          constructor() {
+              this._x = 0;
+          }
+          /** @deprecated Use something else */
+          get x() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (err) {
+              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
+                  // creating a new error of same type to clean error stack
+                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
+              }
+              throw err;
+          } return this._x; }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBR2hCO0lBRkMscUNBQXFDO0lBQ3JDLElBQVcsQ0FBQzs7Ozs7Ozs7O01BQUcsT0FBTyxJQUFJLENBQUMsRUFBRSxDQUFBLEVBQUM7O0FBSGhDLGtCQUlDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICBwcml2YXRlIF94ID0gMDtcbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBnZXQgeCgpe3JldHVybiB0aGlzLl94fVxuICAgIH1cbiAgIl19"
+    `);
   });
 
   test('deprecated setters', async () => {
@@ -475,12 +542,47 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'set x(_x) { jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else"); this._x = _x; }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          constructor() {
+              this._x = 0;
+          }
+          get x() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (err) {
+              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
+                  // creating a new error of same type to clean error stack
+                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
+              }
+              throw err;
+          } return this._x; }
+          /** @deprecated Use something else */
+          set x(_x) { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (err) {
+              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
+                  // creating a new error of same type to clean error stack
+                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
+              }
+              throw err;
+          } this._x = _x; }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBS2hCO0lBSkMsSUFBVyxDQUFDOzs7Ozs7Ozs7TUFBRyxPQUFPLElBQUksQ0FBQyxFQUFFLENBQUEsRUFBQztJQUU5QixxQ0FBcUM7SUFDckMsSUFBVyxDQUFDLENBQUMsRUFBVTs7Ozs7Ozs7O01BQUcsSUFBSSxDQUFDLEVBQUUsR0FBRyxFQUFFLENBQUMsRUFBQzs7QUFMMUMsa0JBTUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIHByaXZhdGUgX3ggPSAwO1xuICAgICAgcHVibGljIGdldCB4KCl7cmV0dXJuIHRoaXMuX3h9XG5cbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBzZXQgeChfeDogbnVtYmVyKSB7dGhpcy5feCA9IF94O31cbiAgICB9XG4gICJdfQ=="
+    `);
   });
 
-  test('deprecated classes', async () => {
+  test('creates a new instance of error when test', async () => {
     const result = await compileJsiiForTest(
       `
     ${DEPRECATED}
@@ -492,9 +594,31 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'constructor() { jsiiDeprecationWarnings.print("testpkg.Foo", "Use something else"); }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      /** @deprecated Use something else */
+      class Foo {
+          constructor() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\");
+          }
+          catch (err) {
+              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
+                  // creating a new error of same type to clean error stack
+                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
+              }
+              throw err;
+          } }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2Q7Ozs7Ozs7OztPQUFlOztBQURqQixrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIGNvbnN0cnVjdG9yKCl7fVxuICAgIH1cbiAgIl19"
+    `);
   });
 });
 

@@ -283,6 +283,57 @@ function createWarningFunctionCall(
   return condition ? ts.createIf(condition, mainStatement) : mainStatement;
 }
 
+/**
+ * The deprecation check statement
+ * @param statements that will be wrapped with try catch block
+ * will throw an DeprecationError when property/method or a class is deprecated,but the
+ *  but the generated stack trace includes internal implementation functions which dont provide any useful
+ *  information. More over when the file is minimized, the trace can include a mountain of text when used with jest.
+ *  To avoid this, we wrap the deprecation check with a try catch block and throw the same error from where the deprecation
+ * check is preformed.
+ * @returns try/catch block with the deprecation check statement
+ */
+function wrapDeprecationErrorWithTryCatch(
+  statements: ts.Statement[] | ts.Statement,
+): ts.TryStatement {
+  const ERROR_IDENTIFIER = 'err';
+  const errorIsInstanceofDeprecationError = ts.createBinary(
+    ts.createIdentifier('err'),
+    ts.SyntaxKind.InstanceOfKeyword,
+    ts.createIdentifier(`${NAMESPACE}.DeprecationError`),
+  );
+
+  const newErrorInstance = ts.createThrow(
+    ts.createNew(
+      ts.createIdentifier(`${NAMESPACE}.DeprecationError`),
+      undefined,
+      [ts.createIdentifier(`${ERROR_IDENTIFIER}.message`)],
+    ),
+  );
+  ts.addSyntheticLeadingComment(
+    newErrorInstance,
+    ts.SyntaxKind.SingleLineCommentTrivia,
+    ' creating a new error of same type to clean error stack',
+    true,
+  );
+  const tryStatement = ts.createTry(
+    ts.createBlock(Array.isArray(statements) ? statements : [statements], true),
+    ts.createCatchClause(
+      ts.createVariableDeclaration(ERROR_IDENTIFIER),
+      ts.createBlock([
+        ts.createIf(
+          errorIsInstanceofDeprecationError,
+          ts.createBlock([newErrorInstance]),
+        ),
+        ts.createThrow(ts.createIdentifier('err')),
+      ]),
+    ),
+    undefined,
+  );
+
+  return tryStatement;
+}
+
 function generateWarningsFile(
   projectRoot: string,
   functionDeclarations: ts.FunctionDeclaration[],
@@ -470,7 +521,13 @@ class Transformer {
         (property) => property.name === node.name?.getText(),
       );
       if (property) {
-        return createWarningStatementForElement(property, classType);
+        const statements = createWarningStatementForElement(
+          property,
+          classType,
+        );
+        return statements.length > 0
+          ? [wrapDeprecationErrorWithTryCatch(statements)]
+          : statements;
       }
     }
     return [];
@@ -502,7 +559,9 @@ class Transformer {
       }
     }
 
-    return statements;
+    return statements.length > 0
+      ? [wrapDeprecationErrorWithTryCatch(statements)]
+      : statements;
   }
 }
 
