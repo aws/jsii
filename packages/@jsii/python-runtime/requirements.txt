@@ -2,7 +2,7 @@ black~=22.1
 mypy==0.812
 pip~=21.3 ; python_version < '3.7'
 pip~=22.0 ; python_version >= '3.7'
-pytest~=7.0
+pytest~=7.1
 pytest-mypy~=0.9
 setuptools~=59.6
 wheel~=0.37
