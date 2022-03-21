@@ -74,7 +74,7 @@ jobs:
       # We only restore GH cache if we are not going to publish the result (i.e: PR validation)
       - name: Set up layer cache
         if: steps.should-run.outputs.result == 'true' && github.event_name != 'push'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-${{ github.sha }}
