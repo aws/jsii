@@ -1391,3 +1391,112 @@ test('will read translations from cache even if they are dirty', async () => {
     await infusedAssembly.cleanup();
   }
 });
+
+test('will output to specified directory', async () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = await jsii.compileJsiiForTest({
+      'README.md': `
+# README
+\`\`\`ts
+const object: IInterface = new ClassName('this', 1337, { foo: 'bar' });
+object.property = EnumType.OPTION_A;
+object.methodCall();
+
+ClassName.staticMethod(EnumType.OPTION_B);
+\`\`\`
+`,
+      'index.ts': `
+/**
+ * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+ */
+export enum EnumType {
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_A });
+   */
+  OPTION_A = 1,
+
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  OPTION_B = 2,
+}
+
+export interface IInterface {
+  /**
+   * A property value.
+   *
+   * @example
+   *    iface.property = EnumType.OPTION_B;
+   */
+  property: EnumType;
+
+  /**
+   * An instance method call.
+   *
+   * @example
+   *    iface.methodCall();
+   */
+  methodCall(): void;
+}
+
+export interface ClassNameProps {
+  readonly property?: EnumType;
+  readonly foo?: string;
+}
+
+export class ClassName implements IInterface {
+  /**
+   * A static method. It can be invoked easily.
+   *
+   * @example ClassName.staticMethod();
+   */
+  public static staticMethod(_enm?: EnumType): void {
+    // ...
+  }
+
+  public property: EnumType;
+
+  /**
+   * Create a new instance of ClassName.
+   *
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  public constructor(_this: string, _elite: number, props: ClassNameProps) {
+    this.property = props.property ?? EnumType.OPTION_A;
+  }
+
+  public methodCall(): void {
+    // ...
+  }
+}`,
+    });
+    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
+      spaces: 2,
+    });
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+    fs.mkdirSync(path.resolve(tmpDir, 'rosetta'));
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'default.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';\ndeclare const iface: IInterface\n/// here`,
+      'utf-8',
+    );
+
+    // WHEN
+    // create outdir
+    const outdir = path.resolve(tmpDir, 'out');
+    fs.mkdirSync(outdir);
+
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        strict: true,
+        outdir,
+      }),
+    ).resolves.not.toThrow();
+
+    Object.values(TargetLanguage).forEach((lang) => {
+      expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);
+    });
+  }));

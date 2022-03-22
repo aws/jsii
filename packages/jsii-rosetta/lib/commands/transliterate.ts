@@ -32,6 +32,13 @@ export interface TransliterateAssemblyOptions {
    * @default - Only the default tablet (`.jsii.tabl.json`) files will be used.
    */
   readonly tablet?: string;
+
+  /**
+   * A directory to output translated assemblies to
+   *
+   * @default - assembly location
+   */
+  readonly outdir?: string;
 }
 
 /**
@@ -97,7 +104,7 @@ export async function transliterateAssembly(
         transliterateType(type, rosetta, language);
       }
       // eslint-disable-next-line no-await-in-loop
-      await writeJson(resolve(location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
+      await writeJson(resolve(options?.outdir ?? location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
       const then = new Date().getTime();
       debug(`Done transliterating ${result.name}@${result.version} to ${language} after ${then - now} milliseconds`);
     }
