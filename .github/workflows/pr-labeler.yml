@@ -16,4 +16,4 @@ jobs:
     steps:
     - run: gh pr edit ${{ github.event.pull_request.number }} --add-label "auto-approve" -R ${{ github.repository }}
       env:
-        GITHUB_TOKEN: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
