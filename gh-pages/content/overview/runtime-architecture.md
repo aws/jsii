@@ -101,7 +101,7 @@ describing the process arrangement that achieves this:
 !!! bug "Missing Feature"
     As shown on the diagram above, there is nothing connected to the *Core*
     process' `FD#0` (`STDIN`). This feature will be added in the future, but
-    currently this means *jsii* libraries have no way of accepting input though
+    currently this means *jsii* libraries have no way of accepting input through
     `STDIN`.
 
 The *Wrapper* process manages the *Core* process such that:
