@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as fs from 'fs';
 import * as path from 'path';
+import * as vm from 'vm';
 
 import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 import { Compiler } from '../lib/compiler';
@@ -14,24 +15,27 @@ describe('Function generation', () => {
       addDeprecationWarnings: true,
     });
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `function print(name, deprecationMessage) {
+    expect(jsFile(result, '.warnings.jsii')).toBe(
+      `function print(name, deprecationMessage, caller) {
     const deprecated = process.env.JSII_DEPRECATED;
     const deprecationMode = ["warn", "fail", "quiet"].includes(deprecated) ? deprecated : "warn";
     const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
     switch (deprecationMode) {
         case "fail":
-            throw new DeprecationError(message);
+            const error = new DeprecationError(message);
+            if (caller) {
+                Error.captureStackTrace(error, caller);
+            }
+            throw error;
         case "warn":
             console.warn("[WARNING]", message);
             break;
     }
 }
-const visitedObjects = new Set();
+const visitedObjects = new WeakSet();
 class DeprecationError extends Error {
 }
-module.exports = { print };
-module.exports.DeprecationError = DeprecationError;
+module.exports = { print, DeprecationError };
 `,
     );
   });
@@ -48,11 +52,11 @@ module.exports.DeprecationError = DeprecationError;
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `function testpkg_Foo(p) {
+      `function testpkg_Foo(p, c) {
 }
-function testpkg_Bar(p) {
+function testpkg_Bar(p, c) {
 }
-function testpkg_Baz(p) {
+function testpkg_Baz(p, c) {
 }`,
     );
   });
@@ -87,15 +91,20 @@ function testpkg_Baz(p) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Baz(p) {
+    expect(jsFile(result, '.warnings.jsii'))
+      .toMatch(`function testpkg_Baz(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if (!visitedObjects.has(p.bar))
-        testpkg_Bar(p.bar);
-    if (!visitedObjects.has(p.foo))
-        testpkg_Foo(p.foo);
-    visitedObjects.delete(p);
+    try {
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar, c);
+        if (!visitedObjects.has(p.foo))
+            testpkg_Foo(p.foo, c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
   });
 
@@ -110,7 +119,8 @@ function testpkg_Baz(p) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_IFoo(p) {
+    expect(jsFile(result, '.warnings.jsii'))
+      .toMatch(`function testpkg_IFoo(p, c) {
 }`);
   });
 
@@ -125,7 +135,8 @@ function testpkg_Baz(p) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
+    expect(jsFile(result, '.warnings.jsii'))
+      .toMatch(`function testpkg_Foo(p, c) {
 }`);
   });
 
@@ -139,13 +150,17 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `function testpkg_Bar(p) {
+      `function testpkg_Bar(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if (!visitedObjects.has(p.bar))
-        testpkg_Bar(p.bar);
-    visitedObjects.delete(p);
+    try {
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar, c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`,
     );
   });
@@ -162,7 +177,7 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `module.exports = { print, testpkg_Foo, testpkg_Bar, testpkg_Baz };`,
+      `module.exports = { print, DeprecationError, testpkg_Foo, testpkg_Bar, testpkg_Baz };`,
     );
   });
 
@@ -181,16 +196,20 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii'))
-      .toMatch(`function testpkg_State(p) {
+      .toMatch(`function testpkg_State(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    const ns = require("./index.js");
-    if (Object.values(ns.State).filter(x => x === p).length > 1)
-        return;
-    if (p === ns.State.OFF)
-        print("testpkg.State#OFF", "Use something else");
-    visitedObjects.delete(p);
+    try {
+        const ns = require("./index.js");
+        if (Object.values(ns.State).filter(x => x === p).length > 1)
+            return;
+        if (p === ns.State.OFF)
+            print("testpkg.State#OFF", "Use something else", c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }
 `);
   });
@@ -216,31 +235,43 @@ function testpkg_Baz(p) {
     const warningsFileContent = jsFile(result, '.warnings.jsii');
 
     // For each supertype, its corresponding function should be generated, as usual
-    expect(warningsFileContent).toMatch(`function testpkg_Baz(p) {
+    expect(warningsFileContent).toMatch(`function testpkg_Baz(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("x" in p)
-        print("testpkg.Baz#x", "message from Baz");
-    visitedObjects.delete(p);
+    try {
+        if ("x" in p)
+            print("testpkg.Baz#x", "message from Baz", c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
-    expect(warningsFileContent).toMatch(`function testpkg_Bar(p) {
+    expect(warningsFileContent).toMatch(`function testpkg_Bar(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("x" in p)
-        print("testpkg.Bar#x", "message from Bar");
-    visitedObjects.delete(p);
+    try {
+        if ("x" in p)
+            print("testpkg.Bar#x", "message from Bar", c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
 
     // But a call for one of the instances of the property should also be generated in the base function
-    expect(warningsFileContent).toMatch(`function testpkg_Foo(p) {
+    expect(warningsFileContent).toMatch(`function testpkg_Foo(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("x" in p)
-        print("testpkg.Baz#x", "message from Baz");
-    visitedObjects.delete(p);
+    try {
+        if ("x" in p)
+            print("testpkg.Baz#x", "message from Baz", c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
   });
 
@@ -263,7 +294,7 @@ function testpkg_Baz(p) {
 
     const warningsFileContent = jsFile(result, '.warnings.jsii');
 
-    expect(warningsFileContent).toMatch(`function testpkg_Foo(p) {
+    expect(warningsFileContent).toMatch(`function testpkg_Foo(p, c) {
 }`);
   });
 
@@ -285,15 +316,20 @@ function testpkg_Baz(p) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
+    expect(jsFile(result, '.warnings.jsii'))
+      .toMatch(`function testpkg_Foo(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("bar" in p)
-        print("testpkg.Foo#bar", "kkkkkkkk");
-    if (!visitedObjects.has(p.bar))
-        testpkg_Bar(p.bar);
-    visitedObjects.delete(p);
+    try {
+        if ("bar" in p)
+            print("testpkg.Foo#bar", "kkkkkkkk", c);
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar, c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }
 `);
   });
@@ -311,15 +347,20 @@ function testpkg_Baz(p) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
+    expect(jsFile(result, '.warnings.jsii'))
+      .toMatch(`function testpkg_Foo(p, c) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("bar" in p)
-        print("testpkg.Foo#bar", "use Bar instead");
-    if ("baz" in p)
-        print("testpkg.Foo#baz", "use Bar instead");
-    visitedObjects.delete(p);
+    try {
+        if ("bar" in p)
+            print("testpkg.Foo#bar", "use Bar instead", c);
+        if ("baz" in p)
+            print("testpkg.Foo#baz", "use Bar instead", c);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }
 `);
   });
@@ -429,21 +470,12 @@ describe('Call injections', () => {
       const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
       class Foo {
           /** @deprecated Use something else */
-          bar() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\");
-          }
-          catch (err) {
-              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
-                  // creating a new error of same type to clean error stack
-                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
-              }
-              throw err;
-          } }
+          bar() { jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\", this.bar); }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFDZCxxQ0FBcUM7SUFDOUIsR0FBRzs7Ozs7Ozs7O09BQUk7O0FBRmhCLGtCQUdDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICAvKiogQGRlcHJlY2F0ZWQgVXNlIHNvbWV0aGluZyBlbHNlICovXG4gICAgICBwdWJsaWMgYmFyKCl7fVxuICAgIH1cbiAgIl19"
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFDZCxxQ0FBcUM7SUFDOUIsR0FBRyx3RkFBSTs7QUFGaEIsa0JBR0MiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBiYXIoKXt9XG4gICAgfVxuICAiXX0="
     `);
   });
 
@@ -466,21 +498,12 @@ describe('Call injections', () => {
       const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
       const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
       class Foo {
-          bar(a, b) { try {
-              jsiiDeprecationWarnings.testpkg_A(a);
-          }
-          catch (err) {
-              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
-                  // creating a new error of same type to clean error stack
-                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
-              }
-              throw err;
-          } return a.x + b; }
+          bar(a, b) { jsiiDeprecationWarnings.testpkg_A(a, this.bar); return a.x + b; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFUyxNQUFhLEdBQUc7SUFDUixHQUFHLENBQUMsQ0FBSSxFQUFFLENBQVM7Ozs7Ozs7OztNQUFFLE9BQU8sQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsRUFBQzs7QUFEN0Msa0JBRUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICAgICAgZXhwb3J0IGludGVyZmFjZSBBIHtyZWFkb25seSB4OiBudW1iZXI7fVxuICAgICAgICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICAgICAgcHVibGljIGJhcihhOiBBLCBiOiBudW1iZXIpe3JldHVybiBhLnggKyBiO31cbiAgICAgICAgIH0iXX0="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFUyxNQUFhLEdBQUc7SUFDUixHQUFHLENBQUMsQ0FBSSxFQUFFLENBQVMsb0RBQUUsT0FBTyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxFQUFDOztBQUQ3QyxrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgICAgICBleHBvcnQgaW50ZXJmYWNlIEEge3JlYWRvbmx5IHg6IG51bWJlcjt9XG4gICAgICAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgICAgICBwdWJsaWMgYmFyKGE6IEEsIGI6IG51bWJlcil7cmV0dXJuIGEueCArIGI7fVxuICAgICAgICAgfSJdfQ=="
     `);
   }, 60000);
 
@@ -509,21 +532,12 @@ describe('Call injections', () => {
               this._x = 0;
           }
           /** @deprecated Use something else */
-          get x() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
-          }
-          catch (err) {
-              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
-                  // creating a new error of same type to clean error stack
-                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
-              }
-              throw err;
-          } return this._x; }
+          get x() { jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\", Object.getOwnPropertyDescriptor(this, \\"x\\").get); return this._x; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBR2hCO0lBRkMscUNBQXFDO0lBQ3JDLElBQVcsQ0FBQzs7Ozs7Ozs7O01BQUcsT0FBTyxJQUFJLENBQUMsRUFBRSxDQUFBLEVBQUM7O0FBSGhDLGtCQUlDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICBwcml2YXRlIF94ID0gMDtcbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBnZXQgeCgpe3JldHVybiB0aGlzLl94fVxuICAgIH1cbiAgIl19"
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBR2hCO0lBRkMscUNBQXFDO0lBQ3JDLElBQVcsQ0FBQywySEFBRyxPQUFPLElBQUksQ0FBQyxFQUFFLENBQUEsRUFBQzs7QUFIaEMsa0JBSUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIHByaXZhdGUgX3ggPSAwO1xuICAgICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgICAgcHVibGljIGdldCB4KCl7cmV0dXJuIHRoaXMuX3h9XG4gICAgfVxuICAiXX0="
     `);
   });
 
@@ -553,32 +567,14 @@ describe('Call injections', () => {
           constructor() {
               this._x = 0;
           }
-          get x() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
-          }
-          catch (err) {
-              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
-                  // creating a new error of same type to clean error stack
-                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
-              }
-              throw err;
-          } return this._x; }
+          get x() { jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\", Object.getOwnPropertyDescriptor(this, \\"x\\").get); return this._x; }
           /** @deprecated Use something else */
-          set x(_x) { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
-          }
-          catch (err) {
-              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
-                  // creating a new error of same type to clean error stack
-                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
-              }
-              throw err;
-          } this._x = _x; }
+          set x(_x) { jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\", Object.getOwnPropertyDescriptor(this, \\"x\\").set); this._x = _x; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBS2hCO0lBSkMsSUFBVyxDQUFDOzs7Ozs7Ozs7TUFBRyxPQUFPLElBQUksQ0FBQyxFQUFFLENBQUEsRUFBQztJQUU5QixxQ0FBcUM7SUFDckMsSUFBVyxDQUFDLENBQUMsRUFBVTs7Ozs7Ozs7O01BQUcsSUFBSSxDQUFDLEVBQUUsR0FBRyxFQUFFLENBQUMsRUFBQzs7QUFMMUMsa0JBTUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIHByaXZhdGUgX3ggPSAwO1xuICAgICAgcHVibGljIGdldCB4KCl7cmV0dXJuIHRoaXMuX3h9XG5cbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBzZXQgeChfeDogbnVtYmVyKSB7dGhpcy5feCA9IF94O31cbiAgICB9XG4gICJdfQ=="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBS2hCO0lBSkMsSUFBVyxDQUFDLDJIQUFHLE9BQU8sSUFBSSxDQUFDLEVBQUUsQ0FBQSxFQUFDO0lBRTlCLHFDQUFxQztJQUNyQyxJQUFXLENBQUMsQ0FBQyxFQUFVLDBIQUFHLElBQUksQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUM7O0FBTDFDLGtCQU1DIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICBwcml2YXRlIF94ID0gMDtcbiAgICAgIHB1YmxpYyBnZXQgeCgpe3JldHVybiB0aGlzLl94fVxuXG4gICAgICAvKiogQGRlcHJlY2F0ZWQgVXNlIHNvbWV0aGluZyBlbHNlICovXG4gICAgICBwdWJsaWMgc2V0IHgoX3g6IG51bWJlcikge3RoaXMuX3ggPSBfeDt9XG4gICAgfVxuICAiXX0="
     `);
   });
 
@@ -603,22 +599,82 @@ describe('Call injections', () => {
       const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
       /** @deprecated Use something else */
       class Foo {
-          constructor() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\");
-          }
-          catch (err) {
-              if (err instanceof jsiiDeprecationWarnings.DeprecationError) {
-                  // creating a new error of same type to clean error stack
-                  throw new jsiiDeprecationWarnings.DeprecationError(err.message);
-              }
-              throw err;
-          } }
+          constructor() { jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\", Foo); }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2Q7Ozs7Ozs7OztPQUFlOztBQURqQixrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIGNvbnN0cnVjdG9yKCl7fVxuICAgIH1cbiAgIl19"
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2QsMEZBQWU7O0FBRGpCLGtCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgIGV4cG9ydCBjbGFzcyBGb28ge1xuICAgICAgY29uc3RydWN0b3IoKXt9XG4gICAgfVxuICAiXX0="
     `);
+  });
+});
+
+describe('thrown exceptions have the expected stack trace', () => {
+  test('constructor', async () => {
+    const compilation = await compileJsiiForTest(
+      `
+      /** @deprecated for testing */
+      export class DeprecatedConstructor {
+        public constructor() {}
+      }
+
+      function test() {
+        new DeprecatedConstructor();
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
+    );
+    const source = jsFile(compilation);
+
+    const context = vm.createContext({
+      exports: {},
+      process: {
+        env: {
+          JSII_DEPRECATED: 'fail',
+        },
+      },
+      require: (id: string) => {
+        if (!id.startsWith('./')) {
+          return require(id);
+        }
+        const code = jsFile(compilation, path.basename(id, '.js'));
+        // Pretend this has been webpack'd
+        //.replace(/\s+/gm, ' ');
+        return vm.runInContext(
+          `(function(module){
+            {
+              ${code}
+            }
+            return module.exports;
+          })({ exports: {} });`,
+          context,
+          { filename: id, lineOffset: -2, columnOffset: -4 },
+        );
+      },
+    });
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack).toMatchInlineSnapshot(`
+        "./.warnings.jsii.js:13
+                    throw error;
+                    ^
+
+        Error: testpkg.DeprecatedConstructor is deprecated.
+          for testing
+          This API will be removed in the next major release.
+            at test (index.js:15:5)
+            at index.js:17:1
+            at Script.runInContext (node:vm:139:12)
+            at Object.runInContext (node:vm:289:6)
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:504:16)"
+      `);
+    }
   });
 });
 
@@ -626,6 +682,10 @@ function jsFile(result: HelperCompilationResult, baseName = 'index'): string {
   const file = Object.entries(result.files).find(
     ([name]) => name === `${baseName}.js`,
   );
+
+  if (!file) {
+    throw new Error(`Could not find file with base name: ${baseName}`);
+  }
 
   return file![1];
 }
