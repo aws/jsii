@@ -795,7 +795,7 @@ function mangleIdentifier(originalIdentifier: string) {
     return originalIdentifier;
   }
   // Turn into snake-case
-  const cased = originalIdentifier.replace(/[^A-Z][A-Z]/g, (m) => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`);
+  const cased = originalIdentifier.replace(/[^A-Z][A-Z]/g, (m) => `${m[0].slice(0, 1)}_${m.slice(1).toLowerCase()}`);
   return IDENTIFIER_KEYWORDS.includes(cased) ? `${cased}_` : cased;
 }
 
