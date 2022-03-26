@@ -339,7 +339,11 @@ function generateWarningsFile(
   const names = [...functionDeclarations]
     .map((d) => d.name?.text)
     .filter(Boolean);
-  const exportedSymbols = [WARNING_FUNCTION_NAME, 'DeprecationError', ...names].join(',');
+  const exportedSymbols = [
+    WARNING_FUNCTION_NAME,
+    'DeprecationError',
+    ...names,
+  ].join(',');
 
   const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage, caller) {
   const deprecated = process.env.JSII_DEPRECATED;
@@ -435,10 +439,10 @@ class Transformer {
         node.typeParameters,
         node.parameters,
         node.type,
-        ts.updateBlock(
-          node.body,
-          ts.createNodeArray([...statements, ...node.body.statements]),
-        ),
+        ts.updateBlock(node.body, [
+          ...wrapWithRethrow(statements),
+          ...node.body.statements,
+        ]),
       ) as any;
     } else if (ts.isGetAccessorDeclaration(node) && node.body != null) {
       const statements = this.getStatementsForDeclaration(node);
@@ -451,10 +455,10 @@ class Transformer {
         node.name,
         node.parameters,
         node.type,
-        ts.updateBlock(
-          node.body,
-          ts.createNodeArray([...statements, ...node.body.statements]),
-        ),
+        ts.updateBlock(node.body, [
+          ...wrapWithRethrow(statements),
+          ...node.body.statements,
+        ]),
       ) as any;
     } else if (ts.isSetAccessorDeclaration(node) && node.body != null) {
       const statements = this.getStatementsForDeclaration(node, 'set');
@@ -466,10 +470,10 @@ class Transformer {
         node.modifiers,
         node.name,
         node.parameters,
-        ts.updateBlock(
-          node.body,
-          ts.createNodeArray([...statements, ...node.body.statements]),
-        ),
+        ts.updateBlock(node.body, [
+          ...wrapWithRethrow(statements),
+          ...node.body.statements,
+        ]),
       ) as any;
     } else if (ts.isConstructorDeclaration(node) && node.body != null) {
       const statements = this.getStatementsForDeclaration(node);
@@ -480,7 +484,10 @@ class Transformer {
         node.decorators,
         node.modifiers,
         node.parameters,
-        ts.updateBlock(node.body, insertStatements(node.body, statements)),
+        ts.updateBlock(
+          node.body,
+          insertStatements(node.body, wrapWithRethrow(statements)),
+        ),
       ) as any;
     }
 
@@ -534,7 +541,10 @@ class Transformer {
               'getOwnPropertyDescriptor',
             ),
             undefined,
-            [ts.createThis(), ts.createStringLiteral(property.name)],
+            [
+              ts.createCall(ts.createPropertyAccess(ts.createIdentifier('Object'), 'getPrototypeOf') ,undefined,[ts.createThis()]),
+              ts.createStringLiteral(property.name),
+            ],
           ),
           getOrSet,
         );
@@ -767,6 +777,27 @@ function createDuplicateEnumValuesCheck(
     ),
     ts.createReturn(),
   );
+}
+
+// We try-then-rethrow exceptions to avoid runtimes displaying an uncanny wall of text if the place
+// where the error was thrown is webpacked. For example, jest somehow manages to capture the throw
+// location and renders the source line (which may be the whole file).
+function wrapWithRethrow(statements: ts.Statement[]): ts.Statement[] {
+  if (statements.length === 0) {
+    return statements;
+  }
+  return [
+    ts.createTry(
+      ts.createBlock(statements),
+      ts.createCatchClause(
+        ts.createVariableDeclaration('error'),
+        ts.createBlock([
+          ts.createThrow(ts.createIdentifier('error')),
+        ]),
+      ),
+      undefined,
+    ),
+  ];
 }
 
 /**

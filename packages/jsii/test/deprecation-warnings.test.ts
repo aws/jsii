@@ -629,50 +629,166 @@ describe('thrown exceptions have the expected stack trace', () => {
     );
     const source = jsFile(compilation);
 
-    const context = vm.createContext({
-      exports: {},
-      process: {
-        env: {
-          JSII_DEPRECATED: 'fail',
-        },
-      },
-      require: (id: string) => {
-        if (!id.startsWith('./')) {
-          return require(id);
-        }
-        const code = jsFile(compilation, path.basename(id, '.js'));
-        // Pretend this has been webpack'd
-        //.replace(/\s+/gm, ' ');
-        return vm.runInContext(
-          `(function(module){
-            {
-              ${code}
-            }
-            return module.exports;
-          })({ exports: {} });`,
-          context,
-          { filename: id, lineOffset: -2, columnOffset: -4 },
-        );
-      },
-    });
+    const context = createVmContext(compilation);
     try {
       vm.runInContext(source, context, { filename: 'index.js' });
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
       expect(error.stack).toMatchInlineSnapshot(`
-        "./.warnings.jsii.js:13
+        "index.js:13
+                throw error;
+                ^
+
+        Error: testpkg.DeprecatedConstructor is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:20:5)
+            at index.js:22:1
+            at Script.runInContext (node:vm:139:12)
+            at Object.runInContext (node:vm:289:6)
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:634:7)"
+      `);
+    }
+  });
+
+  test('getter', async () => {
+    const compilation = await compileJsiiForTest(
+      `
+      export class DeprecatedConstructor {
+        /** @deprecated for testing */
+        public get property() {
+          return 1337;
+        }
+      }
+
+      function test() {
+        const subject = new DeprecatedConstructor();
+        return subject.property;
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
+    );
+    const source = jsFile(compilation);
+
+    const context = createVmContext(compilation);
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack).toMatchInlineSnapshot(`
+        "index.js:14
                     throw error;
                     ^
 
-        Error: testpkg.DeprecatedConstructor is deprecated.
-          for testing
-          This API will be removed in the next major release.
-            at test (index.js:15:5)
-            at index.js:17:1
+        Error: testpkg.DeprecatedConstructor#property is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:24:20)
+            at index.js:26:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:504:16)"
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:677:6)"
+      `);
+    }
+  });
+
+  test('setter', async () => {
+    const compilation = await compileJsiiForTest(
+      `
+      export class DeprecatedConstructor {
+        private value = 1337;
+
+        /** @deprecated for testing */
+        public get property(): number {
+          return this.value;
+        }
+
+        public set property(value: number) {
+          this.value = value;
+        }
+      }
+
+      function test() {
+        const subject = new DeprecatedConstructor();
+        subject.property = 42;
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
+    );
+    const source = jsFile(compilation);
+
+    const context = createVmContext(compilation);
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack).toMatchInlineSnapshot(`
+        "index.js:26
+                    throw error;
+                    ^
+
+        Error: testpkg.DeprecatedConstructor#property is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:36:22)
+            at index.js:38:1
+            at Script.runInContext (node:vm:139:12)
+            at Object.runInContext (node:vm:289:6)
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:569:16)"
+      `);
+    }
+  });
+
+  test('method', async () => {
+    const compilation = await compileJsiiForTest(
+      `
+      export class DeprecatedConstructor {
+        /** @deprecated for testing */
+        public deprecated(): void {
+          // Nothing to do
+        }
+      }
+
+      function test() {
+        const subject = new DeprecatedConstructor();
+        subject.deprecated();
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
+    );
+    const source = jsFile(compilation);
+
+    const context = createVmContext(compilation);
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack).toMatchInlineSnapshot(`
+        "index.js:14
+                    throw error;
+                    ^
+
+        Error: testpkg.DeprecatedConstructor#deprecated is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:23:13)
+            at index.js:25:1
+            at Script.runInContext (node:vm:139:12)
+            at Object.runInContext (node:vm:289:6)
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:609:16)"
       `);
     }
   });
@@ -687,7 +803,37 @@ function jsFile(result: HelperCompilationResult, baseName = 'index'): string {
     throw new Error(`Could not find file with base name: ${baseName}`);
   }
 
-  return file![1];
+  return file[1];
+}
+
+function createVmContext(compilation: HelperCompilationResult) {
+  const context = vm.createContext({
+    exports: {},
+    process: {
+      env: {
+        JSII_DEPRECATED: 'fail',
+      },
+    },
+    require: (id: string) => {
+      if (!id.startsWith('./')) {
+        return require(id);
+      }
+      const code = jsFile(compilation, path.basename(id, '.js'))
+        // Pretend this has been webpack'd
+        .replace(/\s+/gm, ' ');
+      return vm.runInContext(
+        `(function(module){
+          {
+            ${code}
+          }
+          return module.exports;
+        })({ exports: {} });`,
+        context,
+        { filename: id, lineOffset: -2, columnOffset: -4 },
+      );
+    },
+  });
+  return context;
 }
 
 function resolveModuleDir(name: string) {
