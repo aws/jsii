@@ -10,10 +10,10 @@ import { symbolIdentifier } from '../symbol-id';
 export const WARNINGSCODE_FILE_NAME = '.warnings.jsii.js';
 const WARNING_FUNCTION_NAME = 'print';
 const PARAMETER_NAME = 'p';
-const PARAMETER_CALLER = 'c';
 const NAMESPACE = 'jsiiDeprecationWarnings';
 const LOCAL_ENUM_NAMESPACE = 'ns';
 const VISITED_OBJECTS_SET_NAME = 'visitedObjects';
+const DEPRECATION_ERROR = 'DeprecationError';
 
 export class DeprecationWarningsInjector {
   private transformers: ts.CustomTransformers = {
@@ -52,7 +52,6 @@ export class DeprecationWarningsInjector {
           createWarningFunctionCall(
             type.fqn,
             type.docs?.deprecated,
-            ts.createIdentifier(PARAMETER_CALLER),
           ),
         );
         isEmpty = false;
@@ -82,7 +81,6 @@ export class DeprecationWarningsInjector {
               createWarningFunctionCall(
                 `${type.fqn}#${member.name}`,
                 member.docs?.deprecated,
-                ts.createIdentifier(PARAMETER_CALLER),
                 condition,
               ),
             );
@@ -97,7 +95,6 @@ export class DeprecationWarningsInjector {
           projectInfo,
           undefined,
           undefined,
-          ts.createIdentifier(PARAMETER_CALLER),
         );
 
         for (const [name, statement] of statementsByProp.entries()) {
@@ -133,12 +130,6 @@ export class DeprecationWarningsInjector {
         undefined,
         PARAMETER_NAME,
       );
-      const paramCaller = ts.createParameter(
-        undefined,
-        undefined,
-        undefined,
-        PARAMETER_CALLER,
-      );
       const functionName = fnName(type.fqn);
       const functionDeclaration = ts.createFunctionDeclaration(
         undefined,
@@ -146,7 +137,7 @@ export class DeprecationWarningsInjector {
         undefined,
         functionName,
         undefined,
-        [paramValue, paramCaller],
+        [paramValue],
         undefined,
         createFunctionBlock(isEmpty ? [] : statements),
       );
@@ -194,7 +185,6 @@ function processInterfaceType(
   projectInfo: ProjectInfo,
   statementsByProp: Map<string, ts.Statement> = new Map<string, ts.Statement>(),
   excludedProps: Set<string> = new Set<string>(),
-  caller: ts.Expression,
 ) {
   for (const prop of Object.values(type.properties ?? {})) {
     const fqn = `${type.fqn}#${prop.name}`;
@@ -204,7 +194,6 @@ function processInterfaceType(
       const statement = createWarningFunctionCall(
         fqn,
         deprecatedDocs,
-        caller,
         ts.createBinary(
           ts.createStringLiteral(prop.name),
           ts.SyntaxKind.InKeyword,
@@ -284,7 +273,6 @@ function processInterfaceType(
         projectInfo,
         statementsByProp,
         excludedProps,
-        caller,
       );
     }
   }
@@ -313,7 +301,6 @@ function createFunctionBlock(statements: ts.Statement[]): ts.Block {
 function createWarningFunctionCall(
   fqn: string,
   message = '',
-  caller: ts.Expression,
   condition?: ts.Expression,
   includeNamespace = false,
 ): ts.Statement {
@@ -325,7 +312,6 @@ function createWarningFunctionCall(
     ts.createCall(ts.createIdentifier(functionName), undefined, [
       ts.createLiteral(fqn),
       ts.createLiteral(message),
-      caller,
     ]),
   );
 
@@ -341,21 +327,17 @@ function generateWarningsFile(
     .filter(Boolean);
   const exportedSymbols = [
     WARNING_FUNCTION_NAME,
-    'DeprecationError',
+    DEPRECATION_ERROR,
     ...names,
   ].join(',');
 
-  const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage, caller) {
+  const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage) {
   const deprecated = process.env.JSII_DEPRECATED;
   const deprecationMode = ['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn';
   const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
   switch (deprecationMode) {
     case "fail":
-      const error = new DeprecationError(message);
-      if (caller) {
-        Error.captureStackTrace(error, caller);
-      }
-      throw error;
+      throw new ${DEPRECATION_ERROR}(message);
     case "warn":
       console.warn("[WARNING]", message);
       break;
@@ -364,7 +346,17 @@ function generateWarningsFile(
 
 const ${VISITED_OBJECTS_SET_NAME} = new WeakSet();
 
-class DeprecationError extends Error {}
+class ${DEPRECATION_ERROR} extends Error {
+  constructor(...args) {
+    super(...args);
+    Object.defineProperty(this, 'name', {
+      configurable: false,
+      enumerable: true,
+      value: '${DEPRECATION_ERROR}',
+      writable: false,
+    });
+  }
+}
 
 module.exports = {${exportedSymbols}}
 `;
@@ -440,7 +432,13 @@ class Transformer {
         node.parameters,
         node.type,
         ts.updateBlock(node.body, [
-          ...wrapWithRethrow(statements),
+          ...wrapWithRethrow(
+            statements,
+            ts.createPropertyAccess(
+              ts.createThis(),
+              node.name.getText(node.getSourceFile()),
+            ),
+          ),
           ...node.body.statements,
         ]),
       ) as any;
@@ -456,12 +454,28 @@ class Transformer {
         node.parameters,
         node.type,
         ts.updateBlock(node.body, [
-          ...wrapWithRethrow(statements),
+          ...wrapWithRethrow(
+            statements,
+            ts.createPropertyAccess(
+              ts.createCall(
+                ts.createPropertyAccess(
+                  ts.createIdentifier('Object'),
+                  'getOwnPropertyDescriptor',
+                ),
+                undefined,
+                [
+                  ts.createThis(),
+                  ts.createLiteral(node.name.getText(node.getSourceFile())),
+                ],
+              ),
+              'get',
+            ),
+          ),
           ...node.body.statements,
         ]),
       ) as any;
     } else if (ts.isSetAccessorDeclaration(node) && node.body != null) {
-      const statements = this.getStatementsForDeclaration(node, 'set');
+      const statements = this.getStatementsForDeclaration(node);
       this.warningCallsWereInjected =
         this.warningCallsWereInjected || statements.length > 0;
       return ts.updateSetAccessor(
@@ -471,7 +485,23 @@ class Transformer {
         node.name,
         node.parameters,
         ts.updateBlock(node.body, [
-          ...wrapWithRethrow(statements),
+          ...wrapWithRethrow(
+            statements,
+            ts.createPropertyAccess(
+              ts.createCall(
+                ts.createPropertyAccess(
+                  ts.createIdentifier('Object'),
+                  'getOwnPropertyDescriptor',
+                ),
+                undefined,
+                [
+                  ts.createThis(),
+                  ts.createLiteral(node.name.getText(node.getSourceFile())),
+                ],
+              ),
+              'set',
+            ),
+          ),
           ...node.body.statements,
         ]),
       ) as any;
@@ -486,7 +516,13 @@ class Transformer {
         node.parameters,
         ts.updateBlock(
           node.body,
-          insertStatements(node.body, wrapWithRethrow(statements)),
+          insertStatements(
+            node.body,
+            wrapWithRethrow(
+              statements,
+              ts.createPropertyAccess(ts.createThis(), 'constructor'),
+            ),
+          ),
         ),
       ) as any;
     }
@@ -504,7 +540,6 @@ class Transformer {
       | ts.GetAccessorDeclaration
       | ts.SetAccessorDeclaration
       | ts.ConstructorDeclaration,
-    getOrSet: 'get' | 'set' = 'get',
   ): ts.Statement[] {
     const klass = node.parent;
     const classSymbolId = symbolIdentifier(
@@ -534,21 +569,7 @@ class Transformer {
         (property) => property.name === node.name?.getText(),
       );
       if (property) {
-        const caller = ts.createPropertyAccess(
-          ts.createCall(
-            ts.createPropertyAccess(
-              ts.createIdentifier('Object'),
-              'getOwnPropertyDescriptor',
-            ),
-            undefined,
-            [
-              ts.createCall(ts.createPropertyAccess(ts.createIdentifier('Object'), 'getPrototypeOf') ,undefined,[ts.createThis()]),
-              ts.createStringLiteral(property.name),
-            ],
-          ),
-          getOrSet,
-        );
-        return createWarningStatementForElement(property, classType, caller);
+        return createWarningStatementForElement(property, classType);
       }
     }
     return [];
@@ -558,16 +579,9 @@ class Transformer {
     classType: spec.ClassType,
     method: spec.Method | spec.Initializer,
   ) {
-    const caller = spec.isMethod(method)
-      ? ts.createPropertyAccess(
-          ts.createThis(),
-          ts.createIdentifier(method.name),
-        )
-      : ts.createIdentifier(classType.name);
     const statements = createWarningStatementForElement(
       method,
       classType,
-      caller,
     );
     for (const parameter of Object.values(method.parameters ?? {})) {
       const parameterType =
@@ -581,7 +595,6 @@ class Transformer {
           ts.createExpressionStatement(
             ts.createCall(ts.createIdentifier(functionName), undefined, [
               ts.createIdentifier(parameter.name),
-              caller,
             ]),
           ),
         );
@@ -595,13 +608,12 @@ class Transformer {
 function createWarningStatementForElement(
   element: spec.Callable | spec.Property,
   classType: spec.ClassType,
-  caller: ts.Expression,
 ): ts.Statement[] {
   if (spec.isDeprecated(element)) {
     const elementName = (element as spec.Method | spec.Property).name;
     const fqn = elementName ? `${classType.fqn}#${elementName}` : classType.fqn;
     const message = element.docs?.deprecated ?? classType.docs?.deprecated;
-    return [createWarningFunctionCall(fqn, message, caller, undefined, true)];
+    return [createWarningFunctionCall(fqn, message, undefined, true)];
   }
   return [];
 }
@@ -716,7 +728,6 @@ function createTypeHandlerCall(
     ts.createExpressionStatement(
       ts.createCall(ts.createIdentifier(functionName), undefined, [
         ts.createIdentifier(parameter),
-        ts.createIdentifier(PARAMETER_CALLER),
       ]),
     ),
   );
@@ -781,8 +792,11 @@ function createDuplicateEnumValuesCheck(
 
 // We try-then-rethrow exceptions to avoid runtimes displaying an uncanny wall of text if the place
 // where the error was thrown is webpacked. For example, jest somehow manages to capture the throw
-// location and renders the source line (which may be the whole file).
-function wrapWithRethrow(statements: ts.Statement[]): ts.Statement[] {
+// location and renders the source line (which may be the whole file) when bundled.
+function wrapWithRethrow(
+  statements: ts.Statement[],
+  caller: ts.Expression,
+): ts.Statement[] {
   if (statements.length === 0) {
     return statements;
   }
@@ -792,6 +806,25 @@ function wrapWithRethrow(statements: ts.Statement[]): ts.Statement[] {
       ts.createCatchClause(
         ts.createVariableDeclaration('error'),
         ts.createBlock([
+          ts.createIf(
+            ts.createBinary(
+              ts.createPropertyAccess(ts.createIdentifier('error'), 'name'),
+              ts.SyntaxKind.EqualsEqualsEqualsToken,
+              ts.createLiteral(DEPRECATION_ERROR),
+            ),
+            ts.createBlock([
+              ts.createExpressionStatement(
+                ts.createCall(
+                  ts.createPropertyAccess(
+                    ts.createIdentifier('Error'),
+                    'captureStackTrace',
+                  ),
+                  undefined,
+                  [ts.createIdentifier('error'), caller],
+                ),
+              ),
+            ]),
+          ),
           ts.createThrow(ts.createIdentifier('error')),
         ]),
       ),

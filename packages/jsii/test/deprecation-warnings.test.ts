@@ -16,17 +16,13 @@ describe('Function generation', () => {
     });
 
     expect(jsFile(result, '.warnings.jsii')).toBe(
-      `function print(name, deprecationMessage, caller) {
+      `function print(name, deprecationMessage) {
     const deprecated = process.env.JSII_DEPRECATED;
     const deprecationMode = ["warn", "fail", "quiet"].includes(deprecated) ? deprecated : "warn";
     const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
     switch (deprecationMode) {
         case "fail":
-            const error = new DeprecationError(message);
-            if (caller) {
-                Error.captureStackTrace(error, caller);
-            }
-            throw error;
+            throw new DeprecationError(message);
         case "warn":
             console.warn("[WARNING]", message);
             break;
@@ -34,6 +30,15 @@ describe('Function generation', () => {
 }
 const visitedObjects = new WeakSet();
 class DeprecationError extends Error {
+    constructor(...args) {
+        super(...args);
+        Object.defineProperty(this, "name", {
+            configurable: false,
+            enumerable: true,
+            value: "DeprecationError",
+            writable: false,
+        });
+    }
 }
 module.exports = { print, DeprecationError };
 `,
@@ -52,11 +57,11 @@ module.exports = { print, DeprecationError };
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `function testpkg_Foo(p, c) {
+      `function testpkg_Foo(p) {
 }
-function testpkg_Bar(p, c) {
+function testpkg_Bar(p) {
 }
-function testpkg_Baz(p, c) {
+function testpkg_Baz(p) {
 }`,
     );
   });
@@ -91,16 +96,15 @@ function testpkg_Baz(p, c) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii'))
-      .toMatch(`function testpkg_Baz(p, c) {
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
     try {
         if (!visitedObjects.has(p.bar))
-            testpkg_Bar(p.bar, c);
+            testpkg_Bar(p.bar);
         if (!visitedObjects.has(p.foo))
-            testpkg_Foo(p.foo, c);
+            testpkg_Foo(p.foo);
     }
     finally {
         visitedObjects.delete(p);
@@ -119,8 +123,7 @@ function testpkg_Baz(p, c) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii'))
-      .toMatch(`function testpkg_IFoo(p, c) {
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_IFoo(p) {
 }`);
   });
 
@@ -135,8 +138,7 @@ function testpkg_Baz(p, c) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii'))
-      .toMatch(`function testpkg_Foo(p, c) {
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
 }`);
   });
 
@@ -150,13 +152,13 @@ function testpkg_Baz(p, c) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `function testpkg_Bar(p, c) {
+      `function testpkg_Bar(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
     try {
         if (!visitedObjects.has(p.bar))
-            testpkg_Bar(p.bar, c);
+            testpkg_Bar(p.bar);
     }
     finally {
         visitedObjects.delete(p);
@@ -196,7 +198,7 @@ function testpkg_Baz(p, c) {
     );
 
     expect(jsFile(result, '.warnings.jsii'))
-      .toMatch(`function testpkg_State(p, c) {
+      .toMatch(`function testpkg_State(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
@@ -205,7 +207,7 @@ function testpkg_Baz(p, c) {
         if (Object.values(ns.State).filter(x => x === p).length > 1)
             return;
         if (p === ns.State.OFF)
-            print("testpkg.State#OFF", "Use something else", c);
+            print("testpkg.State#OFF", "Use something else");
     }
     finally {
         visitedObjects.delete(p);
@@ -235,25 +237,25 @@ function testpkg_Baz(p, c) {
     const warningsFileContent = jsFile(result, '.warnings.jsii');
 
     // For each supertype, its corresponding function should be generated, as usual
-    expect(warningsFileContent).toMatch(`function testpkg_Baz(p, c) {
+    expect(warningsFileContent).toMatch(`function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
     try {
         if ("x" in p)
-            print("testpkg.Baz#x", "message from Baz", c);
+            print("testpkg.Baz#x", "message from Baz");
     }
     finally {
         visitedObjects.delete(p);
     }
 }`);
-    expect(warningsFileContent).toMatch(`function testpkg_Bar(p, c) {
+    expect(warningsFileContent).toMatch(`function testpkg_Bar(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
     try {
         if ("x" in p)
-            print("testpkg.Bar#x", "message from Bar", c);
+            print("testpkg.Bar#x", "message from Bar");
     }
     finally {
         visitedObjects.delete(p);
@@ -261,13 +263,13 @@ function testpkg_Baz(p, c) {
 }`);
 
     // But a call for one of the instances of the property should also be generated in the base function
-    expect(warningsFileContent).toMatch(`function testpkg_Foo(p, c) {
+    expect(warningsFileContent).toMatch(`function testpkg_Foo(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
     try {
         if ("x" in p)
-            print("testpkg.Baz#x", "message from Baz", c);
+            print("testpkg.Baz#x", "message from Baz");
     }
     finally {
         visitedObjects.delete(p);
@@ -294,7 +296,7 @@ function testpkg_Baz(p, c) {
 
     const warningsFileContent = jsFile(result, '.warnings.jsii');
 
-    expect(warningsFileContent).toMatch(`function testpkg_Foo(p, c) {
+    expect(warningsFileContent).toMatch(`function testpkg_Foo(p) {
 }`);
   });
 
@@ -316,16 +318,15 @@ function testpkg_Baz(p, c) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii'))
-      .toMatch(`function testpkg_Foo(p, c) {
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
     try {
         if ("bar" in p)
-            print("testpkg.Foo#bar", "kkkkkkkk", c);
+            print("testpkg.Foo#bar", "kkkkkkkk");
         if (!visitedObjects.has(p.bar))
-            testpkg_Bar(p.bar, c);
+            testpkg_Bar(p.bar);
     }
     finally {
         visitedObjects.delete(p);
@@ -347,16 +348,15 @@ function testpkg_Baz(p, c) {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result, '.warnings.jsii'))
-      .toMatch(`function testpkg_Foo(p, c) {
+    expect(jsFile(result, '.warnings.jsii')).toMatch(`function testpkg_Foo(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
     try {
         if ("bar" in p)
-            print("testpkg.Foo#bar", "use Bar instead", c);
+            print("testpkg.Foo#bar", "use Bar instead");
         if ("baz" in p)
-            print("testpkg.Foo#baz", "use Bar instead", c);
+            print("testpkg.Foo#baz", "use Bar instead");
     }
     finally {
         visitedObjects.delete(p);
@@ -470,12 +470,20 @@ describe('Call injections', () => {
       const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
       class Foo {
           /** @deprecated Use something else */
-          bar() { jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\", this.bar); }
+          bar() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, this.bar);
+              }
+              throw error;
+          } }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFDZCxxQ0FBcUM7SUFDOUIsR0FBRyx3RkFBSTs7QUFGaEIsa0JBR0MiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBiYXIoKXt9XG4gICAgfVxuICAiXX0="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFDZCxxQ0FBcUM7SUFDOUIsR0FBRzs7Ozs7Ozs7T0FBSTs7QUFGaEIsa0JBR0MiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBiYXIoKXt9XG4gICAgfVxuICAiXX0="
     `);
   });
 
@@ -498,12 +506,20 @@ describe('Call injections', () => {
       const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
       const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
       class Foo {
-          bar(a, b) { jsiiDeprecationWarnings.testpkg_A(a, this.bar); return a.x + b; }
+          bar(a, b) { try {
+              jsiiDeprecationWarnings.testpkg_A(a);
+          }
+          catch (error) {
+              if (error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, this.bar);
+              }
+              throw error;
+          } return a.x + b; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFUyxNQUFhLEdBQUc7SUFDUixHQUFHLENBQUMsQ0FBSSxFQUFFLENBQVMsb0RBQUUsT0FBTyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxFQUFDOztBQUQ3QyxrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgICAgICBleHBvcnQgaW50ZXJmYWNlIEEge3JlYWRvbmx5IHg6IG51bWJlcjt9XG4gICAgICAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgICAgICBwdWJsaWMgYmFyKGE6IEEsIGI6IG51bWJlcil7cmV0dXJuIGEueCArIGI7fVxuICAgICAgICAgfSJdfQ=="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFUyxNQUFhLEdBQUc7SUFDUixHQUFHLENBQUMsQ0FBSSxFQUFFLENBQVM7Ozs7Ozs7O01BQUUsT0FBTyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxFQUFDOztBQUQ3QyxrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgICAgICBleHBvcnQgaW50ZXJmYWNlIEEge3JlYWRvbmx5IHg6IG51bWJlcjt9XG4gICAgICAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgICAgICBwdWJsaWMgYmFyKGE6IEEsIGI6IG51bWJlcil7cmV0dXJuIGEueCArIGI7fVxuICAgICAgICAgfSJdfQ=="
     `);
   }, 60000);
 
@@ -532,12 +548,20 @@ describe('Call injections', () => {
               this._x = 0;
           }
           /** @deprecated Use something else */
-          get x() { jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\", Object.getOwnPropertyDescriptor(this, \\"x\\").get); return this._x; }
+          get x() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").get);
+              }
+              throw error;
+          } return this._x; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBR2hCO0lBRkMscUNBQXFDO0lBQ3JDLElBQVcsQ0FBQywySEFBRyxPQUFPLElBQUksQ0FBQyxFQUFFLENBQUEsRUFBQzs7QUFIaEMsa0JBSUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIHByaXZhdGUgX3ggPSAwO1xuICAgICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgICAgcHVibGljIGdldCB4KCl7cmV0dXJuIHRoaXMuX3h9XG4gICAgfVxuICAiXX0="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBR2hCO0lBRkMscUNBQXFDO0lBQ3JDLElBQVcsQ0FBQzs7Ozs7Ozs7TUFBRyxPQUFPLElBQUksQ0FBQyxFQUFFLENBQUEsRUFBQzs7QUFIaEMsa0JBSUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIHByaXZhdGUgX3ggPSAwO1xuICAgICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgICAgcHVibGljIGdldCB4KCl7cmV0dXJuIHRoaXMuX3h9XG4gICAgfVxuICAiXX0="
     `);
   });
 
@@ -567,14 +591,30 @@ describe('Call injections', () => {
           constructor() {
               this._x = 0;
           }
-          get x() { jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\", Object.getOwnPropertyDescriptor(this, \\"x\\").get); return this._x; }
+          get x() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").get);
+              }
+              throw error;
+          } return this._x; }
           /** @deprecated Use something else */
-          set x(_x) { jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\", Object.getOwnPropertyDescriptor(this, \\"x\\").set); this._x = _x; }
+          set x(_x) { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").set);
+              }
+              throw error;
+          } this._x = _x; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBS2hCO0lBSkMsSUFBVyxDQUFDLDJIQUFHLE9BQU8sSUFBSSxDQUFDLEVBQUUsQ0FBQSxFQUFDO0lBRTlCLHFDQUFxQztJQUNyQyxJQUFXLENBQUMsQ0FBQyxFQUFVLDBIQUFHLElBQUksQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUM7O0FBTDFDLGtCQU1DIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICBwcml2YXRlIF94ID0gMDtcbiAgICAgIHB1YmxpYyBnZXQgeCgpe3JldHVybiB0aGlzLl94fVxuXG4gICAgICAvKiogQGRlcHJlY2F0ZWQgVXNlIHNvbWV0aGluZyBlbHNlICovXG4gICAgICBwdWJsaWMgc2V0IHgoX3g6IG51bWJlcikge3RoaXMuX3ggPSBfeDt9XG4gICAgfVxuICAiXX0="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBS2hCO0lBSkMsSUFBVyxDQUFDOzs7Ozs7OztNQUFHLE9BQU8sSUFBSSxDQUFDLEVBQUUsQ0FBQSxFQUFDO0lBRTlCLHFDQUFxQztJQUNyQyxJQUFXLENBQUMsQ0FBQyxFQUFVOzs7Ozs7OztNQUFHLElBQUksQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUM7O0FBTDFDLGtCQU1DIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICBwcml2YXRlIF94ID0gMDtcbiAgICAgIHB1YmxpYyBnZXQgeCgpe3JldHVybiB0aGlzLl94fVxuXG4gICAgICAvKiogQGRlcHJlY2F0ZWQgVXNlIHNvbWV0aGluZyBlbHNlICovXG4gICAgICBwdWJsaWMgc2V0IHgoX3g6IG51bWJlcikge3RoaXMuX3ggPSBfeDt9XG4gICAgfVxuICAiXX0="
     `);
   });
 
@@ -599,12 +639,20 @@ describe('Call injections', () => {
       const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
       /** @deprecated Use something else */
       class Foo {
-          constructor() { jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\", Foo); }
+          constructor() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, this.constructor);
+              }
+              throw error;
+          } }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2QsMEZBQWU7O0FBRGpCLGtCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgIGV4cG9ydCBjbGFzcyBGb28ge1xuICAgICAgY29uc3RydWN0b3IoKXt9XG4gICAgfVxuICAiXX0="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2Q7Ozs7Ozs7O09BQWU7O0FBRGpCLGtCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgIGV4cG9ydCBjbGFzcyBGb28ge1xuICAgICAgY29uc3RydWN0b3IoKXt9XG4gICAgfVxuICAiXX0="
     `);
   });
 });
@@ -636,18 +684,18 @@ describe('thrown exceptions have the expected stack trace', () => {
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
       expect(error.stack).toMatchInlineSnapshot(`
-        "index.js:13
+        "index.js:16
                 throw error;
                 ^
 
-        Error: testpkg.DeprecatedConstructor is deprecated.
+        DeprecationError: testpkg.DeprecatedConstructor is deprecated.
          for testing
          This API will be removed in the next major release.
-            at test (index.js:20:5)
-            at index.js:22:1
+            at test (index.js:23:5)
+            at index.js:25:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:634:7)"
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:682:10)"
       `);
     }
   });
@@ -681,18 +729,17 @@ describe('thrown exceptions have the expected stack trace', () => {
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
       expect(error.stack).toMatchInlineSnapshot(`
-        "index.js:14
-                    throw error;
-                    ^
+        "index.js:15
+                        Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"property\\").get);
+                                                                                                        ^
 
-        Error: testpkg.DeprecatedConstructor#property is deprecated.
-         for testing
-         This API will be removed in the next major release.
-            at test (index.js:24:20)
-            at index.js:26:1
+        TypeError: Cannot read properties of undefined (reading 'get')
+            at DeprecatedConstructor.get property [as property] (index.js:15:97)
+            at test (index.js:27:20)
+            at index.js:29:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:677:6)"
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:727:10)"
       `);
     }
   });
@@ -732,18 +779,17 @@ describe('thrown exceptions have the expected stack trace', () => {
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
       expect(error.stack).toMatchInlineSnapshot(`
-        "index.js:26
-                    throw error;
-                    ^
+        "index.js:30
+                        Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"property\\").set);
+                                                                                                        ^
 
-        Error: testpkg.DeprecatedConstructor#property is deprecated.
-         for testing
-         This API will be removed in the next major release.
-            at test (index.js:36:22)
-            at index.js:38:1
+        TypeError: Cannot read properties of undefined (reading 'set')
+            at DeprecatedConstructor.set property [as property] (index.js:30:97)
+            at test (index.js:42:22)
+            at index.js:44:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:569:16)"
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:777:10)"
       `);
     }
   });
@@ -777,18 +823,18 @@ describe('thrown exceptions have the expected stack trace', () => {
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
       expect(error.stack).toMatchInlineSnapshot(`
-        "index.js:14
+        "index.js:17
                     throw error;
                     ^
 
-        Error: testpkg.DeprecatedConstructor#deprecated is deprecated.
+        DeprecationError: testpkg.DeprecatedConstructor#deprecated is deprecated.
          for testing
          This API will be removed in the next major release.
-            at test (index.js:23:13)
-            at index.js:25:1
+            at test (index.js:26:13)
+            at index.js:28:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:609:16)"
+            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:821:10)"
       `);
     }
   });
@@ -814,8 +860,15 @@ function createVmContext(compilation: HelperCompilationResult) {
         JSII_DEPRECATED: 'fail',
       },
     },
+    // Bringing in a "fake" require(id) function that'll resolve relative paths
+    // to files within the compilation output, and module names using the
+    // regular require. When loading a file that was part of the compiler output,
+    // this emulates the situation that would be if the file had been through a
+    // bundler by turning all sequences of white spaces (new line included) into
+    // single spaces.
     require: (id: string) => {
       if (!id.startsWith('./')) {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         return require(id);
       }
       const code = jsFile(compilation, path.basename(id, '.js'))
