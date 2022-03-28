@@ -683,7 +683,8 @@ describe('thrown exceptions have the expected stack trace', () => {
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
-      expect(error.stack).toMatchInlineSnapshot(`
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
         "index.js:16
                 throw error;
                 ^
@@ -695,7 +696,7 @@ describe('thrown exceptions have the expected stack trace', () => {
             at index.js:25:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:682:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:682:10)"
       `);
     }
   });
@@ -728,7 +729,8 @@ describe('thrown exceptions have the expected stack trace', () => {
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
-      expect(error.stack).toMatchInlineSnapshot(`
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
         "index.js:15
                         Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"property\\").get);
                                                                                                         ^
@@ -739,7 +741,7 @@ describe('thrown exceptions have the expected stack trace', () => {
             at index.js:29:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:727:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:728:10)"
       `);
     }
   });
@@ -778,7 +780,8 @@ describe('thrown exceptions have the expected stack trace', () => {
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
-      expect(error.stack).toMatchInlineSnapshot(`
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
         "index.js:30
                         Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"property\\").set);
                                                                                                         ^
@@ -789,7 +792,7 @@ describe('thrown exceptions have the expected stack trace', () => {
             at index.js:44:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:777:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:779:10)"
       `);
     }
   });
@@ -822,7 +825,8 @@ describe('thrown exceptions have the expected stack trace', () => {
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
     } catch (error) {
-      expect(error.stack).toMatchInlineSnapshot(`
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
         "index.js:17
                     throw error;
                     ^
@@ -834,7 +838,7 @@ describe('thrown exceptions have the expected stack trace', () => {
             at index.js:28:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (/Users/rmuller/Development/aws/jsii/packages/jsii/test/deprecation-warnings.test.ts:821:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:824:10)"
       `);
     }
   });
