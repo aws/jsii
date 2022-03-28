@@ -27,7 +27,7 @@ jobs:
         run: |-
           echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
       - name: Cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v3
         with:
           path: ${{ steps.cache-locations.outputs.pip-cache }}
           key: ${{ runner.os }}-${{ hashFiles('**/requirements-dev.txt') }}
@@ -61,7 +61,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: gh-pages
-          token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
+          token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
