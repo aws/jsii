@@ -333,7 +333,7 @@ function generateWarningsFile(
   const functionText = `function ${WARNING_FUNCTION_NAME}(name, deprecationMessage) {
   const deprecated = process.env.JSII_DEPRECATED;
   const deprecationMode = ['warn', 'fail', 'quiet'].includes(deprecated) ? deprecated : 'warn';
-  const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
+  const message = \`\${name} is deprecated.\\n  \${deprecationMessage.trim()}\\n  This API will be removed in the next major release.\`;
   switch (deprecationMode) {
     case "fail":
       throw new ${DEPRECATION_ERROR}(message);
