@@ -28,6 +28,18 @@ describe('Function generation', () => {
             break;
     }
 }
+function getPropertyDescriptor(obj, prop) {
+    const descriptor = Object.getOwnPropertyDescriptor(obj, prop);
+    if (descriptor) {
+        return descriptor;
+    }
+    const proto = Object.getPrototypeOf(obj);
+    const prototypeDescriptor = proto && getPropertyDescriptor(proto, prop);
+    if (prototypeDescriptor) {
+        return prototypeDescriptor;
+    }
+    return {};
+}
 const visitedObjects = new WeakSet();
 class DeprecationError extends Error {
     constructor(...args) {
@@ -40,7 +52,7 @@ class DeprecationError extends Error {
         });
     }
 }
-module.exports = { print, DeprecationError };
+module.exports = { print, getPropertyDescriptor, DeprecationError };
 `,
     );
   });
@@ -179,7 +191,7 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `module.exports = { print, DeprecationError, testpkg_Foo, testpkg_Bar, testpkg_Baz };`,
+      `module.exports = { print, getPropertyDescriptor, DeprecationError, testpkg_Foo, testpkg_Bar, testpkg_Baz };`,
     );
   });
 
@@ -553,7 +565,7 @@ describe('Call injections', () => {
           }
           catch (error) {
               if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
-                  Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").get);
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").get);
               }
               throw error;
           } return this._x; }
@@ -596,7 +608,7 @@ describe('Call injections', () => {
           }
           catch (error) {
               if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
-                  Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").get);
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").get);
               }
               throw error;
           } return this._x; }
@@ -606,7 +618,7 @@ describe('Call injections', () => {
           }
           catch (error) {
               if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
-                  Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").set);
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").set);
               }
               throw error;
           } this._x = _x; }
@@ -696,7 +708,7 @@ describe('thrown exceptions have the expected stack trace', () => {
             at index.js:25:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:682:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:694:10)"
       `);
     }
   });
@@ -731,17 +743,18 @@ describe('thrown exceptions have the expected stack trace', () => {
     } catch (error) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
-        "index.js:15
-                        Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"property\\").get);
-                                                                                                        ^
+        "index.js:17
+                    throw error;
+                    ^
 
-        TypeError: Cannot read properties of undefined (reading 'get')
-            at DeprecatedConstructor.get property [as property] (index.js:15:97)
+        DeprecationError: testpkg.DeprecatedConstructor#property is deprecated.
+         for testing
+         This API will be removed in the next major release.
             at test (index.js:27:20)
             at index.js:29:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:728:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:740:10)"
       `);
     }
   });
@@ -782,17 +795,18 @@ describe('thrown exceptions have the expected stack trace', () => {
     } catch (error) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
-        "index.js:30
-                        Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"property\\").set);
-                                                                                                        ^
+        "index.js:32
+                    throw error;
+                    ^
 
-        TypeError: Cannot read properties of undefined (reading 'set')
-            at DeprecatedConstructor.set property [as property] (index.js:30:97)
+        DeprecationError: testpkg.DeprecatedConstructor#property is deprecated.
+         for testing
+         This API will be removed in the next major release.
             at test (index.js:42:22)
             at index.js:44:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:779:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:792:10)"
       `);
     }
   });
@@ -838,7 +852,7 @@ describe('thrown exceptions have the expected stack trace', () => {
             at index.js:28:1
             at Script.runInContext (node:vm:139:12)
             at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:824:10)"
+            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:838:10)"
       `);
     }
   });

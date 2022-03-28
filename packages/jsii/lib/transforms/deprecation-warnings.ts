@@ -14,6 +14,7 @@ const NAMESPACE = 'jsiiDeprecationWarnings';
 const LOCAL_ENUM_NAMESPACE = 'ns';
 const VISITED_OBJECTS_SET_NAME = 'visitedObjects';
 const DEPRECATION_ERROR = 'DeprecationError';
+const GET_PROPERTY_DESCRIPTOR = 'getPropertyDescriptor';
 
 export class DeprecationWarningsInjector {
   private transformers: ts.CustomTransformers = {
@@ -324,6 +325,7 @@ function generateWarningsFile(
     .filter(Boolean);
   const exportedSymbols = [
     WARNING_FUNCTION_NAME,
+    GET_PROPERTY_DESCRIPTOR,
     DEPRECATION_ERROR,
     ...names,
   ].join(',');
@@ -339,6 +341,19 @@ function generateWarningsFile(
       console.warn("[WARNING]", message);
       break;
   }
+}
+
+function ${GET_PROPERTY_DESCRIPTOR}(obj, prop) {
+  const descriptor = Object.getOwnPropertyDescriptor(obj, prop);
+  if (descriptor) {
+    return descriptor;
+  }
+  const proto = Object.getPrototypeOf(obj);
+  const prototypeDescriptor = proto && getPropertyDescriptor(proto, prop);
+  if (prototypeDescriptor) {
+    return prototypeDescriptor;
+  }
+  return {};
 }
 
 const ${VISITED_OBJECTS_SET_NAME} = new WeakSet();
@@ -456,8 +471,8 @@ class Transformer {
             ts.createPropertyAccess(
               ts.createCall(
                 ts.createPropertyAccess(
-                  ts.createIdentifier('Object'),
-                  'getOwnPropertyDescriptor',
+                  ts.createIdentifier(NAMESPACE),
+                  GET_PROPERTY_DESCRIPTOR,
                 ),
                 undefined,
                 [
@@ -487,8 +502,8 @@ class Transformer {
             ts.createPropertyAccess(
               ts.createCall(
                 ts.createPropertyAccess(
-                  ts.createIdentifier('Object'),
-                  'getOwnPropertyDescriptor',
+                  ts.createIdentifier(NAMESPACE),
+                  GET_PROPERTY_DESCRIPTOR,
                 ),
                 undefined,
                 [
