@@ -474,7 +474,7 @@ describe('Call injections', () => {
               jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\");
           }
           catch (error) {
-              if (error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
                   Error.captureStackTrace(error, this.bar);
               }
               throw error;
@@ -510,7 +510,7 @@ describe('Call injections', () => {
               jsiiDeprecationWarnings.testpkg_A(a);
           }
           catch (error) {
-              if (error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
                   Error.captureStackTrace(error, this.bar);
               }
               throw error;
@@ -552,7 +552,7 @@ describe('Call injections', () => {
               jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
           }
           catch (error) {
-              if (error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
                   Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").get);
               }
               throw error;
@@ -595,7 +595,7 @@ describe('Call injections', () => {
               jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
           }
           catch (error) {
-              if (error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
                   Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").get);
               }
               throw error;
@@ -605,7 +605,7 @@ describe('Call injections', () => {
               jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
           }
           catch (error) {
-              if (error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
                   Error.captureStackTrace(error, Object.getOwnPropertyDescriptor(this, \\"x\\").set);
               }
               throw error;
@@ -643,7 +643,7 @@ describe('Call injections', () => {
               jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\");
           }
           catch (error) {
-              if (error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
                   Error.captureStackTrace(error, this.constructor);
               }
               throw error;

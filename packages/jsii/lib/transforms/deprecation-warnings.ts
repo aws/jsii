@@ -49,10 +49,7 @@ export class DeprecationWarningsInjector {
       if (spec.isDeprecated(type) && spec.isEnumType(type)) {
         // The type is deprecated
         tryStatements.push(
-          createWarningFunctionCall(
-            type.fqn,
-            type.docs?.deprecated,
-          ),
+          createWarningFunctionCall(type.fqn, type.docs?.deprecated),
         );
         isEmpty = false;
       }
@@ -579,10 +576,7 @@ class Transformer {
     classType: spec.ClassType,
     method: spec.Method | spec.Initializer,
   ) {
-    const statements = createWarningStatementForElement(
-      method,
-      classType,
-    );
+    const statements = createWarningStatementForElement(method, classType);
     for (const parameter of Object.values(method.parameters ?? {})) {
       const parameterType =
         this.assembly.types && spec.isNamedTypeReference(parameter.type)
@@ -806,11 +800,28 @@ function wrapWithRethrow(
       ts.createCatchClause(
         ts.createVariableDeclaration('error'),
         ts.createBlock([
+          // If this is a DeprecationError, trim its stack trace to surface level before re-throwing,
+          // so we don't carry out possibly confusing frames from injected code. That can be toggled
+          // off by setting JSII_DEBUG=1, so we can also diagnose in-injected code faults.
           ts.createIf(
             ts.createBinary(
-              ts.createPropertyAccess(ts.createIdentifier('error'), 'name'),
-              ts.SyntaxKind.EqualsEqualsEqualsToken,
-              ts.createLiteral(DEPRECATION_ERROR),
+              ts.createBinary(
+                ts.createPropertyAccess(
+                  ts.createPropertyAccess(
+                    ts.createIdentifier('process'),
+                    'env',
+                  ),
+                  'JSII_DEBUG',
+                ),
+                ts.SyntaxKind.ExclamationEqualsEqualsToken,
+                ts.createLiteral('1'),
+              ),
+              ts.SyntaxKind.AmpersandAmpersandToken,
+              ts.createBinary(
+                ts.createPropertyAccess(ts.createIdentifier('error'), 'name'),
+                ts.SyntaxKind.EqualsEqualsEqualsToken,
+                ts.createLiteral(DEPRECATION_ERROR),
+              ),
             ),
             ts.createBlock([
               ts.createExpressionStatement(
