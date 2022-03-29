@@ -691,9 +691,9 @@ describe('thrown exceptions have the expected stack trace', () => {
 
     const context = createVmContext(compilation);
     try {
-      vm.runInContext(source, context, { filename: 'index.js' }),
-        // The above line should have resulted in a DeprecationError being thrown
-        expect(null).toBeInstanceOf(Error);
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
     } catch (error) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
