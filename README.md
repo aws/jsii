@@ -228,6 +228,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/sullis"><img src="https://avatars3.githubusercontent.com/u/30938?v=4?s=100" width="100px;" alt=""/><br /><sub><b>sullis</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=sullis" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/vaneek"><img src="https://avatars1.githubusercontent.com/u/8113305?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vaneek</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Avaneek+label%3Abug" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/wendysophie"><img src="https://avatars.githubusercontent.com/u/54415551?v=4?s=100" width="100px;" alt=""/><br /><sub><b>wendysophie</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Awendysophie+label%3Abug" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
