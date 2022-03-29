@@ -691,9 +691,9 @@ describe('thrown exceptions have the expected stack trace', () => {
 
     const context = createVmContext(compilation);
     try {
-      vm.runInContext(source, context, { filename: 'index.js' });
-      // The above line should have resulted in a DeprecationError being thrown
-      expect(null).toBeInstanceOf(Error);
+      vm.runInContext(source, context, { filename: 'index.js' }),
+        // The above line should have resulted in a DeprecationError being thrown
+        expect(null).toBeInstanceOf(Error);
     } catch (error) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
@@ -705,10 +705,7 @@ describe('thrown exceptions have the expected stack trace', () => {
          for testing
          This API will be removed in the next major release.
             at test (index.js:23:5)
-            at index.js:25:1
-            at Script.runInContext (node:vm:139:12)
-            at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:694:10)"
+            at index.js:25:1"
       `);
     }
   });
@@ -751,10 +748,7 @@ describe('thrown exceptions have the expected stack trace', () => {
          for testing
          This API will be removed in the next major release.
             at test (index.js:27:20)
-            at index.js:29:1
-            at Script.runInContext (node:vm:139:12)
-            at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:740:10)"
+            at index.js:29:1"
       `);
     }
   });
@@ -803,10 +797,7 @@ describe('thrown exceptions have the expected stack trace', () => {
          for testing
          This API will be removed in the next major release.
             at test (index.js:42:22)
-            at index.js:44:1
-            at Script.runInContext (node:vm:139:12)
-            at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:792:10)"
+            at index.js:44:1"
       `);
     }
   });
@@ -849,10 +840,7 @@ describe('thrown exceptions have the expected stack trace', () => {
          for testing
          This API will be removed in the next major release.
             at test (index.js:26:13)
-            at index.js:28:1
-            at Script.runInContext (node:vm:139:12)
-            at Object.runInContext (node:vm:289:6)
-            at Object.<anonymous> (<process.cwd>/test/deprecation-warnings.test.ts:838:10)"
+            at index.js:28:1"
       `);
     }
   });
@@ -904,6 +892,12 @@ function createVmContext(compilation: HelperCompilationResult) {
       );
     },
   });
+
+  // Limit error stack traces to 2 frames... We don't need more for the sake of this test. This is
+  // important because past 2 levels, the stack frames will have entries that will be different on
+  // different versions of node, and that'll break our unit tests...
+  vm.runInContext('Error.stackTraceLimit = 2;', context);
+
   return context;
 }
 
