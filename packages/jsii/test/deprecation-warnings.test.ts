@@ -40,7 +40,7 @@ function getPropertyDescriptor(obj, prop) {
     }
     return {};
 }
-const visitedObjects = new WeakSet();
+const visitedObjects = new Set();
 class DeprecationError extends Error {
     constructor(...args) {
         super(...args);
