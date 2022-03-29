@@ -356,7 +356,7 @@ function ${GET_PROPERTY_DESCRIPTOR}(obj, prop) {
   return {};
 }
 
-const ${VISITED_OBJECTS_SET_NAME} = new WeakSet();
+const ${VISITED_OBJECTS_SET_NAME} = new Set();
 
 class ${DEPRECATION_ERROR} extends Error {
   constructor(...args) {
