@@ -296,7 +296,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     let renderedType = this.renderTypeNode(node.type, renderer);
     if (node.dotDotDotToken && renderedType.endsWith('[]')) {
       // Varargs. In Java, render this as `Element...` (instead of `Element[]` which is what we'll have gotten).
-      renderedType = `${renderedType.substr(0, renderedType.length - 2)}...`;
+      renderedType = `${renderedType.slice(0, -2)}...`;
     }
 
     return new OTree([renderedType, ' ', renderer.convert(node.name)]);
