@@ -182,7 +182,7 @@ function stripCommonIndent(lines: string[]): string[] {
   const leadingWhitespace = /^(\s*)/;
   const indents = lines.map((l) => leadingWhitespace.exec(l)![1].length);
   const commonIndent = Math.min(...indents);
-  return lines.map((l) => l.substr(commonIndent));
+  return lines.map((l) => l.slice(commonIndent));
 }
 
 /**

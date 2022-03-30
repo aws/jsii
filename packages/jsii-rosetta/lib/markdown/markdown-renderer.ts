@@ -74,7 +74,7 @@ export class MarkdownRenderer implements CommonMarkRenderer {
 
       const rendered = context.recurse(item);
       // Prefix the first line with a different text than subsequent lines
-      const prefixed = firstLinePrefix + prefixLines(hangingPrefix, rendered).substr(hangingPrefix.length);
+      const prefixed = firstLinePrefix + prefixLines(hangingPrefix, rendered).slice(hangingPrefix.length);
 
       items.push(prefixed);
 

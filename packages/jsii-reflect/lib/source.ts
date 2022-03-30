@@ -77,7 +77,7 @@ export function repositoryUrl(
 
   // Turn https://github.com/awslabs/aws-cdk.git ->  https://github.com/awslabs/aws-cdk/blob/REF/filename#L<number>
 
-  const prefix = repo.url.substr(0, repo.url.length - 4);
+  const prefix = repo.url.slice(0, -4);
 
   return `${prefix}/blob/${ref}/${loc.filename}#L${loc.line}`;
 }

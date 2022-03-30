@@ -205,6 +205,7 @@ rules:
 
   'no-restricted-properties':
     - error
+    - { property: "substr", message: "Use .slice instead of .substr." }
 
   'no-return-await':
     - error

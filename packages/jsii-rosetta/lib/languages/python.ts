@@ -73,6 +73,13 @@ interface PythonLanguageContext {
   readonly inClass?: boolean;
 
   /**
+   * Whether the current property assignment is in the context of a map value.
+   * In this case, the keys should be strings (quoted where needed), and should
+   * not get mangled or case-converted.
+   */
+  readonly inMap?: boolean;
+
+  /**
    * If we're in a method, what is it's name
    *
    * (Used to render super() call.);
@@ -415,7 +422,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
-    return this.renderObjectLiteralExpression('{', '}', false, node, context);
+    return this.renderObjectLiteralExpression('{', '}', false, node, context.updateContext({ inMap: true }));
   }
 
   public translateUnaryOperator(operator: ts.PrefixUnaryOperator) {
@@ -451,19 +458,26 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const mid = context.currentContext.renderObjectLiteralAsKeywords ? '=' : ': ';
 
     // node.name is either an identifier or a string literal. The string literal
-    // needs to be converted differently.
-    let name = context.convert(node.name);
-    matchAst(node.name, nodeOfType('stringLiteral', ts.SyntaxKind.StringLiteral), (captured) => {
-      name = new OTree([mangleIdentifier(captured.stringLiteral.text)]);
-    });
+    // needs to be converted differently depending on whether it needs to be a
+    // string or a keyword argument.
+    let name = ts.isStringLiteral(node.name)
+      ? new OTree([
+          context.currentContext.inMap // If in map, don't mangle the keys
+            ? node.name.text
+            : mangleIdentifier(node.name.text),
+        ])
+      : context.convert(node.name);
 
     // If this isn't a computed property, we must quote the key (unless it's rendered as a keyword)
-    if (!context.currentContext.renderObjectLiteralAsKeywords && !ts.isComputedPropertyName(node.name)) {
+    if (
+      context.currentContext.inMap ||
+      (!context.currentContext.renderObjectLiteralAsKeywords && !ts.isComputedPropertyName(node.name))
+    ) {
       name = new OTree(['"', name, '"']);
     }
 
     return new OTree(
-      [name, mid, context.updateContext({ tailPositionArgument: false }).convert(node.initializer)],
+      [name, mid, context.updateContext({ inMap: false, tailPositionArgument: false }).convert(node.initializer)],
       [],
       { canBreakLine: true },
     );
@@ -608,11 +622,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     _context: PythonVisitorContext,
   ): OTree {
-    const rawText = node.text;
-    if (rawText.includes('\n')) {
+    if (node.getText(node.getSourceFile()).includes('\n')) {
       return new OTree([
         '"""',
-        rawText
+        node.text
           // Escape all occurrences of back-slash once more
           .replace(/\\/g, '\\\\')
           // Escape only the first one in triple-quotes
@@ -620,7 +633,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         '"""',
       ]);
     }
-    return new OTree([JSON.stringify(rawText)]);
+    return new OTree([JSON.stringify(node.text)]);
   }
 
   public templateExpression(node: ts.TemplateExpression, context: PythonVisitorContext): OTree {
@@ -795,7 +808,7 @@ function mangleIdentifier(originalIdentifier: string) {
     return originalIdentifier;
   }
   // Turn into snake-case
-  const cased = originalIdentifier.replace(/[^A-Z][A-Z]/g, (m) => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`);
+  const cased = originalIdentifier.replace(/[^A-Z][A-Z]/g, (m) => `${m[0].slice(0, 1)}_${m.slice(1).toLowerCase()}`);
   return IDENTIFIER_KEYWORDS.includes(cased) ? `${cased}_` : cased;
 }
 
