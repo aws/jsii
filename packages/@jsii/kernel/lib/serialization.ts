@@ -731,8 +731,8 @@ function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
     throw new Error(`Malformed enum value: ${JSON.stringify(value)}`);
   }
 
-  const typeName = enumLocator.substr(0, sep);
-  const valueName = enumLocator.substr(sep + 1);
+  const typeName = enumLocator.slice(0, sep);
+  const valueName = enumLocator.slice(sep + 1);
 
   const enumValue = lookup(typeName)[valueName];
   if (enumValue === undefined) {

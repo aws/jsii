@@ -3257,5 +3257,5 @@ function splitNamespace(ns: string): [string, string] {
   if (dot === -1) {
     return ['', ns];
   }
-  return [ns.substr(0, dot), ns.substr(dot + 1)];
+  return [ns.slice(0, dot), ns.slice(dot + 1)];
 }
