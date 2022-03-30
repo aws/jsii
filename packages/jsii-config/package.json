@@ -19,14 +19,14 @@
     "jsii-config": "bin/jsii-config"
   },
   "devDependencies": {
-    "@types/inquirer": "^8.2.0",
+    "@types/inquirer": "^8.2.1",
     "@types/jest": "^27.4.1",
     "@types/node": "^12.20.47",
-    "@types/yargs": "^17.0.9",
-    "eslint": "^8.11.0",
+    "@types/yargs": "^17.0.10",
+    "eslint": "^8.12.0",
     "jest": "^27.5.1",
     "jest-expect-message": "^1.0.2",
-    "prettier": "^2.6.0",
+    "prettier": "^2.6.1",
     "typescript": "~3.9.10"
   },
   "dependencies": {

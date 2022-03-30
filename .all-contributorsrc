@@ -1339,6 +1339,33 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "wendysophie",
+      "name": "wendysophie",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54415551?v=4",
+      "profile": "https://github.com/wendysophie",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "CommanderRoot",
+      "name": "CommanderRoot",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4395417?v=4",
+      "profile": "https://github.com/CommanderRoot",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cgarvis",
+      "name": "Chris Garvis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/213125?v=4",
+      "profile": "https://github.com/cgarvis",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoType": "github",

@@ -161,7 +161,7 @@ export class DotNetGenerator extends Generator {
         this.assembly.name,
         // Strip the `${assmName}.` prefix here, as the "assembly-relative" NS
         // is expected by `this.typeResolver.resovleNamespace`.
-        jsiiNs.substr(this.assembly.name.length + 1),
+        jsiiNs.slice(this.assembly.name.length + 1),
       );
       this.emitNamespaceDocs(dotnetNs, jsiiNs, submodule);
     }
