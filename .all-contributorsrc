@@ -1357,6 +1357,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "cgarvis",
+      "name": "Chris Garvis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/213125?v=4",
+      "profile": "https://github.com/cgarvis",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoType": "github",
