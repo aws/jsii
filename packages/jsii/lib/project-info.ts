@@ -6,7 +6,12 @@ import * as semver from 'semver';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
-import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
+import {
+  parsePerson,
+  parseRepository,
+  findDependencyDirectory,
+  readJsonFile,
+} from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
@@ -69,7 +74,7 @@ export async function loadProjectInfo(
 ): Promise<ProjectInfoResult> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
-  const pkg = await fs.readJson(packageJsonPath);
+  const pkg = readJsonFile(packageJsonPath);
 
   const diagnostics: ts.Diagnostic[] = [];
 
@@ -319,7 +324,7 @@ class DependencyResolver {
     }
 
     // eslint-disable-next-line no-await-in-loop
-    const assembly = await this.loadAssembly(jsiiFile);
+    const assembly = this.loadAssembly(jsiiFile);
     // Continue loading any dependencies declared in the asm
 
     const resolvedDependencies = assembly.dependencies
@@ -340,9 +345,9 @@ class DependencyResolver {
   /**
    * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
    */
-  private async loadAssembly(jsiiFileName: string): Promise<spec.Assembly> {
+  private loadAssembly(jsiiFileName: string): spec.Assembly {
     try {
-      return await fs.readJson(jsiiFileName);
+      return readJsonFile(jsiiFileName);
     } catch (e) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
@@ -481,7 +486,7 @@ function _resolveVersion(
     // Rendering as a caret version to maintain uniformity against the "standard".
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
     version: `^${
-      fs.readJsonSync(path.join(localPackage, 'package.json')).version
+      readJsonFile(path.join(localPackage, 'package.json')).version
     }`,
     localPackage,
   };

@@ -1,4 +1,6 @@
+import { PackageJson } from '@jsii/spec';
 import * as fs from 'fs-extra';
+import * as _ from 'lodash';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
@@ -259,3 +261,21 @@ export function findUp(
 function isPromise<A>(x: A | Promise<A>): x is Promise<A> {
   return typeof x === 'object' && (x as any).then;
 }
+export const findPackageJsonForDir = _.memoize((sourceDirName) =>
+  findUp(sourceDirName, (dir) =>
+    fs.pathExistsSync(path.join(dir, 'package.json')),
+  ),
+);
+
+export const readJsonFile = _.memoize(
+  (path: string, options?: fs.ReadOptions | BufferEncoding | string) =>
+    fs.readJSONSync(path, options),
+);
+
+export const getPackageJson = _.memoize(
+  (dir: string): PackageJson | undefined => {
+    const packageJsonPath = findPackageJsonForDir(dir);
+    if (!packageJsonPath) return;
+    return readJsonFile(path.join(packageJsonPath, 'package.json'));
+  },
+);

@@ -1,6 +1,13 @@
 import * as fs from 'fs-extra';
+import * as _ from 'lodash';
 import * as os from 'os';
 import * as path from 'path';
+
+jest.mock('lodash');
+
+(_.memoize as jest.MockedFunction<typeof _.memoize>).mockImplementation(
+  (fn: any) => fn,
+);
 
 import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 

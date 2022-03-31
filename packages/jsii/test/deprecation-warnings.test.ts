@@ -7,6 +7,10 @@ import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 import { Compiler } from '../lib/compiler';
 import { loadProjectInfo } from '../lib/project-info';
 
+jest.mock('lodash', () => ({
+  memoize: (fn: () => unknown) => fn,
+}));
+
 const DEPRECATED = '/** @deprecated Use something else */';
 
 describe('Function generation', () => {

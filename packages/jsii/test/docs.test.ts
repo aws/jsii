@@ -3,6 +3,10 @@ import { Stability } from '@jsii/spec';
 
 import { sourceToAssemblyHelper as compile } from '../lib';
 
+jest.mock('lodash', () => ({
+  memoize: (fn: () => unknown) => fn,
+}));
+
 jest.setTimeout(60_000);
 
 // ----------------------------------------------------------------------

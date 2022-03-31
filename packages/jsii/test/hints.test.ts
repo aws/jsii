@@ -2,6 +2,10 @@ import { InterfaceType, TypeKind } from '@jsii/spec';
 
 import { sourceToAssemblyHelper } from '../lib';
 
+jest.mock('lodash', () => ({
+  memoize: (fn: () => unknown) => fn,
+}));
+
 describe('@struct', () => {
   test('causes behavioral-named interfaces to be structs', async () => {
     const assembly = await sourceToAssemblyHelper(`

@@ -41,6 +41,7 @@
     "chalk": "^4",
     "deep-equal": "^2.0.5",
     "fs-extra": "^9.1.0",
+    "lodash": "^4.17.21",
     "log4js": "^6.4.4",
     "semver": "^7.3.5",
     "semver-intersect": "^1.4.0",
@@ -62,6 +63,7 @@
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.6.1",
-    "ts-jest": "^27.1.4"
+    "ts-jest": "^27.1.4",
+    "@types/lodash": "^4.14.151"
   }
 }

@@ -8,6 +8,10 @@ import {
   compileJsiiForTest,
 } from '../lib';
 
+jest.mock('lodash', () => ({
+  memoize: (fn: () => unknown) => fn,
+}));
+
 test('submodules loaded from directories can have a README', async () => {
   const assembly = await sourceToAssemblyHelper({
     'index.ts': 'export * as submodule from "./subdir"',

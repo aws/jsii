@@ -26,6 +26,7 @@ import { DeprecatedRemover } from './transforms/deprecated-remover';
 import { DeprecationWarningsInjector } from './transforms/deprecation-warnings';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { combinedTransformers } from './transforms/utils';
+import { getPackageJson, readJsonFile } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
@@ -450,12 +451,12 @@ export class Assembler implements Emitter {
    *
    * @returns the FQN of the type, or some "unknown" marker.
    */
-  private async _getFQN(
+  private _getFQN(
     type: ts.Type,
     typeAnnotationNode: ts.Node,
     typeUse: TypeUseKind,
     isThisType: boolean,
-  ): Promise<string> {
+  ): string {
     const sym = symbolFromType(type, this._typeChecker);
 
     const typeDeclaration = sym.valueDeclaration ?? sym.declarations?.[0];
@@ -500,7 +501,7 @@ export class Assembler implements Emitter {
       return tsName;
     }
     const [, modulePath, typeName] = groups;
-    const pkg = await findPackageInfo(modulePath);
+    const pkg = findPackageInfo(modulePath);
     if (!pkg) {
       if (!hasError) {
         this._diagnostics.push(
@@ -643,7 +644,7 @@ export class Assembler implements Emitter {
       //
       // No way to configure targets
 
-      const { fqn, fqnResolutionPrefix } = await qualifiedNameOf.call(
+      const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(
         this,
         symbol,
         true,
@@ -716,10 +717,7 @@ export class Assembler implements Emitter {
         );
       }
 
-      const { fqn, fqnResolutionPrefix } = await qualifiedNameOf.call(
-        this,
-        symbol,
-      );
+      const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol);
       const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
       // There is no need to process the README file for submodules that are
       // external (i.e: from a dependency), as these will not be emitted in the
@@ -744,11 +742,11 @@ export class Assembler implements Emitter {
       await this._addToSubmodule(symbol, sourceModule, packageRoot);
     }
 
-    async function qualifiedNameOf(
+    function qualifiedNameOf(
       this: Assembler,
       sym: ts.Symbol,
       inlineNamespace = false,
-    ): Promise<{ fqn: string; fqnResolutionPrefix: string }> {
+    ): { fqn: string; fqnResolutionPrefix: string } {
       if (this._submoduleMap.has(sym)) {
         const parent = this._submodules.get(this._submoduleMap.get(sym)!)!;
         const fqn = `${parent.fqn}.${sym.name}`;
@@ -763,7 +761,7 @@ export class Assembler implements Emitter {
         .getDeclarations()?.[0]
         ?.getSourceFile()?.fileName;
       const pkgInfo = symbolLocation
-        ? await findPackageInfo(symbolLocation)
+        ? findPackageInfo(symbolLocation)
         : undefined;
       const assemblyName: string = pkgInfo?.name ?? this.projectInfo.name;
       const fqn = `${assemblyName}.${sym.name}`;
@@ -780,7 +778,7 @@ export class Assembler implements Emitter {
       if (!(await fs.pathExists(jsiirc))) {
         return undefined;
       }
-      const data = await fs.readJson(jsiirc);
+      const data = await readJsonFile(jsiirc);
       return data.targets;
     }
 
@@ -2468,7 +2466,7 @@ export class Assembler implements Emitter {
     }
 
     return {
-      type: { fqn: await this._getFQN(type, declaration, purpose, isThisType) },
+      type: { fqn: this._getFQN(type, declaration, purpose, isThisType) },
     };
 
     async function _arrayType(
@@ -3240,18 +3238,8 @@ function isSingleValuedEnum(
   return false;
 }
 
-async function findPackageInfo(
-  fromDir: string,
-): Promise<PackageJson | undefined> {
-  const filePath = path.join(fromDir, 'package.json');
-  if (await fs.pathExists(filePath)) {
-    return fs.readJson(filePath);
-  }
-  const parent = path.dirname(fromDir);
-  if (parent === fromDir) {
-    return undefined;
-  }
-  return findPackageInfo(parent);
+function findPackageInfo(fromDir: string): PackageJson | undefined {
+  return getPackageJson(fromDir);
 }
 
 /**

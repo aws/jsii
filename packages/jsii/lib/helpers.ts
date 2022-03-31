@@ -15,7 +15,7 @@ import { DiagnosticCategory } from 'typescript';
 
 import { Compiler, CompilerOptions } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';
-import { formatDiagnostic } from './utils';
+import { formatDiagnostic, readJsonFile } from './utils';
 
 /**
  * A set of source files for `sourceToAssemblyHelper`, at least containing 'index.ts'
@@ -118,7 +118,7 @@ export async function compileJsiiForTest(
     if (errors.length > 0 || emitResult.emitSkipped) {
       throw new Error('There were compiler errors');
     }
-    const assembly = await fs.readJSON('.jsii', { encoding: 'utf-8' });
+    const assembly = await readJsonFile('.jsii', { encoding: 'utf-8' });
     const files: Record<string, string> = {};
 
     for (const filename of Object.keys(source)) {

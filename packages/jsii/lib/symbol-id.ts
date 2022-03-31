@@ -1,9 +1,9 @@
 import { Assembly } from '@jsii/spec';
-import * as fs from 'fs-extra';
+import * as _ from 'lodash';
 import * as path from 'path';
 import * as ts from 'typescript';
 
-import { findUp } from './utils';
+import { findPackageJsonForDir, readJsonFile } from './utils';
 
 /**
  * Additional options that may be provided to the symbolIdentifier.
@@ -88,17 +88,14 @@ export function symbolIdentifier(
 }
 
 function assemblyRelativeSourceFile(sourceFileName: string, asm?: Assembly) {
-  const packageJsonDir = findUp(path.dirname(sourceFileName), (dir) =>
-    fs.pathExistsSync(path.join(dir, 'package.json')),
-  );
-
+  const packageJsonDir = findPackageJsonForDir(sourceFileName);
   if (!packageJsonDir) {
     return undefined;
   }
-
-  const packageJson = fs.readJsonSync(
-    path.join(packageJsonDir, 'package.json'),
-  );
+  const packageJson = readJsonFile(path.join(packageJsonDir, 'package.json'));
+  if (!packageJson) {
+    return undefined;
+  }
 
   let sourcePath = removePrefix(
     packageJson.jsii?.outdir ?? '',

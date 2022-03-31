@@ -6,6 +6,10 @@ import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
 import { formatDiagnostic } from '../lib/utils';
 
+jest.mock('lodash', () => ({
+  memoize: (fn: () => unknown) => fn,
+}));
+
 const SOURCE_DIR = path.join(__dirname, 'negatives');
 
 expect.addSnapshotSerializer({

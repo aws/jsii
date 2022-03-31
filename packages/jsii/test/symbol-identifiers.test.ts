@@ -1,5 +1,9 @@
 import { compileJsiiForTest, normalizePath } from '../lib';
 
+jest.mock('lodash', () => ({
+  memoize: (fn: () => unknown) => fn,
+}));
+
 test('Symbol map is generated', async () => {
   const result = await compileJsiiForTest(
     {

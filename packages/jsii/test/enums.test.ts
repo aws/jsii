@@ -2,6 +2,10 @@ import { EnumType } from '@jsii/spec';
 
 import { sourceToAssemblyHelper } from '../lib';
 
+jest.mock('lodash', () => ({
+  memoize: (fn: any) => fn,
+}));
+
 // ----------------------------------------------------------------------
 test('test parsing enum with two members and no values', async () => {
   const assembly = await sourceToAssemblyHelper(`
