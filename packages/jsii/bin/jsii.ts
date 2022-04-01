@@ -134,7 +134,7 @@ function _configureLog4js(verbosity: number) {
   const stdoutColor = !!process.stdout.isTTY;
 
   log4js.addLayout('passThroughNoColor', () => {
-    return (loggingEvent) => stripAnsi(util.format(...loggingEvent.data));
+    return (loggingEvent) => utils.stripAnsi(util.format(...loggingEvent.data));
   });
 
   log4js.configure({
@@ -176,12 +176,4 @@ function _configureLog4js(verbosity: number) {
         return 'ALL';
     }
   }
-}
-
-const ANSI_REGEX =
-  // eslint-disable-next-line no-control-regex
-  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
-
-function stripAnsi(x: string): string {
-  return x.replace(ANSI_REGEX, '');
 }
