@@ -3,8 +3,8 @@ import { InterfaceType, TypeKind } from '@jsii/spec';
 import { sourceToAssemblyHelper } from '../lib';
 
 describe('@struct', () => {
-  test('causes behavioral-named interfaces to be structs', async () => {
-    const assembly = await sourceToAssemblyHelper(`
+  test('causes behavioral-named interfaces to be structs', () => {
+    const assembly = sourceToAssemblyHelper(`
       /** @struct */
       export interface IPSet {
         readonly cidr: string;
@@ -17,8 +17,8 @@ describe('@struct', () => {
     );
   });
 
-  test('can be used on any struct', async () => {
-    const assembly = await sourceToAssemblyHelper(`
+  test('can be used on any struct', () => {
+    const assembly = sourceToAssemblyHelper(`
       /** @struct */
       export interface Struct {
         readonly cidr: string;

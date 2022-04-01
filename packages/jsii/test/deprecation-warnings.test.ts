@@ -10,8 +10,8 @@ import { loadProjectInfo } from '../lib/project-info';
 const DEPRECATED = '/** @deprecated Use something else */';
 
 describe('Function generation', () => {
-  test('generates the print function', async () => {
-    const result = await compileJsiiForTest(``, undefined /* callback */, {
+  test('generates the print function', () => {
+    const result = compileJsiiForTest(``, undefined /* callback */, {
       addDeprecationWarnings: true,
     });
 
@@ -57,8 +57,8 @@ module.exports = { print, getPropertyDescriptor, DeprecationError };
     );
   });
 
-  test('generates a function for each type', async () => {
-    const result = await compileJsiiForTest(
+  test('generates a function for each type', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -78,8 +78,8 @@ function testpkg_Baz(p) {
     );
   });
 
-  test('generates metadata', async () => {
-    const result = await compileJsiiForTest(
+  test('generates metadata', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -93,8 +93,8 @@ function testpkg_Baz(p) {
     ).toBe(true);
   });
 
-  test('for each non-primitive property, generates a call', async () => {
-    const result = await compileJsiiForTest(
+  test('for each non-primitive property, generates a call', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -124,8 +124,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('generates empty functions for interfaces', async () => {
-    const result = await compileJsiiForTest(
+  test('generates empty functions for interfaces', () => {
+    const result = compileJsiiForTest(
       `
         export interface IFoo {
           bar(): string;
@@ -139,8 +139,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('generates empty functions for classes', async () => {
-    const result = await compileJsiiForTest(
+  test('generates empty functions for classes', () => {
+    const result = compileJsiiForTest(
       `
         export class Foo {
           bar() {return 0};
@@ -154,8 +154,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('generates calls for recursive types', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for recursive types', () => {
+    const result = compileJsiiForTest(
       `
         export interface Bar {readonly bar?: Bar}
         `,
@@ -179,8 +179,8 @@ function testpkg_Baz(p) {
     );
   });
 
-  test('generates exports for all the functions', async () => {
-    const result = await compileJsiiForTest(
+  test('generates exports for all the functions', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -195,8 +195,8 @@ function testpkg_Baz(p) {
     );
   });
 
-  test('generates functions for enums', async () => {
-    const result = await compileJsiiForTest(
+  test('generates functions for enums', () => {
+    const result = compileJsiiForTest(
       `
         export enum State {
           ON,
@@ -228,8 +228,8 @@ function testpkg_Baz(p) {
 `);
   });
 
-  test('generates calls for deprecated inherited properties', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for deprecated inherited properties', () => {
+    const result = compileJsiiForTest(
       `
         export interface Baz {
           /** @deprecated message from Baz */
@@ -289,8 +289,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('skips properties that are deprecated in one supertype but not the other', async () => {
-    const result = await compileJsiiForTest(
+  test('skips properties that are deprecated in one supertype but not the other', () => {
+    const result = compileJsiiForTest(
       `
         export interface Baz {
           readonly x: string;
@@ -312,8 +312,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('generates calls for types with deprecated properties', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for types with deprecated properties', () => {
+    const result = compileJsiiForTest(
       `
       export interface Bar {
         readonly x: string;
@@ -347,8 +347,8 @@ function testpkg_Baz(p) {
 `);
   });
 
-  test('generates calls for each property of a deprecated type', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for each property of a deprecated type', () => {
+    const result = compileJsiiForTest(
       `
       /** @deprecated use Bar instead */
       export interface Foo {
@@ -377,16 +377,16 @@ function testpkg_Baz(p) {
 `);
   });
 
-  test('generates calls for types in other assemblies', async () => {
+  test('generates calls for types in other assemblies', () => {
     const calcBaseOfBaseRoot = resolveModuleDir(
       '@scope/jsii-calc-base-of-base',
     );
     const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
 
-    await compile(calcBaseOfBaseRoot, false);
-    await compile(calcBaseRoot, true);
-    await compile(calcLibRoot, true);
+    compile(calcBaseOfBaseRoot, false);
+    compile(calcBaseRoot, true);
+    compile(calcLibRoot, true);
     const warningsFile = loadWarningsFile(calcBaseRoot);
 
     // jsii-calc-base was compiled with warnings. So we expect to see handlers for its types in the warnings file
@@ -396,14 +396,14 @@ function testpkg_Baz(p) {
     expect(warningsFile).not.toMatch('_scope_jsii_calc_base_of_base');
 
     // Recompiling without deprecation warning to leave the packages in a clean state
-    await compile(calcBaseRoot, false);
-    await compile(calcLibRoot, false);
+    compile(calcBaseRoot, false);
+    compile(calcLibRoot, false);
   }, 120000);
 });
 
 describe('Call injections', () => {
-  test('does not add warnings by default', async () => {
-    const result = await compileJsiiForTest(
+  test('does not add warnings by default', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       ${DEPRECATED}
@@ -418,8 +418,8 @@ describe('Call injections', () => {
     ).toBeFalsy();
   });
 
-  test('generates a require statement', async () => {
-    const result = await compileJsiiForTest(
+  test('generates a require statement', () => {
+    const result = compileJsiiForTest(
       {
         'index.ts': `export * from './some/folder/source'`,
         'some/folder/source.ts': `
@@ -441,8 +441,8 @@ describe('Call injections', () => {
     );
   }, 60000);
 
-  test('does not generate a require statement when no calls were injected', async () => {
-    const result = await compileJsiiForTest(
+  test('does not generate a require statement when no calls were injected', () => {
+    const result = compileJsiiForTest(
       {
         'index.ts': `export * from './some/folder/handler'`,
         'some/folder/handler.ts': `
@@ -461,8 +461,8 @@ describe('Call injections', () => {
     );
   }, 60000);
 
-  test('deprecated methods', async () => {
-    const result = await compileJsiiForTest(
+  test('deprecated methods', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       ${DEPRECATED}
@@ -499,8 +499,8 @@ describe('Call injections', () => {
     `);
   });
 
-  test('methods with parameters', async () => {
-    const result = await compileJsiiForTest(
+  test('methods with parameters', () => {
+    const result = compileJsiiForTest(
       `
         export interface A {readonly x: number;}
          export class Foo {
@@ -535,8 +535,8 @@ describe('Call injections', () => {
     `);
   }, 60000);
 
-  test('deprecated getters', async () => {
-    const result = await compileJsiiForTest(
+  test('deprecated getters', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       private _x = 0;
@@ -577,8 +577,8 @@ describe('Call injections', () => {
     `);
   });
 
-  test('deprecated setters', async () => {
-    const result = await compileJsiiForTest(
+  test('deprecated setters', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       private _x = 0;
@@ -630,8 +630,8 @@ describe('Call injections', () => {
     `);
   });
 
-  test('creates a new instance of error when test', async () => {
-    const result = await compileJsiiForTest(
+  test('creates a new instance of error when test', () => {
+    const result = compileJsiiForTest(
       `
     ${DEPRECATED}
     export class Foo {
@@ -670,8 +670,8 @@ describe('Call injections', () => {
 });
 
 describe('thrown exceptions have the expected stack trace', () => {
-  test('constructor', async () => {
-    const compilation = await compileJsiiForTest(
+  test('constructor', () => {
+    const compilation = compileJsiiForTest(
       `
       /** @deprecated for testing */
       export class DeprecatedConstructor {
@@ -710,8 +710,8 @@ describe('thrown exceptions have the expected stack trace', () => {
     }
   });
 
-  test('getter', async () => {
-    const compilation = await compileJsiiForTest(
+  test('getter', () => {
+    const compilation = compileJsiiForTest(
       `
       export class DeprecatedConstructor {
         /** @deprecated for testing */
@@ -753,8 +753,8 @@ describe('thrown exceptions have the expected stack trace', () => {
     }
   });
 
-  test('setter', async () => {
-    const compilation = await compileJsiiForTest(
+  test('setter', () => {
+    const compilation = compileJsiiForTest(
       `
       export class DeprecatedConstructor {
         private value = 1337;
@@ -802,8 +802,8 @@ describe('thrown exceptions have the expected stack trace', () => {
     }
   });
 
-  test('method', async () => {
-    const compilation = await compileJsiiForTest(
+  test('method', () => {
+    const compilation = compileJsiiForTest(
       `
       export class DeprecatedConstructor {
         /** @deprecated for testing */
@@ -905,15 +905,15 @@ function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
 
-async function compile(projectRoot: string, addDeprecationWarnings: boolean) {
-  const { projectInfo } = await loadProjectInfo(projectRoot);
+function compile(projectRoot: string, addDeprecationWarnings: boolean) {
+  const { projectInfo } = loadProjectInfo(projectRoot);
 
   const compiler = new Compiler({
     projectInfo,
     addDeprecationWarnings,
   });
 
-  await compiler.emit();
+  compiler.emit();
 }
 
 function loadWarningsFile(projectRoot: string) {

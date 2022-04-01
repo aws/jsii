@@ -14,7 +14,7 @@ import { enabledWarnings } from '../lib/warnings';
 
 const warningTypes = Object.keys(enabledWarnings);
 
-(async () => {
+(() => {
   const argv = yargs
     .env('JSII')
     .command(
@@ -90,7 +90,7 @@ const warningTypes = Object.keys(enabledWarnings);
   );
 
   const { projectInfo, diagnostics: projectInfoDiagnostics } =
-    await loadProjectInfo(projectRoot);
+    loadProjectInfo(projectRoot);
 
   // disable all silenced warnings
   for (const key of argv['silence-warnings']) {
@@ -117,7 +117,7 @@ const warningTypes = Object.keys(enabledWarnings);
     generateTypeScriptConfig: argv['generate-tsconfig'],
   });
 
-  const emitResult = await (argv.watch ? compiler.watch() : compiler.emit());
+  const emitResult = argv.watch ? compiler.watch() : compiler.emit();
 
   const allDiagnostics = [...projectInfoDiagnostics, ...emitResult.diagnostics];
 
@@ -127,10 +127,7 @@ const warningTypes = Object.keys(enabledWarnings);
   if (emitResult.emitSkipped) {
     process.exitCode = 1;
   }
-})().catch((e) => {
-  console.error(`Error: ${e.stack}`);
-  process.exitCode = -1;
-});
+})();
 
 function _configureLog4js(verbosity: number) {
   const stderrColor = !!process.stderr.isTTY;
