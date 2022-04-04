@@ -781,7 +781,7 @@ exports[`showAll 1`] = `
  │   │   ├─┬ unionMapProperty property
  │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
  │   │   ├─┬ unionProperty property
- │   │   │ └── type: string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
+ │   │   │ └── type: string | number | @scope/jsii-calc-lib.Number | jsii-calc.Multiply
  │   │   ├─┬ unknownArrayProperty property
  │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property

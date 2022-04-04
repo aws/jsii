@@ -3580,7 +3580,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"jsii-calc.Multiply\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"}]}}")]
+        [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"},{\\"fqn\\":\\"jsii-calc.Multiply\\"}]}}")]
         public virtual object UnionProperty
         {
             get => GetInstanceProperty<object>()!;
