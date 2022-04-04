@@ -1,10 +1,10 @@
 import {
-  ensureDir,
-  mkdtemp,
-  remove,
-  writeFile,
-  readFile,
-  readJson,
+  ensureDirSync,
+  mkdtempSync,
+  removeSync,
+  writeFileSync,
+  readFileSync,
+  readJsonSync,
 } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
@@ -14,8 +14,8 @@ import { ProjectInfo } from '../lib/project-info';
 
 describe(Compiler, () => {
   describe('generated tsconfig', () => {
-    test('default is tsconfig.json', async () => {
-      const sourceDir = await mkdtemp(
+    test('default is tsconfig.json', () => {
+      const sourceDir = mkdtempSync(
         join(tmpdir(), 'jsii-compiler-watch-mode-'),
       );
 
@@ -23,15 +23,15 @@ describe(Compiler, () => {
         projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
       });
 
-      await compiler.emit();
+      compiler.emit();
 
-      expect(await readJson(join(sourceDir, 'tsconfig.json'), 'utf-8')).toEqual(
+      expect(readJsonSync(join(sourceDir, 'tsconfig.json'), 'utf-8')).toEqual(
         expectedTypeScriptConfig(),
       );
     });
 
-    test('file name can be customized', async () => {
-      const sourceDir = await mkdtemp(
+    test('file name can be customized', () => {
+      const sourceDir = mkdtempSync(
         join(tmpdir(), 'jsii-compiler-watch-mode-'),
       );
 
@@ -40,10 +40,10 @@ describe(Compiler, () => {
         generateTypeScriptConfig: 'tsconfig.jsii.json',
       });
 
-      await compiler.emit();
+      compiler.emit();
 
       expect(
-        await readJson(join(sourceDir, 'tsconfig.jsii.json'), 'utf-8'),
+        readJsonSync(join(sourceDir, 'tsconfig.jsii.json'), 'utf-8'),
       ).toEqual(expectedTypeScriptConfig());
     });
   });
@@ -52,14 +52,12 @@ describe(Compiler, () => {
     // This can be a little slow, allowing 15 seconds maximum here (default is 5 seconds)
     jest.setTimeout(15_000);
 
-    const sourceDir = await mkdtemp(
-      join(tmpdir(), 'jsii-compiler-watch-mode-'),
-    );
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-compiler-watch-mode-'));
 
     try {
-      await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
       // Intentionally using lower case name - it should be case-insensitive
-      await writeFile(join(sourceDir, 'readme.md'), '# Test Package');
+      writeFileSync(join(sourceDir, 'readme.md'), '# Test Package');
 
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
@@ -74,23 +72,23 @@ describe(Compiler, () => {
         onWatchClosed = ok;
         onWatchFailed = ko;
       });
-      const watch = await compiler.watch({
+      const watch = compiler.watch({
         nonBlocking: true,
         // Ignore diagnostics reporting (not to pollute test console output)
         reportDiagnostics: () => null,
         // Ignore watch status reporting (not to pollute test console output)
         reportWatchStatus: () => null,
         // Verify everything goes according to plan
-        compilationComplete: async (emitResult) => {
+        compilationComplete: (emitResult) => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
-            const output = await readFile(join(sourceDir, '.jsii'), {
+            const output = readFileSync(join(sourceDir, '.jsii'), {
               encoding: 'utf-8',
             });
             if (firstCompilation) {
               firstCompilation = false;
               expect(output).toContain('"MarkerA"');
-              await writeFile(
+              writeFileSync(
                 join(sourceDir, 'index.ts'),
                 'export class MarkerB {}',
               );
@@ -108,23 +106,23 @@ describe(Compiler, () => {
       });
       await watchClosed;
     } finally {
-      await remove(sourceDir);
+      removeSync(sourceDir);
     }
   });
 
-  test('rootDir is added to assembly', async () => {
+  test('rootDir is added to assembly', () => {
     const outDir = 'jsii-outdir';
     const rootDir = 'jsii-rootdir';
-    const sourceDir = await mkdtemp(join(tmpdir(), 'jsii-tmpdir'));
-    await ensureDir(join(sourceDir, rootDir));
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+    ensureDirSync(join(sourceDir, rootDir));
 
     try {
-      await writeFile(
+      writeFileSync(
         join(sourceDir, rootDir, 'index.ts'),
         'export class MarkerA {}',
       );
       // Intentionally using lower case name - it should be case-insensitive
-      await writeFile(join(sourceDir, rootDir, 'readme.md'), '# Test Package');
+      writeFileSync(join(sourceDir, rootDir, 'readme.md'), '# Test Package');
 
       const compiler = new Compiler({
         projectInfo: {
@@ -138,16 +136,16 @@ describe(Compiler, () => {
         projectReferences: false,
       });
 
-      await compiler.emit();
+      compiler.emit();
 
-      const assembly = await readJson(join(sourceDir, '.jsii'), 'utf-8');
+      const assembly = readJsonSync(join(sourceDir, '.jsii'), 'utf-8');
       expect(assembly.metadata).toEqual(
         expect.objectContaining({
           tscRootDir: rootDir,
         }),
       );
     } finally {
-      await remove(sourceDir);
+      removeSync(sourceDir);
     }
   });
 });

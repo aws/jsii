@@ -4950,14 +4950,14 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Multiply value) {
+    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number value) {
         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
     }
 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number value) {
+    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Multiply value) {
         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
     }
 

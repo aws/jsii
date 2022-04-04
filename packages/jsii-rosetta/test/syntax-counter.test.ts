@@ -1,8 +1,8 @@
 import { TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
 
 let assembly: TestJsiiModule;
-beforeAll(async () => {
-  assembly = await TestJsiiModule.fromSource(
+beforeAll(() => {
+  assembly = TestJsiiModule.fromSource(
     `
     export class ClassA {
       public someMethod() {
@@ -22,7 +22,7 @@ beforeAll(async () => {
     },
   );
 });
-afterAll(async () => assembly.cleanup());
+afterAll(() => assembly.cleanup());
 
 test('generate syntax counter', () => {
   const translator = assembly.successfullyCompile(`

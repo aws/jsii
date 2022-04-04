@@ -1,5 +1,6 @@
 #!/usr/bin/env npx ts-node
 
+import { removeSync } from 'fs-extra';
 import { join, resolve } from 'path';
 import { venv, runCommand } from './_constants';
 
@@ -18,3 +19,8 @@ runCommand(
   ['-m', 'pip', 'install', '-r', resolve(__dirname, '..', 'requirements.txt')],
   { env },
 );
+
+// Sometimes, pip leaves a `build` directory behind, which can mess with mypy
+// when run with `pytest --mypy`. This directory should be transient and so we
+// simply clean it up here.
+removeSync(resolve(__dirname, '..', 'build'));

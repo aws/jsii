@@ -64,12 +64,10 @@ export interface ProjectInfoResult {
   readonly diagnostics: readonly ts.Diagnostic[];
 }
 
-export async function loadProjectInfo(
-  projectRoot: string,
-): Promise<ProjectInfoResult> {
+export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
-  const pkg = await fs.readJson(packageJsonPath);
+  const pkg = fs.readJsonSync(packageJsonPath);
 
   const diagnostics: ts.Diagnostic[] = [];
 
@@ -127,7 +125,7 @@ export async function loadProjectInfo(
   const peerDependencies: Record<string, string> = pkg.peerDependencies ?? {};
 
   const resolver = new DependencyResolver();
-  const resolved = await resolver.discoverDependencyTree(projectRoot, {
+  const resolved = resolver.discoverDependencyTree(projectRoot, {
     ...dependencies,
     ...peerDependencies,
   });
@@ -245,14 +243,14 @@ class DependencyResolver {
    *
    * Return the resolved jsii dependency paths
    */
-  public async discoverDependencyTree(
+  public discoverDependencyTree(
     root: string,
     dependencies: Record<string, string>,
-  ): Promise<Record<string, string>> {
+  ): Record<string, string> {
     const ret: Record<string, string> = {};
     for (const [name, declaration] of Object.entries(dependencies)) {
       // eslint-disable-next-line no-await-in-loop
-      const resolved = await this.resolveDependency(root, name, declaration);
+      const resolved = this.resolveDependency(root, name, declaration);
 
       const actualVersion = resolved.dependencyInfo.assembly.version;
       if (!semver.satisfies(actualVersion, declaration)) {
@@ -288,11 +286,7 @@ class DependencyResolver {
     return Array.from(closure.values());
   }
 
-  private async resolveDependency(
-    root: string,
-    name: string,
-    declaration: string,
-  ) {
+  private resolveDependency(root: string, name: string, declaration: string) {
     const { version: versionString, localPackage } = _resolveVersion(
       declaration,
       root,
@@ -303,27 +297,27 @@ class DependencyResolver {
         `Invalid semver expression for ${name}: ${versionString}`,
       );
     }
-    const jsiiFile = await _tryResolveAssembly(name, localPackage, root);
+    const jsiiFile = _tryResolveAssembly(name, localPackage, root);
     LOG.debug(`Resolved dependency ${name} to ${jsiiFile}`);
     return {
       resolvedVersion: versionString,
       resolvedFile: jsiiFile,
-      dependencyInfo: await this.loadAssemblyAndRecurse(jsiiFile),
+      dependencyInfo: this.loadAssemblyAndRecurse(jsiiFile),
     };
   }
 
-  private async loadAssemblyAndRecurse(jsiiFile: string) {
+  private loadAssemblyAndRecurse(jsiiFile: string) {
     // Only recurse if we haven't seen this assembly yet
     if (this.cache.has(jsiiFile)) {
       return this.cache.get(jsiiFile)!;
     }
 
     // eslint-disable-next-line no-await-in-loop
-    const assembly = await this.loadAssembly(jsiiFile);
+    const assembly = this.loadAssembly(jsiiFile);
     // Continue loading any dependencies declared in the asm
 
     const resolvedDependencies = assembly.dependencies
-      ? await this.discoverDependencyTree(
+      ? this.discoverDependencyTree(
           path.dirname(jsiiFile),
           assembly.dependencies,
         )
@@ -340,9 +334,9 @@ class DependencyResolver {
   /**
    * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
    */
-  private async loadAssembly(jsiiFileName: string): Promise<spec.Assembly> {
+  private loadAssembly(jsiiFileName: string): spec.Assembly {
     try {
-      return await fs.readJson(jsiiFileName);
+      return fs.readJsonSync(jsiiFileName);
     } catch (e) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
@@ -394,11 +388,11 @@ function _toRepository(value: any): {
   };
 }
 
-async function _tryResolveAssembly(
+function _tryResolveAssembly(
   mod: string,
   localPackage: string | undefined,
   searchPath: string,
-): Promise<string> {
+): string {
   if (localPackage) {
     const result = path.join(localPackage, '.jsii');
     if (!fs.existsSync(result)) {
@@ -407,7 +401,7 @@ async function _tryResolveAssembly(
     return result;
   }
   try {
-    const dependencyDir = await findDependencyDirectory(mod, searchPath);
+    const dependencyDir = findDependencyDirectory(mod, searchPath);
     return path.join(dependencyDir, '.jsii');
   } catch (e) {
     throw new Error(

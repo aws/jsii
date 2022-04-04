@@ -19,16 +19,16 @@ export type MultipleSources = { [key: string]: string; 'index.ts': string };
  * Compile a jsii module from source, and produce an environment in which it is available as a module
  */
 export class TestJsiiModule {
-  public static async fromSource(
+  public static fromSource(
     source: string | MultipleSources,
     packageInfo: Partial<PackageInfo> & { name: string; main?: string; types?: string },
-  ) {
-    const asm = await compileJsiiForTest(source, (pi) => {
+  ): TestJsiiModule {
+    const asm = compileJsiiForTest(source, (pi) => {
       Object.assign(pi, packageInfo);
     });
 
-    const ws = await TestWorkspace.create();
-    await ws.addDependency(asm);
+    const ws = TestWorkspace.create();
+    ws.addDependency(asm);
     return new TestJsiiModule(asm.assembly, ws);
   }
 
@@ -84,8 +84,8 @@ export class TestJsiiModule {
     await fs.writeJSON(path.join(this.moduleDirectory, '.jsii'), this.assembly);
   }
 
-  public async cleanup() {
-    await this.workspace.cleanup();
+  public cleanup() {
+    this.workspace.cleanup();
   }
 }
 

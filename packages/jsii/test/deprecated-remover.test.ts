@@ -6,8 +6,8 @@ import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 
 const DEPRECATED = '/** @deprecated stripped */';
 
-test('produces correct output', async () => {
-  const result = await compileJsiiForTest(
+test('produces correct output', () => {
+  const result = compileJsiiForTest(
     MULTI_FILE_EXAMPLE,
     undefined /* callback */,
     { stripDeprecated: true },
@@ -153,8 +153,8 @@ test('produces correct output', async () => {
   `);
 });
 
-test('cross-file deprecated heritage', async () => {
-  const result = await compileJsiiForTest(
+test('cross-file deprecated heritage', () => {
+  const result = compileJsiiForTest(
     {
       'index.ts': `
         import { IDeprecated } from './deprecated';
@@ -188,12 +188,12 @@ test('cross-file deprecated heritage', async () => {
 });
 
 describe('stripDeprecatedAllowList', () => {
-  test('strips all if all FQNs are present in the allowList', async () => {
-    const tmpDir = await fs.mkdtemp(
+  test('strips all if all FQNs are present in the allowList', () => {
+    const tmpDir = fs.mkdtempSync(
       path.join(os.tmpdir(), 'jsiideprecatedremover'),
     );
     const stripDeprecatedAllowListFile = path.join(tmpDir, 'allowList');
-    await fs.writeFile(
+    fs.writeFileSync(
       stripDeprecatedAllowListFile,
       [
         'testpkg.IDeprecatedInterface',
@@ -207,12 +207,12 @@ describe('stripDeprecatedAllowList', () => {
       'utf8',
     );
 
-    const resultWithoutAllowList = await compileJsiiForTest(
+    const resultWithoutAllowList = compileJsiiForTest(
       MULTI_FILE_EXAMPLE,
       undefined /* callback */,
       { stripDeprecated: true },
     );
-    const resultWithAllowList = await compileJsiiForTest(
+    const resultWithAllowList = compileJsiiForTest(
       MULTI_FILE_EXAMPLE,
       undefined /* callback */,
       { stripDeprecated: true, stripDeprecatedAllowListFile },
@@ -226,20 +226,20 @@ describe('stripDeprecatedAllowList', () => {
     );
   });
 
-  test('strips none if the allowList is empty', async () => {
-    const tmpDir = await fs.mkdtemp(
+  test('strips none if the allowList is empty', () => {
+    const tmpDir = fs.mkdtempSync(
       path.join(os.tmpdir(), 'jsiideprecatedremover'),
     );
     const stripDeprecatedAllowListFile = path.join(tmpDir, 'allowList');
     // Valid but empty file
-    await fs.writeFile(stripDeprecatedAllowListFile, '', 'utf8');
+    fs.writeFileSync(stripDeprecatedAllowListFile, '', 'utf8');
 
-    const resultNoStrip = await compileJsiiForTest(
+    const resultNoStrip = compileJsiiForTest(
       MULTI_FILE_EXAMPLE,
       undefined /* callback */,
       { stripDeprecated: false },
     );
-    const resultStripEmpty = await compileJsiiForTest(
+    const resultStripEmpty = compileJsiiForTest(
       MULTI_FILE_EXAMPLE,
       undefined /* callback */,
       { stripDeprecated: true, stripDeprecatedAllowListFile },
@@ -253,12 +253,12 @@ describe('stripDeprecatedAllowList', () => {
     );
   });
 
-  test('strips only allowlisted items if subset is present', async () => {
-    const tmpDir = await fs.mkdtemp(
+  test('strips only allowlisted items if subset is present', () => {
+    const tmpDir = fs.mkdtempSync(
       path.join(os.tmpdir(), 'jsiideprecatedremover'),
     );
     const stripDeprecatedAllowListFile = path.join(tmpDir, 'allowList');
-    await fs.writeFile(
+    fs.writeFileSync(
       stripDeprecatedAllowListFile,
       [
         'testpkg.IDeprecatedInterface',
@@ -268,7 +268,7 @@ describe('stripDeprecatedAllowList', () => {
       'utf8',
     );
 
-    const result = await compileJsiiForTest(
+    const result = compileJsiiForTest(
       MULTI_FILE_EXAMPLE,
       undefined /* callback */,
       { stripDeprecated: true, stripDeprecatedAllowListFile },

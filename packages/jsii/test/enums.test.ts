@@ -3,8 +3,8 @@ import { EnumType } from '@jsii/spec';
 import { sourceToAssemblyHelper } from '../lib';
 
 // ----------------------------------------------------------------------
-test('test parsing enum with two members and no values', async () => {
-  const assembly = await sourceToAssemblyHelper(`
+test('test parsing enum with two members and no values', () => {
+  const assembly = sourceToAssemblyHelper(`
     export enum Foo {
       BAR,
       BAZ
@@ -23,8 +23,8 @@ test('test parsing enum with two members and no values', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('test parsing enum with two members and assigned values', async () => {
-  const assembly = await sourceToAssemblyHelper(`
+test('test parsing enum with two members and assigned values', () => {
+  const assembly = sourceToAssemblyHelper(`
     export enum Foo {
       BAR = 'Bar',
       BAZ = 'Baz'
@@ -44,8 +44,8 @@ test('test parsing enum with two members and assigned values', async () => {
 
 // ----------------------------------------------------------------------
 
-test('enums can have a mix of letters and number', async () => {
-  const assembly = await sourceToAssemblyHelper(`
+test('enums can have a mix of letters and number', () => {
+  const assembly = sourceToAssemblyHelper(`
     export enum Foo {
       Q5X,
       IB3M,

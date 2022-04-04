@@ -14,7 +14,7 @@ jest.setTimeout(60_000);
 test('single assembly, all languages', () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN
-    const compilationResult = await jsii.compileJsiiForTest({
+    const compilationResult = jsii.compileJsiiForTest({
       'README.md': `
 # README
 \`\`\`ts
@@ -890,7 +890,7 @@ export class ClassName implements IInterface {
 test('single assembly, loose mode', () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN
-    const compilationResult = await jsii.compileJsiiForTest({
+    const compilationResult = jsii.compileJsiiForTest({
       'README.md': `
 # Missing literate source
 
@@ -1249,7 +1249,7 @@ new SampleClass('omitted-literate');
 test('single assembly with example metadata', () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN
-    const compilationResult = await jsii.compileJsiiForTest({
+    const compilationResult = jsii.compileJsiiForTest({
       'index.ts': `
 /**
  * @exampleMetadata fixture=custom
@@ -1349,7 +1349,7 @@ export class ClassName implements IInterface {
   }));
 
 test('will read translations from cache even if they are dirty', async () => {
-  const infusedAssembly = await TestJsiiModule.fromSource(
+  const infusedAssembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
         /**
@@ -1388,14 +1388,14 @@ test('will read translations from cache even if they are dirty', async () => {
     const translated: Assembly = await fs.readJson(path.join(infusedAssembly.moduleDirectory, '.jsii.python'));
     expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('oops');
   } finally {
-    await infusedAssembly.cleanup();
+    infusedAssembly.cleanup();
   }
 });
 
 test('will output to specified directory', async () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN
-    const compilationResult = await jsii.compileJsiiForTest({
+    const compilationResult = jsii.compileJsiiForTest({
       'README.md': `
 # README
 \`\`\`ts

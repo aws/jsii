@@ -631,7 +631,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ unionMapProperty property (stable)
  │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
  │   │   ├─┬ unionProperty property (stable)
- │   │   │ └── type: string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
+ │   │   │ └── type: string | number | @scope/jsii-calc-lib.Number | jsii-calc.Multiply
  │   │   ├─┬ unknownArrayProperty property (stable)
  │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property (stable)

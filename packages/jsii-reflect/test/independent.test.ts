@@ -1,9 +1,9 @@
 import * as reflect from '../lib';
 import { assemblyFromSource } from './util';
 
-test('get full github source location for a class or method', async () => {
+test('get full github source location for a class or method', () => {
   // WHEN
-  const assembly = await assemblyFromSource(
+  const assembly = assemblyFromSource(
     `
     export class Foo {
       public bar() {

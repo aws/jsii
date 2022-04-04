@@ -12,6 +12,7 @@ __pycache__
 .mypy_cache
 .pytest_cache
 
-build
+# Occasionally left behind by pip, transient (safe to delete)
+build/
 
 README.md

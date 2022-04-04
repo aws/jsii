@@ -1128,10 +1128,10 @@
                   "primitive": "number"
                 },
                 {
-                  "fqn": "jsii-calc.Multiply"
+                  "fqn": "@scope/jsii-calc-lib.Number"
                 },
                 {
-                  "fqn": "@scope/jsii-calc-lib.Number"
+                  "fqn": "jsii-calc.Multiply"
                 }
               ]
             }
@@ -16931,5 +16931,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "sqJBfFAp4Hg5OgntWB3IRyRS7mpPF7G3qoh4NYSDeSw="
+  "fingerprint": "x8U5PHtkMg1Me8BU5rwy98qvqY6p+AhernFr4narjHc="
 }
