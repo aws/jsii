@@ -1,4 +1,4 @@
-black~=22.1
+black~=22.3
 mypy==0.812
 pip~=21.3 ; python_version < '3.7'
 pip~=22.0 ; python_version >= '3.7'
