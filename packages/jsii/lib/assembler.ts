@@ -48,7 +48,11 @@ export class Assembler implements Emitter {
 
   private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
-  private _types = new Map<string, spec.Type>();
+  private readonly _types = new Map<string, spec.Type>();
+  private readonly _packageInfoCache = new Map<
+    string,
+    PackageJson | undefined
+  >();
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
@@ -677,8 +681,8 @@ export class Assembler implements Emitter {
       resolution.resolvedModule.resolvedFileName
         .split('/') // Separator is always '/', even on Windows
         .filter((entry) => entry === 'node_modules').length !==
-      packageRoot.split('/').filter((entry) => entry === 'node_modules')
-        .length
+        packageRoot.split('/').filter((entry) => entry === 'node_modules')
+          .length
     ) {
       // External re-exports are "pure-javascript" sugar; they need not be
       // represented in the jsii Assembly since the types in there will be
@@ -713,9 +717,9 @@ export class Assembler implements Emitter {
       const readme =
         packageRoot === this.projectInfo.projectRoot
           ? loadSubmoduleReadMe(
-            sourceFile.fileName,
-            this.projectInfo.projectRoot,
-          )
+              sourceFile.fileName,
+              this.projectInfo.projectRoot,
+            )
           : undefined;
 
       this._submodules.set(symbol, {
@@ -733,7 +737,7 @@ export class Assembler implements Emitter {
       this: Assembler,
       sym: ts.Symbol,
       inlineNamespace = false,
-    ): { fqn: string; fqnResolutionPrefix: string; } {
+    ): { fqn: string; fqnResolutionPrefix: string } {
       if (this._submoduleMap.has(sym)) {
         const parent = this._submodules.get(this._submoduleMap.get(sym)!)!;
         const fqn = `${parent.fqn}.${sym.name}`;
@@ -1214,8 +1218,9 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(type.symbol);
 
-    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name
-      }`;
+    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
+      type.symbol.name
+    }`;
 
     const jsiiType: spec.ClassType = bindings.setClassRelatedNode(
       {
@@ -1394,8 +1399,8 @@ export class Assembler implements Emitter {
         const member: ts.Symbol = ts.isConstructorDeclaration(memberDecl)
           ? (memberDecl as any).symbol
           : this._typeChecker.getSymbolAtLocation(
-            ts.getNameOfDeclaration(memberDecl)!,
-          )!;
+              ts.getNameOfDeclaration(memberDecl)!,
+            )!;
 
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
@@ -1489,7 +1494,7 @@ export class Assembler implements Emitter {
             jsiiType.initializer.protected =
               (ts.getCombinedModifierFlags(ctorDeclaration) &
                 ts.ModifierFlags.Protected) !==
-              0 || undefined;
+                0 || undefined;
           }
         }
         this._verifyConsecutiveOptionals(
@@ -1742,8 +1747,9 @@ export class Assembler implements Emitter {
     const jsiiType: spec.EnumType = bindings.setEnumRelatedNode(
       {
         assembly: this.projectInfo.name,
-        fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${symbol.name
-          }`,
+        fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
+          symbol.name
+        }`,
         kind: spec.TypeKind.Enum,
         members: members.map((m) => {
           const { docs } = this._visitDocumentation(m.symbol, typeContext);
@@ -1770,7 +1776,7 @@ export class Assembler implements Emitter {
   private _visitDocumentation(
     sym: ts.Symbol,
     context: EmitContext,
-  ): { readonly docs?: spec.Docs; readonly hints: TypeSystemHints; } {
+  ): { readonly docs?: spec.Docs; readonly hints: TypeSystemHints } {
     const result = parseSymbolDocumentation(sym, this._typeChecker);
 
     for (const diag of result.diagnostics ?? []) {
@@ -1853,8 +1859,9 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(type.symbol);
 
-    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name
-      }`;
+    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
+      type.symbol.name
+    }`;
 
     const { docs, hints } = this._visitDocumentation(type.symbol, ctx);
     const jsiiType: spec.InterfaceType = bindings.setInterfaceRelatedNode(
@@ -1948,9 +1955,9 @@ export class Assembler implements Emitter {
               const node = bindings.getMethodRelatedNode(mthod);
               return node
                 ? diag.addRelatedInformation(
-                  ts.getNameOfDeclaration(node) ?? node,
-                  `A method is declared here`,
-                )
+                    ts.getNameOfDeclaration(node) ?? node,
+                    `A method is declared here`,
+                  )
                 : diag;
             }, JsiiDiagnostic.JSII_7001_ILLEGAL_HINT.create(_findHint(declaration, 'struct')!, 'struct', 'interfaces with only readonly properties').addRelatedInformation(ts.getNameOfDeclaration(declaration) ?? declaration, 'The annotated declartion is here')),
           );
@@ -2287,7 +2294,7 @@ export class Assembler implements Emitter {
     } else {
       property.immutable =
         (ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !==
-        0 || undefined;
+          0 || undefined;
     }
 
     if (signature.questionToken) {
@@ -2671,8 +2678,6 @@ export class Assembler implements Emitter {
     );
   }
 
-  private readonly _packageInfoCache = new Map<string, PackageJson | undefined>();
-
   private findPackageInfo(fromDir: string): PackageJson | undefined {
     if (this._packageInfoCache.has(fromDir)) {
       return this._packageInfoCache.get(fromDir);
@@ -2682,7 +2687,10 @@ export class Assembler implements Emitter {
     this._packageInfoCache.set(fromDir, packageInfo);
     return packageInfo;
 
-    function _findPackageInfo(this: Assembler, fromDir: string): PackageJson | undefined {
+    function _findPackageInfo(
+      this: Assembler,
+      fromDir: string,
+    ): PackageJson | undefined {
       const filePath = path.join(fromDir, 'package.json');
       if (fs.pathExistsSync(filePath)) {
         return fs.readJsonSync(filePath);
