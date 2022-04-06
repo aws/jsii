@@ -47,7 +47,7 @@
     "jsii-reflect": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
     "semver": "^7.3.5",
-    "spdx-license-list": "^6.4.0",
+    "spdx-license-list": "^6.5.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
   },
@@ -67,7 +67,7 @@
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "prettier": "^2.6.1",
+    "prettier": "^2.6.2",
     "ts-jest": "^27.1.4",
     "typescript": "~3.9.10"
   },

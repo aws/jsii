@@ -39,7 +39,7 @@
     "eslint": "^8.12.0",
     "jest": "^27.5.1",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.6.1",
+    "prettier": "^2.6.2",
     "typescript": "~3.9.10",
     "typescript-json-schema": "^0.53.0"
   }

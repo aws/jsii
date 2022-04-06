@@ -30,7 +30,7 @@
     "fs-extra": "^9.1.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "prettier": "^2.6.1",
+    "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
     "typescript": "~3.9.10"
   }
