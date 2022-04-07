@@ -45,7 +45,7 @@
     "semver": "^7.3.5",
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.1",
-    "spdx-license-list": "^6.4.0",
+    "spdx-license-list": "^6.5.0",
     "typescript": "~3.9.10",
     "yargs": "^16.2.0"
   },
@@ -61,7 +61,7 @@
     "jest": "^27.5.1",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.6.1",
+    "prettier": "^2.6.2",
     "ts-jest": "^27.1.4"
   }
 }
