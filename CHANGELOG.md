@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.56.0](https://github.com/aws/jsii/compare/v1.55.1...v1.56.0) (2022-04-08)
+
+
+### Features
+
+* drop internal functions from Deprecation Error stack trace ([#3426](https://github.com/aws/jsii/issues/3426)) ([5b4b852](https://github.com/aws/jsii/commit/5b4b852c4550782d4f9777cbca7a65264bea49fe))
+* expose unknownSnippets config ([#3475](https://github.com/aws/jsii/issues/3475)) ([e9d99a0](https://github.com/aws/jsii/commit/e9d99a06b7b06da2e87d1bf4e2101a0ff5cf3dc9))
+* specify output directory for assemblies ([#3437](https://github.com/aws/jsii/issues/3437)) ([5419876](https://github.com/aws/jsii/commit/541987673dd015e0264cf299b51998923556eb8d))
+* Standardize issue template for discussions ([b191f60](https://github.com/aws/jsii/commit/b191f60630d513449c6771de38d2d7fcbc8d7941))
+
+
+### Bug Fixes
+
+* **rosetta:** incorrect transliteration of map keys in python ([#3449](https://github.com/aws/jsii/issues/3449)) ([54cebaa](https://github.com/aws/jsii/commit/54cebaa188a132ab764e2167c9ec5f9042588b47)), closes [#3448](https://github.com/aws/jsii/issues/3448) [#3448](https://github.com/aws/jsii/issues/3448)
+* typo "though" -> "through" ([#3419](https://github.com/aws/jsii/issues/3419)) ([3274b6c](https://github.com/aws/jsii/commit/3274b6cb8c5a025c8877343423c1f101029ea0a5))
+
 ## [1.55.1](https://github.com/aws/jsii/compare/v1.55.0...v1.55.1) (2022-03-16)
 
 ## [1.55.0](https://github.com/aws/jsii/compare/v1.54.0...v1.55.0) (2022-03-10)
