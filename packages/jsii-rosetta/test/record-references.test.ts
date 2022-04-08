@@ -1,8 +1,8 @@
 import { TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
 
 let assembly: TestJsiiModule;
-beforeAll(async () => {
-  assembly = await TestJsiiModule.fromSource(
+beforeAll(() => {
+  assembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
         export class ClassA {

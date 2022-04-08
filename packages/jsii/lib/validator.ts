@@ -21,7 +21,7 @@ export class Validator implements Emitter {
     public readonly assembly: spec.Assembly,
   ) {}
 
-  public async emit(): Promise<ts.EmitResult> {
+  public emit(): ts.EmitResult {
     this._diagnostics = [];
 
     for (const validation of Validator.VALIDATIONS) {
@@ -29,12 +29,12 @@ export class Validator implements Emitter {
     }
 
     try {
-      return await Promise.resolve({
+      return {
         diagnostics: this._diagnostics,
         emitSkipped: this._diagnostics.some(
           (diag) => diag.category === ts.DiagnosticCategory.Error,
         ),
-      });
+      };
     } finally {
       // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
       delete this._diagnostics;

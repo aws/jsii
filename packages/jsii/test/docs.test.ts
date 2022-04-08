@@ -6,8 +6,8 @@ import { sourceToAssemblyHelper as compile } from '../lib';
 jest.setTimeout(60_000);
 
 // ----------------------------------------------------------------------
-test('extract summary line from doc block, ends with a period', async () => {
-  const assembly = await compile(`
+test('extract summary line from doc block, ends with a period', () => {
+  const assembly = compile(`
     /**
      * Hello this is the documentation for this class
      */
@@ -22,8 +22,8 @@ test('extract summary line from doc block, ends with a period', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('extract remarks from whitespace-separated doc block', async () => {
-  const assembly = await compile(`
+test('extract remarks from whitespace-separated doc block', () => {
+  const assembly = compile(`
     /**
      * Hello this is the documentation for this class.
      *
@@ -42,8 +42,8 @@ test('extract remarks from whitespace-separated doc block', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('separate long doc comment into summary and remarks', async () => {
-  const assembly = await compile(`
+test('separate long doc comment into summary and remarks', () => {
+  const assembly = compile(`
     /**
      * Lots of people enjoy writing very long captions here. I think it's because they
      * copy/paste them out of CloudFormation, which has a tendency to just have one
@@ -63,8 +63,8 @@ test('separate long doc comment into summary and remarks', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('separate non-space but newline terminated docs into summary&remarks', async () => {
-  const assembly = await compile(`
+test('separate non-space but newline terminated docs into summary&remarks', () => {
+  const assembly = compile(`
     /**
      * Lots of people enjoy writing very long captions here.
      * I think it's because they copy/paste them out of CloudFormation,
@@ -85,8 +85,8 @@ test('separate non-space but newline terminated docs into summary&remarks', asyn
 });
 
 // ----------------------------------------------------------------------
-test('dont add period to summary that ends in exclamation mark', async () => {
-  const assembly = await compile(`
+test('dont add period to summary that ends in exclamation mark', () => {
+  const assembly = compile(`
     /**
      * I'm happy about this class!
      */
@@ -101,8 +101,8 @@ test('dont add period to summary that ends in exclamation mark', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('parse method docs', async () => {
-  const assembly = await compile(`
+test('parse method docs', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -119,8 +119,8 @@ test('parse method docs', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('associate parameter comments with right parameter', async () => {
-  const assembly = await compile(`
+test('associate parameter comments with right parameter', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -139,8 +139,8 @@ test('associate parameter comments with right parameter', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read example', async () => {
-  const assembly = await compile(`
+test('read example', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -162,8 +162,8 @@ test('read example', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read default value', async () => {
-  const assembly = await compile(`
+test('read default value', () => {
+  const assembly = compile(`
     export interface Foo {
       /**
        * The foo we're talking about
@@ -180,8 +180,8 @@ test('read default value', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read "see" annotation', async () => {
-  const assembly = await compile(`
+test('read "see" annotation', () => {
+  const assembly = compile(`
     /**
      * @see http://lmgtfy.com/
      */
@@ -193,8 +193,8 @@ test('read "see" annotation', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read "returns" annotation', async () => {
-  const assembly = await compile(`
+test('read "returns" annotation', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -211,8 +211,8 @@ test('read "returns" annotation', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can haz deprecated', async () => {
-  const assembly = await compile(`
+test('can haz deprecated', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -231,8 +231,8 @@ test('can haz deprecated', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can mark stable', async () => {
-  const assembly = await compile(`
+test('can mark stable', () => {
+  const assembly = compile(`
     /**
      * Rock solid Foo
      *
@@ -248,8 +248,8 @@ test('can mark stable', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can mark experimental', async () => {
-  const assembly = await compile(`
+test('can mark experimental', () => {
+  const assembly = compile(`
     /**
      * Slightly less solid Foo
      *
@@ -266,8 +266,8 @@ test('can mark experimental', async () => {
 
 // ----------------------------------------------------------------------
 
-test('can mark external', async () => {
-  const assembly = await compile(`
+test('can mark external', () => {
+  const assembly = compile(`
     /**
      * @stability external
      */
@@ -286,8 +286,8 @@ test('can mark external', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can mark subclassable', async () => {
-  const assembly = await compile(`
+test('can mark subclassable', () => {
+  const assembly = compile(`
     /**
      * Become this Foo
      *
@@ -303,8 +303,8 @@ test('can mark subclassable', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can add arbitrary tags', async () => {
-  const assembly = await compile(`
+test('can add arbitrary tags', () => {
+  const assembly = compile(`
     /**
      * @boop
      */
@@ -318,7 +318,7 @@ test('can add arbitrary tags', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('stability is inherited from parent type', async () => {
+test('stability is inherited from parent type', () => {
   const stabilities = [
     ['@deprecated Not good no more', Stability.Deprecated],
     ['@experimental', Stability.Experimental],
@@ -327,7 +327,7 @@ test('stability is inherited from parent type', async () => {
 
   for (const [tag, stability] of stabilities) {
     // eslint-disable-next-line no-await-in-loop
-    const assembly = await compile(`
+    const assembly = compile(`
       /**
        * ${tag}
        */
@@ -354,8 +354,8 @@ test('stability is inherited from parent type', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('@example can contain @ sign', async () => {
-  const assembly = await compile(`
+test('@example can contain @ sign', () => {
+  const assembly = compile(`
     /**
      * An IAM role to associate with the instance profile assigned to this Auto Scaling Group.
      *

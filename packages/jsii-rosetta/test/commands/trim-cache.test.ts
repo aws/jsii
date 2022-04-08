@@ -16,9 +16,9 @@ const DUMMY_README = `
 `;
 
 let assembly: TestJsiiModule;
-beforeEach(async () => {
+beforeEach(() => {
   // Create an assembly in a temp directory
-  assembly = await TestJsiiModule.fromSource(
+  assembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -39,7 +39,7 @@ beforeEach(async () => {
   );
 });
 
-afterEach(async () => assembly.cleanup());
+afterEach(() => assembly.cleanup());
 
 test('trim-cache removes unused snippets', async () => {
   const cacheFile = path.join(assembly.moduleDirectory, 'dummy.tabl.json');

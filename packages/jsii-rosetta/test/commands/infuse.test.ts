@@ -25,7 +25,7 @@ const TABLET_FILE = 'text.tabl.json';
 let assembly: TestJsiiModule;
 beforeEach(async () => {
   // Create an assembly in a temp directory
-  assembly = await TestJsiiModule.fromSource(
+  assembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -56,7 +56,7 @@ beforeEach(async () => {
   });
 });
 
-afterEach(async () => assembly.cleanup());
+afterEach(() => assembly.cleanup());
 
 test('examples are added in the assembly', async () => {
   await infuse([assembly.moduleDirectory]);

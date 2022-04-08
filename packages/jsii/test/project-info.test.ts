@@ -30,8 +30,8 @@ const BASE_PROJECT = {
 
 describe('loadProjectInfo', () => {
   test('loads valid project', () =>
-    _withTestProject(async (projectRoot) => {
-      const { projectInfo: info } = await loadProjectInfo(projectRoot);
+    _withTestProject((projectRoot) => {
+      const { projectInfo: info } = loadProjectInfo(projectRoot);
       expect(info.name).toBe(BASE_PROJECT.name);
       expect(info.version).toBe(BASE_PROJECT.version);
       expect(info.description).toBe(BASE_PROJECT.description);
@@ -61,8 +61,8 @@ describe('loadProjectInfo', () => {
 
   test('loads valid project (UNLICENSED)', () =>
     _withTestProject(
-      async (projectRoot) => {
-        const { projectInfo: info } = await loadProjectInfo(projectRoot);
+      (projectRoot) => {
+        const { projectInfo: info } = loadProjectInfo(projectRoot);
         expect(info?.license).toBe('UNLICENSED');
       },
       (info) => {
@@ -72,8 +72,8 @@ describe('loadProjectInfo', () => {
 
   test('loads valid project (using bundleDependencies)', () =>
     _withTestProject(
-      async (projectRoot) => {
-        const { projectInfo: info } = await loadProjectInfo(projectRoot);
+      (projectRoot) => {
+        const { projectInfo: info } = loadProjectInfo(projectRoot);
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
       },
       (info) => {
@@ -84,8 +84,8 @@ describe('loadProjectInfo', () => {
 
   test('loads valid project (using bundledDependencies)', () =>
     _withTestProject(
-      async (projectRoot) => {
-        const { projectInfo: info } = await loadProjectInfo(projectRoot);
+      (projectRoot) => {
+        const { projectInfo: info } = loadProjectInfo(projectRoot);
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
       },
       (info) => {
@@ -97,8 +97,8 @@ describe('loadProjectInfo', () => {
   test('loads valid project (with contributors)', () => {
     const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
     return _withTestProject(
-      async (projectRoot) => {
-        const { projectInfo: info } = await loadProjectInfo(projectRoot);
+      (projectRoot) => {
+        const { projectInfo: info } = loadProjectInfo(projectRoot);
         expect(info?.contributors?.map(_stripUndefined)).toEqual(
           contributors.map((c) => ({ ...c, roles: ['contributor'] })),
         );
@@ -110,7 +110,7 @@ describe('loadProjectInfo', () => {
   test('rejects un-declared dependency in bundleDependencies', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(loadProjectInfo(projectRoot)).rejects.toThrow(
+        expect(() => loadProjectInfo(projectRoot)).toThrow(
           /not declared in "dependencies"/i,
         ),
       (info) => {
@@ -121,7 +121,7 @@ describe('loadProjectInfo', () => {
   test('rejects invalid license', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(loadProjectInfo(projectRoot)).rejects.toThrow(
+        expect(() => loadProjectInfo(projectRoot)).toThrow(
           /invalid license identifier/i,
         ),
       (info) => {
@@ -132,7 +132,7 @@ describe('loadProjectInfo', () => {
   test('rejects incompatible dependency version', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(loadProjectInfo(projectRoot)).rejects.toThrow(
+        expect(() => loadProjectInfo(projectRoot)).toThrow(
           /declared dependency on version .+ but version .+ was found/i,
         ),
       (info) => {
@@ -144,7 +144,7 @@ describe('loadProjectInfo', () => {
   test('missing peerDependencies are allowed', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+        expect(loadProjectInfo(projectRoot)).toEqual(
           expect.objectContaining({
             diagnostics: [],
           }),
@@ -157,7 +157,7 @@ describe('loadProjectInfo', () => {
   test('warns if peerDependency misses a matching devDependency', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+        expect(loadProjectInfo(projectRoot)).toEqual(
           expect.objectContaining({
             diagnostics: [expect.objectContaining({ jsiiCode: 6 })],
           }),
@@ -170,7 +170,7 @@ describe('loadProjectInfo', () => {
   test('warns if peerDependency has a devDependency on the wrong version', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+        expect(loadProjectInfo(projectRoot)).toEqual(
           expect.objectContaining({
             diagnostics: [expect.objectContaining({ jsiiCode: 6 })],
           }),
@@ -184,7 +184,7 @@ describe('loadProjectInfo', () => {
   test('no warnings if devDependency point version matches peerDependency range', () =>
     _withTestProject(
       (projectRoot) =>
-        expect(loadProjectInfo(projectRoot)).resolves.toEqual(
+        expect(loadProjectInfo(projectRoot)).toEqual(
           expect.objectContaining({
             diagnostics: [],
           }),
@@ -198,8 +198,8 @@ describe('loadProjectInfo', () => {
   describe('_loadDiagnostics', () => {
     test('diagnostic categories are correctly detected', () => {
       return _withTestProject(
-        async (projectRoot) => {
-          const { projectInfo: info } = await loadProjectInfo(projectRoot);
+        (projectRoot) => {
+          const { projectInfo: info } = loadProjectInfo(projectRoot);
           expect(info.diagnostics).toBeDefined();
           const diagnostics = info.diagnostics!;
           expect(Object.keys(diagnostics).sort()).toEqual([
@@ -230,7 +230,7 @@ describe('loadProjectInfo', () => {
     test('invalid category is rejected', () => {
       return _withTestProject(
         (projectRoot) =>
-          expect(loadProjectInfo(projectRoot)).rejects.toThrow(
+          expect(() => loadProjectInfo(projectRoot)).toThrow(
             /Invalid category/,
           ),
         (info) => {
@@ -291,11 +291,11 @@ const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
  *
  * @return the result of executing ``cb``.
  */
-async function _withTestProject<T>(
-  cb: (projectRoot: string) => T | Promise<T>,
+function _withTestProject<T>(
+  cb: (projectRoot: string) => T,
   gremlin?: (packageInfo: any) => void,
-): Promise<T> {
-  const tmpdir = await fs.mkdtemp(
+): T {
+  const tmpdir = fs.mkdtempSync(
     path.join(os.tmpdir(), path.basename(__filename)),
   );
   try {
@@ -303,53 +303,50 @@ async function _withTestProject<T>(
     if (gremlin) {
       gremlin(packageInfo);
     }
-    await fs.writeJson(path.join(tmpdir, 'package.json'), packageInfo, {
+    fs.writeJsonSync(path.join(tmpdir, 'package.json'), packageInfo, {
       spaces: 2,
     });
-    await fs.writeFile(
+    fs.writeFileSync(
       path.join(tmpdir, 'index.js'),
       '// There ought to be some javascript',
     );
-    await fs.writeFile(
+    fs.writeFileSync(
       path.join(tmpdir, 'index.ts'),
       '// There ought to be some typescript',
     );
-    await fs.writeFile(
+    fs.writeFileSync(
       path.join(tmpdir, 'index.d.ts'),
       '// There ought to be some typescript definitions',
     );
 
     const jsiiTestDep = path.join(tmpdir, 'node_modules', 'jsii-test-dep');
-    await writeNpmPackageSkeleton(jsiiTestDep);
+    writeNpmPackageSkeleton(jsiiTestDep);
 
-    await fs.writeJson(path.join(jsiiTestDep, '.jsii'), TEST_DEP_ASSEMBLY);
+    fs.writeJsonSync(path.join(jsiiTestDep, '.jsii'), TEST_DEP_ASSEMBLY);
     const jsiiTestDepDep = path.join(
       jsiiTestDep,
       'node_modules',
       'jsii-test-dep-dep',
     );
 
-    await writeNpmPackageSkeleton(jsiiTestDepDep);
-    await fs.writeJson(
-      path.join(jsiiTestDepDep, '.jsii'),
-      TEST_DEP_DEP_ASSEMBLY,
-    );
+    writeNpmPackageSkeleton(jsiiTestDepDep);
+    fs.writeJsonSync(path.join(jsiiTestDepDep, '.jsii'), TEST_DEP_DEP_ASSEMBLY);
 
-    return await cb(tmpdir);
+    return cb(tmpdir);
   } finally {
-    await fs.remove(tmpdir);
+    fs.removeSync(tmpdir);
   }
 }
 
 /**
  * Write a package.json and an index.js so the package is mostly well-formed
  */
-async function writeNpmPackageSkeleton(directory: string) {
-  await fs.mkdirs(directory);
-  await fs.writeJson(path.join(directory, 'package.json'), {
+function writeNpmPackageSkeleton(directory: string) {
+  fs.mkdirsSync(directory);
+  fs.writeJsonSync(path.join(directory, 'package.json'), {
     name: path.basename(directory),
   });
-  await fs.writeFile(
+  fs.writeFileSync(
     path.join(directory, 'index.js'),
     '// There should be some JS',
   );

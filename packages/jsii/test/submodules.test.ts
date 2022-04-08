@@ -8,8 +8,8 @@ import {
   compileJsiiForTest,
 } from '../lib';
 
-test('submodules loaded from directories can have a README', async () => {
-  const assembly = await sourceToAssemblyHelper({
+test('submodules loaded from directories can have a README', () => {
+  const assembly = sourceToAssemblyHelper({
     'index.ts': 'export * as submodule from "./subdir"',
     'subdir/index.ts': 'export class Foo { }',
     'subdir/README.md': 'This is the README',
@@ -24,8 +24,8 @@ test('submodules loaded from directories can have a README', async () => {
   );
 });
 
-test('submodules loaded from files can have a README', async () => {
-  const assembly = await sourceToAssemblyHelper({
+test('submodules loaded from files can have a README', () => {
+  const assembly = sourceToAssemblyHelper({
     'index.ts': 'export * as submodule from "./submod"',
     'submod.ts': 'export class Foo { }',
     'submod.README.md': 'This is the README',
@@ -40,8 +40,8 @@ test('submodules loaded from files can have a README', async () => {
   );
 });
 
-test('submodules loaded from directories can have targets', async () => {
-  const assembly = await sourceToAssemblyHelper({
+test('submodules loaded from directories can have targets', () => {
+  const assembly = sourceToAssemblyHelper({
     'index.ts': 'export * as submodule from "./subdir"',
     'subdir/index.ts': 'export class Foo { }',
     'subdir/.jsiirc.json': JSON.stringify({
@@ -60,8 +60,8 @@ test('submodules loaded from directories can have targets', async () => {
   );
 });
 
-test('submodule READMEs can have literate source references', async () => {
-  const assembly = await sourceToAssemblyHelper({
+test('submodule READMEs can have literate source references', () => {
+  const assembly = sourceToAssemblyHelper({
     'index.ts': 'export * as submodule from "./subdir"',
     'subdir/index.ts': 'export class Foo { }',
     'subdir/README.md':
@@ -89,7 +89,7 @@ type ImportStyle = 'directly' | 'as namespace' | 'with alias';
 test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
   'can reference submodule types, importing %s',
   (importStyle) =>
-    TestWorkspace.withWorkspace(async (ws) => {
+    TestWorkspace.withWorkspace((ws) => {
       // There are 2 import styles:
       //
       // import { submodule } from 'lib';
@@ -98,7 +98,7 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
       // We need to support both import styles.
 
       // Dependency that exports a submodule
-      await ws.addDependency(await makeDependencyWithSubmodule());
+      ws.addDependency(makeDependencyWithSubmodule());
 
       let importStatement;
       let prefix;
@@ -120,7 +120,7 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
 
       // Main library that imports the submodule class directly
       // Use the type in all possible positions
-      const result = await compileJsiiForTest(
+      const result = compileJsiiForTest(
         {
           'index.ts': `
         ${importStatement};
@@ -174,7 +174,7 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
 test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
   'can reference nested types in submodules, importing %s',
   (importStyle) =>
-    TestWorkspace.withWorkspace(async (ws) => {
+    TestWorkspace.withWorkspace((ws) => {
       // There are 2 import styles:
       //
       // import { submodule } from 'lib';
@@ -183,7 +183,7 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
       // We need to support both import styles.
 
       // Dependency that exports a submodule
-      await ws.addDependency(await makeDependencyWithSubmoduleAndNamespace());
+      ws.addDependency(makeDependencyWithSubmoduleAndNamespace());
 
       let importStatement;
       let prefix;
@@ -204,7 +204,7 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
 
       // Main library that imports the submodule class directly
       // Use the type in all possible positions
-      const result = await compileJsiiForTest(
+      const result = compileJsiiForTest(
         {
           'index.ts': `
         ${importStatement};
@@ -258,22 +258,22 @@ test.each(['directly', 'as namespace', 'with alias'] as ImportStyle[])(
 // Backwards compatibility test, for versions of libraries compiled before jsii 1.39.0
 // which introduced the symbol identifier table
 test('will detect types from submodules even if the symbol identifier table is missing', () =>
-  TestWorkspace.withWorkspace(async (ws) => {
-    await ws.addDependency(await makeDependencyWithSubmodule());
+  TestWorkspace.withWorkspace((ws) => {
+    ws.addDependency(makeDependencyWithSubmodule());
 
     // Strip the symbolidentifiers from the assembly
     const asmFile = path.join(ws.dependencyDir('testpkg'), '.jsii');
-    const asm: spec.Assembly = await fs.readJson(asmFile);
+    const asm: spec.Assembly = fs.readJsonSync(asmFile);
     for (const mod of Object.values(asm.submodules ?? {})) {
       delete mod.symbolId;
     }
     for (const type of Object.values(asm.types ?? {})) {
       delete type.symbolId;
     }
-    await fs.writeJson(asmFile, asm);
+    fs.writeJsonSync(asmFile, asm);
 
     // We can still use those types if we have a full-library import
-    await compileJsiiForTest(
+    compileJsiiForTest(
       {
         'index.ts': `
           import { submodule } from 'testpkg';
@@ -293,7 +293,7 @@ test('will detect types from submodules even if the symbol identifier table is m
     );
   }));
 
-async function makeDependencyWithSubmodule() {
+function makeDependencyWithSubmodule() {
   return compileJsiiForTest({
     'index.ts': 'export * as submodule from "./subdir"',
     'subdir/index.ts': [
@@ -305,7 +305,7 @@ async function makeDependencyWithSubmodule() {
   });
 }
 
-async function makeDependencyWithSubmoduleAndNamespace() {
+function makeDependencyWithSubmoduleAndNamespace() {
   return compileJsiiForTest({
     'index.ts': 'export * as submodule from "./subdir"',
     'subdir/index.ts': [

@@ -2,8 +2,8 @@ import { classifyDiagnostics, hasErrors } from '../lib/diagnostics';
 import { compare } from './util';
 
 // ----------------------------------------------------------------------
-test('experimental elements lead to warnings', async () => {
-  const mms = await compare(
+test('experimental elements lead to warnings', () => {
+  const mms = compare(
     `
     /** @experimental */
     export class Foo1 { }
@@ -21,8 +21,8 @@ test('experimental elements lead to warnings', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('external stability violations are reported as warnings', async () => {
-  const mms = await compare(
+test('external stability violations are reported as warnings', () => {
+  const mms = compare(
     `
     /** @stability external */
     export class Foo1 { }
@@ -40,8 +40,8 @@ test('external stability violations are reported as warnings', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('warnings can be turned into errors', async () => {
-  const mms = await compare(
+test('warnings can be turned into errors', () => {
+  const mms = compare(
     `
     /** @experimental */
     export class Foo1 { }
@@ -59,8 +59,8 @@ test('warnings can be turned into errors', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('external stability violations are never turned into errors', async () => {
-  const mms = await compare(
+test('external stability violations are never turned into errors', () => {
+  const mms = compare(
     `
     /** @stability external */
     export class Foo1 { }
@@ -78,8 +78,8 @@ test('external stability violations are never turned into errors', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('errors can be skipped', async () => {
-  const mms = await compare(
+test('errors can be skipped', () => {
+  const mms = compare(
     `
     export class Foo1 { }
   `,
@@ -100,8 +100,8 @@ test('errors can be skipped', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('changing stable to experimental is breaking', async () => {
-  const mms = await compare(
+test('changing stable to experimental is breaking', () => {
+  const mms = compare(
     `
     /** @stable */
     export class Foo1 { }
@@ -128,8 +128,8 @@ test('changing stable to experimental is breaking', async () => {
 
 // ----------------------------------------------------------------------
 
-test('can make fields optional in output struct if it is marked @external', async () => {
-  const mms = await compare(
+test('can make fields optional in output struct if it is marked @external', () => {
+  const mms = compare(
     `
     /** @stability external */
     export interface TheStruct {

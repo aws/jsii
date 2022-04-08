@@ -252,7 +252,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] =
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
       <comments>An OSI-approved license</comments>
     </license>
@@ -975,7 +975,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.x
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
       <comments>An OSI-approved license</comments>
     </license>
@@ -1668,7 +1668,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
       <comments>An OSI-approved license</comments>
     </license>
@@ -4113,7 +4113,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
       <comments>An OSI-approved license</comments>
     </license>
@@ -4950,14 +4950,14 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Multiply value) {
+    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number value) {
         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
     }
 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number value) {
+    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Multiply value) {
         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
     }
 

@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as fs from 'fs';
 import * as path from 'path';
+import * as vm from 'vm';
 
 import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 import { Compiler } from '../lib/compiler';
@@ -9,16 +10,16 @@ import { loadProjectInfo } from '../lib/project-info';
 const DEPRECATED = '/** @deprecated Use something else */';
 
 describe('Function generation', () => {
-  test('generates the print function', async () => {
-    const result = await compileJsiiForTest(``, undefined /* callback */, {
+  test('generates the print function', () => {
+    const result = compileJsiiForTest(``, undefined /* callback */, {
       addDeprecationWarnings: true,
     });
 
-    expect(jsFile(result, '.warnings.jsii')).toMatch(
+    expect(jsFile(result, '.warnings.jsii')).toBe(
       `function print(name, deprecationMessage) {
     const deprecated = process.env.JSII_DEPRECATED;
     const deprecationMode = ["warn", "fail", "quiet"].includes(deprecated) ? deprecated : "warn";
-    const message = \`\${name} is deprecated.\\n  \${deprecationMessage}\\n  This API will be removed in the next major release.\`;
+    const message = \`\${name} is deprecated.\\n  \${deprecationMessage.trim()}\\n  This API will be removed in the next major release.\`;
     switch (deprecationMode) {
         case "fail":
             throw new DeprecationError(message);
@@ -27,17 +28,37 @@ describe('Function generation', () => {
             break;
     }
 }
+function getPropertyDescriptor(obj, prop) {
+    const descriptor = Object.getOwnPropertyDescriptor(obj, prop);
+    if (descriptor) {
+        return descriptor;
+    }
+    const proto = Object.getPrototypeOf(obj);
+    const prototypeDescriptor = proto && getPropertyDescriptor(proto, prop);
+    if (prototypeDescriptor) {
+        return prototypeDescriptor;
+    }
+    return {};
+}
 const visitedObjects = new Set();
 class DeprecationError extends Error {
+    constructor(...args) {
+        super(...args);
+        Object.defineProperty(this, "name", {
+            configurable: false,
+            enumerable: true,
+            value: "DeprecationError",
+            writable: false,
+        });
+    }
 }
-module.exports = { print };
-module.exports.DeprecationError = DeprecationError;
+module.exports = { print, getPropertyDescriptor, DeprecationError };
 `,
     );
   });
 
-  test('generates a function for each type', async () => {
-    const result = await compileJsiiForTest(
+  test('generates a function for each type', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -57,8 +78,8 @@ function testpkg_Baz(p) {
     );
   });
 
-  test('generates metadata', async () => {
-    const result = await compileJsiiForTest(
+  test('generates metadata', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -72,8 +93,8 @@ function testpkg_Baz(p) {
     ).toBe(true);
   });
 
-  test('for each non-primitive property, generates a call', async () => {
-    const result = await compileJsiiForTest(
+  test('for each non-primitive property, generates a call', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -91,16 +112,20 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if (!visitedObjects.has(p.bar))
-        testpkg_Bar(p.bar);
-    if (!visitedObjects.has(p.foo))
-        testpkg_Foo(p.foo);
-    visitedObjects.delete(p);
+    try {
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar);
+        if (!visitedObjects.has(p.foo))
+            testpkg_Foo(p.foo);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
   });
 
-  test('generates empty functions for interfaces', async () => {
-    const result = await compileJsiiForTest(
+  test('generates empty functions for interfaces', () => {
+    const result = compileJsiiForTest(
       `
         export interface IFoo {
           bar(): string;
@@ -114,8 +139,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('generates empty functions for classes', async () => {
-    const result = await compileJsiiForTest(
+  test('generates empty functions for classes', () => {
+    const result = compileJsiiForTest(
       `
         export class Foo {
           bar() {return 0};
@@ -129,8 +154,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('generates calls for recursive types', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for recursive types', () => {
+    const result = compileJsiiForTest(
       `
         export interface Bar {readonly bar?: Bar}
         `,
@@ -143,15 +168,19 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if (!visitedObjects.has(p.bar))
-        testpkg_Bar(p.bar);
-    visitedObjects.delete(p);
+    try {
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`,
     );
   });
 
-  test('generates exports for all the functions', async () => {
-    const result = await compileJsiiForTest(
+  test('generates exports for all the functions', () => {
+    const result = compileJsiiForTest(
       `
         export interface Foo {}
         export interface Bar {}
@@ -162,12 +191,12 @@ function testpkg_Baz(p) {
     );
 
     expect(jsFile(result, '.warnings.jsii')).toMatch(
-      `module.exports = { print, testpkg_Foo, testpkg_Bar, testpkg_Baz };`,
+      `module.exports = { print, getPropertyDescriptor, DeprecationError, testpkg_Foo, testpkg_Bar, testpkg_Baz };`,
     );
   });
 
-  test('generates functions for enums', async () => {
-    const result = await compileJsiiForTest(
+  test('generates functions for enums', () => {
+    const result = compileJsiiForTest(
       `
         export enum State {
           ON,
@@ -185,18 +214,22 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    const ns = require("./index.js");
-    if (Object.values(ns.State).filter(x => x === p).length > 1)
-        return;
-    if (p === ns.State.OFF)
-        print("testpkg.State#OFF", "Use something else");
-    visitedObjects.delete(p);
+    try {
+        const ns = require("./index.js");
+        if (Object.values(ns.State).filter(x => x === p).length > 1)
+            return;
+        if (p === ns.State.OFF)
+            print("testpkg.State#OFF", "Use something else");
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }
 `);
   });
 
-  test('generates calls for deprecated inherited properties', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for deprecated inherited properties', () => {
+    const result = compileJsiiForTest(
       `
         export interface Baz {
           /** @deprecated message from Baz */
@@ -220,17 +253,25 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("x" in p)
-        print("testpkg.Baz#x", "message from Baz");
-    visitedObjects.delete(p);
+    try {
+        if ("x" in p)
+            print("testpkg.Baz#x", "message from Baz");
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
     expect(warningsFileContent).toMatch(`function testpkg_Bar(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("x" in p)
-        print("testpkg.Bar#x", "message from Bar");
-    visitedObjects.delete(p);
+    try {
+        if ("x" in p)
+            print("testpkg.Bar#x", "message from Bar");
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
 
     // But a call for one of the instances of the property should also be generated in the base function
@@ -238,14 +279,18 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("x" in p)
-        print("testpkg.Baz#x", "message from Baz");
-    visitedObjects.delete(p);
+    try {
+        if ("x" in p)
+            print("testpkg.Baz#x", "message from Baz");
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }`);
   });
 
-  test('skips properties that are deprecated in one supertype but not the other', async () => {
-    const result = await compileJsiiForTest(
+  test('skips properties that are deprecated in one supertype but not the other', () => {
+    const result = compileJsiiForTest(
       `
         export interface Baz {
           readonly x: string;
@@ -267,8 +312,8 @@ function testpkg_Baz(p) {
 }`);
   });
 
-  test('generates calls for types with deprecated properties', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for types with deprecated properties', () => {
+    const result = compileJsiiForTest(
       `
       export interface Bar {
         readonly x: string;
@@ -289,17 +334,21 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("bar" in p)
-        print("testpkg.Foo#bar", "kkkkkkkk");
-    if (!visitedObjects.has(p.bar))
-        testpkg_Bar(p.bar);
-    visitedObjects.delete(p);
+    try {
+        if ("bar" in p)
+            print("testpkg.Foo#bar", "kkkkkkkk");
+        if (!visitedObjects.has(p.bar))
+            testpkg_Bar(p.bar);
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }
 `);
   });
 
-  test('generates calls for each property of a deprecated type', async () => {
-    const result = await compileJsiiForTest(
+  test('generates calls for each property of a deprecated type', () => {
+    const result = compileJsiiForTest(
       `
       /** @deprecated use Bar instead */
       export interface Foo {
@@ -315,25 +364,29 @@ function testpkg_Baz(p) {
     if (p == null)
         return;
     visitedObjects.add(p);
-    if ("bar" in p)
-        print("testpkg.Foo#bar", "use Bar instead");
-    if ("baz" in p)
-        print("testpkg.Foo#baz", "use Bar instead");
-    visitedObjects.delete(p);
+    try {
+        if ("bar" in p)
+            print("testpkg.Foo#bar", "use Bar instead");
+        if ("baz" in p)
+            print("testpkg.Foo#baz", "use Bar instead");
+    }
+    finally {
+        visitedObjects.delete(p);
+    }
 }
 `);
   });
 
-  test('generates calls for types in other assemblies', async () => {
+  test('generates calls for types in other assemblies', () => {
     const calcBaseOfBaseRoot = resolveModuleDir(
       '@scope/jsii-calc-base-of-base',
     );
     const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
 
-    await compile(calcBaseOfBaseRoot, false);
-    await compile(calcBaseRoot, true);
-    await compile(calcLibRoot, true);
+    compile(calcBaseOfBaseRoot, false);
+    compile(calcBaseRoot, true);
+    compile(calcLibRoot, true);
     const warningsFile = loadWarningsFile(calcBaseRoot);
 
     // jsii-calc-base was compiled with warnings. So we expect to see handlers for its types in the warnings file
@@ -343,14 +396,14 @@ function testpkg_Baz(p) {
     expect(warningsFile).not.toMatch('_scope_jsii_calc_base_of_base');
 
     // Recompiling without deprecation warning to leave the packages in a clean state
-    await compile(calcBaseRoot, false);
-    await compile(calcLibRoot, false);
+    compile(calcBaseRoot, false);
+    compile(calcLibRoot, false);
   }, 120000);
 });
 
 describe('Call injections', () => {
-  test('does not add warnings by default', async () => {
-    const result = await compileJsiiForTest(
+  test('does not add warnings by default', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       ${DEPRECATED}
@@ -365,8 +418,8 @@ describe('Call injections', () => {
     ).toBeFalsy();
   });
 
-  test('generates a require statement', async () => {
-    const result = await compileJsiiForTest(
+  test('generates a require statement', () => {
+    const result = compileJsiiForTest(
       {
         'index.ts': `export * from './some/folder/source'`,
         'some/folder/source.ts': `
@@ -388,8 +441,8 @@ describe('Call injections', () => {
     );
   }, 60000);
 
-  test('does not generate a require statement when no calls were injected', async () => {
-    const result = await compileJsiiForTest(
+  test('does not generate a require statement when no calls were injected', () => {
+    const result = compileJsiiForTest(
       {
         'index.ts': `export * from './some/folder/handler'`,
         'some/folder/handler.ts': `
@@ -408,8 +461,8 @@ describe('Call injections', () => {
     );
   }, 60000);
 
-  test('deprecated methods', async () => {
-    const result = await compileJsiiForTest(
+  test('deprecated methods', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       ${DEPRECATED}
@@ -420,30 +473,70 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'bar() { jsiiDeprecationWarnings.print("testpkg.Foo#bar", "Use something else"); }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          /** @deprecated Use something else */
+          bar() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, this.bar);
+              }
+              throw error;
+          } }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFDZCxxQ0FBcUM7SUFDOUIsR0FBRzs7Ozs7Ozs7T0FBSTs7QUFGaEIsa0JBR0MiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBiYXIoKXt9XG4gICAgfVxuICAiXX0="
+    `);
   });
 
-  test('methods with parameters', async () => {
-    const result = await compileJsiiForTest(
+  test('methods with parameters', () => {
+    const result = compileJsiiForTest(
       `
-    export interface A {readonly x: number;}
-    export class Foo {
-      public bar(a: A, b: number){return a.x + b;}
-    }
-  `,
+        export interface A {readonly x: number;}
+         export class Foo {
+          public bar(a: A, b: number){return a.x + b;}
+         }`,
       undefined /* callback */,
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'bar(a, b) { jsiiDeprecationWarnings.testpkg_A(a); return a.x + b; }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          bar(a, b) { try {
+              jsiiDeprecationWarnings.testpkg_A(a);
+          }
+          catch (error) {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, this.bar);
+              }
+              throw error;
+          } return a.x + b; }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFUyxNQUFhLEdBQUc7SUFDUixHQUFHLENBQUMsQ0FBSSxFQUFFLENBQVM7Ozs7Ozs7O01BQUUsT0FBTyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxFQUFDOztBQUQ3QyxrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgICAgICBleHBvcnQgaW50ZXJmYWNlIEEge3JlYWRvbmx5IHg6IG51bWJlcjt9XG4gICAgICAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgICAgICBwdWJsaWMgYmFyKGE6IEEsIGI6IG51bWJlcil7cmV0dXJuIGEueCArIGI7fVxuICAgICAgICAgfSJdfQ=="
+    `);
   }, 60000);
 
-  test('deprecated getters', async () => {
-    const result = await compileJsiiForTest(
+  test('deprecated getters', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       private _x = 0;
@@ -455,13 +548,37 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'get x() { jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else"); return this._x; }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          constructor() {
+              this._x = 0;
+          }
+          /** @deprecated Use something else */
+          get x() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").get);
+              }
+              throw error;
+          } return this._x; }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBR2hCO0lBRkMscUNBQXFDO0lBQ3JDLElBQVcsQ0FBQzs7Ozs7Ozs7TUFBRyxPQUFPLElBQUksQ0FBQyxFQUFFLENBQUEsRUFBQzs7QUFIaEMsa0JBSUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIHByaXZhdGUgX3ggPSAwO1xuICAgICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgICAgcHVibGljIGdldCB4KCl7cmV0dXJuIHRoaXMuX3h9XG4gICAgfVxuICAiXX0="
+    `);
   });
 
-  test('deprecated setters', async () => {
-    const result = await compileJsiiForTest(
+  test('deprecated setters', () => {
+    const result = compileJsiiForTest(
       `
     export class Foo {
       private _x = 0;
@@ -475,13 +592,46 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'set x(_x) { jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else"); this._x = _x; }',
-    );
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      class Foo {
+          constructor() {
+              this._x = 0;
+          }
+          get x() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").get);
+              }
+              throw error;
+          } return this._x; }
+          /** @deprecated Use something else */
+          set x(_x) { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").set);
+              }
+              throw error;
+          } this._x = _x; }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBS2hCO0lBSkMsSUFBVyxDQUFDOzs7Ozs7OztNQUFHLE9BQU8sSUFBSSxDQUFDLEVBQUUsQ0FBQSxFQUFDO0lBRTlCLHFDQUFxQztJQUNyQyxJQUFXLENBQUMsQ0FBQyxFQUFVOzs7Ozs7OztNQUFHLElBQUksQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUM7O0FBTDFDLGtCQU1DIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICBwcml2YXRlIF94ID0gMDtcbiAgICAgIHB1YmxpYyBnZXQgeCgpe3JldHVybiB0aGlzLl94fVxuXG4gICAgICAvKiogQGRlcHJlY2F0ZWQgVXNlIHNvbWV0aGluZyBlbHNlICovXG4gICAgICBwdWJsaWMgc2V0IHgoX3g6IG51bWJlcikge3RoaXMuX3ggPSBfeDt9XG4gICAgfVxuICAiXX0="
+    `);
   });
 
-  test('deprecated classes', async () => {
-    const result = await compileJsiiForTest(
+  test('creates a new instance of error when test', () => {
+    const result = compileJsiiForTest(
       `
     ${DEPRECATED}
     export class Foo {
@@ -492,9 +642,207 @@ describe('Call injections', () => {
       { addDeprecationWarnings: true },
     );
 
-    expect(jsFile(result)).toMatch(
-      'constructor() { jsiiDeprecationWarnings.print("testpkg.Foo", "Use something else"); }',
+    expect(jsFile(result)).toMatchInlineSnapshot(`
+      "\\"use strict\\";
+      var _a;
+      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      exports.Foo = void 0;
+      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      /** @deprecated Use something else */
+      class Foo {
+          constructor() { try {
+              jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\");
+          }
+          catch (error) {
+              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+                  Error.captureStackTrace(error, this.constructor);
+              }
+              throw error;
+          } }
+      }
+      exports.Foo = Foo;
+      _a = JSII_RTTI_SYMBOL_1;
+      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2Q7Ozs7Ozs7O09BQWU7O0FBRGpCLGtCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgIGV4cG9ydCBjbGFzcyBGb28ge1xuICAgICAgY29uc3RydWN0b3IoKXt9XG4gICAgfVxuICAiXX0="
+    `);
+  });
+});
+
+describe('thrown exceptions have the expected stack trace', () => {
+  test('constructor', () => {
+    const compilation = compileJsiiForTest(
+      `
+      /** @deprecated for testing */
+      export class DeprecatedConstructor {
+        public constructor() {}
+      }
+
+      function test() {
+        new DeprecatedConstructor();
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
     );
+    const source = jsFile(compilation);
+
+    const context = createVmContext(compilation);
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
+        "index.js:16
+                throw error;
+                ^
+
+        DeprecationError: testpkg.DeprecatedConstructor is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:23:5)
+            at index.js:25:1"
+      `);
+    }
+  });
+
+  test('getter', () => {
+    const compilation = compileJsiiForTest(
+      `
+      export class DeprecatedConstructor {
+        /** @deprecated for testing */
+        public get property() {
+          return 1337;
+        }
+      }
+
+      function test() {
+        const subject = new DeprecatedConstructor();
+        return subject.property;
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
+    );
+    const source = jsFile(compilation);
+
+    const context = createVmContext(compilation);
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
+        "index.js:17
+                    throw error;
+                    ^
+
+        DeprecationError: testpkg.DeprecatedConstructor#property is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:27:20)
+            at index.js:29:1"
+      `);
+    }
+  });
+
+  test('setter', () => {
+    const compilation = compileJsiiForTest(
+      `
+      export class DeprecatedConstructor {
+        private value = 1337;
+
+        /** @deprecated for testing */
+        public get property(): number {
+          return this.value;
+        }
+
+        public set property(value: number) {
+          this.value = value;
+        }
+      }
+
+      function test() {
+        const subject = new DeprecatedConstructor();
+        subject.property = 42;
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
+    );
+    const source = jsFile(compilation);
+
+    const context = createVmContext(compilation);
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
+        "index.js:32
+                    throw error;
+                    ^
+
+        DeprecationError: testpkg.DeprecatedConstructor#property is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:42:22)
+            at index.js:44:1"
+      `);
+    }
+  });
+
+  test('method', () => {
+    const compilation = compileJsiiForTest(
+      `
+      export class DeprecatedConstructor {
+        /** @deprecated for testing */
+        public deprecated(): void {
+          // Nothing to do
+        }
+      }
+
+      function test() {
+        const subject = new DeprecatedConstructor();
+        subject.deprecated();
+      }
+
+      test();
+    `,
+      undefined,
+      { addDeprecationWarnings: true },
+    );
+    const source = jsFile(compilation);
+
+    const context = createVmContext(compilation);
+    try {
+      vm.runInContext(source, context, { filename: 'index.js' });
+      // The above line should have resulted in a DeprecationError being thrown
+      expect(null).toBeInstanceOf(Error);
+    } catch (error) {
+      expect(error.stack.replace(process.cwd(), '<process.cwd>'))
+        .toMatchInlineSnapshot(`
+        "index.js:17
+                    throw error;
+                    ^
+
+        DeprecationError: testpkg.DeprecatedConstructor#deprecated is deprecated.
+         for testing
+         This API will be removed in the next major release.
+            at test (index.js:26:13)
+            at index.js:28:1"
+      `);
+    }
   });
 });
 
@@ -503,22 +851,69 @@ function jsFile(result: HelperCompilationResult, baseName = 'index'): string {
     ([name]) => name === `${baseName}.js`,
   );
 
-  return file![1];
+  if (!file) {
+    throw new Error(`Could not find file with base name: ${baseName}`);
+  }
+
+  return file[1];
+}
+
+function createVmContext(compilation: HelperCompilationResult) {
+  const context = vm.createContext({
+    exports: {},
+    process: {
+      env: {
+        JSII_DEPRECATED: 'fail',
+      },
+    },
+    // Bringing in a "fake" require(id) function that'll resolve relative paths
+    // to files within the compilation output, and module names using the
+    // regular require. When loading a file that was part of the compiler output,
+    // this emulates the situation that would be if the file had been through a
+    // bundler by turning all sequences of white spaces (new line included) into
+    // single spaces.
+    require: (id: string) => {
+      if (!id.startsWith('./')) {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        return require(id);
+      }
+      const code = jsFile(compilation, path.basename(id, '.js'))
+        // Pretend this has been webpack'd
+        .replace(/\s+/gm, ' ');
+      return vm.runInContext(
+        `(function(module){
+          {
+            ${code}
+          }
+          return module.exports;
+        })({ exports: {} });`,
+        context,
+        { filename: id, lineOffset: -2, columnOffset: -4 },
+      );
+    },
+  });
+
+  // Limit error stack traces to 2 frames... We don't need more for the sake of this test. This is
+  // important because past 2 levels, the stack frames will have entries that will be different on
+  // different versions of node, and that'll break our unit tests...
+  vm.runInContext('Error.stackTraceLimit = 2;', context);
+
+  return context;
 }
 
 function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
 
-async function compile(projectRoot: string, addDeprecationWarnings: boolean) {
-  const { projectInfo } = await loadProjectInfo(projectRoot);
+function compile(projectRoot: string, addDeprecationWarnings: boolean) {
+  const { projectInfo } = loadProjectInfo(projectRoot);
 
   const compiler = new Compiler({
     projectInfo,
     addDeprecationWarnings,
   });
 
-  await compiler.emit();
+  compiler.emit();
 }
 
 function loadWarningsFile(projectRoot: string) {

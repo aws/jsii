@@ -76,9 +76,7 @@ export interface LoadedFile {
   readonly lines: string[];
 }
 
-export type FileLoader = (
-  relativePath: string,
-) => LoadedFile | Promise<LoadedFile>;
+export type FileLoader = (relativePath: string) => LoadedFile;
 
 /**
  * Given MarkDown source, find source files to include and render
@@ -88,11 +86,11 @@ export type FileLoader = (
  *
  *     [example](test/integ.bucket.ts)
  */
-export async function includeAndRenderExamples(
+export function includeAndRenderExamples(
   lines: string[],
   loader: FileLoader,
   projectRoot: string,
-): Promise<string[]> {
+): string[] {
   const ret: string[] = [];
 
   const regex = /^\[([^\]]*)\]\(([^)]+\.lit\.ts)\)/i;
@@ -102,7 +100,7 @@ export async function includeAndRenderExamples(
       // Found an include
       const filename = m[2];
       // eslint-disable-next-line no-await-in-loop
-      const { lines: source, fullPath } = await loader(filename);
+      const { lines: source, fullPath } = loader(filename);
       // 'lit' source attribute will make snippet compiler know to extract the same source
       // Needs to be relative to the project root.
       const imported = typescriptSourceToMarkdown(source, [
@@ -120,8 +118,8 @@ export async function includeAndRenderExamples(
 /**
  * Load a file into a string array
  */
-export async function loadFromFile(fileName: string): Promise<string[]> {
-  const content = await fs.readFile(fileName, { encoding: 'utf-8' });
+export function loadFromFile(fileName: string): string[] {
+  const content = fs.readFileSync(fileName, { encoding: 'utf-8' });
   return contentToLines(content);
 }
 
@@ -136,9 +134,9 @@ export function contentToLines(content: string): string[] {
  * Return a file system loader given a base directory
  */
 export function fileSystemLoader(directory: string): FileLoader {
-  return async (fileName) => {
+  return (fileName) => {
     const fullPath = path.resolve(directory, fileName);
-    return { fullPath, lines: await loadFromFile(fullPath) };
+    return { fullPath, lines: loadFromFile(fullPath) };
   };
 }
 
@@ -182,7 +180,7 @@ function stripCommonIndent(lines: string[]): string[] {
   const leadingWhitespace = /^(\s*)/;
   const indents = lines.map((l) => leadingWhitespace.exec(l)![1].length);
   const commonIndent = Math.min(...indents);
-  return lines.map((l) => l.substr(commonIndent));
+  return lines.map((l) => l.slice(commonIndent));
 }
 
 /**

@@ -34,9 +34,9 @@ const defaultExtractOptions = {
 };
 
 let assembly: TestJsiiModule;
-beforeEach(async () => {
+beforeEach(() => {
   // Create an assembly in a temp directory
-  assembly = await TestJsiiModule.fromSource(
+  assembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -57,7 +57,7 @@ beforeEach(async () => {
   );
 });
 
-afterEach(async () => assembly.cleanup());
+afterEach(() => assembly.cleanup());
 
 test('extract samples from test assembly', async () => {
   const cacheToFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
@@ -267,7 +267,7 @@ describe('non-compiling cached examples', () => {
   let cacheToFile: string;
   beforeEach(async () => {
     // Create an assembly in a temp directory
-    otherAssembly = await TestJsiiModule.fromSource(
+    otherAssembly = TestJsiiModule.fromSource(
       {
         'index.ts': `
         export class ClassA {
@@ -300,7 +300,7 @@ describe('non-compiling cached examples', () => {
     expect(tr?.snippet.didCompile).toBeFalsy();
   });
 
-  afterEach(async () => assembly.cleanup());
+  afterEach(() => assembly.cleanup());
 
   test('are ignored with strict mode', async () => {
     // second run of extract snippets should still evaluate the snippet
@@ -333,7 +333,7 @@ describe('non-compiling cached examples', () => {
 
 test('do not ignore example strings', async () => {
   // Create an assembly in a temp directory
-  const otherAssembly = await TestJsiiModule.fromSource(
+  const otherAssembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -363,14 +363,14 @@ test('do not ignore example strings', async () => {
     const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
     expect(tr?.originalSource.source).toEqual('x');
   } finally {
-    await otherAssembly.cleanup();
+    otherAssembly.cleanup();
   }
 });
 
 describe('can find fqns via symbolId when ', () => {
   test('there is an outDir', async () => {
     const outDir = 'jsii-outDir';
-    const otherAssembly = await createAssemblyWithDirectories(undefined, outDir);
+    const otherAssembly = createAssemblyWithDirectories(undefined, outDir);
     try {
       const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
       await extract.extractSnippets([otherAssembly.moduleDirectory], {
@@ -382,14 +382,14 @@ describe('can find fqns via symbolId when ', () => {
       const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
       expect(tr?.fqnsReferenced()).toEqual(['my_assembly.ClassA']);
     } finally {
-      await otherAssembly.cleanup();
+      otherAssembly.cleanup();
     }
   });
 
   test('there is an outDir and rootDir', async () => {
     const outDir = 'jsii-outDir';
     const rootDir = '.';
-    const otherAssembly = await createAssemblyWithDirectories(rootDir, outDir);
+    const otherAssembly = createAssemblyWithDirectories(rootDir, outDir);
     try {
       const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
       await extract.extractSnippets([otherAssembly.moduleDirectory], {
@@ -401,7 +401,7 @@ describe('can find fqns via symbolId when ', () => {
       const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
       expect(tr?.fqnsReferenced()).toEqual(['my_assembly.ClassA']);
     } finally {
-      await otherAssembly.cleanup();
+      otherAssembly.cleanup();
     }
   });
 });
@@ -438,8 +438,8 @@ test('extract and infuse in one command', async () => {
 
 describe('infused examples', () => {
   let infusedAssembly: TestJsiiModule;
-  beforeEach(async () => {
-    infusedAssembly = await TestJsiiModule.fromSource(
+  beforeEach(() => {
+    infusedAssembly = TestJsiiModule.fromSource(
       {
         'index.ts': `
         /**
@@ -461,8 +461,8 @@ describe('infused examples', () => {
     );
   });
 
-  afterEach(async () => {
-    await infusedAssembly.cleanup();
+  afterEach(() => {
+    infusedAssembly.cleanup();
   });
 
   test('always returned from cache', async () => {
@@ -526,7 +526,7 @@ describe('infused examples', () => {
 
 test('can use additional dependencies from monorepo', async () => {
   logging.configure({ level: logging.Level.VERBOSE });
-  const asm = await TestJsiiModule.fromSource(
+  const asm = TestJsiiModule.fromSource(
     {
       'index.ts': `
         /**
@@ -555,8 +555,8 @@ test('can use additional dependencies from monorepo', async () => {
   );
   try {
     // GIVEN - install some random other module
-    await asm.workspace.addDependency(
-      await compileJsiiForTest(
+    asm.workspace.addDependency(
+      compileJsiiForTest(
         {
           'index.ts': 'export class SomeClass { }',
         },
@@ -576,12 +576,12 @@ test('can use additional dependencies from monorepo', async () => {
     await extract.extractSnippets([asm.moduleDirectory], defaultExtractOptions);
     // THEN -- did not throw an error
   } finally {
-    await asm.cleanup();
+    asm.cleanup();
   }
 });
 
 test('can use additional dependencies from NPM', async () => {
-  const asm = await TestJsiiModule.fromSource(
+  const asm = TestJsiiModule.fromSource(
     {
       'index.ts': `
         /**
@@ -613,12 +613,12 @@ test('can use additional dependencies from NPM', async () => {
     await extract.extractSnippets([asm.moduleDirectory], defaultExtractOptions);
     // THEN -- did not throw an error
   } finally {
-    await asm.cleanup();
+    asm.cleanup();
   }
 });
 
 test('infused examples have no diagnostics', async () => {
-  const otherAssembly = await TestJsiiModule.fromSource(
+  const otherAssembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       /**
@@ -651,7 +651,7 @@ test('infused examples have no diagnostics', async () => {
 
     expect(results.diagnostics).toEqual([]);
   } finally {
-    await otherAssembly.cleanup();
+    otherAssembly.cleanup();
   }
 });
 
@@ -662,7 +662,7 @@ class MockTranslator extends RosettaTranslator {
   }
 }
 
-async function createAssemblyWithDirectories(rootDir?: string, outDir?: string) {
+function createAssemblyWithDirectories(rootDir?: string, outDir?: string) {
   return TestJsiiModule.fromSource(
     {
       'index.ts': `

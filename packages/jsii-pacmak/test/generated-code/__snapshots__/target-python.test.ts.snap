@@ -2832,13 +2832,13 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @jsii.member(jsii_name="unionProperty")
     def union_property(
         self,
-    ) -> typing.Union[builtins.str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number]:
-        return typing.cast(typing.Union[builtins.str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number], jsii.get(self, "unionProperty"))
+    ) -> typing.Union[builtins.str, jsii.Number, scope.jsii_calc_lib.Number, "Multiply"]:
+        return typing.cast(typing.Union[builtins.str, jsii.Number, scope.jsii_calc_lib.Number, "Multiply"], jsii.get(self, "unionProperty"))
 
     @union_property.setter
     def union_property(
         self,
-        value: typing.Union[builtins.str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number],
+        value: typing.Union[builtins.str, jsii.Number, scope.jsii_calc_lib.Number, "Multiply"],
     ) -> None:
         jsii.set(self, "unionProperty", value)
 
@@ -4544,8 +4544,7 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
 
         x = 12 + 44
         s1 = "string"
-        s2 = """string
-        with new newlines""" # see https://github.com/aws/jsii/issues/2569
+        s2 = "string \\nwith new newlines" # see https://github.com/aws/jsii/issues/2569
         s3 = """string
                     with
                     new lines"""

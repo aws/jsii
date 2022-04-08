@@ -26,7 +26,7 @@ export function toSnakeCase(s: string, separator = '_'): string {
   return decamelize(s, { separator });
 
   function ucfirst(str: string) {
-    return str.substr(0, 1).toUpperCase() + str.substr(1).toLowerCase();
+    return str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase();
   }
 }
 

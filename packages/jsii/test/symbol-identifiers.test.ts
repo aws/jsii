@@ -1,7 +1,7 @@
 import { compileJsiiForTest, normalizePath } from '../lib';
 
-test('Symbol map is generated', async () => {
-  const result = await compileJsiiForTest(
+test('Symbol map is generated', () => {
+  const result = compileJsiiForTest(
     {
       'index.ts': `
         export * from './some/nested/file';
@@ -29,8 +29,8 @@ test('Symbol map is generated', async () => {
   expect(types['testpkg.Baz'].symbolId).toEqual('some/nested/file:Baz');
 });
 
-test('Symbol id for single-value enum correctly identifies enum', async () => {
-  const result = await compileJsiiForTest(
+test('Symbol id for single-value enum correctly identifies enum', () => {
+  const result = compileJsiiForTest(
     {
       'index.ts': `
         export enum SomeEnum {
@@ -46,8 +46,8 @@ test('Symbol id for single-value enum correctly identifies enum', async () => {
   expect(types['testpkg.SomeEnum'].symbolId).toEqual('index:SomeEnum');
 });
 
-test('Module declarations are included in symbolId', async () => {
-  const result = await compileJsiiForTest(
+test('Module declarations are included in symbolId', () => {
+  const result = compileJsiiForTest(
     {
       'index.ts': `
         export class Foo {
@@ -69,8 +69,8 @@ test('Module declarations are included in symbolId', async () => {
   expect(types['testpkg.Foo.Bar'].symbolId).toEqual('index:Foo.Bar');
 });
 
-test('Submodules also have symbol identifiers', async () => {
-  const result = await compileJsiiForTest(
+test('Submodules also have symbol identifiers', () => {
+  const result = compileJsiiForTest(
     {
       'index.ts': `export * as submod from './submodule';`,
       'submodule.ts': `
@@ -89,8 +89,8 @@ test('Submodules also have symbol identifiers', async () => {
   );
 });
 
-test('Submodules also have symbol identifiers', async () => {
-  const result = await compileJsiiForTest(
+test('Submodules also have symbol identifiers', () => {
+  const result = compileJsiiForTest(
     {
       'index.ts': `
         export namespace cookie {
