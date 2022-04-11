@@ -5,11 +5,17 @@ import * as path from 'path';
 
 import { extractSnippets } from '../../lib/commands/extract';
 import { transliterateAssembly } from '../../lib/commands/transliterate';
-import { TargetLanguage } from '../../lib/languages/target-language';
+import { TargetLanguage, targetName } from '../../lib/languages/target-language';
 import { TabletSchema } from '../../lib/tablets/schema';
 import { withTemporaryDirectory, TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 jest.setTimeout(60_000);
+
+// A targets configuration block with ALL targets enabled (although with phony configuration).
+const targets = Object.values(TargetLanguage).reduce((tgt, lang) => {
+  tgt[targetName(lang)] = { phony: true };
+  return tgt;
+}, {} as Record<string, unknown>);
 
 test('single assembly, all languages', () =>
   withTemporaryDirectory(async (tmpDir) => {
@@ -90,9 +96,13 @@ export class ClassName implements IInterface {
   }
 }`,
     });
-    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
-      spaces: 2,
-    });
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets },
+      {
+        spaces: 2,
+      },
+    );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
     }
@@ -115,6 +125,7 @@ export class ClassName implements IInterface {
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -153,11 +164,7 @@ export class ClassName implements IInterface {
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.ClassName": Object {
             "assembly": "testpkg",
@@ -373,6 +380,7 @@ export class ClassName implements IInterface {
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -411,11 +419,7 @@ export class ClassName implements IInterface {
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.ClassName": Object {
             "assembly": "testpkg",
@@ -631,6 +635,7 @@ export class ClassName implements IInterface {
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -669,11 +674,7 @@ export class ClassName implements IInterface {
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.ClassName": Object {
             "assembly": "testpkg",
@@ -933,9 +934,13 @@ import { SampleClass } from './index';
 new SampleClass('omitted-literate');
       `,
     });
-    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
-      spaces: 2,
-    });
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets },
+      {
+        spaces: 2,
+      },
+    );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       if (file.startsWith('omit-')) {
         continue;
@@ -955,6 +960,7 @@ new SampleClass('omitted-literate');
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -1008,11 +1014,7 @@ new SampleClass('omitted-literate');
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
@@ -1053,6 +1055,7 @@ new SampleClass('omitted-literate');
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -1106,11 +1109,7 @@ new SampleClass('omitted-literate');
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
@@ -1151,6 +1150,7 @@ new SampleClass('omitted-literate');
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -1204,11 +1204,7 @@ new SampleClass('omitted-literate');
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
@@ -1322,9 +1318,13 @@ export class ClassName implements IInterface {
   }
 }`,
     });
-    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
-      spaces: 2,
-    });
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets },
+      {
+        spaces: 2,
+      },
+    );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
     }
@@ -1471,9 +1471,14 @@ export class ClassName implements IInterface {
   }
 }`,
     });
-    fs.writeJsonSync(path.join(tmpDir, SPEC_FILE_NAME), compilationResult.assembly, {
-      spaces: 2,
-    });
+
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets },
+      {
+        spaces: 2,
+      },
+    );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
     }
@@ -1498,5 +1503,123 @@ export class ClassName implements IInterface {
 
     Object.values(TargetLanguage).forEach((lang) => {
       expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);
+    });
+  }));
+
+test('will not attempt to produce output for an unsupported language', async () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = jsii.compileJsiiForTest({
+      'README.md': `
+# README
+\`\`\`ts
+const object: IInterface = new ClassName('this', 1337, { foo: 'bar' });
+object.property = EnumType.OPTION_A;
+object.methodCall();
+
+ClassName.staticMethod(EnumType.OPTION_B);
+\`\`\`
+`,
+      'index.ts': `
+/**
+ * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+ */
+export enum EnumType {
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_A });
+   */
+  OPTION_A = 1,
+
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  OPTION_B = 2,
+}
+
+export interface IInterface {
+  /**
+   * A property value.
+   *
+   * @example
+   *    iface.property = EnumType.OPTION_B;
+   */
+  property: EnumType;
+
+  /**
+   * An instance method call.
+   *
+   * @example
+   *    iface.methodCall();
+   */
+  methodCall(): void;
+}
+
+export interface ClassNameProps {
+  readonly property?: EnumType;
+  readonly foo?: string;
+}
+
+export class ClassName implements IInterface {
+  /**
+   * A static method. It can be invoked easily.
+   *
+   * @example ClassName.staticMethod();
+   */
+  public static staticMethod(_enm?: EnumType): void {
+    // ...
+  }
+
+  public property: EnumType;
+
+  /**
+   * Create a new instance of ClassName.
+   *
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  public constructor(_this: string, _elite: number, props: ClassNameProps) {
+    this.property = props.property ?? EnumType.OPTION_A;
+  }
+
+  public methodCall(): void {
+    // ...
+  }
+}`,
+    });
+
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets: { ...targets, [targetName(TargetLanguage.GO)]: undefined } },
+      {
+        spaces: 2,
+      },
+    );
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+    fs.mkdirSync(path.resolve(tmpDir, 'rosetta'));
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'default.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';\ndeclare const iface: IInterface\n/// here`,
+      'utf-8',
+    );
+
+    // WHEN
+    // create outdir
+    const outdir = path.resolve(tmpDir, 'out');
+    fs.mkdirSync(outdir);
+
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        strict: true,
+        outdir,
+      }),
+    ).resolves.not.toThrow();
+
+    Object.values(TargetLanguage).forEach((lang) => {
+      if (lang === TargetLanguage.GO) {
+        expect(fs.pathExistsSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`))).toBe(false);
+      } else {
+        expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);
+      }
     });
   }));
