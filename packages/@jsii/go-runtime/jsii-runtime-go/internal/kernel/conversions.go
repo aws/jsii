@@ -1,7 +1,9 @@
 package kernel
 
 import (
+	"fmt"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
@@ -65,7 +67,7 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 
 		targetType := ptr.Type()
 		if typ, ok := c.Types().FindType(ref.TypeFQN()); ok && typ.AssignableTo(ptr.Type()) {
-            // Specialize the return type to be the dynamic value type
+			// Specialize the return type to be the dynamic value type
 			targetType = typ
 		}
 
@@ -178,6 +180,12 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 				for _, field := range fields {
 					fieldVal := elemVal.FieldByIndex(field.Index)
 					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
+						tag := string(field.Tag)
+						// If the field is tagged as "required", then we'll panic immediately if the value is `nil`. The `required`
+						// tag does not have a value (so Lookup won't find it), but is always first or only tag in the list.
+						if tag == "required" || strings.HasPrefix(tag, "required ") {
+							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", field.Type, field.Name))
+						}
 						continue
 					}
 					key := field.Tag.Get("json")
