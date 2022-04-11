@@ -65,7 +65,7 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 
 		targetType := ptr.Type()
 		if typ, ok := c.Types().FindType(ref.TypeFQN()); ok && typ.AssignableTo(ptr.Type()) {
-            // Specialize the return type to be the dynamic value type
+			// Specialize the return type to be the dynamic value type
 			targetType = typ
 		}
 
@@ -191,6 +191,11 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 					},
 				}
 			}
+		} else if dataVal.Elem().Kind() == reflect.Ptr {
+			// Typically happens when a struct pointer is passed into an interface{}
+			// typed API (such as a place where a union is accepted).
+			elemVal := dataVal.Elem()
+			return c.CastPtrToRef(elemVal)
 		}
 
 		if ref, err := c.ManageObject(dataVal); err != nil {
