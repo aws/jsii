@@ -118,7 +118,9 @@ export class Compiler implements Emitter {
    *
    * @internal
    */
-  public async watch(opts: NonBlockingWatchOptions): Promise<ts.Watch<ts.BuilderProgram>>;
+  public async watch(
+    opts: NonBlockingWatchOptions,
+  ): Promise<ts.Watch<ts.BuilderProgram>>;
   /**
    * Watches for file-system changes and dynamically recompiles the project as needed. In blocking mode, this results
    * in a never-resolving promise.
