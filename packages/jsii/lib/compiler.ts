@@ -118,15 +118,15 @@ export class Compiler implements Emitter {
    *
    * @internal
    */
-  public watch(opts: NonBlockingWatchOptions): ts.Watch<ts.BuilderProgram>;
+  public async watch(opts: NonBlockingWatchOptions): Promise<ts.Watch<ts.BuilderProgram>>;
   /**
    * Watches for file-system changes and dynamically recompiles the project as needed. In blocking mode, this results
    * in a never-resolving promise.
    */
-  public watch(): never;
-  public watch(
+  public async watch(): Promise<never>;
+  public async watch(
     opts?: NonBlockingWatchOptions,
-  ): ts.Watch<ts.BuilderProgram> | never {
+  ): Promise<ts.Watch<ts.BuilderProgram> | never> {
     this._prepareForBuild();
 
     const pi = this.options.projectInfo;
@@ -184,7 +184,7 @@ export class Compiler implements Emitter {
       return watch;
     }
     // In blocking mode, returns a never-resolving promise.
-    return undefined as never;
+    return new Promise<never>(() => null);
   }
 
   /**
