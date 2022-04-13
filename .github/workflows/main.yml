@@ -93,7 +93,7 @@ jobs:
             .
       # Upload artifact (we'll tar it up to save time)
       - name: 'Upload Artifact: built-tree'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: built-tree
           path: ${{ runner.temp }}/built-tree.tgz
@@ -198,7 +198,7 @@ jobs:
           yarn package
       # Upload artifacts
       - name: 'Upload Artifact: release-package'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: release-package
           path: ${{ github.workspace }}/dist/
