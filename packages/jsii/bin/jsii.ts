@@ -14,7 +14,7 @@ import { enabledWarnings } from '../lib/warnings';
 
 const warningTypes = Object.keys(enabledWarnings);
 
-(() => {
+(async () => {
   const argv = yargs
     .env('JSII')
     .command(
@@ -117,7 +117,7 @@ const warningTypes = Object.keys(enabledWarnings);
     generateTypeScriptConfig: argv['generate-tsconfig'],
   });
 
-  const emitResult = argv.watch ? compiler.watch() : compiler.emit();
+  const emitResult = argv.watch ? await compiler.watch() : compiler.emit();
 
   const allDiagnostics = [...projectInfoDiagnostics, ...emitResult.diagnostics];
 
@@ -127,7 +127,10 @@ const warningTypes = Object.keys(enabledWarnings);
   if (emitResult.emitSkipped) {
     process.exitCode = 1;
   }
-})();
+})().catch((e) => {
+  console.error(`Error: ${e.stack}`);
+  process.exitCode = -1;
+});
 
 function _configureLog4js(verbosity: number) {
   const stderrColor = !!process.stderr.isTTY;
