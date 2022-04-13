@@ -44,7 +44,7 @@ jobs:
             --site-dir ${{ runner.temp }}/site
         working-directory: gh-pages
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: doc-site
           path: ${{ runner.temp }}/site/
