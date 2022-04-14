@@ -204,6 +204,8 @@ jobs:
           path: ${{ github.workspace }}/dist/
 
   test:
+    permissions:
+      contents: none
     name: Test (${{ matrix.os }} / dotnet ${{ matrix.dotnet }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
     strategy:
