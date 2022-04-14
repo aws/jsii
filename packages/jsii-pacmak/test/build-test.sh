@@ -24,15 +24,28 @@ final_cleanup() {
 trap final_cleanup EXIT
 
 # Prepare Python venv to avoid depending on system stuff
+case "${OSTYPE}" in
+"msys" | "cygwin" | "win32")
+    # On Windows, there is usually no python3.exe (the GitHub action workers will have a python3
+    # shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
+    # fail to copy the python binary if it's not invoked as python.exe). More on this particular
+    # issue can be read here: https://bugs.python.org/issue43749
+    PYTHON='python'
+    ;;
+*)
+    PYTHON='python3'
+    ;;
+esac
+
 venv="${outdir}/.env"
-python3 -m venv ${venv}
+${PYTHON} -m venv ${venv}
 if [ -f ${venv}/bin/activate ]; then
     . ${venv}/bin/activate
 else
     # Hello Windows!
     . ${venv}/Scripts/activate
 fi
-python3 -m pip install --upgrade pip~=20.2 twine~=3.2
+${PYTHON} -m pip install --upgrade pip~=22.0 twine~=4.0
 
 # Provision a specific NuGet package cache
 NUGET_CACHE=${outdir}/.nuget/packages
