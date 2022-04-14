@@ -500,7 +500,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
       <comments>An OSI-approved license</comments>
     </license>
@@ -1999,7 +1999,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
       <comments>An OSI-approved license</comments>
     </license>
