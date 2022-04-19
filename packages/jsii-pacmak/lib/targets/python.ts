@@ -1648,7 +1648,9 @@ class PythonModule implements PythonType {
     // we import as part of typechecking.
     const exportedMembers = [
       ...this.members.map((m) => `"${m.pythonName}"`),
-      ...this.modules.map((m) => `"${m.pythonName}"`),
+      ...this.modules
+        .filter((m) => this.isDirectChild(m))
+        .map((m) => `"${lastComponent(m.pythonName)}"`),
     ];
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
@@ -1757,6 +1759,19 @@ class PythonModule implements PythonType {
       }
     }
     return scripts;
+  }
+
+  private isDirectChild(pyMod: PythonModule) {
+    if (
+      this.pythonName === pyMod.pythonName ||
+      !pyMod.pythonName.startsWith(`${this.pythonName}.`)
+    ) {
+      return false;
+    }
+    // Must include only one more component
+    return !pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .includes('.');
   }
 
   /**
@@ -3126,3 +3141,11 @@ function nestedContext(
 }
 
 const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;
+
+/**
+ * Last component of a .-separated name
+ */
+function lastComponent(n: string) {
+  const parts = n.split('.');
+  return parts[parts.length - 1];
+}
