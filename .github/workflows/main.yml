@@ -32,11 +32,11 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: '1.16'
       - name: Set up Java 8
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
           distribution: 'zulu'
@@ -93,7 +93,7 @@ jobs:
             .
       # Upload artifact (we'll tar it up to save time)
       - name: 'Upload Artifact: built-tree'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: built-tree
           path: ${{ runner.temp }}/built-tree.tgz
@@ -126,11 +126,11 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: '1.16'
       - name: Set up Java 8
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
           distribution: 'zulu'
@@ -198,7 +198,7 @@ jobs:
           yarn package
       # Upload artifacts
       - name: 'Upload Artifact: release-package'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: release-package
           path: ${{ github.workspace }}/dist/
@@ -277,7 +277,7 @@ jobs:
     steps:
       # Check out the code
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: built-tree
       - name: Extract Artifact
@@ -294,11 +294,11 @@ jobs:
           dotnet-version: ${{ matrix.dotnet }}
           include-prerelease: ${{ matrix.dotnet-prerelease }}
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go }}
       - name: Set up Java ${{ matrix.java }}
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
           distribution: 'zulu'
