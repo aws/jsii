@@ -1637,7 +1637,21 @@ class PythonModule implements PythonType {
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
-    const exportedMembers = this.members.map((m) => `"${m.pythonName}"`);
+    //
+    // __all__ is normally used for when users write `from library import *`, but we also
+    // use it with the `publication` module to hide everything that's NOT in the list.
+    //
+    // Normally adding submodules to `__all__` has the (negative?) side-effect
+    // that all submodules get loaded when the user does `import *`, but we
+    // already load submodules anyway so it doesn't make a difference, and in combination
+    // with the `publication` module NOT having them in this list hides any submodules
+    // we import as part of typechecking.
+    const exportedMembers = [
+      ...this.members.map((m) => `"${m.pythonName}"`),
+      ...this.modules
+        .filter((m) => this.isDirectChild(m))
+        .map((m) => `"${lastComponent(m.pythonName)}"`),
+    ];
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
@@ -1745,6 +1759,19 @@ class PythonModule implements PythonType {
       }
     }
     return scripts;
+  }
+
+  private isDirectChild(pyMod: PythonModule) {
+    if (
+      this.pythonName === pyMod.pythonName ||
+      !pyMod.pythonName.startsWith(`${this.pythonName}.`)
+    ) {
+      return false;
+    }
+    // Must include only one more component
+    return !pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .includes('.');
   }
 
   /**
@@ -3114,3 +3141,11 @@ function nestedContext(
 }
 
 const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;
+
+/**
+ * Last component of a .-separated name
+ */
+function lastComponent(n: string) {
+  const parts = n.split('.');
+  return parts[parts.length - 1];
+}
