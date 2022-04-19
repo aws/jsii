@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.57.0](https://github.com/aws/jsii/compare/v1.56.0...v1.57.0) (2022-04-19)
+
+
+### Bug Fixes
+
+* **go:** object type not recognized ([#3485](https://github.com/aws/jsii/issues/3485)) ([fe2fa94](https://github.com/aws/jsii/commit/fe2fa947891ab5d517efbec37998b9b57203aa8d)), closes [#2880](https://github.com/aws/jsii/issues/2880)
+* **jsii:** some submodules are not exported from `aws-cdk-lib` ([#3491](https://github.com/aws/jsii/issues/3491)) ([47f70a2](https://github.com/aws/jsii/commit/47f70a26383f401a8b3df700787d6ce7934f66f9))
+* make jsii --watch work ([#3487](https://github.com/aws/jsii/issues/3487)) ([4a46f7d](https://github.com/aws/jsii/commit/4a46f7d7db3e6f9f1cf2730b02f4af0c1da9f237)), closes [#3467](https://github.com/aws/jsii/issues/3467)
+
 ## [1.56.0](https://github.com/aws/jsii/compare/v1.55.1...v1.56.0) (2022-04-08)
 
 
