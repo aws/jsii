@@ -18,11 +18,11 @@ queue_rules:
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
 pull_request_rules:
   - name: label core
@@ -68,11 +68,11 @@ pull_request_rules:
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -118,11 +118,11 @@ pull_request_rules:
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -168,11 +168,11 @@ pull_request_rules:
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Clean branch up
     actions:
