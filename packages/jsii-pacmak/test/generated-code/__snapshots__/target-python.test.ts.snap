@@ -1825,6 +1825,7 @@ __all__ = [
     "NumericValue",
     "Operation",
     "StructWithOnlyOptionals",
+    "custom_submodule_name",
 ]
 
 publication.publish()
@@ -10251,6 +10252,22 @@ __all__ = [
     "VirtualMethodPlayground",
     "VoidCallback",
     "WithPrivatePropertyInConstructor",
+    "cdk16625",
+    "composition",
+    "derived_class_has_no_properties",
+    "interface_in_namespace_includes_classes",
+    "interface_in_namespace_only_interface",
+    "module2530",
+    "module2617",
+    "module2647",
+    "module2689",
+    "module2692",
+    "module2700",
+    "module2702",
+    "nodirect",
+    "onlystatic",
+    "python_self",
+    "submodule",
 ]
 
 publication.publish()
