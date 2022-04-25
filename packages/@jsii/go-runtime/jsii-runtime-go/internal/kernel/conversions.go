@@ -1,6 +1,7 @@
 package kernel
 
 import (
+	"fmt"
 	"reflect"
 	"time"
 
@@ -178,6 +179,10 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 				for _, field := range fields {
 					fieldVal := elemVal.FieldByIndex(field.Index)
 					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
+						// If there is the "field" tag, and it's "required", then panic since the value is nil.
+						if requiredOrOptional, found := field.Tag.Lookup("field"); found && requiredOrOptional == "required" {
+							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", field.Type, field.Name))
+						}
 						continue
 					}
 					key := field.Tag.Get("json")

@@ -296,8 +296,8 @@ func (b *jsiiProxy_Base) TypeName() interface{} {
 }
 
 type BaseProps struct {
-	Foo scopejsiicalcbaseofbase.Very \`json:"foo" yaml:"foo"\`
-	Bar *string \`json:"bar" yaml:"bar"\`
+	Foo scopejsiicalcbaseofbase.Very \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"required" json:"bar" yaml:"bar"\`
 }
 
 type IBaseInterface interface {
@@ -820,7 +820,7 @@ func (v *jsiiProxy_Very) Hey() *float64 {
 }
 
 type VeryBaseProps struct {
-	Foo Very \`json:"foo" yaml:"foo"\`
+	Foo Very \`field:"required" json:"foo" yaml:"foo"\`
 }
 
 
@@ -1202,15 +1202,15 @@ func NewNestingClass_NestedClass_Override(n NestingClass_NestedClass) {
 // Deprecated.
 type NestingClass_NestedStruct struct {
 	// Deprecated.
-	Name *string \`json:"name" yaml:"name"\`
+	Name *string \`field:"required" json:"name" yaml:"name"\`
 }
 
 // Deprecated.
 type ReflectableEntry struct {
 	// Deprecated.
-	Key *string \`json:"key" yaml:"key"\`
+	Key *string \`field:"required" json:"key" yaml:"key"\`
 	// Deprecated.
-	Value interface{} \`json:"value" yaml:"value"\`
+	Value interface{} \`field:"required" json:"value" yaml:"value"\`
 }
 
 // Deprecated.
@@ -1451,17 +1451,17 @@ func (b *jsiiProxy_BaseFor2647) Foo(obj jcb.IBaseInterface) {
 // Deprecated.
 type DiamondLeft struct {
 	// Deprecated.
-	HoistedTop *string \`json:"hoistedTop" yaml:"hoistedTop"\`
+	HoistedTop *string \`field:"optional" json:"hoistedTop" yaml:"hoistedTop"\`
 	// Deprecated.
-	Left *float64 \`json:"left" yaml:"left"\`
+	Left *float64 \`field:"optional" json:"left" yaml:"left"\`
 }
 
 // Deprecated.
 type DiamondRight struct {
 	// Deprecated.
-	HoistedTop *string \`json:"hoistedTop" yaml:"hoistedTop"\`
+	HoistedTop *string \`field:"optional" json:"hoistedTop" yaml:"hoistedTop"\`
 	// Deprecated.
-	Right *bool \`json:"right" yaml:"right"\`
+	Right *bool \`field:"optional" json:"right" yaml:"right"\`
 }
 
 // Check that enums from \\@scoped packages can be references.
@@ -1557,12 +1557,12 @@ func (i *jsiiProxy_IThreeLevelsInterface) Baz() {
 type MyFirstStruct struct {
 	// An awesome number value.
 	// Deprecated.
-	Anumber *float64 \`json:"anumber" yaml:"anumber"\`
+	Anumber *float64 \`field:"required" json:"anumber" yaml:"anumber"\`
 	// A string value.
 	// Deprecated.
-	Astring *string \`json:"astring" yaml:"astring"\`
+	Astring *string \`field:"required" json:"astring" yaml:"astring"\`
 	// Deprecated.
-	FirstOptional *[]*string \`json:"firstOptional" yaml:"firstOptional"\`
+	FirstOptional *[]*string \`field:"optional" json:"firstOptional" yaml:"firstOptional"\`
 }
 
 // Represents a concrete number.
@@ -1806,11 +1806,11 @@ func (o *jsiiProxy_Operation) TypeName() interface{} {
 type StructWithOnlyOptionals struct {
 	// The first optional!
 	// Deprecated.
-	Optional1 *string \`json:"optional1" yaml:"optional1"\`
+	Optional1 *string \`field:"optional" json:"optional1" yaml:"optional1"\`
 	// Deprecated.
-	Optional2 *float64 \`json:"optional2" yaml:"optional2"\`
+	Optional2 *float64 \`field:"optional" json:"optional2" yaml:"optional2"\`
 	// Deprecated.
-	Optional3 *bool \`json:"optional3" yaml:"optional3"\`
+	Optional3 *bool \`field:"optional" json:"optional3" yaml:"optional3"\`
 }
 
 
@@ -2941,7 +2941,7 @@ func (j *jsiiProxy_Foo) SetBar(val *string) {
 }
 
 type Hello struct {
-	Foo *float64 \`json:"foo" yaml:"foo"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
 }
 
 
@@ -2980,7 +2980,7 @@ package interfaceinnamespaceonlyinterface
 
 
 type Hello struct {
-	Foo *float64 \`json:"foo" yaml:"foo"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
 }
 
 
@@ -4862,14 +4862,14 @@ type CalculatorProps struct {
 	// The initial value of the calculator.
 	//
 	// NOTE: Any number works here, it's fine.
-	InitialValue *float64 \`json:"initialValue" yaml:"initialValue"\`
+	InitialValue *float64 \`field:"optional" json:"initialValue" yaml:"initialValue"\`
 	// The maximum value the calculator can store.
-	MaximumValue *float64 \`json:"maximumValue" yaml:"maximumValue"\`
+	MaximumValue *float64 \`field:"optional" json:"maximumValue" yaml:"maximumValue"\`
 }
 
 type ChildStruct982 struct {
-	Foo *string \`json:"foo" yaml:"foo"\`
-	Bar *float64 \`json:"bar" yaml:"bar"\`
+	Foo *string \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *float64 \`field:"required" json:"bar" yaml:"bar"\`
 }
 
 type ClassThatImplementsTheInternalInterface interface {
@@ -5593,7 +5593,7 @@ func ConfusingToJackson_MakeStructInstance() *ConfusingToJacksonStruct {
 }
 
 type ConfusingToJacksonStruct struct {
-	UnionProperty interface{} \`json:"unionProperty" yaml:"unionProperty"\`
+	UnionProperty interface{} \`field:"optional" json:"unionProperty" yaml:"unionProperty"\`
 }
 
 type ConstructorPassesThisOut interface {
@@ -6048,9 +6048,9 @@ func (c *jsiiProxy_ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(o
 }
 
 type ContainerProps struct {
-	ArrayProp *[]*DummyObj \`json:"arrayProp" yaml:"arrayProp"\`
-	ObjProp *map[string]*DummyObj \`json:"objProp" yaml:"objProp"\`
-	RecordProp *map[string]*DummyObj \`json:"recordProp" yaml:"recordProp"\`
+	ArrayProp *[]*DummyObj \`field:"required" json:"arrayProp" yaml:"arrayProp"\`
+	ObjProp *map[string]*DummyObj \`field:"required" json:"objProp" yaml:"objProp"\`
+	RecordProp *map[string]*DummyObj \`field:"required" json:"recordProp" yaml:"recordProp"\`
 }
 
 // Verifies proper type handling through dynamic overrides.
@@ -6399,58 +6399,58 @@ const (
 // Deprecated: it just wraps a string.
 type DeprecatedStruct struct {
 	// Deprecated: well, yeah.
-	ReadonlyProperty *string \`json:"readonlyProperty" yaml:"readonlyProperty"\`
+	ReadonlyProperty *string \`field:"required" json:"readonlyProperty" yaml:"readonlyProperty"\`
 }
 
 // A struct which derives from another struct.
 type DerivedStruct struct {
 	// An awesome number value.
 	// Deprecated.
-	Anumber *float64 \`json:"anumber" yaml:"anumber"\`
+	Anumber *float64 \`field:"required" json:"anumber" yaml:"anumber"\`
 	// A string value.
 	// Deprecated.
-	Astring *string \`json:"astring" yaml:"astring"\`
+	Astring *string \`field:"required" json:"astring" yaml:"astring"\`
 	// Deprecated.
-	FirstOptional *[]*string \`json:"firstOptional" yaml:"firstOptional"\`
-	AnotherRequired *time.Time \`json:"anotherRequired" yaml:"anotherRequired"\`
-	Bool *bool \`json:"bool" yaml:"bool"\`
+	FirstOptional *[]*string \`field:"optional" json:"firstOptional" yaml:"firstOptional"\`
+	AnotherRequired *time.Time \`field:"required" json:"anotherRequired" yaml:"anotherRequired"\`
+	Bool *bool \`field:"required" json:"bool" yaml:"bool"\`
 	// An example of a non primitive property.
-	NonPrimitive DoubleTrouble \`json:"nonPrimitive" yaml:"nonPrimitive"\`
+	NonPrimitive DoubleTrouble \`field:"required" json:"nonPrimitive" yaml:"nonPrimitive"\`
 	// This is optional.
-	AnotherOptional *map[string]scopejsiicalclib.NumericValue \`json:"anotherOptional" yaml:"anotherOptional"\`
-	OptionalAny interface{} \`json:"optionalAny" yaml:"optionalAny"\`
-	OptionalArray *[]*string \`json:"optionalArray" yaml:"optionalArray"\`
+	AnotherOptional *map[string]scopejsiicalclib.NumericValue \`field:"optional" json:"anotherOptional" yaml:"anotherOptional"\`
+	OptionalAny interface{} \`field:"optional" json:"optionalAny" yaml:"optionalAny"\`
+	OptionalArray *[]*string \`field:"optional" json:"optionalArray" yaml:"optionalArray"\`
 }
 
 type DiamondBottom struct {
 	// Deprecated.
-	HoistedTop *string \`json:"hoistedTop" yaml:"hoistedTop"\`
+	HoistedTop *string \`field:"optional" json:"hoistedTop" yaml:"hoistedTop"\`
 	// Deprecated.
-	Left *float64 \`json:"left" yaml:"left"\`
+	Left *float64 \`field:"optional" json:"left" yaml:"left"\`
 	// Deprecated.
-	Right *bool \`json:"right" yaml:"right"\`
-	Bottom *time.Time \`json:"bottom" yaml:"bottom"\`
+	Right *bool \`field:"optional" json:"right" yaml:"right"\`
+	Bottom *time.Time \`field:"optional" json:"bottom" yaml:"bottom"\`
 }
 
 type DiamondInheritanceBaseLevelStruct struct {
-	BaseLevelProperty *string \`json:"baseLevelProperty" yaml:"baseLevelProperty"\`
+	BaseLevelProperty *string \`field:"required" json:"baseLevelProperty" yaml:"baseLevelProperty"\`
 }
 
 type DiamondInheritanceFirstMidLevelStruct struct {
-	BaseLevelProperty *string \`json:"baseLevelProperty" yaml:"baseLevelProperty"\`
-	FirstMidLevelProperty *string \`json:"firstMidLevelProperty" yaml:"firstMidLevelProperty"\`
+	BaseLevelProperty *string \`field:"required" json:"baseLevelProperty" yaml:"baseLevelProperty"\`
+	FirstMidLevelProperty *string \`field:"required" json:"firstMidLevelProperty" yaml:"firstMidLevelProperty"\`
 }
 
 type DiamondInheritanceSecondMidLevelStruct struct {
-	BaseLevelProperty *string \`json:"baseLevelProperty" yaml:"baseLevelProperty"\`
-	SecondMidLevelProperty *string \`json:"secondMidLevelProperty" yaml:"secondMidLevelProperty"\`
+	BaseLevelProperty *string \`field:"required" json:"baseLevelProperty" yaml:"baseLevelProperty"\`
+	SecondMidLevelProperty *string \`field:"required" json:"secondMidLevelProperty" yaml:"secondMidLevelProperty"\`
 }
 
 type DiamondInheritanceTopLevelStruct struct {
-	BaseLevelProperty *string \`json:"baseLevelProperty" yaml:"baseLevelProperty"\`
-	FirstMidLevelProperty *string \`json:"firstMidLevelProperty" yaml:"firstMidLevelProperty"\`
-	SecondMidLevelProperty *string \`json:"secondMidLevelProperty" yaml:"secondMidLevelProperty"\`
-	TopLevelProperty *string \`json:"topLevelProperty" yaml:"topLevelProperty"\`
+	BaseLevelProperty *string \`field:"required" json:"baseLevelProperty" yaml:"baseLevelProperty"\`
+	FirstMidLevelProperty *string \`field:"required" json:"firstMidLevelProperty" yaml:"firstMidLevelProperty"\`
+	SecondMidLevelProperty *string \`field:"required" json:"secondMidLevelProperty" yaml:"secondMidLevelProperty"\`
+	TopLevelProperty *string \`field:"required" json:"topLevelProperty" yaml:"topLevelProperty"\`
 }
 
 // Verifies that null/undefined can be returned for optional collections.
@@ -6788,7 +6788,7 @@ func (d *jsiiProxy_DoubleTrouble) Next() *float64 {
 }
 
 type DummyObj struct {
-	Example *string \`json:"example" yaml:"example"\`
+	Example *string \`field:"required" json:"example" yaml:"example"\`
 }
 
 // Ensures we can override a dynamic property that was inherited.
@@ -7143,8 +7143,8 @@ func EraseUndefinedHashValues_Prop2IsUndefined() *map[string]interface{} {
 }
 
 type EraseUndefinedHashValuesOptions struct {
-	Option1 *string \`json:"option1" yaml:"option1"\`
-	Option2 *string \`json:"option2" yaml:"option2"\`
+	Option1 *string \`field:"optional" json:"option1" yaml:"option1"\`
+	Option2 *string \`field:"optional" json:"option2" yaml:"option2"\`
 }
 
 // Experimental.
@@ -7240,7 +7240,7 @@ const (
 // Experimental.
 type ExperimentalStruct struct {
 	// Experimental.
-	ReadonlyProperty *string \`json:"readonlyProperty" yaml:"readonlyProperty"\`
+	ReadonlyProperty *string \`field:"required" json:"readonlyProperty" yaml:"readonlyProperty"\`
 }
 
 type ExportedBaseClass interface {
@@ -7288,8 +7288,8 @@ func NewExportedBaseClass_Override(e ExportedBaseClass, success *bool) {
 }
 
 type ExtendsInternalInterface struct {
-	Boom *bool \`json:"boom" yaml:"boom"\`
-	Prop *string \`json:"prop" yaml:"prop"\`
+	Boom *bool \`field:"required" json:"boom" yaml:"boom"\`
+	Prop *string \`field:"required" json:"prop" yaml:"prop"\`
 }
 
 type ExternalClass interface {
@@ -7373,7 +7373,7 @@ const (
 )
 
 type ExternalStruct struct {
-	ReadonlyProperty *string \`json:"readonlyProperty" yaml:"readonlyProperty"\`
+	ReadonlyProperty *string \`field:"required" json:"readonlyProperty" yaml:"readonlyProperty"\`
 }
 
 type FullCombo interface {
@@ -7505,7 +7505,7 @@ func (g *jsiiProxy_GiveMeStructs) ReadFirstNumber(first *scopejsiicalclib.MyFirs
 // These are some arguments you can pass to a method.
 type Greetee struct {
 	// The name of the greetee.
-	Name *string \`json:"name" yaml:"name"\`
+	Name *string \`field:"optional" json:"name" yaml:"name"\`
 }
 
 type GreetingAugmenter interface {
@@ -8841,9 +8841,9 @@ func (j *jsiiProxy_ImplementsPrivateInterface) SetPrivate(val *string) {
 }
 
 type ImplictBaseOfBase struct {
-	Foo scopejsiicalcbaseofbase.Very \`json:"foo" yaml:"foo"\`
-	Bar *string \`json:"bar" yaml:"bar"\`
-	Goo *time.Time \`json:"goo" yaml:"goo"\`
+	Foo scopejsiicalcbaseofbase.Very \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"required" json:"bar" yaml:"bar"\`
+	Goo *time.Time \`field:"required" json:"goo" yaml:"goo"\`
 }
 
 type InbetweenClass interface {
@@ -10353,15 +10353,15 @@ func NewLevelOne_Override(l LevelOne, props *LevelOneProps) {
 }
 
 type LevelOne_PropBooleanValue struct {
-	Value *bool \`json:"value" yaml:"value"\`
+	Value *bool \`field:"required" json:"value" yaml:"value"\`
 }
 
 type LevelOne_PropProperty struct {
-	Prop *LevelOne_PropBooleanValue \`json:"prop" yaml:"prop"\`
+	Prop *LevelOne_PropBooleanValue \`field:"required" json:"prop" yaml:"prop"\`
 }
 
 type LevelOneProps struct {
-	Prop *LevelOne_PropProperty \`json:"prop" yaml:"prop"\`
+	Prop *LevelOne_PropProperty \`field:"required" json:"prop" yaml:"prop"\`
 }
 
 // jsii#298: show default values in sphinx documentation, and respect newlines.
@@ -10369,7 +10369,7 @@ type LoadBalancedFargateServiceProps struct {
 	// The container port of the application load balancer attached to your Fargate service.
 	//
 	// Corresponds to container port mapping.
-	ContainerPort *float64 \`json:"containerPort" yaml:"containerPort"\`
+	ContainerPort *float64 \`field:"optional" json:"containerPort" yaml:"containerPort"\`
 	// The number of cpu units used by the task.
 	//
 	// Valid values, which determines your range of valid values for the memory parameter:
@@ -10380,7 +10380,7 @@ type LoadBalancedFargateServiceProps struct {
 	// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
-	Cpu *string \`json:"cpu" yaml:"cpu"\`
+	Cpu *string \`field:"optional" json:"cpu" yaml:"cpu"\`
 	// The amount (in MiB) of memory used by the task.
 	//
 	// This field is required and you must use one of the following values, which determines your range of valid values
@@ -10397,11 +10397,11 @@ type LoadBalancedFargateServiceProps struct {
 	// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
-	MemoryMiB *string \`json:"memoryMiB" yaml:"memoryMiB"\`
+	MemoryMiB *string \`field:"optional" json:"memoryMiB" yaml:"memoryMiB"\`
 	// Determines whether the Application Load Balancer will be internet-facing.
-	PublicLoadBalancer *bool \`json:"publicLoadBalancer" yaml:"publicLoadBalancer"\`
+	PublicLoadBalancer *bool \`field:"optional" json:"publicLoadBalancer" yaml:"publicLoadBalancer"\`
 	// Determines whether your Fargate Service will be assigned a public IP address.
-	PublicTasks *bool \`json:"publicTasks" yaml:"publicTasks"\`
+	PublicTasks *bool \`field:"optional" json:"publicTasks" yaml:"publicTasks"\`
 }
 
 type MethodNamedProperty interface {
@@ -10789,7 +10789,7 @@ func NestedClassInstance_MakeInstance() customsubmodulename.NestingClass_NestedC
 
 type NestedStruct struct {
 	// When provided, must be > 0.
-	NumberProp *float64 \`json:"numberProp" yaml:"numberProp"\`
+	NumberProp *float64 \`field:"required" json:"numberProp" yaml:"numberProp"\`
 }
 
 // Test fixture to verify that jsii modules can use the node standard library.
@@ -10971,8 +10971,8 @@ func (n *jsiiProxy_NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
 }
 
 type NullShouldBeTreatedAsUndefinedData struct {
-	ArrayWithThreeElementsAndUndefinedAsSecondArgument *[]interface{} \`json:"arrayWithThreeElementsAndUndefinedAsSecondArgument" yaml:"arrayWithThreeElementsAndUndefinedAsSecondArgument"\`
-	ThisShouldBeUndefined interface{} \`json:"thisShouldBeUndefined" yaml:"thisShouldBeUndefined"\`
+	ArrayWithThreeElementsAndUndefinedAsSecondArgument *[]interface{} \`field:"required" json:"arrayWithThreeElementsAndUndefinedAsSecondArgument" yaml:"arrayWithThreeElementsAndUndefinedAsSecondArgument"\`
+	ThisShouldBeUndefined interface{} \`field:"optional" json:"thisShouldBeUndefined" yaml:"thisShouldBeUndefined"\`
 }
 
 // This allows us to test that a reference can be stored for objects that implement interfaces.
@@ -11311,7 +11311,7 @@ func NewOptionalConstructorArgument_Override(o OptionalConstructorArgument, arg1
 }
 
 type OptionalStruct struct {
-	Field *string \`json:"field" yaml:"field"\`
+	Field *string \`field:"optional" json:"field" yaml:"field"\`
 }
 
 type OptionalStructConsumer interface {
@@ -11520,7 +11520,7 @@ func (o *jsiiProxy_OverrideReturnsObject) Test(obj IReturnsNumber) *float64 {
 
 // https://github.com/aws/jsii/issues/982.
 type ParentStruct982 struct {
-	Foo *string \`json:"foo" yaml:"foo"\`
+	Foo *string \`field:"required" json:"foo" yaml:"foo"\`
 }
 
 type PartiallyInitializedThisConsumer interface {
@@ -12330,8 +12330,8 @@ func NewReturnsPrivateImplementationOfInterface_Override(r ReturnsPrivateImpleme
 // idiomatic" way for Pythonists.
 type RootStruct struct {
 	// May not be empty.
-	StringProp *string \`json:"stringProp" yaml:"stringProp"\`
-	NestedStruct *NestedStruct \`json:"nestedStruct" yaml:"nestedStruct"\`
+	StringProp *string \`field:"required" json:"stringProp" yaml:"stringProp"\`
+	NestedStruct *NestedStruct \`field:"optional" json:"nestedStruct" yaml:"nestedStruct"\`
 }
 
 type RootStructValidator interface {
@@ -12414,9 +12414,9 @@ func (r *jsiiProxy_RuntimeTypeChecking) MethodWithOptionalArguments(arg1 *float6
 
 type SecondLevelStruct struct {
 	// It's long and required.
-	DeeperRequiredProp *string \`json:"deeperRequiredProp" yaml:"deeperRequiredProp"\`
+	DeeperRequiredProp *string \`field:"required" json:"deeperRequiredProp" yaml:"deeperRequiredProp"\`
 	// It's long, but you'll almost never pass it.
-	DeeperOptionalProp *string \`json:"deeperOptionalProp" yaml:"deeperOptionalProp"\`
+	DeeperOptionalProp *string \`field:"optional" json:"deeperOptionalProp" yaml:"deeperOptionalProp"\`
 }
 
 // Test that a single instance can be returned under two different FQNs.
@@ -12551,8 +12551,8 @@ const (
 )
 
 type SmellyStruct struct {
-	Property *string \`json:"property" yaml:"property"\`
-	YetAnoterOne *bool \`json:"yetAnoterOne" yaml:"yetAnoterOne"\`
+	Property *string \`field:"required" json:"property" yaml:"property"\`
+	YetAnoterOne *bool \`field:"required" json:"yetAnoterOne" yaml:"yetAnoterOne"\`
 }
 
 type SomeTypeJsii976 interface {
@@ -12698,7 +12698,7 @@ const (
 )
 
 type StableStruct struct {
-	ReadonlyProperty *string \`json:"readonlyProperty" yaml:"readonlyProperty"\`
+	ReadonlyProperty *string \`field:"required" json:"readonlyProperty" yaml:"readonlyProperty"\`
 }
 
 // This is used to validate the ability to use \`this\` from within a static context.
@@ -13056,24 +13056,24 @@ func (j *jsiiProxy_StripInternal) SetYouSeeMe(val *string) {
 
 // We can serialize and deserialize structs without silently ignoring optional fields.
 type StructA struct {
-	RequiredString *string \`json:"requiredString" yaml:"requiredString"\`
-	OptionalNumber *float64 \`json:"optionalNumber" yaml:"optionalNumber"\`
-	OptionalString *string \`json:"optionalString" yaml:"optionalString"\`
+	RequiredString *string \`field:"required" json:"requiredString" yaml:"requiredString"\`
+	OptionalNumber *float64 \`field:"optional" json:"optionalNumber" yaml:"optionalNumber"\`
+	OptionalString *string \`field:"optional" json:"optionalString" yaml:"optionalString"\`
 }
 
 // This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
 type StructB struct {
-	RequiredString *string \`json:"requiredString" yaml:"requiredString"\`
-	OptionalBoolean *bool \`json:"optionalBoolean" yaml:"optionalBoolean"\`
-	OptionalStructA *StructA \`json:"optionalStructA" yaml:"optionalStructA"\`
+	RequiredString *string \`field:"required" json:"requiredString" yaml:"requiredString"\`
+	OptionalBoolean *bool \`field:"optional" json:"optionalBoolean" yaml:"optionalBoolean"\`
+	OptionalStructA *StructA \`field:"optional" json:"optionalStructA" yaml:"optionalStructA"\`
 }
 
 // Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
 //
 // See: https://github.com/aws/aws-cdk/issues/4302
 type StructParameterType struct {
-	Scope *string \`json:"scope" yaml:"scope"\`
-	Props *bool \`json:"props" yaml:"props"\`
+	Scope *string \`field:"required" json:"scope" yaml:"scope"\`
+	Props *bool \`field:"optional" json:"props" yaml:"props"\`
 }
 
 // Just because we can.
@@ -13184,16 +13184,16 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) *bool {
 
 type StructWithEnum struct {
 	// An enum value.
-	Foo StringEnum \`json:"foo" yaml:"foo"\`
+	Foo StringEnum \`field:"required" json:"foo" yaml:"foo"\`
 	// Optional enum value (of type integer).
-	Bar AllTypesEnum \`json:"bar" yaml:"bar"\`
+	Bar AllTypesEnum \`field:"optional" json:"bar" yaml:"bar"\`
 }
 
 type StructWithJavaReservedWords struct {
-	Default *string \`json:"default" yaml:"default"\`
-	Assert *string \`json:"assert" yaml:"assert"\`
-	Result *string \`json:"result" yaml:"result"\`
-	That *string \`json:"that" yaml:"that"\`
+	Default *string \`field:"required" json:"default" yaml:"default"\`
+	Assert *string \`field:"optional" json:"assert" yaml:"assert"\`
+	Result *string \`field:"optional" json:"result" yaml:"result"\`
+	That *string \`field:"optional" json:"that" yaml:"that"\`
 }
 
 // An operation that sums multiple values.
@@ -13462,11 +13462,11 @@ func NewSupportsNiceJavaBuilder_Override(s SupportsNiceJavaBuilder, id *float64,
 
 type SupportsNiceJavaBuilderProps struct {
 	// Some number, like 42.
-	Bar *float64 \`json:"bar" yaml:"bar"\`
+	Bar *float64 \`field:"required" json:"bar" yaml:"bar"\`
 	// An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
 	//
 	// But here we are, doing it like we didn't care.
-	Id *string \`json:"id" yaml:"id"\`
+	Id *string \`field:"optional" json:"id" yaml:"id"\`
 }
 
 // We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
@@ -13936,11 +13936,11 @@ func (t *jsiiProxy_Thrower) ThrowError() {
 
 type TopLevelStruct struct {
 	// This is a required field.
-	Required *string \`json:"required" yaml:"required"\`
+	Required *string \`field:"required" json:"required" yaml:"required"\`
 	// A union to really stress test our serialization.
-	SecondLevel interface{} \`json:"secondLevel" yaml:"secondLevel"\`
+	SecondLevel interface{} \`field:"required" json:"secondLevel" yaml:"secondLevel"\`
 	// You don't have to pass this.
-	Optional *string \`json:"optional" yaml:"optional"\`
+	Optional *string \`field:"optional" json:"optional" yaml:"optional"\`
 }
 
 // In TypeScript it is possible to have two methods with the same name but different capitalization.
@@ -14150,8 +14150,8 @@ func (u *jsiiProxy_UnaryOperation) TypeName() interface{} {
 }
 
 type UnionProperties struct {
-	Bar interface{} \`json:"bar" yaml:"bar"\`
-	Foo interface{} \`json:"foo" yaml:"foo"\`
+	Bar interface{} \`field:"required" json:"bar" yaml:"bar"\`
+	Foo interface{} \`field:"optional" json:"foo" yaml:"foo"\`
 }
 
 // Ensures submodule-imported types from dependencies can be used correctly.
@@ -17531,8 +17531,8 @@ import (
 )
 
 type MyStruct struct {
-	BaseMap *map[string]*jcb.BaseProps \`json:"baseMap" yaml:"baseMap"\`
-	Numbers *[]scopejsiicalclib.Number \`json:"numbers" yaml:"numbers"\`
+	BaseMap *map[string]*jcb.BaseProps \`field:"required" json:"baseMap" yaml:"baseMap"\`
+	Numbers *[]scopejsiicalclib.Number \`field:"required" json:"numbers" yaml:"numbers"\`
 }
 
 
@@ -17568,7 +17568,7 @@ package submodule1
 
 
 type Bar struct {
-	Bar1 *string \`json:"bar1" yaml:"bar1"\`
+	Bar1 *string \`field:"required" json:"bar1" yaml:"bar1"\`
 }
 
 
@@ -17597,13 +17597,13 @@ package submodule2
 
 
 type Bar struct {
-	Bar2 *string \`json:"bar2" yaml:"bar2"\`
+	Bar2 *string \`field:"required" json:"bar2" yaml:"bar2"\`
 }
 
 type Foo struct {
-	Bar2 *string \`json:"bar2" yaml:"bar2"\`
-	Bar1 *string \`json:"bar1" yaml:"bar1"\`
-	Foo2 *string \`json:"foo2" yaml:"foo2"\`
+	Bar2 *string \`field:"required" json:"bar2" yaml:"bar2"\`
+	Bar1 *string \`field:"required" json:"bar1" yaml:"bar1"\`
+	Foo2 *string \`field:"required" json:"foo2" yaml:"foo2"\`
 }
 
 
@@ -18903,7 +18903,7 @@ func (i *jsiiProxy_IInterfaceWithSelf) Method(self *float64) *string {
 }
 
 type StructWithSelf struct {
-	Self *string \`json:"self" yaml:"self"\`
+	Self *string \`field:"required" json:"self" yaml:"self"\`
 }
 
 
@@ -18966,7 +18966,7 @@ import (
 )
 
 type MyClassReference struct {
-	Reference submodule.MyClass \`json:"reference" yaml:"reference"\`
+	Reference submodule.MyClass \`field:"required" json:"reference" yaml:"reference"\`
 }
 
 
@@ -19060,8 +19060,8 @@ func InnerClass_StaticProp() *SomeStruct {
 }
 
 type KwargsProps struct {
-	Prop SomeEnum \`json:"prop" yaml:"prop"\`
-	Extra *string \`json:"extra" yaml:"extra"\`
+	Prop SomeEnum \`field:"required" json:"prop" yaml:"prop"\`
+	Extra *string \`field:"optional" json:"extra" yaml:"extra"\`
 }
 
 // Checks that classes can self-reference during initialization.
@@ -19118,11 +19118,11 @@ const (
 )
 
 type SomeStruct struct {
-	Prop SomeEnum \`json:"prop" yaml:"prop"\`
+	Prop SomeEnum \`field:"required" json:"prop" yaml:"prop"\`
 }
 
 type Structure struct {
-	Bool *bool \`json:"bool" yaml:"bool"\`
+	Bool *bool \`field:"required" json:"bool" yaml:"bool"\`
 }
 
 
@@ -19403,7 +19403,7 @@ package param
 
 
 type SpecialParameter struct {
-	Value *string \`json:"value" yaml:"value"\`
+	Value *string \`field:"required" json:"value" yaml:"value"\`
 }
 
 
@@ -19528,7 +19528,7 @@ import (
 // See: https://github.com/aws/jsii/issues/2637
 //
 type Default struct {
-	Foo *float64 \`json:"foo" yaml:"foo"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
 }
 
 type MyClass interface {
