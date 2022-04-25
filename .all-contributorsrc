@@ -1366,6 +1366,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "nathannaveen",
+      "name": "nathannaveen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42319948?v=4",
+      "profile": "https://github.com/nathannaveen",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "repoType": "github",
