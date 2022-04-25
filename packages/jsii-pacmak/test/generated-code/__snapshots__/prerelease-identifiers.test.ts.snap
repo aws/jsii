@@ -416,7 +416,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
+requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -452,7 +452,7 @@ kwargs = json.loads(
             "foo@1.2.3.jsii.tgz"
         ]
     },
-    "python_requires": ">=3.6",
+    "python_requires": "~=3.7",
     "install_requires": [
         "bar>=2.0.0.rc42, <3.0.0",
         "jsii>=1337.42.1337, <1338.0.0",
@@ -463,10 +463,10 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Typing :: Typed"
     ],
     "scripts": []
@@ -925,7 +925,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
+requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -961,7 +961,7 @@ kwargs = json.loads(
             "foo@1.2.3.jsii.tgz"
         ]
     },
-    "python_requires": ">=3.6",
+    "python_requires": "~=3.7",
     "install_requires": [
         "bar>=4.5.6.dev1337, <5.0.0",
         "jsii>=1337.42.1337, <1338.0.0",
@@ -972,10 +972,10 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Typing :: Typed"
     ],
     "scripts": []
@@ -1414,7 +1414,7 @@ foo
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
+requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1450,7 +1450,7 @@ kwargs = json.loads(
             "foo@2.0.0-rc.42.jsii.tgz"
         ]
     },
-    "python_requires": ">=3.6",
+    "python_requires": "~=3.7",
     "install_requires": [
         "jsii>=1337.42.1337, <1338.0.0",
         "publication>=0.0.3"
@@ -1460,10 +1460,10 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Typing :: Typed"
     ],
     "scripts": []
@@ -1900,7 +1900,7 @@ foo
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
+requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1936,7 +1936,7 @@ kwargs = json.loads(
             "foo@4.5.6-pre.1337.jsii.tgz"
         ]
     },
-    "python_requires": ">=3.6",
+    "python_requires": "~=3.7",
     "install_requires": [
         "jsii>=1337.42.1337, <1338.0.0",
         "publication>=0.0.3"
@@ -1946,10 +1946,10 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Typing :: Typed"
     ],
     "scripts": []
