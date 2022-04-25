@@ -72,7 +72,7 @@ describe(Compiler, () => {
         onWatchClosed = ok;
         onWatchFailed = ko;
       });
-      const watch = compiler.watch({
+      const watch = await compiler.watch({
         nonBlocking: true,
         // Ignore diagnostics reporting (not to pollute test console output)
         reportDiagnostics: () => null,

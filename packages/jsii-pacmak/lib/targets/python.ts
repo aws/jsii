@@ -64,7 +64,11 @@ export default class Python extends Target {
       venv,
       process.platform === 'win32' ? 'Scripts' : 'bin',
     );
-    await shell('python3', [
+    // On Windows, there is usually no python3.exe (the GitHub action workers will have a python3
+    // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
+    // fail to copy the python binary if it's not invoked as python.exe). More on this particular
+    // issue can be read here: https://bugs.python.org/issue43749
+    await shell(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
@@ -1637,7 +1641,21 @@ class PythonModule implements PythonType {
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
-    const exportedMembers = this.members.map((m) => `"${m.pythonName}"`);
+    //
+    // __all__ is normally used for when users write `from library import *`, but we also
+    // use it with the `publication` module to hide everything that's NOT in the list.
+    //
+    // Normally adding submodules to `__all__` has the (negative?) side-effect
+    // that all submodules get loaded when the user does `import *`, but we
+    // already load submodules anyway so it doesn't make a difference, and in combination
+    // with the `publication` module NOT having them in this list hides any submodules
+    // we import as part of typechecking.
+    const exportedMembers = [
+      ...this.members.map((m) => `"${m.pythonName}"`),
+      ...this.modules
+        .filter((m) => this.isDirectChild(m))
+        .map((m) => `"${lastComponent(m.pythonName)}"`),
+    ];
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
@@ -1745,6 +1763,19 @@ class PythonModule implements PythonType {
       }
     }
     return scripts;
+  }
+
+  private isDirectChild(pyMod: PythonModule) {
+    if (
+      this.pythonName === pyMod.pythonName ||
+      !pyMod.pythonName.startsWith(`${this.pythonName}.`)
+    ) {
+      return false;
+    }
+    // Must include only one more component
+    return !pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .includes('.');
   }
 
   /**
@@ -1973,7 +2004,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '>=3.6',
+      python_requires: '~=3.7',
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
@@ -1985,10 +2016,10 @@ class Package {
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Typing :: Typed',
       ],
       scripts,
@@ -3114,3 +3145,11 @@ function nestedContext(
 }
 
 const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;
+
+/**
+ * Last component of a .-separated name
+ */
+function lastComponent(n: string) {
+  const parts = n.split('.');
+  return parts[parts.length - 1];
+}

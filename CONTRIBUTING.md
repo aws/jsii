@@ -45,7 +45,7 @@ in your development environment.
   + [`maven >= 3.0.5`](https://maven.apache.org)
 - [.NET Core `3.1`] or later
   + *Recommended:* [`mono >= 5`](https://www.mono-project.com)
-- [Python `3.6.5`] or later
+- [Python `3.7.3`] or later
   + [`pip`](https://pip.pypa.io/en/stable/installing/)
   + [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
   + [`wheel`](https://pypi.org/project/wheel/)
@@ -56,7 +56,7 @@ in your development environment.
 [Oracle's OpenJDK8]: http://openjdk.java.net/install/
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
 [.NET Core `3.1`]: https://www.microsoft.com/net/download
-[Python `3.6.5`]: https://www.python.org/downloads/release/python-365/
+[Python `3.7.3`]: https://www.python.org/downloads/release/python-373/
 
 ## Getting Started
 ### Bootstrapping

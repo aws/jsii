@@ -32,11 +32,11 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: '1.16'
       - name: Set up Java 8
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
           distribution: 'zulu'
@@ -45,10 +45,10 @@ jobs:
         with:
           cache: yarn
           node-version: '12'
-      - name: Set up Python 3.6
+      - name: Set up Python 3.7
         uses: actions/setup-python@v3
         with:
-          python-version: '3.6'
+          python-version: '3.7'
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Locate Caches
@@ -69,9 +69,9 @@ jobs:
             !~/.m2/repository/software/amazon/jsii/
             ~/.nuget/packages
             !~/.nuget/packages/amazon.jsii.*
-          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
+          key: ${{ runner.os }}-node@12-python@3.7-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
           restore-keys: |-
-            ${{ runner.os }}-node@12-python@3.6-
+            ${{ runner.os }}-node@12-python@3.7-
             ${{ runner.os }}-node@12-
             ${{ runner.os }}-
       # Prepare dependencies and build
@@ -93,7 +93,7 @@ jobs:
             .
       # Upload artifact (we'll tar it up to save time)
       - name: 'Upload Artifact: built-tree'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: built-tree
           path: ${{ runner.temp }}/built-tree.tgz
@@ -126,11 +126,11 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - name: Set up Go 1.16
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: '1.16'
       - name: Set up Java 8
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
           distribution: 'zulu'
@@ -139,10 +139,10 @@ jobs:
         with:
           cache: yarn
           node-version: '12'
-      - name: Set up Python 3.6
+      - name: Set up Python 3.7
         uses: actions/setup-python@v3
         with:
-          python-version: '3.6'
+          python-version: '3.7'
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Locate Caches
@@ -163,9 +163,9 @@ jobs:
             !~/.m2/repository/software/amazon/jsii/
             ~/.nuget/packages
             !~/.nuget/packages/amazon.jsii.*
-          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
+          key: ${{ runner.os }}-node@12-python@3.7-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
           restore-keys: |-
-            ${{ runner.os }}-node@12-python@3.6-
+            ${{ runner.os }}-node@12-python@3.7-
             ${{ runner.os }}-node@12-
             ${{ runner.os }}-
       # Prepare dependencies and build
@@ -198,7 +198,7 @@ jobs:
           yarn package
       # Upload artifacts
       - name: 'Upload Artifact: release-package'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: release-package
           path: ${{ github.workspace }}/dist/
@@ -215,7 +215,7 @@ jobs:
         java: ['8']
         node: ['12', '14', '16', '17']
         os: [ubuntu-latest]
-        python: ['3.6']
+        python: ['3.7']
         # Add specific combinations to be tested against "node 12" (to restrict cardinality)
         include:
           # Test using Windows
@@ -224,41 +224,35 @@ jobs:
             go: '1.16'
             java: '8'
             node: '12'
-            python: '3.6'
+            python: '3.7'
           # Test using macOS
           - os: macos-latest
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
             node: '12'
-            python: '3.6'
+            python: '3.7'
           # Test alternate .NETs
           - java: '8'
             dotnet: '5.0.x'
             go: '1.16'
             node: '12'
             os: ubuntu-latest
-            python: '3.6'
+            python: '3.7'
           - java: '8'
             dotnet: '6.0.x'
             go: '1.16'
             node: '12'
             os: ubuntu-latest
-            python: '3.6'
+            python: '3.7'
           # Test alternate Javas
           - java: '11'
             dotnet: '3.1.x'
             go: '1.16'
             node: '12'
             os: ubuntu-latest
-            python: '3.6'
+            python: '3.7'
           # Test alternate Pythons
-          - python: '3.7'
-            dotnet: '3.1.x'
-            go: '1.16'
-            java: '8'
-            node: '12'
-            os: ubuntu-latest
           - python: '3.8'
             dotnet: '3.1.x'
             go: '1.16'
@@ -271,13 +265,19 @@ jobs:
             java: '8'
             node: '12'
             os: ubuntu-latest
+          - python: '3.10'
+            dotnet: '3.1.x'
+            go: '1.16'
+            java: '8'
+            node: '12'
+            os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
     steps:
       # Check out the code
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: built-tree
       - name: Extract Artifact
@@ -294,11 +294,11 @@ jobs:
           dotnet-version: ${{ matrix.dotnet }}
           include-prerelease: ${{ matrix.dotnet-prerelease }}
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go }}
       - name: Set up Java ${{ matrix.java }}
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
           distribution: 'zulu'
