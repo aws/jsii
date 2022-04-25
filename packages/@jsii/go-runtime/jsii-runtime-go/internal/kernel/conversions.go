@@ -199,6 +199,11 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 					},
 				}
 			}
+		} else if dataVal.Elem().Kind() == reflect.Ptr {
+			// Typically happens when a struct pointer is passed into an interface{}
+			// typed API (such as a place where a union is accepted).
+			elemVal := dataVal.Elem()
+			return c.CastPtrToRef(elemVal)
 		}
 
 		if ref, err := c.ManageObject(dataVal); err != nil {
