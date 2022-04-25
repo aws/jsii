@@ -3,7 +3,6 @@ package kernel
 import (
 	"fmt"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
@@ -180,10 +179,8 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 				for _, field := range fields {
 					fieldVal := elemVal.FieldByIndex(field.Index)
 					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
-						tag := string(field.Tag)
-						// If the field is tagged as "required", then we'll panic immediately if the value is `nil`. The `required`
-						// tag does not have a value (so Lookup won't find it), but is always first or only tag in the list.
-						if tag == "required" || strings.HasPrefix(tag, "required ") {
+						// If there is the "field" tag, and it's "required", then panic since the value is nil.
+						if requiredOrOptional, found := field.Tag.Lookup("field"); found && requiredOrOptional == "required" {
 							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", field.Type, field.Name))
 						}
 						continue

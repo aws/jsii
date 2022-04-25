@@ -94,7 +94,7 @@ export class GoProperty implements GoTypeMember {
 
     // Adds json and yaml tags for easy deserialization
     code.line(
-      `${this.name} ${memberType} \`${requiredOrOptional} json:"${this.property.name}" yaml:"${this.property.name}"\``,
+      `${this.name} ${memberType} \`field:"${requiredOrOptional}" json:"${this.property.name}" yaml:"${this.property.name}"\``,
     );
     // TODO add newline if not the last member
   }

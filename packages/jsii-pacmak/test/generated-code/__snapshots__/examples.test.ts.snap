@@ -421,9 +421,9 @@ import (
 )
 
 type Baz struct {
-	Foo *float64 \`required json:"foo" yaml:"foo"\`
-	Bar *string \`optional json:"bar" yaml:"bar"\`
-	Baz *bool \`required json:"baz" yaml:"baz"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
+	Baz *bool \`field:"required" json:"baz" yaml:"baz"\`
 }
 
 type Consumer interface {
@@ -445,12 +445,12 @@ func Consumer_ConsumeBaz(baz *Baz) {
 }
 
 type Foo struct {
-	Foo *float64 \`required json:"foo" yaml:"foo"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
 }
 
 type FooBar struct {
-	Foo *float64 \`required json:"foo" yaml:"foo"\`
-	Bar *string \`optional json:"bar" yaml:"bar"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
 }
 
 
@@ -1796,7 +1796,7 @@ func (n *jsiiProxy_Namespace1) Foo() {
 }
 
 type Namespace1_Foo struct {
-	Bar *string \`required json:"bar" yaml:"bar"\`
+	Bar *string \`field:"required" json:"bar" yaml:"bar"\`
 }
 
 type Namespace1_IBar interface {
