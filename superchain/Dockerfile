@@ -24,6 +24,10 @@ FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:10 as bindist
 ARG BUILDPLATFORM
 ARG TARGETPLATFORM
 
+# Setting defaults for backwards compatibility with "docker build" (see https://github.com/docker/buildx/issues/510)
+ENV BUILDPLATFORM=${BUILDPLATFORM:-linux/amd64}                                                                         \
+  TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
+
 # We require a couple of tools to be available in order to work here...
 RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sources.list.d/buster-backports.list       \
   && apt-get update                                                                                                     \
@@ -84,6 +88,10 @@ FROM public.ecr.aws/debian/debian:10-slim as staging
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
 ARG TARGETPLATFORM
+
+# Setting defaults for backwards compatibility with "docker build" (see https://github.com/docker/buildx/issues/510)
+ENV BUILDPLATFORM=${BUILDPLATFORM:-linux/amd64}                                                                         \
+  TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 
 SHELL ["/bin/bash", "-c"]
 
