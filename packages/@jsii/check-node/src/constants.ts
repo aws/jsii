@@ -123,8 +123,8 @@ export class NodeRelease {
    */
   public readonly supported: boolean;
 
-  /** @internal */
-  constructor(
+  /** @internal visible for testing */
+  public constructor(
     majorVersion: number,
     opts: {
       endOfLife: Date | true;
