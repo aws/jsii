@@ -117,7 +117,14 @@ export class NodeRelease {
    */
   public readonly supportedRange: Range;
 
-  private constructor(
+  /**
+   * Determines whether this major version line is currently "in support",
+   * meaning it is not end-of-life nor pending.
+   */
+  public readonly supported: boolean;
+
+  /** @internal */
+  constructor(
     majorVersion: number,
     opts: {
       endOfLife: Date | true;
@@ -135,17 +142,12 @@ export class NodeRelease {
     this.endOfLife =
       opts.endOfLife === true || opts.endOfLife.getTime() <= Date.now();
     this.deprecated =
+      !this.endOfLife &&
       opts.endOfLife !== true &&
       opts.endOfLife.getTime() - NodeRelease.DEPRECATION_WINDOW_MS <=
         Date.now();
-  }
 
-  /**
-   * Determines whether this major version line is currently "in support",
-   * meaning it is not end-of-life, deprecated or pending.
-   */
-  public get supported(): boolean {
-    return !this.pending && !this.deprecated && !this.endOfLife;
+    this.supported = !this.pending && !this.endOfLife;
   }
 
   public toString(): string {

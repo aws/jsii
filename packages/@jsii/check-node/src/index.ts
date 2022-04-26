@@ -58,7 +58,12 @@ export function checkNode(): void {
             (r.endOfLifeDate?.getTime() ?? 0) -
             (l.endOfLifeDate?.getTime() ?? 0),
         )
-        .map((release) => `- ${release.toString()}`),
+        .map(
+          (release) =>
+            `- ${release.toString()}${
+              release.deprecated ? ' [DEPRECATED]' : ''
+            }`,
+        ),
     ];
     const len = Math.max(...lines.map((l) => l.length));
     const border = chalk('!'.repeat(len + 8));
