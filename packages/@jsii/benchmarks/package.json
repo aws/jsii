@@ -17,7 +17,7 @@
     "typescript": "~3.9.10"
   },
   "scripts": {
-    "build": "tsc --build && lint",
+    "build": "tsc --build && npm lint",
     "watch": "tsc -w",
     "bench": "node index.js",
     "lint": "eslint . --ext .ts --ignore-path=.gitignore",
