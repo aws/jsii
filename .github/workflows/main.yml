@@ -392,6 +392,7 @@ jobs:
       - name: Store Benchmark Results
         uses: benchmark-action/github-action-benchmark@v1
         with:
+          name: JSII Compiler Benchmark
           tool: 'benchmarkjs'
           output-file-path: packages/jsii/output.txt
           comment-always: true

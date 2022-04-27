@@ -73,7 +73,7 @@ jobs:
           git config user.email "aws-cdk+automation@amazon.com"
       - name: Prepare Commit
         run: |-
-          rsync --delete --exclude=.git --recursive ${{ runner.temp }}/site/ ./
+          rsync --delete --exclude=.git --exclude=dev --recursive ${{ runner.temp }}/site/ ./
           touch .nojekyll
           git add .
           git diff --cached --exit-code >/dev/null || (
@@ -82,35 +82,3 @@ jobs:
       - name: Push
         run: |-
           git push origin gh-pages:gh-pages
-  benchmark:
-    name: Benchmark
-    needs: publish
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          cache: yarn
-          node-version: '16'
-      - name: Install Dependencies
-        run: |-
-          yarn install --frozen-lockfile
-          yarn build
-      - name: Run Benchmark
-        run: |-
-          cd packages/jsii
-          yarn bench | tee output.txt
-      - name: Store benchmark result
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: JSII Compiler Benchmark
-          tool: 'benchmarkjs'
-          output-file-path: packages/jsii/output.txt
-          # Access token to deploy GitHub Pages branch
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Push and deploy GitHub pages branch automatically
-          auto-push: true
