@@ -395,6 +395,7 @@ jobs:
           tool: 'benchmarkjs'
           output-file-path: packages/jsii/output.txt
           comment-always: true
+          comment-on-alert: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true
           auto-push: false
