@@ -26,7 +26,7 @@ export function checkNode(): void {
       bgRed.white.bold,
       `Node ${version} is unsupported and has known compatibility issues with this software.`,
     );
-  } else if (!nodeRelease || nodeRelease.pending) {
+  } else if (!nodeRelease || nodeRelease.untested) {
     veryVisibleMessage(
       bgYellow.black,
       `This software has not been tested with node ${version}.`,

@@ -8,7 +8,7 @@ test('supported release', () => {
     deprecated: false,
     endOfLife: false,
     endOfLifeDate: endOfLife,
-    pending: false,
+    untested: false,
     supported: true,
     supportedRange: expect.objectContaining({ raw: '^42.0.0' }),
   });
@@ -25,21 +25,21 @@ test('supported release with range', () => {
     deprecated: false,
     endOfLife: false,
     endOfLifeDate: endOfLife,
-    pending: false,
+    untested: false,
     supported: true,
     supportedRange: expect.objectContaining({ raw: '^42.1337.0' }),
   });
 });
 
-test('pending release', () => {
+test('untested release', () => {
   const endOfLife = new Date(Date.now() + 31 * 86_400_000);
-  const subject = new NodeRelease(42, { endOfLife, pending: true });
+  const subject = new NodeRelease(42, { endOfLife, untested: true });
 
   expect(subject).toMatchObject({
     deprecated: false,
     endOfLife: false,
     endOfLifeDate: endOfLife,
-    pending: true,
+    untested: true,
     supported: false,
     supportedRange: expect.objectContaining({ raw: '^42.0.0' }),
   });
@@ -53,7 +53,7 @@ test('deprecated release', () => {
     deprecated: true,
     endOfLife: false,
     endOfLifeDate: endOfLife,
-    pending: false,
+    untested: false,
     supported: true,
     supportedRange: expect.objectContaining({ raw: '^42.0.0' }),
   });
@@ -67,7 +67,7 @@ test('EOL release', () => {
     deprecated: false,
     endOfLife: true,
     endOfLifeDate: endOfLife,
-    pending: false,
+    untested: false,
     supported: false,
     supportedRange: expect.objectContaining({ raw: '^42.0.0' }),
   });
