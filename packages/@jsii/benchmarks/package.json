@@ -1,0 +1,24 @@
+{
+  "name": "@jsii/benchmarks",
+  "version": "0.0.0",
+  "private": true,
+  "description": "JSII benchmarks",
+  "main": "index.js",
+  "dependencies": {
+    "benchmark": "^2.1.4",
+    "fs-extra": "^10.0.1",
+    "jsii": "^0.0.0",
+    "microtime": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/benchmark": "^2.1.1"
+  },
+  "scripts": {
+    "build": "tsc --build && lint",
+    "watch": "tsc -w",
+    "bench": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

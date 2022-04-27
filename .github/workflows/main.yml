@@ -361,7 +361,7 @@ jobs:
             && test -z "${untracked}"
         shell: bash
   benchmark:
-    name: Run compiler benchmark suite
+    name: Run benchmark suite
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -389,14 +389,15 @@ jobs:
           yarn install --frozen-lockfile
       - name: Run Benchmark
         run: |-
-          cd packages/jsii
+          cd packages/@jsii/benchmarks
           yarn bench | tee output.txt
       - name: Store Benchmark Results
         uses: benchmark-action/github-action-benchmark@v1
         with:
-          name: JSII Compiler Benchmark
+          name: JSII Benchmark
           tool: 'benchmarkjs'
-          output-file-path: packages/jsii/output.txt
+          output-file-path: packages/@jsii/benchmarks/output.txt
           comment-always: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true
+          auto-push: true
