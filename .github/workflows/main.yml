@@ -360,3 +360,49 @@ jobs:
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
         shell: bash
+
+  benchmark:
+    name: Run compiler benchmark suite
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # Check out the code
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: built-tree
+      - name: Extract Artifact
+        run: |-
+          echo "::group::Untar Archive"
+          tar zxvf built-tree.tgz
+          echo "::endgroup"
+
+          rm built-tree.tgz
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: '16'
+      - name: Install Dependencies
+        run: |-
+          yarn install --frozen-lockfile
+      - name: Run Benchmark
+        run: |-
+          cd packages/jsii
+          yarn bench | tee output.txt
+      - name: Download previous benchmark data
+        uses: actions/cache@v1
+        with:
+          path: ./cache
+          key: ${{ runner.os }}-benchmark
+      - name: Store Benchmark Results
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          # What benchmark tool the output.txt came from
+          tool: 'benchmarkjs'
+          # Where the output from the benchmark tool is stored
+          output-file-path: output.txt
+          # Where the previous data file is stored
+          external-data-json-path: ./cache/benchmark-data.json
+          # Workflow will fail when an alert happens
+          fail-on-alert: true

@@ -32,6 +32,7 @@
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
+    "bench": "node test/benchmark.js",
     "package": "package-js"
   },
   "dependencies": {
@@ -50,17 +51,20 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
+    "@types/benchmark": "^2.1.1",
     "@types/clone": "^2.1.1",
     "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.4.1",
     "@types/node": "^12.20.48",
     "@types/semver": "^7.3.9",
+    "benchmark": "^2.1.4",
     "clone": "^2.1.2",
     "eslint": "^8.13.0",
     "jest": "^27.5.1",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
+    "microtime": "^3.0.0",
     "prettier": "^2.6.2",
     "ts-jest": "^27.1.4"
   }
