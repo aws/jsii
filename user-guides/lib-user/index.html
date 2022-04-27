@@ -1211,37 +1211,41 @@
 <p>Regardless of which language or platform your application is developed in, using <em>jsii modules</em> requires a compatible
 <code>node</code> runtime to be available in <code>$PATH</code>(see <a href="../../overview/runtime-architecture/">Runtime Architecture</a>). Current <code>node</code> runtime versions support status is
 as follows:</p>
+<div class="admonition info">
+<p class="admonition-title">The following node releases are part of our test matrix:</p>
 <table>
 <thead>
 <tr>
 <th>Release</th>
 <th>Status</th>
+<th>End-of-Life</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;12.7.0</code></td>
-<td><img alt="❌" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/274c.svg" title=":x:" /> Defunct</td>
-</tr>
-<tr>
 <td><code>^12.7.0</code></td>
 <td><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</td>
+<td><code>2022-04-30</code></td>
 </tr>
 <tr>
-<td><code>^13.0.0</code></td>
-<td><img alt="❌" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/274c.svg" title=":x:" /> Defunct</td>
-</tr>
-<tr>
-<td><code>^14.0.0</code></td>
+<td><code>^14.5.0</code></td>
 <td><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</td>
+<td><code>2023-04-30</code></td>
 </tr>
 <tr>
-<td><code>^15.0.0</code></td>
-<td><img alt="❌" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/274c.svg" title=":x:" /> Defunct</td>
-</tr>
-<tr>
-<td><code>^16.0.0</code></td>
+<td><code>^16.3.0</code></td>
 <td><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</td>
+<td><code>2024-04-30</code></td>
+</tr>
+<tr>
+<td><code>^17.3.0</code></td>
+<td><img alt="🧪" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f9ea.svg" title=":test_tube:" /> Best effort</td>
+<td><code>2022-06-01</code></td>
+</tr>
+<tr>
+<td><code>^18.0.0</code></td>
+<td><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</td>
+<td><code>2025-04-30</code></td>
 </tr>
 </tbody>
 </table>
@@ -1251,22 +1255,24 @@ as follows:</p>
 <li><strong><img alt="✅" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2705.svg" title=":white_check_mark:" /> Supported</strong>: Long Term Support (LTS) releases  (those with an even major version) are
   supported and bugs specific to those releases are addressed with the highest priority. Every <code>jsii</code> release is
   automatically tested against those releases.</li>
-<li><strong><img alt="🧪" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f9ea.svg" title=":test_tube:" /> Best effort</strong>: Development releases (those with an odd major version) are supported on a best-effort
-  basis. No automated testing is performed against those releases.</li>
-<li><strong><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> Unsupported</strong>: End-of-Life releases are not supported. Bugs affecting those may not be fixed, and
-  users are strongly advised to migrate to more recent releases.</li>
-<li><strong><img alt="❌" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/274c.svg" title=":x:" /> Defunct</strong>: Very old releases (these have been End-of-Live for a while now) are unlikely to work at all.</li>
+<li><strong><img alt="🧪" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f9ea.svg" title=":test_tube:" /> Best effort</strong>: Development releases (those with an odd major version) are supported on a
+  best-effort basis. Some of these releases may include breaking changes or bugs that may cause runtime errors
+  that we may not be able to fix.</li>
 </ul>
+</details>
+<p>Releases not in the matrix might work, but are not guaranteed to: they can be considered to fall under the
+<strong><img alt="🧪" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f9ea.svg" title=":test_tube:" /> Best Effort</strong> umbrella, unless they are end-of-life. Releases past end-of-life are unlikely to work,
+or may stop working with any future release.</p>
 <p>The <a href="https://nodejs.org/en/about/releases/">node releases schedule</a> provides up-to-date information on the current status of all active
 releases, and indicates the timelines for support (including planned End-of-Life dates for each).</p>
-</details>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2022-04-25
+      2022-04-27
     
   </small>
 </div>
