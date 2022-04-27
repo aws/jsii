@@ -42,7 +42,7 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/jest": "^27.4.1",
-    "@types/node": "^12.20.48",
+    "@types/node": "^12.20.50",
     "jest": "^27.5.1"
   }
 }
