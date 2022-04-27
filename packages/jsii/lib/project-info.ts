@@ -21,7 +21,7 @@ export interface TSCompilerOptions {
 
 export interface ProjectInfo {
   readonly projectRoot: string;
-  readonly packageJson: any;
+  readonly packageJson: Record<string, any>;
 
   readonly name: string;
   readonly version: string;
@@ -66,7 +66,6 @@ export interface ProjectInfoResult {
 
 export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
   const packageJsonPath = path.join(projectRoot, 'package.json');
-  // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
   const pkg = fs.readJsonSync(packageJsonPath);
 
   const diagnostics: ts.Diagnostic[] = [];

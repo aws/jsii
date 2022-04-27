@@ -1,9 +1,12 @@
 import * as Case from 'case';
 import * as chalk from 'chalk';
+import { main as downlevelDts } from 'downlevel-dts';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
+import * as semver from 'semver';
 import * as ts from 'typescript';
+import { isDeepStrictEqual } from 'util';
 
 import { Assembler } from './assembler';
 import { Emitter } from './emitter';
@@ -37,6 +40,21 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   stripInternal: false,
   target: ts.ScriptTarget.ES2019,
 };
+
+/**
+ * Which versions of the TypeScript compiler should be supported (a set of downleveled declarations
+ * files will be emitted for each of these versions). The list does not need to contain every
+ * TypeScript release that existed, as only milestone releases that include breaking changes on the
+ * declarations files need to be considered for down-leveling.
+ *
+ * The list should only contain `major.minor` specifiers, and must be kept sorted in ascending order
+ * as the order in this list determines the order of entries in `typesVersions` in package.json,
+ * which affects the actual resolution.
+ */
+const DOWNLEVEL_TYPESCRIPT_VERSIONS = [
+  '3.9', // The earliest version of TypeScript suppored before we started to follow TS versions
+  '4.6', // The first version if TypeScript we started following TS versions from
+] as const;
 
 const LOG = log4js.getLogger('jsii/compiler');
 export const DIAGNOSTICS = 'diagnostics';
@@ -314,11 +332,86 @@ export class Compiler implements Emitter {
       }
     }
 
+    if (!hasErrors) {
+      this.emitNecessaryDownlevelledDeclarations();
+    }
+
     return {
       emitSkipped: hasErrors,
       diagnostics: ts.sortAndDeduplicateDiagnostics(diagnostics),
       emittedFiles: emit.emittedFiles,
     };
+  }
+
+  /**
+   * Emits down-levelled declarations to ensure compatibility with previous versions of the
+   * compiler. This is necessary to ensure not all customers need to upgrade at the same time.
+   */
+  private emitNecessaryDownlevelledDeclarations() {
+    const projectRoot = this.options.projectInfo.projectRoot;
+    const compatRoot = path.join(
+      this.options.projectInfo.tsc?.outDir
+        ? path.resolve(projectRoot, this.options.projectInfo.tsc.outDir)
+        : projectRoot,
+      'types_compat',
+    );
+
+    const typesVersions: {
+      [range: string]: { [pathPattern: string]: string[] };
+    } = this.options.projectInfo.packageJson.typesVersions ?? {};
+
+    let updatePackageJson = false;
+    const compilerVersion = semver.coerce(ts.versionMajorMinor)!;
+    for (const tsVersion of DOWNLEVEL_TYPESCRIPT_VERSIONS) {
+      const targetVersion = semver.coerce(tsVersion)!;
+      const typesVersionsKey = `<=${tsVersion}`;
+      // Only need to down-level if current compiler is strictly newer than target.
+      if (compilerVersion.compare(targetVersion) <= 0) {
+        if (typesVersionsKey in typesVersions) {
+          // Remove unnecessary down-level declarations...
+          delete typesVersions[typesVersionsKey];
+          updatePackageJson = true;
+        }
+        continue;
+      }
+
+      const versionDir = path.join(compatRoot, `ts${tsVersion}`);
+      downlevelDts(projectRoot, versionDir, targetVersion);
+      const typesVersionsMap = {
+        '*': [path.join(path.relative(projectRoot, versionDir), '*')],
+      };
+
+      // We need to emit an updated package.json if we modified typesVersions.
+      if (
+        !isDeepStrictEqual(typesVersions[typesVersionsKey], typesVersionsMap)
+      ) {
+        typesVersions[typesVersionsKey] = typesVersionsMap;
+        updatePackageJson = true;
+      }
+    }
+
+    if (updatePackageJson) {
+      const packageJsonPath = path.join(projectRoot, 'package.json');
+      console.log(
+        `Writing package.json file with updated typesVersions field at ${packageJsonPath}...`,
+      );
+
+      const packageJson: any = {};
+      for (const [key, value] of Object.entries(
+        this.options.projectInfo.packageJson ?? {},
+      ).filter(([key]) => key !== 'typesVersions')) {
+        packageJson[key] = value;
+        if (key === 'types' && Object.keys(typesVersions).length > 0) {
+          packageJson.typesVersions = typesVersions;
+        }
+      }
+
+      fs.writeFileSync(
+        packageJsonPath,
+        `${JSON.stringify(packageJson, null, 2)}\n`,
+        'utf-8',
+      );
+    }
   }
 
   /**

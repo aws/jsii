@@ -153,7 +153,7 @@ describe(Compiler, () => {
 function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
   return {
     projectRoot: sourceDir,
-    packageJson: undefined,
+    packageJson: {},
     types,
     main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
     name: 'jsii', // That's what package.json would tell if we look up...

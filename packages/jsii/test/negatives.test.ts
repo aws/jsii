@@ -92,7 +92,7 @@ function _makeProjectInfo(types: string): ProjectInfo {
   const outDir = '.build';
   return {
     projectRoot: SOURCE_DIR,
-    packageJson: undefined,
+    packageJson: {},
     types: path.join(outDir, types.replace(/\.d\.ts(x?)/, '.d.ts$1')),
     main: path.join(outDir, types.replace(/(?:\.d)?\.ts(x?)/, '.js$1')),
     name: 'jsii', // That's what package.json would tell if we look up...
