@@ -11,12 +11,17 @@
     "microtime": "^3.0.0"
   },
   "devDependencies": {
-    "@types/benchmark": "^2.1.1"
+    "@types/benchmark": "^2.1.1",
+    "eslint": "^8.13.0",
+    "prettier": "^2.6.2",
+    "typescript": "~3.9.10"
   },
   "scripts": {
     "build": "tsc --build && lint",
     "watch": "tsc -w",
-    "bench": "node index.js"
+    "bench": "node index.js",
+    "lint": "eslint . --ext .ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix"
   },
   "keywords": [],
   "author": "",

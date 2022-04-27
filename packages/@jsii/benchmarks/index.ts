@@ -1,12 +1,11 @@
 import * as Benchmark from 'benchmark';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
+import { Compiler } from 'jsii/lib/compiler';
+import { loadProjectInfo } from 'jsii/lib/project-info';
 import * as os from 'os';
 import * as path from 'path';
 import { promisify } from 'util';
-
-import { Compiler } from 'jsii/lib/compiler';
-import { loadProjectInfo } from 'jsii/lib/project-info';
 
 // Always run against the same version of CDK source
 const CDK_TAG = 'v2.21.1';
