@@ -391,13 +391,22 @@ jobs:
         run: |-
           cd packages/@jsii/benchmarks
           yarn bench | tee output.txt
-      - name: Store Benchmark Results
+      - name: Compare Benchmark Results
+        if: github.event_name == 'pull_request'
         uses: benchmark-action/github-action-benchmark@v1
         with:
-          name: JSII Benchmark
+          name: JSII Benchmark Regression
           tool: 'benchmarkjs'
           output-file-path: packages/@jsii/benchmarks/output.txt
           comment-always: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true
           auto-push: false
+      - name: Upload Benchmark Results
+        if: github.event_name == 'push'
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: JSII Benchmark
+          tool: 'benchmarkjs'
+          output-file-path: packages/@jsii/benchmarks/output.txt
+          github-token: ${{ secrets.GITHUB_TOKEN }}
