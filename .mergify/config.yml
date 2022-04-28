@@ -12,6 +12,7 @@ queue_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
@@ -62,6 +63,7 @@ pull_request_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
@@ -112,6 +114,7 @@ pull_request_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
@@ -162,6 +165,7 @@ pull_request_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$

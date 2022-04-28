@@ -215,7 +215,12 @@ jobs:
         dotnet: ['3.1.x']
         go: ['1.16']
         java: ['8']
-        node: ['12', '14', '16', '17']
+        node:
+          - '12' # EOL 2022-04-30
+          - '14' # EOL 2023-04-30
+          - '16' # EOL 2024-04-30
+          - '17' # EOL 2022-06-01
+          - '18' # EOL 2025-04-30
         os: [ubuntu-latest]
         python: ['3.7']
         # Add specific combinations to be tested against "node 12" (to restrict cardinality)
