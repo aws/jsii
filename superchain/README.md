@@ -34,6 +34,7 @@ jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
   - `12` corresponds to node 12.x, this is the default
   - `14` corresponds to node 14.x
   - `16` corresponds to node 16.x
+  - `18` corresponds to node 18.x
 - `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
   repository and should typically not be used for production workloads
 
@@ -55,6 +56,7 @@ We build multiple versions of this image, for different versions of Node. They a
 * `jsii/superchain:1-buster-slim-node12(-nightly)`
 * `jsii/superchain:1-buster-slim-node14(-nightly)`
 * `jsii/superchain:1-buster-slim-node16(-nightly)`
+* `jsii/superchain:1-buster-slim-node18(-nightly)`
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:

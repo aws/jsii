@@ -17,7 +17,7 @@
     "directory": "packages/@jsii/check-node"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 12.7.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
