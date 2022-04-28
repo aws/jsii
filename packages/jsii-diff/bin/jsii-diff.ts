@@ -22,7 +22,7 @@ import { VERSION } from '../lib/version';
 const LOG = log4js.getLogger('jsii-diff');
 
 async function main(): Promise<number> {
-  const argv = yargs
+  const argv = await yargs
     .env('JSII_DIFF')
     .option('verbose', {
       alias: 'v',
