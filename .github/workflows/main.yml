@@ -406,7 +406,6 @@ jobs:
           comment-always: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true
-          auto-push: false
       - name: Upload Benchmark Results
         if: github.event_name == 'push'
         uses: benchmark-action/github-action-benchmark@v1
@@ -415,3 +414,4 @@ jobs:
           tool: 'benchmarkjs'
           output-file-path: packages/@jsii/benchmarks/output.txt
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
