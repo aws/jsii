@@ -388,21 +388,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: yarn
-          node-version: '16'
+          node-version: '14'
       - name: Install Dependencies
-        run: |-
-          yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
       - name: Run Benchmark
-        run: |-
-          cd packages/@jsii/benchmarks
-          yarn bench | tee output.txt
+        working-directory: packages/@jsii/benchmarks
+        run: yarn bench | tee ${{ runner.temp }}/bench-output.txt
       - name: Compare Benchmark Results
         if: github.event_name == 'pull_request'
         uses: benchmark-action/github-action-benchmark@v1
         with:
           name: JSII Benchmark Regression
           tool: 'benchmarkjs'
-          output-file-path: packages/@jsii/benchmarks/output.txt
+          output-file-path: ${{ runner.temp }}/bench-output.txt
           comment-always: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true
@@ -412,6 +410,6 @@ jobs:
         with:
           name: JSII Benchmark
           tool: 'benchmarkjs'
-          output-file-path: packages/@jsii/benchmarks/output.txt
+          output-file-path: ${{ runner.temp }}/bench-output.txt
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
