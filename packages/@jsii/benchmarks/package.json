@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@types/benchmark": "^2.1.1",
+    "@types/microtime": "^2.1.0",
     "eslint": "^8.13.0",
     "prettier": "^2.6.2",
     "typescript": "~3.9.10"
@@ -24,6 +25,6 @@
     "lint:fix": "yarn lint --fix"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Amazon Web Services, Inc.",
+  "license": "Apache-2.0"
 }
