@@ -5,24 +5,31 @@
   "description": "JSII benchmarks",
   "main": "index.js",
   "dependencies": {
-    "benchmark": "^2.1.4",
     "fs-extra": "^10.0.1",
     "jsii": "^0.0.0",
-    "microtime": "^3.0.0"
+    "microtime": "^3.0.0",
+    "yargs": "^17.4.1"
   },
   "devDependencies": {
-    "@types/benchmark": "^2.1.1",
+    "@types/glob": "^7.2.0",
     "@types/microtime": "^2.1.0",
+    "@types/yargs": "^17.0.10",
     "eslint": "^8.13.0",
+    "glob": "^8.0.1",
+    "jsii-calc": "^3.20.120",
     "prettier": "^2.6.2",
     "typescript": "~3.9.10"
   },
   "scripts": {
     "build": "tsc --build && npm run lint",
     "watch": "tsc -w",
-    "bench": "node index.js",
+    "bench": "node bin/benchmark.js",
+    "snapshot": "node scripts/snapshot-package.js",
     "lint": "eslint . --ext .ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix"
+  },
+  "bin": {
+    "benchmark": "node bin/benchmark.js"
   },
   "keywords": [],
   "author": "Amazon Web Services, Inc.",
