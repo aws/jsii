@@ -30,13 +30,13 @@ interface ResultsJson {
       const result = await benchmark.run();
       const iterations = result.iterations.map((i) => i.duration);
       console.log(
-        `${result.name} averaged ${result.average} seconds over ${result.iterations.length} runs`,
+        `${result.name} averaged ${result.average} milliseconds over ${result.iterations.length} runs`,
       );
       return [
         ...prev,
         {
           name: result.name,
-          unit: 'seconds',
+          unit: 'milliseconds',
           value: result.average,
           range: Math.max(...iterations) - Math.min(...iterations),
         },
