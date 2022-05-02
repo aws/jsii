@@ -1,6 +1,5 @@
 import * as yargs from 'yargs';
 import * as fs from 'fs-extra';
-import * as path from 'path';
 import { benchmarks } from '../lib';
 import { Benchmark } from '../lib/benchmark';
 
@@ -40,7 +39,7 @@ interface ResultsJson {
   }, []);
 
   if (argv.output) {
-    fs.writeFileSync(path.join(process.cwd(), argv.output), JSON.stringify(resultsJson));
+    fs.writeFileSync(argv.output, JSON.stringify(resultsJson, undefined, 2));
   }
 })().catch((e) => {
   console.error(`Error: ${e.stack}`);
