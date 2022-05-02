@@ -883,7 +883,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
     ┗━ 📁 scopejsiicalclib
        ┣━ 📁 customsubmodulename
        ┃  ┣━ 📄 customsubmodulename.go
-       ┃  ┗━ 📄 customsubmodulename.init.go
+       ┃  ┣━ 📄 customsubmodulename.init.go
+       ┃  ┗━ 📄 README.md
        ┣━ 📄 go.mod
        ┣━ 📁 internal
        ┃  ┗━ 📄 types.go
@@ -1105,6 +1106,13 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/NOTICE 1`] = `
 jsii
 Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/README.md 1`] = `
+# Submodule Readme
+
+This is a submodule readme.
 
 `;
 
@@ -2050,7 +2058,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┃  ┗━ 📄 types.go
        ┃  ┣━ 📁 isolated
        ┃  ┃  ┣━ 📄 isolated.go
-       ┃  ┃  ┗━ 📄 isolated.init.go
+       ┃  ┃  ┣━ 📄 isolated.init.go
+       ┃  ┃  ┗━ 📄 README.md
        ┃  ┣━ 📁 nestedsubmodule
        ┃  ┃  ┣━ 📁 deeplynested
        ┃  ┃  ┃  ┣━ 📄 deeplynested.go
@@ -2062,6 +2071,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📁 param
        ┃  ┃  ┣━ 📄 param.go
        ┃  ┃  ┗━ 📄 param.init.go
+       ┃  ┣━ 📄 README.md
        ┃  ┣━ 📁 returnsparam
        ┃  ┃  ┣━ 📄 returnsparam.go
        ┃  ┃  ┗━ 📄 returnsparam.init.go
@@ -2290,24 +2300,22 @@ This library is used to demonstrate and test the features of JSII
 
 First, create a calculator:
 
-\`\`\`ts
-const calculator = new calc.Calculator();
+\`\`\`go
+calculator := calc.NewCalculator()
 \`\`\`
 
 Then call some operations:
 
-
-\`\`\`ts fixture=with-calculator
-calculator.add(10);
+\`\`\`go
+calculator.add(jsii.Number(10))
 \`\`\`
 
 ## Code Samples
 
-\`\`\`ts
+\`\`\`go
 /* This is totes a magic comment in here, just you wait! */
-const foo = 'bar';
+foo := "bar"
 \`\`\`
-
 
 `;
 
@@ -18958,6 +18966,13 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/README.md 1`] = `
+# Read you, read me
+
+This is the readme of the \`jsii-calc.submodule\` module.
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/backreferences/backreferences.go 1`] = `
 package backreferences
 
@@ -19201,6 +19216,13 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/nestedsubmodule/deeplynested"
 )
 type Type__deeplynestedINamespaced = deeplynested.INamespaced
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/README.md 1`] = `
+# Read you, read me
+
+This is the readme of the \`jsii-calc.submodule.isolated\` module.
 
 `;
 
