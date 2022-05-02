@@ -74,7 +74,6 @@ function snapshotAwsCdk(tag: string, directory: string) {
   fs.removeSync(repoDir);
 }
 
-
 function main() {
   snapshotAwsCdk(cdkTagv2_21_1, cdkDirv2_21_1);
 }

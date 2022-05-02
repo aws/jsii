@@ -35,6 +35,4 @@ const cdk = new Benchmark('Compile aws-cdk-lib@v2.21.1')
     fs.removeSync(workingDir);
   });
 
-export const benchmarks = [
-  cdk,
-];
+export const benchmarks = [cdk];
