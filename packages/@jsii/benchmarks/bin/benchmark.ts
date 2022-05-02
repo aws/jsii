@@ -8,11 +8,12 @@ interface ResultsJson {
   name: string;
   unit: string;
   value: number;
+  range: number;
 }
 
 (() => {
   const argv = yargs
-    .command('$0', 'Compiles a jsii/TypeScript project', (argv) =>
+    .command('$0', 'Runs jsii benchmark tests and displays results', (argv) =>
       argv.option('output', {
         type: 'string',
         desc: 'location of benchmark results json file, does not output to file if not specified.',
@@ -23,8 +24,9 @@ interface ResultsJson {
   const resultsJson: ResultsJson[] = benchmarks.reduce(
     (accum: ResultsJson[], benchmark: Benchmark<any>) => {
       const result = benchmark.run();
+      const iterations = result.iterations.map((i) => i.elapsed);
       console.log(
-        `${result.name} averaged ${result.average} over ${result.iterations.length} runs`,
+        `${result.name} averaged ${result.average} seconds over ${result.iterations.length} runs`,
       );
 
       return [
@@ -33,6 +35,7 @@ interface ResultsJson {
           name: result.name,
           unit: 'seconds',
           value: result.average,
+          range: Math.max(...iterations) - Math.min(...iterations),
         },
       ];
     },
