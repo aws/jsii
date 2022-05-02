@@ -37,9 +37,6 @@ function snapshotAwsCdk(tag: string, directory: string) {
   );
   artifacts.forEach(fs.removeSync);
 
-  // Replace .gitignore as it will conflict with jsii repo and we want to include node_modules
-  fs.writeFileSync(path.join(pkgDir, '.gitignore'), '!node_modules\n');
-
   // Remove @aws-cdk/* deps from package.json so we can npm install to get hoisted dependencies
   // into local node_modules
   const packageJsonPath = path.resolve(pkgDir, 'package.json');
@@ -68,8 +65,9 @@ function snapshotAwsCdk(tag: string, directory: string) {
   fs.removeSync(directory);
   fs.copySync(pkgDir, directory);
 
-  // Run npm install to get all dependencies in local node_modules
-  cp.execSync(`npm install --package-lock false`, { cwd: directory });
+  // Run npm install to get package-lock.json for reproducible dependency tree
+  cp.execSync(`npm install`, { cwd: directory });
+  fs.removeSync(path.resolve(directory, 'node_modules'));
 
   fs.removeSync(repoDir);
 }

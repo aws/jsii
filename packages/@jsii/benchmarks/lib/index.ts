@@ -1,4 +1,4 @@
-// import * as cp from 'child_process';
+import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import { Compiler } from 'jsii/lib/compiler';
 import { loadProjectInfo } from 'jsii/lib/project-info';
@@ -11,6 +11,8 @@ import { cdkDirv2_21_1 } from './constants';
 // Always run against the same version of CDK source
 const cdk = new Benchmark('Compile aws-cdk-lib@v2.21.1')
   .setup(() => {
+    const sourceDir = cdkDirv2_21_1;
+    cp.execSync('npm ci', { cwd: sourceDir });
     // Working directory for benchmark
     const workingDir = fs.mkdtempSync(
       path.join(os.tmpdir(), 'jsii-cdk-bench@v2.21.1'),
@@ -18,7 +20,7 @@ const cdk = new Benchmark('Compile aws-cdk-lib@v2.21.1')
 
     return {
       workingDir,
-      sourceDir: cdkDirv2_21_1,
+      sourceDir,
     };
   })
   .beforeEach(({ workingDir, sourceDir }) => {
