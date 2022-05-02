@@ -7,12 +7,10 @@
   "dependencies": {
     "fs-extra": "^10.0.1",
     "jsii": "^0.0.0",
-    "microtime": "^3.0.0",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
-    "@types/microtime": "^2.1.0",
     "eslint": "^8.13.0",
     "glob": "^8.0.1",
     "jsii-calc": "^3.20.120",

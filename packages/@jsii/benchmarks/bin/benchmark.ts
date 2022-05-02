@@ -11,7 +11,7 @@ interface ResultsJson {
   range: number;
 }
 
-(() => {
+(async () => {
   const argv = yargs
     .command('$0', 'Runs jsii benchmark tests and displays results', (argv) =>
       argv.option('output', {
@@ -21,16 +21,19 @@ interface ResultsJson {
     )
     .help().argv;
 
-  const resultsJson: ResultsJson[] = benchmarks.reduce(
-    (accum: ResultsJson[], benchmark: Benchmark<any>) => {
-      const result = benchmark.run();
-      const iterations = result.iterations.map((i) => i.elapsed);
+  const resultsJson: ResultsJson[] = await benchmarks.reduce(
+    async (
+      accum: Promise<ResultsJson[]>,
+      benchmark: Benchmark<any>,
+    ): Promise<ResultsJson[]> => {
+      const prev = await accum;
+      const result = await benchmark.run();
+      const iterations = result.iterations.map((i) => i.duration);
       console.log(
         `${result.name} averaged ${result.average} seconds over ${result.iterations.length} runs`,
       );
-
       return [
-        ...accum,
+        ...prev,
         {
           name: result.name,
           unit: 'seconds',
@@ -39,11 +42,20 @@ interface ResultsJson {
         },
       ];
     },
-    [],
+    Promise.resolve([]),
   );
 
   if (argv.output) {
     fs.writeFileSync(argv.output, JSON.stringify(resultsJson, undefined, 2));
     console.log(`results written to ${argv.output}`);
   }
-})();
+
+  return resultsJson;
+})()
+  .then((results) => {
+    console.log(`successfully completed ${results.length} benchmarks`);
+  })
+  .catch((e) => {
+    console.error(`Error: ${e.stack}`);
+    process.exitCode = -1;
+  });

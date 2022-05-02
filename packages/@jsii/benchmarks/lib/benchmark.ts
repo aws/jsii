@@ -1,18 +1,14 @@
-import * as mt from 'microtime';
-
-interface IterationResult {
-  elapsed: number;
-}
+import { performance, PerformanceObserver, PerformanceEntry } from 'perf_hooks';
 
 interface Result {
   name: string;
   average: number;
-  iterations: IterationResult[];
+  iterations: PerformanceEntry[];
 }
 
 export class Benchmark<C> {
   private readonly _iterations = 5;
-  private readonly _results: IterationResult[] = [];
+  private _results: PerformanceEntry[] = [];
 
   public constructor(private readonly name: string) {}
 
@@ -47,28 +43,32 @@ export class Benchmark<C> {
     return this;
   }
 
-  public run(): Result {
-    const c = this._setup?.();
-    for (let i = 0; i < this._iterations; i++) {
-      this._beforeEach(c);
-      const start = mt.nowDouble();
-      this._subject(c);
-      const end = mt.nowDouble();
-      this._afterEach(c);
+  public async run(): Promise<Result> {
+    return new Promise((ok) => {
+      const wrapped = performance.timerify(this._subject);
+      const obs = new PerformanceObserver((list, observer) => {
+        this._results = list.getEntries();
+        performance.clearMarks();
+        observer.disconnect();
 
-      this._results.push({
-        elapsed: end - start,
+        return ok({
+          name: this.name,
+          average:
+            this._results.reduce((accum, { duration }) => accum + duration, 0) /
+            this._results.length,
+          iterations: this._results,
+        });
       });
-    }
+      obs.observe({ entryTypes: ['function'] });
 
-    this._teardown(c);
+      const c = this._setup?.();
+      for (let i = 0; i < this._iterations; i++) {
+        this._beforeEach(c);
+        wrapped(c);
+        this._afterEach(c);
+      }
 
-    return {
-      name: this.name,
-      average:
-        this._results.reduce((accum, { elapsed }) => accum + elapsed, 0) /
-        this._results.length,
-      iterations: this._results,
-    };
+      this._teardown(c);
+    });
   }
 }
