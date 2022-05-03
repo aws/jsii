@@ -4,11 +4,35 @@ import * as yargs from 'yargs';
 import { benchmarks } from '../lib';
 import { Benchmark } from '../lib/benchmark';
 
+/**
+ * Format of benchmark output used by continous benchmarking action.
+ * See [documentation](https://github.com/benchmark-action/github-action-benchmark/blob/master/README.md) for details
+ */
 interface ResultsJson {
+  /**
+   * The name of the benchmark
+   */
   name: string;
+
+  /**
+   * The unit of measure, usually seconds
+   */
   unit: string;
+
+  /**
+   * The result of the measurement, usually an average over x iterations
+   */
   value: number;
+
+  /**
+   * The variance of all runs
+   */
   range: number;
+
+  /**
+   * Extra information about the benchmark, displayed in a tooltip
+   */
+  extra: string;
 }
 
 (async () => {
@@ -21,6 +45,7 @@ interface ResultsJson {
     )
     .help().argv;
 
+  // Run list of benchmarks in sequence
   const resultsJson: ResultsJson[] = await benchmarks.reduce(
     async (
       accum: Promise<ResultsJson[]>,
@@ -29,9 +54,8 @@ interface ResultsJson {
       const prev = await accum;
       const result = await benchmark.run();
       const iterations = result.iterations.map((i) => i.duration);
-      console.log(
-        `${result.name} averaged ${result.average} milliseconds over ${result.iterations.length} runs`,
-      );
+      const extra = `${result.name} averaged ${result.average} milliseconds over ${result.iterations.length} runs`;
+      console.log(extra);
       return [
         ...prev,
         {
@@ -39,6 +63,7 @@ interface ResultsJson {
           unit: 'milliseconds',
           value: result.average,
           range: Math.max(...iterations) - Math.min(...iterations),
+          extra,
         },
       ];
     },

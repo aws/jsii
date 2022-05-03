@@ -4,7 +4,6 @@ import { Compiler } from 'jsii/lib/compiler';
 import { loadProjectInfo } from 'jsii/lib/project-info';
 import * as os from 'os';
 import * as path from 'path';
-import * as tar from 'tar';
 
 import { Benchmark } from './benchmark';
 import { cdkv2_21_1 } from './constants';
@@ -15,11 +14,7 @@ const cdk = new Benchmark('Compile aws-cdk-lib@v2.21.1')
     const sourceDir = fs.mkdtempSync(
       path.join(os.tmpdir(), 'jsii-cdk-bench-snapshot'),
     );
-    tar.x({
-      file: cdkv2_21_1,
-      cwd: sourceDir,
-      sync: true,
-    });
+    cp.execSync(`tar xf ${cdkv2_21_1}`, { cwd: sourceDir });
     cp.execSync('npm ci', { cwd: sourceDir });
     // Working directory for benchmark
     const workingDir = fs.mkdtempSync(
