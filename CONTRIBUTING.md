@@ -61,14 +61,15 @@ in your development environment.
 ## Getting Started
 ### Bootstrapping
 
-The project is managed as a [monorepo] using [lerna].
+The project is managed as a [monorepo] using [yarn] and [turborepo].
 
 [monorepo]: https://github.com/babel/babel/blob/main/doc/design/monorepo.md
-[lerna]: https://github.com/lerna/lerna
+[yarn]: https://classic.yarnpkg.com/en/
+[turborepo]: https://turborepo.org
 
 1. Check out this respository and change directory to its root.
-2. Run `yarn install && yarn build` to install lerna, bootstrap the repository
-   and perform an initial build and test cycle.
+2. Run `yarn install && yarn test` to install the necessary dependencies,
+   bootstrap the repository and perform an initial build and test cycle.
 
 ### Development Workflow
 
@@ -84,7 +85,7 @@ All packages within this repository have the following scripts:
 - `lint:fix` - lint and auto-correct formatting issues when possible
 
 Each one of these scripts can be executed either from the root of the repo using
-`npx lerna run <script> --scope <package>` or from individual modules using
+`npx turbo run <script> --filter <package>` or from individual modules using
 `yarn <script>`.
 
 #### Linting & Formatting

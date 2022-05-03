@@ -4,7 +4,6 @@
   "include": [],
   "references": [
     { "path": "packages/codemaker" },
-    { "path": "packages/jsii-calc" },
     { "path": "packages/jsii-config" },
     { "path": "packages/jsii-diff" },
     { "path": "packages/jsii-pacmak" },
@@ -15,13 +14,13 @@
     { "path": "packages/@jsii/check-node" },
     { "path": "packages/@jsii/dotnet-runtime-test" },
     { "path": "packages/@jsii/dotnet-runtime" },
+    { "path": "packages/@jsii/go-runtime" },
+    { "path": "packages/@jsii/go-runtime-test" },
     { "path": "packages/@jsii/integ-test" },
     { "path": "packages/@jsii/java-runtime" },
     { "path": "packages/@jsii/kernel" },
     { "path": "packages/@jsii/runtime" },
     { "path": "packages/@jsii/spec" },
-    { "path": "packages/@scope/jsii-calc-base-of-base" },
-    { "path": "packages/@scope/jsii-calc-base" },
-    { "path": "packages/@scope/jsii-calc-lib" }
+    { "path": "tools/jsii-compliance" }
   ]
 }

@@ -1,17 +1,17 @@
 {
   "private": true,
   "license": "Apache-2.0",
-  "version": "0.0.0",
+  "version": "1.57.0",
   "scripts": {
-    "build": "lerna run build --stream --sort --concurrency=1",
-    "lint": "lerna run lint --stream --sort",
-    "lint:fix": "lerna run lint:fix --stream --sort",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "bump": "bash scripts/bump.sh",
-    "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
+    "dist-clean": "turbo run dist-clean && rm -rf dist",
     "package": "bash scripts/package.sh",
-    "test": "lerna run test --concurrency=1 --stream && yarn compliance",
-    "test:integ": "lerna run test:integ --stream",
-    "test:update": "lerna run test:update --concurrency=1 --stream",
+    "test": "turbo run test --concurrency=1 && yarn compliance",
+    "test:integ": "turbo run test:integ --concurrency=1",
+    "test:update": "turbo run test:update --concurrency=1 && yarn compliance",
     "compliance": "(cd tools/jsii-compliance && yarn report)"
   },
   "devDependencies": {
@@ -27,12 +27,13 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest-circus": "^27.5.1",
     "jest-config": "^27.5.1",
-    "lerna": "^4.0.0",
     "prettier": "^2.6.2",
     "standard-version": "^9.3.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
-    "typescript": "~3.9.10"
+    "turbo": "^1.2.6",
+    "typescript": "~3.9.10",
+    "wsrun": "^5.2.4"
   },
   "repository": {
     "type": "git",
@@ -49,5 +50,6 @@
       "**/@fixtures/jsii-calc-bundled",
       "**/@fixtures/jsii-calc-bundled/**"
     ]
-  }
+  },
+  "packageManager": "yarn@1.22.18"
 }

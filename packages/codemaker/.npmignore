@@ -7,3 +7,8 @@ coverage
 .eslintrc.*
 tsconfig.json
 *.tsbuildinfo
+
+# Test files
+test/
+*.test.d.ts
+*.test.js

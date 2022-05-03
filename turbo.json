@@ -1,0 +1,116 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "baseBranch": "origin/main",
+  "globalDependencies": [
+    ".prettierrc.yaml",
+    "eslint-config.yaml",
+    "jest.config.ts",
+    "tsconfig-base.json"
+  ],
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "bin/**/*.js",
+        "lib/**/*.d.ts",
+        "lib/**/*.js",
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "@jsii/spec#build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "lib/**/*.d.ts",
+        "lib/**/*.js",
+        "tsconfig.tsbuildinfo",
+        "schema/**"
+      ]
+    },
+    "@jsii/runtime#build": {
+      "outputs": [
+        "lib/**/*.d.ts",
+        "lib/**/*.js",
+        "tsconfig.tsbuildinfo",
+        "webpack/**"
+      ]
+    },
+    "@jsii/dotnet-runtime#build": {
+      "outputs": [
+        "bin/**",
+        "lib/**/*.d.ts",
+        "lib/**/*.js",
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "@jsii/go-runtime#build": {
+      "outputs": [
+        "jsii-runtime-go/**",
+        "lib/**/*.d.ts",
+        "lib/**/*.js",
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "@jsii/java-runtime#build": {
+      "outputs": [
+        "lib/**/*.d.ts",
+        "lib/**/*.js",
+        "maven-repo/**",
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "@jsii/python-runtime#build": {
+      "outputs": [
+        "src/**"
+      ]
+    },
+    "@jsii/runtime#test": {
+      "dependsOn": [
+        "@jsii/kernel#test"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": [
+        "coverage/**"
+      ]
+    },
+    "test:integ": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": false
+    },
+    "test:update": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": []
+    },
+    "lint:fix": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": false
+    },
+    "package": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    }
+  }
+}
