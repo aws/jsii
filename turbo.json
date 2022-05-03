@@ -13,9 +13,8 @@
         "^build"
       ],
       "outputs": [
-        "bin/**/*.js",
-        "lib/**/*.d.ts",
-        "lib/**/*.js",
+        "**/*.d.ts",
+        "**/*.js",
         "tsconfig.tsbuildinfo"
       ]
     },
@@ -24,8 +23,8 @@
         "^build"
       ],
       "outputs": [
-        "lib/**/*.d.ts",
-        "lib/**/*.js",
+        "**/*.d.ts",
+        "**/*.js",
         "tsconfig.tsbuildinfo",
         "schema/**"
       ]
@@ -35,10 +34,10 @@
         "^build"
       ],
       "outputs": [
-        "lib/**/*.d.ts",
-        "lib/**/*.js",
-        "tsconfig.tsbuildinfo",
-        "webpack/**"
+        "**/*.d.ts",
+        "**/*.js",
+        "**/*.map",
+        "tsconfig.tsbuildinfo"
       ]
     },
     "@jsii/dotnet-runtime#build": {
@@ -46,9 +45,9 @@
         "^build"
       ],
       "outputs": [
+        "**/*.d.ts",
+        "**/*.js",
         "bin/**",
-        "lib/**/*.d.ts",
-        "lib/**/*.js",
         "tsconfig.tsbuildinfo"
       ]
     },
@@ -57,9 +56,9 @@
         "^build"
       ],
       "outputs": [
+        "**/*.d.ts",
+        "**/*.js",
         "jsii-runtime-go/**",
-        "lib/**/*.d.ts",
-        "lib/**/*.js",
         "tsconfig.tsbuildinfo"
       ]
     },
@@ -68,8 +67,8 @@
         "^build"
       ],
       "outputs": [
-        "lib/**/*.d.ts",
-        "lib/**/*.js",
+        "**/*.d.ts",
+        "**/*.js",
         "maven-repo/**",
         "tsconfig.tsbuildinfo"
       ]
