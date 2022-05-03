@@ -31,6 +31,9 @@
       ]
     },
     "@jsii/runtime#build": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "lib/**/*.d.ts",
         "lib/**/*.js",
@@ -39,6 +42,9 @@
       ]
     },
     "@jsii/dotnet-runtime#build": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "bin/**",
         "lib/**/*.d.ts",
@@ -47,6 +53,9 @@
       ]
     },
     "@jsii/go-runtime#build": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "jsii-runtime-go/**",
         "lib/**/*.d.ts",
@@ -55,6 +64,9 @@
       ]
     },
     "@jsii/java-runtime#build": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "lib/**/*.d.ts",
         "lib/**/*.js",
@@ -63,6 +75,9 @@
       ]
     },
     "@jsii/python-runtime#build": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "src/**"
       ]
