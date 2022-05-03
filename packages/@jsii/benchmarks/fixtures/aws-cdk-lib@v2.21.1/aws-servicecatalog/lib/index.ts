@@ -1,1 +1,0 @@
-export * from './servicecatalog.generated';
