@@ -10,7 +10,7 @@ const repoVersion = require('./get-version');
 const exclude = [
   'jsii-calc',
   '@scope/jsii-calc-base-of-base'
-]
+];
 
 for (const file of process.argv.splice(2)) {
   const pkg = JSON.parse(fs.readFileSync(file).toString());
@@ -21,7 +21,7 @@ for (const file of process.argv.splice(2)) {
   }
 
   // jsii-calc have special versions to test golang major version suffix
-  if (!exclude.includes(pkg.name)) {
+  if (pkg.name != null && !exclude.includes(pkg.name)) {
     if (pkg.version !== marker) {
       throw new Error(`unexpected - all package.json files in this repo should have a version of ${marker}: ${file}`);
     }
@@ -29,16 +29,16 @@ for (const file of process.argv.splice(2)) {
     pkg.version = repoVersion;
   }
 
-  processSection(pkg.dependencies || { }, file);
-  processSection(pkg.devDependencies || { }, file);
-  processSection(pkg.peerDependencies || { }, file);
+  processSection(pkg.dependencies || {}, file);
+  processSection(pkg.devDependencies || {}, file);
+  processSection(pkg.peerDependencies || {}, file);
 
   console.error(`${file} => ${repoVersion}`);
   fs.writeFileSync(file, JSON.stringify(pkg, undefined, 2));
 }
 
 function processSection(section, file) {
-  for (const [ name, version ] of Object.entries(section)) {
+  for (const [name, version] of Object.entries(section)) {
     if (version === marker || version === '^' + marker) {
       section[name] = version.replace(marker, repoVersion);
     }
