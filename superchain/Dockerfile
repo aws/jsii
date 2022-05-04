@@ -199,10 +199,10 @@ COPY superchain/m2-settings.xml /root/.m2/settings.xml
 # Install Go
 COPY --from=bindist /opt/golang/go ${GOROOT}
 
-# Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
+# Install Node 12+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
-ARG NODE_MAJOR_VERSION="12"
+ARG NODE_MAJOR_VERSION="14"
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \
