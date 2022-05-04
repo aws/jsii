@@ -44,9 +44,9 @@
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^12.20.48",
-    "eslint": "^8.13.0",
+    "@types/jest": "^27.5.0",
+    "@types/node": "^12.20.50",
+    "eslint": "^8.14.0",
     "jest": "^27.5.1",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
