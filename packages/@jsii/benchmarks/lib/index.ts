@@ -7,15 +7,17 @@ import * as path from 'path';
 
 import { Benchmark } from './benchmark';
 import { cdkv2_21_1, cdkTagv2_21_1 } from './constants';
+import { streamUntar } from './util';
 
 // Always run against the same version of CDK source
 const cdk = new Benchmark(`Compile aws-cdk-lib@${cdkTagv2_21_1}`)
-  .setup(() => {
+  .setup(async () => {
     const sourceDir = fs.mkdtempSync(
       path.join(os.tmpdir(), 'jsii-cdk-bench-snapshot'),
     );
-    cp.execSync(`tar xf ${cdkv2_21_1}`, { cwd: sourceDir });
+    await streamUntar(cdkv2_21_1, { cwd: sourceDir });
     cp.execSync('npm ci', { cwd: sourceDir });
+
     // Working directory for benchmark
     const workingDir = fs.mkdtempSync(
       path.join(os.tmpdir(), `jsii-cdk-bench@${cdkTagv2_21_1}`),

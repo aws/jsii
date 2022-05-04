@@ -57,7 +57,7 @@ export class Benchmark<C> {
   #results: PerformanceEntry[] = [];
 
   public constructor(private readonly name: string) {}
-  #setup: () => C = () => ({} as C);
+  #setup: () => C | Promise<C> = () => ({} as C);
   #subject: (ctx: C) => void = () => undefined;
   #beforeEach: (ctx: C) => void = () => undefined;
   #afterEach: (ctx: C) => void = () => undefined;
@@ -67,7 +67,7 @@ export class Benchmark<C> {
    * Create a setup function to be run once before the benchmark, optionally
    * return a context object to be used across runs and lifecycle functions.
    */
-  public setup<T extends C>(fn: () => T) {
+  public setup<T extends C>(fn: () => T | Promise<T>) {
     this.#setup = fn;
     return this as unknown as Benchmark<T>;
   }
@@ -119,6 +119,7 @@ export class Benchmark<C> {
    * Run and measure the benchmark
    */
   public async run(): Promise<Result> {
+    const c = await this.#setup?.();
     return new Promise((ok) => {
       const wrapped = performance.timerify(this.#subject);
       const obs = new PerformanceObserver((list, observer) => {
@@ -143,7 +144,6 @@ export class Benchmark<C> {
       });
       obs.observe({ entryTypes: ['function'] });
 
-      const c = this.#setup?.();
       try {
         for (let i = 0; i < this.#iterations; i++) {
           this.#beforeEach(c);
