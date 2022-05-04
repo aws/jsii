@@ -73,7 +73,7 @@ jobs:
           git config user.email "aws-cdk+automation@amazon.com"
       - name: Prepare Commit
         run: |-
-          rsync --delete --exclude=.git --recursive ${{ runner.temp }}/site/ ./
+          rsync --delete --exclude=.git --exclude=dev --recursive ${{ runner.temp }}/site/ ./
           touch .nojekyll
           git add .
           git diff --cached --exit-code >/dev/null || (
