@@ -36,7 +36,8 @@ interface ResultsJson {
 }
 
 (async () => {
-  const argv = yargs
+  /* eslint-disable-next-line @typescript-eslint/await-thenable */
+  const argv = await yargs
     .command('$0', 'Runs jsii benchmark tests and displays results', (argv) =>
       argv.option('output', {
         type: 'string',
@@ -53,7 +54,6 @@ interface ResultsJson {
     ): Promise<ResultsJson[]> => {
       const prev = await accum;
       const result = await benchmark.run();
-      const iterations = result.iterations.map((i) => i.duration);
       const extra = `${result.name} averaged ${result.average} milliseconds over ${result.iterations.length} runs`;
       console.log(extra);
       return [
@@ -62,7 +62,7 @@ interface ResultsJson {
           name: result.name,
           unit: 'milliseconds',
           value: result.average,
-          range: Math.max(...iterations) - Math.min(...iterations),
+          range: result.variance,
           extra,
         },
       ];
@@ -71,7 +71,7 @@ interface ResultsJson {
   );
 
   if (argv.output) {
-    fs.writeFileSync(argv.output, JSON.stringify(resultsJson, undefined, 2));
+    await fs.writeJson(argv.output, resultsJson, { spaces: 2 });
     console.log(`results written to ${argv.output}`);
   }
 

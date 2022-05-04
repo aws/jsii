@@ -2,7 +2,7 @@
   "name": "@jsii/benchmarks",
   "version": "0.0.0",
   "private": true,
-  "description": "JSII benchmarks",
+  "description": "the jsii benchmark suite",
   "main": "index.js",
   "dependencies": {
     "fs-extra": "^10.0.1",
@@ -27,7 +27,7 @@
     "lint:fix": "yarn lint --fix"
   },
   "bin": {
-    "benchmark": "node bin/benchmark.js"
+    "benchmark": "bin/benchmark.js"
   },
   "keywords": [],
   "author": "Amazon Web Services, Inc.",

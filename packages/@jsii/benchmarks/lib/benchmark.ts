@@ -7,17 +7,32 @@ interface Result {
   /**
    * The name of the benchmark
    */
-  name: string;
+  readonly name: string;
 
   /**
-   * The average length across all iterations
+   * The average duration across all iterations
    */
-  average: number;
+  readonly average: number;
+
+  /**
+   * Maximum duration across all iteraions
+   */
+  readonly max: number;
+
+  /**
+   * Minimum duration across all iterations
+   */
+  readonly min: number;
+
+  /**
+   * max - min
+   */
+  readonly variance: number;
 
   /**
    * Results of individual runs
    */
-  iterations: PerformanceEntry[];
+  readonly iterations: readonly PerformanceEntry[];
 }
 
 /**
@@ -34,26 +49,26 @@ export class Benchmark<C> {
   /**
    * How many times to run the subject
    */
-  private _iterations = 5;
+  #iterations = 5;
 
   /**
    * Results of individual runs
    */
-  private results: PerformanceEntry[] = [];
+  #results: PerformanceEntry[] = [];
 
   public constructor(private readonly name: string) {}
-  private _setup: () => C = () => ({} as C);
-  private _subject: (ctx: C) => void = () => undefined;
-  private _beforeEach: (ctx: C) => void = () => undefined;
-  private _afterEach: (ctx: C) => void = () => undefined;
-  private _teardown: (ctx: C) => void = () => undefined;
+  #setup: () => C = () => ({} as C);
+  #subject: (ctx: C) => void = () => undefined;
+  #beforeEach: (ctx: C) => void = () => undefined;
+  #afterEach: (ctx: C) => void = () => undefined;
+  #teardown: (ctx: C) => void = () => undefined;
 
   /**
    * Create a setup function to be run once before the benchmark, optionally
    * return a context object to be used across runs and lifecycle functions.
    */
   public setup<T extends C>(fn: () => T) {
-    this._setup = fn;
+    this.#setup = fn;
     return this as unknown as Benchmark<T>;
   }
 
@@ -61,8 +76,8 @@ export class Benchmark<C> {
    * Create a teardown function to be run once after all benchmark runs. Use to
    * clean up your mess.
    */
-  public teardown(fn: (ctx: C) => any) {
-    this._teardown = fn;
+  public teardown(fn: (ctx: C) => void) {
+    this.#teardown = fn;
     return this;
   }
 
@@ -70,8 +85,8 @@ export class Benchmark<C> {
    * Create a beforeEach function to be run before each iteration. Use to reset
    * state the subject may have changed.
    */
-  public beforeEach(fn: (ctx: C) => any) {
-    this._beforeEach = fn;
+  public beforeEach(fn: (ctx: C) => void) {
+    this.#beforeEach = fn;
     return this;
   }
 
@@ -79,8 +94,8 @@ export class Benchmark<C> {
    * Create an afterEach function to be run after each iteration. Use to reset
    * state the subject may have changed.
    */
-  public afterEach(fn: (ctx: C) => any) {
-    this._afterEach = fn;
+  public afterEach(fn: (ctx: C) => void) {
+    this.#afterEach = fn;
     return this;
   }
 
@@ -88,7 +103,7 @@ export class Benchmark<C> {
    * Setup the subject to be measured.
    */
   public subject(fn: (ctx: C) => void) {
-    this._subject = fn;
+    this.#subject = fn;
     return this;
   }
 
@@ -96,7 +111,7 @@ export class Benchmark<C> {
    * Set the number of iterations to be run.
    */
   public iterations(i: number) {
-    this._iterations = i;
+    this.#iterations = i;
     return this;
   }
 
@@ -105,30 +120,40 @@ export class Benchmark<C> {
    */
   public async run(): Promise<Result> {
     return new Promise((ok) => {
-      const wrapped = performance.timerify(this._subject);
+      const wrapped = performance.timerify(this.#subject);
       const obs = new PerformanceObserver((list, observer) => {
-        this.results = list.getEntries();
+        this.#results = list.getEntries();
         performance.clearMarks();
         observer.disconnect();
+        const durations = this.#results.map((i) => i.duration);
+        const max = Math.max(...durations);
+        const min = Math.min(...durations);
+        const variance = max - min;
 
         return ok({
           name: this.name,
           average:
-            this.results.reduce((accum, { duration }) => accum + duration, 0) /
-            this.results.length,
-          iterations: this.results,
+            durations.reduce((accum, duration) => accum + duration, 0) /
+            durations.length,
+          max,
+          min,
+          variance,
+          iterations: this.#results,
         });
       });
       obs.observe({ entryTypes: ['function'] });
 
-      const c = this._setup?.();
-      for (let i = 0; i < this._iterations; i++) {
-        this._beforeEach(c);
-        wrapped(c);
-        this._afterEach(c);
-      }
+      const c = this.#setup?.();
+      try {
+        for (let i = 0; i < this.#iterations; i++) {
+          this.#beforeEach(c);
+          wrapped(c);
+          this.#afterEach(c);
+        }
 
-      this._teardown(c);
+      } finally {
+        this.#teardown(c);
+      }
     });
   }
 }

@@ -1,4 +1,4 @@
-# JSII Benchmarks
+# jsii Benchmarks
 
 This package is meant to collect benchmarks for `jsii`, `jsii-pacmak`, and any other jsii packages sourced in TS. It
 contains a basic benchmark runner in [`benchmark.ts`](lib/benchmark.ts) that uses the `perf_hooks` module in order to

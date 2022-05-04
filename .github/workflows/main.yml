@@ -398,7 +398,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: benchmark-action/github-action-benchmark@v1
         with:
-          name: JSII Benchmark Regression
+          name: jsii Benchmark Regression
           tool: 'customSmallerIsBetter'
           output-file-path: ${{ runner.temp }}/bench-output.json
           comment-always: true
@@ -408,7 +408,7 @@ jobs:
         if: github.event_name == 'push'
         uses: benchmark-action/github-action-benchmark@v1
         with:
-          name: JSII Benchmark
+          name: jsii Benchmark
           tool: 'customSmallerIsBetter'
           output-file-path: ${{ runner.temp }}/bench-output.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
