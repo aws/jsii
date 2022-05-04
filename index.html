@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
     
     
       
@@ -21,10 +21,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.e411adfe.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
         
       
     
@@ -1248,19 +1248,19 @@ suited for development and build tools, as opposed to performance-sensitive or r
 <p>Consider the following <strong>TypeScript</strong> class:</p>
 <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
 <span class="cm"> * A simple greeter, hello world style.</span>
-<span class="cm"> */</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">Greeter</span> <span class="p">{</span>
-  <span class="cm">/**</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Greeter</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * Greets the designated person.</span>
 <span class="cm">   *</span>
 <span class="cm">   * @param name the person to greet.</span>
 <span class="cm">   *</span>
 <span class="cm">   * @returns a greeting.</span>
-<span class="cm">   */</span>
-  <span class="k">public</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>By compiling our source module using <code>jsii</code>, we can now package it as modules in one of the supported target languages.
 Each target module has the exact same API as the source. This allows users of that target language to use <code>Greeter</code> like
@@ -1276,13 +1276,13 @@ any other native type:</p>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Java</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="kd">final</span> <span class="n">Greeter</span> <span class="n">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
-<span class="n">greeter</span><span class="p">.</span><span class="na">greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span> <span class="c1">// =&gt; Hello, World!</span>
+<div class="highlight"><pre><span></span><code><span class="kd">final</span><span class="w"> </span><span class="n">Greeter</span><span class="w"> </span><span class="n">greeter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Greeter</span><span class="p">();</span><span class="w"></span>
+<span class="n">greeter</span><span class="p">.</span><span class="na">greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// =&gt; Hello, World!</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">JavaScript</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="n">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
-<span class="n">greeter</span><span class="p">.</span><span class="na">greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span> <span class="c1">// =&gt; Hello, World!</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="n">greeter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Greeter</span><span class="p">();</span><span class="w"></span>
+<span class="n">greeter</span><span class="p">.</span><span class="na">greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// =&gt; Hello, World!</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Python</label><div class="tabbed-content">
@@ -1329,7 +1329,7 @@ editor for the source of the page in question.</p>
   <small>
     
       Last update:
-      2022-04-25
+      2022-05-04
     
   </small>
 </div>
@@ -1400,7 +1400,7 @@ editor for the source of the page in question.</p>
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="assets/javascripts/bundle.ed9748b7.min.js"></script>
       
     
   </body>

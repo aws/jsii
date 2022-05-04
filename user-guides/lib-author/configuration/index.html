@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/configuration/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
     
     
       
@@ -21,10 +21,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e411adfe.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
       
     
@@ -1536,16 +1536,16 @@ optional in the standard <a href="https://docs.npmjs.com/files/package.json">pac
 <li>The <a href="https://docs.npmjs.com/files/package.json#people-fields-author-contributors"><code>author</code></a> field must be set. Although the string form
   (<code>"The Octocat &lt;octocat@github.com&gt; (https://github.com/octocat)"</code>) works, it is recommended to set the value using
   the <code>object</code> format:
-  <div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="c1">// ...</span>
-  <span class="s2">&quot;author&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;The Octocat&quot;</span><span class="p">,</span>                <span class="c1">// Required</span>
-    <span class="s2">&quot;email&quot;</span><span class="o">:</span> <span class="s2">&quot;octocat@github.com&quot;</span><span class="p">,</span>        <span class="c1">// Optional</span>
-    <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://github.com/octocat&quot;</span><span class="p">,</span>  <span class="c1">// Optional</span>
-    <span class="s2">&quot;organization&quot;</span><span class="o">:</span> <span class="kc">false</span>                 <span class="c1">// Optional (defaults to false)</span>
-  <span class="p">},</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
+  <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;author&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;The Octocat&quot;</span><span class="p">,</span><span class="w">                </span><span class="c1">// Required</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;octocat@github.com&quot;</span><span class="p">,</span><span class="w">        </span><span class="c1">// Optional</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/octocat&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Optional</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;organization&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w">                 </span><span class="c1">// Optional (defaults to false)</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
   The <code>organization</code> field is an extension from the <a href="https://docs.npmjs.com/files/package.json">package.json schema</a> that can be used to signal the <code>author</code> field
   refers to an <code>organization</code> and not and individual person.</li>
@@ -1581,13 +1581,13 @@ bindings whenever possible.</p>
 <h3 id="source-control-information">Source Control Information</h3>
 <p>The <a href="https://docs.npmjs.com/files/package.json#repository"><code>repository</code></a> field must be set to the URL of the source-control system (such as a <code>git</code>
 repository) for the package. The recommended way to provide the value is using the <code>object</code> representation:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="s2">&quot;repository&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://github.com/aws/jsii.git&quot;</span><span class="p">,</span> <span class="c1">// Required</span>
-    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>                            <span class="c1">// Recommended</span>
-    <span class="s2">&quot;directory&quot;</span><span class="o">:</span> <span class="s2">&quot;/path&quot;</span>                      <span class="c1">// Optional</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;repository&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/aws/jsii.git&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Required</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;git&quot;</span><span class="p">,</span><span class="w">                            </span><span class="c1">// Recommended</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;directory&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/path&quot;</span><span class="w">                      </span><span class="c1">// Optional</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="library-entry-point">Library Entry Point</h3>
 <p>Both the <a href="https://docs.npmjs.com/files/package.json#main"><code>main</code></a> field must be set to the <code>.js</code> file that acts as the entry point of your library (what
@@ -1625,39 +1625,39 @@ following entries:</p>
 <tbody>
 <tr>
 <td><code>excludeTypescript</code></td>
-<td><code class="highlight"><span class="kt">string</span><span class="p">[]</span></code></td>
+<td><code class="highlight"><span class="kt">string</span><span class="p">[]</span><span class="w"></span></code></td>
 <td align="center"></td>
 <td><em>none</em></td>
 </tr>
 <tr>
 <td><code>metadata</code></td>
-<td><code class="highlight"><span class="nx">object</span></code></td>
+<td><code class="highlight"><span class="nx">object</span><span class="w"></span></code></td>
 <td align="center"></td>
 <td><em>none</em></td>
 </tr>
 <tr>
 <td><code>projectReferences</code></td>
-<td><code class="highlight"><span class="kt">boolean</span></code></td>
+<td><code class="highlight"><span class="kt">boolean</span><span class="w"></span></code></td>
 <td align="center"></td>
-<td><code class="highlight"><span class="kc">true</span></code></td>
+<td><code class="highlight"><span class="kc">true</span><span class="w"></span></code></td>
 </tr>
 <tr>
 <td><code>targets</code></td>
-<td><code class="highlight"><span class="nx">object</span></code></td>
+<td><code class="highlight"><span class="nx">object</span><span class="w"></span></code></td>
 <td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/></svg></span></td>
 <td></td>
 </tr>
 <tr>
 <td><code>tsc</code></td>
-<td><code class="highlight"><span class="nx">object</span></code></td>
+<td><code class="highlight"><span class="nx">object</span><span class="w"></span></code></td>
 <td align="center"></td>
-<td><code class="highlight"><span class="p">{</span> <span class="nx">outDir</span><span class="o">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="nx">rootDir</span><span class="o">:</span> <span class="s1">&#39;.&#39;</span> <span class="p">}</span></code></td>
+<td><code class="highlight"><span class="p">{</span><span class="w"> </span><span class="nx">outDir</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">rootDir</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"></span></code></td>
 </tr>
 <tr>
 <td><code>versionFormat</code></td>
-<td><code class="highlight"><span class="s1">&#39;short&#39;</span> <span class="o">|</span> <span class="s1">&#39;full&#39;</span></code></td>
+<td><code class="highlight"><span class="s1">&#39;short&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;full&#39;</span><span class="w"></span></code></td>
 <td align="center"></td>
-<td><code class="highlight"><span class="s1">&#39;full&#39;</span></code></td>
+<td><code class="highlight"><span class="s1">&#39;full&#39;</span><span class="w"></span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1716,7 +1716,7 @@ generation problems.</p>
 console.</p>
 <p>These can be re-configured to a different category under the <code>diagnostics</code> key as so -</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;jsii&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;diagnostics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;documentation/non-existent-parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;code-style/submodule-name-casing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1748,7 +1748,7 @@ within the NPM package.</p>
   <small>
     
       Last update:
-      2022-04-27
+      2022-05-04
     
   </small>
 </div>
@@ -1834,7 +1834,7 @@ within the NPM package.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
       
     
   </body>
