@@ -150,7 +150,6 @@ export class Benchmark<C> {
           wrapped(c);
           this.#afterEach(c);
         }
-
       } finally {
         this.#teardown(c);
       }
