@@ -53,5 +53,28 @@
     "jsii-calc": "^3.20.120",
     "prettier": "^2.6.2",
     "typescript": "~3.9.10"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "bin/**/*.d.ts",
+          "bin/**/*.js",
+          "lib/**/*.d.ts",
+          "lib/**/*.js",
+          "test/**/*.d.ts",
+          "test/**/*.js",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "coverage/**"
+        ]
+      }
+    }
   }
 }

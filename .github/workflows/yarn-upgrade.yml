@@ -25,14 +25,14 @@ jobs:
 
       - name: Install Tools
         run: |-
-          npm -g install lerna npm-check-updates@^9.0.0
+          npm -g install wsrun@^5.4.2 npm-check-updates@^9.0.0
 
       - name: List Mono-Repo Packages
         id: monorepo-packages
         # These need to be ignored from the `ncu` runs!
         run: |-
           echo -n "::set-output name=list::"
-          node -p "$(lerna ls --all --json 2>/dev/null).map(item => item.name).join(',')"
+          node -p "Object.entries($(yarn --silent workspaces info --json)).map(([key]) => key).join(',')"
 
       - name: Identify production dependencies
         id: production-dependencies
@@ -58,8 +58,8 @@ jobs:
               }
             }
 
-            const lernaPackagesDirs = $(lerna ls --all --json 2>/dev/null).map(item => item.location);
-            for (const packageDir of lernaPackagesDirs) {
+            const yarnWorkspaceDirs = Object.entries($(yarn --silent workspaces info --json)).map(([,{location}]) => location);
+            for (const packageDir of yarnWorkspaceDirs) {
               processManifest(path.join(packageDir, 'package.json'));
             }
 
@@ -75,16 +75,16 @@ jobs:
           ncu --upgrade --target=latest --reject=@types/node,typescript
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
-          lerna exec --parallel ncu -- --upgrade --target=minor                                     \
+          wsrun --stages --bin ncu -c --upgrade --target=minor                                     \
             --filter='${{ steps.production-dependencies.outputs.list }}'                            \
             --reject='typescript,${{ steps.monorepo-packages.outputs.list }}'
 
           # Upgrade all minor-pinned dependencies
-          lerna exec --parallel ncu -- --upgrade --target=patch                                     \
+          wsrun --stages --bin ncu -c --upgrade --target=patch                                     \
             --filter=typescript
 
           # Upgrade all other dependencies (devDependencies) to the latest
-          lerna exec --parallel ncu -- --upgrade --target=latest                                    \
+          wsrun --stages --bin ncu -c --upgrade --target=latest                                    \
             --reject='@types/node,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)

@@ -21,7 +21,7 @@ jobs:
         node: ['12', '14', '16', '18']
     env:
       # Node version whose images will be aliased without the -nodeXX segment
-      DEFAULT_NODE_MAJOR_VERSION: 14
+      DEFAULT_NODE_MAJOR_VERSION: 12
     steps:
       - name: Check out
         uses: actions/checkout@v3

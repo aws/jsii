@@ -1,0 +1,79 @@
+{
+  "extends": "nx/presets/npm.json",
+  "npmScope": "jsii",
+  "implicitDependencies": {
+    "eslint-config.yaml": "*",
+    "jest.config.ts": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig-base.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "package"
+        ],
+        "runtimeCacheInputs": [
+          "node -v"
+        ]
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ],
+    "lint": [
+      {
+        "target": "build",
+        "projects": "self"
+      }
+    ],
+    "lint:fix": [
+      {
+        "target": "build",
+        "projects": "self"
+      }
+    ],
+    "package": [
+      {
+        "target": "build",
+        "projects": "self"
+      },
+      {
+        "target": "package",
+        "projects": "dependencies"
+      }
+    ],
+    "test": [
+      {
+        "target": "build",
+        "projects": "self"
+      }
+    ],
+    "test:update": [
+      {
+        "target": "build",
+        "projects": "self"
+      }
+    ]
+  },
+  "affected": {
+    "defaultBase": "main"
+  },
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": false
+    }
+  }
+}

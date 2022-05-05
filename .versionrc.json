@@ -1,13 +1,13 @@
 {
   "bumpFiles": [
     {
-      "filename": "lerna.json",
+      "filename": "package.json",
       "type": "json"
     }
   ],
   "packageFiles": [
     {
-      "filename": "lerna.json",
+      "filename": "package.json",
       "type": "json"
     }
   ],

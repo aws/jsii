@@ -21,5 +21,25 @@
   "dependencies": {
     "fs-extra": "^9.1.0",
     "@jsii/go-runtime": "^0.0.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "jsii-calc/**",
+          "build-tools/**/*.d.ts",
+          "build-tools/**/*.js",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "project/compiliance-report.json"
+        ]
+      }
+    }
   }
 }

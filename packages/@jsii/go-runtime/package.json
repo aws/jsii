@@ -33,5 +33,25 @@
     "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
     "typescript": "~3.9.10"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "build-tools/**/*.d.ts",
+          "build-tools/**/*.js",
+          "jsii-runtime-go/internal/embedded/resources/**",
+          "lib/**/*.d.ts",
+          "lib/**/*.js",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": []
+      }
+    }
   }
 }

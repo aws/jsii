@@ -43,5 +43,25 @@
     "jsii-pacmak": "^0.0.0",
     "ts-node": "^10.7.0",
     "typescript": "~3.9.10"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          ".env/**",
+          "**/*.egg-info/**",
+          "README.md"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          ".mypy_cache/**",
+          ".pytest_cache/**"
+        ]
+      }
+    }
   }
 }

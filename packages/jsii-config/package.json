@@ -34,5 +34,24 @@
     "@jsii/spec": "^0.0.0",
     "inquirer": "^7.3.3",
     "yargs": "^16.2.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "**/*.d.ts",
+          "**/*.js",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "coverage/**"
+        ]
+      }
+    }
   }
 }

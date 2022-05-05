@@ -31,5 +31,27 @@
   },
   "keywords": [],
   "author": "Amazon Web Services, Inc.",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "bin/**/*.d.ts",
+          "bin/**/*.js",
+          "lib/**/*.d.ts",
+          "lib/**/*.js",
+          "tsconfig.json",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "coverage/**"
+        ]
+      }
+    }
+  }
 }

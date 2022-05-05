@@ -1,6 +1,6 @@
 #!/bin/bash
 #------------------------------------------------------------------------
-# updates all package.json files to the version defined in lerna.json
+# updates all package.json files to the version defined in package.json
 # this is called when building inside our ci/cd system
 #------------------------------------------------------------------------
 set -euo pipefail

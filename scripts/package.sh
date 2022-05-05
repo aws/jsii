@@ -11,18 +11,20 @@ mkdir -p ${distdir}
 
 # run "npm run package" in all modules (which support it)
 # this should emit a publishable to the "dist" directory of each module
-lerna run package --stream
+turbo run package
 
 # collect all "dist" directories into "pack"
-for dist in $(lerna exec --ignore=jsii-calc --ignore=@scope/\* "[ -d ./dist ] && echo \${PWD}/dist || true"); do
-  echo "collecting ${dist}..."
-  rsync -av ${dist}/ ${distdir}/
+for dist in $(yarn --silent wsrun --no-prefix --exclude=jsii-calc --exclude=@scope/\* --bin /bin/bash -c node -p "process.cwd()/dist"); do
+  if [ -d "${dist}" ]; then
+    echo "collecting ${dist}..."
+    rsync -av ${dist}/ ${distdir}/
+  fi
 done
 
 # create a build.json file with build metadata
 # commit is obtained from CODEBUILD_RESOLVED_SOURCE_VERSION.
 # if not defined (i.e. local build or CodePipeline build), use the HEAD commit hash
-version="$(node -e "console.log(require('./lerna.json').version)")"
+version="$(node -e "console.log(require('./package.json').version)")"
 commit="${CODEBUILD_RESOLVED_SOURCE_VERSION:-"$(git rev-parse --verify HEAD)"}"
 
 cat > ${distdir}/build.json <<HERE

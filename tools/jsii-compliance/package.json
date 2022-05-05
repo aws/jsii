@@ -4,7 +4,6 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build": "echo 'build not needed for the jsii-compliance package'",
     "report": "ts-node report.ts",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "yarn lint --fix"
@@ -21,5 +20,17 @@
     "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
     "typescript": "~3.9.10"
+  },
+  "nx": {
+    "targets": {
+      "lint": {
+        "outputs": []
+      },
+      "report": {
+        "outputs": [
+          "../../gh-pages/content/specification/6-compliance-report.md"
+        ]
+      }
+    }
   }
 }

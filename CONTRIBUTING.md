@@ -61,10 +61,10 @@ in your development environment.
 ## Getting Started
 ### Bootstrapping
 
-The project is managed as a [monorepo] using [lerna].
+The project is managed as a [monorepo] using [nx].
 
 [monorepo]: https://github.com/babel/babel/blob/main/doc/design/monorepo.md
-[lerna]: https://github.com/lerna/lerna
+[nx]: https://nx.dev
 
 1. Check out this respository and change directory to its root.
 2. Run `yarn install && yarn build` to install lerna, bootstrap the repository
@@ -84,7 +84,7 @@ All packages within this repository have the following scripts:
 - `lint:fix` - lint and auto-correct formatting issues when possible
 
 Each one of these scripts can be executed either from the root of the repo using
-`npx lerna run <script> --scope <package>` or from individual modules using
+`yarn nx <package>:<script>` or from individual modules using
 `yarn <script>`.
 
 #### Linting & Formatting

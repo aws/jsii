@@ -44,5 +44,27 @@
     "jsii-build-tools": "^0.0.0",
     "semver": "^7.3.7",
     "typescript": "~3.9.10"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "bin/**",
+          "lib/**/*.d.ts",
+          "lib/**/*.js",
+          "src/*.props",
+          "tsconfig.json",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "coverage/**"
+        ]
+      }
+    }
   }
 }

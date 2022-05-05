@@ -35,5 +35,21 @@
     "eslint": "^8.13.0",
     "prettier": "^2.6.2",
     "typescript": "~3.9.10"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "test/**/*.d.ts",
+          "test/**/*.js",
+          "utils/**/*.d.ts",
+          "utils/**/*.js",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      }
+    }
   }
 }

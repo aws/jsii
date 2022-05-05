@@ -38,5 +38,24 @@
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.6.2",
     "typescript": "~3.9.10"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "**/*.d.ts",
+          "**/*.js",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "coverage/**"
+        ]
+      }
+    }
   }
 }

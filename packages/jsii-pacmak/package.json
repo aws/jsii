@@ -74,5 +74,28 @@
   "keywords": [
     "jsii",
     "aws"
-  ]
+  ],
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "bin/**/*.d.ts",
+          "bin/**/*.js",
+          "lib/**/*.d.ts",
+          "lib/**/*.js",
+          "test/**/*.d.ts",
+          "test/**/*.js",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "coverage/**"
+        ]
+      }
+    }
+  }
 }

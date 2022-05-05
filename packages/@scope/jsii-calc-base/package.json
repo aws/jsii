@@ -75,5 +75,27 @@
       }
     },
     "versionFormat": "short"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "**/*.d.ts",
+          "**/*.js",
+          ".jsii",
+          ".jsii.tabl.json",
+          "tsconfig.json",
+          "*.tsbuildinfo"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": [
+          "coverage/**"
+        ]
+      }
+    }
   }
 }

@@ -1,5 +1,4 @@
 node_modules/
-lerna-debug.log
 pip-wheel-metadata/
 tsconfig.tsbuildinfo
 .DS_Store
