@@ -402,7 +402,7 @@ jobs:
           tool: 'customSmallerIsBetter'
           output-file-path: ${{ runner.temp }}/bench-output.json
           comment-always: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
           fail-on-alert: true
       - name: Upload Benchmark Results
         if: github.event_name == 'push'
@@ -411,5 +411,5 @@ jobs:
           name: jsii Benchmark
           tool: 'customSmallerIsBetter'
           output-file-path: ${{ runner.temp }}/bench-output.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
           auto-push: true
