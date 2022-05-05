@@ -1,5 +1,7 @@
 import { TypeSystem } from 'jsii-reflect';
 import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
+import { resolve } from 'path';
+import { cwd } from 'process';
 
 import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
@@ -57,8 +59,11 @@ export async function pacmak({
   }
 
   if (outputDirectory) {
+    // Ensure this is consistently interpreted as relative to cwd(). This is transparent for absolute
+    // paths, as those would be returned unmodified.
+    const absoluteOutputDirectory = resolve(cwd(), outputDirectory);
     for (const mod of modulesToPackageFlat) {
-      mod.outputDirectory = outputDirectory;
+      mod.outputDirectory = absoluteOutputDirectory;
     }
   } else if (updateNpmIgnoreFiles) {
     // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
