@@ -3,6 +3,7 @@ import { readJson, writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
 import { TargetLanguage } from '../languages';
+import { targetName } from '../languages/target-language';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { typeScriptSnippetFromVisibleSource, ApiLocation } from '../snippet';
@@ -99,6 +100,12 @@ export async function transliterateAssembly(
       const now = new Date().getTime();
       // eslint-disable-next-line no-await-in-loop
       const result = await loadAssembly();
+
+      if (result.targets?.[targetName(language)] == null) {
+        // This language is not supported by the assembly, so we skip it...
+        continue;
+      }
+
       if (result.readme?.markdown) {
         result.readme.markdown = rosetta.translateSnippetsInMarkdown(
           { api: 'moduleReadme', moduleFqn: result.name },

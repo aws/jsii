@@ -90,9 +90,11 @@ export class GoProperty implements GoTypeMember {
         ? `*${this.returnType}`
         : this.returnType;
 
+    const requiredOrOptional = this.property.optional ? 'optional' : 'required';
+
     // Adds json and yaml tags for easy deserialization
     code.line(
-      `${this.name} ${memberType} \`json:"${this.property.name}" yaml:"${this.property.name}"\``,
+      `${this.name} ${memberType} \`field:"${requiredOrOptional}" json:"${this.property.name}" yaml:"${this.property.name}"\``,
     );
     // TODO add newline if not the last member
   }

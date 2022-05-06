@@ -45,10 +45,10 @@ jobs:
         with:
           cache: yarn
           node-version: '12'
-      - name: Set up Python 3.6
+      - name: Set up Python 3.7
         uses: actions/setup-python@v3
         with:
-          python-version: '3.6'
+          python-version: '3.7'
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Locate Caches
@@ -69,9 +69,9 @@ jobs:
             !~/.m2/repository/software/amazon/jsii/
             ~/.nuget/packages
             !~/.nuget/packages/amazon.jsii.*
-          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
+          key: ${{ runner.os }}-node@12-python@3.7-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
           restore-keys: |-
-            ${{ runner.os }}-node@12-python@3.6-
+            ${{ runner.os }}-node@12-python@3.7-
             ${{ runner.os }}-node@12-
             ${{ runner.os }}-
       # Prepare dependencies and build
@@ -139,10 +139,10 @@ jobs:
         with:
           cache: yarn
           node-version: '12'
-      - name: Set up Python 3.6
+      - name: Set up Python 3.7
         uses: actions/setup-python@v3
         with:
-          python-version: '3.6'
+          python-version: '3.7'
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Locate Caches
@@ -163,9 +163,9 @@ jobs:
             !~/.m2/repository/software/amazon/jsii/
             ~/.nuget/packages
             !~/.nuget/packages/amazon.jsii.*
-          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
+          key: ${{ runner.os }}-node@12-python@3.7-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
           restore-keys: |-
-            ${{ runner.os }}-node@12-python@3.6-
+            ${{ runner.os }}-node@12-python@3.7-
             ${{ runner.os }}-node@12-
             ${{ runner.os }}-
       # Prepare dependencies and build
@@ -204,6 +204,8 @@ jobs:
           path: ${{ github.workspace }}/dist/
 
   test:
+    permissions:
+      contents: none
     name: Test (${{ matrix.os }} / dotnet ${{ matrix.dotnet }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
     strategy:
@@ -213,9 +215,14 @@ jobs:
         dotnet: ['3.1.x']
         go: ['1.16']
         java: ['8']
-        node: ['12', '14', '16', '17']
+        node:
+          - '12' # EOL 2022-04-30
+          - '14' # EOL 2023-04-30
+          - '16' # EOL 2024-04-30
+          - '17' # EOL 2022-06-01
+          - '18' # EOL 2025-04-30
         os: [ubuntu-latest]
-        python: ['3.6']
+        python: ['3.7']
         # Add specific combinations to be tested against "node 12" (to restrict cardinality)
         include:
           # Test using Windows
@@ -224,41 +231,35 @@ jobs:
             go: '1.16'
             java: '8'
             node: '12'
-            python: '3.6'
+            python: '3.7'
           # Test using macOS
           - os: macos-latest
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
             node: '12'
-            python: '3.6'
+            python: '3.7'
           # Test alternate .NETs
           - java: '8'
             dotnet: '5.0.x'
             go: '1.16'
             node: '12'
             os: ubuntu-latest
-            python: '3.6'
+            python: '3.7'
           - java: '8'
             dotnet: '6.0.x'
             go: '1.16'
             node: '12'
             os: ubuntu-latest
-            python: '3.6'
+            python: '3.7'
           # Test alternate Javas
           - java: '11'
             dotnet: '3.1.x'
             go: '1.16'
             node: '12'
             os: ubuntu-latest
-            python: '3.6'
+            python: '3.7'
           # Test alternate Pythons
-          - python: '3.7'
-            dotnet: '3.1.x'
-            go: '1.16'
-            java: '8'
-            node: '12'
-            os: ubuntu-latest
           - python: '3.8'
             dotnet: '3.1.x'
             go: '1.16'
@@ -266,6 +267,12 @@ jobs:
             node: '12'
             os: ubuntu-latest
           - python: '3.9'
+            dotnet: '3.1.x'
+            go: '1.16'
+            java: '8'
+            node: '12'
+            os: ubuntu-latest
+          - python: '3.10'
             dotnet: '3.1.x'
             go: '1.16'
             java: '8'
@@ -358,3 +365,51 @@ jobs:
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
         shell: bash
+  benchmark:
+    name: Run benchmark suite
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: build
+    steps:
+      # Check out the code
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: built-tree
+      - name: Extract Artifact
+        run: |-
+          echo "::group::Untar Archive"
+          tar zxvf built-tree.tgz
+          echo "::endgroup"
+
+          rm built-tree.tgz
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: '14'
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run Benchmark
+        working-directory: packages/@jsii/benchmarks
+        run: yarn bench --output ${{ runner.temp }}/bench-output.json
+      - name: Compare Benchmark Results
+        if: github.event_name == 'pull_request'
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: jsii Benchmark Regression
+          tool: 'customSmallerIsBetter'
+          output-file-path: ${{ runner.temp }}/bench-output.json
+          comment-always: true
+          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          fail-on-alert: true
+      - name: Upload Benchmark Results
+        if: github.event_name == 'push'
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: jsii Benchmark
+          tool: 'customSmallerIsBetter'
+          output-file-path: ${{ runner.temp }}/bench-output.json
+          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          auto-push: true

@@ -15,4 +15,5 @@
 # Github Linguist configuration (https://github.com/github/linguist)
 yarn.lock linguist-generated
 *.snap    linguist-generated
+packages/@jsii/benchmarks/fixtures/** linguist-vendored
 docs/**   linguist-documentation

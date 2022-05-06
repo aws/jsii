@@ -421,9 +421,9 @@ import (
 )
 
 type Baz struct {
-	Foo *float64 \`json:"foo" yaml:"foo"\`
-	Bar *string \`json:"bar" yaml:"bar"\`
-	Baz *bool \`json:"baz" yaml:"baz"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
+	Baz *bool \`field:"required" json:"baz" yaml:"baz"\`
 }
 
 type Consumer interface {
@@ -445,12 +445,12 @@ func Consumer_ConsumeBaz(baz *Baz) {
 }
 
 type Foo struct {
-	Foo *float64 \`json:"foo" yaml:"foo"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
 }
 
 type FooBar struct {
-	Foo *float64 \`json:"foo" yaml:"foo"\`
-	Bar *string \`json:"bar" yaml:"bar"\`
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
 }
 
 
@@ -1147,7 +1147,7 @@ testpkg.FooBar=example.test.demo.FooBar
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
+requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -1187,7 +1187,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": ">=3.6",
+    "python_requires": "~=3.7",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3"
@@ -1197,10 +1197,10 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Typing :: Typed",
         "License :: OSI Approved"
     ],
@@ -1796,7 +1796,7 @@ func (n *jsiiProxy_Namespace1) Foo() {
 }
 
 type Namespace1_Foo struct {
-	Bar *string \`json:"bar" yaml:"bar"\`
+	Bar *string \`field:"required" json:"bar" yaml:"bar"\`
 }
 
 type Namespace1_IBar interface {
@@ -2447,7 +2447,7 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=59.6.0", "wheel~=0.37.1"]
+requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -2487,7 +2487,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": ">=3.6",
+    "python_requires": "~=3.7",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3"
@@ -2497,10 +2497,10 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Typing :: Typed",
         "License :: OSI Approved"
     ],

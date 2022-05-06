@@ -64,7 +64,11 @@ export default class Python extends Target {
       venv,
       process.platform === 'win32' ? 'Scripts' : 'bin',
     );
-    await shell('python3', [
+    // On Windows, there is usually no python3.exe (the GitHub action workers will have a python3
+    // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
+    // fail to copy the python binary if it's not invoked as python.exe). More on this particular
+    // issue can be read here: https://bugs.python.org/issue43749
+    await shell(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
@@ -2000,7 +2004,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '>=3.6',
+      python_requires: '~=3.7',
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
@@ -2012,10 +2016,10 @@ class Package {
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Typing :: Typed',
       ],
       scripts,

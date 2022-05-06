@@ -250,7 +250,15 @@ class DependencyResolver {
     const ret: Record<string, string> = {};
     for (const [name, declaration] of Object.entries(dependencies)) {
       // eslint-disable-next-line no-await-in-loop
-      const resolved = this.resolveDependency(root, name, declaration);
+      let resolved;
+      try {
+        resolved = this.resolveDependency(root, name, declaration);
+      } catch (e) {
+        LOG.error(
+          `Unable to find a JSII dependency named "${name}" as "${declaration}". If you meant to include a non-JSII dependency, try adding it to bundledDependencies instead.`,
+        );
+        throw e;
+      }
 
       const actualVersion = resolved.dependencyInfo.assembly.version;
       if (!semver.satisfies(actualVersion, declaration)) {

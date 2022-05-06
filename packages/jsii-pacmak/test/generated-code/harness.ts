@@ -169,7 +169,11 @@ async function runMypy(pythonRoot: string): Promise<void> {
 
   // Create a Python virtual environment
   await expect(
-    shell('python3', [
+    // On Windows, there is usually no python3.exe (the GitHub action workers will have a python3
+    // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
+    // fail to copy the python binary if it's not invoked as python.exe). More on this particular
+    // issue can be read here: https://bugs.python.org/issue43749
+    shell(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       '--system-site-packages', // Allow using globally installed packages (saves time & disk space)

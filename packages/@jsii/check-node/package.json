@@ -17,7 +17,7 @@
     "directory": "packages/@jsii/check-node"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 12.7.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -37,12 +37,12 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "semver": "^7.3.5"
+    "semver": "^7.3.7"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/jest": "^27.4.1",
-    "@types/node": "^12.20.47",
+    "@types/node": "^12.20.48",
     "jest": "^27.5.1"
   }
 }

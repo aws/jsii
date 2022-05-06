@@ -12,17 +12,18 @@ queue_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
 pull_request_rules:
   - name: label core
@@ -30,7 +31,7 @@ pull_request_rules:
       label:
         add: [contribution/core]
     conditions:
-      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi|kaizen3031593|Chriscbr|corymhall|otaviomacedo|yuth|TheRealAmazonKendra)$
+      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi|kaizen3031593|Chriscbr|corymhall|otaviomacedo|yuth|TheRealAmazonKendra|vinayak-kukreja)$
       - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
@@ -50,7 +51,7 @@ pull_request_rules:
       - '#approved-reviews-by>=1'
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
-      - status-success=Semantic Pull Request
+      - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
       # One test for each OS
@@ -62,17 +63,18 @@ pull_request_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -100,7 +102,7 @@ pull_request_rules:
       - '#approved-reviews-by>=1'
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
-      - status-success=Semantic Pull Request
+      - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
       # One test for each OS
@@ -112,17 +114,18 @@ pull_request_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -150,7 +153,7 @@ pull_request_rules:
       - '#approved-reviews-by>=1'
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
-      - status-success=Semantic Pull Request
+      - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
       # One test for each OS
@@ -162,17 +165,18 @@ pull_request_rules:
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Clean branch up
     actions:
@@ -206,4 +210,4 @@ pull_request_rules:
 
           [Conventional Commits]: https://www.conventionalcommits.org
     conditions:
-      - status-failure=Semantic Pull Request
+      - status-failure=Validate PR Title

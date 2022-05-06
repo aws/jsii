@@ -1,14 +1,8 @@
 import { Chalk, bgYellow, bgYellowBright, bgRed } from 'chalk';
 import { error } from 'console';
 import { version } from 'process';
-import { Range, SemVer } from 'semver';
 
-import {
-  DEADLINE,
-  DEADLINE_EPOCH_MS,
-  SupportLevel,
-  VERSION_SUPPORT,
-} from './constants';
+import { NodeRelease } from './constants';
 
 /**
  * Checks the current process' node runtime version against the release support
@@ -16,46 +10,34 @@ import {
  * supported (i.e: it is deprecated, end-of-life, or untested).
  */
 export function checkNode(): void {
-  const runtimeVersion = new SemVer(version);
-  let versionSupportLevel = SupportLevel.UNTESTED;
-  for (const [rangeExpr, supportLevel] of Object.entries(VERSION_SUPPORT)) {
-    const range = new Range(rangeExpr);
-    if (range.test(runtimeVersion)) {
-      versionSupportLevel = supportLevel;
-      break;
-    }
-  }
+  const { nodeRelease, knownBroken } = NodeRelease.forThisRuntime();
 
-  switch (versionSupportLevel) {
-    case SupportLevel.DEPRECATED:
-      const deadlinePast = Date.now() > DEADLINE_EPOCH_MS;
-      veryVisibleMessage(
-        deadlinePast ? bgRed.white.bold : bgYellowBright.black,
-        `Node ${version} has reached end-of-life and will no longer be supported in new releases after ${DEADLINE}.`,
-        `Please upgrade to a supported node version as soon as possible.`,
-      );
-      break;
-    case SupportLevel.END_OF_LIFE:
-      veryVisibleMessage(
-        bgRed.white.bold,
-        `Node ${version} has reached end-of-life and is not supported.`,
-      );
-      break;
-    case SupportLevel.UNSUPPORTED:
-      veryVisibleMessage(
-        bgRed.white.bold,
-        `Node ${version} is not supported. Early releases a node major often lack essential features of that line.`,
-      );
-      break;
-    case SupportLevel.SUPPORTED:
-      // Nothing to do
-      break;
-    case SupportLevel.UNTESTED:
-      veryVisibleMessage(
-        bgYellow.black,
-        `This software has not been tested with node ${version}.`,
-      );
-      break;
+  if (nodeRelease?.endOfLife) {
+    const qualifier = nodeRelease.endOfLifeDate
+      ? ` on ${nodeRelease.endOfLifeDate.toISOString().slice(0, 10)}`
+      : '';
+    veryVisibleMessage(
+      bgRed.white.bold,
+      `Node ${nodeRelease.majorVersion} has reached end-of-life${qualifier} and is not supported.`,
+      `Please upgrade to a supported node version as soon as possible.`,
+    );
+  } else if (knownBroken) {
+    veryVisibleMessage(
+      bgRed.white.bold,
+      `Node ${version} is unsupported and has known compatibility issues with this software.`,
+    );
+  } else if (!nodeRelease || nodeRelease.untested) {
+    veryVisibleMessage(
+      bgYellow.black,
+      `This software has not been tested with node ${version}.`,
+    );
+  } else if (nodeRelease?.deprecated) {
+    const deadline = nodeRelease.endOfLifeDate!.toISOString().slice(0, 10);
+    veryVisibleMessage(
+      bgYellowBright.black,
+      `Node ${nodeRelease.majorVersion} is approaching end-of-life and will no longer be supported in new releases after ${deadline}.`,
+      `Please upgrade to a supported node version as soon as possible.`,
+    );
   }
 
   function veryVisibleMessage(
@@ -67,10 +49,21 @@ export function checkNode(): void {
       message,
       callToAction,
       '',
-      'As of the current release, supported versions of node are:',
-      ...Object.entries(VERSION_SUPPORT)
-        .filter(([, supportLevel]) => supportLevel === SupportLevel.SUPPORTED)
-        .map(([rangeExpr]) => `- ${rangeExpr}`),
+      `This software is currently running on node ${version}.`,
+      'As of the current release of this software, supported node releases are:',
+      ...NodeRelease.ALL_RELEASES.filter((release) => release.supported)
+        // We display those from longest remaining support to shortest (to incitate people to be ahead of future derepcations).
+        .sort(
+          (l, r) =>
+            (r.endOfLifeDate?.getTime() ?? 0) -
+            (l.endOfLifeDate?.getTime() ?? 0),
+        )
+        .map(
+          (release) =>
+            `- ${release.toString()}${
+              release.deprecated ? ' [DEPRECATED]' : ''
+            }`,
+        ),
     ];
     const len = Math.max(...lines.map((l) => l.length));
     const border = chalk('!'.repeat(len + 8));

@@ -1,5 +1,10 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+import {
+  Assembly,
+  ModuleLike as JsiiModuleLike,
+  Type,
+  Submodule as JsiiSubmodule,
+} from 'jsii-reflect';
 import { basename, dirname, join } from 'path';
 import * as semver from 'semver';
 
@@ -42,10 +47,10 @@ export abstract class Package {
   public readonly types: GoType[];
 
   private readonly embeddedTypes = new Map<string, EmbeddedType>();
+  private readonly readmeFile?: ReadmeFile;
 
   public constructor(
-    private readonly typeSpec: readonly Type[],
-    private readonly submoduleSpec: readonly JsiiSubmodule[],
+    private readonly jsiiModule: JsiiModuleLike,
     public readonly packageName: string,
     public readonly filePath: string,
     public readonly moduleName: string,
@@ -56,11 +61,11 @@ export abstract class Package {
     this.directory = filePath;
     this.file = `${this.directory}/${packageName}.go`;
     this.root = root ?? this;
-    this.submodules = this.submoduleSpec.map(
+    this.submodules = this.jsiiModule.submodules.map(
       (sm) => new InternalPackage(this.root, this, sm),
     );
 
-    this.types = this.typeSpec.map((type: Type): GoType => {
+    this.types = this.jsiiModule.types.map((type: Type): GoType => {
       if (type.isInterfaceType() && type.datatype) {
         return new Struct(this, type);
       } else if (type.isInterfaceType()) {
@@ -74,6 +79,14 @@ export abstract class Package {
         `Type: ${type.name} with kind ${type.kind} is not a supported type`,
       );
     });
+
+    if (this.jsiiModule.readme?.markdown) {
+      this.readmeFile = new ReadmeFile(
+        this.jsiiModule.fqn,
+        this.jsiiModule.readme.markdown,
+        this.directory,
+      );
+    }
   }
 
   /*
@@ -120,6 +133,8 @@ export abstract class Package {
     this.emitImports(code);
     this.emitTypes(context);
     code.closeFile(this.file);
+
+    this.readmeFile?.emit(context);
 
     this.emitGoInitFunction(context);
     this.emitSubmodules(context);
@@ -318,7 +333,6 @@ export abstract class Package {
 export class RootPackage extends Package {
   public readonly assembly: Assembly;
   public readonly version: string;
-  private readonly readme?: ReadmeFile;
   private readonly versionFile: VersionFile;
 
   // This cache of root packages is shared across all root packages derived created by this one (via dependencies).
@@ -334,14 +348,7 @@ export class RootPackage extends Package {
     const moduleName = goConfig.moduleName ?? '';
     const version = `${assembly.version}${goConfig.versionSuffix ?? ''}`;
 
-    super(
-      assembly.types,
-      assembly.submodules,
-      packageName,
-      filePath,
-      moduleName,
-      version,
-    );
+    super(assembly, packageName, filePath, moduleName, version);
 
     this.rootPackageCache = rootPackageCache;
     this.rootPackageCache.set(assembly.name, this);
@@ -349,19 +356,11 @@ export class RootPackage extends Package {
     this.assembly = assembly;
     this.version = version;
     this.versionFile = new VersionFile(this.version);
-
-    if (this.assembly.readme?.markdown) {
-      this.readme = new ReadmeFile(
-        this.packageName,
-        this.assembly.readme.markdown,
-      );
-    }
   }
 
   public emit(context: EmitContext): void {
     super.emit(context);
     this.emitJsiiPackage(context);
-    this.readme?.emit(context);
 
     this.emitGomod(context.code);
     this.versionFile.emit(context.code);
@@ -517,15 +516,7 @@ export class InternalPackage extends Package {
     const filePath =
       parent === root ? packageName : `${parent.filePath}/${packageName}`;
 
-    super(
-      assembly.types,
-      assembly.submodules,
-      packageName,
-      filePath,
-      root.moduleName,
-      root.version,
-      root,
-    );
+    super(assembly, packageName, filePath, root.moduleName, root.version, root);
 
     this.parent = parent;
   }
