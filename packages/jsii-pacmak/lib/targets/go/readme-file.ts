@@ -11,6 +11,6 @@ export class ReadmeFile {
     if (!this.document) {
       return;
     }
-    documenter.emitReadme(this.packageName, this.document, this.directory)
+    documenter.emitReadme(this.packageName, this.document, this.directory);
   }
 }

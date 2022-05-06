@@ -1,5 +1,10 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly, ModuleLike as JsiiModuleLike, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+import {
+  Assembly,
+  ModuleLike as JsiiModuleLike,
+  Type,
+  Submodule as JsiiSubmodule,
+} from 'jsii-reflect';
 import { basename, dirname, join } from 'path';
 import * as semver from 'semver';
 
@@ -76,7 +81,11 @@ export abstract class Package {
     });
 
     if (this.jsiiModule.readme?.markdown) {
-      this.readmeFile = new ReadmeFile(this.jsiiModule.fqn, this.jsiiModule.readme.markdown, this.directory);
+      this.readmeFile = new ReadmeFile(
+        this.jsiiModule.fqn,
+        this.jsiiModule.readme.markdown,
+        this.directory,
+      );
     }
   }
 
@@ -339,13 +348,7 @@ export class RootPackage extends Package {
     const moduleName = goConfig.moduleName ?? '';
     const version = `${assembly.version}${goConfig.versionSuffix ?? ''}`;
 
-    super(
-      assembly,
-      packageName,
-      filePath,
-      moduleName,
-      version,
-    );
+    super(assembly, packageName, filePath, moduleName, version);
 
     this.rootPackageCache = rootPackageCache;
     this.rootPackageCache.set(assembly.name, this);
@@ -513,14 +516,7 @@ export class InternalPackage extends Package {
     const filePath =
       parent === root ? packageName : `${parent.filePath}/${packageName}`;
 
-    super(
-      assembly,
-      packageName,
-      filePath,
-      root.moduleName,
-      root.version,
-      root,
-    );
+    super(assembly, packageName, filePath, root.moduleName, root.version, root);
 
     this.parent = parent;
   }
