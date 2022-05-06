@@ -1375,6 +1375,15 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "jusdino",
+      "name": "Justin Frahm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11840575?v=4",
+      "profile": "https://github.com/jusdino",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",

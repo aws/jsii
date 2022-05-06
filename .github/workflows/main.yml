@@ -365,3 +365,51 @@ jobs:
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
         shell: bash
+  benchmark:
+    name: Run benchmark suite
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: build
+    steps:
+      # Check out the code
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: built-tree
+      - name: Extract Artifact
+        run: |-
+          echo "::group::Untar Archive"
+          tar zxvf built-tree.tgz
+          echo "::endgroup"
+
+          rm built-tree.tgz
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: '14'
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run Benchmark
+        working-directory: packages/@jsii/benchmarks
+        run: yarn bench --output ${{ runner.temp }}/bench-output.json
+      - name: Compare Benchmark Results
+        if: github.event_name == 'pull_request'
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: jsii Benchmark Regression
+          tool: 'customSmallerIsBetter'
+          output-file-path: ${{ runner.temp }}/bench-output.json
+          comment-always: true
+          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          fail-on-alert: true
+      - name: Upload Benchmark Results
+        if: github.event_name == 'push'
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: jsii Benchmark
+          tool: 'customSmallerIsBetter'
+          output-file-path: ${{ runner.temp }}/bench-output.json
+          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          auto-push: true
