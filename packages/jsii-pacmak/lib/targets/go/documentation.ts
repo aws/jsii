@@ -75,6 +75,22 @@ export class Documentation {
     }
   }
 
+  public emitReadme(moduleFqn: string, readme: string, directory: string) {
+    const goReadme = this.rosetta.translateSnippetsInMarkdown(
+      { api: 'moduleReadme', moduleFqn },
+      readme,
+      TargetLanguage.GO,
+      false,
+    );
+
+    const readmeFile = `${directory}/README.md`;
+    this.code.openFile(readmeFile);
+    for (const line of goReadme.split('\n')) {
+      this.code.line(line);
+    }
+    this.code.closeFile(readmeFile);
+  }
+
   private emitComment(text = '') {
     const lines = text.trim().split('\n');
 

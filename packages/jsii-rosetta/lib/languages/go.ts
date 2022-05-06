@@ -7,7 +7,7 @@ import { analyzeObjectLiteral, determineJsiiType, JsiiType, ObjectLiteralStruct 
 import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
 import { isExported, isPublic, isPrivate, isReadOnly, isStatic } from '../typescript/ast-utils';
-import { ImportStatement } from '../typescript/imports';
+import { analyzeImportDeclaration, ImportStatement } from '../typescript/imports';
 import {
   determineReturnType,
   inferMapElementType,
@@ -156,6 +156,32 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
   public identifier(node: ts.Identifier | ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, renderer: GoRenderer) {
     const symbol = renderer.typeChecker.getSymbolAtLocation(node);
+
+    // If the identifier corresponds to a renamed imported symbol, we need to use the original symbol name, qualified
+    // with the import package name, since Go does not allow generalized symbol aliasing (we *could* alias types, but
+    // not static functions or constructors).
+    const declaration = symbol?.valueDeclaration ?? symbol?.declarations?.[0];
+    if (declaration && ts.isImportSpecifier(declaration)) {
+      const importInfo = analyzeImportDeclaration(declaration.parent.parent.parent, renderer);
+      const packageName =
+        importInfo.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.packageName ??
+        this.goName(importInfo.packageName, renderer, undefined);
+
+      const importedSymbol = declaration.propertyName
+        ? renderer.typeChecker.getSymbolAtLocation(declaration.propertyName)
+        : symbol;
+      // Note: imported members are (by nature) always exported by the module they are imported from.
+      return new OTree([
+        packageName,
+        '.',
+        this.goName(
+          (declaration.propertyName ?? declaration.name).text,
+          renderer.updateContext({ isExported: true }),
+          importedSymbol,
+        ),
+      ]);
+    }
+
     return new OTree([this.goName(node.text, renderer, symbol)]);
   }
 
@@ -174,6 +200,26 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
 
     function determineClassName(this: GoVisitor, expr: ts.Expression): { classNamespace?: OTree; className: string } {
       if (ts.isIdentifier(expr)) {
+        // Imported names are referred to by the original (i.e: exported) name, qualified with the source module's go
+        // package name.
+        const symbol = renderer.typeChecker.getSymbolAtLocation(expr);
+        const declaration = symbol?.valueDeclaration ?? symbol?.declarations?.[0];
+        if (declaration && ts.isImportSpecifier(declaration)) {
+          const importInfo = analyzeImportDeclaration(declaration.parent.parent.parent, renderer);
+          const packageName =
+            importInfo.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.packageName ??
+            this.goName(importInfo.packageName, renderer, undefined);
+
+          return {
+            classNamespace: new OTree([packageName]),
+            className: this.goName(
+              (declaration.propertyName ?? declaration.name).text,
+              renderer.updateContext({ isExported: true }),
+              symbol,
+            ),
+          };
+        }
+
         return { className: ucFirst(expr.text) };
       }
       if (ts.isPropertyAccessExpression(expr)) {
@@ -761,34 +807,19 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       : `github.com/aws-samples/dummy/${packageName}`;
 
     if (node.imports.import === 'full') {
-      return new OTree(['import ', this.goName(node.imports.alias, renderer, undefined), ' "', moduleName, '"']);
+      return new OTree(
+        ['import ', this.goName(node.imports.alias, renderer, undefined), ' "', moduleName, '"'],
+        undefined,
+        { canBreakLine: true },
+      );
     }
 
-    // We'll just create local type aliases for all imported types. This is not very go-idiomatic, but simplifies things elsewhere...
-    const elements = node.imports.elements
-      .filter((element) => element.importedSymbol?.symbolType === 'type')
-      .map(
-        (element) =>
-          new OTree(['type ', element.alias ?? element.sourceName, ' ', packageName, '.', element.sourceName]),
-      );
-
-    const submodules = node.imports.elements
-      .filter((element) => element.importedSymbol?.symbolType === 'module')
-      .map(
-        (element) =>
-          new OTree(['import ', element.alias ?? element.sourceName, ' "', moduleName, '/', element.sourceName, '"']),
-      );
-
-    if (elements.length === 0 && submodules.length === 0) {
+    if (node.imports.elements.length === 0) {
       // This is a blank import (for side-effects only)
-      return new OTree(['import _ "', moduleName, '"']);
+      return new OTree(['import _ "', moduleName, '"'], undefined, { canBreakLine: true });
     }
 
-    const mainImport = new OTree(['import ', packageName, ' "', moduleName, '"'], elements, {
-      canBreakLine: true,
-      separator: '\n',
-    });
-    return new OTree([mainImport, ...submodules]);
+    return new OTree(['import "', moduleName, '"'], undefined, { canBreakLine: true });
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {
