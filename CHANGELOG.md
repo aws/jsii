@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.58.0](https://github.com/aws/jsii/compare/v1.57.0...v1.58.0) (2022-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* `jsii-pacmak` and the libraries it generates for Python
+targets now require a minimum Python version of 3.7, instead of 3.6
+previously. We recommend users upgrade to the latest supported Python
+release (Python 3.10).
+
+### Features
+
+* compiler benchmarks and gh action ([#3503](https://github.com/aws/jsii/issues/3503)) ([4a91cf0](https://github.com/aws/jsii/commit/4a91cf0d3032a988d20049ab9fffc25747ed9c47)), closes [/github.com/MrArnoldPalmer/jsii/pull/417#commitcomment-72358212](https://github.com/aws//github.com/MrArnoldPalmer/jsii/pull/417/issues/commitcomment-72358212)
+* **go:** add tag to denote required/optional properties ([#3486](https://github.com/aws/jsii/issues/3486)) ([3d7c310](https://github.com/aws/jsii/commit/3d7c310dcb66f1d61ab4c6a8530be06870d577b3)), closes [#2536](https://github.com/aws/jsii/issues/2536) [#2672](https://github.com/aws/jsii/issues/2672)
+
+
+### Bug Fixes
+
+* **go:** object type not recognized ([#3485](https://github.com/aws/jsii/issues/3485)) ([fe2fa94](https://github.com/aws/jsii/commit/fe2fa947891ab5d517efbec37998b9b57203aa8d)), closes [#2880](https://github.com/aws/jsii/issues/2880)
+* incorrect token for benchmark action ([#3517](https://github.com/aws/jsii/issues/3517)) ([3648117](https://github.com/aws/jsii/commit/3648117811c1edb40c047b2df3adf11a28452b3d))
+* **jsii:** some submodules are not exported from `aws-cdk-lib` ([#3491](https://github.com/aws/jsii/issues/3491)) ([47f70a2](https://github.com/aws/jsii/commit/47f70a26383f401a8b3df700787d6ce7934f66f9))
+* make jsii --watch work ([#3487](https://github.com/aws/jsii/issues/3487)) ([4a46f7d](https://github.com/aws/jsii/commit/4a46f7d7db3e6f9f1cf2730b02f4af0c1da9f237)), closes [#3467](https://github.com/aws/jsii/issues/3467)
+* **pacmak:** missing python artifacts when using relative -o path ([#3518](https://github.com/aws/jsii/issues/3518)) ([cc9b561](https://github.com/aws/jsii/commit/cc9b561b7ee847c78bbc6c8514a74a7e48ed3ef4)), closes [aws/aws-cdk#20041](https://github.com/aws/aws-cdk/issues/20041)
+* **rosetta:** attempts transliteraiton to unsupported languages ([#3478](https://github.com/aws/jsii/issues/3478)) ([db2d62e](https://github.com/aws/jsii/commit/db2d62e563432ddb99df273107e182d5fbaf7173))
+* **rosetta:** incorrect transliteration for selective imports ([#3508](https://github.com/aws/jsii/issues/3508)) ([8eec086](https://github.com/aws/jsii/commit/8eec0868c02730dd22009c841e25034144b2e86f))
+
+
+* drop support for Python 3.6 (EOL as of 2021-12-23) ([#3472](https://github.com/aws/jsii/issues/3472)) ([abf7415](https://github.com/aws/jsii/commit/abf741545cc07a6aa85c74a12b7e0271ad8a531d))
+
 ## [1.57.0](https://github.com/aws/jsii/compare/v1.56.0...v1.57.0) (2022-04-19)
 
 
