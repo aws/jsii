@@ -7,3 +7,4 @@
 *.d.ts
 
 !jsii-runtime-go/internal/kernel/process/jsii-mock-runtime.js
+*.d.ts.map

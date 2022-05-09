@@ -16,6 +16,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
   charset: 'utf8',
   declaration: true,
+  declarationMap: true,
   experimentalDecorators: true,
   incremental: true,
   inlineSourceMap: true,

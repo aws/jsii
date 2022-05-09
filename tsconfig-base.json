@@ -7,6 +7,7 @@
     "strictPropertyInitialization": true,  /* Require all properties be initialized in the constructor. */
     "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
     "declaration": true,                   /* Generates corresponding '.d.ts' file. */
+    "declarationMap": true,                /* Generates declaration map '.d.ts.map' file. */
     "esModuleInterop": false,              /* Turn on babel and typesystem compatibility with ES modules */
     "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
     "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file. */

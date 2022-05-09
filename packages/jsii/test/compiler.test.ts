@@ -148,6 +148,29 @@ describe(Compiler, () => {
       removeSync(sourceDir);
     }
   });
+
+  test('emits declaration map', () => {
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+
+    try {
+      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+
+      const compiler = new Compiler({
+        projectInfo: {
+          ..._makeProjectInfo(sourceDir, 'index.d.ts'),
+        },
+        generateTypeScriptConfig: 'tsconfig.jsii.json',
+      });
+
+      compiler.emit();
+
+      expect(() => {
+        readFileSync(join(sourceDir, 'index.d.ts.map'), 'utf-8');
+      }).not.toThrow();
+    } finally {
+      removeSync(sourceDir);
+    }
+  });
 });
 
 function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
@@ -180,6 +203,7 @@ function expectedTypeScriptConfig() {
       charset: 'utf8',
       composite: false,
       declaration: true,
+      declarationMap: true,
       experimentalDecorators: true,
       incremental: true,
       inlineSourceMap: true,

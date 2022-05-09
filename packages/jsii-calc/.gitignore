@@ -9,3 +9,4 @@ dist
 node_modules/
 .nyc_output/
 coverage/
+*.d.ts.map
