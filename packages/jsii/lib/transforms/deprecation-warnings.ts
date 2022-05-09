@@ -530,10 +530,7 @@ class Transformer {
           node.body,
           insertStatements(
             node.body,
-            wrapWithRethrow(
-              statements,
-              ts.createPropertyAccess(ts.createThis(), 'constructor'),
-            ),
+            wrapWithRethrow(statements, node.parent.name!),
           ),
         ),
       ) as any;
