@@ -1384,6 +1384,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "3p3r",
+      "name": "Sepehr Laal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5657848?v=4",
+      "profile": "https://sepehrlaal.com/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
