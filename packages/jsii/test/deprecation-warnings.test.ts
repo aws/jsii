@@ -656,7 +656,7 @@ describe('Call injections', () => {
           }
           catch (error) {
               if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
-                  Error.captureStackTrace(error, this.constructor);
+                  Error.captureStackTrace(error, Foo);
               }
               throw error;
           } }
@@ -664,7 +664,7 @@ describe('Call injections', () => {
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
       Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
-      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2Q7Ozs7Ozs7O09BQWU7O0FBRGpCLGtCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgIGV4cG9ydCBjbGFzcyBGb28ge1xuICAgICAgY29uc3RydWN0b3IoKXt9XG4gICAgfVxuICAiXX0="
+      //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2Q7Ozs7OzJDQURXLEdBQUc7OztPQUNDOztBQURqQixrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIGNvbnN0cnVjdG9yKCl7fVxuICAgIH1cbiAgIl19"
     `);
   });
 });
