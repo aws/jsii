@@ -9,7 +9,7 @@ import { debug } from '../lib/logging';
 import { VERSION_DESC } from '../lib/version';
 
 (async function main() {
-  const argv = await yargs
+  const argv = yargs
     .env('JSII_PACMAK')
     .command(
       ['$0  [PROJECTS...]', 'generate [PROJECTS...]'],

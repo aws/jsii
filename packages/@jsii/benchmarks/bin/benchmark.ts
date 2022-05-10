@@ -37,7 +37,7 @@ interface ResultsJson {
 
 (async () => {
   /* eslint-disable-next-line @typescript-eslint/await-thenable */
-  const argv = await yargs
+  const argv = yargs
     .command('$0', 'Runs jsii benchmark tests and displays results', (argv) =>
       argv.option('output', {
         type: 'string',

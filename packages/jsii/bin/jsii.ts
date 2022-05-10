@@ -15,7 +15,7 @@ import { enabledWarnings } from '../lib/warnings';
 const warningTypes = Object.keys(enabledWarnings);
 
 (async () => {
-  const argv = await yargs
+  const argv = yargs
     .env('JSII')
     .command(
       ['$0 [PROJECT_ROOT]', 'compile [PROJECT_ROOT]'],
