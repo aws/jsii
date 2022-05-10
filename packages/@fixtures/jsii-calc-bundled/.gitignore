@@ -11,3 +11,4 @@ node_modules/
 coverage/
 
 !index.js
+*.d.ts.map
