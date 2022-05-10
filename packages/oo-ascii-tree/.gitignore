@@ -17,3 +17,4 @@ coverage
 node_modules
 
 !jest.config.js
+*.d.ts.map

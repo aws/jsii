@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "composite": false,
-    "declaration": false
+    "declaration": true
   },
   "extends": "../../../tsconfig-base",
   "include": ["**/*.ts"],

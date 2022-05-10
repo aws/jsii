@@ -4,3 +4,4 @@
 node_modules
 *.d.ts
 coverage
+*.d.ts.map
