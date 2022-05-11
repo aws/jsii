@@ -1,12 +1,12 @@
 import { CANONICAL_ANY, OptionalValue, PrimitiveType } from '@jsii/spec';
 
-import { TOKEN_REF } from '../lib/api';
-import { ObjectTable } from '../lib/objects';
+import { TOKEN_REF } from './api';
+import { ObjectTable } from './objects';
 import {
   SerializationClass,
   SerializerHost,
   SERIALIZERS,
-} from '../lib/serialization';
+} from './serialization';
 
 const TYPE_ANY: OptionalValue = { type: CANONICAL_ANY };
 const TYPE_BOOLEAN: OptionalValue = {

@@ -1,8 +1,15 @@
 {
   "extends": "../../../tsconfig-base",
-  "include": ["**/*.ts"],
-  "exclude": ["jest.config.ts"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
   "references": [
-    { "path": "../spec" },
+    {
+      "path": "../spec"
+    },
   ],
 }
