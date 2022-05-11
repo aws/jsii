@@ -72,7 +72,7 @@ export function formatDiagnostic(
 
 /**
  * Formats a diagnostic message with color and context, if possible. Users
- * should use `formatDiagnostic` instead, as this implementation is inteded for
+ * should use `formatDiagnostic` instead, as this implementation is intended for
  * internal usafe only.
  *
  * @param diagnostic  the diagnostic message ot be formatted.
