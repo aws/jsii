@@ -6,7 +6,6 @@ import * as path from 'path';
 import * as vm from 'vm';
 
 import * as api from './api';
-import { Kernel } from './kernel';
 import {
   Callback,
   ObjRef,
@@ -16,6 +15,7 @@ import {
   WireStruct,
   TOKEN_STRUCT,
 } from './api';
+import { Kernel } from './kernel';
 import { closeRecording, recordInteraction } from './recording';
 
 /* eslint-disable require-atomic-updates */
