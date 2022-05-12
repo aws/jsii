@@ -1,4 +1,4 @@
-import { ObjectTable } from '../lib/objects';
+import { ObjectTable } from './objects';
 
 const mockResolve = jest.fn();
 
