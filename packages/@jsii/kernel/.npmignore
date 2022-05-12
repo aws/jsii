@@ -9,4 +9,5 @@
 /.eslintrc.yaml
 /jest.config.ts
 tsconfig.json
+*.map
 *.tsbuildinfo
