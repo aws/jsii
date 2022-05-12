@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 
-import { Kernel } from '../lib';
+import { Kernel } from './kernel';
 
 export async function closeRecording(kernel: Kernel): Promise<void> {
   const logfile: fs.WriteStream = (kernel as any).logfile;

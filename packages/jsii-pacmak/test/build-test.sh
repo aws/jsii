@@ -46,7 +46,7 @@ else
     # Hello Windows!
     . ${venv}/Scripts/activate
 fi
-${PYTHON} -m pip install --upgrade pip~=22.0 twine~=4.0
+${PYTHON} -m pip install --upgrade pip~=22.1 twine~=4.0
 
 # Provision a specific NuGet package cache
 NUGET_CACHE=${outdir}/.nuget/packages

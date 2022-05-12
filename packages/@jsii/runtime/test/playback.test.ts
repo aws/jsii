@@ -44,11 +44,11 @@ function createRecords(): string {
       require.resolve('jest/bin/jest'),
       '--no-coverage',
       '--runInBand',
-      'test/kernel.test.ts',
+      'src/kernel.test.ts',
     ],
     {
       cwd: path.resolve(
-        require.resolve('@jsii/kernel/test/kernel.test.js'),
+        require.resolve('@jsii/kernel/lib/kernel.test.js'),
         '..',
         '..',
       ),
