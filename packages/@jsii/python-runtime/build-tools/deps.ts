@@ -20,7 +20,7 @@ const env = {
 
 runCommand(
   python,
-  ['-m', 'pip', 'install', '-r', resolve(__dirname, '..', 'requirements.txt')],
+  ['-m', 'pip', 'install', '--upgrade', '-r', resolve(__dirname, '..', 'requirements.txt')],
   { env },
 );
 
