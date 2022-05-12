@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "@jest/types": "^27.5.1",
+    "@swc/core": "^1.2.182",
+    "@swc/jest": "^0.2.21",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "all-contributors-cli": "^6.20.0",
@@ -30,7 +32,6 @@
     "lerna": "^4.0.0",
     "prettier": "^2.6.2",
     "standard-version": "^9.3.2",
-    "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "typescript": "~3.9.10"
   },

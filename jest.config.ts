@@ -35,7 +35,7 @@ const config: Config.InitialOptions = {
   // When in Continuous Integration, allow double the default test timeout (assuming "frugal" runner type)
   testTimeout: env.CI === 'true' ? 10_000 : undefined,
   transform: {
-    '\\.tsx?$': 'ts-jest',
+    '^.+\\.tsx?$': '@swc/jest',
   },
 };
 
