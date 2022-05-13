@@ -24,7 +24,6 @@ import {
   PythonImports,
   mergePythonImports,
   toPackageName,
-  toPythonFqn,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -1568,7 +1567,30 @@ class PythonModule implements PythonType {
       !this.loadAssembly,
       'PythonModule.addPythonModule CANNOT be called on assembly-loading modules (it would cause a load cycle)!',
     );
-    this.modules.push(pyMod);
+
+    assert(
+      pyMod.pythonName.startsWith(`${this.pythonName}.`),
+      `Attempted to register ${pyMod.pythonName} as a child module of ${this.pythonName}, but the names don't match!`,
+    );
+
+    const [firstLevel, ...rest] = pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .split('.');
+    if (rest.length === 0) {
+      // This is a direct child module...
+      this.modules.push(pyMod);
+    } else {
+      // This is a nested child module, so we delegate to the directly nested module...
+      const parent = this.modules.find(
+        (m) => m.pythonName === `${this.pythonName}.${firstLevel}`,
+      );
+      if (!parent) {
+        throw new Error(
+          `Attempted to register ${pyMod.pythonName} within ${this.pythonName}, but ${this.pythonName}.${firstLevel} wasn't registered yet!`,
+        );
+      }
+      parent.addPythonModule(pyMod);
+    }
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -1692,25 +1714,13 @@ class PythonModule implements PythonType {
         l.pythonName.localeCompare(r.pythonName),
       )) {
         // Rather than generating an absolute import like
-        // "import jsii_calc.submodule.nested_submodule.deeply_nested"
-        // this builds a relative import like
-        // "from .submodule.nested_submodule import deeply_nested"
-        // This enables distributing python packages and using the
-        // generated modules in the same codebase.
-        const assemblyName = toPythonFqn(
-          module.assembly.name,
-          module.assembly,
-        ).pythonFqn;
-
-        const submodule = module.pythonName
-          .replace(`${assemblyName}.`, '')
-          .split('.');
-
-        const submodulePath = submodule
-          .slice(0, submodule.length - 1)
-          .join('.');
-        const submoduleName = submodule[submodule.length - 1];
-        code.line(`from .${submodulePath} import ${submoduleName}`);
+        // "import jsii_calc.submodule" this builds a relative import like
+        // "from . import submodule". This enables distributing python packages
+        // and using the generated modules in the same codebase.
+        const submodule = module.pythonName.substring(
+          this.pythonName.length + 1,
+        );
+        code.line(`from . import ${submodule}`);
       }
     }
   }
