@@ -22,3 +22,4 @@ node_modules/
 .nyc_output/
 coverage/
 .nuget/
+*.d.ts.map

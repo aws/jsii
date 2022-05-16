@@ -4,3 +4,4 @@
 *.d.ts
 !*.t.js
 maven-repo
+*.d.ts.map
