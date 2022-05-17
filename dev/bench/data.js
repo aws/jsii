@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652780473694,
+  "lastUpdate": 1652780539600,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -527,6 +527,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 77622.068773 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d2d5de469a9ba5caadd15f9a67c6bb98b2c2d9a4",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.1.0 to 17.2.0 in /packages/@jsii/dotnet-runtime-test/test (#3543)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-05-17T11:25:16+02:00",
+          "tree_id": "2d687fd0b258f41c0ed61f091c6e4cc5fb6e3bd4",
+          "url": "https://github.com/aws/jsii/commit/d2d5de469a9ba5caadd15f9a67c6bb98b2c2d9a4"
+        },
+        "date": 1652780536995,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 89259.895172,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 89259.895172 milliseconds over 1 runs"
           }
         ]
       }
