@@ -676,7 +676,14 @@ export abstract class Generator implements IGenerator {
     );
   }
 
+  /**
+   * @deprecated use findReflectType instead.
+   */
   protected findType(fqn: string): spec.Type {
+    return this.findReflectType(fqn).spec;
+  }
+
+  protected findReflectType(fqn: string): reflect.Type {
     const ret = this.reflectAssembly.system.tryFindFqn(fqn);
     if (!ret) {
       throw new Error(
@@ -684,6 +691,6 @@ export abstract class Generator implements IGenerator {
       );
     }
 
-    return ret.spec;
+    return ret;
   }
 }

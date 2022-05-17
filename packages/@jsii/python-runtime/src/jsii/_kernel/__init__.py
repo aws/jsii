@@ -3,7 +3,7 @@ import inspect
 import itertools
 from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
-from typing import Any, List, Optional, Type, Union
+from typing import Any, Callable, List, Optional, Type
 
 import functools
 
@@ -12,9 +12,7 @@ import enum
 
 from ..errors import JSIIError
 from .. import _reference_map
-from .._utils import Singleton
 from .providers import BaseProvider, ProcessProvider
-from .types import Callback
 from .types import (
     EnumRef,
     LoadRequest,
@@ -63,7 +61,7 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
     # We need to inspect each item in the MRO, until we get to our Type, at that
     # point we'll bail, because those methods are not the overriden methods, but the
     # "real" methods.
-    jsii_name = getattr(klass, "__jsii_type__", "Object")
+    jsii_name = getattr(klass, "__jsii_class__", None) or "Object"
     jsii_classes = [
         next(
             (
@@ -124,7 +122,7 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
     return overrides
 
 
-def _recursize_dereference(kernel, d):
+def _recursize_dereference(kernel: "Kernel", d):
     if isinstance(d, dict):
         return {k: _recursize_dereference(kernel, v) for k, v in d.items()}
     elif isinstance(d, list):
@@ -137,7 +135,7 @@ def _recursize_dereference(kernel, d):
         return d
 
 
-def _dereferenced(fn):
+def _dereferenced(fn: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(fn)
     def wrapped(kernel, *args, **kwargs):
         return _recursize_dereference(kernel, fn(kernel, *args, **kwargs))
@@ -147,7 +145,7 @@ def _dereferenced(fn):
 
 # We need to recurse through our data structure and look for anything that the JSII
 # doesn't natively handle. These items will be created as "Object" types in the JSII.
-def _make_reference_for_native(kernel, d):
+def _make_reference_for_native(kernel: "Kernel", d):
     if isinstance(d, dict):
         return {
             "$jsii.map": {
@@ -181,6 +179,12 @@ def _make_reference_for_native(kernel, d):
                     },
                 }
             }
+
+        if not hasattr(d, "__jsii_ref__"):
+            # This is a user-defined interface implementation. It hasn't been registered with the JS kernel just yet, so
+            # we need to create a JS proxy for this value before we can send it across the wire.
+            kernel.create(d.__class__, d)
+
         return d
 
     elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):
@@ -201,7 +205,7 @@ def _make_reference_for_native(kernel, d):
         return d
 
 
-def _handle_callback(kernel, callback):
+def _handle_callback(kernel: "Kernel", callback):
     # need to handle get, set requests here as well as invoke requests
     if callback.invoke:
         obj = _reference_map.resolve_id(callback.invoke.objref.ref)
@@ -222,24 +226,23 @@ def _handle_callback(kernel, callback):
 
 
 def _callback_till_result(
-    kernel, response: Callback, response_type: Type[KernelResponse]
+    kernel: "Kernel", response: Callback, response_type: Type[KernelResponse]
 ) -> Any:
-    while isinstance(response, Callback):
+    current: Any = response
+    while isinstance(current, Callback):
         try:
-            result = _handle_callback(kernel, response)
+            result = _handle_callback(kernel, current)
         except Exception as exc:
-            response = kernel.sync_complete(
-                response.cbid, str(exc), None, response_type
-            )
+            current = kernel.sync_complete(current.cbid, str(exc), None, response_type)
         else:
-            response = kernel.sync_complete(response.cbid, None, result, response_type)
+            current = kernel.sync_complete(current.cbid, None, result, response_type)
 
-    if isinstance(response, InvokeResponse):
-        return response.result
-    elif isinstance(response, GetResponse):
-        return response.value
+    if isinstance(current, InvokeResponse):
+        return current.result
+    elif isinstance(current, GetResponse):
+        return current.value
     else:
-        return response
+        return current
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -289,7 +292,7 @@ class Kernel(metaclass=Singleton):
 
         response = self.provider.create(
             CreateRequest(
-                fqn=klass.__jsii_type__ or "Object",
+                fqn=getattr(klass, "__jsii_class__", None) or "Object",
                 args=_make_reference_for_native(self, args),
                 overrides=_get_overides(klass, obj),
                 interfaces=[
