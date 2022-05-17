@@ -61,7 +61,6 @@
     "jest": "^27.5.1",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.6.2",
-    "ts-jest": "^27.1.4"
+    "prettier": "^2.6.2"
   }
 }

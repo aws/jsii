@@ -26,7 +26,7 @@ const config: Config.InitialOptions = {
   // When in Continuous Integration, use only 1 worker (assuming "frugal" runner type)
   maxWorkers: env.CI === 'true' ? 1 : defaults.maxWorkers,
   testEnvironment: 'node',
-  testMatch: ['**/?(*.)+(spec|test).ts'],
+  testMatch: ['**/?(*.)+(spec|test).js'],
   testRunner: 'jest-circus/runner',
   // Adjust maximum concurrency to specifically disallow running unbounded. Allow a minimum of 2 concurrent
   // tests, and a maximum of 4 (which is the libuv thread pool size - more will likely cause wait times to
@@ -34,9 +34,6 @@ const config: Config.InitialOptions = {
   maxConcurrency: Math.max(Math.min(cpus().length - 1, 4), 2),
   // When in Continuous Integration, allow double the default test timeout (assuming "frugal" runner type)
   testTimeout: env.CI === 'true' ? 10_000 : undefined,
-  transform: {
-    '\\.tsx?$': 'ts-jest',
-  },
 };
 
 /**
