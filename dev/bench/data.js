@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652749771951,
+  "lastUpdate": 1652780427792,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -465,6 +465,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 85539.979887 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8fdd5f59be9b6026b39711627febdd7ce0b8a220",
+          "message": "chore(deps): Bump Microsoft.CodeAnalysis.CSharp.Workspaces from 4.1.0 to 4.2.0 in /packages/@jsii/dotnet-runtime-test/test (#3542)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-05-17T11:25:26+02:00",
+          "tree_id": "1e9b6517e920dddadae5907712285f74567b9980",
+          "url": "https://github.com/aws/jsii/commit/8fdd5f59be9b6026b39711627febdd7ce0b8a220"
+        },
+        "date": 1652780425921,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 71930.284993,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 71930.284993 milliseconds over 1 runs"
           }
         ]
       }
