@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2019",                    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
+    "target": "ES2020",                    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
     "module": "commonjs",                  /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
-    "lib": ["es2019"],                     /* Specify library files to be included in the compilation:  */
+    "lib": ["es2020"],                     /* Specify library files to be included in the compilation:  */
     "strict": true,                        /* Enable all strict type-checking options. */
     "strictPropertyInitialization": true,  /* Require all properties be initialized in the constructor. */
     "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */

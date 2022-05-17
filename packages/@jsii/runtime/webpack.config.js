@@ -18,7 +18,7 @@ module.exports = {
     iife: false,
   },
   devtool: 'source-map',
-  target: 'node12.4',
+  target: 'node14.5',
   node: {
     global: false,
     __filename: false,
