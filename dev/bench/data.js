@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652780630037,
+  "lastUpdate": 1652783887618,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -589,6 +589,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 77754.629496 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "46e40c9929835c81164f08a16a52f6d9e2e041c4",
+          "message": "chore: stop using ts-jest (#3539)\n\nOur process compiles before tests are run, and using\nts-jest causes the test files to be transformed a second\ntime, which is a waste of resources.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-05-17T10:22:09Z",
+          "tree_id": "a0d80c53add3d98e0ea767834671dbf58748b3ce",
+          "url": "https://github.com/aws/jsii/commit/46e40c9929835c81164f08a16a52f6d9e2e041c4"
+        },
+        "date": 1652783885689,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 62602.966603,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 62602.966603 milliseconds over 1 runs"
           }
         ]
       }
