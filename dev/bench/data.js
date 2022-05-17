@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652780427792,
+  "lastUpdate": 1652780473694,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -496,6 +496,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 71930.284993 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c892954ae1661b71b4078ad9901e3353d5749c6a",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.2.14 to ~=8.2.15 in /gh-pages (#3544)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-05-17T11:25:05+02:00",
+          "tree_id": "eba76d734a9cc11cefb3c89d94c2ccbbfc12081b",
+          "url": "https://github.com/aws/jsii/commit/c892954ae1661b71b4078ad9901e3353d5749c6a"
+        },
+        "date": 1652780471707,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 77622.068773,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 77622.068773 milliseconds over 1 runs"
           }
         ]
       }
