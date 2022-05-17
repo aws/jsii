@@ -44,7 +44,7 @@ function createRecords(): string {
       require.resolve('jest/bin/jest'),
       '--no-coverage',
       '--runInBand',
-      'lib/kernel.test.ts',
+      'lib/kernel.test.js',
     ],
     {
       cwd: path.resolve(
