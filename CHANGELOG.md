@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.59.0](https://github.com/aws/jsii/compare/v1.58.0...v1.59.0) (2022-05-16)
+
+
+### Features
+
+* **jsii:** enable source maps for declaration files ([#3521](https://github.com/aws/jsii/issues/3521)) ([2751ca8](https://github.com/aws/jsii/commit/2751ca852ee751d3d7a49ee991004f3b5a6bde21))
+
+
+### Bug Fixes
+
+* **jsii:** deprecation warnings use this.constructor before calling super ([#3528](https://github.com/aws/jsii/issues/3528)) ([5d5f435](https://github.com/aws/jsii/commit/5d5f435c9ce32e6a1e76afe27b7ef810200bde58)), closes [#3527](https://github.com/aws/jsii/issues/3527)
+* **python:** cannot import nested submodules ([#3540](https://github.com/aws/jsii/issues/3540)) ([8ef8ef2](https://github.com/aws/jsii/commit/8ef8ef2fe1e5559ef77a5b7ba0dbb67f52329927)), closes [#3408](https://github.com/aws/jsii/issues/3408)
+
 ## [1.58.0](https://github.com/aws/jsii/compare/v1.57.0...v1.58.0) (2022-05-06)
 
 

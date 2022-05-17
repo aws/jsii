@@ -10274,7 +10274,6 @@ publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
 from . import cdk16625
-from .cdk16625 import donotimport
 from . import composition
 from . import derived_class_has_no_properties
 from . import interface_in_namespace_includes_classes
@@ -10283,28 +10282,13 @@ from . import module2530
 from . import module2617
 from . import module2647
 from . import module2689
-from .module2689 import methods
-from .module2689 import props
-from .module2689 import retval
-from .module2689 import structs
 from . import module2692
-from .module2692 import submodule1
-from .module2692 import submodule2
 from . import module2700
 from . import module2702
 from . import nodirect
-from .nodirect import sub1
-from .nodirect import sub2
 from . import onlystatic
 from . import python_self
 from . import submodule
-from .submodule import back_references
-from .submodule import child
-from .submodule import isolated
-from .submodule import nested_submodule
-from .submodule.nested_submodule import deeply_nested
-from .submodule import param
-from .submodule import returnsparam
 
 `;
 
@@ -10403,9 +10387,13 @@ typing.cast(typing.Any, Cdk16625).__jsii_proxy_class__ = lambda : _Cdk16625Proxy
 
 __all__ = [
     "Cdk16625",
+    "donotimport",
 ]
 
 publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import donotimport
 
 `;
 
@@ -10905,9 +10893,20 @@ import typing_extensions
 
 from .._jsii import *
 
-__all__: typing.List[typing.Any] = []
+__all__ = [
+    "methods",
+    "props",
+    "retval",
+    "structs",
+]
 
 publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import methods
+from . import props
+from . import retval
+from . import structs
 
 `;
 
@@ -11122,9 +11121,16 @@ import typing_extensions
 
 from .._jsii import *
 
-__all__: typing.List[typing.Any] = []
+__all__ = [
+    "submodule1",
+    "submodule2",
+]
 
 publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import submodule1
+from . import submodule2
 
 `;
 
@@ -11614,9 +11620,16 @@ import typing_extensions
 
 from .._jsii import *
 
-__all__: typing.List[typing.Any] = []
+__all__ = [
+    "sub1",
+    "sub2",
+]
 
 publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import sub1
+from . import sub2
 
 `;
 
@@ -11965,9 +11978,23 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 __all__ = [
     "Default",
     "MyClass",
+    "back_references",
+    "child",
+    "isolated",
+    "nested_submodule",
+    "param",
+    "returnsparam",
 ]
 
 publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import back_references
+from . import child
+from . import isolated
+from . import nested_submodule
+from . import param
+from . import returnsparam
 
 `;
 
@@ -12314,9 +12341,13 @@ typing.cast(typing.Any, Namespaced).__jsii_proxy_class__ = lambda : _NamespacedP
 
 __all__ = [
     "Namespaced",
+    "deeply_nested",
 ]
 
 publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import deeply_nested
 
 `;
 
