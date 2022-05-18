@@ -560,7 +560,7 @@ export class ComparableStructType extends ComparableType<reflect.InterfaceType> 
   ): Analysis {
     try {
       return isStructuralSuperType(a, b, this.newType.system);
-    } catch (e) {
+    } catch (e: any) {
       // We might get an exception if the type is supposed to come from a different
       // assembly and the lookup fails.
       return { success: false, reasons: [e.message] };

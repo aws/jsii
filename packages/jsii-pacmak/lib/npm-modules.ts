@@ -75,7 +75,7 @@ export async function findJsiiModules(
           try {
             const depDir = await findDependencyDirectory(dep, realPath);
             return [await visitPackage(depDir, false)];
-          } catch (e) {
+          } catch (e: any) {
             // Some modules like `@types/node` cannot be require()d, but we also don't need them.
             if (
               !['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(

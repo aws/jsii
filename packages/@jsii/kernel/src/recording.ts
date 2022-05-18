@@ -58,7 +58,7 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
 
             logOutput({ ok: ret });
             return ret;
-          } catch (e) {
+          } catch (e: any) {
             logOutput({ error: e.message });
             throw e;
           }

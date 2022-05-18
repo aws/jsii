@@ -251,7 +251,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     ) =>
       `A "peerDependency" on "${dependencyName}" at "${peerRange}" means you ` +
       `should take a "devDependency" on "${dependencyName}" at "${minVersion}" ` +
-      `(found "${actual}")"`,
+      `(found ${JSON.stringify(actual)})`,
     name: 'metadata/missing-dev-dependency',
   });
 

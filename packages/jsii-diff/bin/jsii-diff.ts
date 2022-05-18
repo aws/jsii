@@ -22,7 +22,7 @@ import { VERSION } from '../lib/version';
 const LOG = log4js.getLogger('jsii-diff');
 
 async function main(): Promise<number> {
-  const argv = yargs
+  const argv = await yargs
     .env('JSII_DIFF')
     .option('verbose', {
       alias: 'v',
@@ -189,7 +189,7 @@ async function loadAssembly(
       success: true,
       assembly: await loadFromFilesystem(requested, options),
     };
-  } catch (e) {
+  } catch (e: any) {
     // Prepend information about which assembly we've failed to load
     //
     // Look at the type of error. If it has a lot of lines (like validation errors
@@ -292,7 +292,7 @@ async function loadFilter(filterFilename?: string): Promise<Set<string>> {
         .map((x) => x.trim())
         .filter((x) => !x.startsWith('#')),
     );
-  } catch (e) {
+  } catch (e: any) {
     if (e.code !== 'ENOENT') {
       throw e;
     }
