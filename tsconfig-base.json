@@ -11,7 +11,7 @@
     "esModuleInterop": false,              /* Turn on babel and typesystem compatibility with ES modules */
     "sourceMap": true,                     /* Generates source file .js.map file. */
     "inlineSourceMap": false,              /* Emit a single file with source maps instead of having a separate file. */
-    "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file. */
+    "inlineSources": false,                /* Emit the source alongside the sourcemaps within a single file. */
     "noUnusedLocals": true,                /* Report errors on unused locals. */
     "noUnusedParameters": true,            /* Report errors on unused parameters. */
     "noImplicitAny": true,                 /* Report error on expressions and declarations with an implied any type. */
