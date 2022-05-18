@@ -5,6 +5,8 @@ import {
   writeFileSync,
   readFileSync,
   readJsonSync,
+  accessSync,
+  constants,
 } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
@@ -171,6 +173,33 @@ describe(Compiler, () => {
       removeSync(sourceDir);
     }
   });
+
+  test('option to compress .jsii file', () => {
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+
+    try {
+      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+
+      const compiler = new Compiler({
+        projectInfo: {
+          ..._makeProjectInfo(sourceDir, 'index.d.ts'),
+          metadata: {
+            jsii: {
+              compress: true,
+            },
+          },
+        },
+        generateTypeScriptConfig: 'tsconfig.jsii.json',
+      });
+
+      compiler.emit();
+
+      expect(checkFileExistsSync(join(sourceDir, '.jsii'))).toBeFalsy();
+      expect(checkFileExistsSync(join(sourceDir, '.jsii.gz'))).toBeTruthy();
+    } finally {
+      removeSync(sourceDir);
+    }
+  });
 });
 
 function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
@@ -229,4 +258,14 @@ function expectedTypeScriptConfig() {
     exclude: ['node_modules'],
     include: [join('**', '*.ts')],
   };
+}
+
+function checkFileExistsSync(path: string) {
+  let flag = true;
+  try {
+    accessSync(path, constants.F_OK);
+  } catch (e) {
+    flag = false;
+  }
+  return flag;
 }
