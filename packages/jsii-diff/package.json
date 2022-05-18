@@ -37,14 +37,14 @@
     "@jsii/spec": "^0.0.0",
     "fs-extra": "^9.1.0",
     "jsii-reflect": "^0.0.0",
-    "log4js": "^6.4.6",
+    "log4js": "^6.4.7",
     "typescript": "~3.9.10",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^27.5.0",
-    "@types/node": "^12.20.51",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^12.20.52",
     "@types/tar-fs": "^2.0.1",
     "eslint": "^8.15.0",
     "jest": "^27.5.1",
