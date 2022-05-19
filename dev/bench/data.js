@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652955609205,
+  "lastUpdate": 1652970342242,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -651,6 +651,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 62560.698316 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Huijbers",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9fd3c71c4edc4d7c03c05930b47fe34fe364bd29",
+          "message": "fix(java): rendering of `@see` hyperlink leads to errors (#3554)\n\nJavaDoc complains about unexpected text when seeing:\n\n```\n@see https://example.com/path\n```\n\nApparently it needs to be:\n\n```\n@see <a href=\"https://example.com/path\">...</a>\n```\n\nChange the JavaDoc renderer.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-05-19T14:11:11Z",
+          "tree_id": "5738cb0887157f1f6400ae6ba9ab9ef91fba0d2f",
+          "url": "https://github.com/aws/jsii/commit/9fd3c71c4edc4d7c03c05930b47fe34fe364bd29"
+        },
+        "date": 1652970340139,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 64637.731339,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 64637.731339 milliseconds over 1 runs"
           }
         ]
       }
