@@ -3682,6 +3682,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 IInterfaceWithOptionalMethodArguments.java
           ┃                 ┣━ 📄 IInterfaceWithProperties.java
           ┃                 ┣━ 📄 IInterfaceWithPropertiesExtension.java
+          ┃                 ┣━ 📄 IJavaReservedWordsInAnInterface.java
           ┃                 ┣━ 📄 IJSII417Derived.java
           ┃                 ┣━ 📄 IJSII417PublicBaseOfBase.java
           ┃                 ┣━ 📄 IJsii487External.java
@@ -12708,6 +12709,1129 @@ public interface IJSII417PublicBaseOfBase extends software.amazon.jsii.JsiiSeria
         @Override
         default void foo() {
             software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IJavaReservedWordsInAnInterface.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IJavaReservedWordsInAnInterface")
+@software.amazon.jsii.Jsii.Proxy(IJavaReservedWordsInAnInterface.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IJavaReservedWordsInAnInterface extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getWhileValue();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doAbstract();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doAssert();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doBoolean();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doBreak();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doByte();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doCase();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doCatch();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doChar();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doClass();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doConst();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doContinue();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doDefault();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doDo();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doDouble();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doElse();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doEnum();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doExtends();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doFalse();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doFinal();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doFinally();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doFloat();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doFor();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doGoto();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doIf();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doImplements();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doImport();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doInstanceof();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doInt();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doInterface();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doLong();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doNative();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doNull();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doPackage();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doPrivate();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doProtected();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doPublic();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doReturn();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doShort();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doStatic();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doStrictfp();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doSuper();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doSwitch();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doSynchronized();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doThis();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doThrow();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doThrows();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doTransient();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doTrue();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doTry();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doVoid();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    void doVolatile();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IJavaReservedWordsInAnInterface.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public final @org.jetbrains.annotations.NotNull java.lang.String getWhileValue() {
+            return software.amazon.jsii.Kernel.get(this, "while", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doAbstract() {
+            software.amazon.jsii.Kernel.call(this, "abstract", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doAssert() {
+            software.amazon.jsii.Kernel.call(this, "assert", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doBoolean() {
+            software.amazon.jsii.Kernel.call(this, "boolean", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doBreak() {
+            software.amazon.jsii.Kernel.call(this, "break", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doByte() {
+            software.amazon.jsii.Kernel.call(this, "byte", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doCase() {
+            software.amazon.jsii.Kernel.call(this, "case", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doCatch() {
+            software.amazon.jsii.Kernel.call(this, "catch", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doChar() {
+            software.amazon.jsii.Kernel.call(this, "char", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doClass() {
+            software.amazon.jsii.Kernel.call(this, "class", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doConst() {
+            software.amazon.jsii.Kernel.call(this, "const", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doContinue() {
+            software.amazon.jsii.Kernel.call(this, "continue", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doDefault() {
+            software.amazon.jsii.Kernel.call(this, "default", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doDo() {
+            software.amazon.jsii.Kernel.call(this, "do", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doDouble() {
+            software.amazon.jsii.Kernel.call(this, "double", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doElse() {
+            software.amazon.jsii.Kernel.call(this, "else", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doEnum() {
+            software.amazon.jsii.Kernel.call(this, "enum", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doExtends() {
+            software.amazon.jsii.Kernel.call(this, "extends", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doFalse() {
+            software.amazon.jsii.Kernel.call(this, "false", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doFinal() {
+            software.amazon.jsii.Kernel.call(this, "final", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doFinally() {
+            software.amazon.jsii.Kernel.call(this, "finally", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doFloat() {
+            software.amazon.jsii.Kernel.call(this, "float", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doFor() {
+            software.amazon.jsii.Kernel.call(this, "for", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doGoto() {
+            software.amazon.jsii.Kernel.call(this, "goto", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doIf() {
+            software.amazon.jsii.Kernel.call(this, "if", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doImplements() {
+            software.amazon.jsii.Kernel.call(this, "implements", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doImport() {
+            software.amazon.jsii.Kernel.call(this, "import", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doInstanceof() {
+            software.amazon.jsii.Kernel.call(this, "instanceof", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doInt() {
+            software.amazon.jsii.Kernel.call(this, "int", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doInterface() {
+            software.amazon.jsii.Kernel.call(this, "interface", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doLong() {
+            software.amazon.jsii.Kernel.call(this, "long", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doNative() {
+            software.amazon.jsii.Kernel.call(this, "native", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doNull() {
+            software.amazon.jsii.Kernel.call(this, "null", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doPackage() {
+            software.amazon.jsii.Kernel.call(this, "package", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doPrivate() {
+            software.amazon.jsii.Kernel.call(this, "private", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doProtected() {
+            software.amazon.jsii.Kernel.call(this, "protected", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doPublic() {
+            software.amazon.jsii.Kernel.call(this, "public", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doReturn() {
+            software.amazon.jsii.Kernel.call(this, "return", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doShort() {
+            software.amazon.jsii.Kernel.call(this, "short", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doStatic() {
+            software.amazon.jsii.Kernel.call(this, "static", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doStrictfp() {
+            software.amazon.jsii.Kernel.call(this, "strictfp", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doSuper() {
+            software.amazon.jsii.Kernel.call(this, "super", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doSwitch() {
+            software.amazon.jsii.Kernel.call(this, "switch", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doSynchronized() {
+            software.amazon.jsii.Kernel.call(this, "synchronized", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doThis() {
+            software.amazon.jsii.Kernel.call(this, "this", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doThrow() {
+            software.amazon.jsii.Kernel.call(this, "throw", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doThrows() {
+            software.amazon.jsii.Kernel.call(this, "throws", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doTransient() {
+            software.amazon.jsii.Kernel.call(this, "transient", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doTrue() {
+            software.amazon.jsii.Kernel.call(this, "true", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doTry() {
+            software.amazon.jsii.Kernel.call(this, "try", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doVoid() {
+            software.amazon.jsii.Kernel.call(this, "void", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void doVolatile() {
+            software.amazon.jsii.Kernel.call(this, "volatile", software.amazon.jsii.NativeType.VOID);
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IJavaReservedWordsInAnInterface}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IJavaReservedWordsInAnInterface {
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        default @org.jetbrains.annotations.NotNull java.lang.String getWhileValue() {
+            return software.amazon.jsii.Kernel.get(this, "while", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doAbstract() {
+            software.amazon.jsii.Kernel.call(this, "abstract", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doAssert() {
+            software.amazon.jsii.Kernel.call(this, "assert", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doBoolean() {
+            software.amazon.jsii.Kernel.call(this, "boolean", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doBreak() {
+            software.amazon.jsii.Kernel.call(this, "break", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doByte() {
+            software.amazon.jsii.Kernel.call(this, "byte", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doCase() {
+            software.amazon.jsii.Kernel.call(this, "case", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doCatch() {
+            software.amazon.jsii.Kernel.call(this, "catch", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doChar() {
+            software.amazon.jsii.Kernel.call(this, "char", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doClass() {
+            software.amazon.jsii.Kernel.call(this, "class", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doConst() {
+            software.amazon.jsii.Kernel.call(this, "const", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doContinue() {
+            software.amazon.jsii.Kernel.call(this, "continue", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doDefault() {
+            software.amazon.jsii.Kernel.call(this, "default", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doDo() {
+            software.amazon.jsii.Kernel.call(this, "do", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doDouble() {
+            software.amazon.jsii.Kernel.call(this, "double", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doElse() {
+            software.amazon.jsii.Kernel.call(this, "else", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doEnum() {
+            software.amazon.jsii.Kernel.call(this, "enum", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doExtends() {
+            software.amazon.jsii.Kernel.call(this, "extends", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doFalse() {
+            software.amazon.jsii.Kernel.call(this, "false", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doFinal() {
+            software.amazon.jsii.Kernel.call(this, "final", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doFinally() {
+            software.amazon.jsii.Kernel.call(this, "finally", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doFloat() {
+            software.amazon.jsii.Kernel.call(this, "float", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doFor() {
+            software.amazon.jsii.Kernel.call(this, "for", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doGoto() {
+            software.amazon.jsii.Kernel.call(this, "goto", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doIf() {
+            software.amazon.jsii.Kernel.call(this, "if", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doImplements() {
+            software.amazon.jsii.Kernel.call(this, "implements", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doImport() {
+            software.amazon.jsii.Kernel.call(this, "import", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doInstanceof() {
+            software.amazon.jsii.Kernel.call(this, "instanceof", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doInt() {
+            software.amazon.jsii.Kernel.call(this, "int", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doInterface() {
+            software.amazon.jsii.Kernel.call(this, "interface", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doLong() {
+            software.amazon.jsii.Kernel.call(this, "long", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doNative() {
+            software.amazon.jsii.Kernel.call(this, "native", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doNull() {
+            software.amazon.jsii.Kernel.call(this, "null", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doPackage() {
+            software.amazon.jsii.Kernel.call(this, "package", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doPrivate() {
+            software.amazon.jsii.Kernel.call(this, "private", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doProtected() {
+            software.amazon.jsii.Kernel.call(this, "protected", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doPublic() {
+            software.amazon.jsii.Kernel.call(this, "public", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doReturn() {
+            software.amazon.jsii.Kernel.call(this, "return", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doShort() {
+            software.amazon.jsii.Kernel.call(this, "short", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doStatic() {
+            software.amazon.jsii.Kernel.call(this, "static", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doStrictfp() {
+            software.amazon.jsii.Kernel.call(this, "strictfp", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doSuper() {
+            software.amazon.jsii.Kernel.call(this, "super", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doSwitch() {
+            software.amazon.jsii.Kernel.call(this, "switch", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doSynchronized() {
+            software.amazon.jsii.Kernel.call(this, "synchronized", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doThis() {
+            software.amazon.jsii.Kernel.call(this, "this", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doThrow() {
+            software.amazon.jsii.Kernel.call(this, "throw", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doThrows() {
+            software.amazon.jsii.Kernel.call(this, "throws", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doTransient() {
+            software.amazon.jsii.Kernel.call(this, "transient", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doTrue() {
+            software.amazon.jsii.Kernel.call(this, "true", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doTry() {
+            software.amazon.jsii.Kernel.call(this, "try", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doVoid() {
+            software.amazon.jsii.Kernel.call(this, "void", software.amazon.jsii.NativeType.VOID);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void doVolatile() {
+            software.amazon.jsii.Kernel.call(this, "volatile", software.amazon.jsii.NativeType.VOID);
         }
     }
 }
@@ -25910,6 +27034,7 @@ jsii-calc.IInterfaceWithProperties=software.amazon.jsii.tests.calculator.IInterf
 jsii-calc.IInterfaceWithPropertiesExtension=software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension
 jsii-calc.IJSII417Derived=software.amazon.jsii.tests.calculator.IJSII417Derived
 jsii-calc.IJSII417PublicBaseOfBase=software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase
+jsii-calc.IJavaReservedWordsInAnInterface=software.amazon.jsii.tests.calculator.IJavaReservedWordsInAnInterface
 jsii-calc.IJsii487External=software.amazon.jsii.tests.calculator.IJsii487External
 jsii-calc.IJsii487External2=software.amazon.jsii.tests.calculator.IJsii487External2
 jsii-calc.IJsii496=software.amazon.jsii.tests.calculator.IJsii496
