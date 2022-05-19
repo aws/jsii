@@ -870,14 +870,15 @@ class JavaGenerator extends Generator {
     const returnType = method.returns
       ? this.toDecoratedJavaType(method.returns)
       : 'void';
+    const methodName = JavaGenerator.safeJavaMethodName(method.name);
     this.addJavaDocs(method, {
       api: 'member',
       fqn: ifc.fqn,
-      memberName: method.name,
+      memberName: methodName,
     });
     this.emitStabilityAnnotations(method);
     this.code.line(
-      `${returnType} ${method.name}(${this.renderMethodParameters(method)});`,
+      `${returnType} ${methodName}(${this.renderMethodParameters(method)});`,
     );
   }
 
