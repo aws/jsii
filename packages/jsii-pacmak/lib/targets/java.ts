@@ -2416,7 +2416,9 @@ class JavaGenerator extends Generator {
       tagLines.push(`@return ${docs.returns}`);
     }
     if (docs.see) {
-      tagLines.push(`@see <a href="${escape(docs.see)}">${escape(docs.see)}</a>`);
+      tagLines.push(
+        `@see <a href="${escape(docs.see)}">${escape(docs.see)}</a>`,
+      );
     }
     if (docs.deprecated) {
       tagLines.push(`@deprecated ${docs.deprecated}`);
