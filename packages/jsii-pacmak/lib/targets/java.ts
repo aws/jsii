@@ -28,7 +28,6 @@ import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
-
 import { TargetName } from './index';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
@@ -2417,7 +2416,7 @@ class JavaGenerator extends Generator {
       tagLines.push(`@return ${docs.returns}`);
     }
     if (docs.see) {
-      tagLines.push(`@see ${docs.see}`);
+      tagLines.push(`@see <a href="${escape(docs.see)}">${escape(docs.see)}</a>`);
     }
     if (docs.deprecated) {
       tagLines.push(`@deprecated ${docs.deprecated}`);
@@ -3258,4 +3257,11 @@ function splitNamespace(ns: string): [string, string] {
     return ['', ns];
   }
   return [ns.slice(0, dot), ns.slice(dot + 1)];
+}
+
+/**
+ * Escape a string for dropping into JavaDoc
+ */
+function escape(s: string) {
+  return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
 }
