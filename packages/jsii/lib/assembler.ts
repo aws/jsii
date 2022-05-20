@@ -8,7 +8,6 @@ import deepEqual = require('deep-equal');
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import { Readable } from 'stream';
 import * as ts from 'typescript';
 import * as zlib from 'zlib';
 
@@ -280,7 +279,6 @@ export class Assembler implements Emitter {
     const validationResult = validator.emit();
     if (!validationResult.emitSkipped) {
       const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
-
       if (!compressJsii(assembly)) {
         LOG.trace(`Emitting assembly: ${chalk.blue(assemblyPath)}`);
         fs.writeJsonSync(assemblyPath, _fingerprint(assembly), {
@@ -292,15 +290,11 @@ export class Assembler implements Emitter {
           this.projectInfo.projectRoot,
           '.jsii.gz',
         );
-        const zip = zlib.createGzip();
-        const source = new Readable();
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        source._read = () => {}; // without it, this error is thrown: 'The _read() method is not implemented'
-        source.push(JSON.stringify(_fingerprint(assembly)));
-        const dest = fs.createWriteStream(assemblyZipPath);
-
         LOG.trace(`Zipping assembly: ${chalk.blue(assemblyZipPath)}`);
-        source.pipe(zip).pipe(dest);
+        fs.writeFileSync(
+          assemblyZipPath,
+          zlib.gzipSync(JSON.stringify(_fingerprint(assembly))),
+        );
       }
     }
 

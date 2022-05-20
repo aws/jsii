@@ -10,6 +10,7 @@ import {
 } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
+import { gunzipSync } from 'zlib';
 
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
@@ -174,31 +175,92 @@ describe(Compiler, () => {
     }
   });
 
-  test('option to compress .jsii file', () => {
-    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+  describe('compressed .jsii file', () => {
+    test('can be set with a metadata option', () => {
+      const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
 
-    try {
-      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+      try {
+        writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
 
-      const compiler = new Compiler({
-        projectInfo: {
-          ..._makeProjectInfo(sourceDir, 'index.d.ts'),
-          metadata: {
-            jsii: {
-              compress: true,
+        const compiler = new Compiler({
+          projectInfo: {
+            ..._makeProjectInfo(sourceDir, 'index.d.ts'),
+            metadata: {
+              jsii: {
+                compress: true,
+              },
             },
           },
-        },
-        generateTypeScriptConfig: 'tsconfig.jsii.json',
-      });
+          generateTypeScriptConfig: 'tsconfig.jsii.json',
+        });
 
-      compiler.emit();
+        compiler.emit();
 
-      expect(checkFileExistsSync(join(sourceDir, '.jsii'))).toBeFalsy();
-      expect(checkFileExistsSync(join(sourceDir, '.jsii.gz'))).toBeTruthy();
-    } finally {
-      removeSync(sourceDir);
-    }
+        expect(checkFileExistsSync(join(sourceDir, '.jsii'))).toBeFalsy();
+        expect(checkFileExistsSync(join(sourceDir, '.jsii.gz'))).toBeTruthy();
+      } finally {
+        removeSync(sourceDir);
+      }
+    });
+
+    test('is equivalent to uncompressed file', () => {
+      const uncompressedSourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+      const compressedSourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir-2'));
+
+      try {
+        const fileContents = 'export class MarkerA {}';
+        writeFileSync(join(uncompressedSourceDir, 'index.ts'), fileContents);
+        writeFileSync(join(compressedSourceDir, 'index.ts'), fileContents);
+
+        const uncompressedJsiiCompiler = new Compiler({
+          projectInfo: {
+            ..._makeProjectInfo(uncompressedSourceDir, 'index.d.ts'),
+          },
+          generateTypeScriptConfig: 'tsconfig.jsii.json',
+        });
+        const compressedJsiiCompiler = new Compiler({
+          projectInfo: {
+            ..._makeProjectInfo(compressedSourceDir, 'index.d.ts'),
+            metadata: {
+              jsii: {
+                compress: true,
+              },
+            },
+          },
+          generateTypeScriptConfig: 'tsconfig.jsii.json',
+        });
+
+        uncompressedJsiiCompiler.emit();
+        compressedJsiiCompiler.emit();
+
+        // The files we expect are there
+        expect(
+          checkFileExistsSync(join(uncompressedSourceDir, '.jsii')),
+        ).toBeTruthy();
+        expect(
+          checkFileExistsSync(join(compressedSourceDir, '.jsii.gz')),
+        ).toBeTruthy();
+
+        const uncompressedJsii = JSON.parse(
+          readFileSync(join(uncompressedSourceDir, '.jsii')).toString(),
+        );
+        const compressedJsii = JSON.parse(
+          gunzipSync(
+            readFileSync(join(compressedSourceDir, '.jsii.gz')),
+          ).toString(),
+        );
+
+        // uncompressedJsii should equal compressedJsii except for metadata and fingerprint
+        for (const key of Object.keys(uncompressedJsii)) {
+          if (key !== 'fingerprint' && key !== 'metadata') {
+            expect(uncompressedJsii.key).toEqual(compressedJsii.key);
+          }
+        }
+      } finally {
+        removeSync(uncompressedSourceDir);
+        removeSync(compressedSourceDir);
+      }
+    });
   });
 });
 
