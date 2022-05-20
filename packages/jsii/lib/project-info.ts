@@ -4,7 +4,6 @@ import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
 import * as ts from 'typescript';
-import { string } from 'yargs';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
