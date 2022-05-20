@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
-    "glob": "^8.0.1"
+    "glob": "^8.0.3"
   },
   "scripts": {
     "build": "tsc --build && npm run lint",
