@@ -1,19 +1,18 @@
 import {
   ensureDirSync,
+  existsSync,
   mkdtempSync,
   removeSync,
   writeFileSync,
   readFileSync,
   readJsonSync,
-  accessSync,
-  constants,
 } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { gunzipSync } from 'zlib';
 
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
+import { loadJsiiFile } from '../lib/utils';
 
 describe(Compiler, () => {
   describe('generated tsconfig', () => {
@@ -85,9 +84,7 @@ describe(Compiler, () => {
         compilationComplete: (emitResult) => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
-            const output = readFileSync(join(sourceDir, '.jsii'), {
-              encoding: 'utf-8',
-            });
+            const output = JSON.stringify(loadJsiiFile(sourceDir));
             if (firstCompilation) {
               firstCompilation = false;
               expect(output).toContain('"MarkerA"');
@@ -196,8 +193,8 @@ describe(Compiler, () => {
 
         compiler.emit();
 
-        expect(checkFileExistsSync(join(sourceDir, '.jsii'))).toBeFalsy();
-        expect(checkFileExistsSync(join(sourceDir, '.jsii.gz'))).toBeTruthy();
+        expect(existsSync(join(sourceDir, '.jsii'))).toBeFalsy();
+        expect(existsSync(join(sourceDir, '.jsii.gz'))).toBeTruthy();
       } finally {
         removeSync(sourceDir);
       }
@@ -234,21 +231,11 @@ describe(Compiler, () => {
         compressedJsiiCompiler.emit();
 
         // The files we expect are there
-        expect(
-          checkFileExistsSync(join(uncompressedSourceDir, '.jsii')),
-        ).toBeTruthy();
-        expect(
-          checkFileExistsSync(join(compressedSourceDir, '.jsii.gz')),
-        ).toBeTruthy();
+        expect(existsSync(join(uncompressedSourceDir, '.jsii'))).toBeTruthy();
+        expect(existsSync(join(compressedSourceDir, '.jsii.gz'))).toBeTruthy();
 
-        const uncompressedJsii = readJsonSync(
-          join(uncompressedSourceDir, '.jsii'),
-        ).toString();
-        const compressedJsii = JSON.parse(
-          gunzipSync(
-            readFileSync(join(compressedSourceDir, '.jsii.gz')),
-          ).toString(),
-        );
+        const uncompressedJsii = loadJsiiFile(uncompressedSourceDir);
+        const compressedJsii = loadJsiiFile(compressedSourceDir);
 
         // uncompressedJsii should equal compressedJsii except for metadata and fingerprint
         for (const key of Object.keys(uncompressedJsii)) {
@@ -320,14 +307,4 @@ function expectedTypeScriptConfig() {
     exclude: ['node_modules'],
     include: [join('**', '*.ts')],
   };
-}
-
-function checkFileExistsSync(path: string) {
-  let flag = true;
-  try {
-    accessSync(path, constants.F_OK);
-  } catch (e) {
-    flag = false;
-  }
-  return flag;
 }

@@ -402,20 +402,28 @@ function _tryResolveAssembly(
   searchPath: string,
 ): string {
   if (localPackage) {
-    const result = path.join(localPackage, '.jsii');
-    if (!fs.existsSync(result)) {
-      throw new Error(`Assembly does not exist: ${result}`);
-    }
-    return result;
+    return findJsiiFile(localPackage);
   }
   try {
     const dependencyDir = findDependencyDirectory(mod, searchPath);
-    return path.join(dependencyDir, '.jsii');
+    return findJsiiFile(dependencyDir);
   } catch (e) {
     throw new Error(
       `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );
   }
+}
+
+function findJsiiFile(pathToJsiiFile: string): string {
+  const jsiiFile = path.join(pathToJsiiFile, '.jsii');
+  const compressedJsiiFile = path.join(pathToJsiiFile, '.jsii.gz');
+  const jsiiExists = fs.existsSync(jsiiFile);
+  if (!jsiiExists && !fs.existsSync(compressedJsiiFile)) {
+    throw new Error(
+      `No .jsii or .jsii.gz assembly file was found at ${pathToJsiiFile}`,
+    );
+  }
+  return jsiiExists ? jsiiFile : compressedJsiiFile;
 }
 
 function _validateLicense(id: string): string {

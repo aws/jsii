@@ -2,6 +2,7 @@ import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
+import * as zlib from 'zlib';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
 
@@ -244,4 +245,25 @@ const ANSI_REGEX =
 
 export function stripAnsi(x: string): string {
   return x.replace(ANSI_REGEX, '');
+}
+
+/**
+ * loads the .jsii or .jsii.gz file, depending on which one is found in the folder.
+ *
+ * @param pathToJsiiFile the path to the .jsii or .jsii.gz file
+ * @returns the .jsii or the unzipped .jsii.gz file as json
+ */
+export function loadJsiiFile(pathToJsiiFile: string) {
+  if (fs.existsSync(path.join(pathToJsiiFile, '.jsii'))) {
+    return fs.readJsonSync(path.join(pathToJsiiFile, '.jsii'), {
+      encoding: 'utf-8',
+    });
+  } else if (fs.existsSync(path.join(pathToJsiiFile, '.jsii.gz'))) {
+    return JSON.parse(
+      zlib
+        .gunzipSync(fs.readFileSync(path.join(pathToJsiiFile, '.jsii.gz')))
+        .toString(),
+    );
+  }
+  throw new Error(`No .jsii or .jsii.gz file was found at ${pathToJsiiFile}`);
 }
