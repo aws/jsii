@@ -24,11 +24,9 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^12.20.51",
     "codemaker": "^0.0.0",
     "fs-extra": "^10.1.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-calc": "^3.20.120",
-    "ts-node": "^10.7.0"
+    "jsii-calc": "^3.20.120"
   }
 }
