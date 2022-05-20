@@ -58,9 +58,15 @@ export function overriddenConfig(overrides: Config.InitialOptions) {
         ...Object.keys(original),
         ...Object.keys(override),
       ]);
+
+      // TypeScript appears to choke if we do the "as any" in the same
+      // expression as the key access, so we delcare surrogate varibales...
+      const originalAsAny = original as any;
+      const overrideAsAny = override as any;
+
       for (const key of Array.from(allKeys).sort()) {
-        const originalValue: unknown = (original as any)[key];
-        const overrideValue: unknown = (override as any)[key];
+        const originalValue: unknown = originalAsAny[key];
+        const overrideValue: unknown = overrideAsAny[key];
         if (originalValue == null) {
           result[key] = overrideValue;
         } else if (overrideValue == null) {

@@ -90,14 +90,14 @@ describe('jsii-config', () => {
             maven: {
               groupId: 'software.amazon.module',
               artifactId: 'core',
-              versionSuffix: '',
+              versionSuffix: '' as string | undefined,
             },
           },
           dotnet: {
             namespace: 'Amazon.Module',
             packageId: 'Amazon.Module',
             iconUrl: undefined,
-            versionSuffix: '',
+            versionSuffix: '' as string | undefined,
           },
         },
       },

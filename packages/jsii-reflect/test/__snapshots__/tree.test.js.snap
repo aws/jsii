@@ -2860,6 +2860,165 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ interface IJavaReservedWordsInAnInterface
+ │   │ └─┬ members
+ │   │   ├─┬ abstract() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ assert() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ boolean() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ break() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ byte() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ case() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ catch() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ char() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ class() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ const() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ continue() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ default() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ do() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ double() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ else() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ enum() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ extends() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ false() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ final() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ finally() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ float() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ for() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ goto() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ if() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ implements() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ import() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ instanceof() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ int() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ interface() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ long() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ native() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ null() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ package() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ private() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ protected() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ public() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ return() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ short() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ static() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ strictfp() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ super() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ switch() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ synchronized() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ this() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ throw() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ throws() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ transient() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ true() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ try() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ void() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ volatile() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ while property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface IJsii487External
  │   │ └── members
  │   ├─┬ interface IJsii487External2
@@ -3758,6 +3917,7 @@ exports[`types 1`] = `
  │   ├── interface IInterfaceWithPropertiesExtension
  │   ├── interface IJSII417Derived
  │   ├── interface IJSII417PublicBaseOfBase
+ │   ├── interface IJavaReservedWordsInAnInterface
  │   ├── interface IJsii487External
  │   ├── interface IJsii487External2
  │   ├── interface IJsii496

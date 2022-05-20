@@ -26,7 +26,7 @@
   },
   "scripts": {
     "gen": "cp ../../README.md . && bash ./generate.sh",
-    "build": "yarn gen && tsc --build && npm run lint",
+    "build": "yarn gen && yarn tsc --build && npm run lint",
     "watch": "bash ./generate.sh && tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
     "lint:fix": "yarn lint --fix",
@@ -40,7 +40,7 @@
     "case": "^1.6.3",
     "chalk": "^4",
     "deep-equal": "^2.0.5",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.1.0",
     "log4js": "^6.4.6",
     "semver": "^7.3.7",
     "semver-intersect": "^1.4.0",
@@ -53,14 +53,8 @@
     "@types/clone": "^2.1.1",
     "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^27.5.0",
-    "@types/node": "^12.20.51",
     "@types/semver": "^7.3.9",
     "clone": "^2.1.2",
-    "eslint": "^8.15.0",
-    "jest": "^27.5.1",
-    "jest-expect-message": "^1.0.2",
-    "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.6.2"
+    "jsii-build-tools": "^0.0.0"
   }
 }

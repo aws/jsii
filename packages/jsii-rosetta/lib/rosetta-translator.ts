@@ -76,7 +76,7 @@ export class RosettaTranslator {
   public async loadCache(fileName: string) {
     try {
       await this.cache.load(fileName);
-    } catch (e) {
+    } catch (e: any) {
       logging.warn(`Error reading cache ${fileName}: ${e.message}`);
     }
   }

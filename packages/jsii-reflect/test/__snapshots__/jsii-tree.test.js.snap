@@ -2710,6 +2710,165 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ interface IJavaReservedWordsInAnInterface (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ abstract() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ assert() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ boolean() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ break() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ byte() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ case() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ catch() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ char() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ class() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ const() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ continue() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ default() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ do() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ double() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ else() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ enum() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ extends() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ false() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ final() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ finally() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ float() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ for() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ goto() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ if() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ implements() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ import() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ instanceof() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ int() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ interface() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ long() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ native() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ null() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ package() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ private() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ protected() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ public() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ return() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ short() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ static() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ strictfp() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ super() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ switch() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ synchronized() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ this() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ throw() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ throws() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ transient() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ true() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ try() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ void() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ volatile() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ while property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface IJsii487External (stable)
  │   │ └── members
  │   ├─┬ interface IJsii487External2 (stable)
@@ -3648,6 +3807,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └─┬ interfaces
  │   │   └── IJSII417PublicBaseOfBase
  │   ├── interface IJSII417PublicBaseOfBase
+ │   ├── interface IJavaReservedWordsInAnInterface
  │   ├── interface IJsii487External
  │   ├── interface IJsii487External2
  │   ├── interface IJsii496
@@ -4977,6 +5137,60 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── foo() method
  │   │   └── hasRoot property
+ │   ├─┬ interface IJavaReservedWordsInAnInterface
+ │   │ └─┬ members
+ │   │   ├── abstract() method
+ │   │   ├── assert() method
+ │   │   ├── boolean() method
+ │   │   ├── break() method
+ │   │   ├── byte() method
+ │   │   ├── case() method
+ │   │   ├── catch() method
+ │   │   ├── char() method
+ │   │   ├── class() method
+ │   │   ├── const() method
+ │   │   ├── continue() method
+ │   │   ├── default() method
+ │   │   ├── do() method
+ │   │   ├── double() method
+ │   │   ├── else() method
+ │   │   ├── enum() method
+ │   │   ├── extends() method
+ │   │   ├── false() method
+ │   │   ├── final() method
+ │   │   ├── finally() method
+ │   │   ├── float() method
+ │   │   ├── for() method
+ │   │   ├── goto() method
+ │   │   ├── if() method
+ │   │   ├── implements() method
+ │   │   ├── import() method
+ │   │   ├── instanceof() method
+ │   │   ├── int() method
+ │   │   ├── interface() method
+ │   │   ├── long() method
+ │   │   ├── native() method
+ │   │   ├── null() method
+ │   │   ├── package() method
+ │   │   ├── private() method
+ │   │   ├── protected() method
+ │   │   ├── public() method
+ │   │   ├── return() method
+ │   │   ├── short() method
+ │   │   ├── static() method
+ │   │   ├── strictfp() method
+ │   │   ├── super() method
+ │   │   ├── switch() method
+ │   │   ├── synchronized() method
+ │   │   ├── this() method
+ │   │   ├── throw() method
+ │   │   ├── throws() method
+ │   │   ├── transient() method
+ │   │   ├── true() method
+ │   │   ├── try() method
+ │   │   ├── void() method
+ │   │   ├── volatile() method
+ │   │   └── while property
  │   ├─┬ interface IJsii487External
  │   │ └── members
  │   ├─┬ interface IJsii487External2
@@ -5592,6 +5806,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IInterfaceWithPropertiesExtension
  │   ├── interface IJSII417Derived
  │   ├── interface IJSII417PublicBaseOfBase
+ │   ├── interface IJavaReservedWordsInAnInterface
  │   ├── interface IJsii487External
  │   ├── interface IJsii487External2
  │   ├── interface IJsii496

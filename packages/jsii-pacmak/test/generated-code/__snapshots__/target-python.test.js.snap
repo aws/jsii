@@ -5901,6 +5901,434 @@ class _IJSII417PublicBaseOfBaseProxy:
 typing.cast(typing.Any, IJSII417PublicBaseOfBase).__jsii_proxy_class__ = lambda : _IJSII417PublicBaseOfBaseProxy
 
 
+@jsii.interface(jsii_type="jsii-calc.IJavaReservedWordsInAnInterface")
+class IJavaReservedWordsInAnInterface(typing_extensions.Protocol):
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="while")
+    def while_(self) -> builtins.str:
+        ...
+
+    @jsii.member(jsii_name="abstract")
+    def abstract(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="assert")
+    def assert_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="boolean")
+    def boolean(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="break")
+    def break_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="byte")
+    def byte(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="case")
+    def case(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="catch")
+    def catch(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="char")
+    def char(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="class")
+    def class_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="const")
+    def const(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="continue")
+    def continue_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="default")
+    def default(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="do")
+    def do(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="double")
+    def double(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="else")
+    def else_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="enum")
+    def enum(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="extends")
+    def extends(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="false")
+    def false(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="final")
+    def final(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="finally")
+    def finally_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="float")
+    def float(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="for")
+    def for_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="goto")
+    def goto(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="if")
+    def if_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="implements")
+    def implements(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="import")
+    def import_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="instanceof")
+    def instanceof(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="int")
+    def int(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="interface")
+    def interface(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="long")
+    def long(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="native")
+    def native(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="null")
+    def null(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="package")
+    def package(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="private")
+    def private(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="protected")
+    def protected(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="public")
+    def public(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="return")
+    def return_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="short")
+    def short(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="static")
+    def static(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="strictfp")
+    def strictfp(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="super")
+    def super(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="switch")
+    def switch(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="synchronized")
+    def synchronized(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="this")
+    def this(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="throw")
+    def throw(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="throws")
+    def throws(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="transient")
+    def transient(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="true")
+    def true(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="try")
+    def try_(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="void")
+    def void(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="volatile")
+    def volatile(self) -> None:
+        ...
+
+
+class _IJavaReservedWordsInAnInterfaceProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.IJavaReservedWordsInAnInterface"
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="while")
+    def while_(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "while"))
+
+    @jsii.member(jsii_name="abstract")
+    def abstract(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "abstract", []))
+
+    @jsii.member(jsii_name="assert")
+    def assert_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "assert", []))
+
+    @jsii.member(jsii_name="boolean")
+    def boolean(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "boolean", []))
+
+    @jsii.member(jsii_name="break")
+    def break_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "break", []))
+
+    @jsii.member(jsii_name="byte")
+    def byte(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "byte", []))
+
+    @jsii.member(jsii_name="case")
+    def case(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "case", []))
+
+    @jsii.member(jsii_name="catch")
+    def catch(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "catch", []))
+
+    @jsii.member(jsii_name="char")
+    def char(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "char", []))
+
+    @jsii.member(jsii_name="class")
+    def class_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "class", []))
+
+    @jsii.member(jsii_name="const")
+    def const(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "const", []))
+
+    @jsii.member(jsii_name="continue")
+    def continue_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "continue", []))
+
+    @jsii.member(jsii_name="default")
+    def default(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "default", []))
+
+    @jsii.member(jsii_name="do")
+    def do(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "do", []))
+
+    @jsii.member(jsii_name="double")
+    def double(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "double", []))
+
+    @jsii.member(jsii_name="else")
+    def else_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "else", []))
+
+    @jsii.member(jsii_name="enum")
+    def enum(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "enum", []))
+
+    @jsii.member(jsii_name="extends")
+    def extends(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "extends", []))
+
+    @jsii.member(jsii_name="false")
+    def false(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "false", []))
+
+    @jsii.member(jsii_name="final")
+    def final(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "final", []))
+
+    @jsii.member(jsii_name="finally")
+    def finally_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "finally", []))
+
+    @jsii.member(jsii_name="float")
+    def float(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "float", []))
+
+    @jsii.member(jsii_name="for")
+    def for_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "for", []))
+
+    @jsii.member(jsii_name="goto")
+    def goto(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "goto", []))
+
+    @jsii.member(jsii_name="if")
+    def if_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "if", []))
+
+    @jsii.member(jsii_name="implements")
+    def implements(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "implements", []))
+
+    @jsii.member(jsii_name="import")
+    def import_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "import", []))
+
+    @jsii.member(jsii_name="instanceof")
+    def instanceof(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "instanceof", []))
+
+    @jsii.member(jsii_name="int")
+    def int(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "int", []))
+
+    @jsii.member(jsii_name="interface")
+    def interface(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "interface", []))
+
+    @jsii.member(jsii_name="long")
+    def long(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "long", []))
+
+    @jsii.member(jsii_name="native")
+    def native(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "native", []))
+
+    @jsii.member(jsii_name="null")
+    def null(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "null", []))
+
+    @jsii.member(jsii_name="package")
+    def package(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "package", []))
+
+    @jsii.member(jsii_name="private")
+    def private(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "private", []))
+
+    @jsii.member(jsii_name="protected")
+    def protected(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "protected", []))
+
+    @jsii.member(jsii_name="public")
+    def public(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "public", []))
+
+    @jsii.member(jsii_name="return")
+    def return_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "return", []))
+
+    @jsii.member(jsii_name="short")
+    def short(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "short", []))
+
+    @jsii.member(jsii_name="static")
+    def static(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "static", []))
+
+    @jsii.member(jsii_name="strictfp")
+    def strictfp(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "strictfp", []))
+
+    @jsii.member(jsii_name="super")
+    def super(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "super", []))
+
+    @jsii.member(jsii_name="switch")
+    def switch(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "switch", []))
+
+    @jsii.member(jsii_name="synchronized")
+    def synchronized(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "synchronized", []))
+
+    @jsii.member(jsii_name="this")
+    def this(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "this", []))
+
+    @jsii.member(jsii_name="throw")
+    def throw(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "throw", []))
+
+    @jsii.member(jsii_name="throws")
+    def throws(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "throws", []))
+
+    @jsii.member(jsii_name="transient")
+    def transient(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "transient", []))
+
+    @jsii.member(jsii_name="true")
+    def true(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "true", []))
+
+    @jsii.member(jsii_name="try")
+    def try_(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "try", []))
+
+    @jsii.member(jsii_name="void")
+    def void(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "void", []))
+
+    @jsii.member(jsii_name="volatile")
+    def volatile(self) -> None:
+        return typing.cast(None, jsii.invoke(self, "volatile", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IJavaReservedWordsInAnInterface).__jsii_proxy_class__ = lambda : _IJavaReservedWordsInAnInterfaceProxy
+
+
 @jsii.interface(jsii_type="jsii-calc.IJsii487External")
 class IJsii487External(typing_extensions.Protocol):
     pass
@@ -10136,6 +10564,7 @@ __all__ = [
     "IInterfaceWithPropertiesExtension",
     "IJSII417Derived",
     "IJSII417PublicBaseOfBase",
+    "IJavaReservedWordsInAnInterface",
     "IJsii487External",
     "IJsii487External2",
     "IJsii496",
