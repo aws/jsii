@@ -4,6 +4,7 @@ import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
 import * as ts from 'typescript';
+import { string } from 'yargs';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
@@ -261,12 +262,25 @@ function _sourceMapPreferences({
     sourceMap = undefined;
   }
 
-  return {
-    declarationsMap,
-    inlineSources,
-    // Only one of these two options can be specified at a time...
-    ...(inlineSourceMaps ? { inlineSourceMaps } : { sourceMap }),
-  };
+  // Expressedly don't set `undefined` or extraneous `false` keys there, because
+  // the TypeScript compiler performs strong presence checks (i.e: you are not
+  // allowed to specify `inlineSources` at all unless you have set
+  // `inlineSourceMaps: true` or `sourceMap: true`, etc...). This is fairly
+  // annoying, actually...
+  const sourceMapOptions: Record<string, unknown> = {};
+  if (declarationsMap != null) {
+    sourceMapOptions.declarationsMap = declarationsMap;
+  }
+  if (inlineSourceMaps != null) {
+    sourceMapOptions.inlineSourceMaps = inlineSourceMaps;
+  }
+  if (inlineSources != null) {
+    sourceMapOptions.inlineSources = inlineSources;
+  }
+  if (sourceMap != null) {
+    sourceMapOptions.sourceMap = sourceMap;
+  }
+  return sourceMapOptions;
 }
 
 interface DependencyInfo {
