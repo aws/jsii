@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1653047686267,
+  "lastUpdate": 1653048243504,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -837,6 +837,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 61071.801027 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "distinct": true,
+          "id": "7c847b6e437eb52775384892b4629b2a3dd62dea",
+          "message": "chore: use a venv to build github pages (#3557)",
+          "timestamp": "2022-05-20T13:46:10+02:00",
+          "tree_id": "d174ccc6b027ac950a3b3f5191cac6a03b17d2b6",
+          "url": "https://github.com/aws/jsii/commit/7c847b6e437eb52775384892b4629b2a3dd62dea"
+        },
+        "date": 1653048241066,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 60302.307079,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 60302.307079 milliseconds over 1 runs"
           }
         ]
       }
