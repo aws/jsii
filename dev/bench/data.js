@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652970342242,
+  "lastUpdate": 1653040691625,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -682,6 +682,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 64637.731339 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4acff2c432e4bfe830fe5fe471db6db2f5af0199",
+          "message": "chore: build all packages with TypeScript 4.6 (#3549)\n\nUse TypeScript 4.6 for building all packages, but continue to use\nTypeScript 3.9 in the compiler and rosetta in order to avoid introducing\nbreaking changes.\n\nMoved several \"universal\" devDependencies all the way to the root of the\nmono-repository to minimize changes when updating these (`@types/jest`,\n`jest`, `eslint`, etc...).\n\nSome code changes were required due to the breaking changes introduced\nbetween TypeScript 3.9 and 4.6, but nothing particularly substantial.\nThere seems to be an odd interaction between webpack and actually\nimporting `node:process`, so the `jsii/runtime` package switched to\nusing the global `process` value instead of importing the module.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-05-20T09:41:46Z",
+          "tree_id": "8c182327a9fc9a6ba314a5d4af7058981cd5f350",
+          "url": "https://github.com/aws/jsii/commit/4acff2c432e4bfe830fe5fe471db6db2f5af0199"
+        },
+        "date": 1653040689983,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 63765.552268,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 63765.552268 milliseconds over 1 runs"
           }
         ]
       }
