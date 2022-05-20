@@ -8221,6 +8221,484 @@ func (j *jsiiProxy_IJSII417PublicBaseOfBase) HasRoot() *bool {
 	return returns
 }
 
+type IJavaReservedWordsInAnInterface interface {
+	Abstract()
+	Assert()
+	Boolean()
+	Break()
+	Byte()
+	Case()
+	Catch()
+	Char()
+	Class()
+	Const()
+	Continue()
+	Default()
+	Do()
+	Double()
+	Else()
+	Enum()
+	Extends()
+	False()
+	Final()
+	Finally()
+	Float()
+	For()
+	Goto()
+	If()
+	Implements()
+	Import()
+	Instanceof()
+	Int()
+	Interface()
+	Long()
+	Native()
+	Null()
+	Package()
+	Private()
+	Protected()
+	Public()
+	Return()
+	Short()
+	Static()
+	Strictfp()
+	Super()
+	Switch()
+	Synchronized()
+	This()
+	Throw()
+	Throws()
+	Transient()
+	True()
+	Try()
+	Void()
+	Volatile()
+	While() *string
+}
+
+// The jsii proxy for IJavaReservedWordsInAnInterface
+type jsiiProxy_IJavaReservedWordsInAnInterface struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Abstract() {
+	_jsii_.InvokeVoid(
+		i,
+		"abstract",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Assert() {
+	_jsii_.InvokeVoid(
+		i,
+		"assert",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Boolean() {
+	_jsii_.InvokeVoid(
+		i,
+		"boolean",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Break() {
+	_jsii_.InvokeVoid(
+		i,
+		"break",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Byte() {
+	_jsii_.InvokeVoid(
+		i,
+		"byte",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Case() {
+	_jsii_.InvokeVoid(
+		i,
+		"case",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Catch() {
+	_jsii_.InvokeVoid(
+		i,
+		"catch",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Char() {
+	_jsii_.InvokeVoid(
+		i,
+		"char",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Class() {
+	_jsii_.InvokeVoid(
+		i,
+		"class",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Const() {
+	_jsii_.InvokeVoid(
+		i,
+		"const",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Continue() {
+	_jsii_.InvokeVoid(
+		i,
+		"continue",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Default() {
+	_jsii_.InvokeVoid(
+		i,
+		"default",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Do() {
+	_jsii_.InvokeVoid(
+		i,
+		"do",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Double() {
+	_jsii_.InvokeVoid(
+		i,
+		"double",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Else() {
+	_jsii_.InvokeVoid(
+		i,
+		"else",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Enum() {
+	_jsii_.InvokeVoid(
+		i,
+		"enum",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Extends() {
+	_jsii_.InvokeVoid(
+		i,
+		"extends",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) False() {
+	_jsii_.InvokeVoid(
+		i,
+		"false",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Final() {
+	_jsii_.InvokeVoid(
+		i,
+		"final",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Finally() {
+	_jsii_.InvokeVoid(
+		i,
+		"finally",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Float() {
+	_jsii_.InvokeVoid(
+		i,
+		"float",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) For() {
+	_jsii_.InvokeVoid(
+		i,
+		"for",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Goto() {
+	_jsii_.InvokeVoid(
+		i,
+		"goto",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) If() {
+	_jsii_.InvokeVoid(
+		i,
+		"if",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Implements() {
+	_jsii_.InvokeVoid(
+		i,
+		"implements",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Import() {
+	_jsii_.InvokeVoid(
+		i,
+		"import",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Instanceof() {
+	_jsii_.InvokeVoid(
+		i,
+		"instanceof",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Int() {
+	_jsii_.InvokeVoid(
+		i,
+		"int",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Interface() {
+	_jsii_.InvokeVoid(
+		i,
+		"interface",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Long() {
+	_jsii_.InvokeVoid(
+		i,
+		"long",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Native() {
+	_jsii_.InvokeVoid(
+		i,
+		"native",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Null() {
+	_jsii_.InvokeVoid(
+		i,
+		"null",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Package() {
+	_jsii_.InvokeVoid(
+		i,
+		"package",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Private() {
+	_jsii_.InvokeVoid(
+		i,
+		"private",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Protected() {
+	_jsii_.InvokeVoid(
+		i,
+		"protected",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Public() {
+	_jsii_.InvokeVoid(
+		i,
+		"public",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Return() {
+	_jsii_.InvokeVoid(
+		i,
+		"return",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Short() {
+	_jsii_.InvokeVoid(
+		i,
+		"short",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Static() {
+	_jsii_.InvokeVoid(
+		i,
+		"static",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Strictfp() {
+	_jsii_.InvokeVoid(
+		i,
+		"strictfp",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Super() {
+	_jsii_.InvokeVoid(
+		i,
+		"super",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Switch() {
+	_jsii_.InvokeVoid(
+		i,
+		"switch",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Synchronized() {
+	_jsii_.InvokeVoid(
+		i,
+		"synchronized",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) This() {
+	_jsii_.InvokeVoid(
+		i,
+		"this",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Throw() {
+	_jsii_.InvokeVoid(
+		i,
+		"throw",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Throws() {
+	_jsii_.InvokeVoid(
+		i,
+		"throws",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Transient() {
+	_jsii_.InvokeVoid(
+		i,
+		"transient",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) True() {
+	_jsii_.InvokeVoid(
+		i,
+		"true",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Try() {
+	_jsii_.InvokeVoid(
+		i,
+		"try",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Void() {
+	_jsii_.InvokeVoid(
+		i,
+		"void",
+		nil, // no parameters
+	)
+}
+
+func (i *jsiiProxy_IJavaReservedWordsInAnInterface) Volatile() {
+	_jsii_.InvokeVoid(
+		i,
+		"volatile",
+		nil, // no parameters
+	)
+}
+
+func (j *jsiiProxy_IJavaReservedWordsInAnInterface) While() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"while",
+		&returns,
+	)
+	return returns
+}
+
 type IJsii487External interface {
 }
 
@@ -15722,6 +16200,67 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_IJSII417PublicBaseOfBase{}
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.IJavaReservedWordsInAnInterface",
+		reflect.TypeOf((*IJavaReservedWordsInAnInterface)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "abstract", GoMethod: "Abstract"},
+			_jsii_.MemberMethod{JsiiMethod: "assert", GoMethod: "Assert"},
+			_jsii_.MemberMethod{JsiiMethod: "boolean", GoMethod: "Boolean"},
+			_jsii_.MemberMethod{JsiiMethod: "break", GoMethod: "Break"},
+			_jsii_.MemberMethod{JsiiMethod: "byte", GoMethod: "Byte"},
+			_jsii_.MemberMethod{JsiiMethod: "case", GoMethod: "Case"},
+			_jsii_.MemberMethod{JsiiMethod: "catch", GoMethod: "Catch"},
+			_jsii_.MemberMethod{JsiiMethod: "char", GoMethod: "Char"},
+			_jsii_.MemberMethod{JsiiMethod: "class", GoMethod: "Class"},
+			_jsii_.MemberMethod{JsiiMethod: "const", GoMethod: "Const"},
+			_jsii_.MemberMethod{JsiiMethod: "continue", GoMethod: "Continue"},
+			_jsii_.MemberMethod{JsiiMethod: "default", GoMethod: "Default"},
+			_jsii_.MemberMethod{JsiiMethod: "do", GoMethod: "Do"},
+			_jsii_.MemberMethod{JsiiMethod: "double", GoMethod: "Double"},
+			_jsii_.MemberMethod{JsiiMethod: "else", GoMethod: "Else"},
+			_jsii_.MemberMethod{JsiiMethod: "enum", GoMethod: "Enum"},
+			_jsii_.MemberMethod{JsiiMethod: "extends", GoMethod: "Extends"},
+			_jsii_.MemberMethod{JsiiMethod: "false", GoMethod: "False"},
+			_jsii_.MemberMethod{JsiiMethod: "final", GoMethod: "Final"},
+			_jsii_.MemberMethod{JsiiMethod: "finally", GoMethod: "Finally"},
+			_jsii_.MemberMethod{JsiiMethod: "float", GoMethod: "Float"},
+			_jsii_.MemberMethod{JsiiMethod: "for", GoMethod: "For"},
+			_jsii_.MemberMethod{JsiiMethod: "goto", GoMethod: "Goto"},
+			_jsii_.MemberMethod{JsiiMethod: "if", GoMethod: "If"},
+			_jsii_.MemberMethod{JsiiMethod: "implements", GoMethod: "Implements"},
+			_jsii_.MemberMethod{JsiiMethod: "import", GoMethod: "Import"},
+			_jsii_.MemberMethod{JsiiMethod: "instanceof", GoMethod: "Instanceof"},
+			_jsii_.MemberMethod{JsiiMethod: "int", GoMethod: "Int"},
+			_jsii_.MemberMethod{JsiiMethod: "interface", GoMethod: "Interface"},
+			_jsii_.MemberMethod{JsiiMethod: "long", GoMethod: "Long"},
+			_jsii_.MemberMethod{JsiiMethod: "native", GoMethod: "Native"},
+			_jsii_.MemberMethod{JsiiMethod: "null", GoMethod: "Null"},
+			_jsii_.MemberMethod{JsiiMethod: "package", GoMethod: "Package"},
+			_jsii_.MemberMethod{JsiiMethod: "private", GoMethod: "Private"},
+			_jsii_.MemberMethod{JsiiMethod: "protected", GoMethod: "Protected"},
+			_jsii_.MemberMethod{JsiiMethod: "public", GoMethod: "Public"},
+			_jsii_.MemberMethod{JsiiMethod: "return", GoMethod: "Return"},
+			_jsii_.MemberMethod{JsiiMethod: "short", GoMethod: "Short"},
+			_jsii_.MemberMethod{JsiiMethod: "static", GoMethod: "Static"},
+			_jsii_.MemberMethod{JsiiMethod: "strictfp", GoMethod: "Strictfp"},
+			_jsii_.MemberMethod{JsiiMethod: "super", GoMethod: "Super"},
+			_jsii_.MemberMethod{JsiiMethod: "switch", GoMethod: "Switch"},
+			_jsii_.MemberMethod{JsiiMethod: "synchronized", GoMethod: "Synchronized"},
+			_jsii_.MemberMethod{JsiiMethod: "this", GoMethod: "This"},
+			_jsii_.MemberMethod{JsiiMethod: "throw", GoMethod: "Throw"},
+			_jsii_.MemberMethod{JsiiMethod: "throws", GoMethod: "Throws"},
+			_jsii_.MemberMethod{JsiiMethod: "transient", GoMethod: "Transient"},
+			_jsii_.MemberMethod{JsiiMethod: "true", GoMethod: "True"},
+			_jsii_.MemberMethod{JsiiMethod: "try", GoMethod: "Try"},
+			_jsii_.MemberMethod{JsiiMethod: "void", GoMethod: "Void"},
+			_jsii_.MemberMethod{JsiiMethod: "volatile", GoMethod: "Volatile"},
+			_jsii_.MemberProperty{JsiiProperty: "while", GoGetter: "While"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IJavaReservedWordsInAnInterface{}
 		},
 	)
 	_jsii_.RegisterInterface(
