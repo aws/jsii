@@ -241,9 +241,9 @@ describe(Compiler, () => {
           checkFileExistsSync(join(compressedSourceDir, '.jsii.gz')),
         ).toBeTruthy();
 
-        const uncompressedJsii = JSON.parse(
-          readFileSync(join(uncompressedSourceDir, '.jsii')).toString(),
-        );
+        const uncompressedJsii = readJsonSync(
+          join(uncompressedSourceDir, '.jsii'),
+        ).toString();
         const compressedJsii = JSON.parse(
           gunzipSync(
             readFileSync(join(compressedSourceDir, '.jsii.gz')),
