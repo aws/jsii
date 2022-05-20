@@ -23,7 +23,7 @@ export type TSCompilerOptions = Partial<
     | 'forceConsistentCasingInFileNames'
     // Source map preferences
     | 'declarationsMap'
-    | 'inlineSourceMaps'
+    | 'inlineSourceMap'
     | 'inlineSources'
     | 'sourceMap'
   >
@@ -243,7 +243,7 @@ function _guessRepositoryType(url: string): string {
 
 function _sourceMapPreferences({
   declarationsMap,
-  inlineSourceMaps,
+  inlineSourceMap,
   inlineSources,
   sourceMap,
 }: TSCompilerOptions = {}) {
@@ -251,35 +251,22 @@ function _sourceMapPreferences({
   // means inline source maps with embedded source information.
   if (
     declarationsMap == null &&
-    inlineSourceMaps == null &&
+    inlineSourceMap == null &&
     inlineSources == null &&
     sourceMap == null
   ) {
     declarationsMap = false;
-    inlineSourceMaps = true;
+    inlineSourceMap = true;
     inlineSources = true;
     sourceMap = undefined;
   }
 
-  // Expressedly don't set `undefined` or extraneous `false` keys there, because
-  // the TypeScript compiler performs strong presence checks (i.e: you are not
-  // allowed to specify `inlineSources` at all unless you have set
-  // `inlineSourceMaps: true` or `sourceMap: true`, etc...). This is fairly
-  // annoying, actually...
-  const sourceMapOptions: Record<string, unknown> = {};
-  if (declarationsMap != null) {
-    sourceMapOptions.declarationsMap = declarationsMap;
-  }
-  if (inlineSourceMaps != null) {
-    sourceMapOptions.inlineSourceMaps = inlineSourceMaps;
-  }
-  if (inlineSources != null) {
-    sourceMapOptions.inlineSources = inlineSources;
-  }
-  if (sourceMap != null) {
-    sourceMapOptions.sourceMap = sourceMap;
-  }
-  return sourceMapOptions;
+  return {
+    declarationsMap,
+    inlineSourceMap,
+    inlineSources,
+    sourceMap,
+  };
 }
 
 interface DependencyInfo {
