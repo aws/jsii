@@ -13,11 +13,21 @@ const spdx: Set<string> = require('spdx-license-list/simple');
 
 const LOG = log4js.getLogger('jsii/package-info');
 
-export interface TSCompilerOptions {
-  readonly outDir?: string;
-  readonly rootDir?: string;
-  readonly forceConsistentCasingInFileNames?: boolean;
-}
+export type TSCompilerOptions = Partial<
+  Pick<
+    ts.CompilerOptions,
+    // Directory preferences
+    | 'outDir'
+    | 'rootDir'
+    // Style preferences
+    | 'forceConsistentCasingInFileNames'
+    // Source map preferences
+    | 'declarationsMap'
+    | 'inlineSourceMaps'
+    | 'inlineSources'
+    | 'sourceMap'
+  >
+>;
 
 export interface ProjectInfo {
   readonly projectRoot: string;
@@ -207,6 +217,9 @@ export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
     tsc: {
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
+      forceConsistentCasingInFileNames:
+        pkg.jsii?.tsc?.forceConsistentCasingInFileNames,
+      ..._sourceMapPreferences(pkg.jsii?.tsc),
     },
     bin: pkg.bin,
     exports: pkg.exports,
@@ -226,6 +239,34 @@ function _guessRepositoryType(url: string): string {
   throw new Error(
     `The "package.json" file must specify the "repository.type" attribute (could not guess from ${url})`,
   );
+}
+
+function _sourceMapPreferences({
+  declarationsMap,
+  inlineSourceMaps,
+  inlineSources,
+  sourceMap,
+}: TSCompilerOptions = {}) {
+  // If none of the options are specified, use the default configuration from jsii <= 1.58.0, which
+  // means inline source maps with embedded source information.
+  if (
+    declarationsMap == null &&
+    inlineSourceMaps == null &&
+    inlineSources == null &&
+    sourceMap == null
+  ) {
+    declarationsMap = false;
+    inlineSourceMaps = true;
+    inlineSources = true;
+    sourceMap = undefined;
+  }
+
+  return {
+    declarationsMap,
+    inlineSources,
+    // Only one of these two options can be specified at a time...
+    ...(inlineSourceMaps ? { inlineSourceMaps } : { sourceMap }),
+  };
 }
 
 interface DependencyInfo {
