@@ -22,7 +22,7 @@ export type TSCompilerOptions = Partial<
     // Style preferences
     | 'forceConsistentCasingInFileNames'
     // Source map preferences
-    | 'declarationsMap'
+    | 'declarationMap'
     | 'inlineSourceMap'
     | 'inlineSources'
     | 'sourceMap'
@@ -242,7 +242,7 @@ function _guessRepositoryType(url: string): string {
 }
 
 function _sourceMapPreferences({
-  declarationsMap,
+  declarationMap,
   inlineSourceMap,
   inlineSources,
   sourceMap,
@@ -250,19 +250,19 @@ function _sourceMapPreferences({
   // If none of the options are specified, use the default configuration from jsii <= 1.58.0, which
   // means inline source maps with embedded source information.
   if (
-    declarationsMap == null &&
+    declarationMap == null &&
     inlineSourceMap == null &&
     inlineSources == null &&
     sourceMap == null
   ) {
-    declarationsMap = false;
+    declarationMap = false;
     inlineSourceMap = true;
     inlineSources = true;
     sourceMap = undefined;
   }
 
   return {
-    declarationsMap,
+    declarationMap,
     inlineSourceMap,
     inlineSources,
     sourceMap,
