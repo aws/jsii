@@ -345,7 +345,7 @@ class DependencyResolver {
   private loadAssembly(jsiiFileName: string): spec.Assembly {
     try {
       return fs.readJsonSync(jsiiFileName);
-    } catch (e) {
+    } catch (e: any) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
   }
@@ -411,7 +411,7 @@ function _tryResolveAssembly(
   try {
     const dependencyDir = findDependencyDirectory(mod, searchPath);
     return path.join(dependencyDir, '.jsii');
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(
       `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );

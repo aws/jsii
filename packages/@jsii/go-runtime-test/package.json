@@ -19,7 +19,7 @@
     "jsii-pacmak": "^0.0.0"
   },
   "dependencies": {
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.1.0",
     "@jsii/go-runtime": "^0.0.0"
   }
 }
