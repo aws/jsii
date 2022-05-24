@@ -6,7 +6,12 @@ import * as semver from 'semver';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
-import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
+import {
+  parsePerson,
+  parseRepository,
+  findDependencyDirectory,
+  loadAssemblyFromFile,
+} from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
@@ -321,7 +326,7 @@ class DependencyResolver {
     }
 
     // eslint-disable-next-line no-await-in-loop
-    const assembly = this.loadAssembly(jsiiFile);
+    const assembly = loadAssemblyFromFile(jsiiFile);
     // Continue loading any dependencies declared in the asm
 
     const resolvedDependencies = assembly.dependencies
@@ -337,17 +342,6 @@ class DependencyResolver {
     };
     this.cache.set(jsiiFile, depInfo);
     return depInfo;
-  }
-
-  /**
-   * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
-   */
-  private loadAssembly(jsiiFileName: string): spec.Assembly {
-    try {
-      return fs.readJsonSync(jsiiFileName);
-    } catch (e) {
-      throw new Error(`Error loading ${jsiiFileName}: ${e}`);
-    }
   }
 }
 

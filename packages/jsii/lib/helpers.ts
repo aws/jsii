@@ -15,7 +15,7 @@ import { DiagnosticCategory } from 'typescript';
 
 import { Compiler, CompilerOptions } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';
-import { formatDiagnostic, loadJsiiFile } from './utils';
+import { formatDiagnostic, loadAssemblyFromPath } from './utils';
 
 /**
  * A set of source files for `sourceToAssemblyHelper`, at least containing 'index.ts'
@@ -116,7 +116,7 @@ export function compileJsiiForTest(
     if (errors.length > 0 || emitResult.emitSkipped) {
       throw new Error('There were compiler errors');
     }
-    const assembly = loadJsiiFile('');
+    const assembly = loadAssemblyFromPath('');
     const files: Record<string, string> = {};
 
     for (const filename of Object.keys(source)) {

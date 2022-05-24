@@ -250,20 +250,36 @@ export function stripAnsi(x: string): string {
 /**
  * loads the .jsii or .jsii.gz file, depending on which one is found in the folder.
  *
- * @param pathToJsiiFile the path to the .jsii or .jsii.gz file
+ * @param pathToAssembly the path to the .jsii or .jsii.gz file
  * @returns the .jsii or the unzipped .jsii.gz file as json
  */
-export function loadJsiiFile(pathToJsiiFile: string) {
-  if (fs.existsSync(path.join(pathToJsiiFile, '.jsii'))) {
-    return fs.readJsonSync(path.join(pathToJsiiFile, '.jsii'), {
-      encoding: 'utf-8',
-    });
-  } else if (fs.existsSync(path.join(pathToJsiiFile, '.jsii.gz'))) {
-    return JSON.parse(
-      zlib
-        .gunzipSync(fs.readFileSync(path.join(pathToJsiiFile, '.jsii.gz')))
-        .toString(),
-    );
+export function loadAssemblyFromPath(pathToAssembly: string) {
+  if (fs.existsSync(path.join(pathToAssembly, '.jsii'))) {
+    return readAssembly(path.join(pathToAssembly, '.jsii'));
+  } else if (fs.existsSync(path.join(pathToAssembly, '.jsii.gz'))) {
+    return readZippedAssembly(path.join(pathToAssembly, '.jsii.gz'));
   }
-  throw new Error(`No .jsii or .jsii.gz file was found at ${pathToJsiiFile}`);
+  throw new Error(`No .jsii or .jsii.gz file was found at ${pathToAssembly}`);
+}
+
+export function loadAssemblyFromFile(pathToFile: string) {
+  const extname = path.extname(pathToFile);
+  if (extname === '') {
+    return readAssembly(pathToFile);
+  } else if (extname === '.gz') {
+    return readZippedAssembly(pathToFile);
+  }
+  throw new Error(
+    `Assembly file extension must be '.jsii' or '.gz' but got ${extname}`,
+  );
+}
+
+function readAssembly(pathToFile: string) {
+  return fs.readJsonSync(pathToFile, {
+    encoding: 'utf-8',
+  });
+}
+
+function readZippedAssembly(pathToFile: string) {
+  return JSON.parse(zlib.gunzipSync(fs.readFileSync(pathToFile)).toString());
 }

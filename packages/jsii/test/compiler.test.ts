@@ -12,7 +12,7 @@ import { join } from 'path';
 
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
-import { loadJsiiFile } from '../lib/utils';
+import { loadAssemblyFromPath } from '../lib/utils';
 
 describe(Compiler, () => {
   describe('generated tsconfig', () => {
@@ -84,7 +84,7 @@ describe(Compiler, () => {
         compilationComplete: (emitResult) => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
-            const output = JSON.stringify(loadJsiiFile(sourceDir));
+            const output = JSON.stringify(loadAssemblyFromPath(sourceDir));
             if (firstCompilation) {
               firstCompilation = false;
               expect(output).toContain('"MarkerA"');
@@ -234,8 +234,8 @@ describe(Compiler, () => {
         expect(existsSync(join(uncompressedSourceDir, '.jsii'))).toBeTruthy();
         expect(existsSync(join(compressedSourceDir, '.jsii.gz'))).toBeTruthy();
 
-        const uncompressedJsii = loadJsiiFile(uncompressedSourceDir);
-        const compressedJsii = loadJsiiFile(compressedSourceDir);
+        const uncompressedJsii = loadAssemblyFromPath(uncompressedSourceDir);
+        const compressedJsii = loadAssemblyFromPath(compressedSourceDir);
 
         // uncompressedJsii should equal compressedJsii except for metadata and fingerprint
         for (const key of Object.keys(uncompressedJsii)) {
