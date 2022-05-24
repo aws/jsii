@@ -80,7 +80,7 @@ export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>
   const capturing = typeof syntaxKindOrCaptureName === 'string'; // Determine which overload we're in (SyntaxKind is a number)
 
   const realNext = (capturing ? children : (nodeTypeOrChildren as AstMatcher<A>)) ?? DONE;
-  const realCapture = capturing ? (syntaxKindOrCaptureName as N) : undefined;
+  const realCapture = capturing ? syntaxKindOrCaptureName : undefined;
   const realSyntaxKind = capturing ? nodeTypeOrChildren : syntaxKindOrCaptureName;
 
   return (nodes) => {

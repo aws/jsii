@@ -154,7 +154,7 @@ export class RosettaTabletReader {
       try {
         await this.loadTabletFromFile(defaultTablet);
         return;
-      } catch (e) {
+      } catch (e: any) {
         logging.warn(`Error loading ${defaultTablet}: ${e.message}. Skipped.`);
       }
     }

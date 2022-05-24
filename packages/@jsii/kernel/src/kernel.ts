@@ -1086,7 +1086,7 @@ export class Kernel {
           typeRef,
           host,
         );
-      } catch (e) {
+      } catch (e: any) {
         // If no union (99% case), rethrow immediately to preserve stack trace
         if (serTypes.length === 1) {
           throw e;
@@ -1119,7 +1119,7 @@ export class Kernel {
     for (const { serializationClass, typeRef } of serTypes) {
       try {
         return wire.SERIALIZERS[serializationClass].serialize(v, typeRef, host);
-      } catch (e) {
+      } catch (e: any) {
         // If no union (99% case), rethrow immediately to preserve stack trace
         if (serTypes.length === 1) {
           throw e;

@@ -2852,6 +2852,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IInterfaceWithOptionalMethodArguments.cs
        ┃           ┣━ 📄 IInterfaceWithProperties.cs
        ┃           ┣━ 📄 IInterfaceWithPropertiesExtension.cs
+       ┃           ┣━ 📄 IJavaReservedWordsInAnInterface.cs
        ┃           ┣━ 📄 IJSII417Derived.cs
        ┃           ┣━ 📄 IJSII417PublicBaseOfBase.cs
        ┃           ┣━ 📄 IJsii487External.cs
@@ -9201,6 +9202,448 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
             [JsiiMethod(name: "foo")]
             public void Foo()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IJavaReservedWordsInAnInterface.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IJavaReservedWordsInAnInterface), fullyQualifiedName: "jsii-calc.IJavaReservedWordsInAnInterface")]
+    public interface IJavaReservedWordsInAnInterface
+    {
+        [JsiiProperty(name: "while", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string While
+        {
+            get;
+        }
+        [JsiiMethod(name: "abstract")]
+        void Abstract();
+        [JsiiMethod(name: "assert")]
+        void Assert();
+        [JsiiMethod(name: "boolean")]
+        void Boolean();
+        [JsiiMethod(name: "break")]
+        void Break();
+        [JsiiMethod(name: "byte")]
+        void Byte();
+        [JsiiMethod(name: "case")]
+        void Case();
+        [JsiiMethod(name: "catch")]
+        void Catch();
+        [JsiiMethod(name: "char")]
+        void Char();
+        [JsiiMethod(name: "class")]
+        void Class();
+        [JsiiMethod(name: "const")]
+        void Const();
+        [JsiiMethod(name: "continue")]
+        void Continue();
+        [JsiiMethod(name: "default")]
+        void Default();
+        [JsiiMethod(name: "do")]
+        void Do();
+        [JsiiMethod(name: "double")]
+        void Double();
+        [JsiiMethod(name: "else")]
+        void Else();
+        [JsiiMethod(name: "enum")]
+        void Enum();
+        [JsiiMethod(name: "extends")]
+        void Extends();
+        [JsiiMethod(name: "false")]
+        void False();
+        [JsiiMethod(name: "final")]
+        void Final();
+        [JsiiMethod(name: "finally")]
+        void Finally();
+        [JsiiMethod(name: "float")]
+        void Float();
+        [JsiiMethod(name: "for")]
+        void For();
+        [JsiiMethod(name: "goto")]
+        void Goto();
+        [JsiiMethod(name: "if")]
+        void If();
+        [JsiiMethod(name: "implements")]
+        void Implements();
+        [JsiiMethod(name: "import")]
+        void Import();
+        [JsiiMethod(name: "instanceof")]
+        void Instanceof();
+        [JsiiMethod(name: "int")]
+        void Int();
+        [JsiiMethod(name: "interface")]
+        void Interface();
+        [JsiiMethod(name: "long")]
+        void Long();
+        [JsiiMethod(name: "native")]
+        void Native();
+        [JsiiMethod(name: "null")]
+        void Null();
+        [JsiiMethod(name: "package")]
+        void Package();
+        [JsiiMethod(name: "private")]
+        void Private();
+        [JsiiMethod(name: "protected")]
+        void Protected();
+        [JsiiMethod(name: "public")]
+        void Public();
+        [JsiiMethod(name: "return")]
+        void Return();
+        [JsiiMethod(name: "short")]
+        void Short();
+        [JsiiMethod(name: "static")]
+        void Static();
+        [JsiiMethod(name: "strictfp")]
+        void Strictfp();
+        [JsiiMethod(name: "super")]
+        void Super();
+        [JsiiMethod(name: "switch")]
+        void Switch();
+        [JsiiMethod(name: "synchronized")]
+        void Synchronized();
+        [JsiiMethod(name: "this")]
+        void This();
+        [JsiiMethod(name: "throw")]
+        void Throw();
+        [JsiiMethod(name: "throws")]
+        void Throws();
+        [JsiiMethod(name: "transient")]
+        void Transient();
+        [JsiiMethod(name: "true")]
+        void True();
+        [JsiiMethod(name: "try")]
+        void Try();
+        [JsiiMethod(name: "void")]
+        void Void();
+        [JsiiMethod(name: "volatile")]
+        void Volatile();
+
+        [JsiiTypeProxy(nativeType: typeof(IJavaReservedWordsInAnInterface), fullyQualifiedName: "jsii-calc.IJavaReservedWordsInAnInterface")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJavaReservedWordsInAnInterface
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "while", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string While
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+
+            [JsiiMethod(name: "abstract")]
+            public void Abstract()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "assert")]
+            public void Assert()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "boolean")]
+            public void Boolean()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "break")]
+            public void Break()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "byte")]
+            public void Byte()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "case")]
+            public void Case()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "catch")]
+            public void Catch()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "char")]
+            public void Char()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "class")]
+            public void Class()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "const")]
+            public void Const()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "continue")]
+            public void Continue()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "default")]
+            public void Default()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "do")]
+            public void Do()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "double")]
+            public void Double()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "else")]
+            public void Else()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "enum")]
+            public void Enum()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "extends")]
+            public void Extends()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "false")]
+            public void False()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "final")]
+            public void Final()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "finally")]
+            public void Finally()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "float")]
+            public void Float()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "for")]
+            public void For()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "goto")]
+            public void Goto()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "if")]
+            public void If()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "implements")]
+            public void Implements()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "import")]
+            public void Import()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "instanceof")]
+            public void Instanceof()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "int")]
+            public void Int()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "interface")]
+            public void Interface()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "long")]
+            public void Long()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "native")]
+            public void Native()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "null")]
+            public void Null()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "package")]
+            public void Package()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "private")]
+            public void Private()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "protected")]
+            public void Protected()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "public")]
+            public void Public()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "return")]
+            public void Return()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "short")]
+            public void Short()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "static")]
+            public void Static()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "strictfp")]
+            public void Strictfp()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "super")]
+            public void Super()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "switch")]
+            public void Switch()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "synchronized")]
+            public void Synchronized()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "this")]
+            public void This()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "throw")]
+            public void Throw()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "throws")]
+            public void Throws()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "transient")]
+            public void Transient()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "true")]
+            public void True()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "try")]
+            public void Try()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "void")]
+            public void Void()
+            {
+                InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            }
+
+            [JsiiMethod(name: "volatile")]
+            public void Volatile()
             {
                 InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
             }
