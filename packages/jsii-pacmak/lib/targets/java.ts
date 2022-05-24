@@ -870,14 +870,15 @@ class JavaGenerator extends Generator {
     const returnType = method.returns
       ? this.toDecoratedJavaType(method.returns)
       : 'void';
+    const methodName = JavaGenerator.safeJavaMethodName(method.name);
     this.addJavaDocs(method, {
       api: 'member',
       fqn: ifc.fqn,
-      memberName: method.name,
+      memberName: methodName,
     });
     this.emitStabilityAnnotations(method);
     this.code.line(
-      `${returnType} ${method.name}(${this.renderMethodParameters(method)});`,
+      `${returnType} ${methodName}(${this.renderMethodParameters(method)});`,
     );
   }
 
@@ -2417,7 +2418,9 @@ class JavaGenerator extends Generator {
       tagLines.push(`@return ${docs.returns}`);
     }
     if (docs.see) {
-      tagLines.push(`@see ${docs.see}`);
+      tagLines.push(
+        `@see <a href="${escape(docs.see)}">${escape(docs.see)}</a>`,
+      );
     }
     if (docs.deprecated) {
       tagLines.push(`@deprecated ${docs.deprecated}`);
@@ -3258,4 +3261,11 @@ function splitNamespace(ns: string): [string, string] {
     return ['', ns];
   }
   return [ns.slice(0, dot), ns.slice(dot + 1)];
+}
+
+/**
+ * Escape a string for dropping into JavaDoc
+ */
+function escape(s: string) {
+  return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
 }

@@ -69,7 +69,7 @@ describe(Compiler, () => {
 
       let firstCompilation = true;
       let onWatchClosed: () => void;
-      let onWatchFailed: (err: Error) => void;
+      let onWatchFailed: (err: unknown) => void;
       const watchClosed = new Promise<void>((ok, ko) => {
         onWatchClosed = ok;
         onWatchFailed = ko;

@@ -401,7 +401,7 @@ function _tryResolveAssembly(
   try {
     const dependencyDir = findDependencyDirectory(mod, searchPath);
     return findJsiiFile(dependencyDir);
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(
       `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );

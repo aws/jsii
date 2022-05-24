@@ -14,31 +14,24 @@ import { ProjectInfo } from './project-info';
 export class Validator implements Emitter {
   public static VALIDATIONS: ValidationFunction[] = _defaultValidations();
 
-  private _diagnostics = new Array<JsiiDiagnostic>();
-
   public constructor(
     public readonly projectInfo: ProjectInfo,
     public readonly assembly: spec.Assembly,
   ) {}
 
   public emit(): ts.EmitResult {
-    this._diagnostics = [];
+    const diagnostics = new Array<ts.Diagnostic>();
 
     for (const validation of Validator.VALIDATIONS) {
-      validation(this, this.assembly, (diag) => this._diagnostics.push(diag));
+      validation(this, this.assembly, diagnostics.push.bind(diagnostics));
     }
 
-    try {
-      return {
-        diagnostics: this._diagnostics,
-        emitSkipped: this._diagnostics.some(
-          (diag) => diag.category === ts.DiagnosticCategory.Error,
-        ),
-      };
-    } finally {
-      // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
-      delete this._diagnostics;
-    }
+    return {
+      diagnostics: diagnostics,
+      emitSkipped: diagnostics.some(
+        (diag) => diag.category === ts.DiagnosticCategory.Error,
+      ),
+    };
   }
 }
 

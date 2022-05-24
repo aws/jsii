@@ -199,7 +199,7 @@ export class SnippetTranslator {
       return (...args: A) => {
         try {
           return call(...args);
-        } catch (err) {
+        } catch (err: any) {
           const isExpectedTypescriptError = err.message.includes('Debug Failure');
 
           if (!isExpectedTypescriptError) {

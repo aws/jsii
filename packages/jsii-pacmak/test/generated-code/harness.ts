@@ -125,7 +125,7 @@ export function checkTree(
   function tryStat(at: string) {
     try {
       return fs.statSync(at);
-    } catch (e) {
+    } catch (e: any) {
       if (e.code !== os.constants.errno.ENOENT) {
         throw e;
       }

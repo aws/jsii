@@ -2777,7 +2777,7 @@ interface SubmoduleSpec {
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
-  delete assembly.fingerprint;
+  delete (assembly as any).fingerprint;
   assembly = sortJson(assembly);
   const fingerprint = crypto
     .createHash('sha256')
