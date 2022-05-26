@@ -110,7 +110,7 @@ export class TypeSystem {
       // Validation is not an insignificant time sink, and loading IS insignificant, so do a
       // load without validation first. This saves about 2/3rds of processing time.
       const asm = await this.loadAssembly(
-        path.join(moduleDirectory, '.jsii'),
+        this.getAssemblyFile(path.join(moduleDirectory)),
         false,
       );
       if (this.includesAssembly(asm.name)) {
@@ -314,6 +314,18 @@ export class TypeSystem {
       ? jsii.validateAssembly(spec)
       : (spec as jsii.Assembly);
     return new Assembly(this, ass);
+  }
+
+  private getAssemblyFile(pathToAssembly: string) {
+    const jsiiFile = path.join(pathToAssembly, '.jsii');
+    const compressedJsiiFile = path.join(pathToAssembly, '.jsii.gz');
+    const jsiiExists = fs.existsSync(jsiiFile);
+    if (!jsiiExists && !fs.existsSync(compressedJsiiFile)) {
+      throw new Error(
+        `No .jsii or .jsii.gz assembly file was found at ${pathToAssembly}`,
+      );
+    }
+    return jsiiExists ? jsiiFile : compressedJsiiFile;
   }
 
   private addRoot(asm: Assembly) {
