@@ -1,8 +1,5 @@
 # Go
 
-!!! danger
-    The **go** target is currently unstable and not suitable for production use.
-
 **Go** is not a common object-oriented language: the language currently only
 supports composition, not extension. On the other hand, the
 [*jsii type system*][type-system] includes *classes* and *interfaces*, which are
