@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
@@ -245,6 +246,30 @@ const ANSI_REGEX =
 
 export function stripAnsi(x: string): string {
   return x.replace(ANSI_REGEX, '');
+}
+
+/**
+ * writes the assembly file either as .jsii or .jsii.gz if zipped
+ *
+ * @param directory the directory path to place the assembly file
+ * @param assembly the contents of the assembly
+ * @param zip whether or not to zip the assembly (.jsii.gz)
+ * @returns zip
+ */
+export function writeAssembly(
+  directory: string,
+  assembly: spec.Assembly,
+  zip: boolean,
+) {
+  if (zip) {
+    fs.writeFileSync(
+      path.join(directory, '.jsii.gz'),
+      zlib.gzipSync(JSON.stringify(assembly)),
+    );
+  } else {
+    fs.writeJsonSync(path.join(directory, '.jsii'), assembly);
+  }
+  return zip;
 }
 
 /**

@@ -15,7 +15,7 @@ import { DiagnosticCategory } from 'typescript';
 
 import { Compiler, CompilerOptions } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';
-import { formatDiagnostic, loadAssemblyFromPath } from './utils';
+import { formatDiagnostic, loadAssemblyFromPath, writeAssembly } from './utils';
 
 /**
  * A set of source files for `sourceToAssemblyHelper`, at least containing 'index.ts'
@@ -47,6 +47,12 @@ export interface HelperCompilationResult {
    * The generated assembly
    */
   readonly assembly: spec.Assembly;
+
+  /**
+   * Whether or not the assembly file will be zipped
+   */
+  readonly zipAssemblyFile: boolean;
+
   /**
    * Generated .js/.d.ts file(s)
    */
@@ -141,7 +147,13 @@ export function compileJsiiForTest(
       }
     }
 
-    return { assembly, files, packageJson } as HelperCompilationResult;
+    return {
+      assembly,
+      zipAssemblyFile:
+        isOptionsObject(options) && options.zipAssemblyFile ? true : false,
+      files,
+      packageJson,
+    } as HelperCompilationResult;
   });
 }
 
@@ -205,6 +217,7 @@ function makeProjectInfo(
   const { projectInfo } = loadProjectInfo(path.resolve(process.cwd(), '.'));
   return { projectInfo, packageJson };
 }
+
 export interface TestCompilationOptions {
   /**
    * The directory in which we write and compile the files
@@ -224,6 +237,11 @@ export interface TestCompilationOptions {
    * @default - Use some default values
    */
   readonly packageJson?: Partial<PackageJson>;
+
+  /**
+   * If set, the assembly file will be zipped
+   */
+  readonly zipAssemblyFile?: boolean;
 }
 
 function isOptionsObject(
@@ -287,7 +305,12 @@ export class TestWorkspace {
     );
     fs.ensureDirSync(modDir);
 
-    fs.writeJsonSync(path.join(modDir, '.jsii'), dependencyAssembly.assembly);
+    writeAssembly(
+      modDir,
+      dependencyAssembly.assembly,
+      dependencyAssembly.zipAssemblyFile,
+    );
+
     fs.writeJsonSync(
       path.join(modDir, 'package.json'),
       dependencyAssembly.packageJson,

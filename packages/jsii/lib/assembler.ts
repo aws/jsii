@@ -9,7 +9,6 @@ import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
-import * as zlib from 'zlib';
 
 import {
   getReferencedDocParams,
@@ -27,6 +26,7 @@ import { DeprecatedRemover } from './transforms/deprecated-remover';
 import { DeprecationWarningsInjector } from './transforms/deprecation-warnings';
 import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { combinedTransformers } from './transforms/utils';
+import { writeAssembly } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
@@ -278,24 +278,16 @@ export class Assembler implements Emitter {
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = validator.emit();
     if (!validationResult.emitSkipped) {
-      const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
-      if (!compressJsii(assembly)) {
-        LOG.trace(`Emitting assembly: ${chalk.blue(assemblyPath)}`);
-        fs.writeJsonSync(assemblyPath, _fingerprint(assembly), {
-          encoding: 'utf8',
-          spaces: 2,
-        });
-      } else {
-        const assemblyZipPath = path.join(
+      const zipped = writeAssembly(
+        this.projectInfo.projectRoot,
+        _fingerprint(assembly),
+        compressJsii(assembly),
+      );
+      LOG.trace(
+        `${zipped ? 'Zipping' : 'Emitting'} assembly to ${chalk.blue(
           this.projectInfo.projectRoot,
-          '.jsii.gz',
-        );
-        LOG.trace(`Zipping assembly: ${chalk.blue(assemblyZipPath)}`);
-        fs.writeFileSync(
-          assemblyZipPath,
-          zlib.gzipSync(JSON.stringify(_fingerprint(assembly))),
-        );
-      }
+        )}`,
+      );
     }
 
     try {

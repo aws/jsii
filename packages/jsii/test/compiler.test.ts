@@ -138,7 +138,7 @@ describe(Compiler, () => {
 
       compiler.emit();
 
-      const assembly = readJsonSync(join(sourceDir, '.jsii'), 'utf-8');
+      const assembly = loadAssemblyFromPath(sourceDir);
       expect(assembly.metadata).toEqual(
         expect.objectContaining({
           tscRootDir: rootDir,
