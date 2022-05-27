@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
+import { loadAssemblyFromFile } from 'jsii/lib/utils';
 import * as path from 'path';
 
 import { findDependencyDirectory, isBuiltinModule } from '../find-utils';
@@ -64,14 +65,14 @@ export async function loadAssemblies(
   async function loadAssembly(location: string): Promise<LoadedAssembly> {
     const stat = await fs.stat(location);
     if (stat.isDirectory()) {
-      return loadAssembly(path.join(location, '.jsii'));
+      return loadAssembly(getAssemblyFile(location));
     }
 
     const directory = path.dirname(location);
     const pjLocation = path.join(directory, 'package.json');
 
     const [assembly, packageJson] = await Promise.all([
-      loadAssemblyFromFile(location, validateAssemblies),
+      _loadAssemblyFromFile(location, validateAssemblies),
       (await fs.pathExists(pjLocation)) ? fs.readJSON(pjLocation, { encoding: 'utf-8' }) : Promise.resolve(undefined),
     ]);
 
@@ -79,8 +80,18 @@ export async function loadAssemblies(
   }
 }
 
-async function loadAssemblyFromFile(filename: string, validate: boolean): Promise<spec.Assembly> {
-  const contents = await fs.readJSON(filename, { encoding: 'utf-8' });
+function getAssemblyFile(pathToAssembly: string) {
+  const jsiiFile = path.join(pathToAssembly, '.jsii');
+  const compressedJsiiFile = path.join(pathToAssembly, '.jsii.gz');
+  const jsiiExists = fs.existsSync(jsiiFile);
+  if (!jsiiExists && !fs.existsSync(compressedJsiiFile)) {
+    throw new Error(`No .jsii or .jsii.gz assembly file was found at ${pathToAssembly}`);
+  }
+  return jsiiExists ? jsiiFile : compressedJsiiFile;
+}
+
+function _loadAssemblyFromFile(filename: string, validate: boolean): spec.Assembly {
+  const contents = loadAssemblyFromFile(filename);
   return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
 }
 

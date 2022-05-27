@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { PackageInfo, compileJsiiForTest, TestWorkspace } from 'jsii';
+import { writeAssembly } from 'jsii/lib/utils';
 import * as os from 'os';
 import * as path from 'path';
 
@@ -22,20 +23,26 @@ export class TestJsiiModule {
   public static fromSource(
     source: string | MultipleSources,
     packageInfo: Partial<PackageInfo> & { name: string; main?: string; types?: string },
+    zipAssemblyFile = false,
   ): TestJsiiModule {
-    const asm = compileJsiiForTest(source, (pi) => {
-      Object.assign(pi, packageInfo);
+    const asm = compileJsiiForTest(source, {
+      packageJson: packageInfo,
+      zipAssemblyFile,
     });
 
     const ws = TestWorkspace.create();
     ws.addDependency(asm);
-    return new TestJsiiModule(asm.assembly, ws);
+    return new TestJsiiModule(asm.assembly, ws, zipAssemblyFile);
   }
 
   public readonly moduleDirectory: string;
   public readonly workspaceDirectory: string;
 
-  private constructor(public readonly assembly: spec.Assembly, public readonly workspace: TestWorkspace) {
+  private constructor(
+    public readonly assembly: spec.Assembly,
+    public readonly workspace: TestWorkspace,
+    public readonly zipAssemblyFile = false,
+  ) {
     this.moduleDirectory = workspace.dependencyDir(assembly.name);
     this.workspaceDirectory = workspace.rootDirectory;
   }
@@ -80,8 +87,8 @@ export class TestJsiiModule {
   /**
    * Update the file to reflect the latest changes to the assembly object.
    */
-  public async updateAssembly() {
-    await fs.writeJSON(path.join(this.moduleDirectory, '.jsii'), this.assembly);
+  public updateAssembly() {
+    writeAssembly(this.moduleDirectory, this.assembly, this.zipAssemblyFile);
   }
 
   public cleanup() {

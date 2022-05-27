@@ -59,6 +59,45 @@ beforeEach(() => {
 
 afterEach(() => assembly.cleanup());
 
+test('extract works with zipped assembly files', async () => {
+  const assembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      export class ClassB {
+        public anotherMethod() {
+        }
+      }
+      `,
+      'README.md': DUMMY_README,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+    true /* zipAssemblyFile */,
+  );
+
+  // assert that assembly is zipped
+  expect(fs.existsSync(path.join(assembly.moduleDirectory, '.jsii.gz'))).toBeTruthy();
+  expect(fs.existsSync(path.join(assembly.moduleDirectory, '.jsii'))).toBeFalsy();
+
+  // behavior is as expected
+  const cacheToFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
+  await extract.extractSnippets([assembly.moduleDirectory], {
+    cacheToFile,
+    ...defaultExtractOptions,
+  });
+
+  const tablet = new LanguageTablet();
+  await tablet.load(cacheToFile);
+
+  expect(tablet.snippetKeys.length).toEqual(1);
+});
+
 test('extract samples from test assembly', async () => {
   const cacheToFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
   await extract.extractSnippets([assembly.moduleDirectory], {
@@ -233,7 +272,7 @@ describe('with cache file', () => {
     assembly.assembly.types!['my_assembly.ClassB'].docs = {
       example: 'ClassB.anotherMethod();',
     };
-    await assembly.updateAssembly();
+    assembly.updateAssembly();
 
     const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
@@ -478,7 +517,7 @@ describe('infused examples', () => {
     // Nothing like this should happen in practice
     infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
       'infused fixture=myfix.ts-fixture';
-    await infusedAssembly.updateAssembly();
+    infusedAssembly.updateAssembly();
 
     // Expect to return cached snippet regardless of change
     // No compilation should happen
@@ -495,7 +534,7 @@ describe('infused examples', () => {
   test('skip loose mode', async () => {
     // Remove infused for now and add lit metadata that should fail
     infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts';
-    await infusedAssembly.updateAssembly();
+    infusedAssembly.updateAssembly();
 
     const cacheToFile = path.join(infusedAssembly.moduleDirectory, 'test.tabl.json');
 
@@ -509,7 +548,7 @@ describe('infused examples', () => {
 
     // Add infused to metadata and update assembly
     infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts infused';
-    await infusedAssembly.updateAssembly();
+    infusedAssembly.updateAssembly();
 
     // Expect same function call to succeed now
     await extract.extractSnippets([infusedAssembly.moduleDirectory], {
