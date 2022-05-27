@@ -1,5 +1,6 @@
 import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind } from '@jsii/spec';
-import { readJson, writeJson } from 'fs-extra';
+import { writeJson } from 'fs-extra';
+import { loadAssemblyFromPath } from 'jsii/lib/utils';
 import { resolve } from 'path';
 
 import { TargetLanguage } from '../languages';
@@ -100,7 +101,6 @@ export async function transliterateAssembly(
       const now = new Date().getTime();
       // eslint-disable-next-line no-await-in-loop
       const result = await loadAssembly();
-
       if (result.targets?.[targetName(language)] == null) {
         // This language is not supported by the assembly, so we skip it...
         continue;
@@ -149,9 +149,9 @@ async function loadAssemblies(
   const result = new Map<string, AssemblyLoader>();
 
   for (const directory of directories) {
-    const loader = () => readJson(resolve(directory, SPEC_FILE_NAME));
+    const loader = () => loadAssemblyFromPath(directory);
     // eslint-disable-next-line no-await-in-loop
-    await rosetta.addAssembly(await loader(), directory);
+    await rosetta.addAssembly(loader(), directory);
     result.set(directory, loader);
   }
 

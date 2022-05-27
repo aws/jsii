@@ -276,7 +276,7 @@ export function writeAssembly(
  * loads the .jsii or .jsii.gz file, depending on which one is found in the folder.
  *
  * @param pathToAssembly the path to the .jsii or .jsii.gz file
- * @returns the .jsii or the unzipped .jsii.gz file as json
+ * @returns the .jsii file or the unzipped .jsii.gz file as json
  */
 export function loadAssemblyFromPath(pathToAssembly: string) {
   if (fs.existsSync(path.join(pathToAssembly, '.jsii'))) {
