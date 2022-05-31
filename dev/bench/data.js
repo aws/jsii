@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1653586709937,
+  "lastUpdate": 1654011911355,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -992,6 +992,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 60210.018283 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rybickic@amazon.com",
+            "name": "Christopher Rybicki",
+            "username": "Chriscbr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c40f26cdc7bef7835fbddbae983783a495be2d0e",
+          "message": "fix(@jsii/spec): speed up assembly validation by 20x for large libraries (#3565)",
+          "timestamp": "2022-05-31T08:28:21-07:00",
+          "tree_id": "a6cf58440cca14facddb7983f51a8a85bf365996",
+          "url": "https://github.com/aws/jsii/commit/c40f26cdc7bef7835fbddbae983783a495be2d0e"
+        },
+        "date": 1654011908655,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 62396.667273,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 62396.667273 milliseconds over 1 runs"
           }
         ]
       }
