@@ -31,7 +31,7 @@
     "package": "package-js"
   },
   "dependencies": {
-    "jsonschema": "^1.4.1"
+    "ajv": "^8.11.0"
   },
   "devDependencies": {
     "jsii-build-tools": "^0.0.0",
