@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654101713923,
+  "lastUpdate": 1654105100848,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1147,6 +1147,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 63266.246291 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6f74b78b0ecf1782ced3eac6fd763af36e1300c0",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.2.15 to ~=8.2.16 in /gh-pages (#3566)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.2.16</h2>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3957\">#3957</a>: Only animate code annotations when visible (save CPU cycles)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.2.16+insiders-4.16.2 (2022-05-28)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3961\">#3961</a>: Nested sections triggered build error for navigation tabs</li>\n</ul>\n<p>mkdocs-material-8.2.16+insiders-4.16.1 (2022-05-28)</p>\n<ul>\n<li>Switched feedback widget rating titles to tooltips</li>\n<li>Improved contrast of link colors for light/dark color schemes</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3950\">#3950</a>: Sticky navigation tabs rendering broken (4.15.2 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3958\">#3958</a>: Links invisible when using white primary color</li>\n</ul>\n<p>mkdocs-material-8.2.16 (2022-05-28)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3957\">#3957</a>: Only animate code annotations when visible (save CPU cycles)</li>\n</ul>\n<p>mkdocs-material-8.2.15+insiders-4.16.0 (2022-05-25)</p>\n<ul>\n<li>Added support for navigation pruning</li>\n<li>Fixed search results for non-segmented characters (4.15.2 regression)</li>\n</ul>\n<p>mkdocs-material-8.2.15+insiders-4.15.2 (2022-05-22)</p>\n<ul>\n<li>Removed workaround for abbr on touch devices (superseded by tooltips)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3915\">#3915</a>: Improved Chinese search query segmentation</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3938\">#3938</a>: Fixed tooltips position for navigation titles with ellipsis</li>\n</ul>\n<p>mkdocs-material-8.2.15+insiders-4.15.1 (2022-05-14)</p>\n<ul>\n<li>Improved performance of element focus obervables</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3531\">#3531</a>: Added prev/next buttons to content tabs</li>\n<li>Fixed tooltip positioning when host element is hidden</li>\n</ul>\n<p>mkdocs-material-8.2.15 (2022-05-14)</p>\n<ul>\n<li>Added Uzbek translations</li>\n<li>Fixed spacing for code block results in content tabs</li>\n</ul>\n<p>mkdocs-material-8.2.14+insiders-4.15.0 (2022-05-08)</p>\n<ul>\n<li>Added support for improved tooltips</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3785\">#3785</a>: Show tooltip on hover for overflowing navigation link</li>\n</ul>\n<p>mkdocs-material-8.2.14 (2022-05-08)</p>\n<ul>\n<li>Fixed missing top right rounded border on admonition</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3886\">#3886</a>: 4xx status codes not handled when using instant loading</li>\n</ul>\n<p>mkdocs-material-8.2.13+insiders-4.14.0 (2022-05-05)</p>\n<ul>\n<li>Added Chinese language support to built-in search plugin</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fd4f82cd082c6accd2b035df7bab36551e5c4a20\"><code>fd4f82c</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b25844d51ee87354e902849d661e0134546a2d24\"><code>b25844d</code></a> Prepare 8.2.16 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0d24a26958e1bbc5fc5161cf05dd2645d15a8182\"><code>0d24a26</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/97b291664c850b9375a15be132e1575d49da9251\"><code>97b2916</code></a> Formatting</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5e442eb46f74c8ed34733be6c5a6a4a2e74a4b8f\"><code>5e442eb</code></a> Reduced GPU cycles by only animating annotations when visible</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/23cec7f441cee5e3f1aa64157d669dee6bd2c727\"><code>23cec7f</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3ceef1515531f53176f90cfeb0507e1861b4935e\"><code>3ceef15</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/26053e0a4b3dadf465afc6fefb6096e3f9cc2925\"><code>26053e0</code></a> Added navigation pruning to schema</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/132d79a681a1808e56c7d5312dc2d1d3369ac733\"><code>132d79a</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/80c65cbb5bd21f06e0715042d3e43289c8cbe823\"><code>80c65cb</code></a> Updated Insiders changelog</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.2.15...8.2.16\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-01T16:23:04Z",
+          "tree_id": "96bed5b9cc9e91a75b0ac0c7f868eb7d4463482f",
+          "url": "https://github.com/aws/jsii/commit/6f74b78b0ecf1782ced3eac6fd763af36e1300c0"
+        },
+        "date": 1654105098496,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 65294.172526,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65294.172526 milliseconds over 1 runs"
           }
         ]
       }
