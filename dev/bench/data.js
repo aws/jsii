@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654092951925,
+  "lastUpdate": 1654096045461,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1054,6 +1054,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 73062.548551 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5744707f38e4d1e295eb17aa905b2d2f909ca974",
+          "message": "chore(deps-dev): Update twine requirement from ~=4.0.0 to ~=4.0.1 in /packages/jsii-pacmak/lib/targets/python (#3568)\n\nUpdates the requirements on [twine](https://github.com/pypa/twine) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/twine/releases\">twine's releases</a>.</em></p>\n<blockquote>\n<h2>4.0.1</h2>\n<p><a href=\"https://pypi.org/project/twine/4.0.1/\">https://pypi.org/project/twine/4.0.1/</a></p>\n<p><a href=\"https://twine.readthedocs.io/en/stable/changelog.html#twine-4-0-1-2022-06-01\">Changelog</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/twine/blob/main/docs/changelog.rst\">twine's changelog</a>.</em></p>\n<blockquote>\n<h2>Twine 4.0.1 (2022-06-01)</h2>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Improve logging when keyring fails. (<code>[#890](https://github.com/pypa/twine/issues/890) &lt;https://github.com/pypa/twine/issues/890&gt;</code>_)</li>\n<li>Reconfgure root logger to show all log messages. (<code>[#896](https://github.com/pypa/twine/issues/896) &lt;https://github.com/pypa/twine/issues/896&gt;</code>_)</li>\n</ul>\n<h2>Twine 4.0.0 (2022-03-31)</h2>\n<p>Features\n^^^^^^^^</p>\n<ul>\n<li>Drop support for Python 3.6. (<code>[#869](https://github.com/pypa/twine/issues/869) &lt;https://github.com/pypa/twine/issues/869&gt;</code>_)</li>\n<li>Use Rich to add color to <code>upload</code> output. (<code>[#851](https://github.com/pypa/twine/issues/851) &lt;https://github.com/pypa/twine/issues/851&gt;</code>_)</li>\n<li>Use Rich to add color to <code>check</code> output. (<code>[#874](https://github.com/pypa/twine/issues/874) &lt;https://github.com/pypa/twine/issues/874&gt;</code>_)</li>\n<li>Use Rich instead of tqdm for upload progress bar. (<code>[#877](https://github.com/pypa/twine/issues/877) &lt;https://github.com/pypa/twine/issues/877&gt;</code>_)</li>\n</ul>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Remove Twine's dependencies from the <code>User-Agent</code> header when uploading. (<code>[#871](https://github.com/pypa/twine/issues/871) &lt;https://github.com/pypa/twine/issues/871&gt;</code>_)</li>\n<li>Improve detection of disabled BLAKE2 hashing due to FIPS mode. (<code>[#879](https://github.com/pypa/twine/issues/879) &lt;https://github.com/pypa/twine/issues/879&gt;</code>_)</li>\n<li>Restore warning for missing <code>long_description</code>. (<code>[#887](https://github.com/pypa/twine/issues/887) &lt;https://github.com/pypa/twine/issues/887&gt;</code>_)</li>\n</ul>\n<h2>Twine 3.8.0 (2022-02-02)</h2>\n<p>Features\n^^^^^^^^</p>\n<ul>\n<li>Add <code>--verbose</code> logging for querying keyring credentials. (<code>[#849](https://github.com/pypa/twine/issues/849) &lt;https://github.com/pypa/twine/issues/849&gt;</code>_)</li>\n<li>Log all upload responses with <code>--verbose</code>. (<code>[#859](https://github.com/pypa/twine/issues/859) &lt;https://github.com/pypa/twine/issues/859&gt;</code>_)</li>\n<li>Show more helpful error message for invalid metadata. (<code>[#861](https://github.com/pypa/twine/issues/861) &lt;https://github.com/pypa/twine/issues/861&gt;</code>_)</li>\n</ul>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Require a recent version of urllib3. (<code>[#858](https://github.com/pypa/twine/issues/858) &lt;https://github.com/pypa/twine/issues/858&gt;</code>_)</li>\n</ul>\n<h2>Twine 3.7.1 (2021-12-07)</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/twine/commit/8f5e5d6d42d582ef3ea6ef07da277e0cabd22fd2\"><code>8f5e5d6</code></a> Update changelog for 4.0.1 (<a href=\"https://github-redirect.dependabot.com/pypa/twine/issues/904\">#904</a>)</li>\n<li><a href=\"https://github.com/pypa/twine/commit/62f3c67fa2f74cde433d6003b7ebf4256f129a7d\"><code>62f3c67</code></a> Log keyring tracebacks (<a href=\"https://github-redirect.dependabot.com/pypa/twine/issues/890\">#890</a>)</li>\n<li><a href=\"https://github.com/pypa/twine/commit/d30df7038fd3545e30a2c9bd3728aa787659aa38\"><code>d30df70</code></a> Update links to requests docs (<a href=\"https://github-redirect.dependabot.com/pypa/twine/issues/899\">#899</a>)</li>\n<li><a href=\"https://github.com/pypa/twine/commit/5525a2a628317eecb891859e395b0a54f2c57043\"><code>5525a2a</code></a> Restore missing <code>__main__</code> logs (<a href=\"https://github-redirect.dependabot.com/pypa/twine/issues/896\">#896</a>)</li>\n<li><a href=\"https://github.com/pypa/twine/commit/b0b932f2da604e90f8a7a5a5c7e2841f519a8fb7\"><code>b0b932f</code></a> Fix typos in tests (<a href=\"https://github-redirect.dependabot.com/pypa/twine/issues/898\">#898</a>)</li>\n<li><a href=\"https://github.com/pypa/twine/commit/4223ee154f1c962a0c33e2a3a95ed4c42bc62d41\"><code>4223ee1</code></a> Require latest version of readme_renderer (<a href=\"https://github-redirect.dependabot.com/pypa/twine/issues/892\">#892</a>)</li>\n<li>See full diff in <a href=\"https://github.com/pypa/twine/compare/4.0.0...4.0.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-01T14:48:42Z",
+          "tree_id": "1252b7352bf10e7b903786e932e4c499bf3e23ff",
+          "url": "https://github.com/aws/jsii/commit/5744707f38e4d1e295eb17aa905b2d2f909ca974"
+        },
+        "date": 1654096043372,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 66268.56614,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 66268.56614 milliseconds over 1 runs"
           }
         ]
       }
