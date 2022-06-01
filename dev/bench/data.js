@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654011911355,
+  "lastUpdate": 1654092951925,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1023,6 +1023,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 62396.667273 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "06d9a39cec8254ebab76a81026ab0e64a2f05462",
+          "message": "feat(jsii): make source map behavior fully configurable (#3558)\n\nInstead of enabling declarations maps everywhere as was done in #3521,\nallow customers to define their desired source-map related configuration\nin the `jsii.tsc` stanza of `package.json`.\n\nThis change in stance is motivated by how introduction of declarations\nmap causes broad asset hash changes in consumer code, which effectively\nbreaks many snapshot-based regression tests, and this feature should\nhence be opt-in.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-01T13:59:20Z",
+          "tree_id": "a89ff5f87fea2c6e28fc2ae95a92c7c87c0ff7f2",
+          "url": "https://github.com/aws/jsii/commit/06d9a39cec8254ebab76a81026ab0e64a2f05462"
+        },
+        "date": 1654092949001,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 73062.548551,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 73062.548551 milliseconds over 1 runs"
           }
         ]
       }
