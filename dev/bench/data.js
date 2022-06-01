@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654096045461,
+  "lastUpdate": 1654098901051,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1085,6 +1085,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 66268.56614 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5a0e164e8cbe5c77421ff7a85986a24fae60ba0a",
+          "message": "chore(deps-dev): Bump mypy from 0.950 to 0.960 in /packages/jsii-pacmak/test/generated-code (#3563)\n\nBumps [mypy](https://github.com/python/mypy) from 0.950 to 0.960.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/0a4a190f25ed90f73f6290656ec65ddd6bdb1d4e\"><code>0a4a190</code></a> Update version to 0.960</li>\n<li><a href=\"https://github.com/python/mypy/commit/128661ccbf4396ed1538421c481f1773c7490169\"><code>128661c</code></a> Friendlier errors for PEP 612 (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12832\">#12832</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/a54c84d0b0be3676e791960cb474dea00ac7f3bf\"><code>a54c84d</code></a> Bring back type annotation support of dunder methods in stub generator (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12828\">#12828</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/290f013dc11a955ff2d87e3610d873c0fef71e55\"><code>290f013</code></a> FindModuleCache: optionally leverage BuildSourceSet (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12616\">#12616</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/aa7c21a363271caed276c61899a7cb59bd2af49e\"><code>aa7c21a</code></a> Typeshed cherry-pick: Ignore mypy errors in Python 2 builtins and typing (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/78\">#78</a>...</li>\n<li><a href=\"https://github.com/python/mypy/commit/644d5f6f2f503f115e6656336ad266a7e03fd79d\"><code>644d5f6</code></a> checkexpr: cache type of container literals when possible (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12707\">#12707</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/b673366df0b0ee859abe0de3e2e82d99203fcd84\"><code>b673366</code></a> speedup typechecking of nested if expressions (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12700\">#12700</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/6db3d96cf28879dc9018d5d8bcd45d30ba9b6817\"><code>6db3d96</code></a> Avoid crashing on invalid python executables (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12812\">#12812</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/cb2c07bd1b0cb8ff3dbf38d0ee2092ebc1c1162f\"><code>cb2c07b</code></a> Fix crash on type alias definition inside dataclass declaration (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12792\">#12792</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/3cd1e2c4d9213793adff1973c4b68f473154df21\"><code>3cd1e2c</code></a> Fix namedtuple crash in unannotated function (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12804\">#12804</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/python/mypy/compare/v0.950...v0.960\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=0.950&new-version=0.960)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-01T15:38:29Z",
+          "tree_id": "061bc58f173800be32aa1d18d9bd5afe91cd1d74",
+          "url": "https://github.com/aws/jsii/commit/5a0e164e8cbe5c77421ff7a85986a24fae60ba0a"
+        },
+        "date": 1654098899292,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 64625.72485,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 64625.72485 milliseconds over 1 runs"
           }
         ]
       }
