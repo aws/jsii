@@ -33,8 +33,6 @@
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
-    "@types/node": "^14.18.18",
-    "jsii-build-tools": "^0.0.0",
-    "typescript": "~3.9.10"
+    "jsii-build-tools": "^0.0.0"
   }
 }

@@ -6,7 +6,7 @@ import * as yargs from 'yargs';
 import { TypeSystem, TypeSystemTree } from '../lib';
 
 async function main() {
-  const options = yargs
+  const options = await yargs
     .usage(
       '$0 [JSII-FILE | MODULE-DIR...]',
       'Prints an ASCII tree representation of a jsii type system.',

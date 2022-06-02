@@ -13,11 +13,21 @@ const spdx: Set<string> = require('spdx-license-list/simple');
 
 const LOG = log4js.getLogger('jsii/package-info');
 
-export interface TSCompilerOptions {
-  readonly outDir?: string;
-  readonly rootDir?: string;
-  readonly forceConsistentCasingInFileNames?: boolean;
-}
+export type TSCompilerOptions = Partial<
+  Pick<
+    ts.CompilerOptions,
+    // Directory preferences
+    | 'outDir'
+    | 'rootDir'
+    // Style preferences
+    | 'forceConsistentCasingInFileNames'
+    // Source map preferences
+    | 'declarationMap'
+    | 'inlineSourceMap'
+    | 'inlineSources'
+    | 'sourceMap'
+  >
+>;
 
 export interface ProjectInfo {
   readonly projectRoot: string;
@@ -207,6 +217,9 @@ export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
     tsc: {
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
+      forceConsistentCasingInFileNames:
+        pkg.jsii?.tsc?.forceConsistentCasingInFileNames,
+      ..._sourceMapPreferences(pkg.jsii?.tsc),
     },
     bin: pkg.bin,
     exports: pkg.exports,
@@ -226,6 +239,34 @@ function _guessRepositoryType(url: string): string {
   throw new Error(
     `The "package.json" file must specify the "repository.type" attribute (could not guess from ${url})`,
   );
+}
+
+function _sourceMapPreferences({
+  declarationMap,
+  inlineSourceMap,
+  inlineSources,
+  sourceMap,
+}: TSCompilerOptions = {}) {
+  // If none of the options are specified, use the default configuration from jsii <= 1.58.0, which
+  // means inline source maps with embedded source information.
+  if (
+    declarationMap == null &&
+    inlineSourceMap == null &&
+    inlineSources == null &&
+    sourceMap == null
+  ) {
+    declarationMap = false;
+    inlineSourceMap = true;
+    inlineSources = true;
+    sourceMap = undefined;
+  }
+
+  return {
+    declarationMap,
+    inlineSourceMap,
+    inlineSources,
+    sourceMap,
+  };
 }
 
 interface DependencyInfo {
@@ -345,7 +386,7 @@ class DependencyResolver {
   private loadAssembly(jsiiFileName: string): spec.Assembly {
     try {
       return fs.readJsonSync(jsiiFileName);
-    } catch (e) {
+    } catch (e: any) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
   }
@@ -411,7 +452,7 @@ function _tryResolveAssembly(
   try {
     const dependencyDir = findDependencyDirectory(mod, searchPath);
     return path.join(dependencyDir, '.jsii');
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(
       `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );

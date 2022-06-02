@@ -20,14 +20,8 @@
   },
   "devDependencies": {
     "@types/inquirer": "^8.2.1",
-    "@types/jest": "^27.5.0",
-    "@types/node": "^14.18.18",
     "@types/yargs": "^17.0.10",
-    "eslint": "^8.15.0",
-    "jest": "^27.5.1",
-    "jest-expect-message": "^1.0.2",
-    "prettier": "^2.6.2",
-    "typescript": "~3.9.10"
+    "jest-expect-message": "^1.0.2"
   },
   "dependencies": {
     "@jsii/check-node": "0.0.0",

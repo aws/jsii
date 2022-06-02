@@ -47,7 +47,7 @@ export async function downloadNpmPackage<T>(
       // Need to install package and dependencies in order for jsii-reflect
       // to not bork when it can find the dependencies.
       await exec(`npm install --silent --prefix . ${pkg}`);
-    } catch (e) {
+    } catch (e: any) {
       // If this fails, might be because the package doesn't exist
       if (!isSubprocesFailedError(e)) {
         throw e;

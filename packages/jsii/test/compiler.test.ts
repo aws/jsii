@@ -67,7 +67,7 @@ describe(Compiler, () => {
 
       let firstCompilation = true;
       let onWatchClosed: () => void;
-      let onWatchFailed: (err: Error) => void;
+      let onWatchFailed: (err: unknown) => void;
       const watchClosed = new Promise<void>((ok, ko) => {
         onWatchClosed = ok;
         onWatchFailed = ko;
@@ -149,7 +149,7 @@ describe(Compiler, () => {
     }
   });
 
-  test('emits declaration map', () => {
+  test('emits declaration map when feature is enabled', () => {
     const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
 
     try {
@@ -158,6 +158,9 @@ describe(Compiler, () => {
       const compiler = new Compiler({
         projectInfo: {
           ..._makeProjectInfo(sourceDir, 'index.d.ts'),
+          tsc: {
+            declarationMap: true,
+          },
         },
         generateTypeScriptConfig: 'tsconfig.jsii.json',
       });
@@ -191,6 +194,11 @@ function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
     bundleDependencies: {},
     targets: {},
     excludeTypescript: [],
+    tsc: {
+      // NOTE: these are the default values jsii uses when none are provided in package.json.
+      inlineSourceMap: true,
+      inlineSources: true,
+    },
   };
 }
 
@@ -203,7 +211,6 @@ function expectedTypeScriptConfig() {
       charset: 'utf8',
       composite: false,
       declaration: true,
-      declarationMap: true,
       experimentalDecorators: true,
       incremental: true,
       inlineSourceMap: true,

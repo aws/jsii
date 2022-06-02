@@ -9,6 +9,7 @@ on:
 
 env:
   DOTNET_NOLOGO: true
+  NODE_OPTIONS: --max-old-space-size=4096
 
 # This workflows currently has the following jobs:
 # - build                   : Builds the source tree as-is

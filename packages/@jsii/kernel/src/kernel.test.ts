@@ -640,7 +640,7 @@ defineTest('async overrides: override a method', async (sandbox) => {
     let callbackError;
     try {
       callbackResult = overrideCallback(cb.invoke!.args![0]);
-    } catch (e) {
+    } catch (e: any) {
       callbackError = e.message;
     }
 
@@ -1214,7 +1214,7 @@ defineTest(
     expect(() => {
       try {
         sandbox.invoke({ objref: obj, method: 'throwError' });
-      } catch (error) {
+      } catch (error: any) {
         const regexp =
           /^\s*at Thrower\.doThrowError \(.*jsii[-_]calc.*\/lib\/compliance\.ts:\d+:\d+\)$/m;
         expect(regexp.test(error.stack)).toBeTruthy(); // The stack trace includes the path to the original source file

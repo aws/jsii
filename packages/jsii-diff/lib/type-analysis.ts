@@ -94,7 +94,7 @@ export function isSuperType(
     // We used to do that here, but we don't anymore; structs check themselves
     // for structural weakening/strengthening.
     return { success: true };
-  } catch (e) {
+  } catch (e: any) {
     return failure(e.message);
   }
 }

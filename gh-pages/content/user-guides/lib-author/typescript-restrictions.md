@@ -168,6 +168,7 @@ correctly represent such types in all those languages. As a consequence, `jsii` 
 types.
 
 Only certain *built-in* parameterized types can be used in `jsii` modules:
+
 - `Array<T>`, which is equivalent to `T[]`
 - `Record<string, T>`, which is equivalent to `{ [key: string]: T }`
 - `Promise<T>`, which is the return type of any *asynchronous* method

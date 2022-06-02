@@ -9,8 +9,9 @@
     "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     "declarationMap": true,                /* Generates declaration map '.d.ts.map' file. */
     "esModuleInterop": false,              /* Turn on babel and typesystem compatibility with ES modules */
-    "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
-    "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file. */
+    "sourceMap": true,                     /* Generates source file .js.map file. */
+    "inlineSourceMap": false,              /* Emit a single file with source maps instead of having a separate file. */
+    "inlineSources": false,                /* Emit the source alongside the sourcemaps within a single file. */
     "noUnusedLocals": true,                /* Report errors on unused locals. */
     "noUnusedParameters": true,            /* Report errors on unused parameters. */
     "noImplicitAny": true,                 /* Report error on expressions and declarations with an implied any type. */

@@ -37,21 +37,15 @@
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "^0.0.0",
     "chalk": "^4",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.1.0",
     "oo-ascii-tree": "^0.0.0",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^27.5.0",
-    "@types/node": "^14.18.18",
-    "eslint": "^8.15.0",
-    "jest": "^27.5.1",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-calc": "^3.20.120",
-    "prettier": "^2.6.2",
-    "typescript": "~3.9.10"
+    "jsii-calc": "^3.20.120"
   }
 }
