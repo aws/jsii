@@ -1485,10 +1485,12 @@ end-of-life, this may change.</p>
 generics, and the differences in generic semantics between <strong>TypeScript</strong>, <strong>C#</strong> and <strong>Java</strong> make it difficult to
 correctly represent such types in all those languages. As a consequence, <code>jsii</code> does not support declaring parameterized
 types.</p>
-<p>Only certain <em>built-in</em> parameterized types can be used in <code>jsii</code> modules:
-- <code>Array&lt;T&gt;</code>, which is equivalent to <code>T[]</code>
-- <code>Record&lt;string, T&gt;</code>, which is equivalent to <code>{ [key: string]: T }</code>
-- <code>Promise&lt;T&gt;</code>, which is the return type of any <em>asynchronous</em> method</p>
+<p>Only certain <em>built-in</em> parameterized types can be used in <code>jsii</code> modules:</p>
+<ul>
+<li><code>Array&lt;T&gt;</code>, which is equivalent to <code>T[]</code></li>
+<li><code>Record&lt;string, T&gt;</code>, which is equivalent to <code>{ [key: string]: T }</code></li>
+<li><code>Promise&lt;T&gt;</code>, which is the return type of any <em>asynchronous</em> method</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="hll"><span class="c1">// 💥 Parameterized types cannot be introduced</span><span class="w"></span>
 </span><span class="hll"><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">Parameterized</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">T</span><span class="p">;</span><span class="w"></span>
@@ -1796,7 +1798,7 @@ a declaration is named after any target language's <em>reserved words</em>, as t
   <small>
     
       Last update:
-      2022-06-01
+      2022-06-02
     
   </small>
 </div>
