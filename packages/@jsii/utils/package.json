@@ -1,7 +1,7 @@
 {
   "name": "@jsii/utils",
   "version": "0.0.0",
-  "description": "Utility functions for jsii assemblies",
+  "description": "Utility functions for jsii modules",
   "license": "Apache-2.0",
   "author": {
     "name": "Amazon Web Services",
