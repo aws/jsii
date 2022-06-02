@@ -69,7 +69,8 @@
       }
     },
     "tsc": {
-      "outDir": "build"
+      "outDir": "build",
+      "sourceMap": false
     },
     "versionFormat": "short",
     "metadata": {
