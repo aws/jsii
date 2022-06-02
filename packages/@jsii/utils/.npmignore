@@ -1,0 +1,15 @@
+*
+
+!**/*.js
+!**/*.d.ts
+!bin/jsii
+!bin/jsii-fix-peers
+
+
+coverage
+
+# Don't include various configuration & state information
+coverage
+.eslintrc.*
+tsconfig.json
+*.tsbuildinfo

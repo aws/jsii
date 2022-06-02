@@ -1,0 +1,37 @@
+{
+  "name": "@jsii/utils",
+  "version": "0.0.0",
+  "description": "Utility functions for jsii assemblies",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/@jsii/utils"
+  },
+  "engines": {
+    "node": ">= 12.7.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --build && npm run lint",
+    "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
+    "lint:fix": "yarn lint --fix",
+    "test": "jest",
+    "test:update": "jest -u",
+    "package": "package-js"
+  },
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "@jsii/spec": "^0.0.0"
+  }
+}
