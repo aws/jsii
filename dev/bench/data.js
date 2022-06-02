@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654105100848,
+  "lastUpdate": 1654162005007,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1178,6 +1178,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65294.172526 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "skuenzli@gmail.com",
+            "name": "Stephen Kuenzli",
+            "username": "skuenzli"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f034e2c70bc0dcd26e02694e56fc86e426406431",
+          "message": "chore(docs): add newline so markdown list renders (#3567)\n\nAdd newline so markdown list of supported parameterized types renders properly",
+          "timestamp": "2022-06-02T11:07:03+02:00",
+          "tree_id": "f3ac12457d4b05a1c9d8d0299be9064fff47dd4a",
+          "url": "https://github.com/aws/jsii/commit/f034e2c70bc0dcd26e02694e56fc86e426406431"
+        },
+        "date": 1654162002334,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 65042.2417,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65042.2417 milliseconds over 1 runs"
           }
         ]
       }
