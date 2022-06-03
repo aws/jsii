@@ -9,7 +9,7 @@ import {
   writeAssembly,
   SPEC_FILE_NAME,
   SPEC_FILE_NAME_COMPRESSED,
-} from '../lib';
+} from './assembly';
 
 const TEST_ASSEMBLY: spec.Assembly = {
   schema: spec.SchemaVersion.LATEST,
