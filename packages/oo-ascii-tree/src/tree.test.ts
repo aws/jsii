@@ -1,10 +1,7 @@
-import * as fs from 'fs';
+import { promises as fs } from 'fs';
 import * as path from 'path';
-import { promisify } from 'util';
 
-import { AsciiTree } from '../lib';
-
-const readFile = promisify(fs.readFile);
+import { AsciiTree } from './ascii-tree';
 
 test('big tree', async () => {
   const tree = new AsciiTree(
@@ -155,8 +152,13 @@ test('toString', () => {
 });
 
 async function diff(tree: AsciiTree, expectedFile: string) {
-  const expectedFilePath = path.join(__dirname, expectedFile);
+  const expectedFilePath = path.resolve(
+    __dirname,
+    '..',
+    'test-data',
+    expectedFile,
+  );
   const actual = tree.toString();
-  const expected = (await readFile(expectedFilePath)).toString();
+  const expected = await fs.readFile(expectedFilePath, 'utf-8');
   expect(actual).toStrictEqual(expected);
 }
