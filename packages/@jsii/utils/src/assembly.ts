@@ -11,7 +11,7 @@ export const SPEC_FILE_NAME_COMPRESSED = spec.SPEC_FILE_NAME_COMPRESSED;
  * be the assembly or hold instructions to find the assembly.
  *
  * @param directory path to a directory with an assembly file
- * @returns path to the assembly file
+ * @returns path to the SPEC_FILE_NAME file
  */
 export function getAssemblyFile(directory: string) {
   const dotJsiiFile = path.join(directory, SPEC_FILE_NAME);
@@ -111,7 +111,7 @@ function findRedirectAssembly(
 function validateRedirectSchema(contents: Record<string, string>) {
   if (contents.compression !== 'gzip' || contents.filename === undefined) {
     throw new Error(
-      `Invalid redirect schema: compression must be gzip and filename must exist`,
+      'Invalid redirect schema: compression must be gzip and filename must exist',
     );
   }
 }

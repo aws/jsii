@@ -74,6 +74,14 @@ describe('getAssemblyFile', () => {
 
     expect(getAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
   });
+
+  test('throws if SPEC_FILE_NAME file does not exist', () => {
+    const tmpdir = makeTempDir();
+
+    expect(() => getAssemblyFile(tmpdir)).toThrow(
+      `Expected to find ${SPEC_FILE_NAME} file in ${tmpdir}, but no such file found`,
+    );
+  });
 });
 
 describe('loadAssemblyFromPath', () => {
@@ -100,6 +108,19 @@ describe('loadAssemblyFromPath', () => {
 
     expect(loadAssemblyFromPath(compressedTmpDir)).toEqual(
       loadAssemblyFromPath(uncompressedTmpDir),
+    );
+  });
+
+  test('throws if redirect schema is invalid', () => {
+    const tmpdir = makeTempDir();
+    fs.writeJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
+      schema: 'jsii/file-redirect',
+      compression: 'gzip',
+      // missing filename
+    });
+
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
+      'Invalid redirect schema: compression must be gzip and filename must exist',
     );
   });
 });
