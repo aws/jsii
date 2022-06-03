@@ -52,7 +52,10 @@ export function writeAssembly(
       zlib.gzipSync(JSON.stringify(assembly)),
     );
   } else {
-    fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), assembly);
+    fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), assembly, {
+      encoding: 'utf8',
+      spaces: 2,
+    });
   }
 
   return zip;
