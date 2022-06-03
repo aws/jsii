@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 
-import { CodeMaker } from '../lib';
+import { CodeMaker } from './codemaker';
 
 test('cannot write before opening a file', () => {
   const sources = new CodeMaker();
