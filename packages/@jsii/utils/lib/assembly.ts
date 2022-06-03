@@ -3,8 +3,8 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as zlib from 'zlib';
 
-export const SPEC_FILE_NAME = '.jsii';
-export const SPEC_FILE_NAME_COMPRESSED = `${SPEC_FILE_NAME}.gz`;
+export const SPEC_FILE_NAME = spec.SPEC_FILE_NAME;
+export const SPEC_FILE_NAME_COMPRESSED = spec.SPEC_FILE_NAME_COMPRESSED;
 
 /**
  * Finds the path to the assembly file, which will be
@@ -43,7 +43,6 @@ export function writeAssembly(
   zip: boolean,
 ) {
   if (zip) {
-    // TODO: also write .jsii
     fs.writeFileSync(
       path.join(directory, SPEC_FILE_NAME_COMPRESSED),
       zlib.gzipSync(JSON.stringify(assembly)),

@@ -1,4 +1,5 @@
 export const SPEC_FILE_NAME = '.jsii';
+export const SPEC_FILE_NAME_COMPRESSED = `${SPEC_FILE_NAME}.gz`;
 
 /**
  * A JSII assembly specification.
