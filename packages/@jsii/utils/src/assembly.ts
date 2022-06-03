@@ -7,26 +7,22 @@ export const SPEC_FILE_NAME = spec.SPEC_FILE_NAME;
 export const SPEC_FILE_NAME_COMPRESSED = spec.SPEC_FILE_NAME_COMPRESSED;
 
 /**
- * Finds the path to the assembly file, which will be
- * '.jsii' if uncompressed and '.jsii.gz' if compressed.
+ * Finds the path to the SPEC_FILE_NAME file, which will either
+ * be the assembly or hold instructions to find the assembly.
  *
  * @param directory path to a directory with an assembly file
  * @returns path to the assembly file
  */
 export function getAssemblyFile(directory: string) {
-  const compressedJsiiFile = path.join(directory, SPEC_FILE_NAME_COMPRESSED);
-  const compressedJsiiExists = fs.existsSync(compressedJsiiFile);
+  const dotJsiiFile = path.join(directory, SPEC_FILE_NAME);
 
-  const uncompressedJsiiFile = path.join(directory, SPEC_FILE_NAME);
-  const uncompressedJsiiExists = fs.existsSync(uncompressedJsiiFile);
-
-  if (!compressedJsiiExists && !uncompressedJsiiExists) {
+  if (!fs.existsSync(dotJsiiFile)) {
     throw new Error(
-      `No ${SPEC_FILE_NAME} or ${SPEC_FILE_NAME_COMPRESSED} assembly file was found at ${directory}`,
+      `Expected to find ${SPEC_FILE_NAME} file in ${directory}, but no such file found`,
     );
   }
 
-  return compressedJsiiExists ? compressedJsiiFile : uncompressedJsiiFile;
+  return dotJsiiFile;
 }
 
 /**
@@ -43,6 +39,14 @@ export function writeAssembly(
   zip: boolean,
 ) {
   if (zip) {
+    // write .jsii file with instructions on opening the compressed file
+    fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), {
+      schema: 'jsii/file-redirect',
+      compression: 'gzip',
+      filename: SPEC_FILE_NAME_COMPRESSED,
+    });
+
+    // write actual assembly contents in .jsii.gz
     fs.writeFileSync(
       path.join(directory, SPEC_FILE_NAME_COMPRESSED),
       zlib.gzipSync(JSON.stringify(assembly)),
@@ -55,7 +59,8 @@ export function writeAssembly(
 }
 
 /**
- * Loads the assembly file and unzips compressed assemblies.
+ * Loads the assembly file and, if present, follows instructions
+ * found in the file to unzip compressed assemblies.
  *
  * @param directory the directory of the assembly file
  * @returns the assembly file as json
@@ -66,24 +71,21 @@ export function loadAssemblyFromPath(directory: string) {
 }
 
 /**
- * Loads the assembly file and unzips compressed assemblies.
+ * Loads the assembly file and, if present, follows instructions
+ * found in the file to unzip compressed assemblies.
  *
- * @param pathToFile the path to the assembly file
+ * @param pathToFile the path to the SPEC_FILE_NAME file
  * @returns the assembly file as json
  */
 export function loadAssemblyFromFile(pathToFile: string) {
-  const extname = path.extname(pathToFile);
-  if (extname === '.gz') {
-    return readZippedAssembly(pathToFile);
-  } else if (extname === '') {
-    return readAssembly(pathToFile);
+  const contents = readAssembly(pathToFile);
+
+  // check if the file holds instructions to the actual assembly file
+  if (contents.schema === 'jsii/file-redirect') {
+    return findRedirectAssembly(pathToFile, contents);
   }
 
-  throw new Error(
-    `Assembly file must be named ${SPEC_FILE_NAME} or ${SPEC_FILE_NAME_COMPRESSED} but got ${path.basename(
-      pathToFile,
-    )}`,
-  );
+  return contents;
 }
 
 function readAssembly(pathToFile: string) {
@@ -92,6 +94,24 @@ function readAssembly(pathToFile: string) {
   });
 }
 
-function readZippedAssembly(pathToFile: string) {
-  return JSON.parse(zlib.gunzipSync(fs.readFileSync(pathToFile)).toString());
+function findRedirectAssembly(
+  pathToFile: string,
+  contents: Record<string, string>,
+) {
+  validateRedirectSchema(contents);
+  const redirectAssemblyFile = path.join(
+    path.dirname(pathToFile),
+    contents.filename,
+  );
+  return JSON.parse(
+    zlib.gunzipSync(fs.readFileSync(redirectAssemblyFile)).toString(),
+  );
+}
+
+function validateRedirectSchema(contents: Record<string, string>) {
+  if (contents.compression !== 'gzip' || contents.filename === undefined) {
+    throw new Error(
+      `Invalid redirect schema: compression must be gzip and filename must exist`,
+    );
+  }
 }

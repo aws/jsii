@@ -40,6 +40,16 @@ describe('writeAssembly', () => {
     expect(
       fs.existsSync(path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED)),
     ).toBeTruthy();
+
+    // includes .jsii files with instructions for finding compressed file
+    const instructions = fs.readJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
+      encoding: 'utf-8',
+    });
+    expect(instructions).toEqual({
+      schema: 'jsii/file-redirect',
+      compression: 'gzip',
+      filename: SPEC_FILE_NAME_COMPRESSED,
+    });
   });
 
   test('can write uncompressed assembly', () => {
@@ -51,30 +61,18 @@ describe('writeAssembly', () => {
 });
 
 describe('getAssemblyFile', () => {
-  test('finds compressed assembly file', () => {
-    const tmpdir = makeTempDir();
-    writeAssembly(tmpdir, TEST_ASSEMBLY, true);
-
-    expect(getAssemblyFile(tmpdir)).toEqual(
-      path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED),
-    );
-  });
-
-  test('finds uncompressed assembly file', () => {
+  test('finds SPEC_FILE_NAME file when there is no compression', () => {
     const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, false);
 
     expect(getAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
   });
 
-  test('prefers compressed file over uncompressed file', () => {
+  test('finds SPEC_FILE_NAME file even when there is compression', () => {
     const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, true);
-    writeAssembly(tmpdir, TEST_ASSEMBLY, false);
 
-    expect(getAssemblyFile(tmpdir)).toEqual(
-      path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED),
-    );
+    expect(getAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
   });
 });
 
