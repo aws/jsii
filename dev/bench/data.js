@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654162005007,
+  "lastUpdate": 1654259782332,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1209,6 +1209,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65042.2417 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "47dfd8208928a8f7c2124fa06f915501c0b53346",
+          "message": "chore(oo-ascii-tree): build out-of-tree (#3572)",
+          "timestamp": "2022-06-03T14:18:13+02:00",
+          "tree_id": "ba9dcb6c6fa68ab907712c79f66b6f03af769495",
+          "url": "https://github.com/aws/jsii/commit/47dfd8208928a8f7c2124fa06f915501c0b53346"
+        },
+        "date": 1654259779584,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 64403.149735,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 64403.149735 milliseconds over 1 runs"
           }
         ]
       }
