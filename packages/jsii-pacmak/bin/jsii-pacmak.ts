@@ -122,6 +122,12 @@ import { VERSION_DESC } from '../lib/version';
       // This is expected to be a path, which should be normalized
       normalize: true,
     })
+    .option('java-use-default-m2', {
+      type: 'boolean',
+      desc: 'Use default M2 repository when packaging a Java package.',
+      default: false,
+      hidden: true,
+    })
     .option('validate-assemblies', {
       type: 'boolean',
       desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
