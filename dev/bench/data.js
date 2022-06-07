@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654259823113,
+  "lastUpdate": 1654641660681,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1271,6 +1271,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 66113.330399 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mitchellvaline@yahoo.com",
+            "name": "Mitchell Valine",
+            "username": "MrArnoldPalmer"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "67e8d36efa424574b944e1d78bb2d22f636fb565",
+          "message": "chore(jsii-rosetta): export `GoVisitor` from index (#3579)\n\nExports the `GoVisitor` class to allow Go doc generation\nprogramatically.\n\nFixes: #3552\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-07T22:24:05Z",
+          "tree_id": "6d4a03b2428cae4950ef86632e8d2d1ab76cbad9",
+          "url": "https://github.com/aws/jsii/commit/67e8d36efa424574b944e1d78bb2d22f636fb565"
+        },
+        "date": 1654641658509,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 65628.914501,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65628.914501 milliseconds over 1 runs"
           }
         ]
       }
