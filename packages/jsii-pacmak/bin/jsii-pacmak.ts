@@ -122,10 +122,10 @@ import { VERSION_DESC } from '../lib/version';
       // This is expected to be a path, which should be normalized
       normalize: true,
     })
-    .option('java-use-default-m2', {
-      type: 'boolean',
-      desc: 'Use default M2 repository when packaging a Java package.',
-      default: false,
+    .option('java-custom-cache-path', {
+      type: 'string',
+      desc: 'Configure a custom path to a repository cache when packaging a Java package.',
+      default: undefined,
       hidden: true,
     })
     .option('validate-assemblies', {
