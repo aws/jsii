@@ -46,6 +46,7 @@ export class Assembler implements Emitter {
 
   private readonly mainFile: string;
   private readonly tscRootDir?: string;
+  private readonly compressAssembly?: boolean;
 
   private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
@@ -105,6 +106,8 @@ export class Assembler implements Emitter {
         this._typeChecker,
       );
     }
+
+    this.compressAssembly = options.compressAssembly;
 
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
@@ -278,15 +281,15 @@ export class Assembler implements Emitter {
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = validator.emit();
     if (!validationResult.emitSkipped) {
-      LOG.trace(
-        `Emitting assembly: ${chalk.blue(
-          path.join(this.projectInfo.projectRoot, SPEC_FILE_NAME),
-        )}`,
-      );
-      writeAssembly(
+      const zipped = writeAssembly(
         this.projectInfo.projectRoot,
         _fingerprint(assembly),
-        false,
+        this.compressAssembly ?? false,
+      );
+      LOG.trace(
+        `${zipped ? 'Zipping' : 'Emitting'} assembly: ${chalk.blue(
+          path.join(this.projectInfo.projectRoot, SPEC_FILE_NAME),
+        )}`,
       );
     }
 
@@ -2732,6 +2735,13 @@ export interface AssemblerOptions {
    * @default false
    */
   readonly addDeprecationWarnings?: boolean;
+
+  /**
+   * Whether to compress the assembly.
+   *
+   * @default false
+   */
+  readonly compressAssembly?: boolean;
 }
 
 interface SubmoduleSpec {

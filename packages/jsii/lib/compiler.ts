@@ -60,6 +60,11 @@ export interface CompilerOptions {
    * @default "tsconfig.json"
    */
   generateTypeScriptConfig?: string;
+  /**
+   * Whether to compress the assembly
+   * @default false
+   */
+  compressAssembly?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -248,6 +253,7 @@ export class Compiler implements Emitter {
       stripDeprecated: this.options.stripDeprecated,
       stripDeprecatedAllowListFile: this.options.stripDeprecatedAllowListFile,
       addDeprecationWarnings: this.options.addDeprecationWarnings,
+      compressAssembly: this.options.compressAssembly,
     });
 
     try {
