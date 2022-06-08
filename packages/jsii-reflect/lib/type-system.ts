@@ -301,19 +301,6 @@ export class TypeSystem {
     return out;
   }
 
-  /**
-   * Load an assembly without adding it to the typesystem
-   * @param file Assembly file to load
-   * @param validate Whether to validate the assembly or just assume it matches the schema
-   */
-  private loadAssembly(file: string, validate = true) {
-    const spec = loadAssemblyFromFile(file);
-    const ass = validate
-      ? jsii.validateAssembly(spec)
-      : (spec as jsii.Assembly);
-    return new Assembly(this, ass);
-  }
-
   private addRoot(asm: Assembly) {
     if (!this.roots.map((r) => r.name).includes(asm.name)) {
       this.roots.push(asm);
