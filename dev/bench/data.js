@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654691479540,
+  "lastUpdate": 1654694138414,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1333,6 +1333,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 110302.076057 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a7dc294a11c7667f5bb54216da52a62f00e3daeb",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.2.16 to ~=8.3.3 in /gh-pages (#3581)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.3.3</h2>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4000\">#4000</a>: Mermaid diagrams too dark in dark mode (8.3.0 regression)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.3.3 (2022-06-07)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4000\">#4000</a>: Mermaid diagrams too dark in dark mode (8.3.0 regression)</li>\n</ul>\n<p>mkdocs-material-8.3.2+insiders-4.17.2 (2022-06-05)</p>\n<ul>\n<li>Added support for custom jieba dictionaries (Chinese search)</li>\n</ul>\n<p>mkdocs-material-8.3.2+insiders-4.17.1 (2022-06-05)</p>\n<ul>\n<li>Added support for cookie consent reject button</li>\n<li>Added support for cookie consent custom button ordering</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3988\">#3988</a>: Content tab not focused after alternating anchor links</li>\n</ul>\n<p>mkdocs-material-8.3.2 (2022-06-05)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3987\">#3987</a>: Custom admonition icons don't work when defining color palette</li>\n</ul>\n<p>mkdocs-material-8.3.1+insiders-4.17.0 (2022-06-04)</p>\n<ul>\n<li>Added support for content tabs anchor links (deep linking)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3975\">#3975</a>: Detect composition events in search interface (Chinese)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3980\">#3980</a>: Search plugin doesn't use title set via front matter</li>\n</ul>\n<p>mkdocs-material-8.3.1 (2022-06-04)</p>\n<ul>\n<li>Bump required Jinja version to 3.0.2</li>\n<li>Removed unnecessary conditions in templates</li>\n<li>Fixed scroll offset when content tabs are brought into view</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3977\">#3977</a>: Content tabs snapping oddly in Firefox</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3983\">#3983</a>: Missing condition in footer partial (8.3.0 regression)</li>\n</ul>\n<p>mkdocs-material-8.3.0 (2022-06-02)</p>\n<ul>\n<li>Added support for custom admonition icons</li>\n<li>Added support for linking of content tabs</li>\n<li>Added support for boosting pages in search</li>\n<li>Added support for hiding footer navigation</li>\n<li>Added previous/next indicators to content tabs</li>\n<li>Improved typeset link colors in light and dark modes</li>\n</ul>\n<p>mkdocs-material-8.2.16+insiders-4.16.2 (2022-05-28)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3961\">#3961</a>: Nested sections triggered build error for navigation tabs</li>\n</ul>\n<p>mkdocs-material-8.2.16+insiders-4.16.1 (2022-05-28)</p>\n<ul>\n<li>Switched feedback widget rating titles to tooltips</li>\n<li>Improved contrast of link colors for light/dark color schemes</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3950\">#3950</a>: Sticky navigation tabs rendering broken (4.15.2 regression)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e35efbb4f3497c8e002e6d277330488747f57b1d\"><code>e35efbb</code></a> Prepare 8.3.3 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5c481255d3fe9f882a7fea8463ea9b70eafd7f0a\"><code>5c48125</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/26010be27a08e00c9b00ee79a45cb571c9941bc7\"><code>26010be</code></a> Fixed Mermaid.js styles for dark mode (8.3.0 regression)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/08f38332448fa954a44c0bf42e2e3f423d865912\"><code>08f3833</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0fce9a0d9ec9ca6d51e551c38f49f154ee0be8d2\"><code>0fce9a0</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1c957e0f56ff9d9186db6955c2bf1889ae828620\"><code>1c957e0</code></a> Updated schema.json</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/10859be3564899d196e8c99c0de3fdc8858d6a17\"><code>10859be</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/187711fa298bedc2d118906bc95883817baa9b01\"><code>187711f</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/df41b268fbe6b7520bef90402110343ad1f6e981\"><code>df41b26</code></a> Reworked cookie consent documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ce0484e546846bddce1f90f9912b351de1a65d6c\"><code>ce0484e</code></a> Replaced hidden classes with hidden attributes</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.2.16...8.3.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-08T12:57:45Z",
+          "tree_id": "27035c31c1dbb8fe51a25cbece462d6c80daeb7d",
+          "url": "https://github.com/aws/jsii/commit/a7dc294a11c7667f5bb54216da52a62f00e3daeb"
+        },
+        "date": 1654694135644,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 76568.7966,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 76568.7966 milliseconds over 1 runs"
           }
         ]
       }
