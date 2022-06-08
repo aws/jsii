@@ -30,15 +30,15 @@ export function getAssemblyFile(directory: string) {
  *
  * @param directory the directory path to place the assembly file
  * @param assembly the contents of the assembly
- * @param zip whether or not to zip the assembly (.jsii.gz)
+ * @param compress whether or not to zip the assembly (.jsii.gz)
  * @returns whether or not the assembly was zipped
  */
 export function writeAssembly(
   directory: string,
   assembly: spec.Assembly,
-  zip: boolean,
+  compress = false,
 ) {
-  if (zip) {
+  if (compress) {
     // write .jsii file with instructions on opening the compressed file
     fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), {
       schema: 'jsii/file-redirect',
@@ -58,7 +58,7 @@ export function writeAssembly(
     });
   }
 
-  return zip;
+  return compress;
 }
 
 /**
@@ -68,7 +68,7 @@ export function writeAssembly(
  * @param directory the directory of the assembly file
  * @returns the assembly file as json
  */
-export function loadAssemblyFromPath(directory: string) {
+export function loadAssemblyFromPath(directory: string): spec.Assembly {
   const assemblyFile = getAssemblyFile(directory);
   return loadAssemblyFromFile(assemblyFile);
 }
@@ -78,17 +78,23 @@ export function loadAssemblyFromPath(directory: string) {
  * found in the file to unzip compressed assemblies.
  *
  * @param pathToFile the path to the SPEC_FILE_NAME file
+ * @param validate whether to validate the contents of the file
  * @returns the assembly file as json
  */
-export function loadAssemblyFromFile(pathToFile: string) {
-  const contents = readAssembly(pathToFile);
+export function loadAssemblyFromFile(
+  pathToFile: string,
+  validate = true,
+): spec.Assembly {
+  let contents = readAssembly(pathToFile);
 
   // check if the file holds instructions to the actual assembly file
   if (contents.schema === 'jsii/file-redirect') {
-    return findRedirectAssembly(pathToFile, contents);
+    contents = findRedirectAssembly(pathToFile, contents);
   }
 
-  return contents;
+  return validate
+    ? spec.validateAssembly(contents)
+    : (contents as spec.Assembly);
 }
 
 function readAssembly(pathToFile: string) {

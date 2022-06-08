@@ -123,6 +123,22 @@ describe('loadAssemblyFromPath', () => {
       'Invalid redirect schema: compression must be gzip and filename must exist',
     );
   });
+
+  test('throws if assembly is invalid', () => {
+    const tmpdir = makeTempDir();
+    fs.writeJsonSync(
+      path.join(tmpdir, SPEC_FILE_NAME),
+      {
+        assembly: 'not a valid assembly',
+      },
+      {
+        encoding: 'utf8',
+        spaces: 2,
+      },
+    );
+
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrow(/Invalid assembly/);
+  });
 });
 
 function makeTempDir() {
