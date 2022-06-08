@@ -38,7 +38,7 @@ export class LanguageTablet {
     if (fs.existsSync(filename)) {
       try {
         await ret.load(filename);
-      } catch (e) {
+      } catch (e: any) {
         logging.warn(`${filename}: ${e}`);
       }
     }

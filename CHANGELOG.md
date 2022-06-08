@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.60.0](https://github.com/aws/jsii/compare/v1.59.0...v1.60.0) (2022-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Beginning with this release, jsii packages no longer
+support node 12. Users should migrate to a supported node release (14.x,
+16.x, or 18.x).
+
+### Features
+
+* **jsii:** make source map behavior fully configurable ([#3558](https://github.com/aws/jsii/issues/3558)) ([06d9a39](https://github.com/aws/jsii/commit/06d9a39cec8254ebab76a81026ab0e64a2f05462)), closes [#3521](https://github.com/aws/jsii/issues/3521)
+
+
+### Bug Fixes
+
+* **@jsii/spec:** speed up assembly validation by 20x for large libraries ([#3565](https://github.com/aws/jsii/issues/3565)) ([c40f26c](https://github.com/aws/jsii/commit/c40f26cdc7bef7835fbddbae983783a495be2d0e))
+* **java:** rendering of `[@see](https://github.com/see)` hyperlink leads to errors ([#3554](https://github.com/aws/jsii/issues/3554)) ([9fd3c71](https://github.com/aws/jsii/commit/9fd3c71c4edc4d7c03c05930b47fe34fe364bd29))
+* **jsii:** `assert` not allowed as interface member ([#3553](https://github.com/aws/jsii/issues/3553)) ([f3fec0c](https://github.com/aws/jsii/commit/f3fec0c10dd72ae734047d2d8e242f8fb4e98812))
+
+
+* drop support for Node 12 ([#3547](https://github.com/aws/jsii/issues/3547)) ([06a7889](https://github.com/aws/jsii/commit/06a7889514cb0939f5b8224f8961e6d578ea3986))
+
 ## [1.59.0](https://github.com/aws/jsii/compare/v1.58.0...v1.59.0) (2022-05-16)
 
 

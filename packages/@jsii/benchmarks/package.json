@@ -12,11 +12,7 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
-    "eslint": "^8.15.0",
-    "glob": "^8.0.1",
-    "jsii-calc": "^3.20.120",
-    "prettier": "^2.6.2",
-    "typescript": "~3.9.10"
+    "glob": "^8.0.3"
   },
   "scripts": {
     "build": "tsc --build && npm run lint",

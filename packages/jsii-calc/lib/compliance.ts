@@ -954,6 +954,62 @@ export class JavaReservedWords {
   public while = 'hello';
 }
 
+// https://en.wikipedia.org/wiki/List_of_Java_keywords
+export interface IJavaReservedWordsInAnInterface {
+  abstract(): void;
+  assert(): void;
+  boolean(): void;
+  break(): void;
+  byte(): void;
+  case(): void;
+  catch(): void;
+  char(): void;
+  class(): void;
+  const(): void;
+  continue(): void;
+  default(): void;
+  double(): void;
+  do(): void;
+  else(): void;
+  enum(): void;
+  extends(): void;
+  false(): void;
+  final(): void;
+  finally(): void;
+  float(): void;
+  for(): void;
+  goto(): void;
+  if(): void;
+  implements(): void;
+  import(): void;
+  instanceof(): void;
+  int(): void;
+  interface(): void;
+  long(): void;
+  native(): void;
+  null(): void;
+  package(): void;
+  private(): void;
+  protected(): void;
+  public(): void;
+  return(): void;
+  short(): void;
+  static(): void;
+  strictfp(): void;
+  super(): void;
+  switch(): void;
+  synchronized(): void;
+  this(): void;
+  throw(): void;
+  throws(): void;
+  transient(): void;
+  true(): void;
+  try(): void;
+  void(): void;
+  volatile(): void;
+  readonly while: string;
+}
+
 export class PythonReservedWords {
   public and() {
     return;

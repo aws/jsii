@@ -113,12 +113,12 @@ test('produces correct output', () => {
     export * from './retained';
     export * from './enums';
     export { GrandChild, Retained } from './mixed';
-    //# sourceMappingURL=index.d.ts.map//////////////////
+    //////////////////
 
 
     ///////////////////////
     /// deprecated.d.ts ///
-    //# sourceMappingURL=deprecated.d.ts.map///////////////////////
+    ///////////////////////
 
 
     /////////////////////
@@ -127,7 +127,7 @@ test('produces correct output', () => {
     }
     export declare class RetainedClass {
     }
-    //# sourceMappingURL=retained.d.ts.map/////////////////////
+    /////////////////////
 
 
     //////////////////
@@ -135,7 +135,7 @@ test('produces correct output', () => {
     export declare enum SomeEnum {
         VALUE_RETAINED = 0
     }
-    //# sourceMappingURL=enums.d.ts.map//////////////////
+    //////////////////
 
 
     //////////////////
@@ -148,7 +148,7 @@ test('produces correct output', () => {
     export declare class GrandChild extends Retained implements retained_1.IRetainedInterface {
         retainedMethod(): void;
     }
-    //# sourceMappingURL=mixed.d.ts.map//////////////////
+    //////////////////
     "
   `);
 });
@@ -177,12 +177,12 @@ test('cross-file deprecated heritage', () => {
     import './deprecated';
     export interface INotDeprecated {
     }
-    //# sourceMappingURL=index.d.ts.map//////////////////
+    //////////////////
 
 
     ///////////////////////
     /// deprecated.d.ts ///
-    //# sourceMappingURL=deprecated.d.ts.map///////////////////////
+    ///////////////////////
     "
   `);
 });
@@ -452,7 +452,7 @@ describe('stripDeprecatedAllowList', () => {
       export * from './retained';
       export * from './enums';
       export { Deprecated, GrandChild, Retained } from './mixed';
-      //# sourceMappingURL=index.d.ts.map//////////////////
+      //////////////////
 
 
       ///////////////////////
@@ -460,7 +460,7 @@ describe('stripDeprecatedAllowList', () => {
       /** @deprecated stripped */
       export declare class DeprecatedClass {
       }
-      //# sourceMappingURL=deprecated.d.ts.map///////////////////////
+      ///////////////////////
 
 
       /////////////////////
@@ -469,7 +469,7 @@ describe('stripDeprecatedAllowList', () => {
       }
       export declare class RetainedClass {
       }
-      //# sourceMappingURL=retained.d.ts.map/////////////////////
+      /////////////////////
 
 
       //////////////////
@@ -482,7 +482,7 @@ describe('stripDeprecatedAllowList', () => {
           VALUE_ONE = 0,
           VALUE_TWO = 1
       }
-      //# sourceMappingURL=enums.d.ts.map//////////////////
+      //////////////////
 
 
       //////////////////
@@ -499,7 +499,7 @@ describe('stripDeprecatedAllowList', () => {
       export declare class GrandChild extends Deprecated {
           retainedMethod(): void;
       }
-      //# sourceMappingURL=mixed.d.ts.map//////////////////
+      //////////////////
       "
     `);
   });

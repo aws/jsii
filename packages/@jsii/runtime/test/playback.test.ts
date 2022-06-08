@@ -2,7 +2,6 @@ import * as child from 'child_process';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import * as process from 'process';
 
 import { IInputOutput, Input, KernelHost, Output } from '../lib';
 
@@ -44,7 +43,7 @@ function createRecords(): string {
       require.resolve('jest/bin/jest'),
       '--no-coverage',
       '--runInBand',
-      'src/kernel.test.ts',
+      'lib/kernel.test.js',
     ],
     {
       cwd: path.resolve(

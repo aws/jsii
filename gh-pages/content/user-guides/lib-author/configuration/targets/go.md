@@ -1,8 +1,5 @@
 # Go
 
-!!! danger
-    The **go** target is currently unstable and not suitable for production use.
-
 To enable go package generation, add the `go` key to the jsii targets configuration:
 
 - `packageName` (optional) - The name of the Go package name. If not specified,

@@ -694,7 +694,7 @@ describe('thrown exceptions have the expected stack trace', () => {
       vm.runInContext(source, context, { filename: 'index.js' });
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
-    } catch (error) {
+    } catch (error: any) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
         "index.js:16
@@ -737,7 +737,7 @@ describe('thrown exceptions have the expected stack trace', () => {
       vm.runInContext(source, context, { filename: 'index.js' });
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
-    } catch (error) {
+    } catch (error: any) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
         "index.js:17
@@ -786,7 +786,7 @@ describe('thrown exceptions have the expected stack trace', () => {
       vm.runInContext(source, context, { filename: 'index.js' });
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
-    } catch (error) {
+    } catch (error: any) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
         "index.js:32
@@ -829,7 +829,7 @@ describe('thrown exceptions have the expected stack trace', () => {
       vm.runInContext(source, context, { filename: 'index.js' });
       // The above line should have resulted in a DeprecationError being thrown
       expect(null).toBeInstanceOf(Error);
-    } catch (error) {
+    } catch (error: any) {
       expect(error.stack.replace(process.cwd(), '<process.cwd>'))
         .toMatchInlineSnapshot(`
         "index.js:17

@@ -44,7 +44,7 @@ export function singleThreadedTranslateAll(
   for (const block of snippets) {
     try {
       translatedSnippets.push(translator.translate(block));
-    } catch (e) {
+    } catch (e: any) {
       failures.push(
         makeRosettaDiagnostic(true, `rosetta: error translating snippet: ${e}\n${e.stack}\n${block.completeSource}`),
       );

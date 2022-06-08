@@ -1,5 +1,5 @@
-import * as spec from '../lib/assembly';
-import { NameTree } from '../lib/name-tree';
+import * as spec from './assembly';
+import { NameTree } from './name-tree';
 
 const assemblyName = '@foo/bar';
 

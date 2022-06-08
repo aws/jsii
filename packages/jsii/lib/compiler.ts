@@ -16,12 +16,9 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
   charset: 'utf8',
   declaration: true,
-  declarationMap: true,
   experimentalDecorators: true,
   incremental: true,
-  inlineSourceMap: true,
-  inlineSources: true,
-  lib: ['lib.es2019.d.ts'],
+  lib: ['lib.es2020.d.ts'],
   module: ts.ModuleKind.CommonJS,
   newLine: ts.NewLineKind.LineFeed,
   noEmitOnError: true,
@@ -36,7 +33,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: true,
   stripInternal: false,
-  target: ts.ScriptTarget.ES2019,
+  target: ts.ScriptTarget.ES2020,
 };
 
 const LOG = log4js.getLogger('jsii/compiler');
@@ -267,7 +264,7 @@ export class Compiler implements Emitter {
       }
 
       diagnostics.push(...assmEmit.diagnostics);
-    } catch (e) {
+    } catch (e: any) {
       diagnostics.push(
         JsiiDiagnostic.JSII_9997_UNKNOWN_ERROR.createDetached(e),
       );
@@ -574,7 +571,7 @@ export class Compiler implements Emitter {
       }
 
       return dependencyRealPath;
-    } catch (e) {
+    } catch (e: any) {
       // @types modules cannot be required, for example
       if (
         ['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(e.code)
