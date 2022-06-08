@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654641660681,
+  "lastUpdate": 1654691479540,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1302,6 +1302,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65628.914501 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "06a7889514cb0939f5b8224f8961e6d578ea3986",
+          "message": "chore: drop support for Node 12 (#3547)\n\nUpgrade the minimal required node release to 14.x, since Node 12 has\r\nbeen end-of-life since `2022-04-01`. This allows us to upgrade our\r\nTypeScript `target` from `ES2019` to `ES2020` (native support for\r\nnullish-coalescing and optional chaining, among other things).\r\n\r\nRemoved the `node12` entries from the various test matrices and stop\r\npublishing `node12` tags for `jsii/superchain`.\r\n\r\nBREAKING CHANGE: Beginning with this release, jsii packages no longer\r\nsupport node 12. Users should migrate to a supported node release (14.x,\r\n16.x, or 18.x).",
+          "timestamp": "2022-06-08T14:11:38+02:00",
+          "tree_id": "fe140c0693b8476a0c1fd92adae04149c7ea38f6",
+          "url": "https://github.com/aws/jsii/commit/06a7889514cb0939f5b8224f8961e6d578ea3986"
+        },
+        "date": 1654691476403,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 110302.076057,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 110302.076057 milliseconds over 1 runs"
           }
         ]
       }
