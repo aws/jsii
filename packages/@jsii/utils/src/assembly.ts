@@ -66,11 +66,15 @@ export function writeAssembly(
  * found in the file to unzip compressed assemblies.
  *
  * @param directory the directory of the assembly file
+ * @param validate whether to validate the contents of the file
  * @returns the assembly file as json
  */
-export function loadAssemblyFromPath(directory: string): spec.Assembly {
+export function loadAssemblyFromPath(
+  directory: string,
+  validate = true,
+): spec.Assembly {
   const assemblyFile = getAssemblyFile(directory);
-  return loadAssemblyFromFile(assemblyFile);
+  return loadAssemblyFromFile(assemblyFile, validate);
 }
 
 /**
