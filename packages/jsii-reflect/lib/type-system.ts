@@ -1,4 +1,3 @@
-import * as jsii from '@jsii/spec';
 import { getAssemblyFile, loadAssemblyFromFile } from '@jsii/utils';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -299,6 +298,16 @@ export class TypeSystem {
       out.push(...collectTypes(a, (item) => item.enums));
     });
     return out;
+  }
+
+  /**
+   * Load an assembly without adding it to the typesystem
+   * @param file Assembly file to load
+   * @param validate Whether to validate the assembly or just assume it matches the schema
+   */
+  private loadAssembly(file: string, validate = true) {
+    const contents = loadAssemblyFromFile(file, validate);
+    return new Assembly(this, contents);
   }
 
   private addRoot(asm: Assembly) {
