@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654694138414,
+  "lastUpdate": 1654697235039,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1364,6 +1364,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 76568.7966 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "86998f05f96396a11ed27c4f3eb417f027e34f8b",
+          "message": "chore(deps-dev): Bump mypy from 0.960 to 0.961 in /packages/jsii-pacmak/test/generated-code (#3578)\n\nBumps [mypy](https://github.com/python/mypy) from 0.960 to 0.961.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/89bdcfb8c658340dae70312c5b76b703838d8123\"><code>89bdcfb</code></a> Update version to 0.961</li>\n<li><a href=\"https://github.com/python/mypy/commit/154ac75150c9339b081218da08588ea01e9b9bc6\"><code>154ac75</code></a> Run dataclass plugin before checking type var bounds (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12908\">#12908</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/f649e2d400b53936c458f620ff112add6047316c\"><code>f649e2d</code></a> Fix crash with nested attrs class (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/12872\">#12872</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/64e9c0d87a2da45162a89a53ed1b31bfe8b78795\"><code>64e9c0d</code></a> Update version to 0.961+dev</li>\n<li>See full diff in <a href=\"https://github.com/python/mypy/compare/v0.960...v0.961\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=0.960&new-version=0.961)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-08T13:50:14Z",
+          "tree_id": "17d7e4aedc60f07cf053ddcb865c2a9f85e41c0b",
+          "url": "https://github.com/aws/jsii/commit/86998f05f96396a11ed27c4f3eb417f027e34f8b"
+        },
+        "date": 1654697232384,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 66234.719142,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 66234.719142 milliseconds over 1 runs"
           }
         ]
       }
