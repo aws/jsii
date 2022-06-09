@@ -18,7 +18,7 @@ module.exports = {
     iife: false,
   },
   devtool: 'source-map',
-  target: 'node14.5',
+  target: 'node12', // Continue to target node 12 so that check-node does not fail to load on it.
   node: {
     global: false,
     __filename: false,
