@@ -122,9 +122,10 @@ import { VERSION_DESC } from '../lib/version';
       // This is expected to be a path, which should be normalized
       normalize: true,
     })
-    .option('java-custom-cache-path', {
+    .option('maven-local-repository', {
       type: 'string',
-      desc: 'Configure a custom path to a repository cache when packaging a Java package.',
+      desc: 'Configure a custom path (relative to current working directory) to a repository when packaging a Java package.',
+      defaultDescription: 'A temporary directory is used.',
       default: undefined,
       hidden: true,
     })

@@ -282,6 +282,7 @@ export class JavaBuilder implements TargetBuilder {
     logging.debug('local maven repos:', localRepos);
 
     const profileName = 'local-jsii-modules';
+    const localRepository = this.options.arguments['maven-local-repository'];
     const settings = xmlbuilder
       .create(
         {
@@ -296,9 +297,9 @@ export class JavaBuilder implements TargetBuilder {
             // Do *not* attempt to ask the user for stuff...
             interactiveMode: false,
             // Use a non-default local repository (unless java-custom-cache-path arg is provided) to isolate from cached artifacts...
-            localRepository:
-              this.options.arguments['java-custom-cache-path'] ??
-              path.resolve(where, '.m2', 'repository'),
+            localRepository: localRepository
+              ? path.resolve(localRepository)
+              : path.resolve(where, '.m2', 'repository'),
             // Register locations of locally-sourced dependencies
             profiles: {
               profile: {
