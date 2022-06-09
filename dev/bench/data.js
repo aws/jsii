@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654777339461,
+  "lastUpdate": 1654782241934,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1519,6 +1519,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 64722.55452 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2799dc8d5336f4fc359caed8a5c9b21ce3ecef6a",
+          "message": "chore(release): v1.60.1  (#3590)\n\nSee CHANGELOG.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-09T13:28:31Z",
+          "tree_id": "92c781c0d5b05c2172c7d9baf895ec43d6743c26",
+          "url": "https://github.com/aws/jsii/commit/2799dc8d5336f4fc359caed8a5c9b21ce3ecef6a"
+        },
+        "date": 1654782239825,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 64741.733499,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 64741.733499 milliseconds over 1 runs"
           }
         ]
       }
