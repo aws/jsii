@@ -5,7 +5,7 @@ import { formatLocation } from '../snippet';
 
 export async function checkCoverage(assemblyLocations: readonly string[]): Promise<void> {
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(assemblyLocations, false);
+  const assemblies = loadAssemblies(assemblyLocations, false);
 
   const snippets = Array.from(await allTypeScriptSnippets(assemblies, true));
 

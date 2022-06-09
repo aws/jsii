@@ -18,7 +18,7 @@ export interface TrimCacheOptions {
 
 export async function trimCache(options: TrimCacheOptions): Promise<void> {
   logging.info(`Loading ${options.assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(options.assemblyLocations, false);
+  const assemblies = loadAssemblies(options.assemblyLocations, false);
 
   const snippets = Array.from(await allTypeScriptSnippets(assemblies));
 

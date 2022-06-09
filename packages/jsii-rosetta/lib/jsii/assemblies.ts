@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import { loadAssemblyFromFile, getAssemblyFile } from '@jsii/utils';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -55,33 +56,26 @@ export interface LoadedAssembly {
 /**
  * Load assemblies by filename or directory
  */
-export async function loadAssemblies(
+export function loadAssemblies(
   assemblyLocations: readonly string[],
   validateAssemblies: boolean,
-): Promise<readonly LoadedAssembly[]> {
-  return Promise.all(assemblyLocations.map(loadAssembly));
+): readonly LoadedAssembly[] {
+  return assemblyLocations.map(loadAssembly);
 
-  async function loadAssembly(location: string): Promise<LoadedAssembly> {
-    const stat = await fs.stat(location);
+  function loadAssembly(location: string): LoadedAssembly {
+    const stat = fs.statSync(location);
     if (stat.isDirectory()) {
-      return loadAssembly(path.join(location, '.jsii'));
+      return loadAssembly(getAssemblyFile(location));
     }
 
     const directory = path.dirname(location);
     const pjLocation = path.join(directory, 'package.json');
 
-    const [assembly, packageJson] = await Promise.all([
-      loadAssemblyFromFile(location, validateAssemblies),
-      (await fs.pathExists(pjLocation)) ? fs.readJSON(pjLocation, { encoding: 'utf-8' }) : Promise.resolve(undefined),
-    ]);
+    const assembly = loadAssemblyFromFile(location, validateAssemblies);
+    const packageJson = fs.pathExistsSync(pjLocation) ? fs.readJSONSync(pjLocation, { encoding: 'utf-8' }) : undefined;
 
     return { assembly, directory, packageJson };
   }
-}
-
-async function loadAssemblyFromFile(filename: string, validate: boolean): Promise<spec.Assembly> {
-  const contents = await fs.readJSON(filename, { encoding: 'utf-8' });
-  return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
 }
 
 /**

@@ -61,7 +61,7 @@ afterEach(() => assembly.cleanup());
 test('examples are added in the assembly', async () => {
   await infuse([assembly.moduleDirectory]);
 
-  const assemblies = await loadAssemblies([assembly.moduleDirectory], false);
+  const assemblies = loadAssemblies([assembly.moduleDirectory], false);
   const types = assemblies[0].assembly.types;
   expect(types).toBeDefined();
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
