@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654770684128,
+  "lastUpdate": 1654777339461,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1488,6 +1488,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 77938.341484 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a1582bf7d9cc4081dd89e51efb4b3bc76b6e407e",
+          "message": "fix: @jsii/check-node crashes on loading with older node releases (#3588)",
+          "timestamp": "2022-06-09T14:00:28+02:00",
+          "tree_id": "bbcda34a7593db252d18fe1f9729a26638aaf450",
+          "url": "https://github.com/aws/jsii/commit/a1582bf7d9cc4081dd89e51efb4b3bc76b6e407e"
+        },
+        "date": 1654777337702,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 64722.55452,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 64722.55452 milliseconds over 1 runs"
           }
         ]
       }
