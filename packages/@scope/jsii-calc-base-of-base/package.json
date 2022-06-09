@@ -19,7 +19,7 @@
     "directory": "packages/@scope/jsii-calc-base-of-base"
   },
   "engines": {
-    "node": ">= 12.7.0"
+    "node": ">= 14.5.0"
   },
   "main": "build/lib/index.js",
   "types": "build/lib/index.d.ts",
