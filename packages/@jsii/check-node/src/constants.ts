@@ -27,8 +27,6 @@ export class NodeRelease {
     // Past end-of-life releases
     new NodeRelease(13, { endOfLife: new Date('2020-06-01') }),
     new NodeRelease(15, { endOfLife: new Date('2021-06-01') }),
-
-    // Deprecated releases
     new NodeRelease(12, {
       endOfLife: new Date('2022-04-30'),
       supportedRange: '^12.7.0',

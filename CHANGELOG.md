@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.60.1](https://github.com/aws/jsii/compare/v1.60.0...v1.60.1) (2022-06-09)
+
+### Bug Fixes
+
+* **@aws-cdk/check-node** fails to load on older (EOL) releases of node ([#3588](https://github.com/aws/jsii/pull/3588)) ([a1582bf](https://github.com/aws/jsii/commit/a1582bf7d9cc4081dd89e51efb4b3bc76b6e407e))
+
 ## [1.60.0](https://github.com/aws/jsii/compare/v1.59.0...v1.60.0) (2022-06-08)
 
 
