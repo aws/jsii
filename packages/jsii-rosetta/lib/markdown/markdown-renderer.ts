@@ -1,11 +1,6 @@
 import * as cm from 'commonmark';
 
-import {
-  cmNodeChildren,
-  CommonMarkRenderer,
-  prefixLines,
-  RendererContext,
-} from './markdown';
+import { cmNodeChildren, CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 
 /**
  * A renderer that will render a CommonMark tree back to MarkDown
@@ -79,9 +74,7 @@ export class MarkdownRenderer implements CommonMarkRenderer {
 
       const rendered = context.recurse(item);
       // Prefix the first line with a different text than subsequent lines
-      const prefixed =
-        firstLinePrefix +
-        prefixLines(hangingPrefix, rendered).substr(hangingPrefix.length);
+      const prefixed = firstLinePrefix + prefixLines(hangingPrefix, rendered).slice(hangingPrefix.length);
 
       items.push(prefixed);
 

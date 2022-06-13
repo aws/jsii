@@ -83,7 +83,7 @@ any other native type:
 The documentation in this website is separated in different topics, which can be navigated using links in the site's
 header bar:
 
-- The [Welcome](./index.md) section provides a high level overview of  *jsii.
+- The [Welcome](./index.md) section provides a high level overview of *jsii*.
 - The [User Guides](./user-guides) section includes the following:
 
     - The [Library Author Guide](user-guides/lib-author) is intended for developers who are looking to author libraries
@@ -93,8 +93,8 @@ header bar:
     - The [Language Implementation](user-guides/language-support) is intended for developers who are looking to add
       support for a new *target language* in *jsii*.
 
-- The [Specification](specification) provides detailed information on the internal components of *jsii*.
-- The [Architecture Decision Records](adrs) contains the log of all architectural decisions made while developing the
+- The [Specification](specification/1-introduction) provides detailed information on the internal components of *jsii*.
+- The [Architecture Decision Records](decisions/introduction) contains the log of all architectural decisions made while developing the
   *jsii* project.
 
 ## How to contribute

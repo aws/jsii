@@ -3,17 +3,12 @@ import { CodeMaker } from 'codemaker';
 import {
   Rosetta,
   TargetLanguage,
-  Translation,
   enforcesStrictMode,
-  typeScriptSnippetFromSource,
   markDownToXmlDoc,
+  ApiLocation,
 } from 'jsii-rosetta';
 import * as xmlbuilder from 'xmlbuilder';
 
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-} from '..';
 import { renderSummary } from '../_utils';
 import { DotNetNameUtils } from './nameutils';
 
@@ -44,7 +39,7 @@ export class DotNetDocGenerator {
    * Returns
    * Remarks (includes examples, links, deprecated)
    */
-  public emitDocs(obj: spec.Documentable): void {
+  public emitDocs(obj: spec.Documentable, apiLocation: ApiLocation): void {
     const docs = obj.docs;
 
     // The docs may be undefined at the method level but not the parameters level
@@ -76,7 +71,7 @@ export class DotNetDocGenerator {
     // Remarks does not use emitXmlDoc() because the remarks can contain code blocks
     // which are fenced with <code> tags, which would be escaped to
     // &lt;code&gt; if we used the xml builder.
-    const remarks = this.renderRemarks(docs);
+    const remarks = this.renderRemarks(docs, apiLocation);
     if (remarks.length > 0) {
       this.code.line('/// <remarks>');
       remarks.forEach((r) => this.code.line(`/// ${r}`.trimRight()));
@@ -85,18 +80,21 @@ export class DotNetDocGenerator {
 
     if (docs.example) {
       this.code.line('/// <example>');
-      this.emitXmlDoc('code', this.convertExample(docs.example));
+      this.emitXmlDoc('code', this.convertExample(docs.example, apiLocation));
       this.code.line('/// </example>');
     }
   }
 
-  public emitMarkdownAsRemarks(markdown: string | undefined) {
+  public emitMarkdownAsRemarks(
+    markdown: string | undefined,
+    apiLocation: ApiLocation,
+  ) {
     if (!markdown) {
       return;
     }
 
     const translated = markDownToXmlDoc(
-      this.convertSamplesInMarkdown(markdown),
+      this.convertSamplesInMarkdown(markdown, apiLocation),
     );
     const lines = translated.split('\n');
 
@@ -110,12 +108,12 @@ export class DotNetDocGenerator {
   /**
    * Returns the lines that should go into the <remarks> section
    */
-  private renderRemarks(docs: spec.Docs): string[] {
+  private renderRemarks(docs: spec.Docs, apiLocation: ApiLocation): string[] {
     const ret: string[] = [];
 
     if (docs.remarks) {
       const translated = markDownToXmlDoc(
-        this.convertSamplesInMarkdown(docs.remarks),
+        this.convertSamplesInMarkdown(docs.remarks, apiLocation),
       );
       ret.push(...translated.split('\n'));
       ret.push('');
@@ -161,44 +159,24 @@ export class DotNetDocGenerator {
     }
   }
 
-  private convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(
+  private convertExample(example: string, apiLocation: ApiLocation): string {
+    const translated = this.rosetta.translateExample(
+      apiLocation,
       example,
-      'example',
-      enforcesStrictMode(this.assembly),
-    );
-    const translated = this.rosetta.translateSnippet(
-      snippet,
-      TargetLanguage.CSHARP,
-    );
-    if (!translated) {
-      return example;
-    }
-    return this.prefixDisclaimer(translated);
-  }
-
-  private convertSamplesInMarkdown(markdown: string): string {
-    return this.rosetta.translateSnippetsInMarkdown(
-      markdown,
       TargetLanguage.CSHARP,
       enforcesStrictMode(this.assembly),
-      (trans) => ({
-        language: trans.language,
-        source: this.prefixDisclaimer(trans),
-      }),
     );
-  }
-
-  private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
-    }
-    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
-      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
-    }
     return translated.source;
   }
 
+  private convertSamplesInMarkdown(markdown: string, api: ApiLocation): string {
+    return this.rosetta.translateSnippetsInMarkdown(
+      api,
+      markdown,
+      TargetLanguage.CSHARP,
+      enforcesStrictMode(this.assembly),
+    );
+  }
   private emitXmlDoc(
     tag: string,
     content: string,
@@ -213,8 +191,10 @@ export class DotNetDocGenerator {
       xml.att(name, value);
     }
     const xmlstring = xml.end({ allowEmpty: true, pretty: false });
-
-    for (const line of xmlstring.split('\n').map((x) => x.trim())) {
+    const trimLeft = tag !== 'code';
+    for (const line of xmlstring
+      .split('\n')
+      .map((x) => (trimLeft ? x.trim() : x.trimRight()))) {
       this.code.line(`/// ${line}`);
     }
   }
@@ -224,7 +204,7 @@ export class DotNetDocGenerator {
  * Uppercase the first letter
  */
 function ucFirst(x: string) {
-  return x.substr(0, 1).toUpperCase() + x.substr(1);
+  return x.slice(0, 1).toUpperCase() + x.slice(1);
 }
 
 function shouldMentionStability(s: spec.Stability) {

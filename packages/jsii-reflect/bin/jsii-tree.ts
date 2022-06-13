@@ -1,10 +1,12 @@
-import * as colors from 'colors/safe';
+import '@jsii/check-node/run';
+
+import * as chalk from 'chalk';
 import * as yargs from 'yargs';
 
 import { TypeSystem, TypeSystemTree } from '../lib';
 
 async function main() {
-  const options = yargs
+  const options = await yargs
     .usage(
       '$0 [JSII-FILE | MODULE-DIR...]',
       'Prints an ASCII tree representation of a jsii type system.',
@@ -107,6 +109,6 @@ async function main() {
 }
 
 main().catch((e) => {
-  console.log(colors.red(e));
+  console.log(chalk.red(e));
   process.exit(1);
 });

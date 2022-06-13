@@ -1,8 +1,5 @@
 # Go
 
-!!! danger
-    The **go** target is currently unstable and not suitable for production use.
-
 **Go** is not a common object-oriented language: the language currently only
 supports composition, not extension. On the other hand, the
 [*jsii type system*][type-system] includes *classes* and *interfaces*, which are
@@ -198,3 +195,62 @@ func (c *childClass) SetConcreteProperty(v string) {
   c.AbstractBaseClass.SetConcreteProperty(strings.ToUpper(v))
 }
 ```
+
+## Unchecked conversions using `UnsafeCast`
+
+Developers may occasionally need to down-cast a value in order to leverage some
+other interface it implements. This happens in cases where the runtime is unable
+to determine the complete dynamic type of a value returned by a function, which
+happens for example when the TypeScript version of that function returns `any`,
+`unknown`, or a union of several types (which cannot be represented in go).
+
+In such cases, traditional go type assertions may not always produce the
+expected result. Instead, the library that exposes these functions should also
+expose type-checking utilities (e.g: `Stack.isStack(thing: any): boolean`) that
+developers can use to guard an unchecked conversion, which in Go is performed
+using `UnsafeCast`.
+
+The `UnsafeCast` function expects two arguments the original value, and a
+pointer to a variable of the desired interface type.
+
+!!! warning
+    The `UnsafeCast` function may **panic** if:
+
+    - the provided original value was not obtained through a function exported
+      from a jsii package.
+    - the provided pointer is not to a value typed as an interface exported from
+      a jsii package.
+
+    If the original value does, in fact, not implement the target interface
+    type, undefined behavior will occur as a result of using functions of that
+    interface.
+
+An example use of the `UnsafeCast` feature is when using [AWS CDK escape hatches]:
+
+```go hl_lines="15-20"
+package main
+
+import (
+	"github.com/aws/aws-cdk-go/awscdk/v2"
+	"github.com/aws/aws-cdk-go/awscdk/v2/awssns"
+	"github.com/aws/jsii-runtime-go"
+)
+
+func main() {
+	app := awscdk.NewApp(nil)
+	stack := awscdk.NewStack(app, jsii.String("TestStack"), nil)
+
+	topic := awssns.NewTopic(stack, jsii.String("MyTopic"), nil)
+
+	// We know that topic.Node().DefaultChild() is a awssns.CfnTopic
+	var cfn_topic awssns.CfnTopic
+	// We perform the conversion into cfn_topic
+	jsii.UnsafeCast(topic.Node().DefaultChild(), &cfn_topic)
+	// Then we use the conversion result
+	cfn_topic.SetDisplayName(jsii.String("Overridden Display Name"))
+
+	app.Synth(nil)
+}
+```
+
+[AWS CDK escape hatches]: https://docs.aws.amazon.com/cdk/v2/guide/cfn_layer.html

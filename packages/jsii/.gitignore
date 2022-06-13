@@ -8,3 +8,4 @@ coverage/
 README.md
 
 lib/version.ts
+*.d.ts.map

@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig-base",
+  "compilerOptions": {
+    "target": "es2018", // Needs to target older releases of node or else it'll crash on start when using those
+    "outDir": "./lib",
+    "rootDir": "./src",
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "jest.config.ts"
+  ],
+}

@@ -1,8 +1,9 @@
+import '@jsii/check-node/run';
+
 import { spawn } from 'child_process';
 import { error } from 'console';
 import { constants as os } from 'os';
 import { resolve } from 'path';
-import { execArgv, execPath, exit, on, stdin, stdout } from 'process';
 import { Duplex } from 'stream';
 
 // Spawn another node process, with the following file descriptor setup:
@@ -11,8 +12,8 @@ import { Duplex } from 'stream';
 // - FD#3 is the communication pipe to read jsii API messages
 // - FD#4 is the communication pipe to write jsii API responses
 const child = spawn(
-  execPath,
-  [...execArgv, resolve(__dirname, '..', 'lib', 'program.js')],
+  process.execPath,
+  [...process.execArgv, resolve(__dirname, '..', 'lib', 'program.js')],
   { stdio: ['ignore', 'pipe', 'pipe', 'pipe'] },
 );
 
@@ -22,15 +23,15 @@ child.once('end', (code, signal) => {
   if (signal != null) {
     // Child was killed by signal, this is usually reflected by exiting with
     // 128 + <signal code>
-    exit(128 + (os.signals[signal as keyof typeof os.signals] ?? 0));
+    process.exit(128 + (os.signals[signal as keyof typeof os.signals] ?? 0));
   }
   // Child exited, so we reflect it's exit code to our creator
-  exit(code);
+  process.exit(code);
 });
 
 child.once('error', (err) => {
   console.error('Failed to spawn child process:', err.stack);
-  exit(-1);
+  process.exit(-1);
 });
 
 for (const signal of Object.keys(os.signals)) {
@@ -40,7 +41,7 @@ for (const signal of Object.keys(os.signals)) {
   }
 
   // Forward all signals to the child
-  on(signal, (sig) => child.kill(sig));
+  process.on(signal as NodeJS.Signals, (sig) => child.kill(sig));
 }
 
 //#endregion
@@ -66,8 +67,8 @@ function makeHandler(
   };
 }
 
-child.stdout.on('data', makeHandler('stdout'));
-child.stderr.on('data', makeHandler('stderr'));
+child.stdout!.on('data', makeHandler('stdout'));
+child.stderr!.on('data', makeHandler('stderr'));
 
 //#endregion
 
@@ -75,8 +76,8 @@ child.stderr.on('data', makeHandler('stderr'));
 
 const commands: Duplex = (child.stdio as any)[3];
 // Forwarding requests from this process' STDIN to the child's FD#3
-stdin.pipe(commands);
+process.stdin.pipe(commands);
 // Forwarding responses from the child's FD#3 to this process' STDOUT
-commands.pipe(stdout);
+commands.pipe(process.stdout);
 
 //#endregion

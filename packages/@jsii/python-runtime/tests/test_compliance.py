@@ -76,6 +76,7 @@ from jsii_calc import (
     AnonymousImplementationProvider,
     UpcasingReflectable,
 )
+from jsii_calc.cdk16625 import Cdk16625
 from jsii_calc.python_self import (
     ClassWithSelf,
     ClassWithSelfKwarg,
@@ -337,7 +338,7 @@ def test_getSetPrimitiveProperties():
     assert number.double_value == 40
     assert Negate(Add(Number(20), Number(10))).value == -30
     assert Multiply(Add(Number(5), Number(5)), Number(2)).value == 20
-    assert Power(Number(3), Number(4)).value == 3 ** 4
+    assert Power(Number(3), Number(4)).value == 3**4
     assert Power(Number(999), Number(1)).value == 999
     assert Power(Number(999), Number(0)).value == 1
 
@@ -352,7 +353,7 @@ def test_callMethods():
     assert calc.value == 20
 
     calc.pow(5)
-    assert calc.value == 20 ** 5
+    assert calc.value == 20**5
 
     calc.neg()
     assert calc.value == -3_200_000
@@ -450,7 +451,7 @@ def test_unionProperties():
     calc3.union_property = Power(Number(10), Number(3))
 
     assert isinstance(calc3.union_property, Power)
-    assert calc3.read_union_value() == 10 ** 3
+    assert calc3.read_union_value() == 10**3
 
 
 def test_subclassing():
@@ -1288,3 +1289,49 @@ def test_iso8601_does_not_deserialize_to_date():
     entropy = MildEntropy(wall_clock)
 
     assert now == entropy.increase()
+
+
+def test_class_can_extend_and_implement_from_jsii():
+    """
+    This test is identical to test_iso8601_does_not_deserialize_to_date, except
+    the WallCloc class extends ClassWithSelf (a well-known jsii type), to
+    demonstrate it is possible to both extend a jsii type, and implement a
+    supplemental interface at the same time.
+
+    See also https://github.com/aws/jsii/issues/2963
+    """
+
+    @jsii.implements(IWallClock)
+    class WallClock(ClassWithSelf):
+        def __init__(self, now: str):
+            super().__init__(now)
+            self.now = now
+
+        def iso8601_now(self) -> str:
+            return self.now
+
+    class MildEntropy(Entropy):
+        def repeat(self, word: str) -> str:
+            return word
+
+    now = datetime.utcnow().isoformat() + "Z"
+    wall_clock = WallClock(now)
+    entropy = MildEntropy(wall_clock)
+
+    assert now == entropy.increase()
+
+
+def test_class_can_be_used_when_not_expressedly_loaded():
+    """
+    This test verifies that it is possible to receive instances of classes that
+    belong to submodules that have not been explicitly imported. This implies
+    the types are registered with the runtime even though the submodule has
+    never been mentioned in userland.
+    """
+
+    class Subject(Cdk16625):
+        def _unwrap(self, rng: IRandomNumberGenerator):
+            return rng.next()
+
+    # This should NOT throw
+    Subject().test()

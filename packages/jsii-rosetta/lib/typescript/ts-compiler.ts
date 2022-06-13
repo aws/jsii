@@ -1,10 +1,12 @@
 import * as ts from 'typescript';
 
 export class TypeScriptCompiler {
-  private readonly realHost = ts.createCompilerHost(
-    STANDARD_COMPILER_OPTIONS,
-    true,
-  );
+  private readonly realHost = ts.createCompilerHost(STANDARD_COMPILER_OPTIONS, true);
+
+  /**
+   * A compiler-scoped cache to avoid having to re-parse the same library files for every compilation
+   */
+  private readonly fileCache = new Map<string, ts.SourceFile | undefined>();
 
   public createInMemoryCompilerHost(
     sourcePath: string,
@@ -12,45 +14,33 @@ export class TypeScriptCompiler {
     currentDirectory?: string,
   ): ts.CompilerHost {
     const realHost = this.realHost;
-    const sourceFile = ts.createSourceFile(
-      sourcePath,
-      sourceContents,
-      ts.ScriptTarget.Latest,
-    );
+    const sourceFile = ts.createSourceFile(sourcePath, sourceContents, ts.ScriptTarget.Latest);
 
     return {
       ...realHost,
       fileExists: (filePath) =>
-        filePath === sourcePath || realHost.fileExists(filePath),
-      getCurrentDirectory:
-        currentDirectory != null
-          ? () => currentDirectory
-          : realHost.getCurrentDirectory,
-      getSourceFile: (
-        fileName,
-        languageVersion,
-        onError,
-        shouldCreateNewSourceFile,
-      ) =>
-        fileName === sourcePath
-          ? sourceFile
-          : realHost.getSourceFile(
-              fileName,
-              languageVersion,
-              onError,
-              shouldCreateNewSourceFile,
-            ),
-      readFile: (filePath) =>
-        filePath === sourcePath ? sourceContents : realHost.readFile(filePath),
+        filePath === sourcePath || this.fileCache.has(filePath) || realHost.fileExists(filePath),
+      getCurrentDirectory: currentDirectory != null ? () => currentDirectory : realHost.getCurrentDirectory,
+      getSourceFile: (fileName, languageVersion, onError, shouldCreateNewSourceFile) => {
+        if (fileName === sourcePath) {
+          return sourceFile;
+        }
+
+        const existing = this.fileCache.get(fileName);
+        if (existing) {
+          return existing;
+        }
+
+        const parsed = realHost.getSourceFile(fileName, languageVersion, onError, shouldCreateNewSourceFile);
+        this.fileCache.set(fileName, parsed);
+        return parsed;
+      },
+      readFile: (filePath) => (filePath === sourcePath ? sourceContents : realHost.readFile(filePath)),
       writeFile: () => void undefined,
     };
   }
 
-  public compileInMemory(
-    filename: string,
-    contents: string,
-    currentDirectory?: string,
-  ): CompilationResult {
+  public compileInMemory(filename: string, contents: string, currentDirectory?: string): CompilationResult {
     if (!filename.endsWith('.ts')) {
       // Necessary or the TypeScript compiler won't compile the file.
       filename += '.ts';
@@ -59,16 +49,12 @@ export class TypeScriptCompiler {
     const program = ts.createProgram({
       rootNames: [filename],
       options: STANDARD_COMPILER_OPTIONS,
-      host: this.createInMemoryCompilerHost(
-        filename,
-        contents,
-        currentDirectory,
-      ),
+      host: this.createInMemoryCompilerHost(filename, contents, currentDirectory),
     });
 
     const rootFile = program.getSourceFile(filename);
     if (rootFile == null) {
-      throw new Error("Oopsie -- couldn't find root file back");
+      throw new Error(`Oopsie -- couldn't find root file back: ${filename}`);
     }
 
     return { program, rootFile };
@@ -84,10 +70,11 @@ export const STANDARD_COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
   charset: 'utf8',
   declaration: true,
+  declarationMap: true,
   experimentalDecorators: true,
   inlineSourceMap: true,
   inlineSources: true,
-  lib: ['lib.es2016.d.ts', 'lib.es2017.object.d.ts', 'lib.es2017.string.d.ts'],
+  lib: ['lib.es2020.d.ts'],
   module: ts.ModuleKind.CommonJS,
   noEmitOnError: true,
   noFallthroughCasesInSwitch: true,
@@ -101,7 +88,7 @@ export const STANDARD_COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: true,
   stripInternal: true,
-  target: ts.ScriptTarget.ES2018,
+  target: ts.ScriptTarget.ES2020,
   // Incremental builds
   incremental: true,
   tsBuildInfoFile: '.tsbuildinfo',

@@ -16,35 +16,30 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
       - name: Check out
-        uses: actions/checkout@v2.3.4
-      - name: Locate Caches
-        id: cache-locations
-        run: |-
-          echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
-      - name: Cache
-        uses: actions/cache@v2.1.6
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
         with:
-          path: ${{ steps.cache-locations.outputs.pip-cache }}
-          key: ${{ runner.os }}-${{ hashFiles('**/requirements-dev.txt') }}
-          restore-keys: ${{ runner.os }}-
+          cache: 'pip'
+          cache-dependency-path: 'gh-pages/requirements-dev.txt'
+          python-version: '3.8'
       - name: Install Dependencies
         run: |-
-          pip install -r requirements-dev.txt
+          python3 -m venv ${{ runner.temp }}/venv
+          source ${{ runner.temp }}/venv/bin/activate
+          python3 -m pip install -r requirements-dev.txt
         working-directory: gh-pages
       - name: Build DocSite
         run: |-
           mkdir -p ${{ runner.temp }}/site
+          source ${{ runner.temp }}/venv/bin/activate
           mkdocs build                                                          \
             --strict                                                            \
             --site-dir ${{ runner.temp }}/site
         working-directory: gh-pages
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: doc-site
           path: ${{ runner.temp }}/site/
@@ -52,18 +47,18 @@ jobs:
   publish:
     name: Publish
     needs: build
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
         with:
           ref: gh-pages
-          token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
+          token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: doc-site
           path: ${{ runner.temp }}/site
@@ -73,8 +68,9 @@ jobs:
           git config user.email "aws-cdk+automation@amazon.com"
       - name: Prepare Commit
         run: |-
-          rsync --delete --exclude=.git --recursive ${{ runner.temp }}/site/ ./
-          touch .nojekyll
+          rsync --archive --checksum --delete --inplace --recursive --verbose   \
+            --exclude=.git --exclude=.nojekyll --exclude=dev                    \
+            ${{ runner.temp }}/site/ ./
           git add .
           git diff --cached --exit-code >/dev/null || (
             git commit -am 'docs: publish from ${{ github.sha }}'

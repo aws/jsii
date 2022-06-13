@@ -7,11 +7,12 @@ cd $(dirname $0)
 #
 # The following list of packages must be toposorted, like a monorepo
 # manager would order the individual builds.
+pacmak=${PWD}/../bin/jsii-pacmak
 packagedirs="\
-    ../../@scope/jsii-calc-base-of-base \
-    ../../@scope/jsii-calc-base \
-    ../../@scope/jsii-calc-lib \
-    ../../jsii-calc \
+    ${PWD}/../../@scope/jsii-calc-base-of-base \
+    ${PWD}/../../@scope/jsii-calc-base \
+    ${PWD}/../../@scope/jsii-calc-lib \
+    ${PWD}/../../jsii-calc \
     "
 clean_dists() {
     for dir in $packagedirs; do rm -rf $dir/dist; done
@@ -24,15 +25,28 @@ final_cleanup() {
 trap final_cleanup EXIT
 
 # Prepare Python venv to avoid depending on system stuff
+case "${OSTYPE}" in
+"msys" | "cygwin" | "win32")
+    # On Windows, there is usually no python3.exe (the GitHub action workers will have a python3
+    # shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
+    # fail to copy the python binary if it's not invoked as python.exe). More on this particular
+    # issue can be read here: https://bugs.python.org/issue43749
+    PYTHON='python'
+    ;;
+*)
+    PYTHON='python3'
+    ;;
+esac
+
 venv="${outdir}/.env"
-python3 -m venv ${venv}
+${PYTHON} -m venv ${venv}
 if [ -f ${venv}/bin/activate ]; then
     . ${venv}/bin/activate
 else
     # Hello Windows!
     . ${venv}/Scripts/activate
 fi
-python3 -m pip install --upgrade pip~=20.2 twine~=3.2
+${PYTHON} -m pip install --upgrade pip~=22.1 twine~=4.0
 
 # Provision a specific NuGet package cache
 NUGET_CACHE=${outdir}/.nuget/packages
@@ -41,16 +55,29 @@ OPTS="--dotnet-nuget-global-packages-folder=${NUGET_CACHE}"
 # Single target, recursive build to a certain location
 clean_dists
 echo "Testing SINGLE TARGET, RECURSIVE build."
-../bin/jsii-pacmak ${OPTS} -v -o ${outdir} --recurse ../../jsii-calc
+(
+    # Run from the ${outdir} and use a relative --outdir value...
+    calcdir=${PWD}/../../jsii-calc
+    cd ${outdir}
+    ${pacmak} ${OPTS} -v -o dist --recurse ${calcdir}
+)
+for tgt in dotnet go java python; do
+    # Ensure the target artifacts have been created as expected...
+    if [ ! -d "${outdir}/dist/${tgt}" ]; then
+        echo "Assertion Failure: Expected a ${tgt} directory to exist in ${outdir}, but none found..."
+        exit 1
+    fi
+done
+rm -rf "${outdir}/dist"
 
 # Multiple targets, build one-by-one into own directory
 clean_dists
 echo "Testing ONE-BY-ONE build."
 for dir in $packagedirs; do
-    ../bin/jsii-pacmak ${OPTS} -v $dir
+    ${pacmak} ${OPTS} -v $dir
 done
 
 # Multiple targets, build all at once into own directory
 clean_dists
 echo "Testing ALL-AT-ONCE build."
-../bin/jsii-pacmak ${OPTS} -v --no-parallel $packagedirs
+${pacmak} ${OPTS} -v --no-parallel $packagedirs

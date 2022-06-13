@@ -7,6 +7,8 @@ export * from './erasures';
 export * from './nested-class';
 export * from './stability';
 export * from './submodules';
+export * from './container-types';
+export * from './indirect-implementation';
 
 export * as submodule from './submodule';
 export * as onlystatic from './only-static';
@@ -18,3 +20,5 @@ export * as module2702 from './module2702';
 export * as module2692 from './module2692';
 export * as module2530 from './module2530';
 export * as module2700 from './module2700';
+
+export * as cdk16625 from './cdk16625';

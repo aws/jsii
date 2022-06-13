@@ -19,7 +19,7 @@
     "directory": "packages/@jsii/java-runtime"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 14.5.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -33,8 +33,6 @@
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
-    "@types/node": "^10.17.59",
-    "jsii-build-tools": "^0.0.0",
-    "typescript": "~3.9.9"
+    "jsii-build-tools": "^0.0.0"
   }
 }

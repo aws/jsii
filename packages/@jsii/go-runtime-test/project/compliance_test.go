@@ -11,6 +11,7 @@ import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/aws/jsii/go-runtime-test/internal/addTen"
 	"github.com/aws/jsii/go-runtime-test/internal/bellRinger"
+	"github.com/aws/jsii/go-runtime-test/internal/cdk16625"
 	"github.com/aws/jsii/go-runtime-test/internal/doNotOverridePrivates"
 	"github.com/aws/jsii/go-runtime-test/internal/friendlyRandom"
 	"github.com/aws/jsii/go-runtime-test/internal/overrideAsyncMethods"
@@ -1461,7 +1462,6 @@ func (suite *ComplianceSuite) TestCanLeverageIndirectInterfacePolymorphism() {
 	require := suite.Require()
 	require.Equal(float64(1337), *provider.ProvideAsClass().Value())
 
-	suite.FailTest("Unable to reuse instances between parent/child interfaces", "https://github.com/aws/jsii/issues/2688")
 	require.Equal(float64(1337), *provider.ProvideAsInterface().Value())
 	require.Equal("to implement", *provider.ProvideAsInterface().Verb())
 }
@@ -1638,6 +1638,21 @@ func (suite *ComplianceSuite) TestCallbackParameterIsInterface() {
 	require.True(*calc.ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer))
 	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer))
 	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPublicClass(ringer))
+}
+
+func (suite *ComplianceSuite) TestClassCanBeUsedWhenNotExpressedlyLoaded() {
+	cdk16625.New().Test()
+}
+
+func (suite *ComplianceSuite) TestDownCasting() {
+	require := suite.Require()
+
+	anyValue := calc.SomeTypeJsii976_ReturnAnonymous()
+	var realValue calc.IReturnJsii976
+
+	jsii.UnsafeCast(anyValue, &realValue)
+
+	require.Equal(realValue.Foo(), jsii.Number(1337))
 }
 
 // required to make `go test` recognize the suite.

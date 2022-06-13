@@ -2,6 +2,461 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.60.1](https://github.com/aws/jsii/compare/v1.60.0...v1.60.1) (2022-06-09)
+
+### Bug Fixes
+
+* **@aws-cdk/check-node** fails to load on older (EOL) releases of node ([#3588](https://github.com/aws/jsii/pull/3588)) ([a1582bf](https://github.com/aws/jsii/commit/a1582bf7d9cc4081dd89e51efb4b3bc76b6e407e))
+
+## [1.60.0](https://github.com/aws/jsii/compare/v1.59.0...v1.60.0) (2022-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Beginning with this release, jsii packages no longer
+support node 12. Users should migrate to a supported node release (14.x,
+16.x, or 18.x).
+
+### Features
+
+* **jsii:** make source map behavior fully configurable ([#3558](https://github.com/aws/jsii/issues/3558)) ([06d9a39](https://github.com/aws/jsii/commit/06d9a39cec8254ebab76a81026ab0e64a2f05462)), closes [#3521](https://github.com/aws/jsii/issues/3521)
+
+
+### Bug Fixes
+
+* **@jsii/spec:** speed up assembly validation by 20x for large libraries ([#3565](https://github.com/aws/jsii/issues/3565)) ([c40f26c](https://github.com/aws/jsii/commit/c40f26cdc7bef7835fbddbae983783a495be2d0e))
+* **java:** rendering of `[@see](https://github.com/see)` hyperlink leads to errors ([#3554](https://github.com/aws/jsii/issues/3554)) ([9fd3c71](https://github.com/aws/jsii/commit/9fd3c71c4edc4d7c03c05930b47fe34fe364bd29))
+* **jsii:** `assert` not allowed as interface member ([#3553](https://github.com/aws/jsii/issues/3553)) ([f3fec0c](https://github.com/aws/jsii/commit/f3fec0c10dd72ae734047d2d8e242f8fb4e98812))
+
+
+* drop support for Node 12 ([#3547](https://github.com/aws/jsii/issues/3547)) ([06a7889](https://github.com/aws/jsii/commit/06a7889514cb0939f5b8224f8961e6d578ea3986))
+
+## [1.59.0](https://github.com/aws/jsii/compare/v1.58.0...v1.59.0) (2022-05-16)
+
+
+### Features
+
+* **jsii:** enable source maps for declaration files ([#3521](https://github.com/aws/jsii/issues/3521)) ([2751ca8](https://github.com/aws/jsii/commit/2751ca852ee751d3d7a49ee991004f3b5a6bde21))
+
+
+### Bug Fixes
+
+* **jsii:** deprecation warnings use this.constructor before calling super ([#3528](https://github.com/aws/jsii/issues/3528)) ([5d5f435](https://github.com/aws/jsii/commit/5d5f435c9ce32e6a1e76afe27b7ef810200bde58)), closes [#3527](https://github.com/aws/jsii/issues/3527)
+* **python:** cannot import nested submodules ([#3540](https://github.com/aws/jsii/issues/3540)) ([8ef8ef2](https://github.com/aws/jsii/commit/8ef8ef2fe1e5559ef77a5b7ba0dbb67f52329927)), closes [#3408](https://github.com/aws/jsii/issues/3408)
+
+## [1.58.0](https://github.com/aws/jsii/compare/v1.57.0...v1.58.0) (2022-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* `jsii-pacmak` and the libraries it generates for Python
+targets now require a minimum Python version of 3.7, instead of 3.6
+previously. We recommend users upgrade to the latest supported Python
+release (Python 3.10).
+
+### Features
+
+* compiler benchmarks and gh action ([#3503](https://github.com/aws/jsii/issues/3503)) ([4a91cf0](https://github.com/aws/jsii/commit/4a91cf0d3032a988d20049ab9fffc25747ed9c47)), closes [/github.com/MrArnoldPalmer/jsii/pull/417#commitcomment-72358212](https://github.com/aws//github.com/MrArnoldPalmer/jsii/pull/417/issues/commitcomment-72358212)
+* **go:** add tag to denote required/optional properties ([#3486](https://github.com/aws/jsii/issues/3486)) ([3d7c310](https://github.com/aws/jsii/commit/3d7c310dcb66f1d61ab4c6a8530be06870d577b3)), closes [#2536](https://github.com/aws/jsii/issues/2536) [#2672](https://github.com/aws/jsii/issues/2672)
+
+
+### Bug Fixes
+
+* **go:** object type not recognized ([#3485](https://github.com/aws/jsii/issues/3485)) ([fe2fa94](https://github.com/aws/jsii/commit/fe2fa947891ab5d517efbec37998b9b57203aa8d)), closes [#2880](https://github.com/aws/jsii/issues/2880)
+* incorrect token for benchmark action ([#3517](https://github.com/aws/jsii/issues/3517)) ([3648117](https://github.com/aws/jsii/commit/3648117811c1edb40c047b2df3adf11a28452b3d))
+* **jsii:** some submodules are not exported from `aws-cdk-lib` ([#3491](https://github.com/aws/jsii/issues/3491)) ([47f70a2](https://github.com/aws/jsii/commit/47f70a26383f401a8b3df700787d6ce7934f66f9))
+* make jsii --watch work ([#3487](https://github.com/aws/jsii/issues/3487)) ([4a46f7d](https://github.com/aws/jsii/commit/4a46f7d7db3e6f9f1cf2730b02f4af0c1da9f237)), closes [#3467](https://github.com/aws/jsii/issues/3467)
+* **pacmak:** missing python artifacts when using relative -o path ([#3518](https://github.com/aws/jsii/issues/3518)) ([cc9b561](https://github.com/aws/jsii/commit/cc9b561b7ee847c78bbc6c8514a74a7e48ed3ef4)), closes [aws/aws-cdk#20041](https://github.com/aws/aws-cdk/issues/20041)
+* **rosetta:** attempts transliteraiton to unsupported languages ([#3478](https://github.com/aws/jsii/issues/3478)) ([db2d62e](https://github.com/aws/jsii/commit/db2d62e563432ddb99df273107e182d5fbaf7173))
+* **rosetta:** incorrect transliteration for selective imports ([#3508](https://github.com/aws/jsii/issues/3508)) ([8eec086](https://github.com/aws/jsii/commit/8eec0868c02730dd22009c841e25034144b2e86f))
+
+
+* drop support for Python 3.6 (EOL as of 2021-12-23) ([#3472](https://github.com/aws/jsii/issues/3472)) ([abf7415](https://github.com/aws/jsii/commit/abf741545cc07a6aa85c74a12b7e0271ad8a531d))
+
+## [1.57.0](https://github.com/aws/jsii/compare/v1.56.0...v1.57.0) (2022-04-19)
+
+
+### Bug Fixes
+
+* **go:** object type not recognized ([#3485](https://github.com/aws/jsii/issues/3485)) ([fe2fa94](https://github.com/aws/jsii/commit/fe2fa947891ab5d517efbec37998b9b57203aa8d)), closes [#2880](https://github.com/aws/jsii/issues/2880)
+* **jsii:** some submodules are not exported from `aws-cdk-lib` ([#3491](https://github.com/aws/jsii/issues/3491)) ([47f70a2](https://github.com/aws/jsii/commit/47f70a26383f401a8b3df700787d6ce7934f66f9))
+* make jsii --watch work ([#3487](https://github.com/aws/jsii/issues/3487)) ([4a46f7d](https://github.com/aws/jsii/commit/4a46f7d7db3e6f9f1cf2730b02f4af0c1da9f237)), closes [#3467](https://github.com/aws/jsii/issues/3467)
+
+## [1.56.0](https://github.com/aws/jsii/compare/v1.55.1...v1.56.0) (2022-04-08)
+
+
+### Features
+
+* drop internal functions from Deprecation Error stack trace ([#3426](https://github.com/aws/jsii/issues/3426)) ([5b4b852](https://github.com/aws/jsii/commit/5b4b852c4550782d4f9777cbca7a65264bea49fe))
+* expose unknownSnippets config ([#3475](https://github.com/aws/jsii/issues/3475)) ([e9d99a0](https://github.com/aws/jsii/commit/e9d99a06b7b06da2e87d1bf4e2101a0ff5cf3dc9))
+* specify output directory for assemblies ([#3437](https://github.com/aws/jsii/issues/3437)) ([5419876](https://github.com/aws/jsii/commit/541987673dd015e0264cf299b51998923556eb8d))
+* Standardize issue template for discussions ([b191f60](https://github.com/aws/jsii/commit/b191f60630d513449c6771de38d2d7fcbc8d7941))
+
+
+### Bug Fixes
+
+* **rosetta:** incorrect transliteration of map keys in python ([#3449](https://github.com/aws/jsii/issues/3449)) ([54cebaa](https://github.com/aws/jsii/commit/54cebaa188a132ab764e2167c9ec5f9042588b47)), closes [#3448](https://github.com/aws/jsii/issues/3448) [#3448](https://github.com/aws/jsii/issues/3448)
+* typo "though" -> "through" ([#3419](https://github.com/aws/jsii/issues/3419)) ([3274b6c](https://github.com/aws/jsii/commit/3274b6cb8c5a025c8877343423c1f101029ea0a5))
+
+## [1.55.1](https://github.com/aws/jsii/compare/v1.55.0...v1.55.1) (2022-03-16)
+
+## [1.55.0](https://github.com/aws/jsii/compare/v1.54.0...v1.55.0) (2022-03-10)
+
+
+### Features
+
+* rosetta go support ([#3376](https://github.com/aws/jsii/issues/3376)) ([015e663](https://github.com/aws/jsii/commit/015e66374a5a846741a54efd610cf351516dbe44))
+
+
+### Bug Fixes
+
+* **go:** lots of documentation is missing from generated code ([#3409](https://github.com/aws/jsii/issues/3409)) ([69d28bb](https://github.com/aws/jsii/commit/69d28bb467113c5d5e91493b0846616685c64678))
+
+## [1.54.0](https://github.com/aws/jsii/compare/v1.53.0...v1.54.0) (2022-02-15)
+
+
+### Bug Fixes
+
+* **jsii:** dependencies' README files are unnecessarily re-rendered ([#3380](https://github.com/aws/jsii/issues/3380)) ([ec4edc5](https://github.com/aws/jsii/commit/ec4edc5458d9b146ebd4a2d0c9c6cca1ed03dfaf))
+
+## [1.53.0](https://github.com/aws/jsii/compare/v1.52.1...v1.53.0) (2022-02-09)
+
+
+### Features
+
+* add configuration for Visual Studio Code ([#3309](https://github.com/aws/jsii/issues/3309)) ([3edf74c](https://github.com/aws/jsii/commit/3edf74cdc6486f35352aec5c98bf5a01657a1209))
+* **go:** add UnsafeCast function ([#3316](https://github.com/aws/jsii/issues/3316)) ([19da85e](https://github.com/aws/jsii/commit/19da85e57e544761b83c6c0dfc4bc3432ce4a2b3))
+* **go:** Use type registry to find the correct target type for JSII Proxy ([#3354](https://github.com/aws/jsii/issues/3354)) ([75d94ef](https://github.com/aws/jsii/commit/75d94effb71bcbdb0ab30c9b468024e0939d2084)), closes [#3353](https://github.com/aws/jsii/issues/3353) [#2819](https://github.com/aws/jsii/issues/2819)
+* **rosetta:** Rosetta manages dependencies automatically ([#3269](https://github.com/aws/jsii/issues/3269)) ([f0b811b](https://github.com/aws/jsii/commit/f0b811b5642e1093a0b59b170a70df258df39fab))
+
+
+### Bug Fixes
+
+* **dontet:** excessive overrides generated ([#3355](https://github.com/aws/jsii/issues/3355)) ([5460d66](https://github.com/aws/jsii/commit/5460d66f2db6441f7d8cfc849d16f89d3548b82a))
+* **go:** replace uses of CanConvert to Type.AssignableTo ([#3373](https://github.com/aws/jsii/issues/3373)) ([ae4ea62](https://github.com/aws/jsii/commit/ae4ea624ad4bcac7da90734ed385b0716375ee5d))
+* **go:** unable to reuse instances between child/parent interfaces ([#3321](https://github.com/aws/jsii/issues/3321)) ([70be636](https://github.com/aws/jsii/commit/70be636e2eb3e5144dab16cae62162420a4fe5a8))
+* **jsii:** breaks due to faulty version of `colors` ([#3328](https://github.com/aws/jsii/issues/3328)) ([13c0737](https://github.com/aws/jsii/commit/13c073793a9fc5b45cad93801634ce6397a2e007))
+* **jsii:** compiler allows inheriting interface-violating members ([#3343](https://github.com/aws/jsii/issues/3343)) ([b5037b9](https://github.com/aws/jsii/commit/b5037b9adf74c1978f1fd940921ce6c2050c297b)), closes [#3342](https://github.com/aws/jsii/issues/3342)
+* **jsii:** excessive overrides declarations registered ([#3375](https://github.com/aws/jsii/issues/3375)) ([64a5984](https://github.com/aws/jsii/commit/64a598487f81339e63a0aec5f7428eb99b6c7eb1))
+* **jsii:** submodule READMEs don't have literate examples ([#3347](https://github.com/aws/jsii/issues/3347)) ([5769771](https://github.com/aws/jsii/commit/576977133bd9ea0997d9bc1dd114c9407d9b5b12)), closes [aws/aws-cdk#18589](https://github.com/aws/aws-cdk/issues/18589)
+* **kernel:** kernel's private object annotations are enumerable ([#3339](https://github.com/aws/jsii/issues/3339)) ([d361c7b](https://github.com/aws/jsii/commit/d361c7bdb2d269e6fcc9c06e55d23e8fe19859a5))
+* **pacmak:** greatly reduce go code-gen memory footprint ([#3362](https://github.com/aws/jsii/issues/3362)) ([77b520f](https://github.com/aws/jsii/commit/77b520fb47989bd0dbc0c5af53a17eba0c54a439))
+* **python:** cannot call a method that takes an empty struct ([#3372](https://github.com/aws/jsii/issues/3372)) ([c36b67c](https://github.com/aws/jsii/commit/c36b67cbcd125f6b89bedf7be4ebc8fa30e1ba90)), closes [#2846](https://github.com/aws/jsii/issues/2846)
+* remove the "comments rewriter" ([#3368](https://github.com/aws/jsii/issues/3368)) ([50dd3b0](https://github.com/aws/jsii/commit/50dd3b051727a64950165efc191d554831812447))
+* **superchain:** failure to download PowerShell ([#3340](https://github.com/aws/jsii/issues/3340)) ([59eaaa3](https://github.com/aws/jsii/commit/59eaaa33734bc44d31c483cb81dc5c70b1e24dd8))
+
+## [1.52.1](https://github.com/aws/jsii/compare/v1.52.0...v1.52.1) (2022-01-09)
+
+
+### Bug Fixes
+
+* **jsii:** breaks due to faulty version of `colors` ([#3328](https://github.com/aws/jsii/issues/3328)) ([5bd5e04](https://github.com/aws/jsii/commit/5bd5e04bc401bdf6c1bc1f3aba9e6401f7347478))
+
+## [1.52.0](https://github.com/aws/jsii/compare/v1.51.0...v1.52.0) (2022-01-07)
+
+
+### Bug Fixes
+
+* **rosetta:** `transliterate` tries to recompile samples from tablets ([#3324](https://github.com/aws/jsii/issues/3324)) ([7aa69a7](https://github.com/aws/jsii/commit/7aa69a7c51b31ab1adb37b9d5cab682b5da6c715)), closes [#3262](https://github.com/aws/jsii/issues/3262)
+
+## [1.51.0](https://github.com/aws/jsii/compare/v1.50.0...v1.51.0) (2022-01-06)
+
+
+### Features
+
+* **pacmak:** go yaml struct tags ([#3299](https://github.com/aws/jsii/issues/3299)) ([63132cf](https://github.com/aws/jsii/commit/63132cf30ad62ba59d2a8cdfaba60b92819352cd)), closes [#3293](https://github.com/aws/jsii/issues/3293)
+
+
+### Bug Fixes
+
+* **jsii:** cannot use submodule types from assemblies before 1.39.0 ([#3306](https://github.com/aws/jsii/issues/3306)) ([949d5f0](https://github.com/aws/jsii/commit/949d5f00df6a44c4fbacc06dc9f4f239c68c583e)), closes [#3233](https://github.com/aws/jsii/issues/3233)
+* **rosetta:** Python translation for `implements` is wrong ([#3280](https://github.com/aws/jsii/issues/3280)) ([a833a1d](https://github.com/aws/jsii/commit/a833a1d2f1335e9447fd5702b9e4f9c6166abe67)), closes [aws/aws-cdk#17928](https://github.com/aws/aws-cdk/issues/17928)
+
+## [1.50.0](https://github.com/aws/jsii/compare/v1.49.0...v1.50.0) (2021-12-24)
+
+
+### Bug Fixes
+
+* **jsii:** color codes are logged to logfiles ([#3284](https://github.com/aws/jsii/issues/3284)) ([2c8c647](https://github.com/aws/jsii/commit/2c8c647356345981cc2f9416449d48b660b5da44))
+* **jsii:** slow with deep dependency tree ([#3294](https://github.com/aws/jsii/issues/3294)) ([04d64c9](https://github.com/aws/jsii/commit/04d64c91da5e8a0eccd06cd03a4b7a20bce55845))
+* **pacmak:** fails on bundled dependency without entry point ([#3277](https://github.com/aws/jsii/issues/3277)) ([6e5a0b5](https://github.com/aws/jsii/commit/6e5a0b50e19af6cb0c1817fe3c447a24a9632a7b)), closes [#3275](https://github.com/aws/jsii/issues/3275)
+* **rosetta:** diagnostics from infused snippets were not ignored ([#3282](https://github.com/aws/jsii/issues/3282)) ([ad7f6a4](https://github.com/aws/jsii/commit/ad7f6a4a20564e733bf29a70956bbbe54d66562e))
+* **rosetta:** infused snippets not returned from cache ([#3291](https://github.com/aws/jsii/issues/3291)) ([dd44431](https://github.com/aws/jsii/commit/dd444313b4177babce8d972da01071f308600416))
+* **rosetta:** non-compiling snippets not reported on subsequent extracts ([#3260](https://github.com/aws/jsii/issues/3260)) ([771190b](https://github.com/aws/jsii/commit/771190b5435a82fe6033a05247bfa828276f0130))
+* **rosetta:** transliterate command does not translate in parallel ([#3262](https://github.com/aws/jsii/issues/3262)) ([beeadaa](https://github.com/aws/jsii/commit/beeadaa21d5bd5a34e97691c2410366f475d3da3))
+
+## [1.49.0](https://github.com/aws/jsii/compare/v1.48.0...v1.49.0) (2021-12-14)
+
+
+### Bug Fixes
+
+* improve compatibility with restricted-export modules ([#3205](https://github.com/aws/jsii/issues/3205)) ([31a7172](https://github.com/aws/jsii/commit/31a71721bfaff28876ce0554230e63803591e112))
+* **jsii:** correctly identify types regardless of import method ([#3233](https://github.com/aws/jsii/issues/3233)) ([aa37d62](https://github.com/aws/jsii/commit/aa37d623f866d2b2a3802a90578e8e85227b37b1)), closes [aws/aws-cdk#17860](https://github.com/aws/aws-cdk/issues/17860)
+* **jsii:** handle imports from libraries compiled with old jsii ([#3245](https://github.com/aws/jsii/issues/3245)) ([133d1cf](https://github.com/aws/jsii/commit/133d1cf371367b1516b175aa9ed904eb701fac0f)), closes [#3233](https://github.com/aws/jsii/issues/3233) [#3233](https://github.com/aws/jsii/issues/3233)
+* **jsii:** symbolid for single-valued enums is incorrect ([#3234](https://github.com/aws/jsii/issues/3234)) ([83d3fc8](https://github.com/aws/jsii/commit/83d3fc805874a72b7a76d08f62e8b10121b4777b))
+* **rosetta:** `rosetta extract` fails if run after `rosetta infuse` ([#3248](https://github.com/aws/jsii/issues/3248)) ([e3ec929](https://github.com/aws/jsii/commit/e3ec92921c10bf397e740d45ad7c5a39a21dc800))
+* **rosetta:** classes are not correctly identified if package uses an outDir ([#3225](https://github.com/aws/jsii/issues/3225)) ([05631a7](https://github.com/aws/jsii/commit/05631a723b8c08d8d82e9ec50c6adaee1e2d693e))
+* **rosetta:** infuse drops first assembly ([#3243](https://github.com/aws/jsii/issues/3243)) ([29a6a84](https://github.com/aws/jsii/commit/29a6a848e2cada2a695d0d1a852c6c53c24d35ac))
+
+## [1.48.0](https://github.com/aws/jsii/compare/v1.45.0...v1.48.0) (2021-12-13)
+
+
+### Features
+
+* **reflect:** add `allTypes` accessor ([#3194](https://github.com/aws/jsii/issues/3194)) ([41f301a](https://github.com/aws/jsii/commit/41f301a8304bd1ed6ed7ec4e31bd23ffd1a2ed8b))
+* **rosetta:**  metadata tag for fixtures in docs ([#3200](https://github.com/aws/jsii/issues/3200)) ([8cefa8b](https://github.com/aws/jsii/commit/8cefa8bc8c9554913960b48226531aff874ee247))
+* **rosetta:** generate rosetta tablets next to each assembly ([#3223](https://github.com/aws/jsii/issues/3223)) ([1e7b604](https://github.com/aws/jsii/commit/1e7b604c15a0083f27ceafd8ca32ff9b6cf61759))
+* **rosetta:** reuse output file as additional cache and introduce `--infuse` option for `extract` ([#3210](https://github.com/aws/jsii/issues/3210)) ([ccb3c57](https://github.com/aws/jsii/commit/ccb3c57b834225f16ec619f55a7976e59b7a53c3))
+
+
+### Bug Fixes
+
+* improve compatibility with restricted-export modules ([#3205](https://github.com/aws/jsii/issues/3205)) ([31a7172](https://github.com/aws/jsii/commit/31a71721bfaff28876ce0554230e63803591e112))
+* **jsii:** constants can't mix letters and digits ([#3209](https://github.com/aws/jsii/issues/3209)) ([a444e29](https://github.com/aws/jsii/commit/a444e2993b73dc002586e2c4a3446121c279eb65)), closes [#3208](https://github.com/aws/jsii/issues/3208)
+* **jsii:** correctly identify types regardless of import method ([#3233](https://github.com/aws/jsii/issues/3233)) ([aa37d62](https://github.com/aws/jsii/commit/aa37d623f866d2b2a3802a90578e8e85227b37b1)), closes [aws/aws-cdk#17860](https://github.com/aws/aws-cdk/issues/17860)
+* **jsii:** deprecation message is not displayed for deprecated classes ([#3206](https://github.com/aws/jsii/issues/3206)) ([3841538](https://github.com/aws/jsii/commit/3841538179226b67c756ca8689ac1a3de4bec521))
+* **jsii:** handle imports from libraries compiled with old jsii ([#3245](https://github.com/aws/jsii/issues/3245)) ([133d1cf](https://github.com/aws/jsii/commit/133d1cf371367b1516b175aa9ed904eb701fac0f)), closes [#3233](https://github.com/aws/jsii/issues/3233) [#3233](https://github.com/aws/jsii/issues/3233)
+* **jsii:** symbolid for single-valued enums is incorrect ([#3234](https://github.com/aws/jsii/issues/3234)) ([83d3fc8](https://github.com/aws/jsii/commit/83d3fc805874a72b7a76d08f62e8b10121b4777b))
+* **pacmak:** don't automatically translate examples without asking ([#3219](https://github.com/aws/jsii/issues/3219)) ([937f8c3](https://github.com/aws/jsii/commit/937f8c3753bec27269ce9213a6bc55fea79647b0))
+* **rosetta:** `extract` ignores `--compile` option ([#3193](https://github.com/aws/jsii/issues/3193)) ([639c510](https://github.com/aws/jsii/commit/639c510ba6d07b26bf35d0c8d3c9cdcced6d916a))
+* **rosetta:** classes are not correctly identified if package uses an outDir ([#3225](https://github.com/aws/jsii/issues/3225)) ([05631a7](https://github.com/aws/jsii/commit/05631a723b8c08d8d82e9ec50c6adaee1e2d693e))
+* **rosetta:** enum resolution breaks for properties ([#3190](https://github.com/aws/jsii/issues/3190)) ([3b49066](https://github.com/aws/jsii/commit/3b49066e4dd960385709dbdce1d9c1fbfb2f20cf))
+* **rosetta:** infuse drops first assembly ([#3243](https://github.com/aws/jsii/issues/3243)) ([29a6a84](https://github.com/aws/jsii/commit/29a6a848e2cada2a695d0d1a852c6c53c24d35ac))
+* **rosetta:** use `--compile` flag by default ([#3218](https://github.com/aws/jsii/issues/3218)) ([9df7950](https://github.com/aws/jsii/commit/9df7950f263aae045877accb45007e0f9a5b03bd))
+
+
+## [1.47.0](https://github.com/aws/jsii/compare/v1.45.0...v1.47.0) (2021-12-06)
+
+
+### Features
+
+* **reflect:** add `allTypes` accessor ([#3194](https://github.com/aws/jsii/issues/3194)) ([41f301a](https://github.com/aws/jsii/commit/41f301a8304bd1ed6ed7ec4e31bd23ffd1a2ed8b))
+* **rosetta:**  metadata tag for fixtures in docs ([#3200](https://github.com/aws/jsii/issues/3200)) ([8cefa8b](https://github.com/aws/jsii/commit/8cefa8bc8c9554913960b48226531aff874ee247))
+* **rosetta:** generate rosetta tablets next to each assembly ([#3223](https://github.com/aws/jsii/issues/3223)) ([1e7b604](https://github.com/aws/jsii/commit/1e7b604c15a0083f27ceafd8ca32ff9b6cf61759))
+* **rosetta:** reuse output file as additional cache and introduce `--infuse` option for `extract` ([#3210](https://github.com/aws/jsii/issues/3210)) ([ccb3c57](https://github.com/aws/jsii/commit/ccb3c57b834225f16ec619f55a7976e59b7a53c3))
+
+
+### Bug Fixes
+
+* **jsii:** constants can't mix letters and digits ([#3209](https://github.com/aws/jsii/issues/3209)) ([a444e29](https://github.com/aws/jsii/commit/a444e2993b73dc002586e2c4a3446121c279eb65)), closes [#3208](https://github.com/aws/jsii/issues/3208)
+* **jsii:** deprecation message is not displayed for deprecated classes ([#3206](https://github.com/aws/jsii/issues/3206)) ([3841538](https://github.com/aws/jsii/commit/3841538179226b67c756ca8689ac1a3de4bec521))
+* **pacmak:** don't automatically translate examples without asking ([#3219](https://github.com/aws/jsii/issues/3219)) ([937f8c3](https://github.com/aws/jsii/commit/937f8c3753bec27269ce9213a6bc55fea79647b0))
+* **rosetta:** `extract` ignores `--compile` option ([#3193](https://github.com/aws/jsii/issues/3193)) ([639c510](https://github.com/aws/jsii/commit/639c510ba6d07b26bf35d0c8d3c9cdcced6d916a))
+* **rosetta:** enum resolution breaks for properties ([#3190](https://github.com/aws/jsii/issues/3190)) ([3b49066](https://github.com/aws/jsii/commit/3b49066e4dd960385709dbdce1d9c1fbfb2f20cf))
+* **rosetta:** use `--compile` flag by default ([#3218](https://github.com/aws/jsii/issues/3218)) ([9df7950](https://github.com/aws/jsii/commit/9df7950f263aae045877accb45007e0f9a5b03bd))
+
+## [1.46.0](https://github.com/aws/jsii/compare/v1.45.0...v1.46.0) (2021-11-21)
+
+
+### Bug Fixes
+
+* **rosetta:** `extract` ignores `--compile` option ([#3193](https://github.com/aws/jsii/issues/3193)) ([639c510](https://github.com/aws/jsii/commit/639c510ba6d07b26bf35d0c8d3c9cdcced6d916a))
+* **rosetta:** enum resolution breaks for properties ([#3190](https://github.com/aws/jsii/issues/3190)) ([3b49066](https://github.com/aws/jsii/commit/3b49066e4dd960385709dbdce1d9c1fbfb2f20cf))
+
+## [1.45.0](https://github.com/aws/jsii/compare/v1.44.1...v1.45.0) (2021-11-18)
+
+
+### Bug Fixes
+
+* C# NamespaceDoc emitted to wrong location ([#3183](https://github.com/aws/jsii/issues/3183)) ([0f5f349](https://github.com/aws/jsii/commit/0f5f349d2f6d7d916c59e4f13e0c5195cc0f80c9))
+* **jsii:** require statement for the warning file is generated when it's not used ([#3184](https://github.com/aws/jsii/issues/3184)) ([3d90ae6](https://github.com/aws/jsii/commit/3d90ae699fdcf6730d9b5559c55e78ec5f9c1260))
+* **pacmak:** dotnet code docs loses indentation ([#3180](https://github.com/aws/jsii/issues/3180)) ([ace0b83](https://github.com/aws/jsii/commit/ace0b83a0c951052349b102c3af34e92cae76767))
+* **pacmak:** Generate Relative Module Imports in Python ([#3181](https://github.com/aws/jsii/issues/3181)) ([b0afe51](https://github.com/aws/jsii/commit/b0afe51a8cb36a9ebdd39bd19a842285c58ee2c1))
+* **rosetta:** diagnostics not showing ([#3182](https://github.com/aws/jsii/issues/3182)) ([92a7d5e](https://github.com/aws/jsii/commit/92a7d5e3b10dc7c881ef70c12730f1f0cdcf9b63))
+* **rosetta:** Rosetta is not submodule-aware ([#3176](https://github.com/aws/jsii/issues/3176)) ([5c7d148](https://github.com/aws/jsii/commit/5c7d148104f6cfb54573a73a76efb288dd2f346b))
+* **rosetta:** types from submodules not recognized properly ([#3174](https://github.com/aws/jsii/issues/3174)) ([b009d07](https://github.com/aws/jsii/commit/b009d07c2ae34248d1e7beea3c66121b8deef957))
+
+## [1.44.2](https://github.com/aws/jsii/compare/v1.44.1...v1.44.2) (2021-11-18)
+
+
+### Bug Fixes
+
+* **jsii:** require statement for the warning file is generated when it's not used ([#3184](https://github.com/aws/jsii/issues/3184)) ([8f53f89](https://github.com/aws/jsii/commit/8f53f897ebc03e3b3f9e5837fea988e7af592571))
+
+## [1.44.1](https://github.com/aws/jsii/compare/v1.44.0...v1.44.1) (2021-11-16)
+
+* revert "fix: dependency submodules may not be discovered" ([#3170](https://github.com/aws/jsii/pull/3170)) ([0449dd9](https://github.com/aws/jsii/commit/0449dd92ce3297b065c171efafc28d1f877432cc))
+
+## [1.44.0](https://github.com/aws/jsii/compare/v1.43.0...v1.44.0) (2021-11-15)
+
+
+### Features
+
+* **rosetta:** expose the 'extract' API ([#3161](https://github.com/aws/jsii/issues/3161)) ([c3b30c0](https://github.com/aws/jsii/commit/c3b30c093515e8bce4922eed1a88536e8c2080e8))
+
+
+### Bug Fixes
+
+* dependency submodules may not be discovered ([#3151](https://github.com/aws/jsii/issues/3151)) ([5768bb9](https://github.com/aws/jsii/commit/5768bb9951856f4a051c24db7f56d23fd8573815))
+* deprecation warnings are generated even when one property is not deprecated ([#3157](https://github.com/aws/jsii/issues/3157)) ([e566f37](https://github.com/aws/jsii/commit/e566f37802438a929d66448c1d67b7a2c2e901a1))
+* **jsii:** incorrectly allowed unexported type in constructor params ([#3147](https://github.com/aws/jsii/issues/3147)) ([7cd59fc](https://github.com/aws/jsii/commit/7cd59fc180648b6c4b873364ef301b3228e69885))
+* **pacmak:** remove disclaimer on compiling examples ([#3148](https://github.com/aws/jsii/issues/3148)) ([75e4093](https://github.com/aws/jsii/commit/75e4093af9123f50b2ba92c1f70be6e9a2ed46b6))
+* **pacmak:** Support more than 255 properties for interfaces in Java ([#3133](https://github.com/aws/jsii/issues/3133)) ([ba4a20d](https://github.com/aws/jsii/commit/ba4a20df41e7298ba6518652a5046deaac490c3b)), closes [#3132](https://github.com/aws/jsii/issues/3132) [#3132](https://github.com/aws/jsii/issues/3132)
+* **rosetta:** `didCompile` evaluates to true when compilation not attempted ([#3149](https://github.com/aws/jsii/issues/3149)) ([7ad9e0a](https://github.com/aws/jsii/commit/7ad9e0a9013316e730b89bdf3b9934ec0174c742))
+* **rosetta:** cache source file parses ([#3163](https://github.com/aws/jsii/issues/3163)) ([307d3ca](https://github.com/aws/jsii/commit/307d3ca09b6a2d1bae2754b9aaf1be98e77d016f))
+* **rosetta:** gets confused by type unions ([#3156](https://github.com/aws/jsii/issues/3156)) ([ca04dad](https://github.com/aws/jsii/commit/ca04dad3f54981d59177309b2d5c7626256ca3a9))
+* **rosetta:** snippet throughput incorrect ([#3145](https://github.com/aws/jsii/issues/3145)) ([91418d6](https://github.com/aws/jsii/commit/91418d60d5a0b10a32579a3393139d6f04853cde))
+
+## [1.43.0](https://github.com/aws/jsii/compare/v1.42.0...v1.43.0) (2021-11-08)
+
+
+### Features
+
+* **pacmak:** fail on untranslated snippets ([#3127](https://github.com/aws/jsii/issues/3127)) ([874e8e2](https://github.com/aws/jsii/commit/874e8e2c6a4cc61ae049c5b23f25ff390504d345)), closes [cdklabs/cdk-ops#1777](https://github.com/cdklabs/cdk-ops/issues/1777)
+* **rosetta:** find fixtures based on submodules ([#3131](https://github.com/aws/jsii/issues/3131)) ([236dd88](https://github.com/aws/jsii/commit/236dd88f816f2251e62239feb8dfb51c729b7d30))
+
+
+### Bug Fixes
+
+* **pacmak:** add 'silly' loglevel for command output ([#3125](https://github.com/aws/jsii/issues/3125)) ([bf769da](https://github.com/aws/jsii/commit/bf769daa4785d1e2c686547bfb50577c3f5006a5))
+* **pacmak:** API locations for inherited members are incorrect ([#3130](https://github.com/aws/jsii/issues/3130)) ([8d0a248](https://github.com/aws/jsii/commit/8d0a24826052600c3ab51cac7e31a2666930ef39)), closes [cdklabs/cdk-ops#1777](https://github.com/cdklabs/cdk-ops/issues/1777)
+* **pacmak:** development version cannot pack java ([#3121](https://github.com/aws/jsii/issues/3121)) ([0d9cf51](https://github.com/aws/jsii/commit/0d9cf511e58d0329dbff7e749109be76c61fb84e)), closes [#3107](https://github.com/aws/jsii/issues/3107)
+* **pacmak:** re-introduce parallelism for Python and Go builds ([#3124](https://github.com/aws/jsii/issues/3124)) ([87ba35d](https://github.com/aws/jsii/commit/87ba35d894baff68b1ce3a1dec8b17f19667e162)), closes [#3045](https://github.com/aws/jsii/issues/3045)
+* **rosetta:** `infuse` creates untranslated examples ([#3126](https://github.com/aws/jsii/issues/3126)) ([ab60275](https://github.com/aws/jsii/commit/ab602757634b836728f32eca6620836d1b641ec4))
+* **rosetta:** crashes on outdated tablet files in a package ([#3119](https://github.com/aws/jsii/issues/3119)) ([80ff0dc](https://github.com/aws/jsii/commit/80ff0dc22f5d04016812c993f07ed3b4893e518d))
+* **rosetta:** remember live-translated snippets without fixtures ([#3129](https://github.com/aws/jsii/issues/3129)) ([0638345](https://github.com/aws/jsii/commit/0638345e7712638f01e809994f4b38b50523622e))
+* **rosetta:** stop skipping example values ([#3128](https://github.com/aws/jsii/issues/3128)) ([ee0620a](https://github.com/aws/jsii/commit/ee0620aa9d5fdc595d505be7fa4a7e30e827ad62))
+
+## [1.42.0](https://github.com/aws/jsii/compare/v1.41.0...v1.42.0) (2021-11-02)
+
+
+### Features
+
+* **rosetta:** reuse translation results from a cache ([#3101](https://github.com/aws/jsii/issues/3101)) ([b08a50e](https://github.com/aws/jsii/commit/b08a50e381351afab093bbf8e78fffd5a4cd58c0))
+
+
+### Bug Fixes
+
+* **jsii:** deprecation warnings erroneously warn for duplicate enum values ([#3105](https://github.com/aws/jsii/issues/3105)) ([c477422](https://github.com/aws/jsii/commit/c4774225b0f134cdb3705eb95905c0f7937fa8c4)), closes [#3103](https://github.com/aws/jsii/issues/3103)
+* **jsii:** generated deprecation-warning code is platform dependent ([#3096](https://github.com/aws/jsii/issues/3096)) ([9aa6f02](https://github.com/aws/jsii/commit/9aa6f022734ebcc57ef06fbf5c437479e49b408c))
+* **jsii:** unexpected deprecated warnings when a deprecated interface is extended ([#3112](https://github.com/aws/jsii/issues/3112)) ([bd7e07c](https://github.com/aws/jsii/commit/bd7e07c562a06a0d5a25f58a0d0307a61c23a554)), closes [#3111](https://github.com/aws/jsii/issues/3111)
+* **pacmak:** '*/' not escaped in JavaDocs ([#3104](https://github.com/aws/jsii/issues/3104)) ([7ab109a](https://github.com/aws/jsii/commit/7ab109a376911d8034d73abd7f392df0e746ba37))
+* **rosetta:** arrays aren't handled properly ([#3098](https://github.com/aws/jsii/issues/3098)) ([de4648b](https://github.com/aws/jsii/commit/de4648b6ba25154afcac07e99c964a0457b3a9a0))
+
+## [1.41.0](https://github.com/aws/jsii/compare/v1.40.0...v1.41.0) (2021-10-27)
+
+
+### Features
+
+* **jsii:** experimental --strip-deprecated with file ([#3085](https://github.com/aws/jsii/issues/3085)) ([e5ba807](https://github.com/aws/jsii/commit/e5ba807a2da6bdb88ecd66d35770269a8292d805))
+* **rosetta:** "rosetta infuse" feature ([#3067](https://github.com/aws/jsii/issues/3067)) ([0f2f2d0](https://github.com/aws/jsii/commit/0f2f2d01e879c229d021099fdf2144837bd9e632))
+* **rosetta:** improve translation throughput ([#3083](https://github.com/aws/jsii/issues/3083)) ([919d895](https://github.com/aws/jsii/commit/919d895956fb73fcbc684a7485c3ff8a8ecd678b))
+
+
+### Bug Fixes
+
+* deprecation-warnings includes TS-only import ([#3094](https://github.com/aws/jsii/issues/3094)) ([edfdc48](https://github.com/aws/jsii/commit/edfdc48430886c53fe5331c26d117861d3c91df2))
+
+## [1.40.0](https://github.com/aws/jsii/compare/v1.39.0...v1.40.0) (2021-10-19)
+
+
+### Features
+
+* **jsii:** added warnings for usage of deprecated elements  ([#3051](https://github.com/aws/jsii/issues/3051)) ([8c0dd3b](https://github.com/aws/jsii/commit/8c0dd3b88f6ecb47e858ad5fc3c14f074c2c4a45))
+* **jsii:** allow customizing tsconfig.json file name ([#3076](https://github.com/aws/jsii/issues/3076)) ([c611f26](https://github.com/aws/jsii/commit/c611f262c0ecba286e0fa84e03196614e1e3c722))
+
+
+### Bug Fixes
+
+* **rosetta:** allow only property assignments in object literals ([#3065](https://github.com/aws/jsii/issues/3065)) ([c783ab7](https://github.com/aws/jsii/commit/c783ab7037773dfcfa586ccd8d90c8450a5602bc)), closes [#3061](https://github.com/aws/jsii/issues/3061)
+* **rosetta:** breaks when given a lot of snippets ([#3075](https://github.com/aws/jsii/issues/3075)) ([eca552e](https://github.com/aws/jsii/commit/eca552ebbfb39222f62033a2c7503c193f3f9acf))
+* **rosetta:** class declaration uses wrong constructor name in C# ([#3064](https://github.com/aws/jsii/issues/3064)) ([13f75a1](https://github.com/aws/jsii/commit/13f75a15c6b5b3c5aa8ac56122a593393fed8c3e)), closes [#3056](https://github.com/aws/jsii/issues/3056)
+* **rosetta:** disallow nullish coalescing operator in examples ([#3060](https://github.com/aws/jsii/issues/3060)) ([a35bbfa](https://github.com/aws/jsii/commit/a35bbfa7a104213b670ffafeac064dd629ad64a4)), closes [#3053](https://github.com/aws/jsii/issues/3053)
+* **rosetta:** fix usage of Builders in Java ([#3058](https://github.com/aws/jsii/issues/3058)) ([a0ce42d](https://github.com/aws/jsii/commit/a0ce42db08238e30739fe9cdb28e4ca0e9b52192)), closes [#2984](https://github.com/aws/jsii/issues/2984)
+* **rosetta:** newlines after return statements missing ([#3063](https://github.com/aws/jsii/issues/3063)) ([26c95f5](https://github.com/aws/jsii/commit/26c95f5cbcf23fe026faf3190488be2534313dd3)), closes [#3054](https://github.com/aws/jsii/issues/3054)
+
+## [1.39.0](https://github.com/aws/jsii/compare/v1.38.0...v1.39.0) (2021-10-12)
+
+
+### Features
+
+* **jsii:** added a symbol identifier to every type in the assembly ([#3030](https://github.com/aws/jsii/issues/3030)) ([2120d34](https://github.com/aws/jsii/commit/2120d34ef74597a6c7995e7798947a6fc931df04))
+* **jsii:** case consistency between filesystems ([#3015](https://github.com/aws/jsii/issues/3015)) ([cc364f0](https://github.com/aws/jsii/commit/cc364f0e46ee0e2c6f230b69f14b825b591f8151)), closes [#3013](https://github.com/aws/jsii/issues/3013) [#3013](https://github.com/aws/jsii/issues/3013)
+
+
+### Bug Fixes
+
+* **java:** log messages may not flush by app exit ([#3028](https://github.com/aws/jsii/issues/3028)) ([41631e7](https://github.com/aws/jsii/commit/41631e75e26851991e6eb6c607536cd4943e1975)), closes [#3009](https://github.com/aws/jsii/issues/3009)
+* **pacmak:** build failure due to non-sequential package builds between consumer and dependency ([#3045](https://github.com/aws/jsii/issues/3045)) ([1589af8](https://github.com/aws/jsii/commit/1589af8484df894258aabd16e13bfe8e5f56e630))
+* **python:** unknown type when submodule is not loaded ([#3049](https://github.com/aws/jsii/issues/3049)) ([da55a1e](https://github.com/aws/jsii/commit/da55a1e9add0f8c903ef6f4aa5085f2a3d5a360b)), closes [aws/aws-cdk#16625](https://github.com/aws/aws-cdk/issues/16625)
+* **rosetta:** constants are incorrectly turned into getters ([#3050](https://github.com/aws/jsii/issues/3050)) ([84e4ca3](https://github.com/aws/jsii/commit/84e4ca350f9a0049475f5fb95527bf24b8bd2fbe)), closes [#2984](https://github.com/aws/jsii/issues/2984)
+* **rosetta:** correctly detect arguments typed as `any` ([#3043](https://github.com/aws/jsii/issues/3043)) ([3d2ba15](https://github.com/aws/jsii/commit/3d2ba15ed235439b490031efa0eb08e765b3ea21)), closes [#3029](https://github.com/aws/jsii/issues/3029)
+* **rosetta:** fix translation of `!` and `===` operators ([#3052](https://github.com/aws/jsii/issues/3052)) ([72b9b98](https://github.com/aws/jsii/commit/72b9b98e57f600316bbf29ffb7fecb98b1fa48d7)), closes [#2993](https://github.com/aws/jsii/issues/2993)
+* **rosetta:** literal map type is rendered as __object in C sharp ([#3047](https://github.com/aws/jsii/issues/3047)) ([e2843be](https://github.com/aws/jsii/commit/e2843be12e61665bdaa85dcba399c24738c6f1ad)), closes [#3044](https://github.com/aws/jsii/issues/3044) [#3026](https://github.com/aws/jsii/issues/3026) [#3027](https://github.com/aws/jsii/issues/3027)
+* **rosetta:** structs starting with `I` are incorrectly interpreted as non-structs ([#3040](https://github.com/aws/jsii/issues/3040)) ([d564350](https://github.com/aws/jsii/commit/d56435048bcf8c65cbfd782bf05bb5cdc4dbe70e))
+* **rosetta:** support `declare` statements ([#3044](https://github.com/aws/jsii/issues/3044)) ([4ccacd1](https://github.com/aws/jsii/commit/4ccacd14ded542b74232751f7dabc5d05b020a55))
+* **rosetta:** turn `asList` into `List.of` ([#3048](https://github.com/aws/jsii/issues/3048)) ([ee75bf1](https://github.com/aws/jsii/commit/ee75bf1393c17680ff9e80403f2c33a1b568087a))
+
+## [1.38.0](https://github.com/aws/jsii/compare/v1.37.0...v1.38.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** modules not packed in topological order ([3f6db2c](https://github.com/aws/jsii/commit/3f6db2cf2292f53a307e0c83625d8e1b1605d813))
+
+## [1.37.0](https://github.com/aws/jsii/compare/v1.36.0...v1.37.0) (2021-10-06)
+
+
+### Features
+
+* **pacmak:** opt out of jsii assembly validation ([#3032](https://github.com/aws/jsii/issues/3032)) ([a3265d9](https://github.com/aws/jsii/commit/a3265d96e7cc69eae2a5b16f85fc4a77fe0fd92d))
+* **reflect:** memoize expensive properties ([#3031](https://github.com/aws/jsii/issues/3031)) ([e169c38](https://github.com/aws/jsii/commit/e169c38934e1e47d326dfccccbd9bb873fc1eb16))
+
+## [1.36.0](https://github.com/aws/jsii/compare/v1.35.0...v1.36.0) (2021-10-04)
+
+## [1.35.0](https://github.com/aws/jsii/compare/v1.34.0...v1.35.0) (2021-09-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* the minimum supported version of `node` changed from
+`10.3.0` to `12.7.0`. We recommend using `16.x` if possible.
+
+### Features
+
+* **rosetta:** propagate max heap size to worker threads ([#3002](https://github.com/aws/jsii/issues/3002)) ([9c7f63e](https://github.com/aws/jsii/commit/9c7f63eea27db55db83f1ad53552394edba4a931))
+
+
+### Bug Fixes
+
+* **jsii:** improve checks around peerDependencies ([#2997](https://github.com/aws/jsii/issues/2997)) ([d1ff3e6](https://github.com/aws/jsii/commit/d1ff3e678c9011df5e51816b37bec77767b6e8e2)), closes [#2994](https://github.com/aws/jsii/issues/2994)
+* typo in documentation ([#2999](https://github.com/aws/jsii/issues/2999)) ([f3e2271](https://github.com/aws/jsii/commit/f3e2271855d528f3b43478e1f3b6d3e482d44900))
+
+
+* upgrade baseline node requirement to >=12.7.0 ([#2946](https://github.com/aws/jsii/issues/2946)) ([f2c6842](https://github.com/aws/jsii/commit/f2c68426f1066de86f74fe4900011a10eef32c14))
+
+## [1.34.0](https://github.com/aws/jsii/compare/v1.33.0...v1.34.0) (2021-08-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **superchain:** the `jsii/superchain` image tags `:latest`, `:nightly`,
+`:node10` and `:node14` are no longer maintained. Users should migrate to
+the new debian-based tags starting with `:1-buster-slim`.
+
+### Features
+
+* [@struct](https://github.com/struct) type system hint ([#2965](https://github.com/aws/jsii/issues/2965)) ([a4ed9a8](https://github.com/aws/jsii/commit/a4ed9a851964038a884d1ebb09e2a347f0389c38))
+* **superchain:** arm64 support ([#2949](https://github.com/aws/jsii/issues/2949)) ([ceb66a6](https://github.com/aws/jsii/commit/ceb66a6d60eb3c17867f5b823efec8236ddd5505)), closes [#2930](https://github.com/aws/jsii/issues/2930)
+
+
+### Bug Fixes
+
+* **python:** unable to implement additional interfaces ([#2964](https://github.com/aws/jsii/issues/2964)) ([4ced4d5](https://github.com/aws/jsii/commit/4ced4d538be80b181a9727ab4d74841f08af0afa)), closes [#2963](https://github.com/aws/jsii/issues/2963)
+
+## [1.33.0](https://github.com/aws/jsii/compare/v1.32.0...v1.33.0) (2021-08-16)
+
+
+### Features
+
+* node runtime version check ([#2948](https://github.com/aws/jsii/issues/2948)) ([f0a9ec6](https://github.com/aws/jsii/commit/f0a9ec6d9275be5126bcb2a455d43df2107a9262))
+
+
+### Bug Fixes
+
+* **java:** Disable covariants for java builder params ([#2853](https://github.com/aws/jsii/issues/2853)) ([e729f5d](https://github.com/aws/jsii/commit/e729f5d53311224b9b742d024dc4cdf768e24e48)), closes [#2839](https://github.com/aws/jsii/issues/2839)
+* **java:** implemented interface is not registered ([#2952](https://github.com/aws/jsii/issues/2952)) ([99da7a6](https://github.com/aws/jsii/commit/99da7a690a75bd6347fa5da15318c0f262b606a8)), closes [#2951](https://github.com/aws/jsii/issues/2951)
+
 ## [1.32.0](https://github.com/aws/jsii/compare/v1.30.0...v1.32.0) (2021-07-22)
 
 

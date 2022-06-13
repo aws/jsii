@@ -4,8 +4,8 @@ import * as path from 'path';
 
 import * as logging from '../lib/logging';
 import { JsiiModule } from './packaging';
-import { topologicalSort } from './toposort';
-import { resolveDependencyDirectory } from './util';
+import { topologicalSort, Toposorted } from './toposort';
+import { findDependencyDirectory, isBuiltinModule } from './util';
 
 /**
  * Find all modules that need to be packagerd
@@ -17,7 +17,7 @@ import { resolveDependencyDirectory } from './util';
 export async function findJsiiModules(
   directories: readonly string[],
   recurse: boolean,
-): Promise<JsiiModule[]> {
+): Promise<Toposorted<JsiiModule>> {
   const ret: JsiiModule[] = [];
   const visited = new Set<string>();
 
@@ -58,14 +58,35 @@ export async function findJsiiModules(
       );
     }
 
-    const dependencyNames = Object.keys(pkg.dependencies ?? {});
+    const dependencyNames = [
+      ...Object.keys(pkg.dependencies ?? {}),
+      ...Object.keys(pkg.peerDependencies ?? {}),
+      ...Object.keys(pkg.devDependencies ?? {}),
+    ];
 
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
       await Promise.all(
-        dependencyNames
-          .map((dep) => resolveDependencyDirectory(realPath, dep))
-          .map((depDir) => visitPackage(depDir, false)),
+        dependencyNames.flatMap(async (dep) => {
+          if (isBuiltinModule(dep)) {
+            return [];
+          }
+
+          try {
+            const depDir = await findDependencyDirectory(dep, realPath);
+            return [await visitPackage(depDir, false)];
+          } catch (e: any) {
+            // Some modules like `@types/node` cannot be require()d, but we also don't need them.
+            if (
+              !['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(
+                e.code,
+              )
+            ) {
+              throw e;
+            }
+            return [];
+          }
+        }),
       );
     }
 

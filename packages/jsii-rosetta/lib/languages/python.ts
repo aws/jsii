@@ -1,12 +1,17 @@
 import * as ts from 'typescript';
 
+import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
 import {
-  isStructType,
   propertiesOfStruct,
   StructProperty,
   structPropertyAcceptsUndefined,
+  analyzeStructType,
+  JsiiSymbol,
+  simpleName,
+  namespaceName,
+  isJsiiProtocolType,
 } from '../jsii/jsii-utils';
-import { jsiiTargetParam } from '../jsii/packages';
+import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
 import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
@@ -19,7 +24,7 @@ import {
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { parameterAcceptsUndefined } from '../typescript/types';
-import { startsWithUppercase, flat } from '../util';
+import { startsWithUppercase, sortBy, groupBy, fmap } from '../util';
 import { DefaultVisitor } from './default';
 
 interface StructVar {
@@ -68,6 +73,13 @@ interface PythonLanguageContext {
   readonly inClass?: boolean;
 
   /**
+   * Whether the current property assignment is in the context of a map value.
+   * In this case, the keys should be strings (quoted where needed), and should
+   * not get mangled or case-converted.
+   */
+  readonly inMap?: boolean;
+
+  /**
    * If we're in a method, what is it's name
    *
    * (Used to render super() call.);
@@ -86,36 +98,52 @@ export interface PythonVisitorOptions {
   disclaimer?: string;
 }
 
+interface ImportedModule {
+  readonly importedFqn: string;
+  readonly importName: string;
+}
+
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '2';
+
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
+
+  /**
+   * Keep track of module imports we've seen, so that if we need to render a type we can pick from these modules
+   */
+  private readonly imports = new Array<ImportedModule>();
+
+  /**
+   * Synthetic imports that need to be added as a final step
+   */
+  private readonly syntheticImportsToAdd = new Array<string>();
+
+  protected statementTerminator = '';
 
   public constructor(private readonly options: PythonVisitorOptions = {}) {
     super();
   }
 
-  public mergeContext(
-    old: PythonLanguageContext,
-    update: Partial<PythonLanguageContext>,
-  ) {
+  public mergeContext(old: PythonLanguageContext, update: Partial<PythonLanguageContext>) {
     return Object.assign({}, old, update);
   }
 
-  public commentRange(
-    comment: CommentSyntax,
-    _context: PythonVisitorContext,
-  ): OTree {
-    const commentText = stripCommentMarkers(
-      comment.text,
-      comment.kind === ts.SyntaxKind.MultiLineCommentTrivia,
-    );
+  public commentRange(comment: CommentSyntax, _context: PythonVisitorContext): OTree {
+    const commentText = stripCommentMarkers(comment.text, comment.kind === ts.SyntaxKind.MultiLineCommentTrivia);
     const hashLines = commentText
       .split('\n')
       .map((l) => `# ${l}`)
       .join('\n');
     const needsAdditionalTrailer = comment.hasTrailingNewLine;
 
-    return new OTree([hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
+    return new OTree([comment.isTrailing ? ' ' : '', hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
       // Make sure comment is rendered exactly once in the output tree, no
       // matter how many source nodes it is attached to.
       renderOnce: `comment-${comment.pos}`,
@@ -123,52 +151,62 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public sourceFile(node: ts.SourceFile, context: PythonVisitorContext): OTree {
-    const rendered = super.sourceFile(node, context);
+    let rendered = super.sourceFile(node, context);
+
+    // Add synthetic imports
+    if (this.syntheticImportsToAdd.length > 0) {
+      rendered = new OTree([...this.renderSyntheticImports(), rendered]);
+    }
+
     if (this.options.disclaimer) {
-      return new OTree([`# ${this.options.disclaimer}\n`, rendered]);
+      rendered = new OTree([`# ${this.options.disclaimer}\n`, rendered]);
     }
     return rendered;
   }
 
-  public importStatement(
-    node: ImportStatement,
-    context: PythonVisitorContext,
-  ): OTree {
-    const moduleName = this.convertModuleReference(node.packageName);
+  public importStatement(node: ImportStatement, context: PythonVisitorContext): OTree {
     if (node.imports.import === 'full') {
-      return new OTree(
-        [`import ${moduleName} as ${mangleIdentifier(node.imports.alias)}`],
-        [],
-        {
-          canBreakLine: true,
-        },
-      );
+      const moduleName = fmap(node.moduleSymbol, findPythonName) ?? guessPythonPackageName(node.packageName);
+
+      this.addImport({
+        importedFqn: node.moduleSymbol?.fqn ?? node.packageName,
+        importName: node.imports.alias,
+      });
+
+      return new OTree([`import ${moduleName} as ${mangleIdentifier(node.imports.alias)}`], [], {
+        canBreakLine: true,
+      });
     }
     if (node.imports.import === 'selective') {
-      const imports = node.imports.elements.map((im) =>
-        im.alias
-          ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(
-              im.alias,
-            )}`
-          : mangleIdentifier(im.sourceName),
-      );
+      for (const im of node.imports.elements) {
+        if (im.importedSymbol) {
+          this.addImport({
+            importName: im.alias ? im.alias : im.sourceName,
+            importedFqn: im.importedSymbol.fqn,
+          });
+        }
+      }
 
-      return new OTree(
-        [`from ${moduleName} import ${imports.join(', ')}`],
-        [],
-        {
-          canBreakLine: true,
-        },
-      );
+      const imports = node.imports.elements.map((im) => {
+        const localName = im.alias ?? im.sourceName;
+        const originalName = fmap(fmap(im.importedSymbol, findPythonName), simpleName) ?? im.sourceName;
+
+        return localName === originalName
+          ? mangleIdentifier(originalName)
+          : `${mangleIdentifier(originalName)} as ${mangleIdentifier(localName)}`;
+      });
+
+      const moduleName = fmap(node.moduleSymbol, findPythonName) ?? guessPythonPackageName(node.packageName);
+
+      return new OTree([`from ${moduleName} import ${imports.join(', ')}`], [], {
+        canBreakLine: true,
+      });
     }
 
     return nimpl(node.node, context);
   }
 
-  public token<A extends ts.SyntaxKind>(
-    node: ts.Token<A>,
-    context: PythonVisitorContext,
-  ): OTree {
+  public token<A extends ts.SyntaxKind>(node: ts.Token<A>, context: PythonVisitorContext): OTree {
     const text = context.textOf(node);
     const mapped = TOKEN_REWRITES[text];
     if (mapped) {
@@ -189,9 +227,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     ) {
       return new OTree(
         [],
-        propertiesOfStruct(explodedParameter.type, context).map(
-          (prop) => new OTree([prop.name, '=', prop.name]),
-        ),
+        propertiesOfStruct(explodedParameter.type, context).map((prop) => new OTree([prop.name, '=', prop.name])),
         { separator: ', ' },
       );
     }
@@ -199,31 +235,19 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return new OTree([mangleIdentifier(originalIdentifier)]);
   }
 
-  public functionDeclaration(
-    node: ts.FunctionDeclaration,
-    context: PythonVisitorContext,
-  ): OTree {
+  public functionDeclaration(node: ts.FunctionDeclaration, context: PythonVisitorContext): OTree {
     return this.functionLike(node, context);
   }
 
-  public constructorDeclaration(
-    node: ts.ConstructorDeclaration,
-    context: PythonVisitorContext,
-  ): OTree {
+  public constructorDeclaration(node: ts.ConstructorDeclaration, context: PythonVisitorContext): OTree {
     return this.functionLike(node, context, { isConstructor: true });
   }
 
-  public methodDeclaration(
-    node: ts.MethodDeclaration,
-    context: PythonVisitorContext,
-  ): OTree {
+  public methodDeclaration(node: ts.MethodDeclaration, context: PythonVisitorContext): OTree {
     return this.functionLike(node, context);
   }
 
-  public expressionStatement(
-    node: ts.ExpressionStatement,
-    context: PythonVisitorContext,
-  ): OTree {
+  public expressionStatement(node: ts.ExpressionStatement, context: PythonVisitorContext): OTree {
     const text = context.textOf(node);
     if (text === 'true') {
       return new OTree(['True']);
@@ -241,34 +265,21 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     context: PythonVisitorContext,
     opts: { isConstructor?: boolean } = {},
   ): OTree {
-    const methodName = opts.isConstructor
-      ? '__init__'
-      : renderTree(context.convert(node.name));
+    const methodName = opts.isConstructor ? '__init__' : renderTree(context.convert(node.name));
 
-    const [paramDecls, explodedParameter] = this.convertFunctionCallParameters(
-      node.parameters,
-      context,
-    );
+    const [paramDecls, explodedParameter] = this.convertFunctionCallParameters(node.parameters, context);
 
     const ret = new OTree(
       [
         'def ',
         methodName,
         '(',
-        new OTree(
-          [],
-          [context.currentContext.inClass ? 'self' : undefined, ...paramDecls],
-          {
-            separator: ', ',
-          },
-        ),
+        new OTree([], [context.currentContext.inClass ? 'self' : undefined, ...paramDecls], {
+          separator: ', ',
+        }),
         '): ',
       ],
-      [
-        context
-          .updateContext({ explodedParameter, currentMethodName: methodName })
-          .convert(node.body),
-      ],
+      [context.updateContext({ explodedParameter, currentMethodName: methodName }).convert(node.body)],
       {
         canBreakLine: true,
       },
@@ -289,16 +300,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     });
   }
 
-  public regularCallExpression(
-    node: ts.CallExpression,
-    context: PythonVisitorContext,
-  ): OTree {
+  public regularCallExpression(node: ts.CallExpression, context: PythonVisitorContext): OTree {
     let expressionText: OTree | string = context.convert(node.expression);
 
-    if (
-      matchAst(node.expression, nodeOfType(ts.SyntaxKind.SuperKeyword)) &&
-      context.currentContext.currentMethodName
-    ) {
+    if (matchAst(node.expression, nodeOfType(ts.SyntaxKind.SuperKeyword)) && context.currentContext.currentMethodName) {
       expressionText = `super().${context.currentContext.currentMethodName}`;
     }
 
@@ -311,9 +316,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         this.convertFunctionCallArguments(
           node.arguments,
           context,
-          signature?.parameters?.map(
-            (p) => p.valueDeclaration as ts.ParameterDeclaration,
-          ),
+          signature?.parameters?.map((p) => p.valueDeclaration as ts.ParameterDeclaration),
         ),
         ')',
       ],
@@ -322,10 +325,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     );
   }
 
-  public propertyAccessExpression(
-    node: ts.PropertyAccessExpression,
-    context: PythonVisitorContext,
-  ) {
+  public propertyAccessExpression(node: ts.PropertyAccessExpression, context: PythonVisitorContext) {
     const fullText = context.textOf(node);
     if (fullText in BUILTIN_FUNCTIONS) {
       return new OTree([BUILTIN_FUNCTIONS[fullText]]);
@@ -335,26 +335,20 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
     // We might be in a context where we've exploded this struct into arguments,
     // in which case we will return just the accessed variable.
-    if (
-      explodedParameter &&
-      context.textOf(node.expression) === explodedParameter.variableName
-    ) {
+    if (explodedParameter && context.textOf(node.expression) === explodedParameter.variableName) {
       return context.convert(node.name);
     }
 
     return super.propertyAccessExpression(node, context);
   }
 
-  public parameterDeclaration(
-    node: ts.ParameterDeclaration,
-    context: PythonVisitorContext,
-  ): OTree {
+  public parameterDeclaration(node: ts.ParameterDeclaration, context: PythonVisitorContext): OTree {
     const type = node.type && context.typeOfType(node.type);
 
     if (
       context.currentContext.tailPositionParameter &&
       type &&
-      isStructType(type)
+      analyzeStructType(context.typeChecker, type) !== false
     ) {
       // Return the parameter that we exploded so that we can use this information
       // while translating the body.
@@ -366,16 +360,12 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       }
 
       // Explode to fields
-      return new OTree(
-        [],
-        ['*', ...propertiesOfStruct(type, context).map(renderStructProperty)],
-        { separator: ', ' },
-      );
+      return new OTree([], ['*', ...propertiesOfStruct(type, context).map(renderStructProperty)], { separator: ', ' });
     }
 
     const suffix = parameterAcceptsUndefined(node, type) ? '=None' : '';
 
-    return new OTree([context.convert(node.name), suffix]);
+    return new OTree([node.dotDotDotToken ? '*' : '', context.convert(node.name), suffix]);
 
     function renderStructProperty(prop: StructProperty): string {
       const sfx = structPropertyAcceptsUndefined(prop) ? '=None' : '';
@@ -383,15 +373,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     }
   }
 
-  public ifStatement(
-    node: ts.IfStatement,
-    context: PythonVisitorContext,
-  ): OTree {
-    const ifStmt = new OTree(
-      ['if ', context.convert(node.expression), ': '],
-      [context.convert(node.thenStatement)],
-      { canBreakLine: true },
-    );
+  public ifStatement(node: ts.IfStatement, context: PythonVisitorContext): OTree {
+    const ifStmt = new OTree(['if ', context.convert(node.expression), ': '], [context.convert(node.thenStatement)], {
+      canBreakLine: true,
+    });
     const elseStmt = node.elseStatement
       ? new OTree(['else: '], [context.convert(node.elseStatement)], {
           canBreakLine: true,
@@ -406,62 +391,45 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       : ifStmt;
   }
 
-  public unknownTypeObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    context: PythonVisitorContext,
-  ): OTree {
+  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
     // Neutralize local modifiers if any for transforming further down.
     const downContext = context.updateContext({
       tailPositionArgument: false,
       variadicArgument: false,
     });
 
-    if (
-      context.currentContext.tailPositionArgument &&
-      !context.currentContext.variadicArgument
-    ) {
+    if (context.currentContext.tailPositionArgument && !context.currentContext.variadicArgument) {
       // Guess that it's a struct we can probably inline the kwargs for
-      return this.renderObjectLiteralExpression(
-        '',
-        '',
-        true,
-        node,
-        downContext,
-      );
+      return this.renderObjectLiteralExpression('', '', true, node, downContext);
     }
-    return this.renderObjectLiteralExpression(
-      '{',
-      '}',
-      false,
-      node,
-      downContext,
-    );
+    return this.renderObjectLiteralExpression('{', '}', false, node, downContext);
   }
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    structType: ts.Type,
+    structType: ObjectLiteralStruct,
     context: PythonVisitorContext,
   ): OTree {
     if (context.currentContext.tailPositionArgument) {
       // We know it's a struct we can DEFINITELY inline the args for
       return this.renderObjectLiteralExpression('', '', true, node, context);
     }
-    return this.renderObjectLiteralExpression(
-      `${structType.symbol.name}(`,
-      ')',
-      true,
-      node,
-      context,
-    );
+
+    const structName =
+      structType.kind === 'struct' ? this.importedNameForType(structType.jsiiSym) : structType.type.symbol.name;
+
+    return this.renderObjectLiteralExpression(`${structName}(`, ')', true, node, context);
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    _valueType: ts.Type | undefined,
-    context: PythonVisitorContext,
-  ): OTree {
-    return this.renderObjectLiteralExpression('{', '}', false, node, context);
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
+    return this.renderObjectLiteralExpression('{', '}', false, node, context.updateContext({ inMap: true }));
+  }
+
+  public translateUnaryOperator(operator: ts.PrefixUnaryOperator) {
+    if (operator === ts.SyntaxKind.ExclamationToken) {
+      return 'not ';
+    }
+    return super.translateUnaryOperator(operator);
   }
 
   public renderObjectLiteralExpression(
@@ -471,23 +439,14 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     node: ts.ObjectLiteralExpression,
     context: PythonVisitorContext,
   ): OTree {
-    return new OTree(
-      [prefix],
-      context
-        .updateContext({ renderObjectLiteralAsKeywords })
-        .convertAll(node.properties),
-      {
-        suffix: context.mirrorNewlineBefore(node.properties[0], suffix),
-        separator: ', ',
-        indent: 4,
-      },
-    );
+    return new OTree([prefix], context.updateContext({ renderObjectLiteralAsKeywords }).convertAll(node.properties), {
+      suffix: context.mirrorNewlineBefore(node.properties[0], suffix),
+      separator: ', ',
+      indent: 4,
+    });
   }
 
-  public arrayLiteralExpression(
-    node: ts.ArrayLiteralExpression,
-    context: PythonVisitorContext,
-  ): OTree {
+  public arrayLiteralExpression(node: ts.ArrayLiteralExpression, context: PythonVisitorContext): OTree {
     return new OTree(['['], context.convertAll(node.elements), {
       suffix: context.mirrorNewlineBefore(node.elements[0], ']'),
       separator: ', ',
@@ -495,50 +454,36 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     });
   }
 
-  public propertyAssignment(
-    node: ts.PropertyAssignment,
-    context: PythonVisitorContext,
-  ): OTree {
-    const mid = context.currentContext.renderObjectLiteralAsKeywords
-      ? '='
-      : ': ';
+  public propertyAssignment(node: ts.PropertyAssignment, context: PythonVisitorContext): OTree {
+    const mid = context.currentContext.renderObjectLiteralAsKeywords ? '=' : ': ';
 
     // node.name is either an identifier or a string literal. The string literal
-    // needs to be converted differently.
-    let name = context.convert(node.name);
-    matchAst(
-      node.name,
-      nodeOfType('stringLiteral', ts.SyntaxKind.StringLiteral),
-      (captured) => {
-        name = new OTree([mangleIdentifier(captured.stringLiteral.text)]);
-      },
-    );
+    // needs to be converted differently depending on whether it needs to be a
+    // string or a keyword argument.
+    let name = ts.isStringLiteral(node.name)
+      ? new OTree([
+          context.currentContext.inMap // If in map, don't mangle the keys
+            ? node.name.text
+            : mangleIdentifier(node.name.text),
+        ])
+      : context.convert(node.name);
 
     // If this isn't a computed property, we must quote the key (unless it's rendered as a keyword)
     if (
-      !context.currentContext.renderObjectLiteralAsKeywords &&
-      !ts.isComputedPropertyName(node.name)
+      context.currentContext.inMap ||
+      (!context.currentContext.renderObjectLiteralAsKeywords && !ts.isComputedPropertyName(node.name))
     ) {
       name = new OTree(['"', name, '"']);
     }
 
     return new OTree(
-      [
-        name,
-        mid,
-        context
-          .updateContext({ tailPositionArgument: false })
-          .convert(node.initializer),
-      ],
+      [name, mid, context.updateContext({ inMap: false, tailPositionArgument: false }).convert(node.initializer)],
       [],
       { canBreakLine: true },
     );
   }
 
-  public shorthandPropertyAssignment(
-    node: ts.ShorthandPropertyAssignment,
-    context: PythonVisitorContext,
-  ): OTree {
+  public shorthandPropertyAssignment(node: ts.ShorthandPropertyAssignment, context: PythonVisitorContext): OTree {
     let before = '"';
     let mid = '": ';
 
@@ -547,57 +492,48 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       mid = '=';
     }
 
+    return new OTree([before, context.convert(node.name), mid, context.convert(node.name)], [], { canBreakLine: true });
+  }
+
+  public newExpression(node: ts.NewExpression, context: PythonVisitorContext): OTree {
     return new OTree(
-      [before, context.convert(node.name), mid, context.convert(node.name)],
+      [context.convert(node.expression), '(', this.convertFunctionCallArguments(node.arguments, context), ')'],
       [],
       { canBreakLine: true },
     );
   }
 
-  public newExpression(
-    node: ts.NewExpression,
-    context: PythonVisitorContext,
-  ): OTree {
-    return new OTree(
-      [
-        context.convert(node.expression),
-        '(',
-        this.convertFunctionCallArguments(node.arguments, context),
-        ')',
-      ],
-      [],
-      { canBreakLine: true },
-    );
-  }
+  public variableDeclaration(node: ts.VariableDeclaration, context: PythonVisitorContext): OTree {
+    let fallback = 'object';
+    if (node.type) {
+      fallback = node.type.getText();
+    }
 
-  public variableDeclaration(
-    node: ts.VariableDeclaration,
-    context: PythonVisitorContext,
-  ): OTree {
-    return new OTree(
-      [context.convert(node.name), ' = ', context.convert(node.initializer)],
-      [],
-      { canBreakLine: true },
-    );
+    if (!node.initializer) {
+      const type =
+        (node.type && context.typeOfType(node.type)) ||
+        (node.initializer && context.typeOfExpression(node.initializer));
+
+      const renderedType = type ? this.renderType(node, type, context, fallback) : fallback;
+      return new OTree(['# ', context.convert(node.name), ': ', renderedType], []);
+    }
+
+    return new OTree([context.convert(node.name), ' = ', context.convert(node.initializer)], [], {
+      canBreakLine: true,
+    });
   }
 
   public thisKeyword() {
     return new OTree(['self']);
   }
 
-  public forOfStatement(
-    node: ts.ForOfStatement,
-    context: PythonVisitorContext,
-  ): OTree {
+  public forOfStatement(node: ts.ForOfStatement, context: PythonVisitorContext): OTree {
     // This is what a "for (const x of ...)" looks like in the AST
     let variableName = '???';
 
     matchAst(
       node.initializer,
-      nodeOfType(
-        ts.SyntaxKind.VariableDeclarationList,
-        nodeOfType('var', ts.SyntaxKind.VariableDeclaration),
-      ),
+      nodeOfType(ts.SyntaxKind.VariableDeclarationList, nodeOfType('var', ts.SyntaxKind.VariableDeclaration)),
       (bindings) => {
         variableName = mangleIdentifier(context.textOf(bindings.var.name));
       },
@@ -610,28 +546,32 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     );
   }
 
-  public classDeclaration(
-    node: ts.ClassDeclaration,
-    context: PythonVisitorContext,
-  ): OTree {
-    const heritage = flat(
-      Array.from(node.heritageClauses ?? []).map((h) => Array.from(h.types)),
-    ).map((t) => context.convert(t.expression));
-    const hasHeritage = heritage.length > 0;
+  public classDeclaration(node: ts.ClassDeclaration, context: PythonVisitorContext): OTree {
+    const allHeritageClauses = Array.from(node.heritageClauses ?? []).flatMap((h) => Array.from(h.types));
 
-    const members = context
-      .updateContext({ inClass: true })
-      .convertAll(node.members);
+    // List of booleans matching `allHeritage` array
+    const isJsii = allHeritageClauses.map(
+      (e) =>
+        fmap(context.typeOfExpression(e.expression), (type) => isJsiiProtocolType(context.typeChecker, type)) ?? false,
+    );
+
+    const jsiiImplements = allHeritageClauses.filter((_, i) => isJsii[i]);
+
+    const inlineHeritage = allHeritageClauses.filter((_, i) => !isJsii[i]);
+    const hasHeritage = inlineHeritage.length > 0;
+
+    const members = context.updateContext({ inClass: true }).convertAll(node.members);
     if (members.length === 0) {
       members.push(new OTree(['\npass'], []));
     }
 
     const ret = new OTree(
       [
+        ...jsiiImplements.flatMap((i) => ['@jsii.implements(', context.convert(i.expression), ')\n']),
         'class ',
         node.name ? context.textOf(node.name) : '???',
         hasHeritage ? '(' : '',
-        ...heritage,
+        ...inlineHeritage.map((t) => context.convert(t.expression)),
         hasHeritage ? ')' : '',
         ': ',
       ],
@@ -645,22 +585,11 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return ret;
   }
 
-  public printStatement(
-    args: ts.NodeArray<ts.Expression>,
-    context: PythonVisitorContext,
-  ) {
-    return new OTree([
-      'print',
-      '(',
-      new OTree([], context.convertAll(args), { separator: ', ' }),
-      ')',
-    ]);
+  public printStatement(args: ts.NodeArray<ts.Expression>, context: PythonVisitorContext) {
+    return new OTree(['print', '(', new OTree([], context.convertAll(args), { separator: ', ' }), ')']);
   }
 
-  public propertyDeclaration(
-    _node: ts.PropertyDeclaration,
-    _context: PythonVisitorContext,
-  ): OTree {
+  public propertyDeclaration(_node: ts.PropertyDeclaration, _context: PythonVisitorContext): OTree {
     return new OTree([]);
   }
 
@@ -670,34 +599,22 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
    * Best-effort, we remember the fields of struct interfaces and keep track of
    * them. Fortunately we can determine from the name whether what to do.
    */
-  public interfaceDeclaration(
-    _node: ts.InterfaceDeclaration,
-    _context: PythonVisitorContext,
-  ): OTree {
+  public interfaceDeclaration(_node: ts.InterfaceDeclaration, _context: PythonVisitorContext): OTree {
     // Whatever we do, nothing here will have a representation
     return NO_SYNTAX;
   }
 
-  public propertySignature(
-    _node: ts.PropertySignature,
-    _context: PythonVisitorContext,
-  ): OTree {
+  public propertySignature(_node: ts.PropertySignature, _context: PythonVisitorContext): OTree {
     // Does not represent in Python
     return NO_SYNTAX;
   }
 
-  public methodSignature(
-    _node: ts.MethodSignature,
-    _context: PythonVisitorContext,
-  ): OTree {
+  public methodSignature(_node: ts.MethodSignature, _context: PythonVisitorContext): OTree {
     // Does not represent in Python
     return NO_SYNTAX;
   }
 
-  public asExpression(
-    node: ts.AsExpression,
-    context: PythonVisitorContext,
-  ): OTree {
+  public asExpression(node: ts.AsExpression, context: PythonVisitorContext): OTree {
     return context.convert(node.expression);
   }
 
@@ -705,11 +622,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
     _context: PythonVisitorContext,
   ): OTree {
-    const rawText = node.text;
-    if (rawText.includes('\n')) {
+    if (node.getText(node.getSourceFile()).includes('\n')) {
       return new OTree([
         '"""',
-        rawText
+        node.text
           // Escape all occurrences of back-slash once more
           .replace(/\\/g, '\\\\')
           // Escape only the first one in triple-quotes
@@ -717,13 +633,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         '"""',
       ]);
     }
-    return new OTree([JSON.stringify(rawText)]);
+    return new OTree([JSON.stringify(node.text)]);
   }
 
-  public templateExpression(
-    node: ts.TemplateExpression,
-    context: PythonVisitorContext,
-  ): OTree {
+  public templateExpression(node: ts.TemplateExpression, context: PythonVisitorContext): OTree {
     const parts = new Array<string>();
     if (node.head.rawText) {
       parts.push(quoteStringLiteral(node.head.rawText));
@@ -740,10 +653,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return new OTree([`f${quote}`, ...parts, quote]);
   }
 
-  public maskingVoidExpression(
-    node: ts.VoidExpression,
-    _context: PythonVisitorContext,
-  ): OTree {
+  public maskingVoidExpression(node: ts.VoidExpression, _context: PythonVisitorContext): OTree {
     const arg = voidExpressionString(node);
     if (arg === 'block') {
       return new OTree(['# ...'], [], { canBreakLine: true });
@@ -752,18 +662,6 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       return new OTree(['...']);
     }
     return NO_SYNTAX;
-  }
-
-  protected convertModuleReference(ref: string) {
-    // Get the Python target name from the referenced package (if available)
-    const resolvedPackage = jsiiTargetParam(ref, 'python.module');
-
-    // Return that or some default-derived module name representation
-
-    return (
-      resolvedPackage ||
-      ref.replace(/^@/, '').replace(/\//g, '.').replace(/-/g, '_')
-    );
   }
 
   /**
@@ -819,10 +717,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     }
 
     const converted = context.convertWithModifier(args, (ctx, _arg, index) => {
-      const decl =
-        parameterDeclarations?.[
-          Math.min(index, parameterDeclarations.length - 1)
-        ];
+      const decl = parameterDeclarations?.[Math.min(index, parameterDeclarations.length - 1)];
       const variadicArgument = decl?.dotDotDotToken != null;
       const tailPositionArgument = index >= args.length - 1;
 
@@ -830,6 +725,80 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     });
 
     return new OTree([], converted, { separator: ', ', indent: 4 });
+  }
+
+  /**
+   * Render a type.
+   *
+   * Not usually a thing in Python, but useful for declared variables.
+   */
+  private renderType(owningNode: ts.Node, type: ts.Type, renderer: PythonVisitorContext, fallback: string): string {
+    return doRender(determineJsiiType(renderer.typeChecker, type));
+
+    // eslint-disable-next-line consistent-return
+    function doRender(jsiiType: JsiiType): string {
+      switch (jsiiType.kind) {
+        case 'unknown':
+          return fallback;
+        case 'error':
+          renderer.report(owningNode, jsiiType.message);
+          return fallback;
+        case 'map':
+          return `Dict[str, ${doRender(jsiiType.elementType)}]`;
+        case 'list':
+          return `List[${doRender(jsiiType.elementType)}]`;
+        case 'namedType':
+          // in this case, the fallback will hold more information than jsiiType.name
+          return fallback;
+        case 'builtIn':
+          switch (jsiiType.builtIn) {
+            case 'boolean':
+              return 'bool';
+            case 'number':
+              return 'number';
+            case 'string':
+              return 'str';
+            case 'any':
+              return 'Any';
+            default:
+              return jsiiType.builtIn;
+          }
+      }
+    }
+  }
+
+  private addImport(x: ImportedModule) {
+    this.imports.push(x);
+    // Sort in reverse order of FQN length
+    sortBy(this.imports, (i) => [-i.importedFqn.length]);
+  }
+
+  /**
+   * Find the import for the FQNs submodule, and return it and the rest of the name
+   */
+  private importedNameForType(jsiiSym: JsiiSymbol) {
+    // Look for an existing import that contains this symbol
+    for (const imp of this.imports) {
+      if (jsiiSym.fqn.startsWith(`${imp.importedFqn}.`)) {
+        const remainder = jsiiSym.fqn.substring(imp.importedFqn.length + 1);
+        return `${imp.importName}.${remainder}`;
+      }
+    }
+
+    // Otherwise look up the Python name of this symbol (but not for fake imports from tests)
+    const pythonName = findPythonName(jsiiSym);
+    if (!jsiiSym.fqn.startsWith('fake_jsii.') && pythonName) {
+      this.syntheticImportsToAdd.push(pythonName);
+    }
+    return simpleName(jsiiSym.fqn);
+  }
+
+  private renderSyntheticImports(): string[] {
+    const grouped = groupBy(this.syntheticImportsToAdd, namespaceName);
+    return Object.entries(grouped).map(([namespaceFqn, fqns]) => {
+      const simpleNames = fqns.map(simpleName);
+      return `from ${namespaceFqn} import ${simpleNames.join(', ')}\n`;
+    });
   }
 }
 
@@ -839,10 +808,7 @@ function mangleIdentifier(originalIdentifier: string) {
     return originalIdentifier;
   }
   // Turn into snake-case
-  const cased = originalIdentifier.replace(
-    /[^A-Z][A-Z]/g,
-    (m) => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`,
-  );
+  const cased = originalIdentifier.replace(/[^A-Z][A-Z]/g, (m) => `${m[0].slice(0, 1)}_${m.slice(1).toLowerCase()}`);
   return IDENTIFIER_KEYWORDS.includes(cased) ? `${cased}_` : cased;
 }
 
@@ -862,4 +828,38 @@ const IDENTIFIER_KEYWORDS: string[] = ['lambda'];
 
 function last<A>(xs: readonly A[]): A {
   return xs[xs.length - 1];
+}
+
+/**
+ * Find the Python name of a module or type
+ */
+function findPythonName(jsiiSymbol: JsiiSymbol): string | undefined {
+  if (!jsiiSymbol.sourceAssembly?.assembly) {
+    // Don't have accurate info, just guess
+    return jsiiSymbol.symbolType !== 'module' ? simpleName(jsiiSymbol.fqn) : guessPythonPackageName(jsiiSymbol.fqn);
+  }
+
+  const asm = jsiiSymbol.sourceAssembly?.assembly;
+  return recurse(jsiiSymbol.fqn);
+
+  function recurse(fqn: string): string {
+    if (fqn === asm.name) {
+      return jsiiTargetParameter(asm, 'python.module') ?? guessPythonPackageName(fqn);
+    }
+    if (asm.submodules?.[fqn]) {
+      const modName = jsiiTargetParameter(asm.submodules[fqn], 'python.module');
+      if (modName) {
+        return modName;
+      }
+    }
+
+    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+  }
+}
+
+/**
+ * Pythonify an assembly name and hope it is correct
+ */
+function guessPythonPackageName(ref: string) {
+  return ref.replace(/^@/, '').replace(/\//g, '.').replace(/-/g, '_');
 }

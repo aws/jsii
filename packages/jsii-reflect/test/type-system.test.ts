@@ -3,7 +3,7 @@ import { Stability } from '@jsii/spec';
 import * as path from 'path';
 
 import { TypeSystem } from '../lib';
-import { typeSystemFromSource } from './util';
+import { typeSystemFromSource, assemblyFromSource } from './util';
 
 let typesys: TypeSystem;
 
@@ -203,8 +203,8 @@ test('Submodules can have a README', () => {
   );
 });
 
-test('overridden member knows about both parent types', async () => {
-  const ts = await typeSystemFromSource(`
+test('overridden member knows about both parent types', () => {
+  const ts = typeSystemFromSource(`
     export class Foo {
       public bar() {
         Array.isArray(3);
@@ -256,8 +256,8 @@ describe('Stability', () => {
   // ----------------------------------------------------------------------
 
   describe('lowest stability guarantee is advertised', () => {
-    test('when subclass is experimental', async () => {
-      const ts = await typeSystemFromSource(`
+    test('when subclass is experimental', () => {
+      const ts = typeSystemFromSource(`
         /**
          * @stable
          */
@@ -285,8 +285,8 @@ describe('Stability', () => {
       expect(method.docs.stability).toEqual(Stability.Experimental);
     });
 
-    test('when method is experimental', async () => {
-      const ts = await typeSystemFromSource(`
+    test('when method is experimental', () => {
+      const ts = typeSystemFromSource(`
         /**
          * @stable
          */
@@ -321,8 +321,8 @@ describe('Stability', () => {
       expect(method.docs.stability).toEqual(Stability.Experimental);
     });
 
-    test('when method is explicitly marked stable', async () => {
-      const ts = await typeSystemFromSource(`
+    test('when method is explicitly marked stable', () => {
+      const ts = typeSystemFromSource(`
         /**
          * @stable
          */
@@ -357,8 +357,8 @@ describe('Stability', () => {
       expect(method.docs.stability).toEqual(Stability.Experimental);
     });
 
-    test('external stability', async () => {
-      const ts = await typeSystemFromSource(`
+    test('external stability', () => {
+      const ts = typeSystemFromSource(`
         /**
          * @stability external
          */
@@ -383,8 +383,8 @@ describe('Stability', () => {
   });
 });
 
-test('TypeSystem.properties', async () => {
-  const ts = await typeSystemFromSource(`
+test('TypeSystem.properties', () => {
+  const ts = typeSystemFromSource(`
   export namespace submodule {
     export class Foo {
       public readonly test = 'TEST';
@@ -397,8 +397,8 @@ test('TypeSystem.properties', async () => {
   expect(ts.properties).toHaveLength(2);
 });
 
-test('TypeSystem.methods', async () => {
-  const ts = await typeSystemFromSource(`
+test('TypeSystem.methods', () => {
+  const ts = typeSystemFromSource(`
   export namespace submodule {
     export class Foo {
       public method(): void {}
@@ -409,6 +409,15 @@ test('TypeSystem.methods', async () => {
   }
   `);
   expect(ts.methods).toHaveLength(2);
+});
+
+test('Assembly allTypes includes submodule types', () => {
+  const asm = assemblyFromSource({
+    'index.ts': 'export * as submod from "./submod";',
+    'submod.ts': `export class Foo {}`,
+  });
+
+  expect(asm.allTypes.map((t) => t.fqn)).toEqual(['testpkg.submod.Foo']);
 });
 
 function resolveModuleDir(name: string) {

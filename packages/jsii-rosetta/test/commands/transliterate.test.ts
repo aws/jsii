@@ -1,18 +1,26 @@
-import { SPEC_FILE_NAME } from '@jsii/spec';
+import { Assembly, SPEC_FILE_NAME } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
-import * as os from 'os';
 import * as path from 'path';
 
+import { extractSnippets } from '../../lib/commands/extract';
 import { transliterateAssembly } from '../../lib/commands/transliterate';
-import { TargetLanguage } from '../../lib/languages/target-language';
+import { TargetLanguage, targetName } from '../../lib/languages/target-language';
+import { TabletSchema } from '../../lib/tablets/schema';
+import { withTemporaryDirectory, TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 jest.setTimeout(60_000);
+
+// A targets configuration block with ALL targets enabled (although with phony configuration).
+const targets = Object.values(TargetLanguage).reduce((tgt, lang) => {
+  tgt[targetName(lang)] = { phony: true };
+  return tgt;
+}, {} as Record<string, unknown>);
 
 test('single assembly, all languages', () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN
-    const compilationResult = await jsii.compileJsiiForTest({
+    const compilationResult = jsii.compileJsiiForTest({
       'README.md': `
 # README
 \`\`\`ts
@@ -90,7 +98,7 @@ export class ClassName implements IInterface {
     });
     fs.writeJsonSync(
       path.join(tmpDir, SPEC_FILE_NAME),
-      compilationResult.assembly,
+      { ...compilationResult.assembly, targets },
       {
         spaces: 2,
       },
@@ -113,12 +121,11 @@ export class ClassName implements IInterface {
     ).resolves.not.toThrow();
 
     // THEN
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -145,9 +152,6 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`csharp
-      // This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps { Foo = \\"bar\\" });
       object.Property = EnumType.OPTION_A;
       object.MethodCall();
@@ -160,21 +164,14 @@ export class ClassName implements IInterface {
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.ClassName": Object {
             "assembly": "testpkg",
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+                "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -213,10 +210,7 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName.StaticMethod();",
+                  "example": "ClassName.StaticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
@@ -265,6 +259,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassName",
           },
           "testpkg.ClassNameProps": Object {
             "assembly": "testpkg",
@@ -304,14 +299,12 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassNameProps",
           },
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+              "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -322,24 +315,19 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_A });",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_A });",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 },
                 "name": "OPTION_B",
               },
             ],
             "name": "EnumType",
+            "symbolId": "index:EnumType",
           },
           "testpkg.IInterface": Object {
             "assembly": "testpkg",
@@ -353,10 +341,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.MethodCall();",
+                  "example": "iface.MethodCall();",
                   "summary": "An instance method call.",
                 },
                 "locationInModule": Object {
@@ -371,10 +356,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.Property = EnumType.OPTION_B;",
+                  "example": "iface.Property = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
@@ -387,18 +369,18 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:IInterface",
           },
         },
         "version": "0.0.1",
       }
     `,
     );
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -425,14 +407,11 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`java
-      // This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
       IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps().foo(\\"bar\\"));
-      object.getProperty() = EnumType.getOPTION_A();
+      object.getProperty() = EnumType.OPTION_A;
       object.methodCall();
 
-      ClassName.staticMethod(EnumType.getOPTION_B());
+      ClassName.staticMethod(EnumType.OPTION_B);
       \`\`\`",
         },
         "repository": Object {
@@ -440,21 +419,14 @@ export class ClassName implements IInterface {
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.ClassName": Object {
             "assembly": "testpkg",
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+                "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -493,10 +465,7 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName.staticMethod();",
+                  "example": "ClassName.staticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
@@ -545,6 +514,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassName",
           },
           "testpkg.ClassNameProps": Object {
             "assembly": "testpkg",
@@ -584,14 +554,12 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassNameProps",
           },
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+              "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -602,24 +570,19 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_A()));",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_A));",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.getOPTION_B()));",
+                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 },
                 "name": "OPTION_B",
               },
             ],
             "name": "EnumType",
+            "symbolId": "index:EnumType",
           },
           "testpkg.IInterface": Object {
             "assembly": "testpkg",
@@ -633,10 +596,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.methodCall();",
+                  "example": "iface.methodCall();",
                   "summary": "An instance method call.",
                 },
                 "locationInModule": Object {
@@ -651,10 +611,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "// This example was automatically transliterated.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.getProperty() = EnumType.getOPTION_B();",
+                  "example": "iface.getProperty() = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
@@ -667,18 +624,18 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:IInterface",
           },
         },
         "version": "0.0.1",
       }
     `,
     );
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -705,9 +662,6 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`python
-      # This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
       object = ClassName(\\"this\\", 1337, foo=\\"bar\\")
       object.property = EnumType.OPTION_A
       object.method_call()
@@ -720,21 +674,14 @@ export class ClassName implements IInterface {
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.ClassName": Object {
             "assembly": "testpkg",
             "fqn": "testpkg.ClassName",
             "initializer": Object {
               "docs": Object {
-                "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+                "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
                 "summary": "Create a new instance of ClassName.",
               },
               "locationInModule": Object {
@@ -773,10 +720,7 @@ export class ClassName implements IInterface {
             "methods": Array [
               Object {
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName.static_method()",
+                  "example": "ClassName.static_method()",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
@@ -825,6 +769,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassName",
           },
           "testpkg.ClassNameProps": Object {
             "assembly": "testpkg",
@@ -864,14 +809,12 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:ClassNameProps",
           },
           "testpkg.EnumType": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+              "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
@@ -882,24 +825,19 @@ export class ClassName implements IInterface {
             "members": Array [
               Object {
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_A)",
+                  "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_A)",
                 },
                 "name": "OPTION_A",
               },
               Object {
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+                  "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
                 },
                 "name": "OPTION_B",
               },
             ],
             "name": "EnumType",
+            "symbolId": "index:EnumType",
           },
           "testpkg.IInterface": Object {
             "assembly": "testpkg",
@@ -913,10 +851,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.method_call()",
+                  "example": "iface.method_call()",
                   "summary": "An instance method call.",
                 },
                 "locationInModule": Object {
@@ -931,10 +866,7 @@ export class ClassName implements IInterface {
               Object {
                 "abstract": true,
                 "docs": Object {
-                  "example": "# This example was automatically transliterated.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
-      iface.property = EnumType.OPTION_B",
+                  "example": "iface.property = EnumType.OPTION_B",
                   "summary": "A property value.",
                 },
                 "locationInModule": Object {
@@ -947,6 +879,7 @@ export class ClassName implements IInterface {
                 },
               },
             ],
+            "symbolId": "index:IInterface",
           },
         },
         "version": "0.0.1",
@@ -958,7 +891,7 @@ export class ClassName implements IInterface {
 test('single assembly, loose mode', () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN
-    const compilationResult = await jsii.compileJsiiForTest({
+    const compilationResult = jsii.compileJsiiForTest({
       'README.md': `
 # Missing literate source
 
@@ -1003,7 +936,7 @@ new SampleClass('omitted-literate');
     });
     fs.writeJsonSync(
       path.join(tmpDir, SPEC_FILE_NAME),
-      compilationResult.assembly,
+      { ...compilationResult.assembly, targets },
       {
         spaces: 2,
       },
@@ -1023,12 +956,11 @@ new SampleClass('omitted-literate');
     ).resolves.not.toThrow();
 
     // THEN
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -1057,9 +989,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the literate file!
 
       \`\`\`csharp
-      // This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+      // Example automatically generated from non-compiling source. May contain errors.
       new SampleClass(\\"literate\\");
       \`\`\`
 
@@ -1068,18 +998,14 @@ new SampleClass('omitted-literate');
       ## This is a heading within the omitted literate file!
 
       \`\`\`csharp
-      // This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+      // Example automatically generated from non-compiling source. May contain errors.
       new SampleClass(\\"omitted-literate\\");
       \`\`\`
 
       # Missing fixture
 
       \`\`\`csharp
-      // This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+      // Example automatically generated from non-compiling source. May contain errors.
       new SampleClass(\\"README.md\\");
       \`\`\`",
         },
@@ -1088,18 +1014,12 @@ new SampleClass('omitted-literate');
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+              "example": "// Example automatically generated from non-compiling source. May contain errors.
       new DoesNotCompile(this, \\"That\\", new Struct { Foo = 1337 });",
             },
             "fqn": "testpkg.SampleClass",
@@ -1123,6 +1043,7 @@ new SampleClass('omitted-literate');
               "line": 7,
             },
             "name": "SampleClass",
+            "symbolId": "index:SampleClass",
           },
         },
         "version": "0.0.1",
@@ -1130,12 +1051,11 @@ new SampleClass('omitted-literate');
     `,
     );
 
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -1164,9 +1084,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the literate file!
 
       \`\`\`java
-      // This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+      // Example automatically generated from non-compiling source. May contain errors.
       new SampleClass(\\"literate\\");
       \`\`\`
 
@@ -1175,18 +1093,14 @@ new SampleClass('omitted-literate');
       ## This is a heading within the omitted literate file!
 
       \`\`\`java
-      // This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+      // Example automatically generated from non-compiling source. May contain errors.
       new SampleClass(\\"omitted-literate\\");
       \`\`\`
 
       # Missing fixture
 
       \`\`\`java
-      // This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+      // Example automatically generated from non-compiling source. May contain errors.
       new SampleClass(\\"README.md\\");
       \`\`\`",
         },
@@ -1195,18 +1109,12 @@ new SampleClass('omitted-literate');
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "// This example was automatically transliterated with incomplete type information. It may not work as-is.
-      // See https://github.com/aws/jsii/issues/826 for more information.
-
+              "example": "// Example automatically generated from non-compiling source. May contain errors.
       DoesNotCompile.Builder.create(this, \\"That\\").foo(1337).build();",
             },
             "fqn": "testpkg.SampleClass",
@@ -1230,6 +1138,7 @@ new SampleClass('omitted-literate');
               "line": 7,
             },
             "name": "SampleClass",
+            "symbolId": "index:SampleClass",
           },
         },
         "version": "0.0.1",
@@ -1237,12 +1146,11 @@ new SampleClass('omitted-literate');
     `,
     );
 
-    expect(
-      fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`)),
-    ).toMatchInlineSnapshot(
+    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
+        targets: expect.any(Object),
       },
       `
       Object {
@@ -1271,9 +1179,7 @@ new SampleClass('omitted-literate');
       ## This is a heading within the literate file!
 
       \`\`\`python
-      # This example was automatically transliterated with incomplete type information. It may not work as-is.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
+      # Example automatically generated from non-compiling source. May contain errors.
       SampleClass(\\"literate\\")
       \`\`\`
 
@@ -1282,18 +1188,14 @@ new SampleClass('omitted-literate');
       ## This is a heading within the omitted literate file!
 
       \`\`\`python
-      # This example was automatically transliterated with incomplete type information. It may not work as-is.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
+      # Example automatically generated from non-compiling source. May contain errors.
       SampleClass(\\"omitted-literate\\")
       \`\`\`
 
       # Missing fixture
 
       \`\`\`python
-      # This example was automatically transliterated with incomplete type information. It may not work as-is.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
+      # Example automatically generated from non-compiling source. May contain errors.
       SampleClass(\\"README.md\\")
       \`\`\`",
         },
@@ -1302,18 +1204,12 @@ new SampleClass('omitted-literate');
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
-        "targets": Object {
-          "js": Object {
-            "npm": "testpkg",
-          },
-        },
+        "targets": Any<Object>,
         "types": Object {
           "testpkg.SampleClass": Object {
             "assembly": "testpkg",
             "docs": Object {
-              "example": "# This example was automatically transliterated with incomplete type information. It may not work as-is.
-      # See https://github.com/aws/jsii/issues/826 for more information.
-
+              "example": "# Example automatically generated from non-compiling source. May contain errors.
       DoesNotCompile(self, \\"That\\", foo=1337)",
             },
             "fqn": "testpkg.SampleClass",
@@ -1337,6 +1233,7 @@ new SampleClass('omitted-literate');
               "line": 7,
             },
             "name": "SampleClass",
+            "symbolId": "index:SampleClass",
           },
         },
         "version": "0.0.1",
@@ -1345,11 +1242,384 @@ new SampleClass('omitted-literate');
     );
   }));
 
-async function withTemporaryDirectory<T>(
-  callback: (dir: string) => Promise<T>,
-): Promise<T> {
-  const tmpdir = fs.mkdtempSync(
-    path.join(os.tmpdir(), path.basename(__filename)),
-  );
-  return callback(tmpdir).finally(() => fs.removeSync(tmpdir));
+test('single assembly with example metadata', () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = jsii.compileJsiiForTest({
+      'index.ts': `
+/**
+ * @exampleMetadata fixture=custom
+ * @example
+ * const object: IInterface = new ClassName('this', 1337, { foo: 'bar' });
+ * object.property = EnumType.OPTION_A;
+ * object.methodCall();
+ */
+export enum EnumType {
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_A });
+   */
+  OPTION_A = 1,
+
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  OPTION_B = 2,
 }
+
+export interface IInterface {
+  /**
+   * A property value.
+   *
+   * @exampleMetadata nofixture
+   * @example
+   * import { EnumType, IInterface, ClassName } from '.';
+   * declare const iface: IInterface;
+   * iface.property = EnumType.OPTION_A;
+   */
+  property: EnumType;
+
+  /**
+   * An instance method call.
+   *
+   * @example
+   *    iface.methodCall();
+   */
+  methodCall(): void;
+}
+
+export interface ClassNameProps {
+  readonly property?: EnumType;
+  readonly foo?: string;
+}
+
+export class ClassName implements IInterface {
+  /**
+   * A static method. It can be invoked easily.
+   *
+   * @example ClassName.staticMethod();
+   */
+  public static staticMethod(_enm?: EnumType): void {
+    // ...
+  }
+
+  public property: EnumType;
+
+  /**
+   * Create a new instance of ClassName.
+   *
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  public constructor(_this: string, _elite: number, props: ClassNameProps) {
+    this.property = props.property ?? EnumType.OPTION_A;
+  }
+
+  public methodCall(): void {
+    // ...
+  }
+}`,
+    });
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets },
+      {
+        spaces: 2,
+      },
+    );
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+    fs.mkdirSync(path.resolve(tmpDir, 'rosetta'));
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'default.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';\ndeclare const iface: IInterface;\n/// here`,
+      'utf-8',
+    );
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'custom.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';/// here`,
+      'utf-8',
+    );
+
+    // THEN
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        strict: true,
+      }),
+    ).resolves.not.toThrow();
+  }));
+
+test('will read translations from cache even if they are dirty', async () => {
+  const infusedAssembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+        /**
+         * ClassA
+         *
+         * @example x
+         */
+        export class ClassA {
+          public someMethod() {
+          }
+        }
+        `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    // Run an extract
+    await extractSnippets([infusedAssembly.moduleDirectory]);
+
+    // Mess up the extracted source file
+    const schema: TabletSchema = await fs.readJson(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'));
+    for (const snippet of Object.values(schema.snippets)) {
+      snippet.translations[TargetLanguage.PYTHON] = {
+        source: 'oops',
+        version: '999',
+      };
+    }
+    await fs.writeJson(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'), schema);
+
+    // Run a transliterate, should have used the translation from the cache even though the version is wrong
+    await transliterateAssembly([infusedAssembly.moduleDirectory], [TargetLanguage.PYTHON]);
+
+    const translated: Assembly = await fs.readJson(path.join(infusedAssembly.moduleDirectory, '.jsii.python'));
+    expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('oops');
+  } finally {
+    infusedAssembly.cleanup();
+  }
+});
+
+test('will output to specified directory', async () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = jsii.compileJsiiForTest({
+      'README.md': `
+# README
+\`\`\`ts
+const object: IInterface = new ClassName('this', 1337, { foo: 'bar' });
+object.property = EnumType.OPTION_A;
+object.methodCall();
+
+ClassName.staticMethod(EnumType.OPTION_B);
+\`\`\`
+`,
+      'index.ts': `
+/**
+ * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+ */
+export enum EnumType {
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_A });
+   */
+  OPTION_A = 1,
+
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  OPTION_B = 2,
+}
+
+export interface IInterface {
+  /**
+   * A property value.
+   *
+   * @example
+   *    iface.property = EnumType.OPTION_B;
+   */
+  property: EnumType;
+
+  /**
+   * An instance method call.
+   *
+   * @example
+   *    iface.methodCall();
+   */
+  methodCall(): void;
+}
+
+export interface ClassNameProps {
+  readonly property?: EnumType;
+  readonly foo?: string;
+}
+
+export class ClassName implements IInterface {
+  /**
+   * A static method. It can be invoked easily.
+   *
+   * @example ClassName.staticMethod();
+   */
+  public static staticMethod(_enm?: EnumType): void {
+    // ...
+  }
+
+  public property: EnumType;
+
+  /**
+   * Create a new instance of ClassName.
+   *
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  public constructor(_this: string, _elite: number, props: ClassNameProps) {
+    this.property = props.property ?? EnumType.OPTION_A;
+  }
+
+  public methodCall(): void {
+    // ...
+  }
+}`,
+    });
+
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets },
+      {
+        spaces: 2,
+      },
+    );
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+    fs.mkdirSync(path.resolve(tmpDir, 'rosetta'));
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'default.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';\ndeclare const iface: IInterface\n/// here`,
+      'utf-8',
+    );
+
+    // WHEN
+    // create outdir
+    const outdir = path.resolve(tmpDir, 'out');
+    fs.mkdirSync(outdir);
+
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        strict: true,
+        outdir,
+      }),
+    ).resolves.not.toThrow();
+
+    Object.values(TargetLanguage).forEach((lang) => {
+      expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);
+    });
+  }));
+
+test('will not attempt to produce output for an unsupported language', async () =>
+  withTemporaryDirectory(async (tmpDir) => {
+    // GIVEN
+    const compilationResult = jsii.compileJsiiForTest({
+      'README.md': `
+# README
+\`\`\`ts
+const object: IInterface = new ClassName('this', 1337, { foo: 'bar' });
+object.property = EnumType.OPTION_A;
+object.methodCall();
+
+ClassName.staticMethod(EnumType.OPTION_B);
+\`\`\`
+`,
+      'index.ts': `
+/**
+ * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+ */
+export enum EnumType {
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_A });
+   */
+  OPTION_A = 1,
+
+  /**
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  OPTION_B = 2,
+}
+
+export interface IInterface {
+  /**
+   * A property value.
+   *
+   * @example
+   *    iface.property = EnumType.OPTION_B;
+   */
+  property: EnumType;
+
+  /**
+   * An instance method call.
+   *
+   * @example
+   *    iface.methodCall();
+   */
+  methodCall(): void;
+}
+
+export interface ClassNameProps {
+  readonly property?: EnumType;
+  readonly foo?: string;
+}
+
+export class ClassName implements IInterface {
+  /**
+   * A static method. It can be invoked easily.
+   *
+   * @example ClassName.staticMethod();
+   */
+  public static staticMethod(_enm?: EnumType): void {
+    // ...
+  }
+
+  public property: EnumType;
+
+  /**
+   * Create a new instance of ClassName.
+   *
+   * @example new ClassName('this', 1337, { property: EnumType.OPTION_B });
+   */
+  public constructor(_this: string, _elite: number, props: ClassNameProps) {
+    this.property = props.property ?? EnumType.OPTION_A;
+  }
+
+  public methodCall(): void {
+    // ...
+  }
+}`,
+    });
+
+    fs.writeJsonSync(
+      path.join(tmpDir, SPEC_FILE_NAME),
+      { ...compilationResult.assembly, targets: { ...targets, [targetName(TargetLanguage.GO)]: undefined } },
+      {
+        spaces: 2,
+      },
+    );
+    for (const [file, content] of Object.entries(compilationResult.files)) {
+      fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
+    }
+    fs.mkdirSync(path.resolve(tmpDir, 'rosetta'));
+    fs.writeFileSync(
+      path.resolve(tmpDir, 'rosetta', 'default.ts-fixture'),
+      `import { EnumType, IInterface, ClassName } from '.';\ndeclare const iface: IInterface\n/// here`,
+      'utf-8',
+    );
+
+    // WHEN
+    // create outdir
+    const outdir = path.resolve(tmpDir, 'out');
+    fs.mkdirSync(outdir);
+
+    await expect(
+      transliterateAssembly([tmpDir], Object.values(TargetLanguage), {
+        strict: true,
+        outdir,
+      }),
+    ).resolves.not.toThrow();
+
+    Object.values(TargetLanguage).forEach((lang) => {
+      if (lang === TargetLanguage.GO) {
+        expect(fs.pathExistsSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`))).toBe(false);
+      } else {
+        expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);
+      }
+    });
+  }));

@@ -17,7 +17,7 @@
     "directory": "packages/oo-ascii-tree"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 14.5.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -31,12 +31,6 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@types/node": "^10.17.59",
-    "eslint": "^7.26.0",
-    "jest": "^26.6.3",
-    "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.3.0",
-    "typescript": "~3.9.9"
+    "jsii-build-tools": "^0.0.0"
   }
 }

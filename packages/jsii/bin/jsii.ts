@@ -1,6 +1,8 @@
+import '@jsii/check-node/run';
+
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as process from 'process';
+import * as util from 'util';
 import * as yargs from 'yargs';
 
 import { Compiler } from '../lib/compiler';
@@ -13,7 +15,7 @@ import { enabledWarnings } from '../lib/warnings';
 const warningTypes = Object.keys(enabledWarnings);
 
 (async () => {
-  const argv = yargs
+  const argv = await yargs
     .env('JSII')
     .command(
       ['$0 [PROJECT_ROOT]', 'compile [PROJECT_ROOT]'],
@@ -39,7 +41,8 @@ const warningTypes = Object.keys(enabledWarnings);
           .option('fix-peer-dependencies', {
             type: 'boolean',
             default: true,
-            desc: 'Automatically add missing entries in the peerDependencies section of package.json',
+            desc: 'This option no longer has any effect.',
+            hidden: true,
           })
           .options('fail-on-warnings', {
             alias: 'Werr',
@@ -54,9 +57,18 @@ const warningTypes = Object.keys(enabledWarnings);
             )})`,
           })
           .option('strip-deprecated', {
+            type: 'string',
+            desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain). If an optional file name is given, only FQNs present in the file will be stripped.',
+          })
+          .option('add-deprecation-warnings', {
             type: 'boolean',
             default: false,
-            desc: '[EXPERIMENTAL] Hides all @deprecated members from the API (implementations remain)',
+            desc: '[EXPERIMENTAL] Injects warning statements for all deprecated elements, to be printed at runtime',
+          })
+          .option('generate-tsconfig', {
+            type: 'string',
+            default: 'tsconfig.json',
+            desc: 'Name of the typescript configuration file to generate with compiler settings',
           }),
     )
     .option('verbose', {
@@ -77,9 +89,8 @@ const warningTypes = Object.keys(enabledWarnings);
     path.resolve(process.cwd(), argv.PROJECT_ROOT),
   );
 
-  const projectInfo = await loadProjectInfo(projectRoot, {
-    fixPeerDependencies: argv['fix-peer-dependencies'],
-  });
+  const { projectInfo, diagnostics: projectInfoDiagnostics } =
+    loadProjectInfo(projectRoot);
 
   // disable all silenced warnings
   for (const key of argv['silence-warnings']) {
@@ -100,35 +111,48 @@ const warningTypes = Object.keys(enabledWarnings);
     projectInfo,
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
-    stripDeprecated: argv['strip-deprecated'],
+    stripDeprecated: !!argv['strip-deprecated'],
+    stripDeprecatedAllowListFile: argv['strip-deprecated'],
+    addDeprecationWarnings: argv['add-deprecation-warnings'],
+    generateTypeScriptConfig: argv['generate-tsconfig'],
   });
 
-  const result = argv.watch ? compiler.watch() : compiler.emit();
-  return { projectRoot, emitResult: await result };
-})()
-  .then(({ projectRoot, emitResult }) => {
-    for (const diagnostic of emitResult.diagnostics) {
-      utils.logDiagnostic(diagnostic, projectRoot);
-    }
-    if (emitResult.emitSkipped) {
-      process.exit(1);
-    }
-  })
-  .catch((e) => {
-    console.error(`Error: ${e.stack}`);
-    process.exit(-1);
-  });
+  const emitResult = argv.watch ? await compiler.watch() : compiler.emit();
+
+  const allDiagnostics = [...projectInfoDiagnostics, ...emitResult.diagnostics];
+
+  for (const diagnostic of allDiagnostics) {
+    utils.logDiagnostic(diagnostic, projectRoot);
+  }
+  if (emitResult.emitSkipped) {
+    process.exitCode = 1;
+  }
+})().catch((e) => {
+  console.error(`Error: ${e.stack}`);
+  process.exitCode = -1;
+});
 
 function _configureLog4js(verbosity: number) {
+  const stderrColor = !!process.stderr.isTTY;
+  const stdoutColor = !!process.stdout.isTTY;
+
+  log4js.addLayout('passThroughNoColor', () => {
+    return (loggingEvent) => utils.stripAnsi(util.format(...loggingEvent.data));
+  });
+
   log4js.configure({
     appenders: {
       console: {
         type: 'stderr',
-        layout: { type: 'colored' },
+        layout: { type: stderrColor ? 'colored' : 'basic' },
       },
       [utils.DIAGNOSTICS]: {
         type: 'stdout',
-        layout: { type: 'messagePassThrough' },
+        layout: {
+          type: stdoutColor
+            ? 'messagePassThrough'
+            : ('passThroughNoColor' as any),
+        },
       },
     },
     categories: {

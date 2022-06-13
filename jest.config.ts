@@ -25,9 +25,8 @@ const config: Config.InitialOptions = {
   errorOnDeprecated: true,
   // When in Continuous Integration, use only 1 worker (assuming "frugal" runner type)
   maxWorkers: env.CI === 'true' ? 1 : defaults.maxWorkers,
-  setupFilesAfterEnv: ['jest-expect-message'],
   testEnvironment: 'node',
-  testMatch: ['**/?(*.)+(spec|test).ts'],
+  testMatch: ['**/?(*.)+(spec|test).js'],
   testRunner: 'jest-circus/runner',
   // Adjust maximum concurrency to specifically disallow running unbounded. Allow a minimum of 2 concurrent
   // tests, and a maximum of 4 (which is the libuv thread pool size - more will likely cause wait times to
@@ -35,9 +34,6 @@ const config: Config.InitialOptions = {
   maxConcurrency: Math.max(Math.min(cpus().length - 1, 4), 2),
   // When in Continuous Integration, allow double the default test timeout (assuming "frugal" runner type)
   testTimeout: env.CI === 'true' ? 10_000 : undefined,
-  transform: {
-    '\\.tsx?$': 'ts-jest',
-  },
 };
 
 /**
@@ -62,9 +58,15 @@ export function overriddenConfig(overrides: Config.InitialOptions) {
         ...Object.keys(original),
         ...Object.keys(override),
       ]);
+
+      // TypeScript appears to choke if we do the "as any" in the same
+      // expression as the key access, so we delcare surrogate varibales...
+      const originalAsAny = original as any;
+      const overrideAsAny = override as any;
+
       for (const key of Array.from(allKeys).sort()) {
-        const originalValue: unknown = (original as any)[key];
-        const overrideValue: unknown = (override as any)[key];
+        const originalValue: unknown = originalAsAny[key];
+        const overrideValue: unknown = overrideAsAny[key];
         if (originalValue == null) {
           result[key] = overrideValue;
         } else if (overrideValue == null) {

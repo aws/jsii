@@ -19,7 +19,8 @@
       "rosetta": {
         "strict": true
       }
-    }
+    },
+    "tscRootDir": "."
   },
   "name": "@scope/jsii-calc-base-of-base",
   "repository": {
@@ -70,7 +71,8 @@
           "name": "foo"
         }
       ],
-      "name": "IVeryBaseInterface"
+      "name": "IVeryBaseInterface",
+      "symbolId": "lib/index:IVeryBaseInterface"
     },
     "@scope/jsii-calc-base-of-base.StaticConsumer": {
       "assembly": "@scope/jsii-calc-base-of-base",
@@ -100,7 +102,8 @@
           "variadic": true
         }
       ],
-      "name": "StaticConsumer"
+      "name": "StaticConsumer",
+      "symbolId": "lib/index:StaticConsumer"
     },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
@@ -132,7 +135,8 @@
           }
         }
       ],
-      "name": "Very"
+      "name": "Very",
+      "symbolId": "lib/index:Very"
     },
     "@scope/jsii-calc-base-of-base.VeryBaseProps": {
       "assembly": "@scope/jsii-calc-base-of-base",
@@ -157,9 +161,10 @@
             "fqn": "@scope/jsii-calc-base-of-base.Very"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/index:VeryBaseProps"
     }
   },
   "version": "2.1.1",
-  "fingerprint": "rbtJN11MzD+pqofNrrkTb/GoS1wpG+lpZoOWh+HXysE="
+  "fingerprint": "BYVFW3VSnno85aN3BfEZ3Px9cEKhgfteosHUXjQW0rw="
 }

@@ -36,5 +36,5 @@ about the `new` keyword again.
 
 ## Rules
 
-In order to accomodate Java, we disallow any inherited members to conflict on
+In order to accommodate Java, we disallow any inherited members to conflict on
 staticness.

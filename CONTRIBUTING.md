@@ -39,24 +39,24 @@ The following tools need to be installed to develop on JSII locally. We recommen
 using the docker image from the above section, but if you wish to, you can install
 in your development environment.
 
-- [Node `8.11.0`] or later
+- [Node `12.7.0`] or later
 - [Yarn `1.19.1`] or later
 - An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
   + [`maven >= 3.0.5`](https://maven.apache.org)
-- [.NET Core `2.1`] or later
+- [.NET Core `3.1`] or later
   + *Recommended:* [`mono >= 5`](https://www.mono-project.com)
-- [Python `3.6.5`] or later
+- [Python `3.7.3`] or later
   + [`pip`](https://pip.pypa.io/en/stable/installing/)
   + [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
   + [`wheel`](https://pypi.org/project/wheel/)
   + *Recommended:* [`twine`](https://pypi.org/project/twine/)
 
-[Node `8.11.0`]: https://nodejs.org/download/release/v8.11.0/
+[Node `12.7.0`]: https://nodejs.org/download/release/v12.7.0/
 [Yarn `1.19.1`]: https://yarnpkg.com/en/docs/install
 [Oracle's OpenJDK8]: http://openjdk.java.net/install/
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
-[.NET Core `2.0`]: https://www.microsoft.com/net/download
-[Python `3.6.5`]: https://www.python.org/downloads/release/python-365/
+[.NET Core `3.1`]: https://www.microsoft.com/net/download
+[Python `3.7.3`]: https://www.python.org/downloads/release/python-373/
 
 ## Getting Started
 ### Bootstrapping

@@ -10,29 +10,18 @@ jobs:
   upgrade:
     name: Yarn Upgrade
     permissions:
-      content: read
+      contents: read
     runs-on: ubuntu-latest
     steps:
 
       - name: Check Out
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
 
       - name: Set up Node
-        uses: actions/setup-node@v2.3.0
+        uses: actions/setup-node@v3
         with:
-          node-version: 10
-
-      - name: Locate Yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v2.1.6
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |-
-            ${{ runner.os }}-yarn-
+          cache: yarn
+          node-version: 14
 
       - name: Install Tools
         run: |-
@@ -78,17 +67,16 @@ jobs:
           EOF
 
       - name: Run "ncu -u"
-        # We special-case @types/fs-extra because the current major (9.x) is broken with @types/node@10
         # We special-case typescript because it's not semantically versionned, and major.minor is the API contract
         run: |-
           # Upgrade devDependencies at repository root
-          ncu --upgrade --target=minor --filter=@types/node,@types/fs-extra
+          ncu --upgrade --target=minor --filter=@types/node,@jest/types,jest-config,jest-circus
           ncu --upgrade --target=patch --filter=typescript
-          ncu --upgrade --target=latest --reject=@types/node,@types/fs-extra,typescript
+          ncu --upgrade --target=latest --reject=@types/node,typescript,@jest/types,jest-config,jest-circus
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
           lerna exec --parallel ncu -- --upgrade --target=minor                                     \
-            --filter='@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'            \
+            --filter='${{ steps.production-dependencies.outputs.list }}'                            \
             --reject='typescript,${{ steps.monorepo-packages.outputs.list }}'
 
           # Upgrade all minor-pinned dependencies
@@ -97,7 +85,7 @@ jobs:
 
           # Upgrade all other dependencies (devDependencies) to the latest
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/fs-extra,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/node,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
@@ -113,7 +101,7 @@ jobs:
           git add .
           git diff --patch --staged > ${{ runner.temp }}/upgrade.patch
       - name: Upload Patch
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: upgrade.patch
           path: ${{ runner.temp }}/upgrade.patch
@@ -127,10 +115,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download patch
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: upgrade.patch
           path: ${{ runner.temp }}
@@ -139,9 +127,10 @@ jobs:
         run: '[ -s ${{ runner.temp }}/upgrade.patch ] && git apply ${{ runner.temp }}/upgrade.patch || echo "Empty patch. Skipping."'
 
       - name: Make Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           # Git commit details
+          author: 'AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>'
           branch: automation/yarn-upgrade
           commit-message: |-
             chore: npm-check-updates && yarn upgrade
@@ -151,8 +140,8 @@ jobs:
           title: 'chore: npm-check-updates && yarn upgrade'
           body: |-
             Ran npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.
-          labels: contribution/core,dependencies
+          labels: contribution/core,dependencies,auto-approve
           team-reviewers: aws-cdk-team
           # Privileged token so automated PR validation happens
-          token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
+          token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
 

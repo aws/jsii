@@ -80,7 +80,8 @@
       "rosetta": {
         "strict": true
       }
-    }
+    },
+    "tscRootDir": "lib"
   },
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -95,6 +96,10 @@
         "filename": "lib/index.ts",
         "line": 130
       },
+      "readme": {
+        "markdown": "# Submodule Readme\n\nThis is a submodule readme.\n"
+      },
+      "symbolId": "lib/submodule/index:",
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
@@ -189,7 +194,8 @@
           ]
         }
       ],
-      "name": "BaseFor2647"
+      "name": "BaseFor2647",
+      "symbolId": "lib/index:BaseFor2647"
     },
     "@scope/jsii-calc-lib.DiamondLeft": {
       "assembly": "@scope/jsii-calc-lib",
@@ -237,7 +243,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/duplicate-inherited-prop:DiamondLeft"
     },
     "@scope/jsii-calc-lib.DiamondRight": {
       "assembly": "@scope/jsii-calc-lib",
@@ -285,7 +292,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/duplicate-inherited-prop:DiamondRight"
     },
     "@scope/jsii-calc-lib.EnumFromScopedModule": {
       "assembly": "@scope/jsii-calc-lib",
@@ -314,7 +322,8 @@
           "name": "VALUE2"
         }
       ],
-      "name": "EnumFromScopedModule"
+      "name": "EnumFromScopedModule",
+      "symbolId": "lib/index:EnumFromScopedModule"
     },
     "@scope/jsii-calc-lib.IDoublable": {
       "assembly": "@scope/jsii-calc-lib",
@@ -345,7 +354,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/index:IDoublable"
     },
     "@scope/jsii-calc-lib.IFriendly": {
       "assembly": "@scope/jsii-calc-lib",
@@ -379,7 +389,8 @@
           }
         }
       ],
-      "name": "IFriendly"
+      "name": "IFriendly",
+      "symbolId": "lib/index:IFriendly"
     },
     "@scope/jsii-calc-lib.IThreeLevelsInterface": {
       "assembly": "@scope/jsii-calc-lib",
@@ -410,7 +421,8 @@
           "name": "baz"
         }
       ],
-      "name": "IThreeLevelsInterface"
+      "name": "IThreeLevelsInterface",
+      "symbolId": "lib/index:IThreeLevelsInterface"
     },
     "@scope/jsii-calc-lib.MyFirstStruct": {
       "assembly": "@scope/jsii-calc-lib",
@@ -480,7 +492,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/index:MyFirstStruct"
     },
     "@scope/jsii-calc-lib.Number": {
       "assembly": "@scope/jsii-calc-lib",
@@ -553,7 +566,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/index:Number"
     },
     "@scope/jsii-calc-lib.NumericValue": {
       "abstract": true,
@@ -606,7 +620,8 @@
             "primitive": "number"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/index:NumericValue"
     },
     "@scope/jsii-calc-lib.Operation": {
       "abstract": true,
@@ -643,7 +658,8 @@
           }
         }
       ],
-      "name": "Operation"
+      "name": "Operation",
+      "symbolId": "lib/index:Operation"
     },
     "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
       "assembly": "@scope/jsii-calc-lib",
@@ -709,7 +725,8 @@
             "primitive": "boolean"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/index:StructWithOnlyOptionals"
     },
     "@scope/jsii-calc-lib.submodule.IReflectable": {
       "assembly": "@scope/jsii-calc-lib",
@@ -745,7 +762,8 @@
             }
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/index:IReflectable"
     },
     "@scope/jsii-calc-lib.submodule.NestingClass": {
       "assembly": "@scope/jsii-calc-lib",
@@ -760,7 +778,8 @@
         "line": 22
       },
       "name": "NestingClass",
-      "namespace": "submodule"
+      "namespace": "submodule",
+      "symbolId": "lib/submodule/index:NestingClass"
     },
     "@scope/jsii-calc-lib.submodule.NestingClass.NestedClass": {
       "assembly": "@scope/jsii-calc-lib",
@@ -796,7 +815,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/index:NestingClass.NestedClass"
     },
     "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct": {
       "assembly": "@scope/jsii-calc-lib",
@@ -830,7 +850,8 @@
             "primitive": "string"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/index:NestingClass.NestedStruct"
     },
     "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
       "assembly": "@scope/jsii-calc-lib",
@@ -877,7 +898,8 @@
             "primitive": "any"
           }
         }
-      ]
+      ],
+      "symbolId": "lib/submodule/index:ReflectableEntry"
     },
     "@scope/jsii-calc-lib.submodule.Reflector": {
       "assembly": "@scope/jsii-calc-lib",
@@ -926,9 +948,10 @@
         }
       ],
       "name": "Reflector",
-      "namespace": "submodule"
+      "namespace": "submodule",
+      "symbolId": "lib/submodule/index:Reflector"
     }
   },
   "version": "0.0.0",
-  "fingerprint": "yaW4nEkJcW4ZyHTJGV9YSAtkrzeBBoXkDffMJBD8dGQ="
+  "fingerprint": "wtswDMhtuMcC4+ami5KddQIznqdpVjt8qc7Ba2QnnHk="
 }

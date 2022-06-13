@@ -3,6 +3,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 import { findJsiiModules } from '../lib/npm-modules';
+import { flatten } from '../lib/util';
 
 describe(findJsiiModules, () => {
   let workDir = tmpdir();
@@ -44,12 +45,50 @@ describe(findJsiiModules, () => {
         },
       },
     });
+    // devDependency
+    await mkdirp(join(workDir, 'packageC'));
+    await writeJson(join(workDir, 'packageC', 'package.json'), {
+      name: 'packageC',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
+        },
+      },
+      devDependencies: {
+        packageB: '*',
+      },
+    });
+    // peerDependency
+    await mkdirp(join(workDir, 'packageD'));
+    await writeJson(join(workDir, 'packageD', 'package.json'), {
+      name: 'packageD',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
+        },
+      },
+      devDependencies: {
+        packageA: '*',
+      },
+    });
 
     const mods = await findJsiiModules(
-      [join(workDir, 'packageA'), join(workDir, 'packageB')],
+      [
+        join(workDir, 'packageD'),
+        join(workDir, 'packageA'),
+        join(workDir, 'packageB'),
+        join(workDir, 'packageC'),
+      ],
       false,
     );
-    expect(mods.map((m) => m.name)).toEqual(['packageB', 'packageA']);
+    expect(flatten(mods).map((m) => m.name)).toEqual([
+      'packageB',
+      'packageA',
+      'packageC',
+      'packageD',
+    ]);
   });
 
   test('without deps loads packages in given order', async () => {
@@ -78,6 +117,6 @@ describe(findJsiiModules, () => {
       [join(workDir, 'packageA'), join(workDir, 'packageB')],
       false,
     );
-    expect(mods.map((m) => m.name)).toEqual(['packageA', 'packageB']);
+    expect(flatten(mods).map((m) => m.name)).toEqual(['packageA', 'packageB']);
   });
 });

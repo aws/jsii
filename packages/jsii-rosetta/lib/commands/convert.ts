@@ -24,22 +24,18 @@ export function translateMarkdown(
 ): TranslateResult {
   const translator = new Translator(false);
 
+  const location = { api: 'file', fileName: markdown.fileName } as const;
+
   const translatedMarkdown = transformMarkdown(
     markdown.contents,
     new MarkdownRenderer(),
-    new ReplaceTypeScriptTransform(
-      markdown.fileName,
-      opts.strict ?? false,
-      (tsSnippet) => {
-        const translated = translator
-          .translatorFor(tsSnippet)
-          .renderUsing(visitor);
-        return {
-          language: opts.languageIdentifier ?? '',
-          source: translated,
-        };
-      },
-    ),
+    new ReplaceTypeScriptTransform(location, opts.strict ?? false, (tsSnippet) => {
+      const translated = translator.translatorFor(tsSnippet).renderUsing(visitor);
+      return {
+        language: opts.languageIdentifier ?? '',
+        source: translated,
+      };
+    }),
   );
 
   return {

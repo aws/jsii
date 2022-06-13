@@ -58,6 +58,12 @@ The `jsii` type model distinguishes two kinds of *interfaces*:
 A name convention is used to distinguish between these two: *behavioral interfaces* must have a name that starts with a
 `I` prefix, while *structs* must not have such a prefix.
 
+!!! info
+    The [`/** @struct */` type system hint][hint] can be used to force an *interface* with a name starting with the `I`
+    prefix to be handled as a *struct* instead of a *behavioral interface*.
+
+    [hint]: hints.md#forcing-an-interface-to-be-considered-a-struct
+
 ```ts hl_lines="5-8"
 /**
  * Since there is no `I` prefix, Foo is considered to be a struct.
@@ -162,6 +168,7 @@ correctly represent such types in all those languages. As a consequence, `jsii` 
 types.
 
 Only certain *built-in* parameterized types can be used in `jsii` modules:
+
 - `Array<T>`, which is equivalent to `T[]`
 - `Record<string, T>`, which is equivalent to `{ [key: string]: T }`
 - `Promise<T>`, which is the return type of any *asynchronous* method

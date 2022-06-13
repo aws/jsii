@@ -54,7 +54,6 @@ export class JsiiModule {
    */
   public async npmPack() {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      logging.debug(`Running "npm pack ${this.moduleDirectory}" in ${tmpdir}`);
       // Quoting (JSON-stringifying) the module directory in order to avoid
       // problems if there are spaces or other special characters in the path.
       const args = ['pack', JSON.stringify(this.moduleDirectory)];
@@ -87,9 +86,9 @@ export class JsiiModule {
     return this._tarball.object;
   }
 
-  public async load(system: TypeSystem) {
+  public async load(system: TypeSystem, validate = true) {
     return system
-      .loadModule(this.moduleDirectory)
+      .loadModule(this.moduleDirectory, { validate })
       .then((assembly) => (this._assembly = assembly));
   }
 

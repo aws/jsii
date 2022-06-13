@@ -2,12 +2,13 @@ import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind } from '@jsii/spec';
 import { readJson, writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
-import { fixturize } from '../fixtures';
 import { TargetLanguage } from '../languages';
+import { targetName } from '../languages/target-language';
 import { debug } from '../logging';
-import { Rosetta } from '../rosetta';
-import { SnippetParameters, typeScriptSnippetFromSource } from '../snippet';
-import { Translation } from '../tablets/tablets';
+import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
+import { typeScriptSnippetFromVisibleSource, ApiLocation } from '../snippet';
+import { Mutable } from '../util';
+import { extractSnippets } from './extract';
 
 export interface TransliterateAssemblyOptions {
   /**
@@ -32,6 +33,20 @@ export interface TransliterateAssemblyOptions {
    * @default - Only the default tablet (`.jsii.tabl.json`) files will be used.
    */
   readonly tablet?: string;
+
+  /**
+   * A directory to output translated assemblies to
+   *
+   * @default - assembly location
+   */
+  readonly outdir?: string;
+
+  /**
+   * Whether or not to live-convert samples
+   *
+   * @default UnknownSnippetMode.FAIL
+   */
+  readonly unknownSnippets?: UnknownSnippetMode;
 }
 
 /**
@@ -51,15 +66,33 @@ export async function transliterateAssembly(
   targetLanguages: readonly TargetLanguage[],
   options: TransliterateAssemblyOptions = {},
 ): Promise<void> {
-  const rosetta = new Rosetta({
+  // Start by doing an 'extract' for all these assemblies
+  //
+  // This will locate all examples that haven't been translated yet and translate
+  // them. Importantly: it will translate them in parallel, which is going to improve
+  // performance a lot. We ignore diagnostics.
+  const { tablet } = await extractSnippets(assemblyLocations, {
     includeCompilerDiagnostics: true,
-    liveConversion: true,
     loose: options.loose,
-    targetLanguages,
+    cacheFromFile: options.tablet,
+    writeToImplicitTablets: false,
+    allowDirtyTranslations: true,
   });
+
+  // Now do a regular "tablet reader" cycle, expecting everything to be translated already,
+  // and therefore it doesn't matter that we do this all in a single-threaded loop.
+  const rosetta = new RosettaTabletReader({
+    unknownSnippets: options?.unknownSnippets ?? UnknownSnippetMode.FAIL,
+    targetLanguages,
+    prefixDisclaimer: true,
+  });
+  // Put in the same caching tablet here
   if (options.tablet) {
     await rosetta.loadTabletFromFile(options.tablet);
   }
+  // Any fresh translations we just came up with
+  rosetta.addTablet(tablet);
+
   const assemblies = await loadAssemblies(assemblyLocations, rosetta);
 
   for (const [location, loadAssembly] of assemblies.entries()) {
@@ -67,41 +100,33 @@ export async function transliterateAssembly(
       const now = new Date().getTime();
       // eslint-disable-next-line no-await-in-loop
       const result = await loadAssembly();
+
+      if (result.targets?.[targetName(language)] == null) {
+        // This language is not supported by the assembly, so we skip it...
+        continue;
+      }
+
       if (result.readme?.markdown) {
         result.readme.markdown = rosetta.translateSnippetsInMarkdown(
+          { api: 'moduleReadme', moduleFqn: result.name },
           result.readme.markdown,
           language,
           true /* strict */,
-          (translation) => ({
-            language: translation.language,
-            source: prefixDisclaimer(translation),
-          }),
-          location,
         );
       }
       for (const type of Object.values(result.types ?? {})) {
-        transliterateType(type, rosetta, language, location, options.loose);
+        transliterateType(type, rosetta, language);
       }
       // eslint-disable-next-line no-await-in-loop
-      await writeJson(
-        resolve(location, `${SPEC_FILE_NAME}.${language}`),
-        result,
-        { spaces: 2 },
-      );
+      await writeJson(resolve(options?.outdir ?? location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
       const then = new Date().getTime();
-      debug(
-        `Done transliterating ${result.name}@${
-          result.version
-        } to ${language} after ${then - now} milliseconds`,
-      );
+      debug(`Done transliterating ${result.name}@${result.version} to ${language} after ${then - now} milliseconds`);
     }
   }
 
   rosetta.printDiagnostics(process.stderr);
   if (rosetta.hasErrors && options.strict) {
-    throw new Error(
-      'Strict mode is enabled and some examples failed compilation!',
-    );
+    throw new Error('Strict mode is enabled and some examples failed compilation!');
   }
 }
 
@@ -119,7 +144,7 @@ export async function transliterateAssembly(
  */
 async function loadAssemblies(
   directories: readonly string[],
-  rosetta: Rosetta,
+  rosetta: RosettaTabletReader,
 ): Promise<ReadonlyMap<string, AssemblyLoader>> {
   const result = new Map<string, AssemblyLoader>();
 
@@ -133,67 +158,37 @@ async function loadAssemblies(
   return result;
 }
 
-type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
 type AssemblyLoader = () => Promise<Mutable<Assembly>>;
 
-function prefixDisclaimer(translation: Translation): string {
-  const comment = commentToken();
-  const disclaimer = translation.didCompile
-    ? 'This example was automatically transliterated.'
-    : 'This example was automatically transliterated with incomplete type information. It may not work as-is.';
-
-  return [
-    `${comment} ${disclaimer}`,
-    `${comment} See https://github.com/aws/jsii/issues/826 for more information.`,
-    '',
-    translation.source,
-  ].join('\n');
-
-  function commentToken() {
-    // This is future-proofed a bit, but don't read too much in this...
-    switch (translation.language) {
-      case 'python':
-      case 'ruby':
-        return '#';
-      case 'csharp':
-      case 'java':
-      case 'go':
-      default:
-        return '//';
-    }
-  }
-}
-
-function transliterateType(
-  type: Type,
-  rosetta: Rosetta,
-  language: TargetLanguage,
-  workingDirectory: string,
-  loose = false,
-): void {
-  transliterateDocs(type.docs);
+function transliterateType(type: Type, rosetta: RosettaTabletReader, language: TargetLanguage): void {
+  transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs);
   switch (type.kind) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore 7029
     case TypeKind.Class:
-      transliterateDocs(type?.initializer?.docs);
+      if (type.initializer) {
+        transliterateDocs({ api: 'initializer', fqn: type.fqn }, type.initializer.docs);
+      }
 
     // fallthrough
     case TypeKind.Interface:
       for (const method of type.methods ?? []) {
-        transliterateDocs(method.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: method.name }, method.docs);
         for (const parameter of method.parameters ?? []) {
-          transliterateDocs(parameter.docs);
+          transliterateDocs(
+            { api: 'parameter', fqn: type.fqn, methodName: method.name, parameterName: parameter.name },
+            parameter.docs,
+          );
         }
       }
       for (const property of type.properties ?? []) {
-        transliterateDocs(property.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: property.name }, property.docs);
       }
       break;
 
     case TypeKind.Enum:
       for (const member of type.members) {
-        transliterateDocs(member.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: member.name }, member.docs);
       }
       break;
 
@@ -201,20 +196,17 @@ function transliterateType(
       throw new Error(`Unsupported type kind: ${(type as any).kind}`);
   }
 
-  function transliterateDocs(docs: Docs | undefined) {
+  function transliterateDocs(api: ApiLocation, docs: Docs | undefined) {
+    if (docs?.remarks) {
+      docs.remarks = rosetta.translateSnippetsInMarkdown(api, docs.remarks, language, true /* strict */);
+    }
+
     if (docs?.example) {
-      const snippet = fixturize(
-        typeScriptSnippetFromSource(
-          docs.example,
-          'example',
-          true /* strict */,
-          { [SnippetParameters.$PROJECT_DIRECTORY]: workingDirectory },
-        ),
-        loose,
-      );
+      const location = { api, field: { field: 'example' } } as const;
+      const snippet = typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */);
       const translation = rosetta.translateSnippet(snippet, language);
       if (translation != null) {
-        docs.example = prefixDisclaimer(translation);
+        docs.example = translation.source;
       }
     }
   }

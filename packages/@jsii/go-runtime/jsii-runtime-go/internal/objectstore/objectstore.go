@@ -3,7 +3,13 @@ package objectstore
 import (
 	"fmt"
 	"reflect"
+
+	"github.com/aws/jsii-runtime-go/internal/api"
 )
+
+// stringSet is a set of strings, implemented as a map from string to an
+// arbitrary 0-width value.
+type stringSet map[string]struct{}
 
 // ObjectStore tracks object instances for which an identifier has been
 // associated. Object to instanceID association is tracked using the object
@@ -16,17 +22,31 @@ type ObjectStore struct {
 	// passed to the Register method.
 	objectToID map[uintptr]string
 
-	// idToObject associates an instanceID with the reflect.Value that
-	// represents the top-level object that was registered with the instanceID
-	// via the Register method.
+	// idToObject associates an instanceID with the first reflect.Value instance
+	// that represents the top-level object that was registered with the
+	// instanceID first via the Register method.
 	idToObject map[string]reflect.Value
+
+	// idToObjects associates an instanceID with the reflect.Value instances that
+	// represent the top-level objects that were registered with the instanceID
+	// via the Register method.
+	idToObjects map[string]map[reflect.Value]struct{}
+
+	// idToInterfaces associates an instanceID with the set of interfaces that it
+	// is known to implement.
+	//
+	// Incorrect use of the UnsafeCast function may result in an instance's
+	// interface list containing interfaces that it does not actually implement.
+	idToInterfaces map[string]stringSet
 }
 
 // New initializes a new ObjectStore.
 func New() *ObjectStore {
 	return &ObjectStore{
-		objectToID: make(map[uintptr]string),
-		idToObject: make(map[string]reflect.Value),
+		objectToID:     make(map[uintptr]string),
+		idToObject:     make(map[string]reflect.Value),
+		idToObjects:    make(map[string]map[reflect.Value]struct{}),
+		idToInterfaces: make(map[string]stringSet),
 	}
 }
 
@@ -42,7 +62,7 @@ func New() *ObjectStore {
 //
 // The call is idempotent: calling Register again with the same value and
 // instanceID does not result in an error.
-func (o *ObjectStore) Register(value reflect.Value, instanceID string) error {
+func (o *ObjectStore) Register(value reflect.Value, objectRef api.ObjectRef) error {
 	var err error
 	if value, err = canonicalValue(value); err != nil {
 		return err
@@ -50,38 +70,75 @@ func (o *ObjectStore) Register(value reflect.Value, instanceID string) error {
 	ptr := value.Pointer()
 
 	if existing, found := o.objectToID[ptr]; found {
-		if existing == instanceID {
+		if existing == objectRef.InstanceID {
+			o.mergeInterfaces(objectRef)
 			return nil
 		}
-		return fmt.Errorf("attempting to register %s as %s, but it was already registered as %s", value, instanceID, existing)
+		return fmt.Errorf("attempting to register %s as %s, but it was already registered as %s", value, objectRef.InstanceID, existing)
 	}
 
 	aliases := findAliases(value)
 
-	if existing, found := o.idToObject[instanceID]; found {
-		if existing == value {
+	if existing, found := o.idToObjects[objectRef.InstanceID]; found {
+		if _, found := existing[value]; found {
+			o.mergeInterfaces(objectRef)
 			return nil
 		}
 		// Value already exists (e.g: a constructor made a callback with "this"
-		// passed as an argument). We make the current value an alias of the new
+		// passed as an argument). We make the current value(s) an alias of the new
 		// one.
-		aliases = append(aliases, existing)
+		for existing := range existing {
+			aliases = append(aliases, existing)
+		}
 	}
 
 	for _, alias := range aliases {
 		ptr := alias.Pointer()
-		if existing, found := o.objectToID[ptr]; found && existing != instanceID {
-			return fmt.Errorf("value %s is embedded in %s which has ID %s, but was already assigned %s", alias.String(), value.String(), instanceID, existing)
+		if existing, found := o.objectToID[ptr]; found && existing != objectRef.InstanceID {
+			return fmt.Errorf("value %s is embedded in %s which has ID %s, but was already assigned %s", alias.String(), value.String(), objectRef.InstanceID, existing)
 		}
 	}
 
-	o.objectToID[ptr] = instanceID
-	o.idToObject[instanceID] = value
+	o.objectToID[ptr] = objectRef.InstanceID
+	// Only add to idToObject if this is the first time this InstanceID is registered
+	if _, found := o.idToObject[objectRef.InstanceID]; !found {
+		o.idToObject[objectRef.InstanceID] = value
+	}
+	if _, found := o.idToObjects[objectRef.InstanceID]; !found {
+		o.idToObjects[objectRef.InstanceID] = make(map[reflect.Value]struct{})
+	}
+	o.idToObjects[objectRef.InstanceID][value] = struct{}{}
 	for _, alias := range aliases {
-		o.objectToID[alias.Pointer()] = instanceID
+		o.objectToID[alias.Pointer()] = objectRef.InstanceID
 	}
 
+	o.mergeInterfaces(objectRef)
+
 	return nil
+}
+
+// mergeInterfaces adds all interfaces carried by the provided objectRef to the
+// tracking set for the objectRef's InstanceID. Does nothing if no interfaces
+// are designated on the objectRef.
+func (o *ObjectStore) mergeInterfaces(objectRef api.ObjectRef) {
+	// If we don't have interfaces, we have nothing to do...
+	if objectRef.Interfaces == nil {
+		return
+	}
+
+	// Find or create the interface list for the relevant InstanceID
+	var interfaces stringSet
+	if list, found := o.idToInterfaces[objectRef.InstanceID]; found {
+		interfaces = list
+	} else {
+		interfaces = make(stringSet)
+		o.idToInterfaces[objectRef.InstanceID] = interfaces
+	}
+
+	// Add any missing interface to the list.
+	for _, iface := range objectRef.Interfaces {
+		interfaces[string(iface)] = struct{}{}
+	}
 }
 
 // InstanceID attempts to determine the instanceID associated with the provided
@@ -99,6 +156,23 @@ func (o *ObjectStore) InstanceID(value reflect.Value) (instanceID string, found 
 	return
 }
 
+// Interfaces returns the set of interfaces associated with the provided
+// instanceID.
+//
+// It returns a nil slice in case the instancceID is invalid, or if it does not
+// have any associated interfaces.
+func (o *ObjectStore) Interfaces(instanceID string) []api.FQN {
+	if set, found := o.idToInterfaces[instanceID]; found {
+		interfaces := make([]api.FQN, 0, len(set))
+		for iface := range set {
+			interfaces = append(interfaces, api.FQN(iface))
+		}
+		return interfaces
+	} else {
+		return nil
+	}
+}
+
 // GetObject attempts to retrieve the object value associated with the given
 // instanceID. Returns the existing value and a boolean informing whether a
 // value was associated with this instanceID or not.
@@ -107,6 +181,27 @@ func (o *ObjectStore) InstanceID(value reflect.Value) (instanceID string, found 
 // registered with the ObjectStore.
 func (o *ObjectStore) GetObject(instanceID string) (value reflect.Value, found bool) {
 	value, found = o.idToObject[instanceID]
+	return
+}
+
+// GetObjectAs attempts to retrieve the object value associated with the given
+// instanceID, compatible with the given type. Returns the existing value and a
+// boolean informing whether a value was associated with this instanceID and
+// compatible with this type or not.
+//
+// The GetObjectAs method is safe to call with an instanceID that was never
+// registered with the ObjectStore.
+func (o *ObjectStore) GetObjectAs(instanceID string, typ reflect.Type) (value reflect.Value, found bool) {
+	found = false
+	if values, exists := o.idToObjects[instanceID]; exists {
+		for value = range values {
+			if value.Type().AssignableTo(typ) {
+				value = value.Convert(typ)
+				found = true
+				return
+			}
+		}
+	}
 	return
 }
 

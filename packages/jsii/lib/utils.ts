@@ -1,4 +1,6 @@
+import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
+import * as path from 'path';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
@@ -58,6 +60,27 @@ export function diagnosticsLogger(
  * @returns a formatted string.
  */
 export function formatDiagnostic(
+  diagnostic: ts.Diagnostic,
+  projectRoot: string,
+) {
+  if (JsiiDiagnostic.isJsiiDiagnostic(diagnostic)) {
+    // Ensure we leverage pre-rendered diagnostics where available.
+    return diagnostic.format(projectRoot);
+  }
+  return _formatDiagnostic(diagnostic, projectRoot);
+}
+
+/**
+ * Formats a diagnostic message with color and context, if possible. Users
+ * should use `formatDiagnostic` instead, as this implementation is intended for
+ * internal usafe only.
+ *
+ * @param diagnostic  the diagnostic message ot be formatted.
+ * @param projectRoot the root of the TypeScript project.
+ *
+ * @returns a formatted string.
+ */
+export function _formatDiagnostic(
   diagnostic: ts.Diagnostic,
   projectRoot: string,
 ) {
@@ -141,4 +164,84 @@ export function parseRepository(value: string): { url: string } {
     default:
       throw new Error(`Unknown host service: ${host}`);
   }
+}
+
+/**
+ * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export function findDependencyDirectory(
+  dependencyName: string,
+  searchStart: string,
+) {
+  // Explicitly do not use 'require("dep/package.json")' because that will fail if the
+  // package does not export that particular file.
+  const entryPoint = require.resolve(dependencyName, {
+    paths: [searchStart],
+  });
+
+  // Search up from the given directory, looking for a package.json that matches
+  // the dependency name (so we don't accidentally find stray 'package.jsons').
+  const depPkgJsonPath = findPackageJsonUp(
+    dependencyName,
+    path.dirname(entryPoint),
+  );
+
+  if (!depPkgJsonPath) {
+    throw new Error(
+      `Could not find dependency '${dependencyName}' from '${searchStart}'`,
+    );
+  }
+
+  return depPkgJsonPath;
+}
+
+/**
+ * Find the package.json for a given package upwards from the given directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export function findPackageJsonUp(packageName: string, directory: string) {
+  return findUp(directory, (dir) => {
+    const pjFile = path.join(dir, 'package.json');
+    return (
+      fs.pathExistsSync(pjFile) && fs.readJsonSync(pjFile).name === packageName
+    );
+  });
+}
+
+/**
+ * Find a directory up the tree from a starting directory matching a condition
+ *
+ * Will return `undefined` if no directory matches
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export function findUp(
+  directory: string,
+  pred: (dir: string) => boolean,
+): string | undefined {
+  const result = pred(directory);
+
+  return result ? directory : recurse();
+
+  function recurse() {
+    const parent = path.dirname(directory);
+    if (parent === directory) {
+      return undefined;
+    }
+    return findUp(parent, pred as any);
+  }
+}
+
+const ANSI_REGEX =
+  // eslint-disable-next-line no-control-regex
+  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+
+export function stripAnsi(x: string): string {
+  return x.replace(ANSI_REGEX, '');
 }

@@ -49,6 +49,7 @@ enum DocTag {
   SUBCLASSABLE = 'subclassable',
   EXAMPLE = 'example',
   STABILITY = 'stability',
+  STRUCT = 'struct',
 }
 
 /**
@@ -65,70 +66,6 @@ export function parseSymbolDocumentation(
 
   // Right here we'll just guess that the first declaration site is the most important one.
   return parseDocParts(comment, tags);
-}
-
-/**
- * Render JSIIDocs back to a TSDoc block
- */
-export function renderSymbolDocumentation(
-  docs: spec.Docs,
-  parameters?: Record<string, spec.Docs>,
-): string {
-  const lines: string[] = [];
-  if (docs.summary) {
-    lines.push(docs.summary);
-    lines.push('');
-  }
-  if (docs.remarks) {
-    lines.push(...docs.remarks.split('\n'));
-    lines.push('');
-  }
-
-  for (const [name, docs] of Object.entries(parameters ?? {})) {
-    tag('param', `${name} ${docs.summary ?? ''}`);
-  }
-  tag(DocTag.RETURNS, docs.returns);
-  tag(DocTag.DEFAULT, docs.default);
-  tag(DocTag.SEE, docs.see);
-  if (docs.subclassable) {
-    tag(DocTag.SUBCLASSABLE, '');
-  }
-
-  switch (docs.stability) {
-    case spec.Stability.Deprecated:
-      tag('deprecated', docs.deprecated ?? '');
-      break;
-    case spec.Stability.Experimental:
-      tag('experimental', '');
-      break;
-    case spec.Stability.External:
-      tag('external', '');
-      break;
-    default:
-      tag('stability', docs.stability);
-  }
-
-  for (const [k, v] of Object.entries(docs.custom ?? {})) {
-    tag(k, v);
-  }
-
-  if (docs.example) {
-    lines.push('@example');
-    lines.push('');
-    lines.push(...docs.example.split('\n'));
-  }
-
-  while (lines.length > 0 && lines[lines.length - 1] === '') {
-    lines.pop();
-  }
-
-  return lines.join('\n');
-
-  function tag(tagName: string, value: string | undefined) {
-    if (value !== undefined) {
-      lines.push(`@${tagName} ${value}`.trim());
-    }
-  }
 }
 
 /**
@@ -151,6 +88,7 @@ function parseDocParts(
 ): DocsParsingResult {
   const diagnostics = new Array<string>();
   const docs: spec.Docs = {};
+  const hints: TypeSystemHints = {};
 
   [docs.summary, docs.remarks] = splitSummary(comments);
 
@@ -171,6 +109,10 @@ function parseDocParts(
       }
     }
     return undefined;
+  }
+
+  if (eatTag(DocTag.STRUCT) != null) {
+    hints.struct = true;
   }
 
   docs.default = eatTag(DocTag.DEFAULT, DocTag.DEFAULT_VALUE);
@@ -233,12 +175,21 @@ function parseDocParts(
     }
   }
 
-  return { docs, diagnostics };
+  return { docs, diagnostics, hints };
 }
 
 export interface DocsParsingResult {
   docs: spec.Docs;
+  hints: TypeSystemHints;
   diagnostics?: string[];
+}
+
+export interface TypeSystemHints {
+  /**
+   * Only present on interfaces. This indicates that interface must be handled as a struct/data type
+   * even through it's name starts with a capital letter `I`.
+   */
+  struct?: boolean;
 }
 
 /**
@@ -256,7 +207,7 @@ export function splitSummary(
     return [undefined, undefined];
   }
   const summary = summaryLine(docBlock);
-  const remarks = uberTrim(docBlock.substr(summary.length));
+  const remarks = uberTrim(docBlock.slice(summary.length));
   return [endWithPeriod(noNewlines(summary.trim())), remarks];
 }
 

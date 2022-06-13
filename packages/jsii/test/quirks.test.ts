@@ -1,8 +1,8 @@
 import { sourceToAssemblyHelper } from '../lib';
 
 // ----------------------------------------------------------------------
-test('trailing semicolon after method is correctly ignored', async () => {
-  const assembly = await sourceToAssemblyHelper(`
+test('trailing semicolon after method is correctly ignored', () => {
+  const assembly = sourceToAssemblyHelper(`
     export class Foo {
       private readonly initialized: boolean;
 
@@ -28,5 +28,6 @@ test('trailing semicolon after method is correctly ignored', async () => {
     initializer: { locationInModule: { filename: 'index.ts', line: 5 } },
     locationInModule: { filename: 'index.ts', line: 2 },
     name: 'Foo',
+    symbolId: 'index:Foo',
   });
 });

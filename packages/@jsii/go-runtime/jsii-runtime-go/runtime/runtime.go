@@ -2,10 +2,11 @@ package runtime
 
 import (
 	"fmt"
-	"github.com/aws/jsii-runtime-go/internal/api"
-	"github.com/aws/jsii-runtime-go/internal/kernel"
 	"reflect"
 	"strings"
+
+	"github.com/aws/jsii-runtime-go/internal/api"
+	"github.com/aws/jsii-runtime-go/internal/kernel"
 )
 
 // FQN represents a fully-qualified type name in the jsii type system.
@@ -101,7 +102,7 @@ func RegisterStruct(fqn FQN, strct reflect.Type) {
 // element of it is not a registered jsii interface or class type).
 func InitJsiiProxy(ptr interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
-	if err := kernel.GetClient().Types().InitJsiiProxy(ptrVal); err != nil {
+	if err := kernel.GetClient().Types().InitJsiiProxy(ptrVal, ptrVal.Type()); err != nil {
 		panic(err)
 	}
 }
@@ -126,7 +127,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 			if !fieldVal.IsNil() {
 				continue
 			}
-			if err := client.Types().InitJsiiProxy(fieldVal); err != nil {
+			if err := client.Types().InitJsiiProxy(fieldVal, fieldVal.Type()); err != nil {
 				panic(err)
 			}
 
@@ -135,7 +136,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 			if !fieldVal.IsZero() {
 				continue
 			}
-			if err := client.Types().InitJsiiProxy(fieldVal); err != nil {
+			if err := client.Types().InitJsiiProxy(fieldVal, fieldVal.Type()); err != nil {
 				panic(err)
 			}
 		}
@@ -185,7 +186,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 		panic(err)
 	}
 
-	if err = client.RegisterInstance(instVal, res.InstanceID); err != nil {
+	if err = client.RegisterInstance(instVal, api.ObjectRef{InstanceID: res.InstanceID, Interfaces: interfaces}); err != nil {
 		panic(err)
 	}
 }
@@ -196,7 +197,7 @@ func Invoke(obj interface{}, method string, args []interface{}, ret interface{})
 	client := kernel.GetClient()
 
 	// Find reference to class instance in client
-	refid, found := client.FindObjectRef(reflect.ValueOf(obj))
+	ref, found := client.FindObjectRef(reflect.ValueOf(obj))
 
 	if !found {
 		panic("No Object Found")
@@ -205,9 +206,7 @@ func Invoke(obj interface{}, method string, args []interface{}, ret interface{})
 	res, err := client.Invoke(kernel.InvokeProps{
 		Method:    method,
 		Arguments: convertArguments(args),
-		ObjRef: api.ObjectRef{
-			InstanceID: refid,
-		},
+		ObjRef:    ref,
 	})
 
 	if err != nil {
@@ -222,7 +221,7 @@ func InvokeVoid(obj interface{}, method string, args []interface{}) {
 	client := kernel.GetClient()
 
 	// Find reference to class instance in client
-	refid, found := client.FindObjectRef(reflect.ValueOf(obj))
+	ref, found := client.FindObjectRef(reflect.ValueOf(obj))
 
 	if !found {
 		panic("No Object Found")
@@ -231,7 +230,7 @@ func InvokeVoid(obj interface{}, method string, args []interface{}) {
 	_, err := client.Invoke(kernel.InvokeProps{
 		Method:    method,
 		Arguments: convertArguments(args),
-		ObjRef:    api.ObjectRef{InstanceID: refid},
+		ObjRef:    ref,
 	})
 
 	if err != nil {
@@ -278,7 +277,7 @@ func Get(obj interface{}, property string, ret interface{}) {
 	client := kernel.GetClient()
 
 	// Find reference to class instance in client
-	refid, found := client.FindObjectRef(reflect.ValueOf(obj))
+	ref, found := client.FindObjectRef(reflect.ValueOf(obj))
 
 	if !found {
 		panic(fmt.Errorf("no object reference found for %v", obj))
@@ -286,9 +285,7 @@ func Get(obj interface{}, property string, ret interface{}) {
 
 	res, err := client.Get(kernel.GetProps{
 		Property: property,
-		ObjRef: api.ObjectRef{
-			InstanceID: refid,
-		},
+		ObjRef:   ref,
 	})
 
 	if err != nil {
@@ -321,7 +318,7 @@ func Set(obj interface{}, property string, value interface{}) {
 	client := kernel.GetClient()
 
 	// Find reference to class instance in client
-	refid, found := client.FindObjectRef(reflect.ValueOf(obj))
+	ref, found := client.FindObjectRef(reflect.ValueOf(obj))
 
 	if !found {
 		panic("No Object Found")
@@ -330,9 +327,7 @@ func Set(obj interface{}, property string, value interface{}) {
 	_, err := client.Set(kernel.SetProps{
 		Property: property,
 		Value:    client.CastPtrToRef(reflect.ValueOf(value)),
-		ObjRef: api.ObjectRef{
-			InstanceID: refid,
-		},
+		ObjRef:   ref,
 	})
 
 	if err != nil {

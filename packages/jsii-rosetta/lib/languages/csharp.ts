@@ -1,6 +1,8 @@
 import * as ts from 'typescript';
 
-import { jsiiTargetParam } from '../jsii/packages';
+import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
+import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';
+import { jsiiTargetParameter } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, nimpl } from '../renderer';
 import {
@@ -11,26 +13,20 @@ import {
   isReadOnly,
   findSuperCall,
   privatePropertyNames,
+  findEnclosingClassDeclaration,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import {
-  typeWithoutUndefinedUnion,
-  builtInTypeName,
   typeContainsUndefined,
   parameterAcceptsUndefined,
-  mapElementType,
   inferMapElementType,
+  determineReturnType,
 } from '../typescript/types';
-import { flat, partition, setExtend } from '../util';
+import { flat, fmap } from '../util';
 import { DefaultVisitor } from './default';
 import { TargetLanguage } from './target-language';
 
 interface CSharpLanguageContext {
-  /**
-   * Used to render the constructor's name
-   */
-  readonly currentClassName?: string;
-
   /**
    * Used to capitalize member accesses
    */
@@ -75,6 +71,14 @@ interface CSharpLanguageContext {
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
+  /**
+   * Translation version
+   *
+   * Bump this when you change something in the implementation to invalidate
+   * existing cached translations.
+   */
+  public static readonly VERSION = '1';
+
   public readonly language = TargetLanguage.CSHARP;
 
   public readonly defaultContext = {
@@ -93,19 +97,23 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
    *
    * If these are encountered in the LHS of a property access, they will be dropped.
    */
-  private readonly importedModuleAliases = new Set<string>();
+  private readonly dropPropertyAccesses = new Set<string>();
 
   /**
-   * Elements imported into current namespace
-   *
-   * All namespace elements that can be imported need to be uppercased.
+   * Already imported modules so we don't emit duplicate imports
    */
-  private readonly importedModuleSymbols = new Set<string>();
+  private readonly alreadyImportedNamespaces = new Set<string>();
 
-  public mergeContext(
-    old: CSharpLanguageContext,
-    update: Partial<CSharpLanguageContext>,
-  ): CSharpLanguageContext {
+  /**
+   * A map to undo import renames
+   *
+   * We will always reference the original name in the translation.
+   *
+   * Maps a local-name to a C# name.
+   */
+  private readonly renamedSymbols = new Map<string, string>();
+
+  public mergeContext(old: CSharpLanguageContext, update: Partial<CSharpLanguageContext>): CSharpLanguageContext {
     return Object.assign({}, old, update);
   }
 
@@ -120,49 +128,50 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     }
 
     // Uppercase methods and properties, leave the rest as-is
-    if (
-      renderer.currentContext.propertyOrMethod &&
-      !renderer.currentContext.privatePropertyNames.includes(text)
-    ) {
+    if (renderer.currentContext.propertyOrMethod && !renderer.currentContext.privatePropertyNames.includes(text)) {
       text = ucFirst(text);
     }
 
     return new OTree([text]);
   }
 
-  public importStatement(
-    importStatement: ImportStatement,
-    context: CSharpRenderer,
-  ): OTree {
-    const namespace = this.lookupModuleNamespace(importStatement.packageName);
+  public importStatement(importStatement: ImportStatement, context: CSharpRenderer): OTree {
+    const guessedNamespace = guessDotnetNamespace(importStatement.packageName);
+    const namespace = fmap(importStatement.moduleSymbol, findDotnetName) ?? guessedNamespace;
+
     if (importStatement.imports.import === 'full') {
-      this.importedModuleAliases.add(importStatement.imports.alias);
+      this.dropPropertyAccesses.add(importStatement.imports.alias);
+      this.alreadyImportedNamespaces.add(namespace);
       return new OTree([`using ${namespace};`], [], { canBreakLine: true });
     }
     if (importStatement.imports.import === 'selective') {
-      const statements = [];
-      const [withoutAlias, withAlias] = partition(
-        importStatement.imports.elements,
-        (im) => im.alias === undefined,
-      );
+      const statements = new Array<string>();
 
-      // If there's at least one import without an alias, emit a namespace import.
-      if (withoutAlias) {
-        statements.push(`using ${namespace};`);
-        setExtend(
-          this.importedModuleSymbols,
-          withoutAlias.map((w) => w.sourceName),
-        );
-      }
+      for (const el of importStatement.imports.elements) {
+        const dotnetNs = fmap(el.importedSymbol, findDotnetName) ?? `${guessedNamespace}.${ucFirst(el.sourceName)}`;
 
-      // For every aliased import, emit an aliasing 'using' statement
-      for (const aliasedImport of withAlias) {
-        statements.push(
-          `using ${ucFirst(aliasedImport.alias!)} = ${namespace}.${ucFirst(
-            aliasedImport.sourceName,
-          )};`,
-        );
-        this.importedModuleSymbols.add(aliasedImport.alias!);
+        // If this is an alias, we only honor it if it's NOT for sure a module
+        // (could be an alias import of a class or enum).
+        if (el.alias && el.importedSymbol?.symbolType !== 'module') {
+          this.renamedSymbols.set(el.alias, simpleName(dotnetNs));
+          statements.push(`using ${ucFirst(el.alias)} = ${dotnetNs};`);
+          continue;
+        }
+
+        // If we are importing a module directly, drop the occurrences of that
+        // identifier further down (turn `mod.MyClass` into `MyClass`).
+        if (el.importedSymbol?.symbolType === 'module') {
+          this.dropPropertyAccesses.add(el.alias ?? el.sourceName);
+        }
+
+        // Output an import statement for the containing namespace
+        const importableNamespace = el.importedSymbol?.symbolType === 'module' ? dotnetNs : namespaceName(dotnetNs);
+        if (this.alreadyImportedNamespaces.has(importableNamespace)) {
+          continue;
+        }
+
+        this.alreadyImportedNamespaces.add(importableNamespace);
+        statements.push(`using ${importableNamespace};`);
       }
 
       return new OTree([], statements, { canBreakLine: true, separator: '\n' });
@@ -171,31 +180,19 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return nimpl(importStatement.node, context);
   }
 
-  public functionDeclaration(
-    node: ts.FunctionDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public functionDeclaration(node: ts.FunctionDeclaration, renderer: CSharpRenderer): OTree {
     return this.functionLike(node, renderer);
   }
 
-  public constructorDeclaration(
-    node: ts.ConstructorDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public constructorDeclaration(node: ts.ConstructorDeclaration, renderer: CSharpRenderer): OTree {
     return this.functionLike(node, renderer, { isConstructor: true });
   }
 
-  public methodDeclaration(
-    node: ts.MethodDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public methodDeclaration(node: ts.MethodDeclaration, renderer: CSharpRenderer): OTree {
     return this.functionLike(node, renderer);
   }
 
-  public methodSignature(
-    node: ts.MethodSignature,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public methodSignature(node: ts.MethodSignature, renderer: CSharpRenderer): OTree {
     return new OTree(
       [
         this.renderTypeNode(node.type, false, renderer),
@@ -214,26 +211,22 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   // tslint:disable-next-line:max-line-length
   public functionLike(
-    node: ts.FunctionLikeDeclarationBase,
+    node: ts.FunctionLikeDeclaration | ts.ConstructorDeclaration | ts.MethodDeclaration,
     renderer: CSharpRenderer,
     opts: { isConstructor?: boolean } = {},
   ): OTree {
     const methodName = opts.isConstructor
-      ? renderer.currentContext.currentClassName ?? 'MyClass'
+      ? findEnclosingClassDeclaration(node)?.name?.text ?? 'MyClass'
       : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
-    const returnType = opts.isConstructor
-      ? ''
-      : this.renderTypeNode(node.type, false, renderer);
+
+    const retType = determineReturnType(renderer.typeChecker, node);
+    const returnType = opts.isConstructor ? '' : this.renderType(node, retType, false, 'void', renderer);
 
     const baseConstructorCall = new Array<string | OTree>();
     if (opts.isConstructor) {
       const superCall = findSuperCall(node.body, renderer);
       if (superCall) {
-        baseConstructorCall.push(
-          ': base(',
-          this.argumentList(superCall.arguments, renderer),
-          ') ',
-        );
+        baseConstructorCall.push(': base(', this.argumentList(superCall.arguments, renderer), ') ');
       }
     }
 
@@ -260,10 +253,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return ret;
   }
 
-  public propertyDeclaration(
-    node: ts.PropertyDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public propertyDeclaration(node: ts.PropertyDeclaration, renderer: CSharpRenderer): OTree {
     const vis = visibility(node);
     const propertyOrMethod = vis !== 'private'; // Capitalize non-private fields
 
@@ -274,16 +264,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
           vis,
           isReadOnly(node) ? ' readonly' : '',
           ' ',
-          this.renderTypeNode(
-            node.type,
-            node.questionToken !== undefined,
-            renderer,
-          ),
+          this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
           ' ',
           renderer.updateContext({ propertyOrMethod }).convert(node.name),
-          ...(node.initializer
-            ? [' = ', renderer.convert(node.initializer)]
-            : []),
+          ...(node.initializer ? [' = ', renderer.convert(node.initializer)] : []),
           ';',
         ],
         [],
@@ -296,11 +280,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       [
         vis,
         ' ',
-        this.renderTypeNode(
-          node.type,
-          node.questionToken !== undefined,
-          renderer,
-        ),
+        this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
         ' ',
         renderer.updateContext({ propertyOrMethod }).convert(node.name),
         ' ',
@@ -311,10 +291,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     );
   }
 
-  public printStatement(
-    args: ts.NodeArray<ts.Expression>,
-    renderer: CSharpRenderer,
-  ) {
+  public printStatement(args: ts.NodeArray<ts.Expression>, renderer: CSharpRenderer) {
     const renderedArgs =
       args.length === 1
         ? renderer.convertAll(args)
@@ -331,18 +308,12 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return new OTree(['Console.WriteLine(', ...renderedArgs, ')']);
   }
 
-  public superCallExpression(
-    _node: ts.CallExpression,
-    _renderer: CSharpRenderer,
-  ): OTree {
+  public superCallExpression(_node: ts.CallExpression, _renderer: CSharpRenderer): OTree {
     // super() call rendered as part of the constructor already
     return NO_SYNTAX;
   }
 
-  public stringLiteral(
-    node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public stringLiteral(node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.stringAsIdentifier) {
       return this.identifier(node, renderer);
     }
@@ -353,10 +324,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return new OTree([JSON.stringify(node.text)]);
   }
 
-  public expressionStatement(
-    node: ts.ExpressionStatement,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public expressionStatement(node: ts.ExpressionStatement, renderer: CSharpRenderer): OTree {
     const inner = renderer.convert(node.expression);
     if (inner.isEmpty) {
       return inner;
@@ -364,68 +332,38 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return new OTree([inner, ';'], [], { canBreakLine: true });
   }
 
-  public propertyAccessExpression(
-    node: ts.PropertyAccessExpression,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: CSharpRenderer): OTree {
     const lhs = renderer.textOf(node.expression);
 
     // Suppress the LHS of the dot operator if it's "this." (not necessary in C#)
     // or if it's an imported module reference (C# has namespace-wide imports).
     const objectExpression =
-      lhs === 'this' || this.importedModuleAliases.has(lhs)
+      lhs === 'this' || this.dropPropertyAccesses.has(lhs)
         ? []
-        : [
-            renderer
-              .updateContext({ propertyOrMethod: false })
-              .convert(node.expression),
-            '.',
-          ];
+        : [renderer.updateContext({ propertyOrMethod: false }).convert(node.expression), '.'];
 
-    return new OTree([
-      ...objectExpression,
-      renderer.updateContext({ propertyOrMethod: true }).convert(node.name),
-    ]);
+    return new OTree([...objectExpression, renderer.updateContext({ propertyOrMethod: true }).convert(node.name)]);
   }
 
-  public parameterDeclaration(
-    node: ts.ParameterDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public parameterDeclaration(node: ts.ParameterDeclaration, renderer: CSharpRenderer): OTree {
     return new OTree([
-      this.renderTypeNode(
-        node.type,
-        node.questionToken !== undefined,
-        renderer,
-      ),
+      ...(node.dotDotDotToken ? ['params '] : []), // Varargs. Render with 'params' keyword
+      this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
       ' ',
       renderer.convert(node.name),
-      ...(parameterAcceptsUndefined(
-        node,
-        node.type && renderer.typeOfType(node.type),
-      )
+      ...(parameterAcceptsUndefined(node, node.type && renderer.typeOfType(node.type))
         ? ['=', node.initializer ? renderer.convert(node.initializer) : 'null']
         : []),
     ]);
   }
 
-  public propertySignature(
-    node: ts.PropertySignature,
-    renderer: CSharpRenderer,
-  ): OTree {
-    const canSet =
-      renderer.currentContext.inStructInterface || !isReadOnly(node);
+  public propertySignature(node: ts.PropertySignature, renderer: CSharpRenderer): OTree {
+    const canSet = renderer.currentContext.inStructInterface || !isReadOnly(node);
 
     return new OTree(
       [
-        !renderer.currentContext.inRegularInterface
-          ? `${visibility(node)} `
-          : NO_SYNTAX,
-        this.renderTypeNode(
-          node.type,
-          node.questionToken !== undefined,
-          renderer,
-        ),
+        !renderer.currentContext.inRegularInterface ? `${visibility(node)} ` : NO_SYNTAX,
+        this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
         ' ',
         renderer.updateContext({ propertyOrMethod: true }).convert(node.name),
         ' ',
@@ -439,31 +377,18 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   /**
    * Do some work on property accesses to translate common JavaScript-isms to language-specific idioms
    */
-  public regularCallExpression(
-    node: ts.CallExpression,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public regularCallExpression(node: ts.CallExpression, renderer: CSharpRenderer): OTree {
     return new OTree([
-      renderer
-        .updateContext({ propertyOrMethod: true })
-        .convert(node.expression),
+      renderer.updateContext({ propertyOrMethod: true }).convert(node.expression),
       '(',
       this.argumentList(node.arguments, renderer),
       ')',
     ]);
   }
 
-  public classDeclaration(
-    node: ts.ClassDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public classDeclaration(node: ts.ClassDeclaration, renderer: CSharpRenderer): OTree {
     return new OTree(
-      [
-        'class ',
-        renderer.convert(node.name),
-        ...this.classHeritage(node, renderer),
-        '\n{',
-      ],
+      ['class ', renderer.convert(node.name), ...this.classHeritage(node, renderer), '\n{'],
       renderer
         .updateContext({
           privatePropertyNames: privatePropertyNames(node.members, renderer),
@@ -477,20 +402,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     );
   }
 
-  public structInterfaceDeclaration(
-    node: ts.InterfaceDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public structInterfaceDeclaration(node: ts.InterfaceDeclaration, renderer: CSharpRenderer): OTree {
     return new OTree(
-      [
-        'class ',
-        renderer.convert(node.name),
-        ...this.classHeritage(node, renderer),
-        '\n{',
-      ],
-      renderer
-        .updateContext({ inStructInterface: true })
-        .convertAll(node.members),
+      ['class ', renderer.convert(node.name), ...this.classHeritage(node, renderer), '\n{'],
+      renderer.updateContext({ inStructInterface: true }).convertAll(node.members),
       {
         indent: 4,
         canBreakLine: true,
@@ -499,20 +414,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     );
   }
 
-  public regularInterfaceDeclaration(
-    node: ts.InterfaceDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public regularInterfaceDeclaration(node: ts.InterfaceDeclaration, renderer: CSharpRenderer): OTree {
     return new OTree(
-      [
-        'interface ',
-        renderer.convert(node.name),
-        ...this.classHeritage(node, renderer),
-        '\n{',
-      ],
-      renderer
-        .updateContext({ inRegularInterface: true })
-        .convertAll(node.members),
+      ['interface ', renderer.convert(node.name), ...this.classHeritage(node, renderer), '\n{'],
+      renderer.updateContext({ inRegularInterface: true }).convertAll(node.members),
       {
         indent: 4,
         canBreakLine: true,
@@ -528,61 +433,38 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     });
   }
 
-  public unknownTypeObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.preferObjectLiteralAsStruct) {
       // Type information missing and from context we prefer a struct
-      return new OTree(
-        ['new Struct { '],
-        renderer.convertAll(node.properties),
-        {
-          suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
-          separator: ', ',
-          indent: 4,
-        },
-      );
+      return new OTree(['new Struct { '], renderer.convertAll(node.properties), {
+        suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
+        separator: ', ',
+        indent: 4,
+      });
     }
     // Type information missing and from context we prefer a map
-    return this.keyValueObjectLiteralExpression(node, undefined, renderer);
+    return this.keyValueObjectLiteralExpression(node, renderer);
   }
 
   public knownStructObjectLiteralExpression(
     node: ts.ObjectLiteralExpression,
-    structType: ts.Type,
+    structType: ObjectLiteralStruct,
     renderer: CSharpRenderer,
   ): OTree {
-    return new OTree(
-      ['new ', structType.symbol.name, ' { '],
-      renderer.convertAll(node.properties),
-      {
-        suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
-        separator: ', ',
-        indent: 4,
-      },
-    );
+    return new OTree(['new ', structType.type.symbol.name, ' { '], renderer.convertAll(node.properties), {
+      suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
+      separator: ', ',
+      indent: 4,
+    });
   }
 
-  public keyValueObjectLiteralExpression(
-    node: ts.ObjectLiteralExpression,
-    valueType: ts.Type | undefined,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: CSharpRenderer): OTree {
     // Try to infer an element type from the elements
-    if (valueType === undefined) {
-      valueType = inferMapElementType(node.properties, renderer);
-    }
+    const valueType = inferMapElementType(node.properties, renderer.typeChecker);
 
     return new OTree(
-      [
-        'new Dictionary<string, ',
-        this.renderType(node, valueType, false, 'object', renderer),
-        '> { ',
-      ],
-      renderer
-        .updateContext({ inKeyValueList: true })
-        .convertAll(node.properties),
+      ['new Dictionary<string, ', this.renderType(node, valueType, false, 'object', renderer), '> { '],
+      renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties),
       {
         suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
         separator: ', ',
@@ -591,25 +473,15 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     );
   }
 
-  public shorthandPropertyAssignment(
-    node: ts.ShorthandPropertyAssignment,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public shorthandPropertyAssignment(node: ts.ShorthandPropertyAssignment, renderer: CSharpRenderer): OTree {
     return this.renderPropertyAssignment(node.name, node.name, renderer);
   }
 
-  public propertyAssignment(
-    node: ts.PropertyAssignment,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public propertyAssignment(node: ts.PropertyAssignment, renderer: CSharpRenderer): OTree {
     return this.renderPropertyAssignment(node.name, node.initializer, renderer);
   }
 
-  public renderPropertyAssignment(
-    key: ts.Node,
-    value: ts.Node,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public renderPropertyAssignment(key: ts.Node, value: ts.Node, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.inKeyValueList) {
       return new OTree(
         [
@@ -630,9 +502,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     }
     return new OTree(
       [
-        renderer
-          .updateContext({ propertyOrMethod: true, stringAsIdentifier: true })
-          .convert(key),
+        renderer.updateContext({ propertyOrMethod: true, stringAsIdentifier: true }).convert(key),
         ' = ',
         renderer.convert(value),
       ],
@@ -641,10 +511,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     );
   }
 
-  public arrayLiteralExpression(
-    node: ts.ArrayLiteralExpression,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public arrayLiteralExpression(node: ts.ArrayLiteralExpression, renderer: CSharpRenderer): OTree {
     return new OTree(['new [] { '], renderer.convertAll(node.elements), {
       separator: ', ',
       suffix: ' }',
@@ -672,57 +539,46 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       : ifStmt;
   }
 
-  public forOfStatement(
-    node: ts.ForOfStatement,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public forOfStatement(node: ts.ForOfStatement, renderer: CSharpRenderer): OTree {
     // This is what a "for (const x of ...)" looks like in the AST
     let variableName = '???';
 
     matchAst(
       node.initializer,
-      nodeOfType(
-        ts.SyntaxKind.VariableDeclarationList,
-        nodeOfType('var', ts.SyntaxKind.VariableDeclaration),
-      ),
+      nodeOfType(ts.SyntaxKind.VariableDeclarationList, nodeOfType('var', ts.SyntaxKind.VariableDeclaration)),
       (bindings) => {
         variableName = renderer.textOf(bindings.var.name);
       },
     );
 
     return new OTree(
-      [
-        'for (var ',
-        variableName,
-        ' in ',
-        renderer.convert(node.expression),
-        ') ',
-      ],
+      ['for (var ', variableName, ' in ', renderer.convert(node.expression), ') '],
       [renderer.convert(node.statement)],
       { canBreakLine: true },
     );
   }
 
   public asExpression(node: ts.AsExpression, context: CSharpRenderer): OTree {
-    return new OTree([
-      '(',
-      this.renderTypeNode(node.type, false, context),
-      ')',
-      context.convert(node.expression),
-    ]);
+    return new OTree(['(', this.renderTypeNode(node.type, false, context), ')', context.convert(node.expression)]);
   }
 
-  public variableDeclaration(
-    node: ts.VariableDeclaration,
-    renderer: CSharpRenderer,
-  ): OTree {
+  public variableDeclaration(node: ts.VariableDeclaration, renderer: CSharpRenderer): OTree {
+    let fallback = 'var';
+    if (node.type) {
+      fallback = node.type.getText();
+    }
+
     const type =
       (node.type && renderer.typeOfType(node.type)) ||
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    let renderedType = this.renderType(node, type, false, 'var', renderer);
+    let renderedType = this.renderType(node, type, false, fallback, renderer);
     if (renderedType === 'object') {
       renderedType = 'var';
+    }
+
+    if (!node.initializer) {
+      return new OTree([renderedType, ' ', renderer.convert(node.name), ';'], []);
     }
 
     return new OTree(
@@ -731,9 +587,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
         ' ',
         renderer.convert(node.name),
         ' = ',
-        renderer
-          .updateContext({ preferObjectLiteralAsStruct: false })
-          .convert(node.initializer),
+        renderer.updateContext({ preferObjectLiteralAsStruct: false }).convert(node.initializer),
         ';',
       ],
       [],
@@ -741,83 +595,37 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     );
   }
 
-  public templateExpression(
-    node: ts.TemplateExpression,
-    context: CSharpRenderer,
-  ): OTree {
+  public templateExpression(node: ts.TemplateExpression, context: CSharpRenderer): OTree {
     // If this is a multi-line string literal, we need not quote much, as @"string" literals in C#
     // do not perform any quoting. The literal quotes in the text however must be doubled.
     const isMultiLine =
-      !!node.head.rawText?.includes('\n') ||
-      node.templateSpans.some((span) => span.literal.rawText?.includes('\n'));
+      !!node.head.rawText?.includes('\n') || node.templateSpans.some((span) => span.literal.rawText?.includes('\n'));
 
     const parts = new Array<string>();
     if (node.head.rawText) {
-      parts.push(
-        isMultiLine
-          ? node.head.rawText.replace(/"/g, '""')
-          : quoteStringLiteral(node.head.rawText),
-      );
+      parts.push(isMultiLine ? node.head.rawText.replace(/"/g, '""') : quoteStringLiteral(node.head.rawText));
     }
     for (const span of node.templateSpans) {
       parts.push(`{${context.textOf(span.expression)}}`);
       if (span.literal.rawText) {
-        parts.push(
-          isMultiLine
-            ? span.literal.rawText.replace(/"/g, '""')
-            : quoteStringLiteral(span.literal.rawText),
-        );
+        parts.push(isMultiLine ? span.literal.rawText.replace(/"/g, '""') : quoteStringLiteral(span.literal.rawText));
       }
     }
 
     return new OTree([isMultiLine ? '$@"' : '$"', ...parts, '"']);
   }
 
-  protected argumentList(
-    args: readonly ts.Node[] | undefined,
-    renderer: CSharpRenderer,
-  ): OTree {
-    return new OTree(
-      [],
-      args
-        ? renderer
-            .updateContext({ preferObjectLiteralAsStruct: true })
-            .convertAll(args)
-        : [],
-      { separator: ', ' },
-    );
+  protected argumentList(args: readonly ts.Node[] | undefined, renderer: CSharpRenderer): OTree {
+    return new OTree([], args ? renderer.updateContext({ preferObjectLiteralAsStruct: true }).convertAll(args) : [], {
+      separator: ', ',
+    });
   }
 
-  protected lookupModuleNamespace(ref: string) {
-    // Get the .NET namespace from the referenced package (if available)
-    const resolvedNamespace = jsiiTargetParam(ref, 'dotnet.namespace');
-
-    // Return that or some default-derived module name representation
-    return (
-      resolvedNamespace ||
-      ref
-        .split(/[^a-zA-Z0-9]+/g)
-        .filter((s) => s !== '')
-        .map(ucFirst)
-        .join('.')
-    );
-  }
-
-  private renderTypeNode(
-    typeNode: ts.TypeNode | undefined,
-    questionMark: boolean,
-    renderer: CSharpRenderer,
-  ): string {
+  private renderTypeNode(typeNode: ts.TypeNode | undefined, questionMark: boolean, renderer: CSharpRenderer): string {
     if (!typeNode) {
       return 'void';
     }
-    return this.renderType(
-      typeNode,
-      renderer.typeOfType(typeNode),
-      questionMark,
-      renderer.textOf(typeNode),
-      renderer,
-    );
+    return this.renderType(typeNode, renderer.typeOfType(typeNode), questionMark, renderer.textOf(typeNode), renderer);
   }
 
   private renderType(
@@ -831,77 +639,90 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       return fallback;
     }
 
-    const nonUnionType = typeWithoutUndefinedUnion(type);
-    if (!nonUnionType) {
-      renderer.report(typeNode, 'Type unions in examples are not supported');
-      return '...';
-    }
+    const renderedType = doRender(determineJsiiType(renderer.typeChecker, type));
 
-    const mappedTo = mapElementType(nonUnionType, renderer);
-    if (mappedTo) {
-      return `IDictionary<string, ${this.renderType(
-        typeNode,
-        mappedTo,
-        questionMark,
-        'object',
-        renderer,
-      )}>`;
-    }
+    const suffix = questionMark || typeContainsUndefined(type) ? '?' : '';
 
-    return (
-      typeNameFromType(nonUnionType, fallback) +
-      (typeContainsUndefined(type) || questionMark ? '?' : '')
+    return renderedType + suffix;
+
+    // eslint-disable-next-line consistent-return
+    function doRender(jsiiType: JsiiType): string {
+      switch (jsiiType.kind) {
+        case 'unknown':
+          return fallback;
+        case 'error':
+          renderer.report(typeNode, jsiiType.message);
+          return fallback;
+        case 'map':
+          return `IDictionary<string, ${doRender(jsiiType.elementType)}>`;
+        case 'list':
+          return `${doRender(jsiiType.elementType)}[]`;
+        case 'namedType':
+          return jsiiType.name;
+        case 'builtIn':
+          switch (jsiiType.builtIn) {
+            case 'boolean':
+              return 'boolean';
+            case 'number':
+              return 'int';
+            case 'string':
+              return 'string';
+            case 'any':
+              return 'object';
+            case 'void':
+              return 'void';
+          }
+      }
+    }
+  }
+
+  private classHeritage(node: ts.ClassDeclaration | ts.InterfaceDeclaration, renderer: CSharpRenderer) {
+    const heritage = flat(Array.from(node.heritageClauses ?? []).map((h) => Array.from(h.types))).map((t) =>
+      renderer.convert(t.expression),
     );
-  }
 
-  private classHeritage(
-    node: ts.ClassDeclaration | ts.InterfaceDeclaration,
-    renderer: CSharpRenderer,
-  ) {
-    const heritage = flat(
-      Array.from(node.heritageClauses ?? []).map((h) => Array.from(h.types)),
-    ).map((t) => renderer.convert(t.expression));
-
-    return heritage.length > 0
-      ? [' : ', new OTree([], heritage, { separator: ', ' })]
-      : [];
+    return heritage.length > 0 ? [' : ', new OTree([], heritage, { separator: ', ' })] : [];
   }
-}
-
-function typeNameFromType(type: ts.Type, fallback: string): string {
-  // User-defined or aliased type
-  if (type.aliasSymbol) {
-    return type.aliasSymbol.name;
-  }
-  if (type.symbol) {
-    return type.symbol.name;
-  }
-
-  const builtIn = builtInTypeName(type);
-  // *really* any OR we don't know what type it is
-  if (builtIn === 'any') {
-    return fallback;
-  }
-
-  return csharpTypeName(builtIn);
-}
-
-function csharpTypeName(jsTypeName: string | undefined): string {
-  if (jsTypeName === undefined) {
-    return 'void';
-  }
-  switch (jsTypeName) {
-    case 'number':
-      return 'int';
-    case 'any':
-      return 'object';
-  }
-  return jsTypeName;
 }
 
 /**
  * Uppercase the first letter
  */
 function ucFirst(x: string) {
-  return x.substr(0, 1).toUpperCase() + x.substr(1);
+  return x.slice(0, 1).toUpperCase() + x.slice(1);
+}
+
+/**
+ * Find the Java name of a module or type
+ */
+function findDotnetName(jsiiSymbol: JsiiSymbol): string | undefined {
+  if (!jsiiSymbol.sourceAssembly?.assembly) {
+    // Don't have accurate info, just guess
+    return jsiiSymbol.symbolType !== 'module' ? simpleName(jsiiSymbol.fqn) : guessDotnetNamespace(jsiiSymbol.fqn);
+  }
+
+  const asm = jsiiSymbol.sourceAssembly?.assembly;
+  return recurse(jsiiSymbol.fqn);
+
+  function recurse(fqn: string): string {
+    if (fqn === asm.name) {
+      return jsiiTargetParameter(asm, 'dotnet.namespace') ?? guessDotnetNamespace(fqn);
+    }
+    if (asm.submodules?.[fqn]) {
+      const modName = jsiiTargetParameter(asm.submodules[fqn], 'dotnet.namespace');
+      if (modName) {
+        return modName;
+      }
+    }
+
+    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+  }
+}
+
+function guessDotnetNamespace(ref: string) {
+  return ref
+    .split(/[^a-zA-Z0-9]+/g)
+    .filter((s) => s !== '')
+    .map(ucFirst)
+    .join('.');
 }

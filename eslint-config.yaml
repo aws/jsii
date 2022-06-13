@@ -30,7 +30,7 @@ settings:
   import/resolver:
     node: {}
     typescript:
-      directory: ./**/tsconfig.json
+      project: ./**/tsconfig.json
 
 ignorePatterns:
   # Ignore Jest configuration file (it's excluded from tsconfig.json, so it's problematic!)
@@ -138,9 +138,6 @@ rules:
   'complexity':
     - off
 
-  'consistent-return':
-    - error
-
   'dot-notation':
     - error
 
@@ -160,7 +157,9 @@ rules:
 
   'import/no-unresolved':
     - error
-    - ignore: [worker_threads]
+    - ignore:
+        - '@jsii/check-node/run' # @jsii/check-node uses an export map, which import/resolver does not (yet) support (https://github.com/import-js/eslint-plugin-import/issues/1868)
+        - worker_threads # This isn't supported in all node versions (import is always guarded)
 
   'import/order':
     - error
@@ -206,6 +205,7 @@ rules:
 
   'no-restricted-properties':
     - error
+    - { property: "substr", message: "Use .slice instead of .substr." }
 
   'no-return-await':
     - error
@@ -238,3 +238,13 @@ rules:
   '@typescript-eslint/unbound-method': off
   'no-case-declarations': off
   'require-atomic-updates': off
+
+  # This is not a bad rule but it got sprung on us and our code loudly fails it
+  # Disable to get the eslint upgrade to pass.
+  '@typescript-eslint/no-unsafe-argument': off
+
+  # 'consistent-return' actually decreases safety. Its use will enforce useless `throws`
+  # statements, forcing a runtime error that occlude cases where the TypeScript type
+  # checker would actually have caught something like a non-exhaustive `switch` statement
+  # at compile time.
+  'consistent-return': off

@@ -1,4 +1,11 @@
-import { mkdtemp, remove, writeFile, readFile } from 'fs-extra';
+import {
+  ensureDirSync,
+  mkdtempSync,
+  removeSync,
+  writeFileSync,
+  readFileSync,
+  readJsonSync,
+} from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -6,18 +13,51 @@ import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
 
 describe(Compiler, () => {
+  describe('generated tsconfig', () => {
+    test('default is tsconfig.json', () => {
+      const sourceDir = mkdtempSync(
+        join(tmpdir(), 'jsii-compiler-watch-mode-'),
+      );
+
+      const compiler = new Compiler({
+        projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
+      });
+
+      compiler.emit();
+
+      expect(readJsonSync(join(sourceDir, 'tsconfig.json'), 'utf-8')).toEqual(
+        expectedTypeScriptConfig(),
+      );
+    });
+
+    test('file name can be customized', () => {
+      const sourceDir = mkdtempSync(
+        join(tmpdir(), 'jsii-compiler-watch-mode-'),
+      );
+
+      const compiler = new Compiler({
+        projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
+        generateTypeScriptConfig: 'tsconfig.jsii.json',
+      });
+
+      compiler.emit();
+
+      expect(
+        readJsonSync(join(sourceDir, 'tsconfig.jsii.json'), 'utf-8'),
+      ).toEqual(expectedTypeScriptConfig());
+    });
+  });
+
   test('"watch" mode', async () => {
     // This can be a little slow, allowing 15 seconds maximum here (default is 5 seconds)
     jest.setTimeout(15_000);
 
-    const sourceDir = await mkdtemp(
-      join(tmpdir(), 'jsii-compiler-watch-mode-'),
-    );
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-compiler-watch-mode-'));
 
     try {
-      await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
       // Intentionally using lower case name - it should be case-insensitive
-      await writeFile(join(sourceDir, 'readme.md'), '# Test Package');
+      writeFileSync(join(sourceDir, 'readme.md'), '# Test Package');
 
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
@@ -27,7 +67,7 @@ describe(Compiler, () => {
 
       let firstCompilation = true;
       let onWatchClosed: () => void;
-      let onWatchFailed: (err: Error) => void;
+      let onWatchFailed: (err: unknown) => void;
       const watchClosed = new Promise<void>((ok, ko) => {
         onWatchClosed = ok;
         onWatchFailed = ko;
@@ -39,16 +79,16 @@ describe(Compiler, () => {
         // Ignore watch status reporting (not to pollute test console output)
         reportWatchStatus: () => null,
         // Verify everything goes according to plan
-        compilationComplete: async (emitResult) => {
+        compilationComplete: (emitResult) => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
-            const output = await readFile(join(sourceDir, '.jsii'), {
+            const output = readFileSync(join(sourceDir, '.jsii'), {
               encoding: 'utf-8',
             });
             if (firstCompilation) {
               firstCompilation = false;
               expect(output).toContain('"MarkerA"');
-              await writeFile(
+              writeFileSync(
                 join(sourceDir, 'index.ts'),
                 'export class MarkerB {}',
               );
@@ -66,7 +106,72 @@ describe(Compiler, () => {
       });
       await watchClosed;
     } finally {
-      await remove(sourceDir);
+      removeSync(sourceDir);
+    }
+  });
+
+  test('rootDir is added to assembly', () => {
+    const outDir = 'jsii-outdir';
+    const rootDir = 'jsii-rootdir';
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+    ensureDirSync(join(sourceDir, rootDir));
+
+    try {
+      writeFileSync(
+        join(sourceDir, rootDir, 'index.ts'),
+        'export class MarkerA {}',
+      );
+      // Intentionally using lower case name - it should be case-insensitive
+      writeFileSync(join(sourceDir, rootDir, 'readme.md'), '# Test Package');
+
+      const compiler = new Compiler({
+        projectInfo: {
+          ..._makeProjectInfo(sourceDir, join(outDir, 'index.d.ts')),
+          tsc: {
+            outDir,
+            rootDir,
+          },
+        },
+        failOnWarnings: true,
+        projectReferences: false,
+      });
+
+      compiler.emit();
+
+      const assembly = readJsonSync(join(sourceDir, '.jsii'), 'utf-8');
+      expect(assembly.metadata).toEqual(
+        expect.objectContaining({
+          tscRootDir: rootDir,
+        }),
+      );
+    } finally {
+      removeSync(sourceDir);
+    }
+  });
+
+  test('emits declaration map when feature is enabled', () => {
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+
+    try {
+      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+
+      const compiler = new Compiler({
+        projectInfo: {
+          ..._makeProjectInfo(sourceDir, 'index.d.ts'),
+          tsc: {
+            declarationMap: true,
+          },
+        },
+        generateTypeScriptConfig: 'tsconfig.jsii.json',
+      });
+
+      compiler.emit();
+
+      expect(() => {
+        readFileSync(join(sourceDir, 'index.d.ts.map'), 'utf-8');
+      }).not.toThrow();
+    } finally {
+      removeSync(sourceDir);
     }
   });
 });
@@ -89,5 +194,46 @@ function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
     bundleDependencies: {},
     targets: {},
     excludeTypescript: [],
+    tsc: {
+      // NOTE: these are the default values jsii uses when none are provided in package.json.
+      inlineSourceMap: true,
+      inlineSources: true,
+    },
+  };
+}
+
+function expectedTypeScriptConfig() {
+  return {
+    _generated_by_jsii_:
+      'Generated by jsii - safe to delete, and ideally should be in .gitignore',
+    compilerOptions: {
+      alwaysStrict: true,
+      charset: 'utf8',
+      composite: false,
+      declaration: true,
+      experimentalDecorators: true,
+      incremental: true,
+      inlineSourceMap: true,
+      inlineSources: true,
+      lib: ['es2020'],
+      module: 'CommonJS',
+      newLine: 'lf',
+      noEmitOnError: true,
+      noFallthroughCasesInSwitch: true,
+      noImplicitAny: true,
+      noImplicitReturns: true,
+      noImplicitThis: true,
+      noUnusedLocals: true,
+      noUnusedParameters: true,
+      resolveJsonModule: true,
+      strict: true,
+      strictNullChecks: true,
+      strictPropertyInitialization: true,
+      stripInternal: false,
+      target: 'ES2020',
+      tsBuildInfoFile: 'tsconfig.tsbuildinfo',
+    },
+    exclude: ['node_modules'],
+    include: [join('**', '*.ts')],
   };
 }

@@ -17,7 +17,7 @@
     "directory": "packages/jsii-pacmak"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 14.5.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -37,16 +37,17 @@
     "package": "package-js"
   },
   "dependencies": {
+    "@jsii/check-node": "0.0.0",
     "@jsii/spec": "^0.0.0",
     "clone": "^2.1.2",
     "codemaker": "^0.0.0",
-    "commonmark": "^0.29.3",
+    "commonmark": "^0.30.0",
     "escape-string-regexp": "^4.0.0",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "semver": "^7.3.5",
-    "spdx-license-list": "^6.4.0",
+    "semver": "^7.3.7",
+    "spdx-license-list": "^6.5.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
   },
@@ -55,21 +56,13 @@
     "@jsii/java-runtime": "^0.0.0",
     "@jsii/go-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
-    "@types/clone": "^2.1.0",
-    "@types/commonmark": "^0.27.4",
-    "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^10.17.59",
-    "@types/semver": "^7.3.5",
-    "@types/yargs": "^16.0.1",
-    "eslint": "^7.26.0",
-    "jest": "^26.6.3",
+    "@types/clone": "^2.1.1",
+    "@types/commonmark": "^0.27.5",
+    "@types/fs-extra": "^9.0.13",
+    "@types/semver": "^7.3.9",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-calc": "^3.20.120",
-    "prettier": "^2.3.0",
-    "ts-jest": "^26.5.6",
-    "typescript": "~3.9.9"
+    "jsii-calc": "^3.20.120"
   },
   "keywords": [
     "jsii",

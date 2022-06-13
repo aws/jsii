@@ -25,7 +25,7 @@
     "directory": "packages/@jsii/dotnet-runtime"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 14.5.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -39,10 +39,8 @@
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
-    "@types/node": "^10.17.59",
-    "@types/semver": "^7.3.5",
+    "@types/semver": "^7.3.9",
     "jsii-build-tools": "^0.0.0",
-    "semver": "^7.3.5",
-    "typescript": "~3.9.9"
+    "semver": "^7.3.7"
   }
 }

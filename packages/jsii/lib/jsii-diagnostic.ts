@@ -2,7 +2,9 @@ import * as spec from '@jsii/spec';
 import { camel, constant as allCaps, pascal } from 'case';
 import * as ts from 'typescript';
 
-import { JSII_DIAGNOSTICS_CODE } from './utils';
+import { TypeSystemHints } from './docs';
+import { WARNINGSCODE_FILE_NAME } from './transforms/deprecation-warnings';
+import { JSII_DIAGNOSTICS_CODE, _formatDiagnostic } from './utils';
 
 /**
  * Descriptors for all valid jsii diagnostic codes.
@@ -237,6 +239,31 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'metadata/missing-peer-dependency',
   });
 
+  // NOTE: currently not possible to change the severity of this code,
+  // as it's being emitted before the overrides have been loaded
+  public static readonly JSII_0006_MISSING_DEV_DEPENDENCY = Code.warning({
+    code: 6,
+    formatter: (
+      dependencyName: string,
+      peerRange: string,
+      minVersion: string,
+      actual: string,
+    ) =>
+      `A "peerDependency" on "${dependencyName}" at "${peerRange}" means you ` +
+      `should take a "devDependency" on "${dependencyName}" at "${minVersion}" ` +
+      `(found ${JSON.stringify(actual)})`,
+    name: 'metadata/missing-dev-dependency',
+  });
+
+  public static readonly JSII_0007_MISSING_WARNINGS_EXPORT = Code.error({
+    code: 7,
+    formatter: () =>
+      'If you are compiling with --add-deprecation-warnings and your package.json ' +
+      `declares subpath exports, you must include { "./${WARNINGSCODE_FILE_NAME}": "./${WARNINGSCODE_FILE_NAME}" } ` +
+      'in the set of exports.',
+    name: 'metadata/missing-warnings-export',
+  });
+
   //////////////////////////////////////////////////////////////////////////////
   // 1000 => 1999 -- TYPESCRIPT LANGUAGE RESTRICTIONS
 
@@ -289,7 +316,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE = Code.error({
     code: 3002,
-    formatter: (fqn: string, typeUse: string, pkg: spec.Assembly) =>
+    formatter: (fqn: string, typeUse: string, pkg: { readonly name: string }) =>
       `Type "${fqn}" cannot be used as a ${typeUse} because it is not exported from ${pkg.name}`,
     name: 'type-model/unexported-foreign-type',
   });
@@ -496,7 +523,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
       newOptional = false,
       oldOptional = false,
     ) =>
-      `"${newElement}" turns  ${
+      `"${newElement}" turns ${
         newOptional ? 'optional' : 'required'
       } when ${action}. Make it ${oldOptional ? 'optional' : 'required'}`,
     name: 'language-compatibility/override-changes-prop-optional',
@@ -507,12 +534,12 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     formatter: (
       newElement: string,
       action: string,
-      newMutable = false,
-      oldMutable = false,
+      newReadonly = false,
+      oldReadonly = false,
     ) =>
       `"${newElement}" turns ${
-        newMutable ? 'mutable' : 'readonly'
-      } when ${action}. Make it ${oldMutable ? 'mutable' : 'readonly'}`,
+        newReadonly ? 'readonly' : 'mutable'
+      } when ${action}. Make it ${oldReadonly ? 'readonly' : 'mutable'}`,
     name: 'language-compatibility/override-changes-mutability',
   });
 
@@ -625,6 +652,15 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'documentation/non-existent-parameter',
   });
 
+  public static readonly JSII_7001_ILLEGAL_HINT = Code.error({
+    code: 7001,
+    formatter: (hint: keyof TypeSystemHints, ...valid: readonly string[]) =>
+      `Illegal use of "@${hint}" hint. It is only valid on ${valid.join(
+        ', ',
+      )}.`,
+    name: 'documentation/illegal-hint',
+  });
+
   public static readonly JSII_7999_DOCUMENTATION_ERROR = Code.error({
     code: 7999,
     formatter: (messageText) => messageText,
@@ -705,7 +741,8 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_9000_UNKNOWN_MODULE = Code.error({
     code: 9000,
-    formatter: (moduleName) => `Encountered unknown module: "${moduleName}"`,
+    formatter: (moduleName) =>
+      `Encountered use of module that is not declared in "dependencies" or "peerDependencies": "${moduleName}"`,
     name: 'miscellaneous/unknown-module',
   });
 
@@ -789,6 +826,9 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public readonly relatedInformation =
     new Array<ts.DiagnosticRelatedInformation>();
 
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  #formatted?: string;
+
   /**
    * Creates a new `JsiiDiagnostic` with the provided properties.
    *
@@ -817,7 +857,47 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     this.relatedInformation.push(
       JsiiDiagnostic.JSII_9999_RELATED_INFO.create(node, message),
     );
+    // Clearing out #formatted, as this would no longer be the correct string.
+    this.#formatted = undefined;
     return this;
+  }
+
+  /**
+   * Adds related information to this `JsiiDiagnostic` instance if the provided
+   * `node` is defined.
+   *
+   * @param node    the node to bind as related information, or `undefined`.
+   * @param message the message to attach to the related information.
+   *
+   * @returns `this`
+   */
+  public maybeAddRelatedInformation(
+    node: ts.Node | undefined,
+    message: JsiiDiagnostic['messageText'],
+  ): this {
+    if (node == null) {
+      return this;
+    }
+    this.relatedInformation.push(
+      JsiiDiagnostic.JSII_9999_RELATED_INFO.create(node, message),
+    );
+    // Clearing out #formatted, as this would no longer be the correct string.
+    this.#formatted = undefined;
+    return this;
+  }
+
+  /**
+   * Formats this diagnostic with color and context if possible, and returns it.
+   * The formatted diagnostic is cached, so that it can be re-used. This is
+   * useful for diagnostic messages involving trivia -- as the trivia may have
+   * been obliterated from the `SourceFile` by the `TsCommentReplacer`, which
+   * makes the error messages really confusing.
+   */
+  public format(projectRoot: string): string {
+    if (this.#formatted == null) {
+      this.#formatted = _formatDiagnostic(this, projectRoot);
+    }
+    return this.#formatted;
   }
 }
 

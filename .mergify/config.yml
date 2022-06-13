@@ -1,4 +1,28 @@
 # See https://doc.mergify.io
+queue_rules:
+  - name: default
+    conditions:
+      - status-success~=^jsii/superchain
+      # One test for each OS
+      - status-success~=^Test \(ubuntu-.*$
+      - status-success~=^Test \(macos-.*$
+      - status-success~=^Test \(windows-.*$
+      # One test for each supported nodejs version
+      - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
+      - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
+      # One test for Java 8 and 11
+      - status-success~=^Test \(.* java 8 .*$
+      - status-success~=^Test \(.* java 11 .*$
+      # One test for Python 3.7 through 3.10
+      - status-success~=^Test \(.* python 3\.7[ )].*$
+      - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
 pull_request_rules:
   - name: label core
@@ -6,7 +30,7 @@ pull_request_rules:
       label:
         add: [contribution/core]
     conditions:
-      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi)$
+      - author~=^(eladb|RomainMuller|garnaat|nija-at|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch|madeline-k|BenChaimberg|comcalvi|kaizen3031593|Chriscbr|corymhall|otaviomacedo|yuth|TheRealAmazonKendra|vinayak-kukreja)$
       - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
@@ -16,8 +40,6 @@ pull_request_rules:
       label:
         add: [pr/ready-to-merge]
     conditions:
-      - author!=dependabot[bot]
-      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=pr/blocked
       - label!=pr/do-not-merge
@@ -28,7 +50,7 @@ pull_request_rules:
       - '#approved-reviews-by>=1'
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
-      - status-success=Semantic Pull Request
+      - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
       # One test for each OS
@@ -36,36 +58,37 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 10 .*$
-      - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
+      - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
       dismiss_reviews:
         approved: true
         changes_requested: false
-      merge:
-        strict: smart+fasttrack
+      queue:
+        name: default
         method: squash
-        strict_method: merge
-        commit_message: title+body
+        commit_message_template: |-
+          {{ title }} (#{{ number }})
+
+          {{ body }}
       comment:
         message: Merging (with squash)...
     conditions:
-      - author!=dependabot[bot]
-      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=pr/blocked
       - label!=pr/do-not-merge
@@ -77,7 +100,7 @@ pull_request_rules:
       - '#approved-reviews-by>=1'
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
-      - status-success=Semantic Pull Request
+      - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
       # One test for each OS
@@ -85,36 +108,37 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 10 .*$
-      - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
+      - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
       dismiss_reviews:
         approved: true
         changes_requested: false
-      merge:
-        strict: smart+fasttrack
+      queue:
+        name: default
         method: merge
-        strict_method: merge
-        commit_message: title+body
+        commit_message_template: |-
+          {{ title }} (#{{ number }})
+
+          {{ body }}
       comment:
         message: Merging (no-squash)...
     conditions:
-      - author!=dependabot[bot]
-      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=pr/blocked
       - label!=pr/do-not-merge
@@ -126,7 +150,7 @@ pull_request_rules:
       - '#approved-reviews-by>=1'
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
-      - status-success=Semantic Pull Request
+      - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
       # One test for each OS
@@ -134,20 +158,21 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 10 .*$
-      - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      - status-success~=^Test \(.* node 16 .*$
+      - status-success~=^Test \(.* node 17 .*$
+      - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6 through 3.9
-      - status-success~=^Test \(.* python 3\.6[ )].*$
+      # One test for Python 3.7 through 3.10
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
       - status-success~=^Test \(.* python 3\.9[ )].*$
+      - status-success~=^Test \(.* python 3\.10[ )].*$
 
   - name: Clean branch up
     actions:
@@ -181,4 +206,4 @@ pull_request_rules:
 
           [Conventional Commits]: https://www.conventionalcommits.org
     conditions:
-      - -status-success=Semantic Pull Request
+      - status-failure=Validate PR Title

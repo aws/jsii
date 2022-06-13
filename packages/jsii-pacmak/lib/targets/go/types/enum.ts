@@ -1,5 +1,6 @@
 import { CodeMaker } from 'codemaker';
-import { EnumType, EnumMember } from 'jsii-reflect';
+import { EnumType, EnumMember, Docs } from 'jsii-reflect';
+import { ApiLocation } from 'jsii-rosetta';
 
 import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
@@ -7,10 +8,10 @@ import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
 import { GoType } from './go-type';
 
-export class Enum extends GoType {
+export class Enum extends GoType<EnumType> {
   private readonly members: readonly GoEnumMember[];
 
-  public constructor(pkg: Package, public type: EnumType) {
+  public constructor(pkg: Package, type: EnumType) {
     super(pkg, type);
 
     this.members = type.members.map((mem) => new GoEnumMember(this, mem));
@@ -28,7 +29,7 @@ export class Enum extends GoType {
 
     // Const values are prefixed by the wrapped value type
     for (const member of this.members) {
-      member.emit(code);
+      member.emit(context);
     }
 
     code.close(`)`);
@@ -64,13 +65,23 @@ export class Enum extends GoType {
 class GoEnumMember {
   public readonly name: string;
   public readonly rawValue: string;
+  private readonly docs: Docs;
+  private readonly apiLocation: ApiLocation;
 
   public constructor(private readonly parent: Enum, entry: EnumMember) {
     this.name = `${parent.name}_${entry.name}`;
     this.rawValue = entry.name;
+    this.docs = entry.docs;
+
+    this.apiLocation = {
+      api: 'member',
+      fqn: this.parent.fqn,
+      memberName: entry.name,
+    };
   }
 
-  public emit(code: CodeMaker) {
+  public emit({ code, documenter }: EmitContext) {
+    documenter.emit(this.docs, this.apiLocation);
     code.line(`${this.name} ${this.parent.name} = "${this.rawValue}"`);
   }
 }

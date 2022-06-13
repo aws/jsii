@@ -1,8 +1,17 @@
-import { Callable, Method, Parameter, Property } from 'jsii-reflect';
+import {
+  Callable,
+  MemberKind,
+  Method,
+  Parameter,
+  Property,
+  TypeReference,
+} from 'jsii-reflect';
+import { ApiLocation } from 'jsii-rosetta';
 
 import { jsiiToPascalCase } from '../../../naming-util';
 import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
+import { Package } from '../package';
 import { GetProperty, JSII_RT_ALIAS, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
 
@@ -26,8 +35,8 @@ export interface GoTypeMember {
 */
 export class GoProperty implements GoTypeMember {
   public readonly name: string;
-  public readonly reference?: GoTypeRef;
   public readonly immutable: boolean;
+  protected readonly apiLocation: ApiLocation;
 
   public constructor(
     public parent: GoType,
@@ -35,10 +44,15 @@ export class GoProperty implements GoTypeMember {
   ) {
     this.name = jsiiToPascalCase(this.property.name);
     this.immutable = property.immutable;
+    this.apiLocation = {
+      api: 'member',
+      fqn: this.parent.fqn,
+      memberName: this.property.name,
+    };
+  }
 
-    if (property.type) {
-      this.reference = new GoTypeRef(parent.pkg.root, property.type);
-    }
+  public get reference(): GoTypeRef {
+    return new GoTypeRef(this.parent.pkg.root, this.property.type);
   }
 
   public get specialDependencies(): SpecialDependencies {
@@ -70,27 +84,30 @@ export class GoProperty implements GoTypeMember {
   }
 
   public emitStructMember({ code, documenter }: EmitContext) {
-    documenter.emit(this.property.docs);
+    documenter.emit(this.property.docs, this.apiLocation);
     const memberType =
       this.reference?.type?.name === this.parent.name
         ? `*${this.returnType}`
         : this.returnType;
 
-    // Adds json tags for easy deserialization
-    code.line(`${this.name} ${memberType} \`json:"${this.property.name}"\``);
+    const requiredOrOptional = this.property.optional ? 'optional' : 'required';
+
+    // Adds json and yaml tags for easy deserialization
+    code.line(
+      `${this.name} ${memberType} \`field:"${requiredOrOptional}" json:"${this.property.name}" yaml:"${this.property.name}"\``,
+    );
     // TODO add newline if not the last member
   }
 
-  public emitGetterDecl(context: EmitContext) {
-    const { code } = context;
+  public emitGetterDecl({ code, documenter }: EmitContext) {
+    documenter.emit(this.property.docs, this.apiLocation);
     code.line(`${this.name}() ${this.returnType}`);
   }
 
-  public emitGetter({ code, documenter }: EmitContext): void {
+  public emitGetter({ code }: EmitContext): void {
     const receiver = this.parent.name;
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-    documenter.emit(this.property.docs);
     code.openBlock(
       `func (${instanceArg} *${receiver}) Get${this.name}() ${this.returnType}`,
     );
@@ -98,9 +115,12 @@ export class GoProperty implements GoTypeMember {
     code.closeBlock();
   }
 
-  public emitSetterDecl(context: EmitContext) {
-    const { code } = context;
+  public emitSetterDecl({ code, documenter }: EmitContext) {
     if (!this.immutable) {
+      // For setters, only emit the stability. Copying the documentation from
+      // the getter might result in confusing documentation. This is an "okay"
+      // middle-ground.
+      documenter.emitStability(this.property.docs);
       code.line(`Set${this.name}(val ${this.returnType})`);
     }
   }
@@ -141,25 +161,34 @@ export class GoProperty implements GoTypeMember {
 
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
-  public readonly reference?: GoTypeRef;
   public readonly parameters: GoParameter[];
+  protected readonly apiLocation: ApiLocation;
 
   public constructor(
     public readonly parent: GoClass | GoInterface,
     public readonly method: Callable,
   ) {
     this.name = jsiiToPascalCase(method.name);
-    if (Method.isMethod(method) && method.returns.type) {
-      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
-    }
     this.parameters = this.method.parameters.map(
       (param) => new GoParameter(parent, param),
     );
+
+    this.apiLocation =
+      method.kind === MemberKind.Initializer
+        ? { api: 'initializer', fqn: parent.fqn }
+        : { api: 'member', fqn: parent.fqn, memberName: method.name };
   }
 
   public abstract emit(context: EmitContext): void;
 
   public abstract get specialDependencies(): SpecialDependencies;
+
+  public get reference(): GoTypeRef | undefined {
+    if (Method.isMethod(this.method) && this.method.returns.type) {
+      return new GoTypeRef(this.parent.pkg.root, this.method.returns.type);
+    }
+    return undefined;
+  }
 
   public get returnsRef(): boolean {
     if (
@@ -195,18 +224,23 @@ export abstract class GoMethod implements GoTypeMember {
 
 export class GoParameter {
   public readonly name: string;
-  public readonly reference: GoTypeRef;
+  public readonly isVariadic: boolean;
+  private readonly type: TypeReference;
+  private readonly pkg: Package;
 
-  public constructor(
-    public parent: GoClass | GoInterface,
-    public readonly parameter: Parameter,
-  ) {
+  public constructor(parent: GoClass | GoInterface, parameter: Parameter) {
     this.name = substituteReservedWords(parameter.name);
-    this.reference = new GoTypeRef(parent.pkg.root, parameter.type);
+    this.isVariadic = parameter.variadic;
+    this.type = parameter.type;
+    this.pkg = parent.pkg;
+  }
+
+  public get reference(): GoTypeRef {
+    return new GoTypeRef(this.pkg.root, this.type);
   }
 
   public toString(): string {
-    const paramType = this.reference.scopedReference(this.parent.pkg);
-    return `${this.name} ${this.parameter.variadic ? '...' : ''}${paramType}`;
+    const paramType = this.reference.scopedReference(this.pkg);
+    return `${this.name} ${this.isVariadic ? '...' : ''}${paramType}`;
   }
 }

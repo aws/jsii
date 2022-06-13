@@ -13,3 +13,4 @@ node_modules/
 coverage/
 
 test/expected.*/dotnet/**/obj/Debug
+*.d.ts.map

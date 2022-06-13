@@ -168,7 +168,7 @@ export namespace composition {
      * The expression that this operation consists of.
      * Must be implemented by derived classes.
      */
-    abstract readonly expression: NumericValue;
+    public abstract readonly expression: NumericValue;
 
     public toString() {
       switch (this.stringStyle) {

@@ -90,7 +90,7 @@ test('can add inline MarkDown', () => {
   );
 });
 
-test('can do example inclusion', async () => {
+test('can do example inclusion', () => {
   const inputMarkDown = [
     'This is a preamble',
     '[included here](test/something.lit.ts)',
@@ -99,10 +99,13 @@ test('can do example inclusion', async () => {
 
   const fakeLoader = (fileName: string) => {
     expect(fileName).toBe('test/something.lit.ts');
-    return ['const x = 1;', '/// This is how we print x', 'console.log(x);'];
+    return {
+      fullPath: fileName,
+      lines: ['const x = 1;', '/// This is how we print x', 'console.log(x);'],
+    };
   };
 
-  const rendered = await includeAndRenderExamples(inputMarkDown, fakeLoader);
+  const rendered = includeAndRenderExamples(inputMarkDown, fakeLoader, '.');
 
   expect(rendered).toEqual([
     'This is a preamble',

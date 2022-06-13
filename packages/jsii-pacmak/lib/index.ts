@@ -1,11 +1,15 @@
 import { TypeSystem } from 'jsii-reflect';
-import { Rosetta } from 'jsii-rosetta';
+import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
+import { resolve } from 'path';
+import { cwd } from 'process';
 
 import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
 import { JsiiModule } from './packaging';
 import { ALL_BUILDERS, TargetName } from './targets';
 import { Timers } from './timer';
+import { Toposorted } from './toposort';
+import { flatten } from './util';
 
 //#region Exported APIs
 
@@ -27,53 +31,69 @@ export async function pacmak({
   outputDirectory,
   parallel = true,
   recurse = false,
-  rosettaLiveConversion,
   rosettaTablet,
   targets = Object.values(TargetName),
   timers = new Timers(),
+  rosettaUnknownSnippets = undefined,
   updateNpmIgnoreFiles = false,
+  validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
-  const rosetta = new Rosetta({ liveConversion: rosettaLiveConversion });
+  const rosetta = new Rosetta({
+    unknownSnippets: rosettaUnknownSnippets,
+    prefixDisclaimer: true,
+  });
   if (rosettaTablet) {
     await rosetta.loadTabletFromFile(rosettaTablet);
   }
 
-  const modulesToPackage = await findJsiiModules(inputDirectories, recurse);
-  logging.info(`Found ${modulesToPackage.length} modules to package`);
-  if (modulesToPackage.length === 0) {
+  const modulesToPackageSorted = await findJsiiModules(
+    inputDirectories,
+    recurse,
+  );
+  const modulesToPackageFlat = flatten(modulesToPackageSorted);
+
+  logging.info(`Found ${modulesToPackageFlat.length} modules to package`);
+  if (modulesToPackageFlat.length === 0) {
     logging.warn('Nothing to do');
     return;
   }
 
   if (outputDirectory) {
-    for (const mod of modulesToPackage) {
-      mod.outputDirectory = outputDirectory;
+    // Ensure this is consistently interpreted as relative to cwd(). This is transparent for absolute
+    // paths, as those would be returned unmodified.
+    const absoluteOutputDirectory = resolve(cwd(), outputDirectory);
+    for (const mod of modulesToPackageFlat) {
+      mod.outputDirectory = absoluteOutputDirectory;
     }
   } else if (updateNpmIgnoreFiles) {
     // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
     // defined via --out, don't perform this verification.
-    await updateAllNpmIgnores(modulesToPackage);
+    await updateAllNpmIgnores(modulesToPackageFlat);
   }
 
   await timers.recordAsync('npm pack', () => {
     logging.info('Packaging NPM bundles');
-    return Promise.all(modulesToPackage.map((m) => m.npmPack()));
+    return Promise.all(modulesToPackageFlat.map((m) => m.npmPack()));
   });
 
   await timers.recordAsync('load jsii', () => {
     logging.info('Loading jsii assemblies and translations');
     const system = new TypeSystem();
     return Promise.all(
-      modulesToPackage.map(async (m) => {
-        await m.load(system);
+      modulesToPackageFlat.map(async (m) => {
+        await m.load(system, validateAssemblies);
         return rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
       }),
     );
   });
 
   try {
-    const targetSets = sliceTargets(modulesToPackage, targets, forceTarget);
-    if (targetSets.every((s) => s.modules.length === 0)) {
+    const targetSets = sliceTargets(
+      modulesToPackageSorted,
+      targets,
+      forceTarget,
+    );
+    if (targetSets.every((s) => s.modulesSorted.length === 0)) {
       throw new Error(
         `None of the requested packages had any targets to build for '${targets.join(
           ', ',
@@ -95,15 +115,19 @@ export async function pacmak({
           );
           return timers
             .recordAsync(targetSet.targetType, () =>
-              buildTargetsForLanguage(targetSet.targetType, targetSet.modules, {
-                argv,
-                clean,
-                codeOnly,
-                fingerprint,
-                force,
-                perLanguageDirectory,
-                rosetta,
-              }),
+              buildTargetsForLanguage(
+                targetSet.targetType,
+                targetSet.modulesSorted,
+                {
+                  argv,
+                  clean,
+                  codeOnly,
+                  fingerprint,
+                  force,
+                  perLanguageDirectory,
+                  rosetta,
+                },
+              ),
             )
             .then(
               () => logging.info(`${targetSet.targetType} finished`),
@@ -120,10 +144,10 @@ export async function pacmak({
     if (clean) {
       logging.debug('Cleaning up');
       await timers.recordAsync('cleanup', () =>
-        Promise.all(modulesToPackage.map((m) => m.cleanup())),
+        Promise.all(modulesToPackageFlat.map((m) => m.cleanup())),
       );
     } else {
-      logging.debug('Temporary directories retained (--no-clean)');
+      logging.info('Temporary directories retained (--no-clean)');
     }
   }
 
@@ -214,12 +238,11 @@ export interface PacmakOptions {
   readonly recurse?: boolean;
 
   /**
-   * Whether `jsii-rosetta` conversion should be performed in-band for examples found in documentation which are not
-   * already translated in the `rosettaTablet` file.
+   * How rosetta should treat snippets that cannot be loaded from a translation tablet.
    *
-   * @default false
+   * @default UnknownSnippetMode.VERBATIM
    */
-  readonly rosettaLiveConversion?: boolean;
+  readonly rosettaUnknownSnippets?: UnknownSnippetMode;
 
   /**
    * A Rosetta tablet file where translations for code examples can be found.
@@ -247,6 +270,14 @@ export interface PacmakOptions {
    * @default false
    */
   readonly updateNpmIgnoreFiles?: boolean;
+
+  /**
+   * Whether assemblies should be validated or not. Validation can be expensive and can be skipped if the assemblies
+   * can be assumed to be valid.
+   *
+   * @default false
+   */
+  readonly validateAssemblies?: boolean;
 }
 
 //#endregion
@@ -255,7 +286,7 @@ export interface PacmakOptions {
 
 async function buildTargetsForLanguage(
   targetLanguage: string,
-  modules: readonly JsiiModule[],
+  modules: Toposorted<JsiiModule>,
   {
     argv,
     clean,
@@ -300,11 +331,13 @@ async function buildTargetsForLanguage(
  */
 interface TargetSet {
   targetType: string;
-  modules: readonly JsiiModule[];
+
+  // Sorted into toposorted tranches
+  modulesSorted: Toposorted<JsiiModule>;
 }
 
 function sliceTargets(
-  modules: readonly JsiiModule[],
+  modulesSorted: Toposorted<JsiiModule>,
   requestedTargets: readonly TargetName[],
   force: boolean,
 ): readonly TargetSet[] {
@@ -312,9 +345,11 @@ function sliceTargets(
   for (const target of requestedTargets) {
     ret.push({
       targetType: target,
-      modules: modules.filter(
-        (m) => force || m.availableTargets.includes(target),
-      ),
+      modulesSorted: modulesSorted
+        .map((modules) =>
+          modules.filter((m) => force || m.availableTargets.includes(target)),
+        )
+        .filter((ms) => ms.length > 0),
     });
   }
   return ret;
@@ -350,10 +385,11 @@ function mapParallelOrSerial<T, R>(
 //#region Misc. Utilities
 
 function describePackages(target: TargetSet) {
-  if (target.modules.length > 0 && target.modules.length < 5) {
-    return target.modules.map((m) => m.name).join(', ');
+  const modules = flatten(target.modulesSorted);
+  if (modules.length > 0 && modules.length < 5) {
+    return modules.map((m) => m.name).join(', ');
   }
-  return `${target.modules.length} modules`;
+  return `${modules.length} modules`;
 }
 
 //#endregion

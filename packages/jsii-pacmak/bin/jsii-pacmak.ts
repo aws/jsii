@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+import '@jsii/check-node/run';
+
+import { UnknownSnippetMode } from 'jsii-rosetta';
 import * as yargs from 'yargs';
 
 import { pacmak, configureLogging, TargetName } from '../lib';
@@ -6,7 +9,7 @@ import { debug } from '../lib/logging';
 import { VERSION_DESC } from '../lib/version';
 
 (async function main() {
-  const argv = yargs
+  const argv = await yargs
     .env('JSII_PACMAK')
     .command(
       ['$0  [PROJECTS...]', 'generate [PROJECTS...]'],
@@ -91,8 +94,19 @@ import { VERSION_DESC } from '../lib/version';
     })
     .option('rosetta-translate-live', {
       type: 'boolean',
-      desc: "Translate code samples on-the-fly if they can't be found in the samples tablet",
-      default: true,
+      desc: "Translate code samples on-the-fly if they can't be found in the samples tablet (deprecated)",
+      default: undefined,
+    })
+    .option('rosetta-unknown-snippets', {
+      type: 'string',
+      requiresArg: true,
+      optional: true,
+      choices: [
+        UnknownSnippetMode.VERBATIM,
+        UnknownSnippetMode.TRANSLATE,
+        UnknownSnippetMode.FAIL,
+      ],
+      desc: "What to do with code samples if they can't be found in the samples tablet",
     })
     .option('parallel', {
       type: 'boolean',
@@ -108,6 +122,11 @@ import { VERSION_DESC } from '../lib/version';
       // This is expected to be a path, which should be normalized
       normalize: true,
     })
+    .option('validate-assemblies', {
+      type: 'boolean',
+      desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
+      default: false,
+    })
     .version(VERSION_DESC)
     .strict().argv;
 
@@ -115,6 +134,21 @@ import { VERSION_DESC } from '../lib/version';
 
   // Default to 4 threads in case of concurrency, good enough for most situations
   debug('command line arguments:', argv);
+
+  if (
+    argv['rosetta-translate-live'] !== undefined &&
+    argv['rosetta-unknown-snippets'] !== undefined
+  ) {
+    throw new Error(
+      'Prefer using --rosetta-unknown-snippets over --rosetta-translate-live',
+    );
+  }
+
+  const rosettaUnknownSnippets =
+    (argv['rosetta-unknown-snippets'] as UnknownSnippetMode | undefined) ??
+    (argv['rosetta-translate-live']
+      ? UnknownSnippetMode.TRANSLATE
+      : UnknownSnippetMode.VERBATIM);
 
   return pacmak({
     argv,
@@ -128,10 +162,11 @@ import { VERSION_DESC } from '../lib/version';
     outputDirectory: argv.outdir,
     parallel: argv.parallel,
     recurse: argv.recurse,
-    rosettaLiveConversion: argv['rosetta-translate-live'],
+    rosettaUnknownSnippets,
     rosettaTablet: argv['rosetta-tablet'],
     targets: argv.targets?.map((target) => target as TargetName),
     updateNpmIgnoreFiles: argv.npmignore,
+    validateAssemblies: argv['validate-assemblies'],
   });
 })().catch((err) => {
   process.stderr.write(`${err.stack}\n`);

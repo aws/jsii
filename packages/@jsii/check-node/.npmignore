@@ -1,0 +1,16 @@
+# Don't include original .ts files when doing `npm pack`
+*.ts
+!*.d.ts
+*.sh
+dist
+
+# Don't pack unit tests
+*.test.js
+*.test.d.ts
+
+# Don't include various configuration & state information
+coverage
+.eslintrc.*
+tsconfig.json
+*.tsbuildinfo
+jest.config.ts

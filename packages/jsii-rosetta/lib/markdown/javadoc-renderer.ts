@@ -2,13 +2,7 @@ import * as cm from 'commonmark';
 
 import { makeJavaEscaper } from './escapes';
 import { RendererContext } from './markdown';
-import {
-  MarkdownRenderer,
-  collapsePara,
-  para,
-  stripTrailingWhitespace,
-  stripPara,
-} from './markdown-renderer';
+import { MarkdownRenderer, collapsePara, para, stripTrailingWhitespace, stripPara } from './markdown-renderer';
 
 const ESCAPE = makeJavaEscaper();
 
@@ -37,9 +31,7 @@ export class JavaDocRenderer extends MarkdownRenderer {
    * tags with escaping of bad characters.
    */
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para(
-      `<blockquote><pre>\n${ESCAPE.text(node.literal)}</pre></blockquote>`,
-    );
+    return para(`<blockquote><pre>\n${ESCAPE.text(node.literal)}</pre></blockquote>`);
   }
 
   public text(node: cm.Node, _context: RendererContext) {
@@ -47,13 +39,11 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `<a href="${
-      ESCAPE.attribute(node.destination) ?? ''
-    }">${context.content()}</a>`;
+    return `<a href="${ESCAPE.attribute(node.destination) ?? ''}">${context.content()}</a>`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {
-    return stripTrailingWhitespace(collapseParaJava(context.content()));
+    return stripTrailingWhitespace(specialDocCommentEscape(collapseParaJava(context.content())));
   }
 
   public heading(node: cm.Node, context: RendererContext) {
@@ -71,9 +61,7 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public image(node: cm.Node, context: RendererContext) {
-    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${
-      ESCAPE.attribute(node.destination) ?? ''
-    }">`;
+    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${ESCAPE.attribute(node.destination) ?? ''}">`;
   }
 
   public emph(_node: cm.Node, context: RendererContext) {
@@ -91,4 +79,19 @@ export class JavaDocRenderer extends MarkdownRenderer {
 
 function collapseParaJava(x: string) {
   return collapsePara(x, '\n<p>\n');
+}
+
+/**
+ * A final single-pass escape of '* /' which might otherwise end a doc comment.
+ *
+ * We have to do this in one final pass because I've observed that in running
+ * next, the MarkDown parser will parse the two symbols to:
+ *
+ *    [..., text('*'), text('/'), ...]
+ *
+ * which means we have no other ability to observe the two-character combination
+ * properly.
+ */
+function specialDocCommentEscape(x: string) {
+  return x.replace(new RegExp('\\*\\/', 'g'), '*&#47;');
 }

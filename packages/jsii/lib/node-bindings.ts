@@ -22,6 +22,13 @@ const setter = <T>(object: T, node: ts.Node): T => {
   return object;
 };
 
+export function setRelatedNode<T extends ts.Node = ts.Node>(
+  object: any,
+  node: T,
+) {
+  return STORAGE.set(object, node);
+}
+
 export const setClassRelatedNode: (
   object: spec.ClassType,
   node: ts.ClassDeclaration,
@@ -91,6 +98,15 @@ export const getMethodRelatedNode: (
 ) as any;
 
 export const getParameterRelatedNode: (
+  object: spec.Parameter,
+) =>
+  | ts.AccessorDeclaration
+  | ts.ParameterPropertyDeclaration
+  | ts.PropertyDeclaration
+  | ts.PropertySignature
+  | undefined = getRelatedNode;
+
+export const getPropertyRelatedNode: (
   object: spec.Parameter,
 ) =>
   | ts.AccessorDeclaration

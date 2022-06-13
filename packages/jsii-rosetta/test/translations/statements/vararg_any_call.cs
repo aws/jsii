@@ -1,7 +1,7 @@
-public void Test(Array _args)
+public void Test(params object[] _args)
 {
 }
 
-Test(new Struct { Key = "Value", Also = 1337 });
+Test(new Dictionary<string, object> { { "Key", "Value" }, { "also", 1337 } });
 
-Test(new Struct { Key = "Value" }, new Struct { Also = 1337 });
+Test(new Dictionary<string, string> { { "Key", "Value" } }, new Dictionary<string, int> { { "also", 1337 } });

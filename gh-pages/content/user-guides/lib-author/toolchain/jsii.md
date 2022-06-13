@@ -78,3 +78,31 @@ However, in order to ensure the underlying code continues to work as designed,
 the *implementation* of such declarations will remain in the **JavaScript**
 (`.js`) files produced by the compilation. This is, in fact, similar to marking
 all `@deprecated` members `@internal`.
+
+Additionally, a file name can be passed to the `--strip-deprecated` option to
+limit the above behavior to a specific set of allow-listed fully-qualified
+names. Each line in the file should contain a single fully-qualified name of a
+declaration that should be stripped. All `@deprecated` elements not present in
+the allow list will be retained. An example allowlist file might look like:
+
+    testpkg.IDeprecated
+    testpkg.DeprecatedOne
+    testpkg.DeprecatedTwo#deprecatedProperty
+    testpkg.DeprecatedTwo#deprecatedMethod
+
+#### `--add-deprecated-warnings`
+
+The `--add-deprecated-warnings` flag modifies the implementation of all
+declarations (types, members) documented with the `@deprecated` flag such that,
+when the deprecated declaration is used by a dependent, a warning is printed to
+the console at runtime.
+
+This is specifically useful to notify users of a jsii module that they are
+using deprecated elements and code updates are required.
+
+Additionally, the environment variable `JSII_DEPRECATED` can be set to `error`
+or `quiet` to either fail at runtime or silence these warnings, respectively.
+By default, this is set to `warn`.
+
+The `JSII_DEPRECATED` environment variable is respected only on modules compiled
+with the `--add-deprecated-warnings` flag.

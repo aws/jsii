@@ -8,7 +8,7 @@ const ESCAPE = makeXmlEscaper();
 
 // The types for 'xmldom' are not complete.
 /* eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports */
-const { DOMParser, XMLSerializer } = require('xmldom');
+const { DOMParser, XMLSerializer } = require('@xmldom/xmldom');
 
 /**
  * A renderer that will render a CommonMark tree to .NET XML comments
@@ -34,15 +34,11 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `<a href="${
-      ESCAPE.attribute(node.destination) ?? ''
-    }">${context.content()}</a>`;
+    return `<a href="${ESCAPE.attribute(node.destination) ?? ''}">${context.content()}</a>`;
   }
 
   public image(node: cm.Node, context: RendererContext) {
-    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${
-      ESCAPE.attribute(node.destination) ?? ''
-    }" />`;
+    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${ESCAPE.attribute(node.destination) ?? ''}" />`;
   }
 
   public emph(_node: cm.Node, context: RendererContext) {

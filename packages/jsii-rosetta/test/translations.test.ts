@@ -1,10 +1,10 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-import { JavaVisitor, PythonVisitor, SnippetTranslator } from '../lib';
-import { CSharpVisitor } from '../lib/languages/csharp';
+import { SnippetTranslator } from '../lib';
+import { TARGET_LANGUAGES, TargetLanguage, VisitorFactory } from '../lib/languages';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
-import { AstHandler } from '../lib/renderer';
+import { testSnippetLocation } from './testutil';
 
 // This iterates through all subdirectories of this directory,
 // and creates a Jest test for each, by translating the TypeScript file it finds there,
@@ -15,9 +15,10 @@ import { AstHandler } from '../lib/renderer';
 //
 // To run only the tests for a certain language you're working on, do this:
 //
-//    yarn test test/translations.test.js -t 'Translating .* to Python'
-//    yarn test test/translations.test.js -t 'Translating .* to Java'
-//    yarn test test/translations.test.js -t 'Translating .* to C#'
+//    yarn test test/translations.test -t 'Translating .* to Python'
+//    yarn test test/translations.test -t 'Translating .* to Java'
+//    yarn test test/translations.test -t 'Translating .* to C#'
+//    yarn test test/translations.test -t 'Translating .* to Go'
 //
 // To narrow it down even more you can of course replace the '.*' regex with
 // whatever file indication you desire.
@@ -27,24 +28,29 @@ interface SupportedLanguage {
 
   readonly extension: string;
 
-  readonly visitor: AstHandler<any>;
+  readonly visitorFactory: VisitorFactory;
 }
 
-const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
+export const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
   {
     name: 'Python',
     extension: '.py',
-    visitor: new PythonVisitor(),
+    visitorFactory: TARGET_LANGUAGES[TargetLanguage.PYTHON],
   },
   {
     name: 'Java',
     extension: '.java',
-    visitor: new JavaVisitor(),
+    visitorFactory: TARGET_LANGUAGES[TargetLanguage.JAVA],
   },
   {
     name: 'C#',
     extension: '.cs',
-    visitor: new CSharpVisitor(),
+    visitorFactory: TARGET_LANGUAGES[TargetLanguage.CSHARP],
+  },
+  {
+    name: 'Go',
+    extension: '.go',
+    visitorFactory: TARGET_LANGUAGES[TargetLanguage.GO],
   },
 );
 
@@ -54,10 +60,7 @@ const typeScriptTests = allFiles(translationsRoot)
   .filter((f) => !f.endsWith('.test.ts')); // Exclude self and other jest tests in this dir
 
 for (const typeScriptTest of typeScriptTests) {
-  describe(`Translating ${path.relative(
-    translationsRoot,
-    typeScriptTest,
-  )}`, () => {
+  describe(`Translating ${path.relative(translationsRoot, typeScriptTest)}`, () => {
     const typeScriptSource = fs.readFileSync(typeScriptTest, {
       encoding: 'utf-8',
     });
@@ -67,7 +70,7 @@ for (const typeScriptTest of typeScriptTests) {
     beforeAll(() => {
       translator = new SnippetTranslator({
         visibleSource: typeScriptSource,
-        where: typeScriptTest,
+        location: testSnippetLocation(typeScriptTest),
       });
     });
 
@@ -80,7 +83,7 @@ for (const typeScriptTest of typeScriptTests) {
       translator = undefined as any; // Need this to properly release memory
     });
 
-    for (const { name, extension, visitor } of SUPPORTED_LANGUAGES) {
+    for (const { name, extension, visitorFactory } of SUPPORTED_LANGUAGES) {
       const languageFile = replaceExtension(typeScriptTest, extension);
 
       // Use 'test.skip' if the file doesn't exist so that we can clearly see it's missing.
@@ -89,10 +92,8 @@ for (const typeScriptTest of typeScriptTests) {
       testConstructor(`to ${name}`, () => {
         const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
         try {
-          const translation = translator.renderUsing(visitor);
-          expect(stripEmptyLines(translation)).toEqual(
-            stripEmptyLines(stripCommonWhitespace(expected)),
-          );
+          const translation = translator.renderUsing(visitorFactory.createVisitor());
+          expect(stripEmptyLines(translation)).toBe(stripEmptyLines(stripCommonWhitespace(expected)));
         } catch (e) {
           anyFailed = true;
           throw e;
@@ -132,7 +133,7 @@ function stripCommonWhitespace(x: string) {
     /* eslint-disable-next-line @typescript-eslint/prefer-regexp-exec */
     .map((l) => l.match(/(\s*)/)![1].length);
   const minWS = Math.min(...whitespaces);
-  return lines.map((l) => l.substr(minWS)).join('\n');
+  return lines.map((l) => l.slice(minWS)).join('\n');
 }
 
 function stripEmptyLines(x: string) {

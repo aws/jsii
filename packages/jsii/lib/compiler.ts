@@ -1,5 +1,5 @@
 import * as Case from 'case';
-import * as colors from 'colors/safe';
+import * as chalk from 'chalk';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
@@ -9,6 +9,7 @@ import { Assembler } from './assembler';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
+import { WARNINGSCODE_FILE_NAME } from './transforms/deprecation-warnings';
 import * as utils from './utils';
 
 const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
@@ -17,9 +18,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   declaration: true,
   experimentalDecorators: true,
   incremental: true,
-  inlineSourceMap: true,
-  inlineSources: true,
-  lib: ['lib.es2018.d.ts'],
+  lib: ['lib.es2020.d.ts'],
   module: ts.ModuleKind.CommonJS,
   newLine: ts.NewLineKind.LineFeed,
   noEmitOnError: true,
@@ -34,7 +33,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: true,
   stripInternal: false,
-  target: ts.ScriptTarget.ES2018,
+  target: ts.ScriptTarget.ES2020,
 };
 
 const LOG = log4js.getLogger('jsii/compiler');
@@ -52,6 +51,15 @@ export interface CompilerOptions {
   failOnWarnings?: boolean;
   /** Whether to strip deprecated members from emitted artifacts */
   stripDeprecated?: boolean;
+  /** The path to an allowlist of FQNs to strip if stripDeprecated is set */
+  stripDeprecatedAllowListFile?: string;
+  /** Whether to add warnings for deprecated elements */
+  addDeprecationWarnings?: boolean;
+  /**
+   * The name of the tsconfig file to generate
+   * @default "tsconfig.json"
+   */
+  generateTypeScriptConfig?: string;
 }
 
 export interface TypescriptConfig {
@@ -77,9 +85,11 @@ export class Compiler implements Emitter {
       },
     );
 
+    const configFileName = options.generateTypeScriptConfig ?? 'tsconfig.json';
+
     this.configPath = path.join(
       this.options.projectInfo.projectRoot,
-      'tsconfig.json',
+      configFileName,
     );
 
     this.projectReferences =
@@ -95,8 +105,8 @@ export class Compiler implements Emitter {
    *
    * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
    */
-  public async emit(...files: string[]): Promise<ts.EmitResult> {
-    await this._prepareForBuild(...files);
+  public emit(...files: string[]): ts.EmitResult {
+    this._prepareForBuild(...files);
     return this._buildOnce();
   }
 
@@ -117,7 +127,7 @@ export class Compiler implements Emitter {
   public async watch(
     opts?: NonBlockingWatchOptions,
   ): Promise<ts.Watch<ts.BuilderProgram> | never> {
-    await this._prepareForBuild();
+    this._prepareForBuild();
 
     const pi = this.options.projectInfo;
     const projectRoot = pi.projectRoot;
@@ -144,8 +154,12 @@ export class Compiler implements Emitter {
       );
     }
     const orig = host.afterProgramCreate;
-    host.afterProgramCreate = async (builderProgram) => {
-      const emitResult = await this._consumeProgram(
+    // This is a callback cascade, so it's "okay" to return an unhandled promise there. This may
+    // cause an unhandled promise rejection warning, but that's not a big deal.
+    //
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    host.afterProgramCreate = (builderProgram) => {
+      const emitResult = this._consumeProgram(
         builderProgram.getProgram(),
         host.getDefaultLibLocation!(),
       );
@@ -160,7 +174,7 @@ export class Compiler implements Emitter {
         orig.call(host, builderProgram);
       }
       if (opts?.compilationComplete) {
-        await opts.compilationComplete(emitResult);
+        opts.compilationComplete(emitResult);
       }
     };
     const watch = ts.createWatchProgram(host);
@@ -179,16 +193,16 @@ export class Compiler implements Emitter {
    *
    * @param files the files that were specified as input in the CLI invocation.
    */
-  private async _prepareForBuild(...files: string[]) {
-    await this.buildTypeScriptConfig();
-    await this.writeTypeScriptConfig();
+  private _prepareForBuild(...files: string[]) {
+    this.buildTypeScriptConfig();
+    this.writeTypeScriptConfig();
     this.rootFiles = this.determineSources(files);
   }
 
   /**
    * Do a single build
    */
-  private async _buildOnce(): Promise<ts.EmitResult> {
+  private _buildOnce(): ts.EmitResult {
     if (!this.compilerHost.getDefaultLibLocation) {
       throw new Error(
         'No default library location was found on the TypeScript compiler host!',
@@ -217,10 +231,7 @@ export class Compiler implements Emitter {
     );
   }
 
-  private async _consumeProgram(
-    program: ts.Program,
-    stdlib: string,
-  ): Promise<ts.EmitResult> {
+  private _consumeProgram(program: ts.Program, stdlib: string): ts.EmitResult {
     const diagnostics = [...ts.getPreEmitDiagnostics(program)];
     let hasErrors = false;
 
@@ -235,10 +246,12 @@ export class Compiler implements Emitter {
     // to post-process the AST
     const assembler = new Assembler(this.options.projectInfo, program, stdlib, {
       stripDeprecated: this.options.stripDeprecated,
+      stripDeprecatedAllowListFile: this.options.stripDeprecatedAllowListFile,
+      addDeprecationWarnings: this.options.addDeprecationWarnings,
     });
 
     try {
-      const assmEmit = await assembler.emit();
+      const assmEmit = assembler.emit();
       if (
         !hasErrors &&
         (assmEmit.emitSkipped ||
@@ -251,7 +264,7 @@ export class Compiler implements Emitter {
       }
 
       diagnostics.push(...assmEmit.diagnostics);
-    } catch (e) {
+    } catch (e: any) {
       diagnostics.push(
         JsiiDiagnostic.JSII_9997_UNKNOWN_ERROR.createDetached(e),
       );
@@ -279,6 +292,26 @@ export class Compiler implements Emitter {
       );
     }
 
+    // Some extra validation on the config.
+    // Make sure that { "./.warnings.jsii.js": "./.warnings.jsii.js" } is in the set of
+    // exports, if they are specified.
+    if (
+      this.options.addDeprecationWarnings &&
+      this.options.projectInfo.exports !== undefined
+    ) {
+      const expected = `./${WARNINGSCODE_FILE_NAME}`;
+      const warningsExport = Object.entries(
+        this.options.projectInfo.exports,
+      ).filter(([k, v]) => k === expected && v === expected);
+
+      if (warningsExport.length === 0) {
+        hasErrors = true;
+        diagnostics.push(
+          JsiiDiagnostic.JSII_0007_MISSING_WARNINGS_EXPORT.createDetached(),
+        );
+      }
+    }
+
     return {
       emitSkipped: hasErrors,
       diagnostics: ts.sortAndDeduplicateDiagnostics(diagnostics),
@@ -291,10 +324,10 @@ export class Compiler implements Emitter {
    *
    * This is the object that will be written to disk.
    */
-  private async buildTypeScriptConfig() {
+  private buildTypeScriptConfig() {
     let references: string[] | undefined;
     if (this.projectReferences) {
-      references = await this.findProjectReferences();
+      references = this.findProjectReferences();
     }
 
     const pi = this.options.projectInfo;
@@ -340,15 +373,15 @@ export class Compiler implements Emitter {
    *
    * @return the fully qualified path to the `tsconfig.json` file
    */
-  private async writeTypeScriptConfig(): Promise<void> {
+  private writeTypeScriptConfig(): void {
     const commentKey = '_generated_by_jsii_';
     const commentValue =
       'Generated by jsii - safe to delete, and ideally should be in .gitignore';
 
     (this.typescriptConfig as any)[commentKey] = commentValue;
 
-    if (await fs.pathExists(this.configPath)) {
-      const currentConfig = await fs.readJson(this.configPath);
+    if (fs.pathExistsSync(this.configPath)) {
+      const currentConfig = fs.readJsonSync(this.configPath);
       if (!(commentKey in currentConfig)) {
         throw new Error(
           `A '${this.configPath}' file that was not generated by jsii is in ${this.options.projectInfo.projectRoot}. Aborting instead of overwriting.`,
@@ -379,8 +412,8 @@ export class Compiler implements Emitter {
       },
     };
 
-    LOG.debug(`Creating or updating ${colors.blue(this.configPath)}`);
-    await fs.writeJson(this.configPath, outputConfig, {
+    LOG.debug(`Creating or updating ${chalk.blue(this.configPath)}`);
+    fs.writeJsonSync(this.configPath, outputConfig, {
       encoding: 'utf8',
       spaces: 2,
     });
@@ -416,7 +449,7 @@ export class Compiler implements Emitter {
    * if there's an "index" tsconfig.json of all projects somewhere up the directory
    * tree)
    */
-  private async findProjectReferences(): Promise<string[]> {
+  private findProjectReferences(): string[] {
     const pkg = this.options.projectInfo.packageJson;
 
     const ret = new Array<string>();
@@ -435,10 +468,8 @@ export class Compiler implements Emitter {
       );
     }
 
-    for (const tsconfigFile of await Promise.all(
-      Array.from(dependencyNames).map((depName) =>
-        this.findMonorepoPeerTsconfig(depName),
-      ),
+    for (const tsconfigFile of Array.from(dependencyNames).map((depName) =>
+      this.findMonorepoPeerTsconfig(depName),
     )) {
       if (!tsconfigFile) {
         continue;
@@ -514,28 +545,41 @@ export class Compiler implements Emitter {
    *
    * Returns undefined if no such tsconfig could be found.
    */
-  private async findMonorepoPeerTsconfig(
-    depName: string,
-  ): Promise<string | undefined> {
-    const paths = nodeJsCompatibleSearchPaths(
-      this.options.projectInfo.projectRoot,
-    );
+  private findMonorepoPeerTsconfig(depName: string): string | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+    const { builtinModules } = require('module');
+    if ((builtinModules ?? []).includes(depName)) {
+      // Can happen for modules like 'punycode' which are declared as dependency for polyfill purposes
+      return undefined;
+    }
 
-    let dep;
     try {
-      dep = require.resolve(`${depName}/tsconfig.json`, { paths });
-    } catch {
-      // Package does not have a tsconfig.json
-      return undefined;
-    }
+      const depDir = utils.findDependencyDirectory(
+        depName,
+        this.options.projectInfo.projectRoot,
+      );
 
-    // Resolve symlinks, to check if this is a monorepo peer
-    const dependencyRealPath = await fs.realpath(dep);
-    if (dependencyRealPath.split(path.sep).includes('node_modules')) {
-      return undefined;
-    }
+      const dep = path.join(depDir, 'tsconfig.json');
+      if (!fs.pathExistsSync(dep)) {
+        return undefined;
+      }
 
-    return dependencyRealPath;
+      // Resolve symlinks, to check if this is a monorepo peer
+      const dependencyRealPath = fs.realpathSync(dep);
+      if (dependencyRealPath.split(path.sep).includes('node_modules')) {
+        return undefined;
+      }
+
+      return dependencyRealPath;
+    } catch (e: any) {
+      // @types modules cannot be required, for example
+      if (
+        ['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(e.code)
+      ) {
+        return undefined;
+      }
+      throw e;
+    }
   }
 
   private diagsHaveAbortableErrors(diags: readonly ts.Diagnostic[]) {
@@ -572,9 +616,7 @@ export interface NonBlockingWatchOptions {
   /**
    * This hook gets invoked when a compilation cycle (complete with Assembler execution) completes.
    */
-  readonly compilationComplete: (
-    emitResult: ts.EmitResult,
-  ) => void | Promise<void>;
+  readonly compilationComplete: (emitResult: ts.EmitResult) => void;
 }
 
 function _pathOfLibraries(
@@ -592,22 +634,6 @@ function _pathOfLibraries(
     );
   }
   return BASE_COMPILER_OPTIONS.lib.map((name) => path.join(lib, name));
-}
-
-/**
- * Return all possible 'node_modules' directories from a given starting directory.
- */
-function nodeJsCompatibleSearchPaths(dir: string): string[] {
-  const ret = new Array<string>();
-
-  let lastDir;
-  do {
-    ret.push(path.join(dir, 'node_modules'));
-    lastDir = dir;
-    dir = path.dirname(dir);
-  } while (dir !== lastDir); // path.dirname('/') === '/', also works on Windows
-
-  return ret;
 }
 
 function parseConfigHostFromCompilerHost(

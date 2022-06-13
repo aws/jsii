@@ -60,7 +60,7 @@ the request-response protocol is defined by the [kernel api specification]. On
 - `#!json { "stdout": "<base64-encoded data>" }` when the console data is to be
   written on the *Host Application*'s `STDOUT` stream.
 - Any data that is not valid JSON, or that does not match either of the formats
-  described avove must be written as-is on the *Host Application*'s `STDERR`
+  described above must be written as-is on the *Host Application*'s `STDERR`
   stream.
 
 [kernel api specification]: ../specification/3-kernel-api.md
@@ -101,7 +101,7 @@ describing the process arrangement that achieves this:
 !!! bug "Missing Feature"
     As shown on the diagram above, there is nothing connected to the *Core*
     process' `FD#0` (`STDIN`). This feature will be added in the future, but
-    currently this means *jsii* libraries have no way of accepting input though
+    currently this means *jsii* libraries have no way of accepting input through
     `STDIN`.
 
 The *Wrapper* process manages the *Core* process such that:

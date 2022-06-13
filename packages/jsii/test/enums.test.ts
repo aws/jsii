@@ -1,8 +1,10 @@
+import { EnumType } from '@jsii/spec';
+
 import { sourceToAssemblyHelper } from '../lib';
 
 // ----------------------------------------------------------------------
-test('test parsing enum with two members and no values', async () => {
-  const assembly = await sourceToAssemblyHelper(`
+test('test parsing enum with two members and no values', () => {
+  const assembly = sourceToAssemblyHelper(`
     export enum Foo {
       BAR,
       BAZ
@@ -16,12 +18,13 @@ test('test parsing enum with two members and no values', async () => {
     members: [{ name: 'BAR' }, { name: 'BAZ' }],
     locationInModule: { filename: 'index.ts', line: 2 },
     name: 'Foo',
+    symbolId: 'index:Foo',
   });
 });
 
 // ----------------------------------------------------------------------
-test('test parsing enum with two members and assigned values', async () => {
-  const assembly = await sourceToAssemblyHelper(`
+test('test parsing enum with two members and assigned values', () => {
+  const assembly = sourceToAssemblyHelper(`
     export enum Foo {
       BAR = 'Bar',
       BAZ = 'Baz'
@@ -35,5 +38,22 @@ test('test parsing enum with two members and assigned values', async () => {
     members: [{ name: 'BAR' }, { name: 'BAZ' }],
     locationInModule: { filename: 'index.ts', line: 2 },
     name: 'Foo',
+    symbolId: 'index:Foo',
   });
+});
+
+// ----------------------------------------------------------------------
+
+test('enums can have a mix of letters and number', () => {
+  const assembly = sourceToAssemblyHelper(`
+    export enum Foo {
+      Q5X,
+      IB3M,
+    }
+  `);
+
+  expect((assembly.types!['testpkg.Foo'] as EnumType).members).toEqual([
+    { name: 'Q5X' },
+    { name: 'IB3M' },
+  ]);
 });

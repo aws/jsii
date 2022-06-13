@@ -1,25 +1,8 @@
-/**
- * Resolve a package name in an example to a JSII assembly
- *
- * We assume we've changed directory to the directory where we need to resolve from.
- */
-export function resolvePackage(packageName: string) {
-  try {
-    const resolved = require.resolve(`${packageName}/package.json`, {
-      paths: [process.cwd()],
-    });
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require(resolved);
-  } catch {
-    return undefined;
-  }
-}
+import * as spec from '@jsii/spec';
 
-export function jsiiTargetParam(packageName: string, field: string) {
-  const pkgJson = resolvePackage(packageName);
-
-  const path = ['jsii', 'targets', ...field.split('.')];
-  let r = pkgJson;
+export function jsiiTargetParameter(target: spec.Targetable, field: string) {
+  const path = field.split('.');
+  let r: any = target.targets;
   while (path.length > 0 && typeof r === 'object' && r !== null) {
     r = r[path.splice(0, 1)[0]];
   }

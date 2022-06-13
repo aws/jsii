@@ -1,14 +1,14 @@
 import * as spec from '@jsii/spec';
+import * as assert from 'assert';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
   TargetLanguage,
-  Translation,
   Rosetta,
   enforcesStrictMode,
-  typeScriptSnippetFromSource,
+  ApiLocation,
 } from 'jsii-rosetta';
 import * as path from 'path';
 
@@ -17,7 +17,7 @@ import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
-import { renderSummary } from './_utils';
+import { renderSummary, PropertyDefinition } from './_utils';
 import {
   NamingContext,
   toTypeName,
@@ -28,11 +28,7 @@ import {
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-  TargetName,
-} from '.';
+import { TargetName } from './index';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -62,12 +58,16 @@ export default class Python extends Target {
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
     // Create a fresh virtual env
-    const venv = await fs.mkdtemp(path.join(sourceDir, '.env'));
+    const venv = await fs.mkdtemp(path.join(sourceDir, '.env-'));
     const venvBin = path.join(
       venv,
       process.platform === 'win32' ? 'Scripts' : 'bin',
     );
-    await shell('python3', [
+    // On Windows, there is usually no python3.exe (the GitHub action workers will have a python3
+    // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
+    // fail to copy the python binary if it's not invoked as python.exe). More on this particular
+    // issue can be read here: https://bugs.python.org/issue43749
+    await shell(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
@@ -328,6 +328,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   public constructor(
     protected readonly generator: PythonGenerator,
     public readonly pythonName: string,
+    public readonly spec: spec.Type,
     public readonly fqn: string | undefined,
     opts: PythonTypeOpts,
     public readonly docs: spec.Docs | undefined,
@@ -382,13 +383,22 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     this.members.push(member);
   }
 
+  public get apiLocation(): ApiLocation {
+    if (!this.fqn) {
+      throw new Error(
+        `Cannot make apiLocation for ${this.pythonName}, does not have FQN`,
+      );
+    }
+    return { api: 'type', fqn: this.fqn };
+  }
+
   public emit(code: CodeMaker, context: EmitContext) {
     context = nestedContext(context, this.fqn);
 
     const classParams = this.getClassParams(context);
     openSignature(code, 'class', this.pythonName, classParams);
 
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `class-${this.pythonName}`,
       trailingNewLine: true,
     });
@@ -455,11 +465,20 @@ abstract class BaseMethod implements PythonBase {
     private readonly parameters: spec.Parameter[],
     private readonly returns: spec.OptionalValue | undefined,
     public readonly docs: spec.Docs | undefined,
+    public readonly isStatic: boolean,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
     this.liftedProp = opts.liftedProp;
     this.parent = opts.parent;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return {
+      api: 'member',
+      fqn: this.parent.fqn,
+      memberName: this.jsName ?? '',
+    };
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -534,6 +553,14 @@ abstract class BaseMethod implements PythonBase {
     }
 
     const documentableArgs: DocumentableArgument[] = this.parameters
+      .map(
+        (p) =>
+          ({
+            name: p.name,
+            docs: p.docs,
+            definingType: this.parent,
+          } as DocumentableArgument),
+      )
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
       .filter((_, index) =>
         this.liftedProp != null ? index < this.parameters.length - 1 : true,
@@ -558,19 +585,28 @@ abstract class BaseMethod implements PythonBase {
 
         // Iterate over all of our props, and reflect them into our params.
         for (const prop of liftedProperties) {
-          const paramName = toPythonParameterName(prop.name);
-          const paramType = toTypeName(prop).pythonType({
+          const paramName = toPythonParameterName(prop.prop.name);
+          const paramType = toTypeName(prop.prop).pythonType({
             ...context,
             parameterType: true,
           });
-          const paramDefault = prop.optional ? ' = None' : '';
+          const paramDefault = prop.prop.optional ? ' = None' : '';
 
           pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
       }
 
       // Document them as keyword arguments
-      documentableArgs.push(...liftedProperties);
+      documentableArgs.push(
+        ...liftedProperties.map(
+          (p) =>
+            ({
+              name: p.prop.name,
+              docs: p.prop.docs,
+              definingType: p.definingType,
+            } as DocumentableArgument),
+        ),
+      );
     } else if (
       this.parameters.length >= 1 &&
       this.parameters[this.parameters.length - 1].variadic
@@ -626,7 +662,7 @@ abstract class BaseMethod implements PythonBase {
       false,
       returnType,
     );
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       arguments: documentableArgs,
       documentableItem: `method-${this.pythonName}`,
     });
@@ -686,7 +722,7 @@ abstract class BaseMethod implements PythonBase {
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specifiy to start with in our dictionary literal.
     const liftedProps = this.getLiftedProperties(context.resolver).map(
-      (p) => new StructField(this.generator, p),
+      (p) => new StructField(this.generator, p.prop, p.definingType),
     );
     const assignments = liftedProps
       .map((p) => p.pythonName)
@@ -710,12 +746,17 @@ abstract class BaseMethod implements PythonBase {
       if (this.parent === undefined) {
         throw new Error('Parent not known.');
       }
-      jsiiMethodParams.push(
-        toTypeName(this.parent).pythonType({
-          ...context,
-          typeAnnotation: false,
-        }),
-      );
+      if (this.isStatic) {
+        jsiiMethodParams.push(
+          toTypeName(this.parent).pythonType({
+            ...context,
+            typeAnnotation: false,
+          }),
+        );
+      } else {
+        // Using the dynamic class of `self`.
+        jsiiMethodParams.push(`${implicitParameter}.__class__`);
+      }
     }
     jsiiMethodParams.push(implicitParameter);
     if (this.jsName !== undefined) {
@@ -744,8 +785,8 @@ abstract class BaseMethod implements PythonBase {
     );
   }
 
-  private getLiftedProperties(resolver: TypeResolver): spec.Property[] {
-    const liftedProperties: spec.Property[] = [];
+  private getLiftedProperties(resolver: TypeResolver): PropertyDefinition[] {
+    const liftedProperties: PropertyDefinition[] = [];
 
     const stack = [this.liftedProp];
     const knownIfaces = new Set<string>();
@@ -774,7 +815,7 @@ abstract class BaseMethod implements PythonBase {
           if (knownProps.has(prop.name)) {
             continue;
           }
-          liftedProperties.push(prop);
+          liftedProperties.push({ prop, definingType: current });
           knownProps.add(prop.name);
         }
       }
@@ -807,6 +848,7 @@ abstract class BaseProperty implements PythonBase {
   protected readonly shouldEmitBody: boolean = true;
 
   private readonly immutable: boolean;
+  private readonly parent: spec.NamedTypeReference;
 
   public constructor(
     private readonly generator: PythonGenerator,
@@ -821,6 +863,11 @@ abstract class BaseProperty implements PythonBase {
     this.abstract = abstract;
     this.immutable = immutable;
     this.isStatic = isStatic;
+    this.parent = opts.parent;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return { api: 'member', fqn: this.parent.fqn, memberName: this.jsName };
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -849,7 +896,7 @@ abstract class BaseProperty implements PythonBase {
       true,
       pythonType,
     );
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
     });
     if (
@@ -918,7 +965,7 @@ class Interface extends BasePythonClassType {
         })}) # type: ignore[misc]`,
     );
     openSignature(code, 'class', this.proxyClassName, proxyBases);
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `class-${this.pythonName}`,
       trailingNewLine: true,
     });
@@ -1032,7 +1079,7 @@ class Struct extends BasePythonClassType {
    */
   private get allMembers(): StructField[] {
     return this.thisInterface.allProperties.map(
-      (x) => new StructField(this.generator, x.spec),
+      (x) => new StructField(this.generator, x.spec, x.definingType.spec),
     );
   }
 
@@ -1100,8 +1147,9 @@ class Struct extends BasePythonClassType {
     const args: DocumentableArgument[] = this.allMembers.map((m) => ({
       name: m.pythonName,
       docs: m.docs,
+      definingType: this.spec,
     }));
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       arguments: args,
       documentableItem: `class-${this.pythonName}`,
     });
@@ -1173,11 +1221,20 @@ class StructField implements PythonBase {
   public constructor(
     private readonly generator: PythonGenerator,
     public readonly prop: spec.Property,
+    private readonly definingType: spec.Type,
   ) {
     this.pythonName = toPythonPropertyName(prop.name);
     this.jsiiName = prop.name;
     this.type = prop;
     this.docs = prop.docs;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return {
+      api: 'member',
+      fqn: this.definingType.fqn,
+      memberName: this.jsiiName,
+    };
   }
 
   public get optional(): boolean {
@@ -1208,7 +1265,7 @@ class StructField implements PythonBase {
   }
 
   public emitDocString(code: CodeMaker) {
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
     });
   }
@@ -1234,11 +1291,12 @@ class Class extends BasePythonClassType implements ISortableType {
   public constructor(
     generator: PythonGenerator,
     name: string,
+    spec: spec.Type,
     fqn: string,
     opts: ClassOpts,
     docs: spec.Docs | undefined,
   ) {
-    super(generator, name, fqn, opts, docs);
+    super(generator, name, spec, fqn, opts, docs);
 
     const { abstract = false, interfaces = [], abstractBases = [] } = opts;
 
@@ -1431,9 +1489,14 @@ class EnumMember implements PythonBase {
     public readonly pythonName: string,
     private readonly value: string,
     public readonly docs: spec.Docs | undefined,
+    private readonly parent: spec.NamedTypeReference,
   ) {
     this.pythonName = pythonName;
     this.value = value;
+  }
+
+  public get apiLocation(): ApiLocation {
+    return { api: 'member', fqn: this.parent.fqn, memberName: this.value };
   }
 
   public dependsOnModules() {
@@ -1442,7 +1505,7 @@ class EnumMember implements PythonBase {
 
   public emit(code: CodeMaker, _context: EmitContext) {
     code.line(`${this.pythonName} = "${this.value}"`);
-    this.generator.emitDocString(code, this.docs, {
+    this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `enum-${this.pythonName}`,
     });
   }
@@ -1482,6 +1545,8 @@ class PythonModule implements PythonType {
   private readonly loadAssembly: boolean;
   private readonly members = new Array<PythonBase>();
 
+  private readonly modules = new Array<PythonModule>();
+
   public constructor(
     public readonly pythonName: string,
     public readonly fqn: string | undefined,
@@ -1495,6 +1560,37 @@ class PythonModule implements PythonType {
 
   public addMember(member: PythonBase) {
     this.members.push(member);
+  }
+
+  public addPythonModule(pyMod: PythonModule) {
+    assert(
+      !this.loadAssembly,
+      'PythonModule.addPythonModule CANNOT be called on assembly-loading modules (it would cause a load cycle)!',
+    );
+
+    assert(
+      pyMod.pythonName.startsWith(`${this.pythonName}.`),
+      `Attempted to register ${pyMod.pythonName} as a child module of ${this.pythonName}, but the names don't match!`,
+    );
+
+    const [firstLevel, ...rest] = pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .split('.');
+    if (rest.length === 0) {
+      // This is a direct child module...
+      this.modules.push(pyMod);
+    } else {
+      // This is a nested child module, so we delegate to the directly nested module...
+      const parent = this.modules.find(
+        (m) => m.pythonName === `${this.pythonName}.${firstLevel}`,
+      );
+      if (!parent) {
+        throw new Error(
+          `Attempted to register ${pyMod.pythonName} within ${this.pythonName}, but ${this.pythonName}.${firstLevel} wasn't registered yet!`,
+        );
+      }
+      parent.addPythonModule(pyMod);
+    }
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -1567,7 +1663,21 @@ class PythonModule implements PythonType {
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
-    const exportedMembers = this.members.map((m) => `"${m.pythonName}"`);
+    //
+    // __all__ is normally used for when users write `from library import *`, but we also
+    // use it with the `publication` module to hide everything that's NOT in the list.
+    //
+    // Normally adding submodules to `__all__` has the (negative?) side-effect
+    // that all submodules get loaded when the user does `import *`, but we
+    // already load submodules anyway so it doesn't make a difference, and in combination
+    // with the `publication` module NOT having them in this list hides any submodules
+    // we import as part of typechecking.
+    const exportedMembers = [
+      ...this.members.map((m) => `"${m.pythonName}"`),
+      ...this.modules
+        .filter((m) => this.isDirectChild(m))
+        .map((m) => `"${lastComponent(m.pythonName)}"`),
+    ];
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
@@ -1589,10 +1699,30 @@ class PythonModule implements PythonType {
       code.line('__all__: typing.List[typing.Any] = []');
     }
 
-    // Finally, we'll use publication to ensure that all of the non-public names
+    // Next up, we'll use publication to ensure that all of the non-public names
     // get hidden from dir(), tab-complete, etc.
     code.line();
     code.line('publication.publish()');
+
+    // Finally, we'll load all registered python modules
+    if (this.modules.length > 0) {
+      code.line();
+      code.line(
+        '# Loading modules to ensure their types are registered with the jsii runtime library',
+      );
+      for (const module of this.modules.sort((l, r) =>
+        l.pythonName.localeCompare(r.pythonName),
+      )) {
+        // Rather than generating an absolute import like
+        // "import jsii_calc.submodule" this builds a relative import like
+        // "from . import submodule". This enables distributing python packages
+        // and using the generated modules in the same codebase.
+        const submodule = module.pythonName.substring(
+          this.pythonName.length + 1,
+        );
+        code.line(`from . import ${submodule}`);
+      }
+    }
   }
 
   /**
@@ -1643,6 +1773,19 @@ class PythonModule implements PythonType {
       }
     }
     return scripts;
+  }
+
+  private isDirectChild(pyMod: PythonModule) {
+    if (
+      this.pythonName === pyMod.pythonName ||
+      !pyMod.pythonName.startsWith(`${this.pythonName}.`)
+    ) {
+      return false;
+    }
+    // Must include only one more component
+    return !pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .includes('.');
   }
 
   /**
@@ -1871,7 +2014,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '>=3.6',
+      python_requires: '~=3.7',
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
@@ -1883,10 +2026,10 @@ class Package {
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Typing :: Typed',
       ],
       scripts,
@@ -2138,6 +2281,7 @@ class TypeResolver {
 
 class PythonGenerator extends Generator {
   private package!: Package;
+  private rootModule?: PythonModule;
   private readonly types: Map<string, PythonType>;
 
   public constructor(
@@ -2155,6 +2299,7 @@ class PythonGenerator extends Generator {
   // eslint-disable-next-line complexity
   public emitDocString(
     code: CodeMaker,
+    apiLocation: ApiLocation,
     docs: spec.Docs | undefined,
     options: {
       arguments?: DocumentableArgument[];
@@ -2206,7 +2351,9 @@ class PythonGenerator extends Generator {
     if (docs.remarks) {
       brk();
       lines.push(
-        ...md2rst(this.convertMarkdown(docs.remarks ?? '')).split('\n'),
+        ...md2rst(this.convertMarkdown(docs.remarks ?? '', apiLocation)).split(
+          '\n',
+        ),
       );
       brk();
     }
@@ -2252,7 +2399,7 @@ class PythonGenerator extends Generator {
       brk();
       lines.push('Example::');
       lines.push('');
-      const exampleText = this.convertExample(docs.example);
+      const exampleText = this.convertExample(docs.example, apiLocation);
 
       for (const line of exampleText.split('\n')) {
         lines.push(`    ${line}`);
@@ -2285,42 +2432,23 @@ class PythonGenerator extends Generator {
     }
   }
 
-  public convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(
+  public convertExample(example: string, apiLoc: ApiLocation): string {
+    const translated = this.rosetta.translateExample(
+      apiLoc,
       example,
-      'example',
+      TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
     );
-    const translated = this.rosetta.translateSnippet(
-      snippet,
-      TargetLanguage.PYTHON,
-    );
-    if (!translated) {
-      return example;
-    }
-    return this.prefixDisclaimer(translated);
+    return translated.source;
   }
 
-  public convertMarkdown(markdown: string): string {
+  public convertMarkdown(markdown: string, apiLoc: ApiLocation): string {
     return this.rosetta.translateSnippetsInMarkdown(
+      apiLoc,
       markdown,
       TargetLanguage.PYTHON,
       enforcesStrictMode(this.assembly),
-      (trans) => ({
-        language: trans.language,
-        source: this.prefixDisclaimer(trans),
-      }),
     );
-  }
-
-  private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
-      return `# ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
-    }
-    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
-      return `# ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
-    }
-    return translated.source;
   }
 
   public getPythonType(fqn: string): PythonType {
@@ -2387,12 +2515,17 @@ class PythonGenerator extends Generator {
         ? this.assembly
         : this.assembly.submodules?.[ns];
 
+    const readmeLocation: ApiLocation = { api: 'moduleReadme', moduleFqn: ns };
+
     const module = new PythonModule(toPackageName(ns, this.assembly), ns, {
       assembly: this.assembly,
       assemblyFilename: this.getAssemblyFileName(),
       package: this.package,
       moduleDocumentation: submoduleLike?.readme
-        ? this.convertMarkdown(submoduleLike.readme?.markdown).trim()
+        ? this.convertMarkdown(
+            submoduleLike.readme?.markdown,
+            readmeLocation,
+          ).trim()
         : undefined,
     });
 
@@ -2402,12 +2535,25 @@ class PythonGenerator extends Generator {
       // This applies recursively to submodules, so no need to duplicate!
       this.package.addData(module, 'py.typed', '');
     }
+
+    if (ns === this.assembly.name) {
+      this.rootModule = module;
+    } else {
+      this.rootModule!.addPythonModule(module);
+    }
+  }
+
+  protected onEndNamespace(ns: string) {
+    if (ns === this.assembly.name) {
+      delete this.rootModule;
+    }
   }
 
   protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) {
     const klass = new Class(
       this,
       toPythonIdentifier(cls.name),
+      cls,
       cls.fqn,
       {
         abstract,
@@ -2429,6 +2575,7 @@ class PythonGenerator extends Generator {
           parameters,
           undefined,
           cls.initializer.docs,
+          false, // Never static
           { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
         ),
       );
@@ -2448,6 +2595,7 @@ class PythonGenerator extends Generator {
         parameters,
         method.returns,
         method.docs,
+        true, // Always static
         {
           abstract: method.abstract,
           liftedProp: this.getliftedProp(method),
@@ -2487,6 +2635,7 @@ class PythonGenerator extends Generator {
           parameters,
           method.returns,
           method.docs,
+          !!method.static,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2503,6 +2652,7 @@ class PythonGenerator extends Generator {
           parameters,
           method.returns,
           method.docs,
+          !!method.static,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2546,6 +2696,7 @@ class PythonGenerator extends Generator {
       iface = new Struct(
         this,
         toPythonIdentifier(ifc.name),
+        ifc,
         ifc.fqn,
         { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
@@ -2554,6 +2705,7 @@ class PythonGenerator extends Generator {
       iface = new Interface(
         this,
         toPythonIdentifier(ifc.name),
+        ifc,
         ifc.fqn,
         { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
@@ -2578,6 +2730,7 @@ class PythonGenerator extends Generator {
         parameters,
         method.returns,
         method.docs,
+        !!method.static,
         { liftedProp: this.getliftedProp(method), parent: ifc },
       ),
     );
@@ -2587,7 +2740,7 @@ class PythonGenerator extends Generator {
     let ifaceProperty: InterfaceProperty | StructField;
 
     if (ifc.datatype) {
-      ifaceProperty = new StructField(this, prop);
+      ifaceProperty = new StructField(this, prop, ifc);
     } else {
       ifaceProperty = new InterfaceProperty(
         this,
@@ -2604,7 +2757,7 @@ class PythonGenerator extends Generator {
 
   protected onBeginEnum(enm: spec.EnumType) {
     this.addPythonType(
-      new Enum(this, toPythonIdentifier(enm.name), enm.fqn, {}, enm.docs),
+      new Enum(this, toPythonIdentifier(enm.name), enm, enm.fqn, {}, enm.docs),
     );
   }
 
@@ -2615,6 +2768,7 @@ class PythonGenerator extends Generator {
         toPythonIdentifier(member.name),
         member.name,
         member.docs,
+        enm,
       ),
     );
   }
@@ -2719,6 +2873,7 @@ class PythonGenerator extends Generator {
  */
 interface DocumentableArgument {
   name: string;
+  definingType: spec.Type;
   docs?: spec.Docs;
 }
 
@@ -3000,3 +3155,11 @@ function nestedContext(
 }
 
 const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;
+
+/**
+ * Last component of a .-separated name
+ */
+function lastComponent(n: string) {
+  const parts = n.split('.');
+  return parts[parts.length - 1];
+}

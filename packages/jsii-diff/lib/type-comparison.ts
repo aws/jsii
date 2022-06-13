@@ -187,7 +187,7 @@ export abstract class ComparableType<T> {
   }
 
   /**
-   * Mark this type as occuring in an input rule.
+   * Mark this type as occurring in an input rule.
    *
    * All types reachable from this type will be marked as input types as well.
    */
@@ -201,7 +201,7 @@ export abstract class ComparableType<T> {
   }
 
   /**
-   * Mark this type as occuring in an input rule.
+   * Mark this type as occurring in an input rule.
    *
    * All types reachable from this type will be marked as input types as well.
    */
@@ -560,7 +560,7 @@ export class ComparableStructType extends ComparableType<reflect.InterfaceType> 
   ): Analysis {
     try {
       return isStructuralSuperType(a, b, this.newType.system);
-    } catch (e) {
+    } catch (e: any) {
       // We might get an exception if the type is supposed to come from a different
       // assembly and the lookup fails.
       return { success: false, reasons: [e.message] };

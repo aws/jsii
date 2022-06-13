@@ -1,224 +1,193 @@
-import * as os from 'os';
 import * as path from 'path';
-import * as ts from 'typescript';
 
-import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
+import { loadAssemblies, allTypeScriptSnippets, loadAllDefaultTablets } from '../jsii/assemblies';
 import * as logging from '../logging';
-import { TypeScriptSnippet } from '../snippet';
+import { RosettaTranslator, RosettaTranslatorOptions } from '../rosetta-translator';
+import { TypeScriptSnippet, SnippetParameters } from '../snippet';
 import { snippetKey } from '../tablets/key';
-import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
-import { Translator } from '../translate';
-import { divideEvenly } from '../util';
+import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
+import { RosettaDiagnostic } from '../translate';
+import { groupBy, isDefined } from '../util';
+import { infuse } from './infuse';
 
 export interface ExtractResult {
-  diagnostics: ts.Diagnostic[];
+  diagnostics: RosettaDiagnostic[];
   tablet: LanguageTablet;
 }
 
 export interface ExtractOptions {
-  outputFile: string;
-  includeCompilerDiagnostics: boolean;
-  validateAssemblies: boolean;
-  only?: string[];
+  readonly includeCompilerDiagnostics?: boolean;
+  readonly validateAssemblies?: boolean;
+  readonly only?: string[];
+
+  /**
+   * A tablet file to be loaded and used as a source for caching
+   */
+  readonly cacheFromFile?: string;
+
+  /**
+   * A tablet file to append translated snippets to
+   */
+  readonly cacheToFile?: string;
+
+  /**
+   * Trim cache to only contain translations found in the current assemblies
+   *
+   * @default false
+   */
+  readonly trimCache?: boolean;
+
+  /**
+   * Write translations to implicit tablets (`.jsii.tabl.json`)
+   *
+   * @default true
+   */
+  readonly writeToImplicitTablets?: boolean;
+
+  /**
+   * What directory to compile the samples in
+   *
+   * @default - Rosetta manages the compilation directory
+   * @deprecated Samples declare their own dependencies instead
+   */
+  readonly compilationDirectory?: string;
+
+  /**
+   * Make a translator (just for testing)
+   */
+  readonly translatorFactory?: (opts: RosettaTranslatorOptions) => RosettaTranslator;
+
+  /**
+   * Turn on 'loose mode' or not
+   *
+   * Loose mode ignores failures during fixturizing, and undoes 'strict mode' for
+   * diagnostics.
+   *
+   * @default false
+   */
+  readonly loose?: boolean;
+
+  /**
+   * Accept dirty translations from the cache
+   *
+   * @default false
+   */
+  readonly allowDirtyTranslations?: boolean;
+}
+
+export async function extractAndInfuse(assemblyLocations: string[], options: ExtractOptions): Promise<ExtractResult> {
+  const result = await extractSnippets(assemblyLocations, options);
+  await infuse(assemblyLocations, {
+    cacheFromFile: options.cacheFromFile,
+    cacheToFile: options.cacheToFile,
+  });
+  return result;
 }
 
 /**
  * Extract all samples from the given assemblies into a tablet
  */
 export async function extractSnippets(
-  assemblyLocations: string[],
-  options: ExtractOptions,
-  loose = false,
+  assemblyLocations: readonly string[],
+  options: ExtractOptions = {},
 ): Promise<ExtractResult> {
   const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(
-    assemblyLocations,
-    options.validateAssemblies,
-  );
+  const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies ?? false);
 
-  let snippets = allTypeScriptSnippets(assemblies, loose);
+  let snippets = Array.from(await allTypeScriptSnippets(assemblies, options.loose));
   if (only.length > 0) {
     snippets = filterSnippets(snippets, only);
   }
 
-  const tablet = new LanguageTablet();
-
-  logging.info('Translating');
-  const startTime = Date.now();
-
-  const result = await translateAll(
-    snippets,
-    options.includeCompilerDiagnostics,
+  // Map every assembly to a list of snippets, so that we know what implicit
+  // tablet to write the translations to later on.
+  const snippetsPerAssembly = groupBy(
+    snippets.map((s) => ({ key: snippetKey(s), location: projectDirectory(s) })),
+    (x) => x.location,
   );
 
-  for (const snippet of result.translatedSnippets) {
-    tablet.addSnippet(snippet);
+  const translatorOptions: RosettaTranslatorOptions = {
+    includeCompilerDiagnostics: options.includeCompilerDiagnostics ?? false,
+    assemblies: assemblies.map((a) => a.assembly),
+    allowDirtyTranslations: options.allowDirtyTranslations,
+  };
+
+  const translator = options.translatorFactory
+    ? options.translatorFactory(translatorOptions)
+    : new RosettaTranslator(translatorOptions);
+
+  // Prime the snippet cache with:
+  // - Cache source file
+  // - Default tablets found next to each assembly
+  if (options.cacheFromFile) {
+    await translator.addToCache(options.cacheFromFile);
+  }
+  translator.addTabletsToCache(...Object.values(await loadAllDefaultTablets(assemblies)));
+
+  if (translator.hasCache()) {
+    const { translations, remaining } = translator.readFromCache(snippets, true, options.includeCompilerDiagnostics);
+    logging.info(`Reused ${translations.length} translations from cache`);
+    snippets = remaining;
   }
 
-  const delta = (Date.now() - startTime) / 1000;
-  logging.info(
-    `Converted ${tablet.count} snippets in ${delta} seconds (${(
-      delta / tablet.count
-    ).toPrecision(3)}s/snippet)`,
-  );
-  logging.info(`Saving language tablet to ${options.outputFile}`);
-  await tablet.save(options.outputFile);
+  const diagnostics = [];
+  if (snippets.length > 0) {
+    logging.info('Translating');
+    const startTime = Date.now();
 
-  return { diagnostics: result.diagnostics, tablet };
-}
+    const result = await translator.translateAll(snippets);
 
-interface TranslateAllResult {
-  translatedSnippets: TranslatedSnippet[];
-  diagnostics: ts.Diagnostic[];
+    const delta = (Date.now() - startTime) / 1000;
+    logging.info(
+      `Translated ${snippets.length} snippets in ${delta} seconds (${(delta / snippets.length).toPrecision(
+        3,
+      )}s/snippet)`,
+    );
+    diagnostics.push(...result.diagnostics);
+  } else {
+    logging.info('Nothing left to translate');
+  }
+
+  // Save to individual tablet files, and optionally append to the output file
+  if (options.writeToImplicitTablets ?? true) {
+    await Promise.all(
+      Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
+        const asmTabletFile = path.join(location, DEFAULT_TABLET_NAME);
+        logging.debug(`Writing ${snips.length} translations to ${asmTabletFile}`);
+        const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
+
+        const asmTablet = new LanguageTablet();
+        asmTablet.addSnippets(...translations);
+        await asmTablet.save(asmTabletFile);
+      }),
+    );
+  }
+
+  if (options.cacheToFile) {
+    logging.info(`Adding translations to ${options.cacheToFile}`);
+    const output = options.trimCache
+      ? new LanguageTablet()
+      : await LanguageTablet.fromOptionalFile(options.cacheToFile);
+    output.addTablet(translator.tablet);
+    await output.save(options.cacheToFile);
+  }
+
+  return { diagnostics, tablet: translator.tablet };
 }
 
 /**
  * Only yield the snippets whose id exists in a whitelist
  */
-function* filterSnippets(
-  ts: IterableIterator<TypeScriptSnippet>,
-  includeIds: string[],
-) {
-  for (const t of ts) {
-    if (includeIds.includes(snippetKey(t))) {
-      yield t;
-    }
-  }
+function filterSnippets(ts: TypeScriptSnippet[], includeIds: string[]) {
+  return ts.filter((t) => includeIds.includes(snippetKey(t)));
 }
 
-/**
- * Translate all snippets
- *
- * Uses a worker-based parallel translation if available, falling back to a single-threaded workflow if not.
- */
-async function translateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
-  includeCompilerDiagnostics: boolean,
-): Promise<TranslateAllResult> {
-  try {
-    const worker = await import('worker_threads');
-
-    return await workerBasedTranslateAll(
-      worker,
-      snippets,
-      includeCompilerDiagnostics,
-    );
-  } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      throw e;
-    }
-    logging.warn(
-      'Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.',
-    );
-
-    return singleThreadedTranslateAll(snippets, includeCompilerDiagnostics);
+function projectDirectory(ts: TypeScriptSnippet) {
+  const dir = ts.parameters?.[SnippetParameters.$PROJECT_DIRECTORY];
+  if (!dir) {
+    throw new Error(`Snippet does not have associated project directory: ${JSON.stringify(ts.location)}`);
   }
-}
-
-/**
- * Translate the given snippets using a single compiler
- *
- * Used both here (directly) and via extract_worker to translate a batch of
- * snippets in parallel.
- */
-export function singleThreadedTranslateAll(
-  snippets: IterableIterator<TypeScriptSnippet>,
-  includeCompilerDiagnostics: boolean,
-): TranslateAllResult {
-  const translatedSnippets = new Array<TranslatedSnippet>();
-
-  const failures = new Array<ts.Diagnostic>();
-
-  const translator = new Translator(includeCompilerDiagnostics);
-  for (const block of snippets) {
-    try {
-      translatedSnippets.push(translator.translate(block));
-    } catch (e) {
-      failures.push({
-        category: ts.DiagnosticCategory.Error,
-        code: 999,
-        messageText: `rosetta: error translating snippet: ${e}\n${block.completeSource}`,
-        file: undefined,
-        start: undefined,
-        length: undefined,
-      });
-    }
-  }
-
-  return {
-    translatedSnippets,
-    diagnostics: [...translator.diagnostics, ...failures],
-  };
-}
-
-/**
- * Divide the work evenly over all processors by running 'extract_worker' in Worker Threads, then combine results
- *
- * Never include 'extract_worker' directly, only do TypeScript type references (so that in
- * the script we may assume that 'worker_threads' successfully imports).
- */
-async function workerBasedTranslateAll(
-  worker: typeof import('worker_threads'),
-  snippets: IterableIterator<TypeScriptSnippet>,
-  includeCompilerDiagnostics: boolean,
-): Promise<TranslateAllResult> {
-  // Use about half the advertised cores because hyperthreading doesn't seem to help that
-  // much (on my machine, using more than half the cores actually makes it slower).
-  // Cap to a reasonable top-level limit to prevent thrash on machines with many, many cores.
-  const maxWorkers = parseInt(
-    process.env.JSII_ROSETTA_MAX_WORKER_COUNT ?? '16',
-  );
-  const N = Math.min(maxWorkers, Math.max(1, Math.ceil(os.cpus().length / 2)));
-  const snippetArr = Array.from(snippets);
-  const groups = divideEvenly(N, snippetArr);
-  logging.info(
-    `Translating ${snippetArr.length} snippets using ${groups.length} workers`,
-  );
-
-  // Run workers
-  const responses = await Promise.all(
-    groups
-      .map((snippets) => ({ snippets, includeCompilerDiagnostics }))
-      .map(runWorker),
-  );
-
-  // Combine results
-  const x = responses.reduce(
-    (acc, current) => {
-      // Modifying 'acc' in place to not incur useless copying
-      acc.translatedSnippetSchemas.push(...current.translatedSnippetSchemas);
-      acc.diagnostics.push(...current.diagnostics);
-      return acc;
-    },
-    { translatedSnippetSchemas: [], diagnostics: [] },
-  );
-  // Hydrate TranslatedSnippets from data back to objects
-  return {
-    diagnostics: x.diagnostics,
-    translatedSnippets: x.translatedSnippetSchemas.map((s) =>
-      TranslatedSnippet.fromSchema(s),
-    ),
-  };
-
-  /**
-   * Turn running the worker into a nice Promise.
-   */
-  async function runWorker(
-    request: import('./extract_worker').TranslateRequest,
-  ): Promise<import('./extract_worker').TranslateResponse> {
-    return new Promise((resolve, reject) => {
-      const wrk = new worker.Worker(path.join(__dirname, 'extract_worker.js'), {
-        workerData: request,
-      });
-      wrk.on('message', resolve);
-      wrk.on('error', reject);
-      wrk.on('exit', (code) => {
-        if (code !== 0) {
-          reject(new Error(`Worker exited with code ${code}`));
-        }
-      });
-    });
-  }
+  return dir;
 }

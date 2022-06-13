@@ -1,10 +1,20 @@
-import { sourceToAssemblyHelper } from 'jsii/lib/helpers';
+import { sourceToAssemblyHelper, MultipleSourceFiles, PackageInfo } from 'jsii';
 
 import { Assembly, TypeSystem } from '../lib';
 
-export async function typeSystemFromSource(source: string) {
-  const assembly = await sourceToAssemblyHelper(source);
+export function typeSystemFromSource(
+  source: string | MultipleSourceFiles,
+  cb?: (obj: PackageInfo) => void,
+) {
+  const asm = assemblyFromSource(source, cb);
+  return asm.system;
+}
+
+export function assemblyFromSource(
+  source: string | MultipleSourceFiles,
+  cb?: (obj: PackageInfo) => void,
+): Assembly {
+  const ass = sourceToAssemblyHelper(source, cb);
   const ts = new TypeSystem();
-  ts.addAssembly(new Assembly(ts, assembly));
-  return ts;
+  return ts.addAssembly(new Assembly(ts, ass));
 }

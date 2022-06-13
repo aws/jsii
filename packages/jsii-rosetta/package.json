@@ -7,8 +7,8 @@
     "jsii-rosetta": "bin/jsii-rosetta"
   },
   "scripts": {
-    "build": "tsc --build && npm run lint",
-    "watch": "tsc --build -w",
+    "build": "yarn tsc --build && npm run lint",
+    "watch": "yarn tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=examples/* --ignore-pattern=test/translations/*",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
@@ -16,27 +16,29 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/commonmark": "^0.27.4",
-    "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.23",
-    "@types/mock-fs": "^4.13.0",
-    "@types/node": "^10.17.59",
-    "@types/yargs": "^16.0.1",
-    "eslint": "^7.26.0",
-    "jest": "^26.6.3",
-    "jsii": "^0.0.0",
-    "jsii-build-tools": "^0.0.0",
+    "@types/commonmark": "^0.27.5",
+    "@types/fs-extra": "^9.0.13",
+    "@types/mock-fs": "^4.13.1",
+    "@types/workerpool": "^6.1.0",
+    "@types/semver": "^7.3.9",
+    "jsii-build-tools": "0.0.0",
     "memory-streams": "^0.1.3",
-    "mock-fs": "^4.14.0",
-    "prettier": "^2.3.0"
+    "mock-fs": "^5.1.2"
   },
   "dependencies": {
-    "@jsii/spec": "^0.0.0",
-    "commonmark": "^0.29.3",
-    "fs-extra": "^9.1.0",
-    "typescript": "~3.9.9",
-    "xmldom": "^0.6.0",
-    "yargs": "^16.2.0"
+    "@jsii/check-node": "0.0.0",
+    "@jsii/spec": "0.0.0",
+    "commonmark": "^0.30.0",
+    "fs-extra": "^10.1.0",
+    "typescript": "~3.9.10",
+    "sort-json": "^2.0.1",
+    "@xmldom/xmldom": "^0.8.2",
+    "workerpool": "^6.2.1",
+    "yargs": "^16.2.0",
+    "semver": "^7.3.7",
+    "semver-intersect": "^1.4.0",
+    "fast-glob": "^3.2.11",
+    "jsii": "0.0.0"
   },
   "license": "Apache-2.0",
   "author": {
@@ -51,6 +53,6 @@
     "directory": "packages/jsii-rosetta"
   },
   "engines": {
-    "node": ">= 10.5.0"
+    "node": ">= 14.5.0"
   }
 }

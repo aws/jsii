@@ -1,4 +1,3 @@
-import * as spec from '@jsii/spec';
 import { spawn, SpawnOptions } from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
@@ -7,19 +6,93 @@ import * as path from 'path';
 import * as logging from './logging';
 
 /**
- * Given an npm package directory and a dependency name, returns the package directory of the dep.
- * @param packageDir     the root of the package declaring the dependency.
- * @param dependencyName the name of the dependency to be resolved.
- * @return the resolved directory path.
+ * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
  */
-export function resolveDependencyDirectory(
-  packageDir: string,
+export async function findDependencyDirectory(
   dependencyName: string,
-): string {
-  const lookupPaths = [path.join(packageDir, 'node_modules')];
-  return path.dirname(
-    require.resolve(`${dependencyName}/package.json`, { paths: lookupPaths }),
+  searchStart: string,
+) {
+  // Explicitly do not use 'require("dep/package.json")' because that will fail if the
+  // package does not export that particular file.
+  const entryPoint = require.resolve(dependencyName, {
+    paths: [searchStart],
+  });
+
+  // Search up from the given directory, looking for a package.json that matches
+  // the dependency name (so we don't accidentally find stray 'package.jsons').
+  const depPkgJsonPath = await findPackageJsonUp(
+    dependencyName,
+    path.dirname(entryPoint),
   );
+
+  if (!depPkgJsonPath) {
+    throw new Error(
+      `Could not find dependency '${dependencyName}' from '${searchStart}'`,
+    );
+  }
+
+  return depPkgJsonPath;
+}
+
+/**
+ * Whether the given dependency is a built-in
+ *
+ * Some dependencies that occur in `package.json` are also built-ins in modern Node
+ * versions (most egregious example: 'punycode'). Detect those and filter them out.
+ */
+export function isBuiltinModule(depName: string) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+  const { builtinModules } = require('module');
+  return (builtinModules ?? []).includes(depName);
+}
+
+/**
+ * Find the package.json for a given package upwards from the given directory
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export async function findPackageJsonUp(
+  packageName: string,
+  directory: string,
+) {
+  return findUp(directory, async (dir) => {
+    const pjFile = path.join(dir, 'package.json');
+    return (
+      (await fs.pathExists(pjFile)) &&
+      (await fs.readJson(pjFile)).name === packageName
+    );
+  });
+}
+
+/**
+ * Find a directory up the tree from a starting directory matching a condition
+ *
+ * Will return `undefined` if no directory matches
+ *
+ * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
+ * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
+ */
+export async function findUp(
+  directory: string,
+  pred: (dir: string) => Promise<boolean>,
+): Promise<string | undefined> {
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    // eslint-disable-next-line no-await-in-loop
+    if (await pred(directory)) {
+      return directory;
+    }
+
+    const parent = path.dirname(directory);
+    if (parent === directory) {
+      return undefined;
+    }
+    directory = parent;
+  }
 }
 
 export interface RetryOptions {
@@ -110,7 +183,7 @@ export async function retry<R>(
     try {
       // eslint-disable-next-line no-await-in-loop
       return await cb();
-    } catch (error) {
+    } catch (error: any) {
       errors.push(error);
       if (opts.onFailedAttempt != null) {
         opts.onFailedAttempt(error, attemptsLeft, backoffMs);
@@ -160,13 +233,13 @@ export async function shell(
       const stdout = new Array<Buffer>();
       const stderr = new Array<Buffer>();
       child.stdout.on('data', (chunk) => {
-        if (logging.level >= logging.LEVEL_VERBOSE) {
+        if (logging.level >= logging.LEVEL_SILLY) {
           process.stderr.write(chunk); // notice - we emit all build output to stderr
         }
         stdout.push(Buffer.from(chunk));
       });
       child.stderr.on('data', (chunk) => {
-        if (logging.level >= logging.LEVEL_VERBOSE) {
+        if (logging.level >= logging.LEVEL_SILLY) {
           process.stderr.write(chunk);
         }
         stderr.push(Buffer.from(chunk));
@@ -227,23 +300,6 @@ export async function shell(
 }
 
 /**
- * Loads the assembly from a given module root directory.
- *
- * @param modulePath the path at which the node module is located.
- *
- * @return the parsed ``Assembly``.
- *
- * @throws if the module does not contain a JSII assembly file, or if it's invalid.
- */
-export async function loadAssembly(modulePath: string): Promise<spec.Assembly> {
-  const assmPath = path.join(modulePath, spec.SPEC_FILE_NAME);
-  if (!(await fs.pathExists(assmPath))) {
-    throw new Error(`Could not find ${assmPath}. Was the module built?`);
-  }
-  return spec.validateAssembly(await fs.readJson(assmPath));
-}
-
-/**
  * Strip filesystem unsafe characters from a string
  */
 export function slugify(x: string) {
@@ -279,7 +335,24 @@ export class Scratch<A> {
 
   public async cleanup() {
     if (!this.fake) {
-      await fs.remove(this.directory);
+      try {
+        await fs.remove(this.directory);
+      } catch (e: any) {
+        if (e.code === 'EBUSY') {
+          // This occasionally happens on Windows if we try to clean up too
+          // quickly after we're done... Could be because some AV software is
+          // still running in the background.
+          // Wait 1s and retry once!
+          await new Promise((ok) => setTimeout(ok, 1_000));
+          try {
+            await fs.remove(this.directory);
+          } catch (e2: any) {
+            logging.warn(`Unable to clean up ${this.directory}: ${e2}`);
+          }
+          return;
+        }
+        logging.warn(`Unable to clean up ${this.directory}: ${e}`);
+      }
     }
   }
 }
@@ -302,4 +375,8 @@ export async function filterAsync<A>(
 
 export async function wait(ms: number): Promise<void> {
   return new Promise((ok) => setTimeout(ok, ms));
+}
+
+export function flatten<A>(xs: readonly A[][]): A[] {
+  return Array.prototype.concat.call([], ...xs);
 }

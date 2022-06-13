@@ -3,20 +3,31 @@ import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
-import { intersect } from 'semver-intersect';
 import * as ts from 'typescript';
 
-import { parsePerson, parseRepository } from './utils';
+import { JsiiDiagnostic } from './jsii-diagnostic';
+import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
 
 const LOG = log4js.getLogger('jsii/package-info');
 
-export interface TSCompilerOptions {
-  readonly outDir?: string;
-  readonly rootDir?: string;
-}
+export type TSCompilerOptions = Partial<
+  Pick<
+    ts.CompilerOptions,
+    // Directory preferences
+    | 'outDir'
+    | 'rootDir'
+    // Style preferences
+    | 'forceConsistentCasingInFileNames'
+    // Source map preferences
+    | 'declarationMap'
+    | 'inlineSourceMap'
+    | 'inlineSources'
+    | 'sourceMap'
+  >
+>;
 
 export interface ProjectInfo {
   readonly projectRoot: string;
@@ -53,15 +64,22 @@ export interface ProjectInfo {
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
   readonly bin?: { readonly [name: string]: string };
+  readonly exports?: {
+    readonly [name: string]: string | { readonly [name: string]: string };
+  };
 }
 
-export async function loadProjectInfo(
-  projectRoot: string,
-  { fixPeerDependencies }: { fixPeerDependencies: boolean },
-): Promise<ProjectInfo> {
+export interface ProjectInfoResult {
+  readonly projectInfo: ProjectInfo;
+  readonly diagnostics: readonly ts.Diagnostic[];
+}
+
+export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
-  const pkg = require(packageJsonPath);
+  const pkg = fs.readJsonSync(packageJsonPath);
+
+  const diagnostics: ts.Diagnostic[] = [];
 
   let bundleDependencies: { [name: string]: string } | undefined;
   for (const name of pkg.bundleDependencies ?? pkg.bundledDependencies ?? []) {
@@ -79,72 +97,49 @@ export async function loadProjectInfo(
     }
 
     bundleDependencies = bundleDependencies ?? {};
-    bundleDependencies[name] = _resolveVersion(version, projectRoot).version!;
+    bundleDependencies[name] = _resolveVersion(version, projectRoot).version;
   }
 
-  let addedPeerDependency = false;
-  Object.entries(pkg.dependencies ?? {}).forEach(([name, version]) => {
-    if (name in (bundleDependencies ?? {})) {
-      return;
-    }
-    version = _resolveVersion(version as any, projectRoot).version;
-    pkg.peerDependencies = pkg.peerDependencies ?? {};
-    const peerVersion = _resolveVersion(
-      pkg.peerDependencies[name],
-      projectRoot,
-    ).version;
-    if (peerVersion === version) {
-      return;
-    }
-    if (!fixPeerDependencies) {
-      if (peerVersion) {
-        throw new Error(
-          `The "package.json" file has different version requirements for "${name}" in "dependencies" (${
-            version as any
-          }) versus "peerDependencies" (${peerVersion})`,
-        );
-      }
-      throw new Error(
-        `The "package.json" file has "${name}" in "dependencies", but not in "peerDependencies"`,
+  // Check peerDependencies are also in devDependencies
+  // You need this to write tests properly. There are probably cases where
+  // it makes sense to have this different, so most of what this checking
+  // produces is warnings, not errors.
+  const devDependencies = pkg.devDependencies ?? {};
+  for (const [name, rng] of Object.entries(pkg.peerDependencies ?? {})) {
+    const range = new semver.Range(
+      _resolveVersion(rng as string, projectRoot).version,
+    );
+    const minVersion = semver.minVersion(range)?.raw;
+
+    if (
+      !(name in devDependencies) ||
+      devDependencies[name] !== `${minVersion}`
+    ) {
+      diagnostics.push(
+        JsiiDiagnostic.JSII_0006_MISSING_DEV_DEPENDENCY.createDetached(
+          name,
+          `${rng as any}`,
+          `${minVersion}`,
+          `${devDependencies[name]}`,
+        ),
       );
+      continue;
     }
-    if (peerVersion) {
-      LOG.warn(
-        `Changing "peerDependency" on "${name}" from "${peerVersion}" to ${
-          version as any
-        }`,
-      );
-    } else {
-      LOG.warn(
-        `Recording missing "peerDependency" on "${name}" at ${version as any}`,
-      );
-    }
-    pkg.peerDependencies[name] = version;
-    addedPeerDependency = true;
+  }
+
+  const bundled = new Set(Object.keys(bundleDependencies ?? {}));
+  const dependencies: Record<string, string> = filterDictByKey(
+    pkg.dependencies ?? {},
+    (depName) => !bundled.has(depName),
+  );
+  const peerDependencies: Record<string, string> = pkg.peerDependencies ?? {};
+
+  const resolver = new DependencyResolver();
+  const resolved = resolver.discoverDependencyTree(projectRoot, {
+    ...dependencies,
+    ...peerDependencies,
   });
-  // Re-write "package.json" if we fixed up "peerDependencies" and were told to automatically fix.
-  // Yes, we should never have addedPeerDependencies if not fixPeerDependency, but I still check again.
-  if (addedPeerDependency && fixPeerDependencies) {
-    await fs.writeJson(packageJsonPath, pkg, { encoding: 'utf8', spaces: 2 });
-  }
-
-  const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
-  const assemblyCache = new Map<string, spec.Assembly>();
-  const dependencies = await _loadDependencies(
-    pkg.dependencies,
-    projectRoot,
-    transitiveAssemblies,
-    assemblyCache,
-    new Set<string>(Object.keys(bundleDependencies ?? {})),
-  );
-  const peerDependencies = await _loadDependencies(
-    pkg.peerDependencies,
-    projectRoot,
-    transitiveAssemblies,
-    assemblyCache,
-  );
-
-  const transitiveDependencies = Object.values(transitiveAssemblies);
+  const transitiveDependencies = resolver.assemblyClosure(resolved);
 
   const metadata = mergeMetadata(
     {
@@ -158,7 +153,7 @@ export async function loadProjectInfo(
     pkg.jsii?.metadata,
   );
 
-  return {
+  const projectInfo = {
     projectRoot,
     packageJson: pkg,
 
@@ -222,10 +217,15 @@ export async function loadProjectInfo(
     tsc: {
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
+      forceConsistentCasingInFileNames:
+        pkg.jsii?.tsc?.forceConsistentCasingInFileNames,
+      ..._sourceMapPreferences(pkg.jsii?.tsc),
     },
     bin: pkg.bin,
+    exports: pkg.exports,
     diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
+  return { projectInfo, diagnostics };
 }
 
 function _guessRepositoryType(url: string): string {
@@ -241,74 +241,155 @@ function _guessRepositoryType(url: string): string {
   );
 }
 
-async function _loadDependencies(
-  dependencies: { [name: string]: string } | undefined,
-  searchPath: string,
-  transitiveAssemblies: { [name: string]: spec.Assembly },
-  assemblyCache: Map<string, spec.Assembly>,
-  bundled = new Set<string>(),
-): Promise<{ [name: string]: string }> {
-  if (!dependencies) {
-    return {};
+function _sourceMapPreferences({
+  declarationMap,
+  inlineSourceMap,
+  inlineSources,
+  sourceMap,
+}: TSCompilerOptions = {}) {
+  // If none of the options are specified, use the default configuration from jsii <= 1.58.0, which
+  // means inline source maps with embedded source information.
+  if (
+    declarationMap == null &&
+    inlineSourceMap == null &&
+    inlineSources == null &&
+    sourceMap == null
+  ) {
+    declarationMap = false;
+    inlineSourceMap = true;
+    inlineSources = true;
+    sourceMap = undefined;
   }
-  const packageVersions: { [name: string]: string } = {};
-  for (const name of Object.keys(dependencies)) {
-    if (bundled.has(name)) {
-      continue;
+
+  return {
+    declarationMap,
+    inlineSourceMap,
+    inlineSources,
+    sourceMap,
+  };
+}
+
+interface DependencyInfo {
+  readonly assembly: spec.Assembly;
+  readonly resolvedDependencies: Record<string, string>;
+}
+
+class DependencyResolver {
+  private readonly cache = new Map<string, DependencyInfo>();
+
+  /**
+   * Discover the dependency tree starting at 'root', validating versions as we go along
+   *
+   * This primes the data structures in this class and should be called first.
+   *
+   * Return the resolved jsii dependency paths
+   */
+  public discoverDependencyTree(
+    root: string,
+    dependencies: Record<string, string>,
+  ): Record<string, string> {
+    const ret: Record<string, string> = {};
+    for (const [name, declaration] of Object.entries(dependencies)) {
+      // eslint-disable-next-line no-await-in-loop
+      let resolved;
+      try {
+        resolved = this.resolveDependency(root, name, declaration);
+      } catch (e) {
+        LOG.error(
+          `Unable to find a JSII dependency named "${name}" as "${declaration}". If you meant to include a non-JSII dependency, try adding it to bundledDependencies instead.`,
+        );
+        throw e;
+      }
+
+      const actualVersion = resolved.dependencyInfo.assembly.version;
+      if (!semver.satisfies(actualVersion, declaration)) {
+        throw new Error(
+          `Declared dependency on version ${declaration} of ${name}, but version ${actualVersion} was found`,
+        );
+      }
+
+      ret[name] = resolved.resolvedFile;
     }
+    return ret;
+  }
+
+  /**
+   * From a set of resolved paths, recursively return all assemblies
+   */
+  public assemblyClosure(resolved: Record<string, string>): spec.Assembly[] {
+    const closure = new Map<string, spec.Assembly>();
+    const queue = Array.from(Object.values(resolved));
+    while (queue.length > 0) {
+      const next = queue.shift()!;
+      const resolved = this.cache.get(next);
+      if (!resolved) {
+        throw new Error(`Path ${next} not seen before`);
+      }
+      if (closure.has(next)) {
+        continue;
+      }
+
+      closure.set(next, resolved.assembly);
+      queue.push(...Object.values(resolved.resolvedDependencies));
+    }
+    return Array.from(closure.values());
+  }
+
+  private resolveDependency(root: string, name: string, declaration: string) {
     const { version: versionString, localPackage } = _resolveVersion(
-      dependencies[name],
-      searchPath,
+      declaration,
+      root,
     );
-    const version = new semver.Range(versionString!);
+    const version = new semver.Range(versionString);
     if (!version) {
       throw new Error(
         `Invalid semver expression for ${name}: ${versionString}`,
       );
     }
-    const pkg = _tryResolveAssembly(name, localPackage, searchPath);
-    LOG.debug(`Resolved dependency ${name} to ${pkg}`);
-    // eslint-disable-next-line no-await-in-loop
-    const assm = await loadAndValidateAssembly(pkg, assemblyCache);
-    if (!semver.satisfies(assm.version, version)) {
-      throw new Error(
-        `Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`,
-      );
-    }
-    packageVersions[assm.name] =
-      packageVersions[assm.name] != null
-        ? intersect(versionString!, packageVersions[assm.name])
-        : versionString!;
-    transitiveAssemblies[assm.name] = assm;
-    const pkgDir = path.dirname(pkg);
-    if (assm.dependencies) {
-      // eslint-disable-next-line no-await-in-loop
-      await _loadDependencies(
-        assm.dependencies,
-        pkgDir,
-        transitiveAssemblies,
-        assemblyCache,
-      );
-    }
+    const jsiiFile = _tryResolveAssembly(name, localPackage, root);
+    LOG.debug(`Resolved dependency ${name} to ${jsiiFile}`);
+    return {
+      resolvedVersion: versionString,
+      resolvedFile: jsiiFile,
+      dependencyInfo: this.loadAssemblyAndRecurse(jsiiFile),
+    };
   }
-  return packageVersions;
-}
 
-/**
- * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
- */
-async function loadAndValidateAssembly(
-  jsiiFileName: string,
-  cache: Map<string, spec.Assembly>,
-): Promise<spec.Assembly> {
-  if (!cache.has(jsiiFileName)) {
+  private loadAssemblyAndRecurse(jsiiFile: string) {
+    // Only recurse if we haven't seen this assembly yet
+    if (this.cache.has(jsiiFile)) {
+      return this.cache.get(jsiiFile)!;
+    }
+
+    // eslint-disable-next-line no-await-in-loop
+    const assembly = this.loadAssembly(jsiiFile);
+    // Continue loading any dependencies declared in the asm
+
+    const resolvedDependencies = assembly.dependencies
+      ? this.discoverDependencyTree(
+          path.dirname(jsiiFile),
+          assembly.dependencies,
+        )
+      : {};
+
+    const depInfo: DependencyInfo = {
+      assembly,
+      resolvedDependencies,
+    };
+    this.cache.set(jsiiFile, depInfo);
+    return depInfo;
+  }
+
+  /**
+   * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
+   */
+  private loadAssembly(jsiiFileName: string): spec.Assembly {
     try {
-      cache.set(jsiiFileName, await fs.readJson(jsiiFileName));
-    } catch (e) {
+      return fs.readJsonSync(jsiiFileName);
+    } catch (e: any) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
   }
-  return cache.get(jsiiFileName)!;
 }
 
 function _required<T>(value: T, message: string): T {
@@ -369,11 +450,11 @@ function _tryResolveAssembly(
     return result;
   }
   try {
-    const paths = [searchPath, path.join(searchPath, 'node_modules')];
-    return require.resolve(path.join(mod, '.jsii'), { paths });
-  } catch {
+    const dependencyDir = findDependencyDirectory(mod, searchPath);
+    return path.join(dependencyDir, '.jsii');
+  } catch (e: any) {
     throw new Error(
-      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies.`,
+      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
     );
   }
 }
@@ -423,10 +504,17 @@ function _validateStability(
   return stability as spec.Stability;
 }
 
+/**
+ * Resolves an NPM package specifier to a version range
+ *
+ * If it was already a version range, return it. If it the
+ * package references a local file, return the version that
+ * package is at.
+ */
 function _resolveVersion(
   dep: string,
   searchPath: string,
-): { version: string | undefined; localPackage?: string } {
+): { version: string; localPackage?: string } {
   const matches = /^file:(.+)$/.exec(dep);
   if (!matches) {
     return { version: dep };
@@ -435,7 +523,9 @@ function _resolveVersion(
   return {
     // Rendering as a caret version to maintain uniformity against the "standard".
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    version: `^${require(path.join(localPackage, 'package.json')).version}`,
+    version: `^${
+      fs.readJsonSync(path.join(localPackage, 'package.json')).version
+    }`,
     localPackage,
   };
 }
@@ -513,4 +603,17 @@ function _loadDiagnostics(entries?: { [key: string]: string }):
     result[code] = category;
   }
   return result;
+}
+
+function filterDictByKey<A>(
+  xs: Record<string, A>,
+  predicate: (key: string) => boolean,
+): Record<string, A> {
+  const ret: Record<string, A> = {};
+  for (const [key, value] of Object.entries(xs)) {
+    if (predicate(key)) {
+      ret[key] = value;
+    }
+  }
+  return ret;
 }

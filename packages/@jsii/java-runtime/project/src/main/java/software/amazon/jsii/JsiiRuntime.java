@@ -387,6 +387,7 @@ public final class JsiiRuntime {
         private final ObjectMapper objectMapper = new ObjectMapper();
         private final InputStream inputStream;
         private final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        private boolean eof = false;
         private boolean stop = false;
 
         public ErrorStreamSink(final InputStream inputStream) {
@@ -401,18 +402,15 @@ public final class JsiiRuntime {
         public void run() {
             try {
                 while (!this.stop) {
-                    while (this.inputStream.available() > 0) {
-                        final int read = this.inputStream.read();
-                        this.buffer.write(read);
-                        if (read == '\n') {
-                            processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
-                            buffer.reset();
-                        }
+                    this.acceptData(false);
+                    if (!this.stop) {
+                        // Short interruptible sleep, so we can be stopped by a signal... This is a bit ugly (busy-waiting)
+                        // but is in fact the only way to be reliably interruptible with the InputStream API.
+                        Thread.sleep(100);
                     }
-                    // Short interruptible sleep, so we can be stopped by a signal... This is a bit ugly (busy-waiting)
-                    // but is in fact the only way to be reliably interruptible with the InputStream API.
-                    Thread.sleep(100);
                 }
+                // Finish flushing the stream until no data is left, so no log entries are dropped on the floor.
+                this.acceptData(true);
             } catch (final IOException ioe) {
                 throw new UncheckedIOException(ioe);
             } catch (final InterruptedException ie) {
@@ -423,6 +421,29 @@ public final class JsiiRuntime {
         public void close() throws InterruptedException {
             this.stop = true;
             this.join();
+        }
+
+        /**
+         * Accepts data from {@link #inputStream} as long as data is available, or until EOF is reached if the
+         * {@code uninterruptible} parameter is set to {@code true}.
+         *
+         * @param uninterruptible whether data should be read in a blocking manner until EOF is reached or not.
+         *
+         * @throws IOException
+         */
+        private void acceptData(final boolean uninterruptible) throws IOException {
+            while (!this.eof && (uninterruptible || this.inputStream.available() > 0)) {
+                final int read = this.inputStream.read();
+                if (read == -1) {
+                    this.eof = true;
+                } else {
+                    this.buffer.write(read);
+                }
+                if (read == '\n' || this.eof) {
+                    processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
+                    buffer.reset();
+                }
+            }
         }
 
         private void processLine(final String line) {

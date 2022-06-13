@@ -1,14 +1,13 @@
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 
-import { sourceToAssemblyHelper as compile, compileJsiiForTest } from '../lib';
-import { renderSymbolDocumentation } from '../lib/docs';
+import { sourceToAssemblyHelper as compile } from '../lib';
 
 jest.setTimeout(60_000);
 
 // ----------------------------------------------------------------------
-test('extract summary line from doc block, ends with a period', async () => {
-  const assembly = await compile(`
+test('extract summary line from doc block, ends with a period', () => {
+  const assembly = compile(`
     /**
      * Hello this is the documentation for this class
      */
@@ -23,8 +22,8 @@ test('extract summary line from doc block, ends with a period', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('extract remarks from whitespace-separated doc block', async () => {
-  const assembly = await compile(`
+test('extract remarks from whitespace-separated doc block', () => {
+  const assembly = compile(`
     /**
      * Hello this is the documentation for this class.
      *
@@ -43,8 +42,8 @@ test('extract remarks from whitespace-separated doc block', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('separate long doc comment into summary and remarks', async () => {
-  const assembly = await compile(`
+test('separate long doc comment into summary and remarks', () => {
+  const assembly = compile(`
     /**
      * Lots of people enjoy writing very long captions here. I think it's because they
      * copy/paste them out of CloudFormation, which has a tendency to just have one
@@ -64,8 +63,8 @@ test('separate long doc comment into summary and remarks', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('separate non-space but newline terminated docs into summary&remarks', async () => {
-  const assembly = await compile(`
+test('separate non-space but newline terminated docs into summary&remarks', () => {
+  const assembly = compile(`
     /**
      * Lots of people enjoy writing very long captions here.
      * I think it's because they copy/paste them out of CloudFormation,
@@ -86,8 +85,8 @@ test('separate non-space but newline terminated docs into summary&remarks', asyn
 });
 
 // ----------------------------------------------------------------------
-test('dont add period to summary that ends in exclamation mark', async () => {
-  const assembly = await compile(`
+test('dont add period to summary that ends in exclamation mark', () => {
+  const assembly = compile(`
     /**
      * I'm happy about this class!
      */
@@ -102,8 +101,8 @@ test('dont add period to summary that ends in exclamation mark', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('parse method docs', async () => {
-  const assembly = await compile(`
+test('parse method docs', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -120,8 +119,8 @@ test('parse method docs', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('associate parameter comments with right parameter', async () => {
-  const assembly = await compile(`
+test('associate parameter comments with right parameter', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -140,8 +139,8 @@ test('associate parameter comments with right parameter', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read example', async () => {
-  const assembly = await compile(`
+test('read example', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -163,8 +162,8 @@ test('read example', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read default value', async () => {
-  const assembly = await compile(`
+test('read default value', () => {
+  const assembly = compile(`
     export interface Foo {
       /**
        * The foo we're talking about
@@ -181,8 +180,8 @@ test('read default value', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read "see" annotation', async () => {
-  const assembly = await compile(`
+test('read "see" annotation', () => {
+  const assembly = compile(`
     /**
      * @see http://lmgtfy.com/
      */
@@ -194,8 +193,8 @@ test('read "see" annotation', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('read "returns" annotation', async () => {
-  const assembly = await compile(`
+test('read "returns" annotation', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -212,8 +211,8 @@ test('read "returns" annotation', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can haz deprecated', async () => {
-  const assembly = await compile(`
+test('can haz deprecated', () => {
+  const assembly = compile(`
     export class Foo {
       /**
        * Do the foo
@@ -232,8 +231,8 @@ test('can haz deprecated', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can mark stable', async () => {
-  const assembly = await compile(`
+test('can mark stable', () => {
+  const assembly = compile(`
     /**
      * Rock solid Foo
      *
@@ -249,8 +248,8 @@ test('can mark stable', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can mark experimental', async () => {
-  const assembly = await compile(`
+test('can mark experimental', () => {
+  const assembly = compile(`
     /**
      * Slightly less solid Foo
      *
@@ -267,8 +266,8 @@ test('can mark experimental', async () => {
 
 // ----------------------------------------------------------------------
 
-test('can mark external', async () => {
-  const assembly = await compile(`
+test('can mark external', () => {
+  const assembly = compile(`
     /**
      * @stability external
      */
@@ -287,8 +286,8 @@ test('can mark external', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can mark subclassable', async () => {
-  const assembly = await compile(`
+test('can mark subclassable', () => {
+  const assembly = compile(`
     /**
      * Become this Foo
      *
@@ -304,8 +303,8 @@ test('can mark subclassable', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('can add arbitrary tags', async () => {
-  const assembly = await compile(`
+test('can add arbitrary tags', () => {
+  const assembly = compile(`
     /**
      * @boop
      */
@@ -319,7 +318,7 @@ test('can add arbitrary tags', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('stability is inherited from parent type', async () => {
+test('stability is inherited from parent type', () => {
   const stabilities = [
     ['@deprecated Not good no more', Stability.Deprecated],
     ['@experimental', Stability.Experimental],
@@ -328,7 +327,7 @@ test('stability is inherited from parent type', async () => {
 
   for (const [tag, stability] of stabilities) {
     // eslint-disable-next-line no-await-in-loop
-    const assembly = await compile(`
+    const assembly = compile(`
       /**
        * ${tag}
        */
@@ -355,8 +354,8 @@ test('stability is inherited from parent type', async () => {
 });
 
 // ----------------------------------------------------------------------
-test('@example can contain @ sign', async () => {
-  const assembly = await compile(`
+test('@example can contain @ sign', () => {
+  const assembly = compile(`
     /**
      * An IAM role to associate with the instance profile assigned to this Auto Scaling Group.
      *
@@ -371,125 +370,3 @@ test('@example can contain @ sign', async () => {
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
   expect(classType.docs!.example).toBe("import * as x from '@banana';");
 });
-
-// ----------------------------------------------------------------------
-
-test('@experimental status is reflected in generated docstring', async () => {
-  const result = await compileJsiiForTest(`
-    /**
-     * Here is a fresh class
-     *
-     * @experimental
-     */
-    export class Foo {
-    }
-  `);
-
-  expect(result.files['index.js']).toContain(
-    lines(
-      '/**',
-      ' * (experimental) Here is a fresh class.',
-      ' *',
-      ' * @experimental',
-      ' */',
-      'class Foo {',
-      '}',
-    ),
-  );
-
-  expect(result.files['index.d.ts']).toContain(
-    lines(
-      '/**',
-      ' * (experimental) Here is a fresh class.',
-      ' *',
-      ' * @experimental',
-      ' */',
-      'export declare class Foo {',
-      '}',
-    ),
-  );
-});
-
-// ----------------------------------------------------------------------
-
-test('@deprecated status is reflected in generated docstring', async () => {
-  const result = await compileJsiiForTest(`
-    /**
-     * Here is an old class
-     *
-     * @deprecated Use something else
-     */
-    export class Fogey {
-    }
-  `);
-
-  expect(result.files['index.js']).toContain(
-    lines(
-      '/**',
-      ' * (deprecated) Here is an old class.',
-      ' *',
-      ' * @deprecated Use something else',
-      ' */',
-      'class Fogey {',
-      '}',
-    ),
-  );
-
-  expect(result.files['index.d.ts']).toContain(
-    lines(
-      '/**',
-      ' * (deprecated) Here is an old class.',
-      ' *',
-      ' * @deprecated Use something else',
-      ' */',
-      'export declare class Fogey {',
-      '}',
-    ),
-  );
-});
-
-// ----------------------------------------------------------------------
-
-test('Rendering jsii docs back to a doc comment', () => {
-  expect(
-    renderSymbolDocumentation({
-      summary: 'This is the summary',
-      remarks: 'You can use this\nor not, as you see fit.',
-      default: 'thas a default value',
-      see: 'https://some.url/',
-      subclassable: true,
-      returns: 'A value',
-      example: 'print("a thing");',
-      custom: {
-        sing: 'whenyourewinning',
-      },
-    }),
-  ).toEqual(
-    lines(
-      'This is the summary',
-      '',
-      'You can use this',
-      'or not, as you see fit.',
-      '',
-      '@returns A value',
-      '@default thas a default value',
-      '@see https://some.url/',
-      '@subclassable',
-      '@sing whenyourewinning',
-      '@example',
-      '',
-      'print("a thing");',
-    ),
-  );
-});
-
-// ----------------------------------------------------------------------
-
-function lines(...ls: string[]) {
-  return indented(0, ...ls);
-}
-
-function indented(indent: number, ...lines: string[]) {
-  const prefix = ' '.repeat(indent);
-  return lines.map((l) => `${prefix}${l}`).join('\n');
-}

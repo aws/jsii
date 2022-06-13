@@ -1,5 +1,3 @@
-*.js
-*.d.ts
-node_modules/
-.nyc_output/
-coverage/
+/coverage/
+/lib/
+/node_modules/

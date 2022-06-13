@@ -21,7 +21,7 @@
     "directory": "packages/@scope/jsii-calc-lib"
   },
   "engines": {
-    "node": ">= 10.3.0"
+    "node": ">= 14.5.0"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -39,11 +39,9 @@
     "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "devDependencies": {
-    "@types/node": "^10.17.59",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.3.0"
+    "jsii-rosetta": "^0.0.0"
   },
   "jsii": {
     "outdir": "dist",
@@ -71,7 +69,8 @@
       }
     },
     "tsc": {
-      "outDir": "build"
+      "outDir": "build",
+      "sourceMap": false
     },
     "versionFormat": "short",
     "metadata": {
