@@ -83,7 +83,7 @@ any other native type:
 The documentation in this website is separated in different topics, which can be navigated using links in the site's
 header bar:
 
-- The [Welcome](./index.md) section provides a high level overview of  *jsii.
+- The [Welcome](./index.md) section provides a high level overview of *jsii*.
 - The [User Guides](./user-guides) section includes the following:
 
     - The [Library Author Guide](user-guides/lib-author) is intended for developers who are looking to author libraries
