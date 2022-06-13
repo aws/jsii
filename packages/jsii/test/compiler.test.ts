@@ -1,4 +1,8 @@
-import { loadAssemblyFromPath } from '@jsii/utils';
+import {
+  loadAssemblyFromPath,
+  SPEC_FILE_NAME,
+  SPEC_FILE_NAME_COMPRESSED,
+} from '@jsii/utils';
 import {
   ensureDirSync,
   existsSync,
@@ -189,7 +193,9 @@ describe(Compiler, () => {
 
         compiler.emit();
 
-        expect(existsSync(join(sourceDir, '.jsii.gz'))).toBeTruthy();
+        expect(
+          existsSync(join(sourceDir, SPEC_FILE_NAME_COMPRESSED)),
+        ).toBeTruthy();
       } finally {
         removeSync(sourceDir);
       }
@@ -216,8 +222,12 @@ describe(Compiler, () => {
         compressedJsiiCompiler.emit();
 
         // The files we expect are there
-        expect(existsSync(join(uncompressedSourceDir, '.jsii'))).toBeTruthy();
-        expect(existsSync(join(compressedSourceDir, '.jsii.gz'))).toBeTruthy();
+        expect(
+          existsSync(join(uncompressedSourceDir, SPEC_FILE_NAME)),
+        ).toBeTruthy();
+        expect(
+          existsSync(join(compressedSourceDir, SPEC_FILE_NAME_COMPRESSED)),
+        ).toBeTruthy();
 
         const uncompressedJsii = loadAssemblyFromPath(uncompressedSourceDir);
         const compressedJsii = loadAssemblyFromPath(compressedSourceDir);

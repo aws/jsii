@@ -123,7 +123,7 @@ export function compileJsiiForTest(
     if (errors.length > 0 || emitResult.emitSkipped) {
       throw new Error('There were compiler errors');
     }
-    const assembly = loadAssemblyFromPath(process.cwd());
+    const assembly = loadAssemblyFromPath(process.cwd(), false);
     const files: Record<string, string> = {};
 
     for (const filename of Object.keys(source)) {
