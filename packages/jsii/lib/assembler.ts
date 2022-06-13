@@ -284,7 +284,7 @@ export class Assembler implements Emitter {
       const zipped = writeAssembly(
         this.projectInfo.projectRoot,
         _fingerprint(assembly),
-        this.compressAssembly ?? false,
+        { compress: this.compressAssembly ?? false },
       );
       LOG.trace(
         `${zipped ? 'Zipping' : 'Emitting'} assembly: ${chalk.blue(

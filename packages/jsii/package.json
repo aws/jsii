@@ -17,7 +17,7 @@
     "directory": "packages/jsii"
   },
   "engines": {
-    "node": ">= 12.7.0"
+    "node": ">= 14.5.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -42,7 +42,7 @@
     "chalk": "^4",
     "deep-equal": "^2.0.5",
     "fs-extra": "^10.1.0",
-    "log4js": "^6.4.7",
+    "log4js": "^6.5.2",
     "semver": "^7.3.7",
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.1",
