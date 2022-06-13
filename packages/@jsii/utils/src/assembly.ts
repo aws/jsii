@@ -129,9 +129,16 @@ function findRedirectAssembly(
 }
 
 function validateRedirectSchema(contents: Record<string, string>) {
-  if (contents.compression !== 'gzip' || contents.filename === undefined) {
-    throw new Error(
-      'Invalid redirect schema: compression must be gzip and filename must exist',
+  const errors = [];
+  if (contents.compression !== 'gzip') {
+    errors.push(
+      `compression must be 'gzip' but received '${contents.compression}'`,
     );
+  } else if (contents.filename === undefined) {
+    errors.push("schema must include property 'filename'");
+  }
+
+  if (errors.length !== 0) {
+    throw new Error(`Invalid redirect schema:\n  ${errors.join('\n  ')}`);
   }
 }

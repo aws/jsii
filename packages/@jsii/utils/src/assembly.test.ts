@@ -115,12 +115,15 @@ describe('loadAssemblyFromPath', () => {
     const tmpdir = makeTempDir();
     fs.writeJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
       schema: 'jsii/file-redirect',
-      compression: 'gzip',
-      // missing filename
+      compression: '7zip',
     });
 
     expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
-      'Invalid redirect schema: compression must be gzip and filename must exist',
+      [
+        'Invalid redirect schema',
+        "  compression must be 'gzip' but received '7zip'",
+        "  schema must include property 'filename'",
+      ].join('\n'),
     );
   });
 
