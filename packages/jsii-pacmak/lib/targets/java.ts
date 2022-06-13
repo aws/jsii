@@ -298,7 +298,7 @@ export class JavaBuilder implements TargetBuilder {
             interactiveMode: false,
             // Use a non-default local repository (unless java-custom-cache-path arg is provided) to isolate from cached artifacts...
             localRepository: localRepository
-              ? path.resolve(localRepository)
+              ? path.resolve(process.cwd(), localRepository)
               : path.resolve(where, '.m2', 'repository'),
             // Register locations of locally-sourced dependencies
             profiles: {
