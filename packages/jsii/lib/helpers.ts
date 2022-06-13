@@ -308,11 +308,9 @@ export class TestWorkspace {
     );
     fs.ensureDirSync(modDir);
 
-    writeAssembly(
-      modDir,
-      dependencyAssembly.assembly,
-      dependencyAssembly.compressAssembly,
-    );
+    writeAssembly(modDir, dependencyAssembly.assembly, {
+      compress: dependencyAssembly.compressAssembly,
+    });
     fs.writeJsonSync(
       path.join(modDir, 'package.json'),
       dependencyAssembly.packageJson,

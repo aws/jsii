@@ -95,7 +95,7 @@ export class TestJsiiModule {
    * Update the file to reflect the latest changes to the assembly object.
    */
   public updateAssembly() {
-    writeAssembly(this.moduleDirectory, this.assembly, this.compressAssembly);
+    writeAssembly(this.moduleDirectory, this.assembly, { compress: this.compressAssembly });
   }
 
   public cleanup() {

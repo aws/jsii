@@ -358,7 +358,9 @@ function _withTestProject<T>(
     const jsiiTestDep = path.join(tmpdir, 'node_modules', 'jsii-test-dep');
     writeNpmPackageSkeleton(jsiiTestDep);
 
-    writeAssembly(jsiiTestDep, TEST_DEP_ASSEMBLY, compressAssembly);
+    writeAssembly(jsiiTestDep, TEST_DEP_ASSEMBLY, {
+      compress: compressAssembly,
+    });
     const jsiiTestDepDep = path.join(
       jsiiTestDep,
       'node_modules',
@@ -366,7 +368,9 @@ function _withTestProject<T>(
     );
 
     writeNpmPackageSkeleton(jsiiTestDepDep);
-    writeAssembly(jsiiTestDepDep, TEST_DEP_DEP_ASSEMBLY, compressAssembly);
+    writeAssembly(jsiiTestDepDep, TEST_DEP_DEP_ASSEMBLY, {
+      compress: compressAssembly,
+    });
 
     return cb(tmpdir);
   } finally {

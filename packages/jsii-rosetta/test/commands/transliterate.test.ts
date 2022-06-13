@@ -1702,7 +1702,7 @@ export class ClassName implements IInterface {
         ...compilationResult.assembly,
         targets: { ...targets },
       },
-      true /* compress */,
+      { compress: true },
     );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');

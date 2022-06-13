@@ -230,8 +230,12 @@ export async function allTypeScriptSnippets(
  * Replaces the file where the original assembly file *should* be found with a new assembly file.
  * Recalculates the fingerprint of the assembly to avoid tampering detection.
  */
-export function replaceAssembly(assembly: spec.Assembly, directory: string, compress = false) {
-  writeAssembly(directory, _fingerprint(assembly), compress);
+export function replaceAssembly(
+  assembly: spec.Assembly,
+  directory: string,
+  { compress = false }: { compress?: boolean } = {},
+) {
+  writeAssembly(directory, _fingerprint(assembly), { compress });
 }
 
 /**
