@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655135126763,
+  "lastUpdate": 1655138478103,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1705,6 +1705,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 5755.260330999998,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 83195.57455520002 milliseconds over 5 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "21316aa39a871d85da2f8cb1bc9e402d91e59a07",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.1.10 to 0.1.11 in /packages/@jsii/go-runtime (#3593)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.1.10 to 0.1.11.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/1d19788894f308098139d81ac980580298f45d6b\"><code>1d19788</code></a> internal/lsp/cache: always compute IsIntermediateTestVariant</li>\n<li><a href=\"https://github.com/golang/tools/commit/4a8620f6ba299c055abe8fd0fa64fb0871f3ed30\"><code>4a8620f</code></a> internal/lsp/cache: move metadata fields to a new metadataGraph type</li>\n<li><a href=\"https://github.com/golang/tools/commit/a3d129cecf0b0741cbd1f486c15e3accfaba03aa\"><code>a3d129c</code></a> internal/lsp/cache: extract module load errors when go.work is used</li>\n<li><a href=\"https://github.com/golang/tools/commit/6bfd3a440e1be26457f330f29597931576ad848b\"><code>6bfd3a4</code></a> Revert &quot;internal: temporarily disable tests so we can land CL 410955&quot;</li>\n<li><a href=\"https://github.com/golang/tools/commit/5ca4cc8b9a248cff0a36b2a0ec82adf418c46ea9\"><code>5ca4cc8</code></a> internal: temporarily disable tests so we can land CL 410955</li>\n<li><a href=\"https://github.com/golang/tools/commit/63dfc2d3a9c936e6c11ef46dc4b4a899ea7e1e70\"><code>63dfc2d</code></a> internal/lsp/cache: two minor optimizations</li>\n<li><a href=\"https://github.com/golang/tools/commit/030812f079b6d1a4b08ff6a26eb6455a27221910\"><code>030812f</code></a> internal: remove unneeded FileSets</li>\n<li><a href=\"https://github.com/golang/tools/commit/2417911076f3ac2430f93d4da99e72fea721129a\"><code>2417911</code></a> go/analysis/internal/checker: add -test flag for single/multi-checkers</li>\n<li><a href=\"https://github.com/golang/tools/commit/43cce678a1932ffe0f15982da862f7e775426889\"><code>43cce67</code></a> go/analysis: document need for deterministic Fact encoding</li>\n<li><a href=\"https://github.com/golang/tools/commit/af82757ce06909d72478bb74408412eb3ed4828a\"><code>af82757</code></a> cmd/callgraph: add test of -algo=vta</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.1.10...v0.1.11\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.1.10&new-version=0.1.11)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\nDependabot will merge this PR once CI passes on it, as requested by @RomainMuller.\n\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-13T16:21:43Z",
+          "tree_id": "1c4cc20ace7255c2907495f5a47ba025992cdaa6",
+          "url": "https://github.com/aws/jsii/commit/21316aa39a871d85da2f8cb1bc9e402d91e59a07"
+        },
+        "date": 1655138475037,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 90853.0797038,
+            "unit": "milliseconds",
+            "range": 7211.500115999996,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 90853.0797038 milliseconds over 5 runs"
           }
         ]
       }
