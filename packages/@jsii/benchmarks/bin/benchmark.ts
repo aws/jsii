@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import * as path from 'path';
 import * as yargs from 'yargs';
 
 import { benchmarks } from '../lib';
@@ -39,43 +40,72 @@ interface ResultsJson {
   /* eslint-disable-next-line @typescript-eslint/await-thenable */
   const argv = await yargs
     .command('$0', 'Runs jsii benchmark tests and displays results', (argv) =>
-      argv.option('output', {
-        type: 'string',
-        desc: 'location of benchmark results json file, does not output to file if not specified.',
-      }),
+      argv
+        .option('output', {
+          type: 'string',
+          desc: 'location of benchmark results json file, does not output to file if not specified.',
+        })
+        .option('profile-dir', {
+          type: 'string',
+          desc: 'directory to write benchmark profiles to',
+        }),
     )
     .help().argv;
 
   // Run list of benchmarks in sequence
-  const resultsJson: ResultsJson[] = await benchmarks.reduce(
-    async (
-      accum: Promise<ResultsJson[]>,
-      benchmark: Benchmark<any>,
-    ): Promise<ResultsJson[]> => {
-      const prev = await accum;
-      const result = await benchmark.run();
-      const extra = `${result.name} averaged ${result.average} milliseconds over ${result.iterations.length} runs`;
-      console.log(extra);
-      return [
-        ...prev,
-        {
-          name: result.name,
-          unit: 'milliseconds',
-          value: result.average,
-          range: result.variance,
-          extra,
-        },
-      ];
-    },
-    Promise.resolve([]),
-  );
+  try {
+    const resultsJson: ResultsJson[] = await benchmarks.reduce(
+      async (
+        accum: Promise<ResultsJson[]>,
+        benchmark: Benchmark<any>,
+      ): Promise<ResultsJson[]> => {
+        const bench = argv.profileDir ? benchmark.profile() : benchmark;
+        const prev = await accum;
+        const result = await bench.run();
 
-  if (argv.output) {
-    await fs.writeJson(argv.output, resultsJson, { spaces: 2 });
-    console.log(`results written to ${argv.output}`);
+        // Output summary to console
+        const extra = `${result.name} averaged ${result.average} milliseconds over ${result.iterations.length} runs`;
+        console.log(extra);
+
+        // Write profiles if enabled
+        if (argv.profileDir) {
+          const dirName = result.name.replace(/[/\\:*?"<>]/g, '');
+          const profilesTargetDir = path.join(argv.profileDir, dirName);
+          await fs.mkdir(profilesTargetDir);
+
+          await Promise.all(
+            result.iterations.map(async (iter, idx) => {
+              const profileFile = path.join(profilesTargetDir, `${idx}.json`);
+              await fs.writeJson(profileFile, iter.profile);
+            }),
+          );
+          console.log(`profiles written to ${profilesTargetDir} directory`);
+        }
+
+        return [
+          ...prev,
+          {
+            name: result.name,
+            unit: 'milliseconds',
+            value: result.average,
+            range: result.variance,
+            extra,
+          },
+        ];
+      },
+      Promise.resolve([]),
+    );
+
+    if (argv.output) {
+      await fs.writeJson(argv.output, resultsJson, { spaces: 2 });
+      console.log(`results written to ${argv.output}`);
+    }
+
+    return resultsJson;
+  } catch (e) {
+    console.error(e);
+    throw e;
   }
-
-  return resultsJson;
 })()
   .then((results) => {
     console.log(`successfully completed ${results.length} benchmarks`);
