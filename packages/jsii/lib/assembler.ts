@@ -283,11 +283,9 @@ export class Assembler implements Emitter {
           path.join(this.projectInfo.projectRoot, SPEC_FILE_NAME),
         )}`,
       );
-      writeAssembly(
-        this.projectInfo.projectRoot,
-        _fingerprint(assembly),
-        false,
-      );
+      writeAssembly(this.projectInfo.projectRoot, _fingerprint(assembly), {
+        compress: false,
+      });
     }
 
     try {

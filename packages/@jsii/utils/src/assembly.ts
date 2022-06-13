@@ -3,7 +3,14 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as zlib from 'zlib';
 
+/**
+ * Expected file name for jsii assembly or instructions to compressed assembly.
+ */
 export const SPEC_FILE_NAME = spec.SPEC_FILE_NAME;
+
+/**
+ * Expected file name for compressed assemblies.
+ */
 export const SPEC_FILE_NAME_COMPRESSED = spec.SPEC_FILE_NAME_COMPRESSED;
 
 /**
@@ -36,7 +43,7 @@ export function getAssemblyFile(directory: string) {
 export function writeAssembly(
   directory: string,
   assembly: spec.Assembly,
-  compress = false,
+  { compress = false }: { compress?: boolean } = {},
 ) {
   if (compress) {
     // write .jsii file with instructions on opening the compressed file
