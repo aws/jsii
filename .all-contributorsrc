@@ -1402,6 +1402,24 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "touchez-du-bois",
+      "name": "Takahiro Sugiura",
+      "avatar_url": "https://avatars.githubusercontent.com/u/434017?v=4",
+      "profile": "https://github.com/touchez-du-bois",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "agdimech",
+      "name": "Adrian Dimech",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51220968?v=4",
+      "profile": "https://github.com/agdimech",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github",

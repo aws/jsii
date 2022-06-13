@@ -1,9 +1,13 @@
-# Don't include original .ts files when doing `npm pack`
-*.ts
-!*.d.ts
+# Don't include the original source files
+/src/
 
-# Don't include various configuration & state information
-coverage
-.eslintrc.*
+# Don't include test files
+/coverage/
+/lib/**/*.test.*
+
+# No build tools & configuration
+/.eslintrc.yaml
+/jest.config.ts
 tsconfig.json
+*.map
 *.tsbuildinfo

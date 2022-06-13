@@ -1,4 +1,4 @@
-import * as caseUtils from '../lib/case-utils';
+import * as caseUtils from './case-utils';
 
 test('toCamelCase', () => {
   expect(caseUtils.toCamelCase('EXAMPLE_VALUE')).toBe('exampleValue');

@@ -8,7 +8,6 @@ queue_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
@@ -59,7 +58,6 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
@@ -110,7 +108,6 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
@@ -161,7 +158,6 @@ pull_request_rules:
       - status-success~=^Test \(macos-.*$
       - status-success~=^Test \(windows-.*$
       # One test for each supported nodejs version
-      - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
       - status-success~=^Test \(.* node 16 .*$
       - status-success~=^Test \(.* node 17 .*$
