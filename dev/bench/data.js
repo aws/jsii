@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654793864479,
+  "lastUpdate": 1655128715191,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1581,6 +1581,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 67677.601671 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "vous.trouvez.le.bonheur@gmail.com",
+            "name": "Takahiro Sugiura",
+            "username": "touchez-du-bois"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f754baa81f78cce2f269732272fe305f6b34ca86",
+          "message": "fix: italics in Markdown notation (#3594)\n\nFix italics in Markdown notation\r\n\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>",
+          "timestamp": "2022-06-13T15:40:34+02:00",
+          "tree_id": "6c105dbc6b875099ddbb37e1b869dd146a6bd856",
+          "url": "https://github.com/aws/jsii/commit/f754baa81f78cce2f269732272fe305f6b34ca86"
+        },
+        "date": 1655128713258,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 65575.993065,
+            "unit": "milliseconds",
+            "range": 0,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65575.993065 milliseconds over 1 runs"
           }
         ]
       }
