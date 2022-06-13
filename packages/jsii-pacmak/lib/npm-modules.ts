@@ -150,6 +150,7 @@ async function updateNpmIgnore(
     );
   }
 
+  includePattern('Include .jsii.gz', spec.SPEC_FILE_NAME_COMPRESSED);
   includePattern('Include .jsii', spec.SPEC_FILE_NAME);
 
   if (modified) {
