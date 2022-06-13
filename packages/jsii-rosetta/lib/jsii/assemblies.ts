@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromFile, getAssemblyFile } from '@jsii/utils';
+import { loadAssemblyFromFile, loadAssemblyFromPath, getAssemblyFile, writeAssembly } from '@jsii/utils';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -230,12 +230,8 @@ export async function allTypeScriptSnippets(
  * Replaces the file where the original assembly file *should* be found with a new assembly file.
  * Recalculates the fingerprint of the assembly to avoid tampering detection.
  */
-export async function replaceAssembly(assembly: spec.Assembly, directory: string): Promise<void> {
-  const fileName = path.join(directory, '.jsii');
-  await fs.writeJson(fileName, _fingerprint(assembly), {
-    encoding: 'utf8',
-    spaces: 2,
-  });
+export function replaceAssembly(assembly: spec.Assembly, directory: string, compress = false) {
+  writeAssembly(directory, _fingerprint(assembly), compress);
 }
 
 /**
@@ -290,24 +286,23 @@ export function findTypeLookupAssembly(startingDirectory: string): TypeLookupAss
 }
 
 function loadLookupAssembly(directory: string): TypeLookupAssembly | undefined {
-  const assemblyFile = path.join(directory, '.jsii');
-  if (!fs.pathExistsSync(assemblyFile)) {
+  try {
+    const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
+    const assembly: spec.Assembly = loadAssemblyFromPath(directory);
+    const symbolIdMap = mkDict([
+      ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
+      ...Object.entries(assembly.submodules ?? {}).map(([fqn, mod]) => [mod.symbolId ?? '', fqn] as const),
+    ]);
+
+    return {
+      packageJson,
+      assembly,
+      directory,
+      symbolIdMap,
+    };
+  } catch {
     return undefined;
   }
-
-  const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
-  const assembly: spec.Assembly = fs.readJSONSync(assemblyFile, { encoding: 'utf-8' });
-  const symbolIdMap = mkDict([
-    ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
-    ...Object.entries(assembly.submodules ?? {}).map(([fqn, mod]) => [mod.symbolId ?? '', fqn] as const),
-  ]);
-
-  return {
-    packageJson,
-    assembly,
-    directory,
-    symbolIdMap,
-  };
 }
 
 function findPackageJsonLocation(currentPath: string): string | undefined {

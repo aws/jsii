@@ -843,6 +843,10 @@ function findPythonName(jsiiSymbol: JsiiSymbol): string | undefined {
   return recurse(jsiiSymbol.fqn);
 
   function recurse(fqn: string): string {
+    if (!fqn) {
+      // eslint-disable-next-line no-debugger
+      debugger;
+    }
     if (fqn === asm.name) {
       return jsiiTargetParameter(asm, 'python.module') ?? guessPythonPackageName(fqn);
     }
