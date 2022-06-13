@@ -1,4 +1,4 @@
-import * as spec from '@jsii/spec';
+import { loadAssemblyFromPath } from '@jsii/utils';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -71,7 +71,7 @@ test('infuse copies example metadata', async () => {
   await infuse([assembly.moduleDirectory]);
 
   // THEN: the metadata that used to be on the README snippet is also on the class example
-  const updatedAssembly = (await fs.readJson(path.join(assembly.moduleDirectory, '.jsii'))) as spec.Assembly;
+  const updatedAssembly = loadAssemblyFromPath(assembly.moduleDirectory);
 
   const typeDocs = updatedAssembly.types?.['my_assembly.ClassA']?.docs;
   expect(typeDocs?.custom?.exampleMetadata).toEqual('some=metadata infused');

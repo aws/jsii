@@ -1,6 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as fs from 'fs-extra';
-import * as path from 'path';
+import { writeAssembly, loadAssemblyFromPath } from '@jsii/utils';
 
 import {
   sourceToAssemblyHelper,
@@ -262,15 +261,15 @@ test('will detect types from submodules even if the symbol identifier table is m
     ws.addDependency(makeDependencyWithSubmodule());
 
     // Strip the symbolidentifiers from the assembly
-    const asmFile = path.join(ws.dependencyDir('testpkg'), '.jsii');
-    const asm: spec.Assembly = fs.readJsonSync(asmFile);
+    const asmDir = ws.dependencyDir('testpkg');
+    const asm: spec.Assembly = loadAssemblyFromPath(asmDir, false);
     for (const mod of Object.values(asm.submodules ?? {})) {
       delete mod.symbolId;
     }
     for (const type of Object.values(asm.types ?? {})) {
       delete type.symbolId;
     }
-    fs.writeJsonSync(asmFile, asm);
+    writeAssembly(asmDir, asm);
 
     // We can still use those types if we have a full-library import
     compileJsiiForTest(

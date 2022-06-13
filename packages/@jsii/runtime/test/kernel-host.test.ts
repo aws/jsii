@@ -1,5 +1,6 @@
 import { api } from '@jsii/kernel';
 import * as spec from '@jsii/spec';
+import { loadAssemblyFromPath } from '@jsii/utils';
 import * as child from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -86,12 +87,9 @@ function loadRequest(library: string): api.LoadRequest {
   };
 
   function loadAssembly(): spec.Assembly {
-    const assemblyFile = path.resolve(
-      require.resolve(`${library}/package.json`),
-      '..',
-      '.jsii',
+    return loadAssemblyFromPath(
+      path.resolve(require.resolve(`${library}/package.json`), '..'),
     );
-    return JSON.parse(fs.readFileSync(assemblyFile, { encoding: 'utf-8' }));
   }
 
   function packageLibrary(target: string): void {
