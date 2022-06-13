@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655129260339,
+  "lastUpdate": 1655132223247,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1643,6 +1643,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 0,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 77302.763243 milliseconds over 1 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mitchellvaline@yahoo.com",
+            "name": "Mitchell Valine",
+            "username": "MrArnoldPalmer"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3827d93d7a1c1c83247a79647e84a56c2b5e321a",
+          "message": "fix: instantiate perf observer for each iteration (#3585)\n\nChanges to instantiate a `PerformanceObserver` instance for each\niteration of a benchmark run. This prevents the observer from being\nkilled before all iterations of the wrapped function run due to\nenvironment changes that may cause the observer from falling out of\nscope and being GCed. Previously in github actions only a single run's\nresults were recorded as the observer was killed after the first\niteration, though this wasn't the case when running locally.\n\nAdditionally adds the option to record profiles for benchmarks and write\nthem to a directory. This can be used to compare call stacks of\nbenchmarks across changes to the code.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-13T14:37:31Z",
+          "tree_id": "06b8f74743bae9fca4ac7b769560058517bdf136",
+          "url": "https://github.com/aws/jsii/commit/3827d93d7a1c1c83247a79647e84a56c2b5e321a"
+        },
+        "date": 1655132220180,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 65405.607872,
+            "unit": "milliseconds",
+            "range": 4678.737964,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65405.607872 milliseconds over 5 runs"
           }
         ]
       }
