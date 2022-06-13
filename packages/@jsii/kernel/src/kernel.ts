@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import { loadAssemblyFromPath } from '@jsii/utils';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
@@ -114,13 +115,14 @@ export class Kernel {
     }
 
     // read .jsii metadata from the root of the package
-    const jsiiMetadataFile = path.join(packageDir, spec.SPEC_FILE_NAME);
-    if (!fs.pathExistsSync(jsiiMetadataFile)) {
+    let assmSpec;
+    try {
+      assmSpec = loadAssemblyFromPath(packageDir);
+    } catch {
       throw new Error(
         `Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`,
       );
     }
-    const assmSpec = fs.readJsonSync(jsiiMetadataFile) as spec.Assembly;
 
     // load the module and capture it's closure
     const closure = this._execute(
