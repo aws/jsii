@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655132223247,
+  "lastUpdate": 1655135126763,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1674,6 +1674,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 4678.737964,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 65405.607872 milliseconds over 5 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "51220968+agdimech@users.noreply.github.com",
+            "name": "Adrian Dimech",
+            "username": "agdimech"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0003c8a22dd44a2c89fcc117e1b1064b221aacfe",
+          "message": "feat: add support for using custom .m2 directory (#3573)\n\nThe existing Java packaging process uses a localRepository which points to a newly created tmp directory. This means that when building, all dependencies need to be freshly downloaded which is contributing a significant portion of time to the packaging process.\n\nThis PR provides the option to the user (hidden) to use a non-transient .m2 local repository if they so choose. I have experienced a huge improvement to performance by enabling this setting (5s with enabled vs 4 minutes using defaults).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-13T15:24:46Z",
+          "tree_id": "2de4bf060f382c46719d979a6eb59e2acb633b67",
+          "url": "https://github.com/aws/jsii/commit/0003c8a22dd44a2c89fcc117e1b1064b221aacfe"
+        },
+        "date": 1655135124278,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 83195.57455520002,
+            "unit": "milliseconds",
+            "range": 5755.260330999998,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 83195.57455520002 milliseconds over 5 runs"
           }
         ]
       }
