@@ -134,7 +134,8 @@ function validateRedirectSchema(contents: Record<string, string>) {
     errors.push(
       `compression must be 'gzip' but received '${contents.compression}'`,
     );
-  } else if (contents.filename === undefined) {
+  }
+  if (contents.filename === undefined) {
     errors.push("schema must include property 'filename'");
   }
 

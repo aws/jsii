@@ -120,7 +120,7 @@ describe('loadAssemblyFromPath', () => {
 
     expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
       [
-        'Invalid redirect schema',
+        'Invalid redirect schema:',
         "  compression must be 'gzip' but received '7zip'",
         "  schema must include property 'filename'",
       ].join('\n'),
