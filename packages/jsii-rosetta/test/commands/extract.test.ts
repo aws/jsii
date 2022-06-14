@@ -1,4 +1,4 @@
-// import { SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
+import { SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { compileJsiiForTest } from 'jsii';
 import * as path from 'path';
@@ -60,7 +60,7 @@ beforeEach(() => {
 
 afterEach(() => assembly.cleanup());
 
-test('extract works samples from test assembly', async () => {
+test('extract samples from test assembly', async () => {
   const cacheToFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
   await extract.extractSnippets([assembly.moduleDirectory], {
     cacheToFile,
@@ -99,11 +99,10 @@ test('extract works from compressed test assembly', async () => {
 
   try {
     // assert that assembly is zipped
-    // expect(fs.existsSync(path.join(compressedAssembly.moduleDirectory, SPEC_FILE_NAME_COMPRESSED))).toBeTruthy();
+    expect(fs.existsSync(path.join(compressedAssembly.moduleDirectory, SPEC_FILE_NAME_COMPRESSED))).toBeTruthy();
 
     // behavior is as expected
     const cacheToFile = path.join(compressedAssembly.moduleDirectory, 'test.tabl.json');
-    // eslint-disable-next-line prettier/prettier
     await extract.extractSnippets([compressedAssembly.moduleDirectory], {
       cacheToFile,
       ...defaultExtractOptions,

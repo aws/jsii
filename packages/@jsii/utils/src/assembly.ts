@@ -96,12 +96,18 @@ export function loadAssemblyFromFile(
   pathToFile: string,
   validate = true,
 ): spec.Assembly {
+  const startTime = Date.now();
+  let compressed = false;
   let contents = readAssembly(pathToFile);
 
   // check if the file holds instructions to the actual assembly file
   if (contents.schema === 'jsii/file-redirect') {
     contents = findRedirectAssembly(pathToFile, contents);
+    compressed = true;
   }
+
+  // eslint-disable-next-line prettier/prettier
+  console.log(`compressed: ${compressed} -- time: ${(Date.now()-startTime) / 1000}\n${pathToFile}`);
 
   return validate
     ? spec.validateAssembly(contents)
