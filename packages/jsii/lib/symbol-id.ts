@@ -74,7 +74,10 @@ export function symbolIdentifier(
 
   const [, fileName, inFileName] = groups; // inFileName may be absent
 
-  const relFile = assemblyRelativeSourceFile(fileName, options?.assembly);
+  const relFile = Helper.for(typeChecker).assemblyRelativeSourceFile(
+    fileName,
+    options?.assembly,
+  );
   if (!relFile) {
     return undefined;
   }
@@ -87,43 +90,91 @@ export function symbolIdentifier(
   return `${relFile}:${typeSymbol}`;
 }
 
-function assemblyRelativeSourceFile(sourceFileName: string, asm?: Assembly) {
-  const packageJsonDir = findUp(path.dirname(sourceFileName), (dir) =>
-    fs.pathExistsSync(path.join(dir, 'package.json')),
-  );
+class Helper {
+  private static readonly INSTANCES = new WeakMap<ts.TypeChecker, Helper>();
 
-  if (!packageJsonDir) {
-    return undefined;
-  }
-
-  const packageJson = fs.readJsonSync(
-    path.join(packageJsonDir, 'package.json'),
-  );
-
-  let sourcePath = removePrefix(
-    packageJson.jsii?.outdir ?? '',
-    path.relative(packageJsonDir, sourceFileName),
-  );
-
-  // Modify the namespace if we send in the assembly.
-  if (asm) {
-    const tscRootDir =
-      packageJson.jsii?.tsc?.rootDir ?? asm.metadata?.tscRootDir;
-    const tscOutDir = packageJson.jsii?.tsc?.outDir;
-    sourcePath = normalizePath(sourcePath, tscRootDir, tscOutDir);
-  }
-
-  return sourcePath.replace(/(\.d)?\.ts$/, '');
-
-  function removePrefix(prefix: string, filePath: string) {
-    const prefixParts = prefix.split(/[/\\]/g);
-    const pathParts = filePath.split(/[/\\]/g);
-    let i = 0;
-    while (prefixParts[i] === pathParts[i]) {
-      i++;
+  public static for(typeChecker: ts.TypeChecker) {
+    const cached = this.INSTANCES.get(typeChecker);
+    if (cached != null) {
+      return cached;
     }
-    return pathParts.slice(i).join('/');
+    const helper = new Helper();
+    this.INSTANCES.set(typeChecker, helper);
+    return helper;
   }
+
+  private readonly packageInfo = new Map<string, PackageInfo | undefined>();
+
+  private constructor() {}
+
+  public assemblyRelativeSourceFile(sourceFileName: string, asm?: Assembly) {
+    const packageInfo = this.findPackageInfo(path.dirname(sourceFileName));
+    if (!packageInfo) {
+      return undefined;
+    }
+
+    let sourcePath = removePrefix(
+      packageInfo.outdir ?? '',
+      path.relative(packageInfo.packageJsonDir, sourceFileName),
+    );
+
+    // Modify the namespace if we send in the assembly.
+    if (asm) {
+      const tscRootDir = packageInfo.tscRootDir ?? asm.metadata?.tscRootDir;
+      const tscOutDir = packageInfo.tscOutDir;
+      sourcePath = normalizePath(sourcePath, tscRootDir, tscOutDir);
+    }
+
+    return sourcePath.replace(/(\.d)?\.ts$/, '');
+
+    function removePrefix(prefix: string, filePath: string) {
+      const prefixParts = prefix.split(/[/\\]/g);
+      const pathParts = filePath.split(/[/\\]/g);
+      let i = 0;
+      while (prefixParts[i] === pathParts[i]) {
+        i++;
+      }
+      return pathParts.slice(i).join('/');
+    }
+  }
+
+  private findPackageInfo(from: string): PackageInfo | undefined {
+    if (this.packageInfo.has(from)) {
+      return this.packageInfo.get(from);
+    }
+
+    const packageJsonDir = findUp(from, (dir) =>
+      fs.pathExistsSync(path.join(dir, 'package.json')),
+    );
+
+    if (!packageJsonDir) {
+      this.packageInfo.set(from, undefined);
+      return undefined;
+    }
+
+    if (this.packageInfo.has(packageJsonDir)) {
+      return this.packageInfo.get(packageJsonDir);
+    }
+
+    const { jsii } = fs.readJsonSync(path.join(packageJsonDir, 'package.json'));
+
+    const result = {
+      packageJsonDir,
+      outdir: jsii?.outdir,
+      tscRootDir: jsii?.tsc?.rootDir,
+      tscOutDir: jsii?.tsc?.outDir,
+    };
+    this.packageInfo.set(from, result);
+    this.packageInfo.set(packageJsonDir, result);
+    return result;
+  }
+}
+
+interface PackageInfo {
+  readonly packageJsonDir: string;
+  readonly outdir: string | undefined;
+  readonly tscRootDir: string | undefined;
+  readonly tscOutDir: string | undefined;
 }
 
 /**

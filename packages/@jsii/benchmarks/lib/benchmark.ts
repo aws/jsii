@@ -62,7 +62,7 @@ interface Result {
  * teardown, stubbing, etc.
  */
 export class Benchmark<C> {
-  #iterations = 5;
+  #iterations = 20;
   #profile = false;
 
   public constructor(private readonly name: string) {}
