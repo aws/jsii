@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655226492878,
+  "lastUpdate": 1655240768378,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1891,6 +1891,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 3903.107394000006,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 81145.70220019999 milliseconds over 5 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2153d638504083a041581d79b8bca3bb1c0c6a72",
+          "message": "chore: cache heavy elements in assemblyRelativeSourceFile (#3598)\n\nThe readFileSync calls there tend to process large JSON documents, which\nis time-consuming. Basic profiling showed this is called repeatedly with\nsimilar directories, so the time spent can be greatly reduced.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-14T20:34:28Z",
+          "tree_id": "5a261343f8d8a02473da24e663f43d06d7da99b4",
+          "url": "https://github.com/aws/jsii/commit/2153d638504083a041581d79b8bca3bb1c0c6a72"
+        },
+        "date": 1655240766285,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 60214.15639685,
+            "unit": "milliseconds",
+            "range": 4733.19339,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 60214.15639685 milliseconds over 20 runs"
           }
         ]
       }
