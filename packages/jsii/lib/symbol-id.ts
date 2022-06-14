@@ -74,7 +74,10 @@ export function symbolIdentifier(
 
   const [, fileName, inFileName] = groups; // inFileName may be absent
 
-  const relFile = Helper.for(typeChecker).assemblyRelativeSourceFile(fileName, options?.assembly);
+  const relFile = Helper.for(typeChecker).assemblyRelativeSourceFile(
+    fileName,
+    options?.assembly,
+  );
   if (!relFile) {
     return undefined;
   }
@@ -117,8 +120,7 @@ class Helper {
 
     // Modify the namespace if we send in the assembly.
     if (asm) {
-      const tscRootDir =
-        packageInfo.tscRootDir ?? asm.metadata?.tscRootDir;
+      const tscRootDir = packageInfo.tscRootDir ?? asm.metadata?.tscRootDir;
       const tscOutDir = packageInfo.tscOutDir;
       sourcePath = normalizePath(sourcePath, tscRootDir, tscOutDir);
     }
@@ -154,9 +156,7 @@ class Helper {
       return this.packageInfo.get(packageJsonDir);
     }
 
-    const { jsii } = fs.readJsonSync(
-      path.join(packageJsonDir, 'package.json'),
-    );
+    const { jsii } = fs.readJsonSync(path.join(packageJsonDir, 'package.json'));
 
     const result = {
       packageJsonDir,
@@ -176,7 +176,6 @@ interface PackageInfo {
   readonly tscRootDir: string | undefined;
   readonly tscOutDir: string | undefined;
 }
-
 
 /**
  * Ensures that the sourcePath is pointing to the source code
