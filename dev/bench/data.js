@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655222985725,
+  "lastUpdate": 1655226492878,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1860,6 +1860,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 6382.535283999998,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 56971.023108199995 milliseconds over 5 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "41e2df35b88d84ca29adf1fb5ab2afffeaa76a17",
+          "message": "chore: use fast-deep-equal instead of deep-equal (#3597)\n\nIt turns out `fast-deep-equal` is *significantly* faster than\n`deep-equal` and appears to produce consistent results. Migrating to\nthis allows us to yield faster compile times as `deepEqual` is\nfrequently used when resolving type union references.\n\nAlso de-duplicated a couple of calls to `Case.pascal`, which is also\na pretty significant time consumer (but `fast-case` is not iso-functional\nwith `case`, so this isn't as easy to replace as `deep-equal`).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-14T15:52:04Z",
+          "tree_id": "9d31c445f102b5c816a9fdc2bd4cef59d3b19882",
+          "url": "https://github.com/aws/jsii/commit/41e2df35b88d84ca29adf1fb5ab2afffeaa76a17"
+        },
+        "date": 1655226488779,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 81145.70220019999,
+            "unit": "milliseconds",
+            "range": 3903.107394000006,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 81145.70220019999 milliseconds over 5 runs"
           }
         ]
       }
