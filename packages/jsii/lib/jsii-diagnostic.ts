@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import { camel, constant as allCaps, pascal } from 'case';
+import { camel, constant, pascal } from 'case';
 import * as ts from 'typescript';
 
 import { TypeSystemHints } from './docs';
@@ -672,17 +672,15 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 
   public static readonly JSII_8000_PASCAL_CASED_TYPE_NAMES = Code.error({
     code: 8000,
-    formatter: (badName: string) =>
-      `Type names must be CamelCased. Rename "${badName}" to "${pascal(
-        badName,
-      )}"`,
+    formatter: (badName: string, expectedName: string = pascal(badName)) =>
+      `Type names must be PascalCased. Rename "${badName}" to "${expectedName}"`,
     name: 'code-style/type-names-must-use-pascal-case',
   });
 
   public static readonly JSII_8001_ALL_CAPS_ENUM_MEMBERS = Code.error({
     code: 8001,
     formatter: (badName: string, typeName: string) =>
-      `Enum members must be ALL_CAPS. Rename "${typeName}.${badName}" to "${allCaps(
+      `Enum members must be ALL_CAPS. Rename "${typeName}.${badName}" to "${constant(
         badName,
       )}"`,
     name: 'code-style/enum-members-must-use-all-caps',
@@ -700,7 +698,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public static readonly JSII_8003_STATIC_CONST_CASING = Code.error({
     code: 8003,
     formatter: (badName: string, typeName: string) =>
-      `Static constant names must use ALL_CAPS, PascalCase, or camelCase. Rename "${typeName}.${badName}" to "${allCaps(
+      `Static constant names must use ALL_CAPS, PascalCase, or camelCase. Rename "${typeName}.${badName}" to "${constant(
         badName,
       )}"`,
     name: 'code-style/static-readonly-property-casing',
