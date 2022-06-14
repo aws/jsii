@@ -227,15 +227,16 @@ export function findUp(
 ): string | undefined {
   const result = pred(directory);
 
-  return result ? directory : recurse();
-
-  function recurse() {
-    const parent = path.dirname(directory);
-    if (parent === directory) {
-      return undefined;
-    }
-    return findUp(parent, pred as any);
+  if (result) {
+    return directory;
   }
+
+  const parent = path.dirname(directory);
+  if (parent === directory) {
+    return undefined;
+  }
+
+  return findUp(parent, pred);
 }
 
 const ANSI_REGEX =
