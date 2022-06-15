@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 import { annotateStrictDiagnostic, hasStrictBranding } from '../lib/util';
 
