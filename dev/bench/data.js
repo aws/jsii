@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655283623556,
+  "lastUpdate": 1655319523795,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1953,6 +1953,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 8883.621071000001,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 87260.50794435 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "epolon@amazon.com",
+            "name": "Eli Polonsky",
+            "username": "iliapolo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "837f300daff24b1169d0bbfc44d50070944d2664",
+          "message": "chore: switch dotnet feed to avoid CDN caching (#3604)\n\nThe current feed points to a CDN endpoint that may not include the latest version of the SDK.\n\nThis PR changes the feed to the one used by https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script, which is the recommended way of installing the SDK in CI environments. \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-15T18:28:20Z",
+          "tree_id": "790eb9838ae93bc640109048afed92016bb6c07b",
+          "url": "https://github.com/aws/jsii/commit/837f300daff24b1169d0bbfc44d50070944d2664"
+        },
+        "date": 1655319520692,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 54922.489037549996,
+            "unit": "milliseconds",
+            "range": 7181.586139999999,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 54922.489037549996 milliseconds over 20 runs"
           }
         ]
       }
