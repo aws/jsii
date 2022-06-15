@@ -54,7 +54,7 @@ RUN set -eo pipefail                                                            
 
 # Prepare .NET Core distribution
 ARG DOTNET_CHANNEL="3.1"
-ENV DOTNET_FEED="https://dotnetcli.azureedge.net/dotnet"
+ENV DOTNET_FEED="https://dotnetcli.blob.core.windows.net/dotnet"
 RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.version")                                  \
   && DOTNET_ASSET="dotnet-sdk-${DOTNET_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                     \
   && curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_VERSION}/${DOTNET_ASSET}"                                                  \
