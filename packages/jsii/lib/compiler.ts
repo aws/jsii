@@ -510,7 +510,7 @@ export class Compiler implements Emitter {
    *
    * Respects includes/excludes/etc.
    *
-   * This makes it so that running 'tsc' and running 'jsii' has the same behavior.
+   * This makes it so that running 'typescript-3.9' and running 'jsii' has the same behavior.
    */
   private determineSources(files: string[]): string[] {
     const ret = new Array<string>();

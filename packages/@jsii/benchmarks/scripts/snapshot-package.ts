@@ -7,6 +7,9 @@ import * as tar from 'tar';
 
 import { cdkTagv2_21_1, cdkv2_21_1 } from '../lib/constants';
 
+// Using the local `npm` package (from dependencies)
+const npm = path.resolve(__dirname, '..', 'node_modules', '.bin', 'npm');
+
 function snapshotAwsCdk(tag: string, file: string) {
   // Directory of aws-cdk repository
   const repoDir = fs.mkdtempSync(
@@ -30,7 +33,7 @@ function snapshotAwsCdk(tag: string, file: string) {
 
   // build aws-cdk-lib and dependencies
   cp.execSync(
-    `npx lerna run --scope aws-cdk-lib --include-dependencies build`,
+    `yarn lerna run --scope aws-cdk-lib --include-dependencies --concurrency=2 --stream build`,
     { cwd: repoDir },
   );
 
@@ -41,7 +44,14 @@ function snapshotAwsCdk(tag: string, file: string) {
   const artifacts = glob.sync(
     path.join(intermediate, '**/*@(.js|.js.map|.d.ts|.tsbuildinfo)'),
   );
-  artifacts.forEach(fs.removeSync);
+  const exceptions = new Set([
+    // Need to keep some declarations files that are part of the source...
+    path.join(
+      intermediate,
+      'custom-resources/lib/provider-framework/types.d.ts',
+    ),
+  ]);
+  artifacts.filter((file) => !exceptions.has(file)).forEach(fs.removeSync);
 
   // Remove node_modules from monorepo setup
   fs.removeSync(path.resolve(intermediate, 'node_modules'));
@@ -62,6 +72,22 @@ function snapshotAwsCdk(tag: string, file: string) {
     {},
   );
 
+  // Adding the un-modeled dependencies that exist (unless they become modeled)
+  const extraDependencies = {
+    '@types/aws-lambda': '^8.10.99',
+    '@types/minimatch': '^3.0.5',
+    '@types/node': '^14',
+    '@types/punycode': '^2.1.0',
+    '@types/semver': '^7.3.9',
+    'aws-sdk': '^2.596.0',
+    'typescript-json-schema': '^0.53.1',
+  };
+  for (const [pkg, versionRange] of Object.entries(extraDependencies)) {
+    if (!(pkg in devDependencies)) {
+      devDependencies[pkg] = versionRange;
+    }
+  }
+
   fs.writeFileSync(
     packageJsonPath,
     JSON.stringify(
@@ -72,7 +98,7 @@ function snapshotAwsCdk(tag: string, file: string) {
   );
 
   // Run npm install to get package-lock.json for reproducible dependency tree
-  cp.execSync(`npm install`, { cwd: intermediate });
+  cp.execSync(`${npm} install`, { cwd: intermediate });
   fs.removeSync(path.resolve(intermediate, 'node_modules'));
   tar.c(
     {
