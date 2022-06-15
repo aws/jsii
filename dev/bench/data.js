@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655240768378,
+  "lastUpdate": 1655283623556,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1922,6 +1922,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 4733.19339,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 60214.15639685 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e912ad54a5e011123e78ca4131831812eb74bae3",
+          "message": "chore(superchain): update to Maven 3.8.6 (#3601)",
+          "timestamp": "2022-06-15T10:16:28+02:00",
+          "tree_id": "0aba8b5e025bd4f9fa383aaa3bec1767a84fb4d1",
+          "url": "https://github.com/aws/jsii/commit/e912ad54a5e011123e78ca4131831812eb74bae3"
+        },
+        "date": 1655283619389,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 87260.50794435,
+            "unit": "milliseconds",
+            "range": 8883.621071000001,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 87260.50794435 milliseconds over 20 runs"
           }
         ]
       }
