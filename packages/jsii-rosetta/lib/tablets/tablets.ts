@@ -206,7 +206,7 @@ export class TranslatedSnippet {
   public get originalSource(): Translation {
     return {
       source: this.snippet.translations[ORIGINAL_SNIPPET_KEY].source,
-      language: 'typescript',
+      language: 'typescript-3.9',
       didCompile: this.snippet.didCompile,
     };
   }

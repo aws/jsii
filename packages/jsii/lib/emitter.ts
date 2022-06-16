@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 /**
  * An object that is capable of emitting stuff.

@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 export class TypeScriptCompiler {
   private readonly realHost = ts.createCompilerHost(STANDARD_COMPILER_OPTIONS, true);

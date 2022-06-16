@@ -35,7 +35,7 @@ export class NodeRelease {
     // Currently active releases
     new NodeRelease(14, {
       endOfLife: new Date('2023-04-30'),
-      supportedRange: '^14.5.0',
+      supportedRange: '^14.6.0',
     }),
     new NodeRelease(16, {
       endOfLife: new Date('2024-04-30'),
