@@ -16,8 +16,8 @@
     "glob": "^8.0.3"
   },
   "scripts": {
-    "build": "tsc --build && npm run lint",
-    "watch": "tsc -w",
+    "build": "yarn --silent tsc --build && npm run lint",
+    "watch": "yarn --silent tsc -w",
     "bench": "node bin/benchmark.js",
     "snapshot": "node scripts/snapshot-package.js",
     "lint": "eslint . --ext .ts --ignore-path=.gitignore",
