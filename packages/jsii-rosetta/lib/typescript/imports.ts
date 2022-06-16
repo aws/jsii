@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 import { JsiiSymbol, parentSymbol, lookupJsiiSymbolFromNode } from '../jsii/jsii-utils';
 import { AstRenderer } from '../renderer';

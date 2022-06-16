@@ -2,10 +2,8 @@
 
     | Release   | Status                       | End-of-Life  |
     | --------- | ---------------------------- | ------------ |
-    | `^12.7.0` | :white_check_mark: Supported | `2022-04-30` |
-    | `^14.5.0` | :white_check_mark: Supported | `2023-04-30` |
+    | `^14.6.0` | :white_check_mark: Supported | `2023-04-30` |
     | `^16.3.0` | :white_check_mark: Supported | `2024-04-30` |
-    | `^17.3.0` | :test_tube: Best effort      | `2022-06-01` |
     | `^18.0.0` | :white_check_mark: Supported | `2025-04-30` |
 
     ??? question "Status Definitions"

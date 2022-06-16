@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 import { RuntimeTypeInfoInjector } from '../../lib/transforms/runtime-info';
 
@@ -102,7 +102,7 @@ function mockedTypeInfoForClasses(
  */
 
 const EXAMPLE_NO_CLASS = `
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 interface Foo {
   readonly foobar: string;
@@ -110,7 +110,7 @@ interface Foo {
 `;
 
 const EXAMPLE_SINGLE_CLASS = `
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 class Foo {
   constructor(public readonly bar: string) {}
@@ -144,7 +144,7 @@ export default class {
 `;
 
 const EXAMPLE_CONFLICTING_NAME = `
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 const JSII_RTTI_SYMBOL_1 = 42;
 

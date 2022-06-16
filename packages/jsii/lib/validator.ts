@@ -1,9 +1,9 @@
 import * as spec from '@jsii/spec';
 import * as assert from 'assert';
-import * as Case from 'case';
 import * as deepEqual from 'fast-deep-equal';
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
+import * as Case from './case';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { getRelatedNode } from './node-bindings';

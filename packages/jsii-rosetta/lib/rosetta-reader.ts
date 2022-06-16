@@ -259,7 +259,7 @@ export class RosettaTabletReader {
 
     const translated = this.translateSnippet(snippet, targetLang);
 
-    return translated ?? { language: 'typescript', source: example };
+    return translated ?? { language: 'typescript-3.9', source: example };
   }
 
   /**

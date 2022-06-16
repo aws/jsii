@@ -17,7 +17,7 @@
     "directory": "packages/jsii"
   },
   "engines": {
-    "node": ">= 14.5.0"
+    "node": ">= 14.6.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -46,7 +46,7 @@
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.1",
     "spdx-license-list": "^6.6.0",
-    "typescript": "~3.9.10",
+    "typescript-3.9": "npm:typescript@~3.9.10",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
