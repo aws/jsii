@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655386719614,
+  "lastUpdate": 1655392596339,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2108,6 +2108,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 6905.236082999996,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 53222.16080305 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "vous.trouvez.le.bonheur@gmail.com",
+            "name": "Takahiro Sugiura",
+            "username": "touchez-du-bois"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1762310ee59539d1dd604b639aae979ace5818af",
+          "message": "fix: Status icon for Go language that it is generally available. (#3607)\n\nSince Go language  is generally available, change the status icon, too.\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-16T14:45:36Z",
+          "tree_id": "575106e1762d25c0d15826dd5a994db49b6af31c",
+          "url": "https://github.com/aws/jsii/commit/1762310ee59539d1dd604b639aae979ace5818af"
+        },
+        "date": 1655392593691,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 53568.50120409999,
+            "unit": "milliseconds",
+            "range": 6817.050961000001,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 53568.50120409999 milliseconds over 20 runs"
           }
         ]
       }
