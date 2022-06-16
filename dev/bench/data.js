@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655381248942,
+  "lastUpdate": 1655381848361,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2015,6 +2015,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 11694.340785,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 62077.02250055 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43080478+aws-cdk-automation@users.noreply.github.com",
+            "name": "AWS CDK Automation",
+            "username": "aws-cdk-automation"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c56db0cd38ef7f67236e3cbe324de593ae549788",
+          "message": "chore: npm-check-updates && yarn upgrade (#3603)\n\nCo-authored-by: AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2022-06-16T13:45:48+02:00",
+          "tree_id": "04c4f2d8dbe19eed4eb9d94ccac2157085045f5f",
+          "url": "https://github.com/aws/jsii/commit/c56db0cd38ef7f67236e3cbe324de593ae549788"
+        },
+        "date": 1655381845924,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 59049.0825308,
+            "unit": "milliseconds",
+            "range": 9577.006533,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 59049.0825308 milliseconds over 20 runs"
           }
         ]
       }
