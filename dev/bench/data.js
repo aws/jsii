@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655381848361,
+  "lastUpdate": 1655385993245,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2046,6 +2046,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 9577.006533,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 59049.0825308 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "735c5302f33348aac5c7c5758d53bdd74f4b47f0",
+          "message": "chore: update layer cache last in workflow (#3606)",
+          "timestamp": "2022-06-16T14:58:24+02:00",
+          "tree_id": "4cdeb80e2c61723313ff9a666c9631bad1efa3dc",
+          "url": "https://github.com/aws/jsii/commit/735c5302f33348aac5c7c5758d53bdd74f4b47f0"
+        },
+        "date": 1655385991048,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 49123.7722448,
+            "unit": "milliseconds",
+            "range": 6380.298078,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 49123.7722448 milliseconds over 20 runs"
           }
         ]
       }
