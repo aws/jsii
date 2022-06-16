@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 import { TargetLanguage } from './languages';
 import { NO_SYNTAX, OTree, UnknownSyntax, Span } from './o-tree';

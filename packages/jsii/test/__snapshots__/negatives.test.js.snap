@@ -10,12 +10,20 @@ neg.behavior-requires-iprefix.ts:1:18 - error JSII8007: Interface contains behav
 `;
 
 exports[`class-name 1`] = `
-error JSII8000: Type names must be CamelCased. Rename "myclass" to "Myclass"
+neg.class-name.ts:1:14 - error JSII8000: Type names must be PascalCased. Rename "myclass" to "Myclass"
+
+1 export class myclass {}
+               ~~~~~~~
+
 
 `;
 
 exports[`class-name.1 1`] = `
-error JSII8000: Type names must be CamelCased. Rename "My_class" to "MyClass"
+neg.class-name.1.ts:1:14 - error JSII8000: Type names must be PascalCased. Rename "My_class" to "MyClass"
+
+1 export class My_class {}
+               ~~~~~~~~
+
 
 `;
 
@@ -108,12 +116,20 @@ error JSII8001: Enum members must be ALL_CAPS. Rename "jsii.MyEnum.Goo" to "GOO"
 `;
 
 exports[`enum-name.1 1`] = `
-error JSII8000: Type names must be CamelCased. Rename "myEnum" to "MyEnum"
+neg.enum-name.1.ts:1:13 - error JSII8000: Type names must be PascalCased. Rename "myEnum" to "MyEnum"
+
+1 export enum myEnum {
+              ~~~~~~
+
 
 `;
 
 exports[`enum-name.2 1`] = `
-error JSII8000: Type names must be CamelCased. Rename "My_Enum" to "MyEnum"
+neg.enum-name.2.ts:1:13 - error JSII8000: Type names must be PascalCased. Rename "My_Enum" to "MyEnum"
+
+1 export enum My_Enum {
+              ~~~~~~~
+
 
 `;
 
@@ -557,7 +573,7 @@ neg.omit.1.ts:7:33 - error JSII3004: Illegal extends clause for an exported API:
 7 export interface BarBaz extends Omit<FooBar, 'foo'> {
                                   ~~~~~~~~~~~~~~~~~~~
 
-  ../../node_modules/typescript/lib/lib.es5.d.ts:1462:35
+  ../../../../node_modules/typescript-3.9/lib/lib.es5.d.ts:1462:35
     1462 type Pick<T, K extends keyof T> = {
                                            ~
     1463     [P in K]: T[P];
@@ -574,7 +590,7 @@ neg.omit.2.ts:7:32 - error JSII3004: Illegal implements clause for an exported A
 7 export class BarBaz implements Omit<FooBar, 'foo'> {
                                  ~~~~~~~~~~~~~~~~~~~
 
-  ../../node_modules/typescript/lib/lib.es5.d.ts:1462:35
+  ../../../../node_modules/typescript-3.9/lib/lib.es5.d.ts:1462:35
     1462 type Pick<T, K extends keyof T> = {
                                            ~
     1463     [P in K]: T[P];

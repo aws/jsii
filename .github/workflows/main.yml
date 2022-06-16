@@ -47,7 +47,7 @@ jobs:
           cache: yarn
           node-version: '14'
       - name: Set up Python 3.7
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: '3.7'
       - name: Install python3-venv
@@ -141,7 +141,7 @@ jobs:
           cache: yarn
           node-version: '14'
       - name: Set up Python 3.7
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: '3.7'
       - name: Install python3-venv
@@ -315,7 +315,7 @@ jobs:
           cache: yarn
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
       - name: 'Linux: Install python3-venv'

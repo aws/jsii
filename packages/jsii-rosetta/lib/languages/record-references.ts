@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 import { lookupJsiiSymbol } from '../jsii/jsii-utils';
 import { TargetLanguage } from '../languages/target-language';
