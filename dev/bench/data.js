@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655319523795,
+  "lastUpdate": 1655381248942,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -1984,6 +1984,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 7181.586139999999,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 54922.489037549996 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8e2eea65274b8543334313c4bfd9d361609e7667",
+          "message": "chore(jsii): cache results of case conversions (#3602)\n\nThe `Case` library appears on top of the heavy weights when profiling\n`jsii` compilation runs on `aws-cdk-lib`, accounting for about `9.6%` of\nthe overall execution time (`6,712` out of `68,935` ms). This is quite\nsignificant.\n\nFaster libraries performing case conversions exist, however they do not\noffer the same level of functinoality that `Case` does, and often\nrequire knowing which casing the string is presently at, when `Case`\nperforms normalization before conversion (this likely explains why these\nconversions are somewhat expensive), which is convenient in our\nuse-case. It does not seem to be possible to replace `Case` with a\nfaster implementation, as there does not seem to be any.\n\nRunning a survey on the usage of all functions from `Case` being used\nduring usch a compilation resulted in the following results:\n\n```\nCase.camel: 1881755 cached out of 1893235 (99.39%) - 11480 entries / 164.9 hits per entry\nCase.pascal: 1890795 cached out of 1909959 (99.00%) - 19164 entries / 99.7 hits per entry\nCase.snake: 1882773 cached out of 1895359 (99.34%) - 12586 entries / 150.6 hits per entry\n```\n\nSince there is a cache hit rate of `99%` and entries are re-used `100`\ntimes each on average, it appears that adding a cache on those functions\nwill help alleviate that cost. Indeed, after making this change, `Case`\nis no longer present above the `100ms` mark in the list of heavy\nweights produced by the profiler.\n\nIn order to avoid possibly trading performance for out-of-memory errors,\nthe caches are keyed off of weak references, so that the caches can be\ngarbage collected when under memory pressure.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-16T11:32:36Z",
+          "tree_id": "d46315c512380e1ce89943b9c109ed0e04604b40",
+          "url": "https://github.com/aws/jsii/commit/8e2eea65274b8543334313c4bfd9d361609e7667"
+        },
+        "date": 1655381246167,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 62077.02250055,
+            "unit": "milliseconds",
+            "range": 11694.340785,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 62077.02250055 milliseconds over 20 runs"
           }
         ]
       }
