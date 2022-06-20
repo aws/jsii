@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 import { hasAllFlags, hasAnyFlag, resolveEnumLiteral, resolvedSymbolAtLocation } from '../jsii/jsii-utils';
 import { isDefined } from '../util';

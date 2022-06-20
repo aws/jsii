@@ -1,4 +1,20 @@
+import { Profiler, Session } from 'inspector';
 import { performance, PerformanceObserver, PerformanceEntry } from 'perf_hooks';
+
+/**
+ * Result of a single run of the subject
+ */
+interface Iteration {
+  /**
+   * The result of perf_hooks measurement
+   */
+  performance: PerformanceEntry;
+
+  /**
+   * The cpu profile, undefined unless profiling is enabled.
+   */
+  profile?: Profiler.Profile;
+}
 
 /**
  * Result of a benchmark run
@@ -32,7 +48,7 @@ interface Result {
   /**
    * Results of individual runs
    */
-  readonly iterations: readonly PerformanceEntry[];
+  readonly iterations: readonly Iteration[];
 }
 
 /**
@@ -46,15 +62,8 @@ interface Result {
  * teardown, stubbing, etc.
  */
 export class Benchmark<C> {
-  /**
-   * How many times to run the subject
-   */
-  #iterations = 5;
-
-  /**
-   * Results of individual runs
-   */
-  #results: PerformanceEntry[] = [];
+  #iterations = 20;
+  #profile = false;
 
   public constructor(private readonly name: string) {}
   #setup: () => C | Promise<C> = () => ({} as C);
@@ -76,7 +85,7 @@ export class Benchmark<C> {
    * Create a teardown function to be run once after all benchmark runs. Use to
    * clean up your mess.
    */
-  public teardown(fn: (ctx: C) => void) {
+  public teardown(fn: (ctx: C) => any) {
     this.#teardown = fn;
     return this;
   }
@@ -85,7 +94,7 @@ export class Benchmark<C> {
    * Create a beforeEach function to be run before each iteration. Use to reset
    * state the subject may have changed.
    */
-  public beforeEach(fn: (ctx: C) => void) {
+  public beforeEach(fn: (ctx: C) => any) {
     this.#beforeEach = fn;
     return this;
   }
@@ -94,7 +103,7 @@ export class Benchmark<C> {
    * Create an afterEach function to be run after each iteration. Use to reset
    * state the subject may have changed.
    */
-  public afterEach(fn: (ctx: C) => void) {
+  public afterEach(fn: (ctx: C) => any) {
     this.#afterEach = fn;
     return this;
   }
@@ -116,43 +125,106 @@ export class Benchmark<C> {
   }
 
   /**
+   * Enable the profiler to collect CPU and Memory usage.
+   */
+  public profile() {
+    this.#profile = true;
+    return this;
+  }
+
+  private async startProfiler(): Promise<Session> {
+    const session = new Session();
+    session.connect();
+
+    return new Promise((ok) => {
+      session.post('Profiler.enable', () => {
+        session.post('Profiler.start', () => {
+          ok(session);
+        });
+      });
+    });
+  }
+
+  private async killProfiler(
+    s?: Session,
+  ): Promise<Profiler.Profile | undefined> {
+    return new Promise((ok, ko) => {
+      if (!s) {
+        return ok(undefined);
+      }
+
+      s.post('Profiler.stop', (err, { profile }) => {
+        if (err) {
+          return ko(err);
+        }
+
+        return ok(profile);
+      });
+    });
+  }
+
+  private async makeObserver(): Promise<PerformanceEntry> {
+    return new Promise((ok) => {
+      const obs = new PerformanceObserver((list, observer) => {
+        ok(list.getEntries()[0]);
+        performance.clearMarks();
+        observer.disconnect();
+      });
+      obs.observe({ entryTypes: ['function'] });
+    });
+  }
+
+  private async *runIterations(ctx: C) {
+    let i = 0;
+    let profiler;
+    const wrapped = performance.timerify(this.#subject);
+
+    /* eslint-disable no-await-in-loop */
+    while (i < this.#iterations) {
+      const observer = this.makeObserver();
+      this.#beforeEach(ctx);
+      if (this.#profile) {
+        profiler = await this.startProfiler();
+      }
+      wrapped(ctx);
+      const profile = await this.killProfiler(profiler);
+      const perf = await observer;
+      this.#afterEach(ctx);
+
+      i++;
+      yield { profile, performance: perf };
+    }
+    /* eslint-enable no-await-in-loop */
+  }
+
+  /**
    * Run and measure the benchmark
    */
   public async run(): Promise<Result> {
+    const iterations: Iteration[] = [];
     const c = await this.#setup?.();
-    return new Promise((ok) => {
-      const wrapped = performance.timerify(this.#subject);
-      const obs = new PerformanceObserver((list, observer) => {
-        this.#results = list.getEntries();
-        performance.clearMarks();
-        observer.disconnect();
-        const durations = this.#results.map((i) => i.duration);
-        const max = Math.max(...durations);
-        const min = Math.min(...durations);
-        const variance = max - min;
 
-        return ok({
-          name: this.name,
-          average:
-            durations.reduce((accum, duration) => accum + duration, 0) /
-            durations.length,
-          max,
-          min,
-          variance,
-          iterations: this.#results,
-        });
-      });
-      obs.observe({ entryTypes: ['function'] });
+    for await (const result of this.runIterations(c)) {
+      iterations.push(result);
+    }
 
-      try {
-        for (let i = 0; i < this.#iterations; i++) {
-          this.#beforeEach(c);
-          wrapped(c);
-          this.#afterEach(c);
-        }
-      } finally {
-        this.#teardown(c);
-      }
-    });
+    this.#teardown(c);
+
+    const durations = iterations.map((i) => i.performance.duration);
+    const max = Math.max(...durations);
+    const min = Math.min(...durations);
+    const variance = max - min;
+    const average =
+      durations.reduce((accum, duration) => accum + duration, 0) /
+      durations.length;
+
+    return {
+      name: this.name,
+      average,
+      max,
+      min,
+      variance,
+      iterations,
+    };
   }
 }

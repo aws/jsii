@@ -104,13 +104,6 @@ jobs:
             -f superchain/Dockerfile                                            \
             .
 
-      # Replace the cache so it does not grow forever
-      - name: Update layer cache
-        if: always() && steps.should-run.outputs.result == 'true'
-        run: |-
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-out /tmp/.buildx-cache
-
       # Testing sequentially, because in parallel it's too slow due to IO contention
       - name: Test Image (AMD64)
         if: steps.should-run.outputs.result == 'true'
@@ -209,3 +202,10 @@ jobs:
               -f superchain/Dockerfile                                            \
               .
           fi
+
+      # Replace the cache so it does not grow forever (should always be last!)
+      - name: Update layer cache
+        if: always() && steps.should-run.outputs.result == 'true'
+        run: |-
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-out /tmp/.buildx-cache

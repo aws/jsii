@@ -122,6 +122,13 @@ import { VERSION_DESC } from '../lib/version';
       // This is expected to be a path, which should be normalized
       normalize: true,
     })
+    .option('maven-local-repository', {
+      type: 'string',
+      desc: 'Configure a custom path (relative to current working directory) to a repository when packaging a Java package.',
+      defaultDescription: 'A temporary directory is used.',
+      default: undefined,
+      hidden: true,
+    })
     .option('validate-assemblies', {
       type: 'boolean',
       desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
