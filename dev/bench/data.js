@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655398386802,
+  "lastUpdate": 1655769904072,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2170,6 +2170,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 8569.700792000003,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 51303.042456699986 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "11394fbfe7d51ad1976e7e34ea98e1199fed55a0",
+          "message": "chore: keep @jsii/kernel loadable with Node 12+ (#3596)\n\nThis is to ensure jsii runtimes are able to warn about unsupported Node releases (all the code is rolled up via webpack, and is hence loaded as a single file, so all of it needs to be valid ES2018 or else it won't load.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-20T23:26:42Z",
+          "tree_id": "5f023c5bee2ce5788c535b1192f59a9934378c89",
+          "url": "https://github.com/aws/jsii/commit/11394fbfe7d51ad1976e7e34ea98e1199fed55a0"
+        },
+        "date": 1655769900106,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 71418.89251589999,
+            "unit": "milliseconds",
+            "range": 11731.742524000001,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 71418.89251589999 milliseconds over 20 runs"
           }
         ]
       }
