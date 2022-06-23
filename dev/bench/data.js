@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655974221071,
+  "lastUpdate": 1655974692515,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2232,6 +2232,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 10020.201626999995,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 43984.38717075001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "606de78b226b426c8b7c18e779d0d623d8929bb8",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.3.4 to ~=8.3.6 in /gh-pages (#3611)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-06-23T10:24:13+02:00",
+          "tree_id": "6cc406434fa26a3d61572e1868d61b081949cd44",
+          "url": "https://github.com/aws/jsii/commit/606de78b226b426c8b7c18e779d0d623d8929bb8"
+        },
+        "date": 1655974689259,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 52034.3312662,
+            "unit": "milliseconds",
+            "range": 7488.438925000002,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 52034.3312662 milliseconds over 20 runs"
           }
         ]
       }
