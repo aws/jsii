@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655974692515,
+  "lastUpdate": 1655980095001,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2263,6 +2263,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 7488.438925000002,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 52034.3312662 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2ee35a52771919b2d8bf988d57da82ee2a29b180",
+          "message": "chore(deps): Bump github.com/stretchr/testify from 1.7.2 to 1.7.4 in /packages/@jsii/go-runtime/jsii-runtime-go (#3614)\n\nBumps [github.com/stretchr/testify](https://github.com/stretchr/testify) from 1.7.2 to 1.7.4.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/stretchr/testify/commit/48391ba5eb8c5f49132138e67ec112d180b88f63\"><code>48391ba</code></a> Fix panic in AssertExpectations for mocks without expectations (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1207\">#1207</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/840cb801497147a6d30a568e0874dfefb10867a9\"><code>840cb80</code></a> arrays value types in a zero-initialized state are considered empty (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1126\">#1126</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/07dc7ee5abe6d1c0ef6449f731ca9bf08e1787f8\"><code>07dc7ee</code></a> Bump actions/setup-go from 3.1.0 to 3.2.0 (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1191\">#1191</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/c33fc8d30db6f6d2c5d270c5023eb0f2181bbab5\"><code>c33fc8d</code></a> Bump actions/checkout from 2 to 3 (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1163\">#1163</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/3c33e07c4c233bf61e1414f5acb3cda06ffef1d1\"><code>3c33e07</code></a> Added Go 1.18.1 as a build/supported version (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1182\">#1182</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/e2b56b3a384eb40136b2cff13e07e932dd95bf28\"><code>e2b56b3</code></a> Bump github.com/stretchr/objx from 0.1.0 to 0.4.0</li>\n<li>See full diff in <a href=\"https://github.com/stretchr/testify/compare/v1.7.2...v1.7.4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/stretchr/testify&package-manager=go_modules&previous-version=1.7.2&new-version=1.7.4)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\nDependabot will merge this PR once CI passes on it, as requested by @RomainMuller.\n\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-23T10:02:20Z",
+          "tree_id": "99b7a75152dc239d11bfc97776d3e7889bdceb17",
+          "url": "https://github.com/aws/jsii/commit/2ee35a52771919b2d8bf988d57da82ee2a29b180"
+        },
+        "date": 1655980092468,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 45158.305222400006,
+            "unit": "milliseconds",
+            "range": 7878.162295999995,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 45158.305222400006 milliseconds over 20 runs"
           }
         ]
       }
