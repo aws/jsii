@@ -2,7 +2,7 @@ import {
   loadAssemblyFromPath,
   SPEC_FILE_NAME,
   SPEC_FILE_NAME_COMPRESSED,
-} from '@jsii/utils';
+} from '@jsii/spec';
 import {
   ensureDirSync,
   existsSync,

@@ -7,8 +7,7 @@
  */
 
 import * as spec from '@jsii/spec';
-import { PackageJson } from '@jsii/spec';
-import { loadAssemblyFromPath, writeAssembly } from '@jsii/utils';
+import { PackageJson, loadAssemblyFromPath, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';

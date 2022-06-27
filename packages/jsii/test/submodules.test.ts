@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import { writeAssembly, loadAssemblyFromPath } from '@jsii/utils';
+import { writeAssembly, loadAssemblyFromPath } from '@jsii/spec';
 
 import {
   sourceToAssemblyHelper,
