@@ -4,6 +4,7 @@ import * as glob from 'glob';
 import * as os from 'os';
 import * as path from 'path';
 import * as tar from 'tar';
+import * as ts from 'typescript-3.9';
 
 import { cdkTagv2_21_1, cdkv2_21_1 } from '../lib/constants';
 
@@ -62,31 +63,24 @@ function snapshotAwsCdk(tag: string, file: string) {
   const { devDependencies, ...pkgJson } = fs.readJsonSync(packageJsonPath);
   const newDevDependencies = Object.entries(devDependencies).reduce(
     (accum, [pkg, version]) => {
-      if (pkg.startsWith('@aws-cdk/')) return accum;
+      if (pkg !== 'typescript' && !pkg.startsWith('@aws-cdk/'))
+        accum[pkg] = version as string;
 
-      return {
-        ...accum,
-        [pkg]: version,
-      };
+      return accum;
     },
-    {},
+    {
+      // Some un-modeled dependencies that exist (will be overridden if modeled)
+      '@types/aws-lambda': '^8.10.99',
+      '@types/minimatch': '^3.0.5',
+      '@types/node': '^14',
+      '@types/punycode': '^2.1.0',
+      '@types/semver': '^7.3.9',
+      'aws-sdk': '^2.596.0',
+      'typescript-json-schema': '^0.53.1',
+      // For good measure, the typescript compiler
+      typescript: `~${ts.version}`,
+    } as Record<string, string>,
   );
-
-  // Adding the un-modeled dependencies that exist (unless they become modeled)
-  const extraDependencies = {
-    '@types/aws-lambda': '^8.10.99',
-    '@types/minimatch': '^3.0.5',
-    '@types/node': '^14',
-    '@types/punycode': '^2.1.0',
-    '@types/semver': '^7.3.9',
-    'aws-sdk': '^2.596.0',
-    'typescript-json-schema': '^0.53.1',
-  };
-  for (const [pkg, versionRange] of Object.entries(extraDependencies)) {
-    if (!(pkg in devDependencies)) {
-      devDependencies[pkg] = versionRange;
-    }
-  }
 
   fs.writeFileSync(
     packageJsonPath,
