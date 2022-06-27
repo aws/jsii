@@ -10,11 +10,14 @@ export async function streamUntar(file: string, config: tar.ExtractOptions) {
   });
 }
 
-export function inDirectory<T>(newWorkDir: string, cb: () => T) {
+export async function inDirectory<T>(
+  newWorkDir: string,
+  cb: () => T | Promise<T>,
+) {
   const cwd = process.cwd();
   try {
     process.chdir(newWorkDir);
-    return cb();
+    return await cb();
   } finally {
     process.chdir(cwd);
   }
