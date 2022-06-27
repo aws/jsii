@@ -215,9 +215,10 @@ export class Benchmark<C> {
     let sum = 0;
     let average = 0;
 
-    let id = 1;
+    let id = 0;
     const padding = this.#iterations.toString().length;
     for await (const result of this.runIterations(c)) {
+      id += 1;
       const duration = result.performance.duration;
       durations.push(duration);
       if (min > duration) {
@@ -229,7 +230,7 @@ export class Benchmark<C> {
       sum += duration;
       average = sum / id;
 
-      const idStr = (id++).toString().padStart(padding, ' ');
+      const idStr = id.toString().padStart(padding, ' ');
       const durStr = duration.toFixed(0);
       const eta = new Date(Date.now() + average * (this.#iterations - id));
       const pct = (100 * id) / this.#iterations;

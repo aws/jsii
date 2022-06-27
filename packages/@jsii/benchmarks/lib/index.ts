@@ -8,7 +8,7 @@ import * as ts from 'typescript-3.9';
 
 import { Benchmark } from './benchmark';
 import { cdkv2_21_1, cdkTagv2_21_1 } from './constants';
-import { streamUntar } from './util';
+import { inDirectory, streamUntar } from './util';
 
 // Using the local `npm` package (from dependencies)
 const npm = path.resolve(__dirname, '..', 'node_modules', '.bin', 'npm');
@@ -35,108 +35,84 @@ export const benchmarks = [
     })
     .beforeEach(({ workingDir, sourceDir }) => {
       fs.removeSync(workingDir);
-      fs.copySync(sourceDir, workingDir, { dereference: true });
+      fs.copySync(sourceDir, workingDir);
     })
-    .subject(({ workingDir }) => {
-      const { host, options, rootNames } = (function () {
-        const parsed = ts.parseJsonConfigFileContent(
-          fs.readJsonSync(path.join(workingDir, 'tsconfig.json')),
-          ts.sys,
-          workingDir,
-          {
-            alwaysStrict: true,
-            charset: 'utf8',
-            declaration: true,
-            experimentalDecorators: true,
-            incremental: true,
-            inlineSourceMap: true,
-            inlineSources: true,
-            lib: ['lib.es2020.d.ts'],
-            module: ts.ModuleKind.CommonJS,
-            moduleResolution: ts.ModuleResolutionKind.NodeJs,
-            newLine: ts.NewLineKind.LineFeed,
-            noEmitOnError: true,
-            noFallthroughCasesInSwitch: true,
-            noImplicitAny: true,
-            noImplicitReturns: true,
-            noImplicitThis: true,
-            noUnusedLocals: true,
-            noUnusedParameters: true,
-            resolveJsonModule: true,
-            strict: true,
-            strictNullChecks: true,
-            strictPropertyInitialization: true,
-            stripInternal: false,
-            target: ts.ScriptTarget.ES2020,
-            tsBuildInfoFile: 'tsconfig.tsbuildinfo',
-          },
-          'tsconfig.json',
-        );
+    .subject(({ workingDir }) =>
+      inDirectory(workingDir, () => {
+        const { host, options, rootNames } = (function () {
+          const parsed = ts.parseJsonConfigFileContent(
+            fs.readJsonSync(path.join(workingDir, 'tsconfig.json')),
+            ts.sys,
+            workingDir,
+            {
+              module: ts.ModuleKind.CommonJS,
+              moduleResolution: ts.ModuleResolutionKind.NodeJs,
+              newLine: ts.NewLineKind.LineFeed,
+              tsBuildInfoFile: 'tsconfig.tsbuildinfo',
+            },
+            'tsconfig.json',
+          );
 
-        const host = ts.createIncrementalCompilerHost(parsed.options, {
-          ...ts.sys,
-          // Cheating so stuff looks right in the output(s)
-          getCurrentDirectory: () => workingDir,
-        });
+          const host = ts.createIncrementalCompilerHost(parsed.options, ts.sys);
 
-        const { main } = fs.readJsonSync(path.join(workingDir, 'package.json'));
-
-        return {
-          host,
-          options: parsed.options,
-          rootNames: [
-            path.join(workingDir, main.replace(/\.js$/, '.ts')),
-            ...(parsed.options.lib && host.getDefaultLibLocation != null
-              ? parsed.options.lib.map((lib) =>
+          return {
+            host,
+            options: parsed.options,
+            rootNames: [
+              ...parsed.fileNames,
+              ...(parsed.options.lib && host.getDefaultLibLocation != null
+                ? parsed.options.lib.map((lib) =>
                   path.join(host.getDefaultLibLocation!(), lib),
                 )
-              : []),
-          ],
-        };
-      })();
+                : []),
+            ],
+          };
+        })();
 
-      const program = ts
-        .createIncrementalProgram({
-          host,
-          options,
-          rootNames,
-        })
-        .getProgram();
-
-      const preEmitDiagnostics = ts.getPreEmitDiagnostics(program);
-      if (
-        preEmitDiagnostics.some(
-          (diag) => diag.category === ts.DiagnosticCategory.Error,
-        )
-      ) {
-        console.error(
-          ts.formatDiagnosticsWithColorAndContext(
-            preEmitDiagnostics.filter(
-              (diag) => diag.category === ts.DiagnosticCategory.Error,
-            ),
+        const program = ts
+          .createIncrementalProgram({
+            createProgram: ts.createEmitAndSemanticDiagnosticsBuilderProgram,
             host,
-          ),
-        );
-        throw new Error(`TypeScript compiler emitted pre-emit errors!`);
-      }
+            options,
+            rootNames,
+          })
+          .getProgram();
 
-      const emitResult = program.emit();
-      if (
-        emitResult.diagnostics.some(
-          (diag) => diag.category === ts.DiagnosticCategory.Error,
-        )
-      ) {
-        console.error(
-          ts.formatDiagnosticsWithColorAndContext(
-            emitResult.diagnostics.filter(
-              (diag) => diag.category === ts.DiagnosticCategory.Error,
+        const preEmitDiagnostics = ts.getPreEmitDiagnostics(program);
+        if (
+          preEmitDiagnostics.some(
+            (diag) => diag.category === ts.DiagnosticCategory.Error,
+          )
+        ) {
+          console.error(
+            ts.formatDiagnosticsWithColorAndContext(
+              preEmitDiagnostics.filter(
+                (diag) => diag.category === ts.DiagnosticCategory.Error,
+              ).slice(0, 10),
+              host,
             ),
-            host,
-          ),
-        );
-        throw new Error(`TypeScript compiler emitted errors!`);
-      }
-    })
+          );
+          throw new Error(`TypeScript compiler emitted pre-emit errors!`);
+        }
+
+        const emitResult = program.emit();
+        if (
+          emitResult.diagnostics.some(
+            (diag) => diag.category === ts.DiagnosticCategory.Error,
+          )
+        ) {
+          console.error(
+            ts.formatDiagnosticsWithColorAndContext(
+              emitResult.diagnostics.filter(
+                (diag) => diag.category === ts.DiagnosticCategory.Error,
+              ),
+              host,
+            ),
+          );
+          throw new Error(`TypeScript compiler emitted errors!`);
+        }
+      })
+    )
     .teardown(({ workingDir, sourceDir }) => {
       fs.removeSync(workingDir);
       fs.removeSync(sourceDir);
@@ -165,7 +141,7 @@ export const benchmarks = [
       fs.removeSync(workingDir);
       fs.copySync(sourceDir, workingDir);
     })
-    .subject(({ workingDir }) => {
+    .subject(({ workingDir }) => inDirectory(workingDir, () => {
       const { projectInfo } = loadProjectInfo(workingDir);
       const compiler = new Compiler({ projectInfo });
 
@@ -189,7 +165,8 @@ export const benchmarks = [
         );
         throw new Error(`jsii compiler emitted errors!`);
       }
-    })
+    }
+    ))
     .teardown(({ workingDir, sourceDir }) => {
       fs.removeSync(workingDir);
       fs.removeSync(sourceDir);
