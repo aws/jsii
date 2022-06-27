@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
@@ -116,7 +117,7 @@ export class Kernel {
     // read .jsii metadata from the root of the package
     let assmSpec;
     try {
-      assmSpec = spec.loadAssemblyFromPath(packageDir);
+      assmSpec = loadAssemblyFromPath(packageDir);
     } catch {
       throw new Error(
         `Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`,
