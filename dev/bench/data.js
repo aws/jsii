@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656349325834,
+  "lastUpdate": 1656354450286,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2463,6 +2463,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 10315500.524130905,
             "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 84508.03776955002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "aa8568e119f57f29599d3292c060edf31e139429",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.3.6 to ~=8.3.8 in /gh-pages (#3621)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.3.8</h2>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4053\">#4053</a>: Limit width of videos to content area</li>\n<li>Fixed empty tags in front matter breaking search</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.3.8+insiders-4.19.1 (2022-06-25)</p>\n<ul>\n<li>Added mkdocs-git-committers-plugin to Dockerfile</li>\n<li>Added mkdocs-git-revision-date-localized-plugin to Dockerfile</li>\n</ul>\n<p>mkdocs-material-8.3.8+insiders-4.19.0 (2022-06-24)</p>\n<ul>\n<li>Added support for document contributors</li>\n<li>Updated French translations for cookie consent</li>\n</ul>\n<p>mkdocs-material-8.3.8 (2022-06-24)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4053\">#4053</a>: Limit width of videos to content area</li>\n<li>Fixed empty tags in front matter breaking search</li>\n</ul>\n<p>mkdocs-material-8.3.7 (2022-06-22)</p>\n<ul>\n<li>Fixed search being stuck initializing when using tags (8.3.4 regression)</li>\n</ul>\n<p>mkdocs-material-8.3.6+insiders-4.18.2 (2022-06-16)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4026\">#4026</a>: Fixed tooltips not mounted for nested navigation links</li>\n</ul>\n<p>mkdocs-material-8.3.6 (2022-06-16)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4028\">#4028</a>: Links not clickable when using versioning (8.3.5 regression)</li>\n</ul>\n<p>mkdocs-material-8.3.5+insiders-4.18.1 (2022-06-14)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/3990\">#3990</a>: Chinese search highlighting not working on non-boundaries</li>\n</ul>\n<p>mkdocs-material-8.3.5 (2022-06-14)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4012\">#4012</a>: Stay on page not working for alias of active version</li>\n</ul>\n<p>mkdocs-material-8.3.4+insiders-4.18.0 (2022-06-11)</p>\n<ul>\n<li>Added support for automatic dark/light mode</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4009\">#4009</a>: Privacy plugin uses invalid paths for file cache on Windows</li>\n</ul>\n<p>mkdocs-material-8.3.4 (2022-06-11)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4004\">#4004</a>: Tags with multiple words not searchable</li>\n</ul>\n<p>mkdocs-material-8.3.3 (2022-06-07)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4000\">#4000</a>: Mermaid diagrams too dark in dark mode (8.3.0 regression)</li>\n</ul>\n<p>mkdocs-material-8.3.2+insiders-4.17.2 (2022-06-05)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5860dac074480c2f925824ff1cf3d29eb760f1aa\"><code>5860dac</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6f8b640ec7b5a8a923c096670b9106657b51af68\"><code>6f8b640</code></a> Prepare 8.3.8 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5ed04897db4819f0a0c2c0779ad12bb0921e0f09\"><code>5ed0489</code></a> Limit width of HTML5 videos to content area</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2e99447155cf251265d20f005ef52d9667172230\"><code>2e99447</code></a> Debug GitHub Actions workflow</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/d7d9e059330fc8711563b404f6a3fa21aa6f3f73\"><code>d7d9e05</code></a> Debug GitHub Actions workflow</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3ed984d691488dd3beb1408715910edf8f8e4282\"><code>3ed984d</code></a> Debug GitHub Actions workflow</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/17e276fe6b99d5b3613b60e03672bc5bac9314e8\"><code>17e276f</code></a> Debug GitHub Actions workflow</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b44aa0641bd454d2f19fc7a3fea0b36db087da92\"><code>b44aa06</code></a> Debug GitHub Actions workflow</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8ab4e3d7e40d878cad8a692568ef5fa33d11d651\"><code>8ab4e3d</code></a> Debug GitHub Actions workflow</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3cce3ea9b172f06aefc831ae58fec2d4a26a8ea8\"><code>3cce3ea</code></a> Documentation</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.3.6...8.3.8\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-27T15:41:10Z",
+          "tree_id": "5e2c89bb9087943a39a0ef2acc06edb4a0f92b3f",
+          "url": "https://github.com/aws/jsii/commit/aa8568e119f57f29599d3292c060edf31e139429"
+        },
+        "date": 1656354447834,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 94765.82288309999,
+            "unit": "milliseconds",
+            "range": 61270859.020364724,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 94765.82288309999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1 (tsc)",
+            "value": 64380.843273350016,
+            "unit": "milliseconds",
+            "range": 4323093.965674711,
+            "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 64380.843273350016 milliseconds over 20 runs"
           }
         ]
       }
