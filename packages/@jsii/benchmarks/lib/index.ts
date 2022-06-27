@@ -62,8 +62,8 @@ export const benchmarks = [
               ...parsed.fileNames,
               ...(parsed.options.lib && host.getDefaultLibLocation != null
                 ? parsed.options.lib.map((lib) =>
-                  path.join(host.getDefaultLibLocation!(), lib),
-                )
+                    path.join(host.getDefaultLibLocation!(), lib),
+                  )
                 : []),
             ],
           };
@@ -86,9 +86,9 @@ export const benchmarks = [
         ) {
           console.error(
             ts.formatDiagnosticsWithColorAndContext(
-              preEmitDiagnostics.filter(
-                (diag) => diag.category === ts.DiagnosticCategory.Error,
-              ).slice(0, 10),
+              preEmitDiagnostics
+                .filter((diag) => diag.category === ts.DiagnosticCategory.Error)
+                .slice(0, 10),
               host,
             ),
           );
@@ -111,7 +111,7 @@ export const benchmarks = [
           );
           throw new Error(`TypeScript compiler emitted errors!`);
         }
-      })
+      }),
     )
     .teardown(({ workingDir, sourceDir }) => {
       fs.removeSync(workingDir);
@@ -141,32 +141,33 @@ export const benchmarks = [
       fs.removeSync(workingDir);
       fs.copySync(sourceDir, workingDir);
     })
-    .subject(({ workingDir }) => inDirectory(workingDir, () => {
-      const { projectInfo } = loadProjectInfo(workingDir);
-      const compiler = new Compiler({ projectInfo });
+    .subject(({ workingDir }) =>
+      inDirectory(workingDir, () => {
+        const { projectInfo } = loadProjectInfo(workingDir);
+        const compiler = new Compiler({ projectInfo });
 
-      const result = compiler.emit();
-      if (
-        result.diagnostics.some(
-          (diag) => diag.category === ts.DiagnosticCategory.Error,
-        )
-      ) {
-        console.error(
-          ts.formatDiagnosticsWithColorAndContext(
-            result.diagnostics.filter(
-              (diag) => diag.category === ts.DiagnosticCategory.Error,
+        const result = compiler.emit();
+        if (
+          result.diagnostics.some(
+            (diag) => diag.category === ts.DiagnosticCategory.Error,
+          )
+        ) {
+          console.error(
+            ts.formatDiagnosticsWithColorAndContext(
+              result.diagnostics.filter(
+                (diag) => diag.category === ts.DiagnosticCategory.Error,
+              ),
+              {
+                getCurrentDirectory: () => workingDir,
+                getCanonicalFileName: path.resolve,
+                getNewLine: () => ts.sys.newLine,
+              },
             ),
-            {
-              getCurrentDirectory: () => workingDir,
-              getCanonicalFileName: path.resolve,
-              getNewLine: () => ts.sys.newLine,
-            },
-          ),
-        );
-        throw new Error(`jsii compiler emitted errors!`);
-      }
-    }
-    ))
+          );
+          throw new Error(`jsii compiler emitted errors!`);
+        }
+      }),
+    )
     .teardown(({ workingDir, sourceDir }) => {
       fs.removeSync(workingDir);
       fs.removeSync(sourceDir);

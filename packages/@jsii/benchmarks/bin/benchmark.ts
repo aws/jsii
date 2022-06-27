@@ -98,15 +98,24 @@ interface ResultsJson {
 
     // If we are running in GitHub Actions, emit a summary document.
     if (process.env.GITHUB_STEP_SUMMARY != null) {
-      await fs.writeFile(process.env.GITHUB_STEP_SUMMARY, [
-        '## Benchmark Results',
-        '',
-        'Suite | Avg | StdDev',
-        '------|-----|-------',
-        ...resultsJson.sort((l, r) => l.name.localeCompare(r.name)).map(({ name, value, range }) =>
-          `${name} | ${value.toFixed(1)} | ${Math.sqrt(range).toFixed(2)}`
-        )
-      ].join('\n'), 'utf-8');
+      await fs.writeFile(
+        process.env.GITHUB_STEP_SUMMARY,
+        [
+          '## Benchmark Results',
+          '',
+          'Suite | Avg | StdDev',
+          '------|-----|-------',
+          ...resultsJson
+            .sort((l, r) => l.name.localeCompare(r.name))
+            .map(
+              ({ name, value, range }) =>
+                `${name} | ${value.toFixed(1)} | ${Math.sqrt(range).toFixed(
+                  2,
+                )}`,
+            ),
+        ].join('\n'),
+        'utf-8',
+      );
     }
 
     if (argv.output) {
