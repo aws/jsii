@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656354450286,
+  "lastUpdate": 1656357941160,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2501,6 +2501,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 4323093.965674711,
             "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 64380.843273350016 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5b8466abdce3291bfd3093c06252ee8e91a1f850",
+          "message": "chore: run benchmarks in separate VMs (#3622)\n\nThe idea is to try and achieve a situation where iteration\ntimes are not tainted by different memory situations (caches\nmay cause memory pressure and will skew the benchmark results).\n\nRunning in node sub-processes should allow removing this unknown\nfrom the picture.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-27T18:34:35Z",
+          "tree_id": "ff557f1234d864b39ab2781bccc96bf8972fe1d5",
+          "url": "https://github.com/aws/jsii/commit/5b8466abdce3291bfd3093c06252ee8e91a1f850"
+        },
+        "date": 1656357937877,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 61150.70364010001,
+            "unit": "milliseconds",
+            "range": 360650.93495285313,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 61150.70364010001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1 (tsc)",
+            "value": 45375.21177085001,
+            "unit": "milliseconds",
+            "range": 69507.03209437312,
+            "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 45375.21177085001 milliseconds over 20 runs"
           }
         ]
       }
