@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromFile, loadAssemblyFromPath, getAssemblyFile, writeAssembly } from '@jsii/utils';
+import { loadAssemblyFromFile, loadAssemblyFromPath, getAssemblyFile, writeAssembly } from '@jsii/spec';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
