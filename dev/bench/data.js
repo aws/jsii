@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656324880815,
+  "lastUpdate": 1656328533844,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2356,6 +2356,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 10030.236056999995,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 68827.15588155 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6cb83eb751b933243b8174023737ed2808d5bf44",
+          "message": "chore(deps): Bump github.com/stretchr/testify from 1.7.4 to 1.7.5 in /packages/@jsii/go-runtime/jsii-runtime-go (#3616)\n\nBumps [github.com/stretchr/testify](https://github.com/stretchr/testify) from 1.7.4 to 1.7.5.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/stretchr/testify/commit/b5ce16571001d6e96e1693ac891fed5c2510c651\"><code>b5ce165</code></a> fixing panic in calls to assertion with nil m.mutex (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1212\">#1212</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/c206b2e823e70c1e4e7ca8eded9e410acc8f71be\"><code>c206b2e</code></a> Mock can be deadlocked by a panic (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1157\">#1157</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/1b73601ae8d1c3e389e93092f595b1f6e3d68251\"><code>1b73601</code></a> suite: correctly set stats on test panic (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1195\">#1195</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/ba1076d8b3b67cdaf7bf92c95b3641636a039be2\"><code>ba1076d</code></a> Add .Unset method to mock (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/982\">#982</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/c31ea0312f8a96ca55801db5ebdf62119800fb70\"><code>c31ea03</code></a> Support comparing byte slice (<a href=\"https://github-redirect.dependabot.com/stretchr/testify/issues/1202\">#1202</a>)</li>\n<li>See full diff in <a href=\"https://github.com/stretchr/testify/compare/v1.7.4...v1.7.5\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/stretchr/testify&package-manager=go_modules&previous-version=1.7.4&new-version=1.7.5)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-06-27T10:42:54Z",
+          "tree_id": "ed41ab18f33057eab9e3e44cb0698f33b1a03a15",
+          "url": "https://github.com/aws/jsii/commit/6cb83eb751b933243b8174023737ed2808d5bf44"
+        },
+        "date": 1656328530872,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 63351.42698580001,
+            "unit": "milliseconds",
+            "range": 13263.712327999994,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 63351.42698580001 milliseconds over 20 runs"
           }
         ]
       }
