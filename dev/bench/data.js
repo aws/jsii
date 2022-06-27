@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656324471895,
+  "lastUpdate": 1656324880815,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2325,6 +2325,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 7725.7282140000025,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 53412.92505480001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "vous.trouvez.le.bonheur@gmail.com",
+            "name": "Takahiro Sugiura",
+            "username": "touchez-du-bois"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0a0b0f223f6d66c08edc97734ca01d6bc0661e32",
+          "message": "chore(docs): typo in User guides (#3617)",
+          "timestamp": "2022-06-27T11:37:42+02:00",
+          "tree_id": "0929ec110063e13e4fa61f3fda33df7732e7d3ee",
+          "url": "https://github.com/aws/jsii/commit/0a0b0f223f6d66c08edc97734ca01d6bc0661e32"
+        },
+        "date": 1656324876392,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 68827.15588155,
+            "unit": "milliseconds",
+            "range": 10030.236056999995,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 68827.15588155 milliseconds over 20 runs"
           }
         ]
       }
