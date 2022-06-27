@@ -7,7 +7,7 @@ require (
 	github.com/aws/jsii/jsii-calc/go/jcb v0.0.0
 	github.com/aws/jsii/jsii-calc/go/jsiicalc/v3 v3.20.120
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0
-	github.com/stretchr/testify v1.7.4
+	github.com/stretchr/testify v1.7.5
 	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5
 	golang.org/x/tools v0.1.0
 )
