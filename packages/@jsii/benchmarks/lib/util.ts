@@ -9,3 +9,13 @@ export async function streamUntar(file: string, config: tar.ExtractOptions) {
     stream.on('error', (error: Error) => ko(error));
   });
 }
+
+export function inDirectory<T>(newWorkDir: string, cb: () => T) {
+  const cwd = process.cwd();
+  try {
+    process.chdir(newWorkDir);
+    return cb();
+  } finally {
+    process.chdir(cwd);
+  }
+}
