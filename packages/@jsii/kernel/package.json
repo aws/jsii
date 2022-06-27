@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@jsii/spec": "^0.0.0",
-    "@jsii/utils": "^0.0.0",
     "fs-extra": "^10.1.0",
     "tar": "^6.1.11"
   },
