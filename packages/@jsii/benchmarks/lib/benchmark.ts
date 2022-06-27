@@ -67,10 +67,10 @@ export class Benchmark<C> {
 
   public constructor(private readonly name: string) {}
   #setup: () => C | Promise<C> = () => ({} as C);
-  #subject: (ctx: C) => void = () => undefined;
-  #beforeEach: (ctx: C) => void = () => undefined;
-  #afterEach: (ctx: C) => void = () => undefined;
-  #teardown: (ctx: C) => void = () => undefined;
+  #subject: (ctx: C) => void | Promise<void> = () => undefined;
+  #beforeEach: (ctx: C) => void | Promise<void> = () => undefined;
+  #afterEach: (ctx: C) => void | Promise<void> = () => undefined;
+  #teardown: (ctx: C) => void | Promise<void> = () => undefined;
 
   /**
    * Create a setup function to be run once before the benchmark, optionally
@@ -111,7 +111,7 @@ export class Benchmark<C> {
   /**
    * Setup the subject to be measured.
    */
-  public subject(fn: (ctx: C) => void) {
+  public subject(fn: (ctx: C) => void | Promise<void>) {
     this.#subject = fn;
     return this;
   }
@@ -182,18 +182,18 @@ export class Benchmark<C> {
     /* eslint-disable no-await-in-loop */
     while (i < this.#iterations) {
       const observer = this.makeObserver();
-      this.#beforeEach(ctx);
+      await this.#beforeEach(ctx);
       if (this.#profile) {
         profiler = await this.startProfiler();
       }
       let profile: Profiler.Profile | undefined;
       let perf: PerformanceEntry;
       try {
-        wrapped(ctx);
+        await wrapped(ctx);
         profile = await this.killProfiler(profiler);
         perf = await observer;
       } finally {
-        this.#afterEach(ctx);
+        await this.#afterEach(ctx);
       }
 
       i++;
@@ -243,7 +243,7 @@ export class Benchmark<C> {
       iterations.push(result);
     }
 
-    this.#teardown(c);
+    await this.#teardown(c);
 
     // Variance is the average of the squared differences from the mean
     const variance =
