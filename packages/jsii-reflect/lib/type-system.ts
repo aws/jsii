@@ -1,4 +1,4 @@
-import { getAssemblyFile, loadAssemblyFromFile } from '@jsii/utils';
+import { getAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
