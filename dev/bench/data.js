@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656328533844,
+  "lastUpdate": 1656345798732,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2387,6 +2387,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 13263.712327999994,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 63351.42698580001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "28db6e3c7696da919b8cf3a3a99e22dd53fcedd9",
+          "message": "fix(benchmark): compilation fails due to missing dependencies (#3610)\n\nAlso, adding a reference benchmark building the same code using the\nTypeScript compiler only.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-27T14:52:45Z",
+          "tree_id": "fb932f123c34cd203a0012a2fa1193ffeba77de0",
+          "url": "https://github.com/aws/jsii/commit/28db6e3c7696da919b8cf3a3a99e22dd53fcedd9"
+        },
+        "date": 1656345794425,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 102729.93810015,
+            "unit": "milliseconds",
+            "range": 79072911.29679444,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 102729.93810015 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1 (tsc)",
+            "value": 69662.7095428,
+            "unit": "milliseconds",
+            "range": 4268790.182490392,
+            "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 69662.7095428 milliseconds over 20 runs"
           }
         ]
       }
