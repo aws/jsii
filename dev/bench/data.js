@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655980095001,
+  "lastUpdate": 1656324471895,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2294,6 +2294,37 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 7878.162295999995,
             "extra": "Compile aws-cdk-lib@v2.21.1 averaged 45158.305222400006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "crybicki98@gmail.com",
+            "name": "Christopher Rybicki",
+            "username": "Chriscbr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "00b165ef73fd2fb5797f0ee386c3b9f21c7626a1",
+          "message": "chore(check-node): update Node 16 EOL date (#3618)",
+          "timestamp": "2022-06-27T11:36:32+02:00",
+          "tree_id": "9559173655395b5dd684b9b33db50fbbae645e15",
+          "url": "https://github.com/aws/jsii/commit/00b165ef73fd2fb5797f0ee386c3b9f21c7626a1"
+        },
+        "date": 1656324469332,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 53412.92505480001,
+            "unit": "milliseconds",
+            "range": 7725.7282140000025,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 53412.92505480001 milliseconds over 20 runs"
           }
         ]
       }
