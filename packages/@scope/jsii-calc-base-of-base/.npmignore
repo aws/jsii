@@ -4,8 +4,9 @@
 *.tgz
 
 
-# Include .jsii
+# Include .jsii and .jsii.gz
 !.jsii
+!.jsii.gz
 
 
 # Exclude jsii outdir
