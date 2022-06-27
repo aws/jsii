@@ -38,7 +38,7 @@ export class NodeRelease {
       supportedRange: '^14.6.0',
     }),
     new NodeRelease(16, {
-      endOfLife: new Date('2024-04-30'),
+      endOfLife: new Date('2023-09-11'),
       supportedRange: '^16.3.0',
     }),
     new NodeRelease(17, {
