@@ -1,6 +1,5 @@
 import { api } from '@jsii/kernel';
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromPath } from '@jsii/utils';
 import * as child from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -87,7 +86,7 @@ function loadRequest(library: string): api.LoadRequest {
   };
 
   function loadAssembly(): spec.Assembly {
-    return loadAssemblyFromPath(
+    return spec.loadAssemblyFromPath(
       path.resolve(require.resolve(`${library}/package.json`), '..'),
     );
   }
