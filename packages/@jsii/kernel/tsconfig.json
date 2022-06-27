@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig-base",
   "compilerOptions": {
+    "target": "ES2019", // Keep code-compatible with Node 12+
     "rootDir": "src",
     "outDir": "lib",
   },
