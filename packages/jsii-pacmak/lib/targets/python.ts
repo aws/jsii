@@ -2856,7 +2856,7 @@ class PythonGenerator extends Generator {
       const base = this.findType(cls.base);
 
       if (!spec.isClassType(base)) {
-        throw new Error("Class inheritence that isn't a class?");
+        throw new Error("Class inheritance that isn't a class?");
       }
 
       if (base.abstract) {

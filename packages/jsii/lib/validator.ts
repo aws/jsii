@@ -1,10 +1,9 @@
 import * as spec from '@jsii/spec';
 import * as assert from 'assert';
-import * as Case from 'case';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import deepEqual = require('deep-equal');
-import * as ts from 'typescript';
+import * as deepEqual from 'fast-deep-equal';
+import * as ts from 'typescript-3.9';
 
+import * as Case from './case';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { getRelatedNode } from './node-bindings';
@@ -44,7 +43,6 @@ export type ValidationFunction = (
 
 function _defaultValidations(): ValidationFunction[] {
   return [
-    _typeNamesMustUsePascalCase,
     _enumMembersMustUserUpperSnakeCase,
     _memberNamesMustUseCamelCase,
     _staticConstantNamesMustUseUpperSnakeCase,
@@ -53,22 +51,6 @@ function _defaultValidations(): ValidationFunction[] {
     _inehritanceDoesNotChangeContracts,
     _staticMembersAndNestedTypesMustNotSharePascalCaseName,
   ];
-
-  function _typeNamesMustUsePascalCase(
-    _: Validator,
-    assembly: spec.Assembly,
-    diagnostic: DiagnosticEmitter,
-  ) {
-    for (const type of _allTypes(assembly)) {
-      if (type.name !== Case.pascal(type.name)) {
-        diagnostic(
-          JsiiDiagnostic.JSII_8000_PASCAL_CASED_TYPE_NAMES.createDetached(
-            type.name,
-          ),
-        );
-      }
-    }
-  }
 
   function _enumMembersMustUserUpperSnakeCase(
     _: Validator,

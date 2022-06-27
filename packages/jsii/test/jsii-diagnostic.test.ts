@@ -1,4 +1,4 @@
-import { DiagnosticCategory } from 'typescript';
+import { DiagnosticCategory } from 'typescript-3.9';
 
 import { Code, configureCategories } from '../lib/jsii-diagnostic';
 

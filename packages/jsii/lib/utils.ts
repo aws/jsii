@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
 
@@ -227,15 +227,16 @@ export function findUp(
 ): string | undefined {
   const result = pred(directory);
 
-  return result ? directory : recurse();
-
-  function recurse() {
-    const parent = path.dirname(directory);
-    if (parent === directory) {
-      return undefined;
-    }
-    return findUp(parent, pred as any);
+  if (result) {
+    return directory;
   }
+
+  const parent = path.dirname(directory);
+  if (parent === directory) {
+    return undefined;
+  }
+
+  return findUp(parent, pred);
 }
 
 const ANSI_REGEX =

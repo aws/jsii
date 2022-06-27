@@ -2,6 +2,7 @@ import '@jsii/check-node/run';
 
 import * as log4js from 'log4js';
 import * as path from 'path';
+import { version as tsVersion } from 'typescript-3.9/package.json';
 import * as util from 'util';
 import * as yargs from 'yargs';
 
@@ -83,10 +84,7 @@ const warningTypes = Object.keys(enabledWarnings);
       global: true,
     })
     .help()
-    .version(
-      // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-      `${VERSION}, typescript ${require('typescript/package.json').version}`,
-    ).argv;
+    .version(`${VERSION}, typescript ${tsVersion}`).argv;
 
   _configureLog4js(argv.verbose);
 

@@ -1,16 +1,14 @@
 import * as spec from '@jsii/spec';
-import { PackageJson } from '@jsii/spec';
-import { writeAssembly, SPEC_FILE_NAME } from '@jsii/utils';
-import * as Case from 'case';
+import { writeAssembly, SPEC_FILE_NAME, PackageJson } from '@jsii/spec';
 import * as chalk from 'chalk';
 import * as crypto from 'crypto';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import deepEqual = require('deep-equal');
+import * as deepEqual from 'fast-deep-equal/es6';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 
+import * as Case from './case';
 import {
   getReferencedDocParams,
   parseSymbolDocumentation,
@@ -48,6 +46,8 @@ export class Assembler implements Emitter {
   private readonly tscRootDir?: string;
   private readonly compressAssembly?: boolean;
 
+  private readonly _typeChecker: ts.TypeChecker;
+
   private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
   private readonly _types = new Map<string, spec.Type>();
@@ -80,6 +80,8 @@ export class Assembler implements Emitter {
     public readonly stdlib: string,
     options: AssemblerOptions = {},
   ) {
+    this._typeChecker = this.program.getTypeChecker();
+
     if (options.stripDeprecated) {
       let allowlistedDeprecations: Set<string> | undefined;
       if (options.stripDeprecatedAllowListFile) {
@@ -139,10 +141,6 @@ export class Assembler implements Emitter {
       this.runtimeTypeInfoInjector.makeTransformers(),
       this.warningsInjector?.customTransformers ?? {},
     );
-  }
-
-  private get _typeChecker(): ts.TypeChecker {
-    return this.program.getTypeChecker();
   }
 
   /**
@@ -461,7 +459,6 @@ export class Assembler implements Emitter {
     isThisType: boolean,
   ): string {
     const sym = symbolFromType(type, this._typeChecker);
-
     const typeDeclaration = sym.valueDeclaration ?? sym.declarations?.[0];
 
     // Set to true to prevent further adding of Error diagnostics for known-bad reference
@@ -989,14 +986,10 @@ export class Assembler implements Emitter {
         );
       }
 
+      const nsContext = context.appendNamespace(node.name.getText());
       const allTypes = this._typeChecker
         .getExportsOfModule(symbol)
-        .flatMap((prop) =>
-          this._visitNode(
-            prop.declarations[0],
-            context.appendNamespace(node.name.getText()),
-          ),
-        );
+        .flatMap((prop) => this._visitNode(prop.declarations[0], nsContext));
 
       if (LOG.isTraceEnabled()) {
         LOG.trace(
@@ -1229,6 +1222,17 @@ export class Assembler implements Emitter {
     const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${
       type.symbol.name
     }`;
+
+    if (Case.pascal(type.symbol.name) !== type.symbol.name) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_8000_PASCAL_CASED_TYPE_NAMES.create(
+          (type.symbol.valueDeclaration as ts.ClassDeclaration).name ??
+            type.symbol.valueDeclaration ??
+            type.symbol.declarations[0],
+          type.symbol.name,
+        ),
+      );
+    }
 
     const jsiiType: spec.ClassType = bindings.setClassRelatedNode(
       {
@@ -1752,6 +1756,15 @@ export class Assembler implements Emitter {
     const typeContext = ctx.replaceStability(docs?.stability);
     const members = type.isUnion() ? type.types : [type];
 
+    if (Case.pascal(symbol.name) !== symbol.name) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_8000_PASCAL_CASED_TYPE_NAMES.create(
+          (symbol.valueDeclaration as ts.EnumDeclaration).name,
+          symbol.name,
+        ),
+      );
+    }
+
     const jsiiType: spec.EnumType = bindings.setEnumRelatedNode(
       {
         assembly: this.projectInfo.name,
@@ -1989,6 +2002,21 @@ export class Assembler implements Emitter {
           );
         }
 
+        // NOTE: We need to be careful with the `I` prefix for behavioral interfaces, as this can mess with PascalCase
+        // transformations, especially with short names such as `IA`, ...
+        const expectedName = interfaceName
+          ? `I${Case.pascal(type.symbol.name.slice(1))}`
+          : Case.pascal(type.symbol.name);
+        if (expectedName !== type.symbol.name) {
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_8000_PASCAL_CASED_TYPE_NAMES.create(
+              (type.symbol.declarations[0] as ts.InterfaceDeclaration).name,
+              type.symbol.name,
+              expectedName,
+            ),
+          );
+        }
+
         // If the name starts with an "I" it is not intended as a datatype, so switch that off,
         // unless a TSDoc hint was set to force this to be considered a behavioral interface.
         if (jsiiType.datatype && interfaceName && !hints.struct) {
@@ -2103,7 +2131,7 @@ export class Assembler implements Emitter {
       return;
     }
 
-    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
+    if (type.name === Case.pascal(symbol.name)) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_5019_MEMBER_TYPE_NAME_CONFLICT.create(
           declaration.name,
@@ -2253,7 +2281,7 @@ export class Assembler implements Emitter {
       | ts.AccessorDeclaration
       | ts.ParameterPropertyDeclaration;
 
-    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
+    if (type.name === Case.pascal(symbol.name)) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_5019_MEMBER_TYPE_NAME_CONFLICT.create(
           signature.name,
@@ -2556,7 +2584,7 @@ export class Assembler implements Emitter {
         }
         // eslint-disable-next-line no-await-in-loop
         const resolvedType = this._typeReference(subType, declaration, purpose);
-        if (types.find((ref) => deepEqual(ref, resolvedType)) != null) {
+        if (types.some((ref) => deepEqual(ref, resolvedType))) {
           continue;
         }
         types.push(resolvedType);

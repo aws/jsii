@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.61.0](https://github.com/aws/jsii/compare/v1.60.1...v1.61.0) (2022-06-16)
+
+
+### Features
+
+* add support for using custom .m2 directory ([#3573](https://github.com/aws/jsii/issues/3573)) ([0003c8a](https://github.com/aws/jsii/commit/0003c8a22dd44a2c89fcc117e1b1064b221aacfe))
+
+
+### Bug Fixes
+
+* @jsii/check-node crashes on loading with older node releases ([#3588](https://github.com/aws/jsii/issues/3588)) ([a1582bf](https://github.com/aws/jsii/commit/a1582bf7d9cc4081dd89e51efb4b3bc76b6e407e))
+* instantiate perf observer for each iteration ([#3585](https://github.com/aws/jsii/issues/3585)) ([3827d93](https://github.com/aws/jsii/commit/3827d93d7a1c1c83247a79647e84a56c2b5e321a))
+* italics in Markdown notation ([#3594](https://github.com/aws/jsii/issues/3594)) ([f754baa](https://github.com/aws/jsii/commit/f754baa81f78cce2f269732272fe305f6b34ca86))
+
 ## [1.60.1](https://github.com/aws/jsii/compare/v1.60.0...v1.60.1) (2022-06-09)
 
 ### Bug Fixes

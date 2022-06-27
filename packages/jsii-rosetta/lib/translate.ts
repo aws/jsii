@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from 'typescript-3.9';
 import { inspect } from 'util';
 
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';

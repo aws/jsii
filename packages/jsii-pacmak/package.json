@@ -17,7 +17,7 @@
     "directory": "packages/jsii-pacmak"
   },
   "engines": {
-    "node": ">= 14.5.0"
+    "node": ">= 14.6.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -47,7 +47,7 @@
     "jsii-reflect": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
     "semver": "^7.3.7",
-    "spdx-license-list": "^6.5.0",
+    "spdx-license-list": "^6.6.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
   },
