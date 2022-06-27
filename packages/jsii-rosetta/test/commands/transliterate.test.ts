@@ -1,5 +1,4 @@
-import { Assembly, SPEC_FILE_NAME } from '@jsii/spec';
-import { writeAssembly } from '@jsii/utils';
+import { Assembly, SPEC_FILE_NAME, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
 import * as path from 'path';

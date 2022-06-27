@@ -1,5 +1,4 @@
-import * as spec from '@jsii/spec';
-import { writeAssembly } from '@jsii/utils';
+import { Assembly, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { PackageInfo, compileJsiiForTest, TestWorkspace } from 'jsii';
 import * as os from 'os';
@@ -46,7 +45,7 @@ export class TestJsiiModule {
   public readonly workspaceDirectory: string;
 
   private constructor(
-    public readonly assembly: spec.Assembly,
+    public readonly assembly: Assembly,
     public readonly workspace: TestWorkspace,
     private readonly compressAssembly: boolean,
   ) {
