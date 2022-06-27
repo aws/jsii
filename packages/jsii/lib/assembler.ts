@@ -1,6 +1,5 @@
 import * as spec from '@jsii/spec';
-import { PackageJson } from '@jsii/spec';
-import { writeAssembly, SPEC_FILE_NAME } from '@jsii/utils';
+import { writeAssembly, SPEC_FILE_NAME, PackageJson } from '@jsii/spec';
 import * as chalk from 'chalk';
 import * as crypto from 'crypto';
 import * as deepEqual from 'fast-deep-equal/es6';

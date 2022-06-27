@@ -37,7 +37,6 @@
   "dependencies": {
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "^0.0.0",
-    "@jsii/utils": "^0.0.0",
     "case": "^1.6.3",
     "chalk": "^4",
     "fast-deep-equal": "^3.1.3",
