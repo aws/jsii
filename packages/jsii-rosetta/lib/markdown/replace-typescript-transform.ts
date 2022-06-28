@@ -11,7 +11,7 @@ export class ReplaceTypeScriptTransform extends ReplaceCodeTransform {
   public constructor(api: ApiLocation, strict: boolean, replacer: TypeScriptReplacer) {
     super((block, line) => {
       const languageParts = block.language ? block.language.split(' ') : [];
-      if (languageParts[0] !== 'typescript-3.9' && languageParts[0] !== 'ts') {
+      if (languageParts[0] !== 'typescript' && languageParts[0] !== 'ts') {
         return block;
       }
 

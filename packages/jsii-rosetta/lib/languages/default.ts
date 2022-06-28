@@ -1,4 +1,4 @@
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { isNamedLikeStruct, isJsiiProtocolType } from '../jsii/jsii-utils';

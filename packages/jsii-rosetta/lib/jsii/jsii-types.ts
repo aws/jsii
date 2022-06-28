@@ -1,4 +1,4 @@
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { inferredTypeOfExpression, BuiltInType, builtInTypeName, mapElementType } from '../typescript/types';
 import { hasAnyFlag, analyzeStructType, JsiiSymbol } from './jsii-utils';

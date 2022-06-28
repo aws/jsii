@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 /**
  * This module provides typed method that can be used to access TypeScript Nodes

@@ -58,7 +58,8 @@
     },
     "tsc": {
       "outDir": "./build",
-      "rootDir": "."
+      "rootDir": ".",
+      "types": []
     },
     "versionFormat": "short",
     "metadata": {

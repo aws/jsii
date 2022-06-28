@@ -70,7 +70,8 @@
     },
     "tsc": {
       "outDir": "build",
-      "sourceMap": false
+      "sourceMap": false,
+      "types": []
     },
     "versionFormat": "short",
     "metadata": {

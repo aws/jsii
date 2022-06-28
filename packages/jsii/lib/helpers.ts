@@ -11,7 +11,7 @@ import { PackageJson, loadAssemblyFromPath, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
-import { DiagnosticCategory } from 'typescript-3.9';
+import { DiagnosticCategory } from 'typescript';
 
 import { Compiler, CompilerOptions } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';

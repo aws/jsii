@@ -72,6 +72,9 @@
         "module": "scope.jsii_calc_base"
       }
     },
+    "tsc": {
+      "types": []
+    },
     "versionFormat": "short"
   }
 }

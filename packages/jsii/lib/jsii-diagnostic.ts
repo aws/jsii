@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 import { camel, constant, pascal } from 'case';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { TypeSystemHints } from './docs';
 import { WARNINGSCODE_FILE_NAME } from './transforms/deprecation-warnings';

@@ -50,10 +50,14 @@
     ],
     "nohoist": [
       "**/@fixtures/jsii-calc-bundled",
-      "**/@fixtures/jsii-calc-bundled/**"
+      "**/@fixtures/jsii-calc-bundled/**",
+      "**/typescript"
     ]
   },
   "resolutions": {
-    "@types/prettier": "2.6.0"
+    "minipass": "3.2.1"
+  },
+  "resolutions_info": {
+    "minipass": "https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/60901"
   }
 }

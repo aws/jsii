@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'node:path';
 import * as process from 'node:process';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import type { Context } from '.';
 
