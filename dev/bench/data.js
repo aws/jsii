@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656357941160,
+  "lastUpdate": 1656407972863,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2539,6 +2539,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 69507.03209437312,
             "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 45375.21177085001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "635404a561a52033f2c93ce238c861a7518a47f4",
+          "message": "feat(@jsii/utils): add a utility library to be consumed by jsii modules (#3570)\n\nAdds a set of utility functions under `@jsii/spec` that can (and will) be leveraged by other jsii modules.\n\nCurrently has the following functions exposed:\n\n- `getAssemblyFile()`\n- `writeAssembly()`\n- `loadAssemblyFromPath()`\n- `loadAssemblyFromFile()`\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-28T08:21:55Z",
+          "tree_id": "a1c7595eac4365dc64f1efed9b19db2061a78c2f",
+          "url": "https://github.com/aws/jsii/commit/635404a561a52033f2c93ce238c861a7518a47f4"
+        },
+        "date": 1656407968436,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 77602.32939939987,
+            "unit": "milliseconds",
+            "range": 785420.2141342406,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 77602.32939939987 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1 (tsc)",
+            "value": 55813.89929479999,
+            "unit": "milliseconds",
+            "range": 91418.6414199578,
+            "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 55813.89929479999 milliseconds over 20 runs"
           }
         ]
       }
