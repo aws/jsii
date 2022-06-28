@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import { PackageJson } from '@jsii/spec';
+import { writeAssembly, SPEC_FILE_NAME, PackageJson } from '@jsii/spec';
 import * as chalk from 'chalk';
 import * as crypto from 'crypto';
 import * as deepEqual from 'fast-deep-equal/es6';
@@ -276,11 +276,13 @@ export class Assembler implements Emitter {
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = validator.emit();
     if (!validationResult.emitSkipped) {
-      const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
-      LOG.trace(`Emitting assembly: ${chalk.blue(assemblyPath)}`);
-      fs.writeJsonSync(assemblyPath, _fingerprint(assembly), {
-        encoding: 'utf8',
-        spaces: 2,
+      LOG.trace(
+        `Emitting assembly: ${chalk.blue(
+          path.join(this.projectInfo.projectRoot, SPEC_FILE_NAME),
+        )}`,
+      );
+      writeAssembly(this.projectInfo.projectRoot, _fingerprint(assembly), {
+        compress: false,
       });
     }
 

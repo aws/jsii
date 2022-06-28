@@ -1,4 +1,12 @@
+/**
+ * Expected file name for jsii assembly or instructions to compressed assembly.
+ */
 export const SPEC_FILE_NAME = '.jsii';
+
+/**
+ * Expected file name for compressed assemblies.
+ */
+export const SPEC_FILE_NAME_COMPRESSED = `${SPEC_FILE_NAME}.gz`;
 
 /**
  * A JSII assembly specification.
