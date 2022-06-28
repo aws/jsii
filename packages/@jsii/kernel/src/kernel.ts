@@ -118,10 +118,8 @@ export class Kernel {
     let assmSpec;
     try {
       assmSpec = loadAssemblyFromPath(packageDir);
-    } catch {
-      throw new Error(
-        `Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`,
-      );
+    } catch (e: any) {
+      throw new Error(`Error for package tarball ${req.tarball}: ${e.message}`);
     }
 
     // load the module and capture it's closure
