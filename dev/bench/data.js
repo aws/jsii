@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656407972863,
+  "lastUpdate": 1656436972477,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2577,6 +2577,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 91418.6414199578,
             "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 55813.89929479999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "623c0c14fbe4c4a50c208c5415e689e45f9f54c4",
+          "message": "feat: use new read/load assembly functions everywhere (#3600)\n\nThis PR utilizes the functions added in #3570 everywhere in the jsii monorepo. The benefit of this is two-fold -- it refactors all places where we load/read assemblies and points them to the source of truth (introduced in #3570). This also means the logic for compressing assemblies will be available for all packages in the jsii monorepo if/when we flip that switch.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-28T16:22:41Z",
+          "tree_id": "a7a00c0b15a1c5d52ed72627d3207a864fcfa740",
+          "url": "https://github.com/aws/jsii/commit/623c0c14fbe4c4a50c208c5415e689e45f9f54c4"
+        },
+        "date": 1656436969991,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 71551.12803175005,
+            "unit": "milliseconds",
+            "range": 2805227.4025914683,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 71551.12803175005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1 (tsc)",
+            "value": 50549.7367025,
+            "unit": "milliseconds",
+            "range": 2014093.59968748,
+            "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 50549.7367025 milliseconds over 20 runs"
           }
         ]
       }
