@@ -9,7 +9,7 @@
     "jsii": "^0.0.0",
     "npm": "^8.12.1",
     "tar": "^6.1.11",
-    "typescript-3.9": "npm:typescript@~3.9.10",
+    "typescript": "~3.9.10",
     "yargs": "^16.2.0"
   },
   "devDependencies": {

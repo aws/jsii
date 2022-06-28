@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
 

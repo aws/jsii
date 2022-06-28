@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
@@ -27,6 +27,8 @@ export type TSCompilerOptions = Partial<
     | 'inlineSourceMap'
     | 'inlineSources'
     | 'sourceMap'
+    // Types limitations
+    | 'types'
   >
 >;
 
@@ -221,6 +223,7 @@ export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
       forceConsistentCasingInFileNames:
         pkg.jsii?.tsc?.forceConsistentCasingInFileNames,
       ..._sourceMapPreferences(pkg.jsii?.tsc),
+      types: pkg.jsii?.tsc?.types,
     },
     bin: pkg.bin,
     exports: pkg.exports,

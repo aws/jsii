@@ -1,4 +1,4 @@
-import type { Config } from '@jest/types';
+import jest from '@jest/types';
 import { defaults } from 'jest-config';
 import { cpus } from 'os';
 import { env } from 'process';
@@ -10,8 +10,10 @@ import { env } from 'process';
  * be overridden (for example, the coverage threshold), then a new
  * `jest.config.ts` file should be created that imports from this one and
  * modifies just what needs to be modified, typically using `overriddenConfig`.
+ *
+ * @type {jest.Config.InitialOptions}
  */
-const config: Config.InitialOptions = {
+const config = {
   ...defaults,
 
   collectCoverage: true,
@@ -41,19 +43,21 @@ const config: Config.InitialOptions = {
  * operation works deeply on objects, but overrides that are not objects (e.g:
  * arrays, strings, ...) simply replace the original value.
  *
- * @param overrides values to be used for overriding the orignal configuration.
+ * @param {jest.Config.InitialOptions} overrides values to be used for overriding the orignal configuration.
+ *
+ * @return {jest.Config.InitialOptions}
  */
-export function overriddenConfig(overrides: Config.InitialOptions) {
+export function overriddenConfig(overrides) {
   return merge(config, overrides);
 
-  function merge<T>(original: T, override: T): T {
+  function merge(original, override) {
     if (typeof original === 'object') {
       // Arrays are objects, too!
       if (Array.isArray(override)) {
         return override;
       }
 
-      const result: any = {};
+      const result = {};
       const allKeys = new Set([
         ...Object.keys(original),
         ...Object.keys(override),
@@ -61,12 +65,9 @@ export function overriddenConfig(overrides: Config.InitialOptions) {
 
       // TypeScript appears to choke if we do the "as any" in the same
       // expression as the key access, so we delcare surrogate varibales...
-      const originalAsAny = original as any;
-      const overrideAsAny = override as any;
-
       for (const key of Array.from(allKeys).sort()) {
-        const originalValue: unknown = originalAsAny[key];
-        const overrideValue: unknown = overrideAsAny[key];
+        const originalValue = original[key];
+        const overrideValue = override[key];
         if (originalValue == null) {
           result[key] = overrideValue;
         } else if (overrideValue == null) {

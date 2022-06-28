@@ -4,7 +4,7 @@ import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { loadProjectInfo } from '../lib/project-info';
 import { VERSION } from '../lib/version';

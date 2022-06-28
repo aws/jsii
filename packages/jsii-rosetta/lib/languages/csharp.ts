@@ -1,4 +1,4 @@
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';

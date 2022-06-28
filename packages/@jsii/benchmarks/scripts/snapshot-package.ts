@@ -4,7 +4,7 @@ import * as glob from 'glob';
 import * as os from 'os';
 import * as path from 'path';
 import * as tar from 'tar';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { cdkTagv2_21_1, cdkv2_21_1 } from '../lib/constants';
 

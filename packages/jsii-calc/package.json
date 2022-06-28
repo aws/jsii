@@ -81,6 +81,11 @@
         ]
       }
     },
+    "tsc": {
+      "types": [
+        "node"
+      ]
+    },
     "metadata": {
       "jsii:boolean": true,
       "jsii:number": 1337,

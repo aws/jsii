@@ -18,7 +18,7 @@ import {
   TypeReference,
 } from '@jsii/spec';
 import { basename, dirname, relative } from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from '../jsii-diagnostic';
 import * as bindings from '../node-bindings';

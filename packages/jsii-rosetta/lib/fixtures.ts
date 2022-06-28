@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { createSourceFile, ScriptKind, ScriptTarget, SyntaxKind } from 'typescript-3.9';
+import { createSourceFile, ScriptKind, ScriptTarget, SyntaxKind } from 'typescript';
 
 import { TypeScriptSnippet, SnippetParameters, ApiLocation } from './snippet';
 

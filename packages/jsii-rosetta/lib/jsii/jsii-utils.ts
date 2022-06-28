@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 import { symbolIdentifier } from 'jsii';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';

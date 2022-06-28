@@ -31,7 +31,7 @@
  * https://github.com/Microsoft/tsdoc/blob/master/api-demo/src/advancedDemo.ts
  */
 import * as spec from '@jsii/spec';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 /**
  * Tags that we recognize
