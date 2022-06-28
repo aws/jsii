@@ -44,6 +44,7 @@ export class Assembler implements Emitter {
 
   private readonly mainFile: string;
   private readonly tscRootDir?: string;
+  private readonly compressAssembly?: boolean;
 
   private readonly _typeChecker: ts.TypeChecker;
 
@@ -107,6 +108,8 @@ export class Assembler implements Emitter {
         this._typeChecker,
       );
     }
+
+    this.compressAssembly = options.compressAssembly;
 
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
@@ -276,14 +279,16 @@ export class Assembler implements Emitter {
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = validator.emit();
     if (!validationResult.emitSkipped) {
+      const zipped = writeAssembly(
+        this.projectInfo.projectRoot,
+        _fingerprint(assembly),
+        { compress: this.compressAssembly ?? false },
+      );
       LOG.trace(
-        `Emitting assembly: ${chalk.blue(
+        `${zipped ? 'Zipping' : 'Emitting'} assembly: ${chalk.blue(
           path.join(this.projectInfo.projectRoot, SPEC_FILE_NAME),
         )}`,
       );
-      writeAssembly(this.projectInfo.projectRoot, _fingerprint(assembly), {
-        compress: false,
-      });
     }
 
     try {
@@ -2758,6 +2763,13 @@ export interface AssemblerOptions {
    * @default false
    */
   readonly addDeprecationWarnings?: boolean;
+
+  /**
+   * Whether to compress the assembly.
+   *
+   * @default false
+   */
+  readonly compressAssembly?: boolean;
 }
 
 interface SubmoduleSpec {

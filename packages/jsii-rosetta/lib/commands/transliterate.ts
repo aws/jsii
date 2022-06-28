@@ -1,5 +1,5 @@
-import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind } from '@jsii/spec';
-import { readJson, writeJson } from 'fs-extra';
+import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind, loadAssemblyFromPath } from '@jsii/spec';
+import { writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
 import { TargetLanguage } from '../languages';
@@ -98,8 +98,7 @@ export async function transliterateAssembly(
   for (const [location, loadAssembly] of assemblies.entries()) {
     for (const language of targetLanguages) {
       const now = new Date().getTime();
-      // eslint-disable-next-line no-await-in-loop
-      const result = await loadAssembly();
+      const result = loadAssembly();
 
       if (result.targets?.[targetName(language)] == null) {
         // This language is not supported by the assembly, so we skip it...
@@ -149,16 +148,16 @@ async function loadAssemblies(
   const result = new Map<string, AssemblyLoader>();
 
   for (const directory of directories) {
-    const loader = () => readJson(resolve(directory, SPEC_FILE_NAME));
+    const loader = () => loadAssemblyFromPath(directory);
     // eslint-disable-next-line no-await-in-loop
-    await rosetta.addAssembly(await loader(), directory);
+    await rosetta.addAssembly(loader(), directory);
     result.set(directory, loader);
   }
 
   return result;
 }
 
-type AssemblyLoader = () => Promise<Mutable<Assembly>>;
+type AssemblyLoader = () => Mutable<Assembly>;
 
 function transliterateType(type: Type, rosetta: RosettaTabletReader, language: TargetLanguage): void {
   transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs);

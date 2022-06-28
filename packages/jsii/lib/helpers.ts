@@ -7,7 +7,7 @@
  */
 
 import * as spec from '@jsii/spec';
-import { PackageJson } from '@jsii/spec';
+import { PackageJson, loadAssemblyFromPath, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
@@ -47,6 +47,7 @@ export interface HelperCompilationResult {
    * The generated assembly
    */
   readonly assembly: spec.Assembly;
+
   /**
    * Generated .js/.d.ts file(s)
    */
@@ -56,6 +57,11 @@ export interface HelperCompilationResult {
    * The packageInfo used
    */
   readonly packageJson: PackageJson;
+
+  /**
+   * Whether to compress the assembly file
+   */
+  readonly compressAssembly: boolean;
 }
 
 /**
@@ -116,7 +122,7 @@ export function compileJsiiForTest(
     if (errors.length > 0 || emitResult.emitSkipped) {
       throw new Error('There were compiler errors');
     }
-    const assembly = fs.readJsonSync('.jsii', { encoding: 'utf-8' });
+    const assembly = loadAssemblyFromPath(process.cwd(), false);
     const files: Record<string, string> = {};
 
     for (const filename of Object.keys(source)) {
@@ -141,7 +147,13 @@ export function compileJsiiForTest(
       }
     }
 
-    return { assembly, files, packageJson } as HelperCompilationResult;
+    return {
+      assembly,
+      files,
+      packageJson,
+      compressAssembly:
+        isOptionsObject(options) && options.compressAssembly ? true : false,
+    } as HelperCompilationResult;
   });
 }
 
@@ -205,6 +217,7 @@ function makeProjectInfo(
   const { projectInfo } = loadProjectInfo(path.resolve(process.cwd(), '.'));
   return { projectInfo, packageJson };
 }
+
 export interface TestCompilationOptions {
   /**
    * The directory in which we write and compile the files
@@ -224,6 +237,13 @@ export interface TestCompilationOptions {
    * @default - Use some default values
    */
   readonly packageJson?: Partial<PackageJson>;
+
+  /**
+   * Whether to compress the assembly file.
+   *
+   * @default false
+   */
+  readonly compressAssembly?: boolean;
 }
 
 function isOptionsObject(
@@ -287,7 +307,9 @@ export class TestWorkspace {
     );
     fs.ensureDirSync(modDir);
 
-    fs.writeJsonSync(path.join(modDir, '.jsii'), dependencyAssembly.assembly);
+    writeAssembly(modDir, dependencyAssembly.assembly, {
+      compress: dependencyAssembly.compressAssembly,
+    });
     fs.writeJsonSync(
       path.join(modDir, 'package.json'),
       dependencyAssembly.packageJson,
@@ -296,9 +318,7 @@ export class TestWorkspace {
     for (const [fileName, fileContents] of Object.entries(
       dependencyAssembly.files,
     )) {
-      // eslint-disable-next-line no-await-in-loop
       fs.ensureDirSync(path.dirname(path.join(modDir, fileName)));
-      // eslint-disable-next-line no-await-in-loop
       fs.writeFileSync(path.join(modDir, fileName), fileContents);
     }
   }

@@ -70,6 +70,11 @@ const warningTypes = Object.keys(enabledWarnings);
             type: 'string',
             default: 'tsconfig.json',
             desc: 'Name of the typescript configuration file to generate with compiler settings',
+          })
+          .option('compress-assembly', {
+            type: 'boolean',
+            default: false,
+            desc: 'Emit a compressed version of the assembly',
           }),
     )
     .option('verbose', {
@@ -113,6 +118,7 @@ const warningTypes = Object.keys(enabledWarnings);
     stripDeprecatedAllowListFile: argv['strip-deprecated'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
     generateTypeScriptConfig: argv['generate-tsconfig'],
+    compressAssembly: argv['compress-assembly'],
   });
 
   const emitResult = argv.watch ? await compiler.watch() : compiler.emit();
