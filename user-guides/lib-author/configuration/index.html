@@ -1701,6 +1701,10 @@ are set in the <code>jsii.tsc</code> section of the <code>package.json</code> fi
   <code>declarationMap</code>), or to optimize the emitted code size (by disabling source maps entirely).</li>
 <li>if any of these options is specified, the source map configuration will exactly match what is being provided here</li>
 <li>If none are specified, the default settings will be used: <code class="highlight"><span class="p">{</span><span class="w"> </span><span class="nx">inlineSourceMap</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span><span class="w"> </span><span class="nx">inlineSources</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">}</span><span class="w"></span></code></li>
+<li><code>types</code> allows limiting which visible type libraries get loaded in the global scope by the typescript compiler. By
+  default, all visible <code>@types/*</code> packages will be loaded, which can be undesirable (in particular in monorepos, where
+  some type libraries are not compatible with the TypeScript compiler version that <code>jsii</code> uses). The value specified
+  here will be forwarded as-is to the TypeScript compiler.</li>
 </ul>
 <p>Refer to the <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">TypeScript compiler options reference</a> for more information about those options.</p>
 <h3 id="versionformat"><code>versionFormat</code></h3>
@@ -1754,7 +1758,7 @@ within the NPM package.</p>
   <small>
     
       Last update:
-      2022-06-27
+      2022-06-28
     
   </small>
 </div>
