@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656436972477,
+  "lastUpdate": 1656444197818,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2615,6 +2615,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2014093.59968748,
             "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 50549.7367025 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6d9dda58331fa70c1505368bf0c9fb671b66dcf8",
+          "message": "chore: stop aliasing typescript in dependencies (#3623)\n\nAliasing `typescript` to `typescript-3.9` results in occasionally\nsurprising hoisting behavior, in particular using `npm 18`. In\nparticular, if two distinct  versions of `typescript` are installed,\naliasing allows both to be hoisted at the top-level, which results in\nambiguity as to which of them gets to have the `node_modules/.bin/tsc`\nsymlink.\n\nThis PR stops aliasing `typescript` to `typescript-3.9` and does the\nnecessary work to ensure builds continue to operate smoothly, menaing\nit replaced TypeScript configuration files for jest with plain ESM\nconfiguration files including typed JSDoc comments (for IDE supprot to\ncontinue working as before), as `jest` otherwise uses `ts-node` to\ntransform the configuration files, and  `ts-node` uses the \"most local\"\n`typescript` library to perform this parsing (and unfortunately,\n`typescript@3.9` does not support the `ES2020` target we are using).\n\n\nThis also required allowing `jsii.tsc.types` to be specified in the\n`package.json` file of jsii projects, as otherwise the TypeScript\ncompiler attempts to load `@types/*` packages that are not compatible\nwith `typescript@3.9` (for example, `@synclair/typebox` requires\n`typescript@>=4.5`). This setting is anyway generally useful in\ncomplex monorepo situations.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-06-28T18:18:43Z",
+          "tree_id": "13890b72a00c1d73d4f60d656e7df53e34592397",
+          "url": "https://github.com/aws/jsii/commit/6d9dda58331fa70c1505368bf0c9fb671b66dcf8"
+        },
+        "date": 1656444194765,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1",
+            "value": 82730.65653564999,
+            "unit": "milliseconds",
+            "range": 3133427.7411592156,
+            "extra": "Compile aws-cdk-lib@v2.21.1 averaged 82730.65653564999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.21.1 (tsc)",
+            "value": 57516.08620025,
+            "unit": "milliseconds",
+            "range": 554674.6173815883,
+            "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 57516.08620025 milliseconds over 20 runs"
           }
         ]
       }
