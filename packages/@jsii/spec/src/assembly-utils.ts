@@ -85,16 +85,17 @@ export function loadAssemblyFromTarball(
 
   // Removes leading path.sep if present (i.e '/blah/.jsii' becomes 'blah/.jsii')
   const dotJsiiFile = path.join('.', directory, SPEC_FILE_NAME);
-  const extractedDotJsiiFile = extractFileFromTarball(tarball, dotJsiiFile);
+  const compDotJsiiFile = path.join('.', directory, SPEC_FILE_NAME_COMPRESSED);
+  const extDotJsiiFile = extractFileFromTarball(tarball, dotJsiiFile, tmpdir);
 
-  let contents = readAssembly(extractedDotJsiiFile);
+  let contents = readAssembly(extDotJsiiFile);
   if (isRedirect(contents)) {
-    extractFileFromTarball(
+    const extCompDotJsiiFile = extractFileFromTarball(
       tarball,
-      path.join(directory, SPEC_FILE_NAME_COMPRESSED),
+      compDotJsiiFile,
       tmpdir,
     );
-    contents = findRedirectAssembly(extractedDotJsiiFile, contents);
+    contents = findRedirectAssembly(extCompDotJsiiFile, contents);
   }
 
   fs.removeSync(tmpdir);

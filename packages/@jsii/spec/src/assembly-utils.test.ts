@@ -165,4 +165,18 @@ describe('loadAssemblyFromTarball', () => {
 
     expect(loadAssemblyFromTarball(tarball, tmpdir)).toEqual(TEST_ASSEMBLY);
   });
+
+  test('loads compressed assembly', () => {
+    writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
+    const tarball = 'tar.tgz'; //path.join(tmpdir, 'tar.tgz');
+    create(
+      {
+        file: tarball,
+        sync: true,
+      },
+      [tmpdir],
+    );
+
+    expect(loadAssemblyFromTarball(tarball, tmpdir)).toEqual(TEST_ASSEMBLY);
+  });
 });
