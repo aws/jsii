@@ -1339,6 +1339,87 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "wendysophie",
+      "name": "wendysophie",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54415551?v=4",
+      "profile": "https://github.com/wendysophie",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "CommanderRoot",
+      "name": "CommanderRoot",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4395417?v=4",
+      "profile": "https://github.com/CommanderRoot",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cgarvis",
+      "name": "Chris Garvis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/213125?v=4",
+      "profile": "https://github.com/cgarvis",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "nathannaveen",
+      "name": "nathannaveen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42319948?v=4",
+      "profile": "https://github.com/nathannaveen",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "jusdino",
+      "name": "Justin Frahm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11840575?v=4",
+      "profile": "https://github.com/jusdino",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "3p3r",
+      "name": "Sepehr Laal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5657848?v=4",
+      "profile": "https://sepehrlaal.com/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "skuenzli",
+      "name": "Stephen Kuenzli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/869201?v=4",
+      "profile": "https://github.com/skuenzli",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "touchez-du-bois",
+      "name": "Takahiro Sugiura",
+      "avatar_url": "https://avatars.githubusercontent.com/u/434017?v=4",
+      "profile": "https://github.com/touchez-du-bois",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "agdimech",
+      "name": "Adrian Dimech",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51220968?v=4",
+      "profile": "https://github.com/agdimech",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github",

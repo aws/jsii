@@ -56,7 +56,7 @@ export class SyncStdio {
     while (offset < buffer.length) {
       try {
         offset += fs.writeSync(fd, buffer, offset);
-      } catch (e) {
+      } catch (e: any) {
         // We might get EAGAIN if the file descriptor was not opened for
         // blocking (O_SYNC) writes. In such cases, we'll keep trying until it
         // succeeds. This shouldn't take long as the process on the other side

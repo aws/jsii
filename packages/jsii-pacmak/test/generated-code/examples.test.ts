@@ -13,7 +13,7 @@ for (const name of fs.readdirSync(EXAMPLES_ROOT)) {
   const file = path.join(EXAMPLES_ROOT, name);
   test(name, async () => {
     const source = await fs.readFile(file, 'utf8');
-    const compiled = await jsii.compileJsiiForTest(source);
+    const compiled = jsii.compileJsiiForTest(source);
 
     const targets: AssemblyTargets = {
       dotnet: {

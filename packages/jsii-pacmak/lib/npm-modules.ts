@@ -75,7 +75,7 @@ export async function findJsiiModules(
           try {
             const depDir = await findDependencyDirectory(dep, realPath);
             return [await visitPackage(depDir, false)];
-          } catch (e) {
+          } catch (e: any) {
             // Some modules like `@types/node` cannot be require()d, but we also don't need them.
             if (
               !['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(
@@ -150,7 +150,11 @@ async function updateNpmIgnore(
     );
   }
 
-  includePattern('Include .jsii', spec.SPEC_FILE_NAME);
+  includePattern(
+    'Include .jsii and .jsii.gz',
+    spec.SPEC_FILE_NAME,
+    spec.SPEC_FILE_NAME_COMPRESSED,
+  );
 
   if (modified) {
     await fs.writeFile(npmIgnorePath, `${lines.join('\n')}\n`);

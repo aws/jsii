@@ -5,3 +5,4 @@ node_modules/
 coverage/
 
 lib/version.ts
+*.d.ts.map

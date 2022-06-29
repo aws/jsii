@@ -18,7 +18,7 @@
     "directory": "packages/@jsii/python-runtime"
   },
   "engines": {
-    "node": ">= 12.7.0"
+    "node": ">= 14.6.0"
   },
   "main": "index.js",
   "scripts": {
@@ -37,11 +37,9 @@
     "@jsii/runtime": "^0.0.0"
   },
   "devDependencies": {
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.1.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-pacmak": "^0.0.0",
-    "ts-node": "^10.6.0",
-    "typescript": "~3.9.10"
+    "jsii-pacmak": "^0.0.0"
   }
 }

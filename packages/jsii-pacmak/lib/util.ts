@@ -183,7 +183,7 @@ export async function retry<R>(
     try {
       // eslint-disable-next-line no-await-in-loop
       return await cb();
-    } catch (error) {
+    } catch (error: any) {
       errors.push(error);
       if (opts.onFailedAttempt != null) {
         opts.onFailedAttempt(error, attemptsLeft, backoffMs);
@@ -337,7 +337,7 @@ export class Scratch<A> {
     if (!this.fake) {
       try {
         await fs.remove(this.directory);
-      } catch (e) {
+      } catch (e: any) {
         if (e.code === 'EBUSY') {
           // This occasionally happens on Windows if we try to clean up too
           // quickly after we're done... Could be because some AV software is
@@ -346,7 +346,7 @@ export class Scratch<A> {
           await new Promise((ok) => setTimeout(ok, 1_000));
           try {
             await fs.remove(this.directory);
-          } catch (e2) {
+          } catch (e2: any) {
             logging.warn(`Unable to clean up ${this.directory}: ${e2}`);
           }
           return;

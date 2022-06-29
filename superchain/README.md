@@ -13,7 +13,7 @@ SDK             | Version
 `OpenJDK 8`     | Amazon Corretto `>= 8.242.08.1`
 `.NET SDK`      | `>= 3.1.101`
 `mono`          | `>= 6.8.0.105`
-`Javascript`    | `node >= 12.7.0` OR `node >= 14.16.0` OR `node >= 16.0.0` with `npm >= 6.14.11` (see [NodeJS and NPM](#nodejs-and-npm))
+`Javascript`    | see [NodeJS and NPM](#nodejs-and-npm)
 `PowerShell`    | `pwsh >= 7.1.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
 `Go`            | `go >= 1.17`
@@ -31,19 +31,20 @@ jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 - `<BASE>` is the base image tag (e.g: `buster-slim`)
   - The only supported value is `buster-slim`
 - `<NODE-MAJOR>` is the major version of node contained in the image
-  - `10` corresponds to node 10.x
-  - `12` corresponds to node 12.x, this is the default
-  - `14` corresponds to node 14.x
-  - `10` corresponds to node 12.x
+  - `14` corresponds to node 14.x, this is the default
+  - `16` corresponds to node 16.x
+  - `18` corresponds to node 18.x
 - `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
   repository and should typically not be used for production workloads
 
-The previous image tags are no longer updated and should no longer be used:
+The previous image tags have been discontinued:
 
 - `:latest` (users should migrate to `:1-buster-slim`)
 - `:nightly` (users should migrate to `:1-buster-slim-nightly`)
-- `:node10` (users should migrate to `:1-buster-slim-node10`)
-- `:node10-nightly` (users should migrate to `:1-buster-slim-node10-nightly`)
+- `:node10` (users should migrate to `:1-buster-slim-node14`)
+- `:node10-nightly` (users should migrate to `:1-buster-slim-node14-nightly`)
+- `:node12` (users shoudl migrate to `:1-buster-slim-node14`)
+- `:node12-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
 - `:node14` (users shoudl migrate to `:1-buster-slim-node14`)
 - `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
 
@@ -51,13 +52,9 @@ The previous image tags are no longer updated and should no longer be used:
 
 We build multiple versions of this image, for different versions of Node. They are available as:
 
-* `jsii/superchain:node10(-buster-slim|-nightly)`
-* `jsii/superchain:node14(-buster-slim|-nightly)`
-
-The following labels are also available, and are aliases for the Node 12 images:
-
-* `jsii/superchain:nightly`
-* `jsii/superchain:latest-buster-slim`
+* `jsii/superchain:1-buster-slim-node14(-nightly)`
+* `jsii/superchain:1-buster-slim-node16(-nightly)`
+* `jsii/superchain:1-buster-slim-node18(-nightly)`
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:

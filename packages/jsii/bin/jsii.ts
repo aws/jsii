@@ -2,6 +2,7 @@ import '@jsii/check-node/run';
 
 import * as log4js from 'log4js';
 import * as path from 'path';
+import { version as tsVersion } from 'typescript/package.json';
 import * as util from 'util';
 import * as yargs from 'yargs';
 
@@ -15,7 +16,7 @@ import { enabledWarnings } from '../lib/warnings';
 const warningTypes = Object.keys(enabledWarnings);
 
 (async () => {
-  const argv = yargs
+  const argv = await yargs
     .env('JSII')
     .command(
       ['$0 [PROJECT_ROOT]', 'compile [PROJECT_ROOT]'],
@@ -69,6 +70,11 @@ const warningTypes = Object.keys(enabledWarnings);
             type: 'string',
             default: 'tsconfig.json',
             desc: 'Name of the typescript configuration file to generate with compiler settings',
+          })
+          .option('compress-assembly', {
+            type: 'boolean',
+            default: false,
+            desc: 'Emit a compressed version of the assembly',
           }),
     )
     .option('verbose', {
@@ -78,10 +84,7 @@ const warningTypes = Object.keys(enabledWarnings);
       global: true,
     })
     .help()
-    .version(
-      // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-      `${VERSION}, typescript ${require('typescript/package.json').version}`,
-    ).argv;
+    .version(`${VERSION}, typescript ${tsVersion}`).argv;
 
   _configureLog4js(argv.verbose);
 
@@ -90,7 +93,7 @@ const warningTypes = Object.keys(enabledWarnings);
   );
 
   const { projectInfo, diagnostics: projectInfoDiagnostics } =
-    await loadProjectInfo(projectRoot);
+    loadProjectInfo(projectRoot);
 
   // disable all silenced warnings
   for (const key of argv['silence-warnings']) {
@@ -115,9 +118,10 @@ const warningTypes = Object.keys(enabledWarnings);
     stripDeprecatedAllowListFile: argv['strip-deprecated'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
     generateTypeScriptConfig: argv['generate-tsconfig'],
+    compressAssembly: argv['compress-assembly'],
   });
 
-  const emitResult = await (argv.watch ? compiler.watch() : compiler.emit());
+  const emitResult = argv.watch ? await compiler.watch() : compiler.emit();
 
   const allDiagnostics = [...projectInfoDiagnostics, ...emitResult.diagnostics];
 
@@ -137,7 +141,7 @@ function _configureLog4js(verbosity: number) {
   const stdoutColor = !!process.stdout.isTTY;
 
   log4js.addLayout('passThroughNoColor', () => {
-    return (loggingEvent) => stripAnsi(util.format(...loggingEvent.data));
+    return (loggingEvent) => utils.stripAnsi(util.format(...loggingEvent.data));
   });
 
   log4js.configure({
@@ -179,12 +183,4 @@ function _configureLog4js(verbosity: number) {
         return 'ALL';
     }
   }
-}
-
-const ANSI_REGEX =
-  // eslint-disable-next-line no-control-regex
-  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
-
-function stripAnsi(x: string): string {
-  return x.replace(ANSI_REGEX, '');
 }

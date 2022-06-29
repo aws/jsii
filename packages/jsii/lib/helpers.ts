@@ -7,7 +7,7 @@
  */
 
 import * as spec from '@jsii/spec';
-import { PackageJson } from '@jsii/spec';
+import { PackageJson, loadAssemblyFromPath, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
@@ -35,11 +35,11 @@ export type MultipleSourceFiles = {
  * @param options accepts a callback for historical reasons but really expects to
  *                take an options object.
  */
-export async function sourceToAssemblyHelper(
+export function sourceToAssemblyHelper(
   source: string | MultipleSourceFiles,
   options?: TestCompilationOptions | ((obj: PackageJson) => void),
-): Promise<spec.Assembly> {
-  return (await compileJsiiForTest(source, options)).assembly;
+): spec.Assembly {
+  return compileJsiiForTest(source, options).assembly;
 }
 
 export interface HelperCompilationResult {
@@ -47,6 +47,7 @@ export interface HelperCompilationResult {
    * The generated assembly
    */
   readonly assembly: spec.Assembly;
+
   /**
    * Generated .js/.d.ts file(s)
    */
@@ -56,6 +57,11 @@ export interface HelperCompilationResult {
    * The packageInfo used
    */
   readonly packageJson: PackageJson;
+
+  /**
+   * Whether to compress the assembly file
+   */
+  readonly compressAssembly: boolean;
 }
 
 /**
@@ -68,11 +74,11 @@ export interface HelperCompilationResult {
  * @param options accepts a callback for historical reasons but really expects to
  *                take an options object.
  */
-export async function compileJsiiForTest(
+export function compileJsiiForTest(
   source: string | { 'index.ts': string; [name: string]: string },
   options?: TestCompilationOptions | ((obj: PackageJson) => void),
   compilerOptions?: Omit<CompilerOptions, 'projectInfo' | 'watch'>,
-): Promise<HelperCompilationResult> {
+): HelperCompilationResult {
   if (typeof source === 'string') {
     source = { 'index.ts': source };
   }
@@ -84,14 +90,12 @@ export async function compileJsiiForTest(
 
   // Easiest way to get the source into the compiler is to write it to disk somewhere.
   // I guess we could make an in-memory compiler host but that seems like work...
-  return inSomeLocation(async () => {
-    await Promise.all(
-      Object.entries(source).map(async ([fileName, content]) => {
-        await fs.mkdirp(path.dirname(fileName));
-        return fs.writeFile(fileName, content, { encoding: 'utf-8' });
-      }),
-    );
-    const { projectInfo, packageJson } = await makeProjectInfo(
+  return inSomeLocation(() => {
+    Object.entries(source).forEach(([fileName, content]) => {
+      fs.mkdirpSync(path.dirname(fileName));
+      fs.writeFileSync(fileName, content, { encoding: 'utf-8' });
+    });
+    const { projectInfo, packageJson } = makeProjectInfo(
       'index.ts',
       typeof options === 'function'
         ? options
@@ -106,7 +110,7 @@ export async function compileJsiiForTest(
       projectInfo,
       ...compilerOptions,
     });
-    const emitResult = await compiler.emit();
+    const emitResult = compiler.emit();
 
     const errors = emitResult.diagnostics.filter(
       (d) => d.category === DiagnosticCategory.Error,
@@ -118,7 +122,7 @@ export async function compileJsiiForTest(
     if (errors.length > 0 || emitResult.emitSkipped) {
       throw new Error('There were compiler errors');
     }
-    const assembly = await fs.readJSON('.jsii', { encoding: 'utf-8' });
+    const assembly = loadAssemblyFromPath(process.cwd(), false);
     const files: Record<string, string> = {};
 
     for (const filename of Object.keys(source)) {
@@ -130,40 +134,46 @@ export async function compileJsiiForTest(
       }
 
       // eslint-disable-next-line no-await-in-loop
-      files[jsFile] = await fs.readFile(jsFile, { encoding: 'utf-8' });
+      files[jsFile] = fs.readFileSync(jsFile, { encoding: 'utf-8' });
       // eslint-disable-next-line no-await-in-loop
-      files[dtsFile] = await fs.readFile(dtsFile, { encoding: 'utf-8' });
+      files[dtsFile] = fs.readFileSync(dtsFile, { encoding: 'utf-8' });
 
       const warningsFileName = '.warnings.jsii.js';
       if (fs.existsSync(warningsFileName)) {
         // eslint-disable-next-line no-await-in-loop
-        files[warningsFileName] = await fs.readFile(warningsFileName, {
+        files[warningsFileName] = fs.readFileSync(warningsFileName, {
           encoding: 'utf-8',
         });
       }
     }
 
-    return { assembly, files, packageJson } as HelperCompilationResult;
+    return {
+      assembly,
+      files,
+      packageJson,
+      compressAssembly:
+        isOptionsObject(options) && options.compressAssembly ? true : false,
+    } as HelperCompilationResult;
   });
 }
 
-async function inTempDir<T>(block: () => Promise<T>): Promise<T> {
+function inTempDir<T>(block: () => T): T {
   const origDir = process.cwd();
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii'));
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii'));
   process.chdir(tmpDir);
-  const ret = await block();
+  const ret = block();
   process.chdir(origDir);
-  await fs.remove(tmpDir);
+  fs.removeSync(tmpDir);
   return ret;
 }
 
 function inOtherDir(dir: string) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-  return async <T extends unknown>(block: () => Promise<T>): Promise<T> => {
+  return <T extends unknown>(block: () => T): T => {
     const origDir = process.cwd();
     process.chdir(dir);
     try {
-      return await block();
+      return block();
     } finally {
       process.chdir(origDir);
     }
@@ -179,10 +189,10 @@ function inOtherDir(dir: string) {
  * Most consistent behavior seems to be to write a package.json to disk and
  * then calling the same functions as the CLI would.
  */
-async function makeProjectInfo(
+function makeProjectInfo(
   types: string,
-  cb?: (obj: PackageJson) => Promise<void> | void,
-): Promise<{ projectInfo: ProjectInfo; packageJson: PackageJson }> {
+  cb?: (obj: PackageJson) => void,
+): { projectInfo: ProjectInfo; packageJson: PackageJson } {
   const packageJson: PackageJson = {
     types,
     main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
@@ -195,20 +205,19 @@ async function makeProjectInfo(
   };
 
   if (cb) {
-    await cb(packageJson);
+    cb(packageJson);
   }
 
-  await fs.writeJson('package.json', packageJson, {
+  fs.writeJsonSync('package.json', packageJson, {
     encoding: 'utf-8',
     replacer: (_: string, v: any) => v,
     spaces: 2,
   });
 
-  const { projectInfo } = await loadProjectInfo(
-    path.resolve(process.cwd(), '.'),
-  );
+  const { projectInfo } = loadProjectInfo(path.resolve(process.cwd(), '.'));
   return { projectInfo, packageJson };
 }
+
 export interface TestCompilationOptions {
   /**
    * The directory in which we write and compile the files
@@ -228,6 +237,13 @@ export interface TestCompilationOptions {
    * @default - Use some default values
    */
   readonly packageJson?: Partial<PackageJson>;
+
+  /**
+   * Whether to compress the assembly file.
+   *
+   * @default false
+   */
+  readonly compressAssembly?: boolean;
 }
 
 function isOptionsObject(
@@ -245,25 +261,21 @@ export class TestWorkspace {
    *
    * Creates a temporary directory, don't forget to call cleanUp
    */
-  public static async create(): Promise<TestWorkspace> {
-    const tmpDir = await fs.mkdtemp(
-      path.join(os.tmpdir(), 'jsii-testworkspace'),
-    );
-    await fs.ensureDir(tmpDir);
+  public static create(): TestWorkspace {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-testworkspace'));
+    fs.ensureDirSync(tmpDir);
     return new TestWorkspace(tmpDir);
   }
 
   /**
    * Execute a block with a temporary workspace
    */
-  public static async withWorkspace<A>(
-    block: (ws: TestWorkspace) => A | Promise<A>,
-  ): Promise<A> {
-    const ws = await TestWorkspace.create();
+  public static withWorkspace<A>(block: (ws: TestWorkspace) => A): A {
+    const ws = TestWorkspace.create();
     try {
-      return await block(ws);
+      return block(ws);
     } finally {
-      await ws.cleanup();
+      ws.cleanup();
     }
   }
 
@@ -274,7 +286,7 @@ export class TestWorkspace {
   /**
    * Add a test-compiled jsii assembly as a dependency
    */
-  public async addDependency(dependencyAssembly: HelperCompilationResult) {
+  public addDependency(dependencyAssembly: HelperCompilationResult) {
     if (this.installed.has(dependencyAssembly.assembly.name)) {
       throw new Error(
         `A dependency with name '${dependencyAssembly.assembly.name}' was already installed. Give one a different name.`,
@@ -293,10 +305,12 @@ export class TestWorkspace {
       'node_modules',
       dependencyAssembly.assembly.name,
     );
-    await fs.ensureDir(modDir);
+    fs.ensureDirSync(modDir);
 
-    await fs.writeJSON(path.join(modDir, '.jsii'), dependencyAssembly.assembly);
-    await fs.writeJSON(
+    writeAssembly(modDir, dependencyAssembly.assembly, {
+      compress: dependencyAssembly.compressAssembly,
+    });
+    fs.writeJsonSync(
       path.join(modDir, 'package.json'),
       dependencyAssembly.packageJson,
     );
@@ -304,10 +318,8 @@ export class TestWorkspace {
     for (const [fileName, fileContents] of Object.entries(
       dependencyAssembly.files,
     )) {
-      // eslint-disable-next-line no-await-in-loop
-      await fs.ensureDir(path.dirname(path.join(modDir, fileName)));
-      // eslint-disable-next-line no-await-in-loop
-      await fs.writeFile(path.join(modDir, fileName), fileContents);
+      fs.ensureDirSync(path.dirname(path.join(modDir, fileName)));
+      fs.writeFileSync(path.join(modDir, fileName), fileContents);
     }
   }
 
@@ -318,8 +330,8 @@ export class TestWorkspace {
     return path.join(this.rootDirectory, 'node_modules', name);
   }
 
-  public async cleanup() {
-    await fs.remove(this.rootDirectory);
+  public cleanup() {
+    fs.removeSync(this.rootDirectory);
   }
 }
 

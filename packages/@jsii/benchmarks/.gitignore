@@ -1,0 +1,4 @@
+output.txt
+*.d.ts
+*.js
+*.d.ts.map

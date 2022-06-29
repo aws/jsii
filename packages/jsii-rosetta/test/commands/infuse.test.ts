@@ -1,4 +1,4 @@
-import * as spec from '@jsii/spec';
+import { loadAssemblyFromPath } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -25,7 +25,7 @@ const TABLET_FILE = 'text.tabl.json';
 let assembly: TestJsiiModule;
 beforeEach(async () => {
   // Create an assembly in a temp directory
-  assembly = await TestJsiiModule.fromSource(
+  assembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -56,12 +56,12 @@ beforeEach(async () => {
   });
 });
 
-afterEach(async () => assembly.cleanup());
+afterEach(() => assembly.cleanup());
 
 test('examples are added in the assembly', async () => {
   await infuse([assembly.moduleDirectory]);
 
-  const assemblies = await loadAssemblies([assembly.moduleDirectory], false);
+  const assemblies = loadAssemblies([assembly.moduleDirectory], false);
   const types = assemblies[0].assembly.types;
   expect(types).toBeDefined();
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
@@ -71,7 +71,7 @@ test('infuse copies example metadata', async () => {
   await infuse([assembly.moduleDirectory]);
 
   // THEN: the metadata that used to be on the README snippet is also on the class example
-  const updatedAssembly = (await fs.readJson(path.join(assembly.moduleDirectory, '.jsii'))) as spec.Assembly;
+  const updatedAssembly = loadAssemblyFromPath(assembly.moduleDirectory);
 
   const typeDocs = updatedAssembly.types?.['my_assembly.ClassA']?.docs;
   expect(typeDocs?.custom?.exampleMetadata).toEqual('some=metadata infused');

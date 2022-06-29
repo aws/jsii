@@ -61,7 +61,7 @@ export class InputOutput implements IInputOutput {
 
     // stip "> " from recorded requests
     if (reqLine.startsWith('> ')) {
-      reqLine = reqLine.substr(2);
+      reqLine = reqLine.slice(2);
     }
 
     const input = JSON.parse(reqLine);

@@ -234,7 +234,7 @@ test('Backwards compatibility with literate integ tests', async () => {
 });
 
 test('rosetta fixture from submodule is preferred if it exists', async () => {
-  const jsiiModule = await TestJsiiModule.fromSource(
+  const jsiiModule = TestJsiiModule.fromSource(
     {
       'index.ts': 'export * as submodule from "./submodule"',
       'submodule.ts': `
@@ -268,6 +268,6 @@ test('rosetta fixture from submodule is preferred if it exists', async () => {
 
     expect(snippets[0].completeSource).toMatch(/^pick me/);
   } finally {
-    await jsiiModule.cleanup();
+    jsiiModule.cleanup();
   }
 });

@@ -1,21 +1,19 @@
 {
-    "name": "Dev Container Definition - AWS JSII",
+    "name": "Dev Container - aws/jsii",
     "build": {
         "dockerfile": "superchain/Dockerfile",
         "context": ".",
         "target": "superchain",
         "args": {
-            "BUILDPLATFORM": "linux/amd64",
-            "TARGETPLATFORM": "linux/amd64",
             "BUILD_TIMESTAMP": "unknown",
+            "COMMIT_ID": "HEAD",
             "REGISTRY": "docker.io/library",
-            "COMMIT_ID": "head"
-        }
+        },
     },
-    "containerUser": "root",
-    "remoteUser": "root",
+    "containerUser": "superchain",
+    "remoteUser": "superchain",
     "postCreateCommand": "yarn install && yarn build",
     "extensions": [
-        "dbaeumer.vscode-eslint@2.1.5"
-    ]
+        "dbaeumer.vscode-eslint@2.1.5",
+    ],
 }

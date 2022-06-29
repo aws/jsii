@@ -1,8 +1,9 @@
-import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind } from '@jsii/spec';
-import { readJson, writeJson } from 'fs-extra';
+import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind, loadAssemblyFromPath } from '@jsii/spec';
+import { writeJson } from 'fs-extra';
 import { resolve } from 'path';
 
 import { TargetLanguage } from '../languages';
+import { targetName } from '../languages/target-language';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { typeScriptSnippetFromVisibleSource, ApiLocation } from '../snippet';
@@ -32,6 +33,20 @@ export interface TransliterateAssemblyOptions {
    * @default - Only the default tablet (`.jsii.tabl.json`) files will be used.
    */
   readonly tablet?: string;
+
+  /**
+   * A directory to output translated assemblies to
+   *
+   * @default - assembly location
+   */
+  readonly outdir?: string;
+
+  /**
+   * Whether or not to live-convert samples
+   *
+   * @default UnknownSnippetMode.FAIL
+   */
+  readonly unknownSnippets?: UnknownSnippetMode;
 }
 
 /**
@@ -67,7 +82,7 @@ export async function transliterateAssembly(
   // Now do a regular "tablet reader" cycle, expecting everything to be translated already,
   // and therefore it doesn't matter that we do this all in a single-threaded loop.
   const rosetta = new RosettaTabletReader({
-    unknownSnippets: UnknownSnippetMode.FAIL,
+    unknownSnippets: options?.unknownSnippets ?? UnknownSnippetMode.FAIL,
     targetLanguages,
     prefixDisclaimer: true,
   });
@@ -83,8 +98,13 @@ export async function transliterateAssembly(
   for (const [location, loadAssembly] of assemblies.entries()) {
     for (const language of targetLanguages) {
       const now = new Date().getTime();
-      // eslint-disable-next-line no-await-in-loop
-      const result = await loadAssembly();
+      const result = loadAssembly();
+
+      if (result.targets?.[targetName(language)] == null) {
+        // This language is not supported by the assembly, so we skip it...
+        continue;
+      }
+
       if (result.readme?.markdown) {
         result.readme.markdown = rosetta.translateSnippetsInMarkdown(
           { api: 'moduleReadme', moduleFqn: result.name },
@@ -97,7 +117,7 @@ export async function transliterateAssembly(
         transliterateType(type, rosetta, language);
       }
       // eslint-disable-next-line no-await-in-loop
-      await writeJson(resolve(location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
+      await writeJson(resolve(options?.outdir ?? location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
       const then = new Date().getTime();
       debug(`Done transliterating ${result.name}@${result.version} to ${language} after ${then - now} milliseconds`);
     }
@@ -128,16 +148,16 @@ async function loadAssemblies(
   const result = new Map<string, AssemblyLoader>();
 
   for (const directory of directories) {
-    const loader = () => readJson(resolve(directory, SPEC_FILE_NAME));
+    const loader = () => loadAssemblyFromPath(directory);
     // eslint-disable-next-line no-await-in-loop
-    await rosetta.addAssembly(await loader(), directory);
+    await rosetta.addAssembly(loader(), directory);
     result.set(directory, loader);
   }
 
   return result;
 }
 
-type AssemblyLoader = () => Promise<Mutable<Assembly>>;
+type AssemblyLoader = () => Mutable<Assembly>;
 
 function transliterateType(type: Type, rosetta: RosettaTabletReader, language: TargetLanguage): void {
   transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs);

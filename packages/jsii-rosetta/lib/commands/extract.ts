@@ -94,7 +94,7 @@ export async function extractSnippets(
   const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(assemblyLocations, options.validateAssemblies ?? false);
+  const assemblies = loadAssemblies(assemblyLocations, options.validateAssemblies ?? false);
 
   let snippets = Array.from(await allTypeScriptSnippets(assemblies, options.loose));
   if (only.length > 0) {
@@ -170,7 +170,7 @@ export async function extractSnippets(
     const output = options.trimCache
       ? new LanguageTablet()
       : await LanguageTablet.fromOptionalFile(options.cacheToFile);
-    output.addTablet(translator.tablet);
+    output.addTablets(translator.tablet);
     await output.save(options.cacheToFile);
   }
 

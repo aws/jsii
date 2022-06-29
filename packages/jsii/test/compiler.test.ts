@@ -1,10 +1,16 @@
 import {
-  ensureDir,
-  mkdtemp,
-  remove,
-  writeFile,
-  readFile,
-  readJson,
+  loadAssemblyFromPath,
+  SPEC_FILE_NAME,
+  SPEC_FILE_NAME_COMPRESSED,
+} from '@jsii/spec';
+import {
+  ensureDirSync,
+  existsSync,
+  mkdtempSync,
+  removeSync,
+  writeFileSync,
+  readFileSync,
+  readJsonSync,
 } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
@@ -14,8 +20,8 @@ import { ProjectInfo } from '../lib/project-info';
 
 describe(Compiler, () => {
   describe('generated tsconfig', () => {
-    test('default is tsconfig.json', async () => {
-      const sourceDir = await mkdtemp(
+    test('default is tsconfig.json', () => {
+      const sourceDir = mkdtempSync(
         join(tmpdir(), 'jsii-compiler-watch-mode-'),
       );
 
@@ -23,15 +29,15 @@ describe(Compiler, () => {
         projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
       });
 
-      await compiler.emit();
+      compiler.emit();
 
-      expect(await readJson(join(sourceDir, 'tsconfig.json'), 'utf-8')).toEqual(
+      expect(readJsonSync(join(sourceDir, 'tsconfig.json'), 'utf-8')).toEqual(
         expectedTypeScriptConfig(),
       );
     });
 
-    test('file name can be customized', async () => {
-      const sourceDir = await mkdtemp(
+    test('file name can be customized', () => {
+      const sourceDir = mkdtempSync(
         join(tmpdir(), 'jsii-compiler-watch-mode-'),
       );
 
@@ -40,10 +46,10 @@ describe(Compiler, () => {
         generateTypeScriptConfig: 'tsconfig.jsii.json',
       });
 
-      await compiler.emit();
+      compiler.emit();
 
       expect(
-        await readJson(join(sourceDir, 'tsconfig.jsii.json'), 'utf-8'),
+        readJsonSync(join(sourceDir, 'tsconfig.jsii.json'), 'utf-8'),
       ).toEqual(expectedTypeScriptConfig());
     });
   });
@@ -52,14 +58,12 @@ describe(Compiler, () => {
     // This can be a little slow, allowing 15 seconds maximum here (default is 5 seconds)
     jest.setTimeout(15_000);
 
-    const sourceDir = await mkdtemp(
-      join(tmpdir(), 'jsii-compiler-watch-mode-'),
-    );
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-compiler-watch-mode-'));
 
     try {
-      await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
       // Intentionally using lower case name - it should be case-insensitive
-      await writeFile(join(sourceDir, 'readme.md'), '# Test Package');
+      writeFileSync(join(sourceDir, 'readme.md'), '# Test Package');
 
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
@@ -69,7 +73,7 @@ describe(Compiler, () => {
 
       let firstCompilation = true;
       let onWatchClosed: () => void;
-      let onWatchFailed: (err: Error) => void;
+      let onWatchFailed: (err: unknown) => void;
       const watchClosed = new Promise<void>((ok, ko) => {
         onWatchClosed = ok;
         onWatchFailed = ko;
@@ -81,16 +85,14 @@ describe(Compiler, () => {
         // Ignore watch status reporting (not to pollute test console output)
         reportWatchStatus: () => null,
         // Verify everything goes according to plan
-        compilationComplete: async (emitResult) => {
+        compilationComplete: (emitResult) => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
-            const output = await readFile(join(sourceDir, '.jsii'), {
-              encoding: 'utf-8',
-            });
+            const output = JSON.stringify(loadAssemblyFromPath(sourceDir));
             if (firstCompilation) {
               firstCompilation = false;
               expect(output).toContain('"MarkerA"');
-              await writeFile(
+              writeFileSync(
                 join(sourceDir, 'index.ts'),
                 'export class MarkerB {}',
               );
@@ -108,23 +110,23 @@ describe(Compiler, () => {
       });
       await watchClosed;
     } finally {
-      await remove(sourceDir);
+      removeSync(sourceDir);
     }
   });
 
-  test('rootDir is added to assembly', async () => {
+  test('rootDir is added to assembly', () => {
     const outDir = 'jsii-outdir';
     const rootDir = 'jsii-rootdir';
-    const sourceDir = await mkdtemp(join(tmpdir(), 'jsii-tmpdir'));
-    await ensureDir(join(sourceDir, rootDir));
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+    ensureDirSync(join(sourceDir, rootDir));
 
     try {
-      await writeFile(
+      writeFileSync(
         join(sourceDir, rootDir, 'index.ts'),
         'export class MarkerA {}',
       );
       // Intentionally using lower case name - it should be case-insensitive
-      await writeFile(join(sourceDir, rootDir, 'readme.md'), '# Test Package');
+      writeFileSync(join(sourceDir, rootDir, 'readme.md'), '# Test Package');
 
       const compiler = new Compiler({
         projectInfo: {
@@ -138,17 +140,104 @@ describe(Compiler, () => {
         projectReferences: false,
       });
 
-      await compiler.emit();
+      compiler.emit();
 
-      const assembly = await readJson(join(sourceDir, '.jsii'), 'utf-8');
+      const assembly = loadAssemblyFromPath(sourceDir);
       expect(assembly.metadata).toEqual(
         expect.objectContaining({
           tscRootDir: rootDir,
         }),
       );
     } finally {
-      await remove(sourceDir);
+      removeSync(sourceDir);
     }
+  });
+
+  test('emits declaration map when feature is enabled', () => {
+    const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+
+    try {
+      writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+
+      const compiler = new Compiler({
+        projectInfo: {
+          ..._makeProjectInfo(sourceDir, 'index.d.ts'),
+          tsc: {
+            declarationMap: true,
+          },
+        },
+        generateTypeScriptConfig: 'tsconfig.jsii.json',
+      });
+
+      compiler.emit();
+
+      expect(() => {
+        readFileSync(join(sourceDir, 'index.d.ts.map'), 'utf-8');
+      }).not.toThrow();
+    } finally {
+      removeSync(sourceDir);
+    }
+  });
+
+  describe('compressed assembly option', () => {
+    test('creates a gzipped assembly file', () => {
+      const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+
+      try {
+        writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+
+        const compiler = new Compiler({
+          projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
+          compressAssembly: true,
+        });
+
+        compiler.emit();
+
+        expect(
+          existsSync(join(sourceDir, SPEC_FILE_NAME_COMPRESSED)),
+        ).toBeTruthy();
+      } finally {
+        removeSync(sourceDir);
+      }
+    });
+
+    test('creates file equivalent to uncompressed file', () => {
+      const uncompressedSourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+      const compressedSourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir-2'));
+
+      try {
+        const fileContents = 'export class MarkerA {}';
+        writeFileSync(join(uncompressedSourceDir, 'index.ts'), fileContents);
+        writeFileSync(join(compressedSourceDir, 'index.ts'), fileContents);
+
+        const uncompressedJsiiCompiler = new Compiler({
+          projectInfo: _makeProjectInfo(uncompressedSourceDir, 'index.d.ts'),
+        });
+        const compressedJsiiCompiler = new Compiler({
+          projectInfo: _makeProjectInfo(compressedSourceDir, 'index.d.ts'),
+          compressAssembly: true,
+        });
+
+        uncompressedJsiiCompiler.emit();
+        compressedJsiiCompiler.emit();
+
+        // The files we expect are there
+        expect(
+          existsSync(join(uncompressedSourceDir, SPEC_FILE_NAME)),
+        ).toBeTruthy();
+        expect(
+          existsSync(join(compressedSourceDir, SPEC_FILE_NAME_COMPRESSED)),
+        ).toBeTruthy();
+
+        const uncompressedJsii = loadAssemblyFromPath(uncompressedSourceDir);
+        const compressedJsii = loadAssemblyFromPath(compressedSourceDir);
+
+        expect(compressedJsii).toEqual(uncompressedJsii);
+      } finally {
+        removeSync(uncompressedSourceDir);
+        removeSync(compressedSourceDir);
+      }
+    });
   });
 });
 
@@ -170,6 +259,11 @@ function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
     bundleDependencies: {},
     targets: {},
     excludeTypescript: [],
+    tsc: {
+      // NOTE: these are the default values jsii uses when none are provided in package.json.
+      inlineSourceMap: true,
+      inlineSources: true,
+    },
   };
 }
 
@@ -186,7 +280,7 @@ function expectedTypeScriptConfig() {
       incremental: true,
       inlineSourceMap: true,
       inlineSources: true,
-      lib: ['es2019'],
+      lib: ['es2020'],
       module: 'CommonJS',
       newLine: 'lf',
       noEmitOnError: true,
@@ -201,7 +295,7 @@ function expectedTypeScriptConfig() {
       strictNullChecks: true,
       strictPropertyInitialization: true,
       stripInternal: false,
-      target: 'ES2019',
+      target: 'ES2020',
       tsBuildInfoFile: 'tsconfig.tsbuildinfo',
     },
     exclude: ['node_modules'],

@@ -133,7 +133,7 @@ function stripCommonWhitespace(x: string) {
     /* eslint-disable-next-line @typescript-eslint/prefer-regexp-exec */
     .map((l) => l.match(/(\s*)/)![1].length);
   const minWS = Math.min(...whitespaces);
-  return lines.map((l) => l.substr(minWS)).join('\n');
+  return lines.map((l) => l.slice(minWS)).join('\n');
 }
 
 function stripEmptyLines(x: string) {

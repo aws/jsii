@@ -184,9 +184,9 @@ test('refuse to translate object literal with function member in shorthand prope
   );
 });
 
-test('declarations are translated correctly in all jsii languages', async () => {
+test('declarations are translated correctly in all jsii languages', () => {
   // Create an assembly in a temp directory
-  const assembly = await TestJsiiModule.fromSource(
+  const assembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -215,6 +215,6 @@ test('declarations are translated correctly in all jsii languages', async () => 
     expect(ts.get(TargetLanguage.JAVA)?.source).toEqual(['import example.test.demo.*;', 'ClassA classA;'].join('\n'));
     expect(ts.get(TargetLanguage.CSHARP)?.source).toEqual(['using Example.Test.Demo;', 'ClassA classA;'].join('\n'));
   } finally {
-    await assembly.cleanup();
+    assembly.cleanup();
   }
 });

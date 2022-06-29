@@ -1,8 +1,16 @@
 {
   "extends": "../../../tsconfig-base",
-  "include": ["**/*.ts"],
-  "exclude": ["jest.config.ts"],
+  "compilerOptions": {
+    "target": "ES2019", // Keep code-compatible with Node 12+
+    "rootDir": "src",
+    "outDir": "lib",
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
   "references": [
-    { "path": "../spec" },
+    {
+      "path": "../spec"
+    },
   ],
 }

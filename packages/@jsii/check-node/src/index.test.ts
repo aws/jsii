@@ -1,16 +1,19 @@
-import { DEADLINE_EPOCH_MS, SupportLevel, VERSION_SUPPORT } from './constants';
+import { NodeRelease } from './constants';
 
-// This test is there to ensure house-keeping happens when it should. Deprecated
-// node releases should move to `SupportLevel.END_OF_LIFE` once the `DEADLINE`
-// has been reached.
-test('no deprecated version is past deadline', () => {
-  const deprecated = Object.entries(VERSION_SUPPORT).filter(
-    ([, supportLevel]) => supportLevel === SupportLevel.DEPRECATED,
+// This test is there to ensure house-keeping happens when it should. If we are
+// testing a given node release, it must be registered in constants.ts, and it
+// must not be a "known broken" release.
+test('tested node releases are correctly registered & supported', () => {
+  const { nodeRelease, knownBroken } = NodeRelease.forThisRuntime();
+  expect(nodeRelease).toBeDefined();
+  expect(knownBroken).toBeFalsy();
+});
+
+// This test is there to ensure house-keeping happens when it should. If we are
+// testing a given node release, it must not have been EOL for over 60 days.
+test('tested node release have not ben EOL for more than 60 days', () => {
+  const { nodeRelease } = NodeRelease.forThisRuntime();
+  expect(nodeRelease?.endOfLifeDate?.getTime()).toBeGreaterThan(
+    Date.now() - 60 * 86_400_000,
   );
-  expect(
-    // Either there are no deprecated ranges
-    deprecated.length === 0 ||
-      // Or the deadline is in the future
-      DEADLINE_EPOCH_MS > Date.now(),
-  ).toBeTruthy();
 });

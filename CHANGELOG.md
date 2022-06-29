@@ -2,6 +2,130 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.61.0](https://github.com/aws/jsii/compare/v1.60.1...v1.61.0) (2022-06-16)
+
+
+### Features
+
+* add support for using custom .m2 directory ([#3573](https://github.com/aws/jsii/issues/3573)) ([0003c8a](https://github.com/aws/jsii/commit/0003c8a22dd44a2c89fcc117e1b1064b221aacfe))
+
+
+### Bug Fixes
+
+* @jsii/check-node crashes on loading with older node releases ([#3588](https://github.com/aws/jsii/issues/3588)) ([a1582bf](https://github.com/aws/jsii/commit/a1582bf7d9cc4081dd89e51efb4b3bc76b6e407e))
+* instantiate perf observer for each iteration ([#3585](https://github.com/aws/jsii/issues/3585)) ([3827d93](https://github.com/aws/jsii/commit/3827d93d7a1c1c83247a79647e84a56c2b5e321a))
+* italics in Markdown notation ([#3594](https://github.com/aws/jsii/issues/3594)) ([f754baa](https://github.com/aws/jsii/commit/f754baa81f78cce2f269732272fe305f6b34ca86))
+
+## [1.60.1](https://github.com/aws/jsii/compare/v1.60.0...v1.60.1) (2022-06-09)
+
+### Bug Fixes
+
+* **@aws-cdk/check-node** fails to load on older (EOL) releases of node ([#3588](https://github.com/aws/jsii/pull/3588)) ([a1582bf](https://github.com/aws/jsii/commit/a1582bf7d9cc4081dd89e51efb4b3bc76b6e407e))
+
+## [1.60.0](https://github.com/aws/jsii/compare/v1.59.0...v1.60.0) (2022-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Beginning with this release, jsii packages no longer
+support node 12. Users should migrate to a supported node release (14.x,
+16.x, or 18.x).
+
+### Features
+
+* **jsii:** make source map behavior fully configurable ([#3558](https://github.com/aws/jsii/issues/3558)) ([06d9a39](https://github.com/aws/jsii/commit/06d9a39cec8254ebab76a81026ab0e64a2f05462)), closes [#3521](https://github.com/aws/jsii/issues/3521)
+
+
+### Bug Fixes
+
+* **@jsii/spec:** speed up assembly validation by 20x for large libraries ([#3565](https://github.com/aws/jsii/issues/3565)) ([c40f26c](https://github.com/aws/jsii/commit/c40f26cdc7bef7835fbddbae983783a495be2d0e))
+* **java:** rendering of `[@see](https://github.com/see)` hyperlink leads to errors ([#3554](https://github.com/aws/jsii/issues/3554)) ([9fd3c71](https://github.com/aws/jsii/commit/9fd3c71c4edc4d7c03c05930b47fe34fe364bd29))
+* **jsii:** `assert` not allowed as interface member ([#3553](https://github.com/aws/jsii/issues/3553)) ([f3fec0c](https://github.com/aws/jsii/commit/f3fec0c10dd72ae734047d2d8e242f8fb4e98812))
+
+
+* drop support for Node 12 ([#3547](https://github.com/aws/jsii/issues/3547)) ([06a7889](https://github.com/aws/jsii/commit/06a7889514cb0939f5b8224f8961e6d578ea3986))
+
+## [1.59.0](https://github.com/aws/jsii/compare/v1.58.0...v1.59.0) (2022-05-16)
+
+
+### Features
+
+* **jsii:** enable source maps for declaration files ([#3521](https://github.com/aws/jsii/issues/3521)) ([2751ca8](https://github.com/aws/jsii/commit/2751ca852ee751d3d7a49ee991004f3b5a6bde21))
+
+
+### Bug Fixes
+
+* **jsii:** deprecation warnings use this.constructor before calling super ([#3528](https://github.com/aws/jsii/issues/3528)) ([5d5f435](https://github.com/aws/jsii/commit/5d5f435c9ce32e6a1e76afe27b7ef810200bde58)), closes [#3527](https://github.com/aws/jsii/issues/3527)
+* **python:** cannot import nested submodules ([#3540](https://github.com/aws/jsii/issues/3540)) ([8ef8ef2](https://github.com/aws/jsii/commit/8ef8ef2fe1e5559ef77a5b7ba0dbb67f52329927)), closes [#3408](https://github.com/aws/jsii/issues/3408)
+
+## [1.58.0](https://github.com/aws/jsii/compare/v1.57.0...v1.58.0) (2022-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* `jsii-pacmak` and the libraries it generates for Python
+targets now require a minimum Python version of 3.7, instead of 3.6
+previously. We recommend users upgrade to the latest supported Python
+release (Python 3.10).
+
+### Features
+
+* compiler benchmarks and gh action ([#3503](https://github.com/aws/jsii/issues/3503)) ([4a91cf0](https://github.com/aws/jsii/commit/4a91cf0d3032a988d20049ab9fffc25747ed9c47)), closes [/github.com/MrArnoldPalmer/jsii/pull/417#commitcomment-72358212](https://github.com/aws//github.com/MrArnoldPalmer/jsii/pull/417/issues/commitcomment-72358212)
+* **go:** add tag to denote required/optional properties ([#3486](https://github.com/aws/jsii/issues/3486)) ([3d7c310](https://github.com/aws/jsii/commit/3d7c310dcb66f1d61ab4c6a8530be06870d577b3)), closes [#2536](https://github.com/aws/jsii/issues/2536) [#2672](https://github.com/aws/jsii/issues/2672)
+
+
+### Bug Fixes
+
+* **go:** object type not recognized ([#3485](https://github.com/aws/jsii/issues/3485)) ([fe2fa94](https://github.com/aws/jsii/commit/fe2fa947891ab5d517efbec37998b9b57203aa8d)), closes [#2880](https://github.com/aws/jsii/issues/2880)
+* incorrect token for benchmark action ([#3517](https://github.com/aws/jsii/issues/3517)) ([3648117](https://github.com/aws/jsii/commit/3648117811c1edb40c047b2df3adf11a28452b3d))
+* **jsii:** some submodules are not exported from `aws-cdk-lib` ([#3491](https://github.com/aws/jsii/issues/3491)) ([47f70a2](https://github.com/aws/jsii/commit/47f70a26383f401a8b3df700787d6ce7934f66f9))
+* make jsii --watch work ([#3487](https://github.com/aws/jsii/issues/3487)) ([4a46f7d](https://github.com/aws/jsii/commit/4a46f7d7db3e6f9f1cf2730b02f4af0c1da9f237)), closes [#3467](https://github.com/aws/jsii/issues/3467)
+* **pacmak:** missing python artifacts when using relative -o path ([#3518](https://github.com/aws/jsii/issues/3518)) ([cc9b561](https://github.com/aws/jsii/commit/cc9b561b7ee847c78bbc6c8514a74a7e48ed3ef4)), closes [aws/aws-cdk#20041](https://github.com/aws/aws-cdk/issues/20041)
+* **rosetta:** attempts transliteraiton to unsupported languages ([#3478](https://github.com/aws/jsii/issues/3478)) ([db2d62e](https://github.com/aws/jsii/commit/db2d62e563432ddb99df273107e182d5fbaf7173))
+* **rosetta:** incorrect transliteration for selective imports ([#3508](https://github.com/aws/jsii/issues/3508)) ([8eec086](https://github.com/aws/jsii/commit/8eec0868c02730dd22009c841e25034144b2e86f))
+
+
+* drop support for Python 3.6 (EOL as of 2021-12-23) ([#3472](https://github.com/aws/jsii/issues/3472)) ([abf7415](https://github.com/aws/jsii/commit/abf741545cc07a6aa85c74a12b7e0271ad8a531d))
+
+## [1.57.0](https://github.com/aws/jsii/compare/v1.56.0...v1.57.0) (2022-04-19)
+
+
+### Bug Fixes
+
+* **go:** object type not recognized ([#3485](https://github.com/aws/jsii/issues/3485)) ([fe2fa94](https://github.com/aws/jsii/commit/fe2fa947891ab5d517efbec37998b9b57203aa8d)), closes [#2880](https://github.com/aws/jsii/issues/2880)
+* **jsii:** some submodules are not exported from `aws-cdk-lib` ([#3491](https://github.com/aws/jsii/issues/3491)) ([47f70a2](https://github.com/aws/jsii/commit/47f70a26383f401a8b3df700787d6ce7934f66f9))
+* make jsii --watch work ([#3487](https://github.com/aws/jsii/issues/3487)) ([4a46f7d](https://github.com/aws/jsii/commit/4a46f7d7db3e6f9f1cf2730b02f4af0c1da9f237)), closes [#3467](https://github.com/aws/jsii/issues/3467)
+
+## [1.56.0](https://github.com/aws/jsii/compare/v1.55.1...v1.56.0) (2022-04-08)
+
+
+### Features
+
+* drop internal functions from Deprecation Error stack trace ([#3426](https://github.com/aws/jsii/issues/3426)) ([5b4b852](https://github.com/aws/jsii/commit/5b4b852c4550782d4f9777cbca7a65264bea49fe))
+* expose unknownSnippets config ([#3475](https://github.com/aws/jsii/issues/3475)) ([e9d99a0](https://github.com/aws/jsii/commit/e9d99a06b7b06da2e87d1bf4e2101a0ff5cf3dc9))
+* specify output directory for assemblies ([#3437](https://github.com/aws/jsii/issues/3437)) ([5419876](https://github.com/aws/jsii/commit/541987673dd015e0264cf299b51998923556eb8d))
+* Standardize issue template for discussions ([b191f60](https://github.com/aws/jsii/commit/b191f60630d513449c6771de38d2d7fcbc8d7941))
+
+
+### Bug Fixes
+
+* **rosetta:** incorrect transliteration of map keys in python ([#3449](https://github.com/aws/jsii/issues/3449)) ([54cebaa](https://github.com/aws/jsii/commit/54cebaa188a132ab764e2167c9ec5f9042588b47)), closes [#3448](https://github.com/aws/jsii/issues/3448) [#3448](https://github.com/aws/jsii/issues/3448)
+* typo "though" -> "through" ([#3419](https://github.com/aws/jsii/issues/3419)) ([3274b6c](https://github.com/aws/jsii/commit/3274b6cb8c5a025c8877343423c1f101029ea0a5))
+
+## [1.55.1](https://github.com/aws/jsii/compare/v1.55.0...v1.55.1) (2022-03-16)
+
+## [1.55.0](https://github.com/aws/jsii/compare/v1.54.0...v1.55.0) (2022-03-10)
+
+
+### Features
+
+* rosetta go support ([#3376](https://github.com/aws/jsii/issues/3376)) ([015e663](https://github.com/aws/jsii/commit/015e66374a5a846741a54efd610cf351516dbe44))
+
+
+### Bug Fixes
+
+* **go:** lots of documentation is missing from generated code ([#3409](https://github.com/aws/jsii/issues/3409)) ([69d28bb](https://github.com/aws/jsii/commit/69d28bb467113c5d5e91493b0846616685c64678))
+
 ## [1.54.0](https://github.com/aws/jsii/compare/v1.53.0...v1.54.0) (2022-02-15)
 
 

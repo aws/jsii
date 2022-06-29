@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "tsc --build && npm run lint",
-    "lint": "eslint . --ext .ts --ignore-path=.gitignore",
+    "lint": "eslint . --ext .ts --ignore-pattern '*.d.ts' --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test:integ": "jest",
     "package": "package-private"
@@ -19,8 +19,7 @@
   "dependencies": {
     "@octokit/rest": "^18.12.0",
     "dotenv": "^8.6.0",
-    "fs-extra": "^9.1.0",
-    "jest": "^27.5.1",
+    "fs-extra": "^10.1.0",
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
@@ -29,11 +28,6 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^12.20.46",
-    "@types/tar": "^6.1.1",
-    "eslint": "^8.10.0",
-    "prettier": "^2.5.1",
-    "typescript": "~3.9.10"
+    "@types/tar": "^6.1.1"
   }
 }

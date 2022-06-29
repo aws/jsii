@@ -24,6 +24,10 @@ FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:10 as bindist
 ARG BUILDPLATFORM
 ARG TARGETPLATFORM
 
+# Setting defaults for backwards compatibility with "docker build" (see https://github.com/docker/buildx/issues/510)
+ENV BUILDPLATFORM=${BUILDPLATFORM:-linux/amd64}                                                                         \
+  TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
+
 # We require a couple of tools to be available in order to work here...
 RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sources.list.d/buster-backports.list       \
   && apt-get update                                                                                                     \
@@ -35,7 +39,7 @@ RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sou
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.8.4"
+ARG M2_VERSION="3.8.6"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
@@ -50,7 +54,7 @@ RUN set -eo pipefail                                                            
 
 # Prepare .NET Core distribution
 ARG DOTNET_CHANNEL="3.1"
-ENV DOTNET_FEED="https://dotnetcli.azureedge.net/dotnet"
+ENV DOTNET_FEED="https://dotnetcli.blob.core.windows.net/dotnet"
 RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.version")                                  \
   && DOTNET_ASSET="dotnet-sdk-${DOTNET_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                     \
   && curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_VERSION}/${DOTNET_ASSET}"                                                  \
@@ -61,11 +65,11 @@ RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.ver
 # Prepare PowerShell LTS distribution
 ENV POWERSHELL_RELEASES="https://github.com/PowerShell/PowerShell/releases"
 RUN POWERSHELL_RELEASE=$(curl -X GET -fSsIL "https://aka.ms/powershell-release?tag=lts" -o /dev/null                    \
-                              --retry 5 --retry-all-errors -w %{url_effective})                                         \
+  --retry 5 --retry-all-errors -w %{url_effective})                                         \
   && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
   && ASSET="powershell-${POWERSHELL_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                        \
   && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}" --retry 5 --retry-all-errors          \
-          -o /tmp/powershell.tar.gz                                                                                     \
+  -o /tmp/powershell.tar.gz                                                                                     \
   && mkdir -p /opt/microsoft/powershell                                                                                 \
   && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell                                                        \
   && chmod +x /opt/microsoft/powershell/pwsh
@@ -84,6 +88,10 @@ FROM public.ecr.aws/debian/debian:10-slim as staging
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
 ARG TARGETPLATFORM
+
+# Setting defaults for backwards compatibility with "docker build" (see https://github.com/docker/buildx/issues/510)
+ENV BUILDPLATFORM=${BUILDPLATFORM:-linux/amd64}                                                                         \
+  TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 
 SHELL ["/bin/bash", "-c"]
 
@@ -191,10 +199,10 @@ COPY superchain/m2-settings.xml /root/.m2/settings.xml
 # Install Go
 COPY --from=bindist /opt/golang/go ${GOROOT}
 
-# Install Node 10+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
+# Install Node 14+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
-ARG NODE_MAJOR_VERSION="12"
+ARG NODE_MAJOR_VERSION="14"
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \

@@ -1,6 +1,7 @@
 package kernel
 
 import (
+	"fmt"
 	"reflect"
 	"time"
 
@@ -65,7 +66,7 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 
 		targetType := ptr.Type()
 		if typ, ok := c.Types().FindType(ref.TypeFQN()); ok && typ.AssignableTo(ptr.Type()) {
-            // Specialize the return type to be the dynamic value type
+			// Specialize the return type to be the dynamic value type
 			targetType = typ
 		}
 
@@ -178,6 +179,10 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 				for _, field := range fields {
 					fieldVal := elemVal.FieldByIndex(field.Index)
 					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
+						// If there is the "field" tag, and it's "required", then panic since the value is nil.
+						if requiredOrOptional, found := field.Tag.Lookup("field"); found && requiredOrOptional == "required" {
+							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", field.Type, field.Name))
+						}
 						continue
 					}
 					key := field.Tag.Get("json")
@@ -191,6 +196,11 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 					},
 				}
 			}
+		} else if dataVal.Elem().Kind() == reflect.Ptr {
+			// Typically happens when a struct pointer is passed into an interface{}
+			// typed API (such as a place where a union is accepted).
+			elemVal := dataVal.Elem()
+			return c.CastPtrToRef(elemVal)
 		}
 
 		if ref, err := c.ManageObject(dataVal); err != nil {

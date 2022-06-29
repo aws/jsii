@@ -207,7 +207,7 @@ export function splitSummary(
     return [undefined, undefined];
   }
   const summary = summaryLine(docBlock);
-  const remarks = uberTrim(docBlock.substr(summary.length));
+  const remarks = uberTrim(docBlock.slice(summary.length));
   return [endWithPeriod(noNewlines(summary.trim())), remarks];
 }
 

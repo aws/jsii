@@ -282,6 +282,7 @@ export class JavaBuilder implements TargetBuilder {
     logging.debug('local maven repos:', localRepos);
 
     const profileName = 'local-jsii-modules';
+    const localRepository = this.options.arguments['maven-local-repository'];
     const settings = xmlbuilder
       .create(
         {
@@ -295,8 +296,10 @@ export class JavaBuilder implements TargetBuilder {
             ],
             // Do *not* attempt to ask the user for stuff...
             interactiveMode: false,
-            // Use a non-default local repository to isolate from cached artifacts...
-            localRepository: path.resolve(where, '.m2', 'repository'),
+            // Use a non-default local repository (unless java-custom-cache-path arg is provided) to isolate from cached artifacts...
+            localRepository: localRepository
+              ? path.resolve(process.cwd(), localRepository)
+              : path.resolve(where, '.m2', 'repository'),
             // Register locations of locally-sourced dependencies
             profiles: {
               profile: {
@@ -870,14 +873,15 @@ class JavaGenerator extends Generator {
     const returnType = method.returns
       ? this.toDecoratedJavaType(method.returns)
       : 'void';
+    const methodName = JavaGenerator.safeJavaMethodName(method.name);
     this.addJavaDocs(method, {
       api: 'member',
       fqn: ifc.fqn,
-      memberName: method.name,
+      memberName: methodName,
     });
     this.emitStabilityAnnotations(method);
     this.code.line(
-      `${returnType} ${method.name}(${this.renderMethodParameters(method)});`,
+      `${returnType} ${methodName}(${this.renderMethodParameters(method)});`,
     );
   }
 
@@ -2417,7 +2421,9 @@ class JavaGenerator extends Generator {
       tagLines.push(`@return ${docs.returns}`);
     }
     if (docs.see) {
-      tagLines.push(`@see ${docs.see}`);
+      tagLines.push(
+        `@see <a href="${escape(docs.see)}">${escape(docs.see)}</a>`,
+      );
     }
     if (docs.deprecated) {
       tagLines.push(`@deprecated ${docs.deprecated}`);
@@ -3257,5 +3263,12 @@ function splitNamespace(ns: string): [string, string] {
   if (dot === -1) {
     return ['', ns];
   }
-  return [ns.substr(0, dot), ns.substr(dot + 1)];
+  return [ns.slice(0, dot), ns.slice(dot + 1)];
+}
+
+/**
+ * Escape a string for dropping into JavaDoc
+ */
+function escape(s: string) {
+  return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
 }

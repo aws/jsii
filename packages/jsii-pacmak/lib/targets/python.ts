@@ -24,7 +24,6 @@ import {
   PythonImports,
   mergePythonImports,
   toPackageName,
-  toPythonFqn,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -64,7 +63,11 @@ export default class Python extends Target {
       venv,
       process.platform === 'win32' ? 'Scripts' : 'bin',
     );
-    await shell('python3', [
+    // On Windows, there is usually no python3.exe (the GitHub action workers will have a python3
+    // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
+    // fail to copy the python binary if it's not invoked as python.exe). More on this particular
+    // issue can be read here: https://bugs.python.org/issue43749
+    await shell(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
@@ -1564,7 +1567,30 @@ class PythonModule implements PythonType {
       !this.loadAssembly,
       'PythonModule.addPythonModule CANNOT be called on assembly-loading modules (it would cause a load cycle)!',
     );
-    this.modules.push(pyMod);
+
+    assert(
+      pyMod.pythonName.startsWith(`${this.pythonName}.`),
+      `Attempted to register ${pyMod.pythonName} as a child module of ${this.pythonName}, but the names don't match!`,
+    );
+
+    const [firstLevel, ...rest] = pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .split('.');
+    if (rest.length === 0) {
+      // This is a direct child module...
+      this.modules.push(pyMod);
+    } else {
+      // This is a nested child module, so we delegate to the directly nested module...
+      const parent = this.modules.find(
+        (m) => m.pythonName === `${this.pythonName}.${firstLevel}`,
+      );
+      if (!parent) {
+        throw new Error(
+          `Attempted to register ${pyMod.pythonName} within ${this.pythonName}, but ${this.pythonName}.${firstLevel} wasn't registered yet!`,
+        );
+      }
+      parent.addPythonModule(pyMod);
+    }
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -1637,7 +1663,21 @@ class PythonModule implements PythonType {
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
-    const exportedMembers = this.members.map((m) => `"${m.pythonName}"`);
+    //
+    // __all__ is normally used for when users write `from library import *`, but we also
+    // use it with the `publication` module to hide everything that's NOT in the list.
+    //
+    // Normally adding submodules to `__all__` has the (negative?) side-effect
+    // that all submodules get loaded when the user does `import *`, but we
+    // already load submodules anyway so it doesn't make a difference, and in combination
+    // with the `publication` module NOT having them in this list hides any submodules
+    // we import as part of typechecking.
+    const exportedMembers = [
+      ...this.members.map((m) => `"${m.pythonName}"`),
+      ...this.modules
+        .filter((m) => this.isDirectChild(m))
+        .map((m) => `"${lastComponent(m.pythonName)}"`),
+    ];
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
@@ -1674,25 +1714,13 @@ class PythonModule implements PythonType {
         l.pythonName.localeCompare(r.pythonName),
       )) {
         // Rather than generating an absolute import like
-        // "import jsii_calc.submodule.nested_submodule.deeply_nested"
-        // this builds a relative import like
-        // "from .submodule.nested_submodule import deeply_nested"
-        // This enables distributing python packages and using the
-        // generated modules in the same codebase.
-        const assemblyName = toPythonFqn(
-          module.assembly.name,
-          module.assembly,
-        ).pythonFqn;
-
-        const submodule = module.pythonName
-          .replace(`${assemblyName}.`, '')
-          .split('.');
-
-        const submodulePath = submodule
-          .slice(0, submodule.length - 1)
-          .join('.');
-        const submoduleName = submodule[submodule.length - 1];
-        code.line(`from .${submodulePath} import ${submoduleName}`);
+        // "import jsii_calc.submodule" this builds a relative import like
+        // "from . import submodule". This enables distributing python packages
+        // and using the generated modules in the same codebase.
+        const submodule = module.pythonName.substring(
+          this.pythonName.length + 1,
+        );
+        code.line(`from . import ${submodule}`);
       }
     }
   }
@@ -1745,6 +1773,19 @@ class PythonModule implements PythonType {
       }
     }
     return scripts;
+  }
+
+  private isDirectChild(pyMod: PythonModule) {
+    if (
+      this.pythonName === pyMod.pythonName ||
+      !pyMod.pythonName.startsWith(`${this.pythonName}.`)
+    ) {
+      return false;
+    }
+    // Must include only one more component
+    return !pyMod.pythonName
+      .substring(this.pythonName.length + 1)
+      .includes('.');
   }
 
   /**
@@ -1973,7 +2014,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '>=3.6',
+      python_requires: '~=3.7',
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
@@ -1985,10 +2026,10 @@ class Package {
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Typing :: Typed',
       ],
       scripts,
@@ -2815,7 +2856,7 @@ class PythonGenerator extends Generator {
       const base = this.findType(cls.base);
 
       if (!spec.isClassType(base)) {
-        throw new Error("Class inheritence that isn't a class?");
+        throw new Error("Class inheritance that isn't a class?");
       }
 
       if (base.abstract) {
@@ -3114,3 +3155,11 @@ function nestedContext(
 }
 
 const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;
+
+/**
+ * Last component of a .-separated name
+ */
+function lastComponent(n: string) {
+  const parts = n.split('.');
+  return parts[parts.length - 1];
+}

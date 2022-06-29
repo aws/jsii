@@ -25,3 +25,4 @@ obj/
 
 # consumed by generate.sh
 !*.t.js
+*.d.ts.map

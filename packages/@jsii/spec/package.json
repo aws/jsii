@@ -17,12 +17,12 @@
     "directory": "packages/@jsii/spec"
   },
   "engines": {
-    "node": ">= 12.7.0"
+    "node": ">= 14.6.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc --build && bash generate-json-schema.sh && npm run lint",
+    "build": "tsc --build && bash build-tools/generate-json-schema.sh && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
@@ -31,16 +31,11 @@
     "package": "package-js"
   },
   "dependencies": {
-    "jsonschema": "^1.4.0"
+    "ajv": "^8.11.0",
+    "fs-extra": "^10.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.1",
-    "@types/node": "^12.20.46",
-    "eslint": "^8.10.0",
-    "jest": "^27.5.1",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.5.1",
-    "typescript": "~3.9.10",
-    "typescript-json-schema": "^0.53.0"
+    "typescript-json-schema": "^0.53.1"
   }
 }

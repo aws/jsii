@@ -1,10 +1,9 @@
 import * as spec from '@jsii/spec';
 import * as assert from 'assert';
-import * as Case from 'case';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import deepEqual = require('deep-equal');
+import * as deepEqual from 'fast-deep-equal';
 import * as ts from 'typescript';
 
+import * as Case from './case';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { getRelatedNode } from './node-bindings';
@@ -14,31 +13,24 @@ import { ProjectInfo } from './project-info';
 export class Validator implements Emitter {
   public static VALIDATIONS: ValidationFunction[] = _defaultValidations();
 
-  private _diagnostics = new Array<JsiiDiagnostic>();
-
   public constructor(
     public readonly projectInfo: ProjectInfo,
     public readonly assembly: spec.Assembly,
   ) {}
 
-  public async emit(): Promise<ts.EmitResult> {
-    this._diagnostics = [];
+  public emit(): ts.EmitResult {
+    const diagnostics = new Array<ts.Diagnostic>();
 
     for (const validation of Validator.VALIDATIONS) {
-      validation(this, this.assembly, (diag) => this._diagnostics.push(diag));
+      validation(this, this.assembly, diagnostics.push.bind(diagnostics));
     }
 
-    try {
-      return await Promise.resolve({
-        diagnostics: this._diagnostics,
-        emitSkipped: this._diagnostics.some(
-          (diag) => diag.category === ts.DiagnosticCategory.Error,
-        ),
-      });
-    } finally {
-      // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
-      delete this._diagnostics;
-    }
+    return {
+      diagnostics: diagnostics,
+      emitSkipped: diagnostics.some(
+        (diag) => diag.category === ts.DiagnosticCategory.Error,
+      ),
+    };
   }
 }
 
@@ -51,7 +43,6 @@ export type ValidationFunction = (
 
 function _defaultValidations(): ValidationFunction[] {
   return [
-    _typeNamesMustUsePascalCase,
     _enumMembersMustUserUpperSnakeCase,
     _memberNamesMustUseCamelCase,
     _staticConstantNamesMustUseUpperSnakeCase,
@@ -60,22 +51,6 @@ function _defaultValidations(): ValidationFunction[] {
     _inehritanceDoesNotChangeContracts,
     _staticMembersAndNestedTypesMustNotSharePascalCaseName,
   ];
-
-  function _typeNamesMustUsePascalCase(
-    _: Validator,
-    assembly: spec.Assembly,
-    diagnostic: DiagnosticEmitter,
-  ) {
-    for (const type of _allTypes(assembly)) {
-      if (type.name !== Case.pascal(type.name)) {
-        diagnostic(
-          JsiiDiagnostic.JSII_8000_PASCAL_CASED_TYPE_NAMES.createDetached(
-            type.name,
-          ),
-        );
-      }
-    }
-  }
 
   function _enumMembersMustUserUpperSnakeCase(
     _: Validator,

@@ -1,22 +1,15 @@
-# Don't include original .ts files when doing `npm pack`
-*.ts
-!*.d.ts
-coverage
-.nyc_output
-*.tgz
+# Don't include the original source files
+/src/
 
-dist
-.LAST_PACKAGE
-.LAST_BUILD
-!*.js
+# Don't include test files
+/coverage/
+/lib/**/*.test.*
+/test-data/
 
-# Include .jsii
-!.jsii
-
-*.snk
-
-# Don't include various configuration & state information
-coverage
-.eslintrc.*
+# No build tools & configuration
+/build-tools/
+/.eslintrc.yaml
+/jest.config.ts
 tsconfig.json
+*.map
 *.tsbuildinfo

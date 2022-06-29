@@ -9,5 +9,5 @@ export interface Emitter {
    *
    * @return the result of attempting to emit stuff.
    */
-  emit(): Promise<ts.EmitResult>;
+  emit(): ts.EmitResult;
 }

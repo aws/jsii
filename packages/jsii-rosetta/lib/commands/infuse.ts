@@ -66,7 +66,7 @@ export async function infuse(assemblyLocations: string[], options?: InfuseOption
   }
 
   // Load tablet file and assemblies
-  const assemblies = await loadAssemblies(assemblyLocations, false);
+  const assemblies = loadAssemblies(assemblyLocations, false);
   const defaultTablets = await loadAllDefaultTablets(assemblies);
 
   const availableTranslations = new LanguageTablet();

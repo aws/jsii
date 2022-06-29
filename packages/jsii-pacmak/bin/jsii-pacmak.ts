@@ -9,7 +9,7 @@ import { debug } from '../lib/logging';
 import { VERSION_DESC } from '../lib/version';
 
 (async function main() {
-  const argv = yargs
+  const argv = await yargs
     .env('JSII_PACMAK')
     .command(
       ['$0  [PROJECTS...]', 'generate [PROJECTS...]'],
@@ -121,6 +121,13 @@ import { VERSION_DESC } from '../lib/version';
       hidden: true,
       // This is expected to be a path, which should be normalized
       normalize: true,
+    })
+    .option('maven-local-repository', {
+      type: 'string',
+      desc: 'Configure a custom path (relative to current working directory) to a repository when packaging a Java package.',
+      defaultDescription: 'A temporary directory is used.',
+      default: undefined,
+      hidden: true,
     })
     .option('validate-assemblies', {
       type: 'boolean',

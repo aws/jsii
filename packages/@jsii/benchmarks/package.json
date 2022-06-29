@@ -1,0 +1,33 @@
+{
+  "name": "@jsii/benchmarks",
+  "version": "0.0.0",
+  "private": true,
+  "description": "the jsii benchmark suite",
+  "main": "index.js",
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "jsii": "^0.0.0",
+    "npm": "^8.12.1",
+    "tar": "^6.1.11",
+    "typescript": "~3.9.10",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "glob": "^8.0.3"
+  },
+  "scripts": {
+    "build": "yarn --silent tsc --build && npm run lint",
+    "watch": "yarn --silent tsc -w",
+    "bench": "node bin/benchmark.js",
+    "snapshot": "node scripts/snapshot-package.js",
+    "lint": "eslint . --ext .ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix"
+  },
+  "bin": {
+    "benchmark": "bin/benchmark.js"
+  },
+  "keywords": [],
+  "author": "Amazon Web Services, Inc.",
+  "license": "Apache-2.0"
+}

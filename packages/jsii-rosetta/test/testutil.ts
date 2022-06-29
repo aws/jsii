@@ -1,4 +1,4 @@
-import * as spec from '@jsii/spec';
+import { Assembly, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { PackageInfo, compileJsiiForTest, TestWorkspace } from 'jsii';
 import * as os from 'os';
@@ -15,27 +15,40 @@ import {
 
 export type MultipleSources = { [key: string]: string; 'index.ts': string };
 
+export interface TestJsiiModuleOptions {
+  /**
+   * Whether or not to compress the assembly
+   */
+  readonly compressAssembly?: boolean;
+}
+
 /**
  * Compile a jsii module from source, and produce an environment in which it is available as a module
  */
 export class TestJsiiModule {
-  public static async fromSource(
+  public static fromSource(
     source: string | MultipleSources,
     packageInfo: Partial<PackageInfo> & { name: string; main?: string; types?: string },
-  ) {
-    const asm = await compileJsiiForTest(source, (pi) => {
-      Object.assign(pi, packageInfo);
+    options: TestJsiiModuleOptions = {},
+  ): TestJsiiModule {
+    const asm = compileJsiiForTest(source, {
+      packageJson: packageInfo,
+      compressAssembly: options.compressAssembly,
     });
 
-    const ws = await TestWorkspace.create();
-    await ws.addDependency(asm);
-    return new TestJsiiModule(asm.assembly, ws);
+    const ws = TestWorkspace.create();
+    ws.addDependency(asm);
+    return new TestJsiiModule(asm.assembly, ws, asm.compressAssembly === true);
   }
 
   public readonly moduleDirectory: string;
   public readonly workspaceDirectory: string;
 
-  private constructor(public readonly assembly: spec.Assembly, public readonly workspace: TestWorkspace) {
+  private constructor(
+    public readonly assembly: Assembly,
+    public readonly workspace: TestWorkspace,
+    private readonly compressAssembly: boolean,
+  ) {
     this.moduleDirectory = workspace.dependencyDir(assembly.name);
     this.workspaceDirectory = workspace.rootDirectory;
   }
@@ -80,12 +93,12 @@ export class TestJsiiModule {
   /**
    * Update the file to reflect the latest changes to the assembly object.
    */
-  public async updateAssembly() {
-    await fs.writeJSON(path.join(this.moduleDirectory, '.jsii'), this.assembly);
+  public updateAssembly() {
+    writeAssembly(this.moduleDirectory, this.assembly, { compress: this.compressAssembly });
   }
 
-  public async cleanup() {
-    await this.workspace.cleanup();
+  public cleanup() {
+    this.workspace.cleanup();
   }
 }
 

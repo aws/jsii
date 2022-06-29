@@ -1,4 +1,3 @@
-import * as Case from 'case';
 import * as chalk from 'chalk';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
@@ -6,6 +5,7 @@ import * as path from 'path';
 import * as ts from 'typescript';
 
 import { Assembler } from './assembler';
+import * as Case from './case';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
@@ -18,9 +18,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   declaration: true,
   experimentalDecorators: true,
   incremental: true,
-  inlineSourceMap: true,
-  inlineSources: true,
-  lib: ['lib.es2019.d.ts'],
+  lib: ['lib.es2020.d.ts'],
   module: ts.ModuleKind.CommonJS,
   newLine: ts.NewLineKind.LineFeed,
   noEmitOnError: true,
@@ -35,7 +33,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: true,
   stripInternal: false,
-  target: ts.ScriptTarget.ES2019,
+  target: ts.ScriptTarget.ES2020,
 };
 
 const LOG = log4js.getLogger('jsii/compiler');
@@ -62,6 +60,11 @@ export interface CompilerOptions {
    * @default "tsconfig.json"
    */
   generateTypeScriptConfig?: string;
+  /**
+   * Whether to compress the assembly
+   * @default false
+   */
+  compressAssembly?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -107,8 +110,8 @@ export class Compiler implements Emitter {
    *
    * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
    */
-  public async emit(...files: string[]): Promise<ts.EmitResult> {
-    await this._prepareForBuild(...files);
+  public emit(...files: string[]): ts.EmitResult {
+    this._prepareForBuild(...files);
     return this._buildOnce();
   }
 
@@ -129,7 +132,7 @@ export class Compiler implements Emitter {
   public async watch(
     opts?: NonBlockingWatchOptions,
   ): Promise<ts.Watch<ts.BuilderProgram> | never> {
-    await this._prepareForBuild();
+    this._prepareForBuild();
 
     const pi = this.options.projectInfo;
     const projectRoot = pi.projectRoot;
@@ -160,8 +163,8 @@ export class Compiler implements Emitter {
     // cause an unhandled promise rejection warning, but that's not a big deal.
     //
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    host.afterProgramCreate = async (builderProgram) => {
-      const emitResult = await this._consumeProgram(
+    host.afterProgramCreate = (builderProgram) => {
+      const emitResult = this._consumeProgram(
         builderProgram.getProgram(),
         host.getDefaultLibLocation!(),
       );
@@ -176,7 +179,7 @@ export class Compiler implements Emitter {
         orig.call(host, builderProgram);
       }
       if (opts?.compilationComplete) {
-        await opts.compilationComplete(emitResult);
+        opts.compilationComplete(emitResult);
       }
     };
     const watch = ts.createWatchProgram(host);
@@ -195,16 +198,16 @@ export class Compiler implements Emitter {
    *
    * @param files the files that were specified as input in the CLI invocation.
    */
-  private async _prepareForBuild(...files: string[]) {
-    await this.buildTypeScriptConfig();
-    await this.writeTypeScriptConfig();
+  private _prepareForBuild(...files: string[]) {
+    this.buildTypeScriptConfig();
+    this.writeTypeScriptConfig();
     this.rootFiles = this.determineSources(files);
   }
 
   /**
    * Do a single build
    */
-  private async _buildOnce(): Promise<ts.EmitResult> {
+  private _buildOnce(): ts.EmitResult {
     if (!this.compilerHost.getDefaultLibLocation) {
       throw new Error(
         'No default library location was found on the TypeScript compiler host!',
@@ -233,10 +236,7 @@ export class Compiler implements Emitter {
     );
   }
 
-  private async _consumeProgram(
-    program: ts.Program,
-    stdlib: string,
-  ): Promise<ts.EmitResult> {
+  private _consumeProgram(program: ts.Program, stdlib: string): ts.EmitResult {
     const diagnostics = [...ts.getPreEmitDiagnostics(program)];
     let hasErrors = false;
 
@@ -253,10 +253,11 @@ export class Compiler implements Emitter {
       stripDeprecated: this.options.stripDeprecated,
       stripDeprecatedAllowListFile: this.options.stripDeprecatedAllowListFile,
       addDeprecationWarnings: this.options.addDeprecationWarnings,
+      compressAssembly: this.options.compressAssembly,
     });
 
     try {
-      const assmEmit = await assembler.emit();
+      const assmEmit = assembler.emit();
       if (
         !hasErrors &&
         (assmEmit.emitSkipped ||
@@ -269,7 +270,7 @@ export class Compiler implements Emitter {
       }
 
       diagnostics.push(...assmEmit.diagnostics);
-    } catch (e) {
+    } catch (e: any) {
       diagnostics.push(
         JsiiDiagnostic.JSII_9997_UNKNOWN_ERROR.createDetached(e),
       );
@@ -329,10 +330,10 @@ export class Compiler implements Emitter {
    *
    * This is the object that will be written to disk.
    */
-  private async buildTypeScriptConfig() {
+  private buildTypeScriptConfig() {
     let references: string[] | undefined;
     if (this.projectReferences) {
-      references = await this.findProjectReferences();
+      references = this.findProjectReferences();
     }
 
     const pi = this.options.projectInfo;
@@ -378,15 +379,15 @@ export class Compiler implements Emitter {
    *
    * @return the fully qualified path to the `tsconfig.json` file
    */
-  private async writeTypeScriptConfig(): Promise<void> {
+  private writeTypeScriptConfig(): void {
     const commentKey = '_generated_by_jsii_';
     const commentValue =
       'Generated by jsii - safe to delete, and ideally should be in .gitignore';
 
     (this.typescriptConfig as any)[commentKey] = commentValue;
 
-    if (await fs.pathExists(this.configPath)) {
-      const currentConfig = await fs.readJson(this.configPath);
+    if (fs.pathExistsSync(this.configPath)) {
+      const currentConfig = fs.readJsonSync(this.configPath);
       if (!(commentKey in currentConfig)) {
         throw new Error(
           `A '${this.configPath}' file that was not generated by jsii is in ${this.options.projectInfo.projectRoot}. Aborting instead of overwriting.`,
@@ -418,7 +419,7 @@ export class Compiler implements Emitter {
     };
 
     LOG.debug(`Creating or updating ${chalk.blue(this.configPath)}`);
-    await fs.writeJson(this.configPath, outputConfig, {
+    fs.writeJsonSync(this.configPath, outputConfig, {
       encoding: 'utf8',
       spaces: 2,
     });
@@ -454,7 +455,7 @@ export class Compiler implements Emitter {
    * if there's an "index" tsconfig.json of all projects somewhere up the directory
    * tree)
    */
-  private async findProjectReferences(): Promise<string[]> {
+  private findProjectReferences(): string[] {
     const pkg = this.options.projectInfo.packageJson;
 
     const ret = new Array<string>();
@@ -473,10 +474,8 @@ export class Compiler implements Emitter {
       );
     }
 
-    for (const tsconfigFile of await Promise.all(
-      Array.from(dependencyNames).map((depName) =>
-        this.findMonorepoPeerTsconfig(depName),
-      ),
+    for (const tsconfigFile of Array.from(dependencyNames).map((depName) =>
+      this.findMonorepoPeerTsconfig(depName),
     )) {
       if (!tsconfigFile) {
         continue;
@@ -517,7 +516,7 @@ export class Compiler implements Emitter {
    *
    * Respects includes/excludes/etc.
    *
-   * This makes it so that running 'tsc' and running 'jsii' has the same behavior.
+   * This makes it so that running 'typescript' and running 'jsii' has the same behavior.
    */
   private determineSources(files: string[]): string[] {
     const ret = new Array<string>();
@@ -552,9 +551,7 @@ export class Compiler implements Emitter {
    *
    * Returns undefined if no such tsconfig could be found.
    */
-  private async findMonorepoPeerTsconfig(
-    depName: string,
-  ): Promise<string | undefined> {
+  private findMonorepoPeerTsconfig(depName: string): string | undefined {
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
     const { builtinModules } = require('module');
     if ((builtinModules ?? []).includes(depName)) {
@@ -563,24 +560,24 @@ export class Compiler implements Emitter {
     }
 
     try {
-      const depDir = await utils.findDependencyDirectory(
+      const depDir = utils.findDependencyDirectory(
         depName,
         this.options.projectInfo.projectRoot,
       );
 
       const dep = path.join(depDir, 'tsconfig.json');
-      if (!(await fs.pathExists(dep))) {
+      if (!fs.pathExistsSync(dep)) {
         return undefined;
       }
 
       // Resolve symlinks, to check if this is a monorepo peer
-      const dependencyRealPath = await fs.realpath(dep);
+      const dependencyRealPath = fs.realpathSync(dep);
       if (dependencyRealPath.split(path.sep).includes('node_modules')) {
         return undefined;
       }
 
       return dependencyRealPath;
-    } catch (e) {
+    } catch (e: any) {
       // @types modules cannot be required, for example
       if (
         ['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(e.code)
@@ -625,9 +622,7 @@ export interface NonBlockingWatchOptions {
   /**
    * This hook gets invoked when a compilation cycle (complete with Assembler execution) completes.
    */
-  readonly compilationComplete: (
-    emitResult: ts.EmitResult,
-  ) => void | Promise<void>;
+  readonly compilationComplete: (emitResult: ts.EmitResult) => void;
 }
 
 function _pathOfLibraries(

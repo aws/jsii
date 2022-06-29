@@ -33,7 +33,7 @@ The following target languages are currently offered by `jsii-pacmak`, or are cu
 | Language   | Status                                         |
 | ---------- | ---------------------------------------------- |
 | C#         | :octicons-check-circle-24: Generally Available |
-| Go         | :octicons-tools-24:        Development         |
+| Go         | :octicons-check-circle-24: Generally Available |
 | Java       | :octicons-check-circle-24: Generally Available |
 | JavaScript | :octicons-check-circle-24: Generally Available |
 | Kotlin     | :octicons-tools-24:        Development         |

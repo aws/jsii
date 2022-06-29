@@ -19,7 +19,7 @@
     "directory": "packages/@scope/jsii-calc-base"
   },
   "engines": {
-    "node": ">= 12.7.0"
+    "node": ">= 14.6.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -35,11 +35,9 @@
     "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "devDependencies": {
-    "@types/node": "^12.20.46",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.5.1"
+    "jsii-rosetta": "^0.0.0"
   },
   "jsii": {
     "metadata": {
@@ -73,6 +71,9 @@
         "distName": "scope.jsii-calc-base",
         "module": "scope.jsii_calc_base"
       }
+    },
+    "tsc": {
+      "types": []
     },
     "versionFormat": "short"
   }

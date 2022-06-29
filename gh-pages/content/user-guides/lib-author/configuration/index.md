@@ -186,8 +186,18 @@ are set in the `jsii.tsc` section of the `package.json` file, but use the same n
 - `rootDir` - specifies the root directory that contains all of the `.ts` source files. This is used in conjunction with
   `outDir`, to control the directory structure that gets generated.
 - `forceConsistentCasingInFileNames` - if `true`, will make the `TypeScript` compiler care about the casing of files
-   specified in `import` statements.  This is helpful if you're developing on a filesystem that is case-insensitive 
+   specified in `import` statements. This is helpful if you're developing on a filesystem that is case-insensitive
    (Mac/Win), but building/deploying on a filesystem that is case-sensitive (Linux).
+- `declarationMap`, `inlineSourceMap`, `inlineSources`, and `sourceMap` allow confifuring the source map generation.
+  This option can be useful to finely control your local development experience (for example, by enabling
+  `declarationMap`), or to optimize the emitted code size (by disabling source maps entirely).
+  + if any of these options is specified, the source map configuration will exactly match what is being provided here
+  + If none are specified, the default settings will be used: `#!ts { inlineSourceMap: true, inlineSources: true }`
+- `types` allows limiting which visible type libraries get loaded in the global scope by the typescript compiler. By
+  default, all visible `@types/*` packages will be loaded, which can be undesirable (in particular in monorepos, where
+  some type libraries are not compatible with the TypeScript compiler version that `jsii` uses). The value specified
+  here will be forwarded as-is to the TypeScript compiler.
+
 Refer to the [TypeScript compiler options reference][ts-options] for more information about those options.
 
 [`tsconfig.json`]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html

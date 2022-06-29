@@ -72,7 +72,7 @@ export function formatDiagnostic(
 
 /**
  * Formats a diagnostic message with color and context, if possible. Users
- * should use `formatDiagnostic` instead, as this implementation is inteded for
+ * should use `formatDiagnostic` instead, as this implementation is intended for
  * internal usafe only.
  *
  * @param diagnostic  the diagnostic message ot be formatted.
@@ -172,7 +172,7 @@ export function parseRepository(value: string): { url: string } {
  * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
  * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
  */
-export async function findDependencyDirectory(
+export function findDependencyDirectory(
   dependencyName: string,
   searchStart: string,
 ) {
@@ -184,7 +184,7 @@ export async function findDependencyDirectory(
 
   // Search up from the given directory, looking for a package.json that matches
   // the dependency name (so we don't accidentally find stray 'package.jsons').
-  const depPkgJsonPath = await findPackageJsonUp(
+  const depPkgJsonPath = findPackageJsonUp(
     dependencyName,
     path.dirname(entryPoint),
   );
@@ -204,15 +204,11 @@ export async function findDependencyDirectory(
  * (This code is duplicated among jsii/jsii-pacmak/jsii-reflect. Changes should be done in all
  * 3 locations, and we should unify these at some point: https://github.com/aws/jsii/issues/3236)
  */
-export async function findPackageJsonUp(
-  packageName: string,
-  directory: string,
-) {
-  return findUp(directory, async (dir) => {
+export function findPackageJsonUp(packageName: string, directory: string) {
+  return findUp(directory, (dir) => {
     const pjFile = path.join(dir, 'package.json');
     return (
-      (await fs.pathExists(pjFile)) &&
-      (await fs.readJson(pjFile)).name === packageName
+      fs.pathExistsSync(pjFile) && fs.readJsonSync(pjFile).name === packageName
     );
   });
 }
@@ -227,35 +223,26 @@ export async function findPackageJsonUp(
  */
 export function findUp(
   directory: string,
-  pred: (dir: string) => Promise<boolean>,
-): Promise<string | undefined>;
-export function findUp(
-  directory: string,
   pred: (dir: string) => boolean,
-): string | undefined;
-// eslint-disable-next-line @typescript-eslint/promise-function-async
-export function findUp(
-  directory: string,
-  pred: ((dir: string) => boolean) | ((dir: string) => Promise<boolean>),
-): Promise<string | undefined> | string | undefined {
+): string | undefined {
   const result = pred(directory);
-  if (isPromise(result)) {
-    return result.then((thisDirectory) =>
-      thisDirectory ? directory : recurse(),
-    );
+
+  if (result) {
+    return directory;
   }
 
-  return result ? directory : recurse();
-
-  function recurse() {
-    const parent = path.dirname(directory);
-    if (parent === directory) {
-      return undefined;
-    }
-    return findUp(parent, pred as any);
+  const parent = path.dirname(directory);
+  if (parent === directory) {
+    return undefined;
   }
+
+  return findUp(parent, pred);
 }
 
-function isPromise<A>(x: A | Promise<A>): x is Promise<A> {
-  return typeof x === 'object' && (x as any).then;
+const ANSI_REGEX =
+  // eslint-disable-next-line no-control-regex
+  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+
+export function stripAnsi(x: string): string {
+  return x.replace(ANSI_REGEX, '');
 }

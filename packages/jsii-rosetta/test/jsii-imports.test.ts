@@ -10,8 +10,8 @@ import { MultipleSources, TestJsiiModule, DUMMY_JSII_CONFIG } from './testutil';
 describe('no submodule', () => {
   describe('top-level struct', () => {
     let module: TestJsiiModule;
-    beforeAll(async () => {
-      module = await makeJsiiModule({ withModule: false, nestedStruct: false });
+    beforeAll(() => {
+      module = makeJsiiModule({ withModule: false, nestedStruct: false });
     });
 
     afterAll(() => module.cleanup());
@@ -103,8 +103,8 @@ describe('no submodule', () => {
 
   describe('nested struct', () => {
     let module: TestJsiiModule;
-    beforeAll(async () => {
-      module = await makeJsiiModule({ withModule: false, nestedStruct: true });
+    beforeAll(() => {
+      module = makeJsiiModule({ withModule: false, nestedStruct: true });
     });
     afterAll(() => module.cleanup());
 
@@ -193,8 +193,8 @@ describe('no submodule', () => {
 
   describe('enum', () => {
     let module: TestJsiiModule;
-    beforeAll(async () => {
-      module = await TestJsiiModule.fromSource(
+    beforeAll(() => {
+      module = TestJsiiModule.fromSource(
         {
           'index.ts': `export enum MyEnum { OPTION_A = 'a', OPTION_B = 'b' }
 
@@ -320,8 +320,8 @@ describe('no submodule', () => {
 describe('with submodule', () => {
   describe('top-level struct', () => {
     let module: TestJsiiModule;
-    beforeAll(async () => {
-      module = await makeJsiiModule({ withModule: true, nestedStruct: false });
+    beforeAll(() => {
+      module = makeJsiiModule({ withModule: true, nestedStruct: false });
     });
 
     afterAll(() => module.cleanup());
@@ -370,8 +370,8 @@ describe('with submodule', () => {
 
   describe('nested struct', () => {
     let module: TestJsiiModule;
-    beforeAll(async () => {
-      module = await makeJsiiModule({ withModule: true, nestedStruct: true });
+    beforeAll(() => {
+      module = makeJsiiModule({ withModule: true, nestedStruct: true });
     });
 
     afterAll(() => module.cleanup());
@@ -419,10 +419,7 @@ describe('with submodule', () => {
   });
 });
 
-async function makeJsiiModule(options: {
-  readonly withModule: boolean;
-  readonly nestedStruct: boolean;
-}): Promise<TestJsiiModule> {
+function makeJsiiModule(options: { readonly withModule: boolean; readonly nestedStruct: boolean }): TestJsiiModule {
   const nsRef = options.nestedStruct ? 'MyClass.' : '';
   const nsDeclBegin = options.nestedStruct ? 'export namespace MyClass {\n' : '';
   const nsDeclEnd = options.nestedStruct ? '}' : '';

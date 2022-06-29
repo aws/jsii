@@ -1,4 +1,4 @@
-#!npx ts-node
+#!/usr/bin/env npx ts-node
 import { CSHARP_RESERVED, JAVA_RESERVED, PYTHON_RESERVED } from '../packages/jsii/lib/reserved-words';
 
 const TS = new Set([

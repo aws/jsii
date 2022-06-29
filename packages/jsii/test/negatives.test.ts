@@ -24,8 +24,8 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
   const filePath = path.join(SOURCE_DIR, source);
   test(
     source.replace(/neg\.(.+)\.ts/, '$1'),
-    async () => {
-      const { strict, stripDeprecated } = await _getPragmas(filePath);
+    () => {
+      const { strict, stripDeprecated } = _getPragmas(filePath);
 
       // Change in dir, so relative paths are processed correctly.
       process.chdir(SOURCE_DIR);
@@ -35,7 +35,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
         failOnWarnings: strict,
         stripDeprecated,
       });
-      const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
+      const emitResult = compiler.emit(path.join(SOURCE_DIR, source));
 
       expect(emitResult.emitSkipped).toBeTruthy();
 
@@ -57,23 +57,17 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
       ).toMatchSnapshot();
 
       // Cleaning up...
-      return Promise.all(
-        (await fs.readdir(SOURCE_DIR)).map((file) => {
-          const promises = new Array<Promise<any>>();
-          if (
-            file.startsWith('neg.') &&
-            (file.endsWith('.d.ts') || file.endsWith('.js'))
-          ) {
-            promises.push(fs.remove(path.join(SOURCE_DIR, file)));
-          }
-          promises.push(
-            fs.remove(path.join(SOURCE_DIR, '.jsii')),
-            fs.remove(path.join(SOURCE_DIR, 'tsconfig.json')),
-            fs.remove(path.join(SOURCE_DIR, '.build')),
-          );
-          return Promise.all(promises);
-        }),
-      );
+      fs.readdirSync(SOURCE_DIR).forEach((file) => {
+        if (
+          file.startsWith('neg.') &&
+          (file.endsWith('.d.ts') || file.endsWith('.js'))
+        ) {
+          fs.removeSync(path.join(SOURCE_DIR, file));
+        }
+        fs.removeSync(path.join(SOURCE_DIR, '.jsii'));
+        fs.removeSync(path.join(SOURCE_DIR, 'tsconfig.json'));
+        fs.removeSync(path.join(SOURCE_DIR, '.build'));
+      });
     },
     50000,
   );
@@ -81,10 +75,11 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
 
 const STRICT_MARKER = '///!STRICT!';
 const STRIP_DEPRECATED_MARKER = '///!STRIP_DEPRECATED!';
-async function _getPragmas(
-  file: string,
-): Promise<{ strict: boolean; stripDeprecated: boolean }> {
-  const data = await fs.readFile(file, { encoding: 'utf8' });
+function _getPragmas(file: string): {
+  strict: boolean;
+  stripDeprecated: boolean;
+} {
+  const data = fs.readFileSync(file, { encoding: 'utf8' });
   const lines = data.split('\n');
   const strict = lines.some((line) => line.startsWith(STRICT_MARKER));
   const stripDeprecated = lines.some((line) =>
@@ -112,6 +107,9 @@ function _makeProjectInfo(types: string): ProjectInfo {
     bundleDependencies: {},
     targets: {},
     excludeTypescript: [],
-    tsc: { outDir },
+    tsc: {
+      outDir,
+      types: ['node'],
+    },
   };
 }

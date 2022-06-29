@@ -14,12 +14,5 @@
   "license": "Apache-2.0",
   "dependencies": {
     "tablemark": "^2.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^12.20.46",
-    "eslint": "^8.10.0",
-    "prettier": "^2.5.1",
-    "ts-node": "^10.6.0",
-    "typescript": "~3.9.10"
   }
 }

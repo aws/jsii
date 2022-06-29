@@ -1,3 +1,4 @@
+import { SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { compileJsiiForTest } from 'jsii';
 import * as path from 'path';
@@ -34,9 +35,9 @@ const defaultExtractOptions = {
 };
 
 let assembly: TestJsiiModule;
-beforeEach(async () => {
+beforeEach(() => {
   // Create an assembly in a temp directory
-  assembly = await TestJsiiModule.fromSource(
+  assembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -57,7 +58,7 @@ beforeEach(async () => {
   );
 });
 
-afterEach(async () => assembly.cleanup());
+afterEach(() => assembly.cleanup());
 
 test('extract samples from test assembly', async () => {
   const cacheToFile = path.join(assembly.moduleDirectory, 'test.tabl.json');
@@ -70,6 +71,49 @@ test('extract samples from test assembly', async () => {
   await tablet.load(cacheToFile);
 
   expect(tablet.snippetKeys.length).toEqual(1);
+});
+
+test('extract works from compressed test assembly', async () => {
+  const compressedAssembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      export class ClassB {
+        public anotherMethod() {
+        }
+      }
+      `,
+      'README.md': DUMMY_README,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+    {
+      compressAssembly: true,
+    },
+  );
+
+  try {
+    // assert that assembly is zipped
+    expect(fs.existsSync(path.join(compressedAssembly.moduleDirectory, SPEC_FILE_NAME_COMPRESSED))).toBeTruthy();
+
+    // behavior is as expected
+    const cacheToFile = path.join(compressedAssembly.moduleDirectory, 'test.tabl.json');
+    await extract.extractSnippets([compressedAssembly.moduleDirectory], {
+      cacheToFile,
+      ...defaultExtractOptions,
+    });
+
+    const tablet = new LanguageTablet();
+    await tablet.load(cacheToFile);
+    expect(tablet.snippetKeys.length).toEqual(1);
+  } finally {
+    compressedAssembly.cleanup();
+  }
 });
 
 describe('with cache file', () => {
@@ -233,7 +277,7 @@ describe('with cache file', () => {
     assembly.assembly.types!['my_assembly.ClassB'].docs = {
       example: 'ClassB.anotherMethod();',
     };
-    await assembly.updateAssembly();
+    assembly.updateAssembly();
 
     const translationFunction = jest.fn().mockResolvedValue({ diagnostics: [], translatedSnippets: [] });
 
@@ -267,7 +311,7 @@ describe('non-compiling cached examples', () => {
   let cacheToFile: string;
   beforeEach(async () => {
     // Create an assembly in a temp directory
-    otherAssembly = await TestJsiiModule.fromSource(
+    otherAssembly = TestJsiiModule.fromSource(
       {
         'index.ts': `
         export class ClassA {
@@ -300,7 +344,7 @@ describe('non-compiling cached examples', () => {
     expect(tr?.snippet.didCompile).toBeFalsy();
   });
 
-  afterEach(async () => assembly.cleanup());
+  afterEach(() => assembly.cleanup());
 
   test('are ignored with strict mode', async () => {
     // second run of extract snippets should still evaluate the snippet
@@ -333,7 +377,7 @@ describe('non-compiling cached examples', () => {
 
 test('do not ignore example strings', async () => {
   // Create an assembly in a temp directory
-  const otherAssembly = await TestJsiiModule.fromSource(
+  const otherAssembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       export class ClassA {
@@ -363,14 +407,14 @@ test('do not ignore example strings', async () => {
     const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
     expect(tr?.originalSource.source).toEqual('x');
   } finally {
-    await otherAssembly.cleanup();
+    otherAssembly.cleanup();
   }
 });
 
 describe('can find fqns via symbolId when ', () => {
   test('there is an outDir', async () => {
     const outDir = 'jsii-outDir';
-    const otherAssembly = await createAssemblyWithDirectories(undefined, outDir);
+    const otherAssembly = createAssemblyWithDirectories(undefined, outDir);
     try {
       const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
       await extract.extractSnippets([otherAssembly.moduleDirectory], {
@@ -382,14 +426,14 @@ describe('can find fqns via symbolId when ', () => {
       const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
       expect(tr?.fqnsReferenced()).toEqual(['my_assembly.ClassA']);
     } finally {
-      await otherAssembly.cleanup();
+      otherAssembly.cleanup();
     }
   });
 
   test('there is an outDir and rootDir', async () => {
     const outDir = 'jsii-outDir';
     const rootDir = '.';
-    const otherAssembly = await createAssemblyWithDirectories(rootDir, outDir);
+    const otherAssembly = createAssemblyWithDirectories(rootDir, outDir);
     try {
       const outputFile = path.join(otherAssembly.moduleDirectory, 'test.tabl.json');
       await extract.extractSnippets([otherAssembly.moduleDirectory], {
@@ -401,7 +445,7 @@ describe('can find fqns via symbolId when ', () => {
       const tr = tablet.tryGetSnippet(tablet.snippetKeys[0]);
       expect(tr?.fqnsReferenced()).toEqual(['my_assembly.ClassA']);
     } finally {
-      await otherAssembly.cleanup();
+      otherAssembly.cleanup();
     }
   });
 });
@@ -428,7 +472,7 @@ test('extract and infuse in one command', async () => {
   expect(locations).toContain('type');
   expect(locations).toContain('moduleReadme');
 
-  const assemblies = await loadAssemblies([assembly.moduleDirectory], false);
+  const assemblies = loadAssemblies([assembly.moduleDirectory], false);
   const types = assemblies[0].assembly.types;
 
   // infuse works as expected
@@ -438,8 +482,8 @@ test('extract and infuse in one command', async () => {
 
 describe('infused examples', () => {
   let infusedAssembly: TestJsiiModule;
-  beforeEach(async () => {
-    infusedAssembly = await TestJsiiModule.fromSource(
+  beforeEach(() => {
+    infusedAssembly = TestJsiiModule.fromSource(
       {
         'index.ts': `
         /**
@@ -461,8 +505,8 @@ describe('infused examples', () => {
     );
   });
 
-  afterEach(async () => {
-    await infusedAssembly.cleanup();
+  afterEach(() => {
+    infusedAssembly.cleanup();
   });
 
   test('always returned from cache', async () => {
@@ -478,7 +522,7 @@ describe('infused examples', () => {
     // Nothing like this should happen in practice
     infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata =
       'infused fixture=myfix.ts-fixture';
-    await infusedAssembly.updateAssembly();
+    infusedAssembly.updateAssembly();
 
     // Expect to return cached snippet regardless of change
     // No compilation should happen
@@ -495,7 +539,7 @@ describe('infused examples', () => {
   test('skip loose mode', async () => {
     // Remove infused for now and add lit metadata that should fail
     infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts';
-    await infusedAssembly.updateAssembly();
+    infusedAssembly.updateAssembly();
 
     const cacheToFile = path.join(infusedAssembly.moduleDirectory, 'test.tabl.json');
 
@@ -509,7 +553,7 @@ describe('infused examples', () => {
 
     // Add infused to metadata and update assembly
     infusedAssembly.assembly.types!['my_assembly.ClassA'].docs!.custom!.exampleMetadata = 'lit=integ.test.ts infused';
-    await infusedAssembly.updateAssembly();
+    infusedAssembly.updateAssembly();
 
     // Expect same function call to succeed now
     await extract.extractSnippets([infusedAssembly.moduleDirectory], {
@@ -526,7 +570,7 @@ describe('infused examples', () => {
 
 test('can use additional dependencies from monorepo', async () => {
   logging.configure({ level: logging.Level.VERBOSE });
-  const asm = await TestJsiiModule.fromSource(
+  const asm = TestJsiiModule.fromSource(
     {
       'index.ts': `
         /**
@@ -555,8 +599,8 @@ test('can use additional dependencies from monorepo', async () => {
   );
   try {
     // GIVEN - install some random other module
-    await asm.workspace.addDependency(
-      await compileJsiiForTest(
+    asm.workspace.addDependency(
+      compileJsiiForTest(
         {
           'index.ts': 'export class SomeClass { }',
         },
@@ -576,12 +620,12 @@ test('can use additional dependencies from monorepo', async () => {
     await extract.extractSnippets([asm.moduleDirectory], defaultExtractOptions);
     // THEN -- did not throw an error
   } finally {
-    await asm.cleanup();
+    asm.cleanup();
   }
 });
 
 test('can use additional dependencies from NPM', async () => {
-  const asm = await TestJsiiModule.fromSource(
+  const asm = TestJsiiModule.fromSource(
     {
       'index.ts': `
         /**
@@ -613,12 +657,12 @@ test('can use additional dependencies from NPM', async () => {
     await extract.extractSnippets([asm.moduleDirectory], defaultExtractOptions);
     // THEN -- did not throw an error
   } finally {
-    await asm.cleanup();
+    asm.cleanup();
   }
 });
 
 test('infused examples have no diagnostics', async () => {
-  const otherAssembly = await TestJsiiModule.fromSource(
+  const otherAssembly = TestJsiiModule.fromSource(
     {
       'index.ts': `
       /**
@@ -651,7 +695,7 @@ test('infused examples have no diagnostics', async () => {
 
     expect(results.diagnostics).toEqual([]);
   } finally {
-    await otherAssembly.cleanup();
+    otherAssembly.cleanup();
   }
 });
 
@@ -662,7 +706,7 @@ class MockTranslator extends RosettaTranslator {
   }
 }
 
-async function createAssemblyWithDirectories(rootDir?: string, outDir?: string) {
+function createAssemblyWithDirectories(rootDir?: string, outDir?: string) {
   return TestJsiiModule.fromSource(
     {
       'index.ts': `

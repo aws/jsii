@@ -5,3 +5,4 @@
 
 # Ignore our test files
 project/compliance-report.json
+*.d.ts.map

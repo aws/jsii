@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['12', '14', '16']
+        node: ['14', '16', '18']
     env:
       # Node version whose images will be aliased without the -nodeXX segment
-      DEFAULT_NODE_MAJOR_VERSION: 12
+      DEFAULT_NODE_MAJOR_VERSION: 14
     steps:
       - name: Check out
         uses: actions/checkout@v3
@@ -62,19 +62,19 @@ jobs:
         shell: bash
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
         with:
           platforms: arm64
 
       - name: Set up docker buildx
         id: buildx
         if: steps.should-run.outputs.result == 'true'
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       # We only restore GH cache if we are not going to publish the result (i.e: PR validation)
       - name: Set up layer cache
         if: steps.should-run.outputs.result == 'true' && github.event_name != 'push'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-${{ github.sha }}
@@ -103,13 +103,6 @@ jobs:
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
             -f superchain/Dockerfile                                            \
             .
-
-      # Replace the cache so it does not grow forever
-      - name: Update layer cache
-        if: always() && steps.should-run.outputs.result == 'true'
-        run: |-
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-out /tmp/.buildx-cache
 
       # Testing sequentially, because in parallel it's too slow due to IO contention
       - name: Test Image (AMD64)
@@ -209,3 +202,10 @@ jobs:
               -f superchain/Dockerfile                                            \
               .
           fi
+
+      # Replace the cache so it does not grow forever (should always be last!)
+      - name: Update layer cache
+        if: always() && steps.should-run.outputs.result == 'true'
+        run: |-
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-out /tmp/.buildx-cache
