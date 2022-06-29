@@ -824,7 +824,11 @@ function nullAndOk(x: unknown, type: OptionalValueOrVoid): boolean {
 
   if (type !== 'void' && !type.optional) {
     throw new Error(
-      `Got 'undefined' for non-optional instance of ${JSON.stringify(type)}`,
+      `Got '${JSON.stringify(
+        x,
+      )}' where a non-optional '${spec.describeTypeReference(
+        type.type,
+      )}' value was expected`,
     );
   }
 
