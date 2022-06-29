@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import { extract } from 'tar';
 import * as zlib from 'zlib';
 
 import {
@@ -7,6 +8,7 @@ import {
   SPEC_FILE_NAME,
   SPEC_FILE_NAME_COMPRESSED,
 } from './assembly';
+import { makeTempDir } from './utils';
 import { validateAssembly } from './validate-assembly';
 
 /**
@@ -65,12 +67,76 @@ export function writeAssembly(
 }
 
 /**
+ * Loads the assembly file from a tarball archive and, if present,
+ * follows instructions found in the file to unzip compressed assemblies.
+ *
+ * @param tarball the path to the tarball archive
+ * @param directory the path to the assembly directory within the tarball
+ * @param validate whether or not to validate the assembly
+ * @returns the assembly file as an Assembly object
+ */
+export function loadAssemblyFromTarball(
+  tarball: string,
+  directory: string,
+  validate = true,
+): Assembly {
+  // temp directory for storing extracted files
+  const tmpdir = makeTempDir();
+
+  // Removes leading path.sep if present (i.e '/blah/.jsii' becomes 'blah/.jsii')
+  const dotJsiiFile = path.join('.', directory, SPEC_FILE_NAME);
+  const extractedDotJsiiFile = extractFileFromTarball(tarball, dotJsiiFile);
+
+  let contents = readAssembly(extractedDotJsiiFile);
+  if (isRedirect(contents)) {
+    extractFileFromTarball(
+      tarball,
+      path.join(directory, SPEC_FILE_NAME_COMPRESSED),
+      tmpdir,
+    );
+    contents = findRedirectAssembly(extractedDotJsiiFile, contents);
+  }
+
+  fs.removeSync(tmpdir);
+
+  return validate ? validateAssembly(contents) : (contents as Assembly);
+}
+
+/**
+ * Helper method to extract a single file from a tarball archive.
+ *
+ * @param tarball the path to the tarball archive
+ * @param file the file to extract. if no file is given, then the entire contents
+ * of the tarball are extracted
+ * @param extractTo the directory to extract the file(s) to
+ * @returns the path to the extracted file
+ */
+function extractFileFromTarball(
+  tarball: string,
+  file: string,
+  extractTo?: string,
+) {
+  const dir = extractTo ?? process.cwd();
+  extract(
+    {
+      cwd: dir,
+      file: tarball,
+      sync: true,
+    },
+    [file],
+  );
+
+  // tar will drop the extracted file at this location
+  return path.join(dir, file);
+}
+
+/**
  * Loads the assembly file and, if present, follows instructions
  * found in the file to unzip compressed assemblies.
  *
  * @param directory the directory of the assembly file
  * @param validate whether to validate the contents of the file
- * @returns the assembly file as json
+ * @returns the assembly file as an Assembly object
  */
 export function loadAssemblyFromPath(
   directory: string,
@@ -86,7 +152,7 @@ export function loadAssemblyFromPath(
  *
  * @param pathToFile the path to the SPEC_FILE_NAME file
  * @param validate whether to validate the contents of the file
- * @returns the assembly file as json
+ * @returns the assembly file as an Assembly object
  */
 export function loadAssemblyFromFile(
   pathToFile: string,
@@ -95,11 +161,15 @@ export function loadAssemblyFromFile(
   let contents = readAssembly(pathToFile);
 
   // check if the file holds instructions to the actual assembly file
-  if (contents.schema === 'jsii/file-redirect') {
+  if (isRedirect(contents)) {
     contents = findRedirectAssembly(pathToFile, contents);
   }
 
   return validate ? validateAssembly(contents) : (contents as Assembly);
+}
+
+function isRedirect(contents: any): boolean {
+  return contents.schema === 'jsii/file-redirect';
 }
 
 function readAssembly(pathToFile: string) {

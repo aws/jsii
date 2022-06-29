@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
-import * as os from 'os';
 import * as path from 'path';
+import { create } from 'tar';
 
 import {
   SPEC_FILE_NAME,
@@ -12,7 +12,9 @@ import {
   loadAssemblyFromPath,
   getAssemblyFile,
   writeAssembly,
+  loadAssemblyFromTarball,
 } from './assembly-utils';
+import { makeTempDir } from './utils';
 
 const TEST_ASSEMBLY: Assembly = {
   schema: SchemaVersion.LATEST,
@@ -147,6 +149,19 @@ describe('loadAssemblyFromPath', () => {
   });
 });
 
-function makeTempDir() {
-  return fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
-}
+describe('loadAssemblyFromTarball', () => {
+  test('loads uncompressed assembly', () => {
+    const tmpdir = makeTempDir();
+    writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
+    const tarball = path.join(tmpdir, 'tar.tgz');
+    create(
+      {
+        file: tarball,
+        sync: true,
+      },
+      [tmpdir],
+    );
+
+    expect(loadAssemblyFromTarball(tarball, tmpdir)).toEqual(TEST_ASSEMBLY);
+  });
+});
