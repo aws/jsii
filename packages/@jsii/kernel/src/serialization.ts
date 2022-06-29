@@ -217,7 +217,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
   // ----------------------------------------------------------------------
   [SerializationClass.Json]: {
-    serialize(value) {
+    serialize(value, optionalValue) {
+      // /!\ Top-level "null" will turn to undefined, but any null nested in the value is valid JSON, so it'll stay!
+      if (nullAndOk(value, optionalValue)) {
+        return undefined;
+      }
+
       // Just whatever. Dates will automatically serialize themselves to strings.
       return value;
     },
