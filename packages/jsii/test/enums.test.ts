@@ -57,3 +57,16 @@ test('enums can have a mix of letters and number', () => {
     { name: 'IB3M' },
   ]);
 });
+
+test('enums with the same assigned value should fail', () => {
+  expect(() =>
+    sourceToAssemblyHelper(`
+    export enum Foo {
+      BAR = 'Bar',
+      BAR_DUPE = 'Bar',
+      BAZ = 'Baz',
+      BAZ_DUPE = 'Baz',
+    }
+  `),
+  ).toThrow(/There were compiler errors/);
+});
