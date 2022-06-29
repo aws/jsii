@@ -52,23 +52,7 @@ updates:
       - dependency-name: "setuptools"
 
   - package-ecosystem: gomod
-    directory: '/packages/@jsii/go-runtime'
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-      - language/go
-
-  - package-ecosystem: gomod
-    directory: '/packages/@jsii/go-runtime/jsii-runtime-go'
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-      - language/go
-
-  - package-ecosystem: gomod
-    directory: '/packages/@jsii/go-runtime-test/project'
+    directory: '/'
     schedule:
       interval: daily
     labels:
