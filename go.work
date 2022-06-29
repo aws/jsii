@@ -1,0 +1,7 @@
+go 1.16
+
+use (
+	./packages/@jsii/go-runtime
+	./packages/@jsii/go-runtime-test/project
+	./packages/@jsii/go-runtime/jsii-runtime-go
+)
