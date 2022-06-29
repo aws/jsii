@@ -37,9 +37,17 @@ const TEST_ASSEMBLY: Assembly = {
   jsiiVersion: '1.0.0',
 };
 
+let tmpdir: string;
+beforeEach(() => {
+  tmpdir = makeTempDir();
+});
+
+afterEach(() => {
+  fs.removeSync(tmpdir);
+});
+
 describe('writeAssembly', () => {
   test('can write compressed assembly', () => {
-    const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
 
     expect(
@@ -58,7 +66,6 @@ describe('writeAssembly', () => {
   });
 
   test('can write uncompressed assembly', () => {
-    const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
 
     expect(fs.existsSync(path.join(tmpdir, SPEC_FILE_NAME))).toBeTruthy();
@@ -67,22 +74,18 @@ describe('writeAssembly', () => {
 
 describe('getAssemblyFile', () => {
   test('finds SPEC_FILE_NAME file when there is no compression', () => {
-    const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
 
     expect(getAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
   });
 
   test('finds SPEC_FILE_NAME file even when there is compression', () => {
-    const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
 
     expect(getAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
   });
 
   test('throws if SPEC_FILE_NAME file does not exist', () => {
-    const tmpdir = makeTempDir();
-
     expect(() => getAssemblyFile(tmpdir)).toThrow(
       `Expected to find ${SPEC_FILE_NAME} file in ${tmpdir}, but no such file found`,
     );
@@ -91,14 +94,12 @@ describe('getAssemblyFile', () => {
 
 describe('loadAssemblyFromPath', () => {
   test('loads compressed assembly', () => {
-    const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
 
     expect(loadAssemblyFromPath(tmpdir)).toEqual(TEST_ASSEMBLY);
   });
 
   test('loads uncompressed assembly', () => {
-    const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
 
     expect(loadAssemblyFromPath(tmpdir)).toEqual(TEST_ASSEMBLY);
@@ -114,10 +115,12 @@ describe('loadAssemblyFromPath', () => {
     expect(loadAssemblyFromPath(compressedTmpDir)).toEqual(
       loadAssemblyFromPath(uncompressedTmpDir),
     );
+
+    fs.removeSync(compressedTmpDir);
+    fs.removeSync(uncompressedTmpDir);
   });
 
   test('throws if redirect schema is invalid', () => {
-    const tmpdir = makeTempDir();
     fs.writeJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
       schema: 'jsii/file-redirect',
       compression: '7zip',
@@ -133,7 +136,6 @@ describe('loadAssemblyFromPath', () => {
   });
 
   test('throws if assembly is invalid', () => {
-    const tmpdir = makeTempDir();
     fs.writeJsonSync(
       path.join(tmpdir, SPEC_FILE_NAME),
       {
@@ -151,7 +153,6 @@ describe('loadAssemblyFromPath', () => {
 
 describe('loadAssemblyFromTarball', () => {
   test('loads uncompressed assembly', () => {
-    const tmpdir = makeTempDir();
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
     const tarball = path.join(tmpdir, 'tar.tgz');
     create(
