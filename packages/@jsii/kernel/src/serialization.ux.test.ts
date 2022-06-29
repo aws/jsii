@@ -36,7 +36,11 @@ const host: SerializerHost = {
     if (errors.length === 1) {
       throw errors[0];
     } else {
-      throw new Error(`Unable to serialize value:\n- ${errors.map(e => e.message).join('\n- ')}`);
+      throw new Error(
+        `Unable to serialize value:\n- ${errors
+          .map((e) => e.message)
+          .join('\n- ')}`,
+      );
     }
   },
 };
