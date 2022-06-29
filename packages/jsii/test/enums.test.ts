@@ -58,8 +58,8 @@ test('enums can have a mix of letters and number', () => {
   ]);
 });
 
-test('enums with the same assigned value should fail', async () => {
-  await expect(() =>
+test('enums with the same assigned value should fail', () => {
+  expect(() =>
     sourceToAssemblyHelper(`
     export enum Foo {
       BAR = 'Bar',
@@ -68,5 +68,5 @@ test('enums with the same assigned value should fail', async () => {
       BAZ_DUPE = 'Baz',
     }
   `),
-  ).rejects.toThrowError('There were compiler errors');
+  ).toThrow(/There were compiler errors/);
 });
