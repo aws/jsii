@@ -132,7 +132,7 @@ describe(SerializationClass.Array, () => {
       ├── 🛑 Failing value is an array
       │      [ 'Not a number' ]
       ╰── 🔍 Failure reason(s):
-          ╰─ [0] Unable to serialize value index 0 as number
+          ╰─ [0] Unable to serialize value at index 0 as number
               ├── 🛑 Failing value is a string
               │      'Not a number'
               ╰── 🔍 Failure reason(s):
@@ -329,7 +329,7 @@ describe(SerializationClass.Map, () => {
       ├── 🛑 Failing value is an object
       │      { this: [Array] }
       ╰── 🔍 Failure reason(s):
-          ╰─ [0] Unable to serialize value key "this" as number
+          ╰─ [0] Unable to serialize value of key "this" as number
               ├── 🛑 Failing value is an array
               │      [ 'is', 'not', 'an', 'Array' ]
               ╰── 🔍 Failure reason(s):
@@ -369,13 +369,9 @@ describe(SerializationClass.Map, () => {
       ├── 🛑 Failing value is an array
       │      [ 'Not a number' ]
       ╰── 🔍 Failure reason(s):
-          ╰─ [0] Unable to serialize value key "0" as number
-              ├── 🛑 Failing value is a string
-              │      'Not a number'
-              ╰── 🔍 Failure reason(s):
-                  ╰─ [0] Value is not a number
-                      ╰── 🛑 Failing value is a string
-                             'Not a number'
+          ╰─ [0] Value is an array
+              ╰── 🛑 Failing value is an array
+                     [ 'Not a number' ]
     `);
   });
 });

@@ -269,7 +269,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           {
             type: { primitive: spec.PrimitiveType.Json },
           },
-          typeof key === 'string' ? `key ${key}` : `index ${key}`,
+          typeof key === 'string' ? `of key ${key}` : `at index ${key}`,
         );
       }
     },
@@ -338,7 +338,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'serialize',
           x,
           { type: arrayType.collection.elementtype },
-          `index ${idx}`,
+          `at index ${idx}`,
         ),
       );
     },
@@ -360,7 +360,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           x,
           { type: arrayType.collection.elementtype },
-          `index ${idx}`,
+          `at index ${idx}`,
         ),
       );
     },
@@ -382,7 +382,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'serialize',
             v,
             { type: mapType.collection.elementtype },
-            `key ${JSON.stringify(key)}`,
+            `of key ${JSON.stringify(key)}`,
           ),
         ),
       };
@@ -402,7 +402,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'deserialize',
             v,
             { type: mapType.collection.elementtype },
-            `key ${JSON.stringify(key)}`,
+            `of key ${JSON.stringify(key)}`,
           ),
         );
       }
@@ -412,7 +412,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           v,
           { type: mapType.collection.elementtype },
-          `key ${JSON.stringify(key)}`,
+          `of key ${JSON.stringify(key)}`,
         ),
       );
       Object.defineProperty(result, SYMBOL_WIRE_TYPE, {
@@ -527,7 +527,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           v,
           props[key],
-          `property ${JSON.stringify(key)}`,
+          `of property ${JSON.stringify(key)}`,
         );
       });
     },
@@ -621,7 +621,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'serialize',
             e,
             { type: spec.CANONICAL_ANY },
-            `index ${idx}`,
+            `at index ${idx}`,
           ),
         );
       }
@@ -700,7 +700,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'serialize',
           v,
           { type: spec.CANONICAL_ANY },
-          `key ${JSON.stringify(key)}`,
+          `of key ${JSON.stringify(key)}`,
         ),
       );
     },
@@ -726,7 +726,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'deserialize',
             e,
             { type: spec.CANONICAL_ANY },
-            `index ${idx}`,
+            `at index ${idx}`,
           ),
         );
       }
@@ -775,7 +775,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           v,
           { type: spec.CANONICAL_ANY },
-          `key ${key}`,
+          `of key ${key}`,
         ),
       );
     },
@@ -936,6 +936,10 @@ function mapValues(
 ): { [key: string]: any } {
   if (typeof value !== 'object' || value == null) {
     throw new SerializationError(`Value is not an object`, value);
+  }
+
+  if (Array.isArray(value)) {
+    throw new SerializationError(`Value is an array`, value);
   }
 
   const out: { [key: string]: any } = {};
