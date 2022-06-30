@@ -36,7 +36,7 @@ describe('serialize errors', () => {
       },
     };
 
-    test('when provided with a string', () => {
+    test('when passed a string', () => {
       expect(() =>
         process(
           host,
@@ -54,7 +54,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'serialize', 1337, arrayType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
               Dummy value: Unable to serialize value as array<number>
@@ -65,7 +65,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with a date', () => {
+    test('when passed a date', () => {
       expect(() =>
         process(host, 'serialize', new Date(65_535), arrayType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -77,7 +77,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -95,7 +95,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'serialize', undefined, arrayType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -106,7 +106,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'serialize', null, arrayType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
               Dummy value: Unable to serialize value as array<number>
@@ -116,7 +116,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with an array including a bad value', () => {
+    test('when passed an array including a bad value', () => {
       expect(() =>
         process(host, 'serialize', ['Not a number'], arrayType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -141,7 +141,7 @@ describe('serialize errors', () => {
       },
     };
 
-    test('when provided with a string', () => {
+    test('when passed a string', () => {
       expect(() =>
         process(
           host,
@@ -159,7 +159,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'serialize', 1337, dateType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
               Dummy value: Unable to serialize value as date
@@ -170,7 +170,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -188,7 +188,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'serialize', undefined, dateType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -199,7 +199,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'serialize', null, dateType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
               Dummy value: Unable to serialize value as date
@@ -209,7 +209,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with an array', () => {
+    test('when passed an array', () => {
       expect(() =>
         process(host, 'serialize', ['Not a number'], dateType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -250,7 +250,7 @@ describe('serialize errors', () => {
       done();
     });
 
-    test('when provided with a string that is not in the enum', () => {
+    test('when passed a string that is not in the enum', () => {
       expect(() =>
         process(
           host,
@@ -268,7 +268,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with a number that is not in the enum', () => {
+    test('when passed a number that is not in the enum', () => {
       expect(() => process(host, 'serialize', 1337, enumType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to serialize value as phony.module.EnumType
@@ -279,7 +279,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with a date', () => {
+    test('when passed a date', () => {
       expect(() =>
         process(host, 'serialize', new Date(65_535), enumType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -291,7 +291,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -309,7 +309,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'serialize', undefined, enumType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -320,7 +320,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'serialize', null, enumType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to serialize value as phony.module.EnumType
@@ -330,7 +330,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with an array including a bad value', () => {
+    test('when passed an array', () => {
       expect(() =>
         process(host, 'serialize', ['Not a number'], enumType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -351,7 +351,7 @@ describe('serialize errors', () => {
       },
     };
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'serialize', undefined, jsonType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -362,7 +362,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'serialize', null, jsonType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
               Dummy value: Unable to serialize value as json
@@ -383,7 +383,7 @@ describe('serialize errors', () => {
         },
       },
     };
-    test('when provided with a string', () => {
+    test('when passed a string', () => {
       expect(() =>
         process(
           host,
@@ -401,7 +401,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'serialize', 1337, mapType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
               Dummy value: Unable to serialize value as map<number>
@@ -412,7 +412,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with an object with invalid values', () => {
+    test('when passed an object with invalid values', () => {
       expect(() =>
         process(
           host,
@@ -434,7 +434,7 @@ describe('serialize errors', () => {
           `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'serialize', undefined, mapType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -445,7 +445,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'serialize', null, mapType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to serialize value as map<number>
@@ -455,7 +455,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with an array', () => {
+    test('when passed an array', () => {
       expect(() =>
         process(host, 'serialize', ['Not a number'], mapType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -476,7 +476,7 @@ describe('serialize errors', () => {
       },
     };
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'serialize', 1337, stringType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to serialize value as string
@@ -487,7 +487,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -505,7 +505,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'serialize', undefined, stringType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -516,7 +516,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'serialize', null, stringType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to serialize value as string
@@ -526,7 +526,7 @@ describe('serialize errors', () => {
       `);
     });
 
-    test('when provided with an array', () => {
+    test('when passed an array', () => {
       expect(() =>
         process(host, 'serialize', ['Not a number'], stringType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -535,6 +535,106 @@ describe('serialize errors', () => {
         │      [ 'Not a number' ]
         ╰── 🔍 Failure reason(s):
             ╰─ Value is not a string
+      `);
+    });
+  });
+
+  describe(SerializationClass.Struct, () => {
+    const STRUCT_FQN = 'phony.module.Struct';
+    const STRUCT_TYPE: spec.InterfaceType = {
+      assembly: 'phony',
+      fqn: STRUCT_FQN,
+      kind: spec.TypeKind.Interface,
+      name: 'Struct',
+      datatype: true,
+      properties: [],
+    };
+    const structType: spec.OptionalValue = {
+      optional: false,
+      type: {
+        fqn: STRUCT_FQN,
+      },
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect(fqn).toBe(STRUCT_FQN);
+        return STRUCT_TYPE;
+      });
+      done();
+    });
+
+    test('when passed a string', () => {
+      expect(() =>
+        process(
+          host,
+          'serialize',
+          "I'm array-like, but not quite an array",
+          structType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.Struct
+        ├── 🛑 Failing value is a string
+        │      "I'm array-like, but not quite an array"
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+
+    test('when passed a number', () => {
+      expect(() => process(host, 'serialize', 1337, structType, `dummy value`))
+        .toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.Struct
+        ├── 🛑 Failing value is a number
+        │      1337
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+
+    test('when passed a date', () => {
+      expect(() =>
+        process(host, 'serialize', new Date(65_535), structType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.Struct
+        ├── 🛑 Failing value is an instance of Date
+        │      1970-01-01T00:01:05.535Z
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+
+    test('when passed undefined', () => {
+      expect(() =>
+        process(host, 'serialize', undefined, structType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.Struct
+        ├── 🛑 Failing value is undefined
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed null', () => {
+      expect(() => process(host, 'serialize', null, structType, `dummy value`))
+        .toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.Struct
+        ├── 🛑 Failing value is null
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed an array', () => {
+      expect(() =>
+        process(host, 'serialize', ['Not a number'], structType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.Struct
+        ├── 🛑 Failing value is an array
+        │      [ 'Not a number' ]
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is an array
       `);
     });
   });
@@ -552,7 +652,7 @@ describe('deserialize errors', () => {
       },
     };
 
-    test('when provided with a string', () => {
+    test('when passed a string', () => {
       expect(() =>
         process(
           host,
@@ -570,7 +670,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'deserialize', 1337, arrayType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as array<number>
@@ -581,7 +681,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with a date', () => {
+    test('when passed a date', () => {
       expect(() =>
         process(
           host,
@@ -599,7 +699,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -617,7 +717,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'deserialize', undefined, arrayType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -628,7 +728,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'deserialize', null, arrayType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as array<number>
@@ -638,7 +738,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an array including a bad value', () => {
+    test('when passed an array including a bad value', () => {
       expect(() =>
         process(
           host,
@@ -669,7 +769,7 @@ describe('deserialize errors', () => {
       },
     };
 
-    test('when provided with a string', () => {
+    test('when passed a string', () => {
       expect(() =>
         process(
           host,
@@ -687,7 +787,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'deserialize', 1337, dateType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as date
@@ -698,7 +798,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -716,7 +816,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'deserialize', undefined, dateType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -727,7 +827,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'deserialize', null, dateType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as date
@@ -737,7 +837,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an array', () => {
+    test('when passed an array', () => {
       expect(() =>
         process(host, 'deserialize', ['Not a number'], dateType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -778,7 +878,7 @@ describe('deserialize errors', () => {
       done();
     });
 
-    test('when provided with a string', () => {
+    test('when passed a string', () => {
       expect(() =>
         process(
           host,
@@ -796,7 +896,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'deserialize', 1337, enumType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as phony.module.EnumType
@@ -807,7 +907,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with a date', () => {
+    test('when passed a date', () => {
       expect(() =>
         process(host, 'deserialize', new Date(65_535), enumType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -819,7 +919,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -837,7 +937,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'deserialize', undefined, enumType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -848,7 +948,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'deserialize', null, enumType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as phony.module.EnumType
@@ -858,7 +958,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an array including a bad value', () => {
+    test('when passed an array including a bad value', () => {
       expect(() =>
         process(host, 'deserialize', ['Not a number'], enumType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -879,7 +979,7 @@ describe('deserialize errors', () => {
       },
     };
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'deserialize', undefined, jsonType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -890,7 +990,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'deserialize', null, jsonType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as json
@@ -911,7 +1011,7 @@ describe('deserialize errors', () => {
         },
       },
     };
-    test('when provided with a string', () => {
+    test('when passed a string', () => {
       expect(() =>
         process(
           host,
@@ -929,7 +1029,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() => process(host, 'deserialize', 1337, mapType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as map<number>
@@ -940,7 +1040,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an object with invalid values', () => {
+    test('when passed an object with invalid values', () => {
       expect(() =>
         process(
           host,
@@ -962,7 +1062,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'deserialize', undefined, mapType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -973,7 +1073,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() => process(host, 'deserialize', null, mapType, `dummy value`))
         .toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to deserialize value as map<number>
@@ -983,7 +1083,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an array', () => {
+    test('when passed an array', () => {
       expect(() =>
         process(host, 'deserialize', ['Not a number'], mapType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -1004,7 +1104,7 @@ describe('deserialize errors', () => {
       },
     };
 
-    test('when provided with a number', () => {
+    test('when passed a number', () => {
       expect(() =>
         process(host, 'deserialize', 1337, stringType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -1016,7 +1116,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an object', () => {
+    test('when passed an object', () => {
       expect(() =>
         process(
           host,
@@ -1034,7 +1134,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with undefined', () => {
+    test('when passed undefined', () => {
       expect(() =>
         process(host, 'deserialize', undefined, stringType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -1045,7 +1145,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with null', () => {
+    test('when passed null', () => {
       expect(() =>
         process(host, 'deserialize', null, stringType, `dummy value`),
       ).toThrowErrorMatchingInlineSnapshot(`
@@ -1056,7 +1156,7 @@ describe('deserialize errors', () => {
       `);
     });
 
-    test('when provided with an array', () => {
+    test('when passed an array', () => {
       expect(() =>
         process(
           host,
@@ -1071,6 +1171,175 @@ describe('deserialize errors', () => {
         │      [ 'Not a number' ]
         ╰── 🔍 Failure reason(s):
             ╰─ Value is not a string
+      `);
+    });
+  });
+
+  describe(SerializationClass.Struct, () => {
+    const STRUCT_FQN = 'phony.module.Struct';
+    const STRUCT_TYPE: spec.InterfaceType = {
+      assembly: 'phony',
+      fqn: STRUCT_FQN,
+      kind: spec.TypeKind.Interface,
+      name: 'Struct',
+      datatype: true,
+      properties: [
+        {
+          name: 'this',
+          type: {
+            collection: {
+              kind: spec.CollectionKind.Array,
+              elementtype: { primitive: spec.PrimitiveType.String },
+            },
+          },
+          optional: true,
+        },
+        {
+          name: 'that',
+          type: { primitive: spec.PrimitiveType.Number },
+        },
+      ],
+    };
+    const structType: spec.OptionalValue = {
+      optional: false,
+      type: {
+        fqn: STRUCT_FQN,
+      },
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect(fqn).toBe(STRUCT_FQN);
+        return STRUCT_TYPE;
+      });
+      done();
+    });
+
+    test('when passed a string', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          "I'm array-like, but not quite an array",
+          structType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is a string
+        │      "I'm array-like, but not quite an array"
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+
+    test('when passed a number', () => {
+      expect(() =>
+        process(host, 'deserialize', 1337, structType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is a number
+        │      1337
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+
+    test('when passed a date', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          new Date(65_535),
+          structType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is an instance of Date
+        │      1970-01-01T00:01:05.535Z
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed undefined', () => {
+      expect(() =>
+        process(host, 'deserialize', undefined, structType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is undefined
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed null', () => {
+      expect(() =>
+        process(host, 'deserialize', null, structType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is null
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed an array', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          ['Not a number'],
+          structType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is an array
+        │      [ 'Not a number' ]
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is an array (varargs may have been incorrectly supplied)
+      `);
+    });
+
+    test('when passed an object missing a required property', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          { this: ['is not a serialized', 'struct'] },
+          structType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is an object
+        │      { this: [Array] }
+        ╰── 🔍 Failure reason(s):
+            ╰─ Missing required properties for phony.module.Struct: 'that'
+      `);
+    });
+
+    test('when passed an object with a bad property value', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          { that: 'is not a number' },
+          structType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.Struct
+        ├── 🛑 Failing value is an object
+        │      { that: 'is not a number' }
+        ╰── 🔍 Failure reason(s):
+            ╰─ Key 'that': Unable to deserialize value as number
+                ├── 🛑 Failing value is a string
+                │      'is not a number'
+                ╰── 🔍 Failure reason(s):
+                    ╰─ Value is not a number
       `);
     });
   });

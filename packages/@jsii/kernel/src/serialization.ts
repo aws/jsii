@@ -433,8 +433,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       }
       assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
-      if (typeof value !== 'object' || value == null) {
+      if (typeof value !== 'object' || value == null || value instanceof Date) {
         throw new SerializationError(`Value is not an object`, value);
+      }
+
+      if (Array.isArray(value)) {
+        throw new SerializationError(`Value is an array`, value);
       }
 
       /*
@@ -1032,9 +1036,9 @@ function validateRequiredProps(
 
   if (missingRequiredProps.length > 0) {
     throw new SerializationError(
-      `Missing required properties for ${typeName}: ${missingRequiredProps.join(
-        ', ',
-      )}`,
+      `Missing required properties for ${typeName}: ${missingRequiredProps
+        .map((p) => inspect(p))
+        .join(', ')}`,
       actualProps,
     );
   }
