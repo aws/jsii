@@ -222,6 +222,127 @@ describe('serialize errors', () => {
     });
   });
 
+  describe(SerializationClass.Enum, () => {
+    const ENUM_TYPE_FQN = 'phony.module.EnumType';
+    const ENUM_TYPE: spec.EnumType = {
+      assembly: 'phony',
+      fqn: ENUM_TYPE_FQN,
+      kind: spec.TypeKind.Enum,
+      members: [],
+      name: 'EnumType',
+      namespace: 'module',
+    };
+    const ENUM_MAP = {} as const;
+    const enumType: spec.OptionalValue = {
+      optional: false,
+      type: { fqn: ENUM_TYPE_FQN },
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect(fqn).toBe(ENUM_TYPE_FQN);
+        return ENUM_TYPE;
+      });
+      findSymbol.mockImplementation((fqn) => {
+        expect(fqn).toBe(ENUM_TYPE_FQN);
+        return ENUM_MAP;
+      });
+      done();
+    });
+
+    test('when provided with a string that is not in the enum', () => {
+      expect(() =>
+        process(
+          host,
+          'serialize',
+          "I'm array-like, but not quite an array",
+          enumType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.EnumType
+        ├── 🛑 Failing value is a string
+        │      "I'm array-like, but not quite an array"
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not present in enum phony.module.EnumType
+      `);
+    });
+
+    test('when provided with a number that is not in the enum', () => {
+      expect(() => process(host, 'serialize', 1337, enumType, `dummy value`))
+        .toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.EnumType
+        ├── 🛑 Failing value is a number
+        │      1337
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not present in enum phony.module.EnumType
+      `);
+    });
+
+    test('when provided with a date', () => {
+      expect(() =>
+        process(host, 'serialize', new Date(65_535), enumType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.EnumType
+        ├── 🛑 Failing value is an instance of Date
+        │      1970-01-01T00:01:05.535Z
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not a string or number
+      `);
+    });
+
+    test('when provided with an object', () => {
+      expect(() =>
+        process(
+          host,
+          'serialize',
+          { this: ['is', 'not', 'an', 'Array'] },
+          enumType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.EnumType
+        ├── 🛑 Failing value is an object
+        │      { this: [Array] }
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not a string or number
+      `);
+    });
+
+    test('when provided with undefined', () => {
+      expect(() =>
+        process(host, 'serialize', undefined, enumType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.EnumType
+        ├── 🛑 Failing value is undefined
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when provided with null', () => {
+      expect(() => process(host, 'serialize', null, enumType, `dummy value`))
+        .toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.EnumType
+        ├── 🛑 Failing value is null
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when provided with an array including a bad value', () => {
+      expect(() =>
+        process(host, 'serialize', ['Not a number'], enumType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.EnumType
+        ├── 🛑 Failing value is an array
+        │      [ 'Not a number' ]
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not a string or number
+      `);
+    });
+  });
+
   describe(SerializationClass.Json, () => {
     const jsonType: spec.OptionalValue = {
       optional: false,
@@ -625,6 +746,127 @@ describe('deserialize errors', () => {
         │      [ 'Not a number' ]
         ╰── 🔍 Failure reason(s):
             ╰─ Value does not have the "$jsii.date" key
+      `);
+    });
+  });
+
+  describe(SerializationClass.Enum, () => {
+    const ENUM_TYPE_FQN = 'phony.module.EnumType';
+    const ENUM_TYPE: spec.EnumType = {
+      assembly: 'phony',
+      fqn: ENUM_TYPE_FQN,
+      kind: spec.TypeKind.Enum,
+      members: [],
+      name: 'EnumType',
+      namespace: 'module',
+    };
+    const ENUM_MAP = {} as const;
+    const enumType: spec.OptionalValue = {
+      optional: false,
+      type: { fqn: ENUM_TYPE_FQN },
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect(fqn).toBe(ENUM_TYPE_FQN);
+        return ENUM_TYPE;
+      });
+      findSymbol.mockImplementation((fqn) => {
+        expect(fqn).toBe(ENUM_TYPE_FQN);
+        return ENUM_MAP;
+      });
+      done();
+    });
+
+    test('when provided with a string', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          "I'm array-like, but not quite an array",
+          enumType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.EnumType
+        ├── 🛑 Failing value is a string
+        │      "I'm array-like, but not quite an array"
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.enum" key
+      `);
+    });
+
+    test('when provided with a number', () => {
+      expect(() => process(host, 'deserialize', 1337, enumType, `dummy value`))
+        .toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.EnumType
+        ├── 🛑 Failing value is a number
+        │      1337
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.enum" key
+      `);
+    });
+
+    test('when provided with a date', () => {
+      expect(() =>
+        process(host, 'deserialize', new Date(65_535), enumType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.EnumType
+        ├── 🛑 Failing value is an instance of Date
+        │      1970-01-01T00:01:05.535Z
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.enum" key
+      `);
+    });
+
+    test('when provided with an object', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          { this: ['is', 'not', 'an', 'Array'] },
+          enumType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.EnumType
+        ├── 🛑 Failing value is an object
+        │      { this: [Array] }
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.enum" key
+      `);
+    });
+
+    test('when provided with undefined', () => {
+      expect(() =>
+        process(host, 'deserialize', undefined, enumType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.EnumType
+        ├── 🛑 Failing value is undefined
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when provided with null', () => {
+      expect(() => process(host, 'deserialize', null, enumType, `dummy value`))
+        .toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.EnumType
+        ├── 🛑 Failing value is null
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when provided with an array including a bad value', () => {
+      expect(() =>
+        process(host, 'deserialize', ['Not a number'], enumType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.EnumType
+        ├── 🛑 Failing value is an array
+        │      [ 'Not a number' ]
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.enum" key
       `);
     });
   });
