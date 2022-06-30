@@ -196,13 +196,13 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       if (!isScalar(value)) {
         throw new SerializationError(
-          `Expected a ${spec.describeTypeReference(optionalValue.type)}`,
+          `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
           value,
         );
       }
       if (typeof value !== primitiveType.primitive) {
         throw new SerializationError(
-          `Expected a ${spec.describeTypeReference(optionalValue.type)}`,
+          `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
           value,
         );
       }
@@ -284,7 +284,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       if (typeof value !== 'string' && typeof value !== 'number') {
-        throw new SerializationError(`Expected a string or number`, value);
+        throw new SerializationError(`Value is not a string or number`, value);
       }
 
       host.debug('Serializing enum');
