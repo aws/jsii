@@ -801,7 +801,6 @@ describe('serialize errors', () => {
 
     test('when passed and invalid value', () => {
       expect(() => {
-        debugger;
         process(host, 'serialize', { not: 'valid' }, unionType, 'dummy value');
       }).toThrowErrorMatchingInlineSnapshot(`
         Dummy value: Unable to serialize value as boolean | date | number | string | array<any> | map<boolean> | phony.module.Enum
@@ -1738,7 +1737,6 @@ describe('deserialize errors', () => {
 
     test('when passed and invalid value', () => {
       expect(() => {
-        debugger;
         process(
           host,
           'deserialize',
