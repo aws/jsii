@@ -1,12 +1,13 @@
 import * as spec from '@jsii/spec';
 
 import { ObjectTable } from './objects';
-import {
-  SERIALIZERS,
-  SerializerHost,
-  SerializationClass,
-  serializationType,
-} from './serialization';
+import { process, SerializerHost, SerializationClass } from './serialization';
+
+// Remove unnecessary double-quoting of snapshots in this file
+expect.addSnapshotSerializer({
+  test: (value) => typeof value === 'string',
+  print: (value) => value as string,
+});
 
 const findSymbol: jest.MockedFn<SerializerHost['findSymbol']> = jest
   .fn()
@@ -21,28 +22,6 @@ const host: SerializerHost = {
   findSymbol,
   lookupType,
   objects,
-  recurse: (x, type) => {
-    const errors = new Array<any>();
-    for (const { serializationClass, typeRef } of serializationType(
-      type,
-      lookupType,
-    )) {
-      try {
-        return SERIALIZERS[serializationClass].deserialize(x, typeRef, host);
-      } catch (error: any) {
-        errors.push(error);
-      }
-    }
-    if (errors.length === 1) {
-      throw errors[0];
-    } else {
-      throw new Error(
-        `Unable to serialize value:\n- ${errors
-          .map((e) => e.message)
-          .join('\n- ')}`,
-      );
-    }
-  },
 };
 
 describe(SerializationClass.Array, () => {
@@ -55,68 +34,112 @@ describe(SerializationClass.Array, () => {
       },
     },
   };
-  const arraySerializer = SERIALIZERS[SerializationClass.Array];
 
   test('when provided with a string', () => {
     expect(() =>
-      arraySerializer.serialize(
+      process(
+        host,
+        'serialize',
         "I'm array-like, but not quite an array",
         arrayType,
-        host,
+        `of test`,
       ),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected array type, got \\"I'm array-like, but not quite an array\\""`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as array<number>
+      ├── 🛑 Failing value is a string
+      │      "I'm array-like, but not quite an array"
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an array
+              ╰── 🛑 Failing value is a string
+                     "I'm array-like, but not quite an array"
+    `);
   });
 
   test('when provided with a number', () => {
-    expect(() =>
-      arraySerializer.serialize(1337, arrayType, host),
-    ).toThrowErrorMatchingInlineSnapshot(`"Expected array type, got 1337"`);
+    expect(() => process(host, 'serialize', 1337, arrayType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as array<number>
+      ├── 🛑 Failing value is a number
+      │      1337
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an array
+              ╰── 🛑 Failing value is a number
+                     1337
+    `);
   });
 
   test('when provided with a date', () => {
     expect(() =>
-      arraySerializer.serialize(new Date(65_535), arrayType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected array type, got \\"1970-01-01T00:01:05.535Z\\""`,
-    );
+      process(host, 'serialize', new Date(65_535), arrayType, `of test`),
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as array<number>
+      ├── 🛑 Failing value is an instance of Date
+      │      1970-01-01T00:01:05.535Z
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an array
+              ╰── 🛑 Failing value is an instance of Date
+                     1970-01-01T00:01:05.535Z
+    `);
   });
 
   test('when provided with an object', () => {
     expect(() =>
-      arraySerializer.serialize(
+      process(
+        host,
+        'serialize',
         { this: ['is', 'not', 'an', 'Array'] },
         arrayType,
-        host,
+        `of test`,
       ),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected array type, got {\\"this\\":[\\"is\\",\\"not\\",\\"an\\",\\"Array\\"]}"`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as array<number>
+      ├── 🛑 Failing value is an object
+      │      { this: [Array] }
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an array
+              ╰── 🛑 Failing value is an object
+                     { this: [Array] }
+    `);
   });
 
   test('when provided with undefined', () => {
-    expect(() =>
-      arraySerializer.serialize(undefined, arrayType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'undefined' where a non-optional 'array<number>' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', undefined, arrayType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as array<number>
+      ├── 🛑 Failing value is undefined
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is undefined
+    `);
   });
 
   test('when provided with null', () => {
-    expect(() =>
-      arraySerializer.serialize(null, arrayType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'null' where a non-optional 'array<number>' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', null, arrayType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as array<number>
+      ├── 🛑 Failing value is null
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is null
+    `);
   });
 
   test('when provided with an array including a bad value', () => {
     expect(() =>
-      arraySerializer.serialize(['Not a number'], arrayType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected a number, got \\"Not a number\\" (string)"`,
-    );
+      process(host, 'serialize', ['Not a number'], arrayType, `of test`),
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as array<number>
+      ├── 🛑 Failing value is an array
+      │      [ 'Not a number' ]
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Unable to serialize value index 0 as number
+              ├── 🛑 Failing value is a string
+              │      'Not a number'
+              ╰── 🔍 Failure reason(s):
+                  ╰─ [0] Value is not a number
+                      ╰── 🛑 Failing value is a string
+                             'Not a number'
+    `);
   });
 });
 
@@ -127,60 +150,94 @@ describe(SerializationClass.Date, () => {
       primitive: spec.PrimitiveType.Date,
     },
   };
-  const dateSerializer = SERIALIZERS[SerializationClass.Date];
 
   test('when provided with a string', () => {
     expect(() =>
-      dateSerializer.serialize(
+      process(
+        host,
+        'serialize',
         "I'm array-like, but not quite an array",
         dateType,
-        host,
+        `of test`,
       ),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected Date, got \\"I'm array-like, but not quite an array\\""`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as date
+      ├── 🛑 Failing value is a string
+      │      "I'm array-like, but not quite an array"
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an instance of Date
+              ╰── 🛑 Failing value is a string
+                     "I'm array-like, but not quite an array"
+    `);
   });
 
   test('when provided with a number', () => {
-    expect(() =>
-      dateSerializer.serialize(1337, dateType, host),
-    ).toThrowErrorMatchingInlineSnapshot(`"Expected Date, got 1337"`);
+    expect(() => process(host, 'serialize', 1337, dateType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as date
+      ├── 🛑 Failing value is a number
+      │      1337
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an instance of Date
+              ╰── 🛑 Failing value is a number
+                     1337
+    `);
   });
 
   test('when provided with an object', () => {
     expect(() =>
-      dateSerializer.serialize(
+      process(
+        host,
+        'serialize',
         { this: ['is', 'not', 'an', 'Array'] },
         dateType,
-        host,
+        `of test`,
       ),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected Date, got {\\"this\\":[\\"is\\",\\"not\\",\\"an\\",\\"Array\\"]}"`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as date
+      ├── 🛑 Failing value is an object
+      │      { this: [Array] }
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an instance of Date
+              ╰── 🛑 Failing value is an object
+                     { this: [Array] }
+    `);
   });
 
   test('when provided with undefined', () => {
-    expect(() =>
-      dateSerializer.serialize(undefined, dateType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'undefined' where a non-optional 'date' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', undefined, dateType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as date
+      ├── 🛑 Failing value is undefined
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is undefined
+    `);
   });
 
   test('when provided with null', () => {
-    expect(() =>
-      dateSerializer.serialize(null, dateType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'null' where a non-optional 'date' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', null, dateType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as date
+      ├── 🛑 Failing value is null
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is null
+    `);
   });
 
   test('when provided with an array', () => {
     expect(() =>
-      dateSerializer.serialize(['Not a number'], dateType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected Date, got [\\"Not a number\\"]"`,
-    );
+      process(host, 'serialize', ['Not a number'], dateType, `of test`),
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as date
+      ├── 🛑 Failing value is an array
+      │      [ 'Not a number' ]
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an instance of Date
+              ╰── 🛑 Failing value is an array
+                     [ 'Not a number' ]
+    `);
   });
 });
 
@@ -191,22 +248,27 @@ describe(SerializationClass.Json, () => {
       primitive: spec.PrimitiveType.Json,
     },
   };
-  const jsonSerializer = SERIALIZERS[SerializationClass.Json];
 
   test('when provided with undefined', () => {
-    expect(() =>
-      jsonSerializer.serialize(undefined, jsonType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'undefined' where a non-optional 'json' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', undefined, jsonType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as json
+      ├── 🛑 Failing value is undefined
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is undefined
+    `);
   });
 
   test('when provided with null', () => {
-    expect(() =>
-      jsonSerializer.serialize(null, jsonType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'null' where a non-optional 'json' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', null, jsonType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as json
+      ├── 🛑 Failing value is null
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is null
+    `);
   });
 });
 
@@ -220,60 +282,101 @@ describe(SerializationClass.Map, () => {
       },
     },
   };
-  const mapSerializer = SERIALIZERS[SerializationClass.Map];
-
   test('when provided with a string', () => {
     expect(() =>
-      mapSerializer.serialize(
+      process(
+        host,
+        'serialize',
         "I'm array-like, but not quite an array",
         mapType,
-        host,
+        `of test`,
       ),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected object type, got \\"I'm array-like, but not quite an array\\""`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as map<number>
+      ├── 🛑 Failing value is a string
+      │      "I'm array-like, but not quite an array"
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an object
+              ╰── 🛑 Failing value is a string
+                     "I'm array-like, but not quite an array"
+    `);
   });
 
   test('when provided with a number', () => {
-    expect(() =>
-      mapSerializer.serialize(1337, mapType, host),
-    ).toThrowErrorMatchingInlineSnapshot(`"Expected object type, got 1337"`);
+    expect(() => process(host, 'serialize', 1337, mapType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as map<number>
+      ├── 🛑 Failing value is a number
+      │      1337
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not an object
+              ╰── 🛑 Failing value is a number
+                     1337
+    `);
   });
 
   test('when provided with an object with invalid values', () => {
     expect(() =>
-      mapSerializer.serialize(
+      process(
+        host,
+        'serialize',
         { this: ['is', 'not', 'an', 'Array'] },
         mapType,
-        host,
+        `of test`,
       ),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected a number, got [\\"is\\",\\"not\\",\\"an\\",\\"Array\\"]"`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as map<number>
+      ├── 🛑 Failing value is an object
+      │      { this: [Array] }
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Unable to serialize value key "this" as number
+              ├── 🛑 Failing value is an array
+              │      [ 'is', 'not', 'an', 'Array' ]
+              ╰── 🔍 Failure reason(s):
+                  ╰─ [0] Value is not a number
+                      ╰── 🛑 Failing value is an array
+                             [ 'is', 'not', 'an', 'Array' ]
+    `);
   });
 
   test('when provided with undefined', () => {
-    expect(() =>
-      mapSerializer.serialize(undefined, mapType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'undefined' where a non-optional 'map<number>' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', undefined, mapType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as map<number>
+      ├── 🛑 Failing value is undefined
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is undefined
+    `);
   });
 
   test('when provided with null', () => {
-    expect(() =>
-      mapSerializer.serialize(null, mapType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'null' where a non-optional 'map<number>' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', null, mapType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as map<number>
+      ├── 🛑 Failing value is null
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is null
+    `);
   });
 
   test('when provided with an array', () => {
     expect(() =>
-      mapSerializer.serialize(['Not a number'], mapType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected a number, got \\"Not a number\\" (string)"`,
-    );
+      process(host, 'serialize', ['Not a number'], mapType, `of test`),
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as map<number>
+      ├── 🛑 Failing value is an array
+      │      [ 'Not a number' ]
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Unable to serialize value key "0" as number
+              ├── 🛑 Failing value is a string
+              │      'Not a number'
+              ╰── 🔍 Failure reason(s):
+                  ╰─ [0] Value is not a number
+                      ╰── 🛑 Failing value is a string
+                             'Not a number'
+    `);
   });
 });
 
@@ -284,49 +387,73 @@ describe(SerializationClass.Scalar, () => {
       primitive: spec.PrimitiveType.String,
     },
   };
-  const scalarSerializer = SERIALIZERS[SerializationClass.Scalar];
 
   test('when provided with a number', () => {
-    expect(() =>
-      scalarSerializer.serialize(1337, stringType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected a string, got 1337 (number)"`,
-    );
+    expect(() => process(host, 'serialize', 1337, stringType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as string
+      ├── 🛑 Failing value is a number
+      │      1337
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not a string
+              ╰── 🛑 Failing value is a number
+                     1337
+    `);
   });
 
   test('when provided with an object', () => {
     expect(() =>
-      scalarSerializer.serialize(
+      process(
+        host,
+        'serialize',
         { this: ['is', 'not', 'an', 'Array'] },
         stringType,
-        host,
+        `of test`,
       ),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected string, got {\\"this\\":[\\"is\\",\\"not\\",\\"an\\",\\"Array\\"]}"`,
-    );
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as string
+      ├── 🛑 Failing value is an object
+      │      { this: [Array] }
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not a string
+              ╰── 🛑 Failing value is an object
+                     { this: [Array] }
+    `);
   });
 
   test('when provided with undefined', () => {
-    expect(() =>
-      scalarSerializer.serialize(undefined, stringType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'undefined' where a non-optional 'string' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', undefined, stringType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as string
+      ├── 🛑 Failing value is undefined
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is undefined
+    `);
   });
 
   test('when provided with null', () => {
-    expect(() =>
-      scalarSerializer.serialize(null, stringType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Got 'null' where a non-optional 'string' value was expected"`,
-    );
+    expect(() => process(host, 'serialize', null, stringType, `of test`))
+      .toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as string
+      ├── 🛑 Failing value is null
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] A value is required (type is non-optional)
+              ╰── 🛑 Failing value is null
+    `);
   });
 
   test('when provided with an array', () => {
     expect(() =>
-      scalarSerializer.serialize(['Not a number'], stringType, host),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Expected string, got [\\"Not a number\\"]"`,
-    );
+      process(host, 'serialize', ['Not a number'], stringType, `of test`),
+    ).toThrowErrorMatchingInlineSnapshot(`
+      Unable to serialize value of test as string
+      ├── 🛑 Failing value is an array
+      │      [ 'Not a number' ]
+      ╰── 🔍 Failure reason(s):
+          ╰─ [0] Value is not a string
+              ╰── 🛑 Failing value is an array
+                     [ 'Not a number' ]
+    `);
   });
 });

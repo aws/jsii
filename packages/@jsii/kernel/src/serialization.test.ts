@@ -28,7 +28,6 @@ const host: SerializerHost = {
   findSymbol: jest.fn().mockName('host.findSymbol'),
   lookupType,
   objects: new ObjectTable(lookupType),
-  recurse: jest.fn().mockName('host.recurse'),
 };
 
 describe(SerializationClass.Any, () => {
@@ -40,16 +39,6 @@ describe(SerializationClass.Any, () => {
       return this.randomValue;
     }
   }
-
-  beforeEach((done) => {
-    (host.recurse as jest.Mock<any, any>).mockImplementation(
-      (x: any, type: OptionalValue) => {
-        expect(type).toEqual(TYPE_ANY);
-        return anySerializer.serialize(x, type, host);
-      },
-    );
-    done();
-  });
 
   describe(anySerializer.serialize, () => {
     test('by-value object literal', () => {
