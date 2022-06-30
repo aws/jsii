@@ -1,6 +1,5 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { create } from 'tar';
 
 import {
   SPEC_FILE_NAME,
@@ -12,7 +11,7 @@ import {
   loadAssemblyFromPath,
   getAssemblyFile,
   writeAssembly,
-  loadAssemblyFromTarball,
+  loadAssemblyFromBuffer,
 } from './assembly-utils';
 import { makeTempDir } from './utils';
 
@@ -151,32 +150,22 @@ describe('loadAssemblyFromPath', () => {
   });
 });
 
-describe('loadAssemblyFromTarball', () => {
-  test('loads uncompressed assembly', () => {
+describe('loadAssemblyFromBuffer', () => {
+  test('loads uncompressed assembly buffer', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
-    const tarball = path.join(tmpdir, 'tar.tgz');
-    create(
-      {
-        file: tarball,
-        sync: true,
-      },
-      [tmpdir],
-    );
-
-    expect(loadAssemblyFromTarball(tarball, tmpdir)).toEqual(TEST_ASSEMBLY);
+    const buf = fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME));
+    expect(loadAssemblyFromBuffer(buf)).toEqual(TEST_ASSEMBLY);
   });
 
-  test('loads compressed assembly', () => {
+  test('loads compressed assembly buffer', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
-    const tarball = 'tar.tgz'; //path.join(tmpdir, 'tar.tgz');
-    create(
-      {
-        file: tarball,
-        sync: true,
-      },
-      [tmpdir],
+    const assemblyBuf = fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME));
+    const compAssemblyBuf = fs.readFileSync(
+      path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED),
     );
 
-    expect(loadAssemblyFromTarball(tarball, tmpdir)).toEqual(TEST_ASSEMBLY);
+    expect(loadAssemblyFromBuffer(assemblyBuf, compAssemblyBuf)).toEqual(
+      TEST_ASSEMBLY,
+    );
   });
 });

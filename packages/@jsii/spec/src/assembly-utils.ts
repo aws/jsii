@@ -66,6 +66,27 @@ export function writeAssembly(
   return compress;
 }
 
+export function loadAssemblyFromBuffer(
+  assemblyBuffer: Buffer,
+  compressedAssemblyBuffer?: Buffer,
+  validate = true,
+): Assembly {
+  let contents = JSON.parse(assemblyBuffer.toString('utf-8'));
+
+  // check if the file holds instructions to the actual assembly file
+  if (isRedirect(contents)) {
+    validateRedirectSchema(contents);
+    if (!compressedAssemblyBuffer) {
+      throw new Error(
+        `The assembly buffer redirects to a compressed assembly at ${contents.filename}, but no compressed assembly was found`,
+      );
+    }
+    contents = JSON.parse(zlib.gunzipSync(compressedAssemblyBuffer).toString());
+  }
+
+  return validate ? validateAssembly(contents) : (contents as Assembly);
+}
+
 /**
  * Loads the assembly file from a tarball archive and, if present,
  * follows instructions found in the file to unzip compressed assemblies.
@@ -75,7 +96,7 @@ export function writeAssembly(
  * @param validate whether or not to validate the assembly
  * @returns the assembly file as an Assembly object
  */
-export function loadAssemblyFromTarball(
+export function loadAssemblyFromTarballFile(
   tarball: string,
   directory: string,
   validate = true,
@@ -118,6 +139,7 @@ function extractFileFromTarball(
   extractTo?: string,
 ) {
   const dir = extractTo ?? process.cwd();
+  console.log('tarball', tarball);
   extract(
     {
       cwd: dir,
