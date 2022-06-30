@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import { CollectionKind } from '@jsii/spec';
 
 import { ObjectTable } from './objects';
 import { process, SerializerHost, SerializationClass } from './serialization';
@@ -745,6 +746,79 @@ describe('serialize errors', () => {
         │      [ 'Not a number' ]
         ╰── 🔍 Failure reason(s):
             ╰─ Value is an array
+      `);
+    });
+  });
+
+  describe('The impossible type union', () => {
+    const ENUM_FQN = 'phony.module.Enum';
+
+    const unionType: spec.OptionalValue = {
+      optional: false,
+      type: {
+        union: {
+          types: [
+            // { primitive: spec.PrimitiveType.Any }, // Would allow ANYTHING, so we can't have that
+            { primitive: spec.PrimitiveType.Boolean },
+            { primitive: spec.PrimitiveType.Date },
+            // { primitive: spec.PrimitiveType.Json }, // Would allow nearly anything, so we can't have that
+            { primitive: spec.PrimitiveType.Number },
+            { primitive: spec.PrimitiveType.String },
+            {
+              collection: {
+                kind: CollectionKind.Array,
+                elementtype: { primitive: spec.PrimitiveType.Any },
+              },
+            },
+            {
+              collection: {
+                kind: CollectionKind.Map,
+                elementtype: { primitive: spec.PrimitiveType.Boolean },
+              },
+            },
+            { fqn: ENUM_FQN },
+          ],
+        },
+      },
+    };
+
+    const ENUM_TYPE: spec.EnumType = {
+      assembly: 'phony',
+      fqn: 'phony.module.Enum',
+      kind: spec.TypeKind.Enum,
+      name: 'Enum',
+      namespace: 'module',
+      members: [],
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect(fqn).toBe(ENUM_FQN);
+        return ENUM_TYPE;
+      });
+      done();
+    });
+
+    test('when passed and invalid value', () => {
+      expect(() => {
+        debugger;
+        process(host, 'serialize', { not: 'valid' }, unionType, 'dummy value');
+      }).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as boolean | date | number | string | array<any> | map<boolean> | phony.module.Enum
+        ├── 🛑 Failing value is an object
+        │      { not: 'valid' }
+        ╰── 🔍 Failure reason(s):
+            ├─ [as date] Value is not an instance of Date
+            ├─ [as boolean] Value is not a boolean
+            ├─ [as number] Value is not a number
+            ├─ [as string] Value is not a string
+            ├─ [as phony.module.Enum] Value is not a string or number
+            ├─ [as array<any>] Value is not an array
+            ╰─ [as map<boolean>] Key 'not': Unable to serialize value as boolean
+                ├── 🛑 Failing value is a string
+                │      'valid'
+                ╰── 🔍 Failure reason(s):
+                    ╰─ Value is not a boolean
       `);
     });
   });
@@ -1609,6 +1683,85 @@ describe('deserialize errors', () => {
                 │      'is not a number'
                 ╰── 🔍 Failure reason(s):
                     ╰─ Value is not a number
+      `);
+    });
+  });
+
+  describe('The impossible type union', () => {
+    const ENUM_FQN = 'phony.module.Enum';
+
+    const unionType: spec.OptionalValue = {
+      optional: false,
+      type: {
+        union: {
+          types: [
+            // { primitive: spec.PrimitiveType.Any }, // Would allow ANYTHING, so we can't have that
+            { primitive: spec.PrimitiveType.Boolean },
+            { primitive: spec.PrimitiveType.Date },
+            // { primitive: spec.PrimitiveType.Json }, // Would allow nearly anything, so we can't have that
+            { primitive: spec.PrimitiveType.Number },
+            { primitive: spec.PrimitiveType.String },
+            {
+              collection: {
+                kind: CollectionKind.Array,
+                elementtype: { primitive: spec.PrimitiveType.Any },
+              },
+            },
+            {
+              collection: {
+                kind: CollectionKind.Map,
+                elementtype: { primitive: spec.PrimitiveType.Boolean },
+              },
+            },
+            { fqn: ENUM_FQN },
+          ],
+        },
+      },
+    };
+
+    const ENUM_TYPE: spec.EnumType = {
+      assembly: 'phony',
+      fqn: 'phony.module.Enum',
+      kind: spec.TypeKind.Enum,
+      name: 'Enum',
+      namespace: 'module',
+      members: [],
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect(fqn).toBe(ENUM_FQN);
+        return ENUM_TYPE;
+      });
+      done();
+    });
+
+    test('when passed and invalid value', () => {
+      expect(() => {
+        debugger;
+        process(
+          host,
+          'deserialize',
+          { not: 'valid' },
+          unionType,
+          'dummy value',
+        );
+      }).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as boolean | date | number | string | array<any> | map<boolean> | phony.module.Enum
+        ├── 🛑 Failing value is an object
+        │      { not: 'valid' }
+        ╰── 🔍 Failure reason(s):
+            ├─ [as date] Value does not have the "$jsii.date" key
+            ├─ [as boolean] Value is not a boolean
+            ├─ [as number] Value is not a number
+            ├─ [as string] Value is not a string
+            ├─ [as phony.module.Enum] Value does not have the "$jsii.enum" key
+            ├─ [as array<any>] Value is not an array
+            ╰─ [as map<boolean>] Key 'not': Unable to deserialize value as boolean
+                ├── 🛑 Failing value is a string
+                │      'valid'
+                ╰── 🔍 Failure reason(s):
+                    ╰─ Value is not a boolean
       `);
     });
   });

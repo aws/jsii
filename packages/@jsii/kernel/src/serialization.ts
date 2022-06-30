@@ -1119,6 +1119,9 @@ export function process(
     try {
       return SERIALIZERS[serializationClass][serde](value, typeRef, host);
     } catch (error: any) {
+      error.context = `as ${
+        typeRef === VOID ? VOID : spec.describeTypeReference(typeRef.type)
+      }`;
       errors.push(error);
     }
   }
@@ -1181,7 +1184,9 @@ export class SerializationError extends Error {
                   `    ${
                     idx < causes.length - 1 ? '\u{251C}' : '\u{2570}'
                   }\u{2500}${
-                    causes.length > 1 ? ` [${inspect(idx)}]` : ''
+                    causes.length > 1
+                      ? ` [${cause.context ?? inspect(idx)}]`
+                      : ''
                   } ${cause.message.split('\n').join('\n        ')}`,
               ),
             ]
