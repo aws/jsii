@@ -269,7 +269,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           {
             type: { primitive: spec.PrimitiveType.Json },
           },
-          typeof key === 'string' ? `of key ${key}` : `at index ${key}`,
+          typeof key === 'string' ? `key ${inspect(key)}` : `index ${key}`,
         );
       }
     },
@@ -338,7 +338,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'serialize',
           x,
           { type: arrayType.collection.elementtype },
-          `at index ${idx}`,
+          `index ${inspect(idx)}`,
         ),
       );
     },
@@ -360,7 +360,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           x,
           { type: arrayType.collection.elementtype },
-          `at index ${idx}`,
+          `index ${inspect(idx)}`,
         ),
       );
     },
@@ -382,7 +382,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'serialize',
             v,
             { type: mapType.collection.elementtype },
-            `of key ${JSON.stringify(key)}`,
+            `key ${inspect(key)}`,
           ),
         ),
       };
@@ -402,7 +402,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'deserialize',
             v,
             { type: mapType.collection.elementtype },
-            `of key ${JSON.stringify(key)}`,
+            `key ${inspect(key)}`,
           ),
         );
       }
@@ -412,7 +412,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           v,
           { type: mapType.collection.elementtype },
-          `of key ${JSON.stringify(key)}`,
+          `key ${inspect(key)}`,
         ),
       );
       Object.defineProperty(result, SYMBOL_WIRE_TYPE, {
@@ -527,7 +527,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           v,
           props[key],
-          `of property ${JSON.stringify(key)}`,
+          `key ${inspect(key)}`,
         );
       });
     },
@@ -621,7 +621,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'serialize',
             e,
             { type: spec.CANONICAL_ANY },
-            `at index ${idx}`,
+            `index ${inspect(idx)}`,
           ),
         );
       }
@@ -700,7 +700,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'serialize',
           v,
           { type: spec.CANONICAL_ANY },
-          `of key ${JSON.stringify(key)}`,
+          `key ${inspect(key)}`,
         ),
       );
     },
@@ -726,7 +726,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'deserialize',
             e,
             { type: spec.CANONICAL_ANY },
-            `at index ${idx}`,
+            `index ${inspect(idx)}`,
           ),
         );
       }
@@ -775,7 +775,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           v,
           { type: spec.CANONICAL_ANY },
-          `of key ${key}`,
+          `key ${inspect(key)}`,
         ),
       );
     },
@@ -1120,10 +1120,20 @@ export function process(
   const optionalTypeDescr =
     type !== VOID && type.optional ? `${typeDescr} | undefined` : typeDescr;
   throw new SerializationError(
-    `Unable to ${serde} value ${context} as ${optionalTypeDescr}`,
+    `${titleize(context)}: Unable to ${serde} value as ${optionalTypeDescr}`,
     value,
     errors,
+    { renderValue: true },
   );
+
+  function titleize(text: string): string {
+    text = text.trim();
+    if (text === '') {
+      return text;
+    }
+    const [first, ...rest] = text;
+    return [first.toUpperCase(), ...rest].join('');
+  }
 }
 
 export class SerializationError extends Error {
@@ -1133,18 +1143,28 @@ export class SerializationError extends Error {
     message: string,
     public readonly value: unknown,
     public readonly causes: readonly any[] = [],
+    { renderValue = false }: { renderValue?: boolean } = {},
   ) {
     super(
       [
         message,
-        `${
-          causes.length > 0 ? '\u{251C}' : '\u{2570}'
-        }\u{2500}\u{2500} \u{1F6D1} Failing value is ${describeTypeOf(value)}`,
-        ...(value == null
-          ? []
-          : inspect(value, false, 0)
-              .split('\n')
-              .map((l) => `${causes.length > 0 ? '\u{2502}' : ' '}      ${l}`)),
+        ...(renderValue
+          ? [
+              `${
+                causes.length > 0 ? '\u{251C}' : '\u{2570}'
+              }\u{2500}\u{2500} \u{1F6D1} Failing value is ${describeTypeOf(
+                value,
+              )}`,
+              ...(value == null
+                ? []
+                : inspect(value, false, 0)
+                    .split('\n')
+                    .map(
+                      (l) =>
+                        `${causes.length > 0 ? '\u{2502}' : ' '}      ${l}`,
+                    )),
+            ]
+          : []),
         ...(causes.length > 0
           ? [
               '\u{2570}\u{2500}\u{2500} \u{1F50D} Failure reason(s):',
@@ -1152,9 +1172,9 @@ export class SerializationError extends Error {
                 (cause, idx) =>
                   `    ${
                     idx < causes.length - 1 ? '\u{251C}' : '\u{2570}'
-                  }\u{2500} [${idx}] ${cause.message
-                    .split('\n')
-                    .join('\n        ')}`,
+                  }\u{2500}${
+                    causes.length > 1 ? ` [${inspect(idx)}]` : ''
+                  } ${cause.message.split('\n').join('\n        ')}`,
               ),
             ]
           : []),
