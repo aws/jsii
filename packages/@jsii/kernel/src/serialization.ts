@@ -545,8 +545,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       }
       assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
-      if (typeof value !== 'object' || value == null) {
+      if (typeof value !== 'object' || value == null || Array.isArray(value)) {
         throw new SerializationError(`Value is not an object`, value);
+      }
+
+      if (value instanceof Date) {
+        throw new SerializationError(`Value is a Date`, value);
       }
 
       const expectedType = host.lookupType(

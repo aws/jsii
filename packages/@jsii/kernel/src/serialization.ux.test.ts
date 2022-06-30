@@ -468,6 +468,116 @@ describe('serialize errors', () => {
     });
   });
 
+  describe(SerializationClass.ReferenceType, () => {
+    const TYPE_FQN = 'phony.module.UsedType';
+    const TYPE: spec.ClassType = {
+      assembly: 'phony',
+      fqn: TYPE_FQN,
+      kind: spec.TypeKind.Class,
+      name: 'UsedType',
+    };
+    const referenceType: spec.OptionalValue = {
+      optional: false,
+      type: { fqn: TYPE_FQN },
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect(fqn).toBe(TYPE_FQN);
+        return TYPE;
+      });
+      done();
+    });
+
+    test('when passed a string', () => {
+      expect(() =>
+        process(
+          host,
+          'serialize',
+          "I'm array-like, but not quite an array",
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.UsedType
+        ├── 🛑 Failing value is a string
+        │      "I'm array-like, but not quite an array"
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+
+    test('when passed a number', () => {
+      expect(() =>
+        process(host, 'serialize', 1337, referenceType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.UsedType
+        ├── 🛑 Failing value is a number
+        │      1337
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+
+    test('when passed a date', () => {
+      expect(() =>
+        process(
+          host,
+          'serialize',
+          new Date(65_535),
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.UsedType
+        ├── 🛑 Failing value is an instance of Date
+        │      1970-01-01T00:01:05.535Z
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is a Date
+      `);
+    });
+
+    test('when passed undefined', () => {
+      expect(() =>
+        process(host, 'serialize', undefined, referenceType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.UsedType
+        ├── 🛑 Failing value is undefined
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed null', () => {
+      expect(() =>
+        process(host, 'serialize', null, referenceType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.UsedType
+        ├── 🛑 Failing value is null
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed an array', () => {
+      expect(() =>
+        process(
+          host,
+          'serialize',
+          ['Not a number'],
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to serialize value as phony.module.UsedType
+        ├── 🛑 Failing value is an array
+        │      [ 'Not a number' ]
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value is not an object
+      `);
+    });
+  });
+
   describe(SerializationClass.Scalar, () => {
     const stringType: spec.OptionalValue = {
       optional: false,
@@ -1092,6 +1202,165 @@ describe('deserialize errors', () => {
         │      [ 'Not a number' ]
         ╰── 🔍 Failure reason(s):
             ╰─ Value is an array
+      `);
+    });
+  });
+
+  describe(SerializationClass.ReferenceType, () => {
+    const TYPE_FQN = 'phony.module.UsedType';
+    const TYPE: spec.ClassType = {
+      assembly: 'phony',
+      fqn: TYPE_FQN,
+      kind: spec.TypeKind.Class,
+      name: 'UsedType',
+      namespace: 'module',
+    };
+    const referenceType: spec.OptionalValue = {
+      optional: false,
+      type: { fqn: TYPE_FQN },
+    };
+
+    const BAD_TYPE_FQN = 'not.the.correct.TypeAtAll';
+    const BAD_TYPE: spec.Type = {
+      assembly: 'not',
+      fqn: TYPE_FQN,
+      kind: spec.TypeKind.Interface,
+      name: 'TypeAtAll',
+      namespace: 'the.correct',
+    };
+
+    beforeEach((done) => {
+      lookupType.mockImplementation((fqn) => {
+        expect([TYPE_FQN, BAD_TYPE_FQN]).toContain(fqn);
+        return fqn === TYPE_FQN ? TYPE : BAD_TYPE;
+      });
+      done();
+    });
+
+    test('when passed a string', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          "I'm array-like, but not quite an array",
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is a string
+        │      "I'm array-like, but not quite an array"
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.byref" key
+      `);
+    });
+
+    test('when passed a number', () => {
+      expect(() =>
+        process(host, 'deserialize', 1337, referenceType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is a number
+        │      1337
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.byref" key
+      `);
+    });
+
+    test('when passed a date', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          new Date(65_535),
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is an instance of Date
+        │      1970-01-01T00:01:05.535Z
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.byref" key
+      `);
+    });
+
+    test('when passed an object (not a by-ref value)', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          { this: ['is', 'not', 'an', 'Array'] },
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is an object
+        │      { this: [Array] }
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.byref" key
+      `);
+    });
+
+    test('when passed an object of thre wrong type', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          objects.registerObject(Object.create(null), BAD_TYPE_FQN),
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is an object
+        │      {
+        │        '$jsii.byref': 'not.the.correct.TypeAtAll@10000',
+        │        '$jsii.interfaces': undefined
+        │      }
+        ╰── 🔍 Failure reason(s):
+            ╰─ Object of type 'not.the.correct.TypeAtAll' is not convertible to phony.module.UsedType
+      `);
+    });
+
+    test('when passed undefined', () => {
+      expect(() =>
+        process(host, 'deserialize', undefined, referenceType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is undefined
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed null', () => {
+      expect(() =>
+        process(host, 'deserialize', null, referenceType, `dummy value`),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is null
+        ╰── 🔍 Failure reason(s):
+            ╰─ A value is required (type is non-optional)
+      `);
+    });
+
+    test('when passed an array', () => {
+      expect(() =>
+        process(
+          host,
+          'deserialize',
+          ['Not a number'],
+          referenceType,
+          `dummy value`,
+        ),
+      ).toThrowErrorMatchingInlineSnapshot(`
+        Dummy value: Unable to deserialize value as phony.module.UsedType
+        ├── 🛑 Failing value is an array
+        │      [ 'Not a number' ]
+        ╰── 🔍 Failure reason(s):
+            ╰─ Value does not have the "$jsii.byref" key
       `);
     });
   });
