@@ -1063,7 +1063,7 @@ export class Kernel {
     return typeInfo;
   }
 
-  private _toSandbox(v: any, expectedType: wire.OptionalValueOrVoid): any {
+  private _toSandbox(v: any, expectedType: wire.OptionalValueOrVoid, context?: string): any {
     const serTypes = wire.serializationType(
       expectedType,
       this._typeInfoForFqn.bind(this),
@@ -1078,7 +1078,7 @@ export class Kernel {
       recurse: this._toSandbox.bind(this),
     };
 
-    const errors = new Array<string>();
+    const errors = new Array<any>();
     for (const { serializationClass, typeRef } of serTypes) {
       try {
         return wire.SERIALIZERS[serializationClass].deserialize(
@@ -1087,20 +1087,19 @@ export class Kernel {
           host,
         );
       } catch (e: any) {
-        // If no union (99% case), rethrow immediately to preserve stack trace
-        if (serTypes.length === 1) {
-          throw e;
-        }
-        errors.push(e.message);
+        errors.push(e);
       }
+    }
+    if (errors.length === 1 && context == null) {
+      throw errors[0];
     }
 
     throw new Error(
-      `Value did not match any type in union: ${errors.join(', ')}`,
+      `Value${context ? ` ${context}` : ''} did not match any type in union: ${errors.map(e => e.message).join(', ')}`,
     );
   }
 
-  private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid): any {
+  private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid, context?: string): any {
     const serTypes = wire.serializationType(
       targetType,
       this._typeInfoForFqn.bind(this),
@@ -1129,7 +1128,7 @@ export class Kernel {
     }
 
     throw new Error(
-      `Value did not match any type in union: ${errors.join(', ')}`,
+      `Value${context ? ` ${context}` : ''} did not match any type in union: ${errors.join(', ')}`,
     );
   }
 

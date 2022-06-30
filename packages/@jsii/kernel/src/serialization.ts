@@ -94,7 +94,7 @@ export interface SerializerHost {
   readonly objects: ObjectTable;
   debug(...args: any[]): void;
   lookupType(fqn: string): spec.Type;
-  recurse(x: any, type: OptionalValueOrVoid): any;
+  recurse(x: any, type: OptionalValueOrVoid, context: string): any;
   findSymbol(fqn: spec.FQN): any;
 }
 
@@ -262,13 +262,17 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       return mapValues(value, mapJsonValue);
 
-      function mapJsonValue(toMap: any) {
+      function mapJsonValue(toMap: any, key: string | number) {
         if (toMap == null) {
           return toMap;
         }
-        return host.recurse(toMap, {
-          type: { primitive: spec.PrimitiveType.Json },
-        });
+        return host.recurse(
+          toMap,
+          {
+            type: { primitive: spec.PrimitiveType.Json },
+          },
+          typeof key === 'string' ? `key ${key}` : `index ${key}`,
+        );
       }
     },
   },
@@ -326,8 +330,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       const arrayType = optionalValue.type as spec.CollectionTypeReference;
 
-      return value.map((x) =>
-        host.recurse(x, { type: arrayType.collection.elementtype }),
+      return value.map((x, idx) =>
+        host.recurse(
+          x,
+          { type: arrayType.collection.elementtype },
+          `index ${idx}`,
+        ),
       );
     },
     deserialize(value, optionalValue, host) {
@@ -344,8 +352,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       const arrayType = optionalValue.type as spec.CollectionTypeReference;
 
-      return value.map((x) =>
-        host.recurse(x, { type: arrayType.collection.elementtype }),
+      return value.map((x, idx) =>
+        host.recurse(
+          x,
+          { type: arrayType.collection.elementtype },
+          `index ${idx}`,
+        ),
       );
     },
   },
@@ -362,8 +374,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
       return {
-        [TOKEN_MAP]: mapValues(value, (v) =>
-          host.recurse(v, { type: mapType.collection.elementtype }),
+        [TOKEN_MAP]: mapValues(value, (v, key) =>
+          host.recurse(
+            v,
+            { type: mapType.collection.elementtype },
+            `key ${JSON.stringify(key)}`,
+          ),
         ),
       };
     },
@@ -378,12 +394,20 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       const mapType = optionalValue.type as spec.CollectionTypeReference;
       if (!isWireMap(value)) {
         // Compatibility mode with older versions that didn't wrap in [TOKEN_MAP]
-        return mapValues(value, (v) =>
-          host.recurse(v, { type: mapType.collection.elementtype }),
+        return mapValues(value, (v, key) =>
+          host.recurse(
+            v,
+            { type: mapType.collection.elementtype },
+            `key ${JSON.stringify(key)}`,
+          ),
         );
       }
-      const result = mapValues(value[TOKEN_MAP], (v) =>
-        host.recurse(v, { type: mapType.collection.elementtype }),
+      const result = mapValues(value[TOKEN_MAP], (v, key) =>
+        host.recurse(
+          v,
+          { type: mapType.collection.elementtype },
+          `key ${JSON.stringify(key)}`,
+        ),
       );
       Object.defineProperty(result, SYMBOL_WIRE_TYPE, {
         configurable: false,
@@ -496,7 +520,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         if (!props[key]) {
           return undefined;
         } // Don't map if unknown property
-        return host.recurse(v, props[key]);
+        return host.recurse(v, props[key], `property ${JSON.stringify(key)}`);
       });
     },
   },
@@ -585,7 +609,9 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         return value;
       }
       if (Array.isArray(value)) {
-        return value.map((e) => host.recurse(e, { type: spec.CANONICAL_ANY }));
+        return value.map((e, idx) =>
+          host.recurse(e, { type: spec.CANONICAL_ANY }, `index ${idx}`),
+        );
       }
 
       // Note: no case for "ENUM" here, without type declaration we can't tell the difference
@@ -653,8 +679,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       // We will serialize by-value, but recurse for serialization so that if
       // the object contains reference objects, they will be serialized appropriately.
       // (Basically, serialize anything else as a map of 'any').
-      return mapValues(value, (v) =>
-        host.recurse(v, { type: spec.CANONICAL_ANY }),
+      return mapValues(value, (v, key) =>
+        host.recurse(
+          v,
+          { type: spec.CANONICAL_ANY },
+          `key ${JSON.stringify(key)}`,
+        ),
       );
     },
 
@@ -673,7 +703,9 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       }
       if (Array.isArray(value)) {
         host.debug('ANY is an Array');
-        return value.map((e) => host.recurse(e, { type: spec.CANONICAL_ANY }));
+        return value.map((e, idx) =>
+          host.recurse(e, { type: spec.CANONICAL_ANY }, `index ${idx}`),
+        );
       }
 
       if (isWireEnum(value)) {
@@ -714,8 +746,8 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       // At this point again, deserialize by-value.
       host.debug('ANY is a Map');
-      return mapValues(value, (v) =>
-        host.recurse(v, { type: spec.CANONICAL_ANY }),
+      return mapValues(value, (v, key) =>
+        host.recurse(v, { type: spec.CANONICAL_ANY }, `key ${key}`),
       );
     },
   },
