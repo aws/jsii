@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import * as os from 'os';
 import * as path from 'path';
 
 import {
@@ -13,7 +14,6 @@ import {
   writeAssembly,
   loadAssemblyFromBuffer,
 } from './assembly-utils';
-import { makeTempDir } from './utils';
 
 const TEST_ASSEMBLY: Assembly = {
   schema: SchemaVersion.LATEST,
@@ -169,3 +169,7 @@ describe('loadAssemblyFromBuffer', () => {
     );
   });
 });
+
+export function makeTempDir() {
+  return fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
+}
