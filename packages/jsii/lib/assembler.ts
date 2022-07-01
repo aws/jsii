@@ -6,7 +6,7 @@ import * as deepEqual from 'fast-deep-equal/es6';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import * as Case from './case';
 import {
@@ -1738,6 +1738,9 @@ export class Assembler implements Emitter {
       return undefined;
     }
 
+    // check the enum to see if there are duplicate enum values
+    this.assertNoDuplicateEnumValues(decl);
+
     this._warnAboutReservedWords(symbol);
 
     const flags = ts.getCombinedModifierFlags(decl);
@@ -1789,6 +1792,57 @@ export class Assembler implements Emitter {
     );
 
     return jsiiType;
+  }
+
+  private assertNoDuplicateEnumValues(decl: ts.EnumDeclaration): void {
+    type EnumValue = {
+      name: string;
+      value: string;
+      decl: ts.DeclarationName | undefined;
+    };
+
+    const enumValues = decl.members
+      .filter((m) => m.initializer)
+      .map((member): EnumValue => {
+        return {
+          value: member.initializer!.getText(),
+          name: member.name.getText(),
+          decl: ts.getNameOfDeclaration(member),
+        };
+      });
+
+    const hasDuplicateEnumValues = enumValues.some(
+      (val, _, arr) => arr.filter((e) => val.value === e.value).length > 1,
+    );
+
+    if (hasDuplicateEnumValues) {
+      const enumValueMap = enumValues.reduce<Record<string, EnumValue[]>>(
+        (acc, val) => {
+          if (!acc[val.value]) {
+            acc[val.value] = [];
+          }
+          acc[val.value].push(val);
+          return acc;
+        },
+        {},
+      );
+      for (const duplicateValue of Object.keys(enumValueMap)) {
+        if (enumValueMap[duplicateValue].length > 1) {
+          const err = JsiiDiagnostic.JSII_1004_DUPLICATE_ENUM_VALUE.create(
+            enumValueMap[duplicateValue][0].decl!,
+            duplicateValue,
+            enumValueMap[duplicateValue].map((v) => v.name),
+          );
+          for (let i = 1; i < enumValueMap[duplicateValue].length; i++) {
+            err.addRelatedInformation(
+              enumValueMap[duplicateValue][i].decl!,
+              'The conflicting declaration is here',
+            );
+          }
+          this._diagnostics.push(err);
+        }
+      }
+    }
   }
 
   /**

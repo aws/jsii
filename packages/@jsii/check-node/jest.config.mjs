@@ -1,4 +1,4 @@
-import { overriddenConfig } from '../../../jest.config';
+import { overriddenConfig } from '../../../jest.config.mjs';
 
 export default overriddenConfig({
   coveragePathIgnorePatterns: [

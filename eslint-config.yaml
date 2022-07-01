@@ -1,5 +1,6 @@
 ---
 env:
+  es2020: true
   jest: true
   node: true
 
@@ -10,9 +11,9 @@ plugins:
 
 parser: '@typescript-eslint/parser'
 parserOptions:
-  ecmaVersion: 2018
+  ecmaVersion: 2020
   impliedStrict: true
-  sourceType: module
+  sourceType: script
   project: ./**/tsconfig.json
 
 extends:

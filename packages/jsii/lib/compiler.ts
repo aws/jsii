@@ -2,7 +2,7 @@ import * as chalk from 'chalk';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { Assembler } from './assembler';
 import * as Case from './case';
@@ -516,7 +516,7 @@ export class Compiler implements Emitter {
    *
    * Respects includes/excludes/etc.
    *
-   * This makes it so that running 'typescript-3.9' and running 'jsii' has the same behavior.
+   * This makes it so that running 'typescript' and running 'jsii' has the same behavior.
    */
   private determineSources(files: string[]): string[] {
     const ret = new Array<string>();

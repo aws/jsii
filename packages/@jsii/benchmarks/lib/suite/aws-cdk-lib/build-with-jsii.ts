@@ -2,7 +2,7 @@ import { Compiler } from 'jsii/lib/compiler';
 import { loadProjectInfo } from 'jsii/lib/project-info';
 import * as path from 'node:path';
 import * as process from 'node:process';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import type { Context } from '.';
 
