@@ -1721,7 +1721,9 @@ defineTest('notice when an array is passed instead of varargs', (sandbox) => {
       method: 'howManyVarArgsDidIPass',
       args: [123, [{ required: 'abc', secondLevel: 6 }]],
     });
-  }).toThrow(/Value is an array \(varargs may have been incorrectly supplied\)/);
+  }).toThrow(
+    /Value is an array \(varargs may have been incorrectly supplied\)/,
+  );
 });
 
 defineTest(
