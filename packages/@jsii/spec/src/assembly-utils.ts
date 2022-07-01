@@ -99,7 +99,7 @@ export function loadAssemblyFromBuffer(
   } else if (compressed) {
     console.warn(
       '[WARNING]',
-      `${SPEC_FILE_NAME} is not a redirect but the compressed property was passed`,
+      `${SPEC_FILE_NAME} is does not redirect to a compressed assembly but the 'compressed' property was passed`,
     );
   }
 

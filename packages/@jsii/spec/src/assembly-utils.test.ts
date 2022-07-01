@@ -193,13 +193,13 @@ describe('loadAssemblyFromBuffer', () => {
         compressedAssemblyCb: (filename: string) => {
           if (filename !== 'blah.gz') {
             throw new Error(
-              `Assembly file redirects to nonexistent ${filename}.`,
+              `Assembly file redirects to nonexistent file: ${filename}.`,
             );
           }
           return compAssemblyBuf;
         },
       });
-    }).toThrow(/Assembly file redirects to nonexistent/);
+    }).toThrow(/Assembly file redirects to nonexistent file:/);
   });
 });
 
