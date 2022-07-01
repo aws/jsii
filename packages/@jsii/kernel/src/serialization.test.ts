@@ -4,6 +4,7 @@ import { TOKEN_REF } from './api';
 import { ObjectTable } from './objects';
 import {
   SerializationClass,
+  SerializationError,
   SerializerHost,
   SERIALIZERS,
 } from './serialization';
@@ -83,7 +84,7 @@ describe(SerializationClass.Scalar, () => {
       test('rejects any value', () =>
         expect(() =>
           scalarSerializer.deserialize('nothing!', TYPE_VOID, host),
-        ).toThrow(/Encountered unexpected `void` type/));
+        ).toThrow(/Encountered unexpected void type!/));
     });
 
     const scalarTypes = [
@@ -104,7 +105,7 @@ describe(SerializationClass.Scalar, () => {
               example.type,
               host,
             ),
-          ).toThrow(`Expected a ${example.name}, got {`);
+          ).toThrow(SerializationError);
         });
 
         for (const validValue of example.validValues) {
@@ -122,11 +123,7 @@ describe(SerializationClass.Scalar, () => {
           test(`rejects: ${invalidValue}`, () =>
             expect(() =>
               scalarSerializer.deserialize(invalidValue, example.type, host),
-            ).toThrow(
-              `Expected a ${example.name}, got ${JSON.stringify(
-                invalidValue,
-              )} (${typeof invalidValue})`,
-            ));
+            ).toThrow(SerializationError));
         }
       });
     }
