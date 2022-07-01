@@ -153,20 +153,53 @@ describe('loadAssemblyFromPath', () => {
 describe('loadAssemblyFromBuffer', () => {
   test('loads uncompressed assembly buffer', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
-    const buf = fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME));
+    const assemblyFile = path.join(tmpdir, SPEC_FILE_NAME);
+    const buf = fs.readFileSync(assemblyFile);
     expect(loadAssemblyFromBuffer(buf)).toEqual(TEST_ASSEMBLY);
   });
 
   test('loads compressed assembly buffer', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
+    const assemblyFile = path.join(tmpdir, SPEC_FILE_NAME);
     const assemblyBuf = fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME));
-    const compAssemblyBuf = fs.readFileSync(
-      path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED),
-    );
+    const compressedFile = path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED);
+    const compAssemblyBuf = fs.readFileSync(compressedFile);
 
-    expect(loadAssemblyFromBuffer(assemblyBuf, compAssemblyBuf)).toEqual(
-      TEST_ASSEMBLY,
-    );
+    expect(
+      loadAssemblyFromBuffer(assemblyBuf, {
+        pathToAssembly: assemblyFile,
+        compressedAssemblyCb: (filename: string) => {
+          if (filename !== compressedFile) {
+            throw new Error(
+              `Assembly file redirects to nonexistant ${filename}.`,
+            );
+          }
+          return compAssemblyBuf;
+        },
+      }),
+    ).toEqual(TEST_ASSEMBLY);
+  });
+
+  test('throws when redirect filename mismatches', () => {
+    writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
+    const assemblyFile = path.join(tmpdir, SPEC_FILE_NAME);
+    const assemblyBuf = fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME));
+    const compressedFile = path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED);
+    const compAssemblyBuf = fs.readFileSync(compressedFile);
+
+    expect(() => {
+      loadAssemblyFromBuffer(assemblyBuf, {
+        pathToAssembly: assemblyFile,
+        compressedAssemblyCb: (filename: string) => {
+          if (filename !== 'blah.gz') {
+            throw new Error(
+              `Assembly file redirects to nonexistent ${filename}.`,
+            );
+          }
+          return compAssemblyBuf;
+        },
+      });
+    }).toThrow(/Assembly file redirects to nonexistent/);
   });
 });
 

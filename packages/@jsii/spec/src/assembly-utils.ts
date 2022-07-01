@@ -65,33 +65,42 @@ export function writeAssembly(
 }
 
 /**
- * Loads the assembly file and, if instructed to, redirects to the
- * compressed assembly file.
- *
- * Note: this function does not actually look for the filename specified in
- * the redirect schema, since we are not dealing with files. Instead, it assumes
- * that the compressedAssemblyBuffer holds the assembly we are looking for.
+ * Parses the assembly buffer and, if instructed to, redirects to the
+ * compressed assembly buffer.
  *
  * @param assemblyBuffer buffer containing SPEC_FILE_NAME contents
- * @param compressedAssemblyBuffer buffer containing SPEC_FILE_NAME_COMPRESSED contents, if available
+ * @param compressed properties necessary for handling compressed assemblies
  * @param validate whether or not to validate the assembly
  */
 export function loadAssemblyFromBuffer(
   assemblyBuffer: Buffer,
-  compressedAssemblyBuffer?: Buffer,
+  compressed?: {
+    /** path to the assembly file */
+    pathToAssembly: string;
+    /** function which returns the compressed assembly buffer */
+    compressedAssemblyCb: (filename: string) => Buffer;
+  },
   validate = true,
 ): Assembly {
   let contents = JSON.parse(assemblyBuffer.toString('utf-8'));
 
   // check if the file holds instructions to the actual assembly file
   if (isRedirect(contents)) {
-    validateRedirectSchema(contents);
-    if (!compressedAssemblyBuffer) {
+    if (!compressed) {
       throw new Error(
-        `The assembly buffer redirects to a compressed assembly at ${contents.filename}, but no compressed assembly was found`,
+        `The assembly buffer redirects to a compressed assembly but no compressed assembly was found.`,
       );
     }
-    contents = JSON.parse(zlib.gunzipSync(compressedAssemblyBuffer).toString());
+    contents = findRedirectAssembly(
+      compressed.pathToAssembly,
+      contents,
+      compressed.compressedAssemblyCb,
+    );
+  } else if (compressed) {
+    console.warn(
+      '[WARNING]',
+      `${SPEC_FILE_NAME} is not a redirect but the compressed property was passed`,
+    );
   }
 
   return validate ? validateAssembly(contents) : (contents as Assembly);
@@ -129,7 +138,13 @@ export function loadAssemblyFromFile(
 
   // check if the file holds instructions to the actual assembly file
   if (isRedirect(contents)) {
-    contents = findRedirectAssembly(pathToFile, contents);
+    contents = findRedirectAssembly(
+      pathToFile,
+      contents,
+      (filename: string) => {
+        return fs.readFileSync(filename);
+      },
+    );
   }
 
   return validate ? validateAssembly(contents) : (contents as Assembly);
@@ -148,15 +163,14 @@ function readAssembly(pathToFile: string) {
 function findRedirectAssembly(
   pathToFile: string,
   contents: Record<string, string>,
+  cb: (filename: string) => Buffer,
 ) {
   validateRedirectSchema(contents);
   const redirectAssemblyFile = path.join(
     path.dirname(pathToFile),
     contents.filename,
   );
-  return JSON.parse(
-    zlib.gunzipSync(fs.readFileSync(redirectAssemblyFile)).toString(),
-  );
+  return JSON.parse(zlib.gunzipSync(cb(redirectAssemblyFile)).toString());
 }
 
 function validateRedirectSchema(contents: Record<string, string>) {
