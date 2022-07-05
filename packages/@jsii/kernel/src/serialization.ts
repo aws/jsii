@@ -27,20 +27,23 @@
  */
 
 import * as spec from '@jsii/spec';
+import * as assert from 'node:assert';
+import { inspect } from 'node:util';
 
 import {
   isObjRef,
   isWireDate,
   isWireEnum,
   isWireMap,
+  isWireStruct,
   ObjRef,
   TOKEN_DATE,
   TOKEN_ENUM,
   TOKEN_MAP,
+  TOKEN_REF,
+  TOKEN_STRUCT,
   WireDate,
   WireEnum,
-  isWireStruct,
-  TOKEN_STRUCT,
 } from './api';
 import { jsiiTypeFqn, objectReference, ObjectTable } from './objects';
 
@@ -58,6 +61,7 @@ import { api } from '.';
  * and the absence of a type means it returns 'void'.
  */
 export type Void = 'void';
+const VOID: Void = 'void';
 
 /**
  * A type instance, or Void
@@ -94,7 +98,6 @@ export interface SerializerHost {
   readonly objects: ObjectTable;
   debug(...args: any[]): void;
   lookupType(fqn: string): spec.Type;
-  recurse(x: any, type: OptionalValueOrVoid): any;
   findSymbol(fqn: spec.FQN): any;
 }
 
@@ -135,12 +138,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       if (!isDate(value)) {
-        throw new Error(`Expected Date, got ${JSON.stringify(value)}`);
+        throw new SerializationError(`Value is not an instance of Date`, value);
       }
       return serializeDate(value);
     },
@@ -151,7 +152,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       }
 
       if (!isWireDate(value)) {
-        throw new Error(`Expected Date, got ${JSON.stringify(value)}`);
+        throw new SerializationError(
+          `Value does not have the "${TOKEN_DATE}" key`,
+          value,
+        );
       }
       return deserializeDate(value);
     },
@@ -163,24 +167,20 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       const primitiveType = optionalValue.type as spec.PrimitiveTypeReference;
 
       if (!isScalar(value)) {
-        throw new Error(
-          `Expected ${spec.describeTypeReference(
-            optionalValue.type,
-          )}, got ${JSON.stringify(value)}`,
+        throw new SerializationError(
+          `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
+          value,
         );
       }
       if (typeof value !== primitiveType.primitive) {
-        throw new Error(
-          `Expected a ${spec.describeTypeReference(
-            optionalValue.type,
-          )}, got ${JSON.stringify(value)} (${typeof value})`,
+        throw new SerializationError(
+          `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
+          value,
         );
       }
       return value;
@@ -190,24 +190,20 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       const primitiveType = optionalValue.type as spec.PrimitiveTypeReference;
 
       if (!isScalar(value)) {
-        throw new Error(
-          `Expected a ${spec.describeTypeReference(
-            optionalValue.type,
-          )}, got ${JSON.stringify(value)}`,
+        throw new SerializationError(
+          `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
+          value,
         );
       }
       if (typeof value !== primitiveType.primitive) {
-        throw new Error(
-          `Expected a ${spec.describeTypeReference(
-            optionalValue.type,
-          )}, got ${JSON.stringify(value)} (${typeof value})`,
+        throw new SerializationError(
+          `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
+          value,
         );
       }
 
@@ -217,7 +213,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
   // ----------------------------------------------------------------------
   [SerializationClass.Json]: {
-    serialize(value) {
+    serialize(value, optionalValue) {
+      // /!\ Top-level "null" will turn to undefined, but any null nested in the value is valid JSON, so it'll stay!
+      if (nullAndOk(value, optionalValue)) {
+        return undefined;
+      }
+
       // Just whatever. Dates will automatically serialize themselves to strings.
       return value;
     },
@@ -257,13 +258,19 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       return mapValues(value, mapJsonValue);
 
-      function mapJsonValue(toMap: any) {
+      function mapJsonValue(toMap: any, key: string | number) {
         if (toMap == null) {
           return toMap;
         }
-        return host.recurse(toMap, {
-          type: { primitive: spec.PrimitiveType.Json },
-        });
+        return process(
+          host,
+          'deserialize',
+          toMap,
+          {
+            type: { primitive: spec.PrimitiveType.Json },
+          },
+          typeof key === 'string' ? `key ${inspect(key)}` : `index ${key}`,
+        );
       }
     },
   },
@@ -274,12 +281,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       if (typeof value !== 'string' && typeof value !== 'number') {
-        throw new Error(`Expected enum value, got ${JSON.stringify(value)}`);
+        throw new SerializationError(`Value is not a string or number`, value);
       }
 
       host.debug('Serializing enum');
@@ -288,7 +293,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       const enumMap = host.findSymbol(enumType.fqn);
       const enumEntry = Object.entries(enumMap).find(([, v]) => v === value);
       if (!enumEntry) {
-        throw new Error(`No entry in ${enumType.fqn} has value ${value}`);
+        throw new SerializationError(
+          `Value is not present in enum ${spec.describeTypeReference(
+            enumType,
+          )}`,
+          value,
+        );
       }
       return { [TOKEN_ENUM]: `${enumType.fqn}/${enumEntry[0]}` };
     },
@@ -298,7 +308,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       }
 
       if (!isWireEnum(value)) {
-        throw new Error(`Expected enum value, got ${JSON.stringify(value)}`);
+        throw new SerializationError(
+          `Value does not have the "${TOKEN_ENUM}" key`,
+          value,
+        );
       }
 
       return deserializeEnum(value, host.findSymbol);
@@ -311,36 +324,44 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       if (!Array.isArray(value)) {
-        throw new Error(`Expected array type, got ${JSON.stringify(value)}`);
+        throw new SerializationError(`Value is not an array`, value);
       }
 
       const arrayType = optionalValue.type as spec.CollectionTypeReference;
 
-      return value.map((x) =>
-        host.recurse(x, { type: arrayType.collection.elementtype }),
+      return value.map((x, idx) =>
+        process(
+          host,
+          'serialize',
+          x,
+          { type: arrayType.collection.elementtype },
+          `index ${inspect(idx)}`,
+        ),
       );
     },
     deserialize(value, optionalValue, host) {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       if (!Array.isArray(value)) {
-        throw new Error(`Expected array type, got ${JSON.stringify(value)}`);
+        throw new SerializationError(`Value is not an array`, value);
       }
 
       const arrayType = optionalValue.type as spec.CollectionTypeReference;
 
-      return value.map((x) =>
-        host.recurse(x, { type: arrayType.collection.elementtype }),
+      return value.map((x, idx) =>
+        process(
+          host,
+          'deserialize',
+          x,
+          { type: arrayType.collection.elementtype },
+          `index ${inspect(idx)}`,
+        ),
       );
     },
   },
@@ -351,14 +372,18 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
       return {
-        [TOKEN_MAP]: mapValues(value, (v) =>
-          host.recurse(v, { type: mapType.collection.elementtype }),
+        [TOKEN_MAP]: mapValues(value, (v, key) =>
+          process(
+            host,
+            'serialize',
+            v,
+            { type: mapType.collection.elementtype },
+            `key ${inspect(key)}`,
+          ),
         ),
       };
     },
@@ -366,19 +391,29 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
       if (!isWireMap(value)) {
         // Compatibility mode with older versions that didn't wrap in [TOKEN_MAP]
-        return mapValues(value, (v) =>
-          host.recurse(v, { type: mapType.collection.elementtype }),
+        return mapValues(value, (v, key) =>
+          process(
+            host,
+            'deserialize',
+            v,
+            { type: mapType.collection.elementtype },
+            `key ${inspect(key)}`,
+          ),
         );
       }
-      const result = mapValues(value[TOKEN_MAP], (v) =>
-        host.recurse(v, { type: mapType.collection.elementtype }),
+      const result = mapValues(value[TOKEN_MAP], (v, key) =>
+        process(
+          host,
+          'deserialize',
+          v,
+          { type: mapType.collection.elementtype },
+          `key ${inspect(key)}`,
+        ),
       );
       Object.defineProperty(result, SYMBOL_WIRE_TYPE, {
         configurable: false,
@@ -396,12 +431,14 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
+
+      if (typeof value !== 'object' || value == null || value instanceof Date) {
+        throw new SerializationError(`Value is not an object`, value);
       }
 
-      if (typeof value !== 'object' || value == null) {
-        throw new Error(`Expected object, got ${JSON.stringify(value)}`);
+      if (Array.isArray(value)) {
+        throw new SerializationError(`Value is an array`, value);
       }
 
       /*
@@ -432,14 +469,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       if (typeof value !== 'object' || value == null) {
-        throw new Error(
-          `Expected object reference, got ${JSON.stringify(value)}`,
-        );
+        throw new SerializationError(`Value is not an object`, value);
       }
 
       const namedType = host.lookupType(
@@ -448,8 +481,9 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       const props = propertiesOf(namedType, host.lookupType);
 
       if (Array.isArray(value)) {
-        throw new Error(
-          `Got an array where a ${namedType.fqn} was expected. Did you mean to pass a variable number of arguments?`,
+        throw new SerializationError(
+          'Value is an array (varargs may have been incorrectly supplied)',
+          value,
         );
       }
 
@@ -472,8 +506,9 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (api.isWireStruct(value)) {
         const { fqn, data } = value[api.TOKEN_STRUCT];
         if (!isAssignable(fqn, namedType, host.lookupType)) {
-          throw new Error(
-            `Wire struct type '${fqn}' does not match expected '${namedType.fqn}'`,
+          throw new SerializationError(
+            `Wired struct has type '${fqn}', which does not match expected type`,
+            value,
           );
         }
         value = data;
@@ -491,7 +526,13 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         if (!props[key]) {
           return undefined;
         } // Don't map if unknown property
-        return host.recurse(v, props[key]);
+        return process(
+          host,
+          'deserialize',
+          v,
+          props[key],
+          `key ${inspect(key)}`,
+        );
       });
     },
   },
@@ -502,14 +543,14 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
+
+      if (typeof value !== 'object' || value == null || Array.isArray(value)) {
+        throw new SerializationError(`Value is not an object`, value);
       }
 
-      if (typeof value !== 'object' || value == null) {
-        throw new Error(
-          `Expected object reference, got ${JSON.stringify(value)}`,
-        );
+      if (value instanceof Date) {
+        throw new SerializationError(`Value is a Date`, value);
       }
 
       const expectedType = host.lookupType(
@@ -528,16 +569,15 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
-      if (optionalValue === 'void') {
-        throw new Error('Encountered unexpected `void` type');
-      }
+      assert(optionalValue !== VOID, 'Encountered unexpected void type!');
 
       // The only way to pass a by-ref object is to have created it
       // previously inside JSII kernel, so it must have an objref already.
 
       if (!isObjRef(value)) {
-        throw new Error(
-          `Expected object reference, got ${JSON.stringify(value)}`,
+        throw new SerializationError(
+          `Value does not have the "${TOKEN_REF}" key`,
+          value,
         );
       }
 
@@ -556,8 +596,11 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           spec.isClassType(namedType) &&
           !isAssignable(fqn, declaredType, host.lookupType)
         ) {
-          throw new Error(
-            `Object of type ${fqn} is not convertible to ${declaredType.fqn}`,
+          throw new SerializationError(
+            `Object of type '${fqn}' is not convertible to ${spec.describeTypeReference(
+              declaredType,
+            )}`,
+            value,
           );
         }
       }
@@ -580,23 +623,31 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         return value;
       }
       if (Array.isArray(value)) {
-        return value.map((e) => host.recurse(e, { type: spec.CANONICAL_ANY }));
+        return value.map((e, idx) =>
+          process(
+            host,
+            'serialize',
+            e,
+            { type: spec.CANONICAL_ANY },
+            `index ${inspect(idx)}`,
+          ),
+        );
       }
 
       // Note: no case for "ENUM" here, without type declaration we can't tell the difference
       // between an enum member and a scalar.
 
       if (typeof value === 'function') {
-        throw new Error(
-          'JSII Kernel is unable to serialize `function`. An instance with methods might have been returned by an `any` method?',
+        throw new SerializationError(
+          'Functions cannot be passed across language boundaries',
+          value,
         );
       }
 
       if (typeof value !== 'object' || value == null) {
-        throw new Error(
-          `JSII kernel assumption violated, ${JSON.stringify(
-            value,
-          )} is not an object`,
+        throw new SerializationError(
+          `A jsii kernel assumption was violated: value is not an object`,
+          value,
         );
       }
 
@@ -622,7 +673,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       // those and throw a descriptive error message. We can't detect these cases any other
       // way, and the by-value serialized object will be quite useless.
       if (value instanceof Set || value instanceof Map) {
-        throw new Error("Can't return objects of type Set or Map");
+        throw new SerializationError(
+          'Set and Map instances cannot be sent across the language boundary',
+          value,
+        );
       }
 
       // Use a previous reference to maintain object identity. NOTE: this may cause us to return
@@ -648,8 +702,14 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       // We will serialize by-value, but recurse for serialization so that if
       // the object contains reference objects, they will be serialized appropriately.
       // (Basically, serialize anything else as a map of 'any').
-      return mapValues(value, (v) =>
-        host.recurse(v, { type: spec.CANONICAL_ANY }),
+      return mapValues(value, (v, key) =>
+        process(
+          host,
+          'serialize',
+          v,
+          { type: spec.CANONICAL_ANY },
+          `key ${inspect(key)}`,
+        ),
       );
     },
 
@@ -668,7 +728,15 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       }
       if (Array.isArray(value)) {
         host.debug('ANY is an Array');
-        return value.map((e) => host.recurse(e, { type: spec.CANONICAL_ANY }));
+        return value.map((e, idx) =>
+          process(
+            host,
+            'deserialize',
+            e,
+            { type: spec.CANONICAL_ANY },
+            `index ${inspect(idx)}`,
+          ),
+        );
       }
 
       if (isWireEnum(value)) {
@@ -709,8 +777,14 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       // At this point again, deserialize by-value.
       host.debug('ANY is a Map');
-      return mapValues(value, (v) =>
-        host.recurse(v, { type: spec.CANONICAL_ANY }),
+      return mapValues(value, (v, key) =>
+        process(
+          host,
+          'deserialize',
+          v,
+          { type: spec.CANONICAL_ANY },
+          `key ${inspect(key)}`,
+        ),
       );
     },
   },
@@ -728,7 +802,10 @@ function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
   const enumLocator = value[TOKEN_ENUM];
   const sep = enumLocator.lastIndexOf('/');
   if (sep === -1) {
-    throw new Error(`Malformed enum value: ${JSON.stringify(value)}`);
+    throw new SerializationError(
+      `Invalid enum token value ${inspect(enumLocator)}`,
+      value,
+    );
   }
 
   const typeName = enumLocator.slice(0, sep);
@@ -736,7 +813,10 @@ function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
 
   const enumValue = lookup(typeName)[valueName];
   if (enumValue === undefined) {
-    throw new Error(`No enum member named ${valueName} in ${typeName}`);
+    throw new SerializationError(
+      `No such enum member: ${inspect(valueName)}`,
+      value,
+    );
   }
   return enumValue;
 }
@@ -755,9 +835,11 @@ export function serializationType(
   typeRef: OptionalValueOrVoid,
   lookup: TypeLookup,
 ): TypeSerialization[] {
-  if (typeRef == null) {
-    throw new Error("Kernel error: expected type information, got 'undefined'");
-  }
+  assert(
+    typeRef != null,
+    `Kernel error: expected type information, got ${inspect(typeRef)}`,
+  );
+
   if (typeRef === 'void') {
     return [{ serializationClass: SerializationClass.Void, typeRef }];
   }
@@ -775,7 +857,7 @@ export function serializationType(
         return [{ serializationClass: SerializationClass.Scalar, typeRef }];
     }
 
-    throw new Error('Unknown primitive type');
+    assert(false, `Unknown primitive type: ${inspect(typeRef.type)}`);
   }
   if (spec.isCollectionTypeReference(typeRef.type)) {
     return [
@@ -823,8 +905,9 @@ function nullAndOk(x: unknown, type: OptionalValueOrVoid): boolean {
   }
 
   if (type !== 'void' && !type.optional) {
-    throw new Error(
-      `Got 'undefined' for non-optional instance of ${JSON.stringify(type)}`,
+    throw new SerializationError(
+      `A value is required (type is non-optional)`,
+      x,
     );
   }
 
@@ -860,7 +943,11 @@ function mapValues(
   fn: (value: any, field: string) => any,
 ): { [key: string]: any } {
   if (typeof value !== 'object' || value == null) {
-    throw new Error(`Expected object type, got ${JSON.stringify(value)}`);
+    throw new SerializationError(`Value is not an object`, value);
+  }
+
+  if (Array.isArray(value)) {
+    throw new SerializationError(`Value is an array`, value);
   }
 
   const out: { [key: string]: any } = {};
@@ -952,10 +1039,11 @@ function validateRequiredProps(
     .filter((name) => !(name in actualProps));
 
   if (missingRequiredProps.length > 0) {
-    throw new Error(
-      `Missing required properties for ${typeName}: ${missingRequiredProps.join(
-        ', ',
-      )}`,
+    throw new SerializationError(
+      `Missing required properties for ${typeName}: ${missingRequiredProps
+        .map((p) => inspect(p))
+        .join(', ')}`,
+      actualProps,
     );
   }
 
@@ -1014,4 +1102,132 @@ function isByReferenceOnly(obj: any): boolean {
   } while (Object.getPrototypeOf((curr = Object.getPrototypeOf(curr))) != null);
 
   return false;
+}
+
+export function process(
+  host: SerializerHost,
+  serde: keyof Serializer,
+  value: unknown,
+  type: OptionalValueOrVoid,
+  context: string,
+) {
+  const wireTypes = serializationType(type, host.lookupType);
+  host.debug(serde, value, wireTypes);
+
+  const errors = new Array<any>();
+  for (const { serializationClass, typeRef } of wireTypes) {
+    try {
+      return SERIALIZERS[serializationClass][serde](value, typeRef, host);
+    } catch (error: any) {
+      error.context = `as ${
+        typeRef === VOID ? VOID : spec.describeTypeReference(typeRef.type)
+      }`;
+      errors.push(error);
+    }
+  }
+
+  const typeDescr =
+    type === VOID ? type : spec.describeTypeReference(type.type);
+  const optionalTypeDescr =
+    type !== VOID && type.optional ? `${typeDescr} | undefined` : typeDescr;
+  throw new SerializationError(
+    `${titleize(context)}: Unable to ${serde} value as ${optionalTypeDescr}`,
+    value,
+    errors,
+    { renderValue: true },
+  );
+
+  function titleize(text: string): string {
+    text = text.trim();
+    if (text === '') {
+      return text;
+    }
+    const [first, ...rest] = text;
+    return [first.toUpperCase(), ...rest].join('');
+  }
+}
+
+export class SerializationError extends Error {
+  public readonly name: string = '@jsii/kernel.SerializationError';
+
+  public constructor(
+    message: string,
+    public readonly value: unknown,
+    public readonly causes: readonly any[] = [],
+    { renderValue = false }: { renderValue?: boolean } = {},
+  ) {
+    super(
+      [
+        message,
+        ...(renderValue
+          ? [
+              `${
+                causes.length > 0 ? '\u{251C}' : '\u{2570}'
+              }\u{2500}\u{2500} \u{1F6D1} Failing value is ${describeTypeOf(
+                value,
+              )}`,
+              ...(value == null
+                ? []
+                : inspect(value, false, 0)
+                    .split('\n')
+                    .map(
+                      (l) =>
+                        `${causes.length > 0 ? '\u{2502}' : ' '}      ${l}`,
+                    )),
+            ]
+          : []),
+        ...(causes.length > 0
+          ? [
+              '\u{2570}\u{2500}\u{2500} \u{1F50D} Failure reason(s):',
+              ...causes.map(
+                (cause, idx) =>
+                  `    ${
+                    idx < causes.length - 1 ? '\u{251C}' : '\u{2570}'
+                  }\u{2500}${
+                    causes.length > 1
+                      ? ` [${cause.context ?? inspect(idx)}]`
+                      : ''
+                  } ${cause.message.split('\n').join('\n        ')}`,
+              ),
+            ]
+          : []),
+      ].join('\n'),
+    );
+  }
+}
+
+function describeTypeOf(value: unknown) {
+  const type = typeof value;
+  switch (type) {
+    case 'object':
+      if (value == null) {
+        return JSON.stringify(value);
+      }
+
+      if (Array.isArray(value)) {
+        return 'an array';
+      }
+
+      const fqn = jsiiTypeFqn(value as object);
+      if (fqn != null && fqn !== EMPTY_OBJECT_FQN) {
+        return `an instance of ${fqn}`;
+      }
+
+      const ctorName = (value as object).constructor.name;
+      if (ctorName != null && ctorName !== Object.name) {
+        return `an instance of ${ctorName}`;
+      }
+
+      return `an object`;
+
+    case 'undefined':
+      return type;
+
+    case 'boolean':
+    case 'function':
+    case 'number':
+    case 'string':
+    default:
+      return `a ${type}`;
+  }
 }

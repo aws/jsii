@@ -344,7 +344,7 @@ defineTest('fails for invalid enum member name', (sandbox) => {
         '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/ValueX',
       },
     });
-  }).toThrow(/No enum member named ValueX/);
+  }).toThrow(/No such enum member: 'ValueX'/);
 });
 
 defineTest('set for a non existing property', (sandbox) => {
@@ -1688,7 +1688,7 @@ defineTest(
         args: [123, { incomplete: true }],
       });
     }).toThrow(
-      /Missing required properties for jsii-calc.TopLevelStruct: required, secondLevel/,
+      /Missing required properties for jsii-calc\.TopLevelStruct: 'required', 'secondLevel'/,
     );
   },
 );
@@ -1709,7 +1709,7 @@ defineTest(
         ],
       });
     }).toThrow(
-      /Missing required properties for jsii-calc.SecondLevelStruct: deeperRequiredProp/,
+      /\[as jsii-calc.SecondLevelStruct\] Missing required properties for jsii-calc\.SecondLevelStruct: 'deeperRequiredProp'/,
     );
   },
 );
@@ -1721,7 +1721,9 @@ defineTest('notice when an array is passed instead of varargs', (sandbox) => {
       method: 'howManyVarArgsDidIPass',
       args: [123, [{ required: 'abc', secondLevel: 6 }]],
     });
-  }).toThrow(/Got an array where a jsii-calc.TopLevelStruct was expected/);
+  }).toThrow(
+    /Value is an array \(varargs may have been incorrectly supplied\)/,
+  );
 });
 
 defineTest(
@@ -2020,7 +2022,7 @@ defineTest('ANY serializer: null/undefined', (sandbox) => {
 
 defineTest('ANY serializer: function (fails)', (sandbox) => {
   expect(() => serializeAny(sandbox, 'anyFunction')).toThrow(
-    /JSII Kernel is unable to serialize `function`. An instance with methods might have been returned by an `any` method\?/,
+    /Functions cannot be passed across language boundaries/,
   );
 });
 
