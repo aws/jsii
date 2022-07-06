@@ -10,7 +10,7 @@ import {
 } from './assembly';
 import {
   loadAssemblyFromPath,
-  getAssemblyFile,
+  findAssemblyFile,
   writeAssembly,
   loadAssemblyFromBuffer,
 } from './assembly-utils';
@@ -45,7 +45,7 @@ afterEach(() => {
   fs.removeSync(tmpdir);
 });
 
-describe('writeAssembly', () => {
+describe(writeAssembly, () => {
   test('can write compressed assembly', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
 
@@ -71,27 +71,27 @@ describe('writeAssembly', () => {
   });
 });
 
-describe('getAssemblyFile', () => {
+describe(findAssemblyFile, () => {
   test('finds SPEC_FILE_NAME file when there is no compression', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
 
-    expect(getAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
+    expect(findAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
   });
 
   test('finds SPEC_FILE_NAME file even when there is compression', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
 
-    expect(getAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
+    expect(findAssemblyFile(tmpdir)).toEqual(path.join(tmpdir, SPEC_FILE_NAME));
   });
 
   test('throws if SPEC_FILE_NAME file does not exist', () => {
-    expect(() => getAssemblyFile(tmpdir)).toThrow(
+    expect(() => findAssemblyFile(tmpdir)).toThrow(
       `Expected to find ${SPEC_FILE_NAME} file in ${tmpdir}, but no such file found`,
     );
   });
 });
 
-describe('loadAssemblyFromPath', () => {
+describe(loadAssemblyFromPath, () => {
   test('loads compressed assembly', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
 
@@ -119,19 +119,30 @@ describe('loadAssemblyFromPath', () => {
     fs.removeSync(uncompressedTmpDir);
   });
 
-  test('throws if redirect schema is invalid', () => {
+  test('throws if redirect object has unsupported compression', () => {
     fs.writeJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
       schema: 'jsii/file-redirect',
       compression: '7zip',
+      filename: '.jsii.7z',
     });
 
-    expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
-      [
-        'Invalid redirect schema:',
-        "  compression must be 'gzip' but received '7zip'",
-        "  schema must include property 'filename'",
-      ].join('\n'),
-    );
+    expect(() => loadAssemblyFromPath(tmpdir))
+      .toThrowErrorMatchingInlineSnapshot(`
+      "Invalid assembly redirect:
+       * must be equal to one of the allowed values"
+    `);
+  });
+
+  test('throws if redirect object is missing filename', () => {
+    fs.writeJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
+      schema: 'jsii/file-redirect',
+    });
+
+    expect(() => loadAssemblyFromPath(tmpdir))
+      .toThrowErrorMatchingInlineSnapshot(`
+      "Invalid assembly redirect:
+       * must have required property 'filename'"
+    `);
   });
 
   test('throws if assembly is invalid', () => {
@@ -150,7 +161,7 @@ describe('loadAssemblyFromPath', () => {
   });
 });
 
-describe('loadAssemblyFromBuffer', () => {
+describe(loadAssemblyFromBuffer, () => {
   test('loads uncompressed assembly buffer', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: false });
     const assemblyFile = path.join(tmpdir, SPEC_FILE_NAME);
@@ -160,44 +171,36 @@ describe('loadAssemblyFromBuffer', () => {
 
   test('loads compressed assembly buffer', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
-    const assemblyFile = path.join(tmpdir, SPEC_FILE_NAME);
     const assemblyBuf = fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME));
     const compressedFile = path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED);
     const compAssemblyBuf = fs.readFileSync(compressedFile);
 
     expect(
-      loadAssemblyFromBuffer(assemblyBuf, {
-        pathToAssembly: assemblyFile,
-        compressedAssemblyCb: (filename: string) => {
-          if (filename !== compressedFile) {
-            throw new Error(
-              `Assembly file redirects to nonexistant ${filename}.`,
-            );
-          }
-          return compAssemblyBuf;
-        },
+      loadAssemblyFromBuffer(assemblyBuf, (filename: string) => {
+        if (filename !== SPEC_FILE_NAME_COMPRESSED) {
+          throw new Error(
+            `Assembly file redirects to nonexistant ${filename}.`,
+          );
+        }
+        return compAssemblyBuf;
       }),
     ).toEqual(TEST_ASSEMBLY);
   });
 
   test('throws when redirect filename mismatches', () => {
     writeAssembly(tmpdir, TEST_ASSEMBLY, { compress: true });
-    const assemblyFile = path.join(tmpdir, SPEC_FILE_NAME);
     const assemblyBuf = fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME));
     const compressedFile = path.join(tmpdir, SPEC_FILE_NAME_COMPRESSED);
     const compAssemblyBuf = fs.readFileSync(compressedFile);
 
     expect(() => {
-      loadAssemblyFromBuffer(assemblyBuf, {
-        pathToAssembly: assemblyFile,
-        compressedAssemblyCb: (filename: string) => {
-          if (filename !== 'blah.gz') {
-            throw new Error(
-              `Assembly file redirects to nonexistent file: ${filename}.`,
-            );
-          }
-          return compAssemblyBuf;
-        },
+      loadAssemblyFromBuffer(assemblyBuf, (filename: string) => {
+        if (filename !== 'blah.gz') {
+          throw new Error(
+            `Assembly file redirects to nonexistent file: ${filename}.`,
+          );
+        }
+        return compAssemblyBuf;
       });
     }).toThrow(/Assembly file redirects to nonexistent file:/);
   });

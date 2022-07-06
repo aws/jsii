@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromFile, loadAssemblyFromPath, getAssemblyFile, writeAssembly } from '@jsii/spec';
+import { loadAssemblyFromFile, loadAssemblyFromPath, findAssemblyFile, writeAssembly } from '@jsii/spec';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -65,7 +65,7 @@ export function loadAssemblies(
   function loadAssembly(location: string): LoadedAssembly {
     const stat = fs.statSync(location);
     if (stat.isDirectory()) {
-      return loadAssembly(getAssemblyFile(location));
+      return loadAssembly(findAssemblyFile(location));
     }
 
     const directory = path.dirname(location);

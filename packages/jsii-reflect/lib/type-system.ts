@@ -1,4 +1,4 @@
-import { getAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
+import { findAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -109,7 +109,7 @@ export class TypeSystem {
       // Load the assembly, but don't recurse if we already have an assembly with the same name.
       // Validation is not an insignificant time sink, and loading IS insignificant, so do a
       // load without validation first. This saves about 2/3rds of processing time.
-      const asm = this.loadAssembly(getAssemblyFile(moduleDirectory), false);
+      const asm = this.loadAssembly(findAssemblyFile(moduleDirectory), false);
       if (this.includesAssembly(asm.name)) {
         const existing = this.findAssembly(asm.name);
         if (existing.version !== asm.version) {

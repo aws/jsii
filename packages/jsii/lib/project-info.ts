@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import { getAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
+import { findAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
@@ -435,7 +435,7 @@ function _tryResolveAssembly(
   searchPath: string,
 ): string {
   if (localPackage) {
-    const result = getAssemblyFile(localPackage);
+    const result = findAssemblyFile(localPackage);
     if (!fs.existsSync(result)) {
       throw new Error(`Assembly does not exist: ${result}`);
     }
@@ -443,7 +443,7 @@ function _tryResolveAssembly(
   }
   try {
     const dependencyDir = findDependencyDirectory(mod, searchPath);
-    return getAssemblyFile(dependencyDir);
+    return findAssemblyFile(dependencyDir);
   } catch (e: any) {
     throw new Error(
       `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,
