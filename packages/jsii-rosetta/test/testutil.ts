@@ -1,8 +1,8 @@
 import { Assembly, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { PackageInfo, compileJsiiForTest, TestWorkspace } from 'jsii';
-import * as os from 'os';
-import * as path from 'path';
+import * as os from 'node:os';
+import * as path from 'node:path';
 
 import {
   SnippetTranslator,

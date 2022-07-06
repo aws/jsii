@@ -5,7 +5,7 @@ import {
   Type,
   Submodule as JsiiSubmodule,
 } from 'jsii-reflect';
-import { basename, dirname, join } from 'path';
+import { basename, dirname, join } from 'node:path';
 import * as semver from 'semver';
 
 import { VERSION } from '../../version';

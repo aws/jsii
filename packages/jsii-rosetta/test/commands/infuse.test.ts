@@ -1,6 +1,6 @@
 import { loadAssemblyFromPath } from '@jsii/spec';
 import * as fs from 'fs-extra';
-import * as path from 'path';
+import * as path from 'node:path';
 
 import { LanguageTablet, DEFAULT_TABLET_NAME } from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';

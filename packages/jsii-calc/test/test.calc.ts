@@ -1,5 +1,5 @@
 import * as calcLib from '@scope/jsii-calc-lib';
-import * as assert from 'assert';
+import * as assert from 'node:assert';
 
 import {
   Add,

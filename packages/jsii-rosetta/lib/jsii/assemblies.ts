@@ -1,8 +1,8 @@
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromFile, loadAssemblyFromPath, findAssemblyFile, writeAssembly } from '@jsii/spec';
-import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
-import * as path from 'path';
+import * as crypto from 'node:crypto';
+import * as path from 'node:path';
 
 import { findDependencyDirectory, isBuiltinModule } from '../find-utils';
 import { fixturize } from '../fixtures';

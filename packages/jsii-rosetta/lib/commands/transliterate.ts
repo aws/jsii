@@ -1,6 +1,6 @@
 import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind, loadAssemblyFromPath } from '@jsii/spec';
 import { writeJson } from 'fs-extra';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 import { TargetLanguage } from '../languages';
 import { targetName } from '../languages/target-language';

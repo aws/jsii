@@ -3,7 +3,7 @@ import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
-import * as path from 'path';
+import * as path from 'node:path';
 
 import { Generator, Legalese } from '../../generator';
 import { MethodDefinition, PropertyDefinition } from '../_utils';

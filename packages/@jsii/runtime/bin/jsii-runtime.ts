@@ -1,10 +1,10 @@
 import '@jsii/check-node/run';
 
-import { spawn } from 'child_process';
-import { error } from 'console';
-import { constants as os } from 'os';
-import { resolve } from 'path';
-import { Duplex } from 'stream';
+import { spawn } from 'node:child_process';
+import { error } from 'node:console';
+import { constants as os } from 'node:os';
+import { resolve } from 'node:path';
+import { Duplex } from 'node:stream';
 
 // Spawn another node process, with the following file descriptor setup:
 // - No STDIN will be provided

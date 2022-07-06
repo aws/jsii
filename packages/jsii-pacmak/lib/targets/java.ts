@@ -10,7 +10,7 @@ import {
   markDownToJavaDoc,
   ApiLocation,
 } from 'jsii-rosetta';
-import * as path from 'path';
+import * as path from 'node:path';
 import * as xmlbuilder from 'xmlbuilder';
 
 import { TargetBuilder, BuildOptions } from '../builder';

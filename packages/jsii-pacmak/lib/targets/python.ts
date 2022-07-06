@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import * as assert from 'assert';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as fs from 'fs-extra';
@@ -10,7 +9,8 @@ import {
   enforcesStrictMode,
   ApiLocation,
 } from 'jsii-rosetta';
-import * as path from 'path';
+import * as assert from 'node:assert';
+import * as path from 'node:path';
 
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';

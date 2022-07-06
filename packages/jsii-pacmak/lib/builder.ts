@@ -1,5 +1,5 @@
 import { Rosetta } from 'jsii-rosetta';
-import * as path from 'path';
+import * as path from 'node:path';
 
 import * as logging from './logging';
 import { JsiiModule } from './packaging';

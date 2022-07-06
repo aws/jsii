@@ -1,6 +1,6 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import * as zlib from 'zlib';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as zlib from 'node:zlib';
 
 import {
   Assembly,
@@ -48,11 +48,15 @@ export function writeAssembly(
 ) {
   if (compress) {
     // write .jsii file with instructions on opening the compressed file
-    fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), {
-      schema: 'jsii/file-redirect',
-      compression: 'gzip',
-      filename: SPEC_FILE_NAME_COMPRESSED,
-    });
+    fs.writeFileSync(
+      path.join(directory, SPEC_FILE_NAME),
+      JSON.stringify({
+        schema: 'jsii/file-redirect',
+        compression: 'gzip',
+        filename: SPEC_FILE_NAME_COMPRESSED,
+      }),
+      'utf-8',
+    );
 
     // write actual assembly contents in .jsii.gz
     fs.writeFileSync(
@@ -60,10 +64,11 @@ export function writeAssembly(
       zlib.gzipSync(JSON.stringify(assembly)),
     );
   } else {
-    fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), assembly, {
-      encoding: 'utf8',
-      spaces: 2,
-    });
+    fs.writeFileSync(
+      path.join(directory, SPEC_FILE_NAME),
+      JSON.stringify(assembly, null, 2),
+      'utf-8',
+    );
   }
 
   return compress;

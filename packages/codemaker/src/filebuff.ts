@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'node:path';
 
 /**
  * Buffers the text of a file for later saving.

@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra';
-import * as os from 'os';
-import * as path from 'path';
+import * as os from 'node:os';
+import * as path from 'node:path';
+import * as zlib from 'node:zlib';
 
 import {
   SPEC_FILE_NAME,
@@ -14,6 +15,7 @@ import {
   writeAssembly,
   loadAssemblyFromBuffer,
 } from './assembly-utils';
+import { AssemblyRedirect } from './redirect';
 
 const TEST_ASSEMBLY: Assembly = {
   schema: SchemaVersion.LATEST,
@@ -203,6 +205,33 @@ describe(loadAssemblyFromBuffer, () => {
         return compAssemblyBuf;
       });
     }).toThrow(/Assembly file redirects to nonexistent file:/);
+  });
+
+  test('follows multiple redirects', () => {
+    const firstRedirect: AssemblyRedirect = {
+      schema: 'jsii/file-redirect',
+      filename: 'second.json.gz',
+      compression: 'gzip',
+    };
+    const secondRedirect: AssemblyRedirect = {
+      schema: 'jsii/file-redirect',
+      filename: 'assembly.json',
+    };
+
+    expect(
+      loadAssemblyFromBuffer(
+        Buffer.from(JSON.stringify(firstRedirect)),
+        (filename) => {
+          if (filename === firstRedirect.filename) {
+            return zlib.gzipSync(JSON.stringify(secondRedirect), { level: 9 });
+          } else if (filename === secondRedirect.filename) {
+            return Buffer.from(JSON.stringify(TEST_ASSEMBLY));
+          }
+          throw new Error(`Reference to unexpected file: ${filename}`);
+        },
+        false,
+      ),
+    ).toEqual(TEST_ASSEMBLY);
   });
 });
 

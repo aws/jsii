@@ -1,7 +1,7 @@
 import { Assembly, SPEC_FILE_NAME, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
-import * as path from 'path';
+import * as path from 'node:path';
 
 import { extractSnippets } from '../../lib/commands/extract';
 import { transliterateAssembly } from '../../lib/commands/transliterate';

@@ -1,6 +1,6 @@
 import { Assembly } from '@jsii/spec';
 import { CodeMaker } from 'codemaker';
-import * as path from 'path';
+import * as path from 'node:path';
 import * as xmlbuilder from 'xmlbuilder';
 
 import { TargetName } from '..';

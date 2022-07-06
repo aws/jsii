@@ -1,9 +1,9 @@
 import '@jsii/check-node/run';
 
 import * as log4js from 'log4js';
-import * as path from 'path';
+import * as path from 'node:path';
+import * as util from 'node:util';
 import { version as tsVersion } from 'typescript/package.json';
-import * as util from 'util';
 import * as yargs from 'yargs';
 
 import { Compiler } from '../lib/compiler';

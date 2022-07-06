@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
-import * as path from 'path';
+import * as path from 'node:path';
 
 import { TypeSystem } from '../lib';
 import { typeSystemFromSource, assemblyFromSource } from './util';

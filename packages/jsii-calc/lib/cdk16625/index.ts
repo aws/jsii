@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import * as assert from 'node:assert';
 
 import { IRandomNumberGenerator } from '../calculator';
 import { UnimportedSubmoduleType } from './donotimport';

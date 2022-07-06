@@ -1,7 +1,7 @@
 import '@jsii/check-node/run';
 
 import * as fs from 'fs-extra';
-import * as path from 'path';
+import * as path from 'node:path';
 import * as yargs from 'yargs';
 
 import { TranslateResult, translateTypeScript, RosettaDiagnostic } from '../lib';

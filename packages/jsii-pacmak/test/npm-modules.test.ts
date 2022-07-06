@@ -1,6 +1,6 @@
 import { mkdirp, mkdtemp, remove, writeJson } from 'fs-extra';
-import { tmpdir } from 'os';
-import { join } from 'path';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 import { findJsiiModules } from '../lib/npm-modules';
 import { flatten } from '../lib/util';

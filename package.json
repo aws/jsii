@@ -27,6 +27,7 @@
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-unicorn": "^43.0.0",
     "jest": "^28.1.1",
     "jest-circus": "^28.1.1",
     "jest-config": "^28.1.1",

@@ -2,7 +2,7 @@ import { CodeMaker } from 'codemaker';
 import * as fs from 'fs-extra';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
-import * as path from 'path';
+import * as path from 'node:path';
 
 import { IGenerator, Legalese } from '../generator';
 import * as logging from '../logging';
