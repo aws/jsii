@@ -210,7 +210,7 @@ export class Kernel {
     );
 
     this._debug('value:', value);
-    const ret = this._fromSandbox(value, ti);
+    const ret = this._fromSandbox(value, ti, `of static property ${symbol}`);
     this._debug('ret', ret);
     return { value: ret };
   }
@@ -233,7 +233,12 @@ export class Kernel {
 
     this._ensureSync(`property ${property}`, () =>
       this._wrapSandboxCode(
-        () => (prototype[property] = this._toSandbox(value, ti)),
+        () =>
+          (prototype[property] = this._toSandbox(
+            value,
+            ti,
+            `assigned to static property ${symbol}`,
+          )),
       ),
     );
 
@@ -260,7 +265,7 @@ export class Kernel {
       () => this._wrapSandboxCode(() => instance[propertyToGet]),
     );
     this._debug('value:', value);
-    const ret = this._fromSandbox(value, ti);
+    const ret = this._fromSandbox(value, ti, `of property ${fqn}.${property}`);
     this._debug('ret:', ret);
     return { value: ret };
   }
@@ -282,7 +287,12 @@ export class Kernel {
 
     this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`, () =>
       this._wrapSandboxCode(
-        () => (instance[propertyToSet] = this._toSandbox(value, propInfo)),
+        () =>
+          (instance[propertyToSet] = this._toSandbox(
+            value,
+            propInfo,
+            `assigned to property ${fqn}.${property}`,
+          )),
       ),
     );
 
@@ -310,7 +320,11 @@ export class Kernel {
       },
     );
 
-    const result = this._fromSandbox(ret, ti.returns ?? 'void');
+    const result = this._fromSandbox(
+      ret,
+      ti.returns ?? 'void',
+      `returned by method ${method}`,
+    );
     this._debug('invoke result', result);
 
     return { result };
@@ -343,7 +357,13 @@ export class Kernel {
     });
 
     this._debug('method returned:', ret);
-    return { result: this._fromSandbox(ret, ti.returns ?? 'void') };
+    return {
+      result: this._fromSandbox(
+        ret,
+        ti.returns ?? 'void',
+        `returned by static method ${fqn}.${method}`,
+      ),
+    };
   }
 
   public begin(req: api.BeginRequest): api.BeginResponse {
@@ -402,7 +422,13 @@ export class Kernel {
       throw e;
     }
 
-    return { result: this._fromSandbox(result, method.returns ?? 'void') };
+    return {
+      result: this._fromSandbox(
+        result,
+        method.returns ?? 'void',
+        `returned by async method ${method.name}`,
+      ),
+    };
   }
 
   public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
@@ -444,6 +470,7 @@ export class Kernel {
       const sandoxResult = this._toSandbox(
         result,
         cb.expectedReturnType ?? 'void',
+        `returned by callback ${cbid}`,
       );
       this._debug('completed with result:', sandoxResult);
       cb.succeed(sandoxResult);
@@ -682,7 +709,11 @@ export class Kernel {
           get: { objref, property: propertyName },
         });
         this._debug('callback returned', result);
-        return this._toSandbox(result, propInfo);
+        return this._toSandbox(
+          result,
+          propInfo,
+          `returned by callback property ${propertyName}`,
+        );
       },
       set: (value: any) => {
         this._debug('virtual set', objref, propertyName, {
@@ -694,7 +725,11 @@ export class Kernel {
           set: {
             objref,
             property: propertyName,
-            value: this._fromSandbox(value, propInfo),
+            value: this._fromSandbox(
+              value,
+              propInfo,
+              `assigned to callback property ${propertyName}`,
+            ),
           },
         });
       },
@@ -822,7 +857,11 @@ export class Kernel {
             },
           });
           this._debug('Result', result);
-          return this._toSandbox(result, methodInfo.returns ?? 'void');
+          return this._toSandbox(
+            result,
+            methodInfo.returns ?? 'void',
+            `returned by callback method ${methodName}`,
+          );
         },
       });
     }
@@ -1063,73 +1102,41 @@ export class Kernel {
     return typeInfo;
   }
 
-  private _toSandbox(v: any, expectedType: wire.OptionalValueOrVoid): any {
-    const serTypes = wire.serializationType(
+  private _toSandbox(
+    v: any,
+    expectedType: wire.OptionalValueOrVoid,
+    context: string,
+  ): any {
+    return wire.process(
+      {
+        objects: this.objects,
+        debug: this._debug.bind(this),
+        findSymbol: this._findSymbol.bind(this),
+        lookupType: this._typeInfoForFqn.bind(this),
+      },
+      'deserialize',
+      v,
       expectedType,
-      this._typeInfoForFqn.bind(this),
-    );
-    this._debug('toSandbox', v, JSON.stringify(serTypes));
-
-    const host: wire.SerializerHost = {
-      objects: this.objects,
-      debug: this._debug.bind(this),
-      findSymbol: this._findSymbol.bind(this),
-      lookupType: this._typeInfoForFqn.bind(this),
-      recurse: this._toSandbox.bind(this),
-    };
-
-    const errors = new Array<string>();
-    for (const { serializationClass, typeRef } of serTypes) {
-      try {
-        return wire.SERIALIZERS[serializationClass].deserialize(
-          v,
-          typeRef,
-          host,
-        );
-      } catch (e: any) {
-        // If no union (99% case), rethrow immediately to preserve stack trace
-        if (serTypes.length === 1) {
-          throw e;
-        }
-        errors.push(e.message);
-      }
-    }
-
-    throw new Error(
-      `Value did not match any type in union: ${errors.join(', ')}`,
+      context,
     );
   }
 
-  private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid): any {
-    const serTypes = wire.serializationType(
+  private _fromSandbox(
+    v: any,
+    targetType: wire.OptionalValueOrVoid,
+    context: string,
+  ): any {
+    return wire.process(
+      {
+        objects: this.objects,
+        debug: this._debug.bind(this),
+        findSymbol: this._findSymbol.bind(this),
+        lookupType: this._typeInfoForFqn.bind(this),
+      },
+      'serialize',
+      v,
       targetType,
-      this._typeInfoForFqn.bind(this),
-    );
-    this._debug('fromSandbox', v, JSON.stringify(serTypes));
-
-    const host: wire.SerializerHost = {
-      objects: this.objects,
-      debug: this._debug.bind(this),
-      findSymbol: this._findSymbol.bind(this),
-      lookupType: this._typeInfoForFqn.bind(this),
-      recurse: this._fromSandbox.bind(this),
-    };
-
-    const errors = new Array<string>();
-    for (const { serializationClass, typeRef } of serTypes) {
-      try {
-        return wire.SERIALIZERS[serializationClass].serialize(v, typeRef, host);
-      } catch (e: any) {
-        // If no union (99% case), rethrow immediately to preserve stack trace
-        if (serTypes.length === 1) {
-          throw e;
-        }
-        errors.push(e.message);
-      }
-    }
-
-    throw new Error(
-      `Value did not match any type in union: ${errors.join(', ')}`,
+      context,
     );
   }
 
@@ -1148,7 +1155,7 @@ export class Kernel {
   private _boxUnboxParameters(
     xs: any[],
     parameters: spec.Parameter[] | undefined,
-    boxUnbox: (x: any, t: wire.OptionalValueOrVoid) => any,
+    boxUnbox: (x: any, t: wire.OptionalValueOrVoid, context: string) => any,
   ) {
     parameters = [...(parameters ?? [])];
     const variadic =
@@ -1166,7 +1173,9 @@ export class Kernel {
         })`,
       );
     }
-    return xs.map((x, i) => boxUnbox(x, parameters![i]));
+    return xs.map((x, i) =>
+      boxUnbox(x, parameters![i], `of parameter ${parameters![i].name}`),
+    );
   }
 
   private _debug(...args: any[]) {

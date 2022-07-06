@@ -4,6 +4,7 @@ import { TOKEN_REF } from './api';
 import { ObjectTable } from './objects';
 import {
   SerializationClass,
+  SerializationError,
   SerializerHost,
   SERIALIZERS,
 } from './serialization';
@@ -28,7 +29,6 @@ const host: SerializerHost = {
   findSymbol: jest.fn().mockName('host.findSymbol'),
   lookupType,
   objects: new ObjectTable(lookupType),
-  recurse: jest.fn().mockName('host.recurse'),
 };
 
 describe(SerializationClass.Any, () => {
@@ -40,16 +40,6 @@ describe(SerializationClass.Any, () => {
       return this.randomValue;
     }
   }
-
-  beforeEach((done) => {
-    (host.recurse as jest.Mock<any, any>).mockImplementation(
-      (x: any, type: OptionalValue) => {
-        expect(type).toEqual(TYPE_ANY);
-        return anySerializer.serialize(x, type, host);
-      },
-    );
-    done();
-  });
 
   describe(anySerializer.serialize, () => {
     test('by-value object literal', () => {
@@ -94,7 +84,7 @@ describe(SerializationClass.Scalar, () => {
       test('rejects any value', () =>
         expect(() =>
           scalarSerializer.deserialize('nothing!', TYPE_VOID, host),
-        ).toThrow(/Encountered unexpected `void` type/));
+        ).toThrow(/Encountered unexpected void type!/));
     });
 
     const scalarTypes = [
@@ -115,7 +105,7 @@ describe(SerializationClass.Scalar, () => {
               example.type,
               host,
             ),
-          ).toThrow(`Expected a ${example.name}, got {`);
+          ).toThrow(SerializationError);
         });
 
         for (const validValue of example.validValues) {
@@ -133,11 +123,7 @@ describe(SerializationClass.Scalar, () => {
           test(`rejects: ${invalidValue}`, () =>
             expect(() =>
               scalarSerializer.deserialize(invalidValue, example.type, host),
-            ).toThrow(
-              `Expected a ${example.name}, got ${JSON.stringify(
-                invalidValue,
-              )} (${typeof invalidValue})`,
-            ));
+            ).toThrow(SerializationError));
         }
       });
     }

@@ -82,6 +82,13 @@ jobs:
             ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-
             ${{ runner.os }}-buildx-
 
+      # 1 pull per second from ECR Public
+      - name: Jitter the start time to avoid ECR Public throttling
+        id: sleep-start
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          sleep $((RANDOM % 60))
+
       - name: Determine build time
         id: build-time
         if: steps.should-run.outputs.result == 'true'
