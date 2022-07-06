@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 
 /**
  * Return a fingerprint for a type.

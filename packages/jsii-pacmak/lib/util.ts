@@ -1,7 +1,7 @@
-import { spawn, SpawnOptions } from 'child_process';
 import * as fs from 'fs-extra';
-import * as os from 'os';
-import * as path from 'path';
+import { spawn, SpawnOptions } from 'node:child_process';
+import * as os from 'node:os';
+import * as path from 'node:path';
 
 import * as logging from './logging';
 
@@ -45,7 +45,7 @@ export async function findDependencyDirectory(
  */
 export function isBuiltinModule(depName: string) {
   // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-  const { builtinModules } = require('module');
+  const { builtinModules } = require('node:module');
   return (builtinModules ?? []).includes(depName);
 }
 

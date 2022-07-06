@@ -1,4 +1,4 @@
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 
 import { RecordReferencesVisitor } from '../languages/record-references';
 import { TypeScriptSnippet, renderApiLocation } from '../snippet';

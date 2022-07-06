@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as path from 'path';
+import * as path from 'node:path';
 
 import { TargetLanguage } from '../languages';
 import * as logging from '../logging';

@@ -1,12 +1,17 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import * as zlib from 'zlib';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as zlib from 'node:zlib';
 
 import {
   Assembly,
   SPEC_FILE_NAME,
   SPEC_FILE_NAME_COMPRESSED,
 } from './assembly';
+import {
+  AssemblyRedirect,
+  isAssemblyRedirect,
+  validateAssemblyRedirect,
+} from './redirect';
 import { validateAssembly } from './validate-assembly';
 
 /**
@@ -16,7 +21,7 @@ import { validateAssembly } from './validate-assembly';
  * @param directory path to a directory with an assembly file
  * @returns path to the SPEC_FILE_NAME file
  */
-export function getAssemblyFile(directory: string) {
+export function findAssemblyFile(directory: string) {
   const dotJsiiFile = path.join(directory, SPEC_FILE_NAME);
 
   if (!fs.existsSync(dotJsiiFile)) {
@@ -43,11 +48,15 @@ export function writeAssembly(
 ) {
   if (compress) {
     // write .jsii file with instructions on opening the compressed file
-    fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), {
-      schema: 'jsii/file-redirect',
-      compression: 'gzip',
-      filename: SPEC_FILE_NAME_COMPRESSED,
-    });
+    fs.writeFileSync(
+      path.join(directory, SPEC_FILE_NAME),
+      JSON.stringify({
+        schema: 'jsii/file-redirect',
+        compression: 'gzip',
+        filename: SPEC_FILE_NAME_COMPRESSED,
+      }),
+      'utf-8',
+    );
 
     // write actual assembly contents in .jsii.gz
     fs.writeFileSync(
@@ -55,13 +64,45 @@ export function writeAssembly(
       zlib.gzipSync(JSON.stringify(assembly)),
     );
   } else {
-    fs.writeJsonSync(path.join(directory, SPEC_FILE_NAME), assembly, {
-      encoding: 'utf8',
-      spaces: 2,
-    });
+    fs.writeFileSync(
+      path.join(directory, SPEC_FILE_NAME),
+      JSON.stringify(assembly, null, 2),
+      'utf-8',
+    );
   }
 
   return compress;
+}
+
+const failNoReadfileProvided = (filename: string) => {
+  throw new Error(
+    `Unable to load assembly support file ${JSON.stringify(
+      filename,
+    )}: no readFile callback provided!`,
+  );
+};
+
+/**
+ * Parses the assembly buffer and, if instructed to, redirects to the
+ * compressed assembly buffer.
+ *
+ * @param assemblyBuffer buffer containing SPEC_FILE_NAME contents
+ * @param readFile a callback to use for reading additional support files
+ * @param validate whether or not to validate the assembly
+ */
+export function loadAssemblyFromBuffer(
+  assemblyBuffer: Buffer,
+  readFile: (filename: string) => Buffer = failNoReadfileProvided,
+  validate = true,
+): Assembly {
+  let contents = JSON.parse(assemblyBuffer.toString('utf-8'));
+
+  // check if the file holds instructions to the actual assembly file
+  while (isAssemblyRedirect(contents)) {
+    contents = followRedirect(contents, readFile);
+  }
+
+  return validate ? validateAssembly(contents) : contents;
 }
 
 /**
@@ -70,13 +111,13 @@ export function writeAssembly(
  *
  * @param directory the directory of the assembly file
  * @param validate whether to validate the contents of the file
- * @returns the assembly file as json
+ * @returns the assembly file as an Assembly object
  */
 export function loadAssemblyFromPath(
   directory: string,
   validate = true,
 ): Assembly {
-  const assemblyFile = getAssemblyFile(directory);
+  const assemblyFile = findAssemblyFile(directory);
   return loadAssemblyFromFile(assemblyFile, validate);
 }
 
@@ -86,54 +127,41 @@ export function loadAssemblyFromPath(
  *
  * @param pathToFile the path to the SPEC_FILE_NAME file
  * @param validate whether to validate the contents of the file
- * @returns the assembly file as json
+ * @returns the assembly file as an Assembly object
  */
 export function loadAssemblyFromFile(
   pathToFile: string,
   validate = true,
 ): Assembly {
-  let contents = readAssembly(pathToFile);
-
-  // check if the file holds instructions to the actual assembly file
-  if (contents.schema === 'jsii/file-redirect') {
-    contents = findRedirectAssembly(pathToFile, contents);
-  }
-
-  return validate ? validateAssembly(contents) : (contents as Assembly);
+  const data = fs.readFileSync(pathToFile);
+  return loadAssemblyFromBuffer(
+    data,
+    (filename) => fs.readFileSync(path.resolve(pathToFile, '..', filename)),
+    validate,
+  );
 }
 
-function readAssembly(pathToFile: string) {
-  return fs.readJsonSync(pathToFile, {
-    encoding: 'utf-8',
-  });
-}
-
-function findRedirectAssembly(
-  pathToFile: string,
-  contents: Record<string, string>,
+function followRedirect(
+  assemblyRedirect: AssemblyRedirect,
+  readFile: (filename: string) => Buffer,
 ) {
-  validateRedirectSchema(contents);
-  const redirectAssemblyFile = path.join(
-    path.dirname(pathToFile),
-    contents.filename,
-  );
-  return JSON.parse(
-    zlib.gunzipSync(fs.readFileSync(redirectAssemblyFile)).toString(),
-  );
-}
+  // Validating the schema, this is cheap (the schema is small).
+  validateAssemblyRedirect(assemblyRedirect);
 
-function validateRedirectSchema(contents: Record<string, string>) {
-  const errors = [];
-  if (contents.compression !== 'gzip') {
-    errors.push(
-      `compression must be 'gzip' but received '${contents.compression}'`,
-    );
+  let data = readFile(assemblyRedirect.filename);
+  switch (assemblyRedirect.compression) {
+    case 'gzip':
+      data = zlib.gunzipSync(data);
+      break;
+    case undefined:
+      break;
+    default:
+      throw new Error(
+        `Unsupported compression algorithm: ${JSON.stringify(
+          assemblyRedirect.compression,
+        )}`,
+      );
   }
-  if (contents.filename === undefined) {
-    errors.push("schema must include property 'filename'");
-  }
-
-  if (errors.length !== 0) {
-    throw new Error(`Invalid redirect schema:\n  ${errors.join('\n  ')}`);
-  }
+  const json = data.toString('utf-8');
+  return JSON.parse(json);
 }

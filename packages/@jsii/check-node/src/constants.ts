@@ -1,4 +1,4 @@
-import * as process from 'process';
+import * as process from 'node:process';
 import { Range, SemVer } from 'semver';
 
 const ONE_DAY_IN_MILLISECONDS = 86_400_000;

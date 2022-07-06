@@ -1,5 +1,5 @@
-import { readFileSync, readdirSync } from 'fs';
-import { resolve } from 'path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 import { validateAssembly } from './validate-assembly';
 

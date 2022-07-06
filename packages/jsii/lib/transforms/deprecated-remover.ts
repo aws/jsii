@@ -17,7 +17,7 @@ import {
   Stability,
   TypeReference,
 } from '@jsii/spec';
-import { basename, dirname, relative } from 'path';
+import { basename, dirname, relative } from 'node:path';
 import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from '../jsii-diagnostic';

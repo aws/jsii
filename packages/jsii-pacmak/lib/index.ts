@@ -1,7 +1,7 @@
 import { TypeSystem } from 'jsii-reflect';
 import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
-import { resolve } from 'path';
-import { cwd } from 'process';
+import { resolve } from 'node:path';
+import { cwd } from 'node:process';
 
 import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';

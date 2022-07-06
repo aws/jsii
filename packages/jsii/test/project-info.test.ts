@@ -2,8 +2,8 @@ import * as spec from '@jsii/spec';
 import { writeAssembly } from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
-import * as os from 'os';
-import * as path from 'path';
+import * as os from 'node:os';
+import * as path from 'node:path';
 import * as ts from 'typescript';
 
 import { loadProjectInfo } from '../lib/project-info';

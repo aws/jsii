@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
-import * as os from 'os';
-import * as path from 'path';
-import * as process from 'process';
+import * as os from 'node:os';
+import * as path from 'node:path';
+import * as process from 'node:process';
 
 import { pacmak, TargetName } from '../../lib';
 import { shell } from '../../lib/util';

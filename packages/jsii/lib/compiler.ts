@@ -1,7 +1,7 @@
 import * as chalk from 'chalk';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
-import * as path from 'path';
+import * as path from 'node:path';
 import * as ts from 'typescript';
 
 import { Assembler } from './assembler';
@@ -553,7 +553,7 @@ export class Compiler implements Emitter {
    */
   private findMonorepoPeerTsconfig(depName: string): string | undefined {
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    const { builtinModules } = require('module');
+    const { builtinModules } = require('node:module');
     if ((builtinModules ?? []).includes(depName)) {
       // Can happen for modules like 'punycode' which are declared as dependency for polyfill purposes
       return undefined;

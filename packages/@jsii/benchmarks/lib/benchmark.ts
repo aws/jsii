@@ -1,5 +1,9 @@
-import { Profiler, Session } from 'inspector';
-import { performance, PerformanceObserver, PerformanceEntry } from 'perf_hooks';
+import { Profiler, Session } from 'node:inspector';
+import {
+  performance,
+  PerformanceObserver,
+  PerformanceEntry,
+} from 'node:perf_hooks';
 
 /**
  * Result of a single run of the subject

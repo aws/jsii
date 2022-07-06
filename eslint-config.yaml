@@ -8,6 +8,7 @@ plugins:
   - '@typescript-eslint'
   - import
   - prettier
+  - unicorn
 
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -41,6 +42,9 @@ rules:
   # Custom Configurations
 
   'prettier/prettier':
+    - error
+
+  'unicorn/prefer-node-protocol':
     - error
 
   '@typescript-eslint/array-type':
@@ -152,7 +156,9 @@ rules:
 
   'import/no-extraneous-dependencies':
     - error
-    - devDependencies: ['**/test/**'] # Only allow importing devDependencies from tests
+    - devDependencies: # Only allow importing devDependencies from tests
+        - '**/test/**'
+        - '**/*.test.ts'
       optionalDependencies: false # Disallow importing optional dependencies (those shouldn't be used here)
       peerDependencies: false # Disallow importing peer dependencies (those shouldn't be used here)
 

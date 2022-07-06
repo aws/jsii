@@ -1,7 +1,7 @@
-import * as cp from 'child_process';
-import { IncomingMessage } from 'http';
-import * as https from 'https';
-import { Readable } from 'stream';
+import * as cp from 'node:child_process';
+import { IncomingMessage } from 'node:http';
+import * as https from 'node:https';
+import { Readable } from 'node:stream';
 import { extract } from 'tar';
 
 /**

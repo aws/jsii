@@ -2,7 +2,7 @@ import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
-import * as path from 'path';
+import * as path from 'node:path';
 import * as spdx from 'spdx-license-list/full';
 
 import { traverseDependencyGraph } from './dependency-graph';
