@@ -12,7 +12,14 @@ import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './s
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const TOOL_VERSION = require('../../package.json').version;
 
+/**
+ * The default name of the tablet file
+ */
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
+
+/**
+ * The default name of the compressed tablet file
+ */
 export const DEFAULT_TABLET_NAME_COMPRESSED = '.jsii.tabl.json.gz';
 
 export const CURRENT_SCHEMA_VERSION = '2';
