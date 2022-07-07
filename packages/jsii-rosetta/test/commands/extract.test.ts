@@ -73,6 +73,19 @@ test('extract samples from test assembly', async () => {
   expect(tablet.snippetKeys.length).toEqual(1);
 });
 
+test('extract can save/load compressed tablets', async () => {
+  const compressedCacheFile = path.join(assembly.moduleDirectory, 'test.tabl.gz');
+  await extract.extractSnippets([assembly.moduleDirectory], {
+    cacheToFile: compressedCacheFile,
+    ...defaultExtractOptions,
+  });
+
+  const tablet = new LanguageTablet();
+  await tablet.load(compressedCacheFile);
+
+  expect(tablet.snippetKeys.length).toEqual(1);
+});
+
 test('extract works from compressed test assembly', async () => {
   const compressedAssembly = TestJsiiModule.fromSource(
     {

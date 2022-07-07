@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra';
 import * as path from 'node:path';
+import * as zlib from 'node:zlib';
 
 import { TargetLanguage } from '../languages';
 import * as logging from '../logging';
@@ -12,6 +13,7 @@ import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './s
 const TOOL_VERSION = require('../../package.json').version;
 
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
+export const DEFAULT_TABLET_NAME_COMPRESSED = '.jsii.tabl.json.gz';
 
 export const CURRENT_SCHEMA_VERSION = '2';
 
@@ -121,8 +123,17 @@ export class LanguageTablet {
     return this.snippets[snippetKey(typeScriptSource)];
   }
 
+  /**
+   * Load the tablet from a file. Will automatically detect if the file is in
+   * compression format ('.gz') and gunzip if it is.
+   */
   public async load(filename: string) {
-    const obj = (await fs.readJson(filename, { encoding: 'utf-8' })) as TabletSchema;
+    let obj: TabletSchema | any = {};
+    if (path.extname(filename) === '.gz') {
+      obj = JSON.parse(zlib.gunzipSync(await fs.readFile(filename)).toString()) as TabletSchema;
+    } else {
+      obj = (await fs.readJson(filename, { encoding: 'utf-8' })) as TabletSchema;
+    }
 
     if (!obj.toolVersion || !obj.snippets) {
       throw new Error(`File '${filename}' does not seem to be a Tablet file`);
@@ -147,12 +158,21 @@ export class LanguageTablet {
     return Object.values(this.snippets);
   }
 
+  /**
+   * Saves the tablet schema to a file. If the filename has a '.gz' extension the tablet
+   * schema will be compressed, otherwise the tablet schema will be written in raw json.
+   */
   public async save(filename: string) {
     await fs.mkdirp(path.dirname(filename));
-    await fs.writeJson(filename, this.toSchema(), {
-      encoding: 'utf-8',
-      spaces: 2,
-    });
+
+    if (path.extname(filename) === '.gz') {
+      await fs.writeFile(filename, zlib.gzipSync(JSON.stringify(this.toSchema())));
+    } else {
+      await fs.writeJson(filename, this.toSchema(), {
+        encoding: 'utf-8',
+        spaces: 2,
+      });
+    }
   }
 
   private toSchema(): TabletSchema {

@@ -5,7 +5,7 @@ import * as logging from '../logging';
 import { RosettaTranslator, RosettaTranslatorOptions } from '../rosetta-translator';
 import { TypeScriptSnippet, SnippetParameters } from '../snippet';
 import { snippetKey } from '../tablets/key';
-import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
+import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../tablets/tablets';
 import { RosettaDiagnostic } from '../translate';
 import { groupBy, isDefined } from '../util';
 import { infuse } from './infuse';
@@ -73,6 +73,13 @@ export interface ExtractOptions {
    * @default false
    */
   readonly allowDirtyTranslations?: boolean;
+
+  /**
+   * Compress the resulting tablet file
+   *
+   * @default false
+   */
+  readonly compressTablet?: boolean;
 }
 
 export async function extractAndInfuse(assemblyLocations: string[], options: ExtractOptions): Promise<ExtractResult> {
@@ -154,7 +161,10 @@ export async function extractSnippets(
   if (options.writeToImplicitTablets ?? true) {
     await Promise.all(
       Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
-        const asmTabletFile = path.join(location, DEFAULT_TABLET_NAME);
+        const asmTabletFile = path.join(
+          location,
+          options.compressTablet ? DEFAULT_TABLET_NAME_COMPRESSED : DEFAULT_TABLET_NAME,
+        );
         logging.debug(`Writing ${snips.length} translations to ${asmTabletFile}`);
         const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
 
