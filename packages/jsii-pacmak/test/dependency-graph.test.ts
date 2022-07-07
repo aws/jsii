@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { tmpdir } from 'os';
+import { join } from 'path';
 
 import { Callback, traverseDependencyGraph } from '../lib/dependency-graph';
 

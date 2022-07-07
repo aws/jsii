@@ -57,7 +57,7 @@
  *     ```
  */
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
+import * as path from 'path';
 
 /**
  * Convert an annotated TypeScript source file to MarkDown

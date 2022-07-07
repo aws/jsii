@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
+import * as path from 'path';
 
 export function indexBy<T>(xs: T[], f: (x: T) => string): { [key: string]: T } {
   const ret: { [key: string]: T } = {};
@@ -49,7 +49,7 @@ export async function findDependencyDirectory(
  */
 export function isBuiltinModule(depName: string) {
   // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-  const { builtinModules } = require('node:module');
+  const { builtinModules } = require('module');
   return (builtinModules ?? []).includes(depName);
 }
 

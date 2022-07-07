@@ -1,4 +1,4 @@
-import * as util from 'node:util';
+import * as util from 'util';
 
 export enum Level {
   ERROR = -2,

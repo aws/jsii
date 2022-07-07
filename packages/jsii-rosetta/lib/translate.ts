@@ -1,4 +1,4 @@
-import { inspect } from 'node:util';
+import { inspect } from 'util';
 import * as ts from 'typescript';
 
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';

@@ -1,5 +1,5 @@
-import * as os from 'node:os';
-import * as path from 'node:path';
+import * as os from 'os';
+import * as path from 'path';
 import * as workerpool from 'workerpool';
 
 import * as logging from './logging';

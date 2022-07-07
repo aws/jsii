@@ -1,10 +1,10 @@
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
 import * as fs from 'fs-extra';
-import * as cp from 'node:child_process';
-import * as os from 'node:os';
-import * as path from 'node:path';
-import * as vm from 'node:vm';
+import * as cp from 'child_process';
+import * as os from 'os';
+import * as path from 'path';
+import * as vm from 'vm';
 import * as tar from 'tar';
 
 import * as api from './api';
@@ -49,7 +49,7 @@ export class Kernel {
     // I wonder if webpack has some pragma that allows opting-out at certain points
     // in the code.
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    const moduleLoad = require('node:module').Module._load;
+    const moduleLoad = require('module').Module._load;
     const nodeRequire = (p: string) => moduleLoad(p, module, false);
 
     this.sandbox = vm.createContext({

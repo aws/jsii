@@ -1,4 +1,4 @@
-import { dirname } from 'node:path';
+import { dirname } from 'path';
 import { Printer } from 'oo-ascii-tree';
 
 import { TypeSystemTree } from '../lib/tree';

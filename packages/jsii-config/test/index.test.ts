@@ -1,5 +1,5 @@
 import * as inquirer from 'inquirer';
-import * as fs from 'node:fs';
+import * as fs from 'fs';
 
 import jsiiConfig from '../lib';
 import { packageJsonObject, findQuestions, findQuestion } from './util';

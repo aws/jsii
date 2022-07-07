@@ -1,6 +1,6 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import * as zlib from 'node:zlib';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as zlib from 'zlib';
 
 import {
   Assembly,

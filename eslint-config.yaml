@@ -8,7 +8,6 @@ plugins:
   - '@typescript-eslint'
   - import
   - prettier
-  - unicorn
 
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -42,9 +41,6 @@ rules:
   # Custom Configurations
 
   'prettier/prettier':
-    - error
-
-  'unicorn/prefer-node-protocol':
     - error
 
   '@typescript-eslint/array-type':

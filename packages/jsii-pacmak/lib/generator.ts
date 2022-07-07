@@ -3,8 +3,8 @@ import * as clone from 'clone';
 import { CodeMaker } from 'codemaker';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import * as crypto from 'node:crypto';
-import * as path from 'node:path';
+import * as crypto from 'crypto';
+import * as path from 'path';
 
 import { VERSION_DESC } from './version';
 

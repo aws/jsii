@@ -1,6 +1,6 @@
 import { Chalk, bgYellow, bgYellowBright, bgRed } from 'chalk';
-import { error } from 'node:console';
-import { version } from 'node:process';
+import { error } from 'console';
+import { version } from 'process';
 
 import { NodeRelease } from './constants';
 

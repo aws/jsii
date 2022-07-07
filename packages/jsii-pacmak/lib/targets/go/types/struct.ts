@@ -1,6 +1,6 @@
 import { CodeMaker } from 'codemaker';
 import { InterfaceType } from 'jsii-reflect';
-import * as assert from 'node:assert';
+import * as assert from 'assert';
 
 import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';

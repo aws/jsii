@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
-import * as process from 'node:process';
+import * as path from 'path';
+import * as process from 'process';
 import * as ts from 'typescript';
 
 import type { Context } from '.';

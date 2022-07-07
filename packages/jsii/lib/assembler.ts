@@ -4,8 +4,8 @@ import * as chalk from 'chalk';
 import * as deepEqual from 'fast-deep-equal/es6';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
-import * as crypto from 'node:crypto';
-import * as path from 'node:path';
+import * as crypto from 'crypto';
+import * as path from 'path';
 import * as ts from 'typescript';
 
 import * as Case from './case';

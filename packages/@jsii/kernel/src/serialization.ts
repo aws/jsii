@@ -27,8 +27,8 @@
  */
 
 import * as spec from '@jsii/spec';
-import * as assert from 'node:assert';
-import { inspect } from 'node:util';
+import * as assert from 'assert';
+import { inspect } from 'util';
 
 import {
   isObjRef,

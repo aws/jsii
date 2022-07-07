@@ -1,7 +1,7 @@
 import * as spec from '@jsii/spec';
 import { Assembly } from '@jsii/spec';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import * as fs from 'fs';
+import * as path from 'path';
 import * as ts from 'typescript';
 
 import { ProjectInfo } from '../project-info';

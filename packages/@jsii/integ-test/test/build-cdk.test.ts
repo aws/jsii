@@ -1,8 +1,8 @@
 import { Octokit } from '@octokit/rest';
 import * as dotenv from 'dotenv';
 import { mkdtemp, readdir, remove } from 'fs-extra';
-import { tmpdir } from 'node:os';
-import * as path from 'node:path';
+import { tmpdir } from 'os';
+import * as path from 'path';
 
 import {
   downloadReleaseAsset,

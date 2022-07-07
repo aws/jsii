@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import * as path from 'path';
 
 import { loadAssemblies, allTypeScriptSnippets, loadAllDefaultTablets } from '../jsii/assemblies';
 import * as logging from '../logging';

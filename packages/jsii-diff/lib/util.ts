@@ -1,9 +1,9 @@
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
-import * as childProcess from 'node:child_process';
-import * as os from 'node:os';
-import * as path from 'node:path';
-import * as util from 'node:util';
+import * as childProcess from 'child_process';
+import * as os from 'os';
+import * as path from 'path';
+import * as util from 'util';
 
 const LOG = log4js.getLogger('jsii-diff');
 
