@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656444197818,
+  "lastUpdate": 1657201532272,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2653,6 +2653,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 554674.6173815883,
             "extra": "Compile aws-cdk-lib@v2.21.1 (tsc) averaged 57516.08620025 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "523ba90dba08f43620964990daa10e7b25ae1389",
+          "message": "chore: upgrade benchmark to aws-cdk-lib v2.31.0 (#3650)\n\nThis is necessary as the previous benchark target had multiple occurrences\r\nof enums with several constants having the same value, which is now illegal\r\nin jsii code (#3207).\r\n\r\nThe fix for this (https://github.com/aws/aws-cdk/commit/7f4f150b97b5f58b936e6ed221a1b9bf67dad107) was released in CDK 2.31.0.",
+          "timestamp": "2022-07-07T14:52:56+02:00",
+          "tree_id": "b968d66db0cfc211a39261b67a139b726812f277",
+          "url": "https://github.com/aws/jsii/commit/523ba90dba08f43620964990daa10e7b25ae1389"
+        },
+        "date": 1657201530029,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71024.67324660001,
+            "unit": "milliseconds",
+            "range": 3177110.9950538883,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71024.67324660001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48911.88968895,
+            "unit": "milliseconds",
+            "range": 2104099.5516137118,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48911.88968895 milliseconds over 20 runs"
           }
         ]
       }
