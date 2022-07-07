@@ -2191,11 +2191,11 @@ async function createCalculatorSandbox(name: string) {
   return sandbox;
 }
 
-const cache: { [module: string]: string } = {};
+const cache = new Map<string, string>();
 
 async function preparePackage(module: string, useCache = true) {
-  if (module in cache && useCache) {
-    return cache[module];
+  if (cache.has(module) && useCache) {
+    return cache.get(module)!;
   }
 
   const staging = await fs.mkdtemp(
@@ -2227,7 +2227,8 @@ async function preparePackage(module: string, useCache = true) {
     });
   });
   const dir = path.join(staging, (await fs.readdir(staging))[0]);
-  return (cache[module] = dir);
+  cache.set(module, dir);
+  return dir;
 }
 
 function findPackageRoot(pkg: string) {
