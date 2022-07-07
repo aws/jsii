@@ -6,7 +6,7 @@ import * as path from 'node:path';
 import * as tar from 'tar';
 import * as ts from 'typescript';
 
-import { cdkTagv2_21_1, cdkv2_21_1 } from '../lib/constants';
+import { cdkTag, cdk, fixturesDir } from '../lib/constants';
 
 // Using the local `npm` package (from dependencies)
 const npm = path.resolve(__dirname, '..', 'node_modules', '.bin', 'npm');
@@ -109,7 +109,8 @@ function snapshotAwsCdk(tag: string, file: string) {
 }
 
 function main() {
-  snapshotAwsCdk(cdkTagv2_21_1, cdkv2_21_1);
+  fs.mkdirpSync(fixturesDir);
+  snapshotAwsCdk(cdkTag, cdk);
 }
 
 main();
