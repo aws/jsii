@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1657205164931,
+  "lastUpdate": 1657232183409,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2729,6 +2729,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 32805.14430244101,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45633.50392894999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "afada33635beaaa630e74dbecc91c181054ab232",
+          "message": "chore(@jsii/kernel): various improvements (#3648)\n\nMoved away from using objects as maps to using actual `Map` objects,\nwhich is expected to have better performance characteristics at that\nkind of scale (lower memory footprint, less churn, ...).\n\nAdditionally, improved context information produced in error messages\naround callbacks, etc...\n\nFixes #3638\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-07T21:22:16Z",
+          "tree_id": "affe007a2de50e6de29092e9c0c8764ab88058ac",
+          "url": "https://github.com/aws/jsii/commit/afada33635beaaa630e74dbecc91c181054ab232"
+        },
+        "date": 1657232180544,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62513.19139470003,
+            "unit": "milliseconds",
+            "range": 2439096.0431267796,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62513.19139470003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 44597.07849025,
+            "unit": "milliseconds",
+            "range": 38768.788978789285,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44597.07849025 milliseconds over 20 runs"
           }
         ]
       }
