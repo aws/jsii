@@ -1,5 +1,5 @@
 import { api, Kernel } from '@jsii/kernel';
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
 

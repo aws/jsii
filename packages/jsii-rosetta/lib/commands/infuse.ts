@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
+import * as path from 'path';
 
 import {
   loadAssemblies,

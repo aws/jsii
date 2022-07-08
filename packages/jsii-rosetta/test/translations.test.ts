@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
+import * as path from 'path';
 
 import { SnippetTranslator } from '../lib';
 import { TARGET_LANGUAGES, TargetLanguage, VisitorFactory } from '../lib/languages';

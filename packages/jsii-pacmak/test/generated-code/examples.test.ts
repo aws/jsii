@@ -1,8 +1,8 @@
 import { AssemblyTargets, SPEC_FILE_NAME } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
-import * as os from 'node:os';
-import * as path from 'node:path';
+import * as os from 'os';
+import * as path from 'path';
 
 import * as pacmak from '../../lib';
 import { checkTree, TREE } from './harness';

@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
+import * as path from 'path';
 
 /**
  * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
@@ -77,6 +77,6 @@ export function findUp(
  */
 export function isBuiltinModule(depName: string) {
   // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-  const { builtinModules } = require('node:module');
+  const { builtinModules } = require('module');
   return (builtinModules ?? []).includes(depName);
 }

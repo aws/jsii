@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
-import * as zlib from 'node:zlib';
+import * as path from 'path';
+import * as zlib from 'zlib';
 
 import { TargetLanguage } from '../languages';
 import * as logging from '../logging';

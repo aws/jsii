@@ -2,9 +2,9 @@
 // take a direct dependency on @scope/jsii-calc-base-of-base, which is intended
 // to only be used as a transitive dependency through @scope/jsii-calc-base.
 
-import * as assert from 'node:assert';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import * as assert from 'assert';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 const pkgjsonPath = join(__dirname, '..', 'package.json');
 const pkgjson = JSON.parse(readFileSync(pkgjsonPath, 'utf-8'));

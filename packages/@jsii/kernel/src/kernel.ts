@@ -1,15 +1,15 @@
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
+import * as cp from 'child_process';
 import * as fs from 'fs-extra';
-import * as cp from 'node:child_process';
-import * as os from 'node:os';
-import * as path from 'node:path';
-import * as vm from 'node:vm';
+import * as os from 'os';
+import * as path from 'path';
 import * as tar from 'tar';
+import * as vm from 'vm';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
-import { ObjectTable, tagJsiiConstructor } from './objects';
+import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
 import * as wire from './serialization';
 
@@ -19,11 +19,11 @@ export class Kernel {
    */
   public traceEnabled = false;
 
-  private assemblies: { [name: string]: Assembly } = {};
+  private readonly assemblies = new Map<string, Assembly>();
   private readonly objects = new ObjectTable(this._typeInfoForFqn.bind(this));
-  private cbs: { [cbid: string]: Callback } = {};
-  private waiting: { [cbid: string]: Callback } = {};
-  private promises: { [prid: string]: AsyncInvocation } = {};
+  private readonly cbs = new Map<string, Callback>();
+  private readonly waiting = new Map<string, Callback>();
+  private readonly promises = new Map<string, AsyncInvocation>();
   private nextid = 20000; // incrementing counter for objid, cbid, promiseid
   private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
   private installDir?: string;
@@ -49,7 +49,7 @@ export class Kernel {
     // I wonder if webpack has some pragma that allows opting-out at certain points
     // in the code.
     // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    const moduleLoad = require('node:module').Module._load;
+    const moduleLoad = require('module').Module._load;
     const nodeRequire = (p: string) => moduleLoad(p, module, false);
 
     this.sandbox = vm.createContext({
@@ -86,7 +86,7 @@ export class Kernel {
 
       // same version, no-op
       this._debug('look up already-loaded assembly', pkgname);
-      const assm = this.assemblies[pkgname];
+      const assm = this.assemblies.get(pkgname)!;
 
       return {
         assembly: assm.metadata.name,
@@ -311,11 +311,19 @@ export class Kernel {
       throw new Error(`${method} is an async method, use "begin" instead`);
     }
 
+    const fqn = jsiiTypeFqn(obj);
     const ret = this._ensureSync(
       `method '${objref[TOKEN_REF]}.${method}'`,
       () => {
         return this._wrapSandboxCode(() =>
-          fn.apply(obj, this._toSandboxValues(args, ti.parameters)),
+          fn.apply(
+            obj,
+            this._toSandboxValues(
+              args,
+              `method ${fqn ? `${fqn}#` : ''}${method}`,
+              ti.parameters,
+            ),
+          ),
         );
       },
     );
@@ -323,7 +331,7 @@ export class Kernel {
     const result = this._fromSandbox(
       ret,
       ti.returns ?? 'void',
-      `returned by method ${method}`,
+      `returned by method ${fqn ? `${fqn}#` : ''}${method}`,
     );
     this._debug('invoke result', result);
 
@@ -352,7 +360,14 @@ export class Kernel {
 
     const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
       return this._wrapSandboxCode(() =>
-        fn.apply(prototype, this._toSandboxValues(args, ti.parameters)),
+        fn.apply(
+          prototype,
+          this._toSandboxValues(
+            args,
+            `static method ${fqn}.${method}`,
+            ti.parameters,
+          ),
+        ),
       );
     });
 
@@ -385,8 +400,17 @@ export class Kernel {
       throw new Error(`Method ${method} is expected to be an async method`);
     }
 
+    const fqn = jsiiTypeFqn(obj);
+
     const promise = this._wrapSandboxCode(() =>
-      fn.apply(obj, this._toSandboxValues(args, ti.parameters)),
+      fn.apply(
+        obj,
+        this._toSandboxValues(
+          args,
+          `async method ${fqn ? `${fqn}#` : ''}${method}`,
+          ti.parameters,
+        ),
+      ),
     ) as Promise<any>;
 
     // since we are planning to resolve this promise in a different scope
@@ -395,10 +419,10 @@ export class Kernel {
     promise.catch((_) => undefined);
 
     const prid = this._makeprid();
-    this.promises[prid] = {
+    this.promises.set(prid, {
       promise,
       method: ti,
-    };
+    });
 
     return { promiseid: prid };
   }
@@ -408,10 +432,11 @@ export class Kernel {
 
     this._debug('end', promiseid);
 
-    const { promise, method } = this.promises[promiseid];
-    if (promise == null) {
+    const storedPromise = this.promises.get(promiseid);
+    if (storedPromise == null) {
       throw new Error(`Cannot find promise with ID: ${promiseid}`);
     }
+    const { promise, method } = storedPromise;
 
     let result;
     try {
@@ -433,9 +458,9 @@ export class Kernel {
 
   public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
     this._debug('callbacks');
-    const ret = Object.keys(this.cbs).map((cbid) => {
-      const cb = this.cbs[cbid];
-      this.waiting[cbid] = cb; // move to waiting
+    const ret = Array.from(this.cbs.entries()).map(([cbid, cb]) => {
+      this.waiting.set(cbid, cb); // move to waiting
+      this.cbs.delete(cbid); // remove from created
       const callback: api.Callback = {
         cbid,
         cookie: cb.override.cookie,
@@ -448,8 +473,6 @@ export class Kernel {
       return callback;
     });
 
-    // move all callbacks to the wait queue and clean the callback queue.
-    this.cbs = {};
     return { callbacks: ret };
   }
 
@@ -458,11 +481,11 @@ export class Kernel {
 
     this._debug('complete', cbid, err, result);
 
-    if (!(cbid in this.waiting)) {
+    const cb = this.waiting.get(cbid);
+    if (!cb) {
       throw new Error(`Callback ${cbid} not found`);
     }
 
-    const cb = this.waiting[cbid];
     if (err) {
       this._debug('completed with error:', err);
       cb.fail(new Error(err));
@@ -470,13 +493,13 @@ export class Kernel {
       const sandoxResult = this._toSandbox(
         result,
         cb.expectedReturnType ?? 'void',
-        `returned by callback ${cbid}`,
+        `returned by callback ${cb.toString()}`,
       );
       this._debug('completed with result:', sandoxResult);
       cb.succeed(sandoxResult);
     }
 
-    delete this.waiting[cbid];
+    this.waiting.delete(cbid);
 
     return { cbid };
   }
@@ -506,7 +529,7 @@ export class Kernel {
   }
 
   private _addAssembly(assm: Assembly) {
-    this.assemblies[assm.metadata.name] = assm;
+    this.assemblies.set(assm.metadata.name, assm);
 
     // add the __jsii__.fqn property on every constructor. this allows
     // traversing between the javascript and jsii worlds given any object.
@@ -576,7 +599,13 @@ export class Kernel {
     const ctor = ctorResult.ctor;
     const obj = this._wrapSandboxCode(
       () =>
-        new ctor(...this._toSandboxValues(requestArgs, ctorResult.parameters)),
+        new ctor(
+          ...this._toSandboxValues(
+            requestArgs,
+            `new ${fqn}`,
+            ctorResult.parameters,
+          ),
+        ),
     );
     const objref = this.objects.registerObject(obj, fqn, req.interfaces ?? []);
 
@@ -807,6 +836,10 @@ export class Kernel {
     methodInfo: spec.Method,
   ) {
     const methodName = override.method;
+    const fqn = jsiiTypeFqn(obj);
+    const methodContext = `${methodInfo.async ? 'async ' : ''}method${
+      fqn ? `${fqn}#` : methodName
+    }`;
 
     if (methodInfo.async) {
       // async method override
@@ -816,18 +849,22 @@ export class Kernel {
         writable: false,
         value: (...methodArgs: any[]) => {
           this._debug('invoke async method override', override);
-          const args = this._toSandboxValues(methodArgs, methodInfo.parameters);
+          const args = this._toSandboxValues(
+            methodArgs,
+            methodContext,
+            methodInfo.parameters,
+          );
           return new Promise<any>((succeed, fail) => {
             const cbid = this._makecbid();
             this._debug('adding callback to queue', cbid);
-            this.cbs[cbid] = {
+            this.cbs.set(cbid, {
               objref,
               override,
               args,
               expectedReturnType: methodInfo.returns ?? 'void',
               succeed,
               fail,
-            };
+            });
           });
         },
       });
@@ -853,7 +890,11 @@ export class Kernel {
             invoke: {
               objref,
               method: methodName,
-              args: this._fromSandboxValues(methodArgs, methodInfo.parameters),
+              args: this._fromSandboxValues(
+                methodArgs,
+                methodContext,
+                methodInfo.parameters,
+              ),
             },
           });
           this._debug('Result', result);
@@ -936,7 +977,7 @@ export class Kernel {
   }
 
   private _assemblyFor(assemblyName: string) {
-    const assembly = this.assemblies[assemblyName];
+    const assembly = this.assemblies.get(assemblyName);
     if (!assembly) {
       throw new Error(`Could not find assembly: ${assemblyName}`);
     }
@@ -966,7 +1007,7 @@ export class Kernel {
     const components = fqn.split('.');
     const moduleName = components[0];
 
-    const assembly = this.assemblies[moduleName];
+    const assembly = this.assemblies.get(moduleName);
     if (!assembly) {
       throw new Error(`Module '${moduleName}' not found`);
     }
@@ -1101,7 +1142,6 @@ export class Kernel {
     }
     return typeInfo;
   }
-
   private _toSandbox(
     v: any,
     expectedType: wire.OptionalValueOrVoid,
@@ -1140,41 +1180,61 @@ export class Kernel {
     );
   }
 
-  private _toSandboxValues(xs: any[], parameters?: spec.Parameter[]) {
-    return this._boxUnboxParameters(xs, parameters, this._toSandbox.bind(this));
-  }
-
-  private _fromSandboxValues(xs: any[], parameters?: spec.Parameter[]) {
+  private _toSandboxValues(
+    xs: readonly unknown[],
+    methodContext: string,
+    parameters: readonly spec.Parameter[] | undefined,
+  ) {
     return this._boxUnboxParameters(
       xs,
+      methodContext,
+      parameters,
+      this._toSandbox.bind(this),
+    );
+  }
+
+  private _fromSandboxValues(
+    xs: readonly unknown[],
+    methodContext: string,
+    parameters: readonly spec.Parameter[] | undefined,
+  ) {
+    return this._boxUnboxParameters(
+      xs,
+      methodContext,
       parameters,
       this._fromSandbox.bind(this),
     );
   }
 
   private _boxUnboxParameters(
-    xs: any[],
-    parameters: spec.Parameter[] | undefined,
+    xs: readonly unknown[],
+    methodContext: string,
+    parameters: readonly spec.Parameter[] = [],
     boxUnbox: (x: any, t: wire.OptionalValueOrVoid, context: string) => any,
   ) {
-    parameters = [...(parameters ?? [])];
+    const parametersCopy = [...parameters];
     const variadic =
-      parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
+      parametersCopy.length > 0 &&
+      !!parametersCopy[parametersCopy.length - 1].variadic;
     // Repeat the last (variadic) type to match the number of actual arguments
-    while (variadic && parameters.length < xs.length) {
-      parameters.push(parameters[parameters.length - 1]);
+    while (variadic && parametersCopy.length < xs.length) {
+      parametersCopy.push(parametersCopy[parametersCopy.length - 1]);
     }
-    if (xs.length > parameters.length) {
+    if (xs.length > parametersCopy.length) {
       throw new Error(
         `Argument list (${JSON.stringify(
           xs,
         )}) not same size as expected argument list (length ${
-          parameters.length
+          parametersCopy.length
         })`,
       );
     }
     return xs.map((x, i) =>
-      boxUnbox(x, parameters![i], `of parameter ${parameters![i].name}`),
+      boxUnbox(
+        x,
+        parametersCopy[i],
+        `passed to parameter ${parametersCopy[i].name} of ${methodContext}`,
+      ),
     );
   }
 
@@ -1225,8 +1285,6 @@ export class Kernel {
    * Executes arbitrary code in a VM sandbox.
    *
    * @param code       JavaScript code to be executed in the VM
-   * @param sandbox    a VM context to use for running the code
-   * @param sourceMaps source maps to be used in case an exception is thrown
    * @param filename   the file name to use for the executed code
    *
    * @returns the result of evaluating the code

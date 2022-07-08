@@ -1,9 +1,9 @@
 import { api } from '@jsii/kernel';
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
-import * as child from 'node:child_process';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import * as child from 'child_process';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import { KernelHost, IInputOutput, Input, Output } from '../lib';
 

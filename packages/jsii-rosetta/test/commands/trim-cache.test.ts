@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import * as path from 'path';
 
 import { TranslatedSnippet, typeScriptSnippetFromVisibleSource, LanguageTablet, DEFAULT_TABLET_NAME } from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';

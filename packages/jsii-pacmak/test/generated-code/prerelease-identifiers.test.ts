@@ -1,8 +1,8 @@
 import { Assembly, SchemaVersion, SPEC_FILE_NAME } from '@jsii/spec';
 import { toPascalCase } from 'codemaker';
 import * as fs from 'fs-extra';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { tmpdir } from 'os';
+import { join } from 'path';
 
 import { pacmak } from '../../lib';
 import { checkTree, TREE } from './harness';

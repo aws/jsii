@@ -1,7 +1,7 @@
 import { SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import { compileJsiiForTest } from 'jsii';
-import * as path from 'node:path';
+import * as path from 'path';
 
 import {
   LanguageTablet,
