@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs';
+import { readFile } from 'fs';
 
 /*
  * Look for existing nested values in config, return undefined if not found

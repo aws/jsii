@@ -2,7 +2,7 @@ import * as spec from '@jsii/spec';
 import { findAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
-import * as path from 'node:path';
+import * as path from 'path';
 import * as semver from 'semver';
 import * as ts from 'typescript';
 

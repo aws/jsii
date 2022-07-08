@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import * as vm from 'node:vm';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as vm from 'vm';
 
 import { compileJsiiForTest, HelperCompilationResult } from '../lib';
 import { Compiler } from '../lib/compiler';

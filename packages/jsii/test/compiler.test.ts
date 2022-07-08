@@ -12,8 +12,8 @@ import {
   readFileSync,
   readJsonSync,
 } from 'fs-extra';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { tmpdir } from 'os';
+import { join } from 'path';
 
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';

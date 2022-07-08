@@ -1,6 +1,6 @@
 import { findAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
 import * as fs from 'fs-extra';
-import * as path from 'node:path';
+import * as path from 'path';
 
 import { Assembly } from './assembly';
 import { ClassType } from './class';

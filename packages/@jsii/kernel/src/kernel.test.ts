@@ -1,9 +1,9 @@
+import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
-import * as childProcess from 'node:child_process';
-import * as os from 'node:os';
-import { join } from 'node:path';
-import * as path from 'node:path';
-import * as vm from 'node:vm';
+import * as os from 'os';
+import { join } from 'path';
+import * as path from 'path';
+import * as vm from 'vm';
 
 import * as api from './api';
 import {

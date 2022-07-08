@@ -12,7 +12,7 @@ import {
   Type,
 } from '@jsii/spec';
 import { toSnakeCase } from 'codemaker';
-import { createHash } from 'node:crypto';
+import { createHash } from 'crypto';
 
 import { die, toPythonIdentifier } from './util';
 

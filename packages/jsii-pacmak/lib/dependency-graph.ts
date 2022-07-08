@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { join } from 'node:path';
+import { join } from 'path';
 
 import * as util from './util';
 

@@ -1,7 +1,7 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as mockfs from 'mock-fs';
-import * as path from 'node:path';
+import * as path from 'path';
 
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
 import { SnippetParameters } from '../../lib/snippet';
