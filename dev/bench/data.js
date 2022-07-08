@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1657232183409,
+  "lastUpdate": 1657277124340,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2767,6 +2767,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 38768.788978789285,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44597.07849025 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8d8444007ecfe6e3cc6dabb7c18dd2cd8fcaf7f5",
+          "message": "revert: do not use node: protocol for imports (#3651)\n\nIt requires node 14.18.0 or greater, which is way more recent than\nthe earliest node engine we claim to support.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-08T09:45:43Z",
+          "tree_id": "f9d089cd2bac7ae2700fd4c409053bb75dc3f9ab",
+          "url": "https://github.com/aws/jsii/commit/8d8444007ecfe6e3cc6dabb7c18dd2cd8fcaf7f5"
+        },
+        "date": 1657277121562,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 83850.92559914994,
+            "unit": "milliseconds",
+            "range": 7441366.572938683,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 83850.92559914994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 56477.02542310001,
+            "unit": "milliseconds",
+            "range": 2176068.216334836,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 56477.02542310001 milliseconds over 20 runs"
           }
         ]
       }
