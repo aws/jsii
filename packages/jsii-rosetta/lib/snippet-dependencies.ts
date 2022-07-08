@@ -1,6 +1,6 @@
+import * as cp from 'child_process';
 import * as fastGlob from 'fast-glob';
 import * as fs from 'fs-extra';
-import * as cp from 'child_process';
 import * as os from 'os';
 import * as path from 'path';
 import * as semver from 'semver';

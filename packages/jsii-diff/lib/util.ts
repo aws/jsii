@@ -1,6 +1,6 @@
+import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
-import * as childProcess from 'child_process';
 import * as os from 'os';
 import * as path from 'path';
 import * as util from 'util';

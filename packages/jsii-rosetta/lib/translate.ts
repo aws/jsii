@@ -1,5 +1,5 @@
-import { inspect } from 'util';
 import * as ts from 'typescript';
+import { inspect } from 'util';
 
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
 import { RecordReferencesVisitor } from './languages/record-references';

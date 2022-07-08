@@ -1,5 +1,5 @@
-import { inspect } from 'util';
 import { Comparator, Range, parse } from 'semver';
+import { inspect } from 'util';
 
 import { TargetName } from '.';
 

@@ -1,11 +1,11 @@
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
-import * as fs from 'fs-extra';
 import * as cp from 'child_process';
+import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
-import * as vm from 'vm';
 import * as tar from 'tar';
+import * as vm from 'vm';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';

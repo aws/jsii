@@ -1,10 +1,10 @@
 import * as spec from '@jsii/spec';
 import { writeAssembly, SPEC_FILE_NAME, PackageJson } from '@jsii/spec';
 import * as chalk from 'chalk';
+import * as crypto from 'crypto';
 import * as deepEqual from 'fast-deep-equal/es6';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
-import * as crypto from 'crypto';
 import * as path from 'path';
 import * as ts from 'typescript';
 

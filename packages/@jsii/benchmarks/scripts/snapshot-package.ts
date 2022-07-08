@@ -1,6 +1,6 @@
+import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import * as glob from 'glob';
-import * as cp from 'child_process';
 import * as os from 'os';
 import * as path from 'path';
 import * as tar from 'tar';
