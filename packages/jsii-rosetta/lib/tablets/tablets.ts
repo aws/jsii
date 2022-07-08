@@ -131,16 +131,18 @@ export class LanguageTablet {
   }
 
   /**
-   * Load the tablet from a file. Will automatically detect if the file is in
-   * compression format ('.gz') and gunzip if it is.
+   * Load the tablet from a file. Will automatically detect if the file is
+   * compressed and decompress accordingly.
    */
   public async load(filename: string) {
-    let obj: TabletSchema | any = {};
-    if (path.extname(filename) === '.gz') {
-      obj = JSON.parse(zlib.gunzipSync(await fs.readFile(filename)).toString()) as TabletSchema;
-    } else {
-      obj = (await fs.readJson(filename, { encoding: 'utf-8' })) as TabletSchema;
+    let data = await fs.readFile(filename);
+    // Gzip objects start with 1f 8b 08
+    if (data[0] === 0x1f && data[1] === 0x8b && data[2] === 0x08) {
+      // This is a gz object, so we decompress it now...
+      data = zlib.gunzipSync(data);
     }
+
+    const obj: TabletSchema = JSON.parse(data.toString('utf-8'));
 
     if (!obj.toolVersion || !obj.snippets) {
       throw new Error(`File '${filename}' does not seem to be a Tablet file`);
@@ -166,20 +168,18 @@ export class LanguageTablet {
   }
 
   /**
-   * Saves the tablet schema to a file. If the filename has a '.gz' extension the tablet
-   * schema will be compressed, otherwise the tablet schema will be written in raw json.
+   * Saves the tablet schema to a file. If the compress option is passed, then
+   * the schema will be gzipped before writing to the file.
    */
-  public async save(filename: string) {
+  public async save(filename: string, compress = false) {
     await fs.mkdirp(path.dirname(filename));
 
-    if (path.extname(filename) === '.gz') {
-      await fs.writeFile(filename, zlib.gzipSync(JSON.stringify(this.toSchema())));
-    } else {
-      await fs.writeJson(filename, this.toSchema(), {
-        encoding: 'utf-8',
-        spaces: 2,
-      });
+    let schema = Buffer.from(JSON.stringify(this.toSchema()));
+    if (compress) {
+      schema = zlib.gzipSync(schema);
     }
+
+    await fs.writeFile(filename, schema);
   }
 
   private toSchema(): TabletSchema {
