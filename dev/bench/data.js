@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1657277124340,
+  "lastUpdate": 1657572414262,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -2805,6 +2805,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2176068.216334836,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 56477.02542310001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "359e74f3c05a682ef1e55297e27f9e2d538b0694",
+          "message": "feat(rosetta): tablets can be compressed (#3652)\n\nUsage: `yarn rosetta extract --compress-tablet`\n\nThis should reduce the `.jsii.tabl.json` size by about 90%.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-11T19:49:53Z",
+          "tree_id": "a703134932a7eb27afe9e7d648cd560614b422d4",
+          "url": "https://github.com/aws/jsii/commit/359e74f3c05a682ef1e55297e27f9e2d538b0694"
+        },
+        "date": 1657572411815,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 75512.34349089992,
+            "unit": "milliseconds",
+            "range": 1236419.6424389905,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 75512.34349089992 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52662.92358280001,
+            "unit": "milliseconds",
+            "range": 152748.401294183,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52662.92358280001 milliseconds over 20 runs"
           }
         ]
       }
