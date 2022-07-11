@@ -174,7 +174,7 @@ export class LanguageTablet {
   public async save(filename: string, compress = false) {
     await fs.mkdirp(path.dirname(filename));
 
-    let schema = Buffer.from(JSON.stringify(this.toSchema()));
+    let schema = Buffer.from(JSON.stringify(this.toSchema(), null, 2));
     if (compress) {
       schema = zlib.gzipSync(schema);
     }

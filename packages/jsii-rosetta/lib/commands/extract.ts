@@ -170,7 +170,7 @@ export async function extractSnippets(
 
         const asmTablet = new LanguageTablet();
         asmTablet.addSnippets(...translations);
-        await asmTablet.save(asmTabletFile);
+        await asmTablet.save(asmTabletFile, options.compressTablet);
       }),
     );
   }
