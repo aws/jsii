@@ -13,7 +13,7 @@ import { Duplex } from 'stream';
 // - FD#4 is the communication pipe to write jsii API responses
 const child = spawn(
   process.execPath,
-  [...process.execArgv, resolve(__dirname, '..', 'lib', 'program.js')],
+  [...process.execArgv, '--inspect-brk', resolve(__dirname, '..', 'lib', 'program.js')],
   { stdio: ['ignore', 'pipe', 'pipe', 'pipe'] },
 );
 
