@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **@jsii/spec:** add loadAssemblyFromBuffer function ([#3634](https://github.com/aws/jsii/issues/3634)) ([4f3a0d1](https://github.com/aws/jsii/commit/4f3a0d16a769a678a4ce4bde9a6bbbd715a48ab2))
-* **@jsii/utils:** add a utility library to be consumed by jsii modules ([#3570](https://github.com/aws/jsii/issues/3570)) ([635404a](https://github.com/aws/jsii/commit/635404a561a52033f2c93ce238c861a7518a47f4))
+* **@jsii/spec:** add a utility library to be consumed by jsii modules ([#3570](https://github.com/aws/jsii/issues/3570)) ([635404a](https://github.com/aws/jsii/commit/635404a561a52033f2c93ce238c861a7518a47f4))
 * **rosetta:** tablets can be compressed ([#3652](https://github.com/aws/jsii/issues/3652)) ([359e74f](https://github.com/aws/jsii/commit/359e74f3c05a682ef1e55297e27f9e2d538b0694))
 * use new read/load assembly functions everywhere ([#3600](https://github.com/aws/jsii/issues/3600)) ([623c0c1](https://github.com/aws/jsii/commit/623c0c14fbe4c4a50c208c5415e689e45f9f54c4)), closes [#3570](https://github.com/aws/jsii/issues/3570) [#3570](https://github.com/aws/jsii/issues/3570)
 
