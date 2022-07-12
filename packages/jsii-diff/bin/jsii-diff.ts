@@ -215,7 +215,7 @@ type LoadAssemblyResult = { requested: string; resolved: string } & (
 async function loadPackageNameFromAssembly(
   options: LoadOptions,
 ): Promise<string> {
-  const JSII_ASSEMBLY_FILE = '.jsii';
+  const JSII_ASSEMBLY_FILE = spec.SPEC_FILE_NAME;
   if (!(await fs.pathExists(JSII_ASSEMBLY_FILE))) {
     throw new Error(
       `No NPM package name given and no ${JSII_ASSEMBLY_FILE} file in the current directory. Please specify a package name.`,

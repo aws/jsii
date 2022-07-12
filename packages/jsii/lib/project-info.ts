@@ -1,9 +1,10 @@
 import * as spec from '@jsii/spec';
+import { findAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { parsePerson, parseRepository, findDependencyDirectory } from './utils';
@@ -26,6 +27,8 @@ export type TSCompilerOptions = Partial<
     | 'inlineSourceMap'
     | 'inlineSources'
     | 'sourceMap'
+    // Types limitations
+    | 'types'
   >
 >;
 
@@ -220,6 +223,7 @@ export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
       forceConsistentCasingInFileNames:
         pkg.jsii?.tsc?.forceConsistentCasingInFileNames,
       ..._sourceMapPreferences(pkg.jsii?.tsc),
+      types: pkg.jsii?.tsc?.types,
     },
     bin: pkg.bin,
     exports: pkg.exports,
@@ -361,10 +365,9 @@ class DependencyResolver {
       return this.cache.get(jsiiFile)!;
     }
 
-    // eslint-disable-next-line no-await-in-loop
-    const assembly = this.loadAssembly(jsiiFile);
-    // Continue loading any dependencies declared in the asm
+    const assembly = loadAssemblyFromFile(jsiiFile);
 
+    // Continue loading any dependencies declared in the asm
     const resolvedDependencies = assembly.dependencies
       ? this.discoverDependencyTree(
           path.dirname(jsiiFile),
@@ -378,17 +381,6 @@ class DependencyResolver {
     };
     this.cache.set(jsiiFile, depInfo);
     return depInfo;
-  }
-
-  /**
-   * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
-   */
-  private loadAssembly(jsiiFileName: string): spec.Assembly {
-    try {
-      return fs.readJsonSync(jsiiFileName);
-    } catch (e: any) {
-      throw new Error(`Error loading ${jsiiFileName}: ${e}`);
-    }
   }
 }
 
@@ -443,7 +435,7 @@ function _tryResolveAssembly(
   searchPath: string,
 ): string {
   if (localPackage) {
-    const result = path.join(localPackage, '.jsii');
+    const result = findAssemblyFile(localPackage);
     if (!fs.existsSync(result)) {
       throw new Error(`Assembly does not exist: ${result}`);
     }
@@ -451,7 +443,7 @@ function _tryResolveAssembly(
   }
   try {
     const dependencyDir = findDependencyDirectory(mod, searchPath);
-    return path.join(dependencyDir, '.jsii');
+    return findAssemblyFile(dependencyDir);
   } catch (e: any) {
     throw new Error(
       `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies: ${e}`,

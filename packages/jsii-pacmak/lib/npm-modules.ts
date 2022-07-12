@@ -150,7 +150,11 @@ async function updateNpmIgnore(
     );
   }
 
-  includePattern('Include .jsii', spec.SPEC_FILE_NAME);
+  includePattern(
+    'Include .jsii and .jsii.gz',
+    spec.SPEC_FILE_NAME,
+    spec.SPEC_FILE_NAME_COMPRESSED,
+  );
 
   if (modified) {
     await fs.writeFile(npmIgnorePath, `${lines.join('\n')}\n`);

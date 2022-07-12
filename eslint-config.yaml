@@ -1,5 +1,6 @@
 ---
 env:
+  es2020: true
   jest: true
   node: true
 
@@ -10,9 +11,9 @@ plugins:
 
 parser: '@typescript-eslint/parser'
 parserOptions:
-  ecmaVersion: 2018
+  ecmaVersion: 2020
   impliedStrict: true
-  sourceType: module
+  sourceType: script
   project: ./**/tsconfig.json
 
 extends:
@@ -151,7 +152,9 @@ rules:
 
   'import/no-extraneous-dependencies':
     - error
-    - devDependencies: ['**/test/**'] # Only allow importing devDependencies from tests
+    - devDependencies: # Only allow importing devDependencies from tests
+        - '**/test/**'
+        - '**/*.test.ts'
       optionalDependencies: false # Disallow importing optional dependencies (those shouldn't be used here)
       peerDependencies: false # Disallow importing peer dependencies (those shouldn't be used here)
 

@@ -1,12 +1,12 @@
 import * as spec from '@jsii/spec';
-import { PackageJson } from '@jsii/spec';
+import { writeAssembly, SPEC_FILE_NAME, PackageJson } from '@jsii/spec';
 import * as chalk from 'chalk';
 import * as crypto from 'crypto';
 import * as deepEqual from 'fast-deep-equal/es6';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import * as Case from './case';
 import {
@@ -44,6 +44,7 @@ export class Assembler implements Emitter {
 
   private readonly mainFile: string;
   private readonly tscRootDir?: string;
+  private readonly compressAssembly?: boolean;
 
   private readonly _typeChecker: ts.TypeChecker;
 
@@ -107,6 +108,8 @@ export class Assembler implements Emitter {
         this._typeChecker,
       );
     }
+
+    this.compressAssembly = options.compressAssembly;
 
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
@@ -276,12 +279,16 @@ export class Assembler implements Emitter {
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = validator.emit();
     if (!validationResult.emitSkipped) {
-      const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
-      LOG.trace(`Emitting assembly: ${chalk.blue(assemblyPath)}`);
-      fs.writeJsonSync(assemblyPath, _fingerprint(assembly), {
-        encoding: 'utf8',
-        spaces: 2,
-      });
+      const zipped = writeAssembly(
+        this.projectInfo.projectRoot,
+        _fingerprint(assembly),
+        { compress: this.compressAssembly ?? false },
+      );
+      LOG.trace(
+        `${zipped ? 'Zipping' : 'Emitting'} assembly: ${chalk.blue(
+          path.join(this.projectInfo.projectRoot, SPEC_FILE_NAME),
+        )}`,
+      );
     }
 
     try {
@@ -1731,6 +1738,9 @@ export class Assembler implements Emitter {
       return undefined;
     }
 
+    // check the enum to see if there are duplicate enum values
+    this.assertNoDuplicateEnumValues(decl);
+
     this._warnAboutReservedWords(symbol);
 
     const flags = ts.getCombinedModifierFlags(decl);
@@ -1782,6 +1792,57 @@ export class Assembler implements Emitter {
     );
 
     return jsiiType;
+  }
+
+  private assertNoDuplicateEnumValues(decl: ts.EnumDeclaration): void {
+    type EnumValue = {
+      name: string;
+      value: string;
+      decl: ts.DeclarationName | undefined;
+    };
+
+    const enumValues = decl.members
+      .filter((m) => m.initializer)
+      .map((member): EnumValue => {
+        return {
+          value: member.initializer!.getText(),
+          name: member.name.getText(),
+          decl: ts.getNameOfDeclaration(member),
+        };
+      });
+
+    const hasDuplicateEnumValues = enumValues.some(
+      (val, _, arr) => arr.filter((e) => val.value === e.value).length > 1,
+    );
+
+    if (hasDuplicateEnumValues) {
+      const enumValueMap = enumValues.reduce<Record<string, EnumValue[]>>(
+        (acc, val) => {
+          if (!acc[val.value]) {
+            acc[val.value] = [];
+          }
+          acc[val.value].push(val);
+          return acc;
+        },
+        {},
+      );
+      for (const duplicateValue of Object.keys(enumValueMap)) {
+        if (enumValueMap[duplicateValue].length > 1) {
+          const err = JsiiDiagnostic.JSII_1004_DUPLICATE_ENUM_VALUE.create(
+            enumValueMap[duplicateValue][0].decl!,
+            duplicateValue,
+            enumValueMap[duplicateValue].map((v) => v.name),
+          );
+          for (let i = 1; i < enumValueMap[duplicateValue].length; i++) {
+            err.addRelatedInformation(
+              enumValueMap[duplicateValue][i].decl!,
+              'The conflicting declaration is here',
+            );
+          }
+          this._diagnostics.push(err);
+        }
+      }
+    }
   }
 
   /**
@@ -2756,6 +2817,13 @@ export interface AssemblerOptions {
    * @default false
    */
   readonly addDeprecationWarnings?: boolean;
+
+  /**
+   * Whether to compress the assembly.
+   *
+   * @default false
+   */
+  readonly compressAssembly?: boolean;
 }
 
 interface SubmoduleSpec {

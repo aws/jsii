@@ -1,7 +1,7 @@
 // import { JsiiSymbol, simpleName, namespaceName } from '../jsii/jsii-utils';
 // import { jsiiTargetParameter } from '../jsii/packages';
 import { AssertionError } from 'assert';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { analyzeObjectLiteral, determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { OTree } from '../o-tree';

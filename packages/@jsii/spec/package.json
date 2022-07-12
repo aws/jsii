@@ -34,7 +34,8 @@
     "ajv": "^8.11.0"
   },
   "devDependencies": {
+    "fs-extra": "^10.1.0",
     "jsii-build-tools": "^0.0.0",
-    "typescript-json-schema": "^0.53.1"
+    "typescript-json-schema": "^0.54.0"
   }
 }

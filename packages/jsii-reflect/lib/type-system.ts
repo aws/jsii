@@ -1,4 +1,4 @@
-import * as jsii from '@jsii/spec';
+import { findAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -109,10 +109,7 @@ export class TypeSystem {
       // Load the assembly, but don't recurse if we already have an assembly with the same name.
       // Validation is not an insignificant time sink, and loading IS insignificant, so do a
       // load without validation first. This saves about 2/3rds of processing time.
-      const asm = await this.loadAssembly(
-        path.join(moduleDirectory, '.jsii'),
-        false,
-      );
+      const asm = this.loadAssembly(findAssemblyFile(moduleDirectory), false);
       if (this.includesAssembly(asm.name)) {
         const existing = this.findAssembly(asm.name);
         if (existing.version !== asm.version) {
@@ -154,11 +151,11 @@ export class TypeSystem {
     }
   }
 
-  public async loadFile(
+  public loadFile(
     file: string,
     options: { isRoot?: boolean; validate?: boolean } = {},
   ) {
-    const assembly = await this.loadAssembly(file, options.validate !== false);
+    const assembly = this.loadAssembly(file, options.validate !== false);
     return this.addAssembly(assembly, options);
   }
 
@@ -308,12 +305,9 @@ export class TypeSystem {
    * @param file Assembly file to load
    * @param validate Whether to validate the assembly or just assume it matches the schema
    */
-  private async loadAssembly(file: string, validate = true) {
-    const spec = JSON.parse(await fs.readFile(file, { encoding: 'utf-8' }));
-    const ass = validate
-      ? jsii.validateAssembly(spec)
-      : (spec as jsii.Assembly);
-    return new Assembly(this, ass);
+  private loadAssembly(file: string, validate = true) {
+    const contents = loadAssemblyFromFile(file, validate);
+    return new Assembly(this, contents);
   }
 
   private addRoot(asm: Assembly) {

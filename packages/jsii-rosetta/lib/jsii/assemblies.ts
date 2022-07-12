@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import { loadAssemblyFromFile, loadAssemblyFromPath, findAssemblyFile, writeAssembly } from '@jsii/spec';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -55,33 +56,26 @@ export interface LoadedAssembly {
 /**
  * Load assemblies by filename or directory
  */
-export async function loadAssemblies(
+export function loadAssemblies(
   assemblyLocations: readonly string[],
   validateAssemblies: boolean,
-): Promise<readonly LoadedAssembly[]> {
-  return Promise.all(assemblyLocations.map(loadAssembly));
+): readonly LoadedAssembly[] {
+  return assemblyLocations.map(loadAssembly);
 
-  async function loadAssembly(location: string): Promise<LoadedAssembly> {
-    const stat = await fs.stat(location);
+  function loadAssembly(location: string): LoadedAssembly {
+    const stat = fs.statSync(location);
     if (stat.isDirectory()) {
-      return loadAssembly(path.join(location, '.jsii'));
+      return loadAssembly(findAssemblyFile(location));
     }
 
     const directory = path.dirname(location);
     const pjLocation = path.join(directory, 'package.json');
 
-    const [assembly, packageJson] = await Promise.all([
-      loadAssemblyFromFile(location, validateAssemblies),
-      (await fs.pathExists(pjLocation)) ? fs.readJSON(pjLocation, { encoding: 'utf-8' }) : Promise.resolve(undefined),
-    ]);
+    const assembly = loadAssemblyFromFile(location, validateAssemblies);
+    const packageJson = fs.pathExistsSync(pjLocation) ? fs.readJSONSync(pjLocation, { encoding: 'utf-8' }) : undefined;
 
     return { assembly, directory, packageJson };
   }
-}
-
-async function loadAssemblyFromFile(filename: string, validate: boolean): Promise<spec.Assembly> {
-  const contents = await fs.readJSON(filename, { encoding: 'utf-8' });
-  return validate ? spec.validateAssembly(contents) : (contents as spec.Assembly);
 }
 
 /**
@@ -236,12 +230,12 @@ export async function allTypeScriptSnippets(
  * Replaces the file where the original assembly file *should* be found with a new assembly file.
  * Recalculates the fingerprint of the assembly to avoid tampering detection.
  */
-export async function replaceAssembly(assembly: spec.Assembly, directory: string): Promise<void> {
-  const fileName = path.join(directory, '.jsii');
-  await fs.writeJson(fileName, _fingerprint(assembly), {
-    encoding: 'utf8',
-    spaces: 2,
-  });
+export function replaceAssembly(
+  assembly: spec.Assembly,
+  directory: string,
+  { compress = false }: { compress?: boolean } = {},
+) {
+  writeAssembly(directory, _fingerprint(assembly), { compress });
 }
 
 /**
@@ -296,24 +290,23 @@ export function findTypeLookupAssembly(startingDirectory: string): TypeLookupAss
 }
 
 function loadLookupAssembly(directory: string): TypeLookupAssembly | undefined {
-  const assemblyFile = path.join(directory, '.jsii');
-  if (!fs.pathExistsSync(assemblyFile)) {
+  try {
+    const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
+    const assembly: spec.Assembly = loadAssemblyFromPath(directory);
+    const symbolIdMap = mkDict([
+      ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
+      ...Object.entries(assembly.submodules ?? {}).map(([fqn, mod]) => [mod.symbolId ?? '', fqn] as const),
+    ]);
+
+    return {
+      packageJson,
+      assembly,
+      directory,
+      symbolIdMap,
+    };
+  } catch {
     return undefined;
   }
-
-  const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
-  const assembly: spec.Assembly = fs.readJSONSync(assemblyFile, { encoding: 'utf-8' });
-  const symbolIdMap = mkDict([
-    ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
-    ...Object.entries(assembly.submodules ?? {}).map(([fqn, mod]) => [mod.symbolId ?? '', fqn] as const),
-  ]);
-
-  return {
-    packageJson,
-    assembly,
-    directory,
-    symbolIdMap,
-  };
 }
 
 function findPackageJsonLocation(currentPath: string): string | undefined {

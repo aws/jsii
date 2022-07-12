@@ -16,26 +16,26 @@
   },
   "devDependencies": {
     "@jest/types": "^28.1.1",
-    "@types/jest": "^28.1.1",
+    "@types/jest": "^28.1.4",
     "@types/node": "^14.18.21",
-    "@typescript-eslint/eslint-plugin": "^5.28.0",
-    "@typescript-eslint/parser": "^5.28.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
     "all-contributors-cli": "^6.20.0",
-    "eslint": "^8.17.0",
+    "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-node": "^0.3.6",
-    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-import-resolver-typescript": "^3.2.4",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^28.1.1",
-    "jest-circus": "^28.1.1",
-    "jest-config": "^28.1.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^28.1.2",
+    "jest-circus": "^28.1.2",
+    "jest-config": "^28.1.2",
     "jest-expect-message": "^1.0.2",
-    "lerna": "^5.1.2",
-    "prettier": "^2.7.0",
+    "lerna": "^5.1.6",
+    "prettier": "^2.7.1",
     "standard-version": "^9.5.0",
-    "ts-node": "^10.8.1",
-    "typescript": "~4.7.3"
+    "ts-node": "^10.8.2",
+    "typescript": "~4.7.4"
   },
   "repository": {
     "type": "git",
@@ -50,10 +50,14 @@
     ],
     "nohoist": [
       "**/@fixtures/jsii-calc-bundled",
-      "**/@fixtures/jsii-calc-bundled/**"
+      "**/@fixtures/jsii-calc-bundled/**",
+      "**/typescript"
     ]
   },
   "resolutions": {
-    "@types/prettier": "2.6.0"
+    "minipass": "3.2.1"
+  },
+  "resolutions_info": {
+    "minipass": "https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/60901"
   }
 }

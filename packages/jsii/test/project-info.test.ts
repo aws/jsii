@@ -1,9 +1,10 @@
 import * as spec from '@jsii/spec';
+import { writeAssembly } from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { loadProjectInfo } from '../lib/project-info';
 import { VERSION } from '../lib/version';
@@ -58,6 +59,40 @@ describe('loadProjectInfo', () => {
         TEST_DEP_DEP_ASSEMBLY,
       ]);
     }));
+
+  test('loads valid project (with zipped assembly)', () =>
+    _withTestProject(
+      (projectRoot) => {
+        const { projectInfo: info } = loadProjectInfo(projectRoot);
+        expect(info.name).toBe(BASE_PROJECT.name);
+        expect(info.version).toBe(BASE_PROJECT.version);
+        expect(info.description).toBe(BASE_PROJECT.description);
+        expect(info.license).toBe(BASE_PROJECT.license);
+        expect(_stripUndefined(info.author)).toEqual({
+          ...BASE_PROJECT.author,
+          roles: ['author'],
+        });
+        expect(info.main).toBe(BASE_PROJECT.main);
+        expect(info.types).toBe(BASE_PROJECT.types);
+        expect(info.homepage).toBe(undefined);
+        expect(info.repository?.type).toBe('git');
+        expect(info.repository?.url).toBe(BASE_PROJECT.repository.url);
+        expect(info.targets).toEqual({
+          ...BASE_PROJECT.jsii.targets,
+          js: { npm: BASE_PROJECT.name },
+        });
+        expect(info.dependencies).toEqual({
+          [TEST_DEP_ASSEMBLY.name]:
+            BASE_PROJECT.dependencies[TEST_DEP_ASSEMBLY.name],
+        });
+        expect(info.dependencyClosure).toEqual([
+          TEST_DEP_ASSEMBLY,
+          TEST_DEP_DEP_ASSEMBLY,
+        ]);
+      },
+      undefined,
+      true /* compress assembly */,
+    ));
 
   test('loads valid project (UNLICENSED)', () =>
     _withTestProject(
@@ -294,6 +329,7 @@ const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
 function _withTestProject<T>(
   cb: (projectRoot: string) => T,
   gremlin?: (packageInfo: any) => void,
+  compressAssembly = false,
 ): T {
   const tmpdir = fs.mkdtempSync(
     path.join(os.tmpdir(), path.basename(__filename)),
@@ -322,7 +358,9 @@ function _withTestProject<T>(
     const jsiiTestDep = path.join(tmpdir, 'node_modules', 'jsii-test-dep');
     writeNpmPackageSkeleton(jsiiTestDep);
 
-    fs.writeJsonSync(path.join(jsiiTestDep, '.jsii'), TEST_DEP_ASSEMBLY);
+    writeAssembly(jsiiTestDep, TEST_DEP_ASSEMBLY, {
+      compress: compressAssembly,
+    });
     const jsiiTestDepDep = path.join(
       jsiiTestDep,
       'node_modules',
@@ -330,7 +368,9 @@ function _withTestProject<T>(
     );
 
     writeNpmPackageSkeleton(jsiiTestDepDep);
-    fs.writeJsonSync(path.join(jsiiTestDepDep, '.jsii'), TEST_DEP_DEP_ASSEMBLY);
+    writeAssembly(jsiiTestDepDep, TEST_DEP_DEP_ASSEMBLY, {
+      compress: compressAssembly,
+    });
 
     return cb(tmpdir);
   } finally {

@@ -110,6 +110,28 @@ neg.downgrade-to-readonly.ts:8:24 - error JSII5010: "jsii.Implementation#propert
 
 `;
 
+exports[`enum-duplicate-values 1`] = `
+neg.enum-duplicate-values.ts:2:3 - error JSII1004: Value 'foo' is used for multiple enum values: FOO, FOO_DUPLICATE
+
+2   FOO = 'foo',
+    ~~~
+
+  neg.enum-duplicate-values.ts:3:3
+    3   FOO_DUPLICATE = 'foo',
+        ~~~~~~~~~~~~~
+    The conflicting declaration is here
+neg.enum-duplicate-values.ts:4:3 - error JSII1004: Value 'bar' is used for multiple enum values: BAR, BAR_COPY
+
+4   BAR = 'bar',
+    ~~~
+
+  neg.enum-duplicate-values.ts:5:3
+    5   BAR_COPY = 'bar',
+        ~~~~~~~~
+    The conflicting declaration is here
+
+`;
+
 exports[`enum-members.1 1`] = `
 error JSII8001: Enum members must be ALL_CAPS. Rename "jsii.MyEnum.Goo" to "GOO"
 
@@ -573,7 +595,7 @@ neg.omit.1.ts:7:33 - error JSII3004: Illegal extends clause for an exported API:
 7 export interface BarBaz extends Omit<FooBar, 'foo'> {
                                   ~~~~~~~~~~~~~~~~~~~
 
-  ../../../../node_modules/typescript-3.9/lib/lib.es5.d.ts:1462:35
+  ../../node_modules/typescript/lib/lib.es5.d.ts:1462:35
     1462 type Pick<T, K extends keyof T> = {
                                            ~
     1463     [P in K]: T[P];
@@ -590,7 +612,7 @@ neg.omit.2.ts:7:32 - error JSII3004: Illegal implements clause for an exported A
 7 export class BarBaz implements Omit<FooBar, 'foo'> {
                                  ~~~~~~~~~~~~~~~~~~~
 
-  ../../../../node_modules/typescript-3.9/lib/lib.es5.d.ts:1462:35
+  ../../node_modules/typescript/lib/lib.es5.d.ts:1462:35
     1462 type Pick<T, K extends keyof T> = {
                                            ~
     1463     [P in K]: T[P];

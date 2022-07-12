@@ -67,10 +67,10 @@ export class Benchmark<C> {
 
   public constructor(private readonly name: string) {}
   #setup: () => C | Promise<C> = () => ({} as C);
-  #subject: (ctx: C) => void = () => undefined;
-  #beforeEach: (ctx: C) => void = () => undefined;
-  #afterEach: (ctx: C) => void = () => undefined;
-  #teardown: (ctx: C) => void = () => undefined;
+  #subject: (ctx: C) => void | Promise<void> = () => undefined;
+  #beforeEach: (ctx: C) => void | Promise<void> = () => undefined;
+  #afterEach: (ctx: C) => void | Promise<void> = () => undefined;
+  #teardown: (ctx: C) => void | Promise<void> = () => undefined;
 
   /**
    * Create a setup function to be run once before the benchmark, optionally
@@ -111,7 +111,7 @@ export class Benchmark<C> {
   /**
    * Setup the subject to be measured.
    */
-  public subject(fn: (ctx: C) => void) {
+  public subject(fn: (ctx: C) => void | Promise<void>) {
     this.#subject = fn;
     return this;
   }
@@ -182,14 +182,19 @@ export class Benchmark<C> {
     /* eslint-disable no-await-in-loop */
     while (i < this.#iterations) {
       const observer = this.makeObserver();
-      this.#beforeEach(ctx);
+      await this.#beforeEach(ctx);
       if (this.#profile) {
         profiler = await this.startProfiler();
       }
-      wrapped(ctx);
-      const profile = await this.killProfiler(profiler);
-      const perf = await observer;
-      this.#afterEach(ctx);
+      let profile: Profiler.Profile | undefined;
+      let perf: PerformanceEntry;
+      try {
+        await wrapped(ctx);
+        profile = await this.killProfiler(profiler);
+        perf = await observer;
+      } finally {
+        await this.#afterEach(ctx);
+      }
 
       i++;
       yield { profile, performance: perf };
@@ -204,19 +209,52 @@ export class Benchmark<C> {
     const iterations: Iteration[] = [];
     const c = await this.#setup?.();
 
+    const durations = new Array<number>();
+    let min = Number.POSITIVE_INFINITY;
+    let max = Number.NEGATIVE_INFINITY;
+    let sum = 0;
+    let average = 0;
+
+    let id = 0;
+    const padding = this.#iterations.toString().length;
     for await (const result of this.runIterations(c)) {
+      id += 1;
+      const duration = result.performance.duration;
+      durations.push(duration);
+      if (min > duration) {
+        min = duration;
+      }
+      if (max < duration) {
+        max = duration;
+      }
+      sum += duration;
+      average = sum / id;
+
+      const idStr = id.toString().padStart(padding, ' ');
+      const durStr = duration.toFixed(0);
+      const eta = new Date(Date.now() + average * (this.#iterations - id));
+      const pct = (100 * id) / this.#iterations;
+
+      this.log(
+        `Iteration ${idStr}/${this.#iterations} (${pct.toFixed(
+          0,
+        )}%) | Duration: ${durStr}ms | ETA ${eta.toISOString()}`,
+      );
       iterations.push(result);
     }
 
-    this.#teardown(c);
+    await this.#teardown(c);
 
-    const durations = iterations.map((i) => i.performance.duration);
-    const max = Math.max(...durations);
-    const min = Math.min(...durations);
-    const variance = max - min;
-    const average =
-      durations.reduce((accum, duration) => accum + duration, 0) /
-      durations.length;
+    // Variance is the average of the squared differences from the mean
+    const variance =
+      durations
+        .map((duration) => Math.pow(duration - average, 2))
+        .reduce((accum, squareDev) => accum + squareDev) / durations.length;
+
+    // Standard deviation is the square root of variance
+    const stdDev = Math.sqrt(variance);
+
+    this.log(`Completed: ${average.toFixed(0)}±${stdDev.toFixed(0)}ms`);
 
     return {
       name: this.name,
@@ -226,5 +264,9 @@ export class Benchmark<C> {
       variance,
       iterations,
     };
+  }
+
+  private log(message: string) {
+    console.log(`${new Date().toISOString()} | ${this.name} | ${message}`);
   }
 }

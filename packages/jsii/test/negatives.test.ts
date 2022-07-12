@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
@@ -107,6 +107,9 @@ function _makeProjectInfo(types: string): ProjectInfo {
     bundleDependencies: {},
     targets: {},
     excludeTypescript: [],
-    tsc: { outDir },
+    tsc: {
+      outDir,
+      types: ['node'],
+    },
   };
 }

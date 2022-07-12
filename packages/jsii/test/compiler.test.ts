@@ -1,5 +1,11 @@
 import {
+  loadAssemblyFromPath,
+  SPEC_FILE_NAME,
+  SPEC_FILE_NAME_COMPRESSED,
+} from '@jsii/spec';
+import {
   ensureDirSync,
+  existsSync,
   mkdtempSync,
   removeSync,
   writeFileSync,
@@ -82,9 +88,7 @@ describe(Compiler, () => {
         compilationComplete: (emitResult) => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
-            const output = readFileSync(join(sourceDir, '.jsii'), {
-              encoding: 'utf-8',
-            });
+            const output = JSON.stringify(loadAssemblyFromPath(sourceDir));
             if (firstCompilation) {
               firstCompilation = false;
               expect(output).toContain('"MarkerA"');
@@ -138,7 +142,7 @@ describe(Compiler, () => {
 
       compiler.emit();
 
-      const assembly = readJsonSync(join(sourceDir, '.jsii'), 'utf-8');
+      const assembly = loadAssemblyFromPath(sourceDir);
       expect(assembly.metadata).toEqual(
         expect.objectContaining({
           tscRootDir: rootDir,
@@ -173,6 +177,67 @@ describe(Compiler, () => {
     } finally {
       removeSync(sourceDir);
     }
+  });
+
+  describe('compressed assembly option', () => {
+    test('creates a gzipped assembly file', () => {
+      const sourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+
+      try {
+        writeFileSync(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+
+        const compiler = new Compiler({
+          projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),
+          compressAssembly: true,
+        });
+
+        compiler.emit();
+
+        expect(
+          existsSync(join(sourceDir, SPEC_FILE_NAME_COMPRESSED)),
+        ).toBeTruthy();
+      } finally {
+        removeSync(sourceDir);
+      }
+    });
+
+    test('creates file equivalent to uncompressed file', () => {
+      const uncompressedSourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir'));
+      const compressedSourceDir = mkdtempSync(join(tmpdir(), 'jsii-tmpdir-2'));
+
+      try {
+        const fileContents = 'export class MarkerA {}';
+        writeFileSync(join(uncompressedSourceDir, 'index.ts'), fileContents);
+        writeFileSync(join(compressedSourceDir, 'index.ts'), fileContents);
+
+        const uncompressedJsiiCompiler = new Compiler({
+          projectInfo: _makeProjectInfo(uncompressedSourceDir, 'index.d.ts'),
+        });
+        const compressedJsiiCompiler = new Compiler({
+          projectInfo: _makeProjectInfo(compressedSourceDir, 'index.d.ts'),
+          compressAssembly: true,
+        });
+
+        uncompressedJsiiCompiler.emit();
+        compressedJsiiCompiler.emit();
+
+        // The files we expect are there
+        expect(
+          existsSync(join(uncompressedSourceDir, SPEC_FILE_NAME)),
+        ).toBeTruthy();
+        expect(
+          existsSync(join(compressedSourceDir, SPEC_FILE_NAME_COMPRESSED)),
+        ).toBeTruthy();
+
+        const uncompressedJsii = loadAssemblyFromPath(uncompressedSourceDir);
+        const compressedJsii = loadAssemblyFromPath(compressedSourceDir);
+
+        expect(compressedJsii).toEqual(uncompressedJsii);
+      } finally {
+        removeSync(uncompressedSourceDir);
+        removeSync(compressedSourceDir);
+      }
+    });
   });
 });
 

@@ -1,5 +1,8 @@
 {
   "extends": "../../../tsconfig-base",
+  "compilerOptions": {
+    "target": "ES2019", // Keep source-compatible with Node 12+
+  },
   "include": [
     "**/*.ts",
     "package.json"
@@ -9,8 +12,14 @@
     "jest.config.ts",
   ],
   "references": [
-    { "path": "../kernel" },
-    { "path": "../check-node" },
-    { "path": "../spec" },
+    {
+      "path": "../kernel"
+    },
+    {
+      "path": "../check-node"
+    },
+    {
+      "path": "../spec"
+    },
   ],
 }

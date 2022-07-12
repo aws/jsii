@@ -116,7 +116,7 @@ public final class Main extends FooClass {
 }
 ```
 
-The schematized exchange between the _jsii runtime library_ and the _jsii kernem_ is the following:
+The schematized exchange between the _jsii runtime library_ and the _jsii kernel_ is the following:
 
 <!-- Original in `callbacks.monopic`, authored using Monodraw  (https://monodraw.helftone.com) -->
 

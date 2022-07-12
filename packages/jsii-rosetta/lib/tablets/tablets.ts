@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import * as zlib from 'zlib';
 
 import { TargetLanguage } from '../languages';
 import * as logging from '../logging';
@@ -11,7 +12,15 @@ import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './s
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const TOOL_VERSION = require('../../package.json').version;
 
+/**
+ * The default name of the tablet file
+ */
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
+
+/**
+ * The default name of the compressed tablet file
+ */
+export const DEFAULT_TABLET_NAME_COMPRESSED = '.jsii.tabl.json.gz';
 
 export const CURRENT_SCHEMA_VERSION = '2';
 
@@ -121,8 +130,19 @@ export class LanguageTablet {
     return this.snippets[snippetKey(typeScriptSource)];
   }
 
+  /**
+   * Load the tablet from a file. Will automatically detect if the file is
+   * compressed and decompress accordingly.
+   */
   public async load(filename: string) {
-    const obj = (await fs.readJson(filename, { encoding: 'utf-8' })) as TabletSchema;
+    let data = await fs.readFile(filename);
+    // Gzip objects start with 1f 8b 08
+    if (data[0] === 0x1f && data[1] === 0x8b && data[2] === 0x08) {
+      // This is a gz object, so we decompress it now...
+      data = zlib.gunzipSync(data);
+    }
+
+    const obj: TabletSchema = JSON.parse(data.toString('utf-8'));
 
     if (!obj.toolVersion || !obj.snippets) {
       throw new Error(`File '${filename}' does not seem to be a Tablet file`);
@@ -147,12 +167,19 @@ export class LanguageTablet {
     return Object.values(this.snippets);
   }
 
-  public async save(filename: string) {
+  /**
+   * Saves the tablet schema to a file. If the compress option is passed, then
+   * the schema will be gzipped before writing to the file.
+   */
+  public async save(filename: string, compress = false) {
     await fs.mkdirp(path.dirname(filename));
-    await fs.writeJson(filename, this.toSchema(), {
-      encoding: 'utf-8',
-      spaces: 2,
-    });
+
+    let schema = Buffer.from(JSON.stringify(this.toSchema(), null, 2));
+    if (compress) {
+      schema = zlib.gzipSync(schema);
+    }
+
+    await fs.writeFile(filename, schema);
   }
 
   private toSchema(): TabletSchema {
@@ -206,7 +233,7 @@ export class TranslatedSnippet {
   public get originalSource(): Translation {
     return {
       source: this.snippet.translations[ORIGINAL_SNIPPET_KEY].source,
-      language: 'typescript-3.9',
+      language: 'typescript',
       didCompile: this.snippet.didCompile,
     };
   }

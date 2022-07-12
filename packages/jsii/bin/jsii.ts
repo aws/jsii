@@ -2,7 +2,7 @@ import '@jsii/check-node/run';
 
 import * as log4js from 'log4js';
 import * as path from 'path';
-import { version as tsVersion } from 'typescript-3.9/package.json';
+import { version as tsVersion } from 'typescript/package.json';
 import * as util from 'util';
 import * as yargs from 'yargs';
 
@@ -70,6 +70,11 @@ const warningTypes = Object.keys(enabledWarnings);
             type: 'string',
             default: 'tsconfig.json',
             desc: 'Name of the typescript configuration file to generate with compiler settings',
+          })
+          .option('compress-assembly', {
+            type: 'boolean',
+            default: false,
+            desc: 'Emit a compressed version of the assembly',
           }),
     )
     .option('verbose', {
@@ -113,6 +118,7 @@ const warningTypes = Object.keys(enabledWarnings);
     stripDeprecatedAllowListFile: argv['strip-deprecated'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
     generateTypeScriptConfig: argv['generate-tsconfig'],
+    compressAssembly: argv['compress-assembly'],
   });
 
   const emitResult = argv.watch ? await compiler.watch() : compiler.emit();

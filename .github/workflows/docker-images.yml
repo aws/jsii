@@ -82,6 +82,13 @@ jobs:
             ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-
             ${{ runner.os }}-buildx-
 
+      # 1 pull per second from ECR Public
+      - name: Jitter the start time to avoid ECR Public throttling
+        id: sleep-start
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          sleep $((RANDOM % 60))
+
       - name: Determine build time
         id: build-time
         if: steps.should-run.outputs.result == 'true'
@@ -103,13 +110,6 @@ jobs:
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
             -f superchain/Dockerfile                                            \
             .
-
-      # Replace the cache so it does not grow forever
-      - name: Update layer cache
-        if: always() && steps.should-run.outputs.result == 'true'
-        run: |-
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-out /tmp/.buildx-cache
 
       # Testing sequentially, because in parallel it's too slow due to IO contention
       - name: Test Image (AMD64)
@@ -209,3 +209,10 @@ jobs:
               -f superchain/Dockerfile                                            \
               .
           fi
+
+      # Replace the cache so it does not grow forever (should always be last!)
+      - name: Update layer cache
+        if: always() && steps.should-run.outputs.result == 'true'
+        run: |-
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-out /tmp/.buildx-cache

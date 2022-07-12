@@ -1,4 +1,4 @@
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 /**
  * Provides a TransformerFactory to annotate classes with runtime information

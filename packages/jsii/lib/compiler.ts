@@ -2,7 +2,7 @@ import * as chalk from 'chalk';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as ts from 'typescript-3.9';
+import * as ts from 'typescript';
 
 import { Assembler } from './assembler';
 import * as Case from './case';
@@ -60,6 +60,11 @@ export interface CompilerOptions {
    * @default "tsconfig.json"
    */
   generateTypeScriptConfig?: string;
+  /**
+   * Whether to compress the assembly
+   * @default false
+   */
+  compressAssembly?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -248,6 +253,7 @@ export class Compiler implements Emitter {
       stripDeprecated: this.options.stripDeprecated,
       stripDeprecatedAllowListFile: this.options.stripDeprecatedAllowListFile,
       addDeprecationWarnings: this.options.addDeprecationWarnings,
+      compressAssembly: this.options.compressAssembly,
     });
 
     try {
@@ -510,7 +516,7 @@ export class Compiler implements Emitter {
    *
    * Respects includes/excludes/etc.
    *
-   * This makes it so that running 'tsc' and running 'jsii' has the same behavior.
+   * This makes it so that running 'typescript' and running 'jsii' has the same behavior.
    */
   private determineSources(files: string[]): string[] {
     const ret = new Array<string>();

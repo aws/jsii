@@ -4,8 +4,12 @@ import * as glob from 'glob';
 import * as os from 'os';
 import * as path from 'path';
 import * as tar from 'tar';
+import * as ts from 'typescript';
 
-import { cdkTagv2_21_1, cdkv2_21_1 } from '../lib/constants';
+import { cdkTag, cdk, fixturesDir } from '../lib/constants';
+
+// Using the local `npm` package (from dependencies)
+const npm = path.resolve(__dirname, '..', 'node_modules', '.bin', 'npm');
 
 function snapshotAwsCdk(tag: string, file: string) {
   // Directory of aws-cdk repository
@@ -30,7 +34,7 @@ function snapshotAwsCdk(tag: string, file: string) {
 
   // build aws-cdk-lib and dependencies
   cp.execSync(
-    `npx lerna run --scope aws-cdk-lib --include-dependencies build`,
+    `yarn lerna run --scope aws-cdk-lib --include-dependencies --concurrency=2 --stream build`,
     { cwd: repoDir },
   );
 
@@ -41,7 +45,14 @@ function snapshotAwsCdk(tag: string, file: string) {
   const artifacts = glob.sync(
     path.join(intermediate, '**/*@(.js|.js.map|.d.ts|.tsbuildinfo)'),
   );
-  artifacts.forEach(fs.removeSync);
+  const exceptions = new Set([
+    // Need to keep some declarations files that are part of the source...
+    path.join(
+      intermediate,
+      'custom-resources/lib/provider-framework/types.d.ts',
+    ),
+  ]);
+  artifacts.filter((file) => !exceptions.has(file)).forEach(fs.removeSync);
 
   // Remove node_modules from monorepo setup
   fs.removeSync(path.resolve(intermediate, 'node_modules'));
@@ -52,14 +63,23 @@ function snapshotAwsCdk(tag: string, file: string) {
   const { devDependencies, ...pkgJson } = fs.readJsonSync(packageJsonPath);
   const newDevDependencies = Object.entries(devDependencies).reduce(
     (accum, [pkg, version]) => {
-      if (pkg.startsWith('@aws-cdk/')) return accum;
+      if (pkg !== 'typescript' && !pkg.startsWith('@aws-cdk/'))
+        accum[pkg] = version as string;
 
-      return {
-        ...accum,
-        [pkg]: version,
-      };
+      return accum;
     },
-    {},
+    {
+      // Some un-modeled dependencies that exist (will be overridden if modeled)
+      '@types/aws-lambda': '^8.10.99',
+      '@types/minimatch': '^3.0.5',
+      '@types/node': '^14',
+      '@types/punycode': '^2.1.0',
+      '@types/semver': '^7.3.9',
+      'aws-sdk': '^2.596.0',
+      'typescript-json-schema': '^0.53.1',
+      // For good measure, the typescript compiler
+      typescript: `~${ts.version}`,
+    } as Record<string, string>,
   );
 
   fs.writeFileSync(
@@ -72,7 +92,7 @@ function snapshotAwsCdk(tag: string, file: string) {
   );
 
   // Run npm install to get package-lock.json for reproducible dependency tree
-  cp.execSync(`npm install`, { cwd: intermediate });
+  cp.execSync(`${npm} install`, { cwd: intermediate });
   fs.removeSync(path.resolve(intermediate, 'node_modules'));
   tar.c(
     {
@@ -89,7 +109,8 @@ function snapshotAwsCdk(tag: string, file: string) {
 }
 
 function main() {
-  snapshotAwsCdk(cdkTagv2_21_1, cdkv2_21_1);
+  fs.mkdirpSync(fixturesDir);
+  snapshotAwsCdk(cdkTag, cdk);
 }
 
 main();
