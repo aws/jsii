@@ -2674,8 +2674,6 @@ class AbstractSuite(
         '''
         :param str: -
         '''
-        if builtins.__debug__:
-            check_type(argname="str", value=str, expected_type=builtins.str)
         ...
 
     @jsii.member(jsii_name="workItAll")
@@ -4960,8 +4958,6 @@ class Entropy(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Entropy"):
 
         :return: \`\`word\`\`.
         '''
-        if builtins.__debug__:
-            check_type(argname="word", value=word, expected_type=builtins.str)
         ...
 
 
@@ -5637,8 +5633,6 @@ class IBellRinger(typing_extensions.Protocol):
         '''
         :param bell: -
         '''
-        if builtins.__debug__:
-            check_type(argname="bell", value=bell, expected_type=IBell)
         ...
 
 
@@ -5669,8 +5663,6 @@ class IConcreteBellRinger(typing_extensions.Protocol):
         '''
         :param bell: -
         '''
-        if builtins.__debug__:
-            check_type(argname="bell", value=bell, expected_type="Bell")
         ...
 
 
@@ -6072,9 +6064,6 @@ class IInterfaceWithOptionalMethodArguments(typing_extensions.Protocol):
         :param arg1: -
         :param arg2: -
         '''
-        if builtins.__debug__:
-            check_type(argname="arg1", value=arg1, expected_type=builtins.str)
-            check_type(argname="arg2", value=arg2, expected_type=typing.Optional[jsii.Number])
         ...
 
 
@@ -8512,10 +8501,6 @@ class PartiallyInitializedThisConsumer(
         :param dt: -
         :param ev: -
         '''
-        if builtins.__debug__:
-            check_type(argname="obj", value=obj, expected_type=ConstructorPassesThisOut)
-            check_type(argname="dt", value=dt, expected_type=datetime.datetime)
-            check_type(argname="ev", value=ev, expected_type=AllTypesEnum)
         ...
 
 
@@ -10506,8 +10491,6 @@ class AbstractClass(
         '''
         :param name: -
         '''
-        if builtins.__debug__:
-            check_type(argname="name", value=name, expected_type=builtins.str)
         ...
 
     @jsii.member(jsii_name="nonAbstractMethod")
@@ -11369,8 +11352,6 @@ class Cdk16625(
 
         :param gen: a VERY pseudo random number generator.
         '''
-        if builtins.__debug__:
-            check_type(argname="gen", value=gen, expected_type=_IRandomNumberGenerator_9643a8b9)
         ...
 
 
@@ -12895,8 +12876,6 @@ class IInterfaceWithSelf(typing_extensions.Protocol):
         '''
         :param self: -
         '''
-        if builtins.__debug__:
-            check_type(argname="self", value=self, expected_type=jsii.Number)
         ...
 
 
