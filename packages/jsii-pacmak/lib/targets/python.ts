@@ -666,6 +666,7 @@ abstract class BaseMethod implements PythonBase {
       arguments: documentableArgs,
       documentableItem: `method-${this.pythonName}`,
     });
+    emitParameterValidation(code, pythonParams.slice(1));
     this.emitBody(
       code,
       context,
@@ -899,6 +900,7 @@ abstract class BaseProperty implements PythonBase {
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
     });
+    // NOTE: No parameters to validate here, this is a getter...
     if (
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
@@ -933,6 +935,7 @@ abstract class BaseProperty implements PythonBase {
         (this.shouldEmitBody || forceEmitBody) &&
         (!renderAbstract || !this.abstract)
       ) {
+        emitParameterValidation(code, [`value: ${pythonType}`]);
         code.line(
           `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
         );
@@ -1107,7 +1110,7 @@ class Struct extends BasePythonClassType {
     openSignature(code, 'def', '__init__', constructorArguments, false, 'None');
     this.emitConstructorDocstring(code);
 
-    // Re-type struct arguments that were passed as "dict"
+    // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
       const typeName = toTypeName(member.type.type).pythonType({
@@ -1118,6 +1121,7 @@ class Struct extends BasePythonClassType {
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
     }
+    emitParameterValidation(code, kwargs);
 
     // Required properties, those will always be put into the dict
     assignDictionary(
@@ -1165,6 +1169,7 @@ class Struct extends BasePythonClassType {
     code.line('@builtins.property');
     openSignature(code, 'def', member.pythonName, ['self'], true, pythonType);
     member.emitDocString(code);
+    // NOTE: No parameter to validate here, this is a getter.
     code.line(
       `result = self._values.get(${JSON.stringify(member.pythonName)})`,
     );
@@ -1622,6 +1627,8 @@ class PythonModule implements PythonType {
     code.line('import jsii');
     code.line('import publication');
     code.line('import typing_extensions');
+    code.line();
+    code.line('from typeguard import check_type');
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
@@ -2018,6 +2025,7 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
+        'typeguard~=2.13.3',
       ]
         .concat(dependencies)
         .sort(),
@@ -3004,6 +3012,48 @@ function openSignature(
   }
   code.unindent(false);
   code.openBlock(`)${suffix}`);
+}
+
+function emitParameterValidation(code: CodeMaker, params: readonly string[]) {
+  let openedBlock = false;
+  for (const param of params) {
+    const [name, pythonType, _defaultValue] = param.split(/\s*[:=]\s*/);
+    if (pythonType === 'typing.Any') {
+      // Any will accept any value, so we're not checking anything here...
+      continue;
+    }
+    if (name === '*' && pythonType == null) {
+      // This is the keyword-args separator, we won't check keyword arguments here because the kwargs will be rolled
+      // up into a struct instance, and that struct's constructor will be checking again...
+      break;
+    }
+
+    if (!openedBlock) {
+      code.openBlock('if builtins.__debug__');
+      openedBlock = true;
+    }
+
+    if (name.startsWith('*')) {
+      // Variadic argument case
+      code.line(
+        `check_type(argname=${JSON.stringify(
+          name.slice(1),
+        )}, value=${name.slice(
+          1,
+        )}, expected_type=typing.Sequence[${pythonType}])`,
+      );
+    } else {
+      // Standard case
+      code.line(
+        `check_type(argname=${JSON.stringify(
+          name,
+        )}, value=${name}, expected_type=${pythonType})`,
+      );
+    }
+  }
+  if (openedBlock) {
+    code.closeBlock();
+  }
 }
 
 function assignCallResult(

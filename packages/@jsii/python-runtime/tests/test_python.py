@@ -1,6 +1,6 @@
 import jsii
 import pytest
-from typing import Any, cast
+import re
 
 from jsii.errors import JSIIError
 import jsii_calc
@@ -28,7 +28,12 @@ class TestErrorHandling:
     def test_descriptive_error_when_passing_function(self):
         obj = jsii_calc.Calculator()
 
-        with pytest.raises(JSIIError, match="Cannot pass function as argument here.*"):
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of value must be one of (int, float); got method instead"
+            ),
+        ):
             # types: ignore
             obj.add(self.test_descriptive_error_when_passing_function)
 
