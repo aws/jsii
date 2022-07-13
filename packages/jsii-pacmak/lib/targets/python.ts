@@ -666,7 +666,10 @@ abstract class BaseMethod implements PythonBase {
       arguments: documentableArgs,
       documentableItem: `method-${this.pythonName}`,
     });
-    if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
+    if (
+      (this.shouldEmitBody || forceEmitBody) &&
+      (!renderAbstract || !this.abstract)
+    ) {
       emitParameterValidation(code, pythonParams.slice(1));
     }
     this.emitBody(
