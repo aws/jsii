@@ -228,6 +228,12 @@ function main() {
             describe: 'Ignore missing fixtures and literate markdown files instead of failing',
             type: 'boolean',
           })
+          .options('compress-tablet', {
+            alias: 'z',
+            type: 'boolean',
+            describe: 'Compress the resulting tablet file',
+            default: false,
+          })
           .conflicts('loose', 'strict')
           .conflicts('loose', 'fail'),
       wrapHandler(async (args) => {
@@ -252,6 +258,7 @@ function main() {
           cacheToFile: absCacheTo,
           trimCache: args['trim-cache'],
           loose: args.loose,
+          compressTablet: args['compress-tablet'],
         };
 
         const result = args.infuse
