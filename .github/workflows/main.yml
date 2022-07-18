@@ -28,10 +28,10 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
       # Set up all of our standard runtimes
-      - name: Set up .NET 5
+      - name: Set up .NET 6
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: '6.0.x'
       - name: Set up Go 1.16
         uses: actions/setup-go@v3
         with:
@@ -122,10 +122,10 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
       # Set up all of our standard runtimes
-      - name: Set up .NET 5
+      - name: Set up .NET 6
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: '6.0.x'
       - name: Set up Go 1.16
         uses: actions/setup-go@v3
         with:
@@ -240,12 +240,6 @@ jobs:
             node: '14'
             python: '3.7'
           # Test alternate .NETs
-          - java: '8'
-            dotnet: '5.0.x'
-            go: '1.16'
-            node: '14'
-            os: ubuntu-latest
-            python: '3.7'
           - java: '8'
             dotnet: '6.0.x'
             go: '1.16'
