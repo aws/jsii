@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.62.0](https://github.com/aws/jsii/compare/v1.61.0...v1.62.0) (2022-07-12)
+
+
+### Features
+
+* **@jsii/spec:** add loadAssemblyFromBuffer function ([#3634](https://github.com/aws/jsii/issues/3634)) ([4f3a0d1](https://github.com/aws/jsii/commit/4f3a0d16a769a678a4ce4bde9a6bbbd715a48ab2))
+* **@jsii/spec:** add a utility library to be consumed by jsii modules ([#3570](https://github.com/aws/jsii/issues/3570)) ([635404a](https://github.com/aws/jsii/commit/635404a561a52033f2c93ce238c861a7518a47f4))
+* **rosetta:** tablets can be compressed ([#3652](https://github.com/aws/jsii/issues/3652)) ([359e74f](https://github.com/aws/jsii/commit/359e74f3c05a682ef1e55297e27f9e2d538b0694))
+* use new read/load assembly functions everywhere ([#3600](https://github.com/aws/jsii/issues/3600)) ([623c0c1](https://github.com/aws/jsii/commit/623c0c14fbe4c4a50c208c5415e689e45f9f54c4)), closes [#3570](https://github.com/aws/jsii/issues/3570) [#3570](https://github.com/aws/jsii/issues/3570)
+
+
+### Bug Fixes
+
+* **benchmark:** compilation fails due to missing dependencies ([#3610](https://github.com/aws/jsii/issues/3610)) ([28db6e3](https://github.com/aws/jsii/commit/28db6e3c7696da919b8cf3a3a99e22dd53fcedd9))
+* jitter Docker build startup ([#3646](https://github.com/aws/jsii/issues/3646)) ([5857ea8](https://github.com/aws/jsii/commit/5857ea8207c47c7002e365b09b5852c36a7c68a3))
+* **jsii:** fail compilation when two or more enum members have same val ([#3412](https://github.com/aws/jsii/issues/3412)) ([f64dace](https://github.com/aws/jsii/commit/f64dace793f1db1bf5057f29017820d225887a1f)), closes [#2782](https://github.com/aws/jsii/issues/2782)
+* Status icon for Go language that it is generally available. ([#3607](https://github.com/aws/jsii/issues/3607)) ([1762310](https://github.com/aws/jsii/commit/1762310ee59539d1dd604b639aae979ace5818af))
+
 ## [1.61.0](https://github.com/aws/jsii/compare/v1.60.1...v1.61.0) (2022-06-16)
 
 
