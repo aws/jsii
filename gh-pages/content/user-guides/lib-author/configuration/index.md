@@ -197,6 +197,7 @@ are set in the `jsii.tsc` section of the `package.json` file, but use the same n
   default, all visible `@types/*` packages will be loaded, which can be undesirable (in particular in monorepos, where
   some type libraries are not compatible with the TypeScript compiler version that `jsii` uses). The value specified
   here will be forwarded as-is to the TypeScript compiler.
+- `baseUrl` and `paths` can be used to configure TypeScript path mappings, and are copied verbatim to `tsconfig.json`.
 
 Refer to the [TypeScript compiler options reference][ts-options] for more information about those options.
 
