@@ -331,10 +331,6 @@ export class Kernel {
     const fn = prototype[method] as (...params: any[]) => any;
 
     const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
-      if (method === 'toS3') {
-        debugger;
-      }
-
       return fn.apply(
         prototype,
         this._toSandboxValues(
