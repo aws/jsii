@@ -14,7 +14,7 @@ queue_rules:
       - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
-      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 6\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
@@ -30,7 +30,7 @@ pull_request_rules:
       label:
         add: [contribution/core]
     conditions:
-      - author~=^(RomainMuller|rix0rrr|Jerry-AWS|MrArnoldPalmer|iliapolo|madeline-k|comcalvi|kaizen3031593|Chriscbr|corymhall|otaviomacedo|yuth|TheRealAmazonKendra|vinayak-kukreja|mrgrain)$
+      - author~=^(RomainMuller|rix0rrr|Jerry-AWS|MrArnoldPalmer|iliapolo|madeline-k|comcalvi|kaizencc|corymhall|otaviomacedo|yuth|TheRealAmazonKendra|vinayak-kukreja|mrgrain|ryparker|Naumel)$
       - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
@@ -64,7 +64,7 @@ pull_request_rules:
       - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
-      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 6\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
@@ -114,7 +114,7 @@ pull_request_rules:
       - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
-      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 6\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
@@ -164,7 +164,7 @@ pull_request_rules:
       - status-success~=^Test \(.* node 18 .*$
       # One test for each supported dotnet version
       - status-success~=^Test \(.* dotnet 3\.1\.x .*$
-      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 6\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$

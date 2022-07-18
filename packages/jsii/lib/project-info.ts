@@ -20,6 +20,9 @@ export type TSCompilerOptions = Partial<
     // Directory preferences
     | 'outDir'
     | 'rootDir'
+    // TypeScript path mapping
+    | 'baseUrl'
+    | 'paths'
     // Style preferences
     | 'forceConsistentCasingInFileNames'
     // Source map preferences
@@ -220,6 +223,8 @@ export function loadProjectInfo(projectRoot: string): ProjectInfoResult {
     tsc: {
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
+      baseUrl: pkg.jsii?.tsc?.baseUrl,
+      paths: pkg.jsii?.tsc?.paths,
       forceConsistentCasingInFileNames:
         pkg.jsii?.tsc?.forceConsistentCasingInFileNames,
       ..._sourceMapPreferences(pkg.jsii?.tsc),
