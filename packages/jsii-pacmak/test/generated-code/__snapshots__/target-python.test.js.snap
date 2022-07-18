@@ -2737,7 +2737,7 @@ class _AbstractSuiteProxy(AbstractSuite):
     @_property.setter
     def _property(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "_property").fset)
+            type_hints = typing.get_type_hints(getattr(AbstractSuite, "_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "property", value)
 
@@ -2792,7 +2792,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @any_array_property.setter
     def any_array_property(self, value: typing.List[typing.Any]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "any_array_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "any_array_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "anyArrayProperty", value)
 
@@ -2804,7 +2804,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @any_map_property.setter
     def any_map_property(self, value: typing.Mapping[builtins.str, typing.Any]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "any_map_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "any_map_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "anyMapProperty", value)
 
@@ -2816,7 +2816,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @any_property.setter
     def any_property(self, value: typing.Any) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "any_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "any_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "anyProperty", value)
 
@@ -2828,7 +2828,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @array_property.setter
     def array_property(self, value: typing.List[builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "array_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "array_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "arrayProperty", value)
 
@@ -2840,7 +2840,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @boolean_property.setter
     def boolean_property(self, value: builtins.bool) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "boolean_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "boolean_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "booleanProperty", value)
 
@@ -2852,7 +2852,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @date_property.setter
     def date_property(self, value: datetime.datetime) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "date_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "date_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "dateProperty", value)
 
@@ -2864,7 +2864,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @enum_property.setter
     def enum_property(self, value: "AllTypesEnum") -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "enum_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "enum_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "enumProperty", value)
 
@@ -2876,7 +2876,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @json_property.setter
     def json_property(self, value: typing.Mapping[typing.Any, typing.Any]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "json_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "json_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "jsonProperty", value)
 
@@ -2891,7 +2891,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         value: typing.Mapping[builtins.str, scope.jsii_calc_lib.Number],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "map_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "map_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mapProperty", value)
 
@@ -2903,7 +2903,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @number_property.setter
     def number_property(self, value: jsii.Number) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "number_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "number_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "numberProperty", value)
 
@@ -2915,7 +2915,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @string_property.setter
     def string_property(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "string_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "string_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "stringProperty", value)
 
@@ -2932,7 +2932,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         value: typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.NumericValue]],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "union_array_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "union_array_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unionArrayProperty", value)
 
@@ -2949,7 +2949,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         value: typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, scope.jsii_calc_lib.Number]],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "union_map_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "union_map_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unionMapProperty", value)
 
@@ -2966,7 +2966,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         value: typing.Union[builtins.str, jsii.Number, scope.jsii_calc_lib.Number, "Multiply"],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "union_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "union_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unionProperty", value)
 
@@ -2978,7 +2978,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @unknown_array_property.setter
     def unknown_array_property(self, value: typing.List[typing.Any]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "unknown_array_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "unknown_array_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unknownArrayProperty", value)
 
@@ -2993,7 +2993,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         value: typing.Mapping[builtins.str, typing.Any],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "unknown_map_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "unknown_map_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unknownMapProperty", value)
 
@@ -3005,7 +3005,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @unknown_property.setter
     def unknown_property(self, value: typing.Any) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "unknown_property").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "unknown_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unknownProperty", value)
 
@@ -3017,7 +3017,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @optional_enum_value.setter
     def optional_enum_value(self, value: typing.Optional["StringEnum"]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "optional_enum_value").fset)
+            type_hints = typing.get_type_hints(getattr(AllTypes, "optional_enum_value").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "optionalEnumValue", value)
 
@@ -3412,7 +3412,7 @@ class Calculator(
     @curr.setter
     def curr(self, value: scope.jsii_calc_lib.NumericValue) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "curr").fset)
+            type_hints = typing.get_type_hints(getattr(Calculator, "curr").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "curr", value)
 
@@ -3425,7 +3425,7 @@ class Calculator(
     @max_value.setter
     def max_value(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "max_value").fset)
+            type_hints = typing.get_type_hints(getattr(Calculator, "max_value").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "maxValue", value)
 
@@ -3443,7 +3443,7 @@ class Calculator(
         value: typing.Optional[typing.Union["Add", "Multiply", "Power"]],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "union_property").fset)
+            type_hints = typing.get_type_hints(getattr(Calculator, "union_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unionProperty", value)
 
@@ -3544,7 +3544,7 @@ class ClassWithCollections(
     @static_array.setter # type: ignore[no-redef]
     def static_array(cls, value: typing.List[builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(cls), "static_array").fset)
+            type_hints = typing.get_type_hints(getattr(ClassWithCollections, "static_array").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.sset(cls, "staticArray", value)
 
@@ -3556,7 +3556,7 @@ class ClassWithCollections(
     @static_map.setter # type: ignore[no-redef]
     def static_map(cls, value: typing.Mapping[builtins.str, builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(cls), "static_map").fset)
+            type_hints = typing.get_type_hints(getattr(ClassWithCollections, "static_map").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.sset(cls, "staticMap", value)
 
@@ -3568,7 +3568,7 @@ class ClassWithCollections(
     @array.setter
     def array(self, value: typing.List[builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "array").fset)
+            type_hints = typing.get_type_hints(getattr(ClassWithCollections, "array").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "array", value)
 
@@ -3580,7 +3580,7 @@ class ClassWithCollections(
     @map.setter
     def map(self, value: typing.Mapping[builtins.str, builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "map").fset)
+            type_hints = typing.get_type_hints(getattr(ClassWithCollections, "map").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "map", value)
 
@@ -3701,7 +3701,7 @@ class ClassWithMutableObjectLiteralProperty(
     @mutable_object.setter
     def mutable_object(self, value: "IMutableObjectLiteral") -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_object").fset)
+            type_hints = typing.get_type_hints(getattr(ClassWithMutableObjectLiteralProperty, "mutable_object").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableObject", value)
 
@@ -3738,7 +3738,7 @@ class ConfusingToJackson(
         value: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "union_property").fset)
+            type_hints = typing.get_type_hints(getattr(ConfusingToJackson, "union_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unionProperty", value)
 
@@ -4262,7 +4262,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(DeprecatedClass, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -4992,7 +4992,7 @@ class DynamicPropertyBearer(
     @dynamic_property.setter
     def dynamic_property(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "dynamic_property").fset)
+            type_hints = typing.get_type_hints(getattr(DynamicPropertyBearer, "dynamic_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "dynamicProperty", value)
 
@@ -5004,7 +5004,7 @@ class DynamicPropertyBearer(
     @value_store.setter
     def value_store(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "value_store").fset)
+            type_hints = typing.get_type_hints(getattr(DynamicPropertyBearer, "value_store").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "valueStore", value)
 
@@ -5245,7 +5245,7 @@ class ExperimentalClass(
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(ExperimentalClass, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -5417,7 +5417,7 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(ExternalClass, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -5726,7 +5726,7 @@ class _IAnotherPublicInterfaceProxy:
     @a.setter
     def a(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "a").fset)
+            type_hints = typing.get_type_hints(getattr(IAnotherPublicInterface, "a").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "a", value)
 
@@ -5868,7 +5868,7 @@ class _IDeprecatedInterfaceProxy:
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(IDeprecatedInterface, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -5929,7 +5929,7 @@ class _IExperimentalInterfaceProxy:
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(IExperimentalInterface, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -5977,7 +5977,7 @@ class _IExtendsPrivateInterfaceProxy:
     @private.setter
     def private(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "private").fset)
+            type_hints = typing.get_type_hints(getattr(IExtendsPrivateInterface, "private").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "private", value)
 
@@ -6029,7 +6029,7 @@ class _IExternalInterfaceProxy:
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(IExternalInterface, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -6259,7 +6259,7 @@ class _IInterfaceWithPropertiesProxy:
     @read_write_string.setter
     def read_write_string(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "read_write_string").fset)
+            type_hints = typing.get_type_hints(getattr(IInterfaceWithProperties, "read_write_string").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "readWriteString", value)
 
@@ -6295,7 +6295,7 @@ class _IInterfaceWithPropertiesExtensionProxy(
     @foo.setter
     def foo(self, value: jsii.Number) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "foo").fset)
+            type_hints = typing.get_type_hints(getattr(IInterfaceWithPropertiesExtension, "foo").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "foo", value)
 
@@ -6821,7 +6821,7 @@ class _IMutableObjectLiteralProxy:
     @value.setter
     def value(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "value").fset)
+            type_hints = typing.get_type_hints(getattr(IMutableObjectLiteral, "value").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "value", value)
 
@@ -6863,7 +6863,7 @@ class _INonInternalInterfaceProxy(
     @b.setter
     def b(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "b").fset)
+            type_hints = typing.get_type_hints(getattr(INonInternalInterface, "b").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "b", value)
 
@@ -6875,7 +6875,7 @@ class _INonInternalInterfaceProxy(
     @c.setter
     def c(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "c").fset)
+            type_hints = typing.get_type_hints(getattr(INonInternalInterface, "c").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "c", value)
 
@@ -6914,7 +6914,7 @@ class _IObjectWithPropertyProxy:
     @property.setter
     def property(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "property").fset)
+            type_hints = typing.get_type_hints(getattr(IObjectWithProperty, "property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "property", value)
 
@@ -7113,7 +7113,7 @@ class _IStableInterfaceProxy:
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(IStableInterface, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -7186,7 +7186,7 @@ class ImplementInternalInterface(
     @prop.setter
     def prop(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "prop").fset)
+            type_hints = typing.get_type_hints(getattr(ImplementInternalInterface, "prop").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "prop", value)
 
@@ -7238,7 +7238,7 @@ class ImplementsPrivateInterface(
     @private.setter
     def private(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "private").fset)
+            type_hints = typing.get_type_hints(getattr(ImplementsPrivateInterface, "private").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "private", value)
 
@@ -7456,7 +7456,7 @@ class JSObjectLiteralToNativeClass(
     @prop_a.setter
     def prop_a(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "prop_a").fset)
+            type_hints = typing.get_type_hints(getattr(JSObjectLiteralToNativeClass, "prop_a").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "propA", value)
 
@@ -7468,7 +7468,7 @@ class JSObjectLiteralToNativeClass(
     @prop_b.setter
     def prop_b(self, value: jsii.Number) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "prop_b").fset)
+            type_hints = typing.get_type_hints(getattr(JSObjectLiteralToNativeClass, "prop_b").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "propB", value)
 
@@ -7696,7 +7696,7 @@ class JavaReservedWords(
     @while_.setter
     def while_(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "while_").fset)
+            type_hints = typing.get_type_hints(getattr(JavaReservedWords, "while_").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "while", value)
 
@@ -8277,7 +8277,7 @@ class NullShouldBeTreatedAsUndefined(
     @change_me_to_undefined.setter
     def change_me_to_undefined(self, value: typing.Optional[builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "change_me_to_undefined").fset)
+            type_hints = typing.get_type_hints(getattr(NullShouldBeTreatedAsUndefined, "change_me_to_undefined").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "changeMeToUndefined", value)
 
@@ -8370,7 +8370,7 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
     @generator.setter
     def generator(self, value: IRandomNumberGenerator) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "generator").fset)
+            type_hints = typing.get_type_hints(getattr(NumberGenerator, "generator").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "generator", value)
 
@@ -8599,7 +8599,7 @@ class OverridableProtectedMember(
     @_override_read_write.setter
     def _override_read_write(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "_override_read_write").fset)
+            type_hints = typing.get_type_hints(getattr(OverridableProtectedMember, "_override_read_write").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "overrideReadWrite", value)
 
@@ -8964,7 +8964,7 @@ class ReferenceEnumFromScopedPackage(
         value: typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule],
     ) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "foo").fset)
+            type_hints = typing.get_type_hints(getattr(ReferenceEnumFromScopedPackage, "foo").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "foo", value)
 
@@ -9347,7 +9347,7 @@ class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
     @mutable_property.setter
     def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "mutable_property").fset)
+            type_hints = typing.get_type_hints(getattr(StableClass, "mutable_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "mutableProperty", value)
 
@@ -9412,7 +9412,7 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
     @static_variable.setter # type: ignore[no-redef]
     def static_variable(cls, value: builtins.bool) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(cls), "static_variable").fset)
+            type_hints = typing.get_type_hints(getattr(StaticContext, "static_variable").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.sset(cls, "staticVariable", value)
 
@@ -9503,7 +9503,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @instance.setter # type: ignore[no-redef]
     def instance(cls, value: "Statics") -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(cls), "instance").fset)
+            type_hints = typing.get_type_hints(getattr(Statics, "instance").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.sset(cls, "instance", value)
 
@@ -9515,7 +9515,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @non_const_static.setter # type: ignore[no-redef]
     def non_const_static(cls, value: jsii.Number) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(cls), "non_const_static").fset)
+            type_hints = typing.get_type_hints(getattr(Statics, "non_const_static").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.sset(cls, "nonConstStatic", value)
 
@@ -9544,7 +9544,7 @@ class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"
     @you_see_me.setter
     def you_see_me(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "you_see_me").fset)
+            type_hints = typing.get_type_hints(getattr(StripInternal, "you_see_me").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "youSeeMe", value)
 
@@ -9963,7 +9963,7 @@ class Sum(
     @parts.setter
     def parts(self, value: typing.List[scope.jsii_calc_lib.NumericValue]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "parts").fset)
+            type_hints = typing.get_type_hints(getattr(Sum, "parts").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "parts", value)
 
@@ -10148,7 +10148,7 @@ class SyncVirtualMethods(
     @a.setter
     def a(self, value: jsii.Number) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "a").fset)
+            type_hints = typing.get_type_hints(getattr(SyncVirtualMethods, "a").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "a", value)
 
@@ -10160,7 +10160,7 @@ class SyncVirtualMethods(
     @caller_is_property.setter
     def caller_is_property(self, value: jsii.Number) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "caller_is_property").fset)
+            type_hints = typing.get_type_hints(getattr(SyncVirtualMethods, "caller_is_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "callerIsProperty", value)
 
@@ -10172,7 +10172,7 @@ class SyncVirtualMethods(
     @other_property.setter
     def other_property(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "other_property").fset)
+            type_hints = typing.get_type_hints(getattr(SyncVirtualMethods, "other_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "otherProperty", value)
 
@@ -10184,7 +10184,7 @@ class SyncVirtualMethods(
     @the_property.setter
     def the_property(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "the_property").fset)
+            type_hints = typing.get_type_hints(getattr(SyncVirtualMethods, "the_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "theProperty", value)
 
@@ -10196,7 +10196,7 @@ class SyncVirtualMethods(
     @value_of_other_property.setter
     def value_of_other_property(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "value_of_other_property").fset)
+            type_hints = typing.get_type_hints(getattr(SyncVirtualMethods, "value_of_other_property").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "valueOfOtherProperty", value)
 
@@ -10824,7 +10824,7 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
     @rung.setter
     def rung(self, value: builtins.bool) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "rung").fset)
+            type_hints = typing.get_type_hints(getattr(Bell, "rung").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "rung", value)
 
@@ -10889,7 +10889,7 @@ class ClassThatImplementsTheInternalInterface(
     @a.setter
     def a(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "a").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsTheInternalInterface, "a").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "a", value)
 
@@ -10901,7 +10901,7 @@ class ClassThatImplementsTheInternalInterface(
     @b.setter
     def b(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "b").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsTheInternalInterface, "b").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "b", value)
 
@@ -10913,7 +10913,7 @@ class ClassThatImplementsTheInternalInterface(
     @c.setter
     def c(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "c").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsTheInternalInterface, "c").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "c", value)
 
@@ -10925,7 +10925,7 @@ class ClassThatImplementsTheInternalInterface(
     @d.setter
     def d(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "d").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsTheInternalInterface, "d").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "d", value)
 
@@ -10946,7 +10946,7 @@ class ClassThatImplementsThePrivateInterface(
     @a.setter
     def a(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "a").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsThePrivateInterface, "a").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "a", value)
 
@@ -10958,7 +10958,7 @@ class ClassThatImplementsThePrivateInterface(
     @b.setter
     def b(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "b").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsThePrivateInterface, "b").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "b", value)
 
@@ -10970,7 +10970,7 @@ class ClassThatImplementsThePrivateInterface(
     @c.setter
     def c(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "c").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsThePrivateInterface, "c").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "c", value)
 
@@ -10982,7 +10982,7 @@ class ClassThatImplementsThePrivateInterface(
     @e.setter
     def e(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "e").fset)
+            type_hints = typing.get_type_hints(getattr(ClassThatImplementsThePrivateInterface, "e").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "e", value)
 
@@ -11024,7 +11024,7 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
     @read_write_string.setter
     def read_write_string(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "read_write_string").fset)
+            type_hints = typing.get_type_hints(getattr(ClassWithPrivateConstructorAndAutomaticProperties, "read_write_string").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "readWriteString", value)
 
@@ -11755,7 +11755,7 @@ class CompositeOperation(
     @decoration_postfixes.setter
     def decoration_postfixes(self, value: typing.List[builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "decoration_postfixes").fset)
+            type_hints = typing.get_type_hints(getattr(CompositeOperation, "decoration_postfixes").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "decorationPostfixes", value)
 
@@ -11768,7 +11768,7 @@ class CompositeOperation(
     @decoration_prefixes.setter
     def decoration_prefixes(self, value: typing.List[builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "decoration_prefixes").fset)
+            type_hints = typing.get_type_hints(getattr(CompositeOperation, "decoration_prefixes").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "decorationPrefixes", value)
 
@@ -11781,7 +11781,7 @@ class CompositeOperation(
     @string_style.setter
     def string_style(self, value: "CompositeOperation.CompositionStringStyle") -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "string_style").fset)
+            type_hints = typing.get_type_hints(getattr(CompositeOperation, "string_style").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "stringStyle", value)
 
@@ -11853,7 +11853,7 @@ class Base(
     @prop.setter
     def prop(self, value: builtins.str) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "prop").fset)
+            type_hints = typing.get_type_hints(getattr(Base, "prop").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "prop", value)
 
@@ -11907,7 +11907,7 @@ class Foo(
     @bar.setter
     def bar(self, value: typing.Optional[builtins.str]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "bar").fset)
+            type_hints = typing.get_type_hints(getattr(Foo, "bar").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "bar", value)
 
@@ -13335,7 +13335,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     @all_types.setter
     def all_types(self, value: typing.Optional[_AllTypes_b08307c5]) -> None:
         if __debug__:
-            type_hints = typing.get_type_hints(getattr(type(self), "all_types").fset)
+            type_hints = typing.get_type_hints(getattr(MyClass, "all_types").fset)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "allTypes", value)
 
