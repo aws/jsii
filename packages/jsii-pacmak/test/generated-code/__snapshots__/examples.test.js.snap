@@ -1264,8 +1264,9 @@ class Foo:
         '''
         :param foo: -
         '''
-        if builtins.__debug__:
-            check_type(argname="foo", value=foo, expected_type=jsii.Number)
+        if __debug__:
+            type_hints = typing.get_type_hints(self.__init__)
+            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
         }
@@ -1304,9 +1305,10 @@ class FooBar:
         :param foo: -
         :param bar: -
         '''
-        if builtins.__debug__:
-            check_type(argname="foo", value=foo, expected_type=jsii.Number)
-            check_type(argname="bar", value=bar, expected_type=typing.Optional[builtins.str])
+        if __debug__:
+            type_hints = typing.get_type_hints(self.__init__)
+            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
         }
@@ -1354,10 +1356,11 @@ class Baz(Foo, FooBar):
         :param bar: -
         :param baz: -
         '''
-        if builtins.__debug__:
-            check_type(argname="foo", value=foo, expected_type=jsii.Number)
-            check_type(argname="bar", value=bar, expected_type=typing.Optional[builtins.str])
-            check_type(argname="baz", value=baz, expected_type=builtins.bool)
+        if __debug__:
+            type_hints = typing.get_type_hints(self.__init__)
+            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+            check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
             "baz": baz,
@@ -2566,8 +2569,9 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             '''
             :param bar: -
             '''
-            if builtins.__debug__:
-                check_type(argname="bar", value=bar, expected_type=builtins.str)
+            if __debug__:
+                type_hints = typing.get_type_hints(self.__init__)
+                check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             self._values: typing.Dict[str, typing.Any] = {
                 "bar": bar,
             }

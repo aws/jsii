@@ -670,7 +670,11 @@ abstract class BaseMethod implements PythonBase {
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
     ) {
-      emitParameterValidation(code, pythonParams.slice(1));
+      emitParameterTypeChecks(
+        code,
+        pythonParams.slice(1),
+        `${pythonParams[0]}.${this.pythonName}`,
+      );
     }
     this.emitBody(
       code,
@@ -940,7 +944,16 @@ abstract class BaseProperty implements PythonBase {
         (this.shouldEmitBody || forceEmitBody) &&
         (!renderAbstract || !this.abstract)
       ) {
-        emitParameterValidation(code, [`value: ${pythonType}`]);
+        emitParameterTypeChecks(
+          code,
+          [`value: ${pythonType}`],
+          // In order to get a property accessor, we must resort to getting the
+          // attribute on the type, instead of the value (where the getter would
+          // be implicitly invoked for us...)
+          `getattr(type(${this.implicitParameter}), ${JSON.stringify(
+            this.pythonName,
+          )}).fset`,
+        );
         code.line(
           `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
         );
@@ -1126,7 +1139,7 @@ class Struct extends BasePythonClassType {
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
     }
-    emitParameterValidation(code, kwargs);
+    emitParameterTypeChecks(code, kwargs, `${implicitParameter}.__init__`);
 
     // Required properties, those will always be put into the dict
     assignDictionary(
@@ -3019,42 +3032,59 @@ function openSignature(
   code.openBlock(`)${suffix}`);
 }
 
-function emitParameterValidation(code: CodeMaker, params: readonly string[]) {
-  let openedBlock = false;
-  for (const param of params) {
-    const [name, pythonType, _defaultValue] = param.split(/\s*[:=]\s*/);
-    if (pythonType === 'typing.Any') {
-      // Any will accept any value, so we're not checking anything here...
-      continue;
+/**
+ * Emits runtime type checking code for parameters.
+ *
+ * @param code        the CodeMaker to use for emitting code.
+ * @param params      the parameter signatures to be type-checked.
+ * @param typedEntity the type-annotated entity.
+ */
+function emitParameterTypeChecks(
+  code: CodeMaker,
+  params: readonly string[],
+  typedEntity: string,
+): void {
+  const paramInfo = params.map((param) => {
+    const [name] = param.split(/\s*[:=]\s*/, 1);
+    if (name === '*') {
+      return { kwargsMark: true };
+    } else if (name.startsWith('*')) {
+      return { name: name.slice(1), is_rest: true };
     }
-    if (name === '*' && pythonType == null) {
+    return { name };
+  });
+
+  const typesVar = slugifyAsNeeded(
+    'type_hints',
+    paramInfo
+      .filter((param) => param.name != null)
+      .map((param) => param.name!.split(/\s*:\s*/)[0]),
+  );
+
+  let openedBlock = false;
+  for (const { is_rest, kwargsMark, name } of paramInfo) {
+    if (kwargsMark) {
       // This is the keyword-args separator, we won't check keyword arguments here because the kwargs will be rolled
       // up into a struct instance, and that struct's constructor will be checking again...
       break;
     }
 
     if (!openedBlock) {
-      code.openBlock('if builtins.__debug__');
+      code.openBlock('if __debug__');
+      code.line(`${typesVar} = typing.get_type_hints(${typedEntity})`);
       openedBlock = true;
     }
 
-    if (name.startsWith('*')) {
-      // Variadic argument case
-      code.line(
-        `check_type(argname=${JSON.stringify(
-          name.slice(1),
-        )}, value=${name.slice(
-          1,
-        )}, expected_type=typing.Sequence[${pythonType}])`,
-      );
-    } else {
-      // Standard case
-      code.line(
-        `check_type(argname=${JSON.stringify(
-          name,
-        )}, value=${name}, expected_type=${pythonType})`,
-      );
+    let expectedType = `${typesVar}[${JSON.stringify(name)}]`;
+    if (is_rest) {
+      // This is a vararg, so the value will appear as a tuple.
+      expectedType = `typing.Tuple[${expectedType}, ...]`;
     }
+    code.line(
+      `check_type(argname=${JSON.stringify(
+        `argument ${name}`,
+      )}, value=${name}, expected_type=${expectedType})`,
+    );
   }
   if (openedBlock) {
     code.closeBlock();
