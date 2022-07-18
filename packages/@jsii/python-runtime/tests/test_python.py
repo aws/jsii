@@ -31,7 +31,7 @@ class TestErrorHandling:
         with pytest.raises(
             TypeError,
             match=re.escape(
-                "type of value must be one of (int, float); got method instead"
+                "type of argument value must be one of (int, float); got method instead"
             ),
         ):
             # types: ignore
