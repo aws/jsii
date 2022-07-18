@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658155920001,
+  "lastUpdate": 1658158363555,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3071,6 +3071,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 154391.98193002763,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48072.48092699999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3974083577c0db7c9d0f815f8c34e923949aba15",
+          "message": "Merge pull request #3659 from aws/merge-back/1.62.0\n\nCo-authored-by: AWS CDK Team <aws-cdk@amazon.com>\r\nCo-authored-by: Kaizen Conroy <36202692+kaizencc@users.noreply.github.com>\r\nCo-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>",
+          "timestamp": "2022-07-18T16:38:09+02:00",
+          "tree_id": "4f95efc3c037e881f5a83212592b710d0bd760fe",
+          "url": "https://github.com/aws/jsii/commit/3974083577c0db7c9d0f815f8c34e923949aba15"
+        },
+        "date": 1658158360963,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 74351.39397129999,
+            "unit": "milliseconds",
+            "range": 1516221.262825183,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 74351.39397129999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51533.33003395,
+            "unit": "milliseconds",
+            "range": 334013.1169686866,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51533.33003395 milliseconds over 20 runs"
           }
         ]
       }
