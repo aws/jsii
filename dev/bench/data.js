@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658151711918,
+  "lastUpdate": 1658155920001,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3033,6 +3033,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 106751.11431675991,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60866.39610939999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7eb11b7d3173f450cd6bd4c29180f6edf7f6b219",
+          "message": "feat(jsii): allow specifying baseUrl and paths in tsconfig.json (#3662)\n\nAllow user control of the `baseUrl` and `paths` compiler options in\n`tsconfig.json` via the `jsii.tsc` stanza in `package.json`.\n\nFixes #865\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-18T13:59:40Z",
+          "tree_id": "9c31172f7a3e55cca064fcb129e1578586252cc1",
+          "url": "https://github.com/aws/jsii/commit/7eb11b7d3173f450cd6bd4c29180f6edf7f6b219"
+        },
+        "date": 1658155917470,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69843.74070884993,
+            "unit": "milliseconds",
+            "range": 313673.585088533,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69843.74070884993 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48072.48092699999,
+            "unit": "milliseconds",
+            "range": 154391.98193002763,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48072.48092699999 milliseconds over 20 runs"
           }
         ]
       }
