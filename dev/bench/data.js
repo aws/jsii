@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658158363555,
+  "lastUpdate": 1658159664122,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3109,6 +3109,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 334013.1169686866,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51533.33003395 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "49c4efc2e67bd25cb3511d78cb367c10bb4830aa",
+          "message": "chore: stop testing .NET 5 (#3663)\n\n.NET 5 has been out of support since May 10, 2022. It no longer receives\r\nupdates, and it is hence no longer useful to continue testing against\r\nit. It has been superceded by .NET 6.",
+          "timestamp": "2022-07-18T16:37:37+02:00",
+          "tree_id": "0c6bfcf44abcb564ff163568940a0065fd0eefe8",
+          "url": "https://github.com/aws/jsii/commit/49c4efc2e67bd25cb3511d78cb367c10bb4830aa"
+        },
+        "date": 1658159660966,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 107423.02274685004,
+            "unit": "milliseconds",
+            "range": 1496481.9254842591,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 107423.02274685004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73520.59856144995,
+            "unit": "milliseconds",
+            "range": 914047.3833875762,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73520.59856144995 milliseconds over 20 runs"
           }
         ]
       }
