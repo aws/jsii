@@ -466,6 +466,7 @@ abstract class BaseMethod implements PythonBase {
     private readonly returns: spec.OptionalValue | undefined,
     public readonly docs: spec.Docs | undefined,
     public readonly isStatic: boolean,
+    private readonly pythonParent: PythonType,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
@@ -673,7 +674,7 @@ abstract class BaseMethod implements PythonBase {
       emitParameterTypeChecks(
         code,
         pythonParams.slice(1),
-        `${pythonParams[0]}.${this.pythonName}`,
+        `${this.pythonParent.pythonName}.${this.pythonName}`,
       );
     }
     this.emitBody(
@@ -866,6 +867,7 @@ abstract class BaseProperty implements PythonBase {
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
     public readonly docs: spec.Docs | undefined,
+    private readonly pythonParent: PythonType,
     opts: BasePropertyOpts,
   ) {
     const { abstract = false, immutable = false, isStatic = false } = opts;
@@ -950,7 +952,7 @@ abstract class BaseProperty implements PythonBase {
           // In order to get a property accessor, we must resort to getting the
           // attribute on the type, instead of the value (where the getter would
           // be implicitly invoked for us...)
-          `getattr(type(${this.implicitParameter}), ${JSON.stringify(
+          `getattr(${this.pythonParent.pythonName}, ${JSON.stringify(
             this.pythonName,
           )}).fset`,
         );
@@ -1139,7 +1141,7 @@ class Struct extends BasePythonClassType {
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
     }
-    emitParameterTypeChecks(code, kwargs, `${implicitParameter}.__init__`);
+    emitParameterTypeChecks(code, kwargs, `${this.pythonName}.__init__`);
 
     // Required properties, those will always be put into the dict
     assignDictionary(
@@ -2602,6 +2604,7 @@ class PythonGenerator extends Generator {
           undefined,
           cls.initializer.docs,
           false, // Never static
+          klass,
           { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
         ),
       );
@@ -2613,7 +2616,9 @@ class PythonGenerator extends Generator {
   protected onStaticMethod(cls: spec.ClassType, method: spec.Method) {
     const { parameters = [] } = method;
 
-    this.getPythonType(cls.fqn).addMember(
+    const klass = this.getPythonType(cls.fqn);
+
+    klass.addMember(
       new StaticMethod(
         this,
         toPythonMethodName(method.name),
@@ -2622,6 +2627,7 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         true, // Always static
+        klass,
         {
           abstract: method.abstract,
           liftedProp: this.getliftedProp(method),
@@ -2632,13 +2638,15 @@ class PythonGenerator extends Generator {
   }
 
   protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
-    this.getPythonType(cls.fqn).addMember(
+    const klass = this.getPythonType(cls.fqn);
+    klass.addMember(
       new StaticProperty(
         this,
         toPythonPropertyName(prop.name, prop.const),
         prop.name,
         prop,
         prop.docs,
+        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2652,8 +2660,10 @@ class PythonGenerator extends Generator {
   protected onMethod(cls: spec.ClassType, method: spec.Method) {
     const { parameters = [] } = method;
 
+    const klass = this.getPythonType(cls.fqn);
+
     if (method.async) {
-      this.getPythonType(cls.fqn).addMember(
+      klass.addMember(
         new AsyncMethod(
           this,
           toPythonMethodName(method.name, method.protected),
@@ -2662,6 +2672,7 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
+          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2670,7 +2681,7 @@ class PythonGenerator extends Generator {
         ),
       );
     } else {
-      this.getPythonType(cls.fqn).addMember(
+      klass.addMember(
         new Method(
           this,
           toPythonMethodName(method.name, method.protected),
@@ -2679,6 +2690,7 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
+          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2690,13 +2702,15 @@ class PythonGenerator extends Generator {
   }
 
   protected onProperty(cls: spec.ClassType, prop: spec.Property) {
-    this.getPythonType(cls.fqn).addMember(
+    const klass = this.getPythonType(cls.fqn);
+    klass.addMember(
       new Property(
         this,
         toPythonPropertyName(prop.name, prop.const, prop.protected),
         prop.name,
         prop,
         prop.docs,
+        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2747,8 +2761,9 @@ class PythonGenerator extends Generator {
 
   protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
     const { parameters = [] } = method;
+    const klass = this.getPythonType(ifc.fqn);
 
-    this.getPythonType(ifc.fqn).addMember(
+    klass.addMember(
       new InterfaceMethod(
         this,
         toPythonMethodName(method.name, method.protected),
@@ -2757,6 +2772,7 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         !!method.static,
+        klass,
         { liftedProp: this.getliftedProp(method), parent: ifc },
       ),
     );
@@ -2764,6 +2780,8 @@ class PythonGenerator extends Generator {
 
   protected onInterfaceProperty(ifc: spec.InterfaceType, prop: spec.Property) {
     let ifaceProperty: InterfaceProperty | StructField;
+
+    const klass = this.getPythonType(ifc.fqn);
 
     if (ifc.datatype) {
       ifaceProperty = new StructField(this, prop, ifc);
@@ -2774,11 +2792,12 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
+        klass,
         { immutable: prop.immutable, isStatic: prop.static, parent: ifc },
       );
     }
 
-    this.getPythonType(ifc.fqn).addMember(ifaceProperty);
+    klass.addMember(ifaceProperty);
   }
 
   protected onBeginEnum(enm: spec.EnumType) {

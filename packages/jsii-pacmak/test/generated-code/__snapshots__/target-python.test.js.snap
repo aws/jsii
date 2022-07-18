@@ -371,7 +371,7 @@ class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
         :param bar: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(BaseProps.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -442,7 +442,7 @@ class StaticConsumer(
         :param args: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.consume)
+            type_hints = typing.get_type_hints(StaticConsumer.consume)
             check_type(argname="argument args", value=args, expected_type=typing.Tuple[type_hints["args"], ...])
         return typing.cast(None, jsii.sinvoke(cls, "consume", [*args]))
 
@@ -851,7 +851,7 @@ class StaticConsumer(
         :param _args: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.consume)
+            type_hints = typing.get_type_hints(StaticConsumer.consume)
             check_type(argname="argument _args", value=_args, expected_type=typing.Tuple[type_hints["_args"], ...])
         return typing.cast(None, jsii.sinvoke(cls, "consume", [*_args]))
 
@@ -884,7 +884,7 @@ class VeryBaseProps:
         :param foo: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(VeryBaseProps.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -1314,7 +1314,7 @@ class BaseFor2647(
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(BaseFor2647.__init__)
             check_type(argname="argument very", value=very, expected_type=type_hints["very"])
         jsii.create(self.__class__, self, [very])
 
@@ -1326,7 +1326,7 @@ class BaseFor2647(
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.foo)
+            type_hints = typing.get_type_hints(BaseFor2647.foo)
             check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
         return typing.cast(None, jsii.invoke(self, "foo", [obj]))
 
@@ -1350,7 +1350,7 @@ class DiamondLeft:
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DiamondLeft.__init__)
             check_type(argname="argument hoisted_top", value=hoisted_top, expected_type=type_hints["hoisted_top"])
             check_type(argname="argument left", value=left, expected_type=type_hints["left"])
         self._values: typing.Dict[str, typing.Any] = {}
@@ -1406,7 +1406,7 @@ class DiamondRight:
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DiamondRight.__init__)
             check_type(argname="argument hoisted_top", value=hoisted_top, expected_type=type_hints["hoisted_top"])
             check_type(argname="argument right", value=right, expected_type=type_hints["right"])
         self._values: typing.Dict[str, typing.Any] = {}
@@ -1611,7 +1611,7 @@ class MyFirstStruct:
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(MyFirstStruct.__init__)
             check_type(argname="argument anumber", value=anumber, expected_type=type_hints["anumber"])
             check_type(argname="argument astring", value=astring, expected_type=type_hints["astring"])
             check_type(argname="argument first_optional", value=first_optional, expected_type=type_hints["first_optional"])
@@ -1774,7 +1774,7 @@ class StructWithOnlyOptionals:
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StructWithOnlyOptionals.__init__)
             check_type(argname="argument optional1", value=optional1, expected_type=type_hints["optional1"])
             check_type(argname="argument optional2", value=optional2, expected_type=type_hints["optional2"])
             check_type(argname="argument optional3", value=optional3, expected_type=type_hints["optional3"])
@@ -1842,7 +1842,7 @@ class Number(
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Number.__init__)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.create(self.__class__, self, [value])
 
@@ -2021,7 +2021,7 @@ class NestingClass(
             :stability: deprecated
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(self.__init__)
+                type_hints = typing.get_type_hints(NestedStruct.__init__)
                 check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             self._values: typing.Dict[str, typing.Any] = {
                 "name": name,
@@ -2062,7 +2062,7 @@ class ReflectableEntry:
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ReflectableEntry.__init__)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -2125,7 +2125,7 @@ class Reflector(
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.as_map)
+            type_hints = typing.get_type_hints(Reflector.as_map)
             check_type(argname="argument reflectable", value=reflectable, expected_type=type_hints["reflectable"])
         return typing.cast(typing.Mapping[builtins.str, typing.Any], jsii.invoke(self, "asMap", [reflectable]))
 
@@ -2702,7 +2702,7 @@ class AbstractSuite(
         :param seed: a \`\`string\`\`.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.work_it_all)
+            type_hints = typing.get_type_hints(AbstractSuite.work_it_all)
             check_type(argname="argument seed", value=seed, expected_type=type_hints["seed"])
         return typing.cast(builtins.str, jsii.invoke(self, "workItAll", [seed]))
 
@@ -2725,7 +2725,7 @@ class _AbstractSuiteProxy(AbstractSuite):
         :param str: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self._some_method)
+            type_hints = typing.get_type_hints(AbstractSuite._some_method)
             check_type(argname="argument str", value=str, expected_type=type_hints["str"])
         return typing.cast(builtins.str, jsii.invoke(self, "someMethod", [str]))
 
@@ -2761,7 +2761,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         :param inp: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.any_in)
+            type_hints = typing.get_type_hints(AllTypes.any_in)
             check_type(argname="argument inp", value=inp, expected_type=type_hints["inp"])
         return typing.cast(None, jsii.invoke(self, "anyIn", [inp]))
 
@@ -2775,7 +2775,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.enum_method)
+            type_hints = typing.get_type_hints(AllTypes.enum_method)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast("StringEnum", jsii.invoke(self, "enumMethod", [value]))
 
@@ -3043,7 +3043,7 @@ class AllowedMethodNames(
         :param _p2: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.get_bar)
+            type_hints = typing.get_type_hints(AllowedMethodNames.get_bar)
             check_type(argname="argument _p1", value=_p1, expected_type=type_hints["_p1"])
             check_type(argname="argument _p2", value=_p2, expected_type=type_hints["_p2"])
         return typing.cast(None, jsii.invoke(self, "getBar", [_p1, _p2]))
@@ -3055,7 +3055,7 @@ class AllowedMethodNames(
         :param with_param: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.get_foo)
+            type_hints = typing.get_type_hints(AllowedMethodNames.get_foo)
             check_type(argname="argument with_param", value=with_param, expected_type=type_hints["with_param"])
         return typing.cast(builtins.str, jsii.invoke(self, "getFoo", [with_param]))
 
@@ -3067,7 +3067,7 @@ class AllowedMethodNames(
         :param _z: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.set_bar)
+            type_hints = typing.get_type_hints(AllowedMethodNames.set_bar)
             check_type(argname="argument _x", value=_x, expected_type=type_hints["_x"])
             check_type(argname="argument _y", value=_y, expected_type=type_hints["_y"])
             check_type(argname="argument _z", value=_z, expected_type=type_hints["_z"])
@@ -3081,7 +3081,7 @@ class AllowedMethodNames(
         :param _y: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.set_foo)
+            type_hints = typing.get_type_hints(AllowedMethodNames.set_foo)
             check_type(argname="argument _x", value=_x, expected_type=type_hints["_x"])
             check_type(argname="argument _y", value=_y, expected_type=type_hints["_y"])
         return typing.cast(None, jsii.invoke(self, "setFoo", [_x, _y]))
@@ -3104,7 +3104,7 @@ class AmbiguousParameters(
         :param props: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(AmbiguousParameters.__init__)
             check_type(argname="argument scope_", value=scope_, expected_type=type_hints["scope_"])
         props_ = StructParameterType(scope=scope, props=props)
 
@@ -3157,7 +3157,7 @@ class AsyncVirtualMethods(
         :param mult: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.override_me)
+            type_hints = typing.get_type_hints(AsyncVirtualMethods.override_me)
             check_type(argname="argument mult", value=mult, expected_type=type_hints["mult"])
         return typing.cast(jsii.Number, jsii.ainvoke(self, "overrideMe", [mult]))
 
@@ -3224,7 +3224,7 @@ class BinaryOperation(
         :param rhs: Right-hand side operand.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(BinaryOperation.__init__)
             check_type(argname="argument lhs", value=lhs, expected_type=type_hints["lhs"])
             check_type(argname="argument rhs", value=rhs, expected_type=type_hints["rhs"])
         jsii.create(self.__class__, self, [lhs, rhs])
@@ -3291,7 +3291,7 @@ class _BurriedAnonymousObjectProxy(BurriedAnonymousObject):
         :return: \`\`value\`\`
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.give_it_back)
+            type_hints = typing.get_type_hints(BurriedAnonymousObject.give_it_back)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(typing.Any, jsii.invoke(self, "giveItBack", [value]))
 
@@ -3347,7 +3347,7 @@ class Calculator(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.add)
+            type_hints = typing.get_type_hints(Calculator.add)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "add", [value]))
 
@@ -3358,7 +3358,7 @@ class Calculator(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.mul)
+            type_hints = typing.get_type_hints(Calculator.mul)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "mul", [value]))
 
@@ -3374,7 +3374,7 @@ class Calculator(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.pow)
+            type_hints = typing.get_type_hints(Calculator.pow)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "pow", [value]))
 
@@ -3466,7 +3466,7 @@ class CalculatorProps:
         :param maximum_value: The maximum value the calculator can store. Default: none
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(CalculatorProps.__init__)
             check_type(argname="argument initial_value", value=initial_value, expected_type=type_hints["initial_value"])
             check_type(argname="argument maximum_value", value=maximum_value, expected_type=type_hints["maximum_value"])
         self._values: typing.Dict[str, typing.Any] = {}
@@ -3521,7 +3521,7 @@ class ClassWithCollections(
         :param array: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ClassWithCollections.__init__)
             check_type(argname="argument map", value=map, expected_type=type_hints["map"])
             check_type(argname="argument array", value=array, expected_type=type_hints["array"])
         jsii.create(self.__class__, self, [map, array])
@@ -3608,7 +3608,7 @@ class ClassWithContainerTypes(
         :param record_prop: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ClassWithContainerTypes.__init__)
             check_type(argname="argument array", value=array, expected_type=type_hints["array"])
             check_type(argname="argument record", value=record, expected_type=type_hints["record"])
             check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
@@ -3666,7 +3666,7 @@ class ClassWithJavaReservedWords(
         :param int: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ClassWithJavaReservedWords.__init__)
             check_type(argname="argument int", value=int, expected_type=type_hints["int"])
         jsii.create(self.__class__, self, [int])
 
@@ -3676,7 +3676,7 @@ class ClassWithJavaReservedWords(
         :param assert_: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.import_)
+            type_hints = typing.get_type_hints(ClassWithJavaReservedWords.import_)
             check_type(argname="argument assert_", value=assert_, expected_type=type_hints["assert_"])
         return typing.cast(builtins.str, jsii.invoke(self, "import", [assert_]))
 
@@ -3758,7 +3758,7 @@ class ConfusingToJacksonStruct:
         :param union_property: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ConfusingToJacksonStruct.__init__)
             check_type(argname="argument union_property", value=union_property, expected_type=type_hints["union_property"])
         self._values: typing.Dict[str, typing.Any] = {}
         if union_property is not None:
@@ -3792,7 +3792,7 @@ class ConstructorPassesThisOut(
         :param consumer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ConstructorPassesThisOut.__init__)
             check_type(argname="argument consumer", value=consumer, expected_type=type_hints["consumer"])
         jsii.create(self.__class__, self, [consumer])
 
@@ -3846,7 +3846,7 @@ class ConsumePureInterface(
         :param delegate: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ConsumePureInterface.__init__)
             check_type(argname="argument delegate", value=delegate, expected_type=type_hints["delegate"])
         jsii.create(self.__class__, self, [delegate])
 
@@ -3881,7 +3881,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.static_implemented_by_object_literal)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.static_implemented_by_object_literal)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticImplementedByObjectLiteral", [ringer]))
 
@@ -3898,7 +3898,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.static_implemented_by_private_class)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.static_implemented_by_private_class)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticImplementedByPrivateClass", [ringer]))
 
@@ -3912,7 +3912,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.static_implemented_by_public_class)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.static_implemented_by_public_class)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticImplementedByPublicClass", [ringer]))
 
@@ -3926,7 +3926,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.static_when_typed_as_class)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.static_when_typed_as_class)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticWhenTypedAsClass", [ringer]))
 
@@ -3939,7 +3939,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.implemented_by_object_literal)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.implemented_by_object_literal)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.invoke(self, "implementedByObjectLiteral", [ringer]))
 
@@ -3952,7 +3952,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.implemented_by_private_class)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.implemented_by_private_class)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.invoke(self, "implementedByPrivateClass", [ringer]))
 
@@ -3965,7 +3965,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.implemented_by_public_class)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.implemented_by_public_class)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.invoke(self, "implementedByPublicClass", [ringer]))
 
@@ -3978,7 +3978,7 @@ class ConsumerCanRingBell(
         :param ringer: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.when_typed_as_class)
+            type_hints = typing.get_type_hints(ConsumerCanRingBell.when_typed_as_class)
             check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
         return typing.cast(builtins.bool, jsii.invoke(self, "whenTypedAsClass", [ringer]))
 
@@ -3999,7 +3999,7 @@ class ConsumersOfThisCrazyTypeSystem(
         :param obj: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.consume_another_public_interface)
+            type_hints = typing.get_type_hints(ConsumersOfThisCrazyTypeSystem.consume_another_public_interface)
             check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
         return typing.cast(builtins.str, jsii.invoke(self, "consumeAnotherPublicInterface", [obj]))
 
@@ -4012,7 +4012,7 @@ class ConsumersOfThisCrazyTypeSystem(
         :param obj: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.consume_non_internal_interface)
+            type_hints = typing.get_type_hints(ConsumersOfThisCrazyTypeSystem.consume_non_internal_interface)
             check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
         return typing.cast(typing.Any, jsii.invoke(self, "consumeNonInternalInterface", [obj]))
 
@@ -4040,7 +4040,7 @@ class ContainerProps:
         :param record_prop: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ContainerProps.__init__)
             check_type(argname="argument array_prop", value=array_prop, expected_type=type_hints["array_prop"])
             check_type(argname="argument obj_prop", value=obj_prop, expected_type=type_hints["obj_prop"])
             check_type(argname="argument record_prop", value=record_prop, expected_type=type_hints["record_prop"])
@@ -4114,7 +4114,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         :param data: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.render_arbitrary)
+            type_hints = typing.get_type_hints(DataRenderer.render_arbitrary)
             check_type(argname="argument data", value=data, expected_type=type_hints["data"])
         return typing.cast(builtins.str, jsii.invoke(self, "renderArbitrary", [data]))
 
@@ -4124,7 +4124,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         :param map: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.render_map)
+            type_hints = typing.get_type_hints(DataRenderer.render_map)
             check_type(argname="argument map", value=map, expected_type=type_hints["map"])
         return typing.cast(builtins.str, jsii.invoke(self, "renderMap", [map]))
 
@@ -4159,7 +4159,7 @@ class DefaultedConstructorArgument(
         :param arg3: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DefaultedConstructorArgument.__init__)
             check_type(argname="argument arg1", value=arg1, expected_type=type_hints["arg1"])
             check_type(argname="argument arg2", value=arg2, expected_type=type_hints["arg2"])
             check_type(argname="argument arg3", value=arg3, expected_type=type_hints["arg3"])
@@ -4225,7 +4225,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DeprecatedClass.__init__)
             check_type(argname="argument readonly_string", value=readonly_string, expected_type=type_hints["readonly_string"])
             check_type(argname="argument mutable_number", value=mutable_number, expected_type=type_hints["mutable_number"])
         jsii.create(self.__class__, self, [readonly_string, mutable_number])
@@ -4304,7 +4304,7 @@ class DeprecatedStruct:
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DeprecatedStruct.__init__)
             check_type(argname="argument readonly_property", value=readonly_property, expected_type=type_hints["readonly_property"])
         self._values: typing.Dict[str, typing.Any] = {
             "readonly_property": readonly_property,
@@ -4375,7 +4375,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
         :param optional_array: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DerivedStruct.__init__)
             check_type(argname="argument anumber", value=anumber, expected_type=type_hints["anumber"])
             check_type(argname="argument astring", value=astring, expected_type=type_hints["astring"])
             check_type(argname="argument first_optional", value=first_optional, expected_type=type_hints["first_optional"])
@@ -4506,7 +4506,7 @@ class DiamondBottom(scope.jsii_calc_lib.DiamondLeft, scope.jsii_calc_lib.Diamond
         :param bottom: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DiamondBottom.__init__)
             check_type(argname="argument hoisted_top", value=hoisted_top, expected_type=type_hints["hoisted_top"])
             check_type(argname="argument left", value=left, expected_type=type_hints["left"])
             check_type(argname="argument right", value=right, expected_type=type_hints["right"])
@@ -4573,7 +4573,7 @@ class DiamondInheritanceBaseLevelStruct:
         :param base_level_property: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DiamondInheritanceBaseLevelStruct.__init__)
             check_type(argname="argument base_level_property", value=base_level_property, expected_type=type_hints["base_level_property"])
         self._values: typing.Dict[str, typing.Any] = {
             "base_level_property": base_level_property,
@@ -4617,7 +4617,7 @@ class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
         :param first_mid_level_property: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DiamondInheritanceFirstMidLevelStruct.__init__)
             check_type(argname="argument base_level_property", value=base_level_property, expected_type=type_hints["base_level_property"])
             check_type(argname="argument first_mid_level_property", value=first_mid_level_property, expected_type=type_hints["first_mid_level_property"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -4669,7 +4669,7 @@ class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
         :param second_mid_level_property: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DiamondInheritanceSecondMidLevelStruct.__init__)
             check_type(argname="argument base_level_property", value=base_level_property, expected_type=type_hints["base_level_property"])
             check_type(argname="argument second_mid_level_property", value=second_mid_level_property, expected_type=type_hints["second_mid_level_property"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -4732,7 +4732,7 @@ class DiamondInheritanceTopLevelStruct(
         :param top_level_property: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DiamondInheritanceTopLevelStruct.__init__)
             check_type(argname="argument base_level_property", value=base_level_property, expected_type=type_hints["base_level_property"])
             check_type(argname="argument first_mid_level_property", value=first_mid_level_property, expected_type=type_hints["first_mid_level_property"])
             check_type(argname="argument second_mid_level_property", value=second_mid_level_property, expected_type=type_hints["second_mid_level_property"])
@@ -4821,7 +4821,7 @@ class DoNotOverridePrivates(
         :param new_value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.change_private_property_value)
+            type_hints = typing.get_type_hints(DoNotOverridePrivates.change_private_property_value)
             check_type(argname="argument new_value", value=new_value, expected_type=type_hints["new_value"])
         return typing.cast(None, jsii.invoke(self, "changePrivatePropertyValue", [new_value]))
 
@@ -4856,7 +4856,7 @@ class DoNotRecognizeAnyAsOptional(
         :param _optional_string: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.method)
+            type_hints = typing.get_type_hints(DoNotRecognizeAnyAsOptional.method)
             check_type(argname="argument _required_any", value=_required_any, expected_type=type_hints["_required_any"])
             check_type(argname="argument _optional_any", value=_optional_any, expected_type=type_hints["_optional_any"])
             check_type(argname="argument _optional_string", value=_optional_string, expected_type=type_hints["_optional_string"])
@@ -4928,7 +4928,7 @@ class DontComplainAboutVariadicAfterOptional(
         :param things: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.optional_and_variadic)
+            type_hints = typing.get_type_hints(DontComplainAboutVariadicAfterOptional.optional_and_variadic)
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
             check_type(argname="argument things", value=things, expected_type=typing.Tuple[type_hints["things"], ...])
         return typing.cast(builtins.str, jsii.invoke(self, "optionalAndVariadic", [optional, *things]))
@@ -4945,7 +4945,7 @@ class DummyObj:
         :param example: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DummyObj.__init__)
             check_type(argname="argument example", value=example, expected_type=type_hints["example"])
         self._values: typing.Dict[str, typing.Any] = {
             "example": example,
@@ -4980,7 +4980,7 @@ class DynamicPropertyBearer(
         :param value_store: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DynamicPropertyBearer.__init__)
             check_type(argname="argument value_store", value=value_store, expected_type=type_hints["value_store"])
         jsii.create(self.__class__, self, [value_store])
 
@@ -5019,7 +5019,7 @@ class DynamicPropertyBearerChild(
         :param original_value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(DynamicPropertyBearerChild.__init__)
             check_type(argname="argument original_value", value=original_value, expected_type=type_hints["original_value"])
         jsii.create(self.__class__, self, [original_value])
 
@@ -5032,7 +5032,7 @@ class DynamicPropertyBearerChild(
         :return: the old value that was set.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.override_value)
+            type_hints = typing.get_type_hints(DynamicPropertyBearerChild.override_value)
             check_type(argname="argument new_value", value=new_value, expected_type=type_hints["new_value"])
         return typing.cast(builtins.str, jsii.invoke(self, "overrideValue", [new_value]))
 
@@ -5051,7 +5051,7 @@ class Entropy(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Entropy"):
         :param clock: your implementation of \`\`WallClock\`\`.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Entropy.__init__)
             check_type(argname="argument clock", value=clock, expected_type=type_hints["clock"])
         jsii.create(self.__class__, self, [clock])
 
@@ -5085,7 +5085,7 @@ class _EntropyProxy(Entropy):
         :return: \`\`word\`\`.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.repeat)
+            type_hints = typing.get_type_hints(Entropy.repeat)
             check_type(argname="argument word", value=word, expected_type=type_hints["word"])
         return typing.cast(builtins.str, jsii.invoke(self, "repeat", [word]))
 
@@ -5128,7 +5128,7 @@ class EraseUndefinedHashValues(
         :param key: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.does_key_exist)
+            type_hints = typing.get_type_hints(EraseUndefinedHashValues.does_key_exist)
             check_type(argname="argument opts", value=opts, expected_type=type_hints["opts"])
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "doesKeyExist", [opts, key]))
@@ -5163,7 +5163,7 @@ class EraseUndefinedHashValuesOptions:
         :param option2: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(EraseUndefinedHashValuesOptions.__init__)
             check_type(argname="argument option1", value=option1, expected_type=type_hints["option1"])
             check_type(argname="argument option2", value=option2, expected_type=type_hints["option2"])
         self._values: typing.Dict[str, typing.Any] = {}
@@ -5214,7 +5214,7 @@ class ExperimentalClass(
         :stability: experimental
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ExperimentalClass.__init__)
             check_type(argname="argument readonly_string", value=readonly_string, expected_type=type_hints["readonly_string"])
             check_type(argname="argument mutable_number", value=mutable_number, expected_type=type_hints["mutable_number"])
         jsii.create(self.__class__, self, [readonly_string, mutable_number])
@@ -5279,7 +5279,7 @@ class ExperimentalStruct:
         :stability: experimental
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ExperimentalStruct.__init__)
             check_type(argname="argument readonly_property", value=readonly_property, expected_type=type_hints["readonly_property"])
         self._values: typing.Dict[str, typing.Any] = {
             "readonly_property": readonly_property,
@@ -5315,7 +5315,7 @@ class ExportedBaseClass(
         :param success: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ExportedBaseClass.__init__)
             check_type(argname="argument success", value=success, expected_type=type_hints["success"])
         jsii.create(self.__class__, self, [success])
 
@@ -5337,7 +5337,7 @@ class ExtendsInternalInterface:
         :param prop: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ExtendsInternalInterface.__init__)
             check_type(argname="argument boom", value=boom, expected_type=type_hints["boom"])
             check_type(argname="argument prop", value=prop, expected_type=type_hints["prop"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -5386,7 +5386,7 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
         :external: true
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ExternalClass.__init__)
             check_type(argname="argument readonly_string", value=readonly_string, expected_type=type_hints["readonly_string"])
             check_type(argname="argument mutable_number", value=mutable_number, expected_type=type_hints["mutable_number"])
         jsii.create(self.__class__, self, [readonly_string, mutable_number])
@@ -5451,7 +5451,7 @@ class ExternalStruct:
         :external: true
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ExternalStruct.__init__)
             check_type(argname="argument readonly_property", value=readonly_property, expected_type=type_hints["readonly_property"])
         self._values: typing.Dict[str, typing.Any] = {
             "readonly_property": readonly_property,
@@ -5600,7 +5600,7 @@ class Greetee:
         :param name: The name of the greetee. Default: world
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Greetee.__init__)
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
         self._values: typing.Dict[str, typing.Any] = {}
         if name is not None:
@@ -5640,7 +5640,7 @@ class GreetingAugmenter(
         :param friendly: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.better_greeting)
+            type_hints = typing.get_type_hints(GreetingAugmenter.better_greeting)
             check_type(argname="argument friendly", value=friendly, expected_type=type_hints["friendly"])
         return typing.cast(builtins.str, jsii.invoke(self, "betterGreeting", [friendly]))
 
@@ -5775,7 +5775,7 @@ class _IBellRingerProxy:
         :param bell: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.your_turn)
+            type_hints = typing.get_type_hints(IBellRinger.your_turn)
             check_type(argname="argument bell", value=bell, expected_type=type_hints["bell"])
         return typing.cast(None, jsii.invoke(self, "yourTurn", [bell]))
 
@@ -5806,7 +5806,7 @@ class _IConcreteBellRingerProxy:
         :param bell: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.your_turn)
+            type_hints = typing.get_type_hints(IConcreteBellRinger.your_turn)
             check_type(argname="argument bell", value=bell, expected_type=type_hints["bell"])
         return typing.cast(None, jsii.invoke(self, "yourTurn", [bell]))
 
@@ -6217,7 +6217,7 @@ class _IInterfaceWithOptionalMethodArgumentsProxy:
         :param arg2: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.hello)
+            type_hints = typing.get_type_hints(IInterfaceWithOptionalMethodArguments.hello)
             check_type(argname="argument arg1", value=arg1, expected_type=type_hints["arg1"])
             check_type(argname="argument arg2", value=arg2, expected_type=type_hints["arg2"])
         return typing.cast(None, jsii.invoke(self, "hello", [arg1, arg2]))
@@ -7262,7 +7262,7 @@ class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps):
         :param goo: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ImplictBaseOfBase.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             check_type(argname="argument goo", value=goo, expected_type=type_hints["goo"])
@@ -7345,7 +7345,7 @@ class InterfacesMaker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfacesMa
         :param count: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.make_interfaces)
+            type_hints = typing.get_type_hints(InterfacesMaker.make_interfaces)
             check_type(argname="argument count", value=count, expected_type=type_hints["count"])
         return typing.cast(typing.List[scope.jsii_calc_lib.IDoublable], jsii.sinvoke(cls, "makeInterfaces", [count]))
 
@@ -7804,7 +7804,7 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.stringify)
+            type_hints = typing.get_type_hints(JsonFormatter.stringify)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(typing.Optional[builtins.str], jsii.sinvoke(cls, "stringify", [value]))
 
@@ -7836,7 +7836,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
             :param value: 
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(self.__init__)
+                type_hints = typing.get_type_hints(PropBooleanValue.__init__)
                 check_type(argname="argument value", value=value, expected_type=type_hints["value"])
             self._values: typing.Dict[str, typing.Any] = {
                 "value": value,
@@ -7872,7 +7872,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
             if isinstance(prop, dict):
                 prop = PropBooleanValue(**prop)
             if __debug__:
-                type_hints = typing.get_type_hints(self.__init__)
+                type_hints = typing.get_type_hints(PropProperty.__init__)
                 check_type(argname="argument prop", value=prop, expected_type=type_hints["prop"])
             self._values: typing.Dict[str, typing.Any] = {
                 "prop": prop,
@@ -7909,7 +7909,7 @@ class LevelOneProps:
         if isinstance(prop, dict):
             prop = LevelOne.PropProperty(**prop)
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(LevelOneProps.__init__)
             check_type(argname="argument prop", value=prop, expected_type=type_hints["prop"])
         self._values: typing.Dict[str, typing.Any] = {
             "prop": prop,
@@ -7963,7 +7963,7 @@ class LoadBalancedFargateServiceProps:
         :param public_tasks: Determines whether your Fargate Service will be assigned a public IP address. Default: false
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(LoadBalancedFargateServiceProps.__init__)
             check_type(argname="argument container_port", value=container_port, expected_type=type_hints["container_port"])
             check_type(argname="argument cpu", value=cpu, expected_type=type_hints["cpu"])
             check_type(argname="argument memory_mib", value=memory_mib, expected_type=type_hints["memory_mib"])
@@ -8100,7 +8100,7 @@ class Multiply(
         :param rhs: Right-hand side operand.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Multiply.__init__)
             check_type(argname="argument lhs", value=lhs, expected_type=type_hints["lhs"])
             check_type(argname="argument rhs", value=rhs, expected_type=type_hints["rhs"])
         jsii.create(self.__class__, self, [lhs, rhs])
@@ -8155,7 +8155,7 @@ class NestedStruct:
         :param number_prop: When provided, must be > 0.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(NestedStruct.__init__)
             check_type(argname="argument number_prop", value=number_prop, expected_type=type_hints["number_prop"])
         self._values: typing.Dict[str, typing.Any] = {
             "number_prop": number_prop,
@@ -8232,7 +8232,7 @@ class NullShouldBeTreatedAsUndefined(
         :param optional: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(NullShouldBeTreatedAsUndefined.__init__)
             check_type(argname="argument _param1", value=_param1, expected_type=type_hints["_param1"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
         jsii.create(self.__class__, self, [_param1, optional])
@@ -8243,7 +8243,7 @@ class NullShouldBeTreatedAsUndefined(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.give_me_undefined)
+            type_hints = typing.get_type_hints(NullShouldBeTreatedAsUndefined.give_me_undefined)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "giveMeUndefined", [value]))
 
@@ -8302,7 +8302,7 @@ class NullShouldBeTreatedAsUndefinedData:
         :param this_should_be_undefined: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(NullShouldBeTreatedAsUndefinedData.__init__)
             check_type(argname="argument array_with_three_elements_and_undefined_as_second_argument", value=array_with_three_elements_and_undefined_as_second_argument, expected_type=type_hints["array_with_three_elements_and_undefined_as_second_argument"])
             check_type(argname="argument this_should_be_undefined", value=this_should_be_undefined, expected_type=type_hints["this_should_be_undefined"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -8344,7 +8344,7 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
         :param generator: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(NumberGenerator.__init__)
             check_type(argname="argument generator", value=generator, expected_type=type_hints["generator"])
         jsii.create(self.__class__, self, [generator])
 
@@ -8354,7 +8354,7 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
         :param gen: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.is_same_generator)
+            type_hints = typing.get_type_hints(NumberGenerator.is_same_generator)
             check_type(argname="argument gen", value=gen, expected_type=type_hints["gen"])
         return typing.cast(builtins.bool, jsii.invoke(self, "isSameGenerator", [gen]))
 
@@ -8394,7 +8394,7 @@ class ObjectRefsInCollections(
         :param values: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.sum_from_array)
+            type_hints = typing.get_type_hints(ObjectRefsInCollections.sum_from_array)
             check_type(argname="argument values", value=values, expected_type=type_hints["values"])
         return typing.cast(jsii.Number, jsii.invoke(self, "sumFromArray", [values]))
 
@@ -8408,7 +8408,7 @@ class ObjectRefsInCollections(
         :param values: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.sum_from_map)
+            type_hints = typing.get_type_hints(ObjectRefsInCollections.sum_from_map)
             check_type(argname="argument values", value=values, expected_type=type_hints["values"])
         return typing.cast(jsii.Number, jsii.invoke(self, "sumFromMap", [values]))
 
@@ -8455,7 +8455,7 @@ class OptionalArgumentInvoker(
         :param delegate: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(OptionalArgumentInvoker.__init__)
             check_type(argname="argument delegate", value=delegate, expected_type=type_hints["delegate"])
         jsii.create(self.__class__, self, [delegate])
 
@@ -8484,7 +8484,7 @@ class OptionalConstructorArgument(
         :param arg3: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(OptionalConstructorArgument.__init__)
             check_type(argname="argument arg1", value=arg1, expected_type=type_hints["arg1"])
             check_type(argname="argument arg2", value=arg2, expected_type=type_hints["arg2"])
             check_type(argname="argument arg3", value=arg3, expected_type=type_hints["arg3"])
@@ -8517,7 +8517,7 @@ class OptionalStruct:
         :param field: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(OptionalStruct.__init__)
             check_type(argname="argument field", value=field, expected_type=type_hints["field"])
         self._values: typing.Dict[str, typing.Any] = {}
         if field is not None:
@@ -8617,7 +8617,7 @@ class OverrideReturnsObject(
         :param obj: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.test)
+            type_hints = typing.get_type_hints(OverrideReturnsObject.test)
             check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
         return typing.cast(jsii.Number, jsii.invoke(self, "test", [obj]))
 
@@ -8634,7 +8634,7 @@ class ParentStruct982:
         :param foo: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ParentStruct982.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -8695,7 +8695,7 @@ class _PartiallyInitializedThisConsumerProxy(PartiallyInitializedThisConsumer):
         :param ev: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.consume_partially_initialized_this)
+            type_hints = typing.get_type_hints(PartiallyInitializedThisConsumer.consume_partially_initialized_this)
             check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
             check_type(argname="argument dt", value=dt, expected_type=type_hints["dt"])
             check_type(argname="argument ev", value=ev, expected_type=type_hints["ev"])
@@ -8715,7 +8715,7 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
         :param friendly: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.say_hello)
+            type_hints = typing.get_type_hints(Polymorphism.say_hello)
             check_type(argname="argument friendly", value=friendly, expected_type=type_hints["friendly"])
         return typing.cast(builtins.str, jsii.invoke(self, "sayHello", [friendly]))
 
@@ -8738,7 +8738,7 @@ class Power(
         :param pow: The number of times to multiply.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Power.__init__)
             check_type(argname="argument base", value=base, expected_type=type_hints["base"])
             check_type(argname="argument pow", value=pow, expected_type=type_hints["pow"])
         jsii.create(self.__class__, self, [base, pow])
@@ -8949,7 +8949,7 @@ class ReferenceEnumFromScopedPackage(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.save_foo)
+            type_hints = typing.get_type_hints(ReferenceEnumFromScopedPackage.save_foo)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "saveFoo", [value]))
 
@@ -9012,7 +9012,7 @@ class RootStruct:
         if isinstance(nested_struct, dict):
             nested_struct = NestedStruct(**nested_struct)
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(RootStruct.__init__)
             check_type(argname="argument string_prop", value=string_prop, expected_type=type_hints["string_prop"])
             check_type(argname="argument nested_struct", value=nested_struct, expected_type=type_hints["nested_struct"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -9086,7 +9086,7 @@ class RuntimeTypeChecking(
         :param arg3: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.method_with_defaulted_arguments)
+            type_hints = typing.get_type_hints(RuntimeTypeChecking.method_with_defaulted_arguments)
             check_type(argname="argument arg1", value=arg1, expected_type=type_hints["arg1"])
             check_type(argname="argument arg2", value=arg2, expected_type=type_hints["arg2"])
             check_type(argname="argument arg3", value=arg3, expected_type=type_hints["arg3"])
@@ -9098,7 +9098,7 @@ class RuntimeTypeChecking(
         :param arg: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.method_with_optional_any_argument)
+            type_hints = typing.get_type_hints(RuntimeTypeChecking.method_with_optional_any_argument)
             check_type(argname="argument arg", value=arg, expected_type=type_hints["arg"])
         return typing.cast(None, jsii.invoke(self, "methodWithOptionalAnyArgument", [arg]))
 
@@ -9116,7 +9116,7 @@ class RuntimeTypeChecking(
         :param arg3: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.method_with_optional_arguments)
+            type_hints = typing.get_type_hints(RuntimeTypeChecking.method_with_optional_arguments)
             check_type(argname="argument arg1", value=arg1, expected_type=type_hints["arg1"])
             check_type(argname="argument arg2", value=arg2, expected_type=type_hints["arg2"])
             check_type(argname="argument arg3", value=arg3, expected_type=type_hints["arg3"])
@@ -9143,7 +9143,7 @@ class SecondLevelStruct:
         :param deeper_optional_prop: It's long, but you'll almost never pass it.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(SecondLevelStruct.__init__)
             check_type(argname="argument deeper_required_prop", value=deeper_required_prop, expected_type=type_hints["deeper_required_prop"])
             check_type(argname="argument deeper_optional_prop", value=deeper_optional_prop, expected_type=type_hints["deeper_optional_prop"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -9212,7 +9212,7 @@ class SingletonInt(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonInt"):
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.is_singleton_int)
+            type_hints = typing.get_type_hints(SingletonInt.is_singleton_int)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(builtins.bool, jsii.invoke(self, "isSingletonInt", [value]))
 
@@ -9237,7 +9237,7 @@ class SingletonString(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonStr
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.is_singleton_string)
+            type_hints = typing.get_type_hints(SingletonString.is_singleton_string)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(builtins.bool, jsii.invoke(self, "isSingletonString", [value]))
 
@@ -9267,7 +9267,7 @@ class SmellyStruct:
         :param yet_anoter_one: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(SmellyStruct.__init__)
             check_type(argname="argument property", value=property, expected_type=type_hints["property"])
             check_type(argname="argument yet_anoter_one", value=yet_anoter_one, expected_type=type_hints["yet_anoter_one"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -9325,7 +9325,7 @@ class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
         :param mutable_number: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StableClass.__init__)
             check_type(argname="argument readonly_string", value=readonly_string, expected_type=type_hints["readonly_string"])
             check_type(argname="argument mutable_number", value=mutable_number, expected_type=type_hints["mutable_number"])
         jsii.create(self.__class__, self, [readonly_string, mutable_number])
@@ -9369,7 +9369,7 @@ class StableStruct:
         :param readonly_property: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StableStruct.__init__)
             check_type(argname="argument readonly_property", value=readonly_property, expected_type=type_hints["readonly_property"])
         self._values: typing.Dict[str, typing.Any] = {
             "readonly_property": readonly_property,
@@ -9448,7 +9448,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Statics.__init__)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.create(self.__class__, self, [value])
 
@@ -9460,7 +9460,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
         :param name: The name of the person to say hello to.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.static_method)
+            type_hints = typing.get_type_hints(Statics.static_method)
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
         return typing.cast(builtins.str, jsii.sinvoke(cls, "staticMethod", [name]))
 
@@ -9573,7 +9573,7 @@ class StructA:
         :param optional_string: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StructA.__init__)
             check_type(argname="argument required_string", value=required_string, expected_type=type_hints["required_string"])
             check_type(argname="argument optional_number", value=optional_number, expected_type=type_hints["optional_number"])
             check_type(argname="argument optional_string", value=optional_string, expected_type=type_hints["optional_string"])
@@ -9639,7 +9639,7 @@ class StructB:
         if isinstance(optional_struct_a, dict):
             optional_struct_a = StructA(**optional_struct_a)
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StructB.__init__)
             check_type(argname="argument required_string", value=required_string, expected_type=type_hints["required_string"])
             check_type(argname="argument optional_boolean", value=optional_boolean, expected_type=type_hints["optional_boolean"])
             check_type(argname="argument optional_struct_a", value=optional_struct_a, expected_type=type_hints["optional_struct_a"])
@@ -9699,7 +9699,7 @@ class StructParameterType:
         :param props: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StructParameterType.__init__)
             check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
             check_type(argname="argument props", value=props, expected_type=type_hints["props"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -9749,7 +9749,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         :param inputs: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.how_many_var_args_did_i_pass)
+            type_hints = typing.get_type_hints(StructPassing.how_many_var_args_did_i_pass)
             check_type(argname="argument _positional", value=_positional, expected_type=type_hints["_positional"])
             check_type(argname="argument inputs", value=inputs, expected_type=typing.Tuple[type_hints["inputs"], ...])
         return typing.cast(jsii.Number, jsii.sinvoke(cls, "howManyVarArgsDidIPass", [_positional, *inputs]))
@@ -9771,7 +9771,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         :param optional: You don't have to pass this.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.round_trip)
+            type_hints = typing.get_type_hints(StructPassing.round_trip)
             check_type(argname="argument _positional", value=_positional, expected_type=type_hints["_positional"])
         input = TopLevelStruct(
             required=required, second_level=second_level, optional=optional
@@ -9791,7 +9791,7 @@ class StructUnionConsumer(
         :param struct: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.is_struct_a)
+            type_hints = typing.get_type_hints(StructUnionConsumer.is_struct_a)
             check_type(argname="argument struct", value=struct, expected_type=type_hints["struct"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "isStructA", [struct]))
 
@@ -9802,7 +9802,7 @@ class StructUnionConsumer(
         :param struct: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.is_struct_b)
+            type_hints = typing.get_type_hints(StructUnionConsumer.is_struct_b)
             check_type(argname="argument struct", value=struct, expected_type=type_hints["struct"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "isStructB", [struct]))
 
@@ -9824,7 +9824,7 @@ class StructWithEnum:
         :param bar: Optional enum value (of type integer). Default: AllTypesEnum.YOUR_ENUM_VALUE
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StructWithEnum.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -9887,7 +9887,7 @@ class StructWithJavaReservedWords:
         :param that: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(StructWithJavaReservedWords.__init__)
             check_type(argname="argument default", value=default, expected_type=type_hints["default"])
             check_type(argname="argument assert_", value=assert_, expected_type=type_hints["assert_"])
             check_type(argname="argument result", value=result, expected_type=type_hints["result"])
@@ -9985,7 +9985,7 @@ class SupportsNiceJavaBuilderProps:
         :param id: An \`\`id\`\` field here is terrible API design, because the constructor of \`\`SupportsNiceJavaBuilder\`\` already has a parameter named \`\`id\`\`. But here we are, doing it like we didn't care.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(SupportsNiceJavaBuilderProps.__init__)
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             check_type(argname="argument id", value=id, expected_type=type_hints["id"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -10041,7 +10041,7 @@ class SupportsNiceJavaBuilderWithRequiredProps(
         :param id: An \`\`id\`\` field here is terrible API design, because the constructor of \`\`SupportsNiceJavaBuilder\`\` already has a parameter named \`\`id\`\`. But here we are, doing it like we didn't care.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(SupportsNiceJavaBuilderWithRequiredProps.__init__)
             check_type(argname="argument id_", value=id_, expected_type=type_hints["id_"])
         props = SupportsNiceJavaBuilderProps(bar=bar, id=id)
 
@@ -10085,7 +10085,7 @@ class SyncVirtualMethods(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.modify_other_property)
+            type_hints = typing.get_type_hints(SyncVirtualMethods.modify_other_property)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "modifyOtherProperty", [value]))
 
@@ -10095,7 +10095,7 @@ class SyncVirtualMethods(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.modify_value_of_the_property)
+            type_hints = typing.get_type_hints(SyncVirtualMethods.modify_value_of_the_property)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "modifyValueOfTheProperty", [value]))
 
@@ -10121,7 +10121,7 @@ class SyncVirtualMethods(
         :param n: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.virtual_method)
+            type_hints = typing.get_type_hints(SyncVirtualMethods.virtual_method)
             check_type(argname="argument n", value=n, expected_type=type_hints["n"])
         return typing.cast(jsii.Number, jsii.invoke(self, "virtualMethod", [n]))
 
@@ -10131,7 +10131,7 @@ class SyncVirtualMethods(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.write_a)
+            type_hints = typing.get_type_hints(SyncVirtualMethods.write_a)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(None, jsii.invoke(self, "writeA", [value]))
 
@@ -10285,7 +10285,7 @@ class TopLevelStruct:
         :param optional: You don't have to pass this.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(TopLevelStruct.__init__)
             check_type(argname="argument required", value=required, expected_type=type_hints["required"])
             check_type(argname="argument second_level", value=second_level, expected_type=type_hints["second_level"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -10384,7 +10384,7 @@ class UnaryOperation(
         :param operand: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(UnaryOperation.__init__)
             check_type(argname="argument operand", value=operand, expected_type=type_hints["operand"])
         jsii.create(self.__class__, self, [operand])
 
@@ -10420,7 +10420,7 @@ class UnionProperties:
         :param foo: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(UnionProperties.__init__)
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -10464,7 +10464,7 @@ class UpcasingReflectable(
         :param delegate: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(UpcasingReflectable.__init__)
             check_type(argname="argument delegate", value=delegate, expected_type=type_hints["delegate"])
         jsii.create(self.__class__, self, [delegate])
 
@@ -10513,7 +10513,7 @@ class UsesInterfaceWithProperties(
         :param obj: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(UsesInterfaceWithProperties.__init__)
             check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
         jsii.create(self.__class__, self, [obj])
 
@@ -10530,7 +10530,7 @@ class UsesInterfaceWithProperties(
         :param ext: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.read_string_and_number)
+            type_hints = typing.get_type_hints(UsesInterfaceWithProperties.read_string_and_number)
             check_type(argname="argument ext", value=ext, expected_type=type_hints["ext"])
         return typing.cast(builtins.str, jsii.invoke(self, "readStringAndNumber", [ext]))
 
@@ -10540,7 +10540,7 @@ class UsesInterfaceWithProperties(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.write_and_read)
+            type_hints = typing.get_type_hints(UsesInterfaceWithProperties.write_and_read)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast(builtins.str, jsii.invoke(self, "writeAndRead", [value]))
 
@@ -10556,7 +10556,7 @@ class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvo
         :param method: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(VariadicInvoker.__init__)
             check_type(argname="argument method", value=method, expected_type=type_hints["method"])
         jsii.create(self.__class__, self, [method])
 
@@ -10566,7 +10566,7 @@ class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvo
         :param values: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.as_array)
+            type_hints = typing.get_type_hints(VariadicInvoker.as_array)
             check_type(argname="argument values", value=values, expected_type=typing.Tuple[type_hints["values"], ...])
         return typing.cast(typing.List[jsii.Number], jsii.invoke(self, "asArray", [*values]))
 
@@ -10577,7 +10577,7 @@ class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMetho
         :param prefix: a prefix that will be use for all values returned by \`\`#asArray\`\`.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(VariadicMethod.__init__)
             check_type(argname="argument prefix", value=prefix, expected_type=typing.Tuple[type_hints["prefix"], ...])
         jsii.create(self.__class__, self, [*prefix])
 
@@ -10592,7 +10592,7 @@ class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMetho
         :param others: other elements to be included in the array.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.as_array)
+            type_hints = typing.get_type_hints(VariadicMethod.as_array)
             check_type(argname="argument first", value=first, expected_type=type_hints["first"])
             check_type(argname="argument others", value=others, expected_type=typing.Tuple[type_hints["others"], ...])
         return typing.cast(typing.List[jsii.Number], jsii.invoke(self, "asArray", [first, *others]))
@@ -10611,7 +10611,7 @@ class VirtualMethodPlayground(
         :param index: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.override_me_async)
+            type_hints = typing.get_type_hints(VirtualMethodPlayground.override_me_async)
             check_type(argname="argument index", value=index, expected_type=type_hints["index"])
         return typing.cast(jsii.Number, jsii.ainvoke(self, "overrideMeAsync", [index]))
 
@@ -10621,7 +10621,7 @@ class VirtualMethodPlayground(
         :param index: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.override_me_sync)
+            type_hints = typing.get_type_hints(VirtualMethodPlayground.override_me_sync)
             check_type(argname="argument index", value=index, expected_type=type_hints["index"])
         return typing.cast(jsii.Number, jsii.invoke(self, "overrideMeSync", [index]))
 
@@ -10631,7 +10631,7 @@ class VirtualMethodPlayground(
         :param count: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.parallel_sum_async)
+            type_hints = typing.get_type_hints(VirtualMethodPlayground.parallel_sum_async)
             check_type(argname="argument count", value=count, expected_type=type_hints["count"])
         return typing.cast(jsii.Number, jsii.ainvoke(self, "parallelSumAsync", [count]))
 
@@ -10641,7 +10641,7 @@ class VirtualMethodPlayground(
         :param count: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.serial_sum_async)
+            type_hints = typing.get_type_hints(VirtualMethodPlayground.serial_sum_async)
             check_type(argname="argument count", value=count, expected_type=type_hints["count"])
         return typing.cast(jsii.Number, jsii.ainvoke(self, "serialSumAsync", [count]))
 
@@ -10651,7 +10651,7 @@ class VirtualMethodPlayground(
         :param count: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.sum_sync)
+            type_hints = typing.get_type_hints(VirtualMethodPlayground.sum_sync)
             check_type(argname="argument count", value=count, expected_type=type_hints["count"])
         return typing.cast(jsii.Number, jsii.invoke(self, "sumSync", [count]))
 
@@ -10705,7 +10705,7 @@ class WithPrivatePropertyInConstructor(
         :param private_field: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(WithPrivatePropertyInConstructor.__init__)
             check_type(argname="argument private_field", value=private_field, expected_type=type_hints["private_field"])
         jsii.create(self.__class__, self, [private_field])
 
@@ -10751,7 +10751,7 @@ class _AbstractClassProxy(
         :param name: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.abstract_method)
+            type_hints = typing.get_type_hints(AbstractClass.abstract_method)
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
         return typing.cast(builtins.str, jsii.invoke(self, "abstractMethod", [name]))
 
@@ -10773,7 +10773,7 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
         :param rhs: Right-hand side operand.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Add.__init__)
             check_type(argname="argument lhs", value=lhs, expected_type=type_hints["lhs"])
             check_type(argname="argument rhs", value=rhs, expected_type=type_hints["rhs"])
         jsii.create(self.__class__, self, [lhs, rhs])
@@ -10841,7 +10841,7 @@ class ChildStruct982(ParentStruct982):
         :param bar: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ChildStruct982.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -11006,7 +11006,7 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
         :param read_write_string: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.create)
+            type_hints = typing.get_type_hints(ClassWithPrivateConstructorAndAutomaticProperties.create)
             check_type(argname="argument read_only_string", value=read_only_string, expected_type=type_hints["read_only_string"])
             check_type(argname="argument read_write_string", value=read_write_string, expected_type=type_hints["read_write_string"])
         return typing.cast("ClassWithPrivateConstructorAndAutomaticProperties", jsii.sinvoke(cls, "create", [read_only_string, read_write_string]))
@@ -11145,7 +11145,7 @@ class JSII417Derived(
         :param property: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(JSII417Derived.__init__)
             check_type(argname="argument property", value=property, expected_type=type_hints["property"])
         jsii.create(self.__class__, self, [property])
 
@@ -11172,7 +11172,7 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
         :param operand: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Negate.__init__)
             check_type(argname="argument operand", value=operand, expected_type=type_hints["operand"])
         jsii.create(self.__class__, self, [operand])
 
@@ -11238,7 +11238,7 @@ class SupportsNiceJavaBuilder(
         :param rest: a variadic continuation.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(SupportsNiceJavaBuilder.__init__)
             check_type(argname="argument id", value=id, expected_type=type_hints["id"])
             check_type(argname="argument default_bar", value=default_bar, expected_type=type_hints["default_bar"])
             check_type(argname="argument props", value=props, expected_type=type_hints["props"])
@@ -11619,7 +11619,7 @@ class _Cdk16625Proxy(Cdk16625):
         :param gen: a VERY pseudo random number generator.
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self._unwrap)
+            type_hints = typing.get_type_hints(Cdk16625._unwrap)
             check_type(argname="argument gen", value=gen, expected_type=type_hints["gen"])
         return typing.cast(jsii.Number, jsii.invoke(self, "unwrap", [gen]))
 
@@ -11676,7 +11676,7 @@ class UnimportedSubmoduleType(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(UnimportedSubmoduleType.__init__)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.create(self.__class__, self, [value])
 
@@ -11923,7 +11923,7 @@ class Hello:
         :param foo: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Hello.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -11983,7 +11983,7 @@ class Hello:
         :param foo: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Hello.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -12042,7 +12042,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass")
         :param _: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(MyClass.__init__)
             check_type(argname="argument _", value=_, expected_type=type_hints["_"])
         jsii.create(self.__class__, self, [_])
 
@@ -12053,7 +12053,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass")
         :param _: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(cls.bar)
+            type_hints = typing.get_type_hints(MyClass.bar)
             check_type(argname="argument _", value=_, expected_type=type_hints["_"])
         return typing.cast(None, jsii.sinvoke(cls, "bar", [_]))
 
@@ -12063,7 +12063,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass")
         :param _: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.foo)
+            type_hints = typing.get_type_hints(MyClass.foo)
             check_type(argname="argument _", value=_, expected_type=type_hints["_"])
         return typing.cast(None, jsii.invoke(self, "foo", [_]))
 
@@ -12152,7 +12152,7 @@ class ExtendAndImplement(
         :stability: deprecated
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(ExtendAndImplement.__init__)
             check_type(argname="argument very", value=very, expected_type=type_hints["very"])
         jsii.create(self.__class__, self, [very])
 
@@ -12241,7 +12241,7 @@ class MyClass(
         :param _bar: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.bar)
+            type_hints = typing.get_type_hints(MyClass.bar)
             check_type(argname="argument _bar", value=_bar, expected_type=type_hints["_bar"])
         return typing.cast(None, jsii.invoke(self, "bar", [_bar]))
 
@@ -12251,7 +12251,7 @@ class MyClass(
         :param _values: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.foo)
+            type_hints = typing.get_type_hints(MyClass.foo)
             check_type(argname="argument _values", value=_values, expected_type=type_hints["_values"])
         return typing.cast(None, jsii.invoke(self, "foo", [_values]))
 
@@ -12382,7 +12382,7 @@ class MyStruct:
         :param numbers: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(MyStruct.__init__)
             check_type(argname="argument base_map", value=base_map, expected_type=type_hints["base_map"])
             check_type(argname="argument numbers", value=numbers, expected_type=type_hints["numbers"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -12477,7 +12477,7 @@ class Bar:
         :param bar1: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Bar.__init__)
             check_type(argname="argument bar1", value=bar1, expected_type=type_hints["bar1"])
         self._values: typing.Dict[str, typing.Any] = {
             "bar1": bar1,
@@ -12538,7 +12538,7 @@ class Bar:
         :param bar2: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Bar.__init__)
             check_type(argname="argument bar2", value=bar2, expected_type=type_hints["bar2"])
         self._values: typing.Dict[str, typing.Any] = {
             "bar2": bar2,
@@ -12581,7 +12581,7 @@ class Foo(Bar, _Bar_ec7eccad):
         :param foo2: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Foo.__init__)
             check_type(argname="argument bar2", value=bar2, expected_type=type_hints["bar2"])
             check_type(argname="argument bar1", value=bar1, expected_type=type_hints["bar1"])
             check_type(argname="argument foo2", value=foo2, expected_type=type_hints["foo2"])
@@ -13108,7 +13108,7 @@ class ClassWithSelf(
         :param self: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self_.__init__)
+            type_hints = typing.get_type_hints(ClassWithSelf.__init__)
             check_type(argname="argument self", value=self, expected_type=type_hints["self"])
         jsii.create(self_.__class__, self_, [self])
 
@@ -13118,7 +13118,7 @@ class ClassWithSelf(
         :param self: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self_.method)
+            type_hints = typing.get_type_hints(ClassWithSelf.method)
             check_type(argname="argument self", value=self, expected_type=type_hints["self"])
         return typing.cast(builtins.str, jsii.invoke(self_, "method", [self]))
 
@@ -13165,7 +13165,7 @@ class _IInterfaceWithSelfProxy:
         :param self: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self_.method)
+            type_hints = typing.get_type_hints(IInterfaceWithSelf.method)
             check_type(argname="argument self", value=self, expected_type=type_hints["self"])
         return typing.cast(builtins.str, jsii.invoke(self_, "method", [self]))
 
@@ -13184,7 +13184,7 @@ class StructWithSelf:
         :param self: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self_.__init__)
+            type_hints = typing.get_type_hints(StructWithSelf.__init__)
             check_type(argname="argument self", value=self, expected_type=type_hints["self"])
         self_._values: typing.Dict[str, typing.Any] = {
             "self": self,
@@ -13264,7 +13264,7 @@ class Default:
         :see: https://github.com/aws/jsii/issues/2637
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Default.__init__)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -13392,7 +13392,7 @@ class MyClassReference:
         :param reference: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(MyClassReference.__init__)
             check_type(argname="argument reference", value=reference, expected_type=type_hints["reference"])
         self._values: typing.Dict[str, typing.Any] = {
             "reference": reference,
@@ -13503,7 +13503,7 @@ class SomeStruct:
         :param prop: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(SomeStruct.__init__)
             check_type(argname="argument prop", value=prop, expected_type=type_hints["prop"])
         self._values: typing.Dict[str, typing.Any] = {
             "prop": prop,
@@ -13538,7 +13538,7 @@ class Structure:
         :param bool: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(Structure.__init__)
             check_type(argname="argument bool", value=bool, expected_type=type_hints["bool"])
         self._values: typing.Dict[str, typing.Any] = {
             "bool": bool,
@@ -13579,7 +13579,7 @@ class KwargsProps(SomeStruct):
         :param extra: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(KwargsProps.__init__)
             check_type(argname="argument prop", value=prop, expected_type=type_hints["prop"])
             check_type(argname="argument extra", value=extra, expected_type=type_hints["extra"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -13810,7 +13810,7 @@ class SpecialParameter:
         :param value: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(self.__init__)
+            type_hints = typing.get_type_hints(SpecialParameter.__init__)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         self._values: typing.Dict[str, typing.Any] = {
             "value": value,
