@@ -1,8 +1,9 @@
 import { promises as fs } from 'fs';
-import { tmpdir } from 'os';
-import { join } from 'path';
 import { TypeSystem } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
 import { Golang } from '../../lib/targets/go';
 
 test('does not generate imports for unused types', async () => {
@@ -30,7 +31,9 @@ test('does not generate imports for unused types', async () => {
 
     await expect(
       fs.readFile(join(outDir, assembly.name, `${assembly.name}.go`), 'utf-8'),
-    ).resolves.not.toContain('github.com/aws/jsii/packages/jsii-pacmak/test/targets/fixtures/base');
+    ).resolves.not.toContain(
+      'github.com/aws/jsii/packages/jsii-pacmak/test/targets/fixtures/base',
+    );
   } finally {
     await fs.rm(outDir, { recursive: true });
   }
