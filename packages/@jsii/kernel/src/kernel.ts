@@ -2,6 +2,7 @@ import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
+import { createRequire } from 'module';
 import * as os from 'os';
 import * as path from 'path';
 import * as tar from 'tar';
@@ -26,6 +27,8 @@ export class Kernel {
   private nextid = 20000; // incrementing counter for objid, cbid, promiseid
   private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
   private installDir?: string;
+  /** The internal require function, used instead of the global "require" so that webpack does not transform it... */
+  private require?: typeof require;
 
   /**
    * Creates a jsii kernel object.
@@ -99,9 +102,8 @@ export class Kernel {
       throw new Error(`Error for package tarball ${req.tarball}: ${e.message}`);
     }
 
-    // load the module and capture it's closure
-    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    const closure = require(packageDir);
+    // load the module and capture its closure
+    const closure = this.require!(packageDir);
     const assm = new Assembly(assmSpec, closure);
     this._addAssembly(assm);
 
@@ -547,6 +549,7 @@ export class Kernel {
   private _getPackageDir(pkgname: string): string {
     if (!this.installDir) {
       this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
+      this.require = createRequire(this.installDir);
       fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
       this._debug('creating jsii-kernel modules workdir:', this.installDir);
 
