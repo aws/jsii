@@ -137,9 +137,13 @@ export class GoTypeRef {
         break;
 
       case 'union':
-        for (const t of this.typeMap.value) {
-          ret.push(...t.dependencies);
-        }
+        // Unions ultimately result in `interface{}` being rendered, so no import is needed. We
+        // hence ignore them entirely here for now. In the future, we may want to inject specific
+        // runtime type checks around use of unions, which may result in imports being useful.
+
+        // for (const t of this.typeMap.value) {
+        //   ret.push(...t.dependencies);
+        // }
         break;
 
       case 'void':
