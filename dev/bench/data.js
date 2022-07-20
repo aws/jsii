@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658159664122,
+  "lastUpdate": 1658326411865,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3147,6 +3147,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 914047.3833875762,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73520.59856144995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ed370df964d63568830be5e8c3e4e1bb32b6cb68",
+          "message": "chore(deps-dev): Bump mypy in /packages/jsii-pacmak/test/generated-code (#3665)\n\nBumps [mypy](https://github.com/python/mypy) from 0.961 to 0.971.\r\n- [Release notes](https://github.com/python/mypy/releases)\r\n- [Commits](https://github.com/python/mypy/compare/v0.961...v0.971)\r\n\r\n---\r\nupdated-dependencies:\r\n- dependency-name: mypy\r\n  dependency-type: direct:development\r\n  update-type: version-update:semver-minor\r\n...\r\n\r\nSigned-off-by: dependabot[bot] <support@github.com>\r\n\r\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-07-20T15:20:04+02:00",
+          "tree_id": "8f31f9314adc17b5ae16ee06100364248cc0cc3e",
+          "url": "https://github.com/aws/jsii/commit/ed370df964d63568830be5e8c3e4e1bb32b6cb68"
+        },
+        "date": 1658326409623,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 65144.93363564999,
+            "unit": "milliseconds",
+            "range": 3282924.966295148,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 65144.93363564999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46462.95008825001,
+            "unit": "milliseconds",
+            "range": 278535.3285494068,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46462.95008825001 milliseconds over 20 runs"
           }
         ]
       }
