@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658326411865,
+  "lastUpdate": 1658338196982,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3185,6 +3185,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 278535.3285494068,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46462.95008825001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d220fd694aba97fb6df31aab4a6d218d0d2e7321",
+          "message": "chore(kernel): remove unnecessary v8 sandbox (#3657)\n\nUse of the v8 sandbox had already been reduced to the point of being\nentirely unnecessary. Finish removing what is left of it, as it also\nturns out to make inline debugging a lot easier to perform.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-20T16:35:11Z",
+          "tree_id": "8310be869836da6a9558c82cedf7f994113998be",
+          "url": "https://github.com/aws/jsii/commit/d220fd694aba97fb6df31aab4a6d218d0d2e7321"
+        },
+        "date": 1658338194243,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 64739.25402965001,
+            "unit": "milliseconds",
+            "range": 2688689.8230239563,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 64739.25402965001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45954.40835665002,
+            "unit": "milliseconds",
+            "range": 45947.22642928038,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45954.40835665002 milliseconds over 20 runs"
           }
         ]
       }
