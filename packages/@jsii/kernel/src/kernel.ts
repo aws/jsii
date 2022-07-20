@@ -2,10 +2,10 @@ import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
+import { createRequire } from 'module';
 import * as os from 'os';
 import * as path from 'path';
 import * as tar from 'tar';
-import * as vm from 'vm';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
@@ -27,8 +27,8 @@ export class Kernel {
   private nextid = 20000; // incrementing counter for objid, cbid, promiseid
   private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
   private installDir?: string;
-
-  private readonly sandbox: vm.Context;
+  /** The internal require function, used instead of the global "require" so that webpack does not transform it... */
+  private require?: typeof require;
 
   /**
    * Creates a jsii kernel object.
@@ -37,27 +37,7 @@ export class Kernel {
    *                        It's responsibility is to execute the callback and return it's
    *                        result (or throw an error).
    */
-  public constructor(public callbackHandler: (callback: api.Callback) => any) {
-    // `setImmediate` is required for tests to pass (it is otherwise
-    // impossible to wait for in-VM promises to complete)
-
-    // `Buffer` is required when using simple-resource-bundler.
-
-    // HACK: when we webpack @jsii/runtime, all "require" statements get transpiled,
-    // so modules can be resolved within the pack. However, here we actually want to
-    // let loaded modules to use the native node "require" method.
-    // I wonder if webpack has some pragma that allows opting-out at certain points
-    // in the code.
-    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
-    const moduleLoad = require('module').Module._load;
-    const nodeRequire = (p: string) => moduleLoad(p, module, false);
-
-    this.sandbox = vm.createContext({
-      Buffer, // to use simple-resource-bundler
-      setImmediate, // async tests
-      require: nodeRequire, // modules need to "require"
-    });
-  }
+  public constructor(public callbackHandler: (callback: api.Callback) => any) {}
 
   public load(req: api.LoadRequest): api.LoadResponse {
     this._debug('load', req);
@@ -122,11 +102,8 @@ export class Kernel {
       throw new Error(`Error for package tarball ${req.tarball}: ${e.message}`);
     }
 
-    // load the module and capture it's closure
-    const closure = this._execute(
-      `require(String.raw\`${packageDir}\`)`,
-      packageDir,
-    );
+    // load the module and capture its closure
+    const closure = this.require!(packageDir);
     const assm = new Assembly(assmSpec, closure);
     this._addAssembly(assm);
 
@@ -205,8 +182,9 @@ export class Kernel {
 
     const prototype = this._findSymbol(fqn);
 
-    const value = this._ensureSync(`property ${property}`, () =>
-      this._wrapSandboxCode(() => prototype[property]),
+    const value = this._ensureSync(
+      `property ${property}`,
+      () => prototype[property],
     );
 
     this._debug('value:', value);
@@ -231,15 +209,14 @@ export class Kernel {
 
     const prototype = this._findSymbol(fqn);
 
-    this._ensureSync(`property ${property}`, () =>
-      this._wrapSandboxCode(
-        () =>
-          (prototype[property] = this._toSandbox(
-            value,
-            ti,
-            `assigned to static property ${symbol}`,
-          )),
-      ),
+    this._ensureSync(
+      `property ${property}`,
+      () =>
+        (prototype[property] = this._toSandbox(
+          value,
+          ti,
+          `assigned to static property ${symbol}`,
+        )),
     );
 
     return {};
@@ -262,7 +239,7 @@ export class Kernel {
     // by jsii overrides.
     const value = this._ensureSync(
       `property '${objref[TOKEN_REF]}.${propertyToGet}'`,
-      () => this._wrapSandboxCode(() => instance[propertyToGet]),
+      () => instance[propertyToGet],
     );
     this._debug('value:', value);
     const ret = this._fromSandbox(value, ti, `of property ${fqn}.${property}`);
@@ -285,15 +262,14 @@ export class Kernel {
 
     const propertyToSet = this._findPropertyTarget(instance, property);
 
-    this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`, () =>
-      this._wrapSandboxCode(
-        () =>
-          (instance[propertyToSet] = this._toSandbox(
-            value,
-            propInfo,
-            `assigned to property ${fqn}.${property}`,
-          )),
-      ),
+    this._ensureSync(
+      `property '${objref[TOKEN_REF]}.${propertyToSet}'`,
+      () =>
+        (instance[propertyToSet] = this._toSandbox(
+          value,
+          propInfo,
+          `assigned to property ${fqn}.${property}`,
+        )),
     );
 
     return {};
@@ -315,14 +291,12 @@ export class Kernel {
     const ret = this._ensureSync(
       `method '${objref[TOKEN_REF]}.${method}'`,
       () => {
-        return this._wrapSandboxCode(() =>
-          fn.apply(
-            obj,
-            this._toSandboxValues(
-              args,
-              `method ${fqn ? `${fqn}#` : ''}${method}`,
-              ti.parameters,
-            ),
+        return fn.apply(
+          obj,
+          this._toSandboxValues(
+            args,
+            `method ${fqn ? `${fqn}#` : ''}${method}`,
+            ti.parameters,
           ),
         );
       },
@@ -359,14 +333,12 @@ export class Kernel {
     const fn = prototype[method] as (...params: any[]) => any;
 
     const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
-      return this._wrapSandboxCode(() =>
-        fn.apply(
-          prototype,
-          this._toSandboxValues(
-            args,
-            `static method ${fqn}.${method}`,
-            ti.parameters,
-          ),
+      return fn.apply(
+        prototype,
+        this._toSandboxValues(
+          args,
+          `static method ${fqn}.${method}`,
+          ti.parameters,
         ),
       );
     });
@@ -402,14 +374,12 @@ export class Kernel {
 
     const fqn = jsiiTypeFqn(obj);
 
-    const promise = this._wrapSandboxCode(() =>
-      fn.apply(
-        obj,
-        this._toSandboxValues(
-          args,
-          `async method ${fqn ? `${fqn}#` : ''}${method}`,
-          ti.parameters,
-        ),
+    const promise = fn.apply(
+      obj,
+      this._toSandboxValues(
+        args,
+        `async method ${fqn ? `${fqn}#` : ''}${method}`,
+        ti.parameters,
       ),
     ) as Promise<any>;
 
@@ -579,6 +549,7 @@ export class Kernel {
   private _getPackageDir(pkgname: string): string {
     if (!this.installDir) {
       this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
+      this.require = createRequire(this.installDir);
       fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
       this._debug('creating jsii-kernel modules workdir:', this.installDir);
 
@@ -597,15 +568,12 @@ export class Kernel {
 
     const ctorResult = this._findCtor(fqn, requestArgs);
     const ctor = ctorResult.ctor;
-    const obj = this._wrapSandboxCode(
-      () =>
-        new ctor(
-          ...this._toSandboxValues(
-            requestArgs,
-            `new ${fqn}`,
-            ctorResult.parameters,
-          ),
-        ),
+    const obj = new ctor(
+      ...this._toSandboxValues(
+        requestArgs,
+        `new ${fqn}`,
+        ctorResult.parameters,
+      ),
     );
     const objref = this.objects.registerObject(obj, fqn, req.interfaces ?? []);
 
@@ -1275,23 +1243,6 @@ export class Kernel {
 
   private _makeprid() {
     return `jsii::promise::${this.nextid++}`;
-  }
-
-  private _wrapSandboxCode<T>(fn: () => T): T {
-    return fn();
-  }
-
-  /**
-   * Executes arbitrary code in a VM sandbox.
-   *
-   * @param code       JavaScript code to be executed in the VM
-   * @param filename   the file name to use for the executed code
-   *
-   * @returns the result of evaluating the code
-   */
-  private _execute(code: string, filename: string) {
-    const script = new vm.Script(code, { filename });
-    return script.runInContext(this.sandbox, { displayErrors: true });
   }
 }
 

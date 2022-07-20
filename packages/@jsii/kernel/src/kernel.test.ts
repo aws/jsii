@@ -3,7 +3,6 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import { join } from 'path';
 import * as path from 'path';
-import * as vm from 'vm';
 
 import * as api from './api';
 import {
@@ -701,13 +700,13 @@ defineTest('async overrides: two overrides', async (sandbox) => {
   expect(callbacks1.callbacks.length).toBe(1);
 
   sandbox.complete({ cbid: callbacks1.callbacks[0].cbid, result: 666 });
-  await processPendingPromises(sandbox); // processing next promise
+  await processPendingPromises(); // processing next promise
 
   const callbacks2 = sandbox.callbacks();
   expect(callbacks2.callbacks.length).toBe(1);
 
   sandbox.complete({ cbid: callbacks2.callbacks[0].cbid, result: 101 });
-  await processPendingPromises(sandbox);
+  await processPendingPromises();
 
   const result = await sandbox.end({ promiseid: promise.promiseid });
   expect(result.result).toBe(775);
@@ -744,7 +743,7 @@ defineTest(
     // this is needed in order to cycle through another event loop so
     // that promises that are lazily called will be processed (nothing ensures
     // that the promise callback will be invokes synchronously).
-    await processPendingPromises(sandbox);
+    await processPendingPromises();
 
     const callbacks1 = sandbox.callbacks();
 
@@ -781,7 +780,7 @@ defineTest(
     sandbox.complete({ cbid: callbacks1.callbacks[0].cbid, result: 8888 });
 
     // required: process pending promises so that we will get the next one in the callbacks list
-    await processPendingPromises(sandbox);
+    await processPendingPromises();
 
     // ------ end of execution of "overrideMe"
 
@@ -802,11 +801,8 @@ defineTest(
   },
 );
 
-function processPendingPromises(sandbox: Kernel) {
-  return vm.runInContext(
-    'new Promise(done => setImmediate(done));',
-    (sandbox as any).sandbox,
-  );
+async function processPendingPromises() {
+  return new Promise<void>((done) => setImmediate(done));
 }
 
 defineTest('sync overrides', async (sandbox) => {
@@ -1347,7 +1343,7 @@ defineTest(
 defineTest('node.js standard library', async (sandbox) => {
   const objref = sandbox.create({ fqn: 'jsii-calc.NodeStandardLibrary' });
   const promise = sandbox.begin({ objref, method: 'fsReadFile' });
-  await processPendingPromises(sandbox);
+  await processPendingPromises();
 
   const output = await sandbox.end({ promiseid: promise.promiseid });
   expect(output).toEqual({ result: 'Hello, resource!' });
