@@ -147,7 +147,7 @@ export class DotNetTypeResolver {
     } else if (spec.isCollectionTypeReference(typeref)) {
       return this.toDotNetCollectionName(typeref);
     } else if (spec.isNamedTypeReference(typeref)) {
-      return `nameof(${this.toNativeFqn(typeref.fqn)})`;
+      return `typeof(${this.toNativeFqn(typeref.fqn)}).FullName`;
     } else if (typeref.union) {
       return '"object"';
     }
@@ -208,9 +208,9 @@ export class DotNetTypeResolver {
       case spec.PrimitiveType.Boolean:
         return '"bool"';
       case spec.PrimitiveType.Date:
-        return 'nameof(System.DateTime)';
+        return 'typeof(System.DateTime).FullName';
       case spec.PrimitiveType.Json:
-        return 'nameof(Newtonsoft.Json.Linq.JObject)';
+        return 'typeof(Newtonsoft.Json.Linq.JObject).FullName';
       case spec.PrimitiveType.Number:
         return '"double"';
       case spec.PrimitiveType.String:
@@ -251,7 +251,7 @@ export class DotNetTypeResolver {
         return `$"{${elementDotNetTypeName}}[]"`;
       case spec.CollectionKind.Map:
         const elementDotNetType = this.toDotNetType(ref.collection.elementtype);
-        return `nameof(System.Collections.Generic.IDictionary<string, ${elementDotNetType}>)`;
+        return `typeof(System.Collections.Generic.IDictionary<string, ${elementDotNetType}>).FullName`;
       default:
         throw new Error(
           `Unsupported collection kind: ${ref.collection.kind as any}`,

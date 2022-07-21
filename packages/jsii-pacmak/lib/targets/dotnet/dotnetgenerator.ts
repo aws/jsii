@@ -362,14 +362,26 @@ export class DotNetGenerator extends Generator {
       // Abstract classes have protected constructors.
       const visibility = cls.abstract ? 'protected' : 'public';
 
+      this.code.openBlock(
+        `${visibility} ${className}(${parametersDefinition}): base(_MakeDeputyProps(${parametersBase}))`,
+      );
+      this.code.closeBlock();
+      this.code.line();
+
+      // This private method is injected so we can validate arguments before deferring to the base constructor, where
+      // the instance will be created in the kernel (where it'd fail on a sub-optimal error instead)...
+      this.code.line(
+        '[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]',
+      );
+      this.code.openBlock(
+        `private static DeputyProps _MakeDeputyProps(${parametersDefinition})`,
+      );
+      this.emitUnionParameterValdation(initializer.parameters);
       const args =
         parametersBase.length > 0
           ? `new object?[]{${parametersBase}}`
           : `System.Array.Empty<object?>()`;
-      this.code.openBlock(
-        `${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(${args}))`,
-      );
-      this.emitUnionParameterValdation(initializer.parameters);
+      this.code.line(`return new DeputyProps(${args});`);
       this.code.closeBlock();
       this.code.line();
     }
@@ -625,7 +637,13 @@ export class DotNetGenerator extends Generator {
         this.code.openBlock(`if (${name} != null)`);
       }
 
-      validate.call(this, name, `argument {nameof(${name})}`, param.type);
+      validate.call(
+        this,
+        name,
+        noMangle ? name : `argument {nameof(${name})}`,
+        param.type,
+        noMangle ? name : `{nameof(${name})}`,
+      );
 
       if (param.optional) {
         this.code.closeBlock();
@@ -638,9 +656,10 @@ export class DotNetGenerator extends Generator {
       value: string,
       descr: string,
       type: spec.TypeReference,
+      parameterName: string,
     ) {
       if (spec.isUnionTypeReference(type)) {
-        validateTypeUnion.call(this, value, descr, type);
+        validateTypeUnion.call(this, value, descr, type, parameterName);
       } else {
         const collectionType = type as spec.CollectionTypeReference;
         if (collectionType.collection.kind === spec.CollectionKind.Array) {
@@ -649,6 +668,7 @@ export class DotNetGenerator extends Generator {
             value,
             descr,
             collectionType.collection.elementtype,
+            parameterName,
           );
         } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
           validateMap.call(
@@ -656,6 +676,7 @@ export class DotNetGenerator extends Generator {
             value,
             descr,
             collectionType.collection.elementtype,
+            parameterName,
           );
         } else {
           throw new Error(
@@ -670,6 +691,7 @@ export class DotNetGenerator extends Generator {
       value: string,
       descr: string,
       elementType: spec.TypeReference,
+      parameterName: string,
     ) {
       const varName = `__idx_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
       this.code.openBlock(
@@ -680,6 +702,7 @@ export class DotNetGenerator extends Generator {
         `${value}[${varName}]`,
         `${descr}[{${varName}}]`,
         elementType,
+        parameterName,
       );
       this.code.closeBlock();
     }
@@ -689,14 +712,16 @@ export class DotNetGenerator extends Generator {
       value: string,
       descr: string,
       elementType: spec.TypeReference,
+      parameterName: string,
     ) {
       const varName = `__item_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
       this.code.openBlock(`foreach (var ${varName} in ${value})`);
       validate.call(
         this,
         `${varName}.Value`,
-        `${descr}[{${varName}.Key}]`,
+        `${descr}[\\"{${varName}.Key}\\"]`,
         elementType,
+        parameterName,
       );
       this.code.closeBlock();
     }
@@ -706,24 +731,49 @@ export class DotNetGenerator extends Generator {
       value: string,
       descr: string,
       type: spec.UnionTypeReference,
+      parameterName: string,
     ) {
       this.code.indent('if (');
       let emitAnd = false;
       const typeRefs = type.union.types;
       for (const typeRef of typeRefs) {
         const prefix = emitAnd ? '&& ' : '';
-        this.code.line(
-          `${prefix}!(${value} is ${this.typeresolver.toDotNetType(typeRef)})`,
-        );
+        const dotNetType = this.typeresolver.toDotNetType(typeRef);
+        // In the case of double, we test for all standard numeric types of .NET (these implicitly convert).
+        const test =
+          dotNetType === 'double'
+            ? [
+                'byte',
+                'decimal',
+                'double',
+                'float',
+                'int',
+                'long',
+                'sbyte',
+                'short',
+                'uint',
+                'ulong',
+                'ushort',
+              ]
+                .map((numeric) => `${value} is ${numeric}`)
+                .join(' || ')
+            : `${value} is ${dotNetType}`;
+        this.code.line(`${prefix}!(${test})`);
         emitAnd = true;
       }
       this.code.unindent(')');
       this.code.openBlock('');
       const placeholders = typeRefs
-        .map((typeRef) => `{${this.typeresolver.toDotNetTypeName(typeRef)}}`)
+        .map((typeRef) => {
+          const typeName = this.typeresolver.toDotNetTypeName(typeRef);
+          if (typeName.startsWith('"') && typeName.endsWith('"')) {
+            return typeName.slice(1, -1);
+          }
+          return `{${typeName}}`;
+        })
         .join(', ');
       this.code.line(
-        `throw new System.ArgumentException($"Expected ${descr} to be one of: ${placeholders}; received {${value}.GetType().FullName}", nameof(${value}));`,
+        `throw new System.ArgumentException($"Expected ${descr} to be one of: ${placeholders}; received {${value}.GetType().FullName}", $"${parameterName}");`,
       );
       this.code.closeBlock();
     }
@@ -1071,7 +1121,8 @@ export class DotNetGenerator extends Generator {
     // We need to use a backing field so we can perform type checking if the property type is a union, and this is a struct.
     const backingFieldName =
       spec.isInterfaceType(cls) && datatype && containsUnionType(prop.type)
-        ? `_${propName}`
+        ? // We down-case the first letter, private fields are conventionally named with a _ prefix, and a camelCase name.
+          `_${propName.replace(/[A-Z]/, (c) => c.toLowerCase())}`
         : undefined;
     if (backingFieldName != null) {
       this.code.line(
@@ -1120,7 +1171,7 @@ export class DotNetGenerator extends Generator {
 
     // Emit getters
     if (backingFieldName != null) {
-      this.code.line(`get => this.${backingFieldName};`);
+      this.code.line(`get => ${backingFieldName};`);
     } else if (datatype || prop.const || prop.abstract) {
       this.code.line('get;');
     } else {
@@ -1150,7 +1201,7 @@ export class DotNetGenerator extends Generator {
         ],
         { noMangle: true },
       );
-      this.code.line(`this.${backingFieldName} = value;`);
+      this.code.line(`${backingFieldName} = value;`);
       this.code.closeBlock();
     } else if (datatype || (!prop.immutable && prop.abstract)) {
       this.code.line('set;');
@@ -1162,7 +1213,7 @@ export class DotNetGenerator extends Generator {
         if (containsUnionType(prop.type)) {
           this.code.openBlock('set');
           this.emitUnionParameterValdation(
-            [{ name: 'value', type: prop.type }],
+            [{ name: 'value', optional: prop.optional, type: prop.type }],
             { noMangle: true },
           );
           this.code.line(setCode);
