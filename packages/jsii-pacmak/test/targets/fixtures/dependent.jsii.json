@@ -1,0 +1,58 @@
+{
+  "author": {
+    "email": "aws-jsii@amazon.com",
+    "name": "Amazon Web Services, Inc.",
+    "organization": true,
+    "roles": [
+      "owner"
+    ]
+  },
+  "dependencies": {
+    "base": "1.2.3"
+  },
+  "description": "A dummy test package",
+  "fingerprint": "PHONY",
+  "homepage": "https://aws.github.io/jsii",
+  "jsiiVersion": "0.0.0-dev",
+  "license": "Apache-2.0",
+  "name": "dependent",
+  "repository": {
+    "directory": "packages/jsii-pacmak/test/targets/fixtures",
+    "type": "git",
+    "url": "https://github.com/aws/jsii"
+  },
+  "schema": "jsii/0.10.0",
+  "targets": {
+    "go": {
+      "moduleName": "github.com/aws/jsii/packages/jsii-pacmak/test/targets/fixtures"
+    }
+  },
+  "types": {
+    "Dependent": {
+      "assembly": "dependent",
+      "fqn": "dependent.Dependent",
+      "kind": "class",
+      "name": "dependent",
+      "methods": [
+        {
+          "name": "getBaseUnion",
+          "returns": {
+            "type": {
+              "union": {
+                "types": [
+                  {
+                    "fqn": "base.BaseA"
+                  },
+                  {
+                    "fqn": "base.BaseB"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "version": "4.5.6"
+}
