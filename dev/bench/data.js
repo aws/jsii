@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658340447121,
+  "lastUpdate": 1658393529015,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3261,6 +3261,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 138434.4774566489,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50491.34110429998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "68a80d98f1faa5772862c18b6907ca2298dccc76",
+          "message": "fix(go): unused imports emitted for type unions (#3664)\n\nWhen imported types are solely referenced by type unions, a go import\r\nis emitted, but is never used (type unions end up represented as opaque\r\n`interface{}` type). This causes compilation failures.\r\n\r\nAdded a test case for this scenario in particular, and adjusted go code\r\ngeneration to not emit dependency imports for type unions.\r\n\r\nThese imports may be re-introduced soon, as we are working to add\r\ndynamic type checking around type unions in go (at which point those\r\nimports would no longer be unused).\r\n\r\nFixes #3399",
+          "timestamp": "2022-07-21T09:54:39+02:00",
+          "tree_id": "2d9427488f2568ad01d7f7f04d1fffe95b419180",
+          "url": "https://github.com/aws/jsii/commit/68a80d98f1faa5772862c18b6907ca2298dccc76"
+        },
+        "date": 1658393523898,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 76886.2485582,
+            "unit": "milliseconds",
+            "range": 3573496.0309714032,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 76886.2485582 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 54207.09757815001,
+            "unit": "milliseconds",
+            "range": 1072750.6867823033,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54207.09757815001 milliseconds over 20 runs"
           }
         ]
       }
