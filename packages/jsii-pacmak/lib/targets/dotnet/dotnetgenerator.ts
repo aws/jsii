@@ -1156,11 +1156,15 @@ export class DotNetGenerator extends Generator {
       this.code.line('set;');
     } else {
       if (!prop.immutable) {
-        const setCode =
-          prop.static ? `SetStaticProperty(typeof(${className}), value);` : 'SetInstanceProperty(value);';
+        const setCode = prop.static
+          ? `SetStaticProperty(typeof(${className}), value);`
+          : 'SetInstanceProperty(value);';
         if (containsUnionType(prop.type)) {
           this.code.openBlock('set');
-          this.emitUnionParameterValdation([{ name: 'value', type: prop.type }], { noMangle: true });
+          this.emitUnionParameterValdation(
+            [{ name: 'value', type: prop.type }],
+            { noMangle: true },
+          );
           this.code.line(setCode);
           this.code.closeBlock();
         } else {
