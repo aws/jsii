@@ -108,7 +108,7 @@ test('can log to output file', async () => {
   expect(stats.size).toBeGreaterThan(0);
 });
 
-test('default tablets can be compressed', async () => {
+test('can infuse with compressed default tablets', async () => {
   // remove any tablets that may currently exist
   const implicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME);
   const compImplicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED);
@@ -134,7 +134,7 @@ test('default tablets can be compressed', async () => {
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
 
-test('cacheToFile can be compressed', async () => {
+test('can compress cacheToFile', async () => {
   const compressedTabletFile = path.join(assembly.moduleDirectory, 'tabl.json.gz');
 
   await infuse([assembly.moduleDirectory], {
