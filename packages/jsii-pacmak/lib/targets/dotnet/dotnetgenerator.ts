@@ -369,6 +369,7 @@ export class DotNetGenerator extends Generator {
       this.code.openBlock(
         `${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(${args}))`,
       );
+      this.emitUnionParameterValdation(initializer.parameters);
       this.code.closeBlock();
       this.code.line();
     }
@@ -587,11 +588,142 @@ export class DotNetGenerator extends Generator {
       this.code.openBlock(
         `${access} ${staticKeyWord}${overrideKeyWord}${virtualKeyWord}${signature}`,
       );
+      this.emitUnionParameterValdation(method.parameters);
       this.code.line(
         this.dotnetRuntimeGenerator.createInvokeMethodIdentifier(
           method,
           cls as spec.ClassType,
         ),
+      );
+      this.code.closeBlock();
+    }
+  }
+
+  /**
+   * Emints type checks for values passed for type union parameters.
+   *
+   * @param parameters the list of parameters received by the function.
+   * @param noMangle   use parameter names as-is (useful for setters, for example) instead of mangling them.
+   */
+  private emitUnionParameterValdation(
+    parameters?: readonly spec.Parameter[],
+    { noMangle = false }: { noMangle?: boolean } = {},
+  ): void {
+    const unionParameters = parameters?.filter(({ type }) =>
+      containsUnionType(type),
+    );
+    if (unionParameters == null || unionParameters.length === 0) {
+      return;
+    }
+    this.code.indent('#if DEBUG');
+    for (const param of unionParameters) {
+      const name = noMangle
+        ? param.name
+        : this.nameutils.convertParameterName(param.name);
+
+      if (param.optional) {
+        this.code.openBlock(`if (${name} != null)`);
+      }
+
+      validate.call(this, name, `argument {nameof(${name})}`, param.type);
+
+      if (param.optional) {
+        this.code.closeBlock();
+      }
+    }
+    this.code.unindent('#endif');
+
+    function validate(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      type: spec.TypeReference,
+    ) {
+      if (spec.isUnionTypeReference(type)) {
+        validateTypeUnion.call(this, value, descr, type);
+      } else {
+        const collectionType = type as spec.CollectionTypeReference;
+        if (collectionType.collection.kind === spec.CollectionKind.Array) {
+          validateArray.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+          );
+        } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
+          validateMap.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+          );
+        } else {
+          throw new Error(
+            `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
+          );
+        }
+      }
+    }
+
+    function validateArray(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+    ) {
+      const varName = `__idx_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      this.code.openBlock(
+        `for (int ${varName} = 0 ; ${varName} < ${value}.Length ; ${varName}++)`,
+      );
+      validate.call(
+        this,
+        `${value}[${varName}]`,
+        `${descr}[{${varName}}]`,
+        elementType,
+      );
+      this.code.closeBlock();
+    }
+
+    function validateMap(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+    ) {
+      const varName = `__item_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      this.code.openBlock(`foreach (var ${varName} in ${value})`);
+      validate.call(
+        this,
+        `${varName}.Value`,
+        `${descr}[{${varName}.Key}]`,
+        elementType,
+      );
+      this.code.closeBlock();
+    }
+
+    function validateTypeUnion(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      type: spec.UnionTypeReference,
+    ) {
+      this.code.indent('if (');
+      let emitAnd = false;
+      const typeRefs = type.union.types;
+      for (const typeRef of typeRefs) {
+        const prefix = emitAnd ? '&& ' : '';
+        this.code.line(
+          `${prefix}!(${value} is ${this.typeresolver.toDotNetType(typeRef)})`,
+        );
+        emitAnd = true;
+      }
+      this.code.unindent(')');
+      this.code.openBlock('');
+      const placeholders = typeRefs
+        .map((typeRef) => `{${this.typeresolver.toDotNetTypeName(typeRef)}}`)
+        .join(', ');
+      this.code.line(
+        `throw new System.ArgumentException($"Expected ${descr} to be one of: ${placeholders}; received {${value}.GetType().FullName}", nameof(${value}));`,
       );
       this.code.closeBlock();
     }
@@ -933,6 +1065,20 @@ export class DotNetGenerator extends Generator {
     const access = this.renderAccessLevel(prop);
     const staticKeyWord = prop.static ? 'static ' : '';
     const propName = this.nameutils.convertPropertyName(prop.name);
+    const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
+    const isOptional = prop.optional ? '?' : '';
+
+    // We need to use a backing field so we can perform type checking if the property type is a union, and this is a struct.
+    const backingFieldName =
+      spec.isInterfaceType(cls) && datatype && containsUnionType(prop.type)
+        ? `_${propName}`
+        : undefined;
+    if (backingFieldName != null) {
+      this.code.line(
+        `private ${propTypeFQN}${isOptional} ${backingFieldName};`,
+      );
+      this.code.line();
+    }
 
     this.dotnetDocGenerator.emitDocs(prop, {
       api: 'member',
@@ -969,13 +1115,13 @@ export class DotNetGenerator extends Generator {
       }
     }
 
-    const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
-    const isOptional = prop.optional ? '?' : '';
     const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${staticKeyWord}${isOverrideKeyWord}${propTypeFQN}${isOptional} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters
-    if (datatype || prop.const || prop.abstract) {
+    if (backingFieldName != null) {
+      this.code.line(`get => this.${backingFieldName};`);
+    } else if (datatype || prop.const || prop.abstract) {
       this.code.line('get;');
     } else {
       // If the property is non-optional, add a bang to silence compiler warning
@@ -992,16 +1138,33 @@ export class DotNetGenerator extends Generator {
     }
 
     // Emit setters
-    if (datatype || (!prop.immutable && prop.abstract)) {
+    if (backingFieldName) {
+      this.code.openBlock('set');
+      this.emitUnionParameterValdation(
+        [
+          {
+            name: 'value',
+            type: prop.type,
+            optional: prop.optional,
+          },
+        ],
+        { noMangle: true },
+      );
+      this.code.line(`this.${backingFieldName} = value;`);
+      this.code.closeBlock();
+    } else if (datatype || (!prop.immutable && prop.abstract)) {
       this.code.line('set;');
     } else {
       if (!prop.immutable) {
-        if (prop.static) {
-          this.code.line(
-            `set => SetStaticProperty(typeof(${className}), value);`,
-          );
+        const setCode =
+          prop.static ? `SetStaticProperty(typeof(${className}), value);` : 'SetInstanceProperty(value);';
+        if (containsUnionType(prop.type)) {
+          this.code.openBlock('set');
+          this.emitUnionParameterValdation([{ name: 'value', type: prop.type }], { noMangle: true });
+          this.code.line(setCode);
+          this.code.closeBlock();
         } else {
-          this.code.line('set => SetInstanceProperty(value);');
+          this.code.line(`set => ${setCode}`);
         }
       }
     }
@@ -1190,4 +1353,14 @@ export class DotNetGenerator extends Generator {
       '[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]',
     );
   }
+}
+
+function containsUnionType(
+  typeRef: spec.TypeReference,
+): typeRef is spec.UnionTypeReference | spec.CollectionTypeReference {
+  return (
+    spec.isUnionTypeReference(typeRef) ||
+    (spec.isCollectionTypeReference(typeRef) &&
+      containsUnionType(typeRef.collection.elementtype))
+  );
 }

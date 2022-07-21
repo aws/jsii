@@ -3050,3 +3050,11 @@ export class TwoMethodsWithSimilarCapitalization {
    */
   public readonly fooBAR = 111;
 }
+
+export class ClassWithCollectionOfUnions {
+  public constructor(public unionProperty: Array<Record<string, StructA | StructB>>) {}
+}
+
+export interface StructWithCollectionOfUnionts {
+  readonly unionProperty: Array<Record<string, StructA | StructB>>;
+}

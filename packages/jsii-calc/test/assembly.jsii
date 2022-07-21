@@ -2439,6 +2439,80 @@
       ],
       "symbolId": "lib/compliance:ClassThatImplementsThePrivateInterface"
     },
+    "jsii-calc.ClassWithCollectionOfUnions": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ClassWithCollectionOfUnions",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3055
+        },
+        "parameters": [
+          {
+            "name": "unionProperty",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "union": {
+                    "types": [
+                      {
+                        "fqn": "jsii-calc.StructA"
+                      },
+                      {
+                        "fqn": "jsii-calc.StructB"
+                      }
+                    ]
+                  }
+                },
+                "kind": "array"
+              }
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3054
+      },
+      "name": "ClassWithCollectionOfUnions",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3055
+          },
+          "name": "unionProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "union": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.StructA"
+                    },
+                    {
+                      "fqn": "jsii-calc.StructB"
+                    }
+                  ]
+                }
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:ClassWithCollectionOfUnions"
+    },
     "jsii-calc.ClassWithCollections": {
       "assembly": "jsii-calc",
       "docs": {
@@ -13541,6 +13615,52 @@
       "name": "StructUnionConsumer",
       "symbolId": "lib/compliance:StructUnionConsumer"
     },
+    "jsii-calc.StructWithCollectionOfUnionts": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.StructWithCollectionOfUnionts",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3058
+      },
+      "name": "StructWithCollectionOfUnionts",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3059
+          },
+          "name": "unionProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "union": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.StructA"
+                    },
+                    {
+                      "fqn": "jsii-calc.StructB"
+                    }
+                  ]
+                }
+              },
+              "kind": "map"
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:StructWithCollectionOfUnionts"
+    },
     "jsii-calc.StructWithEnum": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -17525,5 +17645,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "V1EIg5zjHYsZARPmK+3FUV/k1Jp/oN+y3WOnwLEkNJ8="
+  "fingerprint": "K7nlZQyGHW7g9dE/EDelHJ6sEz57pWHsqybDoDKM3uM="
 }

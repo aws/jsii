@@ -138,6 +138,22 @@ export class DotNetTypeResolver {
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
   }
 
+  /**
+   * Translates any jsii type to the name of its corresponding .NET type (as a .NET string).
+   */
+  public toDotNetTypeName(typeref: spec.TypeReference): string {
+    if (spec.isPrimitiveTypeReference(typeref)) {
+      return this.toDotNetPrimitiveName(typeref.primitive);
+    } else if (spec.isCollectionTypeReference(typeref)) {
+      return this.toDotNetCollectionName(typeref);
+    } else if (spec.isNamedTypeReference(typeref)) {
+      return `nameof(${this.toNativeFqn(typeref.fqn)})`;
+    } else if (typeref.union) {
+      return '"object"';
+    }
+    throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
+  }
+
   public resolveNamespace(
     assm: spec.AssemblyConfiguration,
     assmName: string,
@@ -185,6 +201,28 @@ export class DotNetTypeResolver {
   }
 
   /**
+   * Translates a primitive in jsii to the name of a native .NET primitive
+   */
+  private toDotNetPrimitiveName(primitive: spec.PrimitiveType): string {
+    switch (primitive) {
+      case spec.PrimitiveType.Boolean:
+        return '"bool"';
+      case spec.PrimitiveType.Date:
+        return 'nameof(System.DateTime)';
+      case spec.PrimitiveType.Json:
+        return 'nameof(Newtonsoft.Json.Linq.JObject)';
+      case spec.PrimitiveType.Number:
+        return '"double"';
+      case spec.PrimitiveType.String:
+        return '"string"';
+      case spec.PrimitiveType.Any:
+        return '"object"';
+      default:
+        throw new Error(`Unknown primitive type: ${primitive as any}`);
+    }
+  }
+
+  /**
    * Translates a collection in jsii to a native .NET collection
    */
   private toDotNetCollection(ref: spec.CollectionTypeReference): string {
@@ -194,6 +232,26 @@ export class DotNetTypeResolver {
         return `${elementDotNetType}[]`;
       case spec.CollectionKind.Map:
         return `System.Collections.Generic.IDictionary<string, ${elementDotNetType}>`;
+      default:
+        throw new Error(
+          `Unsupported collection kind: ${ref.collection.kind as any}`,
+        );
+    }
+  }
+
+  /**
+   * Translates a collection in jsii to the name of a native .NET collection
+   */
+  private toDotNetCollectionName(ref: spec.CollectionTypeReference): string {
+    switch (ref.collection.kind) {
+      case spec.CollectionKind.Array:
+        const elementDotNetTypeName = this.toDotNetTypeName(
+          ref.collection.elementtype,
+        );
+        return `$"{${elementDotNetTypeName}}[]"`;
+      case spec.CollectionKind.Map:
+        const elementDotNetType = this.toDotNetType(ref.collection.elementtype);
+        return `nameof(System.Collections.Generic.IDictionary<string, ${elementDotNetType}>)`;
       default:
         throw new Error(
           `Unsupported collection kind: ${ref.collection.kind as any}`,
