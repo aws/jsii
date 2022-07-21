@@ -1,6 +1,12 @@
 import * as path from 'path';
 
-import { TranslatedSnippet, typeScriptSnippetFromVisibleSource, LanguageTablet, DEFAULT_TABLET_NAME } from '../../lib';
+import {
+  TranslatedSnippet,
+  typeScriptSnippetFromVisibleSource,
+  LanguageTablet,
+  DEFAULT_TABLET_NAME,
+  DEFAULT_TABLET_NAME_COMPRESSED,
+} from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';
 import { trimCache } from '../../lib/commands/trim-cache';
 import { TestJsiiModule, DUMMY_JSII_CONFIG, testSnippetLocation } from '../testutil';
@@ -75,6 +81,26 @@ test('trim-cache leaves used snippets', async () => {
   // THEN
   const updated = await LanguageTablet.fromFile(defaultTablet);
   expect(updated.count).toEqual(1);
+});
+
+test('trim-cache preserves tablet compression', async () => {
+  const compDefaultTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED);
+
+  // GIVEN
+  const tbl = new LanguageTablet();
+  tbl.addSnippets(bogusTranslatedSnippet());
+  // explicitly compress the tablet file
+  await tbl.save(compDefaultTablet, true);
+
+  // WHEN
+  await trimCache({
+    assemblyLocations: [assembly.moduleDirectory],
+    cacheFile: compDefaultTablet,
+  });
+
+  // THEN
+  const updated = await LanguageTablet.fromFile(compDefaultTablet);
+  expect(updated.compressedSource).toBeTruthy();
 });
 
 function bogusTranslatedSnippet() {
