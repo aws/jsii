@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658393529015,
+  "lastUpdate": 1658422414171,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3299,6 +3299,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1072750.6867823033,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54207.09757815001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6c4b77301341add25df059c66fabde225377a48a",
+          "message": "feat(python): add dynamic type checking (#3660)\n\nUse `typeguard` to perform runtime type checking of arguments passed\ninto methods (static or instance), setters, and constructors. This\nensures a pythonic error message is produced (and raised as a\n`TypeError`), to help developers identify bugs in their code and fix\nthem.\n\nThese checks are disabled when running Python in optimized mode (via\n`python3 -O`, which sets `__debug__` to false).\n\nFixes #3639 \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-21T15:47:39Z",
+          "tree_id": "91fc5ccb6c6801ae90c53a7b0f80275278d54146",
+          "url": "https://github.com/aws/jsii/commit/6c4b77301341add25df059c66fabde225377a48a"
+        },
+        "date": 1658422411581,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 83225.31302034996,
+            "unit": "milliseconds",
+            "range": 3592902.5808503316,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 83225.31302034996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 58885.36864099997,
+            "unit": "milliseconds",
+            "range": 4779621.824235408,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 58885.36864099997 milliseconds over 20 runs"
           }
         ]
       }
