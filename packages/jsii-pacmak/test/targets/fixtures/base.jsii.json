@@ -1,0 +1,42 @@
+{
+  "author": {
+    "email": "aws-jsii@amazon.com",
+    "name": "Amazon Web Services, Inc.",
+    "organization": true,
+    "roles": [
+      "owner"
+    ]
+  },
+  "description": "A dummy test package",
+  "fingerprint": "PHONY",
+  "homepage": "https://aws.github.io/jsii",
+  "jsiiVersion": "0.0.0-dev",
+  "license": "Apache-2.0",
+  "name": "base",
+  "repository": {
+    "directory": "packages/jsii-pacmak/test/targets/fixtures",
+    "type": "git",
+    "url": "https://github.com/aws/jsii"
+  },
+  "schema": "jsii/0.10.0",
+  "targets": {
+    "go": {
+      "moduleName": "github.com/aws/jsii/packages/jsii-pacmak/test/targets/fixtures"
+    }
+  },
+  "types": {
+    "BaseA": {
+      "assembly": "base",
+      "fqn": "base.BaseA",
+      "kind": "interface",
+      "name": "BaseA"
+    },
+    "BaseB": {
+      "assembly": "base",
+      "fqn": "base.BaseB",
+      "kind": "interface",
+      "name": "BaseB"
+    }
+  },
+  "version": "1.2.3"
+}
