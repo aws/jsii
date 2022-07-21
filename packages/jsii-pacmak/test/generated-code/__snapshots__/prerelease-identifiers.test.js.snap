@@ -456,7 +456,8 @@ kwargs = json.loads(
     "install_requires": [
         "bar>=2.0.0.rc42, <3.0.0",
         "jsii>=1337.42.1337, <1338.0.0",
-        "publication>=0.0.3"
+        "publication>=0.0.3",
+        "typeguard~=2.13.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -492,6 +493,8 @@ import typing
 import jsii
 import publication
 import typing_extensions
+
+from typeguard import check_type
 
 import bar._jsii
 
@@ -965,7 +968,8 @@ kwargs = json.loads(
     "install_requires": [
         "bar>=4.5.6.dev1337, <5.0.0",
         "jsii>=1337.42.1337, <1338.0.0",
-        "publication>=0.0.3"
+        "publication>=0.0.3",
+        "typeguard~=2.13.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -1001,6 +1005,8 @@ import typing
 import jsii
 import publication
 import typing_extensions
+
+from typeguard import check_type
 
 import bar._jsii
 
@@ -1453,7 +1459,8 @@ kwargs = json.loads(
     "python_requires": "~=3.7",
     "install_requires": [
         "jsii>=1337.42.1337, <1338.0.0",
-        "publication>=0.0.3"
+        "publication>=0.0.3",
+        "typeguard~=2.13.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -1489,6 +1496,8 @@ import typing
 import jsii
 import publication
 import typing_extensions
+
+from typeguard import check_type
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "foo", "2.0.0-rc.42", __name__[0:-6], "foo@2.0.0-rc.42.jsii.tgz"
@@ -1939,7 +1948,8 @@ kwargs = json.loads(
     "python_requires": "~=3.7",
     "install_requires": [
         "jsii>=1337.42.1337, <1338.0.0",
-        "publication>=0.0.3"
+        "publication>=0.0.3",
+        "typeguard~=2.13.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -1975,6 +1985,8 @@ import typing
 import jsii
 import publication
 import typing_extensions
+
+from typeguard import check_type
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "foo", "4.5.6-pre.1337", __name__[0:-6], "foo@4.5.6-pre.1337.jsii.tgz"

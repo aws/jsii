@@ -466,6 +466,7 @@ abstract class BaseMethod implements PythonBase {
     private readonly returns: spec.OptionalValue | undefined,
     public readonly docs: spec.Docs | undefined,
     public readonly isStatic: boolean,
+    private readonly pythonParent: PythonType,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
@@ -666,6 +667,16 @@ abstract class BaseMethod implements PythonBase {
       arguments: documentableArgs,
       documentableItem: `method-${this.pythonName}`,
     });
+    if (
+      (this.shouldEmitBody || forceEmitBody) &&
+      (!renderAbstract || !this.abstract)
+    ) {
+      emitParameterTypeChecks(
+        code,
+        pythonParams.slice(1),
+        `${this.pythonParent.pythonName}.${this.pythonName}`,
+      );
+    }
     this.emitBody(
       code,
       context,
@@ -856,6 +867,7 @@ abstract class BaseProperty implements PythonBase {
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
     public readonly docs: spec.Docs | undefined,
+    private readonly pythonParent: PythonType,
     opts: BasePropertyOpts,
   ) {
     const { abstract = false, immutable = false, isStatic = false } = opts;
@@ -899,6 +911,7 @@ abstract class BaseProperty implements PythonBase {
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
     });
+    // NOTE: No parameters to validate here, this is a getter...
     if (
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
@@ -933,6 +946,16 @@ abstract class BaseProperty implements PythonBase {
         (this.shouldEmitBody || forceEmitBody) &&
         (!renderAbstract || !this.abstract)
       ) {
+        emitParameterTypeChecks(
+          code,
+          [`value: ${pythonType}`],
+          // In order to get a property accessor, we must resort to getting the
+          // attribute on the type, instead of the value (where the getter would
+          // be implicitly invoked for us...)
+          `getattr(${this.pythonParent.pythonName}, ${JSON.stringify(
+            this.pythonName,
+          )}).fset`,
+        );
         code.line(
           `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
         );
@@ -1107,7 +1130,7 @@ class Struct extends BasePythonClassType {
     openSignature(code, 'def', '__init__', constructorArguments, false, 'None');
     this.emitConstructorDocstring(code);
 
-    // Re-type struct arguments that were passed as "dict"
+    // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
       const typeName = toTypeName(member.type.type).pythonType({
@@ -1118,6 +1141,7 @@ class Struct extends BasePythonClassType {
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
     }
+    emitParameterTypeChecks(code, kwargs, `${this.pythonName}.__init__`);
 
     // Required properties, those will always be put into the dict
     assignDictionary(
@@ -1165,6 +1189,7 @@ class Struct extends BasePythonClassType {
     code.line('@builtins.property');
     openSignature(code, 'def', member.pythonName, ['self'], true, pythonType);
     member.emitDocString(code);
+    // NOTE: No parameter to validate here, this is a getter.
     code.line(
       `result = self._values.get(${JSON.stringify(member.pythonName)})`,
     );
@@ -1622,6 +1647,8 @@ class PythonModule implements PythonType {
     code.line('import jsii');
     code.line('import publication');
     code.line('import typing_extensions');
+    code.line();
+    code.line('from typeguard import check_type');
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
@@ -2018,6 +2045,7 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
+        'typeguard~=2.13.3',
       ]
         .concat(dependencies)
         .sort(),
@@ -2576,6 +2604,7 @@ class PythonGenerator extends Generator {
           undefined,
           cls.initializer.docs,
           false, // Never static
+          klass,
           { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
         ),
       );
@@ -2587,7 +2616,9 @@ class PythonGenerator extends Generator {
   protected onStaticMethod(cls: spec.ClassType, method: spec.Method) {
     const { parameters = [] } = method;
 
-    this.getPythonType(cls.fqn).addMember(
+    const klass = this.getPythonType(cls.fqn);
+
+    klass.addMember(
       new StaticMethod(
         this,
         toPythonMethodName(method.name),
@@ -2596,6 +2627,7 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         true, // Always static
+        klass,
         {
           abstract: method.abstract,
           liftedProp: this.getliftedProp(method),
@@ -2606,13 +2638,15 @@ class PythonGenerator extends Generator {
   }
 
   protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
-    this.getPythonType(cls.fqn).addMember(
+    const klass = this.getPythonType(cls.fqn);
+    klass.addMember(
       new StaticProperty(
         this,
         toPythonPropertyName(prop.name, prop.const),
         prop.name,
         prop,
         prop.docs,
+        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2626,8 +2660,10 @@ class PythonGenerator extends Generator {
   protected onMethod(cls: spec.ClassType, method: spec.Method) {
     const { parameters = [] } = method;
 
+    const klass = this.getPythonType(cls.fqn);
+
     if (method.async) {
-      this.getPythonType(cls.fqn).addMember(
+      klass.addMember(
         new AsyncMethod(
           this,
           toPythonMethodName(method.name, method.protected),
@@ -2636,6 +2672,7 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
+          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2644,7 +2681,7 @@ class PythonGenerator extends Generator {
         ),
       );
     } else {
-      this.getPythonType(cls.fqn).addMember(
+      klass.addMember(
         new Method(
           this,
           toPythonMethodName(method.name, method.protected),
@@ -2653,6 +2690,7 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
+          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2664,13 +2702,15 @@ class PythonGenerator extends Generator {
   }
 
   protected onProperty(cls: spec.ClassType, prop: spec.Property) {
-    this.getPythonType(cls.fqn).addMember(
+    const klass = this.getPythonType(cls.fqn);
+    klass.addMember(
       new Property(
         this,
         toPythonPropertyName(prop.name, prop.const, prop.protected),
         prop.name,
         prop,
         prop.docs,
+        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2721,8 +2761,9 @@ class PythonGenerator extends Generator {
 
   protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
     const { parameters = [] } = method;
+    const klass = this.getPythonType(ifc.fqn);
 
-    this.getPythonType(ifc.fqn).addMember(
+    klass.addMember(
       new InterfaceMethod(
         this,
         toPythonMethodName(method.name, method.protected),
@@ -2731,6 +2772,7 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         !!method.static,
+        klass,
         { liftedProp: this.getliftedProp(method), parent: ifc },
       ),
     );
@@ -2738,6 +2780,8 @@ class PythonGenerator extends Generator {
 
   protected onInterfaceProperty(ifc: spec.InterfaceType, prop: spec.Property) {
     let ifaceProperty: InterfaceProperty | StructField;
+
+    const klass = this.getPythonType(ifc.fqn);
 
     if (ifc.datatype) {
       ifaceProperty = new StructField(this, prop, ifc);
@@ -2748,11 +2792,12 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
+        klass,
         { immutable: prop.immutable, isStatic: prop.static, parent: ifc },
       );
     }
 
-    this.getPythonType(ifc.fqn).addMember(ifaceProperty);
+    klass.addMember(ifaceProperty);
   }
 
   protected onBeginEnum(enm: spec.EnumType) {
@@ -3004,6 +3049,65 @@ function openSignature(
   }
   code.unindent(false);
   code.openBlock(`)${suffix}`);
+}
+
+/**
+ * Emits runtime type checking code for parameters.
+ *
+ * @param code        the CodeMaker to use for emitting code.
+ * @param params      the parameter signatures to be type-checked.
+ * @param typedEntity the type-annotated entity.
+ */
+function emitParameterTypeChecks(
+  code: CodeMaker,
+  params: readonly string[],
+  typedEntity: string,
+): void {
+  const paramInfo = params.map((param) => {
+    const [name] = param.split(/\s*[:=]\s*/, 1);
+    if (name === '*') {
+      return { kwargsMark: true };
+    } else if (name.startsWith('*')) {
+      return { name: name.slice(1), is_rest: true };
+    }
+    return { name };
+  });
+
+  const typesVar = slugifyAsNeeded(
+    'type_hints',
+    paramInfo
+      .filter((param) => param.name != null)
+      .map((param) => param.name!.split(/\s*:\s*/)[0]),
+  );
+
+  let openedBlock = false;
+  for (const { is_rest, kwargsMark, name } of paramInfo) {
+    if (kwargsMark) {
+      // This is the keyword-args separator, we won't check keyword arguments here because the kwargs will be rolled
+      // up into a struct instance, and that struct's constructor will be checking again...
+      break;
+    }
+
+    if (!openedBlock) {
+      code.openBlock('if __debug__');
+      code.line(`${typesVar} = typing.get_type_hints(${typedEntity})`);
+      openedBlock = true;
+    }
+
+    let expectedType = `${typesVar}[${JSON.stringify(name)}]`;
+    if (is_rest) {
+      // This is a vararg, so the value will appear as a tuple.
+      expectedType = `typing.Tuple[${expectedType}, ...]`;
+    }
+    code.line(
+      `check_type(argname=${JSON.stringify(
+        `argument ${name}`,
+      )}, value=${name}, expected_type=${expectedType})`,
+    );
+  }
+  if (openedBlock) {
+    code.closeBlock();
+  }
 }
 
 function assignCallResult(
