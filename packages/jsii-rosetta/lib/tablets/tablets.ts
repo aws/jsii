@@ -175,8 +175,8 @@ export class LanguageTablet {
   }
 
   /**
-   * Saves the tablet schema to a file. The file will be gzipped if the
-   * compress option is passed.
+   * Saves the tablet schema to a file. If the compress option is passed, then
+   * the schema will be gzipped before writing to the file.
    */
   public async save(filename: string, compress = false) {
     await fs.mkdirp(path.dirname(filename));
