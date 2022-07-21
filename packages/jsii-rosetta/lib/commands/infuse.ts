@@ -12,7 +12,12 @@ import {
 import { renderMetadataline, TypeScriptSnippet } from '../snippet';
 import { SnippetSelector, mean, meanLength, shortest, longest } from '../snippet-selectors';
 import { snippetKey } from '../tablets/key';
-import { LanguageTablet, TranslatedSnippet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
+import {
+  LanguageTablet,
+  TranslatedSnippet,
+  DEFAULT_TABLET_NAME,
+  DEFAULT_TABLET_NAME_COMPRESSED,
+} from '../tablets/tablets';
 import { isDefined, mkDict, indexBy } from '../util';
 
 export interface InfuseResult {
@@ -36,6 +41,11 @@ export interface InfuseOptions {
    * In addition to the implicit tablets, also write all added examples to this additional output tablet
    */
   readonly cacheToFile?: string;
+
+  /**
+   * Compress the cacheToFile
+   */
+  readonly compressCacheToFile?: boolean;
 }
 
 export const DEFAULT_INFUSION_RESULTS_NAME = 'infusion-results.html';
@@ -87,6 +97,10 @@ export async function infuse(assemblyLocations: string[], options?: InfuseOption
         stream?.write(`<h1>${assembly.name}</h1>\n`);
 
         const implicitTablet = defaultTablets[directory];
+        const implicitTabletFile = path.join(
+          directory,
+          implicitTablet.compressedSource ? DEFAULT_TABLET_NAME_COMPRESSED : DEFAULT_TABLET_NAME,
+        );
         if (!implicitTablet) {
           throw new Error(`No tablet found for ${directory}`);
         }
@@ -108,10 +122,7 @@ export async function infuse(assemblyLocations: string[], options?: InfuseOption
         if (insertedExamples > 0) {
           // Save the updated assembly and implicit tablets
           // eslint-disable-next-line no-await-in-loop
-          await Promise.all([
-            replaceAssembly(assembly, directory),
-            implicitTablet.save(path.join(directory, DEFAULT_TABLET_NAME)),
-          ]);
+          await Promise.all([replaceAssembly(assembly, directory), implicitTablet.save(implicitTabletFile)]);
         }
 
         return [
@@ -130,7 +141,7 @@ export async function infuse(assemblyLocations: string[], options?: InfuseOption
   // If we copied examples onto different types, we'll also have inserted new snippets
   // with different keys into the tablet. We must now write the updated tablet somewhere.
   if (options?.cacheToFile) {
-    await additionalOutputTablet.save(options.cacheToFile);
+    await additionalOutputTablet.save(options.cacheToFile, options.compressCacheToFile);
   }
 
   return {
