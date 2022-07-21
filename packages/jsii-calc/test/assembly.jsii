@@ -2459,15 +2459,20 @@
             "type": {
               "collection": {
                 "elementtype": {
-                  "union": {
-                    "types": [
-                      {
-                        "fqn": "jsii-calc.StructA"
-                      },
-                      {
-                        "fqn": "jsii-calc.StructB"
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "jsii-calc.StructA"
+                          },
+                          {
+                            "fqn": "jsii-calc.StructB"
+                          }
+                        ]
                       }
-                    ]
+                    },
+                    "kind": "map"
                   }
                 },
                 "kind": "array"
@@ -2489,21 +2494,26 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3055
+            "line": 3056
           },
           "name": "unionProperty",
           "type": {
             "collection": {
               "elementtype": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "jsii-calc.StructA"
-                    },
-                    {
-                      "fqn": "jsii-calc.StructB"
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "fqn": "jsii-calc.StructA"
+                        },
+                        {
+                          "fqn": "jsii-calc.StructB"
+                        }
+                      ]
                     }
-                  ]
+                  },
+                  "kind": "map"
                 }
               },
               "kind": "array"
@@ -13625,7 +13635,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3058
+        "line": 3060
       },
       "name": "StructWithCollectionOfUnionts",
       "properties": [
@@ -13637,24 +13647,29 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3059
+            "line": 3061
           },
           "name": "unionProperty",
           "type": {
             "collection": {
               "elementtype": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "jsii-calc.StructA"
-                    },
-                    {
-                      "fqn": "jsii-calc.StructB"
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "fqn": "jsii-calc.StructA"
+                        },
+                        {
+                          "fqn": "jsii-calc.StructB"
+                        }
+                      ]
                     }
-                  ]
+                  },
+                  "kind": "map"
                 }
               },
-              "kind": "map"
+              "kind": "array"
             }
           }
         }
@@ -17645,5 +17660,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "K7nlZQyGHW7g9dE/EDelHJ6sEz57pWHsqybDoDKM3uM="
+  "fingerprint": "G3ouiXZabFAje2QAy0Ea21wWV5lxW5E062PxFW16Whk="
 }
