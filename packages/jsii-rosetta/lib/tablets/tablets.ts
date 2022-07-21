@@ -54,6 +54,10 @@ export class LanguageTablet {
     return ret;
   }
 
+  /**
+   * Whether or not the LanguageTablet was loaded with a compressed source.
+   * This gets used to determine if it should be compressed when saved.
+   */
   public compressedSource = false;
 
   private readonly snippets: Record<string, TranslatedSnippet> = {};
@@ -171,16 +175,14 @@ export class LanguageTablet {
   }
 
   /**
-   * Saves the tablet schema to a file. The file will be gzipped if one of the following happens:
-   *
-   * - the compress option is explicitly passed
-   * - the LanguageTablet was originally loaded from a compressed file
+   * Saves the tablet schema to a file. The file will be gzipped if the
+   * compress option is passed.
    */
   public async save(filename: string, compress = false) {
     await fs.mkdirp(path.dirname(filename));
 
     let schema = Buffer.from(JSON.stringify(this.toSchema(), null, 2));
-    if (compress || this.compressedSource) {
+    if (compress) {
       schema = zlib.gzipSync(schema);
     }
 

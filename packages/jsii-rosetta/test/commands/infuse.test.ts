@@ -134,7 +134,7 @@ test('default tablets can be compressed', async () => {
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
 
-test('cacheToFile preserves compression', async () => {
+test('cacheToFile can be compressed', async () => {
   const compressedTabletFile = path.join(assembly.moduleDirectory, 'tabl.json.gz');
 
   await infuse([assembly.moduleDirectory], {

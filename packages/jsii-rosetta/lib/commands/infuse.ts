@@ -122,7 +122,10 @@ export async function infuse(assemblyLocations: string[], options?: InfuseOption
         if (insertedExamples > 0) {
           // Save the updated assembly and implicit tablets
           // eslint-disable-next-line no-await-in-loop
-          await Promise.all([replaceAssembly(assembly, directory), implicitTablet.save(implicitTabletFile)]);
+          await Promise.all([
+            replaceAssembly(assembly, directory),
+            implicitTablet.save(implicitTabletFile, implicitTablet.compressedSource),
+          ]);
         }
 
         return [
