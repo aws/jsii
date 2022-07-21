@@ -54,6 +54,8 @@ export class LanguageTablet {
     return ret;
   }
 
+  public compressedSource = false;
+
   private readonly snippets: Record<string, TranslatedSnippet> = {};
 
   /**
@@ -140,6 +142,7 @@ export class LanguageTablet {
     if (data[0] === 0x1f && data[1] === 0x8b && data[2] === 0x08) {
       // This is a gz object, so we decompress it now...
       data = zlib.gunzipSync(data);
+      this.compressedSource = true;
     }
 
     const obj: TabletSchema = JSON.parse(data.toString('utf-8'));
@@ -168,14 +171,16 @@ export class LanguageTablet {
   }
 
   /**
-   * Saves the tablet schema to a file. If the compress option is passed, then
-   * the schema will be gzipped before writing to the file.
+   * Saves the tablet schema to a file. The file will be gzipped if one of the following happens:
+   *
+   * - the compress option is explicitly passed
+   * - the LanguageTablet was originally loaded from a compressed file
    */
   public async save(filename: string, compress = false) {
     await fs.mkdirp(path.dirname(filename));
 
     let schema = Buffer.from(JSON.stringify(this.toSchema(), null, 2));
-    if (compress) {
+    if (compress || this.compressedSource) {
       schema = zlib.gzipSync(schema);
     }
 
