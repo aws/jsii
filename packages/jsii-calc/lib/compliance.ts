@@ -3052,7 +3052,9 @@ export class TwoMethodsWithSimilarCapitalization {
 }
 
 export class ClassWithCollectionOfUnions {
-  public constructor(public unionProperty: Array<Record<string, StructA | StructB>>) {}
+  public constructor(
+    public unionProperty: Array<Record<string, StructA | StructB>>,
+  ) {}
 }
 
 export interface StructWithCollectionOfUnionts {
