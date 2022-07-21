@@ -5108,6 +5108,59 @@ func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) SetE(val *string) {
 	)
 }
 
+type ClassWithCollectionOfUnions interface {
+	UnionProperty() *[]*map[string]interface{}
+	SetUnionProperty(val *[]*map[string]interface{})
+}
+
+// The jsii proxy struct for ClassWithCollectionOfUnions
+type jsiiProxy_ClassWithCollectionOfUnions struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_ClassWithCollectionOfUnions) UnionProperty() *[]*map[string]interface{} {
+	var returns *[]*map[string]interface{}
+	_jsii_.Get(
+		j,
+		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewClassWithCollectionOfUnions(unionProperty *[]*map[string]interface{}) ClassWithCollectionOfUnions {
+	_init_.Initialize()
+
+	j := jsiiProxy_ClassWithCollectionOfUnions{}
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithCollectionOfUnions",
+		[]interface{}{unionProperty},
+		&j,
+	)
+
+	return &j
+}
+
+func NewClassWithCollectionOfUnions_Override(c ClassWithCollectionOfUnions, unionProperty *[]*map[string]interface{}) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithCollectionOfUnions",
+		[]interface{}{unionProperty},
+		c,
+	)
+}
+
+func (j *jsiiProxy_ClassWithCollectionOfUnions) SetUnionProperty(val *[]*map[string]interface{}) {
+	_jsii_.Set(
+		j,
+		"unionProperty",
+		val,
+	)
+}
+
 type ClassWithCollections interface {
 	Array() *[]*string
 	SetArray(val *[]*string)
@@ -13668,6 +13721,10 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) *bool {
 	return returns
 }
 
+type StructWithCollectionOfUnionts struct {
+	UnionProperty *[]*map[string]interface{} \`field:"required" json:"unionProperty" yaml:"unionProperty"\`
+}
+
 type StructWithEnum struct {
 	// An enum value.
 	Foo StringEnum \`field:"required" json:"foo" yaml:"foo"\`
@@ -15499,6 +15556,16 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.ClassWithCollectionOfUnions",
+		reflect.TypeOf((*ClassWithCollectionOfUnions)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ClassWithCollectionOfUnions{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.ClassWithCollections",
 		reflect.TypeOf((*ClassWithCollections)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -17239,6 +17306,10 @@ func init() {
 		func() interface{} {
 			return &jsiiProxy_StructUnionConsumer{}
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.StructWithCollectionOfUnionts",
+		reflect.TypeOf((*StructWithCollectionOfUnionts)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.StructWithEnum",
