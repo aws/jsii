@@ -981,6 +981,14 @@ exports[`showAll 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ e property
  │   │     └── type: string
+ │   ├─┬ class ClassWithCollectionOfUnions
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(unionProperty) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ unionProperty
+ │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   └─┬ unionProperty property
+ │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithCollections
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(map,array) initializer
@@ -3257,6 +3265,12 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface StructWithCollectionOfUnionts
+ │   │ └─┬ members
+ │   │   └─┬ unionProperty property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ interface StructWithEnum
  │   │ └─┬ members
  │   │   ├─┬ foo property
@@ -3767,6 +3781,7 @@ exports[`types 1`] = `
  │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
+ │   ├── class ClassWithCollectionOfUnions
  │   ├── class ClassWithCollections
  │   ├── class ClassWithContainerTypes
  │   ├── class ClassWithDocs
@@ -3950,6 +3965,7 @@ exports[`types 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithCollectionOfUnionts
  │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
