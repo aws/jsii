@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658422414171,
+  "lastUpdate": 1658481078467,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3337,6 +3337,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 4779621.824235408,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 58885.36864099997 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a5bd2196f2e2e43686c3013a4671c55ddd8ee248",
+          "message": "fix(rosetta): infuse incorrectly handles compressed assemblies (#3669)\n\nThe behavior of `rosetta infuse` was incorrectly handled before. `infuse` would always overwrite the `.jsii` file with the uncompressed assembly. This PR fixes that behavior by detecting whether or not there is a compressed file in the directory, and compressing if that is the case.\n\nThere are two alternative solutions I considered, primarily because I'm concerned that looking up the location of the compressed assembly can be considered a leaky abstraction:\n- loading and looking into the contents of `.jsii` again to determine whether or not it is a file redirect. I did not choose this option as it involves additional loading, which will slow things down.\n- We can expand the `LoadedAssembly` type to include information on whether or not the assembly was originally compressed. Then pass that into the `replaceAssembly()` function. I ultimately decided against this because it would involve changing the function signature of all `loadAssemblyFromXxx` functions. It's both a breaking change, and unnecessary clutter for a single use case.\n\nBased on the reasoning above, I think what is included in this PR makes the most sense: expose an independent function, `compressedAssemblyExists`, that returns whether or not there is a file located at `SPEC_FILE_NAME_COMPRESSED`. \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-22T07:50:07Z",
+          "tree_id": "97ef52a9dc65887a2a216de5517af733b6e89b6f",
+          "url": "https://github.com/aws/jsii/commit/a5bd2196f2e2e43686c3013a4671c55ddd8ee248"
+        },
+        "date": 1658481075182,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 110170.39402194996,
+            "unit": "milliseconds",
+            "range": 7030586.802987812,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 110170.39402194996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 78176.98466300001,
+            "unit": "milliseconds",
+            "range": 997901.5163429824,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 78176.98466300001 milliseconds over 20 runs"
           }
         ]
       }
