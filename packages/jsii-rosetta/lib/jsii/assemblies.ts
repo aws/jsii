@@ -1,5 +1,11 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromFile, loadAssemblyFromPath, findAssemblyFile, writeAssembly } from '@jsii/spec';
+import {
+  compressedAssemblyExists,
+  loadAssemblyFromFile,
+  loadAssemblyFromPath,
+  findAssemblyFile,
+  writeAssembly,
+} from '@jsii/spec';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -231,14 +237,11 @@ export async function allTypeScriptSnippets(
 
 /**
  * Replaces the file where the original assembly file *should* be found with a new assembly file.
+ * Detects whether or not there is a compressed assembly, and if there is, compresses the new assembly also.
  * Recalculates the fingerprint of the assembly to avoid tampering detection.
  */
-export function replaceAssembly(
-  assembly: spec.Assembly,
-  directory: string,
-  { compress = false }: { compress?: boolean } = {},
-) {
-  writeAssembly(directory, _fingerprint(assembly), { compress });
+export function replaceAssembly(assembly: spec.Assembly, directory: string) {
+  writeAssembly(directory, _fingerprint(assembly), { compress: compressedAssemblyExists(directory) });
 }
 
 /**
