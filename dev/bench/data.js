@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658481078467,
+  "lastUpdate": 1658503627910,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3375,6 +3375,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 997901.5163429824,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 78176.98466300001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "30eded98ec05734f687023ca04ec09769fb1e331",
+          "message": "fix(rosetta): tablet compression handled incorrectly in multiple places (#3670)\n\nUnfortunately, #3652 was half-baked and this PR serves to finish handling tablet compression. It introduces the following:\n\n- `compress-cache` cli option so that you can use a compressed cache file\n- update  to all usages of `languageTablet.save()` to explicitly pass the compress flag\n- `languageTablet.compressedSource`, which is set when we load from a compressed source, so that we can remember to save as a compressed source.\n- `loadAllDefaultTablets` now handles compressed default tablets.\n- a far more encompassing set of unit tests for the above features\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-07-22T14:36:05Z",
+          "tree_id": "d421ad9d1b376db5fd784e0a5da51a716db34bf1",
+          "url": "https://github.com/aws/jsii/commit/30eded98ec05734f687023ca04ec09769fb1e331"
+        },
+        "date": 1658503624861,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 66084.15727039997,
+            "unit": "milliseconds",
+            "range": 2423084.731835116,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 66084.15727039997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47432.13518150001,
+            "unit": "milliseconds",
+            "range": 63834.02462046743,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47432.13518150001 milliseconds over 20 runs"
           }
         ]
       }
