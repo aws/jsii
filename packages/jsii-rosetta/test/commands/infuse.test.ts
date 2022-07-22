@@ -1,4 +1,4 @@
-import { loadAssemblyFromPath } from '@jsii/spec';
+import { loadAssemblyFromPath, SPEC_FILE_NAME, SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -106,4 +106,59 @@ test('can log to output file', async () => {
 
   expect(stats.isFile()).toBeTruthy();
   expect(stats.size).toBeGreaterThan(0);
+});
+
+test('preserves the assembly compression if present', async () => {
+  // Create an assembly in a temp directory
+  const compAssembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      export class ClassB {
+        public argumentMethod(args: BeeArgs) {
+          Array.isArray(args);
+        }
+      }
+      export interface BeeArgs { readonly value: string; readonly nested?: NestedType; }
+      export interface NestedType { readonly x: number; }
+      `,
+      'README.md': DUMMY_README,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+    {
+      compressAssembly: true,
+    },
+  );
+
+  // Ensure assembly is compressed
+  expect(fs.existsSync(path.join(compAssembly.moduleDirectory, SPEC_FILE_NAME_COMPRESSED))).toBeTruthy();
+
+  // Create a tabletFile in the same directory
+  await extractSnippets([compAssembly.moduleDirectory], {
+    cacheToFile: path.join(compAssembly.moduleDirectory, TABLET_FILE),
+    includeCompilerDiagnostics: false,
+    validateAssemblies: false,
+  });
+
+  // Now infuse
+  await infuse([compAssembly.moduleDirectory]);
+
+  // Expect file at SPEC_FILE_NAME to still be a file redirect (not the actual assembly)
+  expect(fs.readJSONSync(path.join(compAssembly.moduleDirectory, SPEC_FILE_NAME))).toEqual({
+    schema: 'jsii/file-redirect',
+    compression: 'gzip',
+    filename: SPEC_FILE_NAME_COMPRESSED,
+  });
+
+  // Infuse works as expected
+  const assemblies = loadAssemblies([compAssembly.moduleDirectory], false);
+  const types = assemblies[0].assembly.types;
+  expect(types).toBeDefined();
+  expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
 });
