@@ -17,10 +17,11 @@ export abstract class ModuleLike {
   public declare abstract readonly targets?: jsii.AssemblyTargets;
   public declare abstract readonly readme?: jsii.ReadMe;
 
-  protected declare abstract readonly submoduleMap: Readonly<
-    Record<string, Submodule>
+  protected declare abstract readonly submoduleMap: ReadonlyMap<
+    string,
+    Submodule
   >;
-  protected declare abstract readonly typeMap: Readonly<Record<string, Type>>;
+  protected declare abstract readonly typeMap: ReadonlyMap<string, Type>;
 
   /**
    * Cache for the results of `tryFindType`.
@@ -30,11 +31,11 @@ export abstract class ModuleLike {
   protected constructor(public readonly system: TypeSystem) {}
 
   public get submodules(): readonly Submodule[] {
-    return Object.values(this.submoduleMap);
+    return Array.from(this.submoduleMap.values());
   }
 
   public get types(): readonly Type[] {
-    return Object.values(this.typeMap);
+    return Array.from(this.typeMap.values());
   }
 
   public get classes(): readonly ClassType[] {
@@ -60,7 +61,7 @@ export abstract class ModuleLike {
       return this.typeLocatorCache.get(fqn);
     }
 
-    const ownType = this.typeMap[fqn];
+    const ownType = this.typeMap.get(fqn);
     if (ownType != null) {
       this.typeLocatorCache.set(fqn, ownType);
       return ownType;
@@ -76,7 +77,7 @@ export abstract class ModuleLike {
       .split('.')
       .slice(0, myFqnLength + 1)
       .join('.');
-    const sub = this.submoduleMap[subFqn];
+    const sub = this.submoduleMap.get(subFqn);
     const submoduleType = sub?.tryFindType(fqn);
     this.typeLocatorCache.set(fqn, submoduleType);
     return submoduleType;

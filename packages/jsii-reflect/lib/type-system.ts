@@ -14,16 +14,18 @@ import { findDependencyDirectory, isBuiltinModule } from './util';
 
 export class TypeSystem {
   /**
-   * All assemblies in this type system.
-   */
-  public readonly assemblies = new Array<Assembly>();
-
-  /**
    * The "root" assemblies (ones that loaded explicitly via a "load" call).
    */
   public readonly roots = new Array<Assembly>();
 
-  private readonly _assemblyLookup: { [name: string]: Assembly } = {};
+  private readonly _assemblyLookup = new Map<string, Assembly>();
+
+  /**
+   * All assemblies in this type system.
+   */
+  public get assemblies(): readonly Assembly[] {
+    return Array.from(this._assemblyLookup.values());
+  }
 
   /**
    * Load all JSII dependencies of the given NPM package directory.
@@ -164,9 +166,8 @@ export class TypeSystem {
       throw new Error('Assembly has been created for different typesystem');
     }
 
-    if (!this._assemblyLookup[asm.name]) {
-      this._assemblyLookup[asm.name] = asm;
-      this.assemblies.push(asm);
+    if (!this._assemblyLookup.has(asm.name)) {
+      this._assemblyLookup.set(asm.name, asm);
     }
 
     if (options.isRoot !== false) {
@@ -182,7 +183,7 @@ export class TypeSystem {
    * @param name the name of the assembly being looked for.
    */
   public includesAssembly(name: string): boolean {
-    return name in this._assemblyLookup;
+    return this._assemblyLookup.has(name);
   }
 
   public isRoot(name: string) {
@@ -198,7 +199,7 @@ export class TypeSystem {
   }
 
   public tryFindAssembly(name: string): Assembly | undefined {
-    return this._assemblyLookup[name];
+    return this._assemblyLookup.get(name);
   }
 
   public findFqn(fqn: string): Type {
@@ -311,7 +312,7 @@ export class TypeSystem {
   }
 
   private addRoot(asm: Assembly) {
-    if (!this.roots.map((r) => r.name).includes(asm.name)) {
+    if (!this.roots.some((r) => r.name === asm.name)) {
       this.roots.push(asm);
     }
   }

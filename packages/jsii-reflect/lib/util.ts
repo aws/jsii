@@ -1,14 +1,6 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-export function indexBy<T>(xs: T[], f: (x: T) => string): { [key: string]: T } {
-  const ret: { [key: string]: T } = {};
-  for (const x of xs) {
-    ret[f(x)] = x;
-  }
-  return ret;
-}
-
 /**
  * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
  *
