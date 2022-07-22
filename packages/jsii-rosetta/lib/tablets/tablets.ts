@@ -54,6 +54,12 @@ export class LanguageTablet {
     return ret;
   }
 
+  /**
+   * Whether or not the LanguageTablet was loaded with a compressed source.
+   * This gets used to determine if it should be compressed when saved.
+   */
+  public compressedSource = false;
+
   private readonly snippets: Record<string, TranslatedSnippet> = {};
 
   /**
@@ -140,6 +146,7 @@ export class LanguageTablet {
     if (data[0] === 0x1f && data[1] === 0x8b && data[2] === 0x08) {
       // This is a gz object, so we decompress it now...
       data = zlib.gunzipSync(data);
+      this.compressedSource = true;
     }
 
     const obj: TabletSchema = JSON.parse(data.toString('utf-8'));

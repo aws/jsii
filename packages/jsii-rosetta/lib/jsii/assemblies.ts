@@ -24,7 +24,7 @@ import {
   INITIALIZER_METHOD_NAME,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
-import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
+import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../tablets/tablets';
 import { fmap, mkDict, sortBy } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
@@ -92,12 +92,15 @@ export function loadAssemblies(
 export async function loadAllDefaultTablets(asms: readonly LoadedAssembly[]): Promise<Record<string, LanguageTablet>> {
   return mkDict(
     await Promise.all(
-      asms.map(
-        async (a) =>
-          [a.directory, await LanguageTablet.fromOptionalFile(path.join(a.directory, DEFAULT_TABLET_NAME))] as const,
-      ),
+      asms.map(async (a) => [a.directory, await LanguageTablet.fromOptionalFile(guessTabletLocation(a))] as const),
     ),
   );
+
+  function guessTabletLocation(a: LoadedAssembly): string {
+    const defaultTablet = path.join(a.directory, DEFAULT_TABLET_NAME);
+    const compDefaultTablet = path.join(a.directory, DEFAULT_TABLET_NAME_COMPRESSED);
+    return fs.existsSync(defaultTablet) ? defaultTablet : compDefaultTablet;
+  }
 }
 
 export type AssemblySnippetSource =

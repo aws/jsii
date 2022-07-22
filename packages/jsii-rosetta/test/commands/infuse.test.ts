@@ -2,7 +2,7 @@ import { loadAssemblyFromPath, SPEC_FILE_NAME, SPEC_FILE_NAME_COMPRESSED } from 
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-import { LanguageTablet, DEFAULT_TABLET_NAME } from '../../lib';
+import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../../lib/commands/infuse';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
@@ -161,4 +161,42 @@ test('preserves the assembly compression if present', async () => {
   const types = assemblies[0].assembly.types;
   expect(types).toBeDefined();
   expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
+});
+
+test('can infuse with compressed default tablets', async () => {
+  // remove any tablets that may currently exist
+  const implicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME);
+  const compImplicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED);
+  await fs.remove(implicitTablet);
+  await fs.remove(compImplicitTablet);
+
+  // create a compressed implicit tablet file via extract
+  await extractSnippets([assembly.moduleDirectory], {
+    includeCompilerDiagnostics: false,
+    validateAssemblies: false,
+    compressTablet: true,
+  });
+
+  expect(fs.existsSync(compImplicitTablet)).toBeTruthy();
+  expect(fs.existsSync(implicitTablet)).toBeFalsy();
+
+  // infuse can use compressed implicit tablets
+  await infuse([assembly.moduleDirectory]);
+
+  const assemblies = loadAssemblies([assembly.moduleDirectory], false);
+  const types = assemblies[0].assembly.types;
+  expect(types).toBeDefined();
+  expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
+});
+
+test('can compress cacheToFile', async () => {
+  const compressedTabletFile = path.join(assembly.moduleDirectory, 'tabl.json.gz');
+
+  await infuse([assembly.moduleDirectory], {
+    cacheToFile: compressedTabletFile,
+    compressCacheToFile: true,
+  });
+
+  const tablet = await LanguageTablet.fromFile(compressedTabletFile);
+  expect(tablet.compressedSource).toBeTruthy();
 });
