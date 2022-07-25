@@ -65,7 +65,8 @@
       },
       "dotnet": {
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
-        "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
+        "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId",
+        "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/main/logo/default-256-dark.png"
       },
       "python": {
         "distName": "scope.jsii-calc-base",

@@ -1,11 +1,14 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
+import * as http from 'http';
+import * as https from 'https';
 import * as reflect from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { Generator, Legalese } from '../../generator';
+import { debug } from '../../logging';
 import { MethodDefinition, PropertyDefinition } from '../_utils';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
@@ -89,7 +92,7 @@ export class DotNetGenerator extends Generator {
       this.code,
     );
     filegen.generateAssemblyInfoFile();
-    filegen.generateProjectFile(this.typeresolver.namespaceDependencies);
+
     // Calling super.save() dumps the tarball in the format name@version.jsii.tgz.
     // This is not in sync with the Old .NET generator where the name is scope-name-version.tgz.
     // Hence we are saving the files ourselves here:
@@ -102,6 +105,24 @@ export class DotNetGenerator extends Generator {
     }
     await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
+
+    // Attempt to download the package icon from the configured URL so we can use the non-deprecated PackageIcon
+    // attribute. If this fails or is opted out (via $JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON being set), then only the
+    // deprecated PackageIconUrl will be emitted.
+    const iconFile =
+      this.assembly.targets?.dotnet?.iconUrl != null && !process.env.JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON
+        ? await tryDownloadResource(
+            this.assembly.targets.dotnet.iconUrl,
+            path.join(outdir, packageId),
+        ).catch((err: any) => {
+          debug(`[dotnet] Unable to download package icon, will only use deprecated PackageIconUrl attribute: ${err.cause}`)
+          return Promise.resolve(undefined);
+        })
+        : undefined;
+    filegen.generateProjectFile(
+      this.typeresolver.namespaceDependencies,
+      iconFile,
+    );
 
     // Create an anchor file for the current model
     this.generateDependencyAnchorFile();
@@ -1190,4 +1211,109 @@ export class DotNetGenerator extends Generator {
       '[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]',
     );
   }
+}
+
+async function tryDownloadResource(
+  urlText: string,
+  into: string,
+): Promise<string | undefined> {
+  const url = new URL(urlText);
+
+  let request: typeof http.get | typeof https.get;
+  switch (url.protocol) {
+    case 'http:':
+      request = http.get;
+      break;
+    case 'https:':
+      request = https.get;
+      break;
+    default:
+      // Unhandled protocol... ignoring
+      debug(
+        `Unsupported URL protocol for resource download: ${url.protocol} (full URL: ${urlText})`,
+      );
+      return undefined;
+  }
+
+  return new Promise((ok, ko) =>
+    request(url, (res) => {
+      switch (res.statusCode) {
+        case 200:
+          let fileName = path.basename(url.pathname);
+          // Ensure there is a content-appropriate extension on the result...
+          switch (res.headers['content-type']) {
+            case 'image/gif':
+              if (!fileName.endsWith('.gif')) {
+                fileName = `${fileName}.gif`;
+              }
+              break;
+            case 'image/jpeg':
+              if (!fileName.endsWith('.jpg')) {
+                fileName = `${fileName}.jpg`;
+              }
+              break;
+            case 'image/png':
+              if (!fileName.endsWith('.png')) {
+                fileName = `${fileName}.png`;
+              }
+              break;
+            default:
+            // Nothing to do...
+          }
+          const filePath = path.join('resources', fileName);
+          try {
+            fs.mkdirpSync(path.join(into, 'resources'));
+          } catch (err) {
+            return ko(err);
+          }
+          try {
+            const fd = fs.openSync(
+              path.join(into, filePath),
+              fs.constants.O_CREAT |
+                fs.constants.O_TRUNC |
+                fs.constants.O_WRONLY,
+            );
+            res
+              .once('error', (cause) => {
+                try {
+                  fs.closeSync(fd);
+                } catch {
+                  // IGNORE
+                }
+                ko(cause);
+              })
+              .on('data', (chunk) => {
+                const buff = Buffer.from(chunk);
+                let offset = 0;
+                while (offset < buff.length) {
+                  try {
+                    offset += fs.writeSync(fd, buff, offset);
+                  } catch (err) {
+                    return ko(err);
+                  }
+                }
+              })
+              .once('close', () => {
+                try {
+                  fs.closeSync(fd);
+                  ok(filePath);
+                } catch (err) {
+                  ko(err);
+                }
+              });
+          } catch (err) {
+            return ko(err);
+          }
+          break;
+        default:
+          ko(
+            new Error(
+              `GET ${urlText} -- HTTP ${res.statusCode ?? 0} (${
+                res.statusMessage ?? 'Unknown Error'
+              })`,
+            ),
+          );
+      }
+    }).once('error', ko),
+  );
 }
