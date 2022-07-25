@@ -82,6 +82,13 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>\${jackson.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>\${jackson.version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
