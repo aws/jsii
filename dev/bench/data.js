@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658503627910,
+  "lastUpdate": 1658839824477,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3413,6 +3413,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 63834.02462046743,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47432.13518150001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "89b2ebe58025cf5d1b1fb81f415dd1cb661d1f54",
+          "message": "chore: federate into AWS to authenticate to ECR Public (#3679)\n\nIn order to reduce throttlin events, federate into AWS using the\r\nGitHub OpenID Connect provider, and authenticate to ECR Public.\r\nWhen no `AWS_ROLE_TO_ASSUME` secret is configured, federation is\r\nskipped and the jitter is applied instead.\r\n\r\nAlso reduces parallelism of the `buildx` OCI provider so that\r\nwe can more reliably re-use layer caches across all platforms\r\nwithout choking the runner's IO.",
+          "timestamp": "2022-07-26T14:00:41+02:00",
+          "tree_id": "c9ac5aadc6d85ec5608f890ae6f245bfde583d71",
+          "url": "https://github.com/aws/jsii/commit/89b2ebe58025cf5d1b1fb81f415dd1cb661d1f54"
+        },
+        "date": 1658839819860,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62943.418573949995,
+            "unit": "milliseconds",
+            "range": 2425638.5615622774,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62943.418573949995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45480.9306148,
+            "unit": "milliseconds",
+            "range": 89973.12029082238,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45480.9306148 milliseconds over 20 runs"
           }
         ]
       }
