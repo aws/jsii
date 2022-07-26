@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658847876217,
+  "lastUpdate": 1658849282320,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3641,6 +3641,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 272872.8555782713,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60437.785849149994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3bfa17bf83606599d859ddd50194e86170566f7e",
+          "message": "chore(jsii-reflect): use `Map`s instead of `Record`s (#3671)\n\nInstead of using objects as maps, use actual `Map` as this has better\r\nperformance characteristics (results in fewer shadow classes being\r\ngenerated, and is friendlier with the optimizer).",
+          "timestamp": "2022-07-26T16:02:53+02:00",
+          "tree_id": "cd0015b0f64ab41fa16894671fba24fb6060cd2a",
+          "url": "https://github.com/aws/jsii/commit/3bfa17bf83606599d859ddd50194e86170566f7e"
+        },
+        "date": 1658849277677,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 122874.71835364992,
+            "unit": "milliseconds",
+            "range": 4075697.165665458,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 122874.71835364992 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 86386.19455340001,
+            "unit": "milliseconds",
+            "range": 1456920.1140642734,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 86386.19455340001 milliseconds over 20 runs"
           }
         ]
       }
