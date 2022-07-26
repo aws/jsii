@@ -1,0 +1,116 @@
+import pytest
+import re
+
+import jsii_calc
+
+
+class TestRuntimeTypeChecking:
+    """
+    These tests verify that runtime type checking performs the necessary validations and produces error messages that
+    are indicative of the error. There are #type:ignore annotations scattered everywhere as these tests are obviously
+    attempting to demonstrate what happens when invalid calls are being made.
+    """
+
+    def test_constructor(self):
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument initial_value must be one of (int, float, NoneType); got str instead"
+            ),
+        ):
+            jsii_calc.Calculator(initial_value="nope")  # type:ignore
+
+    def test_struct(self):
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument foo must be jsii_calc.StringEnum; got int instead"
+            ),
+        ):
+            jsii_calc.StructWithEnum(foo=1337)  # type:ignore
+
+    def test_method_arg(self):
+        subject = jsii_calc.Calculator()
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument value must be one of (int, float); got str instead"
+            ),
+        ):
+            subject.mul("Not a Number")  # type:ignore
+
+    def test_method_kwarg(self):
+        subject = jsii_calc.DocumentedClass()
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument name must be one of (str, NoneType); got int instead"
+            ),
+        ):
+            subject.greet(name=1337)  # type:ignore
+
+    def test_method_vararg(self):
+        subject = jsii_calc.StructPassing()
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument inputs[0] must be jsii_calc.TopLevelStruct; got int instead"
+            ),
+        ):
+            subject.how_many_var_args_did_i_pass(1337, 42)  # type:ignore
+
+    def test_setter_to_enum(self):
+        subject = jsii_calc.AllTypes()
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument value must be jsii_calc.AllTypesEnum; got int instead"
+            ),
+        ):
+            subject.enum_property = 1337  # type:ignore
+
+    def test_setter_to_primitive(self):
+        subject = jsii_calc.AllTypes()
+        with pytest.raises(
+            TypeError,
+            match=re.escape("type of argument value must be str; got int instead"),
+        ):
+            subject.string_property = 1337  # type:ignore
+
+    def test_setter_to_map(self):
+        subject = jsii_calc.AllTypes()
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument value must be collections.abc.Mapping; got jsii_calc.StructWithEnum instead"
+            ),
+        ):
+            subject.map_property = jsii_calc.StructWithEnum(  # type:ignore
+                foo=jsii_calc.StringEnum.A
+            )
+
+    def test_setter_to_list(self):
+        subject = jsii_calc.AllTypes()
+        with pytest.raises(
+            TypeError,
+            match=re.escape("type of argument value must be a list; got int instead"),
+        ):
+            subject.array_property = 1337  # type:ignore
+
+    def test_setter_to_list_with_invalid_value(self):
+        subject = jsii_calc.AllTypes()
+        with pytest.raises(
+            TypeError,
+            match=re.escape("type of argument value[0] must be str; got int instead"),
+        ):
+            subject.array_property = [1337]  # type:ignore
+
+    def test_setter_to_union(self):
+        subject = jsii_calc.AllTypes()
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument value must be one of (str, int, float, scope.jsii_calc_lib.Number, jsii_calc.Multiply); got jsii_calc.StringEnum instead"
+            ),
+        ):
+            subject.union_property = jsii_calc.StringEnum.B  # type:ignore

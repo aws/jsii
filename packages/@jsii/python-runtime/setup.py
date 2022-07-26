@@ -32,6 +32,8 @@ setuptools.setup(
     install_requires=[
         "attrs~=21.2",
         "cattrs>=1.8,<22.2",
+        "publication>=0.0.3",  # This is used by all generated code.
+        "typeguard~=2.13.3",  # This is used by all generated code.
         "python-dateutil",
         "typing_extensions>=3.7,<5.0",
     ],

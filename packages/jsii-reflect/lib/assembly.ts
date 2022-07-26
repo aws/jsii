@@ -10,9 +10,9 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export class Assembly extends ModuleLike {
-  private _typeCache?: { [fqn: string]: Type };
-  private _submoduleCache?: { [fqn: string]: Submodule };
-  private _dependencyCache?: { [name: string]: Dependency };
+  private _typeCache?: Map<string, Type>;
+  private _submoduleCache?: Map<string, Submodule>;
+  private _dependencyCache?: Map<string, Dependency>;
 
   public constructor(system: TypeSystem, public readonly spec: jsii.Assembly) {
     super(system);
@@ -124,13 +124,11 @@ export class Assembly extends ModuleLike {
    * Dependencies on other assemblies (with semver), the key is the JSII assembly name.
    */
   public get dependencies(): readonly Dependency[] {
-    return Object.keys(this._dependencies).map(
-      (name) => this._dependencies[name],
-    );
+    return Array.from(this._dependencies.values());
   }
 
   public findDependency(name: string) {
-    const dep = this._dependencies[name];
+    const dep = this._dependencies.get(name);
     if (!dep) {
       throw new Error(`Dependency ${name} not found for assembly ${this.name}`);
     }
@@ -156,7 +154,7 @@ export class Assembly extends ModuleLike {
    */
   public get submodules(): readonly Submodule[] {
     const { submodules } = this._analyzeTypes();
-    return Object.entries(submodules)
+    return Array.from(submodules.entries())
       .filter(([name, _]) => name.split('.').length === 2)
       .map(([_, submodule]) => submodule);
   }
@@ -166,14 +164,14 @@ export class Assembly extends ModuleLike {
    */
   public get allSubmodules(): readonly Submodule[] {
     const { submodules } = this._analyzeTypes();
-    return Object.values(submodules);
+    return Array.from(submodules.values());
   }
 
   /**
    * All types, even those in submodules and nested submodules.
    */
   public get types(): readonly Type[] {
-    return Object.values(this.typeMap);
+    return Array.from(this.typeMap.values());
   }
 
   /**
@@ -201,26 +199,25 @@ export class Assembly extends ModuleLike {
     jsii.validateAssembly(this.spec);
   }
 
-  protected get submoduleMap(): Readonly<Record<string, Submodule>> {
+  protected get submoduleMap(): ReadonlyMap<string, Submodule> {
     return this._analyzeTypes().submodules;
   }
 
   /**
    * All types in the root of the assembly
    */
-  protected get typeMap(): Readonly<Record<string, Type>> {
+  protected get typeMap(): ReadonlyMap<string, Type> {
     return this._analyzeTypes().types;
   }
 
   private get _dependencies() {
     if (!this._dependencyCache) {
-      this._dependencyCache = {};
+      this._dependencyCache = new Map();
       if (this.spec.dependencies) {
         for (const name of Object.keys(this.spec.dependencies)) {
-          this._dependencyCache[name] = new Dependency(
-            this.system,
+          this._dependencyCache.set(
             name,
-            this.spec.dependencies[name],
+            new Dependency(this.system, name, this.spec.dependencies[name]),
           );
         }
       }
@@ -231,7 +228,7 @@ export class Assembly extends ModuleLike {
 
   private _analyzeTypes() {
     if (!this._typeCache || !this._submoduleCache) {
-      this._typeCache = {};
+      this._typeCache = new Map();
 
       const submoduleBuilders = this.discoverSubmodules();
 
@@ -264,9 +261,9 @@ export class Assembly extends ModuleLike {
 
         if (submodule != null) {
           const moduleName = `${this.spec.name}.${submodule}`;
-          submoduleBuilders[moduleName].addType(type);
+          submoduleBuilders.get(moduleName)!.addType(type);
         } else {
-          this._typeCache[fqn] = type;
+          this._typeCache.set(fqn, type);
         }
       }
 
@@ -279,18 +276,16 @@ export class Assembly extends ModuleLike {
    * Return a builder for all submodules in this assembly (so that we can
    * add types into the objects).
    */
-  private discoverSubmodules(): Record<string, SubmoduleBuilder> {
+  private discoverSubmodules(): Map<string, SubmoduleBuilder> {
     const system = this.system;
 
-    const ret: Record<string, SubmoduleBuilder> = {};
+    const ret = new Map<string, SubmoduleBuilder>();
     for (const [submoduleName, submoduleSpec] of Object.entries(
       this.spec.submodules ?? {},
     )) {
-      ret[submoduleName] = new SubmoduleBuilder(
-        system,
-        submoduleSpec,
+      ret.set(
         submoduleName,
-        ret,
+        new SubmoduleBuilder(system, submoduleSpec, submoduleName, ret),
       );
     }
     return ret;
@@ -306,7 +301,7 @@ export class Assembly extends ModuleLike {
  * to translate
  */
 class SubmoduleBuilder {
-  private readonly types: Record<string, Type> = {};
+  private readonly types = new Map<string, Type>();
 
   private _built?: Submodule;
 
@@ -314,7 +309,7 @@ class SubmoduleBuilder {
     private readonly system: TypeSystem,
     private readonly spec: jsii.Submodule,
     private readonly fullName: string,
-    private readonly allModuleBuilders: Record<string, SubmoduleBuilder>,
+    private readonly allModuleBuilders: Map<string, SubmoduleBuilder>,
   ) {}
 
   /**
@@ -344,27 +339,27 @@ class SubmoduleBuilder {
    * Return all the builders from the map that are nested underneath ourselves.
    */
   private findSubmoduleBuilders() {
-    const ret: Record<string, SubmoduleBuilder> = {};
-    for (const [k, child] of Object.entries(this.allModuleBuilders)) {
+    const ret = new Map<string, SubmoduleBuilder>();
+    for (const [k, child] of this.allModuleBuilders) {
       if (child.isChildOf(this)) {
-        ret[k] = child;
+        ret.set(k, child);
       }
     }
     return ret;
   }
 
   public addType(type: Type) {
-    this.types[type.fqn] = type;
+    this.types.set(type.fqn, type);
   }
 }
 
 function mapValues<A, B>(
-  xs: Record<string, A>,
+  xs: ReadonlyMap<string, A>,
   fn: (x: A) => B,
-): Record<string, B> {
-  const ret: Record<string, B> = {};
-  for (const [k, v] of Object.entries(xs)) {
-    ret[k] = fn(v);
+): Map<string, B> {
+  const ret = new Map<string, B>();
+  for (const [k, v] of xs) {
+    ret.set(k, fn(v));
   }
   return ret;
 }

@@ -1,7 +1,7 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
 import inspect
 
-from typing import Any, MutableMapping, Type
+from typing import Any, Iterable, Mapping, MutableMapping, Type
 
 
 _types = {}
@@ -108,18 +108,20 @@ class _ReferenceMap:
 
                 structs = [_data_types[fqn] for fqn in ref.interfaces]
                 remote_struct = _FakeReference(ref)
-                insts = [
-                    struct(
-                        **{
-                            python_name: kernel.get(remote_struct, jsii_name)
-                            for python_name, jsii_name in python_jsii_mapping(
-                                struct
-                            ).items()
-                        }
-                    )
-                    for struct in structs
-                ]
-                return StructDynamicProxy(insts)
+
+                if len(structs) == 1:
+                    struct = structs[0]
+                else:
+                    struct = new_combined_struct(structs)
+
+                return struct(
+                    **{
+                        python_name: kernel.get(remote_struct, jsii_name)
+                        for python_name, jsii_name in python_jsii_mapping(
+                            struct
+                        ).items()
+                    }
+                )
             else:
                 return InterfaceDynamicProxy(self.build_interface_proxies_for_ref(ref))
         else:
@@ -158,43 +160,31 @@ class InterfaceDynamicProxy(object):
         raise AttributeError(f"'%s' object has no attribute '%s'" % (type_info, name))
 
 
-class StructDynamicProxy(object):
-    def __init__(self, delegates):
-        self._delegates = delegates
+def new_combined_struct(structs: Iterable[Type]) -> Type:
+    label = " + ".join(struct.__name__ for struct in structs)
 
-    def __getattr__(self, name):
-        for delegate in self._delegates:
-            if hasattr(delegate, name):
-                return getattr(delegate, name)
-        type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
-        raise AttributeError("'%s' object has no attribute '%s'" % (type_info, name))
+    def __init__(self, **kwargs):
+        self._values: Mapping[str, Any] = kwargs
 
-    def __setattr__(self, name, value):
-        if name == "_delegates":
-            return super.__setattr__(self, name, value)
-        for delegate in self._delegates:
-            if hasattr(delegate, name):
-                return setattr(delegate, name, value)
-        type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
-        raise AttributeError(f"'%s' object has no attribute '%s'" % (type_info, name))
-
-    def __eq__(self, rhs) -> bool:
-        if len(self._delegates) == 1:
-            return rhs == self._delegates[0]
+    def __eq__(self, rhs: Any) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
 
-    def __ne__(self, rhs) -> bool:
+    def __ne__(self, rhs: Any) -> bool:
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        if len(self._delegates) == 1:
-            return self._delegates[0].__repr__()
-        return "%s(%s)" % (
-            " & ".join(
-                [delegate.__class__.__jsii_type__ for delegate in self._delegates]
-            ),
-            ", ".join(k + "=" + repr(v) for k, v in self._values.items()),
-        )
+        return f"<{label}>({', '.join(k + '=' + repr(v) for k, v in self._values.items())})"
+
+    return type(
+        label,
+        (*structs,),
+        {
+            "__init__": __init__,
+            "__eq__": __eq__,
+            "__ne__": __ne__,
+            "__repr__": __repr__,
+        },
+    )
 
 
 _refs = _ReferenceMap(_types)

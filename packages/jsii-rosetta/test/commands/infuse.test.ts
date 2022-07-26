@@ -1,8 +1,8 @@
-import { loadAssemblyFromPath } from '@jsii/spec';
+import { loadAssemblyFromPath, SPEC_FILE_NAME, SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-import { LanguageTablet, DEFAULT_TABLET_NAME } from '../../lib';
+import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../../lib';
 import { extractSnippets } from '../../lib/commands/extract';
 import { infuse, DEFAULT_INFUSION_RESULTS_NAME } from '../../lib/commands/infuse';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
@@ -106,4 +106,97 @@ test('can log to output file', async () => {
 
   expect(stats.isFile()).toBeTruthy();
   expect(stats.size).toBeGreaterThan(0);
+});
+
+test('preserves the assembly compression if present', async () => {
+  // Create an assembly in a temp directory
+  const compAssembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      export class ClassA {
+        public someMethod() {
+        }
+      }
+      export class ClassB {
+        public argumentMethod(args: BeeArgs) {
+          Array.isArray(args);
+        }
+      }
+      export interface BeeArgs { readonly value: string; readonly nested?: NestedType; }
+      export interface NestedType { readonly x: number; }
+      `,
+      'README.md': DUMMY_README,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+    {
+      compressAssembly: true,
+    },
+  );
+
+  // Ensure assembly is compressed
+  expect(fs.existsSync(path.join(compAssembly.moduleDirectory, SPEC_FILE_NAME_COMPRESSED))).toBeTruthy();
+
+  // Create a tabletFile in the same directory
+  await extractSnippets([compAssembly.moduleDirectory], {
+    cacheToFile: path.join(compAssembly.moduleDirectory, TABLET_FILE),
+    includeCompilerDiagnostics: false,
+    validateAssemblies: false,
+  });
+
+  // Now infuse
+  await infuse([compAssembly.moduleDirectory]);
+
+  // Expect file at SPEC_FILE_NAME to still be a file redirect (not the actual assembly)
+  expect(fs.readJSONSync(path.join(compAssembly.moduleDirectory, SPEC_FILE_NAME))).toEqual({
+    schema: 'jsii/file-redirect',
+    compression: 'gzip',
+    filename: SPEC_FILE_NAME_COMPRESSED,
+  });
+
+  // Infuse works as expected
+  const assemblies = loadAssemblies([compAssembly.moduleDirectory], false);
+  const types = assemblies[0].assembly.types;
+  expect(types).toBeDefined();
+  expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
+});
+
+test('can infuse with compressed default tablets', async () => {
+  // remove any tablets that may currently exist
+  const implicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME);
+  const compImplicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED);
+  await fs.remove(implicitTablet);
+  await fs.remove(compImplicitTablet);
+
+  // create a compressed implicit tablet file via extract
+  await extractSnippets([assembly.moduleDirectory], {
+    includeCompilerDiagnostics: false,
+    validateAssemblies: false,
+    compressTablet: true,
+  });
+
+  expect(fs.existsSync(compImplicitTablet)).toBeTruthy();
+  expect(fs.existsSync(implicitTablet)).toBeFalsy();
+
+  // infuse can use compressed implicit tablets
+  await infuse([assembly.moduleDirectory]);
+
+  const assemblies = loadAssemblies([assembly.moduleDirectory], false);
+  const types = assemblies[0].assembly.types;
+  expect(types).toBeDefined();
+  expect(types!['my_assembly.ClassA'].docs?.example).toBeDefined();
+});
+
+test('can compress cacheToFile', async () => {
+  const compressedTabletFile = path.join(assembly.moduleDirectory, 'tabl.json.gz');
+
+  await infuse([assembly.moduleDirectory], {
+    cacheToFile: compressedTabletFile,
+    compressCacheToFile: true,
+  });
+
+  const tablet = await LanguageTablet.fromFile(compressedTabletFile);
+  expect(tablet.compressedSource).toBeTruthy();
 });

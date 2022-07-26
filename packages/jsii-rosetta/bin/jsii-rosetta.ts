@@ -231,7 +231,12 @@ function main() {
           .options('compress-tablet', {
             alias: 'z',
             type: 'boolean',
-            describe: 'Compress the resulting tablet file',
+            describe: 'Compress the implicit tablet file',
+            default: false,
+          })
+          .options('compress-cache', {
+            type: 'boolean',
+            describe: 'Compress the cache-to file',
             default: false,
           })
           .conflicts('loose', 'strict')
@@ -259,6 +264,7 @@ function main() {
           trimCache: args['trim-cache'],
           loose: args.loose,
           compressTablet: args['compress-tablet'],
+          compressCacheToFile: args['compress-cache'],
         };
 
         const result = args.infuse

@@ -10,6 +10,7 @@ import {
   DEFAULT_TABLET_NAME,
   TranslatedSnippet,
   typeScriptSnippetFromVisibleSource,
+  DEFAULT_TABLET_NAME_COMPRESSED,
 } from '../../lib';
 import * as extract from '../../lib/commands/extract';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
@@ -71,18 +72,36 @@ test('extract samples from test assembly', async () => {
   await tablet.load(cacheToFile);
 
   expect(tablet.snippetKeys.length).toEqual(1);
+  expect(tablet.compressedSource).toBeFalsy();
 });
 
-test('extract can save/load compressed tablets', async () => {
+test('extract can compress cached tablet file', async () => {
   const compressedCacheFile = path.join(assembly.moduleDirectory, 'test.tabl.gz');
   await extract.extractSnippets([assembly.moduleDirectory], {
     cacheToFile: compressedCacheFile,
+    compressCacheToFile: true,
     ...defaultExtractOptions,
   });
 
   const tablet = new LanguageTablet();
   await tablet.load(compressedCacheFile);
 
+  expect(tablet.snippetKeys.length).toEqual(1);
+  expect(tablet.compressedSource).toBeTruthy();
+});
+
+test('extract can compress implicit tablet file', async () => {
+  await extract.extractSnippets([assembly.moduleDirectory], {
+    ...defaultExtractOptions,
+    compressTablet: true,
+  });
+
+  const compImplicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED);
+  expect(fs.existsSync(compImplicitTablet)).toBeTruthy();
+  expect(fs.existsSync(path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME))).toBeFalsy();
+
+  const tablet = new LanguageTablet();
+  await tablet.load(compImplicitTablet);
   expect(tablet.snippetKeys.length).toEqual(1);
 });
 

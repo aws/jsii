@@ -14,8 +14,8 @@ export class Submodule extends ModuleLike {
     system: TypeSystem,
     public readonly spec: jsii.Submodule,
     public readonly fqn: string,
-    protected readonly submoduleMap: Readonly<Record<string, Submodule>>,
-    protected readonly typeMap: Readonly<Record<string, Type>>,
+    protected readonly submoduleMap: ReadonlyMap<string, Submodule>,
+    protected readonly typeMap: ReadonlyMap<string, Type>,
   ) {
     super(system);
 
