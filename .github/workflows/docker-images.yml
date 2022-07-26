@@ -45,13 +45,48 @@ jobs:
               echo '⏯ Dockerfile changed'
               echo "::set-output name=result::true"
             else
-              echo '⏭ Dockerfile not changed'
-              echo "::set-output name=result::false"
+              if grep '.github/workflows/docker-images.yml' <<< "${changed}" ; then
+                echo '⏯ docker-images workflow changed'
+                echo "::set-output name=result::true"
+              else
+                echo '⏭ Dockerfile not changed'
+                echo "::set-output name=result::false"
+              fi
             fi
           fi
 
+      # Check if federation into AWS is configured. This is necessary because
+      # GitHub does not interpret ${{ secret.FOO }} within `if:` conditions...
+      # See: https://github.com/actions/runner/issues/520
+      - name: Check AWS federation configuration
+        id: federate_to_aws
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          if [[ "${{ secrets.AWS_ROLE_TO_ASSUME }}" != "" ]]; then
+            echo "🔑 Federation into AWS is possible (AWS_ROLE_TO_ASSUME is available)"
+            echo "::set-output name=enabled::true"
+          else
+            echo "❌ Federation into AWS is disabled (no AWS_ROLE_TO_ASSUME secret found)"
+            echo "::set-output name=enabled::false"
+          fi
+
+      # Federate into the PR Validation AWS Account
+      - name: Federate into AWS
+        if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled == 'true'
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+
+      # Login to ECR Public registry, so we don't get throttled at 1 TPS
+      - name: Login to ECR Public
+        if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled == 'true'
+        run: |-
+          aws ecr-public get-login-password --region=us-east-1                  \
+          | docker login --username AWS --password-stdin public.ecr.aws
+
       # We only authenticate to Docker on the 'aws/jsii' repo, as forks will not have the secret
-      - name: Login to Docker
+      - name: Login to Docker Hub
         if: steps.should-run.outputs.result == 'true' && github.repository == 'aws/jsii'
         # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
         run: |-
@@ -70,6 +105,12 @@ jobs:
         id: buildx
         if: steps.should-run.outputs.result == 'true'
         uses: docker/setup-buildx-action@v2
+        with:
+          # Disable parallelism because IO contention makes it too slow on GitHub
+          # workers...
+          config-inline: |-
+            [worker.oci]
+              max-parallelism = 1
 
       # We only restore GH cache if we are not going to publish the result (i.e: PR validation)
       - name: Set up layer cache
@@ -85,7 +126,7 @@ jobs:
       # 1 pull per second from ECR Public
       - name: Jitter the start time to avoid ECR Public throttling
         id: sleep-start
-        if: steps.should-run.outputs.result == 'true'
+        if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled != true
         run: |-
           sleep $((RANDOM % 60))
 
@@ -111,27 +152,12 @@ jobs:
             -f superchain/Dockerfile                                            \
             .
 
-      # Testing sequentially, because in parallel it's too slow due to IO contention
-      - name: Test Image (AMD64)
+      - name: Test Image
         if: steps.should-run.outputs.result == 'true'
         run: |-
           docker buildx build                                                   \
             --builder ${{ steps.buildx.outputs.name }}                          \
-            --platform linux/amd64                                              \
-            --target superchain                                                 \
-            --cache-from type=local,src=/tmp/.buildx-cache                      \
-            --cache-to type=local,dest=/tmp/.buildx-cache                       \
-            --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
-            --build-arg COMMIT_ID='${{ github.sha }}'                           \
-            --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
-            -f superchain/Dockerfile                                            \
-            .
-      - name: Test Image (ARM64)
-        if: steps.should-run.outputs.result == 'true'
-        run: |-
-          docker buildx build                                                   \
-            --builder ${{ steps.buildx.outputs.name }}                          \
-            --platform linux/arm64                                              \
+            --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
             --cache-from type=local,src=/tmp/.buildx-cache                      \
             --cache-to type=local,dest=/tmp/.buildx-cache                       \
