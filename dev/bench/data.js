@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658847079179,
+  "lastUpdate": 1658847080907,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3527,6 +3527,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 58372.58638687071,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44781.60374685001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b89c1276f1cd62421a0a32dddd9784c13b23f176",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.3.0 to ~=1.3.1 in /gh-pages (#3674)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-07-26T16:01:47+02:00",
+          "tree_id": "34f5dcfca5d9193cdfee4dbbddca13af4b9df0d6",
+          "url": "https://github.com/aws/jsii/commit/b89c1276f1cd62421a0a32dddd9784c13b23f176"
+        },
+        "date": 1658847078557,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63589.87934265006,
+            "unit": "milliseconds",
+            "range": 2951940.399814052,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63589.87934265006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45237.6501086,
+            "unit": "milliseconds",
+            "range": 52727.25425055154,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45237.6501086 milliseconds over 20 runs"
           }
         ]
       }
