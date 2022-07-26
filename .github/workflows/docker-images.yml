@@ -72,7 +72,7 @@ jobs:
 
       # Federate into the PR Validation AWS Account
       - name: Federate into AWS
-        if: steps.should-run.outputs.result == 'true' && ${{ steps.federate_to_aws.outputs.enabled }} == 'true'
+        if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled == 'true'
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
@@ -80,7 +80,7 @@ jobs:
 
       # Login to ECR Public registry, so we don't get throttled at 1 TPS
       - name: Login to ECR Public
-        if: steps.should-run.outputs.result == 'true' && ${{ steps.federate_to_aws.outputs.enabled }} == 'true'
+        if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled == 'true'
         run: |-
           aws ecr-public get-login-password --region=us-east-1                  \
           | docker login --username AWS --password-stdin public.ecr.aws
@@ -126,7 +126,7 @@ jobs:
       # 1 pull per second from ECR Public
       - name: Jitter the start time to avoid ECR Public throttling
         id: sleep-start
-        if: steps.should-run.outputs.result == 'true' && ${{ steps.federate_to_aws.outputs.enabled }} != true
+        if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled != true
         run: |-
           sleep $((RANDOM % 60))
 
