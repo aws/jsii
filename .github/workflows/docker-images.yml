@@ -45,8 +45,13 @@ jobs:
               echo '⏯ Dockerfile changed'
               echo "::set-output name=result::true"
             else
-              echo '⏭ Dockerfile not changed'
-              echo "::set-output name=result::false"
+              if grep '.github/workflows/docker-images.yml' <<< "${changed}" ; then
+                echo '⏯ docker-images workflow changed'
+                echo "::set-output name=result::true"
+              else
+                echo '⏭ Dockerfile not changed'
+                echo "::set-output name=result::false"
+              fi
             fi
           fi
 
@@ -55,6 +60,7 @@ jobs:
       # See: https://github.com/actions/runner/issues/520
       - name: Check AWS federation configuration
         id: federate_to_aws
+        if: steps.should-run.outputs.result == 'true'
         run: |-
           if [[ "${{ secrets.AWS_ROLE_TO_ASSUME }}" != "" ]]; then
             echo "🔑 Federation into AWS is possible (AWS_ROLE_TO_ASSUME is available)"
@@ -66,7 +72,7 @@ jobs:
 
       # Federate into the PR Validation AWS Account
       - name: Federate into AWS
-        if: ${{ steps.federate_to_aws.outputs.enabled }} == true
+        if: steps.should-run.outputs.result == 'true' && ${{ steps.federate_to_aws.outputs.enabled }} == 'true'
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
@@ -74,7 +80,7 @@ jobs:
 
       # Login to ECR Public registry, so we don't get throttled at 1 TPS
       - name: Login to ECR Public
-        if: ${{ steps.federate_to_aws.outputs.enabled }} == true
+        if: steps.should-run.outputs.result == 'true' && ${{ steps.federate_to_aws.outputs.enabled }} == 'true'
         run: |-
           aws ecr-public get-login-password --region=us-east-1                  \
           | docker login --username AWS --password-stdin public.ecr.aws
