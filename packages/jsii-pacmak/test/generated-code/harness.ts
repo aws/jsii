@@ -31,8 +31,7 @@ expect.addSnapshotSerializer({
 });
 expect.addSnapshotSerializer({
   test: (val) => val?.[BINARY] != null,
-  serialize: (val) =>
-    `${val[BINARY]} is a binary file`,
+  serialize: (val) => `${val[BINARY]} is a binary file`,
 });
 expect.addSnapshotSerializer({
   test: (val) => val?.[TREE] != null,

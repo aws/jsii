@@ -110,14 +110,17 @@ export class DotNetGenerator extends Generator {
     // attribute. If this fails or is opted out (via $JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON being set), then only the
     // deprecated PackageIconUrl will be emitted.
     const iconFile =
-      this.assembly.targets?.dotnet?.iconUrl != null && !process.env.JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON
+      this.assembly.targets?.dotnet?.iconUrl != null &&
+      !process.env.JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON
         ? await tryDownloadResource(
             this.assembly.targets.dotnet.iconUrl,
             path.join(outdir, packageId),
-        ).catch((err: any) => {
-          debug(`[dotnet] Unable to download package icon, will only use deprecated PackageIconUrl attribute: ${err.cause}`)
-          return Promise.resolve(undefined);
-        })
+          ).catch((err: any) => {
+            debug(
+              `[dotnet] Unable to download package icon, will only use deprecated PackageIconUrl attribute: ${err.cause}`,
+            );
+            return Promise.resolve(undefined);
+          })
         : undefined;
     filegen.generateProjectFile(
       this.typeresolver.namespaceDependencies,
