@@ -15,6 +15,7 @@ jobs:
     name: jsii/superchain
     permissions:
       contents: read
+      id-token: write # Necessary for OIDC federation
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -75,8 +76,9 @@ jobs:
         if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled == 'true'
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-session-name: GHA_aws-jsii_docker-images
 
       # Login to ECR Public registry, so we don't get throttled at 1 TPS
       - name: Login to ECR Public
