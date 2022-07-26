@@ -57,8 +57,10 @@ jobs:
         id: federate_to_aws
         run: |-
           if [[ "${{ secrets.AWS_ROLE_TO_ASSUME }}" != "" ]]; then
+            echo "🔑 Federation into AWS is possible (AWS_ROLE_TO_ASSUME is available)"
             echo "::set-output name=enabled::true"
           else
+            echo "❌ Federation into AWS is disabled (no AWS_ROLE_TO_ASSUME secret found)"
             echo "::set-output name=enabled::false"
           fi
 
