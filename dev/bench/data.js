@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658839824477,
+  "lastUpdate": 1658841444740,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3451,6 +3451,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 89973.12029082238,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45480.9306148 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0f71e262956bbb18a029ead6b19b656ded5419d4",
+          "message": "chore: add missing permissions for OIDC Federation",
+          "timestamp": "2022-07-26T14:27:27+02:00",
+          "tree_id": "fb54ffa1dd9c8a24a7e5bc1f55b0c212d77282eb",
+          "url": "https://github.com/aws/jsii/commit/0f71e262956bbb18a029ead6b19b656ded5419d4"
+        },
+        "date": 1658841441386,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 64008.36340324996,
+            "unit": "milliseconds",
+            "range": 2846010.2753881514,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 64008.36340324996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45682.19757769997,
+            "unit": "milliseconds",
+            "range": 34580.61849130991,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45682.19757769997 milliseconds over 20 runs"
           }
         ]
       }
