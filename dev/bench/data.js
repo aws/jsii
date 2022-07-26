@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658849282320,
+  "lastUpdate": 1658850421286,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3679,6 +3679,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1456920.1140642734,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 86386.19455340001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4b152265df455de32ef60123132d2a15be054c1a",
+          "message": "chore(deps-dev): Update mkdocs-awesome-pages-plugin requirement from ~=2.7.0 to ~=2.8.0 in /gh-pages (#3675)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-07-26T16:02:25+02:00",
+          "tree_id": "ddfae25f7d6b01e0d5b80c4a3e86d471dfac9f18",
+          "url": "https://github.com/aws/jsii/commit/4b152265df455de32ef60123132d2a15be054c1a"
+        },
+        "date": 1658850419092,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71000.63365644997,
+            "unit": "milliseconds",
+            "range": 6976281.069621587,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71000.63365644997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49117.70178270001,
+            "unit": "milliseconds",
+            "range": 742484.4430196739,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49117.70178270001 milliseconds over 20 runs"
           }
         ]
       }
