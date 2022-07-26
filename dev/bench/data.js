@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658847273570,
+  "lastUpdate": 1658847876217,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3603,6 +3603,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 142723.59008650001,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54213.86878704999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ec7e2fdd953e4aedb5bc7ba1ede821307fdfae92",
+          "message": "chore(deps): Update pip requirement from ~=22.1 to ~=22.2 in /packages/@jsii/python-runtime (#3673)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-07-26T16:02:08+02:00",
+          "tree_id": "bb3a05c6157eb73d8ceb622d209e4a00310ba317",
+          "url": "https://github.com/aws/jsii/commit/ec7e2fdd953e4aedb5bc7ba1ede821307fdfae92"
+        },
+        "date": 1658847872056,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 86161.00891684998,
+            "unit": "milliseconds",
+            "range": 3231968.775612292,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 86161.00891684998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60437.785849149994,
+            "unit": "milliseconds",
+            "range": 272872.8555782713,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60437.785849149994 milliseconds over 20 runs"
           }
         ]
       }
