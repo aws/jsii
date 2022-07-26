@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658847080907,
+  "lastUpdate": 1658847273570,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3565,6 +3565,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 52727.25425055154,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45237.6501086 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bcc3f149929d76f71bb98f3b04e8e62a56d71b5c",
+          "message": "chore(java): extend dependency ranges to allow new versions (#3672)\n\nIn particular, allow using newer versions of Jackson that are not\r\nsusceptible to CVE-2020-36518. Also update junit, mockto and jetbrains\r\nannotations to allow most recent versions.",
+          "timestamp": "2022-07-26T15:56:37+02:00",
+          "tree_id": "ac3c25eed86fdbd376a66d8a425c7574d6721a66",
+          "url": "https://github.com/aws/jsii/commit/bcc3f149929d76f71bb98f3b04e8e62a56d71b5c"
+        },
+        "date": 1658847271552,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 78161.42820994995,
+            "unit": "milliseconds",
+            "range": 1599707.1532140065,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 78161.42820994995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 54213.86878704999,
+            "unit": "milliseconds",
+            "range": 142723.59008650001,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54213.86878704999 milliseconds over 20 runs"
           }
         ]
       }
