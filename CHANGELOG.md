@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.63.0](https://github.com/aws/jsii/compare/v1.62.0...v1.63.0) (2022-07-26)
+
+
+### Features
+
+* **jsii:** allow specifying baseUrl and paths in tsconfig.json ([#3662](https://github.com/aws/jsii/issues/3662)) ([7eb11b7](https://github.com/aws/jsii/commit/7eb11b7d3173f450cd6bd4c29180f6edf7f6b219)), closes [#865](https://github.com/aws/jsii/issues/865)
+* **python:** add dynamic type checking ([#3660](https://github.com/aws/jsii/issues/3660)) ([6c4b773](https://github.com/aws/jsii/commit/6c4b77301341add25df059c66fabde225377a48a)), closes [#3639](https://github.com/aws/jsii/issues/3639)
+
+
+### Bug Fixes
+
+* **go:** unused imports emitted for type unions ([#3664](https://github.com/aws/jsii/issues/3664)) ([68a80d9](https://github.com/aws/jsii/commit/68a80d98f1faa5772862c18b6907ca2298dccc76)), closes [#3399](https://github.com/aws/jsii/issues/3399)
+* **rosetta:** infuse incorrectly handles compressed assemblies ([#3669](https://github.com/aws/jsii/issues/3669)) ([a5bd219](https://github.com/aws/jsii/commit/a5bd2196f2e2e43686c3013a4671c55ddd8ee248))
+* **rosetta:** tablet compression handled incorrectly in multiple places ([#3670](https://github.com/aws/jsii/issues/3670)) ([30eded9](https://github.com/aws/jsii/commit/30eded98ec05734f687023ca04ec09769fb1e331)), closes [#3652](https://github.com/aws/jsii/issues/3652)
+
 ## [1.62.0](https://github.com/aws/jsii/compare/v1.61.0...v1.62.0) (2022-07-12)
 
 
