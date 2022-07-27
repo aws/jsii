@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.63.1](https://github.com/aws/jsii/compare/v1.63.0...v1.63.1) (2022-07-26)
+
+
+### Features
+
+* **python:** formally allow dicts to be passed in lieu of structs ([#3683](https://github.com/aws/jsii/pull/3683))
+
 ## [1.63.0](https://github.com/aws/jsii/compare/v1.62.0...v1.63.0) (2022-07-26)
 
 
