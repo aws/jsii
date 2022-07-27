@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658955034264,
+  "lastUpdate": 1658955365294,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -3945,6 +3945,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 692048.4274724603,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65715.1674237 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1a5ac9d59432be5371dfc4045970149ba77131bd",
+          "message": "feat(python): formally allow dicts to be passed in lieu of structs (#3683)\n\nFormalize the contract that it is allowed to pass a dict in places where\r\na struct instance is expected (this provides less type checking guarantees,\r\nand the developer is responsible for passing the right keys in).\r\n\r\nThis should address a false-positive issue with the runtime type-checking\r\nintroduced in 1.63.0 (#3660).",
+          "timestamp": "2022-07-27T18:37:51+02:00",
+          "tree_id": "bd4eac99cac6b8a2ab0896fc984151d0561a258b",
+          "url": "https://github.com/aws/jsii/commit/1a5ac9d59432be5371dfc4045970149ba77131bd"
+        },
+        "date": 1658955363124,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70202.33736820002,
+            "unit": "milliseconds",
+            "range": 847362.3866057284,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70202.33736820002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48508.428560100016,
+            "unit": "milliseconds",
+            "range": 468245.0872244694,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48508.428560100016 milliseconds over 20 runs"
           }
         ]
       }
