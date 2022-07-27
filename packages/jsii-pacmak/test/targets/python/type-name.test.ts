@@ -4,6 +4,8 @@ import {
   NamedTypeReference,
   PrimitiveType,
   SchemaVersion,
+  Type,
+  TypeKind,
   TypeReference,
 } from '@jsii/spec';
 
@@ -57,6 +59,11 @@ const assembly: Assembly = {
       fqn: `@foo/bar.other.${OTHER_SUBMODULE_TYPE}`,
       namespace: 'other',
     },
+    [`@foo/bar.Struct`]: {
+      datatype: true,
+      fqn: `@foo/bar.Struct`,
+      kind: TypeKind.Interface,
+    },
   },
 } as any;
 
@@ -78,6 +85,15 @@ describe(toTypeName, () => {
     readonly inSubmodule?: string;
     /** The nesting context in which to generate names (if not provided, none) */
     readonly inNestingContext?: readonly string[];
+    /** Additional context keys to register */
+    readonly context?: Omit<
+      NamingContext,
+      | 'assembly'
+      | 'emittedTypes'
+      | 'surroundingTypeFqns'
+      | 'submodule'
+      | 'typeResolver'
+    >;
   };
 
   const examples: readonly Example[] = [
@@ -221,14 +237,30 @@ describe(toTypeName, () => {
       },
       inSubmodule: `${assembly.name}.submodule`,
     },
+    // ############################# SPECIAL CASES##############################
+    {
+      name: 'Struct parameter type annotation',
+      input: { fqn: `${assembly.name}.Struct` },
+      forwardPythonType: `typing.Union["Struct", typing.Dict[str, typing.Any]]`,
+      pythonType: `typing.Union[Struct, typing.Dict[str, typing.Any]]`,
+      context: {
+        typeAnnotation: true,
+        parameterType: true,
+      },
+    },
   ];
 
   for (const example of examples) {
     const context: NamingContext = {
+      ...example.context,
       assembly,
       emittedTypes: new Set(),
       surroundingTypeFqns: example.inNestingContext,
       submodule: example.inSubmodule ?? assembly.name,
+      typeResolver: (fqn) => {
+        const type = assembly.types?.[fqn];
+        return type ?? ({ fqn } as any as Type);
+      },
     };
     const contextWithEmittedType: NamingContext = {
       ...context,
