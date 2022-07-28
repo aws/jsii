@@ -2530,6 +2530,7 @@ class PythonGenerator extends Generator {
       emittedTypes: new Set(),
       resolver,
       submodule: assm.name,
+      typeResolver: (fqn) => resolver.dereference(fqn),
     });
   }
 
