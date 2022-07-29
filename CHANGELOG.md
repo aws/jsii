@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.63.2](https://github.com/aws/jsii/compare/v1.63.1...v1.63.2) (2022-07-29)
+
+
+### Bug Fixes
+
+* **pyhon:** under-qualified types used by dynamic type checking ([#3688](https://github.com/aws/jsii/issues/3688)) ([833a717](https://github.com/aws/jsii/commit/833a71781c9e4fee1522d75e53d3de76b93439f5))
+
 ## [1.63.1](https://github.com/aws/jsii/compare/v1.63.0...v1.63.1) (2022-07-26)
 
 
