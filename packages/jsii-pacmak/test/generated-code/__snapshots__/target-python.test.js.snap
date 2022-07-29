@@ -2021,7 +2021,7 @@ class NestingClass(
             :stability: deprecated
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(NestedStruct.__init__)
+                type_hints = typing.get_type_hints(NestingClass.NestedStruct.__init__)
                 check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             self._values: typing.Dict[str, typing.Any] = {
                 "name": name,
@@ -7840,7 +7840,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
             :param value: 
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(PropBooleanValue.__init__)
+                type_hints = typing.get_type_hints(LevelOne.PropBooleanValue.__init__)
                 check_type(argname="argument value", value=value, expected_type=type_hints["value"])
             self._values: typing.Dict[str, typing.Any] = {
                 "value": value,
@@ -7880,7 +7880,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
             if isinstance(prop, dict):
                 prop = PropBooleanValue(**prop)
             if __debug__:
-                type_hints = typing.get_type_hints(PropProperty.__init__)
+                type_hints = typing.get_type_hints(LevelOne.PropProperty.__init__)
                 check_type(argname="argument prop", value=prop, expected_type=type_hints["prop"])
             self._values: typing.Dict[str, typing.Any] = {
                 "prop": prop,

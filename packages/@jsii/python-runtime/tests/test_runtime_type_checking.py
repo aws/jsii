@@ -1,6 +1,7 @@
 import pytest
 import re
 
+from scope.jsii_calc_lib.custom_submodule_name import NestingClass
 import jsii_calc
 
 
@@ -114,3 +115,7 @@ class TestRuntimeTypeChecking:
             ),
         ):
             subject.union_property = jsii_calc.StringEnum.B  # type:ignore
+
+    def test_nested_struct(self):
+        # None of these should throw...
+        NestingClass.NestedStruct(name="Queen B")
