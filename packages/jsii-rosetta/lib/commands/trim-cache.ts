@@ -25,7 +25,8 @@ export async function trimCache(options: TrimCacheOptions): Promise<void> {
   const original = await LanguageTablet.fromFile(options.cacheFile);
   const updated = new LanguageTablet();
   updated.addSnippets(...snippets.map((snip) => original.tryGetSnippet(snippetKey(snip))).filter(isDefined));
-  await updated.save(options.cacheFile);
+  // if the original file was compressed, then compress the updated file too
+  await updated.save(options.cacheFile, original.compressedSource);
 
   // eslint-disable-next-line prettier/prettier
   logging.info(`${options.cacheFile}: ${updated.count} snippets remaining (${original.count} - ${updated.count} trimmed)`);

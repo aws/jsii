@@ -1,5 +1,11 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromFile, loadAssemblyFromPath, findAssemblyFile, writeAssembly } from '@jsii/spec';
+import {
+  compressedAssemblyExists,
+  loadAssemblyFromFile,
+  loadAssemblyFromPath,
+  findAssemblyFile,
+  writeAssembly,
+} from '@jsii/spec';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -18,7 +24,7 @@ import {
   INITIALIZER_METHOD_NAME,
 } from '../snippet';
 import { enforcesStrictMode } from '../strict';
-import { LanguageTablet, DEFAULT_TABLET_NAME } from '../tablets/tablets';
+import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../tablets/tablets';
 import { fmap, mkDict, sortBy } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
@@ -86,12 +92,15 @@ export function loadAssemblies(
 export async function loadAllDefaultTablets(asms: readonly LoadedAssembly[]): Promise<Record<string, LanguageTablet>> {
   return mkDict(
     await Promise.all(
-      asms.map(
-        async (a) =>
-          [a.directory, await LanguageTablet.fromOptionalFile(path.join(a.directory, DEFAULT_TABLET_NAME))] as const,
-      ),
+      asms.map(async (a) => [a.directory, await LanguageTablet.fromOptionalFile(guessTabletLocation(a))] as const),
     ),
   );
+
+  function guessTabletLocation(a: LoadedAssembly): string {
+    const defaultTablet = path.join(a.directory, DEFAULT_TABLET_NAME);
+    const compDefaultTablet = path.join(a.directory, DEFAULT_TABLET_NAME_COMPRESSED);
+    return fs.existsSync(defaultTablet) ? defaultTablet : compDefaultTablet;
+  }
 }
 
 export type AssemblySnippetSource =
@@ -228,14 +237,11 @@ export async function allTypeScriptSnippets(
 
 /**
  * Replaces the file where the original assembly file *should* be found with a new assembly file.
+ * Detects whether or not there is a compressed assembly, and if there is, compresses the new assembly also.
  * Recalculates the fingerprint of the assembly to avoid tampering detection.
  */
-export function replaceAssembly(
-  assembly: spec.Assembly,
-  directory: string,
-  { compress = false }: { compress?: boolean } = {},
-) {
-  writeAssembly(directory, _fingerprint(assembly), { compress });
+export function replaceAssembly(assembly: spec.Assembly, directory: string) {
+  writeAssembly(directory, _fingerprint(assembly), { compress: compressedAssemblyExists(directory) });
 }
 
 /**

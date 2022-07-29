@@ -75,11 +75,18 @@ export interface ExtractOptions {
   readonly allowDirtyTranslations?: boolean;
 
   /**
-   * Compress the resulting tablet file
+   * Compress the implicit tablet files
    *
    * @default false
    */
   readonly compressTablet?: boolean;
+
+  /**
+   * Compress the cacheToFile tablet.
+   *
+   * @default false
+   */
+  readonly compressCacheToFile?: boolean;
 }
 
 export async function extractAndInfuse(assemblyLocations: string[], options: ExtractOptions): Promise<ExtractResult> {
@@ -87,6 +94,7 @@ export async function extractAndInfuse(assemblyLocations: string[], options: Ext
   await infuse(assemblyLocations, {
     cacheFromFile: options.cacheFromFile,
     cacheToFile: options.cacheToFile,
+    compressCacheToFile: options.compressCacheToFile,
   });
   return result;
 }
@@ -157,7 +165,7 @@ export async function extractSnippets(
     logging.info('Nothing left to translate');
   }
 
-  // Save to individual tablet files, and optionally append to the output file
+  // Save to individual tablet files
   if (options.writeToImplicitTablets ?? true) {
     await Promise.all(
       Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
@@ -175,13 +183,14 @@ export async function extractSnippets(
     );
   }
 
+  // optionally append to the output file
   if (options.cacheToFile) {
     logging.info(`Adding translations to ${options.cacheToFile}`);
     const output = options.trimCache
       ? new LanguageTablet()
       : await LanguageTablet.fromOptionalFile(options.cacheToFile);
     output.addTablets(translator.tablet);
-    await output.save(options.cacheToFile);
+    await output.save(options.cacheToFile, options.compressCacheToFile);
   }
 
   return { diagnostics, tablet: translator.tablet };

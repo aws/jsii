@@ -15,6 +15,13 @@ import {
 import { validateAssembly } from './validate-assembly';
 
 /**
+ * Returns true if the SPEC_FILE_NAME_COMPRESSED file exists in the directory.
+ */
+export function compressedAssemblyExists(directory: string): boolean {
+  return fs.existsSync(path.join(directory, SPEC_FILE_NAME_COMPRESSED));
+}
+
+/**
  * Finds the path to the SPEC_FILE_NAME file, which will either
  * be the assembly or hold instructions to find the assembly.
  *
