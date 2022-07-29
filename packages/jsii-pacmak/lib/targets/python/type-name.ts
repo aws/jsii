@@ -10,6 +10,7 @@ import {
   PrimitiveTypeReference,
   isUnionTypeReference,
   Type,
+  isInterfaceType,
 } from '@jsii/spec';
 import { toSnakeCase } from 'codemaker';
 import { createHash } from 'crypto';
@@ -36,6 +37,9 @@ export interface PythonImports {
 export interface NamingContext {
   /** The assembly in which the PythonType is expressed. */
   readonly assembly: Assembly;
+
+  /** A resolver to obtain complete information about a type. */
+  readonly typeResolver: (fqn: string) => Type;
 
   /** The submodule of the assembly in which the PythonType is expressed (could be the module root) */
   readonly submodule: string;
@@ -293,14 +297,27 @@ class UserType implements TypeName {
     submodule,
     surroundingTypeFqns,
     typeAnnotation = true,
+    parameterType,
+    typeResolver,
   }: NamingContext) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
       this.#fqn,
       assembly,
     );
+
+    // If this is a type annotation for a parameter, allow dicts to be passed where structs are expected.
+    const type = typeResolver(this.#fqn);
+    const isStruct = isInterfaceType(type) && !!type.datatype;
+    const wrapType =
+      typeAnnotation && parameterType && isStruct
+        ? (pyType: string) =>
+            `typing.Union[${pyType}, typing.Dict[str, typing.Any]]`
+        : (pyType: string) => pyType;
+
     if (assemblyName !== assembly.name) {
       return {
-        pythonType: pythonFqn,
+        // If it's a struct, then we allow passing as a dict, too...
+        pythonType: wrapType(pythonFqn),
         requiredImport: {
           sourcePackage: packageName,
           item: '',
@@ -330,8 +347,8 @@ class UserType implements TypeName {
       ) {
         // Possibly a forward reference, outputting the stringifierd python FQN
         return {
-          pythonType: JSON.stringify(
-            pythonFqn.substring(submodulePythonName.length + 1),
+          pythonType: wrapType(
+            JSON.stringify(pythonFqn.substring(submodulePythonName.length + 1)),
           ),
         };
       }
@@ -345,7 +362,9 @@ class UserType implements TypeName {
 
       // We'll just make a module-qualified reference at this point.
       return {
-        pythonType: pythonFqn.substring(submodulePythonName.length + 1),
+        pythonType: wrapType(
+          pythonFqn.substring(submodulePythonName.length + 1),
+        ),
       };
     }
 
@@ -382,6 +401,20 @@ export function toPythonFqn(fqn: string, rootAssm: Assembly) {
   }
 
   return { assemblyName, packageName, pythonFqn: fqnParts.join('.') };
+}
+
+/**
+ * Computes the nesting-qualified name of a type.
+ *
+ * @param fqn      the fully qualified jsii name of the type.
+ * @param rootAssm the root assembly for the project.
+ *
+ * @returns the nesting-qualified python type name (the name of the class,
+ *          qualified with all nesting parent classes).
+ */
+export function toPythonFullName(fqn: string, rootAssm: Assembly): string {
+  const { packageName, pythonFqn } = toPythonFqn(fqn, rootAssm);
+  return pythonFqn.slice(packageName.length + 1);
 }
 
 /**

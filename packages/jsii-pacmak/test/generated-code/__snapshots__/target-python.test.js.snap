@@ -2021,7 +2021,7 @@ class NestingClass(
             :stability: deprecated
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(NestedStruct.__init__)
+                type_hints = typing.get_type_hints(NestingClass.NestedStruct.__init__)
                 check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             self._values: typing.Dict[str, typing.Any] = {
                 "name": name,
@@ -3591,13 +3591,13 @@ class ClassWithContainerTypes(
 ):
     def __init__(
         self,
-        array: typing.Sequence["DummyObj"],
-        record: typing.Mapping[builtins.str, "DummyObj"],
-        obj: typing.Mapping[builtins.str, "DummyObj"],
+        array: typing.Sequence[typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
+        record: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
+        obj: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
         *,
-        array_prop: typing.Sequence["DummyObj"],
-        obj_prop: typing.Mapping[builtins.str, "DummyObj"],
-        record_prop: typing.Mapping[builtins.str, "DummyObj"],
+        array_prop: typing.Sequence[typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
+        obj_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
+        record_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
     ) -> None:
         '''
         :param array: -
@@ -4030,9 +4030,9 @@ class ContainerProps:
     def __init__(
         self,
         *,
-        array_prop: typing.Sequence["DummyObj"],
-        obj_prop: typing.Mapping[builtins.str, "DummyObj"],
-        record_prop: typing.Mapping[builtins.str, "DummyObj"],
+        array_prop: typing.Sequence[typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
+        obj_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
+        record_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
     ) -> None:
         '''
         :param array_prop: 
@@ -5116,7 +5116,7 @@ class EraseUndefinedHashValues(
     @builtins.classmethod
     def does_key_exist(
         cls,
-        opts: "EraseUndefinedHashValuesOptions",
+        opts: typing.Union["EraseUndefinedHashValuesOptions", typing.Dict[str, typing.Any]],
         key: builtins.str,
     ) -> builtins.bool:
         '''Returns \`\`true\`\` if \`\`key\`\` is defined in \`\`opts\`\`.
@@ -7812,7 +7812,11 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
 class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
     '''Validates that nested classes get correct code generation for the occasional forward reference.'''
 
-    def __init__(self, *, prop: "LevelOne.PropProperty") -> None:
+    def __init__(
+        self,
+        *,
+        prop: typing.Union["LevelOne.PropProperty", typing.Dict[str, typing.Any]],
+    ) -> None:
         '''
         :param prop: 
         '''
@@ -7836,7 +7840,7 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
             :param value: 
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(PropBooleanValue.__init__)
+                type_hints = typing.get_type_hints(LevelOne.PropBooleanValue.__init__)
                 check_type(argname="argument value", value=value, expected_type=type_hints["value"])
             self._values: typing.Dict[str, typing.Any] = {
                 "value": value,
@@ -7865,14 +7869,18 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
         name_mapping={"prop": "prop"},
     )
     class PropProperty:
-        def __init__(self, *, prop: "LevelOne.PropBooleanValue") -> None:
+        def __init__(
+            self,
+            *,
+            prop: typing.Union["LevelOne.PropBooleanValue", typing.Dict[str, typing.Any]],
+        ) -> None:
             '''
             :param prop: 
             '''
             if isinstance(prop, dict):
                 prop = PropBooleanValue(**prop)
             if __debug__:
-                type_hints = typing.get_type_hints(PropProperty.__init__)
+                type_hints = typing.get_type_hints(LevelOne.PropProperty.__init__)
                 check_type(argname="argument prop", value=prop, expected_type=type_hints["prop"])
             self._values: typing.Dict[str, typing.Any] = {
                 "prop": prop,
@@ -7902,7 +7910,11 @@ class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
     name_mapping={"prop": "prop"},
 )
 class LevelOneProps:
-    def __init__(self, *, prop: LevelOne.PropProperty) -> None:
+    def __init__(
+        self,
+        *,
+        prop: typing.Union[LevelOne.PropProperty, typing.Dict[str, typing.Any]],
+    ) -> None:
         '''
         :param prop: 
         '''
@@ -8999,7 +9011,7 @@ class RootStruct:
         self,
         *,
         string_prop: builtins.str,
-        nested_struct: typing.Optional[NestedStruct] = None,
+        nested_struct: typing.Optional[typing.Union[NestedStruct, typing.Dict[str, typing.Any]]] = None,
     ) -> None:
         '''This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
 
@@ -9055,7 +9067,7 @@ class RootStructValidator(
         cls,
         *,
         string_prop: builtins.str,
-        nested_struct: typing.Optional[NestedStruct] = None,
+        nested_struct: typing.Optional[typing.Union[NestedStruct, typing.Dict[str, typing.Any]]] = None,
     ) -> None:
         '''
         :param string_prop: May not be empty.
@@ -9628,7 +9640,7 @@ class StructB:
         *,
         required_string: builtins.str,
         optional_boolean: typing.Optional[builtins.bool] = None,
-        optional_struct_a: typing.Optional[StructA] = None,
+        optional_struct_a: typing.Optional[typing.Union[StructA, typing.Dict[str, typing.Any]]] = None,
     ) -> None:
         '''This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
 
@@ -9761,7 +9773,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         _positional: jsii.Number,
         *,
         required: builtins.str,
-        second_level: typing.Union[jsii.Number, SecondLevelStruct],
+        second_level: typing.Union[jsii.Number, typing.Union[SecondLevelStruct, typing.Dict[str, typing.Any]]],
         optional: typing.Optional[builtins.str] = None,
     ) -> "TopLevelStruct":
         '''
@@ -9786,7 +9798,10 @@ class StructUnionConsumer(
 ):
     @jsii.member(jsii_name="isStructA") # type: ignore[misc]
     @builtins.classmethod
-    def is_struct_a(cls, struct: typing.Union[StructA, StructB]) -> builtins.bool:
+    def is_struct_a(
+        cls,
+        struct: typing.Union[typing.Union[StructA, typing.Dict[str, typing.Any]], typing.Union[StructB, typing.Dict[str, typing.Any]]],
+    ) -> builtins.bool:
         '''
         :param struct: -
         '''
@@ -9797,7 +9812,10 @@ class StructUnionConsumer(
 
     @jsii.member(jsii_name="isStructB") # type: ignore[misc]
     @builtins.classmethod
-    def is_struct_b(cls, struct: typing.Union[StructA, StructB]) -> builtins.bool:
+    def is_struct_b(
+        cls,
+        struct: typing.Union[typing.Union[StructA, typing.Dict[str, typing.Any]], typing.Union[StructB, typing.Dict[str, typing.Any]]],
+    ) -> builtins.bool:
         '''
         :param struct: -
         '''
@@ -10276,7 +10294,7 @@ class TopLevelStruct:
         self,
         *,
         required: builtins.str,
-        second_level: typing.Union[jsii.Number, SecondLevelStruct],
+        second_level: typing.Union[jsii.Number, typing.Union[SecondLevelStruct, typing.Dict[str, typing.Any]]],
         optional: typing.Optional[builtins.str] = None,
     ) -> None:
         '''
@@ -11228,7 +11246,7 @@ class SupportsNiceJavaBuilder(
         self,
         id: jsii.Number,
         default_bar: typing.Optional[jsii.Number] = None,
-        props: typing.Optional[SupportsNiceJavaBuilderProps] = None,
+        props: typing.Optional[typing.Union[SupportsNiceJavaBuilderProps, typing.Dict[str, typing.Any]]] = None,
         *rest: builtins.str,
     ) -> None:
         '''
@@ -12235,7 +12253,7 @@ class MyClass(
     @jsii.member(jsii_name="bar")
     def bar(
         self,
-        _bar: typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps],
+        _bar: typing.Mapping[builtins.str, typing.Union[scope.jsii_calc_base.BaseProps, typing.Dict[str, typing.Any]]],
     ) -> None:
         '''
         :param _bar: -
@@ -12374,7 +12392,7 @@ class MyStruct:
     def __init__(
         self,
         *,
-        base_map: typing.Mapping[builtins.str, scope.jsii_calc_base.BaseProps],
+        base_map: typing.Mapping[builtins.str, typing.Union[scope.jsii_calc_base.BaseProps, typing.Dict[str, typing.Any]]],
         numbers: typing.Sequence[scope.jsii_calc_lib.Number],
     ) -> None:
         '''

@@ -5,7 +5,6 @@ import { Method } from './method';
 import { Property } from './property';
 import { ReferenceType } from './reference-type';
 import { TypeSystem } from './type-system';
-import { indexBy } from './util';
 
 export class InterfaceType extends ReferenceType {
   /** Caches the result of `getInterfaces`. */
@@ -62,7 +61,7 @@ export class InterfaceType extends ReferenceType {
    * @param inherited include all properties inherited from base classes (default: false)
    */
   public getProperties(inherited = false): { [name: string]: Property } {
-    return this._getProperties(inherited, this);
+    return Object.fromEntries(this._getProperties(inherited, this));
   }
 
   /**
@@ -70,7 +69,7 @@ export class InterfaceType extends ReferenceType {
    * @param inherited include all methods inherited from base classes (default: false)
    */
   public getMethods(inherited = false): { [name: string]: Method } {
-    return this._getMethods(inherited, this);
+    return Object.fromEntries(this._getMethods(inherited, this));
   }
 
   public isDataType() {
@@ -84,42 +83,45 @@ export class InterfaceType extends ReferenceType {
   private _getProperties(
     inherited: boolean,
     parentType: ReferenceType,
-  ): { [name: string]: Property } {
-    const base: { [name: string]: Property } = {};
+  ): Map<string, Property> {
+    const result = new Map<string, Property>();
     if (inherited) {
       for (const parent of this.getInterfaces()) {
-        Object.assign(base, parent._getProperties(inherited, parentType));
+        for (const [key, value] of parent._getProperties(
+          inherited,
+          parentType,
+        )) {
+          result.set(key, value);
+        }
       }
     }
-    return Object.assign(
-      base,
-      indexBy(
-        (this.spec.properties ?? []).map(
-          (p) => new Property(this.system, this.assembly, parentType, this, p),
-        ),
-        (p) => p.name,
-      ),
-    );
+    for (const p of this.spec.properties ?? []) {
+      result.set(
+        p.name,
+        new Property(this.system, this.assembly, parentType, this, p),
+      );
+    }
+    return result;
   }
 
   private _getMethods(
     inherited: boolean,
     parentType: ReferenceType,
-  ): { [name: string]: Method } {
-    const base: { [name: string]: Property } = {};
+  ): Map<string, Method> {
+    const methods = new Map<string, Method>();
     if (inherited) {
       for (const parent of this.getInterfaces()) {
-        Object.assign(base, parent._getMethods(inherited, parentType));
+        for (const [key, value] of parent._getMethods(inherited, parentType)) {
+          methods.set(key, value);
+        }
       }
     }
-    return Object.assign(
-      base,
-      indexBy(
-        (this.spec.methods ?? []).map(
-          (m) => new Method(this.system, this.assembly, parentType, this, m),
-        ),
-        (m) => m.name,
-      ),
-    );
+    for (const m of this.spec.methods ?? []) {
+      methods.set(
+        m.name,
+        new Method(this.system, this.assembly, parentType, this, m),
+      );
+    }
+    return methods;
   }
 }

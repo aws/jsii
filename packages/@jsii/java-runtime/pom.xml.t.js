@@ -60,11 +60,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <hamcrest.version>[1.3,1.4-a0)</hamcrest.version>
-        <jackson.version>[2.11.3,2.12-a0)</jackson.version>
+        <jackson.version>[2.11.3,2.14-a0)</jackson.version>
         <javax-annotations.version>[1.3.2,1.4.0)</javax-annotations.version>
-        <jetbrains-annotations.version>[13.0.0,20.0-a0)</jetbrains-annotations.version>
-        <junit.version>[5.7.0,5.8-a0)</junit.version>
-        <mockito.version>[3.5.13,4.0-a0)</mockito.version>
+        <jetbrains-annotations.version>[13.0.0,24.0-a0)</jetbrains-annotations.version>
+        <junit.version>[5.8.0,5.10-a0)</junit.version>
+        <mockito.version>[3.12.4,4.0-a0)</mockito.version>
     </properties>
 
     <dependencies>
@@ -79,6 +79,13 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>\${jackson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
             <version>\${jackson.version}</version>
         </dependency>
 
