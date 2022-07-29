@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659110415099,
+  "lastUpdate": 1659111170766,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4059,6 +4059,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 69651.33396643195,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44679.8986335 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "833a71781c9e4fee1522d75e53d3de76b93439f5",
+          "message": "fix(pyhon): under-qualified types used by dynamic type checking (#3688)\n\nThe types must be referenced from the current module's root, including\r\nnesting class names, or the names will not be defined.",
+          "timestamp": "2022-07-29T17:04:57+02:00",
+          "tree_id": "033bbb68b5a505bbc4aada07c5d90484b86f10a7",
+          "url": "https://github.com/aws/jsii/commit/833a71781c9e4fee1522d75e53d3de76b93439f5"
+        },
+        "date": 1659111167487,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 96077.86675060002,
+            "unit": "milliseconds",
+            "range": 15736395.77804502,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 96077.86675060002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 65587.66003535,
+            "unit": "milliseconds",
+            "range": 622955.3516407812,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65587.66003535 milliseconds over 20 runs"
           }
         ]
       }
