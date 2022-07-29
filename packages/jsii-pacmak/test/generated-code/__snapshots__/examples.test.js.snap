@@ -2570,7 +2570,7 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             :param bar: -
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(Foo.__init__)
+                type_hints = typing.get_type_hints(Namespace1.Foo.__init__)
                 check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             self._values: typing.Dict[str, typing.Any] = {
                 "bar": bar,

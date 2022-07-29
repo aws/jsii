@@ -24,6 +24,7 @@ import {
   PythonImports,
   mergePythonImports,
   toPackageName,
+  toPythonFullName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -466,7 +467,6 @@ abstract class BaseMethod implements PythonBase {
     private readonly returns: spec.OptionalValue | undefined,
     public readonly docs: spec.Docs | undefined,
     public readonly isStatic: boolean,
-    private readonly pythonParent: PythonType,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
@@ -674,7 +674,9 @@ abstract class BaseMethod implements PythonBase {
       emitParameterTypeChecks(
         code,
         pythonParams.slice(1),
-        `${this.pythonParent.pythonName}.${this.pythonName}`,
+        `${toPythonFullName(this.parent.fqn, context.assembly)}.${
+          this.pythonName
+        }`,
       );
     }
     this.emitBody(
@@ -867,7 +869,6 @@ abstract class BaseProperty implements PythonBase {
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
     public readonly docs: spec.Docs | undefined,
-    private readonly pythonParent: PythonType,
     opts: BasePropertyOpts,
   ) {
     const { abstract = false, immutable = false, isStatic = false } = opts;
@@ -952,9 +953,10 @@ abstract class BaseProperty implements PythonBase {
           // In order to get a property accessor, we must resort to getting the
           // attribute on the type, instead of the value (where the getter would
           // be implicitly invoked for us...)
-          `getattr(${this.pythonParent.pythonName}, ${JSON.stringify(
-            this.pythonName,
-          )}).fset`,
+          `getattr(${toPythonFullName(
+            this.parent.fqn,
+            context.assembly,
+          )}, ${JSON.stringify(this.pythonName)}).fset`,
         );
         code.line(
           `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
@@ -1141,7 +1143,11 @@ class Struct extends BasePythonClassType {
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
     }
-    emitParameterTypeChecks(code, kwargs, `${this.pythonName}.__init__`);
+    emitParameterTypeChecks(
+      code,
+      kwargs,
+      `${toPythonFullName(this.spec.fqn, context.assembly)}.__init__`,
+    );
 
     // Required properties, those will always be put into the dict
     assignDictionary(
@@ -2605,7 +2611,6 @@ class PythonGenerator extends Generator {
           undefined,
           cls.initializer.docs,
           false, // Never static
-          klass,
           { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
         ),
       );
@@ -2628,7 +2633,6 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         true, // Always static
-        klass,
         {
           abstract: method.abstract,
           liftedProp: this.getliftedProp(method),
@@ -2647,7 +2651,6 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2673,7 +2676,6 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
-          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2691,7 +2693,6 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
-          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2711,7 +2712,6 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2773,7 +2773,6 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         !!method.static,
-        klass,
         { liftedProp: this.getliftedProp(method), parent: ifc },
       ),
     );
@@ -2793,7 +2792,6 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
-        klass,
         { immutable: prop.immutable, isStatic: prop.static, parent: ifc },
       );
     }
