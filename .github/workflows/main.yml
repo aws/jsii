@@ -362,7 +362,8 @@ jobs:
     name: Run benchmark suite
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
+      pull-requests: write
     needs: build
     steps:
       # Check out the code
@@ -395,7 +396,7 @@ jobs:
           tool: 'customSmallerIsBetter'
           output-file-path: ${{ runner.temp }}/bench-output.json
           comment-always: true
-          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true
       - name: Upload Benchmark Results
         if: github.event_name == 'push'
