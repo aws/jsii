@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659350558052,
+  "lastUpdate": 1659350740694,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4211,6 +4211,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 51556.34849341899,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45953.58732725 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "23981d0ea48aef974cc6b5ee6bfe306b1ab7f989",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.1.11 to 0.1.12 in /packages/@jsii/go-runtime (#3687)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2022-08-01T11:53:03+02:00",
+          "tree_id": "6a738e1af7c9521dc4fcfb326c47657eab63990c",
+          "url": "https://github.com/aws/jsii/commit/23981d0ea48aef974cc6b5ee6bfe306b1ab7f989"
+        },
+        "date": 1659350738153,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71216.43333820006,
+            "unit": "milliseconds",
+            "range": 595592.3062310622,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71216.43333820006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49120.92915315002,
+            "unit": "milliseconds",
+            "range": 96031.33872335001,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49120.92915315002 milliseconds over 20 runs"
           }
         ]
       }
