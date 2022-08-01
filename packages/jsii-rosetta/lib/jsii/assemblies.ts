@@ -7,6 +7,7 @@ import {
   writeAssembly,
 } from '@jsii/spec';
 import * as crypto from 'crypto';
+import { promises as fsPromises } from 'fs';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -367,7 +368,7 @@ async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet)
 
   compilationDependencies[asm.assembly.name] = {
     type: 'concrete',
-    resolvedDirectory: await fs.realpath(asm.directory),
+    resolvedDirectory: await fsPromises.realpath(asm.directory),
   };
 
   Object.assign(
@@ -387,7 +388,7 @@ async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet)
                 name,
                 {
                   type: 'concrete',
-                  resolvedDirectory: await fs.realpath(await findDependencyDirectory(name, asm.directory)),
+                  resolvedDirectory: await fsPromises.realpath(await findDependencyDirectory(name, asm.directory)),
                 },
               ] as const,
           ),
