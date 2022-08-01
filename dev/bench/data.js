@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659353801839,
+  "lastUpdate": 1659358075450,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4325,6 +4325,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 518394.2952191156,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71803.36251260001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "053004afd6d576894b51b7cc3fcb11aa38ca3a1b",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.1.11 to 0.1.12 in /packages/@jsii/go-runtime-test/project (#3686)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2022-08-01T12:21:52+02:00",
+          "tree_id": "55e8739e5cd26a2c67fe28072fb35ae66363de97",
+          "url": "https://github.com/aws/jsii/commit/053004afd6d576894b51b7cc3fcb11aa38ca3a1b"
+        },
+        "date": 1659358073026,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72121.48100519998,
+            "unit": "milliseconds",
+            "range": 2350413.912711912,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72121.48100519998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49761.07910884998,
+            "unit": "milliseconds",
+            "range": 165057.90275577997,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49761.07910884998 milliseconds over 20 runs"
           }
         ]
       }
