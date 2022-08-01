@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659350740694,
+  "lastUpdate": 1659353554437,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4249,6 +4249,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 96031.33872335001,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49120.92915315002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4b47c7b7923e46737319454a607c7d4a73b18256",
+          "message": "chore: stop testing Node 17 (EOL for > 1 month) (#3691)",
+          "timestamp": "2022-08-01T12:21:07+02:00",
+          "tree_id": "6be8877e81a31d7fabeb731f2f087096fa8e118f",
+          "url": "https://github.com/aws/jsii/commit/4b47c7b7923e46737319454a607c7d4a73b18256"
+        },
+        "date": 1659353550065,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95619.21178770004,
+            "unit": "milliseconds",
+            "range": 4003663.3506648513,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95619.21178770004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 68281.18264060003,
+            "unit": "milliseconds",
+            "range": 857607.0894225125,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 68281.18264060003 milliseconds over 20 runs"
           }
         ]
       }
