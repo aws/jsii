@@ -1,5 +1,7 @@
-import * as fs from 'fs-extra';
+import { promises as fs } from 'fs';
 import * as path from 'path';
+
+import { pathExists } from './util';
 
 /**
  * Find the directory that contains a given dependency, identified by its 'package.json', from a starting search directory
@@ -34,7 +36,7 @@ export async function findDependencyDirectory(dependencyName: string, searchStar
 export async function findPackageJsonUp(packageName: string, directory: string) {
   return findUp(directory, async (dir) => {
     const pjFile = path.join(dir, 'package.json');
-    return (await fs.pathExists(pjFile)) && (await fs.readJson(pjFile)).name === packageName;
+    return (await pathExists(pjFile)) && JSON.parse(await fs.readFile(pjFile, 'utf-8')).name === packageName;
   });
 }
 

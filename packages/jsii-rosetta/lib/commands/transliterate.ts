@@ -1,5 +1,5 @@
 import { Assembly, Docs, SPEC_FILE_NAME, Type, TypeKind, loadAssemblyFromPath } from '@jsii/spec';
-import { writeJson } from 'fs-extra';
+import { promises as fs } from 'fs';
 import { resolve } from 'path';
 
 import { TargetLanguage } from '../languages';
@@ -117,7 +117,10 @@ export async function transliterateAssembly(
         transliterateType(type, rosetta, language);
       }
       // eslint-disable-next-line no-await-in-loop
-      await writeJson(resolve(options?.outdir ?? location, `${SPEC_FILE_NAME}.${language}`), result, { spaces: 2 });
+      await fs.writeFile(
+        resolve(options?.outdir ?? location, `${SPEC_FILE_NAME}.${language}`),
+        JSON.stringify(result, null, 2),
+      );
       const then = new Date().getTime();
       debug(`Done transliterating ${result.name}@${result.version} to ${language} after ${then - now} milliseconds`);
     }

@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as fs from 'fs-extra';
+import { promises as fs } from 'fs';
 
 import { TypeFingerprinter } from './jsii/fingerprinting';
 import { TARGET_LANGUAGES } from './languages';
@@ -190,7 +190,7 @@ export class RosettaTranslator {
     } finally {
       process.chdir(origDir);
       if (cleanCompilationDir) {
-        await fs.remove(compilationDirectory);
+        await fs.rm(compilationDirectory, { force: true, recursive: true });
       }
     }
 

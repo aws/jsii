@@ -1,5 +1,5 @@
 import { SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
-import * as fs from 'fs-extra';
+import * as fs from 'fs';
 import { compileJsiiForTest } from 'jsii';
 import * as path from 'path';
 
@@ -16,6 +16,7 @@ import * as extract from '../../lib/commands/extract';
 import { loadAssemblies } from '../../lib/jsii/assemblies';
 import { TARGET_LANGUAGES } from '../../lib/languages';
 import * as logging from '../../lib/logging';
+import { pathExists } from '../../lib/util';
 import { TestJsiiModule, DUMMY_JSII_CONFIG, testSnippetLocation } from '../testutil';
 
 jest.setTimeout(30_000);
@@ -159,7 +160,7 @@ describe('with cache file', () => {
   });
 
   async function givenThatDefaultTabletDoesNotExist() {
-    await fs.unlink(path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME));
+    await fs.promises.unlink(path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME));
   }
 
   describe('translation does not happen ', () => {
@@ -240,8 +241,8 @@ describe('with cache file', () => {
     });
 
     // THEN
-    expect(await fs.pathExists(path.join(assembly.moduleDirectory, 'dummy.tabl.json'))).toBeTruthy();
-    expect(await fs.pathExists(path.join(assembly.moduleDirectory, '.jsii.tabl.json'))).toBeTruthy();
+    expect(await pathExists(path.join(assembly.moduleDirectory, 'dummy.tabl.json'))).toBeTruthy();
+    expect(await pathExists(path.join(assembly.moduleDirectory, '.jsii.tabl.json'))).toBeTruthy();
   });
 
   describe('when the cache output tablet has unrelated snippets', () => {
@@ -644,9 +645,12 @@ test('can use additional dependencies from monorepo', async () => {
       ),
     );
     // GIVEN - a lerna.json that would find that package
-    await fs.writeJson(path.join(asm.workspaceDirectory, 'lerna.json'), {
-      packages: ['node_modules/*'],
-    });
+    await fs.promises.writeFile(
+      path.join(asm.workspaceDirectory, 'lerna.json'),
+      JSON.stringify({
+        packages: ['node_modules/*'],
+      }),
+    );
 
     // WHEN
     await extract.extractSnippets([asm.moduleDirectory], defaultExtractOptions);
