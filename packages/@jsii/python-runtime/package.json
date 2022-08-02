@@ -28,9 +28,10 @@
     "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps && npm run lint",
     "lint": "ts-node build-tools/venv.ts black .",
     "package": "package-python && package-private",
-    "test": "npm run test:gen && npm run test:run",
+    "test": "npm run test:gen && npm run test:run && npm run test:types",
     "test:gen": "npm run deps && ts-node build-tools/gen-calc.ts",
     "test:run": "ts-node build-tools/venv.ts py.test -v --mypy",
+    "test:types": "ts-node build-tools/venv.ts pyright -p .",
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {

@@ -3,7 +3,7 @@ import os
 
 import attr
 
-from typing import cast, Any, Callable, ClassVar, List, Optional, Mapping, Type, TypeVar
+from typing import cast, Any, Callable, List, Optional, Mapping, Type, TypeVar
 
 from . import _reference_map
 from ._compat import importlib_resources
@@ -49,7 +49,7 @@ class JSIIAssembly:
     def invokeBinScript(
         cls, pkgname: str, script: str, *args: str, _kernel=kernel
     ) -> None:
-        response = _kernel.invokeBinScript(pkgname, script, *args)
+        response = _kernel.invokeBinScript(pkgname, script, args)
         print(response.stdout)
 
 
@@ -154,7 +154,7 @@ def proxy_for(abstract_class: Type[Any]) -> Type[Any]:
     if not hasattr(abstract_class, "__jsii_proxy_class__"):
         raise TypeError(f"{abstract_class} is not a JSII Abstract class.")
 
-    return abstract_class.__jsii_proxy_class__()
+    return cast(Any, abstract_class).__jsii_proxy_class__()
 
 
 def python_jsii_mapping(cls: Type[Any]) -> Optional[Mapping[str, str]]:

@@ -1,3 +1,4 @@
+from typing import cast, Any, Optional
 import jsii
 import pytest
 import re
@@ -34,8 +35,7 @@ class TestErrorHandling:
                 "type of argument value must be one of (int, float); got method instead"
             ),
         ):
-            # types: ignore
-            obj.add(self.test_descriptive_error_when_passing_function)
+            obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
 
     def test_implements_interface(self) -> None:
         """Checks that jsii-generated classes correctly implement the relevant jsii-generated interfaces."""

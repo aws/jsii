@@ -3,7 +3,7 @@ import inspect
 import itertools
 from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
-from typing import Any, List, Optional, Type, Union
+from typing import cast, Any, List, Optional, Sequence, Type
 
 import functools
 
@@ -98,26 +98,31 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
                 if original is not _nothing:
                     if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
                         if any(
-                            entry.method == original.__jsii_name__
+                            entry.method == cast(Any, original).__jsii_name__
                             for entry in overrides
                         ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
-                            Override(method=original.__jsii_name__, cookie=name)
+                            Override(
+                                method=cast(Any, original).__jsii_name__, cookie=name
+                            )
                         )
                         break
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
                         if any(
-                            entry.property == original.fget.__jsii_name__
+                            entry.property == cast(Any, original).fget.__jsii_name__
                             for entry in overrides
                         ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
-                            Override(property=original.fget.__jsii_name__, cookie=name)
+                            Override(
+                                property=cast(Any, original).fget.__jsii_name__,
+                                cookie=name,
+                            )
                         )
                         break
 
@@ -269,7 +274,7 @@ class Kernel(metaclass=Singleton):
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
     def invokeBinScript(
-        self, pkgname: str, script: str, args: Optional[List[Any]] = None
+        self, pkgname: str, script: str, args: Optional[Sequence[str]] = None
     ) -> InvokeScriptResponse:
         if args is None:
             args = []
