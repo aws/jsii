@@ -1,5 +1,5 @@
 import { Assembly, SPEC_FILE_NAME, writeAssembly } from '@jsii/spec';
-import * as fs from 'fs-extra';
+import * as fs from 'fs';
 import * as jsii from 'jsii';
 import * as path from 'path';
 
@@ -96,12 +96,9 @@ export class ClassName implements IInterface {
   }
 }`,
     });
-    fs.writeJsonSync(
+    fs.writeFileSync(
       path.join(tmpDir, SPEC_FILE_NAME),
-      { ...compilationResult.assembly, targets },
-      {
-        spaces: 2,
-      },
+      JSON.stringify({ ...compilationResult.assembly, targets }, null, 2),
     );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
@@ -121,7 +118,7 @@ export class ClassName implements IInterface {
     ).resolves.not.toThrow();
 
     // THEN
-    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`))).toMatchInlineSnapshot(
+    expect(JSON.parse(fs.readFileSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`), 'utf-8'))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -376,7 +373,7 @@ export class ClassName implements IInterface {
       }
     `,
     );
-    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`))).toMatchInlineSnapshot(
+    expect(JSON.parse(fs.readFileSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`), 'utf-8'))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -631,7 +628,7 @@ export class ClassName implements IInterface {
       }
     `,
     );
-    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`))).toMatchInlineSnapshot(
+    expect(JSON.parse(fs.readFileSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`), 'utf-8'))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -934,12 +931,9 @@ import { SampleClass } from './index';
 new SampleClass('omitted-literate');
       `,
     });
-    fs.writeJsonSync(
+    fs.writeFileSync(
       path.join(tmpDir, SPEC_FILE_NAME),
-      { ...compilationResult.assembly, targets },
-      {
-        spaces: 2,
-      },
+      JSON.stringify({ ...compilationResult.assembly, targets }, null, 2),
     );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       if (file.startsWith('omit-')) {
@@ -956,7 +950,7 @@ new SampleClass('omitted-literate');
     ).resolves.not.toThrow();
 
     // THEN
-    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`))).toMatchInlineSnapshot(
+    expect(JSON.parse(fs.readFileSync(path.join(tmpDir, `${SPEC_FILE_NAME}.csharp`), 'utf-8'))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -1051,7 +1045,7 @@ new SampleClass('omitted-literate');
     `,
     );
 
-    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`))).toMatchInlineSnapshot(
+    expect(JSON.parse(fs.readFileSync(path.join(tmpDir, `${SPEC_FILE_NAME}.java`), 'utf-8'))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -1146,7 +1140,7 @@ new SampleClass('omitted-literate');
     `,
     );
 
-    expect(fs.readJsonSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`))).toMatchInlineSnapshot(
+    expect(JSON.parse(fs.readFileSync(path.join(tmpDir, `${SPEC_FILE_NAME}.python`), 'utf-8'))).toMatchInlineSnapshot(
       {
         fingerprint: expect.any(String),
         jsiiVersion: expect.any(String),
@@ -1318,12 +1312,9 @@ export class ClassName implements IInterface {
   }
 }`,
     });
-    fs.writeJsonSync(
+    fs.writeFileSync(
       path.join(tmpDir, SPEC_FILE_NAME),
-      { ...compilationResult.assembly, targets },
-      {
-        spaces: 2,
-      },
+      JSON.stringify({ ...compilationResult.assembly, targets }, null, 2),
     );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
@@ -1373,19 +1364,23 @@ test('will read translations from cache even if they are dirty', async () => {
     await extractSnippets([infusedAssembly.moduleDirectory]);
 
     // Mess up the extracted source file
-    const schema: TabletSchema = await fs.readJson(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'));
+    const schema: TabletSchema = JSON.parse(
+      await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'), 'utf-8'),
+    );
     for (const snippet of Object.values(schema.snippets)) {
       snippet.translations[TargetLanguage.PYTHON] = {
         source: 'oops',
         version: '999',
       };
     }
-    await fs.writeJson(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'), schema);
+    await fs.promises.writeFile(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'), JSON.stringify(schema));
 
     // Run a transliterate, should have used the translation from the cache even though the version is wrong
     await transliterateAssembly([infusedAssembly.moduleDirectory], [TargetLanguage.PYTHON]);
 
-    const translated: Assembly = await fs.readJson(path.join(infusedAssembly.moduleDirectory, '.jsii.python'));
+    const translated: Assembly = JSON.parse(
+      await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, '.jsii.python'), 'utf-8'),
+    );
     expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('oops');
   } finally {
     infusedAssembly.cleanup();
@@ -1472,12 +1467,9 @@ export class ClassName implements IInterface {
 }`,
     });
 
-    fs.writeJsonSync(
+    fs.writeFileSync(
       path.join(tmpDir, SPEC_FILE_NAME),
-      { ...compilationResult.assembly, targets },
-      {
-        spaces: 2,
-      },
+      JSON.stringify({ ...compilationResult.assembly, targets }, null, 2),
     );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
@@ -1586,12 +1578,13 @@ export class ClassName implements IInterface {
 }`,
     });
 
-    fs.writeJsonSync(
+    fs.writeFileSync(
       path.join(tmpDir, SPEC_FILE_NAME),
-      { ...compilationResult.assembly, targets: { ...targets, [targetName(TargetLanguage.GO)]: undefined } },
-      {
-        spaces: 2,
-      },
+      JSON.stringify(
+        { ...compilationResult.assembly, targets: { ...targets, [targetName(TargetLanguage.GO)]: undefined } },
+        null,
+        2,
+      ),
     );
     for (const [file, content] of Object.entries(compilationResult.files)) {
       fs.writeFileSync(path.resolve(tmpDir, file), content, 'utf-8');
@@ -1617,7 +1610,7 @@ export class ClassName implements IInterface {
 
     Object.values(TargetLanguage).forEach((lang) => {
       if (lang === TargetLanguage.GO) {
-        expect(fs.pathExistsSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`))).toBe(false);
+        expect(fs.existsSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`))).toBe(false);
       } else {
         expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);
       }

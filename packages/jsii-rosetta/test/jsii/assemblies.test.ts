@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as fs from 'fs-extra';
+import { promises as fs } from 'fs';
 import * as mockfs from 'mock-fs';
 import * as path from 'path';
 
@@ -252,7 +252,7 @@ test('rosetta fixture from submodule is preferred if it exists', async () => {
     },
   );
   try {
-    await fs.mkdirp(path.join(jsiiModule.moduleDirectory, 'rosetta', 'submodule'));
+    await fs.mkdir(path.join(jsiiModule.moduleDirectory, 'rosetta', 'submodule'), { recursive: true });
     await fs.writeFile(
       path.join(jsiiModule.moduleDirectory, 'rosetta', 'submodule', 'default.ts-fixture'),
       'pick me\n/// here',

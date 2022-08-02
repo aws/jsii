@@ -1,5 +1,5 @@
 import { loadAssemblyFromPath, SPEC_FILE_NAME, SPEC_FILE_NAME_COMPRESSED } from '@jsii/spec';
-import * as fs from 'fs-extra';
+import * as fs from 'fs';
 import * as path from 'path';
 
 import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../../lib';
@@ -102,7 +102,7 @@ test('can log to output file', async () => {
   });
 
   // assert that the output file exists and there is some information in the file.
-  const stats = await fs.stat(path.join(assembly.moduleDirectory, DEFAULT_INFUSION_RESULTS_NAME));
+  const stats = await fs.promises.stat(path.join(assembly.moduleDirectory, DEFAULT_INFUSION_RESULTS_NAME));
 
   expect(stats.isFile()).toBeTruthy();
   expect(stats.size).toBeGreaterThan(0);
@@ -150,7 +150,7 @@ test('preserves the assembly compression if present', async () => {
   await infuse([compAssembly.moduleDirectory]);
 
   // Expect file at SPEC_FILE_NAME to still be a file redirect (not the actual assembly)
-  expect(fs.readJSONSync(path.join(compAssembly.moduleDirectory, SPEC_FILE_NAME))).toEqual({
+  expect(JSON.parse(fs.readFileSync(path.join(compAssembly.moduleDirectory, SPEC_FILE_NAME), 'utf-8'))).toEqual({
     schema: 'jsii/file-redirect',
     compression: 'gzip',
     filename: SPEC_FILE_NAME_COMPRESSED,
@@ -167,8 +167,8 @@ test('can infuse with compressed default tablets', async () => {
   // remove any tablets that may currently exist
   const implicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME);
   const compImplicitTablet = path.join(assembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED);
-  await fs.remove(implicitTablet);
-  await fs.remove(compImplicitTablet);
+  await fs.promises.rm(implicitTablet, { force: true, recursive: true });
+  await fs.promises.rm(compImplicitTablet, { force: true, recursive: true });
 
   // create a compressed implicit tablet file via extract
   await extractSnippets([assembly.moduleDirectory], {

@@ -1,5 +1,5 @@
 import { Assembly, writeAssembly } from '@jsii/spec';
-import * as fs from 'fs-extra';
+import * as fs from 'fs';
 import { PackageInfo, compileJsiiForTest, TestWorkspace } from 'jsii';
 import * as os from 'os';
 import * as path from 'path';
@@ -129,5 +129,5 @@ export const DUMMY_JSII_CONFIG = {
 
 export async function withTemporaryDirectory<T>(callback: (dir: string) => Promise<T>): Promise<T> {
   const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
-  return callback(tmpdir).finally(() => fs.removeSync(tmpdir));
+  return callback(tmpdir).finally(() => fs.rmSync(tmpdir, { recursive: true }));
 }
