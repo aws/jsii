@@ -1987,6 +1987,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii-calc-3.20.120.tgz
        ┃  ┗━ 📄 jsii.go
+       ┣━ 📁 jsii3656
+       ┃  ┣━ 📄 jsii3656.go
+       ┃  ┗━ 📄 jsii3656.init.go
        ┣━ 📄 jsiicalc.go
        ┣━ 📄 jsiicalc.init.go
        ┣━ 📄 LICENSE
@@ -3059,6 +3062,97 @@ func Initialize() {
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii-calc-3.20.120.tgz 1`] = `go/jsiicalc/jsii/jsii-calc-3.20.120.tgz is a tarball`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii3656/jsii3656.go 1`] = `
+package jsii3656
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type ImplementMeOpts struct {
+	Name *string \`field:"required" json:"name" yaml:"name"\`
+	Count *float64 \`field:"optional" json:"count" yaml:"count"\`
+}
+
+type OverrideMe interface {
+	ImplementMe(opts *ImplementMeOpts) *bool
+}
+
+// The jsii proxy struct for OverrideMe
+type jsiiProxy_OverrideMe struct {
+	_ byte // padding
+}
+
+func NewOverrideMe_Override(o OverrideMe) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.jsii3656.OverrideMe",
+		nil, // no parameters
+		o,
+	)
+}
+
+func OverrideMe_CallAbstract(receiver OverrideMe) *bool {
+	_init_.Initialize()
+
+	var returns *bool
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.jsii3656.OverrideMe",
+		"callAbstract",
+		[]interface{}{receiver},
+		&returns,
+	)
+
+	return returns
+}
+
+func (o *jsiiProxy_OverrideMe) ImplementMe(opts *ImplementMeOpts) *bool {
+	var returns *bool
+
+	_jsii_.Invoke(
+		o,
+		"implementMe",
+		[]interface{}{opts},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii3656/jsii3656.init.go 1`] = `
+package jsii3656
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterStruct(
+		"jsii-calc.jsii3656.ImplementMeOpts",
+		reflect.TypeOf((*ImplementMeOpts)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.jsii3656.OverrideMe",
+		reflect.TypeOf((*OverrideMe)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "implementMe", GoMethod: "ImplementMe"},
+		},
+		func() interface{} {
+			return &jsiiProxy_OverrideMe{}
+		},
+	)
+}
+
+`;
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc.go 1`] = `
 // A simple calcuator built on JSII.

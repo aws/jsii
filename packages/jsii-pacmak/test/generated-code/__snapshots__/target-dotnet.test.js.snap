@@ -77,8 +77,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base), fullyQualifiedName: "@scope/jsii-calc-base.Base")]
     public abstract class Base : DeputyBase
     {
-        protected Base(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected Base(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -249,8 +255,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.StaticConsumer), fullyQualifiedName: "@scope/jsii-calc-base.StaticConsumer")]
     public class StaticConsumer : DeputyBase
     {
-        public StaticConsumer(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public StaticConsumer(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -690,8 +702,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very), fullyQualifiedName: "@scope/jsii-calc-base-of-base.Very")]
     public class Very : DeputyBase
     {
-        public Very(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Very(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -1074,8 +1092,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
-        public BaseFor2647(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very): base(new DeputyProps(new object?[]{very}))
+        public BaseFor2647(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very): base(_MakeDeputyProps(very))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very)
+        {
+            return new DeputyProps(new object?[]{very});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -1865,8 +1889,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
-        public Number(double @value): base(new DeputyProps(new object?[]{@value}))
+        public Number(double @value): base(_MakeDeputyProps(@value))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(double @value)
+        {
+            return new DeputyProps(new object?[]{@value});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -1926,8 +1956,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public abstract class NumericValue : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base
     {
-        protected NumericValue(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected NumericValue(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -2009,8 +2045,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public abstract class Operation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue
     {
-        protected Operation(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected Operation(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -2308,8 +2350,14 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
             /// <strong>Stability</strong>: Deprecated
             /// </remarks>
             [System.Obsolete()]
-            public NestedClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+            public NestedClass(): base(_MakeDeputyProps())
             {
+            }
+
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            private static DeputyProps _MakeDeputyProps()
+            {
+                return new DeputyProps(System.Array.Empty<object?>());
             }
 
             /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -2469,8 +2517,14 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
-        public Reflector(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Reflector(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -2912,6 +2966,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IUnionProperties.cs
        ┃           ┣━ 📄 IWallClock.cs
        ┃           ┣━ 📄 JavaReservedWords.cs
+       ┃           ┣━ 📁 Jsii3656
+       ┃           ┃  ┣━ 📄 IImplementMeOpts.cs
+       ┃           ┃  ┣━ 📄 ImplementMeOpts.cs
+       ┃           ┃  ┗━ 📄 OverrideMe.cs
        ┃           ┣━ 📄 JSII417Derived.cs
        ┃           ┣━ 📄 JSII417PublicBaseOfBase.cs
        ┃           ┣━ 📄 Jsii487Derived.cs
@@ -3149,8 +3207,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClass), fullyQualifiedName: "jsii-calc.AbstractClass")]
     public abstract class AbstractClass : Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceImplementedByAbstractClass
     {
-        protected AbstractClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected AbstractClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3217,8 +3281,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase), fullyQualifiedName: "jsii-calc.AbstractClassBase")]
     public abstract class AbstractClassBase : DeputyBase
     {
-        protected AbstractClassBase(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected AbstractClassBase(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3269,8 +3339,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClassReturner), fullyQualifiedName: "jsii-calc.AbstractClassReturner")]
     public class AbstractClassReturner : DeputyBase
     {
-        public AbstractClassReturner(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public AbstractClassReturner(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3320,8 +3396,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractSuite), fullyQualifiedName: "jsii-calc.AbstractSuite")]
     public abstract class AbstractSuite : DeputyBase
     {
-        protected AbstractSuite(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected AbstractSuite(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3397,8 +3479,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name="lhs">Left-hand side operand.</param>
         /// <param name="rhs">Right-hand side operand.</param>
-        public Add(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs): base(new DeputyProps(new object?[]{lhs, rhs}))
+        public Add(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs): base(_MakeDeputyProps(lhs, rhs))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs)
+        {
+            return new DeputyProps(new object?[]{lhs, rhs});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3448,8 +3536,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes), fullyQualifiedName: "jsii-calc.AllTypes")]
     public class AllTypes : DeputyBase
     {
-        public AllTypes(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public AllTypes(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3571,21 +3665,69 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual object[] UnionArrayProperty
         {
             get => GetInstanceProperty<object[]>()!;
-            set => SetInstanceProperty(value);
+            set
+            {
+                #if DEBUG
+                    for (int __idx_value = 0 ; __idx_value < value.Length ; __idx_value++)
+                    {
+                        if (
+                            !(value[__idx_value] is byte || value[__idx_value] is decimal || value[__idx_value] is double || value[__idx_value] is float || value[__idx_value] is int || value[__idx_value] is long || value[__idx_value] is sbyte || value[__idx_value] is short || value[__idx_value] is uint || value[__idx_value] is ulong || value[__idx_value] is ushort)
+                            && !(value[__idx_value] is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue)
+                        )
+
+                        {
+                            throw new System.ArgumentException($"Expected value[{__idx_value}] to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue).FullName}; received {value[__idx_value].GetType().FullName}", $"value");
+                        }
+                    }
+                #endif
+                SetInstanceProperty(value);
+            }
         }
 
         [JsiiProperty(name: "unionMapProperty", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"}]}},\\"kind\\":\\"map\\"}}")]
         public virtual System.Collections.Generic.IDictionary<string, object> UnionMapProperty
         {
             get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>>()!;
-            set => SetInstanceProperty(value);
+            set
+            {
+                #if DEBUG
+                    foreach (var __item_value in value)
+                    {
+                        if (
+                            !(__item_value.Value is string)
+                            && !(__item_value.Value is byte || __item_value.Value is decimal || __item_value.Value is double || __item_value.Value is float || __item_value.Value is int || __item_value.Value is long || __item_value.Value is sbyte || __item_value.Value is short || __item_value.Value is uint || __item_value.Value is ulong || __item_value.Value is ushort)
+                            && !(__item_value.Value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
+                        )
+
+                        {
+                            throw new System.ArgumentException($"Expected value[\\"{__item_value.Key}\\"] to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}; received {__item_value.Value.GetType().FullName}", $"value");
+                        }
+                    }
+                #endif
+                SetInstanceProperty(value);
+            }
         }
 
         [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"},{\\"fqn\\":\\"jsii-calc.Multiply\\"}]}}")]
         public virtual object UnionProperty
         {
             get => GetInstanceProperty<object>()!;
-            set => SetInstanceProperty(value);
+            set
+            {
+                #if DEBUG
+                    if (
+                        !(value is string)
+                        && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
+                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
+                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.Multiply)
+                    )
+
+                    {
+                        throw new System.ArgumentException($"Expected value to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}; received {value.GetType().FullName}", $"value");
+                    }
+                #endif
+                SetInstanceProperty(value);
+            }
         }
 
         [JsiiProperty(name: "unknownArrayProperty", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"array\\"}}")]
@@ -3653,8 +3795,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllowedMethodNames), fullyQualifiedName: "jsii-calc.AllowedMethodNames")]
     public class AllowedMethodNames : DeputyBase
     {
-        public AllowedMethodNames(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public AllowedMethodNames(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3711,8 +3859,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AmbiguousParameters), fullyQualifiedName: "jsii-calc.AmbiguousParameters", parametersJson: "[{\\"name\\":\\"scope\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.Bell\\"}},{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.StructParameterType\\"}}]")]
     public class AmbiguousParameters : DeputyBase
     {
-        public AmbiguousParameters(Amazon.JSII.Tests.CalculatorNamespace.Bell scope, Amazon.JSII.Tests.CalculatorNamespace.IStructParameterType props): base(new DeputyProps(new object?[]{scope, props}))
+        public AmbiguousParameters(Amazon.JSII.Tests.CalculatorNamespace.Bell scope, Amazon.JSII.Tests.CalculatorNamespace.IStructParameterType props): base(_MakeDeputyProps(scope, props))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Bell scope, Amazon.JSII.Tests.CalculatorNamespace.IStructParameterType props)
+        {
+            return new DeputyProps(new object?[]{scope, props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3755,8 +3909,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AnonymousImplementationProvider), fullyQualifiedName: "jsii-calc.AnonymousImplementationProvider")]
     public class AnonymousImplementationProvider : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IAnonymousImplementationProvider
     {
-        public AnonymousImplementationProvider(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public AnonymousImplementationProvider(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3799,8 +3959,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AsyncVirtualMethods), fullyQualifiedName: "jsii-calc.AsyncVirtualMethods")]
     public class AsyncVirtualMethods : DeputyBase
     {
-        public AsyncVirtualMethods(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public AsyncVirtualMethods(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3874,8 +4040,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AugmentableClass), fullyQualifiedName: "jsii-calc.AugmentableClass")]
     public class AugmentableClass : DeputyBase
     {
-        public AugmentableClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public AugmentableClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3918,8 +4090,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseClass), fullyQualifiedName: "jsii-calc.BaseClass")]
     public abstract class BaseClass : DeputyBase
     {
-        protected BaseClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected BaseClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -3970,8 +4148,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseJsii976), fullyQualifiedName: "jsii-calc.BaseJsii976")]
     public class BaseJsii976 : DeputyBase
     {
-        public BaseJsii976(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public BaseJsii976(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4002,8 +4186,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Bell), fullyQualifiedName: "jsii-calc.Bell")]
     public class Bell : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IBell
     {
-        public Bell(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Bell(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4051,8 +4241,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name="lhs">Left-hand side operand.</param>
         /// <param name="rhs">Right-hand side operand.</param>
-        protected BinaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs): base(new DeputyProps(new object?[]{lhs, rhs}))
+        protected BinaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs): base(_MakeDeputyProps(lhs, rhs))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs)
+        {
+            return new DeputyProps(new object?[]{lhs, rhs});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4136,8 +4332,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BurriedAnonymousObject), fullyQualifiedName: "jsii-calc.BurriedAnonymousObject")]
     public abstract class BurriedAnonymousObject : DeputyBase
     {
-        protected BurriedAnonymousObject(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected BurriedAnonymousObject(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4220,8 +4422,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <summary>Creates a Calculator object.</summary>
         /// <param name="props">Initialization properties.</param>
-        public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps? props = null): base(new DeputyProps(new object?[]{props}))
+        public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps? props = null): base(_MakeDeputyProps(props))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps? props = null)
+        {
+            return new DeputyProps(new object?[]{props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4317,7 +4525,24 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual object? UnionProperty
         {
             get => GetInstanceProperty<object?>();
-            set => SetInstanceProperty(value);
+            set
+            {
+                #if DEBUG
+                    if (value != null)
+                    {
+                        if (
+                            !(value is Amazon.JSII.Tests.CalculatorNamespace.Add)
+                            && !(value is Amazon.JSII.Tests.CalculatorNamespace.Multiply)
+                            && !(value is Amazon.JSII.Tests.CalculatorNamespace.Power)
+                        )
+
+                        {
+                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Add).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Power).FullName}; received {value.GetType().FullName}", $"value");
+                        }
+                    }
+                #endif
+                SetInstanceProperty(value);
+            }
         }
     }
 }
@@ -4375,8 +4600,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Cdk16625), fullyQualifiedName: "jsii-calc.cdk16625.Cdk16625")]
     public abstract class Cdk16625 : DeputyBase
     {
-        protected Cdk16625(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected Cdk16625(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4444,8 +4675,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport.UnimportedSubmoduleType), fullyQualifiedName: "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
     public class UnimportedSubmoduleType : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
     {
-        public UnimportedSubmoduleType(double @value): base(new DeputyProps(new object?[]{@value}))
+        public UnimportedSubmoduleType(double @value): base(_MakeDeputyProps(@value))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(double @value)
+        {
+            return new DeputyProps(new object?[]{@value});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4514,8 +4751,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassThatImplementsTheInternalInterface), fullyQualifiedName: "jsii-calc.ClassThatImplementsTheInternalInterface")]
     public class ClassThatImplementsTheInternalInterface : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface
     {
-        public ClassThatImplementsTheInternalInterface(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ClassThatImplementsTheInternalInterface(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4574,8 +4817,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassThatImplementsThePrivateInterface), fullyQualifiedName: "jsii-calc.ClassThatImplementsThePrivateInterface")]
     public class ClassThatImplementsThePrivateInterface : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface
     {
-        public ClassThatImplementsThePrivateInterface(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ClassThatImplementsThePrivateInterface(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4634,8 +4883,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollections), fullyQualifiedName: "jsii-calc.ClassWithCollections", parametersJson: "[{\\"name\\":\\"map\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"array\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}}]")]
     public class ClassWithCollections : DeputyBase
     {
-        public ClassWithCollections(System.Collections.Generic.IDictionary<string, string> map, string[] array): base(new DeputyProps(new object?[]{map, array}))
+        public ClassWithCollections(System.Collections.Generic.IDictionary<string, string> map, string[] array): base(_MakeDeputyProps(map, array))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(System.Collections.Generic.IDictionary<string, string> map, string[] array)
+        {
+            return new DeputyProps(new object?[]{map, array});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4706,8 +4961,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithContainerTypes), fullyQualifiedName: "jsii-calc.ClassWithContainerTypes", parametersJson: "[{\\"name\\":\\"array\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"array\\"}}},{\\"name\\":\\"record\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"obj\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"fqn\\":\\"jsii-calc.DummyObj\\"},\\"kind\\":\\"map\\"}}},{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.ContainerProps\\"}}]")]
     public class ClassWithContainerTypes : DeputyBase
     {
-        public ClassWithContainerTypes(Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] array, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> record, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> obj, Amazon.JSII.Tests.CalculatorNamespace.IContainerProps? props = null): base(new DeputyProps(new object?[]{array, record, obj, props}))
+        public ClassWithContainerTypes(Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] array, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> record, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> obj, Amazon.JSII.Tests.CalculatorNamespace.IContainerProps? props = null): base(_MakeDeputyProps(array, record, obj, props))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IDummyObj[] array, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> record, System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IDummyObj> obj, Amazon.JSII.Tests.CalculatorNamespace.IContainerProps? props = null)
+        {
+            return new DeputyProps(new object?[]{array, record, obj, props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4776,8 +5037,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDocs), fullyQualifiedName: "jsii-calc.ClassWithDocs")]
     public class ClassWithDocs : DeputyBase
     {
-        public ClassWithDocs(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ClassWithDocs(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4808,8 +5075,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithJavaReservedWords), fullyQualifiedName: "jsii-calc.ClassWithJavaReservedWords", parametersJson: "[{\\"name\\":\\"int\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
     public class ClassWithJavaReservedWords : DeputyBase
     {
-        public ClassWithJavaReservedWords(string @int): base(new DeputyProps(new object?[]{@int}))
+        public ClassWithJavaReservedWords(string @int): base(_MakeDeputyProps(@int))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string @int)
+        {
+            return new DeputyProps(new object?[]{@int});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4852,8 +5125,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithMutableObjectLiteralProperty), fullyQualifiedName: "jsii-calc.ClassWithMutableObjectLiteralProperty")]
     public class ClassWithMutableObjectLiteralProperty : DeputyBase
     {
-        public ClassWithMutableObjectLiteralProperty(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ClassWithMutableObjectLiteralProperty(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -4940,8 +5219,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
     public abstract class CompositeOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
-        protected CompositeOperation(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected CompositeOperation(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5086,7 +5371,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual object? UnionProperty
         {
             get => GetInstanceProperty<object?>();
-            set => SetInstanceProperty(value);
+            set
+            {
+                #if DEBUG
+                    if (value != null)
+                    {
+                        if (
+                            !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
+                            && !(value is object[])
+                        )
+
+                        {
+                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {$"{"object"}[]"}; received {value.GetType().FullName}", $"value");
+                        }
+                    }
+                #endif
+                SetInstanceProperty(value);
+            }
         }
     }
 }
@@ -5103,12 +5404,30 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.ConfusingToJacksonStruct")]
     public class ConfusingToJacksonStruct : Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct
     {
+        private object? _unionProperty;
+
         [JsiiOptional]
         [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.AbstractClass\\"}]}},\\"kind\\":\\"array\\"}}]}}", isOptional: true)]
         public object? UnionProperty
         {
-            get;
-            set;
+            get => _unionProperty;
+            set
+            {
+                #if DEBUG
+                    if (value != null)
+                    {
+                        if (
+                            !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
+                            && !(value is object[])
+                        )
+
+                        {
+                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {$"{"object"}[]"}; received {value.GetType().FullName}", $"value");
+                        }
+                    }
+                #endif
+                _unionProperty = value;
+            }
         }
     }
 }
@@ -5125,8 +5444,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut), fullyQualifiedName: "jsii-calc.ConstructorPassesThisOut", parametersJson: "[{\\"name\\":\\"consumer\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.PartiallyInitializedThisConsumer\\"}}]")]
     public class ConstructorPassesThisOut : DeputyBase
     {
-        public ConstructorPassesThisOut(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer consumer): base(new DeputyProps(new object?[]{consumer}))
+        public ConstructorPassesThisOut(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer consumer): base(_MakeDeputyProps(consumer))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer consumer)
+        {
+            return new DeputyProps(new object?[]{consumer});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5157,8 +5482,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), fullyQualifiedName: "jsii-calc.Constructors")]
     public class Constructors : DeputyBase
     {
-        public Constructors(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Constructors(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5231,8 +5562,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumePureInterface), fullyQualifiedName: "jsii-calc.ConsumePureInterface", parametersJson: "[{\\"name\\":\\"delegate\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IStructReturningDelegate\\"}}]")]
     public class ConsumePureInterface : DeputyBase
     {
-        public ConsumePureInterface(Amazon.JSII.Tests.CalculatorNamespace.IStructReturningDelegate @delegate): base(new DeputyProps(new object?[]{@delegate}))
+        public ConsumePureInterface(Amazon.JSII.Tests.CalculatorNamespace.IStructReturningDelegate @delegate): base(_MakeDeputyProps(@delegate))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IStructReturningDelegate @delegate)
+        {
+            return new DeputyProps(new object?[]{@delegate});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5274,8 +5611,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), fullyQualifiedName: "jsii-calc.ConsumerCanRingBell")]
     public class ConsumerCanRingBell : DeputyBase
     {
-        public ConsumerCanRingBell(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ConsumerCanRingBell(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5386,8 +5729,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumersOfThisCrazyTypeSystem), fullyQualifiedName: "jsii-calc.ConsumersOfThisCrazyTypeSystem")]
     public class ConsumersOfThisCrazyTypeSystem : DeputyBase
     {
-        public ConsumersOfThisCrazyTypeSystem(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ConsumersOfThisCrazyTypeSystem(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5468,8 +5817,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DataRenderer), fullyQualifiedName: "jsii-calc.DataRenderer")]
     public class DataRenderer : DeputyBase
     {
-        public DataRenderer(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public DataRenderer(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5522,8 +5877,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Default), fullyQualifiedName: "jsii-calc.Default")]
     public class Default : DeputyBase
     {
-        public Default(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Default(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5560,8 +5921,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DefaultedConstructorArgument), fullyQualifiedName: "jsii-calc.DefaultedConstructorArgument", parametersJson: "[{\\"name\\":\\"arg1\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"arg2\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg3\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"}}]")]
     public class DefaultedConstructorArgument : DeputyBase
     {
-        public DefaultedConstructorArgument(double? arg1 = null, string? arg2 = null, System.DateTime? arg3 = null): base(new DeputyProps(new object?[]{arg1, arg2, arg3}))
+        public DefaultedConstructorArgument(double? arg1 = null, string? arg2 = null, System.DateTime? arg3 = null): base(_MakeDeputyProps(arg1, arg2, arg3))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(double? arg1 = null, string? arg2 = null, System.DateTime? arg3 = null)
+        {
+            return new DeputyProps(new object?[]{arg1, arg2, arg3});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5616,8 +5983,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Demonstrate982), fullyQualifiedName: "jsii-calc.Demonstrate982")]
     public class Demonstrate982 : DeputyBase
     {
-        public Demonstrate982(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Demonstrate982(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5670,8 +6043,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete("this constructor is \\"just\\" okay")]
-        public DeprecatedClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object?[]{readonlyString, mutableNumber}))
+        public DeprecatedClass(string readonlyString, double? mutableNumber = null): base(_MakeDeputyProps(readonlyString, mutableNumber))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string readonlyString, double? mutableNumber = null)
+        {
+            return new DeputyProps(new object?[]{readonlyString, mutableNumber});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5798,8 +6177,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties.Base), fullyQualifiedName: "jsii-calc.DerivedClassHasNoProperties.Base")]
     public class Base : DeputyBase
     {
-        public Base(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Base(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -5837,8 +6222,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties.Derived), fullyQualifiedName: "jsii-calc.DerivedClassHasNoProperties.Derived")]
     public class Derived : Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties.Base
     {
-        public Derived(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Derived(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6208,8 +6599,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoNotOverridePrivates), fullyQualifiedName: "jsii-calc.DoNotOverridePrivates")]
     public class DoNotOverridePrivates : DeputyBase
     {
-        public DoNotOverridePrivates(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public DoNotOverridePrivates(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6259,8 +6656,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoNotRecognizeAnyAsOptional), fullyQualifiedName: "jsii-calc.DoNotRecognizeAnyAsOptional")]
     public class DoNotRecognizeAnyAsOptional : DeputyBase
     {
-        public DoNotRecognizeAnyAsOptional(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public DoNotRecognizeAnyAsOptional(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6313,8 +6716,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
     {
-        public DocumentedClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public DocumentedClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6368,8 +6777,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DontComplainAboutVariadicAfterOptional), fullyQualifiedName: "jsii-calc.DontComplainAboutVariadicAfterOptional")]
     public class DontComplainAboutVariadicAfterOptional : DeputyBase
     {
-        public DontComplainAboutVariadicAfterOptional(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public DontComplainAboutVariadicAfterOptional(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6406,8 +6821,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble), fullyQualifiedName: "jsii-calc.DoubleTrouble")]
     public class DoubleTrouble : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IFriendlyRandomGenerator
     {
-        public DoubleTrouble(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public DoubleTrouble(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6476,8 +6897,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearer), fullyQualifiedName: "jsii-calc.DynamicPropertyBearer", parametersJson: "[{\\"name\\":\\"valueStore\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
     public class DynamicPropertyBearer : DeputyBase
     {
-        public DynamicPropertyBearer(string valueStore): base(new DeputyProps(new object?[]{valueStore}))
+        public DynamicPropertyBearer(string valueStore): base(_MakeDeputyProps(valueStore))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string valueStore)
+        {
+            return new DeputyProps(new object?[]{valueStore});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6522,8 +6949,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearerChild), fullyQualifiedName: "jsii-calc.DynamicPropertyBearerChild", parametersJson: "[{\\"name\\":\\"originalValue\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
     public class DynamicPropertyBearerChild : Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearer
     {
-        public DynamicPropertyBearerChild(string originalValue): base(new DeputyProps(new object?[]{originalValue}))
+        public DynamicPropertyBearerChild(string originalValue): base(_MakeDeputyProps(originalValue))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string originalValue)
+        {
+            return new DeputyProps(new object?[]{originalValue});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6572,8 +7005,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <summary>Creates a new instance of Entropy.</summary>
         /// <param name="clock">your implementation of \`WallClock\`.</param>
-        protected Entropy(Amazon.JSII.Tests.CalculatorNamespace.IWallClock clock): base(new DeputyProps(new object?[]{clock}))
+        protected Entropy(Amazon.JSII.Tests.CalculatorNamespace.IWallClock clock): base(_MakeDeputyProps(clock))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IWallClock clock)
+        {
+            return new DeputyProps(new object?[]{clock});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6677,8 +7116,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValues")]
     public class EraseUndefinedHashValues : DeputyBase
     {
-        public EraseUndefinedHashValues(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public EraseUndefinedHashValues(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6770,8 +7215,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ExperimentalClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object?[]{readonlyString, mutableNumber}))
+        public ExperimentalClass(string readonlyString, double? mutableNumber = null): base(_MakeDeputyProps(readonlyString, mutableNumber))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string readonlyString, double? mutableNumber = null)
+        {
+            return new DeputyProps(new object?[]{readonlyString, mutableNumber});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6889,8 +7340,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExportedBaseClass), fullyQualifiedName: "jsii-calc.ExportedBaseClass", parametersJson: "[{\\"name\\":\\"success\\",\\"type\\":{\\"primitive\\":\\"boolean\\"}}]")]
     public class ExportedBaseClass : DeputyBase
     {
-        public ExportedBaseClass(bool success): base(new DeputyProps(new object?[]{success}))
+        public ExportedBaseClass(bool success): base(_MakeDeputyProps(success))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(bool success)
+        {
+            return new DeputyProps(new object?[]{success});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -6963,8 +7420,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>External</strong>: true
         /// </remarks>
-        public ExternalClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object?[]{readonlyString, mutableNumber}))
+        public ExternalClass(string readonlyString, double? mutableNumber = null): base(_MakeDeputyProps(readonlyString, mutableNumber))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string readonlyString, double? mutableNumber = null)
+        {
+            return new DeputyProps(new object?[]{readonlyString, mutableNumber});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -7110,8 +7573,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.GiveMeStructs), fullyQualifiedName: "jsii-calc.GiveMeStructs")]
     public class GiveMeStructs : DeputyBase
     {
-        public GiveMeStructs(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public GiveMeStructs(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -7196,8 +7665,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.GreetingAugmenter), fullyQualifiedName: "jsii-calc.GreetingAugmenter")]
     public class GreetingAugmenter : DeputyBase
     {
-        public GreetingAugmenter(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public GreetingAugmenter(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11356,8 +11831,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ImplementInternalInterface), fullyQualifiedName: "jsii-calc.ImplementInternalInterface")]
     public class ImplementInternalInterface : DeputyBase
     {
-        public ImplementInternalInterface(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ImplementInternalInterface(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11395,8 +11876,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Implementation), fullyQualifiedName: "jsii-calc.Implementation")]
     public class Implementation : DeputyBase
     {
-        public Implementation(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Implementation(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11433,8 +11920,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ImplementsInterfaceWithInternal), fullyQualifiedName: "jsii-calc.ImplementsInterfaceWithInternal")]
     public class ImplementsInterfaceWithInternal : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithInternal
     {
-        public ImplementsInterfaceWithInternal(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ImplementsInterfaceWithInternal(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11471,8 +11964,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ImplementsInterfaceWithInternalSubclass), fullyQualifiedName: "jsii-calc.ImplementsInterfaceWithInternalSubclass")]
     public class ImplementsInterfaceWithInternalSubclass : Amazon.JSII.Tests.CalculatorNamespace.ImplementsInterfaceWithInternal
     {
-        public ImplementsInterfaceWithInternalSubclass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ImplementsInterfaceWithInternalSubclass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11503,8 +12002,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ImplementsPrivateInterface), fullyQualifiedName: "jsii-calc.ImplementsPrivateInterface")]
     public class ImplementsPrivateInterface : DeputyBase
     {
-        public ImplementsPrivateInterface(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ImplementsPrivateInterface(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11579,8 +12084,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass), fullyQualifiedName: "jsii-calc.InbetweenClass")]
     public class InbetweenClass : Amazon.JSII.Tests.CalculatorNamespace.PublicClass, Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface2
     {
-        public InbetweenClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public InbetweenClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11673,8 +12184,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses.Foo), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo")]
     public class Foo : DeputyBase
     {
-        public Foo(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Foo(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11884,8 +12401,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Isomorphism), fullyQualifiedName: "jsii-calc.Isomorphism")]
     public abstract class Isomorphism : DeputyBase
     {
-        protected Isomorphism(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected Isomorphism(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11943,8 +12466,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Second sentence. Third sentence.
         /// </remarks>
-        public Issue2638(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Issue2638(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -11975,8 +12504,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Issue2638B), fullyQualifiedName: "jsii-calc.Issue2638B")]
     public class Issue2638B : DeputyBase
     {
-        public Issue2638B(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Issue2638B(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12007,8 +12542,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417Derived), fullyQualifiedName: "jsii-calc.JSII417Derived", parametersJson: "[{\\"name\\":\\"property\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
     public class JSII417Derived : Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase
     {
-        public JSII417Derived(string property): base(new DeputyProps(new object?[]{property}))
+        public JSII417Derived(string property): base(_MakeDeputyProps(property))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string property)
+        {
+            return new DeputyProps(new object?[]{property});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12057,8 +12598,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase), fullyQualifiedName: "jsii-calc.JSII417PublicBaseOfBase")]
     public class JSII417PublicBaseOfBase : DeputyBase
     {
-        public JSII417PublicBaseOfBase(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public JSII417PublicBaseOfBase(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12107,8 +12654,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSObjectLiteralForInterface), fullyQualifiedName: "jsii-calc.JSObjectLiteralForInterface")]
     public class JSObjectLiteralForInterface : DeputyBase
     {
-        public JSObjectLiteralForInterface(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public JSObjectLiteralForInterface(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12151,8 +12704,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSObjectLiteralToNative), fullyQualifiedName: "jsii-calc.JSObjectLiteralToNative")]
     public class JSObjectLiteralToNative : DeputyBase
     {
-        public JSObjectLiteralToNative(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public JSObjectLiteralToNative(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12189,8 +12748,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSObjectLiteralToNativeClass), fullyQualifiedName: "jsii-calc.JSObjectLiteralToNativeClass")]
     public class JSObjectLiteralToNativeClass : DeputyBase
     {
-        public JSObjectLiteralToNativeClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public JSObjectLiteralToNativeClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12235,8 +12800,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JavaReservedWords), fullyQualifiedName: "jsii-calc.JavaReservedWords")]
     public class JavaReservedWords : DeputyBase
     {
-        public JavaReservedWords(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public JavaReservedWords(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12586,8 +13157,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii487Derived), fullyQualifiedName: "jsii-calc.Jsii487Derived")]
     public class Jsii487Derived : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJsii487External2, Amazon.JSII.Tests.CalculatorNamespace.IJsii487External
     {
-        public Jsii487Derived(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Jsii487Derived(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12618,8 +13195,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii496Derived), fullyQualifiedName: "jsii-calc.Jsii496Derived")]
     public class Jsii496Derived : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJsii496
     {
-        public Jsii496Derived(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Jsii496Derived(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12640,6 +13223,150 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Jsii3656/IImplementMeOpts.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Jsii3656
+{
+    [JsiiInterface(nativeType: typeof(IImplementMeOpts), fullyQualifiedName: "jsii-calc.jsii3656.ImplementMeOpts")]
+    public interface IImplementMeOpts
+    {
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Name
+        {
+            get;
+        }
+
+        [JsiiProperty(name: "count", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        double? Count
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IImplementMeOpts), fullyQualifiedName: "jsii-calc.jsii3656.ImplementMeOpts")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Name
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+
+            [JsiiOptional]
+            [JsiiProperty(name: "count", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+            public double? Count
+            {
+                get => GetInstanceProperty<double?>();
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Jsii3656/ImplementMeOpts.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Jsii3656
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.jsii3656.ImplementMeOpts")]
+    public class ImplementMeOpts : Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts
+    {
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        [JsiiOptional]
+        [JsiiProperty(name: "count", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+        public double? Count
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Jsii3656/OverrideMe.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Jsii3656
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe), fullyQualifiedName: "jsii-calc.jsii3656.OverrideMe")]
+    public abstract class OverrideMe : DeputyBase
+    {
+        protected OverrideMe(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OverrideMe(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OverrideMe(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "callAbstract", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"receiver\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.jsii3656.OverrideMe\\"}}]")]
+        public static bool CallAbstract(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe receiver)
+        {
+            return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe)}, new object[]{receiver})!;
+        }
+
+        [JsiiMethod(name: "implementMe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"opts\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.jsii3656.ImplementMeOpts\\"}}]")]
+        public abstract bool ImplementMe(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts opts);
+
+
+        [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe), fullyQualifiedName: "jsii-calc.jsii3656.OverrideMe")]
+        internal sealed class _Proxy : Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "implementMe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"opts\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.jsii3656.ImplementMeOpts\\"}}]")]
+            public override bool ImplementMe(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts opts)
+            {
+                return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts)}, new object[]{opts})!;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/JsiiAgent.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -12651,8 +13378,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JsiiAgent), fullyQualifiedName: "jsii-calc.JsiiAgent")]
     public class JsiiAgent : DeputyBase
     {
-        public JsiiAgent(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public JsiiAgent(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -12808,8 +13541,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LevelOne), fullyQualifiedName: "jsii-calc.LevelOne", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.LevelOneProps\\"}}]")]
     public class LevelOne : DeputyBase
     {
-        public LevelOne(Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps props): base(new DeputyProps(new object?[]{props}))
+        public LevelOne(Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps props): base(_MakeDeputyProps(props))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps props)
+        {
+            return new DeputyProps(new object?[]{props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13040,8 +13779,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.MethodNamedProperty), fullyQualifiedName: "jsii-calc.MethodNamedProperty")]
     public class MethodNamedProperty : DeputyBase
     {
-        public MethodNamedProperty(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public MethodNamedProperty(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13088,8 +13833,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2530
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2530.MyClass), fullyQualifiedName: "jsii-calc.module2530.MyClass", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
     public class MyClass : DeputyBase
     {
-        public MyClass(double _): base(new DeputyProps(new object?[]{_}))
+        public MyClass(double _): base(_MakeDeputyProps(_))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(double _)
+        {
+            return new DeputyProps(new object?[]{_});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13180,8 +13931,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2647
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
-        public ExtendAndImplement(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very): base(new DeputyProps(new object?[]{very}))
+        public ExtendAndImplement(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very): base(_MakeDeputyProps(very))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very very)
+        {
+            return new DeputyProps(new object?[]{very});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13227,8 +13984,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2689.Methods
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2689.Methods.MyClass), fullyQualifiedName: "jsii-calc.module2689.methods.MyClass")]
     public class MyClass : DeputyBase
     {
-        public MyClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public MyClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13271,8 +14034,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2689.Props
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2689.Props.MyClass), fullyQualifiedName: "jsii-calc.module2689.props.MyClass")]
     public class MyClass : DeputyBase
     {
-        public MyClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public MyClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13315,8 +14084,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2689.Retval
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2689.Retval.MyClass), fullyQualifiedName: "jsii-calc.module2689.retval.MyClass")]
     public class MyClass : DeputyBase
     {
-        public MyClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public MyClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13632,8 +14407,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2700
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2700.Base), fullyQualifiedName: "jsii-calc.module2700.Base")]
     public class Base : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module2700.IFoo
     {
-        public Base(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Base(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13676,8 +14457,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2700
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2700.Derived), fullyQualifiedName: "jsii-calc.module2700.Derived")]
     public class Derived : Amazon.JSII.Tests.CalculatorNamespace.Module2700.Base, Amazon.JSII.Tests.CalculatorNamespace.Module2700.IFoo
     {
-        public Derived(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Derived(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13756,8 +14543,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2702.Baz), fullyQualifiedName: "jsii-calc.module2702.Baz")]
     public class Baz : Amazon.JSII.Tests.CalculatorNamespace.Module2702.Class3, Amazon.JSII.Tests.CalculatorNamespace.Module2702.IBaz
     {
-        public Baz(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Baz(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13794,8 +14587,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2702.Class1), fullyQualifiedName: "jsii-calc.module2702.Class1")]
     public class Class1 : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base
     {
-        public Class1(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Class1(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13832,8 +14631,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2702.Class2), fullyQualifiedName: "jsii-calc.module2702.Class2")]
     public class Class2 : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base
     {
-        public Class2(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Class2(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13870,8 +14675,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2702.Class3), fullyQualifiedName: "jsii-calc.module2702.Class3")]
     public class Class3 : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseInterface
     {
-        public Class3(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Class3(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -13920,8 +14731,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2702.Construct), fullyQualifiedName: "jsii-calc.module2702.Construct")]
     public class Construct : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module2702.IConstruct
     {
-        public Construct(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Construct(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14158,8 +14975,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2702.Resource), fullyQualifiedName: "jsii-calc.module2702.Resource")]
     public abstract class Resource : Amazon.JSII.Tests.CalculatorNamespace.Module2702.Construct, Amazon.JSII.Tests.CalculatorNamespace.Module2702.IResource
     {
-        protected Resource(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected Resource(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14210,8 +15033,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module2702.Vpc), fullyQualifiedName: "jsii-calc.module2702.Vpc")]
     public class Vpc : Amazon.JSII.Tests.CalculatorNamespace.Module2702.Resource, Amazon.JSII.Tests.CalculatorNamespace.Module2702.IVpc
     {
-        public Vpc(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Vpc(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14252,8 +15081,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name="lhs">Left-hand side operand.</param>
         /// <param name="rhs">Right-hand side operand.</param>
-        public Multiply(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs): base(new DeputyProps(new object?[]{lhs, rhs}))
+        public Multiply(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs): base(_MakeDeputyProps(lhs, rhs))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue rhs)
+        {
+            return new DeputyProps(new object?[]{lhs, rhs});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14359,8 +15194,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Negate), fullyQualifiedName: "jsii-calc.Negate", parametersJson: "[{\\"name\\":\\"operand\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
     public class Negate : Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier
     {
-        public Negate(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand): base(new DeputyProps(new object?[]{operand}))
+        public Negate(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand): base(_MakeDeputyProps(operand))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand)
+        {
+            return new DeputyProps(new object?[]{operand});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14485,8 +15326,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NodeStandardLibrary), fullyQualifiedName: "jsii-calc.NodeStandardLibrary")]
     public class NodeStandardLibrary : DeputyBase
     {
-        public NodeStandardLibrary(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public NodeStandardLibrary(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14548,8 +15395,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub1
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub1.TypeFromSub1), fullyQualifiedName: "jsii-calc.nodirect.sub1.TypeFromSub1")]
     public class TypeFromSub1 : DeputyBase
     {
-        public TypeFromSub1(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public TypeFromSub1(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14586,8 +15439,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub2
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Nodirect.Sub2.TypeFromSub2), fullyQualifiedName: "jsii-calc.nodirect.sub2.TypeFromSub2")]
     public class TypeFromSub2 : DeputyBase
     {
-        public TypeFromSub2(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public TypeFromSub2(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14625,8 +15484,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\\"name\\":\\"_param1\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"optional\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"any\\"}}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {
-        public NullShouldBeTreatedAsUndefined(string param1, object? optional = null): base(new DeputyProps(new object?[]{param1, optional}))
+        public NullShouldBeTreatedAsUndefined(string param1, object? optional = null): base(_MakeDeputyProps(param1, optional))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string param1, object? optional = null)
+        {
+            return new DeputyProps(new object?[]{param1, optional});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14715,8 +15580,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NumberGenerator), fullyQualifiedName: "jsii-calc.NumberGenerator", parametersJson: "[{\\"name\\":\\"generator\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IRandomNumberGenerator\\"}}]")]
     public class NumberGenerator : DeputyBase
     {
-        public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator generator): base(new DeputyProps(new object?[]{generator}))
+        public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator generator): base(_MakeDeputyProps(generator))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator generator)
+        {
+            return new DeputyProps(new object?[]{generator});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14767,8 +15638,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ObjectRefsInCollections), fullyQualifiedName: "jsii-calc.ObjectRefsInCollections")]
     public class ObjectRefsInCollections : DeputyBase
     {
-        public ObjectRefsInCollections(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ObjectRefsInCollections(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14852,8 +15729,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [System.Obsolete("Use the new class or the old class whatever you want because whatever you like is always the best")]
     public class Old : DeputyBase
     {
-        public Old(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Old(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14930,8 +15813,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalArgumentInvoker), fullyQualifiedName: "jsii-calc.OptionalArgumentInvoker", parametersJson: "[{\\"name\\":\\"delegate\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithOptionalMethodArguments\\"}}]")]
     public class OptionalArgumentInvoker : DeputyBase
     {
-        public OptionalArgumentInvoker(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithOptionalMethodArguments @delegate): base(new DeputyProps(new object?[]{@delegate}))
+        public OptionalArgumentInvoker(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithOptionalMethodArguments @delegate): base(_MakeDeputyProps(@delegate))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithOptionalMethodArguments @delegate)
+        {
+            return new DeputyProps(new object?[]{@delegate});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -14974,8 +15863,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalConstructorArgument), fullyQualifiedName: "jsii-calc.OptionalConstructorArgument", parametersJson: "[{\\"name\\":\\"arg1\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"arg2\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"arg3\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"date\\"}}]")]
     public class OptionalConstructorArgument : DeputyBase
     {
-        public OptionalConstructorArgument(double arg1, string arg2, System.DateTime? arg3 = null): base(new DeputyProps(new object?[]{arg1, arg2, arg3}))
+        public OptionalConstructorArgument(double arg1, string arg2, System.DateTime? arg3 = null): base(_MakeDeputyProps(arg1, arg2, arg3))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(double arg1, string arg2, System.DateTime? arg3 = null)
+        {
+            return new DeputyProps(new object?[]{arg1, arg2, arg3});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15047,8 +15942,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OptionalStructConsumer), fullyQualifiedName: "jsii-calc.OptionalStructConsumer", parametersJson: "[{\\"name\\":\\"optionalStruct\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.OptionalStruct\\"}}]")]
     public class OptionalStructConsumer : DeputyBase
     {
-        public OptionalStructConsumer(Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct? optionalStruct = null): base(new DeputyProps(new object?[]{optionalStruct}))
+        public OptionalStructConsumer(Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct? optionalStruct = null): base(_MakeDeputyProps(optionalStruct))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct? optionalStruct = null)
+        {
+            return new DeputyProps(new object?[]{optionalStruct});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15095,8 +15996,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OverridableProtectedMember), fullyQualifiedName: "jsii-calc.OverridableProtectedMember")]
     public class OverridableProtectedMember : DeputyBase
     {
-        public OverridableProtectedMember(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public OverridableProtectedMember(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15158,8 +16065,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OverrideReturnsObject), fullyQualifiedName: "jsii-calc.OverrideReturnsObject")]
     public class OverrideReturnsObject : DeputyBase
     {
-        public OverrideReturnsObject(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public OverrideReturnsObject(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15220,8 +16133,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer), fullyQualifiedName: "jsii-calc.PartiallyInitializedThisConsumer")]
     public abstract class PartiallyInitializedThisConsumer : DeputyBase
     {
-        protected PartiallyInitializedThisConsumer(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected PartiallyInitializedThisConsumer(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15270,8 +16189,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Polymorphism), fullyQualifiedName: "jsii-calc.Polymorphism")]
     public class Polymorphism : DeputyBase
     {
-        public Polymorphism(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Polymorphism(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15312,8 +16237,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Creates a Power operation.</summary>
         /// <param name="base">The base of the power.</param>
         /// <param name="pow">The number of times to multiply.</param>
-        public Power(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue @base, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue pow): base(new DeputyProps(new object?[]{@base, pow}))
+        public Power(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue @base, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue pow): base(_MakeDeputyProps(@base, pow))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue @base, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue pow)
+        {
+            return new DeputyProps(new object?[]{@base, pow});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15369,8 +16300,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PropertyNamedProperty), fullyQualifiedName: "jsii-calc.PropertyNamedProperty")]
     public class PropertyNamedProperty : DeputyBase
     {
-        public PropertyNamedProperty(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public PropertyNamedProperty(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15413,8 +16350,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PublicClass), fullyQualifiedName: "jsii-calc.PublicClass")]
     public class PublicClass : DeputyBase
     {
-        public PublicClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public PublicClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15451,8 +16394,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonReservedWords), fullyQualifiedName: "jsii-calc.PythonReservedWords")]
     public class PythonReservedWords : DeputyBase
     {
-        public PythonReservedWords(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public PythonReservedWords(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15675,8 +16624,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.ClassWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.ClassWithSelf", parametersJson: "[{\\"name\\":\\"self\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
     public class ClassWithSelf : DeputyBase
     {
-        public ClassWithSelf(string self): base(new DeputyProps(new object?[]{self}))
+        public ClassWithSelf(string self): base(_MakeDeputyProps(self))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string self)
+        {
+            return new DeputyProps(new object?[]{self});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15719,8 +16674,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.ClassWithSelfKwarg), fullyQualifiedName: "jsii-calc.PythonSelf.ClassWithSelfKwarg", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.PythonSelf.StructWithSelf\\"}}]")]
     public class ClassWithSelfKwarg : DeputyBase
     {
-        public ClassWithSelfKwarg(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf props): base(new DeputyProps(new object?[]{props}))
+        public ClassWithSelfKwarg(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf props): base(_MakeDeputyProps(props))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf props)
+        {
+            return new DeputyProps(new object?[]{props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15846,8 +16807,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ReferenceEnumFromScopedPackage), fullyQualifiedName: "jsii-calc.ReferenceEnumFromScopedPackage")]
     public class ReferenceEnumFromScopedPackage : DeputyBase
     {
-        public ReferenceEnumFromScopedPackage(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ReferenceEnumFromScopedPackage(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -15903,8 +16870,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ReturnsPrivateImplementationOfInterface), fullyQualifiedName: "jsii-calc.ReturnsPrivateImplementationOfInterface")]
     public class ReturnsPrivateImplementationOfInterface : DeputyBase
     {
-        public ReturnsPrivateImplementationOfInterface(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ReturnsPrivateImplementationOfInterface(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16012,8 +16985,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.RuntimeTypeChecking), fullyQualifiedName: "jsii-calc.RuntimeTypeChecking")]
     public class RuntimeTypeChecking : DeputyBase
     {
-        public RuntimeTypeChecking(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public RuntimeTypeChecking(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16102,8 +17081,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SingleInstanceTwoTypes), fullyQualifiedName: "jsii-calc.SingleInstanceTwoTypes")]
     public class SingleInstanceTwoTypes : DeputyBase
     {
-        public SingleInstanceTwoTypes(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public SingleInstanceTwoTypes(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16292,8 +17277,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SomeTypeJsii976), fullyQualifiedName: "jsii-calc.SomeTypeJsii976")]
     public class SomeTypeJsii976 : DeputyBase
     {
-        public SomeTypeJsii976(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public SomeTypeJsii976(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16336,8 +17327,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StableClass), fullyQualifiedName: "jsii-calc.StableClass", parametersJson: "[{\\"name\\":\\"readonlyString\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"mutableNumber\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
     public class StableClass : DeputyBase
     {
-        public StableClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object?[]{readonlyString, mutableNumber}))
+        public StableClass(string readonlyString, double? mutableNumber = null): base(_MakeDeputyProps(readonlyString, mutableNumber))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string readonlyString, double? mutableNumber = null)
+        {
+            return new DeputyProps(new object?[]{readonlyString, mutableNumber});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16522,8 +17519,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent), fullyQualifiedName: "jsii-calc.StaticHelloParent")]
     public class StaticHelloParent : DeputyBase
     {
-        public StaticHelloParent(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public StaticHelloParent(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16566,8 +17569,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), fullyQualifiedName: "jsii-calc.Statics", parametersJson: "[{\\"name\\":\\"value\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
     public class Statics : DeputyBase
     {
-        public Statics(string @value): base(new DeputyProps(new object?[]{@value}))
+        public Statics(string @value): base(_MakeDeputyProps(@value))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string @value)
+        {
+            return new DeputyProps(new object?[]{@value});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16689,8 +17698,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StripInternal), fullyQualifiedName: "jsii-calc.StripInternal")]
     public class StripInternal : DeputyBase
     {
-        public StripInternal(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public StripInternal(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16844,8 +17859,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), fullyQualifiedName: "jsii-calc.StructPassing")]
     public class StructPassing : DeputyBase
     {
-        public StructPassing(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public StructPassing(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16905,12 +17926,32 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "isStructA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
         public static bool IsStructA(object @struct)
         {
+            #if DEBUG
+                if (
+                    !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
+                    && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                )
+
+                {
+                    throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", $"{nameof(@struct)}");
+                }
+            #endif
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
         }
 
         [JsiiMethod(name: "isStructB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
         public static bool IsStructB(object @struct)
         {
+            #if DEBUG
+                if (
+                    !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
+                    && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                )
+
+                {
+                    throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", $"{nameof(@struct)}");
+                }
+            #endif
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
         }
     }
@@ -17225,8 +18266,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.InnerClass), fullyQualifiedName: "jsii-calc.submodule.child.InnerClass")]
     public class InnerClass : DeputyBase
     {
-        public InnerClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public InnerClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17297,8 +18344,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.OuterClass), fullyQualifiedName: "jsii-calc.submodule.child.OuterClass")]
     public class OuterClass : DeputyBase
     {
-        public OuterClass(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public OuterClass(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17521,8 +18574,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass), fullyQualifiedName: "jsii-calc.submodule.MyClass", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.child.SomeStruct\\"}}]")]
     public class MyClass : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.DeeplyNested.INamespaced
     {
-        public MyClass(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct props): base(new DeputyProps(new object?[]{props}))
+        public MyClass(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct props): base(_MakeDeputyProps(props))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct props)
+        {
+            return new DeputyProps(new object?[]{props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17754,8 +18813,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Returnsparam
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Returnsparam.ReturnsSpecialParameter), fullyQualifiedName: "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter")]
     public class ReturnsSpecialParameter : DeputyBase
     {
-        public ReturnsSpecialParameter(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public ReturnsSpecialParameter(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17793,8 +18858,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Sum), fullyQualifiedName: "jsii-calc.Sum")]
     public class Sum : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
-        public Sum(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Sum(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17847,8 +18918,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <param name="defaultBar">the default value of \`bar\`.</param>
         /// <param name="props">some props once can provide.</param>
         /// <param name="rest">a variadic continuation.</param>
-        public SupportsNiceJavaBuilder(double id, double? defaultBar = null, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps? props = null, params string[] rest): base(new DeputyProps(new object?[]{id, defaultBar, props, rest}))
+        public SupportsNiceJavaBuilder(double id, double? defaultBar = null, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps? props = null, params string[] rest): base(_MakeDeputyProps(id, defaultBar, props, rest))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(double id, double? defaultBar = null, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps? props = null, params string[] rest)
+        {
+            return new DeputyProps(new object?[]{id, defaultBar, props, rest});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17931,8 +19008,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <param name="id">some identifier of your choice.</param>
         /// <param name="props">some properties.</param>
-        public SupportsNiceJavaBuilderWithRequiredProps(double id, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps props): base(new DeputyProps(new object?[]{id, props}))
+        public SupportsNiceJavaBuilderWithRequiredProps(double id, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps props): base(_MakeDeputyProps(id, props))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(double id, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps props)
+        {
+            return new DeputyProps(new object?[]{id, props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17983,8 +19066,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SyncVirtualMethods), fullyQualifiedName: "jsii-calc.SyncVirtualMethods")]
     public class SyncVirtualMethods : DeputyBase
     {
-        public SyncVirtualMethods(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public SyncVirtualMethods(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18116,8 +19205,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.TestStructWithEnum), fullyQualifiedName: "jsii-calc.TestStructWithEnum")]
     public class TestStructWithEnum : DeputyBase
     {
-        public TestStructWithEnum(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public TestStructWithEnum(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18176,8 +19271,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Thrower), fullyQualifiedName: "jsii-calc.Thrower")]
     public class Thrower : DeputyBase
     {
-        public Thrower(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public Thrower(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18224,12 +19325,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        private object _secondLevel;
+
         /// <summary>A union to really stress test our serialization.</summary>
         [JsiiProperty(name: "secondLevel", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"jsii-calc.SecondLevelStruct\\"}]}}")]
         public object SecondLevel
         {
-            get;
-            set;
+            get => _secondLevel;
+            set
+            {
+                #if DEBUG
+                    if (
+                        !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
+                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct)
+                    )
+
+                    {
+                        throw new System.ArgumentException($"Expected value to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct).FullName}; received {value.GetType().FullName}", $"value");
+                    }
+                #endif
+                _secondLevel = value;
+            }
         }
 
         /// <summary>You don't have to pass this.</summary>
@@ -18259,8 +19375,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.TwoMethodsWithSimilarCapitalization), fullyQualifiedName: "jsii-calc.TwoMethodsWithSimilarCapitalization")]
     public class TwoMethodsWithSimilarCapitalization : DeputyBase
     {
-        public TwoMethodsWithSimilarCapitalization(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public TwoMethodsWithSimilarCapitalization(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18373,8 +19495,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation", parametersJson: "[{\\"name\\":\\"operand\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NumericValue\\"}}]")]
     public abstract class UnaryOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
-        protected UnaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand): base(new DeputyProps(new object?[]{operand}))
+        protected UnaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand): base(_MakeDeputyProps(operand))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue operand)
+        {
+            return new DeputyProps(new object?[]{operand});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18444,19 +19572,53 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.UnionProperties")]
     public class UnionProperties : Amazon.JSII.Tests.CalculatorNamespace.IUnionProperties
     {
+        private object _bar;
+
         [JsiiProperty(name: "bar", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"},{\\"fqn\\":\\"jsii-calc.AllTypes\\"}]}}")]
         public object Bar
         {
-            get;
-            set;
+            get => _bar;
+            set
+            {
+                #if DEBUG
+                    if (
+                        !(value is string)
+                        && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
+                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.AllTypes)
+                    )
+
+                    {
+                        throw new System.ArgumentException($"Expected value to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes).FullName}; received {value.GetType().FullName}", $"value");
+                    }
+                #endif
+                _bar = value;
+            }
         }
+
+        private object? _foo;
 
         [JsiiOptional]
         [JsiiProperty(name: "foo", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"number\\"}]}}", isOptional: true)]
         public object? Foo
         {
-            get;
-            set;
+            get => _foo;
+            set
+            {
+                #if DEBUG
+                    if (value != null)
+                    {
+                        if (
+                            !(value is string)
+                            && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
+                        )
+
+                        {
+                            throw new System.ArgumentException($"Expected value to be one of: string, double; received {value.GetType().FullName}", $"value");
+                        }
+                    }
+                #endif
+                _foo = value;
+            }
         }
     }
 }
@@ -18474,8 +19636,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable), fullyQualifiedName: "jsii-calc.UpcasingReflectable", parametersJson: "[{\\"name\\":\\"delegate\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"map\\"}}}]")]
     public class UpcasingReflectable : DeputyBase, Amazon.JSII.Tests.CustomSubmoduleName.IReflectable
     {
-        public UpcasingReflectable(System.Collections.Generic.IDictionary<string, object> @delegate): base(new DeputyProps(new object?[]{@delegate}))
+        public UpcasingReflectable(System.Collections.Generic.IDictionary<string, object> @delegate): base(_MakeDeputyProps(@delegate))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(System.Collections.Generic.IDictionary<string, object> @delegate)
+        {
+            return new DeputyProps(new object?[]{@delegate});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18519,8 +19687,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UseBundledDependency), fullyQualifiedName: "jsii-calc.UseBundledDependency")]
     public class UseBundledDependency : DeputyBase
     {
-        public UseBundledDependency(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public UseBundledDependency(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18558,8 +19732,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UseCalcBase), fullyQualifiedName: "jsii-calc.UseCalcBase")]
     public class UseCalcBase : DeputyBase
     {
-        public UseCalcBase(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public UseCalcBase(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18596,8 +19776,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UsesInterfaceWithProperties), fullyQualifiedName: "jsii-calc.UsesInterfaceWithProperties", parametersJson: "[{\\"name\\":\\"obj\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IInterfaceWithProperties\\"}}]")]
     public class UsesInterfaceWithProperties : DeputyBase
     {
-        public UsesInterfaceWithProperties(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties obj): base(new DeputyProps(new object?[]{obj}))
+        public UsesInterfaceWithProperties(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties obj): base(_MakeDeputyProps(obj))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties obj)
+        {
+            return new DeputyProps(new object?[]{obj});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18652,8 +19838,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicInvoker), fullyQualifiedName: "jsii-calc.VariadicInvoker", parametersJson: "[{\\"name\\":\\"method\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.VariadicMethod\\"}}]")]
     public class VariadicInvoker : DeputyBase
     {
-        public VariadicInvoker(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod method): base(new DeputyProps(new object?[]{method}))
+        public VariadicInvoker(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod method): base(_MakeDeputyProps(method))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod method)
+        {
+            return new DeputyProps(new object?[]{method});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18691,8 +19883,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class VariadicMethod : DeputyBase
     {
         /// <param name="prefix">a prefix that will be use for all values returned by \`#asArray\`.</param>
-        public VariadicMethod(params double[] prefix): base(new DeputyProps(new object?[]{prefix}))
+        public VariadicMethod(params double[] prefix): base(_MakeDeputyProps(prefix))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(params double[] prefix)
+        {
+            return new DeputyProps(new object?[]{prefix});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18731,8 +19929,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VirtualMethodPlayground), fullyQualifiedName: "jsii-calc.VirtualMethodPlayground")]
     public class VirtualMethodPlayground : DeputyBase
     {
-        public VirtualMethodPlayground(): base(new DeputyProps(System.Array.Empty<object?>()))
+        public VirtualMethodPlayground(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18801,8 +20005,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
     public abstract class VoidCallback : DeputyBase
     {
-        protected VoidCallback(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected VoidCallback(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -18872,8 +20082,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.WithPrivatePropertyInConstructor), fullyQualifiedName: "jsii-calc.WithPrivatePropertyInConstructor", parametersJson: "[{\\"name\\":\\"privateField\\",\\"optional\\":true,\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
     public class WithPrivatePropertyInConstructor : DeputyBase
     {
-        public WithPrivatePropertyInConstructor(string? privateField = null): base(new DeputyProps(new object?[]{privateField}))
+        public WithPrivatePropertyInConstructor(string? privateField = null): base(_MakeDeputyProps(privateField))
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string? privateField = null)
+        {
+            return new DeputyProps(new object?[]{privateField});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
