@@ -43,7 +43,7 @@ export function findAssemblyFile(directory: string) {
 /**
  * Replaces the file where the original assembly file *should* be found with a new assembly file.
  * Detects whether or not there is a compressed assembly, and if there is, compresses the new assembly also.
- * Recalculates the fingerprint of the assembly to avoid tampering detection.
+ * Replaces the fingerprint with '**********' rather than recalculating it, since we have modified the assembly.
  */
 export function replaceAssembly(assembly: Assembly, directory: string) {
   writeAssembly(directory, _fingerprint(assembly), {
