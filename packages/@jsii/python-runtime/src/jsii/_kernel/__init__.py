@@ -214,7 +214,33 @@ def _handle_callback(kernel, callback):
         hydrated_args = [
             _recursize_dereference(kernel, a) for a in callback.invoke.args
         ]
-        return method(*hydrated_args)
+
+        # If keyword arguments are accepted, we may need to turn a struct into keywords...
+        kwargs = {}  # No keyword arguments by default
+        params = inspect.signature(method).parameters
+        params_kwargs = [
+            name
+            for (name, param) in params.items()
+            if param.kind == inspect.Parameter.KEYWORD_ONLY
+        ]
+        if len(params_kwargs) > 0:
+            params_pos_count = len(
+                [
+                    param
+                    for param in params.values()
+                    if param.kind == inspect.Parameter.POSITIONAL_OR_KEYWORD
+                    or param.kind == inspect.Parameter.POSITIONAL_ONLY
+                ]
+            )
+            if len(hydrated_args) > params_pos_count:
+                struct = hydrated_args.pop()
+                kwargs = {
+                    name: getattr(struct, name)
+                    for name in params_kwargs
+                    if hasattr(struct, name)
+                }
+
+        return method(*hydrated_args, **kwargs)
     elif callback.get:
         obj = _reference_map.resolve_id(callback.get.objref.ref)
         return getattr(obj, callback.cookie)

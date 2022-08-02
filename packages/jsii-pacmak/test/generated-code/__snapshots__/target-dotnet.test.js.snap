@@ -2912,6 +2912,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IUnionProperties.cs
        ┃           ┣━ 📄 IWallClock.cs
        ┃           ┣━ 📄 JavaReservedWords.cs
+       ┃           ┣━ 📁 Jsii3656
+       ┃           ┃  ┣━ 📄 IImplementMeOpts.cs
+       ┃           ┃  ┣━ 📄 ImplementMeOpts.cs
+       ┃           ┃  ┗━ 📄 OverrideMe.cs
        ┃           ┣━ 📄 JSII417Derived.cs
        ┃           ┣━ 📄 JSII417PublicBaseOfBase.cs
        ┃           ┣━ 📄 Jsii487Derived.cs
@@ -12634,6 +12638,144 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Jsii496Derived(DeputyProps props): base(props)
         {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Jsii3656/IImplementMeOpts.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Jsii3656
+{
+    [JsiiInterface(nativeType: typeof(IImplementMeOpts), fullyQualifiedName: "jsii-calc.jsii3656.ImplementMeOpts")]
+    public interface IImplementMeOpts
+    {
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Name
+        {
+            get;
+        }
+
+        [JsiiProperty(name: "count", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        double? Count
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IImplementMeOpts), fullyQualifiedName: "jsii-calc.jsii3656.ImplementMeOpts")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Name
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+
+            [JsiiOptional]
+            [JsiiProperty(name: "count", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+            public double? Count
+            {
+                get => GetInstanceProperty<double?>();
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Jsii3656/ImplementMeOpts.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Jsii3656
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.jsii3656.ImplementMeOpts")]
+    public class ImplementMeOpts : Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts
+    {
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        [JsiiOptional]
+        [JsiiProperty(name: "count", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
+        public double? Count
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Jsii3656/OverrideMe.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Jsii3656
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe), fullyQualifiedName: "jsii-calc.jsii3656.OverrideMe")]
+    public abstract class OverrideMe : DeputyBase
+    {
+        protected OverrideMe(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OverrideMe(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OverrideMe(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "callAbstract", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"receiver\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.jsii3656.OverrideMe\\"}}]")]
+        public static bool CallAbstract(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe receiver)
+        {
+            return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe)}, new object[]{receiver})!;
+        }
+
+        [JsiiMethod(name: "implementMe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"opts\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.jsii3656.ImplementMeOpts\\"}}]")]
+        public abstract bool ImplementMe(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts opts);
+
+
+        [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe), fullyQualifiedName: "jsii-calc.jsii3656.OverrideMe")]
+        internal sealed class _Proxy : Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "implementMe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"opts\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.jsii3656.ImplementMeOpts\\"}}]")]
+            public override bool ImplementMe(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts opts)
+            {
+                return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.IImplementMeOpts)}, new object[]{opts})!;
+            }
         }
     }
 }
