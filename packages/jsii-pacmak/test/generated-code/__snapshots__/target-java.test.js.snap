@@ -3719,6 +3719,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 IStructReturningDelegate.java
           ┃                 ┣━ 📄 IWallClock.java
           ┃                 ┣━ 📄 JavaReservedWords.java
+          ┃                 ┣━ 📁 jsii3656
+          ┃                 ┃  ┣━ 📄 ImplementMeOpts.java
+          ┃                 ┃  ┗━ 📄 OverrideMe.java
           ┃                 ┣━ 📄 JSII417Derived.java
           ┃                 ┣━ 📄 JSII417PublicBaseOfBase.java
           ┃                 ┣━ 📄 Jsii487Derived.java
@@ -23684,6 +23687,221 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/jsii3656/ImplementMeOpts.java 1`] = `
+package software.amazon.jsii.tests.calculator.jsii3656;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.jsii3656.ImplementMeOpts")
+@software.amazon.jsii.Jsii.Proxy(ImplementMeOpts.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface ImplementMeOpts extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getName();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    default @org.jetbrains.annotations.Nullable java.lang.Number getCount() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link ImplementMeOpts}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link ImplementMeOpts}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<ImplementMeOpts> {
+        java.lang.String name;
+        java.lang.Number count;
+
+        /**
+         * Sets the value of {@link ImplementMeOpts#getName}
+         * @param name the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder name(java.lang.String name) {
+            this.name = name;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link ImplementMeOpts#getCount}
+         * @param count the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder count(java.lang.Number count) {
+            this.count = count;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link ImplementMeOpts}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public ImplementMeOpts build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link ImplementMeOpts}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ImplementMeOpts {
+        private final java.lang.String name;
+        private final java.lang.Number count;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.name = software.amazon.jsii.Kernel.get(this, "name", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.count = software.amazon.jsii.Kernel.get(this, "count", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.name = java.util.Objects.requireNonNull(builder.name, "name is required");
+            this.count = builder.count;
+        }
+
+        @Override
+        public final java.lang.String getName() {
+            return this.name;
+        }
+
+        @Override
+        public final java.lang.Number getCount() {
+            return this.count;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("name", om.valueToTree(this.getName()));
+            if (this.getCount() != null) {
+                data.set("count", om.valueToTree(this.getCount()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.jsii3656.ImplementMeOpts"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ImplementMeOpts.Jsii$Proxy that = (ImplementMeOpts.Jsii$Proxy) o;
+
+            if (!name.equals(that.name)) return false;
+            return this.count != null ? this.count.equals(that.count) : that.count == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.name.hashCode();
+            result = 31 * result + (this.count != null ? this.count.hashCode() : 0);
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/jsii3656/OverrideMe.java 1`] = `
+package software.amazon.jsii.tests.calculator.jsii3656;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.jsii3656.OverrideMe")
+public abstract class OverrideMe extends software.amazon.jsii.JsiiObject {
+
+    protected OverrideMe(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected OverrideMe(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    protected OverrideMe() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * @param receiver This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Boolean callAbstract(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.jsii3656.OverrideMe receiver) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.jsii3656.OverrideMe.class, "callAbstract", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(receiver, "receiver is required") });
+    }
+
+    /**
+     * @param opts This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public abstract @org.jetbrains.annotations.NotNull java.lang.Boolean implementMe(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.jsii3656.ImplementMeOpts opts);
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    private static final class Jsii$Proxy extends software.amazon.jsii.tests.calculator.jsii3656.OverrideMe {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         * @param opts This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Boolean implementMe(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.jsii3656.ImplementMeOpts opts) {
+            return software.amazon.jsii.Kernel.call(this, "implementMe", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(opts, "opts is required") });
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2530/MyClass.java 1`] = `
 package software.amazon.jsii.tests.calculator.module2530;
 
@@ -27164,6 +27382,8 @@ jsii-calc.cdk16625.Cdk16625=software.amazon.jsii.tests.calculator.cdk16625.Cdk16
 jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType=software.amazon.jsii.tests.calculator.cdk16625.donotimport.UnimportedSubmoduleType
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
+jsii-calc.jsii3656.ImplementMeOpts=software.amazon.jsii.tests.calculator.jsii3656.ImplementMeOpts
+jsii-calc.jsii3656.OverrideMe=software.amazon.jsii.tests.calculator.jsii3656.OverrideMe
 jsii-calc.module2530.MyClass=software.amazon.jsii.tests.calculator.module2530.MyClass
 jsii-calc.module2617.OnlyStatics=software.amazon.jsii.tests.calculator.module2617.OnlyStatics
 jsii-calc.module2647.ExtendAndImplement=software.amazon.jsii.tests.calculator.module2647.ExtendAndImplement
