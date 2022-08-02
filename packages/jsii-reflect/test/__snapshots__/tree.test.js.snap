@@ -12,6 +12,7 @@ exports[`defaults 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -62,6 +63,7 @@ exports[`inheritance 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -112,6 +114,7 @@ exports[`members 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -278,6 +281,33 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class OverrideMe
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├─┬ static callAbstract(receiver) method
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ receiver
+ │ │ │   │   │ │   └── type: jsii-calc.jsii3656.OverrideMe
+ │ │ │   │   │ └── returns: boolean
+ │ │ │   │   └─┬ implementMe(opts) method
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ opts
+ │ │ │   │     │   └── type: jsii-calc.jsii3656.ImplementMeOpts
+ │ │ │   │     └── returns: boolean
+ │ │ │   └─┬ interface ImplementMeOpts
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ name property
+ │ │ │       │ ├── abstract
+ │ │ │       │ ├── immutable
+ │ │ │       │ └── type: string
+ │ │ │       └─┬ count property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<number>
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass
@@ -3578,6 +3608,7 @@ exports[`signatures 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -3648,6 +3679,10 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├── class OverrideMe
+ │ │ │   └── interface ImplementMeOpts
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
