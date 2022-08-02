@@ -2,6 +2,7 @@ import platform
 
 from datetime import datetime, timezone
 from typing import cast, List
+from typing_extensions import reveal_type
 
 import pytest
 
@@ -823,6 +824,7 @@ def test_consts():
 
     assert Statics.FOO == "hello"
     assert obj.hello() == "world"
+    assert reveal_type(Statics.BAR) == "int | float"
     assert Statics.BAR == 1234
     assert Statics.ZOO_BAR.get("hello") == "world"
 
