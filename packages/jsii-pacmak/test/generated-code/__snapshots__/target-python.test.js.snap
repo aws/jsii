@@ -3513,11 +3513,14 @@ class ClassWithCollectionOfUnions(
 ):
     def __init__(
         self,
-        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]],
+        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[str, typing.Any]], typing.Union["StructB", typing.Dict[str, typing.Any]]]]],
     ) -> None:
         '''
         :param union_property: -
         '''
+        if __debug__:
+            type_hints = typing.get_type_hints(ClassWithCollectionOfUnions.__init__)
+            check_type(argname="argument union_property", value=union_property, expected_type=type_hints["union_property"])
         jsii.create(self.__class__, self, [union_property])
 
     @builtins.property # type: ignore[misc]
@@ -3532,6 +3535,9 @@ class ClassWithCollectionOfUnions(
         self,
         value: typing.List[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]],
     ) -> None:
+        if __debug__:
+            type_hints = typing.get_type_hints(getattr(ClassWithCollectionOfUnions, "union_property").fset)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         jsii.set(self, "unionProperty", value)
 
 
@@ -9862,11 +9868,14 @@ class StructWithCollectionOfUnionts:
     def __init__(
         self,
         *,
-        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[StructA, StructB]]],
+        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union[StructA, typing.Dict[str, typing.Any]], typing.Union[StructB, typing.Dict[str, typing.Any]]]]],
     ) -> None:
         '''
         :param union_property: 
         '''
+        if __debug__:
+            type_hints = typing.get_type_hints(StructWithCollectionOfUnionts.__init__)
+            check_type(argname="argument union_property", value=union_property, expected_type=type_hints["union_property"])
         self._values: typing.Dict[str, typing.Any] = {
             "union_property": union_property,
         }
