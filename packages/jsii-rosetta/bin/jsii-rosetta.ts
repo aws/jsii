@@ -1,6 +1,6 @@
 import '@jsii/check-node/run';
 
-import * as fs from 'fs-extra';
+import { promises as fs } from 'fs';
 import * as path from 'path';
 import * as yargs from 'yargs';
 
@@ -408,7 +408,7 @@ function main() {
         const packageJsonPath = (await fs.stat(args.PACKAGE)).isDirectory()
           ? path.join(args.PACKAGE, 'package.json')
           : args.PACKAGE;
-        const packageJson = await fs.readJson(packageJsonPath);
+        const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
         if (packageJson.jsii == null) {
           console.error(
             `The package in ${args.PACKAGE} does not have a jsii configuration! You can set it up using jsii-config.`,
@@ -425,7 +425,7 @@ function main() {
         const mdRosetta = (mdJsii.rosetta = mdJsii.rosetta ?? {});
         mdRosetta.strict = true;
 
-        return fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
+        return fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
       }),
     )
     .demandCommand()

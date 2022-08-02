@@ -7,7 +7,8 @@ import {
   writeAssembly,
 } from '@jsii/spec';
 import * as crypto from 'crypto';
-import * as fs from 'fs-extra';
+import { promises as fsPromises } from 'fs';
+import * as fs from 'fs';
 import * as path from 'path';
 
 import { findDependencyDirectory, isBuiltinModule } from '../find-utils';
@@ -78,7 +79,7 @@ export function loadAssemblies(
     const pjLocation = path.join(directory, 'package.json');
 
     const assembly = loadAssemblyFromFile(location, validateAssemblies);
-    const packageJson = fs.pathExistsSync(pjLocation) ? fs.readJSONSync(pjLocation, { encoding: 'utf-8' }) : undefined;
+    const packageJson = fs.existsSync(pjLocation) ? JSON.parse(fs.readFileSync(pjLocation, 'utf-8')) : undefined;
 
     return { assembly, directory, packageJson };
   }
@@ -297,7 +298,7 @@ export function findTypeLookupAssembly(startingDirectory: string): TypeLookupAss
 
 function loadLookupAssembly(directory: string): TypeLookupAssembly | undefined {
   try {
-    const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
+    const packageJson = JSON.parse(fs.readFileSync(path.join(directory, 'package.json'), 'utf-8'));
     const assembly: spec.Assembly = loadAssemblyFromPath(directory);
     const symbolIdMap = mkDict([
       ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
@@ -367,7 +368,7 @@ async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet)
 
   compilationDependencies[asm.assembly.name] = {
     type: 'concrete',
-    resolvedDirectory: await fs.realpath(asm.directory),
+    resolvedDirectory: await fsPromises.realpath(asm.directory),
   };
 
   Object.assign(
@@ -387,7 +388,7 @@ async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet)
                 name,
                 {
                   type: 'concrete',
-                  resolvedDirectory: await fs.realpath(await findDependencyDirectory(name, asm.directory)),
+                  resolvedDirectory: await fsPromises.realpath(await findDependencyDirectory(name, asm.directory)),
                 },
               ] as const,
           ),
