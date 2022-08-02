@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659368498212,
+  "lastUpdate": 1659456290439,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4401,6 +4401,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 902868.0720169125,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 80248.58118250001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bcffb4bb65846fcada33755269e72ce708ebeacf",
+          "message": "fix(python): unable to override methods with keyword arguments (#3695)\n\nThe callback logic in the jsii runtime library for Python was\nincorrectly passing keyword arguments to Python implementations,\nforwarding a struct instance as-is instead of destructuring it into a\nkeyword arguments mapping.\n\nUsing `inspect.signature()`, detect the presence of keyword arguments on\nthe callback target, and destructure the struct as relevant.\n\nFixes #3656\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-02T15:03:00Z",
+          "tree_id": "ed7ebaa17b6b4d4839e39cdaaa8bca134345e817",
+          "url": "https://github.com/aws/jsii/commit/bcffb4bb65846fcada33755269e72ce708ebeacf"
+        },
+        "date": 1659456287545,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 87601.74502315003,
+            "unit": "milliseconds",
+            "range": 5553126.5605016295,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 87601.74502315003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 57615.90109374999,
+            "unit": "milliseconds",
+            "range": 1863444.8473016392,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57615.90109374999 milliseconds over 20 runs"
           }
         ]
       }
