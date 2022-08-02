@@ -1558,14 +1558,8 @@ namespace Example.Test.Demo
     [JsiiClass(nativeType: typeof(Example.Test.Demo.Namespace1), fullyQualifiedName: "testpkg.Namespace1")]
     public class Namespace1 : DeputyBase
     {
-        public Namespace1(): base(_MakeDeputyProps())
+        public Namespace1(): base(new DeputyProps(System.Array.Empty<object?>()))
         {
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private static DeputyProps _MakeDeputyProps()
-        {
-            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -1668,14 +1662,8 @@ namespace Example.Test.Demo
     [JsiiClass(nativeType: typeof(Example.Test.Demo.Namespace2), fullyQualifiedName: "testpkg.Namespace2")]
     public class Namespace2 : DeputyBase
     {
-        public Namespace2(): base(_MakeDeputyProps())
+        public Namespace2(): base(new DeputyProps(System.Array.Empty<object?>()))
         {
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private static DeputyProps _MakeDeputyProps()
-        {
-            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -1708,14 +1696,8 @@ namespace Example.Test.Demo
             [JsiiClass(nativeType: typeof(Example.Test.Demo.Namespace2.Foo.Final), fullyQualifiedName: "testpkg.Namespace2.Foo.Final")]
             public class Final : DeputyBase
             {
-                public Final(): base(_MakeDeputyProps())
+                public Final(): base(new DeputyProps(System.Array.Empty<object?>()))
                 {
-                }
-
-                [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-                private static DeputyProps _MakeDeputyProps()
-                {
-                    return new DeputyProps(System.Array.Empty<object?>());
                 }
 
                 /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
