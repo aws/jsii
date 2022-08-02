@@ -44,6 +44,7 @@
     "@scope/jsii-calc-base": {
       "targets": {
         "dotnet": {
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/main/logo/default-256-dark.png",
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
@@ -17525,5 +17526,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "V1EIg5zjHYsZARPmK+3FUV/k1Jp/oN+y3WOnwLEkNJ8="
+  "fingerprint": "aPjB+GxWXOFi5hky+BpXHaMTZS8S74O/m53Ra9xNdOw="
 }
