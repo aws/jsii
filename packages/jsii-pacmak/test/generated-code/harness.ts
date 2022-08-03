@@ -6,6 +6,13 @@ import * as process from 'process';
 import { pacmak, TargetName } from '../../lib';
 import { shell } from '../../lib/util';
 
+export const JSII_TEST_PACKAGES: readonly string[] = [
+  '@scope/jsii-calc-base-of-base',
+  '@scope/jsii-calc-base',
+  '@scope/jsii-calc-lib',
+  'jsii-calc',
+];
+
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
 const TARBALL = Symbol('tarball');
@@ -52,12 +59,7 @@ export function verifyGeneratedCodeFor(
     done();
   });
 
-  for (const pkg of [
-    '@scope/jsii-calc-base-of-base',
-    '@scope/jsii-calc-base',
-    '@scope/jsii-calc-lib',
-    'jsii-calc',
-  ]) {
+  for (const pkg of JSII_TEST_PACKAGES) {
     // Extend timeout, because this could be slow (python has more time because of the mypy pass)...
     jest.setTimeout(timeout);
 
@@ -150,8 +152,16 @@ async function runPacmak(
   ).resolves.not.toThrowError();
 }
 
-async function runMypy(pythonRoot: string): Promise<void> {
-  const venvRoot = path.join(__dirname, '.venv');
+export async function preparePythonVirtualEnv({
+  install = [],
+  venvDir = __dirname,
+  systemSitePackages = true,
+}: {
+  install?: readonly string[];
+  venvDir?: string;
+  systemSitePackages?: boolean;
+} = {}) {
+  const venvRoot = path.join(venvDir, '.venv');
   const venvBin = path.join(
     venvRoot,
     process.platform === 'win32' ? 'Scripts' : 'bin',
@@ -176,11 +186,16 @@ async function runMypy(pythonRoot: string): Promise<void> {
     shell(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
-      '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+      ...(systemSitePackages
+        ? [
+            '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+          ]
+        : []),
       JSON.stringify(venvRoot),
     ]),
   ).resolves.not.toThrowError();
-  // Install mypy and the jsii runtime in there as needed
+
+  // Install development dependencies as needed...
   await expect(
     shell(
       venvPython,
@@ -191,6 +206,8 @@ async function runMypy(pythonRoot: string): Promise<void> {
         '--no-input',
         '-r',
         path.resolve(__dirname, 'requirements-dev.txt'),
+        // Additional install parameters
+        ...install,
         // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
         JSON.stringify(
           path.resolve(
@@ -202,6 +219,13 @@ async function runMypy(pythonRoot: string): Promise<void> {
       { env, retry: { maxAttempts: 5 } },
     ),
   ).resolves.not.toThrowError();
+
+  return { env, venvPython, venvRoot };
+}
+
+async function runMypy(pythonRoot: string): Promise<void> {
+  const { env, venvPython } = await preparePythonVirtualEnv();
+
   // Now run mypy on the Python code
   return expect(
     shell(

@@ -627,7 +627,6 @@ abstract class BaseMethod implements PythonBase {
     const decorators = new Array<string>();
 
     if (this.jsName !== undefined) {
-      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
       decorators.push(`@jsii.member(jsii_name="${this.jsName}")`);
     }
 
@@ -640,10 +639,7 @@ abstract class BaseMethod implements PythonBase {
     }
 
     if (decorators.length > 0) {
-      // "# type: ignore[misc]" needed because mypy does not know how to check decorated declarations
-      for (const decorator of decorators
-        .join(' # type: ignore[misc]\n')
-        .split('\n')) {
+      for (const decorator of decorators) {
         code.line(decorator);
       }
     }
@@ -655,14 +651,7 @@ abstract class BaseMethod implements PythonBase {
       ),
     );
 
-    openSignature(
-      code,
-      'def',
-      this.pythonName,
-      pythonParams,
-      false,
-      returnType,
-    );
+    openSignature(code, 'def', this.pythonName, pythonParams, returnType);
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       arguments: documentableArgs,
       documentableItem: `method-${this.pythonName}`,
@@ -895,8 +884,7 @@ abstract class BaseProperty implements PythonBase {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType(context);
 
-    // "# type: ignore[misc]" is needed because mypy cannot check decorated things
-    code.line(`@${this.decorator} # type: ignore[misc]`);
+    code.line(`@${this.decorator}`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
@@ -906,8 +894,12 @@ abstract class BaseProperty implements PythonBase {
       'def',
       this.pythonName,
       [this.implicitParameter],
-      true,
       pythonType,
+      // PyRight and MyPY both special-case @property, but not custom implementations such as our @classproperty...
+      // MyPY reports on the re-declaration, but PyRight reports on the initial declaration (duh!)
+      this.isStatic && !this.immutable
+        ? 'pyright: ignore [reportGeneralTypeIssues]'
+        : undefined,
     );
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
@@ -927,6 +919,8 @@ abstract class BaseProperty implements PythonBase {
 
     if (!this.immutable) {
       code.line();
+      // PyRight and MyPY both special-case @property, but not custom implementations such as our @classproperty...
+      // MyPY reports on the re-declaration, but PyRight reports on the initial declaration (duh!)
       code.line(
         `@${this.pythonName}.setter${
           this.isStatic ? ' # type: ignore[no-redef]' : ''
@@ -940,7 +934,6 @@ abstract class BaseProperty implements PythonBase {
         'def',
         this.pythonName,
         [this.implicitParameter, `value: ${pythonType}`],
-        false,
         'None',
       );
       if (
@@ -1129,16 +1122,16 @@ class Struct extends BasePythonClassType {
         ? [implicitParameter, '*', ...kwargs]
         : [implicitParameter];
 
-    openSignature(code, 'def', '__init__', constructorArguments, false, 'None');
+    openSignature(code, 'def', '__init__', constructorArguments, 'None');
     this.emitConstructorDocstring(code);
 
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toTypeName(member.type.type).pythonType({
-        ...context,
-        typeAnnotation: false,
-      });
+      const typeName = toPythonFullName(
+        (member.type.type as spec.NamedTypeReference).fqn,
+        context.assembly,
+      );
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
@@ -1193,7 +1186,7 @@ class Struct extends BasePythonClassType {
     const pythonType = member.typeAnnotation(context);
 
     code.line('@builtins.property');
-    openSignature(code, 'def', member.pythonName, ['self'], true, pythonType);
+    openSignature(code, 'def', member.pythonName, ['self'], pythonType);
     member.emitDocString(code);
     // NOTE: No parameter to validate here, this is a getter.
     code.line(
@@ -2170,6 +2163,12 @@ class Package {
       );
     code.line(`requires = [${buildTools.map((x) => `"${x}"`).join(', ')}]`);
     code.line('build-backend = "setuptools.build_meta"');
+    code.line();
+    code.line('[tool.pyright]');
+    code.line('defineConstant = { DEBUG = true }',);
+    code.line('pythonVersion = "3.7"');
+    code.line('pythonPlatform = "All"');
+    code.line('reportSelfClsParameterName = false');
     code.closeFile('pyproject.toml');
 
     // We also need to write out a MANIFEST.in to ensure that all of our required
@@ -2994,16 +2993,16 @@ function openSignature(
   keyword: 'def',
   name: string,
   params: readonly string[],
-  trailingComma: boolean,
   returnType: string,
+  comment?: string,
 ): void;
 function openSignature(
   code: CodeMaker,
   keyword: 'class' | 'def',
   name: string,
   params: readonly string[],
-  trailingComma = false,
   returnType?: string,
+  lineComment?: string,
 ) {
   const prefix = `${keyword} ${name}`;
   const suffix = returnType ? ` -> ${returnType}` : '';
@@ -3015,10 +3014,10 @@ function openSignature(
   const join = ', ';
   const { elementsSize, joinSize } = totalSizeOf(params, join);
 
-  const hasComments = !params.some((param) => /# .+$/.exec(param));
+  const hasComments = params.some((param) => /#\s*.+$/.exec(param) != null);
 
   if (
-    hasComments &&
+    !hasComments &&
     TARGET_LINE_LENGTH >
       code.currentIndentLength +
         prefix.length +
@@ -3027,27 +3026,20 @@ function openSignature(
         suffix.length +
         2
   ) {
-    code.openBlock(`${prefix}(${params.join(join)})${suffix}`);
+    code.indent(
+      `${prefix}(${params.join(join)})${suffix}:${
+        lineComment ? `  # ${lineComment}` : ''
+      }`,
+    );
     return;
   }
 
   code.indent(`${prefix}(`);
-  if (
-    !hasComments &&
-    TARGET_LINE_LENGTH >
-      code.currentIndentLength +
-        elementsSize +
-        joinSize +
-        (trailingComma ? 1 : 0)
-  ) {
-    code.line(`${params.join(join)}${trailingComma ? ',' : ''}`);
-  } else {
-    for (const param of params) {
-      code.line(param.replace(/(\s*# .+)?$/, ',$1'));
-    }
+  for (const param of params) {
+    code.line(param.replace(/(\s*# .+)?$/, ',$1'));
   }
   code.unindent(false);
-  code.openBlock(`)${suffix}`);
+  code.indent(`)${suffix}:${lineComment ? `  # ${lineComment}` : ''}`);
 }
 
 /**
@@ -3063,7 +3055,7 @@ function emitParameterTypeChecks(
   typedEntity: string,
 ): void {
   const paramInfo = params.map((param) => {
-    const [name] = param.split(/\s*[:=]\s*/, 1);
+    const [name] = param.split(/\s*[:=#]\s*/, 1);
     if (name === '*') {
       return { kwargsMark: true };
     } else if (name.startsWith('*')) {
@@ -3094,14 +3086,17 @@ function emitParameterTypeChecks(
     }
 
     let expectedType = `${typesVar}[${JSON.stringify(name)}]`;
+    let comment = '';
     if (is_rest) {
       // This is a vararg, so the value will appear as a tuple.
       expectedType = `typing.Tuple[${expectedType}, ...]`;
+      // Need to ignore reportGeneralTypeIssues because pyright incorrectly parses that as a type annotation 😒
+      comment = ' # pyright: ignore [reportGeneralTypeIssues]';
     }
     code.line(
       `check_type(argname=${JSON.stringify(
         `argument ${name}`,
-      )}, value=${name}, expected_type=${expectedType})`,
+      )}, value=${name}, expected_type=${expectedType})${comment}`,
     );
   }
   if (openedBlock) {
