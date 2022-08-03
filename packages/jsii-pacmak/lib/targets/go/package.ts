@@ -239,7 +239,9 @@ export abstract class Package {
       });
     }
 
-    for (const goModuleName of new Set(type.dependencies.map(({goModuleName}) => goModuleName))) {
+    for (const goModuleName of new Set(
+      type.dependencies.map(({ goModuleName }) => goModuleName),
+    )) {
       // If the module is the same as the current one being written, don't emit an import statement
       if (goModuleName !== this.goModuleName) {
         toImport.push({ module: goModuleName });

@@ -145,9 +145,10 @@ export class GoInterface extends GoType<InterfaceType> {
   public get specialDependencies(): SpecialDependencies {
     return [
       ...this.properties.map((p) => p.specialDependencies),
-      ...this.reimplementedProperties?.map((p) => p.specialDependencies) ?? [],
+      ...(this.reimplementedProperties?.map((p) => p.specialDependencies) ??
+        []),
       ...this.methods.map((m) => m.specialDependencies),
-      ...this.reimplementedMethods?.map((m) => m.specialDependencies) ?? [],
+      ...(this.reimplementedMethods?.map((m) => m.specialDependencies) ?? []),
     ].reduce(
       (acc, elt) => ({
         runtime: acc.runtime || elt.runtime,
