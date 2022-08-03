@@ -56,7 +56,9 @@ class TestErrorHandling:
 
 def test_overrides_method_with_kwargs() -> None:
     class Overridden(OverrideMe):
-        def implement_me(self, *, name: str, count: jsii.Number = None) -> bool:
+        def implement_me(
+            self, *, name: str, count: Optional[jsii.Number] = None
+        ) -> bool:
             return name == "John Doe" and count is None
 
     assert OverrideMe.call_abstract(Overridden())
