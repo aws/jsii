@@ -612,7 +612,7 @@ export class DotNetGenerator extends Generator {
   }
 
   /**
-   * Emints type checks for values passed for type union parameters.
+   * Emits type checks for values passed for type union parameters.
    *
    * @param parameters the list of parameters received by the function.
    * @param noMangle   use parameter names as-is (useful for setters, for example) instead of mangling them.
