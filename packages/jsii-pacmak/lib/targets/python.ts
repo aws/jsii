@@ -2165,7 +2165,7 @@ class Package {
     code.line('build-backend = "setuptools.build_meta"');
     code.line();
     code.line('[tool.pyright]');
-    code.line('defineConstant = { DEBUG = true }',);
+    code.line('defineConstant = { DEBUG = true }');
     code.line('pythonVersion = "3.7"');
     code.line('pythonPlatform = "All"');
     code.line('reportSelfClsParameterName = false');
