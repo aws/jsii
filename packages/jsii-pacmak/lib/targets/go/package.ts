@@ -5,11 +5,10 @@ import {
   Type,
   Submodule as JsiiSubmodule,
 } from 'jsii-reflect';
-import { basename, dirname, join } from 'path';
+import { join } from 'path';
 import * as semver from 'semver';
 
 import { VERSION } from '../../version';
-import { SpecialDependencies } from './dependencies';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
 import {
@@ -112,13 +111,6 @@ export abstract class Package {
   }
 
   /*
-   * The module names of this module's dependencies. Used for import statements.
-   */
-  public get dependencyImports(): Set<string> {
-    return new Set(this.dependencies.map((pkg) => pkg.goModuleName));
-  }
-
-  /*
    * Search for a type with a `fqn` within this. Searches all Children modules as well.
    */
   public findType(fqn: string): GoType | undefined {
@@ -126,13 +118,7 @@ export abstract class Package {
   }
 
   public emit(context: EmitContext): void {
-    const { code } = context;
-
-    code.openFile(this.file);
-    this.emitHeader(code);
-    this.emitImports(code);
     this.emitTypes(context);
-    code.closeFile(this.file);
 
     this.readmeFile?.emit(context);
 
@@ -200,20 +186,6 @@ export abstract class Package {
     code.line();
   }
 
-  protected get specialDependencies(): SpecialDependencies {
-    return this.types
-      .map((t) => t.specialDependencies)
-      .reduce(
-        (acc, elt) => ({
-          runtime: acc.runtime || elt.runtime,
-          init: acc.init || elt.init,
-          internal: acc.internal || elt.internal,
-          time: acc.time || elt.time,
-        }),
-        { runtime: false, init: false, internal: false, time: false },
-      );
-  }
-
   /**
    * Emits a `func init() { ... }` in a dedicated file (so we don't have to
    * worry about what needs to be imported and whatnot). This function is
@@ -226,10 +198,7 @@ export abstract class Package {
     // form. It also saves us from "imported but unused" errors that would arise
     // as a consequence.
     if (this.types.length > 0) {
-      const initFile = join(
-        dirname(this.file),
-        `${basename(this.file, '.go')}.init.go`,
-      );
+      const initFile = `${this.directory}/${this.packageName}.go`;
       code.openFile(initFile);
       code.line(`package ${this.packageName}`);
       code.line();
@@ -244,10 +213,10 @@ export abstract class Package {
     }
   }
 
-  private emitImports(code: CodeMaker) {
+  private emitImports(code: CodeMaker, type: GoType) {
     const toImport = new Array<ImportedModule>();
 
-    const specialDeps = this.specialDependencies;
+    const specialDeps = type.specialDependencies;
 
     if (specialDeps.time) {
       toImport.push({ module: 'time' });
@@ -270,10 +239,10 @@ export abstract class Package {
       });
     }
 
-    for (const packageName of this.dependencyImports) {
+    for (const goModuleName of new Set(type.dependencies.map(({goModuleName}) => goModuleName))) {
       // If the module is the same as the current one being written, don't emit an import statement
-      if (packageName !== this.packageName) {
-        toImport.push({ module: packageName });
+      if (goModuleName !== this.goModuleName) {
+        toImport.push({ module: goModuleName });
       }
     }
 
@@ -283,7 +252,14 @@ export abstract class Package {
 
   private emitTypes(context: EmitContext) {
     for (const type of this.types) {
+      const filePath = `${this.directory}/${this.packageName}_${type.name}.go`;
+      context.code.openFile(filePath);
+
+      this.emitHeader(context.code);
+      this.emitImports(context.code, type);
       type.emit(context);
+
+      context.code.closeFile(filePath);
     }
   }
 
