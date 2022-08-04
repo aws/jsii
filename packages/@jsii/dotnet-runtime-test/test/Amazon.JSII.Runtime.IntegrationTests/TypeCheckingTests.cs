@@ -8,10 +8,22 @@ using Xunit;
 
 namespace Amazon.JSII.Runtime.IntegrationTests
 {
-    public sealed class TypeCheckingTests
+    public sealed class TypeCheckingTests : IClassFixture<ServiceContainerFixture>, IDisposable
     {
         const string Prefix = nameof(TypeCheckingTests) + ".";
 
+        private readonly IDisposable _serviceContainerFixture;
+        
+        public TypeCheckingTests(ServiceContainerFixture serviceContainerFixture)
+        {
+            _serviceContainerFixture = serviceContainerFixture;
+        }
+        
+        void IDisposable.Dispose()
+        {
+            _serviceContainerFixture.Dispose();
+        }
+        
         [Fact(DisplayName = Prefix + nameof(Constructor))]
         public void Constructor()
         {
