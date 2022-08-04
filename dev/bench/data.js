@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659456290439,
+  "lastUpdate": 1659607627979,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4439,6 +4439,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1863444.8473016392,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57615.90109374999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c65b1d9fd1e0a6e37dad96c763c0bb1a1d15f57d",
+          "message": "feat(.net): embed package icon when configured (#3676)\n\nWhen an `iconUrl` is configured for a .NET target, attempt to download\nit for inclusion in the NuGet package with the `PackageIcon` attribute,\nas the `PackageIconUrl` attribute is deprecated.\n\nThis feature can be opted out of by setting the\n`JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON` environment variable (no matter\nwhat value it has).\n\nIf the download somehow fails, the previous behavior is preserved.\n\nThe `PackageIconUrl` attribute is still emitted for backwards\ncompatibility with tools that do not (yet) support `PackageIcon`.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-04T09:13:24Z",
+          "tree_id": "93910b66b4ce7c986621cdf5934a0d8986cf6549",
+          "url": "https://github.com/aws/jsii/commit/c65b1d9fd1e0a6e37dad96c763c0bb1a1d15f57d"
+        },
+        "date": 1659607625611,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71629.89791524998,
+            "unit": "milliseconds",
+            "range": 1136280.0808880297,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71629.89791524998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49652.394317150014,
+            "unit": "milliseconds",
+            "range": 52236.79290819411,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49652.394317150014 milliseconds over 20 runs"
           }
         ]
       }
