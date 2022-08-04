@@ -651,7 +651,9 @@ export class DotNetGenerator extends Generator {
     if (unionParameters == null || unionParameters.length === 0) {
       return;
     }
-    this.code.indent('#if DEBUG');
+    this.code.openBlock(
+      'if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)',
+    );
     for (const param of unionParameters) {
       const name = noMangle
         ? param.name
@@ -673,7 +675,7 @@ export class DotNetGenerator extends Generator {
         this.code.closeBlock();
       }
     }
-    this.code.unindent('#endif');
+    this.code.closeBlock();
 
     function validate(
       this: DotNetGenerator,
