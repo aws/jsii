@@ -21,6 +21,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
+       ┣━ 📁 resources
+       ┃  ┗━ 📄 default-256-dark.png
        ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
 `;
 
@@ -29,6 +31,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
   <PropertyGroup>
     <!-- Package Identification -->
     <Description>An example direct dependency for jsii-calc.</Description>
+    <PackageIcon>resources\\default-256-dark.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/aws/aws-cdk/main/logo/default-256-dark.png</PackageIconUrl>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageVersion>0.0.0</PackageVersion>
@@ -48,6 +52,9 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="resources\\default-256-dark.png" Pack="true" PackagePath="\\resources" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-base-0.0.0.tgz" />
   </ItemGroup>
@@ -506,6 +513,8 @@ jsii
 Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/resources/default-256-dark.png 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/resources/default-256-dark.png is a binary file`;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
 
@@ -3152,7 +3161,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 jsii-calc-3.20.120.tgz
        ┣━ 📄 LICENSE
-       ┗━ 📄 NOTICE
+       ┣━ 📄 NOTICE
+       ┗━ 📁 resources
+          ┗━ 📄 AWSLogo128x128.png
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon.JSII.Tests.CalculatorPackageId.csproj 1`] = `
@@ -3160,6 +3171,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
   <PropertyGroup>
     <!-- Package Identification -->
     <Description>A simple calcuator built on JSII. (Stability: Stable)</Description>
+    <PackageIcon>resources\\AWSLogo128x128.png</PackageIcon>
     <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -3181,6 +3193,9 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="resources\\AWSLogo128x128.png" Pack="true" PackagePath="\\resources" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="jsii-calc-3.20.120.tgz" />
   </ItemGroup>
@@ -13432,8 +13447,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Jsii3656
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii3656.OverrideMe), fullyQualifiedName: "jsii-calc.jsii3656.OverrideMe")]
     public abstract class OverrideMe : DeputyBase
     {
-        protected OverrideMe(): base(new DeputyProps(System.Array.Empty<object?>()))
+        protected OverrideMe(): base(_MakeDeputyProps())
         {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -20490,3 +20511,5 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz is a tarball`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/resources/AWSLogo128x128.png 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/resources/AWSLogo128x128.png is a binary file`;
