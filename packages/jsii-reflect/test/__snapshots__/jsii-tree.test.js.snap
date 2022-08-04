@@ -128,6 +128,33 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class OverrideMe (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │   │   ├─┬ static callAbstract(receiver) method (stable)
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ receiver
+ │ │ │   │   │ │   └── type: jsii-calc.jsii3656.OverrideMe
+ │ │ │   │   │ └── returns: boolean
+ │ │ │   │   └─┬ implementMe(opts) method (stable)
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ opts
+ │ │ │   │     │   └── type: jsii-calc.jsii3656.ImplementMeOpts
+ │ │ │   │     └── returns: boolean
+ │ │ │   └─┬ interface ImplementMeOpts (stable)
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ name property (stable)
+ │ │ │       │ ├── abstract
+ │ │ │       │ ├── immutable
+ │ │ │       │ └── type: string
+ │ │ │       └─┬ count property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<number>
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass (stable)
@@ -3465,6 +3492,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├── class OverrideMe
+ │ │ │   └── interface ImplementMeOpts
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
@@ -3993,6 +4024,17 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class OverrideMe
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── static callAbstract(receiver) method
+ │ │ │   │   └── implementMe(opts) method
+ │ │ │   └─┬ interface ImplementMeOpts
+ │ │ │     └─┬ members
+ │ │ │       ├── name property
+ │ │ │       └── count property
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass
@@ -5490,6 +5532,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -5560,6 +5603,10 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├── class OverrideMe
+ │ │ │   └── interface ImplementMeOpts
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
@@ -5927,6 +5974,7 @@ exports[`jsii-tree 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647

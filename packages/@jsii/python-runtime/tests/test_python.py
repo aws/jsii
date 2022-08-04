@@ -5,6 +5,7 @@ import re
 from jsii.errors import JSIIError
 import jsii_calc
 from jsii_calc.module2702 import IVpc, Vpc, IBaz, Baz
+from jsii_calc.jsii3656 import OverrideMe
 
 
 class TestErrorHandling:
@@ -51,6 +52,14 @@ class TestErrorHandling:
 
         baz = Baz()
         baz_interface_func(baz)
+
+
+def test_overrides_method_with_kwargs() -> None:
+    class Overridden(OverrideMe):
+        def implement_me(self, *, name: str, count: jsii.Number = None) -> bool:
+            return name == "John Doe" and count is None
+
+    assert OverrideMe.call_abstract(Overridden())
 
 
 def find_struct_bases(x):
