@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659964863001,
+  "lastUpdate": 1659978132200,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4515,6 +4515,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 215189.39733996784,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46505.817598400004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0804133d650746924f3f546ecf7508ca4fee32f9",
+          "message": "chore(deps): Bump xunit from 2.4.1 to 2.4.2 in /packages/@jsii/dotnet-runtime-test/test (#3699)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>",
+          "timestamp": "2022-08-08T18:00:04+02:00",
+          "tree_id": "1a53580fddcac15e1b9062557d4b40f1dae54b91",
+          "url": "https://github.com/aws/jsii/commit/0804133d650746924f3f546ecf7508ca4fee32f9"
+        },
+        "date": 1659978129183,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 80573.54289814996,
+            "unit": "milliseconds",
+            "range": 2582015.845869423,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 80573.54289814996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 59715.39264554998,
+            "unit": "milliseconds",
+            "range": 1950081.6237591654,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 59715.39264554998 milliseconds over 20 runs"
           }
         ]
       }
