@@ -19,10 +19,10 @@ let venv: {
 // where each directory name is a valid python module path component, or else
 // pyright may fail to assign a moduleName to the source files, and produce
 // incorrect errors (https://github.com/microsoft/pyright/issues/3781).
-const TEST_PACKAGES = JSII_TEST_PACKAGES.map(
-  (name) =>
-    ({ packageName: name, moduleName: name.replace('@', '').replace('/', '.').replace('-', '_') }),
-);
+const TEST_PACKAGES = JSII_TEST_PACKAGES.map((name) => ({
+  packageName: name,
+  moduleName: name.replace('@', '').replace('/', '.').replace('-', '_'),
+}));
 
 beforeAll(async () => {
   pythonSource = await fs.mkdtemp(
@@ -34,7 +34,9 @@ beforeAll(async () => {
     TEST_PACKAGES.map(({ packageName, moduleName }) =>
       pacmak({
         codeOnly: true,
-        inputDirectories: [path.resolve(__dirname, '..', '..', '..', packageName)],
+        inputDirectories: [
+          path.resolve(__dirname, '..', '..', '..', packageName),
+        ],
         outputDirectory: path.join(pythonSource, moduleName),
         targets: [TargetName.PYTHON],
       }),
