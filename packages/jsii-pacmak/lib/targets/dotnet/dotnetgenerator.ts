@@ -785,12 +785,15 @@ export class DotNetGenerator extends Generator {
         (base.abstract
           ? true
           : // An abstract class could extend a concrete class... We must walk up the inheritance tree in this case...
-          this.proxyMustUseNewModifier(base))
+            this.proxyMustUseNewModifier(base))
       );
     }
-    return type.interfaces != null && type.interfaces.some(
-      (fqn) =>
-        (this.findType(fqn) as spec.InterfaceType).assembly === type.assembly,
+    return (
+      type.interfaces != null &&
+      type.interfaces.some(
+        (fqn) =>
+          (this.findType(fqn) as spec.InterfaceType).assembly === type.assembly,
+      )
     );
   }
 
