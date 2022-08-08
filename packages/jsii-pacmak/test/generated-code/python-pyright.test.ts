@@ -15,6 +15,15 @@ let venv: {
   readonly venvRoot: string;
 };
 
+// We must ensure our code is generated into python-compatible directories,
+// where each directory name is a valid python module path component, or else
+// pyright may fail to assign a moduleName to the source files, and produce
+// incorrect errors (https://github.com/microsoft/pyright/issues/3781).
+const TEST_PACKAGES = JSII_TEST_PACKAGES.map(
+  (name) =>
+    ({ packageName: name, moduleName: name.replace('@', '').replace('/', '.').replace('-', '_') }),
+);
+
 beforeAll(async () => {
   pythonSource = await fs.mkdtemp(
     path.join(os.tmpdir(), 'jsii-pacmak-pyright-'),
@@ -22,11 +31,11 @@ beforeAll(async () => {
 
   // Generate code for all test packages into a distinct directory for each...
   await Promise.all(
-    JSII_TEST_PACKAGES.map((pkg) =>
+    TEST_PACKAGES.map(({ packageName, moduleName }) =>
       pacmak({
         codeOnly: true,
-        inputDirectories: [path.resolve(__dirname, '..', '..', '..', pkg)],
-        outputDirectory: path.join(pythonSource, pkg),
+        inputDirectories: [path.resolve(__dirname, '..', '..', '..', packageName)],
+        outputDirectory: path.join(pythonSource, moduleName),
         targets: [TargetName.PYTHON],
       }),
     ),
@@ -34,9 +43,9 @@ beforeAll(async () => {
 
   // Prepare virtual env, and install generated packages into it...
   venv = await preparePythonVirtualEnv({
-    install: JSII_TEST_PACKAGES.flatMap((pkg) => [
+    install: TEST_PACKAGES.flatMap(({ moduleName }) => [
       '-e',
-      JSON.stringify(path.join(pythonSource, pkg, TargetName.PYTHON)),
+      JSON.stringify(path.join(pythonSource, moduleName, TargetName.PYTHON)),
     ]),
     venvDir: pythonSource,
     systemSitePackages: false, // Interferes with pyright resolutions...
