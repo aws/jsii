@@ -31,7 +31,7 @@
     "test": "npm run test:gen && npm run test:run && npm run test:types",
     "test:gen": "npm run deps && ts-node build-tools/gen-calc.ts",
     "test:run": "ts-node build-tools/venv.ts py.test -v --mypy",
-    "test:types": "ts-node build-tools/venv.ts pyright -p .",
+    "test:types": "pyright -p .",
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
@@ -41,6 +41,7 @@
     "fs-extra": "^10.1.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-pacmak": "^0.0.0"
+    "jsii-pacmak": "^0.0.0",
+    "pyright": "^1.1.266"
   }
 }
