@@ -16,6 +16,7 @@ export const JSII_TEST_PACKAGES: readonly string[] = [
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
 const TARBALL = Symbol('tarball');
+const BINARY = Symbol('binary');
 export const TREE = Symbol('tree');
 
 // Custom serializers so we can see the source without escape sequences
@@ -34,6 +35,10 @@ expect.addSnapshotSerializer({
     `${val[TARBALL]} ${
       val[TARBALL].endsWith('.tgz') ? 'is' : 'embeds'
     } a tarball`,
+});
+expect.addSnapshotSerializer({
+  test: (val) => val?.[BINARY] != null,
+  serialize: (val) => `${val[BINARY]} is a binary file`,
 });
 expect.addSnapshotSerializer({
   test: (val) => val?.[TREE] != null,
@@ -103,6 +108,9 @@ export function checkTree(
     if (file.endsWith('.tgz')) {
       // Special-cased to avoid binary differences being annoying
       expect({ [TARBALL]: relativeFile }).toMatchSnapshot(snapshotName);
+    } else if (file.endsWith('.png')) {
+      // Special-cased to avoid binary differences being annoying
+      expect({ [BINARY]: relativeFile }).toMatchSnapshot(snapshotName);
     } else {
       expect({
         [FILE]: fs.readFileSync(file, { encoding: 'utf-8' }),
