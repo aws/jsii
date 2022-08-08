@@ -5851,10 +5851,10 @@ minipass-sized@^1.0.3:
   dependencies:
     minipass "^3.0.0"
 
-minipass@3.2.1, minipass@^3.0.0, minipass@^3.1.1, minipass@^3.1.6, minipass@^3.3.5:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/minipass/-/minipass-3.2.1.tgz#12ac0ab289be638db0ad8887b28413b773355c13"
-  integrity sha512-v5cqJP4WxUVXYXhOOdPiOZEDoF7omSpLivw2GMCL1v/j+xh886bPXKh6SzyA6sa45e4NRQ46IRBEkAazvb6I6A==
+minipass@^3.0.0, minipass@^3.1.1, minipass@^3.1.6, minipass@^3.3.5:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-3.3.5.tgz#6da7e53a48db8a856eeb9153d85b230a2119e819"
+  integrity sha512-rQ/p+KfKBkeNwo04U15i+hOwoVBVmekmm/HcfTkTN2t9pbQKCMm4eN5gFeqgrrSp/kH/7BYYhTIHOxGqzbBPaA==
   dependencies:
     yallist "^4.0.0"
 

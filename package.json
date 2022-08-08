@@ -53,11 +53,5 @@
       "**/@fixtures/jsii-calc-bundled/**",
       "**/typescript"
     ]
-  },
-  "resolutions": {
-    "minipass": "3.2.1"
-  },
-  "resolutions_info": {
-    "minipass": "https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/60901"
   }
 }
