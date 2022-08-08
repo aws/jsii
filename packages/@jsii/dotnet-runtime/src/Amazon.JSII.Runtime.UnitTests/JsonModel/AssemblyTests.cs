@@ -356,9 +356,9 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Null(actual.Targets);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
-                Assert.Empty(actual.Types);
-                Assert.Empty(actual.Dependencies);
-                Assert.Empty(actual.Bundled);
+                Assert.Empty(actual.Types!);
+                Assert.Empty(actual.Dependencies!);
+                Assert.Empty(actual.Bundled!);
                 Assert.Equal("hello", actual.Docs?.Summary);
             }
 
@@ -393,8 +393,8 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                 Assert.Null(actual.Targets);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
                 Assert.Null(actual.Types);
-                Assert.Empty(actual.Dependencies);
-                Assert.Empty(actual.Bundled);
+                Assert.Empty(actual.Dependencies!);
+                Assert.Empty(actual.Bundled!);
                 Assert.Equal("hello", actual.Docs?.Summary);
             }
 
@@ -444,9 +444,9 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                 Assert.Equal("http://www.example.com/icon.png", dotNetTarget?.IconUrl);
 
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
-                Assert.Empty(actual.Types);
-                Assert.Empty(actual.Dependencies);
-                Assert.Empty(actual.Bundled);
+                Assert.Empty(actual.Types!);
+                Assert.Empty(actual.Dependencies!);
+                Assert.Empty(actual.Bundled!);
                 Assert.Equal("hello", actual.Docs?.Summary);
             }
 
