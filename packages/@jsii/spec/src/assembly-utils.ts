@@ -55,7 +55,7 @@ export function replaceAssembly(assembly: Assembly, directory: string) {
  * Replaces the old fingerprint with '***********'.
  *
  * We could recalculate the fingerprint here so that it looks like the assembly was not modified. However,
- * 1) we are not actually validating the fingerprint in any way, and 
+ * 1) we are not actually validating the fingerprint in any way, and
  * 2) it feels disingenuous to have a mechanism against tampering and then tamper with it.
  *
  * So, instead of keeping the old (wrong) fingerprint or spending extra time calculating a new fingerprint,
