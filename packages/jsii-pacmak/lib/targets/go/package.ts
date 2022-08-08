@@ -58,7 +58,7 @@ export abstract class Package {
     root?: Package,
   ) {
     this.directory = filePath;
-    this.file = `${this.directory}/${packageName}.go`;
+    this.file = join(this.directory, `${packageName}.go`);
     this.root = root ?? this;
     this.submodules = this.jsiiModule.submodules.map(
       (sm) => new InternalPackage(this.root, this, sm),
@@ -198,7 +198,7 @@ export abstract class Package {
     // form. It also saves us from "imported but unused" errors that would arise
     // as a consequence.
     if (this.types.length > 0) {
-      const initFile = `${this.directory}/${this.packageName}.go`;
+      const initFile = join(this.directory, `${this.packageName}.go`);
       code.openFile(initFile);
       code.line(`package ${this.packageName}`);
       code.line();
@@ -254,7 +254,10 @@ export abstract class Package {
 
   private emitTypes(context: EmitContext) {
     for (const type of this.types) {
-      const filePath = `${this.directory}/${this.packageName}_${type.name}.go`;
+      const filePath = join(
+        this.directory,
+        `${this.packageName}_${type.name}.go`,
+      );
       context.code.openFile(filePath);
 
       this.emitHeader(context.code);
