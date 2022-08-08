@@ -54,10 +54,12 @@ export function replaceAssembly(assembly: Assembly, directory: string) {
 /**
  * Replaces the old fingerprint with '***********'.
  *
- * @rmuller says fingerprinting is useless, as we do not actually check
- * if an assembly is changed. Instead of keeping the old (wrong) fingerprint
- * or spending extra time calculating a new fingerprint, we replace with '**********'
- * that demonstrates the fingerprint has changed.
+ * We could recalculate the fingerprint here so that it looks like the assembly was not modified. However,
+ * 1) we are not actually validating the fingerprint in any way, and 
+ * 2) it feels disingenuous to have a mechanism against tampering and then tamper with it.
+ *
+ * So, instead of keeping the old (wrong) fingerprint or spending extra time calculating a new fingerprint,
+ * we replace with '**********' that demonstrates the fingerprint has changed.
  */
 function _fingerprint(assembly: Assembly): Assembly {
   assembly.fingerprint = '*'.repeat(10);
