@@ -788,11 +788,12 @@ export class DotNetGenerator extends Generator {
             this.proxyMustUseNewModifier(base))
       );
     }
-
     return (
-      type.interfaces?.find(
-        (fqn) => this.findType(fqn).assembly === type.assembly,
-      ) != null
+      type.interfaces != null &&
+      type.interfaces.some(
+        (fqn) =>
+          (this.findType(fqn) as spec.InterfaceType).assembly === type.assembly,
+      )
     );
   }
 
