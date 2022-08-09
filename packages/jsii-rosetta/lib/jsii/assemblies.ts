@@ -1,12 +1,5 @@
 import * as spec from '@jsii/spec';
-import {
-  compressedAssemblyExists,
-  loadAssemblyFromFile,
-  loadAssemblyFromPath,
-  findAssemblyFile,
-  writeAssembly,
-} from '@jsii/spec';
-import * as crypto from 'crypto';
+import { loadAssemblyFromFile, loadAssemblyFromPath, findAssemblyFile } from '@jsii/spec';
 import { promises as fsPromises } from 'fs';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -27,9 +20,6 @@ import {
 import { enforcesStrictMode } from '../strict';
 import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../tablets/tablets';
 import { fmap, mkDict, sortBy } from '../util';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-const sortJson = require('sort-json');
 
 /**
  * The JSDoc tag users can use to associate non-visible metadata with an example
@@ -234,26 +224,6 @@ export async function allTypeScriptSnippets(
         return fixturize(snippet, ignoreFixtureErrors);
       }),
   );
-}
-
-/**
- * Replaces the file where the original assembly file *should* be found with a new assembly file.
- * Detects whether or not there is a compressed assembly, and if there is, compresses the new assembly also.
- * Recalculates the fingerprint of the assembly to avoid tampering detection.
- */
-export function replaceAssembly(assembly: spec.Assembly, directory: string) {
-  writeAssembly(directory, _fingerprint(assembly), { compress: compressedAssemblyExists(directory) });
-}
-
-/**
- * This function is copied from `packages/jsii/lib/assembler.ts`.
- * We should make sure not to change one without changing the other as well.
- */
-function _fingerprint(assembly: spec.Assembly): spec.Assembly {
-  delete (assembly as any).fingerprint;
-  assembly = sortJson(assembly);
-  const fingerprint = crypto.createHash('sha256').update(JSON.stringify(assembly)).digest('base64');
-  return { ...assembly, fingerprint };
 }
 
 export interface TypeLookupAssembly {

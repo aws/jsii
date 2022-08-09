@@ -1,14 +1,9 @@
 import * as spec from '@jsii/spec';
+import { replaceAssembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import {
-  loadAssemblies,
-  replaceAssembly,
-  loadAllDefaultTablets,
-  LoadedAssembly,
-  allTypeScriptSnippets,
-} from '../jsii/assemblies';
+import { loadAssemblies, loadAllDefaultTablets, LoadedAssembly, allTypeScriptSnippets } from '../jsii/assemblies';
 import { renderMetadataline, TypeScriptSnippet } from '../snippet';
 import { SnippetSelector, mean, meanLength, shortest, longest } from '../snippet-selectors';
 import { snippetKey } from '../tablets/key';
