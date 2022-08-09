@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1660034803872,
+  "lastUpdate": 1660069536794,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4591,6 +4591,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 252792.65251980728,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45256.59447324998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f5e06038adfa6912baabc9ea004ad40a5ad87295",
+          "message": "feat(.net): dynmic type checking for union-typed parameters (#3668)\n\nWeaving runtime type checks around union-typed parameters to help\ndevelopers receive actionable error messages in case mistakes are made.\nThe checks are only performed if the\n`Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking` configuration\nproperty is `true` (which it is by default).\n\nA pre-processor macro such as `DEBUG` could not be used as the packages\npublished to NuGet are already built and this does not afford any control\nto the end-user.\n\nFixes #3640\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-09T17:36:24Z",
+          "tree_id": "a996e805c542145a791013a79e7415701354cda4",
+          "url": "https://github.com/aws/jsii/commit/f5e06038adfa6912baabc9ea004ad40a5ad87295"
+        },
+        "date": 1660069534529,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63251.14386869994,
+            "unit": "milliseconds",
+            "range": 1425702.4811206697,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63251.14386869994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 44588.11703675001,
+            "unit": "milliseconds",
+            "range": 43501.396137003365,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44588.11703675001 milliseconds over 20 runs"
           }
         ]
       }
