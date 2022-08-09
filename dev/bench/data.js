@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659978132200,
+  "lastUpdate": 1660034803872,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4553,6 +4553,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1950081.6237591654,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 59715.39264554998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "611323b9a68f02b10782d8020bf82a458ff67bdf",
+          "message": "chore: move replaceAssembly to @jsii/spec and expose it (#3696)\n\nThis PR is meant to do two things:\n\n- move `replaceAssembly` to `assembly-utils.ts` in `@jsii/spec`, because it is currently being duplicated in `cdk-generate-synthetic-examples`. This causes problems whenever we try to change `replaceAssembly`, as we did in this [commit](https://github.com/aws/jsii/pull/3669/files), because we will forget to change the function in `cdk-generate-synthetic-examples`. The plan is to have `cdk-generate-synthetic-examples` reference the `replaceAssembly` function in `@jsii/spec` in a separate PR.\n- finish the effort started in this closed [PR](https://github.com/aws/jsii/pull/3146), where we meant to make sure that we don't re-fingerprint assemblies after they've been changed. It was closed due to staleness.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-09T07:55:29Z",
+          "tree_id": "6da99f567155d47eeee469300bd55caea63c3f53",
+          "url": "https://github.com/aws/jsii/commit/611323b9a68f02b10782d8020bf82a458ff67bdf"
+        },
+        "date": 1660034801681,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62565.654989699935,
+            "unit": "milliseconds",
+            "range": 2032528.8723277852,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62565.654989699935 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45256.59447324998,
+            "unit": "milliseconds",
+            "range": 252792.65251980728,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45256.59447324998 milliseconds over 20 runs"
           }
         ]
       }
