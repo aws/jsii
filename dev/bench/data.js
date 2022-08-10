@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1660069536794,
+  "lastUpdate": 1660125857675,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4629,6 +4629,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 43501.396137003365,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44588.11703675001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ed2557a797ee8322fa698be9a10396df9894d7e5",
+          "message": "chore(go): emit one file per type (#3698)\n\nInstead of generating one file will ALL the types in a given\n(sub)module, emit one file per type within the (sub)module,\nso that the compiler operates on smaller compilation units.\nThis should reduce the memory pressure the compiler\nexperiences when dealing with large libraries.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-10T09:12:10Z",
+          "tree_id": "1c7e2a32f3243d19dc0b614d55bf510f8d28a3aa",
+          "url": "https://github.com/aws/jsii/commit/ed2557a797ee8322fa698be9a10396df9894d7e5"
+        },
+        "date": 1660125855327,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 66611.07413260001,
+            "unit": "milliseconds",
+            "range": 1605819.0550446182,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 66611.07413260001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47051.2756668,
+            "unit": "milliseconds",
+            "range": 55351.986477111954,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47051.2756668 milliseconds over 20 runs"
           }
         ]
       }
