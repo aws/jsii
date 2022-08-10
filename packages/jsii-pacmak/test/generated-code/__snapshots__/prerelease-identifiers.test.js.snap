@@ -15,7 +15,6 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/ 1`] = `
  ┃     ┗━ 📄 foo-1.2.3.tgz
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
- ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┣━ 📄 foo-1.2.3.tgz
@@ -115,14 +114,6 @@ namespace Com.Acme.Foo.Internal.DependencyResolution
 `;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/foo-1.2.3.tgz 1`] = `dotnet/Com.Acme.Foo/foo-1.2.3.tgz is a tarball`;
-
-exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/foo.go 1`] = `
-// Test assembly: foo
-package foo
-
-
-
-`;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
 module foo
@@ -527,7 +518,6 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/ 1`] = `
  ┃     ┗━ 📄 foo-1.2.3.tgz
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
- ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┣━ 📄 foo-1.2.3.tgz
@@ -627,14 +617,6 @@ namespace Com.Acme.Foo.Internal.DependencyResolution
 `;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/foo-1.2.3.tgz 1`] = `dotnet/Com.Acme.Foo/foo-1.2.3.tgz is a tarball`;
-
-exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/foo.go 1`] = `
-// Test assembly: foo
-package foo
-
-
-
-`;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
 module foo
@@ -1039,7 +1021,6 @@ exports[`foo@2.0.0-rc.42: <outDir>/ 1`] = `
  ┃     ┗━ 📄 foo-2.0.0-rc.42.tgz
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
- ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┣━ 📄 foo-2.0.0-rc.42.tgz
@@ -1137,14 +1118,6 @@ namespace Com.Acme.Foo.Internal.DependencyResolution
 `;
 
 exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/foo-2.0.0-rc.42.tgz 1`] = `dotnet/Com.Acme.Foo/foo-2.0.0-rc.42.tgz is a tarball`;
-
-exports[`foo@2.0.0-rc.42: <outDir>/go/foo/foo.go 1`] = `
-// Test assembly: foo
-package foo
-
-
-
-`;
 
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
 module foo/v2
@@ -1528,7 +1501,6 @@ exports[`foo@4.5.6-pre.1337: <outDir>/ 1`] = `
  ┃     ┗━ 📄 foo-4.5.6-pre.1337.tgz
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
- ┃     ┣━ 📄 foo.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┣━ 📄 foo-4.5.6-pre.1337.tgz
@@ -1626,14 +1598,6 @@ namespace Com.Acme.Foo.Internal.DependencyResolution
 `;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/foo-4.5.6-pre.1337.tgz 1`] = `dotnet/Com.Acme.Foo/foo-4.5.6-pre.1337.tgz is a tarball`;
-
-exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/foo.go 1`] = `
-// Test assembly: foo
-package foo
-
-
-
-`;
 
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
 module foo/v4

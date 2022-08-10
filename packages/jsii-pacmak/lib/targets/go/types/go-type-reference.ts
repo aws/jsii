@@ -79,9 +79,12 @@ export class GoTypeRef {
       if (ref.mapOfType) {
         return containsDate(ref.mapOfType);
       }
-      if (ref.unionOfTypes) {
-        return ref.unionOfTypes.some(containsDate);
-      }
+      // NOTE: UNION gets represented as interface{} so we don't need to import
+      // individual types here...
+      //
+      // if (ref.unionOfTypes) {
+      //   return ref.unionOfTypes.some(containsDate);
+      // }
       return false;
     }
   }
