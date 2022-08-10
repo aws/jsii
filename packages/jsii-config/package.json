@@ -19,8 +19,8 @@
     "jsii-config": "bin/jsii-config"
   },
   "devDependencies": {
-    "@types/inquirer": "^8.2.1",
-    "@types/yargs": "^17.0.10",
+    "@types/inquirer": "^9.0.0",
+    "@types/yargs": "^17.0.11",
     "jest-expect-message": "^1.0.2"
   },
   "dependencies": {
