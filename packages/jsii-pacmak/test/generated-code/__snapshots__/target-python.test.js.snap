@@ -3537,6 +3537,40 @@ class CalculatorProps:
         )
 
 
+class ClassWithCollectionOfUnions(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.ClassWithCollectionOfUnions",
+):
+    def __init__(
+        self,
+        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[str, typing.Any]], typing.Union["StructB", typing.Dict[str, typing.Any]]]]],
+    ) -> None:
+        '''
+        :param union_property: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(ClassWithCollectionOfUnions.__init__)
+            check_type(argname="argument union_property", value=union_property, expected_type=type_hints["union_property"])
+        jsii.create(self.__class__, self, [union_property])
+
+    @builtins.property # type: ignore[misc]
+    @jsii.member(jsii_name="unionProperty")
+    def union_property(
+        self,
+    ) -> typing.List[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]]:
+        return typing.cast(typing.List[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]], jsii.get(self, "unionProperty"))
+
+    @union_property.setter
+    def union_property(
+        self,
+        value: typing.List[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]],
+    ) -> None:
+        if __debug__:
+            type_hints = typing.get_type_hints(getattr(ClassWithCollectionOfUnions, "union_property").fset)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        jsii.set(self, "unionProperty", value)
+
+
 class ClassWithCollections(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ClassWithCollections",
@@ -9856,6 +9890,47 @@ class StructUnionConsumer(
 
 
 @jsii.data_type(
+    jsii_type="jsii-calc.StructWithCollectionOfUnionts",
+    jsii_struct_bases=[],
+    name_mapping={"union_property": "unionProperty"},
+)
+class StructWithCollectionOfUnionts:
+    def __init__(
+        self,
+        *,
+        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union[StructA, typing.Dict[str, typing.Any]], typing.Union[StructB, typing.Dict[str, typing.Any]]]]],
+    ) -> None:
+        '''
+        :param union_property: 
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(StructWithCollectionOfUnionts.__init__)
+            check_type(argname="argument union_property", value=union_property, expected_type=type_hints["union_property"])
+        self._values: typing.Dict[str, typing.Any] = {
+            "union_property": union_property,
+        }
+
+    @builtins.property
+    def union_property(
+        self,
+    ) -> typing.List[typing.Mapping[builtins.str, typing.Union[StructA, StructB]]]:
+        result = self._values.get("union_property")
+        assert result is not None, "Required property 'union_property' is missing"
+        return typing.cast(typing.List[typing.Mapping[builtins.str, typing.Union[StructA, StructB]]], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "StructWithCollectionOfUnionts(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
     jsii_type="jsii-calc.StructWithEnum",
     jsii_struct_bases=[],
     name_mapping={"foo": "foo", "bar": "bar"},
@@ -11346,6 +11421,7 @@ __all__ = [
     "ChildStruct982",
     "ClassThatImplementsTheInternalInterface",
     "ClassThatImplementsThePrivateInterface",
+    "ClassWithCollectionOfUnions",
     "ClassWithCollections",
     "ClassWithContainerTypes",
     "ClassWithDocs",
@@ -11514,6 +11590,7 @@ __all__ = [
     "StructParameterType",
     "StructPassing",
     "StructUnionConsumer",
+    "StructWithCollectionOfUnionts",
     "StructWithEnum",
     "StructWithJavaReservedWords",
     "Sum",

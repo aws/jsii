@@ -384,11 +384,11 @@ namespace Amazon.JSII.Runtime.UnitTests.JsonModel
                 ClassType actual = JsonConvert.DeserializeObject<ClassType>(json)!;
 
                 Assert.True(actual.IsAbstract);
-                Assert.Empty(actual.Properties);
-                Assert.Empty(actual.Methods);
+                Assert.Empty(actual.Properties!);
+                Assert.Empty(actual.Methods!);
                 Assert.NotNull(actual.Base);
                 Assert.NotNull(actual.Initializer);
-                Assert.Empty(actual.Interfaces);
+                Assert.Empty(actual.Interfaces!);
                 Assert.Equal("myFqn", actual.FullyQualifiedName, ignoreLineEndingDifferences: true);
                 Assert.Equal("myModule", actual.Assembly, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);

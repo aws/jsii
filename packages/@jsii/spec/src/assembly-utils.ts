@@ -41,6 +41,32 @@ export function findAssemblyFile(directory: string) {
 }
 
 /**
+ * Replaces the file where the original assembly file *should* be found with a new assembly file.
+ * Detects whether or not there is a compressed assembly, and if there is, compresses the new assembly also.
+ * Replaces the fingerprint with '**********' rather than recalculating it, since we have modified the assembly.
+ */
+export function replaceAssembly(assembly: Assembly, directory: string) {
+  writeAssembly(directory, _fingerprint(assembly), {
+    compress: compressedAssemblyExists(directory),
+  });
+}
+
+/**
+ * Replaces the old fingerprint with '***********'.
+ *
+ * We could recalculate the fingerprint here so that it looks like the assembly was not modified. However,
+ * 1) we are not actually validating the fingerprint in any way, and
+ * 2) it feels disingenuous to have a mechanism against tampering and then tamper with it.
+ *
+ * So, instead of keeping the old (wrong) fingerprint or spending extra time calculating a new fingerprint,
+ * we replace with '**********' that demonstrates the fingerprint has changed.
+ */
+function _fingerprint(assembly: Assembly): Assembly {
+  assembly.fingerprint = '*'.repeat(10);
+  return assembly;
+}
+
+/**
  * Writes the assembly file either as .jsii or .jsii.gz if zipped
  *
  * @param directory the directory path to place the assembly file

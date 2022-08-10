@@ -50,22 +50,13 @@ export function flatMap<T, R>(
 export function getMemberDependencies(
   members: readonly GoTypeMember[],
 ): Package[] {
-  const deps = new Array<Package>();
-  for (const member of members) {
-    deps.push(...(member.reference?.dependencies ?? []));
-  }
-
-  return deps;
+  return members.flatMap((member) => member.reference?.dependencies ?? []);
 }
 
-export function getParamDependencies(methods: GoMethod[]): Package[] {
-  const dependencies: Package[] = [];
-  for (const method of methods) {
-    for (const param of method.parameters) {
-      dependencies.push(...(param.reference?.dependencies ?? []));
-    }
-  }
-  return dependencies;
+export function getParamDependencies(methods: readonly GoMethod[]): Package[] {
+  return methods.flatMap(({ parameters }) =>
+    parameters.flatMap((param) => param.reference?.dependencies ?? []),
+  );
 }
 
 const RESERVED_WORDS: { [word: string]: string } = {
