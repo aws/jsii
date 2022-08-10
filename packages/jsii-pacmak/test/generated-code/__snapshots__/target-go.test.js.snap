@@ -2259,6 +2259,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_ChildStruct982.go
        ┣━ 📄 jsiicalc_ClassThatImplementsTheInternalInterface.go
        ┣━ 📄 jsiicalc_ClassThatImplementsThePrivateInterface.go
+       ┣━ 📄 jsiicalc_ClassWithCollectionOfUnions.go
        ┣━ 📄 jsiicalc_ClassWithCollections.go
        ┣━ 📄 jsiicalc_ClassWithContainerTypes.go
        ┣━ 📄 jsiicalc_ClassWithDocs.go
@@ -2429,6 +2430,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_StructParameterType.go
        ┣━ 📄 jsiicalc_StructPassing.go
        ┣━ 📄 jsiicalc_StructUnionConsumer.go
+       ┣━ 📄 jsiicalc_StructWithCollectionOfUnionts.go
        ┣━ 📄 jsiicalc_StructWithEnum.go
        ┣━ 📄 jsiicalc_StructWithJavaReservedWords.go
        ┣━ 📄 jsiicalc_Sum.go
@@ -3974,6 +3976,16 @@ func init() {
 			j := jsiiProxy_ClassThatImplementsThePrivateInterface{}
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_INonInternalInterface)
 			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.ClassWithCollectionOfUnions",
+		reflect.TypeOf((*ClassWithCollectionOfUnions)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ClassWithCollectionOfUnions{}
 		},
 	)
 	_jsii_.RegisterClass(
@@ -5717,6 +5729,10 @@ func init() {
 		func() interface{} {
 			return &jsiiProxy_StructUnionConsumer{}
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.StructWithCollectionOfUnionts",
+		reflect.TypeOf((*StructWithCollectionOfUnionts)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.StructWithEnum",
@@ -8262,6 +8278,71 @@ func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) SetE(val *string) {
 	_jsii_.Set(
 		j,
 		"e",
+		val,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions.go 1`] = `
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type ClassWithCollectionOfUnions interface {
+	UnionProperty() *[]*map[string]interface{}
+	SetUnionProperty(val *[]*map[string]interface{})
+}
+
+// The jsii proxy struct for ClassWithCollectionOfUnions
+type jsiiProxy_ClassWithCollectionOfUnions struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_ClassWithCollectionOfUnions) UnionProperty() *[]*map[string]interface{} {
+	var returns *[]*map[string]interface{}
+	_jsii_.Get(
+		j,
+		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewClassWithCollectionOfUnions(unionProperty *[]*map[string]interface{}) ClassWithCollectionOfUnions {
+	_init_.Initialize()
+
+	j := jsiiProxy_ClassWithCollectionOfUnions{}
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithCollectionOfUnions",
+		[]interface{}{unionProperty},
+		&j,
+	)
+
+	return &j
+}
+
+func NewClassWithCollectionOfUnions_Override(c ClassWithCollectionOfUnions, unionProperty *[]*map[string]interface{}) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithCollectionOfUnions",
+		[]interface{}{unionProperty},
+		c,
+	)
+}
+
+func (j *jsiiProxy_ClassWithCollectionOfUnions) SetUnionProperty(val *[]*map[string]interface{}) {
+	_jsii_.Set(
+		j,
+		"unionProperty",
 		val,
 	)
 }
@@ -18716,6 +18797,18 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) *bool {
 	)
 
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StructWithCollectionOfUnionts.go 1`] = `
+// A simple calcuator built on JSII.
+package jsiicalc
+
+
+type StructWithCollectionOfUnionts struct {
+	UnionProperty *[]*map[string]interface{} \`field:"required" json:"unionProperty" yaml:"unionProperty"\`
 }
 
 

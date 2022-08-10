@@ -26,8 +26,7 @@
     "tar": "^6.1.11"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^9.0.13",
-    "@types/tar": "^6.1.1"
+    "@types/tar": "^6.1.2"
   }
 }

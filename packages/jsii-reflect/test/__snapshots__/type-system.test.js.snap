@@ -41,6 +41,7 @@ Array [
   "jsii-calc.Calculator",
   "jsii-calc.ClassThatImplementsTheInternalInterface",
   "jsii-calc.ClassThatImplementsThePrivateInterface",
+  "jsii-calc.ClassWithCollectionOfUnions",
   "jsii-calc.ClassWithCollections",
   "jsii-calc.ClassWithContainerTypes",
   "jsii-calc.ClassWithDocs",
