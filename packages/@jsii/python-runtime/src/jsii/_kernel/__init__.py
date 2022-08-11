@@ -3,7 +3,7 @@ import inspect
 import itertools
 from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
-from typing import cast, Any, List, Optional, Type
+from typing import cast, Any, List, Optional, Sequence, Type
 
 import functools
 
@@ -300,7 +300,7 @@ class Kernel(metaclass=Singleton):
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
     def invokeBinScript(
-        self, pkgname: str, script: str, args: Optional[List[Any]] = None
+        self, pkgname: str, script: str, args: Optional[Sequence[str]] = None
     ) -> InvokeScriptResponse:
         if args is None:
             args = []

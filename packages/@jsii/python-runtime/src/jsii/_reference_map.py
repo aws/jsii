@@ -91,7 +91,9 @@ class _ReferenceMap:
 
             python_props = {
                 python_name: kernel.get(remote_struct, jsii_name)
-                for python_name, jsii_name in python_jsii_mapping(data_type).items()
+                for python_name, jsii_name in (
+                    python_jsii_mapping(data_type) or {}
+                ).items()
             }
 
             return data_type(**python_props)
@@ -117,8 +119,8 @@ class _ReferenceMap:
                 return struct(
                     **{
                         python_name: kernel.get(remote_struct, jsii_name)
-                        for python_name, jsii_name in python_jsii_mapping(
-                            struct
+                        for python_name, jsii_name in (
+                            python_jsii_mapping(struct) or {}
                         ).items()
                     }
                 )
@@ -152,7 +154,7 @@ class InterfaceDynamicProxy(object):
 
     def __setattr__(self, name, value):
         if name == "_delegates":
-            return super.__setattr__(self, name, value)
+            return super().__setattr__(name, value)
         for delegate in self._delegates:
             if hasattr(delegate, name):
                 return setattr(delegate, name, value)
@@ -164,7 +166,7 @@ def new_combined_struct(structs: Iterable[Type]) -> Type:
     label = " + ".join(struct.__name__ for struct in structs)
 
     def __init__(self, **kwargs):
-        self._values: Mapping[str, Any] = kwargs
+        self._values = kwargs
 
     def __eq__(self, rhs: Any) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values

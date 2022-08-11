@@ -1,11 +1,11 @@
 import functools
 
-from typing import Any, Mapping, Type
+from typing import Any, MutableMapping, Type
 
 
 class Singleton(type):
 
-    _instances: Mapping[Type[Any], Any] = {}
+    _instances: MutableMapping[Type[Any], Any] = {}
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:

@@ -1,3 +1,4 @@
+from typing import cast, Any, Optional
 import jsii
 import pytest
 import re
@@ -35,8 +36,7 @@ class TestErrorHandling:
                 "type of argument value must be one of (int, float); got method instead"
             ),
         ):
-            # types: ignore
-            obj.add(self.test_descriptive_error_when_passing_function)
+            obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
 
     def test_implements_interface(self) -> None:
         """Checks that jsii-generated classes correctly implement the relevant jsii-generated interfaces."""
@@ -56,7 +56,9 @@ class TestErrorHandling:
 
 def test_overrides_method_with_kwargs() -> None:
     class Overridden(OverrideMe):
-        def implement_me(self, *, name: str, count: jsii.Number = None) -> bool:
+        def implement_me(
+            self, *, name: str, count: Optional[jsii.Number] = None
+        ) -> bool:
             return name == "John Doe" and count is None
 
     assert OverrideMe.call_abstract(Overridden())

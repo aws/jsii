@@ -1177,6 +1177,12 @@ exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
+[tool.pyright]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.7"
+pythonPlatform = "All"
+reportSelfClsParameterName = false
+
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/setup.py 1`] = `
@@ -1262,7 +1268,7 @@ from ._jsii import *
 
 
 class Consumer(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Consumer"):
-    @jsii.member(jsii_name="consumeBaz") # type: ignore[misc]
+    @jsii.member(jsii_name="consumeBaz")
     @builtins.classmethod
     def consume_baz(
         cls,
@@ -2568,6 +2574,12 @@ exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
+[tool.pyright]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.7"
+pythonPlatform = "All"
+reportSelfClsParameterName = false
+
 `;
 
 exports[`nested-types.ts: <outDir>/python/setup.py 1`] = `
@@ -2696,7 +2708,7 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
 
     @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
     class IBar(typing_extensions.Protocol):
-        @builtins.property # type: ignore[misc]
+        @builtins.property
         @jsii.member(jsii_name="bar")
         def bar(self) -> builtins.str:
             ...
@@ -2709,7 +2721,7 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
     class _IBarProxy:
         __jsii_type__: typing.ClassVar[str] = "testpkg.Namespace1.IBar"
 
-        @builtins.property # type: ignore[misc]
+        @builtins.property
         @jsii.member(jsii_name="bar")
         def bar(self) -> builtins.str:
             return typing.cast(builtins.str, jsii.get(self, "bar"))
@@ -2738,7 +2750,7 @@ class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
             def __init__(self) -> None:
                 jsii.create(self.__class__, self, [])
 
-            @builtins.property # type: ignore[misc]
+            @builtins.property
             @jsii.member(jsii_name="done")
             def done(self) -> builtins.bool:
                 return typing.cast(builtins.bool, jsii.get(self, "done"))

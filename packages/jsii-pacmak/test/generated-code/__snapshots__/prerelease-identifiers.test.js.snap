@@ -410,6 +410,12 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1
 requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
+[tool.pyright]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.7"
+pythonPlatform = "All"
+reportSelfClsParameterName = false
+
 `;
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/setup.py 1`] = `
@@ -913,6 +919,12 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.tom
 requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
+[tool.pyright]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.7"
+pythonPlatform = "All"
+reportSelfClsParameterName = false
+
 `;
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/setup.py 1`] = `
@@ -1396,6 +1408,12 @@ exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
 
+[tool.pyright]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.7"
+pythonPlatform = "All"
+reportSelfClsParameterName = false
+
 `;
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/setup.py 1`] = `
@@ -1875,6 +1893,12 @@ exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
 requires = ["setuptools~=62.1.0", "wheel~=0.37.1"]
 build-backend = "setuptools.build_meta"
+
+[tool.pyright]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.7"
+pythonPlatform = "All"
+reportSelfClsParameterName = false
 
 `;
 
