@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1660134463314,
+  "lastUpdate": 1660214247291,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4705,6 +4705,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 835071.2292507921,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49716.05468965 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5413720a274fbcc9d3b62823197b76589f99329c",
+          "message": "fix(python): classproperty not working with type checkers (#3694)\n\nThe `jsii.python` submodule was not re-exported in `__init__.py`, which\nmade type resolves not manage to access the. `@classproperty` decorator\nand default to treating it as `Any`.\n\nThis adds some missing type annotations, runs `pyright` on the runtime\nlibrary and tests thereof (as `mypy` did not identify this problem),\nand adds the missing export declaration.\n\nFixes #3633\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-11T09:24:24Z",
+          "tree_id": "c304fbbe39f41459a734bb8d32e535cac25a54ef",
+          "url": "https://github.com/aws/jsii/commit/5413720a274fbcc9d3b62823197b76589f99329c"
+        },
+        "date": 1660214244734,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 103554.36891655003,
+            "unit": "milliseconds",
+            "range": 2685678.5885327645,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 103554.36891655003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 72724.69652185003,
+            "unit": "milliseconds",
+            "range": 630437.5939098299,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72724.69652185003 milliseconds over 20 runs"
           }
         ]
       }
