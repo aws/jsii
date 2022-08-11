@@ -3553,7 +3553,7 @@ class ClassWithCollectionOfUnions(
             check_type(argname="argument union_property", value=union_property, expected_type=type_hints["union_property"])
         jsii.create(self.__class__, self, [union_property])
 
-    @builtins.property # type: ignore[misc]
+    @builtins.property
     @jsii.member(jsii_name="unionProperty")
     def union_property(
         self,
