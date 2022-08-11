@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **.net:** dynmic type checking for union-typed parameters ([#3668](https://github.com/aws/jsii/issues/3668)) ([f5e0603](https://github.com/aws/jsii/commit/f5e06038adfa6912baabc9ea004ad40a5ad87295)), closes [#3640](https://github.com/aws/jsii/issues/3640)
+* **.net:** dynamic type checking for union-typed parameters ([#3668](https://github.com/aws/jsii/issues/3668)) ([f5e0603](https://github.com/aws/jsii/commit/f5e06038adfa6912baabc9ea004ad40a5ad87295)), closes [#3640](https://github.com/aws/jsii/issues/3640)
 * **.net:** embed package icon when configured ([#3676](https://github.com/aws/jsii/issues/3676)) ([c65b1d9](https://github.com/aws/jsii/commit/c65b1d9fd1e0a6e37dad96c763c0bb1a1d15f57d))
 
 
