@@ -138,6 +138,9 @@
         '#cacaca',
       ];
 
+      // Only show data pertaining to the last 3 months.
+      const CUTOFF_DATE = Date.now() - 3 * 31 * 24 * 3_600_000;
+
       // Render header
       document.getElementById('last-update').textContent = new Date(BENCHMARK_DATA.lastUpdate).toString();
       const repoLink = document.getElementById('repository-link');
@@ -158,12 +161,21 @@
       for (const [name, entries] of Object.entries(BENCHMARK_DATA.entries)) {
         const { commits, datasetByName } = entries.reduce(
           ({ commits, datasetByName }, { benches, commit }) => {
+            if (new Date(commit.timestamp).getTime() < CUTOFF_DATE) {
+              return { commits, datasetByName };
+            }
             commits.set(commit.id, new Date(commit.timestamp));
-            for (const { name, value } of benches) {
+            for (const { name, value, range } of benches) {
               if (!datasetByName.has(name)) {
                 datasetByName.set(name, new Map());
               }
-              datasetByName.get(name).set(commit.id, value / 1000);
+              datasetByName.get(name).set(
+                commit.id,
+                {
+                  value: value / 1000,
+                  stddev: range != null ? Math.sqrt(range) / 1000 : range
+                },
+              );
             }
             return { commits, datasetByName };
           },
@@ -177,13 +189,39 @@
         const labels = sortedCommits.map((id) => id.slice(0, 7));
         const datasets = Array.from(datasetByName.entries())
           .sort(([l], [r]) => l.localeCompare(r))
-          .map(([label, data], idx) => ({
-            backgroundColor: COLORS[idx % COLORS.length] + '60',
-            borderColor: COLORS[idx % COLORS.length],
-            data: sortedCommits.map((id) => ({ x: id.slice(0, 7), y: data.get(id) })),
-            label,
-            tension: .5,
-          }));
+          .flatMap(([label, data], idx) => [
+            {
+              backgroundColor: COLORS[idx % COLORS.length] + '60',
+              borderWidth: 0,
+              data: sortedCommits.map((id) => {
+                const { value, stddev } = data.get(id) ?? {};
+                return { x: id.slice(0, 7), y: stddev != null ? Math.max(0, value - 2 * stddev) : undefined };
+              }),
+              fill: '+1',
+              label: `${label} (-2\u03C3)`,
+              radius: 0,
+              tension: .5,
+            },
+            {
+              backgroundColor: COLORS[idx % COLORS.length] + '60',
+              borderColor: COLORS[idx % COLORS.length],
+              data: sortedCommits.map((id) => ({ x: id.slice(0, 7), y: data.get(id)?.value })),
+              label,
+              tension: .5,
+            },
+            {
+              backgroundColor: COLORS[idx % COLORS.length] + '60',
+              borderWidth: 0,
+              data: sortedCommits.map((id) => {
+                const { value, stddev } = data.get(id) ?? {};
+                return { x: id.slice(0, 7), y: stddev != null ? value + 2 * stddev : undefined };
+              }),
+              fill: '-1',
+              label: `${label} (+2\u03C3)`,
+              radius: 0,
+              tension: .5,
+            },
+          ]);
 
         const deltas = [];
         for (const [label, data] of datasetByName.entries()) {
@@ -194,18 +232,19 @@
             if (!label.startsWith(other)) {
               continue;
             }
+            const color = COLORS[deltas.length % COLORS.length];
             deltas.push({
-              backgroundColor: COLORS[deltas.length % COLORS.length] + '60',
-              borderColor: COLORS[deltas.length % COLORS.length],
+              backgroundColor: color + '60',
+              borderColor: color,
               data: sortedCommits.map((id) => {
-                const dataPoint = data.get(id);
-                const refPoint = refData.get(id);
+                const dataPoint = data.get(id)?.value;
+                const refPoint = refData.get(id)?.value;
                 return {
                   x: id.slice(0, 7),
                   y: 100 * (refPoint - dataPoint) / dataPoint,
                 };
               }),
-              label: `${other} \u{1F19A} ${label}`,
+              label: `${other} \u{1F19A} ${label.slice(other.length).trim().replace(/^\((.+)\)$/, '$1')}`,
               tension: .5,
             });
           }
@@ -259,6 +298,11 @@
           },
           options: {
             plugins: {
+              legend: {
+                labels: {
+                  filter: ({ text }) => !text.endsWith('(+2\u03C3)') && !text.endsWith('(-2\u03C3)'),
+                },
+              },
               title: {
                 display: true,
                 font: { weight: 'bold', size: 18 },
