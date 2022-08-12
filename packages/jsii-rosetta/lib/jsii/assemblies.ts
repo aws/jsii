@@ -1,13 +1,7 @@
 import * as spec from '@jsii/spec';
-import {
-  compressedAssemblyExists,
-  loadAssemblyFromFile,
-  loadAssemblyFromPath,
-  findAssemblyFile,
-  writeAssembly,
-} from '@jsii/spec';
-import * as crypto from 'crypto';
-import * as fs from 'fs-extra';
+import { loadAssemblyFromFile, loadAssemblyFromPath, findAssemblyFile } from '@jsii/spec';
+import { promises as fsPromises } from 'fs';
+import * as fs from 'fs';
 import * as path from 'path';
 
 import { findDependencyDirectory, isBuiltinModule } from '../find-utils';
@@ -26,9 +20,6 @@ import {
 import { enforcesStrictMode } from '../strict';
 import { LanguageTablet, DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../tablets/tablets';
 import { fmap, mkDict, sortBy } from '../util';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-const sortJson = require('sort-json');
 
 /**
  * The JSDoc tag users can use to associate non-visible metadata with an example
@@ -78,7 +69,7 @@ export function loadAssemblies(
     const pjLocation = path.join(directory, 'package.json');
 
     const assembly = loadAssemblyFromFile(location, validateAssemblies);
-    const packageJson = fs.pathExistsSync(pjLocation) ? fs.readJSONSync(pjLocation, { encoding: 'utf-8' }) : undefined;
+    const packageJson = fs.existsSync(pjLocation) ? JSON.parse(fs.readFileSync(pjLocation, 'utf-8')) : undefined;
 
     return { assembly, directory, packageJson };
   }
@@ -235,26 +226,6 @@ export async function allTypeScriptSnippets(
   );
 }
 
-/**
- * Replaces the file where the original assembly file *should* be found with a new assembly file.
- * Detects whether or not there is a compressed assembly, and if there is, compresses the new assembly also.
- * Recalculates the fingerprint of the assembly to avoid tampering detection.
- */
-export function replaceAssembly(assembly: spec.Assembly, directory: string) {
-  writeAssembly(directory, _fingerprint(assembly), { compress: compressedAssemblyExists(directory) });
-}
-
-/**
- * This function is copied from `packages/jsii/lib/assembler.ts`.
- * We should make sure not to change one without changing the other as well.
- */
-function _fingerprint(assembly: spec.Assembly): spec.Assembly {
-  delete (assembly as any).fingerprint;
-  assembly = sortJson(assembly);
-  const fingerprint = crypto.createHash('sha256').update(JSON.stringify(assembly)).digest('base64');
-  return { ...assembly, fingerprint };
-}
-
 export interface TypeLookupAssembly {
   readonly packageJson: any;
   readonly assembly: spec.Assembly;
@@ -297,7 +268,7 @@ export function findTypeLookupAssembly(startingDirectory: string): TypeLookupAss
 
 function loadLookupAssembly(directory: string): TypeLookupAssembly | undefined {
   try {
-    const packageJson = fs.readJSONSync(path.join(directory, 'package.json'), { encoding: 'utf-8' });
+    const packageJson = JSON.parse(fs.readFileSync(path.join(directory, 'package.json'), 'utf-8'));
     const assembly: spec.Assembly = loadAssemblyFromPath(directory);
     const symbolIdMap = mkDict([
       ...Object.values(assembly.types ?? {}).map((type) => [type.symbolId ?? '', type.fqn] as const),
@@ -367,7 +338,7 @@ async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet)
 
   compilationDependencies[asm.assembly.name] = {
     type: 'concrete',
-    resolvedDirectory: await fs.realpath(asm.directory),
+    resolvedDirectory: await fsPromises.realpath(asm.directory),
   };
 
   Object.assign(
@@ -387,7 +358,7 @@ async function withDependencies(asm: LoadedAssembly, snippet: TypeScriptSnippet)
                 name,
                 {
                   type: 'concrete',
-                  resolvedDirectory: await fs.realpath(await findDependencyDirectory(name, asm.directory)),
+                  resolvedDirectory: await fsPromises.realpath(await findDependencyDirectory(name, asm.directory)),
                 },
               ] as const,
           ),

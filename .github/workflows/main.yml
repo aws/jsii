@@ -218,8 +218,7 @@ jobs:
         java: ['8']
         node:
           - '14' # EOL 2023-04-30
-          - '16' # EOL 2024-04-30
-          - '17' # EOL 2022-06-01
+          - '16' # EOL 2023-09-11
           - '18' # EOL 2025-04-30
         os: [ubuntu-latest]
         python: ['3.7']
@@ -363,7 +362,8 @@ jobs:
     name: Run benchmark suite
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
+      pull-requests: write
     needs: build
     steps:
       # Check out the code
@@ -396,7 +396,7 @@ jobs:
           tool: 'customSmallerIsBetter'
           output-file-path: ${{ runner.temp }}/bench-output.json
           comment-always: true
-          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true
       - name: Upload Benchmark Results
         if: github.event_name == 'push'

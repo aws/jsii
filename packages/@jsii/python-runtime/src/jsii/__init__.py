@@ -14,6 +14,7 @@ from ._runtime import (
     kernel,
     proxy_for,
 )
+from . import python
 
 
 # JS doesn't have distinct float or integer types, but we do. So we'll define our own
@@ -70,4 +71,5 @@ __all__ = [
     "ainvoke",
     "sinvoke",
     "stats",
+    "python",
 ]

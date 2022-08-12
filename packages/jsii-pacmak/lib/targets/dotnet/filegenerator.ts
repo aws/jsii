@@ -44,7 +44,10 @@ export class FileGenerator {
   }
 
   // Generates the .csproj file
-  public generateProjectFile(dependencies: Map<string, DotNetDependency>) {
+  public generateProjectFile(
+    dependencies: Map<string, DotNetDependency>,
+    iconFile?: string,
+  ) {
     const assembly = this.assm;
     const packageId: string = assembly.targets!.dotnet!.packageId;
 
@@ -62,6 +65,22 @@ export class FileGenerator {
 
     propertyGroup.comment('Package Identification');
     propertyGroup.ele('Description', this.getDescription());
+    if (iconFile != null) {
+      propertyGroup.ele('PackageIcon', iconFile.split(/[/\\]+/).join('\\'));
+      // We also need to actually include the icon in the package
+      const noneNode = rootNode.ele('ItemGroup').ele('None');
+      noneNode.att('Include', iconFile.split(/[/\\]+/).join('\\'));
+      noneNode.att('Pack', 'true');
+      noneNode.att(
+        'PackagePath',
+        `\\${path
+          .dirname(iconFile)
+          .split(/[/\\]+/)
+          .join('\\')}`,
+      );
+    }
+    // We continue to include the PackageIconUrl even if we put PackageIcon for backwards compatibility, as suggested
+    // by https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packageicon
     if (dotnetInfo!.iconUrl != null) {
       propertyGroup.ele('PackageIconUrl', dotnetInfo!.iconUrl);
     }

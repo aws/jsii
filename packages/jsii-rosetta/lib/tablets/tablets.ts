@@ -1,4 +1,4 @@
-import * as fs from 'fs-extra';
+import { existsSync, promises as fs } from 'fs';
 import * as path from 'path';
 import * as zlib from 'zlib';
 
@@ -44,7 +44,7 @@ export class LanguageTablet {
    */
   public static async fromOptionalFile(filename: string) {
     const ret = new LanguageTablet();
-    if (fs.existsSync(filename)) {
+    if (existsSync(filename)) {
       try {
         await ret.load(filename);
       } catch (e: any) {
@@ -179,7 +179,7 @@ export class LanguageTablet {
    * the schema will be gzipped before writing to the file.
    */
   public async save(filename: string, compress = false) {
-    await fs.mkdirp(path.dirname(filename));
+    await fs.mkdir(path.dirname(filename), { recursive: true });
 
     let schema = Buffer.from(JSON.stringify(this.toSchema(), null, 2));
     if (compress) {

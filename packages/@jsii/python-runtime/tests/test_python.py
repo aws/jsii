@@ -1,3 +1,4 @@
+from typing import cast, Any, Optional
 import jsii
 import pytest
 import re
@@ -5,6 +6,7 @@ import re
 from jsii.errors import JSIIError
 import jsii_calc
 from jsii_calc.module2702 import IVpc, Vpc, IBaz, Baz
+from jsii_calc.jsii3656 import OverrideMe
 
 
 class TestErrorHandling:
@@ -34,8 +36,7 @@ class TestErrorHandling:
                 "type of argument value must be one of (int, float); got method instead"
             ),
         ):
-            # types: ignore
-            obj.add(self.test_descriptive_error_when_passing_function)
+            obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
 
     def test_implements_interface(self) -> None:
         """Checks that jsii-generated classes correctly implement the relevant jsii-generated interfaces."""
@@ -51,6 +52,16 @@ class TestErrorHandling:
 
         baz = Baz()
         baz_interface_func(baz)
+
+
+def test_overrides_method_with_kwargs() -> None:
+    class Overridden(OverrideMe):
+        def implement_me(
+            self, *, name: str, count: Optional[jsii.Number] = None
+        ) -> bool:
+            return name == "John Doe" and count is None
+
+    assert OverrideMe.call_abstract(Overridden())
 
 
 def find_struct_bases(x):

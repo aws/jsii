@@ -6,9 +6,17 @@ import * as process from 'process';
 import { pacmak, TargetName } from '../../lib';
 import { shell } from '../../lib/util';
 
+export const JSII_TEST_PACKAGES: readonly string[] = [
+  '@scope/jsii-calc-base-of-base',
+  '@scope/jsii-calc-base',
+  '@scope/jsii-calc-lib',
+  'jsii-calc',
+];
+
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
 const TARBALL = Symbol('tarball');
+const BINARY = Symbol('binary');
 export const TREE = Symbol('tree');
 
 // Custom serializers so we can see the source without escape sequences
@@ -27,6 +35,10 @@ expect.addSnapshotSerializer({
     `${val[TARBALL]} ${
       val[TARBALL].endsWith('.tgz') ? 'is' : 'embeds'
     } a tarball`,
+});
+expect.addSnapshotSerializer({
+  test: (val) => val?.[BINARY] != null,
+  serialize: (val) => `${val[BINARY]} is a binary file`,
 });
 expect.addSnapshotSerializer({
   test: (val) => val?.[TREE] != null,
@@ -52,12 +64,7 @@ export function verifyGeneratedCodeFor(
     done();
   });
 
-  for (const pkg of [
-    '@scope/jsii-calc-base-of-base',
-    '@scope/jsii-calc-base',
-    '@scope/jsii-calc-lib',
-    'jsii-calc',
-  ]) {
+  for (const pkg of JSII_TEST_PACKAGES) {
     // Extend timeout, because this could be slow (python has more time because of the mypy pass)...
     jest.setTimeout(timeout);
 
@@ -101,6 +108,9 @@ export function checkTree(
     if (file.endsWith('.tgz')) {
       // Special-cased to avoid binary differences being annoying
       expect({ [TARBALL]: relativeFile }).toMatchSnapshot(snapshotName);
+    } else if (file.endsWith('.png')) {
+      // Special-cased to avoid binary differences being annoying
+      expect({ [BINARY]: relativeFile }).toMatchSnapshot(snapshotName);
     } else {
       expect({
         [FILE]: fs.readFileSync(file, { encoding: 'utf-8' }),
@@ -150,8 +160,16 @@ async function runPacmak(
   ).resolves.not.toThrowError();
 }
 
-async function runMypy(pythonRoot: string): Promise<void> {
-  const venvRoot = path.join(__dirname, '.venv');
+export async function preparePythonVirtualEnv({
+  install = [],
+  venvDir = __dirname,
+  systemSitePackages = true,
+}: {
+  install?: readonly string[];
+  venvDir?: string;
+  systemSitePackages?: boolean;
+} = {}) {
+  const venvRoot = path.join(venvDir, '.venv');
   const venvBin = path.join(
     venvRoot,
     process.platform === 'win32' ? 'Scripts' : 'bin',
@@ -176,11 +194,16 @@ async function runMypy(pythonRoot: string): Promise<void> {
     shell(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
-      '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+      ...(systemSitePackages
+        ? [
+            '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+          ]
+        : []),
       JSON.stringify(venvRoot),
     ]),
   ).resolves.not.toThrowError();
-  // Install mypy and the jsii runtime in there as needed
+
+  // Install development dependencies as needed...
   await expect(
     shell(
       venvPython,
@@ -191,6 +214,8 @@ async function runMypy(pythonRoot: string): Promise<void> {
         '--no-input',
         '-r',
         path.resolve(__dirname, 'requirements-dev.txt'),
+        // Additional install parameters
+        ...install,
         // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
         JSON.stringify(
           path.resolve(
@@ -202,6 +227,13 @@ async function runMypy(pythonRoot: string): Promise<void> {
       { env, retry: { maxAttempts: 5 } },
     ),
   ).resolves.not.toThrowError();
+
+  return { env, venvPython, venvRoot };
+}
+
+async function runMypy(pythonRoot: string): Promise<void> {
+  const { env, venvPython } = await preparePythonVirtualEnv();
+
   // Now run mypy on the Python code
   return expect(
     shell(

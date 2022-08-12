@@ -1,6 +1,7 @@
 import * as cp from 'child_process';
 import * as fastGlob from 'fast-glob';
-import * as fs from 'fs-extra';
+import { promises as fsPromises } from 'fs';
+import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as semver from 'semver';
@@ -9,7 +10,7 @@ import { intersect } from 'semver-intersect';
 import { findDependencyDirectory, findUp } from './find-utils';
 import * as logging from './logging';
 import { TypeScriptSnippet, CompilationDependency } from './snippet';
-import { mkDict, formatList } from './util';
+import { mkDict, formatList, pathExists } from './util';
 
 /**
  * Collect the dependencies of a bunch of snippets together in one declaration
@@ -51,7 +52,9 @@ function resolveConflict(
   }
 
   if (a.type === 'concrete' && b.type === 'symbolic') {
-    const concreteVersion: string = fs.readJsonSync(path.join(a.resolvedDirectory, 'package.json')).version;
+    const concreteVersion: string = JSON.parse(
+      fs.readFileSync(path.join(a.resolvedDirectory, 'package.json'), 'utf-8'),
+    ).version;
 
     if (!semver.satisfies(concreteVersion, b.versionRange)) {
       throw new Error(
@@ -108,7 +111,7 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
     .map((x) => x.resolvedDirectory);
   const monorepoPackages = await scanMonoRepos(concreteDirs);
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'rosetta'));
+  const tmpDir = await fsPromises.mkdtemp(path.join(os.tmpdir(), 'rosetta'));
   logging.info(`Preparing dependency closure at ${tmpDir}`);
 
   // Resolved symbolic packages against monorepo
@@ -148,10 +151,10 @@ export async function prepareDependencyDirectory(deps: Record<string, Compilatio
     await Promise.all(
       Object.entries(linkedInstalls).map(async ([name, source]) => {
         const target = path.join(modDir, name);
-        if (!(await fs.pathExists(target))) {
+        if (!(await pathExists(target))) {
           // Package could be namespaced, so ensure the namespace dir exists
-          await fs.mkdirp(path.dirname(target));
-          await fs.symlink(source, target, 'dir');
+          await fsPromises.mkdir(path.dirname(target), { recursive: true });
+          await fsPromises.symlink(source, target, 'dir');
         }
       }),
     );
@@ -182,8 +185,8 @@ async function scanMonoRepos(startingDirs: readonly string[]): Promise<Record<st
       await Promise.all(
         packageDirectories.map(async (directory) => {
           const pjLocation = path.join(directory, 'package.json');
-          return (await fs.pathExists(pjLocation))
-            ? [[(await fs.readJson(pjLocation)).name as string, directory] as const]
+          return (await pathExists(pjLocation))
+            ? [[JSON.parse(await fsPromises.readFile(pjLocation, 'utf-8')).name as string, directory] as const]
             : [];
         }),
       )
@@ -198,9 +201,9 @@ async function findMonoRepoGlobs(startingDir: string): Promise<Set<string>> {
   const ret = new Set<string>();
 
   // Lerna monorepo
-  const lernaJsonDir = await findUp(startingDir, async (dir) => fs.pathExists(path.join(dir, 'lerna.json')));
+  const lernaJsonDir = await findUp(startingDir, async (dir) => pathExists(path.join(dir, 'lerna.json')));
   if (lernaJsonDir) {
-    const lernaJson = await fs.readJson(path.join(lernaJsonDir, 'lerna.json'));
+    const lernaJson = JSON.parse(await fsPromises.readFile(path.join(lernaJsonDir, 'lerna.json'), 'utf-8'));
     for (const glob of lernaJson?.packages ?? []) {
       ret.add(path.join(lernaJsonDir, glob));
     }
@@ -210,11 +213,11 @@ async function findMonoRepoGlobs(startingDir: string): Promise<Set<string>> {
   const yarnWsDir = await findUp(
     startingDir,
     async (dir) =>
-      (await fs.pathExists(path.join(dir, 'package.json'))) &&
-      (await fs.readJson(path.join(dir, 'package.json')))?.workspaces !== undefined,
+      (await pathExists(path.join(dir, 'package.json'))) &&
+      JSON.parse(await fsPromises.readFile(path.join(dir, 'package.json'), 'utf-8'))?.workspaces !== undefined,
   );
   if (yarnWsDir) {
-    const yarnWs = await fs.readJson(path.join(yarnWsDir, 'package.json'));
+    const yarnWs = JSON.parse(await fsPromises.readFile(path.join(yarnWsDir, 'package.json'), 'utf-8'));
     for (const glob of yarnWs.workspaces?.packages ?? []) {
       ret.add(path.join(yarnWsDir, glob));
     }

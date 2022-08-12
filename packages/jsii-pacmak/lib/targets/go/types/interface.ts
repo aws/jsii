@@ -13,9 +13,9 @@ import { GoMethod, GoProperty } from './type-member';
 
 export class GoInterface extends GoType<InterfaceType> {
   public readonly methods: InterfaceMethod[];
-  public readonly reimplementedMethods?: readonly InterfaceMethod[];
+  public readonly reimplementedMethods: readonly InterfaceMethod[];
   public readonly properties: InterfaceProperty[];
-  public readonly reimplementedProperties?: readonly InterfaceProperty[];
+  public readonly reimplementedProperties: readonly InterfaceProperty[];
 
   public constructor(pkg: Package, type: InterfaceType) {
     super(pkg, type);
@@ -50,6 +50,9 @@ export class GoInterface extends GoType<InterfaceType> {
         )
         .map((property) => new InterfaceProperty(this, property))
         .sort(comparators.byName);
+    } else {
+      this.reimplementedMethods = [];
+      this.reimplementedProperties = [];
     }
   }
 
@@ -94,7 +97,7 @@ export class GoInterface extends GoType<InterfaceType> {
       method.emit(context);
     }
 
-    for (const method of this.reimplementedMethods ?? []) {
+    for (const method of this.reimplementedMethods) {
       method.emit(context);
     }
 
@@ -106,7 +109,7 @@ export class GoInterface extends GoType<InterfaceType> {
       }
     }
 
-    for (const prop of this.reimplementedProperties ?? []) {
+    for (const prop of this.reimplementedProperties) {
       prop.emitGetterProxy(context);
 
       if (!prop.immutable) {
@@ -145,7 +148,9 @@ export class GoInterface extends GoType<InterfaceType> {
   public get specialDependencies(): SpecialDependencies {
     return [
       ...this.properties.map((p) => p.specialDependencies),
+      ...this.reimplementedProperties.map((p) => p.specialDependencies),
       ...this.methods.map((m) => m.specialDependencies),
+      ...this.reimplementedMethods.map((m) => m.specialDependencies),
     ].reduce(
       (acc, elt) => ({
         runtime: acc.runtime || elt.runtime,
@@ -184,8 +189,11 @@ export class GoInterface extends GoType<InterfaceType> {
     return [
       ...this.extendsDependencies,
       ...getMemberDependencies(this.methods),
-      ...getParamDependencies(this.methods),
+      ...getMemberDependencies(this.reimplementedMethods),
       ...getMemberDependencies(this.properties),
+      ...getMemberDependencies(this.reimplementedProperties),
+      ...getParamDependencies(this.methods),
+      ...getParamDependencies(this.reimplementedMethods),
     ];
   }
 }

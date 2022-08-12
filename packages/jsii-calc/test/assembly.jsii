@@ -44,6 +44,7 @@
     "@scope/jsii-calc-base": {
       "targets": {
         "dotnet": {
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/main/logo/default-256-dark.png",
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
@@ -225,6 +226,13 @@
         "line": 143
       },
       "symbolId": "lib/calculator:composition"
+    },
+    "jsii-calc.jsii3656": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 25
+      },
+      "symbolId": "lib/jsii3656/index:"
     },
     "jsii-calc.module2530": {
       "locationInModule": {
@@ -2438,6 +2446,90 @@
         }
       ],
       "symbolId": "lib/compliance:ClassThatImplementsThePrivateInterface"
+    },
+    "jsii-calc.ClassWithCollectionOfUnions": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ClassWithCollectionOfUnions",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3055
+        },
+        "parameters": [
+          {
+            "name": "unionProperty",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "jsii-calc.StructA"
+                          },
+                          {
+                            "fqn": "jsii-calc.StructB"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "map"
+                  }
+                },
+                "kind": "array"
+              }
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3054
+      },
+      "name": "ClassWithCollectionOfUnions",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3056
+          },
+          "name": "unionProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "fqn": "jsii-calc.StructA"
+                        },
+                        {
+                          "fqn": "jsii-calc.StructB"
+                        }
+                      ]
+                    }
+                  },
+                  "kind": "map"
+                }
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:ClassWithCollectionOfUnions"
     },
     "jsii-calc.ClassWithCollections": {
       "assembly": "jsii-calc",
@@ -13541,6 +13633,57 @@
       "name": "StructUnionConsumer",
       "symbolId": "lib/compliance:StructUnionConsumer"
     },
+    "jsii-calc.StructWithCollectionOfUnionts": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.StructWithCollectionOfUnionts",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3060
+      },
+      "name": "StructWithCollectionOfUnionts",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3061
+          },
+          "name": "unionProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "fqn": "jsii-calc.StructA"
+                        },
+                        {
+                          "fqn": "jsii-calc.StructB"
+                        }
+                      ]
+                    }
+                  },
+                  "kind": "map"
+                }
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:StructWithCollectionOfUnionts"
+    },
     "jsii-calc.StructWithEnum": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -15643,6 +15786,126 @@
       "namespace": "composition.CompositeOperation",
       "symbolId": "lib/calculator:composition.CompositeOperation.CompositionStringStyle"
     },
+    "jsii-calc.jsii3656.ImplementMeOpts": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.jsii3656.ImplementMeOpts",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/jsii3656/index.ts",
+        "line": 12
+      },
+      "name": "ImplementMeOpts",
+      "namespace": "jsii3656",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/jsii3656/index.ts",
+            "line": 13
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/jsii3656/index.ts",
+            "line": 14
+          },
+          "name": "count",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ],
+      "symbolId": "lib/jsii3656/index:ImplementMeOpts"
+    },
+    "jsii-calc.jsii3656.OverrideMe": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.jsii3656.OverrideMe",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/jsii3656/index.ts",
+        "line": 1
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/jsii3656/index.ts",
+            "line": 2
+          },
+          "name": "callAbstract",
+          "parameters": [
+            {
+              "name": "receiver",
+              "type": {
+                "fqn": "jsii-calc.jsii3656.OverrideMe"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/jsii3656/index.ts",
+            "line": 9
+          },
+          "name": "implementMe",
+          "parameters": [
+            {
+              "name": "opts",
+              "type": {
+                "fqn": "jsii-calc.jsii3656.ImplementMeOpts"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        }
+      ],
+      "name": "OverrideMe",
+      "namespace": "jsii3656",
+      "symbolId": "lib/jsii3656/index:OverrideMe"
+    },
     "jsii-calc.module2530.MyClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -17525,5 +17788,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "V1EIg5zjHYsZARPmK+3FUV/k1Jp/oN+y3WOnwLEkNJ8="
+  "fingerprint": "4J4zpGOrJJsMNdeBDVxr5OLa4LaClMA61HDRI4Wnajg="
 }

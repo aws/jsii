@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import { allTypeScriptSnippets } from './jsii/assemblies';
@@ -19,7 +18,7 @@ import {
 import { snippetKey } from './tablets/key';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
-import { commentToken, printDiagnostics } from './util';
+import { commentToken, pathExists, printDiagnostics } from './util';
 
 export enum UnknownSnippetMode {
   /**
@@ -150,7 +149,7 @@ export class RosettaTabletReader {
    */
   public async addAssembly(assembly: spec.Assembly, assemblyDir: string) {
     const defaultTablet = path.join(assemblyDir, DEFAULT_TABLET_NAME);
-    if (await fs.pathExists(defaultTablet)) {
+    if (await pathExists(defaultTablet)) {
       try {
         await this.loadTabletFromFile(defaultTablet);
         return;

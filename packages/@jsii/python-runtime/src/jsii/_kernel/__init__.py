@@ -3,7 +3,7 @@ import inspect
 import itertools
 from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
-from typing import Any, List, Optional, Type, Union
+from typing import cast, Any, List, Optional, Sequence, Type
 
 import functools
 
@@ -98,26 +98,31 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
                 if original is not _nothing:
                     if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
                         if any(
-                            entry.method == original.__jsii_name__
+                            entry.method == cast(Any, original).__jsii_name__
                             for entry in overrides
                         ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
-                            Override(method=original.__jsii_name__, cookie=name)
+                            Override(
+                                method=cast(Any, original).__jsii_name__, cookie=name
+                            )
                         )
                         break
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
                         if any(
-                            entry.property == original.fget.__jsii_name__
+                            entry.property == cast(Any, original).fget.__jsii_name__
                             for entry in overrides
                         ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
-                            Override(property=original.fget.__jsii_name__, cookie=name)
+                            Override(
+                                property=cast(Any, original).fget.__jsii_name__,
+                                cookie=name,
+                            )
                         )
                         break
 
@@ -209,7 +214,33 @@ def _handle_callback(kernel, callback):
         hydrated_args = [
             _recursize_dereference(kernel, a) for a in callback.invoke.args
         ]
-        return method(*hydrated_args)
+
+        # If keyword arguments are accepted, we may need to turn a struct into keywords...
+        kwargs = {}  # No keyword arguments by default
+        params = inspect.signature(method).parameters
+        params_kwargs = [
+            name
+            for (name, param) in params.items()
+            if param.kind == inspect.Parameter.KEYWORD_ONLY
+        ]
+        if len(params_kwargs) > 0:
+            params_pos_count = len(
+                [
+                    param
+                    for param in params.values()
+                    if param.kind == inspect.Parameter.POSITIONAL_OR_KEYWORD
+                    or param.kind == inspect.Parameter.POSITIONAL_ONLY
+                ]
+            )
+            if len(hydrated_args) > params_pos_count:
+                struct = hydrated_args.pop()
+                kwargs = {
+                    name: getattr(struct, name)
+                    for name in params_kwargs
+                    if hasattr(struct, name)
+                }
+
+        return method(*hydrated_args, **kwargs)
     elif callback.get:
         obj = _reference_map.resolve_id(callback.get.objref.ref)
         return getattr(obj, callback.cookie)
@@ -269,7 +300,7 @@ class Kernel(metaclass=Singleton):
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
     def invokeBinScript(
-        self, pkgname: str, script: str, args: Optional[List[Any]] = None
+        self, pkgname: str, script: str, args: Optional[Sequence[str]] = None
     ) -> InvokeScriptResponse:
         if args is None:
             args = []

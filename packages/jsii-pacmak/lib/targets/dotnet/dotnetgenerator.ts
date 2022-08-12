@@ -1,11 +1,14 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
+import * as http from 'http';
+import * as https from 'https';
 import * as reflect from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { Generator, Legalese } from '../../generator';
+import { debug } from '../../logging';
 import { MethodDefinition, PropertyDefinition } from '../_utils';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
@@ -89,7 +92,7 @@ export class DotNetGenerator extends Generator {
       this.code,
     );
     filegen.generateAssemblyInfoFile();
-    filegen.generateProjectFile(this.typeresolver.namespaceDependencies);
+
     // Calling super.save() dumps the tarball in the format name@version.jsii.tgz.
     // This is not in sync with the Old .NET generator where the name is scope-name-version.tgz.
     // Hence we are saving the files ourselves here:
@@ -102,6 +105,27 @@ export class DotNetGenerator extends Generator {
     }
     await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
+
+    // Attempt to download the package icon from the configured URL so we can use the non-deprecated PackageIcon
+    // attribute. If this fails or is opted out (via $JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON being set), then only the
+    // deprecated PackageIconUrl will be emitted.
+    const iconFile =
+      this.assembly.targets?.dotnet?.iconUrl != null &&
+      !process.env.JSII_PACMAK_DOTNET_NO_DOWNLOAD_ICON
+        ? await tryDownloadResource(
+            this.assembly.targets.dotnet.iconUrl,
+            path.join(outdir, packageId),
+          ).catch((err: any) => {
+            debug(
+              `[dotnet] Unable to download package icon, will only use deprecated PackageIconUrl attribute: ${err.cause}`,
+            );
+            return Promise.resolve(undefined);
+          })
+        : undefined;
+    filegen.generateProjectFile(
+      this.typeresolver.namespaceDependencies,
+      iconFile,
+    );
 
     // Create an anchor file for the current model
     this.generateDependencyAnchorFile();
@@ -362,13 +386,26 @@ export class DotNetGenerator extends Generator {
       // Abstract classes have protected constructors.
       const visibility = cls.abstract ? 'protected' : 'public';
 
+      this.code.openBlock(
+        `${visibility} ${className}(${parametersDefinition}): base(_MakeDeputyProps(${parametersBase}))`,
+      );
+      this.code.closeBlock();
+      this.code.line();
+
+      // This private method is injected so we can validate arguments before deferring to the base constructor, where
+      // the instance will be created in the kernel (where it'd fail on a sub-optimal error instead)...
+      this.code.line(
+        '[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]',
+      );
+      this.code.openBlock(
+        `private static DeputyProps _MakeDeputyProps(${parametersDefinition})`,
+      );
+      this.emitUnionParameterValdation(initializer.parameters);
       const args =
         parametersBase.length > 0
           ? `new object?[]{${parametersBase}}`
           : `System.Array.Empty<object?>()`;
-      this.code.openBlock(
-        `${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(${args}))`,
-      );
+      this.code.line(`return new DeputyProps(${args});`);
       this.code.closeBlock();
       this.code.line();
     }
@@ -587,11 +624,182 @@ export class DotNetGenerator extends Generator {
       this.code.openBlock(
         `${access} ${staticKeyWord}${overrideKeyWord}${virtualKeyWord}${signature}`,
       );
+      this.emitUnionParameterValdation(method.parameters);
       this.code.line(
         this.dotnetRuntimeGenerator.createInvokeMethodIdentifier(
           method,
           cls as spec.ClassType,
         ),
+      );
+      this.code.closeBlock();
+    }
+  }
+
+  /**
+   * Emits type checks for values passed for type union parameters.
+   *
+   * @param parameters the list of parameters received by the function.
+   * @param noMangle   use parameter names as-is (useful for setters, for example) instead of mangling them.
+   */
+  private emitUnionParameterValdation(
+    parameters?: readonly spec.Parameter[],
+    { noMangle = false }: { noMangle?: boolean } = {},
+  ): void {
+    const unionParameters = parameters?.filter(({ type }) =>
+      containsUnionType(type),
+    );
+    if (unionParameters == null || unionParameters.length === 0) {
+      return;
+    }
+    this.code.openBlock(
+      'if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)',
+    );
+    for (const param of unionParameters) {
+      const name = noMangle
+        ? param.name
+        : this.nameutils.convertParameterName(param.name);
+
+      if (param.optional) {
+        this.code.openBlock(`if (${name} != null)`);
+      }
+
+      validate.call(
+        this,
+        name,
+        noMangle ? name : `argument {nameof(${name})}`,
+        param.type,
+        noMangle ? name : `{nameof(${name})}`,
+      );
+
+      if (param.optional) {
+        this.code.closeBlock();
+      }
+    }
+    this.code.closeBlock();
+
+    function validate(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      type: spec.TypeReference,
+      parameterName: string,
+    ) {
+      if (spec.isUnionTypeReference(type)) {
+        validateTypeUnion.call(this, value, descr, type, parameterName);
+      } else {
+        const collectionType = type as spec.CollectionTypeReference;
+        if (collectionType.collection.kind === spec.CollectionKind.Array) {
+          validateArray.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+            parameterName,
+          );
+        } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
+          validateMap.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+            parameterName,
+          );
+        } else {
+          throw new Error(
+            `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
+          );
+        }
+      }
+    }
+
+    function validateArray(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+      parameterName: string,
+    ) {
+      const varName = `__idx_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      this.code.openBlock(
+        `for (int ${varName} = 0 ; ${varName} < ${value}.Length ; ${varName}++)`,
+      );
+      validate.call(
+        this,
+        `${value}[${varName}]`,
+        `${descr}[{${varName}}]`,
+        elementType,
+        parameterName,
+      );
+      this.code.closeBlock();
+    }
+
+    function validateMap(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+      parameterName: string,
+    ) {
+      const varName = `__item_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      this.code.openBlock(`foreach (var ${varName} in ${value})`);
+      validate.call(
+        this,
+        `${varName}.Value`,
+        `${descr}[\\"{${varName}.Key}\\"]`,
+        elementType,
+        parameterName,
+      );
+      this.code.closeBlock();
+    }
+
+    function validateTypeUnion(
+      this: DotNetGenerator,
+      value: string,
+      descr: string,
+      type: spec.UnionTypeReference,
+      parameterName: string,
+    ) {
+      this.code.indent('if (');
+      let emitAnd = false;
+      const typeRefs = type.union.types;
+      for (const typeRef of typeRefs) {
+        const prefix = emitAnd ? '&& ' : '';
+        const dotNetType = this.typeresolver.toDotNetType(typeRef);
+        // In the case of double, we test for all standard numeric types of .NET (these implicitly convert).
+        const test =
+          dotNetType === 'double'
+            ? [
+                'byte',
+                'decimal',
+                'double',
+                'float',
+                'int',
+                'long',
+                'sbyte',
+                'short',
+                'uint',
+                'ulong',
+                'ushort',
+              ]
+                .map((numeric) => `${value} is ${numeric}`)
+                .join(' || ')
+            : `${value} is ${dotNetType}`;
+        this.code.line(`${prefix}!(${test})`);
+        emitAnd = true;
+      }
+      this.code.unindent(')');
+      this.code.openBlock('');
+      const placeholders = typeRefs
+        .map((typeRef) => {
+          const typeName = this.typeresolver.toDotNetTypeName(typeRef);
+          if (typeName.startsWith('"') && typeName.endsWith('"')) {
+            return typeName.slice(1, -1);
+          }
+          return `{${typeName}}`;
+        })
+        .join(', ');
+      this.code.line(
+        `throw new System.ArgumentException($"Expected ${descr} to be one of: ${placeholders}; received {${value}.GetType().FullName}", $"${parameterName}");`,
       );
       this.code.closeBlock();
     }
@@ -764,11 +972,12 @@ export class DotNetGenerator extends Generator {
             this.proxyMustUseNewModifier(base))
       );
     }
-
     return (
-      type.interfaces?.find(
-        (fqn) => this.findType(fqn).assembly === type.assembly,
-      ) != null
+      type.interfaces != null &&
+      type.interfaces.some(
+        (fqn) =>
+          (this.findType(fqn) as spec.InterfaceType).assembly === type.assembly,
+      )
     );
   }
 
@@ -933,6 +1142,21 @@ export class DotNetGenerator extends Generator {
     const access = this.renderAccessLevel(prop);
     const staticKeyWord = prop.static ? 'static ' : '';
     const propName = this.nameutils.convertPropertyName(prop.name);
+    const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
+    const isOptional = prop.optional ? '?' : '';
+
+    // We need to use a backing field so we can perform type checking if the property type is a union, and this is a struct.
+    const backingFieldName =
+      spec.isInterfaceType(cls) && datatype && containsUnionType(prop.type)
+        ? // We down-case the first letter, private fields are conventionally named with a _ prefix, and a camelCase name.
+          `_${propName.replace(/[A-Z]/, (c) => c.toLowerCase())}`
+        : undefined;
+    if (backingFieldName != null) {
+      this.code.line(
+        `private ${propTypeFQN}${isOptional} ${backingFieldName};`,
+      );
+      this.code.line();
+    }
 
     this.dotnetDocGenerator.emitDocs(prop, {
       api: 'member',
@@ -969,13 +1193,13 @@ export class DotNetGenerator extends Generator {
       }
     }
 
-    const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
-    const isOptional = prop.optional ? '?' : '';
     const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${staticKeyWord}${isOverrideKeyWord}${propTypeFQN}${isOptional} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters
-    if (datatype || prop.const || prop.abstract) {
+    if (backingFieldName != null) {
+      this.code.line(`get => ${backingFieldName};`);
+    } else if (datatype || prop.const || prop.abstract) {
       this.code.line('get;');
     } else {
       // If the property is non-optional, add a bang to silence compiler warning
@@ -992,16 +1216,37 @@ export class DotNetGenerator extends Generator {
     }
 
     // Emit setters
-    if (datatype || (!prop.immutable && prop.abstract)) {
+    if (backingFieldName) {
+      this.code.openBlock('set');
+      this.emitUnionParameterValdation(
+        [
+          {
+            name: 'value',
+            type: prop.type,
+            optional: prop.optional,
+          },
+        ],
+        { noMangle: true },
+      );
+      this.code.line(`${backingFieldName} = value;`);
+      this.code.closeBlock();
+    } else if (datatype || (!prop.immutable && prop.abstract)) {
       this.code.line('set;');
     } else {
       if (!prop.immutable) {
-        if (prop.static) {
-          this.code.line(
-            `set => SetStaticProperty(typeof(${className}), value);`,
+        const setCode = prop.static
+          ? `SetStaticProperty(typeof(${className}), value);`
+          : 'SetInstanceProperty(value);';
+        if (containsUnionType(prop.type)) {
+          this.code.openBlock('set');
+          this.emitUnionParameterValdation(
+            [{ name: 'value', optional: prop.optional, type: prop.type }],
+            { noMangle: true },
           );
+          this.code.line(setCode);
+          this.code.closeBlock();
         } else {
-          this.code.line('set => SetInstanceProperty(value);');
+          this.code.line(`set => ${setCode}`);
         }
       }
     }
@@ -1190,4 +1435,119 @@ export class DotNetGenerator extends Generator {
       '[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]',
     );
   }
+}
+
+async function tryDownloadResource(
+  urlText: string,
+  into: string,
+): Promise<string | undefined> {
+  const url = new URL(urlText);
+
+  let request: typeof http.get | typeof https.get;
+  switch (url.protocol) {
+    case 'http:':
+      request = http.get;
+      break;
+    case 'https:':
+      request = https.get;
+      break;
+    default:
+      // Unhandled protocol... ignoring
+      debug(
+        `Unsupported URL protocol for resource download: ${url.protocol} (full URL: ${urlText})`,
+      );
+      return undefined;
+  }
+
+  return new Promise((ok, ko) =>
+    request(url, (res) => {
+      switch (res.statusCode) {
+        case 200:
+          let fileName = path.basename(url.pathname);
+          // Ensure there is a content-appropriate extension on the result...
+          switch (res.headers['content-type']) {
+            case 'image/gif':
+              if (!fileName.endsWith('.gif')) {
+                fileName = `${fileName}.gif`;
+              }
+              break;
+            case 'image/jpeg':
+              if (!fileName.endsWith('.jpg')) {
+                fileName = `${fileName}.jpg`;
+              }
+              break;
+            case 'image/png':
+              if (!fileName.endsWith('.png')) {
+                fileName = `${fileName}.png`;
+              }
+              break;
+            default:
+            // Nothing to do...
+          }
+          const filePath = path.join('resources', fileName);
+          try {
+            fs.mkdirpSync(path.join(into, 'resources'));
+          } catch (err) {
+            return ko(err);
+          }
+          try {
+            const fd = fs.openSync(
+              path.join(into, filePath),
+              fs.constants.O_CREAT |
+                fs.constants.O_TRUNC |
+                fs.constants.O_WRONLY,
+            );
+            res
+              .once('error', (cause) => {
+                try {
+                  fs.closeSync(fd);
+                } catch {
+                  // IGNORE
+                }
+                ko(cause);
+              })
+              .on('data', (chunk) => {
+                const buff = Buffer.from(chunk);
+                let offset = 0;
+                while (offset < buff.length) {
+                  try {
+                    offset += fs.writeSync(fd, buff, offset);
+                  } catch (err) {
+                    return ko(err);
+                  }
+                }
+              })
+              .once('close', () => {
+                try {
+                  fs.closeSync(fd);
+                  ok(filePath);
+                } catch (err) {
+                  ko(err);
+                }
+              });
+          } catch (err) {
+            return ko(err);
+          }
+          break;
+        default:
+          ko(
+            new Error(
+              `GET ${urlText} -- HTTP ${res.statusCode ?? 0} (${
+                res.statusMessage ?? 'Unknown Error'
+              })`,
+            ),
+          );
+      }
+    }).once('error', ko),
+  );
+}
+
+function containsUnionType(
+  typeRef: spec.TypeReference,
+): typeRef is spec.UnionTypeReference | spec.CollectionTypeReference {
+  return (
+    spec.isUnionTypeReference(typeRef) ||
+    (spec.isCollectionTypeReference(typeRef) &&
+      containsUnionType(typeRef.collection.elementtype))
+  );
 }

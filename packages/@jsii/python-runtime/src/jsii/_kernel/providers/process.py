@@ -239,6 +239,7 @@ class _NodeProcess:
         return resources[jsii._embedded.jsii.ENTRYPOINT]
 
     def _next_message(self) -> Mapping[Any, Any]:
+        assert self._process.stdout is not None
         return json.loads(self._process.stdout.readline(), object_hook=ohook)
 
     def start(self):
@@ -278,6 +279,7 @@ class _NodeProcess:
         # This process is closing already, un-registering the hook to not fire twice
         atexit.unregister(self.stop)
 
+        assert self._process.stdin is not None
         if not self._process.stdin.closed:
             self._process.stdin.write(b'{"exit":0}\n')
             # Close the process' STDIN, singaling we are done with it
@@ -311,6 +313,7 @@ class _NodeProcess:
         data = json.dumps(req_dict, default=jdefault).encode("utf8")
 
         # Send our data, ensure that it is framed with a trailing \n
+        assert self._process.stdin is not None
         self._process.stdin.write(b"%b\n" % (data,))
         self._process.stdin.flush()
 

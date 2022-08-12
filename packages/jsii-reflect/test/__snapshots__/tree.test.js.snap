@@ -12,6 +12,7 @@ exports[`defaults 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -62,6 +63,7 @@ exports[`inheritance 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -112,6 +114,7 @@ exports[`members 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -278,6 +281,33 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class OverrideMe
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├─┬ static callAbstract(receiver) method
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ receiver
+ │ │ │   │   │ │   └── type: jsii-calc.jsii3656.OverrideMe
+ │ │ │   │   │ └── returns: boolean
+ │ │ │   │   └─┬ implementMe(opts) method
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ opts
+ │ │ │   │     │   └── type: jsii-calc.jsii3656.ImplementMeOpts
+ │ │ │   │     └── returns: boolean
+ │ │ │   └─┬ interface ImplementMeOpts
+ │ │ │     └─┬ members
+ │ │ │       ├─┬ name property
+ │ │ │       │ ├── abstract
+ │ │ │       │ ├── immutable
+ │ │ │       │ └── type: string
+ │ │ │       └─┬ count property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<number>
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass
@@ -981,6 +1011,14 @@ exports[`showAll 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ e property
  │   │     └── type: string
+ │   ├─┬ class ClassWithCollectionOfUnions
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(unionProperty) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ unionProperty
+ │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   └─┬ unionProperty property
+ │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithCollections
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(map,array) initializer
@@ -3257,6 +3295,12 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface StructWithCollectionOfUnionts
+ │   │ └─┬ members
+ │   │   └─┬ unionProperty property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ interface StructWithEnum
  │   │ └─┬ members
  │   │   ├─┬ foo property
@@ -3578,6 +3622,7 @@ exports[`signatures 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -3648,6 +3693,10 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ jsii3656
+ │ │ │ └─┬ types
+ │ │ │   ├── class OverrideMe
+ │ │ │   └── interface ImplementMeOpts
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
@@ -3767,6 +3816,7 @@ exports[`types 1`] = `
  │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
+ │   ├── class ClassWithCollectionOfUnions
  │   ├── class ClassWithCollections
  │   ├── class ClassWithContainerTypes
  │   ├── class ClassWithDocs
@@ -3950,6 +4000,7 @@ exports[`types 1`] = `
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
+ │   ├── interface StructWithCollectionOfUnionts
  │   ├── interface StructWithEnum
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps

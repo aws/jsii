@@ -1,3 +1,4 @@
+import { promises as fs } from 'fs';
 import * as ts from 'typescript';
 
 import { RosettaDiagnostic } from './translate';
@@ -225,5 +226,20 @@ export function commentToken(language: string) {
     case 'go':
     default:
       return '//';
+  }
+}
+
+export async function pathExists(path: string): Promise<boolean> {
+  try {
+    await fs.stat(path);
+    return true;
+  } catch (err: any) {
+    if (err.code === 'ENOENT') {
+      return false;
+    }
+    if (!err.stack) {
+      Error.captureStackTrace(err);
+    }
+    throw err;
   }
 }
