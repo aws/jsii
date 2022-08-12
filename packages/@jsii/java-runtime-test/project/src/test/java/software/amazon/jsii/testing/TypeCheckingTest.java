@@ -9,16 +9,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+class StructAImplementer implements StructA {
+  public String requiredString;
+
+  StructAImplementer(String param) {
+    requiredString = param;
+  }
+
+  public String getRequiredString() {
+    return requiredString;
+  }
+}
 
 public class TypeCheckingTest {
     @Test
     public void Constructor() {
         boolean thrown = false;
         try {
-            new ClassWithCollectionOfUnions(new ArrayList<Map<String, Object>>());
+
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("good", new StructAImplementer("present"));
+            map.put("bad", "Not a StructA or StructB");
+            ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+            list.add(map);
+            new ClassWithCollectionOfUnions(list);
         }
         catch (JsiiException e) {
             thrown = true;
