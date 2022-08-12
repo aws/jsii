@@ -313,11 +313,27 @@
               scales: {
                 x: scaleX,
                 y: {
+                  grid: {
+                    color: (context) => {
+                      if (context.tick.value > 75) {
+                        return '#ff0000';
+                      } else if (context.tick.value > 50) {
+                        return '#ff8800';
+                      } else if (context.tick.value > 25) {
+                        return '#ffd900';
+                      } else {
+                        return '#00ff77';
+                      }
+                    },
+                  },
                   min: 0,
-                  max: 100,
+                  suggestedMax: 100,
+                  ticks: {
+                    callback: (value) => `${value.toFixed()}%`,
+                  },
                   title: {
                     display: true,
-                    text: 'Percent difference',
+                    text: 'Difference',
                   },
                 },
               },
