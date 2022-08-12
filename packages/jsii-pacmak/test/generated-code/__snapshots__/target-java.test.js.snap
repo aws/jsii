@@ -6519,12 +6519,8 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
         emitting union parameter validation for params:
         param unionProperty with type [object Object]
         for (int __idx_unionProperty = 0; __idx_unionProperty < unionProperty.length; __idx_unionProperty++) {
-            unionProperty[__idx_unionProperty]
-            unionProperty[{__idx_unionProperty}]
             for (java.lang.Object __item_unionProperty____idx_unionProperty__: unionProperty[__idx_unionProperty].entrySet()) {
-                found union type ref
             }
-            found map with type union
         }
         //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });

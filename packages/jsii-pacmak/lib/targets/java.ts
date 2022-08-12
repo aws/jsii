@@ -1553,7 +1553,7 @@ class JavaGenerator extends Generator {
       parameterName: string,
     ) {
       if (spec.isUnionTypeReference(type)) {
-        this.code.line('found union type ref');
+        //this.code.line('found union type ref');
       } else {
         const collectionType = type as spec.CollectionTypeReference;
         if (collectionType.collection.kind === spec.CollectionKind.Array) {
@@ -1573,7 +1573,7 @@ class JavaGenerator extends Generator {
             parameterName,
           );
 
-          this.code.line('found map with type union');
+          //this.code.line('found map with type union');
         } else {
           throw new Error(
             `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
