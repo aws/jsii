@@ -164,7 +164,7 @@
             if (new Date(commit.timestamp).getTime() < CUTOFF_DATE) {
               return { commits, datasetByName };
             }
-            commits.set(commit.id, new Date(commit.timestamp));
+            commits.set(commit.id, { ...commit, timestamp: new Date(commit.timestamp) });
             for (const { name, value, range } of benches) {
               if (!datasetByName.has(name)) {
                 datasetByName.set(name, new Map());
@@ -183,10 +183,9 @@
         );
 
         const sortedCommits = Array.from(commits.entries())
-          .sort(([, l], [, r]) => l.getTime() - r.getTime())
+          .sort(([, { timestamp: l }], [, { timestamp: r }]) => l.getTime() - r.getTime())
           .map(([id]) => id);
 
-        const labels = sortedCommits.map((id) => id.slice(0, 7));
         const datasets = Array.from(datasetByName.entries())
           .sort(([l], [r]) => l.localeCompare(r))
           .flatMap(([label, data], idx) => [
@@ -195,7 +194,7 @@
               borderWidth: 0,
               data: sortedCommits.map((id) => {
                 const { value, stddev } = data.get(id) ?? {};
-                return { x: id.slice(0, 7), y: stddev != null ? Math.max(0, value - 2 * stddev) : undefined };
+                return { x: id, y: stddev != null ? Math.max(0, value - 2 * stddev) : undefined };
               }),
               fill: '+1',
               label: `${label} (-2\u03C3)`,
@@ -205,7 +204,7 @@
             {
               backgroundColor: COLORS[idx % COLORS.length] + '60',
               borderColor: COLORS[idx % COLORS.length],
-              data: sortedCommits.map((id) => ({ x: id.slice(0, 7), y: data.get(id)?.value })),
+              data: sortedCommits.map((id) => ({ x: id, y: data.get(id)?.value })),
               label,
               tension: .5,
             },
@@ -214,7 +213,7 @@
               borderWidth: 0,
               data: sortedCommits.map((id) => {
                 const { value, stddev } = data.get(id) ?? {};
-                return { x: id.slice(0, 7), y: stddev != null ? value + 2 * stddev : undefined };
+                return { x: id, y: stddev != null ? value + 2 * stddev : undefined };
               }),
               fill: '-1',
               label: `${label} (+2\u03C3)`,
@@ -240,7 +239,7 @@
                 const dataPoint = data.get(id)?.value;
                 const refPoint = refData.get(id)?.value;
                 return {
-                  x: id.slice(0, 7),
+                  x: id,
                   y: 100 * (refPoint - dataPoint) / dataPoint,
                 };
               }),
@@ -249,6 +248,46 @@
             });
           }
         }
+
+        const scaleX = {
+          ticks: {
+            callback: (value) => sortedCommits[value].slice(0, 7),
+          },
+        };
+        const tooltip = {
+          callbacks: {
+            afterBody: (items) =>
+              items.length != 1
+                ? []
+                : items.flatMap(({ label }) => {
+                  const { message } = commits.get(label);
+                  const body = message
+                    .replace(/^.*(?:\n|$)/, '') // Remove title line
+                    .replace(/^(?:\s*\n){3,}/mg, '\n\n') // De-duplicate blank lines
+                    .trim()
+                    .split(/\n/)
+                    .map((l) => l.trimRight());
+                  return body.length === 0 || (body.length === 1 && body[0] === '')
+                    ? []
+                    : ['', ...body.length <= 5 ? body : body.slice(0, 5).concat(`(...${body.length - 5} more lines...)`)];
+                }),
+            beforeBody: (items) => [
+              ...new Set(items.map(({ label }) => {
+                const { timestamp } = commits.get(label);
+                return `Committed on ${timestamp.toISOString().slice(0, 10)}`;
+              })),
+              '',
+            ],
+            title: (items) => [
+              ...new Set(items.map(({ label }) => {
+                const { message } = commits.get(label);
+                const [commitTitle,] = message.split(/\n/, 2);
+                return `${label.slice(0, 7)} \u2013 ${commitTitle}`;
+              })),
+            ],
+          },
+        };
+
         if (deltas.length > 0) {
           const canvas = document.createElement('canvas');
           canvas.className = 'benchmark-chart';
@@ -258,7 +297,7 @@
           new Chart(ctx, {
             type: 'line',
             data: {
-              labels,
+              labels: sortedCommits,
               datasets: deltas,
               borderWidth: 1,
             },
@@ -269,8 +308,10 @@
                   font: { weight: 'bold', size: 18 },
                   text: `${name} (% difference)`,
                 },
+                tooltip,
               },
               scales: {
+                x: scaleX,
                 y: {
                   min: 0,
                   max: 100,
@@ -292,7 +333,7 @@
         new Chart(ctx, {
           type: 'line',
           data: {
-            labels,
+            labels: sortedCommits,
             datasets,
             borderWidth: 1,
           },
@@ -308,8 +349,10 @@
                 font: { weight: 'bold', size: 18 },
                 text: name,
               },
+              tooltip,
             },
             scales: {
+              x: scaleX,
               y: {
                 beginAtZero: true,
                 title: {
