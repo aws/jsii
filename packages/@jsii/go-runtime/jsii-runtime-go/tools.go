@@ -1,4 +1,4 @@
-// +build tools
+//go:build tools
 
 // Package tools contains the necessary statements to ensure tool dependencies
 // are not "cleaned up" by "go mod tidy" despite being used... The "// +"

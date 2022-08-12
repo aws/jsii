@@ -375,7 +375,7 @@ func getMethodOverrides(ptr interface{}, basePrefix string) (methods []string) {
 	mCache := make(map[string]bool)
 	getMethodOverridesRec(ptr, basePrefix, mCache)
 	// Return overriden methods names in embedding hierarchy
-	for m, _ := range mCache {
+	for m := range mCache {
 		methods = append(methods, m)
 	}
 	return
