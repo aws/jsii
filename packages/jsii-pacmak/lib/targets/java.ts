@@ -705,6 +705,9 @@ class JavaGenerator extends Generator {
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
+    this.code.line('//BEGIN TYPE UNION VALIDATION');
+    this.emitUnionParameterValdation(method.parameters);
+    this.code.line('//END TYPE UNION VALIDATION');
     this.code.line(
       `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(
         method,
@@ -1510,6 +1513,116 @@ class JavaGenerator extends Generator {
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
     }
+  }
+
+  /**
+   * Emits type checks for values passed for type union parameters.
+   *
+   * @param parameters the list of parameters received by the function.
+   * @param noMangle   use parameter names as-is (useful for setters, for example) instead of mangling them.
+   */
+  private emitUnionParameterValdation(
+    parameters?: readonly spec.Parameter[],
+  ): void {
+    const unionParameters = parameters?.filter(({ type }) =>
+      containsUnionType(type),
+    );
+    if (unionParameters == null || unionParameters.length === 0) {
+      return;
+    }
+    this.code.line('emitting union parameter validation for params:');
+    for (const param of parameters ?? []) {
+      this.code.line(`param ${param.name} with type ${param.type.toString()}`);
+    }
+
+    for (const param of unionParameters) {
+      validate.call(
+        this,
+        param.name,
+        param.name,
+        param.type,
+        param.name,
+      );
+    }
+
+    function validate(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      type: spec.TypeReference,
+      parameterName: string,
+    ) {
+      if (spec.isUnionTypeReference(type)) {
+        this.code.line('found union type ref');
+      } else {
+        const collectionType = type as spec.CollectionTypeReference;
+        if (collectionType.collection.kind === spec.CollectionKind.Array) {
+          validateArray.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+            parameterName,
+          );
+        } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
+          validateMap.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+            parameterName,
+          );
+
+          this.code.line('found map with type union');
+        } else {
+          throw new Error(
+            `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
+          );
+        }
+      }
+    }
+
+    function validateArray(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+      parameterName: string,
+    ) {
+      const varName = `__idx_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      this.code.openBlock(
+        `for (int ${varName} = 0; ${varName} < ${value}.length; ${varName}++)`,
+      );
+      validate.call(
+        this,
+        `${value}[${varName}]`,
+        `${descr}[{${varName}}]`,
+        elementType,
+        parameterName,
+      );
+      this.code.closeBlock();
+    }
+
+    function validateMap(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+      parameterName: string,
+    ) {
+      const varName = `__item_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      this.code.openBlock(`for (${this.toJavaType(elementType)} ${varName}: ${value}.entrySet())`);
+      validate.call(
+        this,
+        `${varName}.getValue()`,
+        `${descr}[{${varName}.getKey()}]`,
+        elementType,
+        parameterName,
+      );
+      this.code.closeBlock();
+    }
+
+    // TODO: validate union map
   }
 
   /**
@@ -3271,4 +3384,14 @@ function splitNamespace(ns: string): [string, string] {
  */
 function escape(s: string) {
   return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
+}
+
+function containsUnionType(
+  typeRef: spec.TypeReference,
+): typeRef is spec.UnionTypeReference | spec.CollectionTypeReference {
+  return (
+    spec.isUnionTypeReference(typeRef) ||
+    (spec.isCollectionTypeReference(typeRef) &&
+      containsUnionType(typeRef.collection.elementtype))
+  );
 }

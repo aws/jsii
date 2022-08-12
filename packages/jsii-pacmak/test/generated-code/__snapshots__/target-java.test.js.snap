@@ -495,6 +495,8 @@ public abstract class Base extends software.amazon.jsii.JsiiObject {
 
     protected Base() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -703,6 +705,8 @@ public class StaticConsumer extends software.amazon.jsii.JsiiObject {
 
     public StaticConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -1268,6 +1272,8 @@ public class Very extends software.amazon.jsii.JsiiObject {
 
     public Very() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -1913,6 +1919,8 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         @Deprecated
         public NestedClass() {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            //BEGIN TYPE UNION VALIDATION
+            //END TYPE UNION VALIDATION
             software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
         }
 
@@ -2235,6 +2243,8 @@ public class Reflector extends software.amazon.jsii.JsiiObject {
     @Deprecated
     public Reflector() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -2373,6 +2383,8 @@ public class BaseFor2647 extends software.amazon.jsii.JsiiObject {
     @Deprecated
     public BaseFor2647(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.baseofbase.Very very) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(very, "very is required") });
     }
 
@@ -3171,6 +3183,8 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.NumericVal
     @Deprecated
     public Number(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
@@ -3219,6 +3233,8 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
 
     protected NumericValue() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -3283,6 +3299,8 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
 
     protected Operation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -4391,6 +4409,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected AbstractClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -4468,6 +4488,8 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected AbstractClassBase() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -4520,6 +4542,8 @@ public class AbstractClassReturner extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AbstractClassReturner() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -4571,6 +4595,8 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected AbstractSuite() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -4666,6 +4692,8 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Add(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue lhs, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
     }
 
@@ -4717,6 +4745,8 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AllTypes() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5074,6 +5104,8 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AllowedMethodNames() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5145,6 +5177,8 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AmbiguousParameters(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell scope, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructParameterType props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(scope, "scope is required"), java.util.Objects.requireNonNull(props, "props is required") });
     }
 
@@ -5243,6 +5277,8 @@ public class AnonymousImplementationProvider extends software.amazon.jsii.JsiiOb
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AnonymousImplementationProvider() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5288,6 +5324,8 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AsyncVirtualMethods() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5366,6 +5404,8 @@ public class AugmentableClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AugmentableClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5409,6 +5449,8 @@ public abstract class BaseClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected BaseClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5462,6 +5504,8 @@ public class BaseJsii976 extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public BaseJsii976() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -5491,6 +5535,8 @@ public class Bell extends software.amazon.jsii.JsiiObject implements software.am
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Bell() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5547,6 +5593,8 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected BinaryOperation(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue lhs, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
     }
 
@@ -5632,6 +5680,8 @@ public abstract class BurriedAnonymousObject extends software.amazon.jsii.JsiiOb
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected BurriedAnonymousObject() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -5723,6 +5773,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Calculator(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.CalculatorProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props });
     }
 
@@ -5732,6 +5784,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Calculator() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -6274,6 +6328,8 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassThatImplementsTheInternalInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -6365,6 +6421,8 @@ public class ClassThatImplementsThePrivateInterface extends software.amazon.jsii
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassThatImplementsThePrivateInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -6457,6 +6515,18 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        emitting union parameter validation for params:
+        param unionProperty with type [object Object]
+        for (int __idx_unionProperty = 0; __idx_unionProperty < unionProperty.length; __idx_unionProperty++) {
+            unionProperty[__idx_unionProperty]
+            unionProperty[{__idx_unionProperty}]
+            for (java.lang.Object __item_unionProperty____idx_unionProperty__: unionProperty[__idx_unionProperty].entrySet()) {
+                found union type ref
+            }
+            found map with type union
+        }
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });
     }
 
@@ -6502,6 +6572,8 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithCollections(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.String> map, final @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> array) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(map, "map is required"), java.util.Objects.requireNonNull(array, "array is required") });
     }
 
@@ -6605,6 +6677,8 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithContainerTypes(final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.DummyObj> array, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> record, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> obj, final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.ContainerProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(array, "array is required"), java.util.Objects.requireNonNull(record, "record is required"), java.util.Objects.requireNonNull(obj, "obj is required"), props });
     }
 
@@ -6616,6 +6690,8 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithContainerTypes(final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.DummyObj> array, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> record, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.DummyObj> obj) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(array, "array is required"), java.util.Objects.requireNonNull(record, "record is required"), java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 
@@ -6764,6 +6840,8 @@ public class ClassWithDocs extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithDocs() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -6794,6 +6872,8 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithJavaReservedWords(final @org.jetbrains.annotations.NotNull java.lang.String intValue) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(intValue, "intValue is required") });
     }
 
@@ -6838,6 +6918,8 @@ public class ClassWithMutableObjectLiteralProperty extends software.amazon.jsii.
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithMutableObjectLiteralProperty() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7132,6 +7214,8 @@ public class ConstructorPassesThisOut extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ConstructorPassesThisOut(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer consumer) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(consumer, "consumer is required") });
     }
 }
@@ -7161,6 +7245,8 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Constructors() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7240,6 +7326,8 @@ public class ConsumePureInterface extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ConsumePureInterface(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStructReturningDelegate delegate) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(delegate, "delegate is required") });
     }
 
@@ -7280,6 +7368,8 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ConsumerCanRingBell() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7405,6 +7495,8 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ConsumersOfThisCrazyTypeSystem() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7632,6 +7724,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DataRenderer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7695,6 +7789,8 @@ public class Default extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Default() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7734,6 +7830,8 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DefaultedConstructorArgument(final @org.jetbrains.annotations.Nullable java.lang.Number arg1, final @org.jetbrains.annotations.Nullable java.lang.String arg2, final @org.jetbrains.annotations.Nullable java.time.Instant arg3) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2, arg3 });
     }
 
@@ -7744,6 +7842,8 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DefaultedConstructorArgument(final @org.jetbrains.annotations.Nullable java.lang.Number arg1, final @org.jetbrains.annotations.Nullable java.lang.String arg2) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2 });
     }
 
@@ -7753,6 +7853,8 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DefaultedConstructorArgument(final @org.jetbrains.annotations.Nullable java.lang.Number arg1) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1 });
     }
 
@@ -7761,6 +7863,8 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DefaultedConstructorArgument() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7815,6 +7919,8 @@ public class Demonstrate982 extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Demonstrate982() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -7866,6 +7972,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     @Deprecated
     public DeprecatedClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString, final @org.jetbrains.annotations.Nullable java.lang.Number mutableNumber) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
     }
 
@@ -7877,6 +7985,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     @Deprecated
     public DeprecatedClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") });
     }
 
@@ -9313,6 +9423,8 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DoNotOverridePrivates() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -9365,6 +9477,8 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DoNotRecognizeAnyAsOptional() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -9436,6 +9550,8 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DocumentedClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -9500,6 +9616,8 @@ public class DontComplainAboutVariadicAfterOptional extends software.amazon.jsii
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DontComplainAboutVariadicAfterOptional() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -9538,6 +9656,8 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DoubleTrouble() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -9708,6 +9828,8 @@ public class DynamicPropertyBearer extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DynamicPropertyBearer(final @org.jetbrains.annotations.NotNull java.lang.String valueStore) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(valueStore, "valueStore is required") });
     }
 
@@ -9766,6 +9888,8 @@ public class DynamicPropertyBearerChild extends software.amazon.jsii.tests.calcu
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public DynamicPropertyBearerChild(final @org.jetbrains.annotations.NotNull java.lang.String originalValue) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(originalValue, "originalValue is required") });
     }
 
@@ -9817,6 +9941,8 @@ public abstract class Entropy extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected Entropy(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IWallClock clock) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(clock, "clock is required") });
     }
 
@@ -9922,6 +10048,8 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public EraseUndefinedHashValues() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -10140,6 +10268,8 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ExperimentalClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString, final @org.jetbrains.annotations.Nullable java.lang.Number mutableNumber) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
     }
 
@@ -10149,6 +10279,8 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ExperimentalClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") });
     }
 
@@ -10349,6 +10481,8 @@ public class ExportedBaseClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ExportedBaseClass(final @org.jetbrains.annotations.NotNull java.lang.Boolean success) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(success, "success is required") });
     }
 
@@ -10536,6 +10670,8 @@ public class ExternalClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ExternalClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString, final @org.jetbrains.annotations.Nullable java.lang.Number mutableNumber) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
     }
 
@@ -10545,6 +10681,8 @@ public class ExternalClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ExternalClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") });
     }
 
@@ -10765,6 +10903,8 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public GiveMeStructs() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -10960,6 +11100,8 @@ public class GreetingAugmenter extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public GreetingAugmenter() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -14918,6 +15060,8 @@ public class ImplementInternalInterface extends software.amazon.jsii.JsiiObject 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ImplementInternalInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -14961,6 +15105,8 @@ public class Implementation extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Implementation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -14997,6 +15143,8 @@ public class ImplementsInterfaceWithInternal extends software.amazon.jsii.JsiiOb
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ImplementsInterfaceWithInternal() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15034,6 +15182,8 @@ public class ImplementsInterfaceWithInternalSubclass extends software.amazon.jsi
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ImplementsInterfaceWithInternalSubclass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -15063,6 +15213,8 @@ public class ImplementsPrivateInterface extends software.amazon.jsii.JsiiObject 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ImplementsPrivateInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15271,6 +15423,8 @@ public class InbetweenClass extends software.amazon.jsii.tests.calculator.Public
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public InbetweenClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15394,6 +15548,8 @@ public abstract class Isomorphism extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected Isomorphism() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15446,6 +15602,8 @@ public class Issue2638 extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Issue2638() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -15475,6 +15633,8 @@ public class Issue2638B extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Issue2638B() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -15505,6 +15665,8 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public JSII417Derived(final @org.jetbrains.annotations.NotNull java.lang.String property) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(property, "property is required") });
     }
 
@@ -15555,6 +15717,8 @@ public class JSII417PublicBaseOfBase extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public JSII417PublicBaseOfBase() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15605,6 +15769,8 @@ public class JSObjectLiteralForInterface extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public JSObjectLiteralForInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15648,6 +15814,8 @@ public class JSObjectLiteralToNative extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public JSObjectLiteralToNative() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15684,6 +15852,8 @@ public class JSObjectLiteralToNativeClass extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public JSObjectLiteralToNativeClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -15741,6 +15911,8 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public JavaReservedWords() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -16148,6 +16320,8 @@ public class Jsii487Derived extends software.amazon.jsii.JsiiObject implements s
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Jsii487Derived() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -16177,6 +16351,8 @@ public class Jsii496Derived extends software.amazon.jsii.JsiiObject implements s
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Jsii496Derived() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -16207,6 +16383,8 @@ public class JsiiAgent extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public JsiiAgent() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -16376,6 +16554,8 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public LevelOne(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.LevelOneProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
     }
 
@@ -17120,6 +17300,8 @@ public class MethodNamedProperty extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public MethodNamedProperty() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -17168,6 +17350,8 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Multiply(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue lhs, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
     }
 
@@ -17244,6 +17428,8 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Negate(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue operand) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") });
     }
 
@@ -17469,6 +17655,8 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public NodeStandardLibrary() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -17539,6 +17727,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public NullShouldBeTreatedAsUndefined(final @org.jetbrains.annotations.NotNull java.lang.String _param1, final @org.jetbrains.annotations.Nullable java.lang.Object optional) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional });
     }
 
@@ -17548,6 +17738,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public NullShouldBeTreatedAsUndefined(final @org.jetbrains.annotations.NotNull java.lang.String _param1) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required") });
     }
 
@@ -17778,6 +17970,8 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public NumberGenerator(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IRandomNumberGenerator generator) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(generator, "generator is required") });
     }
 
@@ -17837,6 +18031,8 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ObjectRefsInCollections() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -17919,6 +18115,8 @@ public class Old extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Old() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -17958,6 +18156,8 @@ public class OptionalArgumentInvoker extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OptionalArgumentInvoker(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IInterfaceWithOptionalMethodArguments delegate) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(delegate, "delegate is required") });
     }
 
@@ -18004,6 +18204,8 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OptionalConstructorArgument(final @org.jetbrains.annotations.NotNull java.lang.Number arg1, final @org.jetbrains.annotations.NotNull java.lang.String arg2, final @org.jetbrains.annotations.Nullable java.time.Instant arg3) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required"), arg3 });
     }
 
@@ -18014,6 +18216,8 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OptionalConstructorArgument(final @org.jetbrains.annotations.NotNull java.lang.Number arg1, final @org.jetbrains.annotations.NotNull java.lang.String arg2) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required") });
     }
 
@@ -18190,6 +18394,8 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OptionalStructConsumer(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.OptionalStruct optionalStruct) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { optionalStruct });
     }
 
@@ -18198,6 +18404,8 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OptionalStructConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -18289,6 +18497,8 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OverridableProtectedMember() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -18360,6 +18570,8 @@ public class OverrideReturnsObject extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OverrideReturnsObject() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -18519,6 +18731,8 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected PartiallyInitializedThisConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -18577,6 +18791,8 @@ public class Polymorphism extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Polymorphism() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -18619,6 +18835,8 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Power(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue base, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue pow) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(base, "base is required"), java.util.Objects.requireNonNull(pow, "pow is required") });
     }
 
@@ -18676,6 +18894,8 @@ public class PropertyNamedProperty extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public PropertyNamedProperty() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -18719,6 +18939,8 @@ public class PublicClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public PublicClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -18755,6 +18977,8 @@ public class PythonReservedWords extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public PythonReservedWords() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -19009,6 +19233,8 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ReferenceEnumFromScopedPackage() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -19071,6 +19297,8 @@ public class ReturnsPrivateImplementationOfInterface extends software.amazon.jsi
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ReturnsPrivateImplementationOfInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -19294,6 +19522,8 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public RuntimeTypeChecking() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -19555,6 +19785,8 @@ public class SingleInstanceTwoTypes extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public SingleInstanceTwoTypes() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -19849,6 +20081,8 @@ public class SomeTypeJsii976 extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public SomeTypeJsii976() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -19894,6 +20128,8 @@ public class StableClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public StableClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString, final @org.jetbrains.annotations.Nullable java.lang.Number mutableNumber) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
     }
 
@@ -19903,6 +20139,8 @@ public class StableClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public StableClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") });
     }
 
@@ -20187,6 +20425,8 @@ public class StaticHelloParent extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public StaticHelloParent() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -20238,6 +20478,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Statics(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
@@ -20373,6 +20615,8 @@ public class StripInternal extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public StripInternal() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -20945,6 +21189,8 @@ public class StructPassing extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public StructPassing() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -21527,6 +21773,8 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Sum() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -21587,6 +21835,8 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public SupportsNiceJavaBuilder(final @org.jetbrains.annotations.NotNull java.lang.Number id, final @org.jetbrains.annotations.Nullable java.lang.Number defaultBar, final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props, final @org.jetbrains.annotations.NotNull java.lang.String... rest) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(id, "id is required"), defaultBar, props }), java.util.Arrays.<Object>stream(rest)).toArray(Object[]::new));
     }
 
@@ -21876,6 +22126,8 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public SupportsNiceJavaBuilderWithRequiredProps(final @org.jetbrains.annotations.NotNull java.lang.Number id, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), java.util.Objects.requireNonNull(props, "props is required") });
     }
 
@@ -21988,6 +22240,8 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public SyncVirtualMethods() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -22168,6 +22422,8 @@ public class TestStructWithEnum extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public TestStructWithEnum() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -22233,6 +22489,8 @@ public class Thrower extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Thrower() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -22467,6 +22725,8 @@ public class TwoMethodsWithSimilarCapitalization extends software.amazon.jsii.Js
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public TwoMethodsWithSimilarCapitalization() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -22571,6 +22831,8 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected UnaryOperation(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue operand) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") });
     }
 
@@ -22829,6 +23091,8 @@ public class UpcasingReflectable extends software.amazon.jsii.JsiiObject impleme
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public UpcasingReflectable(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> delegate) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(delegate, "delegate is required") });
     }
 
@@ -22871,6 +23135,8 @@ public class UseBundledDependency extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public UseBundledDependency() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -22908,6 +23174,8 @@ public class UseCalcBase extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public UseCalcBase() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -22945,6 +23213,8 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public UsesInterfaceWithProperties(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IInterfaceWithProperties obj) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 
@@ -23005,6 +23275,8 @@ public class VariadicInvoker extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public VariadicInvoker(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.VariadicMethod method) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(method, "method is required") });
     }
 
@@ -23043,6 +23315,8 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public VariadicMethod(final @org.jetbrains.annotations.NotNull java.lang.Number... prefix) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(prefix).toArray(Object[]::new));
     }
 
@@ -23081,6 +23355,8 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public VirtualMethodPlayground() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -23157,6 +23433,8 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected VoidCallback() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -23225,6 +23503,8 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public WithPrivatePropertyInConstructor(final @org.jetbrains.annotations.Nullable java.lang.String privateField) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { privateField });
     }
 
@@ -23233,6 +23513,8 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public WithPrivatePropertyInConstructor() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -23269,6 +23551,8 @@ public abstract class Cdk16625 extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected Cdk16625() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -23343,6 +23627,8 @@ public class UnimportedSubmoduleType extends software.amazon.jsii.JsiiObject imp
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public UnimportedSubmoduleType(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
@@ -23381,6 +23667,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     protected CompositeOperation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -23522,6 +23810,8 @@ public class Base extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Base() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -23565,6 +23855,8 @@ public class Derived extends software.amazon.jsii.tests.calculator.derived_class
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Derived() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }
@@ -23594,6 +23886,8 @@ public class Foo extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Foo() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -24032,6 +24326,8 @@ public abstract class OverrideMe extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected OverrideMe() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -24098,6 +24394,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number _) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_, "_ is required") });
     }
 
@@ -24183,6 +24481,8 @@ public class ExtendAndImplement extends software.amazon.jsii.tests.calculator.li
     @Deprecated
     public ExtendAndImplement(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.baseofbase.Very very) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(very, "very is required") });
     }
 
@@ -24228,6 +24528,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public MyClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -24273,6 +24575,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public MyClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -24316,6 +24620,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public MyClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -24920,6 +25226,8 @@ public class Base extends software.amazon.jsii.JsiiObject implements software.am
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Base() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -24965,6 +25273,8 @@ public class Derived extends software.amazon.jsii.tests.calculator.module2700.Ba
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Derived() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25074,6 +25384,8 @@ public class Baz extends software.amazon.jsii.tests.calculator.module2702.Class3
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Baz() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25108,6 +25420,8 @@ public class Class1 extends software.amazon.jsii.tests.calculator.base.Base {
 
     public Class1() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25141,6 +25455,8 @@ public class Class2 extends software.amazon.jsii.tests.calculator.base.Base {
 
     public Class2() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25177,6 +25493,8 @@ public class Class3 extends software.amazon.jsii.JsiiObject implements software.
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Class3() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25229,6 +25547,8 @@ public class Construct extends software.amazon.jsii.JsiiObject implements softwa
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Construct() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25614,6 +25934,8 @@ public abstract class Resource extends software.amazon.jsii.tests.calculator.mod
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected Resource() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25661,6 +25983,8 @@ public class Vpc extends software.amazon.jsii.tests.calculator.module2702.Resour
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Vpc() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25698,6 +26022,8 @@ public class TypeFromSub1 extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public TypeFromSub1() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25734,6 +26060,8 @@ public class TypeFromSub2 extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public TypeFromSub2() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -25832,6 +26160,8 @@ public class ClassWithSelf extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithSelf(final @org.jetbrains.annotations.NotNull java.lang.String self) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(self, "self is required") });
     }
 
@@ -25877,6 +26207,8 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithSelfKwarg(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.python_self.StructWithSelf props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
     }
 
@@ -26255,6 +26587,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public MyClass(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.submodule.child.SomeStruct props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
     }
 
@@ -26547,6 +26881,8 @@ public class InnerClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public InnerClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -26732,6 +27068,8 @@ public class OuterClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public OuterClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
@@ -27309,6 +27647,8 @@ public class ReturnsSpecialParameter extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ReturnsSpecialParameter() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        //BEGIN TYPE UNION VALIDATION
+        //END TYPE UNION VALIDATION
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 

@@ -41,6 +41,7 @@ public class TypeCheckingTest {
         }
         catch (JsiiException e) {
             thrown = true;
+            assertEquals("foo", e.getMessage());
         }
         assertTrue(thrown);
     }
