@@ -1553,7 +1553,7 @@ class JavaGenerator extends Generator {
       parameterName: string,
     ) {
       if (spec.isUnionTypeReference(type)) {
-        //this.code.line('found union type ref');
+        validateTypeUnion.call(this, value, descr, type, parameterName);
       } else {
         const collectionType = type as spec.CollectionTypeReference;
         if (collectionType.collection.kind === spec.CollectionKind.Array) {
@@ -1622,7 +1622,38 @@ class JavaGenerator extends Generator {
       this.code.closeBlock();
     }
 
-    // TODO: validate union map
+    function validateTypeUnion(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      type: spec.UnionTypeReference,
+      parameterName: string,
+    ) {
+
+        this.code.line(value);
+        this.code.line(descr);
+        type.union.types.forEach((typeref => this.code.line(this.toJavaTypes(typeref).toString())));
+        this.code.line(parameterName);
+        this.code.indent('if (')
+        let emitAnd = false;
+        const typeRefs = type.union.types;
+        for (const typeRef of typeRefs) {
+          const prefix = emitAnd ? '&&' : '';
+          const javaType = this.toJavaType(typeRef);
+          const test =  `${value} instanceof ${javaType}`;
+          this.code.line(`${prefix} !(${test})`);
+          emitAnd = true;
+        }
+
+      this.code.unindent(')');
+
+      const placeholders = typeRefs.map((typeRef) => {
+        return `{${this.toJavaType(typeRef)}}`;
+      }).join(', ');
+
+      this.code.openBlock(`throw new Exception(
+        Expected ${descr} to be one of: ${placeholders}; received {${value}.GetType().FullName}", $"${parameterName}")`);
+    }
   }
 
   /**
