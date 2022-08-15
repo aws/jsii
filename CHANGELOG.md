@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.65.0](https://github.com/aws/jsii/compare/v1.64.0...v1.65.0) (2022-08-15)
+
 ## [1.64.0](https://github.com/aws/jsii/compare/v1.63.2...v1.64.0) (2022-08-11)
 
 
