@@ -66,9 +66,10 @@ export class GoTypeRef {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: false,
+      fmt: false,
       init: false,
       internal: false,
+      runtime: false,
       time: containsDate(this.reference, this.options.opaqueUnionTypes),
     };
 

@@ -25,6 +25,7 @@ type registeredType struct {
 type registeredStruct struct {
 	FQN    api.FQN
 	Fields []reflect.StructField
+	Validator func(interface{},string)error
 }
 
 // RegisterClass maps the given FQN to the provided class interface, list of
@@ -147,6 +148,23 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 
 	t.fqnToType[fqn] = registeredType{strct, structType}
 	t.structInfo[strct] = registeredStruct{FQN: fqn, Fields: fields}
+
+	return nil
+}
+
+// RegisterStructValidator adds a validator function to an already registered struct type. This is separate call largely
+// to maintain backwards compatibility with existing code.
+func (t *TypeRegistry) RegisterStructValidator(strct reflect.Type, validator func(interface{},string)error) error {
+	if strct.Kind() != reflect.Struct {
+		return fmt.Errorf("the provided struct is not a struct: %v", strct)
+	}
+
+	info, ok := t.structInfo[strct]
+	if !ok {
+		return fmt.Errorf("the provided struct %s is not registered (call RegisterStruct first)", strct)
+	}
+	info.Validator = validator
+	t.structInfo[strct] = info
 
 	return nil
 }

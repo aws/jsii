@@ -9,13 +9,16 @@ import { JSII_RT_ALIAS } from '../runtime';
 import { GoType } from './go-type';
 
 export class Enum extends GoType<EnumType> {
-  public readonly validators = [];
   private readonly members: readonly GoEnumMember[];
 
   public constructor(pkg: Package, type: EnumType) {
     super(pkg, type);
 
     this.members = type.members.map((mem) => new GoEnumMember(this, mem));
+  }
+
+  public get parameterValidators() {
+    return [];
   }
 
   public emit(context: EmitContext) {
@@ -55,9 +58,10 @@ export class Enum extends GoType<EnumType> {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: false,
+      fmt: false,
       init: false,
       internal: false,
+      runtime: false,
       time: false,
     };
   }

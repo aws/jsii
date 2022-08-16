@@ -13,6 +13,9 @@ import {
  * the go standard library, or generated as part of the current module).
  */
 export interface SpecialDependencies {
+  /** Whether the go standard library for string formatting is needed */
+  readonly fmt: boolean;
+
   /** Whether the jsii runtime library for go is needed */
   readonly runtime: boolean;
 
@@ -27,23 +30,25 @@ export interface SpecialDependencies {
 }
 
 export function reduceSpecialDependencies(
-  specialDepsList: readonly SpecialDependencies[],
+  ...specialDepsList: readonly SpecialDependencies[]
 ): SpecialDependencies {
   const [first, ...rest] = specialDepsList;
   if (!first) {
     assert(rest.length === 0);
     return {
-      runtime: false,
+      fmt: false,
       init: false,
       internal: false,
+      runtime: false,
       time: false,
     };
   }
   return rest.reduce(
     (acc, elt) => ({
-      runtime: acc.runtime || elt.runtime,
+      fmt: acc.fmt || elt.fmt,
       init: acc.init || elt.init,
       internal: acc.internal || elt.internal,
+      runtime: acc.runtime || elt.runtime,
       time: acc.time || elt.time,
     }),
     first,
@@ -60,6 +65,10 @@ export function toImportedModules(
   context: Package,
 ): readonly ImportedModule[] {
   const result = new Array<ImportedModule>();
+
+  if (specialDeps.fmt) {
+    result.push({ module: 'fmt' });
+  }
 
   if (specialDeps.time) {
     result.push({ module: 'time' });

@@ -9,7 +9,7 @@ import {
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS, MethodCall } from '../runtime';
-import { Validator } from '../runtime/emit-type-union-validations';
+import { ParameterValidator } from '../runtime/runtime-type-checking';
 import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
@@ -21,7 +21,7 @@ export class GoInterface extends GoType<InterfaceType> {
   public readonly properties: InterfaceProperty[];
   public readonly reimplementedProperties: readonly InterfaceProperty[];
 
-  public readonly validators: readonly Validator[];
+  #parameterValidators?: readonly ParameterValidator[];
 
   public constructor(pkg: Package, type: InterfaceType) {
     super(pkg, type);
@@ -60,17 +60,22 @@ export class GoInterface extends GoType<InterfaceType> {
       this.reimplementedMethods = [];
       this.reimplementedProperties = [];
     }
+  }
 
-    this.validators = [
-      ...this.methods.map((m) => m.validator!).filter((v) => v != null),
-      ...this.reimplementedMethods
-        .map((m) => m.validator!)
-        .filter((v) => v != null),
-      ...this.properties.map((p) => p.validator!).filter((v) => v != null),
-      ...this.reimplementedProperties
-        .map((p) => p.validator!)
-        .filter((v) => v != null),
-    ];
+  public get parameterValidators(): readonly ParameterValidator[] {
+    if (this.#parameterValidators == null) {
+      this.#parameterValidators = [
+        ...this.methods.map((m) => m.validator!).filter((v) => v != null),
+        ...this.reimplementedMethods
+          .map((m) => m.validator!)
+          .filter((v) => v != null),
+        ...this.properties.map((p) => p.validator!).filter((v) => v != null),
+        ...this.reimplementedProperties
+          .map((p) => p.validator!)
+          .filter((v) => v != null),
+      ];
+    }
+    return this.#parameterValidators;
   }
 
   public emit(context: EmitContext) {
@@ -163,18 +168,19 @@ export class GoInterface extends GoType<InterfaceType> {
   }
 
   public get specialDependencies(): SpecialDependencies {
-    return reduceSpecialDependencies([
+    return reduceSpecialDependencies(
       {
-        runtime: false,
+        fmt: false,
         init: false,
         internal: this.extends.some((base) => this.pkg.isExternalType(base)),
+        runtime: false,
         time: false,
       },
       ...this.properties.map((p) => p.specialDependencies),
       ...this.reimplementedProperties.map((p) => p.specialDependencies),
       ...this.methods.map((m) => m.specialDependencies),
       ...this.reimplementedMethods.map((m) => m.specialDependencies),
-    ]);
+    );
   }
 
   public get extends(): GoInterface[] {
@@ -268,9 +274,10 @@ class InterfaceMethod extends GoMethod {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: true,
+      fmt: false,
       init: false,
       internal: false,
+      runtime: true,
       time:
         this.parameters.some((p) => p.reference.specialDependencies.time) ||
         !!this.reference?.specialDependencies.time,

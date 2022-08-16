@@ -253,7 +253,7 @@ export abstract class Package {
   }
 
   private emitValidators(code: CodeMaker, type: GoType): void {
-    if (type.validators.length === 0) {
+    if (type.parameterValidators.length === 0 && type.structValidator == null) {
       return;
     }
 
@@ -284,17 +284,20 @@ export abstract class Package {
 
       if (!forNoOp) {
         const specialDependencies = reduceSpecialDependencies(
-          type.validators.map((v) => v.specialDependencies),
+          ...type.parameterValidators.map((v) => v.specialDependencies),
+          ...(type.structValidator
+            ? [type.structValidator.specialDependencies]
+            : []),
         );
 
         importGoModules(code, [
-          { module: 'errors' },
           ...toImportedModules(specialDependencies, this),
           ...Array.from(
             new Set(
-              type.validators.flatMap((v) =>
-                v.dependencies.map((mod) => mod.goModuleName),
-              ),
+              [
+                ...(type.structValidator?.dependencies ?? []),
+                ...type.parameterValidators.flatMap((v) => v.dependencies),
+              ].map((mod) => mod.goModuleName),
             ),
           )
             .filter((mod) => mod !== this.goModuleName)
@@ -308,7 +311,9 @@ export abstract class Package {
         code.line();
       }
 
-      for (const validator of type.validators) {
+      type.structValidator?.emitImplementation(code, this, forNoOp);
+
+      for (const validator of type.parameterValidators) {
         validator.emitImplementation(code, this, forNoOp);
       }
 

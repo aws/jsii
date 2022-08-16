@@ -484,7 +484,7 @@ type jsiiProxy_Consumer struct {
 func Consumer_ConsumeBaz(baz *Baz) {
 	_init_.Initialize()
 
-	if err := validateConsumeBazParameters(baz); err != nil {
+	if err := validateConsumer_ConsumeBazParameters(baz); err != nil {
 		panic(err)
 	}
 	_jsii_.StaticInvokeVoid(
@@ -505,7 +505,7 @@ package testpkg
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateConsumeBazParameters(baz *Baz) error {
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 	return nil
 }
 
@@ -519,12 +519,17 @@ exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__runt
 package testpkg
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
-func validateConsumeBazParameters(baz *Baz) error {
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 	if baz == nil {
-		return errors.New("parameter baz is required, but nil was provided")
+		return fmt.Errorf("parameter baz is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(baz, "parameter baz"); err != nil {
+		return err
 	}
 
 	return nil

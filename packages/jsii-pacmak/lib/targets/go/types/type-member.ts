@@ -19,7 +19,7 @@ import {
   StaticGetProperty,
   StaticSetProperty,
 } from '../runtime';
-import { Validator } from '../runtime/emit-type-union-validations';
+import { ParameterValidator } from '../runtime/runtime-type-checking';
 import { substituteReservedWords } from '../util';
 
 import { GoClass, GoType, GoInterface, GoTypeRef } from './index';
@@ -44,8 +44,8 @@ export class GoProperty implements GoTypeMember {
   public readonly name: string;
   public readonly setterName: string;
   public readonly immutable: boolean;
-  public readonly validator: Validator | undefined;
   protected readonly apiLocation: ApiLocation;
+  #validator: ParameterValidator | undefined | null = null;
 
   public constructor(
     public parent: GoType,
@@ -64,8 +64,13 @@ export class GoProperty implements GoTypeMember {
       fqn: this.parent.fqn,
       memberName: this.property.name,
     };
+  }
 
-    this.validator = Validator.forProperty(this);
+  public get validator(): ParameterValidator | undefined {
+    if (this.#validator === null) {
+      this.#validator = ParameterValidator.forProperty(this);
+    }
+    return this.#validator;
   }
 
   public get reference(): GoTypeRef {
@@ -74,9 +79,10 @@ export class GoProperty implements GoTypeMember {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: true,
+      fmt: false,
       init: this.static,
       internal: false,
+      runtime: true,
       time: !!this.reference?.specialDependencies.time,
     };
   }
@@ -178,8 +184,8 @@ export class GoProperty implements GoTypeMember {
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
   public readonly parameters: GoParameter[];
-  public readonly validator: Validator | undefined;
   protected readonly apiLocation: ApiLocation;
+  #validator: ParameterValidator | undefined | null = null;
 
   public constructor(
     public readonly parent: GoClass | GoInterface,
@@ -194,8 +200,13 @@ export abstract class GoMethod implements GoTypeMember {
       method.kind === MemberKind.Initializer
         ? { api: 'initializer', fqn: parent.fqn }
         : { api: 'member', fqn: parent.fqn, memberName: method.name };
+  }
 
-    this.validator = Validator.forMethod(this);
+  public get validator() {
+    if (this.#validator === null) {
+      this.#validator = ParameterValidator.forMethod(this);
+    }
+    return this.#validator;
   }
 
   public abstract emit(context: EmitContext): void;

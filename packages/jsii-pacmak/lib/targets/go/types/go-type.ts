@@ -6,7 +6,10 @@ import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
-import { Validator } from '../runtime/emit-type-union-validations';
+import {
+  ParameterValidator,
+  StructValidator,
+} from '../runtime/runtime-type-checking';
 import { GoClass } from './class';
 import { GoInterface } from './interface';
 
@@ -14,7 +17,6 @@ export abstract class GoType<T extends Type = Type> {
   public readonly name: string;
   public readonly fqn: string;
   public readonly proxyName: string;
-  public abstract validators: readonly Validator[];
   protected readonly apiLocation: ApiLocation;
 
   public constructor(public readonly pkg: Package, public readonly type: T) {
@@ -37,6 +39,12 @@ export abstract class GoType<T extends Type = Type> {
 
     this.apiLocation = { api: 'type', fqn: this.fqn };
   }
+
+  public get structValidator(): StructValidator | undefined {
+    return undefined;
+  }
+
+  public abstract get parameterValidators(): readonly ParameterValidator[];
 
   public abstract emit(context: EmitContext): void;
 

@@ -442,7 +442,7 @@ func NewStaticConsumer_Override(s StaticConsumer) {
 func StaticConsumer_Consume(args ...interface{}) {
 	_init_.Initialize()
 
-	if err := validateConsumeParameters(args); err != nil {
+	if err := validateStaticConsumer_ConsumeParameters(args); err != nil {
 		panic(err)
 	}
 	args_ := []interface{}{}
@@ -468,7 +468,7 @@ package jcb
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateConsumeParameters(args []interface{}) error {
+func validateStaticConsumer_ConsumeParameters(args []interface{}) error {
 	return nil
 }
 
@@ -482,12 +482,12 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jcb_StaticC
 package jcb
 
 import (
-	"errors"
+	"fmt"
 )
 
-func validateConsumeParameters(args []interface{}) error {
+func validateStaticConsumer_ConsumeParameters(args []interface{}) error {
 	if args == nil {
-		return errors.New("parameter args is required, but nil was provided")
+		return fmt.Errorf("parameter args is required, but nil was provided")
 	}
 
 	return nil
@@ -896,7 +896,7 @@ type jsiiProxy_StaticConsumer struct {
 func StaticConsumer_Consume(_args ...interface{}) {
 	_init_.Initialize()
 
-	if err := validateConsumeParameters(_args); err != nil {
+	if err := validateStaticConsumer_ConsumeParameters(_args); err != nil {
 		panic(err)
 	}
 	args := []interface{}{}
@@ -922,7 +922,7 @@ package scopejsiicalcbaseofbase
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateConsumeParameters(_args []interface{}) error {
+func validateStaticConsumer_ConsumeParameters(_args []interface{}) error {
 	return nil
 }
 
@@ -936,12 +936,12 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 package scopejsiicalcbaseofbase
 
 import (
-	"errors"
+	"fmt"
 )
 
-func validateConsumeParameters(_args []interface{}) error {
+func validateStaticConsumer_ConsumeParameters(_args []interface{}) error {
 	if _args == nil {
-		return errors.New("parameter _args is required, but nil was provided")
+		return fmt.Errorf("parameter _args is required, but nil was provided")
 	}
 
 	return nil
@@ -1574,12 +1574,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package customsubmodulename
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (r *jsiiProxy_Reflector) validateAsMapParameters(reflectable IReflectable) error {
 	if reflectable == nil {
-		return errors.New("parameter reflectable is required, but nil was provided")
+		return fmt.Errorf("parameter reflectable is required, but nil was provided")
 	}
 
 	return nil
@@ -1870,7 +1870,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package scopejsiicalclib
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
@@ -1878,7 +1878,7 @@ import (
 
 func (b *jsiiProxy_BaseFor2647) validateFooParameters(obj jcb.IBaseInterface) error {
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
 	}
 
 	return nil
@@ -1886,7 +1886,7 @@ func (b *jsiiProxy_BaseFor2647) validateFooParameters(obj jcb.IBaseInterface) er
 
 func validateNewBaseFor2647Parameters(very scopejsiicalcbaseofbase.Very) error {
 	if very == nil {
-		return errors.New("parameter very is required, but nil was provided")
+		return fmt.Errorf("parameter very is required, but nil was provided")
 	}
 
 	return nil
@@ -2217,12 +2217,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib
 package scopejsiicalclib
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewNumberParameters(value *float64) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -2537,6 +2537,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__no_runtime_type_checks.go
        ┣━ 📄 jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__runtime_type_checks.go
        ┣━ 📄 jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties.go
+       ┣━ 📄 jsiicalc_ConfusingToJackson__no_runtime_type_checks.go
+       ┣━ 📄 jsiicalc_ConfusingToJackson__runtime_type_checks.go
        ┣━ 📄 jsiicalc_ConfusingToJackson.go
        ┣━ 📄 jsiicalc_ConfusingToJacksonStruct.go
        ┣━ 📄 jsiicalc_ConstructorPassesThisOut__no_runtime_type_checks.go
@@ -2571,6 +2573,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_DiamondInheritanceSecondMidLevelStruct.go
        ┣━ 📄 jsiicalc_DiamondInheritanceTopLevelStruct.go
        ┣━ 📄 jsiicalc_DisappointingCollectionSource.go
+       ┣━ 📄 jsiicalc_DocumentedClass__no_runtime_type_checks.go
+       ┣━ 📄 jsiicalc_DocumentedClass__runtime_type_checks.go
        ┣━ 📄 jsiicalc_DocumentedClass.go
        ┣━ 📄 jsiicalc_DoNotOverridePrivates__no_runtime_type_checks.go
        ┣━ 📄 jsiicalc_DoNotOverridePrivates__runtime_type_checks.go
@@ -2748,6 +2752,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_OptionalConstructorArgument__runtime_type_checks.go
        ┣━ 📄 jsiicalc_OptionalConstructorArgument.go
        ┣━ 📄 jsiicalc_OptionalStruct.go
+       ┣━ 📄 jsiicalc_OptionalStructConsumer__no_runtime_type_checks.go
+       ┣━ 📄 jsiicalc_OptionalStructConsumer__runtime_type_checks.go
        ┣━ 📄 jsiicalc_OptionalStructConsumer.go
        ┣━ 📄 jsiicalc_OverridableProtectedMember__no_runtime_type_checks.go
        ┣━ 📄 jsiicalc_OverridableProtectedMember__runtime_type_checks.go
@@ -2965,6 +2971,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📁 internal
        ┃  ┃  ┗━ 📄 types.go
        ┃  ┣━ 📁 isolated
+       ┃  ┃  ┣━ 📄 isolated_Kwargs__no_runtime_type_checks.go
+       ┃  ┃  ┣━ 📄 isolated_Kwargs__runtime_type_checks.go
        ┃  ┃  ┣━ 📄 isolated_Kwargs.go
        ┃  ┃  ┣━ 📄 isolated.go
        ┃  ┃  ┗━ 📄 README.md
@@ -3334,14 +3342,14 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/cdk16625_
 package cdk16625
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 )
 
 func (c *jsiiProxy_Cdk16625) validateUnwrapParameters(gen jsiicalc.IRandomNumberGenerator) error {
 	if gen == nil {
-		return errors.New("parameter gen is required, but nil was provided")
+		return fmt.Errorf("parameter gen is required, but nil was provided")
 	}
 
 	return nil
@@ -3470,12 +3478,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/donotimpo
 package donotimport
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewUnimportedSubmoduleTypeParameters(value *float64) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -3724,12 +3732,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/compos
 package composition
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_CompositeOperation) validateSetDecorationPostfixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -3737,7 +3745,7 @@ func (j *jsiiProxy_CompositeOperation) validateSetDecorationPostfixesParameters(
 
 func (j *jsiiProxy_CompositeOperation) validateSetDecorationPrefixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -3745,7 +3753,7 @@ func (j *jsiiProxy_CompositeOperation) validateSetDecorationPrefixesParameters(v
 
 func (j *jsiiProxy_CompositeOperation) validateSetStringStyleParameters(val CompositeOperation_CompositionStringStyle) error {
 	if val == "" {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -3903,12 +3911,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnop
 package derivedclasshasnoproperties
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_Base) validateSetPropParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -4005,12 +4013,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnop
 package derivedclasshasnoproperties
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_Derived) validateSetPropParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -4283,7 +4291,7 @@ func NewOverrideMe_Override(o OverrideMe) {
 func OverrideMe_CallAbstract(receiver OverrideMe) *bool {
 	_init_.Initialize()
 
-	if err := validateCallAbstractParameters(receiver); err != nil {
+	if err := validateOverrideMe_CallAbstractParameters(receiver); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -4328,7 +4336,7 @@ func (o *jsiiProxy_OverrideMe) validateImplementMeParameters(opts *ImplementMeOp
 	return nil
 }
 
-func validateCallAbstractParameters(receiver OverrideMe) error {
+func validateOverrideMe_CallAbstractParameters(receiver OverrideMe) error {
 	return nil
 }
 
@@ -4341,20 +4349,25 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii3656/jsii3656_
 package jsii3656
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func (o *jsiiProxy_OverrideMe) validateImplementMeParameters(opts *ImplementMeOpts) error {
 	if opts == nil {
-		return errors.New("parameter opts is required, but nil was provided")
+		return fmt.Errorf("parameter opts is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(opts, "parameter opts"); err != nil {
+		return err
 	}
 
 	return nil
 }
 
-func validateCallAbstractParameters(receiver OverrideMe) error {
+func validateOverrideMe_CallAbstractParameters(receiver OverrideMe) error {
 	if receiver == nil {
-		return errors.New("parameter receiver is required, but nil was provided")
+		return fmt.Errorf("parameter receiver is required, but nil was provided")
 	}
 
 	return nil
@@ -6791,12 +6804,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AbstractC
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (a *jsiiProxy_AbstractClass) validateAbstractMethodParameters(name *string) error {
 	if name == nil {
-		return errors.New("parameter name is required, but nil was provided")
+		return fmt.Errorf("parameter name is required, but nil was provided")
 	}
 
 	return nil
@@ -7051,12 +7064,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AbstractS
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (a *jsiiProxy_AbstractSuite) validateSomeMethodParameters(str *string) error {
 	if str == nil {
-		return errors.New("parameter str is required, but nil was provided")
+		return fmt.Errorf("parameter str is required, but nil was provided")
 	}
 
 	return nil
@@ -7064,7 +7077,7 @@ func (a *jsiiProxy_AbstractSuite) validateSomeMethodParameters(str *string) erro
 
 func (a *jsiiProxy_AbstractSuite) validateWorkItAllParameters(seed *string) error {
 	if seed == nil {
-		return errors.New("parameter seed is required, but nil was provided")
+		return fmt.Errorf("parameter seed is required, but nil was provided")
 	}
 
 	return nil
@@ -7072,7 +7085,7 @@ func (a *jsiiProxy_AbstractSuite) validateWorkItAllParameters(seed *string) erro
 
 func (j *jsiiProxy_AbstractSuite) validateSetPropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7238,18 +7251,18 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Add__runt
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func validateNewAddParameters(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) error {
 	if lhs == nil {
-		return errors.New("parameter lhs is required, but nil was provided")
+		return fmt.Errorf("parameter lhs is required, but nil was provided")
 	}
 
 	if rhs == nil {
-		return errors.New("parameter rhs is required, but nil was provided")
+		return fmt.Errorf("parameter rhs is required, but nil was provided")
 	}
 
 	return nil
@@ -7870,7 +7883,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AllTypes_
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 	"time"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
@@ -7878,7 +7891,7 @@ import (
 
 func (a *jsiiProxy_AllTypes) validateAnyInParameters(inp interface{}) error {
 	if inp == nil {
-		return errors.New("parameter inp is required, but nil was provided")
+		return fmt.Errorf("parameter inp is required, but nil was provided")
 	}
 
 	return nil
@@ -7886,7 +7899,7 @@ func (a *jsiiProxy_AllTypes) validateAnyInParameters(inp interface{}) error {
 
 func (a *jsiiProxy_AllTypes) validateEnumMethodParameters(value StringEnum) error {
 	if value == "" {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -7894,7 +7907,7 @@ func (a *jsiiProxy_AllTypes) validateEnumMethodParameters(value StringEnum) erro
 
 func (j *jsiiProxy_AllTypes) validateSetAnyArrayPropertyParameters(val *[]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7902,7 +7915,7 @@ func (j *jsiiProxy_AllTypes) validateSetAnyArrayPropertyParameters(val *[]interf
 
 func (j *jsiiProxy_AllTypes) validateSetAnyMapPropertyParameters(val *map[string]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7910,7 +7923,7 @@ func (j *jsiiProxy_AllTypes) validateSetAnyMapPropertyParameters(val *map[string
 
 func (j *jsiiProxy_AllTypes) validateSetAnyPropertyParameters(val interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7918,7 +7931,7 @@ func (j *jsiiProxy_AllTypes) validateSetAnyPropertyParameters(val interface{}) e
 
 func (j *jsiiProxy_AllTypes) validateSetArrayPropertyParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7926,7 +7939,7 @@ func (j *jsiiProxy_AllTypes) validateSetArrayPropertyParameters(val *[]*string) 
 
 func (j *jsiiProxy_AllTypes) validateSetBooleanPropertyParameters(val *bool) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7934,7 +7947,7 @@ func (j *jsiiProxy_AllTypes) validateSetBooleanPropertyParameters(val *bool) err
 
 func (j *jsiiProxy_AllTypes) validateSetDatePropertyParameters(val *time.Time) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7942,7 +7955,7 @@ func (j *jsiiProxy_AllTypes) validateSetDatePropertyParameters(val *time.Time) e
 
 func (j *jsiiProxy_AllTypes) validateSetEnumPropertyParameters(val AllTypesEnum) error {
 	if val == "" {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7950,7 +7963,7 @@ func (j *jsiiProxy_AllTypes) validateSetEnumPropertyParameters(val AllTypesEnum)
 
 func (j *jsiiProxy_AllTypes) validateSetJsonPropertyParameters(val *map[string]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7958,7 +7971,7 @@ func (j *jsiiProxy_AllTypes) validateSetJsonPropertyParameters(val *map[string]i
 
 func (j *jsiiProxy_AllTypes) validateSetMapPropertyParameters(val *map[string]scopejsiicalclib.Number) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7966,7 +7979,7 @@ func (j *jsiiProxy_AllTypes) validateSetMapPropertyParameters(val *map[string]sc
 
 func (j *jsiiProxy_AllTypes) validateSetNumberPropertyParameters(val *float64) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7974,7 +7987,7 @@ func (j *jsiiProxy_AllTypes) validateSetNumberPropertyParameters(val *float64) e
 
 func (j *jsiiProxy_AllTypes) validateSetStringPropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -7982,7 +7995,17 @@ func (j *jsiiProxy_AllTypes) validateSetStringPropertyParameters(val *string) er
 
 func (j *jsiiProxy_AllTypes) validateSetUnionArrayPropertyParameters(val *[]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
+	}
+	for idx_97dfc6, v := range *val {
+		switch v.(type) {
+		case *float64, float64, *int, int, *uint, uint, *int8, int8, *int16, int16, *int32, int32, *int64, int64, *uint8, uint8, *uint16, uint16, *uint32, uint32, *uint64, uint64:
+			// ok
+		case scopejsiicalclib.NumericValue:
+			// ok
+		default:
+			return fmt.Errorf("parameter val[%v] must be one of the allowed types: *float64, scopejsiicalclib.NumericValue; received %#v (a %T)", idx_97dfc6, v, v)
+		}
 	}
 
 	return nil
@@ -7990,7 +8013,19 @@ func (j *jsiiProxy_AllTypes) validateSetUnionArrayPropertyParameters(val *[]inte
 
 func (j *jsiiProxy_AllTypes) validateSetUnionMapPropertyParameters(val *map[string]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
+	}
+	for idx_97dfc6, v := range *val {
+		switch v.(type) {
+		case *string, string:
+			// ok
+		case *float64, float64, *int, int, *uint, uint, *int8, int8, *int16, int16, *int32, int32, *int64, int64, *uint8, uint8, *uint16, uint16, *uint32, uint32, *uint64, uint64:
+			// ok
+		case scopejsiicalclib.Number:
+			// ok
+		default:
+			return fmt.Errorf("parameter val[%v] must be one of the allowed types: *string, *float64, scopejsiicalclib.Number; received %#v (a %T)", idx_97dfc6, v, v)
+		}
 	}
 
 	return nil
@@ -7998,7 +8033,19 @@ func (j *jsiiProxy_AllTypes) validateSetUnionMapPropertyParameters(val *map[stri
 
 func (j *jsiiProxy_AllTypes) validateSetUnionPropertyParameters(val interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
+	}
+	switch val.(type) {
+	case *string, string:
+		// ok
+	case *float64, float64, *int, int, *uint, uint, *int8, int8, *int16, int16, *int32, int32, *int64, int64, *uint8, uint8, *uint16, uint16, *uint32, uint32, *uint64, uint64:
+		// ok
+	case scopejsiicalclib.Number:
+		// ok
+	case Multiply:
+		// ok
+	default:
+		return fmt.Errorf("parameter val must be one of the allowed types: *string, *float64, scopejsiicalclib.Number, Multiply; received %#v (a %T)", val, val)
 	}
 
 	return nil
@@ -8006,7 +8053,7 @@ func (j *jsiiProxy_AllTypes) validateSetUnionPropertyParameters(val interface{})
 
 func (j *jsiiProxy_AllTypes) validateSetUnknownArrayPropertyParameters(val *[]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -8014,7 +8061,7 @@ func (j *jsiiProxy_AllTypes) validateSetUnknownArrayPropertyParameters(val *[]in
 
 func (j *jsiiProxy_AllTypes) validateSetUnknownMapPropertyParameters(val *map[string]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -8022,7 +8069,7 @@ func (j *jsiiProxy_AllTypes) validateSetUnknownMapPropertyParameters(val *map[st
 
 func (j *jsiiProxy_AllTypes) validateSetUnknownPropertyParameters(val interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -8180,16 +8227,16 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AllowedMe
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (a *jsiiProxy_AllowedMethodNames) validateGetBarParameters(_p1 *string, _p2 *float64) error {
 	if _p1 == nil {
-		return errors.New("parameter _p1 is required, but nil was provided")
+		return fmt.Errorf("parameter _p1 is required, but nil was provided")
 	}
 
 	if _p2 == nil {
-		return errors.New("parameter _p2 is required, but nil was provided")
+		return fmt.Errorf("parameter _p2 is required, but nil was provided")
 	}
 
 	return nil
@@ -8197,7 +8244,7 @@ func (a *jsiiProxy_AllowedMethodNames) validateGetBarParameters(_p1 *string, _p2
 
 func (a *jsiiProxy_AllowedMethodNames) validateGetFooParameters(withParam *string) error {
 	if withParam == nil {
-		return errors.New("parameter withParam is required, but nil was provided")
+		return fmt.Errorf("parameter withParam is required, but nil was provided")
 	}
 
 	return nil
@@ -8205,15 +8252,15 @@ func (a *jsiiProxy_AllowedMethodNames) validateGetFooParameters(withParam *strin
 
 func (a *jsiiProxy_AllowedMethodNames) validateSetBarParameters(_x *string, _y *float64, _z *bool) error {
 	if _x == nil {
-		return errors.New("parameter _x is required, but nil was provided")
+		return fmt.Errorf("parameter _x is required, but nil was provided")
 	}
 
 	if _y == nil {
-		return errors.New("parameter _y is required, but nil was provided")
+		return fmt.Errorf("parameter _y is required, but nil was provided")
 	}
 
 	if _z == nil {
-		return errors.New("parameter _z is required, but nil was provided")
+		return fmt.Errorf("parameter _z is required, but nil was provided")
 	}
 
 	return nil
@@ -8221,11 +8268,11 @@ func (a *jsiiProxy_AllowedMethodNames) validateSetBarParameters(_x *string, _y *
 
 func (a *jsiiProxy_AllowedMethodNames) validateSetFooParameters(_x *string, _y *float64) error {
 	if _x == nil {
-		return errors.New("parameter _x is required, but nil was provided")
+		return fmt.Errorf("parameter _x is required, but nil was provided")
 	}
 
 	if _y == nil {
-		return errors.New("parameter _y is required, but nil was provided")
+		return fmt.Errorf("parameter _y is required, but nil was provided")
 	}
 
 	return nil
@@ -8326,16 +8373,21 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Ambiguous
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func validateNewAmbiguousParametersParameters(scope Bell, props *StructParameterType) error {
 	if scope == nil {
-		return errors.New("parameter scope is required, but nil was provided")
+		return fmt.Errorf("parameter scope is required, but nil was provided")
 	}
 
 	if props == nil {
-		return errors.New("parameter props is required, but nil was provided")
+		return fmt.Errorf("parameter props is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	return nil
@@ -8576,12 +8628,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AsyncVirt
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (a *jsiiProxy_AsyncVirtualMethods) validateOverrideMeParameters(mult *float64) error {
 	if mult == nil {
-		return errors.New("parameter mult is required, but nil was provided")
+		return fmt.Errorf("parameter mult is required, but nil was provided")
 	}
 
 	return nil
@@ -8852,12 +8904,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Bell__run
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_Bell) validateSetRungParameters(val *bool) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -9010,18 +9062,18 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_BinaryOpe
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func validateNewBinaryOperationParameters(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) error {
 	if lhs == nil {
-		return errors.New("parameter lhs is required, but nil was provided")
+		return fmt.Errorf("parameter lhs is required, but nil was provided")
 	}
 
 	if rhs == nil {
-		return errors.New("parameter rhs is required, but nil was provided")
+		return fmt.Errorf("parameter rhs is required, but nil was provided")
 	}
 
 	return nil
@@ -9117,12 +9169,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_BurriedAn
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (b *jsiiProxy_BurriedAnonymousObject) validateGiveItBackParameters(value interface{}) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -9317,6 +9369,9 @@ func (j *jsiiProxy_Calculator) Value() *float64 {
 func NewCalculator(props *CalculatorProps) Calculator {
 	_init_.Initialize()
 
+	if err := validateNewCalculatorParameters(props); err != nil {
+		panic(err)
+	}
 	j := jsiiProxy_Calculator{}
 
 	_jsii_.Create(
@@ -9392,6 +9447,9 @@ func (j *jsiiProxy_Calculator)SetStringStyle(val composition.CompositeOperation_
 }
 
 func (j *jsiiProxy_Calculator)SetUnionProperty(val interface{}) {
+	if err := j.validateSetUnionPropertyParameters(val); err != nil {
+		panic(err)
+	}
 	_jsii_.Set(
 		j,
 		"unionProperty",
@@ -9518,6 +9576,14 @@ func (j *jsiiProxy_Calculator) validateSetStringStyleParameters(val composition.
 	return nil
 }
 
+func (j *jsiiProxy_Calculator) validateSetUnionPropertyParameters(val interface{}) error {
+	return nil
+}
+
+func validateNewCalculatorParameters(props *CalculatorProps) error {
+	return nil
+}
+
 
 `;
 
@@ -9528,7 +9594,9 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Calculato
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
@@ -9536,7 +9604,7 @@ import (
 
 func (c *jsiiProxy_Calculator) validateAddParameters(value *float64) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -9544,7 +9612,7 @@ func (c *jsiiProxy_Calculator) validateAddParameters(value *float64) error {
 
 func (c *jsiiProxy_Calculator) validateMulParameters(value *float64) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -9552,7 +9620,7 @@ func (c *jsiiProxy_Calculator) validateMulParameters(value *float64) error {
 
 func (c *jsiiProxy_Calculator) validatePowParameters(value *float64) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -9560,7 +9628,7 @@ func (c *jsiiProxy_Calculator) validatePowParameters(value *float64) error {
 
 func (j *jsiiProxy_Calculator) validateSetCurrParameters(val scopejsiicalclib.NumericValue) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -9568,7 +9636,7 @@ func (j *jsiiProxy_Calculator) validateSetCurrParameters(val scopejsiicalclib.Nu
 
 func (j *jsiiProxy_Calculator) validateSetDecorationPostfixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -9576,7 +9644,7 @@ func (j *jsiiProxy_Calculator) validateSetDecorationPostfixesParameters(val *[]*
 
 func (j *jsiiProxy_Calculator) validateSetDecorationPrefixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -9584,7 +9652,30 @@ func (j *jsiiProxy_Calculator) validateSetDecorationPrefixesParameters(val *[]*s
 
 func (j *jsiiProxy_Calculator) validateSetStringStyleParameters(val composition.CompositeOperation_CompositionStringStyle) error {
 	if val == "" {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
+	}
+
+	return nil
+}
+
+func (j *jsiiProxy_Calculator) validateSetUnionPropertyParameters(val interface{}) error {
+	switch val.(type) {
+	case Add:
+		// ok
+	case Multiply:
+		// ok
+	case Power:
+		// ok
+	default:
+		return fmt.Errorf("parameter val must be one of the allowed types: Add, Multiply, Power; received %#v (a %T)", val, val)
+	}
+
+	return nil
+}
+
+func validateNewCalculatorParameters(props *CalculatorProps) error {
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	return nil
@@ -9796,12 +9887,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassThat
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetAParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -9809,7 +9900,7 @@ func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetAParamete
 
 func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetBParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -9817,7 +9908,7 @@ func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetBParamete
 
 func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetCParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -9825,7 +9916,7 @@ func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetCParamete
 
 func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetDParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10006,12 +10097,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassThat
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetAParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10019,7 +10110,7 @@ func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetAParameter
 
 func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetBParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10027,7 +10118,7 @@ func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetBParameter
 
 func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetCParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10035,7 +10126,7 @@ func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetCParameter
 
 func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetEParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10141,12 +10232,30 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWith
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func (j *jsiiProxy_ClassWithCollectionOfUnions) validateSetUnionPropertyParameters(val *[]*map[string]interface{}) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
+	}
+	for idx_97dfc6, v := range *val {
+		for idx_4c9448, v := range *v {
+			switch v.(type) {
+			case *StructA:
+				if err := _jsii_.ValidateStruct(v.(*StructA), fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
+					return err
+				}
+			case *StructB:
+				if err := _jsii_.ValidateStruct(v.(*StructB), fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
+					return err
+				}
+			default:
+				return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
+			}
+		}
 	}
 
 	return nil
@@ -10154,7 +10263,23 @@ func (j *jsiiProxy_ClassWithCollectionOfUnions) validateSetUnionPropertyParamete
 
 func validateNewClassWithCollectionOfUnionsParameters(unionProperty *[]*map[string]interface{}) error {
 	if unionProperty == nil {
-		return errors.New("parameter unionProperty is required, but nil was provided")
+		return fmt.Errorf("parameter unionProperty is required, but nil was provided")
+	}
+	for idx_7e4c6f, v := range *unionProperty {
+		for idx_4c9448, v := range *v {
+			switch v.(type) {
+			case *StructA:
+				if err := _jsii_.ValidateStruct(v.(*StructA), fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
+					return err
+				}
+			case *StructB:
+				if err := _jsii_.ValidateStruct(v.(*StructB), fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
+					return err
+				}
+			default:
+				return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
+			}
+		}
 	}
 
 	return nil
@@ -10371,12 +10496,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWith
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_ClassWithCollections) validateSetArrayParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10384,7 +10509,7 @@ func (j *jsiiProxy_ClassWithCollections) validateSetArrayParameters(val *[]*stri
 
 func (j *jsiiProxy_ClassWithCollections) validateSetMapParameters(val *map[string]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10392,7 +10517,7 @@ func (j *jsiiProxy_ClassWithCollections) validateSetMapParameters(val *map[strin
 
 func validateClassWithCollections_SetStaticArrayParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10400,7 +10525,7 @@ func validateClassWithCollections_SetStaticArrayParameters(val *[]*string) error
 
 func validateClassWithCollections_SetStaticMapParameters(val *map[string]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10408,11 +10533,11 @@ func validateClassWithCollections_SetStaticMapParameters(val *map[string]*string
 
 func validateNewClassWithCollectionsParameters(map_ *map[string]*string, array *[]*string) error {
 	if map_ == nil {
-		return errors.New("parameter map_ is required, but nil was provided")
+		return fmt.Errorf("parameter map_ is required, but nil was provided")
 	}
 
 	if array == nil {
-		return errors.New("parameter array is required, but nil was provided")
+		return fmt.Errorf("parameter array is required, but nil was provided")
 	}
 
 	return nil
@@ -10486,7 +10611,7 @@ func (j *jsiiProxy_ClassWithContainerTypes) Record() *map[string]*DummyObj {
 func NewClassWithContainerTypes(array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj, props *ContainerProps) ClassWithContainerTypes {
 	_init_.Initialize()
 
-	if err := validateNewClassWithContainerTypesParameters(array, record, obj); err != nil {
+	if err := validateNewClassWithContainerTypesParameters(array, record, obj, props); err != nil {
 		panic(err)
 	}
 	j := jsiiProxy_ClassWithContainerTypes{}
@@ -10521,7 +10646,7 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateNewClassWithContainerTypesParameters(array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj) error {
+func validateNewClassWithContainerTypesParameters(array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj, props *ContainerProps) error {
 	return nil
 }
 
@@ -10535,20 +10660,41 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWith
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
-func validateNewClassWithContainerTypesParameters(array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj) error {
+func validateNewClassWithContainerTypesParameters(array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj, props *ContainerProps) error {
 	if array == nil {
-		return errors.New("parameter array is required, but nil was provided")
+		return fmt.Errorf("parameter array is required, but nil was provided")
+	}
+	for idx_dbe42c, v := range *array {
+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter array[%v]", idx_dbe42c)); err != nil {
+			return err
+		}
 	}
 
 	if record == nil {
-		return errors.New("parameter record is required, but nil was provided")
+		return fmt.Errorf("parameter record is required, but nil was provided")
+	}
+	for idx_70ce87, v := range *record {
+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter record[%v]", idx_70ce87)); err != nil {
+			return err
+		}
 	}
 
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
+	}
+	for idx_772a5f, v := range *obj {
+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter obj[%v]", idx_772a5f)); err != nil {
+			return err
+		}
+	}
+
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	return nil
@@ -10713,12 +10859,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWith
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (c *jsiiProxy_ClassWithJavaReservedWords) validateImportParameters(assert *string) error {
 	if assert == nil {
-		return errors.New("parameter assert is required, but nil was provided")
+		return fmt.Errorf("parameter assert is required, but nil was provided")
 	}
 
 	return nil
@@ -10726,7 +10872,7 @@ func (c *jsiiProxy_ClassWithJavaReservedWords) validateImportParameters(assert *
 
 func validateNewClassWithJavaReservedWordsParameters(int *string) error {
 	if int == nil {
-		return errors.New("parameter int is required, but nil was provided")
+		return fmt.Errorf("parameter int is required, but nil was provided")
 	}
 
 	return nil
@@ -10825,12 +10971,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWith
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_ClassWithMutableObjectLiteralProperty) validateSetMutableObjectParameters(val IMutableObjectLiteral) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -10896,7 +11042,7 @@ func (j *jsiiProxy_ClassWithPrivateConstructorAndAutomaticProperties)SetReadWrit
 func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString *string, readWriteString *string) ClassWithPrivateConstructorAndAutomaticProperties {
 	_init_.Initialize()
 
-	if err := validateCreateParameters(readOnlyString, readWriteString); err != nil {
+	if err := validateClassWithPrivateConstructorAndAutomaticProperties_CreateParameters(readOnlyString, readWriteString); err != nil {
 		panic(err)
 	}
 	var returns ClassWithPrivateConstructorAndAutomaticProperties
@@ -10922,7 +11068,7 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateCreateParameters(readOnlyString *string, readWriteString *string) error {
+func validateClassWithPrivateConstructorAndAutomaticProperties_CreateParameters(readOnlyString *string, readWriteString *string) error {
 	return nil
 }
 
@@ -10940,16 +11086,16 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWith
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
-func validateCreateParameters(readOnlyString *string, readWriteString *string) error {
+func validateClassWithPrivateConstructorAndAutomaticProperties_CreateParameters(readOnlyString *string, readWriteString *string) error {
 	if readOnlyString == nil {
-		return errors.New("parameter readOnlyString is required, but nil was provided")
+		return fmt.Errorf("parameter readOnlyString is required, but nil was provided")
 	}
 
 	if readWriteString == nil {
-		return errors.New("parameter readWriteString is required, but nil was provided")
+		return fmt.Errorf("parameter readWriteString is required, but nil was provided")
 	}
 
 	return nil
@@ -10957,7 +11103,7 @@ func validateCreateParameters(readOnlyString *string, readWriteString *string) e
 
 func (j *jsiiProxy_ClassWithPrivateConstructorAndAutomaticProperties) validateSetReadWriteStringParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -11000,6 +11146,9 @@ func (j *jsiiProxy_ConfusingToJackson) UnionProperty() interface{} {
 
 
 func (j *jsiiProxy_ConfusingToJackson)SetUnionProperty(val interface{}) {
+	if err := j.validateSetUnionPropertyParameters(val); err != nil {
+		panic(err)
+	}
 	_jsii_.Set(
 		j,
 		"unionProperty",
@@ -11035,6 +11184,58 @@ func ConfusingToJackson_MakeStructInstance() *ConfusingToJacksonStruct {
 	)
 
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConfusingToJackson__no_runtime_type_checks.go 1`] = `
+//go:build no_runtime_type_checks
+
+// A simple calcuator built on JSII.
+package jsiicalc
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val interface{}) error {
+	return nil
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConfusingToJackson__runtime_type_checks.go 1`] = `
+//go:build !no_runtime_type_checks
+
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	"fmt"
+
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
+
+func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val interface{}) error {
+	switch val.(type) {
+	case scopejsiicalclib.IFriendly:
+		// ok
+	case *[]interface{}, []interface{}:
+		for idx_df4296, v := range *val.(*[]interface{}) {
+			switch v.(type) {
+			case scopejsiicalclib.IFriendly:
+				// ok
+			case AbstractClass:
+				// ok
+			default:
+				return fmt.Errorf("parameter val[%v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_df4296, v, v)
+			}
+		}
+	default:
+		return fmt.Errorf("parameter val must be one of the allowed types: scopejsiicalclib.IFriendly, *[]interface{}; received %#v (a %T)", val, val)
+	}
+
+	return nil
 }
 
 
@@ -11121,12 +11322,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Construct
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewConstructorPassesThisOutParameters(consumer PartiallyInitializedThisConsumer) error {
 	if consumer == nil {
-		return errors.New("parameter consumer is required, but nil was provided")
+		return fmt.Errorf("parameter consumer is required, but nil was provided")
 	}
 
 	return nil
@@ -11367,12 +11568,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumePu
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewConsumePureInterfaceParameters(delegate IStructReturningDelegate) error {
 	if delegate == nil {
-		return errors.New("parameter delegate is required, but nil was provided")
+		return fmt.Errorf("parameter delegate is required, but nil was provided")
 	}
 
 	return nil
@@ -11448,7 +11649,7 @@ func NewConsumerCanRingBell_Override(c ConsumerCanRingBell) {
 func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRinger) *bool {
 	_init_.Initialize()
 
-	if err := validateStaticImplementedByObjectLiteralParameters(ringer); err != nil {
+	if err := validateConsumerCanRingBell_StaticImplementedByObjectLiteralParameters(ringer); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -11469,7 +11670,7 @@ func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRinger) *b
 func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRinger) *bool {
 	_init_.Initialize()
 
-	if err := validateStaticImplementedByPrivateClassParameters(ringer); err != nil {
+	if err := validateConsumerCanRingBell_StaticImplementedByPrivateClassParameters(ringer); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -11490,7 +11691,7 @@ func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRinger) *bo
 func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRinger) *bool {
 	_init_.Initialize()
 
-	if err := validateStaticImplementedByPublicClassParameters(ringer); err != nil {
+	if err := validateConsumerCanRingBell_StaticImplementedByPublicClassParameters(ringer); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -11511,7 +11712,7 @@ func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRinger) *boo
 func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRinger) *bool {
 	_init_.Initialize()
 
-	if err := validateStaticWhenTypedAsClassParameters(ringer); err != nil {
+	if err := validateConsumerCanRingBell_StaticWhenTypedAsClassParameters(ringer); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -11617,19 +11818,19 @@ func (c *jsiiProxy_ConsumerCanRingBell) validateWhenTypedAsClassParameters(ringe
 	return nil
 }
 
-func validateStaticImplementedByObjectLiteralParameters(ringer IBellRinger) error {
+func validateConsumerCanRingBell_StaticImplementedByObjectLiteralParameters(ringer IBellRinger) error {
 	return nil
 }
 
-func validateStaticImplementedByPrivateClassParameters(ringer IBellRinger) error {
+func validateConsumerCanRingBell_StaticImplementedByPrivateClassParameters(ringer IBellRinger) error {
 	return nil
 }
 
-func validateStaticImplementedByPublicClassParameters(ringer IBellRinger) error {
+func validateConsumerCanRingBell_StaticImplementedByPublicClassParameters(ringer IBellRinger) error {
 	return nil
 }
 
-func validateStaticWhenTypedAsClassParameters(ringer IConcreteBellRinger) error {
+func validateConsumerCanRingBell_StaticWhenTypedAsClassParameters(ringer IConcreteBellRinger) error {
 	return nil
 }
 
@@ -11643,12 +11844,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumerC
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (c *jsiiProxy_ConsumerCanRingBell) validateImplementedByObjectLiteralParameters(ringer IBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
@@ -11656,7 +11857,7 @@ func (c *jsiiProxy_ConsumerCanRingBell) validateImplementedByObjectLiteralParame
 
 func (c *jsiiProxy_ConsumerCanRingBell) validateImplementedByPrivateClassParameters(ringer IBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
@@ -11664,7 +11865,7 @@ func (c *jsiiProxy_ConsumerCanRingBell) validateImplementedByPrivateClassParamet
 
 func (c *jsiiProxy_ConsumerCanRingBell) validateImplementedByPublicClassParameters(ringer IBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
@@ -11672,39 +11873,39 @@ func (c *jsiiProxy_ConsumerCanRingBell) validateImplementedByPublicClassParamete
 
 func (c *jsiiProxy_ConsumerCanRingBell) validateWhenTypedAsClassParameters(ringer IConcreteBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
 }
 
-func validateStaticImplementedByObjectLiteralParameters(ringer IBellRinger) error {
+func validateConsumerCanRingBell_StaticImplementedByObjectLiteralParameters(ringer IBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
 }
 
-func validateStaticImplementedByPrivateClassParameters(ringer IBellRinger) error {
+func validateConsumerCanRingBell_StaticImplementedByPrivateClassParameters(ringer IBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
 }
 
-func validateStaticImplementedByPublicClassParameters(ringer IBellRinger) error {
+func validateConsumerCanRingBell_StaticImplementedByPublicClassParameters(ringer IBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
 }
 
-func validateStaticWhenTypedAsClassParameters(ringer IConcreteBellRinger) error {
+func validateConsumerCanRingBell_StaticWhenTypedAsClassParameters(ringer IConcreteBellRinger) error {
 	if ringer == nil {
-		return errors.New("parameter ringer is required, but nil was provided")
+		return fmt.Errorf("parameter ringer is required, but nil was provided")
 	}
 
 	return nil
@@ -11817,12 +12018,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Consumers
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (c *jsiiProxy_ConsumersOfThisCrazyTypeSystem) validateConsumeAnotherPublicInterfaceParameters(obj IAnotherPublicInterface) error {
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
 	}
 
 	return nil
@@ -11830,7 +12031,7 @@ func (c *jsiiProxy_ConsumersOfThisCrazyTypeSystem) validateConsumeAnotherPublicI
 
 func (c *jsiiProxy_ConsumersOfThisCrazyTypeSystem) validateConsumeNonInternalInterfaceParameters(obj INonInternalInterface) error {
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
 	}
 
 	return nil
@@ -11901,6 +12102,9 @@ func NewDataRenderer_Override(d DataRenderer) {
 }
 
 func (d *jsiiProxy_DataRenderer) Render(data *scopejsiicalclib.MyFirstStruct) *string {
+	if err := d.validateRenderParameters(data); err != nil {
+		panic(err)
+	}
 	var returns *string
 
 	_jsii_.Invoke(
@@ -11956,6 +12160,10 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
+func (d *jsiiProxy_DataRenderer) validateRenderParameters(data *scopejsiicalclib.MyFirstStruct) error {
+	return nil
+}
+
 func (d *jsiiProxy_DataRenderer) validateRenderArbitraryParameters(data *map[string]interface{}) error {
 	return nil
 }
@@ -11974,12 +12182,24 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DataRende
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
+
+func (d *jsiiProxy_DataRenderer) validateRenderParameters(data *scopejsiicalclib.MyFirstStruct) error {
+	if err := _jsii_.ValidateStruct(data, "parameter data"); err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func (d *jsiiProxy_DataRenderer) validateRenderArbitraryParameters(data *map[string]interface{}) error {
 	if data == nil {
-		return errors.New("parameter data is required, but nil was provided")
+		return fmt.Errorf("parameter data is required, but nil was provided")
 	}
 
 	return nil
@@ -11987,7 +12207,7 @@ func (d *jsiiProxy_DataRenderer) validateRenderArbitraryParameters(data *map[str
 
 func (d *jsiiProxy_DataRenderer) validateRenderMapParameters(map_ *map[string]interface{}) error {
 	if map_ == nil {
-		return errors.New("parameter map_ is required, but nil was provided")
+		return fmt.Errorf("parameter map_ is required, but nil was provided")
 	}
 
 	return nil
@@ -12329,12 +12549,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Deprecate
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewDeprecatedClassParameters(readonlyString *string) error {
 	if readonlyString == nil {
-		return errors.New("parameter readonlyString is required, but nil was provided")
+		return fmt.Errorf("parameter readonlyString is required, but nil was provided")
 	}
 
 	return nil
@@ -12633,12 +12853,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DoNotOver
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (d *jsiiProxy_DoNotOverridePrivates) validateChangePrivatePropertyValueParameters(newValue *string) error {
 	if newValue == nil {
-		return errors.New("parameter newValue is required, but nil was provided")
+		return fmt.Errorf("parameter newValue is required, but nil was provided")
 	}
 
 	return nil
@@ -12726,12 +12946,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DoNotReco
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (d *jsiiProxy_DoNotRecognizeAnyAsOptional) validateMethodParameters(_requiredAny interface{}) error {
 	if _requiredAny == nil {
-		return errors.New("parameter _requiredAny is required, but nil was provided")
+		return fmt.Errorf("parameter _requiredAny is required, but nil was provided")
 	}
 
 	return nil
@@ -12805,6 +13025,9 @@ func NewDocumentedClass_Override(d DocumentedClass) {
 }
 
 func (d *jsiiProxy_DocumentedClass) Greet(greetee *Greetee) *float64 {
+	if err := d.validateGreetParameters(greetee); err != nil {
+		panic(err)
+	}
 	var returns *float64
 
 	_jsii_.Invoke(
@@ -12823,6 +13046,42 @@ func (d *jsiiProxy_DocumentedClass) Hola() {
 		"hola",
 		nil, // no parameters
 	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DocumentedClass__no_runtime_type_checks.go 1`] = `
+//go:build no_runtime_type_checks
+
+// A simple calcuator built on JSII.
+package jsiicalc
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func (d *jsiiProxy_DocumentedClass) validateGreetParameters(greetee *Greetee) error {
+	return nil
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DocumentedClass__runtime_type_checks.go 1`] = `
+//go:build !no_runtime_type_checks
+
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func (d *jsiiProxy_DocumentedClass) validateGreetParameters(greetee *Greetee) error {
+	if err := _jsii_.ValidateStruct(greetee, "parameter greetee"); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 
@@ -12916,12 +13175,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DontCompl
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) validateOptionalAndVariadicParameters(things []*string) error {
 	if things == nil {
-		return errors.New("parameter things is required, but nil was provided")
+		return fmt.Errorf("parameter things is required, but nil was provided")
 	}
 
 	return nil
@@ -13142,12 +13401,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DynamicPr
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_DynamicPropertyBearer) validateSetDynamicPropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -13155,7 +13414,7 @@ func (j *jsiiProxy_DynamicPropertyBearer) validateSetDynamicPropertyParameters(v
 
 func (j *jsiiProxy_DynamicPropertyBearer) validateSetValueStoreParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -13163,7 +13422,7 @@ func (j *jsiiProxy_DynamicPropertyBearer) validateSetValueStoreParameters(val *s
 
 func validateNewDynamicPropertyBearerParameters(valueStore *string) error {
 	if valueStore == nil {
-		return errors.New("parameter valueStore is required, but nil was provided")
+		return fmt.Errorf("parameter valueStore is required, but nil was provided")
 	}
 
 	return nil
@@ -13332,12 +13591,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DynamicPr
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (d *jsiiProxy_DynamicPropertyBearerChild) validateOverrideValueParameters(newValue *string) error {
 	if newValue == nil {
-		return errors.New("parameter newValue is required, but nil was provided")
+		return fmt.Errorf("parameter newValue is required, but nil was provided")
 	}
 
 	return nil
@@ -13345,7 +13604,7 @@ func (d *jsiiProxy_DynamicPropertyBearerChild) validateOverrideValueParameters(n
 
 func (j *jsiiProxy_DynamicPropertyBearerChild) validateSetDynamicPropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -13353,7 +13612,7 @@ func (j *jsiiProxy_DynamicPropertyBearerChild) validateSetDynamicPropertyParamet
 
 func (j *jsiiProxy_DynamicPropertyBearerChild) validateSetValueStoreParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -13361,7 +13620,7 @@ func (j *jsiiProxy_DynamicPropertyBearerChild) validateSetValueStoreParameters(v
 
 func validateNewDynamicPropertyBearerChildParameters(originalValue *string) error {
 	if originalValue == nil {
-		return errors.New("parameter originalValue is required, but nil was provided")
+		return fmt.Errorf("parameter originalValue is required, but nil was provided")
 	}
 
 	return nil
@@ -13465,12 +13724,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Entropy__
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (e *jsiiProxy_Entropy) validateRepeatParameters(word *string) error {
 	if word == nil {
-		return errors.New("parameter word is required, but nil was provided")
+		return fmt.Errorf("parameter word is required, but nil was provided")
 	}
 
 	return nil
@@ -13478,7 +13737,7 @@ func (e *jsiiProxy_Entropy) validateRepeatParameters(word *string) error {
 
 func validateNewEntropyParameters(clock IWallClock) error {
 	if clock == nil {
-		return errors.New("parameter clock is required, but nil was provided")
+		return fmt.Errorf("parameter clock is required, but nil was provided")
 	}
 
 	return nil
@@ -13585,7 +13844,7 @@ func NewEraseUndefinedHashValues_Override(e EraseUndefinedHashValues) {
 func EraseUndefinedHashValues_DoesKeyExist(opts *EraseUndefinedHashValuesOptions, key *string) *bool {
 	_init_.Initialize()
 
-	if err := validateDoesKeyExistParameters(opts, key); err != nil {
+	if err := validateEraseUndefinedHashValues_DoesKeyExistParameters(opts, key); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -13643,7 +13902,7 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateDoesKeyExistParameters(opts *EraseUndefinedHashValuesOptions, key *string) error {
+func validateEraseUndefinedHashValues_DoesKeyExistParameters(opts *EraseUndefinedHashValuesOptions, key *string) error {
 	return nil
 }
 
@@ -13657,16 +13916,21 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_EraseUnde
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
-func validateDoesKeyExistParameters(opts *EraseUndefinedHashValuesOptions, key *string) error {
+func validateEraseUndefinedHashValues_DoesKeyExistParameters(opts *EraseUndefinedHashValuesOptions, key *string) error {
 	if opts == nil {
-		return errors.New("parameter opts is required, but nil was provided")
+		return fmt.Errorf("parameter opts is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(opts, "parameter opts"); err != nil {
+		return err
 	}
 
 	if key == nil {
-		return errors.New("parameter key is required, but nil was provided")
+		return fmt.Errorf("parameter key is required, but nil was provided")
 	}
 
 	return nil
@@ -13805,12 +14069,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Experimen
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewExperimentalClassParameters(readonlyString *string) error {
 	if readonlyString == nil {
-		return errors.New("parameter readonlyString is required, but nil was provided")
+		return fmt.Errorf("parameter readonlyString is required, but nil was provided")
 	}
 
 	return nil
@@ -13932,12 +14196,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExportedB
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewExportedBaseClassParameters(success *bool) error {
 	if success == nil {
-		return errors.New("parameter success is required, but nil was provided")
+		return fmt.Errorf("parameter success is required, but nil was provided")
 	}
 
 	return nil
@@ -14069,12 +14333,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExternalC
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewExternalClassParameters(readonlyString *string) error {
 	if readonlyString == nil {
-		return errors.New("parameter readonlyString is required, but nil was provided")
+		return fmt.Errorf("parameter readonlyString is required, but nil was provided")
 	}
 
 	return nil
@@ -14300,14 +14564,19 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_GiveMeStr
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func (g *jsiiProxy_GiveMeStructs) validateDerivedToFirstParameters(derived *DerivedStruct) error {
 	if derived == nil {
-		return errors.New("parameter derived is required, but nil was provided")
+		return fmt.Errorf("parameter derived is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(derived, "parameter derived"); err != nil {
+		return err
 	}
 
 	return nil
@@ -14315,7 +14584,10 @@ func (g *jsiiProxy_GiveMeStructs) validateDerivedToFirstParameters(derived *Deri
 
 func (g *jsiiProxy_GiveMeStructs) validateReadDerivedNonPrimitiveParameters(derived *DerivedStruct) error {
 	if derived == nil {
-		return errors.New("parameter derived is required, but nil was provided")
+		return fmt.Errorf("parameter derived is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(derived, "parameter derived"); err != nil {
+		return err
 	}
 
 	return nil
@@ -14323,7 +14595,10 @@ func (g *jsiiProxy_GiveMeStructs) validateReadDerivedNonPrimitiveParameters(deri
 
 func (g *jsiiProxy_GiveMeStructs) validateReadFirstNumberParameters(first *scopejsiicalclib.MyFirstStruct) error {
 	if first == nil {
-		return errors.New("parameter first is required, but nil was provided")
+		return fmt.Errorf("parameter first is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(first, "parameter first"); err != nil {
+		return err
 	}
 
 	return nil
@@ -14431,14 +14706,14 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_GreetingA
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func (g *jsiiProxy_GreetingAugmenter) validateBetterGreetingParameters(friendly scopejsiicalclib.IFriendly) error {
 	if friendly == nil {
-		return errors.New("parameter friendly is required, but nil was provided")
+		return fmt.Errorf("parameter friendly is required, but nil was provided")
 	}
 
 	return nil
@@ -14603,12 +14878,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IAnotherP
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_IAnotherPublicInterface) validateSetAParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -14699,12 +14974,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IBellRing
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (i *jsiiProxy_IBellRinger) validateYourTurnParameters(bell IBell) error {
 	if bell == nil {
-		return errors.New("parameter bell is required, but nil was provided")
+		return fmt.Errorf("parameter bell is required, but nil was provided")
 	}
 
 	return nil
@@ -14767,12 +15042,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IConcrete
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (i *jsiiProxy_IConcreteBellRinger) validateYourTurnParameters(bell Bell) error {
 	if bell == nil {
-		return errors.New("parameter bell is required, but nil was provided")
+		return fmt.Errorf("parameter bell is required, but nil was provided")
 	}
 
 	return nil
@@ -14960,12 +15235,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IExtendsP
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_IExtendsPrivateInterface) validateSetPrivateParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -15357,12 +15632,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfac
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (i *jsiiProxy_IInterfaceWithOptionalMethodArguments) validateHelloParameters(arg1 *string) error {
 	if arg1 == nil {
-		return errors.New("parameter arg1 is required, but nil was provided")
+		return fmt.Errorf("parameter arg1 is required, but nil was provided")
 	}
 
 	return nil
@@ -15446,12 +15721,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfac
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_IInterfaceWithProperties) validateSetReadWriteStringParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -15525,12 +15800,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfac
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_IInterfaceWithPropertiesExtension) validateSetFooParameters(val *float64) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -16228,12 +16503,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IMutableO
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_IMutableObjectLiteral) validateSetValueParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -16334,12 +16609,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_INonInter
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_INonInternalInterface) validateSetBParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -16347,7 +16622,7 @@ func (j *jsiiProxy_INonInternalInterface) validateSetBParameters(val *string) er
 
 func (j *jsiiProxy_INonInternalInterface) validateSetCParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -16435,12 +16710,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IObjectWi
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_IObjectWithProperty) validateSetPropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -16900,12 +17175,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Implement
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_ImplementInternalInterface) validateSetPropParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -17168,12 +17443,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Implement
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_ImplementsPrivateInterface) validateSetPrivateParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -17377,7 +17652,7 @@ type jsiiProxy_InterfacesMaker struct {
 func InterfacesMaker_MakeInterfaces(count *float64) *[]scopejsiicalclib.IDoublable {
 	_init_.Initialize()
 
-	if err := validateMakeInterfacesParameters(count); err != nil {
+	if err := validateInterfacesMaker_MakeInterfacesParameters(count); err != nil {
 		panic(err)
 	}
 	var returns *[]scopejsiicalclib.IDoublable
@@ -17403,7 +17678,7 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateMakeInterfacesParameters(count *float64) error {
+func validateInterfacesMaker_MakeInterfacesParameters(count *float64) error {
 	return nil
 }
 
@@ -17417,12 +17692,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Interface
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
-func validateMakeInterfacesParameters(count *float64) error {
+func validateInterfacesMaker_MakeInterfacesParameters(count *float64) error {
 	if count == nil {
-		return errors.New("parameter count is required, but nil was provided")
+		return fmt.Errorf("parameter count is required, but nil was provided")
 	}
 
 	return nil
@@ -17711,12 +17986,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JSII417De
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewJSII417DerivedParameters(property *string) error {
 	if property == nil {
-		return errors.New("parameter property is required, but nil was provided")
+		return fmt.Errorf("parameter property is required, but nil was provided")
 	}
 
 	return nil
@@ -18054,12 +18329,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JSObjectL
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_JSObjectLiteralToNativeClass) validateSetPropAParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -18067,7 +18342,7 @@ func (j *jsiiProxy_JSObjectLiteralToNativeClass) validateSetPropAParameters(val 
 
 func (j *jsiiProxy_JSObjectLiteralToNativeClass) validateSetPropBParameters(val *float64) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -18634,12 +18909,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JavaReser
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_JavaReservedWords) validateSetWhileParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -19111,12 +19386,17 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_LevelOne_
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func validateNewLevelOneParameters(props *LevelOneProps) error {
 	if props == nil {
-		return errors.New("parameter props is required, but nil was provided")
+		return fmt.Errorf("parameter props is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	return nil
@@ -19485,18 +19765,18 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Multiply_
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func validateNewMultiplyParameters(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) error {
 	if lhs == nil {
-		return errors.New("parameter lhs is required, but nil was provided")
+		return fmt.Errorf("parameter lhs is required, but nil was provided")
 	}
 
 	if rhs == nil {
-		return errors.New("parameter rhs is required, but nil was provided")
+		return fmt.Errorf("parameter rhs is required, but nil was provided")
 	}
 
 	return nil
@@ -19679,14 +19959,14 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Negate__r
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func validateNewNegateParameters(operand scopejsiicalclib.NumericValue) error {
 	if operand == nil {
-		return errors.New("parameter operand is required, but nil was provided")
+		return fmt.Errorf("parameter operand is required, but nil was provided")
 	}
 
 	return nil
@@ -19979,12 +20259,17 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_NullShoul
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func (n *jsiiProxy_NullShouldBeTreatedAsUndefined) validateGiveMeUndefinedInsideAnObjectParameters(input *NullShouldBeTreatedAsUndefinedData) error {
 	if input == nil {
-		return errors.New("parameter input is required, but nil was provided")
+		return fmt.Errorf("parameter input is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
+		return err
 	}
 
 	return nil
@@ -19992,7 +20277,7 @@ func (n *jsiiProxy_NullShouldBeTreatedAsUndefined) validateGiveMeUndefinedInside
 
 func validateNewNullShouldBeTreatedAsUndefinedParameters(_param1 *string) error {
 	if _param1 == nil {
-		return errors.New("parameter _param1 is required, but nil was provided")
+		return fmt.Errorf("parameter _param1 is required, but nil was provided")
 	}
 
 	return nil
@@ -20147,12 +20432,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_NumberGen
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (n *jsiiProxy_NumberGenerator) validateIsSameGeneratorParameters(gen IRandomNumberGenerator) error {
 	if gen == nil {
-		return errors.New("parameter gen is required, but nil was provided")
+		return fmt.Errorf("parameter gen is required, but nil was provided")
 	}
 
 	return nil
@@ -20160,7 +20445,7 @@ func (n *jsiiProxy_NumberGenerator) validateIsSameGeneratorParameters(gen IRando
 
 func (j *jsiiProxy_NumberGenerator) validateSetGeneratorParameters(val IRandomNumberGenerator) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -20168,7 +20453,7 @@ func (j *jsiiProxy_NumberGenerator) validateSetGeneratorParameters(val IRandomNu
 
 func validateNewNumberGeneratorParameters(generator IRandomNumberGenerator) error {
 	if generator == nil {
-		return errors.New("parameter generator is required, but nil was provided")
+		return fmt.Errorf("parameter generator is required, but nil was provided")
 	}
 
 	return nil
@@ -20286,14 +20571,14 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ObjectRef
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func (o *jsiiProxy_ObjectRefsInCollections) validateSumFromArrayParameters(values *[]scopejsiicalclib.NumericValue) error {
 	if values == nil {
-		return errors.New("parameter values is required, but nil was provided")
+		return fmt.Errorf("parameter values is required, but nil was provided")
 	}
 
 	return nil
@@ -20301,7 +20586,7 @@ func (o *jsiiProxy_ObjectRefsInCollections) validateSumFromArrayParameters(value
 
 func (o *jsiiProxy_ObjectRefsInCollections) validateSumFromMapParameters(values *map[string]scopejsiicalclib.NumericValue) error {
 	if values == nil {
-		return errors.New("parameter values is required, but nil was provided")
+		return fmt.Errorf("parameter values is required, but nil was provided")
 	}
 
 	return nil
@@ -20495,12 +20780,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalA
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewOptionalArgumentInvokerParameters(delegate IInterfaceWithOptionalMethodArguments) error {
 	if delegate == nil {
-		return errors.New("parameter delegate is required, but nil was provided")
+		return fmt.Errorf("parameter delegate is required, but nil was provided")
 	}
 
 	return nil
@@ -20614,16 +20899,16 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalC
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewOptionalConstructorArgumentParameters(arg1 *float64, arg2 *string) error {
 	if arg1 == nil {
-		return errors.New("parameter arg1 is required, but nil was provided")
+		return fmt.Errorf("parameter arg1 is required, but nil was provided")
 	}
 
 	if arg2 == nil {
-		return errors.New("parameter arg2 is required, but nil was provided")
+		return fmt.Errorf("parameter arg2 is required, but nil was provided")
 	}
 
 	return nil
@@ -20687,6 +20972,9 @@ func (j *jsiiProxy_OptionalStructConsumer) ParameterWasUndefined() *bool {
 func NewOptionalStructConsumer(optionalStruct *OptionalStruct) OptionalStructConsumer {
 	_init_.Initialize()
 
+	if err := validateNewOptionalStructConsumerParameters(optionalStruct); err != nil {
+		panic(err)
+	}
 	j := jsiiProxy_OptionalStructConsumer{}
 
 	_jsii_.Create(
@@ -20706,6 +20994,42 @@ func NewOptionalStructConsumer_Override(o OptionalStructConsumer, optionalStruct
 		[]interface{}{optionalStruct},
 		o,
 	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalStructConsumer__no_runtime_type_checks.go 1`] = `
+//go:build no_runtime_type_checks
+
+// A simple calcuator built on JSII.
+package jsiicalc
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func validateNewOptionalStructConsumerParameters(optionalStruct *OptionalStruct) error {
+	return nil
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalStructConsumer__runtime_type_checks.go 1`] = `
+//go:build !no_runtime_type_checks
+
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func validateNewOptionalStructConsumerParameters(optionalStruct *OptionalStruct) error {
+	if err := _jsii_.ValidateStruct(optionalStruct, "parameter optionalStruct"); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 
@@ -20851,12 +21175,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Overridab
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_OverridableProtectedMember) validateSetOverrideReadWriteParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -20948,12 +21272,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OverrideR
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (o *jsiiProxy_OverrideReturnsObject) validateTestParameters(obj IReturnsNumber) error {
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
 	}
 
 	return nil
@@ -21046,21 +21370,21 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Partially
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 	"time"
 )
 
 func (p *jsiiProxy_PartiallyInitializedThisConsumer) validateConsumePartiallyInitializedThisParameters(obj ConstructorPassesThisOut, dt *time.Time, ev AllTypesEnum) error {
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
 	}
 
 	if dt == nil {
-		return errors.New("parameter dt is required, but nil was provided")
+		return fmt.Errorf("parameter dt is required, but nil was provided")
 	}
 
 	if ev == "" {
-		return errors.New("parameter ev is required, but nil was provided")
+		return fmt.Errorf("parameter ev is required, but nil was provided")
 	}
 
 	return nil
@@ -21154,14 +21478,14 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Polymorph
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func (p *jsiiProxy_Polymorphism) validateSayHelloParameters(friendly scopejsiicalclib.IFriendly) error {
 	if friendly == nil {
-		return errors.New("parameter friendly is required, but nil was provided")
+		return fmt.Errorf("parameter friendly is required, but nil was provided")
 	}
 
 	return nil
@@ -21412,7 +21736,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Power__ru
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
@@ -21420,7 +21744,7 @@ import (
 
 func (j *jsiiProxy_Power) validateSetDecorationPostfixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -21428,7 +21752,7 @@ func (j *jsiiProxy_Power) validateSetDecorationPostfixesParameters(val *[]*strin
 
 func (j *jsiiProxy_Power) validateSetDecorationPrefixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -21436,7 +21760,7 @@ func (j *jsiiProxy_Power) validateSetDecorationPrefixesParameters(val *[]*string
 
 func (j *jsiiProxy_Power) validateSetStringStyleParameters(val composition.CompositeOperation_CompositionStringStyle) error {
 	if val == "" {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -21444,11 +21768,11 @@ func (j *jsiiProxy_Power) validateSetStringStyleParameters(val composition.Compo
 
 func validateNewPowerParameters(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericValue) error {
 	if base == nil {
-		return errors.New("parameter base is required, but nil was provided")
+		return fmt.Errorf("parameter base is required, but nil was provided")
 	}
 
 	if pow == nil {
-		return errors.New("parameter pow is required, but nil was provided")
+		return fmt.Errorf("parameter pow is required, but nil was provided")
 	}
 
 	return nil
@@ -22026,14 +22350,14 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Reference
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func (r *jsiiProxy_ReferenceEnumFromScopedPackage) validateSaveFooParameters(value scopejsiicalclib.EnumFromScopedModule) error {
 	if value == "" {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -22141,7 +22465,7 @@ type jsiiProxy_RootStructValidator struct {
 func RootStructValidator_Validate(struct_ *RootStruct) {
 	_init_.Initialize()
 
-	if err := validateValidateParameters(struct_); err != nil {
+	if err := validateRootStructValidator_ValidateParameters(struct_); err != nil {
 		panic(err)
 	}
 	_jsii_.StaticInvokeVoid(
@@ -22162,7 +22486,7 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateValidateParameters(struct_ *RootStruct) error {
+func validateRootStructValidator_ValidateParameters(struct_ *RootStruct) error {
 	return nil
 }
 
@@ -22176,12 +22500,17 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_RootStruc
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
-func validateValidateParameters(struct_ *RootStruct) error {
+func validateRootStructValidator_ValidateParameters(struct_ *RootStruct) error {
 	if struct_ == nil {
-		return errors.New("parameter struct_ is required, but nil was provided")
+		return fmt.Errorf("parameter struct_ is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
+		return err
 	}
 
 	return nil
@@ -22289,16 +22618,16 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_RuntimeTy
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (r *jsiiProxy_RuntimeTypeChecking) validateMethodWithOptionalArgumentsParameters(arg1 *float64, arg2 *string) error {
 	if arg1 == nil {
-		return errors.New("parameter arg1 is required, but nil was provided")
+		return fmt.Errorf("parameter arg1 is required, but nil was provided")
 	}
 
 	if arg2 == nil {
-		return errors.New("parameter arg2 is required, but nil was provided")
+		return fmt.Errorf("parameter arg2 is required, but nil was provided")
 	}
 
 	return nil
@@ -22460,12 +22789,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Singleton
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (s *jsiiProxy_SingletonInt) validateIsSingletonIntParameters(value *float64) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -22551,12 +22880,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Singleton
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (s *jsiiProxy_SingletonString) validateIsSingletonStringParameters(value *string) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -22778,12 +23107,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StableCla
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewStableClassParameters(readonlyString *string) error {
 	if readonlyString == nil {
-		return errors.New("parameter readonlyString is required, but nil was provided")
+		return fmt.Errorf("parameter readonlyString is required, but nil was provided")
 	}
 
 	return nil
@@ -22902,12 +23231,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StaticCon
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateStaticContext_SetStaticVariableParameters(val *bool) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -23089,7 +23418,7 @@ func NewStatics_Override(s Statics, value *string) {
 func Statics_StaticMethod(name *string) *string {
 	_init_.Initialize()
 
-	if err := validateStaticMethodParameters(name); err != nil {
+	if err := validateStatics_StaticMethodParameters(name); err != nil {
 		panic(err)
 	}
 	var returns *string
@@ -23218,7 +23547,7 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateStaticMethodParameters(name *string) error {
+func validateStatics_StaticMethodParameters(name *string) error {
 	return nil
 }
 
@@ -23244,12 +23573,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Statics__
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
-func validateStaticMethodParameters(name *string) error {
+func validateStatics_StaticMethodParameters(name *string) error {
 	if name == nil {
-		return errors.New("parameter name is required, but nil was provided")
+		return fmt.Errorf("parameter name is required, but nil was provided")
 	}
 
 	return nil
@@ -23257,7 +23586,7 @@ func validateStaticMethodParameters(name *string) error {
 
 func validateStatics_SetInstanceParameters(val Statics) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -23265,7 +23594,7 @@ func validateStatics_SetInstanceParameters(val Statics) error {
 
 func validateStatics_SetNonConstStaticParameters(val *float64) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -23273,7 +23602,7 @@ func validateStatics_SetNonConstStaticParameters(val *float64) error {
 
 func validateNewStaticsParameters(value *string) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -23388,12 +23717,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StripInte
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (j *jsiiProxy_StripInternal) validateSetYouSeeMeParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -23493,7 +23822,7 @@ func NewStructPassing_Override(s StructPassing) {
 func StructPassing_HowManyVarArgsDidIPass(_positional *float64, inputs ...*TopLevelStruct) *float64 {
 	_init_.Initialize()
 
-	if err := validateHowManyVarArgsDidIPassParameters(_positional, inputs); err != nil {
+	if err := validateStructPassing_HowManyVarArgsDidIPassParameters(_positional, inputs); err != nil {
 		panic(err)
 	}
 	args := []interface{}{_positional}
@@ -23516,7 +23845,7 @@ func StructPassing_HowManyVarArgsDidIPass(_positional *float64, inputs ...*TopLe
 func StructPassing_RoundTrip(_positional *float64, input *TopLevelStruct) *TopLevelStruct {
 	_init_.Initialize()
 
-	if err := validateRoundTripParameters(_positional, input); err != nil {
+	if err := validateStructPassing_RoundTripParameters(_positional, input); err != nil {
 		panic(err)
 	}
 	var returns *TopLevelStruct
@@ -23542,11 +23871,11 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateHowManyVarArgsDidIPassParameters(_positional *float64, inputs []*TopLevelStruct) error {
+func validateStructPassing_HowManyVarArgsDidIPassParameters(_positional *float64, inputs []*TopLevelStruct) error {
 	return nil
 }
 
-func validateRoundTripParameters(_positional *float64, input *TopLevelStruct) error {
+func validateStructPassing_RoundTripParameters(_positional *float64, input *TopLevelStruct) error {
 	return nil
 }
 
@@ -23560,28 +23889,36 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StructPas
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
-func validateHowManyVarArgsDidIPassParameters(_positional *float64, inputs []*TopLevelStruct) error {
+func validateStructPassing_HowManyVarArgsDidIPassParameters(_positional *float64, inputs []*TopLevelStruct) error {
 	if _positional == nil {
-		return errors.New("parameter _positional is required, but nil was provided")
+		return fmt.Errorf("parameter _positional is required, but nil was provided")
 	}
 
 	if inputs == nil {
-		return errors.New("parameter inputs is required, but nil was provided")
+		return fmt.Errorf("parameter inputs is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(inputs, "parameter inputs"); err != nil {
+		return err
 	}
 
 	return nil
 }
 
-func validateRoundTripParameters(_positional *float64, input *TopLevelStruct) error {
+func validateStructPassing_RoundTripParameters(_positional *float64, input *TopLevelStruct) error {
 	if _positional == nil {
-		return errors.New("parameter _positional is required, but nil was provided")
+		return fmt.Errorf("parameter _positional is required, but nil was provided")
 	}
 
 	if input == nil {
-		return errors.New("parameter input is required, but nil was provided")
+		return fmt.Errorf("parameter input is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
+		return err
 	}
 
 	return nil
@@ -23610,7 +23947,7 @@ type jsiiProxy_StructUnionConsumer struct {
 func StructUnionConsumer_IsStructA(struct_ interface{}) *bool {
 	_init_.Initialize()
 
-	if err := validateIsStructAParameters(struct_); err != nil {
+	if err := validateStructUnionConsumer_IsStructAParameters(struct_); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -23628,7 +23965,7 @@ func StructUnionConsumer_IsStructA(struct_ interface{}) *bool {
 func StructUnionConsumer_IsStructB(struct_ interface{}) *bool {
 	_init_.Initialize()
 
-	if err := validateIsStructBParameters(struct_); err != nil {
+	if err := validateStructUnionConsumer_IsStructBParameters(struct_); err != nil {
 		panic(err)
 	}
 	var returns *bool
@@ -23654,11 +23991,11 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateIsStructAParameters(struct_ interface{}) error {
+func validateStructUnionConsumer_IsStructAParameters(struct_ interface{}) error {
 	return nil
 }
 
-func validateIsStructBParameters(struct_ interface{}) error {
+func validateStructUnionConsumer_IsStructBParameters(struct_ interface{}) error {
 	return nil
 }
 
@@ -23672,20 +24009,46 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StructUni
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
-func validateIsStructAParameters(struct_ interface{}) error {
+func validateStructUnionConsumer_IsStructAParameters(struct_ interface{}) error {
 	if struct_ == nil {
-		return errors.New("parameter struct_ is required, but nil was provided")
+		return fmt.Errorf("parameter struct_ is required, but nil was provided")
+	}
+	switch struct_.(type) {
+	case *StructA:
+		if err := _jsii_.ValidateStruct(struct_.(*StructA), "parameter struct_"); err != nil {
+			return err
+		}
+	case *StructB:
+		if err := _jsii_.ValidateStruct(struct_.(*StructB), "parameter struct_"); err != nil {
+			return err
+		}
+	default:
+		return fmt.Errorf("parameter struct_ must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", struct_, struct_)
 	}
 
 	return nil
 }
 
-func validateIsStructBParameters(struct_ interface{}) error {
+func validateStructUnionConsumer_IsStructBParameters(struct_ interface{}) error {
 	if struct_ == nil {
-		return errors.New("parameter struct_ is required, but nil was provided")
+		return fmt.Errorf("parameter struct_ is required, but nil was provided")
+	}
+	switch struct_.(type) {
+	case *StructA:
+		if err := _jsii_.ValidateStruct(struct_.(*StructA), "parameter struct_"); err != nil {
+			return err
+		}
+	case *StructB:
+		if err := _jsii_.ValidateStruct(struct_.(*StructB), "parameter struct_"); err != nil {
+			return err
+		}
+	default:
+		return fmt.Errorf("parameter struct_ must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", struct_, struct_)
 	}
 
 	return nil
@@ -23973,7 +24336,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Sum__runt
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
@@ -23981,7 +24344,7 @@ import (
 
 func (j *jsiiProxy_Sum) validateSetDecorationPostfixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -23989,7 +24352,7 @@ func (j *jsiiProxy_Sum) validateSetDecorationPostfixesParameters(val *[]*string)
 
 func (j *jsiiProxy_Sum) validateSetDecorationPrefixesParameters(val *[]*string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -23997,7 +24360,7 @@ func (j *jsiiProxy_Sum) validateSetDecorationPrefixesParameters(val *[]*string) 
 
 func (j *jsiiProxy_Sum) validateSetPartsParameters(val *[]scopejsiicalclib.NumericValue) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -24005,7 +24368,7 @@ func (j *jsiiProxy_Sum) validateSetPartsParameters(val *[]scopejsiicalclib.Numer
 
 func (j *jsiiProxy_Sum) validateSetStringStyleParameters(val composition.CompositeOperation_CompositionStringStyle) error {
 	if val == "" {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -24081,7 +24444,7 @@ func (j *jsiiProxy_SupportsNiceJavaBuilder) Rest() *[]*string {
 func NewSupportsNiceJavaBuilder(id *float64, defaultBar *float64, props *SupportsNiceJavaBuilderProps, rest ...*string) SupportsNiceJavaBuilder {
 	_init_.Initialize()
 
-	if err := validateNewSupportsNiceJavaBuilderParameters(id, rest); err != nil {
+	if err := validateNewSupportsNiceJavaBuilderParameters(id, props, rest); err != nil {
 		panic(err)
 	}
 	args := []interface{}{id, defaultBar, props}
@@ -24126,7 +24489,7 @@ package jsiicalc
 
 // Building without runtime type checking enabled, so all the below just return nil
 
-func validateNewSupportsNiceJavaBuilderParameters(id *float64, rest []*string) error {
+func validateNewSupportsNiceJavaBuilderParameters(id *float64, props *SupportsNiceJavaBuilderProps, rest []*string) error {
 	return nil
 }
 
@@ -24140,16 +24503,22 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SupportsN
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
-func validateNewSupportsNiceJavaBuilderParameters(id *float64, rest []*string) error {
+func validateNewSupportsNiceJavaBuilderParameters(id *float64, props *SupportsNiceJavaBuilderProps, rest []*string) error {
 	if id == nil {
-		return errors.New("parameter id is required, but nil was provided")
+		return fmt.Errorf("parameter id is required, but nil was provided")
+	}
+
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	if rest == nil {
-		return errors.New("parameter rest is required, but nil was provided")
+		return fmt.Errorf("parameter rest is required, but nil was provided")
 	}
 
 	return nil
@@ -24280,16 +24649,21 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SupportsN
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func validateNewSupportsNiceJavaBuilderWithRequiredPropsParameters(id *float64, props *SupportsNiceJavaBuilderProps) error {
 	if id == nil {
-		return errors.New("parameter id is required, but nil was provided")
+		return fmt.Errorf("parameter id is required, but nil was provided")
 	}
 
 	if props == nil {
-		return errors.New("parameter props is required, but nil was provided")
+		return fmt.Errorf("parameter props is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	return nil
@@ -24660,12 +25034,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SyncVirtu
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (s *jsiiProxy_SyncVirtualMethods) validateModifyOtherPropertyParameters(value *string) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -24673,7 +25047,7 @@ func (s *jsiiProxy_SyncVirtualMethods) validateModifyOtherPropertyParameters(val
 
 func (s *jsiiProxy_SyncVirtualMethods) validateModifyValueOfThePropertyParameters(value *string) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -24681,7 +25055,7 @@ func (s *jsiiProxy_SyncVirtualMethods) validateModifyValueOfThePropertyParameter
 
 func (s *jsiiProxy_SyncVirtualMethods) validateVirtualMethodParameters(n *float64) error {
 	if n == nil {
-		return errors.New("parameter n is required, but nil was provided")
+		return fmt.Errorf("parameter n is required, but nil was provided")
 	}
 
 	return nil
@@ -24689,7 +25063,7 @@ func (s *jsiiProxy_SyncVirtualMethods) validateVirtualMethodParameters(n *float6
 
 func (s *jsiiProxy_SyncVirtualMethods) validateWriteAParameters(value *float64) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -24697,7 +25071,7 @@ func (s *jsiiProxy_SyncVirtualMethods) validateWriteAParameters(value *float64) 
 
 func (j *jsiiProxy_SyncVirtualMethods) validateSetAParameters(val *float64) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -24705,7 +25079,7 @@ func (j *jsiiProxy_SyncVirtualMethods) validateSetAParameters(val *float64) erro
 
 func (j *jsiiProxy_SyncVirtualMethods) validateSetCallerIsPropertyParameters(val *float64) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -24713,7 +25087,7 @@ func (j *jsiiProxy_SyncVirtualMethods) validateSetCallerIsPropertyParameters(val
 
 func (j *jsiiProxy_SyncVirtualMethods) validateSetOtherPropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -24721,7 +25095,7 @@ func (j *jsiiProxy_SyncVirtualMethods) validateSetOtherPropertyParameters(val *s
 
 func (j *jsiiProxy_SyncVirtualMethods) validateSetThePropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -24729,7 +25103,7 @@ func (j *jsiiProxy_SyncVirtualMethods) validateSetThePropertyParameters(val *str
 
 func (j *jsiiProxy_SyncVirtualMethods) validateSetValueOfOtherPropertyParameters(val *string) error {
 	if val == nil {
-		return errors.New("parameter val is required, but nil was provided")
+		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 
 	return nil
@@ -24869,12 +25243,17 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_TestStruc
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func (t *jsiiProxy_TestStructWithEnum) validateIsStringEnumAParameters(input *StructWithEnum) error {
 	if input == nil {
-		return errors.New("parameter input is required, but nil was provided")
+		return fmt.Errorf("parameter input is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
+		return err
 	}
 
 	return nil
@@ -24882,7 +25261,10 @@ func (t *jsiiProxy_TestStructWithEnum) validateIsStringEnumAParameters(input *St
 
 func (t *jsiiProxy_TestStructWithEnum) validateIsStringEnumBParameters(input *StructWithEnum) error {
 	if input == nil {
-		return errors.New("parameter input is required, but nil was provided")
+		return fmt.Errorf("parameter input is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
+		return err
 	}
 
 	return nil
@@ -25228,14 +25610,14 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UnaryOper
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 func validateNewUnaryOperationParameters(operand scopejsiicalclib.NumericValue) error {
 	if operand == nil {
-		return errors.New("parameter operand is required, but nil was provided")
+		return fmt.Errorf("parameter operand is required, but nil was provided")
 	}
 
 	return nil
@@ -25354,12 +25736,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UpcasingR
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func validateNewUpcasingReflectableParameters(delegate *map[string]interface{}) error {
 	if delegate == nil {
-		return errors.New("parameter delegate is required, but nil was provided")
+		return fmt.Errorf("parameter delegate is required, but nil was provided")
 	}
 
 	return nil
@@ -25624,12 +26006,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UsesInter
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (u *jsiiProxy_UsesInterfaceWithProperties) validateReadStringAndNumberParameters(ext IInterfaceWithPropertiesExtension) error {
 	if ext == nil {
-		return errors.New("parameter ext is required, but nil was provided")
+		return fmt.Errorf("parameter ext is required, but nil was provided")
 	}
 
 	return nil
@@ -25637,7 +26019,7 @@ func (u *jsiiProxy_UsesInterfaceWithProperties) validateReadStringAndNumberParam
 
 func (u *jsiiProxy_UsesInterfaceWithProperties) validateWriteAndReadParameters(value *string) error {
 	if value == nil {
-		return errors.New("parameter value is required, but nil was provided")
+		return fmt.Errorf("parameter value is required, but nil was provided")
 	}
 
 	return nil
@@ -25645,7 +26027,7 @@ func (u *jsiiProxy_UsesInterfaceWithProperties) validateWriteAndReadParameters(v
 
 func validateNewUsesInterfaceWithPropertiesParameters(obj IInterfaceWithProperties) error {
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
 	}
 
 	return nil
@@ -25749,12 +26131,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VariadicI
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (v *jsiiProxy_VariadicInvoker) validateAsArrayParameters(values []*float64) error {
 	if values == nil {
-		return errors.New("parameter values is required, but nil was provided")
+		return fmt.Errorf("parameter values is required, but nil was provided")
 	}
 
 	return nil
@@ -25762,7 +26144,7 @@ func (v *jsiiProxy_VariadicInvoker) validateAsArrayParameters(values []*float64)
 
 func validateNewVariadicInvokerParameters(method VariadicMethod) error {
 	if method == nil {
-		return errors.New("parameter method is required, but nil was provided")
+		return fmt.Errorf("parameter method is required, but nil was provided")
 	}
 
 	return nil
@@ -25876,16 +26258,16 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VariadicM
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (v *jsiiProxy_VariadicMethod) validateAsArrayParameters(first *float64, others []*float64) error {
 	if first == nil {
-		return errors.New("parameter first is required, but nil was provided")
+		return fmt.Errorf("parameter first is required, but nil was provided")
 	}
 
 	if others == nil {
-		return errors.New("parameter others is required, but nil was provided")
+		return fmt.Errorf("parameter others is required, but nil was provided")
 	}
 
 	return nil
@@ -25893,7 +26275,7 @@ func (v *jsiiProxy_VariadicMethod) validateAsArrayParameters(first *float64, oth
 
 func validateNewVariadicMethodParameters(prefix []*float64) error {
 	if prefix == nil {
-		return errors.New("parameter prefix is required, but nil was provided")
+		return fmt.Errorf("parameter prefix is required, but nil was provided")
 	}
 
 	return nil
@@ -26069,12 +26451,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VirtualMe
 package jsiicalc
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (v *jsiiProxy_VirtualMethodPlayground) validateOverrideMeAsyncParameters(index *float64) error {
 	if index == nil {
-		return errors.New("parameter index is required, but nil was provided")
+		return fmt.Errorf("parameter index is required, but nil was provided")
 	}
 
 	return nil
@@ -26082,7 +26464,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) validateOverrideMeAsyncParameters(in
 
 func (v *jsiiProxy_VirtualMethodPlayground) validateOverrideMeSyncParameters(index *float64) error {
 	if index == nil {
-		return errors.New("parameter index is required, but nil was provided")
+		return fmt.Errorf("parameter index is required, but nil was provided")
 	}
 
 	return nil
@@ -26090,7 +26472,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) validateOverrideMeSyncParameters(ind
 
 func (v *jsiiProxy_VirtualMethodPlayground) validateParallelSumAsyncParameters(count *float64) error {
 	if count == nil {
-		return errors.New("parameter count is required, but nil was provided")
+		return fmt.Errorf("parameter count is required, but nil was provided")
 	}
 
 	return nil
@@ -26098,7 +26480,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) validateParallelSumAsyncParameters(c
 
 func (v *jsiiProxy_VirtualMethodPlayground) validateSerialSumAsyncParameters(count *float64) error {
 	if count == nil {
-		return errors.New("parameter count is required, but nil was provided")
+		return fmt.Errorf("parameter count is required, but nil was provided")
 	}
 
 	return nil
@@ -26106,7 +26488,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) validateSerialSumAsyncParameters(cou
 
 func (v *jsiiProxy_VirtualMethodPlayground) validateSumSyncParameters(count *float64) error {
 	if count == nil {
-		return errors.New("parameter count is required, but nil was provided")
+		return fmt.Errorf("parameter count is required, but nil was provided")
 	}
 
 	return nil
@@ -26311,7 +26693,7 @@ func NewMyClass_Override(m MyClass, _arg *float64) {
 func MyClass_Bar(_arg *bool) {
 	_init_.Initialize()
 
-	if err := validateBarParameters(_arg); err != nil {
+	if err := validateMyClass_BarParameters(_arg); err != nil {
 		panic(err)
 	}
 	_jsii_.StaticInvokeVoid(
@@ -26346,7 +26728,7 @@ func (m *jsiiProxy_MyClass) validateFooParameters(_arg *string) error {
 	return nil
 }
 
-func validateBarParameters(_arg *bool) error {
+func validateMyClass_BarParameters(_arg *bool) error {
 	return nil
 }
 
@@ -26363,20 +26745,20 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2530/module2
 package module2530
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (m *jsiiProxy_MyClass) validateFooParameters(_arg *string) error {
 	if _arg == nil {
-		return errors.New("parameter _arg is required, but nil was provided")
+		return fmt.Errorf("parameter _arg is required, but nil was provided")
 	}
 
 	return nil
 }
 
-func validateBarParameters(_arg *bool) error {
+func validateMyClass_BarParameters(_arg *bool) error {
 	if _arg == nil {
-		return errors.New("parameter _arg is required, but nil was provided")
+		return fmt.Errorf("parameter _arg is required, but nil was provided")
 	}
 
 	return nil
@@ -26384,7 +26766,7 @@ func validateBarParameters(_arg *bool) error {
 
 func validateNewMyClassParameters(_arg *float64) error {
 	if _arg == nil {
-		return errors.New("parameter _arg is required, but nil was provided")
+		return fmt.Errorf("parameter _arg is required, but nil was provided")
 	}
 
 	return nil
@@ -26618,7 +27000,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2
 package module2647
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2"
@@ -26626,7 +27008,7 @@ import (
 
 func (e *jsiiProxy_ExtendAndImplement) validateFooParameters(obj jcb.IBaseInterface) error {
 	if obj == nil {
-		return errors.New("parameter obj is required, but nil was provided")
+		return fmt.Errorf("parameter obj is required, but nil was provided")
 	}
 
 	return nil
@@ -26634,7 +27016,7 @@ func (e *jsiiProxy_ExtendAndImplement) validateFooParameters(obj jcb.IBaseInterf
 
 func validateNewExtendAndImplementParameters(very scopejsiicalcbaseofbase.Very) error {
 	if very == nil {
-		return errors.New("parameter very is required, but nil was provided")
+		return fmt.Errorf("parameter very is required, but nil was provided")
 	}
 
 	return nil
@@ -26762,7 +27144,9 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2689/methods
 package methods
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
@@ -26770,7 +27154,12 @@ import (
 
 func (m *jsiiProxy_MyClass) validateBarParameters(_bar *map[string]*jcb.BaseProps) error {
 	if _bar == nil {
-		return errors.New("parameter _bar is required, but nil was provided")
+		return fmt.Errorf("parameter _bar is required, but nil was provided")
+	}
+	for idx_f35a19, v := range *_bar {
+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter _bar[%v]", idx_f35a19)); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -26778,7 +27167,7 @@ func (m *jsiiProxy_MyClass) validateBarParameters(_bar *map[string]*jcb.BaseProp
 
 func (m *jsiiProxy_MyClass) validateFooParameters(_values *[]scopejsiicalclib.Number) error {
 	if _values == nil {
-		return errors.New("parameter _values is required, but nil was provided")
+		return fmt.Errorf("parameter _values is required, but nil was provided")
 	}
 
 	return nil
@@ -28518,12 +28907,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythons
 package pythonself
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (c *jsiiProxy_ClassWithSelf) validateMethodParameters(self *float64) error {
 	if self == nil {
-		return errors.New("parameter self is required, but nil was provided")
+		return fmt.Errorf("parameter self is required, but nil was provided")
 	}
 
 	return nil
@@ -28531,7 +28920,7 @@ func (c *jsiiProxy_ClassWithSelf) validateMethodParameters(self *float64) error 
 
 func validateNewClassWithSelfParameters(self *string) error {
 	if self == nil {
-		return errors.New("parameter self is required, but nil was provided")
+		return fmt.Errorf("parameter self is required, but nil was provided")
 	}
 
 	return nil
@@ -28618,12 +29007,17 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythons
 package pythonself
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 )
 
 func validateNewClassWithSelfKwargParameters(props *StructWithSelf) error {
 	if props == nil {
-		return errors.New("parameter props is required, but nil was provided")
+		return fmt.Errorf("parameter props is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	return nil
@@ -28687,12 +29081,12 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythons
 package pythonself
 
 import (
-	"errors"
+	"fmt"
 )
 
 func (i *jsiiProxy_IInterfaceWithSelf) validateMethodParameters(self *float64) error {
 	if self == nil {
-		return errors.New("parameter self is required, but nil was provided")
+		return fmt.Errorf("parameter self is required, but nil was provided")
 	}
 
 	return nil
@@ -29069,6 +29463,9 @@ type jsiiProxy_Kwargs struct {
 func Kwargs_Method(props *child.KwargsProps) *bool {
 	_init_.Initialize()
 
+	if err := validateKwargs_MethodParameters(props); err != nil {
+		panic(err)
+	}
 	var returns *bool
 
 	_jsii_.StaticInvoke(
@@ -29079,6 +29476,42 @@ func Kwargs_Method(props *child.KwargsProps) *bool {
 	)
 
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated_Kwargs__no_runtime_type_checks.go 1`] = `
+//go:build no_runtime_type_checks
+
+package isolated
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func validateKwargs_MethodParameters(props *child.KwargsProps) error {
+	return nil
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated_Kwargs__runtime_type_checks.go 1`] = `
+//go:build !no_runtime_type_checks
+
+package isolated
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
+)
+
+func validateKwargs_MethodParameters(props *child.KwargsProps) error {
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 
@@ -29539,7 +29972,9 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/submodul
 package submodule
 
 import (
-	"errors"
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/param"
@@ -29547,7 +29982,10 @@ import (
 
 func (m *jsiiProxy_MyClass) validateMethodWithSpecialParamParameters(param *param.SpecialParameter) error {
 	if param == nil {
-		return errors.New("parameter param is required, but nil was provided")
+		return fmt.Errorf("parameter param is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(param, "parameter param"); err != nil {
+		return err
 	}
 
 	return nil
@@ -29555,7 +29993,10 @@ func (m *jsiiProxy_MyClass) validateMethodWithSpecialParamParameters(param *para
 
 func validateNewMyClassParameters(props *child.SomeStruct) error {
 	if props == nil {
-		return errors.New("parameter props is required, but nil was provided")
+		return fmt.Errorf("parameter props is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
+		return err
 	}
 
 	return nil

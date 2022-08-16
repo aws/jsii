@@ -30,7 +30,7 @@ type TypeRegistry struct {
 	// corresponding jsii interface FQN (e.g: "jsii-calc.SomeInterface")
 	typeToInterfaceFQN map[reflect.Type]api.FQN
 
-	// structInfo maps registered struct types to all their fields.
+	// structInfo maps registered struct types to all their fields, and possibly a validator
 	structInfo map[reflect.Type]registeredStruct
 
 	// proxyMakers map registered interface types to a proxy maker function.

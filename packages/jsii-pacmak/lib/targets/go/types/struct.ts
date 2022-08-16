@@ -6,7 +6,10 @@ import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
-import { Validator } from '../runtime/emit-type-union-validations';
+import {
+  ParameterValidator,
+  StructValidator,
+} from '../runtime/runtime-type-checking';
 import { getMemberDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoProperty } from './type-member';
@@ -15,8 +18,9 @@ import { GoProperty } from './type-member';
  * Struct wraps a JSII datatype interface aka, structs
  */
 export class Struct extends GoType<InterfaceType> {
-  public readonly validators: readonly Validator[];
-  private readonly properties: readonly GoProperty[];
+  public readonly properties: readonly GoProperty[];
+  #structValidator: StructValidator | undefined;
+  #validators?: readonly ParameterValidator[];
 
   public constructor(parent: Package, type: InterfaceType) {
     super(parent, type);
@@ -29,10 +33,22 @@ export class Struct extends GoType<InterfaceType> {
     this.properties = type.allProperties.map(
       (prop) => new GoProperty(this, prop),
     );
+  }
 
-    this.validators = this.properties
-      .map((p) => p.validator!)
-      .filter((v) => v != null);
+  public get parameterValidators(): readonly ParameterValidator[] {
+    if (this.#validators == null) {
+      this.#validators = this.properties
+        .map((p) => p.validator!)
+        .filter((v) => v != null);
+    }
+    return this.#validators;
+  }
+
+  public get structValidator(): StructValidator | undefined {
+    if (this.#structValidator === null) {
+      this.#structValidator = StructValidator.for(this);
+    }
+    return this.#structValidator;
   }
 
   public get dependencies(): Package[] {
@@ -41,9 +57,10 @@ export class Struct extends GoType<InterfaceType> {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: false,
+      fmt: false,
       init: false,
       internal: false,
+      runtime: false,
       time: this.properties.some((prop) => prop.specialDependencies.time),
     };
   }
@@ -64,5 +81,13 @@ export class Struct extends GoType<InterfaceType> {
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
     code.close(')');
+    if (this.structValidator) {
+      code.open(`${JSII_RT_ALIAS}.RegisterStructValidator(`);
+      code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
+      code.open('func (i interface{}, d string) error {');
+      code.line(`return (i.(*${this.name})).validate(d)`);
+      code.close('},');
+      code.close(')');
+    }
   }
 }

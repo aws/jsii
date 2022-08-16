@@ -12,7 +12,7 @@ import {
   MethodCall,
   slugify,
 } from '../runtime';
-import { Validator } from '../runtime/emit-type-union-validations';
+import { ParameterValidator } from '../runtime/runtime-type-checking';
 import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
@@ -27,12 +27,12 @@ export class GoClass extends GoType<ClassType> {
   public readonly staticMethods: StaticMethod[];
   public readonly properties: GoProperty[];
   public readonly staticProperties: GoProperty[];
-  public readonly validators: Validator[];
 
   private _extends?: GoClass | null;
   private _implements?: readonly GoInterface[];
 
   private readonly initializer?: GoClassConstructor;
+  #parameterValidators?: ParameterValidator[];
 
   public constructor(pkg: Package, type: ClassType) {
     super(pkg, type);
@@ -66,16 +66,21 @@ export class GoClass extends GoType<ClassType> {
     if (type.initializer) {
       this.initializer = new GoClassConstructor(this, type.initializer);
     }
+  }
 
-    this.validators = [
-      ...this.methods.map((m) => m.validator!).filter((v) => v != null),
-      ...this.staticMethods.map((m) => m.validator!).filter((v) => v != null),
-      ...this.properties.map((m) => m.validator!).filter((v) => v != null),
-      ...this.staticProperties
-        .map((m) => m.validator!)
-        .filter((v) => v != null),
-      ...(this.initializer?.validator ? [this.initializer.validator] : []),
-    ];
+  public get parameterValidators(): readonly ParameterValidator[] {
+    if (this.#parameterValidators === undefined) {
+      this.#parameterValidators = [
+        ...this.methods.map((m) => m.validator!).filter((v) => v != null),
+        ...this.staticMethods.map((m) => m.validator!).filter((v) => v != null),
+        ...this.properties.map((m) => m.validator!).filter((v) => v != null),
+        ...this.staticProperties
+          .map((m) => m.validator!)
+          .filter((v) => v != null),
+        ...(this.initializer?.validator ? [this.initializer.validator] : []),
+      ];
+    }
+    return this.#parameterValidators;
   }
 
   public get extends(): GoClass | undefined {
@@ -169,11 +174,12 @@ export class GoClass extends GoType<ClassType> {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: this.initializer != null || this.members.length > 0,
+      fmt: false,
       init:
         this.initializer != null ||
         this.members.some((m) => m.specialDependencies.init),
       internal: this.baseTypes.some((base) => this.pkg.isExternalType(base)),
+      runtime: this.initializer != null || this.members.length > 0,
       time:
         !!this.initializer?.specialDependencies.time ||
         this.members.some((m) => m.specialDependencies.time),
@@ -264,8 +270,8 @@ export class GoClass extends GoType<ClassType> {
 }
 
 export class GoClassConstructor extends GoMethod {
-  public readonly validator: Validator | undefined;
   private readonly constructorRuntimeCall: ClassConstructor;
+  #validator: ParameterValidator | undefined | null = null;
 
   public constructor(
     public readonly parent: GoClass,
@@ -273,14 +279,21 @@ export class GoClassConstructor extends GoMethod {
   ) {
     super(parent, type);
     this.constructorRuntimeCall = new ClassConstructor(this);
-    this.validator = Validator.forConstructor(this);
+  }
+
+  public get validator() {
+    if (this.#validator === null) {
+      this.#validator = ParameterValidator.forConstructor(this);
+    }
+    return this.#validator;
   }
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: true,
+      fmt: false,
       init: true,
       internal: false,
+      runtime: true,
       time: this.parameters.some((p) => p.reference.specialDependencies.time),
     };
   }
@@ -371,9 +384,10 @@ export class ClassMethod extends GoMethod {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: true,
+      fmt: false,
       init: this.method.static,
       internal: false,
+      runtime: true,
       time:
         !!this.parameters.some((p) => p.reference.specialDependencies.time) ||
         !!this.reference?.specialDependencies.time,
