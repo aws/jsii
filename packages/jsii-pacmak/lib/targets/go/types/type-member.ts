@@ -12,7 +12,14 @@ import { jsiiToPascalCase } from '../../../naming-util';
 import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
-import { GetProperty, JSII_RT_ALIAS, SetProperty } from '../runtime';
+import {
+  GetProperty,
+  JSII_RT_ALIAS,
+  SetProperty,
+  StaticGetProperty,
+  StaticSetProperty,
+} from '../runtime';
+import { Validator } from '../runtime/emit-type-union-validations';
 import { substituteReservedWords } from '../util';
 
 import { GoClass, GoType, GoInterface, GoTypeRef } from './index';
@@ -35,20 +42,30 @@ export interface GoTypeMember {
 */
 export class GoProperty implements GoTypeMember {
   public readonly name: string;
+  public readonly setterName: string;
   public readonly immutable: boolean;
+  public readonly validator: Validator | undefined;
   protected readonly apiLocation: ApiLocation;
 
   public constructor(
     public parent: GoType,
     public readonly property: Property,
   ) {
-    this.name = jsiiToPascalCase(this.property.name);
+    const localName = jsiiToPascalCase(this.property.name);
+    this.name = property.spec.static
+      ? `${parent.name}_${localName}`
+      : localName;
+    this.setterName = property.spec.static
+      ? `${parent.name}_Set${localName}`
+      : `Set${this.name}`;
     this.immutable = property.immutable;
     this.apiLocation = {
       api: 'member',
       fqn: this.parent.fqn,
       memberName: this.property.name,
     };
+
+    this.validator = Validator.forProperty(this);
   }
 
   public get reference(): GoTypeRef {
@@ -104,39 +121,33 @@ export class GoProperty implements GoTypeMember {
     code.line(`${this.name}() ${this.returnType}`);
   }
 
-  public emitGetter({ code }: EmitContext): void {
-    const receiver = this.parent.name;
-    const instanceArg = receiver.substring(0, 1).toLowerCase();
-
-    code.openBlock(
-      `func (${instanceArg} *${receiver}) Get${this.name}() ${this.returnType}`,
-    );
-    code.line(`return ${instanceArg}.${this.name}`);
-    code.closeBlock();
-  }
-
   public emitSetterDecl({ code, documenter }: EmitContext) {
     if (!this.immutable) {
       // For setters, only emit the stability. Copying the documentation from
       // the getter might result in confusing documentation. This is an "okay"
       // middle-ground.
       documenter.emitStability(this.property.docs);
-      code.line(`Set${this.name}(val ${this.returnType})`);
+      code.line(`${this.setterName}(val ${this.returnType})`);
     }
   }
 
   // Emits getter methods on the struct for each property
   public emitGetterProxy(context: EmitContext) {
     const { code } = context;
-    const receiver = this.parent.proxyName;
-    const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-    code.openBlock(
-      `func (${instanceArg} *${receiver}) ${this.name}() ${this.returnType}`,
-    );
+    if (!this.static) {
+      const receiver = this.parent.proxyName;
+      const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-    new GetProperty(this).emit(code);
+      code.openBlock(
+        `func (${instanceArg} *${receiver}) ${this.name}() ${this.returnType}`,
+      );
 
+      new GetProperty(this).emit(code);
+    } else {
+      code.openBlock(`func ${this.name}() ${this.returnType}`);
+      new StaticGetProperty(this).emit(code);
+    }
     code.closeBlock();
     code.line();
   }
@@ -144,15 +155,20 @@ export class GoProperty implements GoTypeMember {
   public emitSetterProxy(context: EmitContext) {
     if (!this.immutable) {
       const { code } = context;
-      const receiver = this.parent.proxyName;
-      const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-      code.openBlock(
-        `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
-      );
+      if (!this.static) {
+        const receiver = this.parent.proxyName;
+        const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-      new SetProperty(this).emit(code);
+        code.openBlock(
+          `func (${instanceArg} *${receiver})${this.setterName}(val ${this.returnType})`,
+        );
 
+        new SetProperty(this).emit(code);
+      } else {
+        code.openBlock(`func ${this.setterName}(val ${this.returnType})`);
+        new StaticSetProperty(this).emit(code);
+      }
       code.closeBlock();
       code.line();
     }
@@ -162,6 +178,7 @@ export class GoProperty implements GoTypeMember {
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
   public readonly parameters: GoParameter[];
+  public readonly validator: Validator | undefined;
   protected readonly apiLocation: ApiLocation;
 
   public constructor(
@@ -177,6 +194,8 @@ export abstract class GoMethod implements GoTypeMember {
       method.kind === MemberKind.Initializer
         ? { api: 'initializer', fqn: parent.fqn }
         : { api: 'member', fqn: parent.fqn, memberName: method.name };
+
+    this.validator = Validator.forMethod(this);
   }
 
   public abstract emit(context: EmitContext): void;
@@ -215,6 +234,10 @@ export abstract class GoMethod implements GoTypeMember {
     return `${JSII_RT_ALIAS}.MemberMethod{JsiiMethod: "${this.method.name}", GoMethod: "${this.name}"}`;
   }
 
+  public get static(): boolean {
+    return false;
+  }
+
   public paramString(): string {
     return this.parameters.length === 0
       ? ''
@@ -224,12 +247,14 @@ export abstract class GoMethod implements GoTypeMember {
 
 export class GoParameter {
   public readonly name: string;
+  public readonly isOptional: boolean;
   public readonly isVariadic: boolean;
   private readonly type: TypeReference;
   private readonly pkg: Package;
 
   public constructor(parent: GoClass | GoInterface, parameter: Parameter) {
     this.name = substituteReservedWords(parameter.name);
+    this.isOptional = parameter.optional;
     this.isVariadic = parameter.variadic;
     this.type = parameter.type;
     this.pkg = parent.pkg;

@@ -9,6 +9,7 @@ import { JSII_RT_ALIAS } from '../runtime';
 import { GoType } from './go-type';
 
 export class Enum extends GoType<EnumType> {
+  public readonly validators = [];
   private readonly members: readonly GoEnumMember[];
 
   public constructor(pkg: Package, type: EnumType) {

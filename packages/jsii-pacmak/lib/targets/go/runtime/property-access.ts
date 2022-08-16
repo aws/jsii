@@ -33,6 +33,8 @@ export class SetProperty {
   public constructor(public readonly parent: GoProperty) {}
 
   public emit(code: CodeMaker) {
+    this.parent.validator?.emitCall(code);
+
     code.open(`${JSII_SET_FUNC}(`);
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.property.name}",`);
@@ -66,6 +68,8 @@ export class StaticSetProperty {
 
   public emit(code: CodeMaker) {
     emitInitialization(code);
+
+    this.parent.validator?.emitCall(code);
 
     code.open(`${JSII_SSET_FUNC}(`);
     code.line(`"${this.parent.parent.fqn}",`);

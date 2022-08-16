@@ -9,12 +9,19 @@ import { join } from 'path';
 import * as semver from 'semver';
 
 import { VERSION } from '../../version';
+import {
+  GO_REFLECT,
+  ImportedModule,
+  INTERNAL_PACKAGE_NAME,
+  JSII_RT_MODULE,
+  reduceSpecialDependencies,
+  toImportedModules,
+} from './dependencies';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
 import {
   JSII_RT_ALIAS,
   JSII_RT_MODULE_NAME,
-  JSII_RT_PACKAGE_NAME,
   JSII_INIT_PACKAGE,
   JSII_INIT_FUNC,
   JSII_INIT_ALIAS,
@@ -30,10 +37,6 @@ import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
 export const GO_VERSION = '1.16';
-
-// the name of a sub-package that includes internal type aliases it has to be
-// "internal" so it not published.
-const INTERNAL_PACKAGE_NAME = 'internal';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -216,28 +219,7 @@ export abstract class Package {
   private emitImports(code: CodeMaker, type: GoType) {
     const toImport = new Array<ImportedModule>();
 
-    const specialDeps = type.specialDependencies;
-
-    if (specialDeps.time) {
-      toImport.push({ module: 'time' });
-    }
-
-    if (specialDeps.runtime) {
-      toImport.push(JSII_RT_MODULE);
-    }
-
-    if (specialDeps.init) {
-      toImport.push({
-        alias: JSII_INIT_ALIAS,
-        module: `${this.root.goModuleName}/${JSII_INIT_PACKAGE}`,
-      });
-    }
-
-    if (specialDeps.internal) {
-      toImport.push({
-        module: `${this.goModuleName}/${INTERNAL_PACKAGE_NAME}`,
-      });
-    }
+    toImport.push(...toImportedModules(type.specialDependencies, this));
 
     for (const goModuleName of new Set(
       type.dependencies.map(({ goModuleName }) => goModuleName),
@@ -265,6 +247,72 @@ export abstract class Package {
       type.emit(context);
 
       context.code.closeFile(filePath);
+
+      this.emitValidators(context.code, type);
+    }
+  }
+
+  private emitValidators(code: CodeMaker, type: GoType): void {
+    if (type.validators.length === 0) {
+      return;
+    }
+
+    emit.call(
+      this,
+      join(
+        this.directory,
+        `${this.packageName}_${type.name}__runtime_type_checks.go`,
+      ),
+      false,
+    );
+
+    emit.call(
+      this,
+      join(
+        this.directory,
+        `${this.packageName}_${type.name}__no_runtime_type_checks.go`,
+      ),
+      true,
+    );
+
+    function emit(this: Package, filePath: string, forNoOp: boolean) {
+      code.openFile(filePath);
+      // Conditional compilation tag...
+      code.line(`//go:build ${forNoOp ? '' : '!'}no_runtime_type_checks`);
+      code.line();
+      this.emitHeader(code);
+
+      if (!forNoOp) {
+        const specialDependencies = reduceSpecialDependencies(
+          type.validators.map((v) => v.specialDependencies),
+        );
+
+        importGoModules(code, [
+          { module: 'errors' },
+          ...toImportedModules(specialDependencies, this),
+          ...Array.from(
+            new Set(
+              type.validators.flatMap((v) =>
+                v.dependencies.map((mod) => mod.goModuleName),
+              ),
+            ),
+          )
+            .filter((mod) => mod !== this.goModuleName)
+            .map((mod) => ({ module: mod })),
+        ]);
+        code.line();
+      } else {
+        code.line(
+          '// Building without runtime type checking enabled, so all the below just return nil',
+        );
+        code.line();
+      }
+
+      for (const validator of type.validators) {
+        validator.emitImplementation(code, this, forNoOp);
+      }
+
+      code.closeFile(filePath);
     }
   }
 
@@ -532,17 +580,6 @@ function determineMajorVersionSuffix(version: string) {
 
   return `/v${sv.major}`;
 }
-
-interface ImportedModule {
-  readonly alias?: string;
-  readonly module: string;
-}
-
-const JSII_RT_MODULE: ImportedModule = {
-  alias: JSII_RT_ALIAS,
-  module: JSII_RT_PACKAGE_NAME,
-};
-const GO_REFLECT: ImportedModule = { module: 'reflect' };
 
 function importGoModules(code: CodeMaker, modules: readonly ImportedModule[]) {
   if (modules.length === 0) {

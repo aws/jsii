@@ -6,6 +6,7 @@ import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
+import { Validator } from '../runtime/emit-type-union-validations';
 import { GoClass } from './class';
 import { GoInterface } from './interface';
 
@@ -13,6 +14,7 @@ export abstract class GoType<T extends Type = Type> {
   public readonly name: string;
   public readonly fqn: string;
   public readonly proxyName: string;
+  public abstract validators: readonly Validator[];
   protected readonly apiLocation: ApiLocation;
 
   public constructor(public readonly pkg: Package, public readonly type: T) {

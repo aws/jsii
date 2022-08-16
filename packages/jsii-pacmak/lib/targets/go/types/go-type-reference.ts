@@ -51,6 +51,9 @@ export class GoTypeRef {
   public constructor(
     public readonly root: Package,
     public readonly reference: TypeReference,
+    private readonly options: { readonly opaqueUnionTypes: boolean } = {
+      opaqueUnionTypes: true,
+    },
   ) {}
 
   public get type(): GoType | undefined {
@@ -66,25 +69,27 @@ export class GoTypeRef {
       runtime: false,
       init: false,
       internal: false,
-      time: containsDate(this.reference),
+      time: containsDate(this.reference, this.options.opaqueUnionTypes),
     };
 
-    function containsDate(ref: TypeReference): boolean {
+    function containsDate(
+      ref: TypeReference,
+      opaqueUnionType: boolean,
+    ): boolean {
       if (ref.primitive === 'date') {
         return true;
       }
       if (ref.arrayOfType) {
-        return containsDate(ref.arrayOfType);
+        return containsDate(ref.arrayOfType, opaqueUnionType);
       }
       if (ref.mapOfType) {
-        return containsDate(ref.mapOfType);
+        return containsDate(ref.mapOfType, opaqueUnionType);
       }
-      // NOTE: UNION gets represented as interface{} so we don't need to import
-      // individual types here...
-      //
-      // if (ref.unionOfTypes) {
-      //   return ref.unionOfTypes.some(containsDate);
-      // }
+      if (!opaqueUnionType && ref.unionOfTypes) {
+        return ref.unionOfTypes.some((item) =>
+          containsDate(item, opaqueUnionType),
+        );
+      }
       return false;
     }
   }
@@ -140,13 +145,11 @@ export class GoTypeRef {
         break;
 
       case 'union':
-        // Unions ultimately result in `interface{}` being rendered, so no import is needed. We
-        // hence ignore them entirely here for now. In the future, we may want to inject specific
-        // runtime type checks around use of unions, which may result in imports being useful.
-
-        // for (const t of this.typeMap.value) {
-        //   ret.push(...t.dependencies);
-        // }
+        if (!this.options.opaqueUnionTypes) {
+          for (const t of this.typeMap.value) {
+            ret.push(...t.dependencies);
+          }
+        }
         break;
 
       case 'void':
@@ -155,6 +158,24 @@ export class GoTypeRef {
     }
 
     return ret;
+  }
+
+  public get unionOfTypes(): readonly GoTypeRef[] | undefined {
+    const typeMap = this.typeMap;
+    if (typeMap.type !== 'union') {
+      return undefined;
+    }
+    return typeMap.value;
+  }
+
+  public get withTransparentUnions(): GoTypeRef {
+    if (!this.options.opaqueUnionTypes) {
+      return this;
+    }
+    return new GoTypeRef(this.root, this.reference, {
+      ...this.options,
+      opaqueUnionTypes: false,
+    });
   }
 
   /*
@@ -174,18 +195,22 @@ export class GoTypeRef {
     } else if (ref.reference.arrayOfType) {
       return {
         type: 'array',
-        value: new GoTypeRef(this.root, ref.reference.arrayOfType),
+        value: new GoTypeRef(
+          this.root,
+          ref.reference.arrayOfType,
+          this.options,
+        ),
       };
     } else if (ref.reference.mapOfType) {
       return {
         type: 'map',
-        value: new GoTypeRef(this.root, ref.reference.mapOfType),
+        value: new GoTypeRef(this.root, ref.reference.mapOfType, this.options),
       };
     } else if (ref.reference.unionOfTypes) {
       return {
         type: 'union',
         value: ref.reference.unionOfTypes.map(
-          (typeRef) => new GoTypeRef(this.root, typeRef),
+          (typeRef) => new GoTypeRef(this.root, typeRef, this.options),
         ),
       };
     } else if (ref.reference.void) {

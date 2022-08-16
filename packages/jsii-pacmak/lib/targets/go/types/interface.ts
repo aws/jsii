@@ -2,10 +2,14 @@ import { CodeMaker } from 'codemaker';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 
 import * as comparators from '../comparators';
-import { SpecialDependencies } from '../dependencies';
+import {
+  reduceSpecialDependencies,
+  SpecialDependencies,
+} from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS, MethodCall } from '../runtime';
+import { Validator } from '../runtime/emit-type-union-validations';
 import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
@@ -16,6 +20,8 @@ export class GoInterface extends GoType<InterfaceType> {
   public readonly reimplementedMethods: readonly InterfaceMethod[];
   public readonly properties: InterfaceProperty[];
   public readonly reimplementedProperties: readonly InterfaceProperty[];
+
+  public readonly validators: readonly Validator[];
 
   public constructor(pkg: Package, type: InterfaceType) {
     super(pkg, type);
@@ -54,6 +60,17 @@ export class GoInterface extends GoType<InterfaceType> {
       this.reimplementedMethods = [];
       this.reimplementedProperties = [];
     }
+
+    this.validators = [
+      ...this.methods.map((m) => m.validator!).filter((v) => v != null),
+      ...this.reimplementedMethods
+        .map((m) => m.validator!)
+        .filter((v) => v != null),
+      ...this.properties.map((p) => p.validator!).filter((v) => v != null),
+      ...this.reimplementedProperties
+        .map((p) => p.validator!)
+        .filter((v) => v != null),
+    ];
   }
 
   public emit(context: EmitContext) {
@@ -146,25 +163,18 @@ export class GoInterface extends GoType<InterfaceType> {
   }
 
   public get specialDependencies(): SpecialDependencies {
-    return [
-      ...this.properties.map((p) => p.specialDependencies),
-      ...this.reimplementedProperties.map((p) => p.specialDependencies),
-      ...this.methods.map((m) => m.specialDependencies),
-      ...this.reimplementedMethods.map((m) => m.specialDependencies),
-    ].reduce(
-      (acc, elt) => ({
-        runtime: acc.runtime || elt.runtime,
-        init: acc.init || elt.init,
-        internal: acc.internal,
-        time: acc.time || elt.time,
-      }),
+    return reduceSpecialDependencies([
       {
         runtime: false,
         init: false,
         internal: this.extends.some((base) => this.pkg.isExternalType(base)),
         time: false,
       },
-    );
+      ...this.properties.map((p) => p.specialDependencies),
+      ...this.reimplementedProperties.map((p) => p.specialDependencies),
+      ...this.methods.map((m) => m.specialDependencies),
+      ...this.reimplementedMethods.map((m) => m.specialDependencies),
+    ]);
   }
 
   public get extends(): GoInterface[] {

@@ -12,6 +12,8 @@ export class ClassConstructor {
     emitInitialization(code);
     code.line();
 
+    this.parent.validator?.emitCall(code);
+
     const resultVar = slugify(
       this.parent.parent.proxyName[0],
       this.parent.parameters.map((p) => p.name),

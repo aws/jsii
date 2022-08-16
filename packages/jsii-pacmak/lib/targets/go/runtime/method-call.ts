@@ -27,6 +27,8 @@ export class MethodCall extends FunctionCall {
   }
 
   private emitDynamic(code: CodeMaker) {
+    this.parent.validator?.emitCall(code);
+
     const args = emitArguments(
       code,
       this.parent.parameters,
@@ -58,6 +60,9 @@ export class MethodCall extends FunctionCall {
   private emitStatic(code: CodeMaker) {
     emitInitialization(code);
     code.line();
+
+    this.parent.validator?.emitCall(code);
+
     const args = emitArguments(
       code,
       this.parent.parameters,

@@ -11,9 +11,8 @@ import {
   JSII_RT_ALIAS,
   MethodCall,
   slugify,
-  StaticGetProperty,
-  StaticSetProperty,
 } from '../runtime';
+import { Validator } from '../runtime/emit-type-union-validations';
 import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
@@ -28,6 +27,7 @@ export class GoClass extends GoType<ClassType> {
   public readonly staticMethods: StaticMethod[];
   public readonly properties: GoProperty[];
   public readonly staticProperties: GoProperty[];
+  public readonly validators: Validator[];
 
   private _extends?: GoClass | null;
   private _implements?: readonly GoInterface[];
@@ -66,6 +66,16 @@ export class GoClass extends GoType<ClassType> {
     if (type.initializer) {
       this.initializer = new GoClassConstructor(this, type.initializer);
     }
+
+    this.validators = [
+      ...this.methods.map((m) => m.validator!).filter((v) => v != null),
+      ...this.staticMethods.map((m) => m.validator!).filter((v) => v != null),
+      ...this.properties.map((m) => m.validator!).filter((v) => v != null),
+      ...this.staticProperties
+        .map((m) => m.validator!)
+        .filter((v) => v != null),
+      ...(this.initializer?.validator ? [this.initializer.validator] : []),
+    ];
   }
 
   public get extends(): GoClass | undefined {
@@ -111,7 +121,8 @@ export class GoClass extends GoType<ClassType> {
     }
 
     for (const prop of this.staticProperties) {
-      this.emitStaticProperty(context, prop);
+      prop.emitGetterProxy(context);
+      prop.emitSetterProxy(context);
     }
 
     for (const method of this.methods) {
@@ -228,29 +239,6 @@ export class GoClass extends GoType<ClassType> {
     code.line();
   }
 
-  private emitStaticProperty({ code }: EmitContext, prop: GoProperty): void {
-    const getCaller = new StaticGetProperty(prop);
-
-    const propertyName = jsiiToPascalCase(prop.name);
-    const name = `${this.name}_${propertyName}`;
-
-    code.openBlock(`func ${name}() ${prop.returnType}`);
-    getCaller.emit(code);
-
-    code.closeBlock();
-    code.line();
-
-    if (!prop.immutable) {
-      const setCaller = new StaticSetProperty(prop);
-      const name = `${this.name}_Set${propertyName}`;
-      code.openBlock(`func ${name}(val ${prop.returnType})`);
-      setCaller.emit(code);
-
-      code.closeBlock();
-      code.line();
-    }
-  }
-
   // emits the implementation of the setters for the struct
   private emitSetters(context: EmitContext): void {
     for (const property of this.properties) {
@@ -276,6 +264,7 @@ export class GoClass extends GoType<ClassType> {
 }
 
 export class GoClassConstructor extends GoMethod {
+  public readonly validator: Validator | undefined;
   private readonly constructorRuntimeCall: ClassConstructor;
 
   public constructor(
@@ -284,6 +273,7 @@ export class GoClassConstructor extends GoMethod {
   ) {
     super(parent, type);
     this.constructorRuntimeCall = new ClassConstructor(this);
+    this.validator = Validator.forConstructor(this);
   }
 
   public get specialDependencies(): SpecialDependencies {
@@ -375,6 +365,10 @@ export class ClassMethod extends GoMethod {
     return this.parent.name.substring(0, 1).toLowerCase();
   }
 
+  public get static(): boolean {
+    return !!this.method.spec.static;
+  }
+
   public get specialDependencies(): SpecialDependencies {
     return {
       runtime: true,
@@ -388,19 +382,24 @@ export class ClassMethod extends GoMethod {
 }
 
 export class StaticMethod extends ClassMethod {
+  public readonly name: string;
+
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
   ) {
     super(parent, method);
+
+    this.name = `${this.parent.name}_${jsiiToPascalCase(method.name)}`;
   }
 
   public emit({ code, documenter }: EmitContext) {
-    const name = `${this.parent.name}_${this.name}`;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
     documenter.emit(this.method.docs, this.apiLocation);
-    code.openBlock(`func ${name}(${this.paramString()})${returnTypeString}`);
+    code.openBlock(
+      `func ${this.name}(${this.paramString()})${returnTypeString}`,
+    );
 
     this.runtimeCall.emit(code);
 

@@ -6,6 +6,7 @@ import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
+import { Validator } from '../runtime/emit-type-union-validations';
 import { getMemberDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoProperty } from './type-member';
@@ -14,6 +15,7 @@ import { GoProperty } from './type-member';
  * Struct wraps a JSII datatype interface aka, structs
  */
 export class Struct extends GoType<InterfaceType> {
+  public readonly validators: readonly Validator[];
   private readonly properties: readonly GoProperty[];
 
   public constructor(parent: Package, type: InterfaceType) {
@@ -27,6 +29,10 @@ export class Struct extends GoType<InterfaceType> {
     this.properties = type.allProperties.map(
       (prop) => new GoProperty(this, prop),
     );
+
+    this.validators = this.properties
+      .map((p) => p.validator!)
+      .filter((v) => v != null);
   }
 
   public get dependencies(): Package[] {
