@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1660744660675,
+  "lastUpdate": 1660748352123,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4895,6 +4895,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 55803.85454746782,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45418.48279364999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0a3c0e54b820cb307f6e8114dcb6fff34ecabc04",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.3.9 to ~=8.4.0 in /gh-pages (#3708)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.4.0</h2>\n<ul>\n<li>Added support for cookie consent</li>\n<li>Added support for feedback widget (Was this page helpful?)</li>\n<li>Added support for dismissable announcement bar</li>\n<li>Added Armenian, Lithuanian, Tagalog, and Urdu translations</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.4.0+insiders-4.21.1 (2022-08-13)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4176\">#4176</a>: Broken image when avatar is served by Gravatar</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4212\">#4212</a>: Deferred search initialization for file:// locations</li>\n</ul>\n<p>mkdocs-material-8.4.0 (2022-08-13)</p>\n<ul>\n<li>Added support for cookie consent</li>\n<li>Added support for feedback widget (Was this page helpful?)</li>\n<li>Added support for dismissable announcement bar</li>\n<li>Added Armenian, Lithuanian, Tagalog, and Urdu translations</li>\n</ul>\n<p>mkdocs-material-8.3.9+insiders-4.21.0 (2022-07-17)</p>\n<ul>\n<li>Added meta plugin: set front matter for all pages in a folder</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4114\">#4114</a>: Tags plugin fails if only tags_extra_files is set</li>\n</ul>\n<p>mkdocs-material-8.3.9+insiders-4.20.1 (2022-07-11)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4105\">#4105</a>: Tags plugin fails if tags_file is not set (4.20.0 regression)</li>\n</ul>\n<p>mkdocs-material-8.3.9+insiders-4.20.0 (2022-07-07)</p>\n<ul>\n<li>Added support for additional tags indexes</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4100\">#4100</a>: Tag icons not shown in tags index</li>\n</ul>\n<p>mkdocs-material-8.3.9+insiders-4.19.2 (2022-07-04)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4051\">#4051</a>: Privacy plugin fails if symlinking isn't allowed on Windows</li>\n</ul>\n<p>mkdocs-material-8.3.9 (2022-07-04)</p>\n<ul>\n<li>Updated Taiwanese translations for search</li>\n<li>Allow ids for content tabs with special characters (for mkdocstrings)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4083\">#4083</a>: home not clickable when using versioning (8.3.5 regression)</li>\n</ul>\n<p>mkdocs-material-8.3.8+insiders-4.19.1 (2022-06-25)</p>\n<ul>\n<li>Added mkdocs-git-committers-plugin to Dockerfile</li>\n<li>Added mkdocs-git-revision-date-localized-plugin to Dockerfile</li>\n</ul>\n<p>mkdocs-material-8.3.8+insiders-4.19.0 (2022-06-24)</p>\n<ul>\n<li>Added support for document contributors</li>\n<li>Updated French translations for cookie consent</li>\n</ul>\n<p>mkdocs-material-8.3.8 (2022-06-24)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4053\">#4053</a>: Limit width of videos to content area</li>\n<li>Fixed empty tags in front matter breaking search</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/04c0defa358593c51afcf3e01ece7510d4b8e25f\"><code>04c0def</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/88a65fe298585e4466377df2bee8a354cc1ff682\"><code>88a65fe</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7427662fe2f5a5cc81de077560ba51015ef5d699\"><code>7427662</code></a> Fixed syntax error in Chinese (Simplified) translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e297c8c6f072113e1dcf6590f6af73b666326a56\"><code>e297c8c</code></a> Fixed syntax error in Chinese (Simplified) translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5f360d27711f428e3da8dc33df916e26ee792965\"><code>5f360d2</code></a> Added Tagalog translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/eef9bdece91c435cf28312b6fc01b4c3d2cc0fb0\"><code>eef9bde</code></a> Added Lithuanian translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/53482b61ba0387c36794d748557104eee3ebbd14\"><code>53482b6</code></a> Added Urdu translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/63f736bbddfe19a45370cfa4c56c79e5ee521e80\"><code>63f736b</code></a> Added Armenian translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b5df9b868616c5b2b4658557d6dcca40d5531c60\"><code>b5df9b8</code></a> Updated Chinese (Simplified) translations (<a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4181\">#4181</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/954112e2fa84f2198d981bf28c04106daa6bb17f\"><code>954112e</code></a> Prepare 8.4.0 release</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.3.9...8.4.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-08-17T14:05:04Z",
+          "tree_id": "7b15644003044b90d05962e6a9f62348effdddd3",
+          "url": "https://github.com/aws/jsii/commit/0a3c0e54b820cb307f6e8114dcb6fff34ecabc04"
+        },
+        "date": 1660748349390,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70555.85338010002,
+            "unit": "milliseconds",
+            "range": 1662753.5242958083,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70555.85338010002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49281.60417959999,
+            "unit": "milliseconds",
+            "range": 1899264.7905791823,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49281.60417959999 milliseconds over 20 runs"
           }
         ]
       }
