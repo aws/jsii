@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1660335120250,
+  "lastUpdate": 1660739195687,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4819,6 +4819,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 229259.628142339,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61156.516853699984 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "eltociear@gmail.com",
+            "name": "Ikko Ashimine",
+            "username": "eltociear"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d1a3eaad58fa24ca0b5ea9773b33c3fd41783bc5",
+          "message": "chore(python): fix typo in type-name.ts (#3705)\n\nIdentifiy -> Identify\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-17T11:21:15Z",
+          "tree_id": "61d7839db0937ded17b2ecf4ce529c782c0433e4",
+          "url": "https://github.com/aws/jsii/commit/d1a3eaad58fa24ca0b5ea9773b33c3fd41783bc5"
+        },
+        "date": 1660739192986,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 85706.44352654992,
+            "unit": "milliseconds",
+            "range": 2416404.2596900277,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 85706.44352654992 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 59812.90843819999,
+            "unit": "milliseconds",
+            "range": 375904.9354954654,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 59812.90843819999 milliseconds over 20 runs"
           }
         ]
       }
