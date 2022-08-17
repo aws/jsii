@@ -18102,6 +18102,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             }
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
         }
+
+        [JsiiMethod(name: "provideStruct", returnsJson: "{\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public static object ProvideStruct(string which)
+        {
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(string)}, new object[]{which})!;
+        }
+
+        [JsiiMethod(name: "provideStructAsAny", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public static object ProvideStructAsAny(string which)
+        {
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(string)}, new object[]{which})!;
+        }
     }
 }
 

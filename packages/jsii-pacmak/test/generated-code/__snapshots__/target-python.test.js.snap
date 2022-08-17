@@ -9888,6 +9888,28 @@ class StructUnionConsumer(
             check_type(argname="argument struct", value=struct, expected_type=type_hints["struct"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "isStructB", [struct]))
 
+    @jsii.member(jsii_name="provideStruct")
+    @builtins.classmethod
+    def provide_struct(cls, which: builtins.str) -> typing.Union[StructA, StructB]:
+        '''
+        :param which: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(StructUnionConsumer.provide_struct)
+            check_type(argname="argument which", value=which, expected_type=type_hints["which"])
+        return typing.cast(typing.Union[StructA, StructB], jsii.sinvoke(cls, "provideStruct", [which]))
+
+    @jsii.member(jsii_name="provideStructAsAny")
+    @builtins.classmethod
+    def provide_struct_as_any(cls, which: builtins.str) -> typing.Any:
+        '''
+        :param which: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(StructUnionConsumer.provide_struct_as_any)
+            check_type(argname="argument which", value=which, expected_type=type_hints["which"])
+        return typing.cast(typing.Any, jsii.sinvoke(cls, "provideStructAsAny", [which]))
+
 
 @jsii.data_type(
     jsii_type="jsii-calc.StructWithCollectionOfUnionts",

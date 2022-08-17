@@ -119,3 +119,7 @@ class TestRuntimeTypeChecking:
     def test_nested_struct(self):
         # None of these should throw...
         NestingClass.NestedStruct(name="Queen B")
+
+    def test_anonymous_object(self):
+        struct = jsii_calc.StructUnionConsumer.provide_struct_as_any("A")
+        assert jsii_calc.StructUnionConsumer.is_struct_a(struct)

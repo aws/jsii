@@ -2132,12 +2132,24 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ │ └─┬ struct
  │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
  │   │   │ └── returns: boolean
- │   │   └─┬ static isStructB(struct) method (stable)
+ │   │   ├─┬ static isStructB(struct) method (stable)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ struct
+ │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ static provideStruct(which) method (stable)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ which
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: jsii-calc.StructA | jsii-calc.StructB
+ │   │   └─┬ static provideStructAsAny(which) method (stable)
  │   │     ├── static
  │   │     ├─┬ parameters
- │   │     │ └─┬ struct
- │   │     │   └── type: jsii-calc.StructA | jsii-calc.StructB
- │   │     └── returns: boolean
+ │   │     │ └─┬ which
+ │   │     │   └── type: string
+ │   │     └── returns: any
  │   ├─┬ class Sum (stable)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -4952,7 +4964,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class StructUnionConsumer
  │   │ └─┬ members
  │   │   ├── static isStructA(struct) method
- │   │   └── static isStructB(struct) method
+ │   │   ├── static isStructB(struct) method
+ │   │   ├── static provideStruct(which) method
+ │   │   └── static provideStructAsAny(which) method
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

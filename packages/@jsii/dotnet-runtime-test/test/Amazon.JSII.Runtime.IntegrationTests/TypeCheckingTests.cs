@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using Xunit;
 
@@ -13,17 +14,17 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         const string Prefix = nameof(TypeCheckingTests) + ".";
 
         private readonly IDisposable _serviceContainerFixture;
-        
+
         public TypeCheckingTests(ServiceContainerFixture serviceContainerFixture)
         {
             _serviceContainerFixture = serviceContainerFixture;
         }
-        
+
         void IDisposable.Dispose()
         {
             _serviceContainerFixture.Dispose();
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(Constructor))]
         public void Constructor()
         {
@@ -39,7 +40,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             );
             Assert.Equal("Expected argument unionProperty[0][\"bad\"] to be one of: Amazon.JSII.Tests.CalculatorNamespace.IStructA, Amazon.JSII.Tests.CalculatorNamespace.IStructB; received System.String (Parameter 'unionProperty')", exception.Message);
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(Setter))]
         public void Setter()
         {
@@ -55,13 +56,21 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                     });
             Assert.Equal("Expected value[0][\"bad\"] to be one of: Amazon.JSII.Tests.CalculatorNamespace.IStructA, Amazon.JSII.Tests.CalculatorNamespace.IStructB; received System.String (Parameter 'value')", exception.Message);
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(StaticMethod))]
         public void StaticMethod()
         {
             var exception = Assert.Throws<System.ArgumentException>(() =>
                 StructUnionConsumer.IsStructA("Not a StructA"));
             Assert.Equal("Expected argument struct to be one of: Amazon.JSII.Tests.CalculatorNamespace.IStructA, Amazon.JSII.Tests.CalculatorNamespace.IStructB; received System.String (Parameter 'struct')", exception.Message);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(AnonymousObjectIsValid))]
+        public void AnonymousObjectIsValid()
+        {
+            var anonymousObject = StructUnionConsumer.ProvideStructAsAny("A");
+            Assert.IsType<AnonymousObject>(anonymousObject);
+            Assert.True(StructUnionConsumer.IsStructA(anonymousObject));
         }
     }
 }

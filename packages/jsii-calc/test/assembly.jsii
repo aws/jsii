@@ -1381,7 +1381,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 2747
+          "line": 2765
         },
         "parameters": [
           {
@@ -1401,7 +1401,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2746
+        "line": 2764
       },
       "name": "AmbiguousParameters",
       "properties": [
@@ -1412,7 +1412,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2749
+            "line": 2767
           },
           "name": "props",
           "type": {
@@ -1426,7 +1426,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2748
+            "line": 2766
           },
           "name": "scope",
           "type": {
@@ -1731,7 +1731,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2541
+        "line": 2559
       },
       "name": "BaseJsii976",
       "symbolId": "lib/compliance:BaseJsii976"
@@ -1753,7 +1753,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2485
+        "line": 2503
       },
       "methods": [
         {
@@ -1762,7 +1762,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2488
+            "line": 2506
           },
           "name": "ring",
           "overrides": "jsii-calc.IBell"
@@ -1776,7 +1776,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2486
+            "line": 2504
           },
           "name": "rung",
           "type": {
@@ -1903,7 +1903,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2831
+        "line": 2849
       },
       "methods": [
         {
@@ -1912,7 +1912,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2832
+            "line": 2850
           },
           "name": "check",
           "returns": {
@@ -1930,7 +1930,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2849
+            "line": 2867
           },
           "name": "giveItBack",
           "parameters": [
@@ -2267,7 +2267,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2565
+        "line": 2583
       },
       "name": "ChildStruct982",
       "properties": [
@@ -2279,7 +2279,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2566
+            "line": 2584
           },
           "name": "bar",
           "type": {
@@ -2459,7 +2459,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 3055
+          "line": 3073
         },
         "parameters": [
           {
@@ -2492,7 +2492,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3054
+        "line": 3072
       },
       "name": "ClassWithCollectionOfUnions",
       "properties": [
@@ -2502,7 +2502,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3056
+            "line": 3074
           },
           "name": "unionProperty",
           "type": {
@@ -3061,7 +3061,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2704
+        "line": 2722
       },
       "methods": [
         {
@@ -3070,7 +3070,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2705
+            "line": 2723
           },
           "name": "makeInstance",
           "returns": {
@@ -3086,7 +3086,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2709
+            "line": 2727
           },
           "name": "makeStructInstance",
           "returns": {
@@ -3105,7 +3105,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2713
+            "line": 2731
           },
           "name": "unionProperty",
           "optional": true,
@@ -3149,7 +3149,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2717
+        "line": 2735
       },
       "name": "ConfusingToJacksonStruct",
       "properties": [
@@ -3161,7 +3161,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2718
+            "line": 2736
           },
           "name": "unionProperty",
           "optional": true,
@@ -3386,7 +3386,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 2728
+          "line": 2746
         },
         "parameters": [
           {
@@ -3400,7 +3400,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2727
+        "line": 2745
       },
       "methods": [
         {
@@ -3409,7 +3409,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2730
+            "line": 2748
           },
           "name": "workItBaby",
           "returns": {
@@ -3438,7 +3438,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2370
+        "line": 2388
       },
       "methods": [
         {
@@ -3449,7 +3449,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2376
+            "line": 2394
           },
           "name": "staticImplementedByObjectLiteral",
           "parameters": [
@@ -3475,7 +3475,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2402
+            "line": 2420
           },
           "name": "staticImplementedByPrivateClass",
           "parameters": [
@@ -3501,7 +3501,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2391
+            "line": 2409
           },
           "name": "staticImplementedByPublicClass",
           "parameters": [
@@ -3527,7 +3527,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2413
+            "line": 2431
           },
           "name": "staticWhenTypedAsClass",
           "parameters": [
@@ -3553,7 +3553,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2423
+            "line": 2441
           },
           "name": "implementedByObjectLiteral",
           "parameters": [
@@ -3578,7 +3578,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2449
+            "line": 2467
           },
           "name": "implementedByPrivateClass",
           "parameters": [
@@ -3603,7 +3603,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2438
+            "line": 2456
           },
           "name": "implementedByPublicClass",
           "parameters": [
@@ -3628,7 +3628,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2460
+            "line": 2478
           },
           "name": "whenTypedAsClass",
           "parameters": [
@@ -3911,7 +3911,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3015
+        "line": 3033
       },
       "methods": [
         {
@@ -3920,7 +3920,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3016
+            "line": 3034
           },
           "name": "pleaseCompile"
         }
@@ -4035,7 +4035,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2572
+        "line": 2590
       },
       "methods": [
         {
@@ -4045,7 +4045,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2579
+            "line": 2597
           },
           "name": "takeThis",
           "returns": {
@@ -4062,7 +4062,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2584
+            "line": 2602
           },
           "name": "takeThisToo",
           "returns": {
@@ -4594,7 +4594,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2594
+        "line": 2612
       },
       "name": "DisappointingCollectionSource",
       "properties": [
@@ -4608,7 +4608,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2596
+            "line": 2614
           },
           "name": "maybeList",
           "optional": true,
@@ -4632,7 +4632,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2598
+            "line": 2616
           },
           "name": "maybeMap",
           "optional": true,
@@ -4993,7 +4993,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 2856
+          "line": 2874
         },
         "parameters": [
           {
@@ -5007,7 +5007,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2855
+        "line": 2873
       },
       "name": "DynamicPropertyBearer",
       "properties": [
@@ -5017,7 +5017,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2858
+            "line": 2876
           },
           "name": "dynamicProperty",
           "type": {
@@ -5030,7 +5030,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2856
+            "line": 2874
           },
           "name": "valueStore",
           "type": {
@@ -5053,7 +5053,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 2867
+          "line": 2885
         },
         "parameters": [
           {
@@ -5067,7 +5067,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2866
+        "line": 2884
       },
       "methods": [
         {
@@ -5078,7 +5078,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2878
+            "line": 2896
           },
           "name": "overrideValue",
           "parameters": [
@@ -5108,7 +5108,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2867
+            "line": 2885
           },
           "name": "originalValue",
           "type": {
@@ -6145,7 +6145,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2481
+        "line": 2499
       },
       "methods": [
         {
@@ -6155,7 +6155,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2482
+            "line": 2500
           },
           "name": "ring"
         }
@@ -6173,7 +6173,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2470
+        "line": 2488
       },
       "methods": [
         {
@@ -6183,7 +6183,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2471
+            "line": 2489
           },
           "name": "yourTurn",
           "parameters": [
@@ -6209,7 +6209,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2477
+        "line": 2495
       },
       "methods": [
         {
@@ -6219,7 +6219,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2478
+            "line": 2496
           },
           "name": "yourTurn",
           "parameters": [
@@ -7635,7 +7635,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2606
+        "line": 2624
       },
       "methods": [
         {
@@ -7645,7 +7645,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2608
+            "line": 2626
           },
           "name": "wasSet",
           "returns": {
@@ -7664,7 +7664,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2607
+            "line": 2625
           },
           "name": "property",
           "type": {
@@ -7684,7 +7684,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2795
+        "line": 2813
       },
       "methods": [
         {
@@ -7694,7 +7694,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2796
+            "line": 2814
           },
           "name": "optional",
           "returns": {
@@ -7848,7 +7848,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2537
+        "line": 2555
       },
       "name": "IReturnJsii976",
       "properties": [
@@ -7860,7 +7860,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2538
+            "line": 2556
           },
           "name": "foo",
           "type": {
@@ -7973,7 +7973,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2724
+        "line": 2742
       },
       "methods": [
         {
@@ -7983,7 +7983,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2725
+            "line": 2743
           },
           "name": "returnStruct",
           "returns": {
@@ -8275,7 +8275,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2758
+        "line": 2776
       },
       "methods": [
         {
@@ -8284,7 +8284,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2769
+            "line": 2787
           },
           "name": "listOfInterfaces",
           "returns": {
@@ -8305,7 +8305,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2759
+            "line": 2777
           },
           "name": "listOfStructs",
           "returns": {
@@ -8326,7 +8326,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2779
+            "line": 2797
           },
           "name": "mapOfInterfaces",
           "returns": {
@@ -8347,7 +8347,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2763
+            "line": 2781
           },
           "name": "mapOfStructs",
           "returns": {
@@ -8531,7 +8531,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2805
+        "line": 2823
       },
       "methods": [
         {
@@ -8540,7 +8540,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2806
+            "line": 2824
           },
           "name": "myself",
           "returns": {
@@ -8569,13 +8569,13 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 2999
+          "line": 3017
         }
       },
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2995
+        "line": 3013
       },
       "name": "Issue2638",
       "symbolId": "lib/compliance:Issue2638"
@@ -8592,13 +8592,13 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 3005
+          "line": 3023
         }
       },
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3004
+        "line": 3022
       },
       "name": "Issue2638B",
       "symbolId": "lib/compliance:Issue2638B"
@@ -9522,7 +9522,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2639
+        "line": 2657
       },
       "methods": [
         {
@@ -9531,7 +9531,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2684
+            "line": 2702
           },
           "name": "anyArray",
           "returns": {
@@ -9547,7 +9547,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2680
+            "line": 2698
           },
           "name": "anyBooleanFalse",
           "returns": {
@@ -9563,7 +9563,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2676
+            "line": 2694
           },
           "name": "anyBooleanTrue",
           "returns": {
@@ -9579,7 +9579,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2656
+            "line": 2674
           },
           "name": "anyDate",
           "returns": {
@@ -9595,7 +9595,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2672
+            "line": 2690
           },
           "name": "anyEmptyString",
           "returns": {
@@ -9611,7 +9611,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2652
+            "line": 2670
           },
           "name": "anyFunction",
           "returns": {
@@ -9627,7 +9627,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2688
+            "line": 2706
           },
           "name": "anyHash",
           "returns": {
@@ -9643,7 +9643,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2644
+            "line": 2662
           },
           "name": "anyNull",
           "returns": {
@@ -9659,7 +9659,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2660
+            "line": 2678
           },
           "name": "anyNumber",
           "returns": {
@@ -9675,7 +9675,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2692
+            "line": 2710
           },
           "name": "anyRef",
           "returns": {
@@ -9691,7 +9691,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2668
+            "line": 2686
           },
           "name": "anyString",
           "returns": {
@@ -9707,7 +9707,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2648
+            "line": 2666
           },
           "name": "anyUndefined",
           "returns": {
@@ -9723,7 +9723,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2664
+            "line": 2682
           },
           "name": "anyZero",
           "returns": {
@@ -9739,7 +9739,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2640
+            "line": 2658
           },
           "name": "stringify",
           "parameters": [
@@ -9776,7 +9776,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 2890
+          "line": 2908
         },
         "parameters": [
           {
@@ -9790,7 +9790,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2889
+        "line": 2907
       },
       "name": "LevelOne",
       "properties": [
@@ -9801,7 +9801,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2890
+            "line": 2908
           },
           "name": "props",
           "type": {
@@ -9821,7 +9821,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2900
+        "line": 2918
       },
       "name": "PropBooleanValue",
       "namespace": "LevelOne",
@@ -9834,7 +9834,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2901
+            "line": 2919
           },
           "name": "value",
           "type": {
@@ -9854,7 +9854,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2896
+        "line": 2914
       },
       "name": "PropProperty",
       "namespace": "LevelOne",
@@ -9867,7 +9867,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2897
+            "line": 2915
           },
           "name": "prop",
           "type": {
@@ -9887,7 +9887,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2892
+        "line": 2910
       },
       "name": "LevelOneProps",
       "properties": [
@@ -9899,7 +9899,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2893
+            "line": 2911
           },
           "name": "prop",
           "type": {
@@ -10376,7 +10376,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2513
+        "line": 2531
       },
       "name": "NestedStruct",
       "properties": [
@@ -10389,7 +10389,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2517
+            "line": 2535
           },
           "name": "numberProp",
           "type": {
@@ -10823,7 +10823,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2610
+        "line": 2628
       },
       "methods": [
         {
@@ -10832,7 +10832,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2611
+            "line": 2629
           },
           "name": "provide",
           "returns": {
@@ -11267,7 +11267,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2562
+        "line": 2580
       },
       "name": "ParentStruct982",
       "properties": [
@@ -11279,7 +11279,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2563
+            "line": 2581
           },
           "name": "foo",
           "type": {
@@ -12225,7 +12225,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2506
+        "line": 2524
       },
       "name": "RootStruct",
       "properties": [
@@ -12238,7 +12238,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2510
+            "line": 2528
           },
           "name": "stringProp",
           "type": {
@@ -12253,7 +12253,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2511
+            "line": 2529
           },
           "name": "nestedStruct",
           "optional": true,
@@ -12273,7 +12273,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2519
+        "line": 2537
       },
       "methods": [
         {
@@ -12282,7 +12282,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2520
+            "line": 2538
           },
           "name": "validate",
           "parameters": [
@@ -12698,7 +12698,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2543
+        "line": 2561
       },
       "methods": [
         {
@@ -12707,7 +12707,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2552
+            "line": 2570
           },
           "name": "returnAnonymous",
           "returns": {
@@ -12723,7 +12723,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2544
+            "line": 2562
           },
           "name": "returnReturn",
           "returns": {
@@ -12937,7 +12937,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2924
+        "line": 2942
       },
       "methods": [
         {
@@ -12946,7 +12946,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2929
+            "line": 2947
           },
           "name": "method",
           "overrides": "jsii-calc.StaticHelloParent",
@@ -12962,7 +12962,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2925
+            "line": 2943
           },
           "name": "property",
           "overrides": "jsii-calc.StaticHelloParent",
@@ -12990,7 +12990,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2915
+        "line": 2933
       },
       "methods": [
         {
@@ -12999,7 +12999,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2920
+            "line": 2938
           },
           "name": "method",
           "static": true
@@ -13014,7 +13014,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2916
+            "line": 2934
           },
           "name": "property",
           "static": true,
@@ -13429,7 +13429,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2742
+        "line": 2760
       },
       "name": "StructParameterType",
       "properties": [
@@ -13441,7 +13441,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2743
+            "line": 2761
           },
           "name": "scope",
           "type": {
@@ -13456,7 +13456,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2744
+            "line": 2762
           },
           "name": "props",
           "optional": true,
@@ -13628,6 +13628,63 @@
             }
           },
           "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2361
+          },
+          "name": "provideStruct",
+          "parameters": [
+            {
+              "name": "which",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "union": {
+                "types": [
+                  {
+                    "fqn": "jsii-calc.StructA"
+                  },
+                  {
+                    "fqn": "jsii-calc.StructB"
+                  }
+                ]
+              }
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2375
+          },
+          "name": "provideStructAsAny",
+          "parameters": [
+            {
+              "name": "which",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
         }
       ],
       "name": "StructUnionConsumer",
@@ -13643,7 +13700,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3060
+        "line": 3078
       },
       "name": "StructWithCollectionOfUnionts",
       "properties": [
@@ -13655,7 +13712,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3061
+            "line": 3079
           },
           "name": "unionProperty",
           "type": {
@@ -13694,7 +13751,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2941
+        "line": 2959
       },
       "name": "StructWithEnum",
       "properties": [
@@ -13707,7 +13764,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2945
+            "line": 2963
           },
           "name": "foo",
           "type": {
@@ -13724,7 +13781,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2951
+            "line": 2969
           },
           "name": "bar",
           "optional": true,
@@ -14406,7 +14463,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2954
+        "line": 2972
       },
       "methods": [
         {
@@ -14416,7 +14473,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2958
+            "line": 2976
           },
           "name": "isStringEnumA",
           "parameters": [
@@ -14440,7 +14497,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2965
+            "line": 2983
           },
           "name": "isStringEnumB",
           "parameters": [
@@ -14468,7 +14525,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2984
+            "line": 3002
           },
           "name": "structWithFoo",
           "type": {
@@ -14483,7 +14540,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2974
+            "line": 2992
           },
           "name": "structWithFooBar",
           "type": {
@@ -14615,7 +14672,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3027
+        "line": 3045
       },
       "methods": [
         {
@@ -14624,7 +14681,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3028
+            "line": 3046
           },
           "name": "toIsoString",
           "returns": {
@@ -14640,7 +14697,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3042
+            "line": 3060
           },
           "name": "toIsOString",
           "returns": {
@@ -14656,7 +14713,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3035
+            "line": 3053
           },
           "name": "toISOString",
           "returns": {
@@ -14675,7 +14732,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3046
+            "line": 3064
           },
           "name": "fooBar",
           "type": {
@@ -14690,7 +14747,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3051
+            "line": 3069
           },
           "name": "fooBAR",
           "type": {
@@ -14711,7 +14768,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2816
+        "line": 2834
       },
       "methods": [
         {
@@ -14721,7 +14778,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2820
+            "line": 2838
           },
           "name": "mode",
           "returns": {
@@ -17788,5 +17845,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "4J4zpGOrJJsMNdeBDVxr5OLa4LaClMA61HDRI4Wnajg="
+  "fingerprint": "hSxa19dYt1ZFCew6P4VmbXbwjRqEq62UWpYsgUytyV8="
 }

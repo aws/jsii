@@ -18799,6 +18799,36 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) *bool {
 	return returns
 }
 
+func StructUnionConsumer_ProvideStruct(which *string) interface{} {
+	_init_.Initialize()
+
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.StructUnionConsumer",
+		"provideStruct",
+		[]interface{}{which},
+		&returns,
+	)
+
+	return returns
+}
+
+func StructUnionConsumer_ProvideStructAsAny(which *string) interface{} {
+	_init_.Initialize()
+
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.StructUnionConsumer",
+		"provideStructAsAny",
+		[]interface{}{which},
+		&returns,
+	)
+
+	return returns
+}
+
 
 `;
 

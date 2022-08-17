@@ -2285,12 +2285,24 @@ exports[`showAll 1`] = `
  │   │   │ │ └─┬ struct
  │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
  │   │   │ └── returns: boolean
- │   │   └─┬ static isStructB(struct) method
+ │   │   ├─┬ static isStructB(struct) method
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ struct
+ │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ static provideStruct(which) method
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ which
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: jsii-calc.StructA | jsii-calc.StructB
+ │   │   └─┬ static provideStructAsAny(which) method
  │   │     ├── static
  │   │     ├─┬ parameters
- │   │     │ └─┬ struct
- │   │     │   └── type: jsii-calc.StructA | jsii-calc.StructB
- │   │     └── returns: boolean
+ │   │     │ └─┬ which
+ │   │     │   └── type: string
+ │   │     └── returns: any
  │   ├─┬ class Sum
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
