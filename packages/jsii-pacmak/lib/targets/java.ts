@@ -705,9 +705,7 @@ class JavaGenerator extends Generator {
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
-    this.code.line('//BEGIN TYPE UNION VALIDATION');
     this.emitUnionParameterValdation(method.parameters);
-    this.code.line('//END TYPE UNION VALIDATION');
     this.code.line(
       `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(
         method,
@@ -1530,10 +1528,6 @@ class JavaGenerator extends Generator {
     if (unionParameters == null || unionParameters.length === 0) {
       return;
     }
-    this.code.line('emitting union parameter validation for params:');
-    for (const param of parameters ?? []) {
-      this.code.line(`param ${param.name} with type ${param.type.toString()}`);
-    }
 
     for (const param of unionParameters) {
       validate.call(
@@ -1589,14 +1583,14 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__idx_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      const varName = `__idx_${descr.replace(/[^a-z0-9_]|get/gi, '_')}`;
       this.code.openBlock(
-        `for (int ${varName} = 0; ${varName} < ${value}.length; ${varName}++)`,
+        `for (int ${varName} = 0; ${varName} < ${value}.size(); ${varName}++)`,
       );
       validate.call(
         this,
-        `${value}[${varName}]`,
-        `${descr}[{${varName}}]`,
+        `${value}.get(${varName})`,
+        `${descr}.get(${varName})`,
         elementType,
         parameterName,
       );
@@ -1610,12 +1604,12 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__item_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
-      this.code.openBlock(`for (${this.toJavaType(elementType)} ${varName}: ${value}.entrySet())`);
+      const varName = `__item_${descr.replace(/[^a-z0-9_]|get/gi, '_')}`;
+      this.code.openBlock(`for (Map.Entry<String, ${this.toJavaType(elementType)}> ${varName}: ${value}.entrySet())`);
       validate.call(
         this,
         `${varName}.getValue()`,
-        `${descr}[{${varName}.getKey()}]`,
+        `${descr}.get(${varName}.getKey())`,
         elementType,
         parameterName,
       );
@@ -1629,30 +1623,29 @@ class JavaGenerator extends Generator {
       type: spec.UnionTypeReference,
       parameterName: string,
     ) {
-
-        this.code.line(value);
-        this.code.line(descr);
-        type.union.types.forEach((typeref => this.code.line(this.toJavaTypes(typeref).toString())));
-        this.code.line(parameterName);
-        this.code.indent('if (')
-        let emitAnd = false;
-        const typeRefs = type.union.types;
-        for (const typeRef of typeRefs) {
-          const prefix = emitAnd ? '&&' : '';
-          const javaType = this.toJavaType(typeRef);
-          const test =  `${value} instanceof ${javaType}`;
-          this.code.line(`${prefix} !(${test})`);
-          emitAnd = true;
-        }
+      this.code.indent('if (');
+      let emitAnd = false;
+      const typeRefs = type.union.types;
+      for (const typeRef of typeRefs) {
+        const prefix = emitAnd ? '&&' : '';
+        const javaType = this.toJavaType(typeRef);
+        const test = `${value} instanceof ${javaType}`;
+        this.code.line(`${prefix} !(${test})`);
+        emitAnd = true;
+      }
 
       this.code.unindent(')');
+      this.code.openBlock('');
 
-      const placeholders = typeRefs.map((typeRef) => {
-        return `{${this.toJavaType(typeRef)}}`;
-      }).join(', ');
+      const placeholders = typeRefs
+        .map((typeRef) => {
+          return `${this.toJavaType(typeRef)}`;
+        })
+        .join(', ');
 
-      this.code.openBlock(`throw new Exception(
-        Expected ${descr} to be one of: ${placeholders}; received {${value}.GetType().FullName}", $"${parameterName}")`);
+      this.code.line(`throw new Exception(
+        "Expected " + ${descr} + " to be one of: ${placeholders}; received  " + ${value}.getClass() + ", " + ${parameterName});`);
+      this.code.closeBlock();
     }
   }
 
