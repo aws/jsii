@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.64.0](https://github.com/aws/jsii/compare/v1.63.2...v1.64.0) (2022-08-11)
+
+
+### Features
+
+* **.net:** dynamic type checking for union-typed parameters ([#3668](https://github.com/aws/jsii/issues/3668)) ([f5e0603](https://github.com/aws/jsii/commit/f5e06038adfa6912baabc9ea004ad40a5ad87295)), closes [#3640](https://github.com/aws/jsii/issues/3640)
+* **.net:** embed package icon when configured ([#3676](https://github.com/aws/jsii/issues/3676)) ([c65b1d9](https://github.com/aws/jsii/commit/c65b1d9fd1e0a6e37dad96c763c0bb1a1d15f57d))
+
+
+### Bug Fixes
+
+* **python:** classproperty not working with type checkers ([#3694](https://github.com/aws/jsii/issues/3694)) ([5413720](https://github.com/aws/jsii/commit/5413720a274fbcc9d3b62823197b76589f99329c)), closes [#3633](https://github.com/aws/jsii/issues/3633)
+* **python:** unable to override methods with keyword arguments ([#3695](https://github.com/aws/jsii/issues/3695)) ([bcffb4b](https://github.com/aws/jsii/commit/bcffb4bb65846fcada33755269e72ce708ebeacf)), closes [#3656](https://github.com/aws/jsii/issues/3656)
+
 ## [1.63.2](https://github.com/aws/jsii/compare/v1.63.1...v1.63.2) (2022-07-29)
 
 
