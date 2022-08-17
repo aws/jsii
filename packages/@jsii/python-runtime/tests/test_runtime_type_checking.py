@@ -121,5 +121,8 @@ class TestRuntimeTypeChecking:
         NestingClass.NestedStruct(name="Queen B")
 
     def test_anonymous_object(self):
-        struct = jsii_calc.StructUnionConsumer.provide_struct_as_any("A")
+        struct = jsii_calc.StructUnionConsumer.provide_struct("A")
         assert jsii_calc.StructUnionConsumer.is_struct_a(struct)
+
+        iface = jsii_calc.anonymous.UseOptions.provide("A")
+        assert jsii_calc.anonymous.UseOptions.consume(iface) == "A"

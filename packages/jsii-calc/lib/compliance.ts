@@ -2372,10 +2372,6 @@ export class StructUnionConsumer {
     }
   }
 
-  public static provideStructAsAny(which: 'A' | 'B'): any {
-    return this.provideStruct(which);
-  }
-
   private constructor() {}
 }
 

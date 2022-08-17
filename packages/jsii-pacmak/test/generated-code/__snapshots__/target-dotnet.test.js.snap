@@ -2803,6 +2803,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 AllTypes.cs
        ┃           ┣━ 📄 AllTypesEnum.cs
        ┃           ┣━ 📄 AmbiguousParameters.cs
+       ┃           ┣━ 📁 Anonymous
+       ┃           ┃  ┣━ 📄 IOptionA.cs
+       ┃           ┃  ┣━ 📄 IOptionB.cs
+       ┃           ┃  ┗━ 📄 UseOptions.cs
        ┃           ┣━ 📄 AnonymousImplementationProvider.cs
        ┃           ┣━ 📄 AsyncVirtualMethods.cs
        ┃           ┣━ 📄 AugmentableClass.cs
@@ -3914,6 +3918,126 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Bell Scope
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Bell>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/IOptionA.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Anonymous
+{
+    [JsiiInterface(nativeType: typeof(IOptionA), fullyQualifiedName: "jsii-calc.anonymous.IOptionA")]
+    public interface IOptionA
+    {
+        [JsiiMethod(name: "doSomething", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string DoSomething();
+
+        [JsiiTypeProxy(nativeType: typeof(IOptionA), fullyQualifiedName: "jsii-calc.anonymous.IOptionA")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "doSomething", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+            public string DoSomething()
+            {
+                return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/IOptionB.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Anonymous
+{
+    [JsiiInterface(nativeType: typeof(IOptionB), fullyQualifiedName: "jsii-calc.anonymous.IOptionB")]
+    public interface IOptionB
+    {
+        [JsiiMethod(name: "doSomethingElse", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string DoSomethingElse();
+
+        [JsiiTypeProxy(nativeType: typeof(IOptionB), fullyQualifiedName: "jsii-calc.anonymous.IOptionB")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "doSomethingElse", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+            public string DoSomethingElse()
+            {
+                return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Anonymous
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.UseOptions), fullyQualifiedName: "jsii-calc.anonymous.UseOptions")]
+    public class UseOptions : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected UseOptions(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected UseOptions(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "consume", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"option\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.anonymous.IOptionA\\"},{\\"fqn\\":\\"jsii-calc.anonymous.IOptionB\\"}]}}}]")]
+        public static string Consume(object option)
+        {
+            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
+            {
+                if (
+                    !(option is Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA)
+                    && !(option is Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB)
+                    && !(option is Amazon.JSII.Runtime.Deputy.AnonymousObject)
+                )
+
+                {
+                    throw new System.ArgumentException($"Expected argument {nameof(option)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB).FullName}; received {option.GetType().FullName}", $"{nameof(option)}");
+                }
+            }
+            return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.UseOptions), new System.Type[]{typeof(object)}, new object[]{option})!;
+        }
+
+        [JsiiMethod(name: "privideAsAny", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public static object PrivideAsAny(string which)
+        {
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.UseOptions), new System.Type[]{typeof(string)}, new object[]{which})!;
+        }
+
+        [JsiiMethod(name: "provide", returnsJson: "{\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.anonymous.IOptionA\\"},{\\"fqn\\":\\"jsii-calc.anonymous.IOptionB\\"}]}}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public static object Provide(string which)
+        {
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.UseOptions), new System.Type[]{typeof(string)}, new object[]{which})!;
         }
     }
 }
@@ -18105,12 +18229,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         [JsiiMethod(name: "provideStruct", returnsJson: "{\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
         public static object ProvideStruct(string which)
-        {
-            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(string)}, new object[]{which})!;
-        }
-
-        [JsiiMethod(name: "provideStructAsAny", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
-        public static object ProvideStructAsAny(string which)
         {
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(string)}, new object[]{which})!;
         }

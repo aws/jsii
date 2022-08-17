@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace.Anonymous;
 using Xunit;
 
 #pragma warning disable CS0612
@@ -68,9 +69,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(AnonymousObjectIsValid))]
         public void AnonymousObjectIsValid()
         {
-            var anonymousObject = StructUnionConsumer.ProvideStructAsAny("A");
+            var anonymousObject = UseOptions.Provide("A");
             Assert.IsType<AnonymousObject>(anonymousObject);
-            Assert.True(StructUnionConsumer.IsStructA(anonymousObject));
+            Assert.Equal("A", UseOptions.Consume(anonymousObject));
         }
     }
 }
