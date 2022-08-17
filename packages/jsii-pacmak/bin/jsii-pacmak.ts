@@ -46,7 +46,11 @@ import { VERSION_DESC } from '../lib/version';
     })
     .option('runtime-type-checking', {
       type: 'boolean',
-      desc: 'generate runtime type checking code where compile-time type checking is not possible',
+      desc: [
+        'generate runtime type checking code where compile-time type checking is not possible.',
+        'Disabling this will generate less code, but will produce less helpful error messages when',
+        'developers pass invalid values to the generated bindings.',
+      ].join(' '),
       default: true,
     })
     .option('fingerprint', {
