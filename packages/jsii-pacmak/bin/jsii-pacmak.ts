@@ -44,6 +44,11 @@ import { VERSION_DESC } from '../lib/version';
       desc: 'generate code only (instead of building and packaging)',
       default: false,
     })
+    .option('runtime-type-checking', {
+      type: 'boolean',
+      desc: 'generate runtime type checking code where compile-time type checking is not possible',
+      default: true,
+    })
     .option('fingerprint', {
       type: 'boolean',
       desc: 'attach a fingerprint to the generated artifacts, and skip generation if outdir contains artifacts that have a matching fingerprint',
@@ -171,6 +176,7 @@ import { VERSION_DESC } from '../lib/version';
     recurse: argv.recurse,
     rosettaUnknownSnippets,
     rosettaTablet: argv['rosetta-tablet'],
+    runtimeTypeChecking: argv['runtime-type-checking'],
     targets: argv.targets?.map((target) => target as TargetName),
     updateNpmIgnoreFiles: argv.npmignore,
     validateAssemblies: argv['validate-assemblies'],

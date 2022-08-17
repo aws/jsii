@@ -13,38 +13,44 @@ export interface BuildOptions {
    * Whether to fingerprint the produced artifacts.
    * @default true
    */
-  fingerprint?: boolean;
+  readonly fingerprint?: boolean;
 
   /**
    * Whether artifacts should be re-build even if their fingerprints look up-to-date.
    * @default false
    */
-  force?: boolean;
+  readonly force?: boolean;
 
   /**
    * Arguments provided by the user (how they are used is target-dependent)
    */
-  arguments: { readonly [name: string]: any };
+  readonly arguments: { readonly [name: string]: any };
 
   /**
    * Only generate code, don't build
    */
-  codeOnly?: boolean;
+  readonly codeOnly?: boolean;
 
   /**
    * Whether or not to clean
    */
-  clean?: boolean;
+  readonly clean?: boolean;
 
   /**
    * Whether to add an additional subdirectory for the target language
    */
-  languageSubdirectory?: boolean;
+  readonly languageSubdirectory?: boolean;
 
   /**
    * The Rosetta instance to load examples from
    */
-  rosetta: Rosetta;
+  readonly rosetta: Rosetta;
+
+  /**
+   * Whether to generate runtime type checking code in places where compile-time
+   * type checking is not possible.
+   */
+  readonly runtimeTypeChecking: boolean;
 }
 
 /**
@@ -130,13 +136,14 @@ export class IndependentPackageBuilder implements TargetBuilder {
 
   private makeTarget(module: JsiiModule, options: BuildOptions): Target {
     return new this.targetConstructor({
-      targetName: this.targetName,
-      packageDir: module.moduleDirectory,
+      arguments: options.arguments,
       assembly: module.assembly,
       fingerprint: options.fingerprint,
       force: options.force,
-      arguments: options.arguments,
+      packageDir: module.moduleDirectory,
       rosetta: options.rosetta,
+      runtimeTypeChecking: options.runtimeTypeChecking,
+      targetName: this.targetName,
     });
   }
 
