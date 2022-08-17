@@ -3687,15 +3687,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
                 {
-                    for (int __idx_value = 0 ; __idx_value < value.Length ; __idx_value++)
+                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
                     {
                         if (
-                            !(value[__idx_value] is byte || value[__idx_value] is decimal || value[__idx_value] is double || value[__idx_value] is float || value[__idx_value] is int || value[__idx_value] is long || value[__idx_value] is sbyte || value[__idx_value] is short || value[__idx_value] is uint || value[__idx_value] is ulong || value[__idx_value] is ushort)
-                            && !(value[__idx_value] is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue)
+                            !(value[__idx_cd4240] is byte || value[__idx_cd4240] is decimal || value[__idx_cd4240] is double || value[__idx_cd4240] is float || value[__idx_cd4240] is int || value[__idx_cd4240] is long || value[__idx_cd4240] is sbyte || value[__idx_cd4240] is short || value[__idx_cd4240] is uint || value[__idx_cd4240] is ulong || value[__idx_cd4240] is ushort)
+                            && !(value[__idx_cd4240] is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue)
                         )
 
                         {
-                            throw new System.ArgumentException($"Expected value[{__idx_value}] to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue).FullName}; received {value[__idx_value].GetType().FullName}", $"value");
+                            throw new System.ArgumentException($"Expected value[{__idx_cd4240}] to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue).FullName}; received {value[__idx_cd4240].GetType().FullName}", $"value");
                         }
                     }
                 }
@@ -3711,16 +3711,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
                 {
-                    foreach (var __item_value in value)
+                    foreach (var __item_cd4240 in value)
                     {
                         if (
-                            !(__item_value.Value is string)
-                            && !(__item_value.Value is byte || __item_value.Value is decimal || __item_value.Value is double || __item_value.Value is float || __item_value.Value is int || __item_value.Value is long || __item_value.Value is sbyte || __item_value.Value is short || __item_value.Value is uint || __item_value.Value is ulong || __item_value.Value is ushort)
-                            && !(__item_value.Value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
+                            !(__item_cd4240.Value is string)
+                            && !(__item_cd4240.Value is byte || __item_cd4240.Value is decimal || __item_cd4240.Value is double || __item_cd4240.Value is float || __item_cd4240.Value is int || __item_cd4240.Value is long || __item_cd4240.Value is sbyte || __item_cd4240.Value is short || __item_cd4240.Value is uint || __item_cd4240.Value is ulong || __item_cd4240.Value is ushort)
+                            && !(__item_cd4240.Value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
                         )
 
                         {
-                            throw new System.ArgumentException($"Expected value[\\"{__item_value.Key}\\"] to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}; received {__item_value.Value.GetType().FullName}", $"value");
+                            throw new System.ArgumentException($"Expected value[\\"{__item_cd4240.Key}\\"] to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}; received {__item_cd4240.Value.GetType().FullName}", $"value");
                         }
                     }
                 }
@@ -4914,17 +4914,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
             {
-                for (int __idx_argument__nameof_unionProperty__ = 0 ; __idx_argument__nameof_unionProperty__ < unionProperty.Length ; __idx_argument__nameof_unionProperty__++)
+                for (int __idx_452e2d = 0 ; __idx_452e2d < unionProperty.Length ; __idx_452e2d++)
                 {
-                    foreach (var __item_argument__nameof_unionProperty______idx_argument__nameof_unionProperty____ in unionProperty[__idx_argument__nameof_unionProperty__])
+                    foreach (var __item_f994c5 in unionProperty[__idx_452e2d])
                     {
                         if (
-                            !(__item_argument__nameof_unionProperty______idx_argument__nameof_unionProperty____.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                            && !(__item_argument__nameof_unionProperty______idx_argument__nameof_unionProperty____.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                            !(__item_f994c5.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
+                            && !(__item_f994c5.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                            && !(__item_f994c5.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                         )
 
                         {
-                            throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_argument__nameof_unionProperty__}][\\"{__item_argument__nameof_unionProperty______idx_argument__nameof_unionProperty____.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_argument__nameof_unionProperty______idx_argument__nameof_unionProperty____.Value.GetType().FullName}", $"{nameof(unionProperty)}");
+                            throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_452e2d}][\\"{__item_f994c5.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_f994c5.Value.GetType().FullName}", $"{nameof(unionProperty)}");
                         }
                     }
                 }
@@ -4954,17 +4955,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
                 {
-                    for (int __idx_value = 0 ; __idx_value < value.Length ; __idx_value++)
+                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
                     {
-                        foreach (var __item_value____idx_value__ in value[__idx_value])
+                        foreach (var __item_db0d7d in value[__idx_cd4240])
                         {
                             if (
-                                !(__item_value____idx_value__.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                                && !(__item_value____idx_value__.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                                !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
+                                && !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                                && !(__item_db0d7d.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                             )
 
                             {
-                                throw new System.ArgumentException($"Expected value[{__idx_value}][\\"{__item_value____idx_value__.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_value____idx_value__.Value.GetType().FullName}", $"value");
+                                throw new System.ArgumentException($"Expected value[{__idx_cd4240}][\\"{__item_db0d7d.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_db0d7d.Value.GetType().FullName}", $"value");
                             }
                         }
                     }
@@ -5484,6 +5486,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                         if (
                             !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
                             && !(value is object[])
+                            && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                         )
 
                         {
@@ -5525,6 +5528,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                         if (
                             !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
                             && !(value is object[])
+                            && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                         )
 
                         {
@@ -18071,6 +18075,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 if (
                     !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
                     && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                    && !(@struct is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                 )
 
                 {
@@ -18088,6 +18093,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 if (
                     !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
                     && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                    && !(@struct is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                 )
 
                 {
@@ -18123,17 +18129,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
                 {
-                    for (int __idx_value = 0 ; __idx_value < value.Length ; __idx_value++)
+                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
                     {
-                        foreach (var __item_value____idx_value__ in value[__idx_value])
+                        foreach (var __item_db0d7d in value[__idx_cd4240])
                         {
                             if (
-                                !(__item_value____idx_value__.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                                && !(__item_value____idx_value__.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                                !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
+                                && !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
+                                && !(__item_db0d7d.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                             )
 
                             {
-                                throw new System.ArgumentException($"Expected value[{__idx_value}][\\"{__item_value____idx_value__.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_value____idx_value__.Value.GetType().FullName}", $"value");
+                                throw new System.ArgumentException($"Expected value[{__idx_cd4240}][\\"{__item_db0d7d.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_db0d7d.Value.GetType().FullName}", $"value");
                             }
                         }
                     }
@@ -19526,6 +19533,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                     if (
                         !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
                         && !(value is Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct)
+                        && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
                     )
 
                     {
