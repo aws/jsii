@@ -13,10 +13,14 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StructAImplementer implements StructA {
+class StructAImplementer implements StructA, StructB {
   public String requiredString;
 
   StructAImplementer(String param) {
+    requiredString = param;
+  }
+
+  public void setRequiredString(String param) {
     requiredString = param;
   }
 
@@ -31,6 +35,24 @@ public class TypeCheckingTest {
         boolean thrown = false;
         try {
 
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("good", new StructAImplementer("present"));
+            map.put("bad", "Not a StructA or StructB");
+            ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+            list.add(map);
+            new ClassWithCollectionOfUnions(list);
+        }
+        catch (JsiiException e) {
+            thrown = true;
+            assertEquals("foo", e.getMessage());
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void setter() {
+        boolean thrown = false;
+        try {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("good", new StructAImplementer("present"));
             map.put("bad", "Not a StructA or StructB");

@@ -700,7 +700,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       `${initializerAccessLevel} ${cls.name}(${this.renderMethodParameters(
         method,
-      )})`,
+      )})${methodThrowsDecl(method)}`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
@@ -1597,7 +1597,7 @@ class JavaGenerator extends Generator {
     ) {
       const varName = `__item_${descr.replace(/[^a-z0-9_]|get/gi, '_')}`;
       this.code.openBlock(
-        `for (Map.Entry<String, ${this.toJavaType(
+        `for (java.util.Map.Entry<String, ${this.toJavaType(
           elementType,
         )}> ${varName}: ${value}.entrySet())`,
       );
@@ -3403,6 +3403,24 @@ function splitNamespace(ns: string): [string, string] {
  */
 function escape(s: string) {
   return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
+}
+
+function methodThrowsDecl(method: spec.Callable): string {
+  return methodParametersContainUnionType(method) ? ' throws Exception' : '';
+}
+
+function methodParametersContainUnionType(method: spec.Callable): boolean {
+  if (!method.parameters) {
+    return false;
+  }
+
+  for (const param of method.parameters) {
+    if (containsUnionType(param.type)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function containsUnionType(

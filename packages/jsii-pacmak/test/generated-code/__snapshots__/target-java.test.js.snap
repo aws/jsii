@@ -6455,10 +6455,10 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
      * @param unionProperty This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) {
+    public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) throws Exception {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         for (int __idx_unionProperty = 0; __idx_unionProperty < unionProperty.size(); __idx_unionProperty++) {
-            for (Map.Entry<String, java.lang.Object> __item_unionProperty_____idx_unionProperty_: unionProperty.get(__idx_unionProperty).entrySet()) {
+            for (java.util.Map.Entry<String, java.lang.Object> __item_unionProperty_____idx_unionProperty_: unionProperty.get(__idx_unionProperty).entrySet()) {
                 if (
                      !(__item_unionProperty_____idx_unionProperty_.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
                     && !(__item_unionProperty_____idx_unionProperty_.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
