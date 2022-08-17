@@ -332,7 +332,7 @@ class UserType implements TypeName {
     ).pythonFqn;
 
     if (typeSubmodulePythonName === submodulePythonName) {
-      // Identifiy declarations that are not yet initialized and hence cannot be
+      // Identify declarations that are not yet initialized and hence cannot be
       // used as part of a type qualification. Since this is not a forward
       // reference, the type was already emitted and its un-qualified name must
       // be used instead of it's locally qualified name.
