@@ -1517,7 +1517,6 @@ class JavaGenerator extends Generator {
    * Emits type checks for values passed for type union parameters.
    *
    * @param parameters the list of parameters received by the function.
-   * @param noMangle   use parameter names as-is (useful for setters, for example) instead of mangling them.
    */
   private emitUnionParameterValdation(
     parameters?: readonly spec.Parameter[],
@@ -1530,13 +1529,7 @@ class JavaGenerator extends Generator {
     }
 
     for (const param of unionParameters) {
-      validate.call(
-        this,
-        param.name,
-        param.name,
-        param.type,
-        param.name,
-      );
+      validate.call(this, param.name, param.name, param.type, param.name);
     }
 
     function validate(
@@ -1566,8 +1559,6 @@ class JavaGenerator extends Generator {
             collectionType.collection.elementtype,
             parameterName,
           );
-
-          //this.code.line('found map with type union');
         } else {
           throw new Error(
             `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
@@ -1605,7 +1596,11 @@ class JavaGenerator extends Generator {
       parameterName: string,
     ) {
       const varName = `__item_${descr.replace(/[^a-z0-9_]|get/gi, '_')}`;
-      this.code.openBlock(`for (Map.Entry<String, ${this.toJavaType(elementType)}> ${varName}: ${value}.entrySet())`);
+      this.code.openBlock(
+        `for (Map.Entry<String, ${this.toJavaType(
+          elementType,
+        )}> ${varName}: ${value}.entrySet())`,
+      );
       validate.call(
         this,
         `${varName}.getValue()`,

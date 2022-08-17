@@ -2,7 +2,6 @@ package software.amazon.jsii.testing;
 
 import org.junit.jupiter.api.Test;
 import software.amazon.jsii.JsiiException;
-//import software.amazon.jsii.tests.compliance;
 import software.amazon.jsii.tests.calculator.*;
 
 import java.util.ArrayList;
