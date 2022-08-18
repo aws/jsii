@@ -1,5 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
+import { createHash } from 'crypto';
 import * as fs from 'fs-extra';
 import * as http from 'http';
 import * as https from 'https';
@@ -731,7 +732,10 @@ export class DotNetGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__idx_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      const varName = `__idx_${createHash('sha256')
+        .update(descr)
+        .digest('hex')
+        .slice(0, 6)}`;
       this.code.openBlock(
         `for (int ${varName} = 0 ; ${varName} < ${value}.Length ; ${varName}++)`,
       );
@@ -752,7 +756,10 @@ export class DotNetGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__item_${descr.replace(/[^a-z0-9_]/gi, '_')}`;
+      const varName = `__item_${createHash('sha256')
+        .update(descr)
+        .digest('hex')
+        .slice(0, 6)}`;
       this.code.openBlock(`foreach (var ${varName} in ${value})`);
       validate.call(
         this,
@@ -798,6 +805,20 @@ export class DotNetGenerator extends Generator {
             : `${value} is ${dotNetType}`;
         this.code.line(`${prefix}!(${test})`);
         emitAnd = true;
+      }
+      if (
+        typeRefs.some(
+          (ref) =>
+            spec.isNamedTypeReference(ref) &&
+            spec.isInterfaceType(this.findType(ref.fqn)),
+        )
+      ) {
+        // AnonymousObject will convert to any interface type, even if unsafely. It is the opaque
+        // type returned when a non-intrinsically typed value is passed through an any or union
+        // return point. We basically cannot type-check that at runtime in a complete way.
+        this.code.line(
+          `&& !(${value} is Amazon.JSII.Runtime.Deputy.AnonymousObject)`,
+        );
       }
       this.code.unindent(')');
       this.code.openBlock('');
