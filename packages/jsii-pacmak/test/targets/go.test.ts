@@ -24,6 +24,7 @@ test('does not generate imports for unused types', async () => {
       assembly,
       packageDir: '',
       rosetta,
+      runtimeTypeChecking: true,
       targetName: 'golang',
     });
 

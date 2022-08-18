@@ -78,6 +78,38 @@ exports[`jsii-tree --all 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: string
+ │ │ ├─┬ anonymous
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class UseOptions (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ static consume(option) method (stable)
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ option
+ │ │ │   │   │ │   └── type: jsii-calc.anonymous.IOptionA | jsii-calc.anonymous.IOptionB
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   ├─┬ static privideAsAny(which) method (stable)
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ which
+ │ │ │   │   │ │   └── type: string
+ │ │ │   │   │ └── returns: any
+ │ │ │   │   └─┬ static provide(which) method (stable)
+ │ │ │   │     ├── static
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ which
+ │ │ │   │     │   └── type: string
+ │ │ │   │     └── returns: jsii-calc.anonymous.IOptionA | jsii-calc.anonymous.IOptionB
+ │ │ │   ├─┬ interface IOptionA (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ doSomething() method (stable)
+ │ │ │   │     ├── abstract
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IOptionB (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ doSomethingElse() method (stable)
+ │ │ │         ├── abstract
+ │ │ │         └── returns: string
  │ │ ├─┬ cdk16625
  │ │ │ ├─┬ submodules
  │ │ │ │ └─┬ donotimport
@@ -2132,12 +2164,18 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ │ └─┬ struct
  │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
  │   │   │ └── returns: boolean
- │   │   └─┬ static isStructB(struct) method (stable)
+ │   │   ├─┬ static isStructB(struct) method (stable)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ struct
+ │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │ └── returns: boolean
+ │   │   └─┬ static provideStruct(which) method (stable)
  │   │     ├── static
  │   │     ├─┬ parameters
- │   │     │ └─┬ struct
- │   │     │   └── type: jsii-calc.StructA | jsii-calc.StructB
- │   │     └── returns: boolean
+ │   │     │ └─┬ which
+ │   │     │   └── type: string
+ │   │     └── returns: jsii-calc.StructA | jsii-calc.StructB
  │   ├─┬ class Sum (stable)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -3479,6 +3517,11 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├── class ClassWithSelfKwarg
  │ │ │   ├── interface IInterfaceWithSelf
  │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ anonymous
+ │ │ │ └─┬ types
+ │ │ │   ├── class UseOptions
+ │ │ │   ├── interface IOptionA
+ │ │ │   └── interface IOptionB
  │ │ ├─┬ cdk16625
  │ │ │ ├─┬ submodules
  │ │ │ │ └─┬ donotimport
@@ -3996,6 +4039,19 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ interface StructWithSelf
  │ │ │     └─┬ members
  │ │ │       └── self property
+ │ │ ├─┬ anonymous
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class UseOptions
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── static consume(option) method
+ │ │ │   │   ├── static privideAsAny(which) method
+ │ │ │   │   └── static provide(which) method
+ │ │ │   ├─┬ interface IOptionA
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── doSomething() method
+ │ │ │   └─┬ interface IOptionB
+ │ │ │     └─┬ members
+ │ │ │       └── doSomethingElse() method
  │ │ ├─┬ cdk16625
  │ │ │ ├─┬ submodules
  │ │ │ │ └─┬ donotimport
@@ -4952,7 +5008,8 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class StructUnionConsumer
  │   │ └─┬ members
  │   │   ├── static isStructA(struct) method
- │   │   └── static isStructB(struct) method
+ │   │   ├── static isStructB(struct) method
+ │   │   └── static provideStruct(which) method
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -5528,6 +5585,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├── anonymous
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
@@ -5592,6 +5650,11 @@ exports[`jsii-tree --types 1`] = `
  │ │ │   ├── class ClassWithSelfKwarg
  │ │ │   ├── interface IInterfaceWithSelf
  │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ anonymous
+ │ │ │ └─┬ types
+ │ │ │   ├── class UseOptions
+ │ │ │   ├── interface IOptionA
+ │ │ │   └── interface IOptionB
  │ │ ├─┬ cdk16625
  │ │ │ ├─┬ submodules
  │ │ │ │ └─┬ donotimport
@@ -5970,6 +6033,7 @@ exports[`jsii-tree 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├── anonymous
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
