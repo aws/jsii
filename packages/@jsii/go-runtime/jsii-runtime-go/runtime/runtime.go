@@ -117,6 +117,12 @@ func InitJsiiProxy(ptr interface{}) {
 	}
 }
 
+// IsAnonymousProxy tells whether the value v is an anonymous object proxy, or
+// a pointer to one.
+func IsAnonymousProxy(v interface{}) bool {
+	return kernel.GetClient().Types().IsAnonymousProxy(v)
+}
+
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
 func Create(fqn FQN, args []interface{}, inst interface{}) {

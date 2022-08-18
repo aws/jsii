@@ -41,6 +41,8 @@ type TypeRegistry struct {
 	typeMembers map[api.FQN][]api.Override
 }
 
+type anonymousProxy struct{ _ int } // Padded so it's not 0-sized
+
 // New creates a new type registry.
 func New() *TypeRegistry {
 	registry := TypeRegistry{
@@ -55,11 +57,18 @@ func New() *TypeRegistry {
 
 	// Ensure we can initialize proxies for `interface{}` when a method returns `any`.
 	registry.proxyMakers[reflect.TypeOf((*interface{})(nil)).Elem()] = func() interface{} {
-		type object struct{ _ int } // Padded so it's not 0-sized
-		return &object{}
+		return &anonymousProxy{}
 	}
 
 	return &registry
+}
+
+// IsAnonymousProxy tells whether the value v is an anonymous object proxy, or
+// a pointer to one.
+func (t *TypeRegistry) IsAnonymousProxy(v interface{}) bool {
+	_, ok := v.(*anonymousProxy)
+	if !ok { _, ok = v.(anonymousProxy) }
+	return ok
 }
 
 // StructFields returns the list of fields associated with a jsii struct type,

@@ -1,6 +1,6 @@
-import { createHash } from 'crypto';
 import { TypeReference } from '@jsii/spec';
 import { CodeMaker } from 'codemaker';
+import { createHash } from 'crypto';
 import { Method, Parameter } from 'jsii-reflect';
 
 import {
@@ -332,7 +332,10 @@ abstract class Validation {
 
       public emit(code: CodeMaker, scope: Package): void {
         // We need to come up with a unique-enough ID here... so we use a hash.
-        const idx = `idx_${createHash('sha256').update(expression).digest('hex').slice(0, 6)}`
+        const idx = `idx_${createHash('sha256')
+          .update(expression)
+          .digest('hex')
+          .slice(0, 6)}`;
         // We need to de-reference the pointer here (range does not operate on pointers)
         code.openBlock(`for ${idx}, v := range *${expression}`);
         Validation.forTypeMap(
@@ -423,6 +426,8 @@ abstract class Validation {
     description: string,
     types: readonly GoTypeRef[],
   ): Validation {
+    const hasInterface = types.some((t) => t.typeMap.type === 'interface');
+
     class UnionCheck extends Validation {
       public get dependencies(): readonly Package[] {
         return types.flatMap((t) => t.dependencies);
@@ -434,7 +439,7 @@ abstract class Validation {
             fmt: true,
             init: false,
             internal: false,
-            runtime: false,
+            runtime: hasInterface,
             time: false,
           },
           ...types.flatMap((t) => {
@@ -456,64 +461,92 @@ abstract class Validation {
         for (const type of types) {
           const typeName = type.scopedReference(scope);
           validTypes.push(typeName);
-          const acceptableTypes = [typeName];
+          // Maps a type to the conversion instructions to the ${typeName} type
+          const acceptableTypes = new Map<
+            string,
+            | ((code: CodeMaker, inVar: string, outVar: string) => void)
+            | undefined
+          >();
+          acceptableTypes.set(typeName, undefined);
           switch (typeName) {
-            case '*bool':
-              // For booleans, we allow the non-pointer type as well
-              acceptableTypes.push('bool');
-              break;
             case '*float64':
               // For numbers, we accept everything that implictly converts to float64 (pointer & not)
-              acceptableTypes.push(
-                'float64',
-                '*int',
-                'int',
-                '*uint',
-                'uint',
-                '*int8',
-                'int8',
-                '*int16',
-                'int16',
-                '*int32',
-                'int32',
-                '*int64',
-                'int64',
-                '*uint8',
-                'uint8',
-                '*uint16',
-                'uint16',
-                '*uint32',
-                'uint32',
-                '*uint64',
-                'uint64',
+              acceptableTypes.set('float64', (code, inVar, outVar) =>
+                code.line(`${outVar} := &${inVar}`),
               );
-              break;
-            case '*string':
-              // For strings, we allow the non-pointer type as well
-              acceptableTypes.push('string');
+              const ALTERNATE_TYPES = [
+                'int',
+                'uint',
+                'int8',
+                'int16',
+                'int32',
+                'int64',
+                'uint8',
+                'uint16',
+                'uint32',
+                'uint64',
+              ];
+              for (const otherType of ALTERNATE_TYPES) {
+                const varName = createHash('sha256')
+                  .update(expression)
+                  .digest('hex')
+                  .slice(6);
+                acceptableTypes.set(`*${otherType}`, (code) => {
+                  code.openBlock(
+                    `${varName} := func (v *${otherType}) *float64`,
+                  );
+                  code.openBlock('if v == nil {');
+                  code.line('return nil');
+                  code.closeBlock();
+                  code.line(`val := float64(*v)`);
+                  code.line(`return &val`);
+                  code.closeBlock('()');
+                });
+                acceptableTypes.set(otherType, (code) => {
+                  code.openBlock(
+                    `${varName} := func (v ${otherType}) *float64`,
+                  );
+                  code.line(`val := float64(v)`);
+                  code.line(`return &val`);
+                  code.closeBlock('()');
+                });
+              }
               break;
             default:
-              if (
-                typeName.startsWith('*[]') ||
-                typeName.startsWith('*map[string]')
-              ) {
-                acceptableTypes.push(typeName.slice(1));
+              // Accept pointer and non-pointer versions of everything
+              if (typeName.startsWith('*')) {
+                const nonPointerType = typeName.slice(1);
+                acceptableTypes.set(nonPointerType, (code, inVar, outVar) =>
+                  code.line(`${outVar} := &${inVar}`),
+                );
               }
           }
-          code.indent(`case ${acceptableTypes.join(', ')}:`);
-          const validation = Validation.forTypeMap(
-            `${expression}.(${typeName})`,
-            description,
-            type.typeMap,
-          );
-          if (validation) {
-            validation.emit(code, scope);
-          } else {
-            code.line('// ok');
+          for (const [acceptableType, conversion] of acceptableTypes) {
+            code.indent(`case ${acceptableType}:`);
+            const outVar = /^[a-z0-9_]+$/.test(expression) ? expression : `v`;
+            const validation = Validation.forTypeMap(
+              outVar,
+              description,
+              type.typeMap,
+            );
+            if (validation) {
+              const inVar = conversion ? `${outVar}_` : outVar;
+              code.line(`${inVar} := ${expression}.(${acceptableType})`);
+              if (conversion) {
+                conversion(code, inVar, outVar);
+              }
+              validation.emit(code, scope);
+            } else {
+              code.line('// ok');
+            }
+            code.unindent(false);
           }
-          code.unindent(false);
         }
         code.indent('default:');
+        if (hasInterface)
+          code.openBlock(
+            `if !${JSII_RT_ALIAS}.IsAnonymousProxy(${expression})`,
+          );
         code.line(
           returnErrorf(
             `${description} must be one of the allowed types: ${validTypes.join(
@@ -521,6 +554,7 @@ abstract class Validation {
             )}; received @{${expression}:#v} (a @{${expression}:T})`,
           ),
         );
+        if (hasInterface) code.closeBlock();
         code.unindent('}');
       }
     }

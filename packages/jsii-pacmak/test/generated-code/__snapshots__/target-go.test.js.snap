@@ -2423,6 +2423,13 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 jsiicalc
+       ┣━ 📁 anonymous
+       ┃  ┣━ 📄 anonymous_IOptionA.go
+       ┃  ┣━ 📄 anonymous_IOptionB.go
+       ┃  ┣━ 📄 anonymous_UseOptions__no_runtime_type_checks.go
+       ┃  ┣━ 📄 anonymous_UseOptions__runtime_type_checks.go
+       ┃  ┣━ 📄 anonymous_UseOptions.go
+       ┃  ┗━ 📄 anonymous.go
        ┣━ 📁 cdk16625
        ┃  ┣━ 📄 cdk16625_Cdk16625__no_runtime_type_checks.go
        ┃  ┣━ 📄 cdk16625_Cdk16625__runtime_type_checks.go
@@ -3235,6 +3242,255 @@ calculator.add(jsii.Number(10))
 /* This is totes a magic comment in here, just you wait! */
 foo := "bar"
 \`\`\`
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous.go 1`] = `
+package anonymous
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterInterface(
+		"jsii-calc.anonymous.IOptionA",
+		reflect.TypeOf((*IOptionA)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "doSomething", GoMethod: "DoSomething"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IOptionA{}
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.anonymous.IOptionB",
+		reflect.TypeOf((*IOptionB)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "doSomethingElse", GoMethod: "DoSomethingElse"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IOptionB{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.anonymous.UseOptions",
+		reflect.TypeOf((*UseOptions)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_UseOptions{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_IOptionA.go 1`] = `
+package anonymous
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type IOptionA interface {
+	DoSomething() *string
+}
+
+// The jsii proxy for IOptionA
+type jsiiProxy_IOptionA struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IOptionA) DoSomething() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"doSomething",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_IOptionB.go 1`] = `
+package anonymous
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type IOptionB interface {
+	DoSomethingElse() *string
+}
+
+// The jsii proxy for IOptionB
+type jsiiProxy_IOptionB struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IOptionB) DoSomethingElse() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"doSomethingElse",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_UseOptions.go 1`] = `
+package anonymous
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type UseOptions interface {
+}
+
+// The jsii proxy struct for UseOptions
+type jsiiProxy_UseOptions struct {
+	_ byte // padding
+}
+
+func UseOptions_Consume(option interface{}) *string {
+	_init_.Initialize()
+
+	if err := validateUseOptions_ConsumeParameters(option); err != nil {
+		panic(err)
+	}
+	var returns *string
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.anonymous.UseOptions",
+		"consume",
+		[]interface{}{option},
+		&returns,
+	)
+
+	return returns
+}
+
+func UseOptions_PrivideAsAny(which *string) interface{} {
+	_init_.Initialize()
+
+	if err := validateUseOptions_PrivideAsAnyParameters(which); err != nil {
+		panic(err)
+	}
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.anonymous.UseOptions",
+		"privideAsAny",
+		[]interface{}{which},
+		&returns,
+	)
+
+	return returns
+}
+
+func UseOptions_Provide(which *string) interface{} {
+	_init_.Initialize()
+
+	if err := validateUseOptions_ProvideParameters(which); err != nil {
+		panic(err)
+	}
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.anonymous.UseOptions",
+		"provide",
+		[]interface{}{which},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_UseOptions__no_runtime_type_checks.go 1`] = `
+//go:build no_runtime_type_checks
+
+package anonymous
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func validateUseOptions_ConsumeParameters(option interface{}) error {
+	return nil
+}
+
+func validateUseOptions_PrivideAsAnyParameters(which *string) error {
+	return nil
+}
+
+func validateUseOptions_ProvideParameters(which *string) error {
+	return nil
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_UseOptions__runtime_type_checks.go 1`] = `
+//go:build !no_runtime_type_checks
+
+package anonymous
+
+import (
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func validateUseOptions_ConsumeParameters(option interface{}) error {
+	if option == nil {
+		return fmt.Errorf("parameter option is required, but nil was provided")
+	}
+	switch option.(type) {
+	case IOptionA:
+		// ok
+	case IOptionB:
+		// ok
+	default:
+		if !_jsii_.IsAnonymousProxy(option) {
+			return fmt.Errorf("parameter option must be one of the allowed types: IOptionA, IOptionB; received %#v (a %T)", option, option)
+		}
+	}
+
+	return nil
+}
+
+func validateUseOptions_PrivideAsAnyParameters(which *string) error {
+	if which == nil {
+		return fmt.Errorf("parameter which is required, but nil was provided")
+	}
+
+	return nil
+}
+
+func validateUseOptions_ProvideParameters(which *string) error {
+	if which == nil {
+		return fmt.Errorf("parameter which is required, but nil was provided")
+	}
+
+	return nil
+}
+
 
 `;
 
@@ -7886,6 +8142,8 @@ import (
 	"fmt"
 	"time"
 
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
@@ -7999,12 +8257,56 @@ func (j *jsiiProxy_AllTypes) validateSetUnionArrayPropertyParameters(val *[]inte
 	}
 	for idx_97dfc6, v := range *val {
 		switch v.(type) {
-		case *float64, float64, *int, int, *uint, uint, *int8, int8, *int16, int16, *int32, int32, *int64, int64, *uint8, uint8, *uint16, uint16, *uint32, uint32, *uint64, uint64:
+		case *float64:
+			// ok
+		case float64:
+			// ok
+		case *int:
+			// ok
+		case int:
+			// ok
+		case *uint:
+			// ok
+		case uint:
+			// ok
+		case *int8:
+			// ok
+		case int8:
+			// ok
+		case *int16:
+			// ok
+		case int16:
+			// ok
+		case *int32:
+			// ok
+		case int32:
+			// ok
+		case *int64:
+			// ok
+		case int64:
+			// ok
+		case *uint8:
+			// ok
+		case uint8:
+			// ok
+		case *uint16:
+			// ok
+		case uint16:
+			// ok
+		case *uint32:
+			// ok
+		case uint32:
+			// ok
+		case *uint64:
+			// ok
+		case uint64:
 			// ok
 		case scopejsiicalclib.NumericValue:
 			// ok
 		default:
-			return fmt.Errorf("parameter val[%v] must be one of the allowed types: *float64, scopejsiicalclib.NumericValue; received %#v (a %T)", idx_97dfc6, v, v)
+			if !_jsii_.IsAnonymousProxy(v) {
+				return fmt.Errorf("parameter val[%v] must be one of the allowed types: *float64, scopejsiicalclib.NumericValue; received %#v (a %T)", idx_97dfc6, v, v)
+			}
 		}
 	}
 
@@ -8017,14 +8319,60 @@ func (j *jsiiProxy_AllTypes) validateSetUnionMapPropertyParameters(val *map[stri
 	}
 	for idx_97dfc6, v := range *val {
 		switch v.(type) {
-		case *string, string:
+		case *string:
 			// ok
-		case *float64, float64, *int, int, *uint, uint, *int8, int8, *int16, int16, *int32, int32, *int64, int64, *uint8, uint8, *uint16, uint16, *uint32, uint32, *uint64, uint64:
+		case string:
+			// ok
+		case *float64:
+			// ok
+		case float64:
+			// ok
+		case *int:
+			// ok
+		case int:
+			// ok
+		case *uint:
+			// ok
+		case uint:
+			// ok
+		case *int8:
+			// ok
+		case int8:
+			// ok
+		case *int16:
+			// ok
+		case int16:
+			// ok
+		case *int32:
+			// ok
+		case int32:
+			// ok
+		case *int64:
+			// ok
+		case int64:
+			// ok
+		case *uint8:
+			// ok
+		case uint8:
+			// ok
+		case *uint16:
+			// ok
+		case uint16:
+			// ok
+		case *uint32:
+			// ok
+		case uint32:
+			// ok
+		case *uint64:
+			// ok
+		case uint64:
 			// ok
 		case scopejsiicalclib.Number:
 			// ok
 		default:
-			return fmt.Errorf("parameter val[%v] must be one of the allowed types: *string, *float64, scopejsiicalclib.Number; received %#v (a %T)", idx_97dfc6, v, v)
+			if !_jsii_.IsAnonymousProxy(v) {
+				return fmt.Errorf("parameter val[%v] must be one of the allowed types: *string, *float64, scopejsiicalclib.Number; received %#v (a %T)", idx_97dfc6, v, v)
+			}
 		}
 	}
 
@@ -8036,16 +8384,62 @@ func (j *jsiiProxy_AllTypes) validateSetUnionPropertyParameters(val interface{})
 		return fmt.Errorf("parameter val is required, but nil was provided")
 	}
 	switch val.(type) {
-	case *string, string:
+	case *string:
 		// ok
-	case *float64, float64, *int, int, *uint, uint, *int8, int8, *int16, int16, *int32, int32, *int64, int64, *uint8, uint8, *uint16, uint16, *uint32, uint32, *uint64, uint64:
+	case string:
+		// ok
+	case *float64:
+		// ok
+	case float64:
+		// ok
+	case *int:
+		// ok
+	case int:
+		// ok
+	case *uint:
+		// ok
+	case uint:
+		// ok
+	case *int8:
+		// ok
+	case int8:
+		// ok
+	case *int16:
+		// ok
+	case int16:
+		// ok
+	case *int32:
+		// ok
+	case int32:
+		// ok
+	case *int64:
+		// ok
+	case int64:
+		// ok
+	case *uint8:
+		// ok
+	case uint8:
+		// ok
+	case *uint16:
+		// ok
+	case uint16:
+		// ok
+	case *uint32:
+		// ok
+	case uint32:
+		// ok
+	case *uint64:
+		// ok
+	case uint64:
 		// ok
 	case scopejsiicalclib.Number:
 		// ok
 	case Multiply:
 		// ok
 	default:
-		return fmt.Errorf("parameter val must be one of the allowed types: *string, *float64, scopejsiicalclib.Number, Multiply; received %#v (a %T)", val, val)
+		if !_jsii_.IsAnonymousProxy(val) {
+			return fmt.Errorf("parameter val must be one of the allowed types: *string, *float64, scopejsiicalclib.Number, Multiply; received %#v (a %T)", val, val)
+		}
 	}
 
 	return nil
@@ -9667,7 +10061,9 @@ func (j *jsiiProxy_Calculator) validateSetUnionPropertyParameters(val interface{
 	case Power:
 		// ok
 	default:
-		return fmt.Errorf("parameter val must be one of the allowed types: Add, Multiply, Power; received %#v (a %T)", val, val)
+		if !_jsii_.IsAnonymousProxy(val) {
+			return fmt.Errorf("parameter val must be one of the allowed types: Add, Multiply, Power; received %#v (a %T)", val, val)
+		}
 	}
 
 	return nil
@@ -10245,15 +10641,31 @@ func (j *jsiiProxy_ClassWithCollectionOfUnions) validateSetUnionPropertyParamete
 		for idx_4c9448, v := range *v {
 			switch v.(type) {
 			case *StructA:
-				if err := _jsii_.ValidateStruct(v.(*StructA), fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
+				v := v.(*StructA)
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
+					return err
+				}
+			case StructA:
+				v_ := v.(StructA)
+				v := &v_
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
 					return err
 				}
 			case *StructB:
-				if err := _jsii_.ValidateStruct(v.(*StructB), fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
+				v := v.(*StructB)
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
+					return err
+				}
+			case StructB:
+				v_ := v.(StructB)
+				v := &v_
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
 					return err
 				}
 			default:
-				return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
+				if !_jsii_.IsAnonymousProxy(v) {
+					return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
+				}
 			}
 		}
 	}
@@ -10269,15 +10681,31 @@ func validateNewClassWithCollectionOfUnionsParameters(unionProperty *[]*map[stri
 		for idx_4c9448, v := range *v {
 			switch v.(type) {
 			case *StructA:
-				if err := _jsii_.ValidateStruct(v.(*StructA), fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
+				v := v.(*StructA)
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
+					return err
+				}
+			case StructA:
+				v_ := v.(StructA)
+				v := &v_
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
 					return err
 				}
 			case *StructB:
-				if err := _jsii_.ValidateStruct(v.(*StructB), fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
+				v := v.(*StructB)
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
+					return err
+				}
+			case StructB:
+				v_ := v.(StructB)
+				v := &v_
+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
 					return err
 				}
 			default:
-				return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
+				if !_jsii_.IsAnonymousProxy(v) {
+					return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
+				}
 			}
 		}
 	}
@@ -11213,6 +11641,8 @@ package jsiicalc
 import (
 	"fmt"
 
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
@@ -11220,19 +11650,39 @@ func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val in
 	switch val.(type) {
 	case scopejsiicalclib.IFriendly:
 		// ok
-	case *[]interface{}, []interface{}:
-		for idx_df4296, v := range *val.(*[]interface{}) {
+	case *[]interface{}:
+		val := val.(*[]interface{})
+		for idx_97dfc6, v := range *val {
 			switch v.(type) {
 			case scopejsiicalclib.IFriendly:
 				// ok
 			case AbstractClass:
 				// ok
 			default:
-				return fmt.Errorf("parameter val[%v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_df4296, v, v)
+				if !_jsii_.IsAnonymousProxy(v) {
+					return fmt.Errorf("parameter val[%v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_97dfc6, v, v)
+				}
+			}
+		}
+	case []interface{}:
+		val_ := val.([]interface{})
+		val := &val_
+		for idx_97dfc6, v := range *val {
+			switch v.(type) {
+			case scopejsiicalclib.IFriendly:
+				// ok
+			case AbstractClass:
+				// ok
+			default:
+				if !_jsii_.IsAnonymousProxy(v) {
+					return fmt.Errorf("parameter val[%v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_97dfc6, v, v)
+				}
 			}
 		}
 	default:
-		return fmt.Errorf("parameter val must be one of the allowed types: scopejsiicalclib.IFriendly, *[]interface{}; received %#v (a %T)", val, val)
+		if !_jsii_.IsAnonymousProxy(val) {
+			return fmt.Errorf("parameter val must be one of the allowed types: scopejsiicalclib.IFriendly, *[]interface{}; received %#v (a %T)", val, val)
+		}
 	}
 
 	return nil
@@ -23980,6 +24430,24 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) *bool {
 	return returns
 }
 
+func StructUnionConsumer_ProvideStruct(which *string) interface{} {
+	_init_.Initialize()
+
+	if err := validateStructUnionConsumer_ProvideStructParameters(which); err != nil {
+		panic(err)
+	}
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.StructUnionConsumer",
+		"provideStruct",
+		[]interface{}{which},
+		&returns,
+	)
+
+	return returns
+}
+
 
 `;
 
@@ -23996,6 +24464,10 @@ func validateStructUnionConsumer_IsStructAParameters(struct_ interface{}) error 
 }
 
 func validateStructUnionConsumer_IsStructBParameters(struct_ interface{}) error {
+	return nil
+}
+
+func validateStructUnionConsumer_ProvideStructParameters(which *string) error {
 	return nil
 }
 
@@ -24020,15 +24492,31 @@ func validateStructUnionConsumer_IsStructAParameters(struct_ interface{}) error 
 	}
 	switch struct_.(type) {
 	case *StructA:
-		if err := _jsii_.ValidateStruct(struct_.(*StructA), "parameter struct_"); err != nil {
+		struct_ := struct_.(*StructA)
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
+			return err
+		}
+	case StructA:
+		struct__ := struct_.(StructA)
+		struct_ := &struct__
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
 			return err
 		}
 	case *StructB:
-		if err := _jsii_.ValidateStruct(struct_.(*StructB), "parameter struct_"); err != nil {
+		struct_ := struct_.(*StructB)
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
+			return err
+		}
+	case StructB:
+		struct__ := struct_.(StructB)
+		struct_ := &struct__
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
 			return err
 		}
 	default:
-		return fmt.Errorf("parameter struct_ must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", struct_, struct_)
+		if !_jsii_.IsAnonymousProxy(struct_) {
+			return fmt.Errorf("parameter struct_ must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", struct_, struct_)
+		}
 	}
 
 	return nil
@@ -24040,15 +24528,39 @@ func validateStructUnionConsumer_IsStructBParameters(struct_ interface{}) error 
 	}
 	switch struct_.(type) {
 	case *StructA:
-		if err := _jsii_.ValidateStruct(struct_.(*StructA), "parameter struct_"); err != nil {
+		struct_ := struct_.(*StructA)
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
+			return err
+		}
+	case StructA:
+		struct__ := struct_.(StructA)
+		struct_ := &struct__
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
 			return err
 		}
 	case *StructB:
-		if err := _jsii_.ValidateStruct(struct_.(*StructB), "parameter struct_"); err != nil {
+		struct_ := struct_.(*StructB)
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
+			return err
+		}
+	case StructB:
+		struct__ := struct_.(StructB)
+		struct_ := &struct__
+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
 			return err
 		}
 	default:
-		return fmt.Errorf("parameter struct_ must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", struct_, struct_)
+		if !_jsii_.IsAnonymousProxy(struct_) {
+			return fmt.Errorf("parameter struct_ must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", struct_, struct_)
+		}
+	}
+
+	return nil
+}
+
+func validateStructUnionConsumer_ProvideStructParameters(which *string) error {
+	if which == nil {
+		return fmt.Errorf("parameter which is required, but nil was provided")
 	}
 
 	return nil

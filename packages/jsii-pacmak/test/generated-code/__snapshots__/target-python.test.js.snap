@@ -2183,6 +2183,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┣━ 📁 bin
           ┃  ┃  ┗━ 📄 calc
           ┃  ┗━ 📄 jsii-calc@3.20.120.jsii.tgz
+          ┣━ 📁 anonymous
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 cdk16625
           ┃  ┣━ 📄 __init__.py
           ┃  ┗━ 📁 donotimport
@@ -2535,6 +2537,7 @@ kwargs = json.loads(
     "packages": [
         "jsii_calc",
         "jsii_calc._jsii",
+        "jsii_calc.anonymous",
         "jsii_calc.cdk16625",
         "jsii_calc.cdk16625.donotimport",
         "jsii_calc.composition",
@@ -9888,6 +9891,17 @@ class StructUnionConsumer(
             check_type(argname="argument struct", value=struct, expected_type=type_hints["struct"])
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "isStructB", [struct]))
 
+    @jsii.member(jsii_name="provideStruct")
+    @builtins.classmethod
+    def provide_struct(cls, which: builtins.str) -> typing.Union[StructA, StructB]:
+        '''
+        :param which: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(StructUnionConsumer.provide_struct)
+            check_type(argname="argument which", value=which, expected_type=type_hints["which"])
+        return typing.cast(typing.Union[StructA, StructB], jsii.sinvoke(cls, "provideStruct", [which]))
+
 
 @jsii.data_type(
     jsii_type="jsii-calc.StructWithCollectionOfUnionts",
@@ -11614,6 +11628,7 @@ __all__ = [
     "VirtualMethodPlayground",
     "VoidCallback",
     "WithPrivatePropertyInConstructor",
+    "anonymous",
     "cdk16625",
     "composition",
     "derived_class_has_no_properties",
@@ -11636,6 +11651,7 @@ __all__ = [
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
+from . import anonymous
 from . import cdk16625
 from . import composition
 from . import derived_class_has_no_properties
@@ -11699,6 +11715,103 @@ __jsii_assembly__.invokeBinScript("jsii-calc", "calc", sys.argv[1:])
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/jsii-calc@3.20.120.jsii.tgz 1`] = `python/src/jsii_calc/_jsii/jsii-calc@3.20.120.jsii.tgz is a tarball`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/anonymous/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from .._jsii import *
+
+
+@jsii.interface(jsii_type="jsii-calc.anonymous.IOptionA")
+class IOptionA(typing_extensions.Protocol):
+    @jsii.member(jsii_name="doSomething")
+    def do_something(self) -> builtins.str:
+        ...
+
+
+class _IOptionAProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.anonymous.IOptionA"
+
+    @jsii.member(jsii_name="doSomething")
+    def do_something(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "doSomething", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IOptionA).__jsii_proxy_class__ = lambda : _IOptionAProxy
+
+
+@jsii.interface(jsii_type="jsii-calc.anonymous.IOptionB")
+class IOptionB(typing_extensions.Protocol):
+    @jsii.member(jsii_name="doSomethingElse")
+    def do_something_else(self) -> builtins.str:
+        ...
+
+
+class _IOptionBProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.anonymous.IOptionB"
+
+    @jsii.member(jsii_name="doSomethingElse")
+    def do_something_else(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "doSomethingElse", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IOptionB).__jsii_proxy_class__ = lambda : _IOptionBProxy
+
+
+class UseOptions(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.anonymous.UseOptions"):
+    @jsii.member(jsii_name="consume")
+    @builtins.classmethod
+    def consume(cls, option: typing.Union[IOptionA, IOptionB]) -> builtins.str:
+        '''
+        :param option: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(UseOptions.consume)
+            check_type(argname="argument option", value=option, expected_type=type_hints["option"])
+        return typing.cast(builtins.str, jsii.sinvoke(cls, "consume", [option]))
+
+    @jsii.member(jsii_name="privideAsAny")
+    @builtins.classmethod
+    def privide_as_any(cls, which: builtins.str) -> typing.Any:
+        '''
+        :param which: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(UseOptions.privide_as_any)
+            check_type(argname="argument which", value=which, expected_type=type_hints["which"])
+        return typing.cast(typing.Any, jsii.sinvoke(cls, "privideAsAny", [which]))
+
+    @jsii.member(jsii_name="provide")
+    @builtins.classmethod
+    def provide(cls, which: builtins.str) -> typing.Union[IOptionA, IOptionB]:
+        '''
+        :param which: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(UseOptions.provide)
+            check_type(argname="argument which", value=which, expected_type=type_hints["which"])
+        return typing.cast(typing.Union[IOptionA, IOptionB], jsii.sinvoke(cls, "provide", [which]))
+
+
+__all__ = [
+    "IOptionA",
+    "IOptionB",
+    "UseOptions",
+]
+
+publication.publish()
+
+`;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/cdk16625/__init__.py 1`] = `
 import abc
