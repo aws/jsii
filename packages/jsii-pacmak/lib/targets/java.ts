@@ -1574,14 +1574,14 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__idx_${descr.replace(/[^a-z0-9_]|get/gi, '_')}`;
+      const varName = `__idx_${descr.replace(/[^a-z0-9_]|get|append/gi, '_')}`;
       this.code.openBlock(
         `for (int ${varName} = 0; ${varName} < ${value}.size(); ${varName}++)`,
       );
       validate.call(
         this,
         `${value}.get(${varName})`,
-        `${descr}.get(${varName})`,
+        `${descr}|).get(").append(${varName}).append(")"`,
         elementType,
         parameterName,
       );
@@ -1595,7 +1595,7 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__item_${descr.replace(/[^a-z0-9_]|get/gi, '_')}`;
+      const varName = `__item_${descr.replace(/[^a-z0-9_]|get|append/gi, '_')}`;
       this.code.openBlock(
         `for (java.util.Map.Entry<String, ${this.toJavaType(
           elementType,
@@ -1604,7 +1604,7 @@ class JavaGenerator extends Generator {
       validate.call(
         this,
         `${varName}.getValue()`,
-        `${descr}.get(\\"" + ${varName}.getKey() + "\\")`,
+        `"${descr}|).get(\\"").append((${varName}.getKey())).append("\\") "`,
         elementType,
         parameterName,
       );
@@ -1639,7 +1639,14 @@ class JavaGenerator extends Generator {
         .join(', ');
 
       this.code.line(`throw new IllegalArgumentException(
-        "Expected ${descr} to be one of: ${placeholders}; received  " + ${value}.getClass() + ", ${parameterName}");`);
+        new java.lang.StringBuilder("Expected ")
+        .append(${descr})
+        .append("to be one of: ")
+        .append("${placeholders}")
+        .append("; received ")
+        .append(${value}.getClass())
+        .append(", ${parameterName}").toString());
+      `);
       this.code.closeBlock();
     }
   }
