@@ -2202,6 +2202,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 jsiicalc
+       ┣━ 📁 anonymous
+       ┃  ┣━ 📄 anonymous_IOptionA.go
+       ┃  ┣━ 📄 anonymous_IOptionB.go
+       ┃  ┣━ 📄 anonymous_UseOptions.go
+       ┃  ┗━ 📄 anonymous.go
        ┣━ 📁 cdk16625
        ┃  ┣━ 📄 cdk16625_Cdk16625.go
        ┃  ┣━ 📄 cdk16625.go
@@ -2804,6 +2809,176 @@ calculator.add(jsii.Number(10))
 /* This is totes a magic comment in here, just you wait! */
 foo := "bar"
 \`\`\`
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous.go 1`] = `
+package anonymous
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterInterface(
+		"jsii-calc.anonymous.IOptionA",
+		reflect.TypeOf((*IOptionA)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "doSomething", GoMethod: "DoSomething"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IOptionA{}
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.anonymous.IOptionB",
+		reflect.TypeOf((*IOptionB)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "doSomethingElse", GoMethod: "DoSomethingElse"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IOptionB{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.anonymous.UseOptions",
+		reflect.TypeOf((*UseOptions)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_UseOptions{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_IOptionA.go 1`] = `
+package anonymous
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type IOptionA interface {
+	DoSomething() *string
+}
+
+// The jsii proxy for IOptionA
+type jsiiProxy_IOptionA struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IOptionA) DoSomething() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"doSomething",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_IOptionB.go 1`] = `
+package anonymous
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type IOptionB interface {
+	DoSomethingElse() *string
+}
+
+// The jsii proxy for IOptionB
+type jsiiProxy_IOptionB struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IOptionB) DoSomethingElse() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"doSomethingElse",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_UseOptions.go 1`] = `
+package anonymous
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type UseOptions interface {
+}
+
+// The jsii proxy struct for UseOptions
+type jsiiProxy_UseOptions struct {
+	_ byte // padding
+}
+
+func UseOptions_Consume(option interface{}) *string {
+	_init_.Initialize()
+
+	var returns *string
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.anonymous.UseOptions",
+		"consume",
+		[]interface{}{option},
+		&returns,
+	)
+
+	return returns
+}
+
+func UseOptions_PrivideAsAny(which *string) interface{} {
+	_init_.Initialize()
+
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.anonymous.UseOptions",
+		"privideAsAny",
+		[]interface{}{which},
+		&returns,
+	)
+
+	return returns
+}
+
+func UseOptions_Provide(which *string) interface{} {
+	_init_.Initialize()
+
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.anonymous.UseOptions",
+		"provide",
+		[]interface{}{which},
+		&returns,
+	)
+
+	return returns
+}
+
 
 `;
 
@@ -18793,6 +18968,21 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) *bool {
 		"jsii-calc.StructUnionConsumer",
 		"isStructB",
 		[]interface{}{struct_},
+		&returns,
+	)
+
+	return returns
+}
+
+func StructUnionConsumer_ProvideStruct(which *string) interface{} {
+	_init_.Initialize()
+
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.StructUnionConsumer",
+		"provideStruct",
+		[]interface{}{which},
 		&returns,
 	)
 
