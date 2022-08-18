@@ -1529,7 +1529,13 @@ class JavaGenerator extends Generator {
     }
 
     for (const param of unionParameters) {
-      validate.call(this, param.name, param.name, param.type, param.name);
+      validate.call(
+        this,
+        param.name,
+        `.append(${param.name})`,
+        param.type,
+        param.name,
+      );
     }
 
     function validate(
@@ -1581,7 +1587,7 @@ class JavaGenerator extends Generator {
       validate.call(
         this,
         `${value}.get(${varName})`,
-        `${descr}|).get(").append(${varName}).append(")"`,
+        `${descr}.append(".get(").append(${varName}).append(")")`,
         elementType,
         parameterName,
       );
@@ -1604,7 +1610,7 @@ class JavaGenerator extends Generator {
       validate.call(
         this,
         `${varName}.getValue()`,
-        `"${descr}|).get(\\"").append((${varName}.getKey())).append("\\") "`,
+        `${descr}.append(".get(\\"").append((${varName}.getKey())).append("\\"")`,
         elementType,
         parameterName,
       );
@@ -1640,7 +1646,7 @@ class JavaGenerator extends Generator {
 
       this.code.line(`throw new IllegalArgumentException(
         new java.lang.StringBuilder("Expected ")
-        .append(${descr})
+        ${descr}
         .append("to be one of: ")
         .append("${placeholders}")
         .append("; received ")
