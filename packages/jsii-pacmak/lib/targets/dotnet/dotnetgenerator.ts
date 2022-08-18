@@ -21,12 +21,14 @@ import { DotNetNameUtils } from './nameutils';
  * CODE GENERATOR V2
  */
 export class DotNetGenerator extends Generator {
+  private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
+
+  private readonly rosetta: Rosetta;
+
   // Flags that tracks if we have already wrote the first member of the class
   private firstMemberWritten = false;
 
   private typeresolver!: DotNetTypeResolver;
-
-  private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
   private dotnetRuntimeGenerator!: DotNetRuntimeGenerator;
 
@@ -34,15 +36,20 @@ export class DotNetGenerator extends Generator {
 
   public constructor(
     private readonly assembliesCurrentlyBeingCompiled: string[],
-    private readonly rosetta: Rosetta,
+    options: {
+      readonly rosetta: Rosetta;
+      readonly runtimeTypeChecking: boolean;
+    },
   ) {
-    super();
+    super(options);
 
     // Override the openBlock to get a correct C# looking code block with the curly brace after the line
     this.code.openBlock = function (text) {
       this.line(text);
       this.open('{');
     };
+
+    this.rosetta = options.rosetta;
   }
 
   public async load(
@@ -646,6 +653,11 @@ export class DotNetGenerator extends Generator {
     parameters?: readonly spec.Parameter[],
     { noMangle = false }: { noMangle?: boolean } = {},
   ): void {
+    if (!this.runtimeTypeChecking) {
+      // We were configured not to emit those, so bail out now.
+      return;
+    }
+
     const unionParameters = parameters?.filter(({ type }) =>
       containsUnionType(type),
     );

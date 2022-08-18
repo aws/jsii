@@ -492,6 +492,11 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/version 1`]
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
@@ -946,6 +951,11 @@ type VeryBaseProps struct {
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/version 1`] = `
 2.1.1
 
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
@@ -2196,6 +2206,11 @@ type StructWithOnlyOptionals struct {
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/version 1`] = `
 0.0.0-devpreview
 
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
@@ -23764,4 +23779,9 @@ func (m *jsiiProxy_MyClass) MethodWithSpecialParam(param *param.SpecialParameter
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/version 1`] = `
 3.20.120
 
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
 `;

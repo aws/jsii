@@ -723,6 +723,11 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/src/main/reso
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/base/jsii-calc-base@0.0.0.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/base/jsii-calc-base@0.0.0.jsii.tgz is a tarball`;
 
+exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 java
@@ -1400,6 +1405,11 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/m
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@2.1.1.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@2.1.1.jsii.tgz is a tarball`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
@@ -3563,6 +3573,11 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/lib/jsii-calc-lib@0.0.0.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/lib/jsii-calc-lib@0.0.0.jsii.tgz is a tarball`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
 
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
@@ -27767,3 +27782,8 @@ jsii-calc.submodule.returnsparam.ReturnsSpecialParameter=software.amazon.jsii.te
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@3.20.120.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@3.20.120.jsii.tgz is a tarball`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
