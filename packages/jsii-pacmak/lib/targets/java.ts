@@ -1604,7 +1604,7 @@ class JavaGenerator extends Generator {
       validate.call(
         this,
         `${varName}.getValue()`,
-        `${descr}.get(${varName}.getKey())`,
+        `${descr}.get(\\"" + ${varName}.getKey() + "\\")`,
         elementType,
         parameterName,
       );
@@ -1638,8 +1638,8 @@ class JavaGenerator extends Generator {
         })
         .join(', ');
 
-      this.code.line(`throw new Exception(
-        "Expected " + ${descr} + " to be one of: ${placeholders}; received  " + ${value}.getClass() + ", " + ${parameterName});`);
+      this.code.line(`throw new IllegalArgumentException(
+        "Expected ${descr} to be one of: ${placeholders}; received  " + ${value}.getClass() + ", ${parameterName}");`);
       this.code.closeBlock();
     }
   }
@@ -3406,7 +3406,9 @@ function escape(s: string) {
 }
 
 function methodThrowsDecl(method: spec.Callable): string {
-  return methodParametersContainUnionType(method) ? ' throws Exception' : '';
+  return methodParametersContainUnionType(method)
+    ? ' throws IllegalArgumentException'
+    : '';
 }
 
 function methodParametersContainUnionType(method: spec.Callable): boolean {

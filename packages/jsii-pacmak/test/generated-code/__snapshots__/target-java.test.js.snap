@@ -6455,7 +6455,7 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
      * @param unionProperty This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) throws Exception {
+    public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) throws IllegalArgumentException {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         for (int __idx_unionProperty = 0; __idx_unionProperty < unionProperty.size(); __idx_unionProperty++) {
             for (java.util.Map.Entry<String, java.lang.Object> __item_unionProperty_____idx_unionProperty_: unionProperty.get(__idx_unionProperty).entrySet()) {
@@ -6464,8 +6464,8 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
                     && !(__item_unionProperty_____idx_unionProperty_.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
                 )
                  {
-                    throw new Exception(
-        "Expected " + unionProperty.get(__idx_unionProperty).get(__item_unionProperty_____idx_unionProperty_.getKey()) + " to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received  " + __item_unionProperty_____idx_unionProperty_.getValue().getClass() + ", " + unionProperty);
+                    throw new IllegalArgumentException(
+        "Expected unionProperty.get(__idx_unionProperty).get(\\"" + __item_unionProperty_____idx_unionProperty_.getKey() + "\\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received  " + __item_unionProperty_____idx_unionProperty_.getValue().getClass() + ", unionProperty");
                 }
             }
         }
