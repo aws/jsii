@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1660814288572,
+  "lastUpdate": 1660821066491,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5009,6 +5009,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 197700.37335595203,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50673.14367614999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "39923a5885f33e99cc8c9181b8f36f20b6208551",
+          "message": "feat(pacmak): allow opt-out of runtime type checking generation (#3710)\n\nAdds a new CLI flag `--no-runtime-type-checking` to allow library authors to\nopt out of generating runtime type checking code if they are not interested\nin those.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-18T10:13:18Z",
+          "tree_id": "ce1c3e2d3c9cf1905882d6301d86d405bb2b846b",
+          "url": "https://github.com/aws/jsii/commit/39923a5885f33e99cc8c9181b8f36f20b6208551"
+        },
+        "date": 1660821063478,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72481.29598220003,
+            "unit": "milliseconds",
+            "range": 1288346.6289247521,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72481.29598220003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50304.60234944998,
+            "unit": "milliseconds",
+            "range": 134646.63145651988,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50304.60234944998 milliseconds over 20 runs"
           }
         ]
       }
