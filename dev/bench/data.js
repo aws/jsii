@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1660752194284,
+  "lastUpdate": 1660814288572,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -4971,6 +4971,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 902689.6890286931,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57333.02915460001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e7fadc0866a9dbd1a0061ec184ae840b0f2f58a1",
+          "message": "fix(dotnet): AnonymousObject fails runtime type checks (#3709)\n\nThe `AnonymousObject` class is used when a value is passed from JS to\n.NET through a union or `any` typed return point, and there is not\nsufficient runtime type information on the value to decisively identify\nits dynamic type. The `AnonymousObject` class will be converted by the\njsii runtime to any interface type implicitly (even if that is\ntechnically not correct), and it must hence be allowed through runtime\ntype-checks for interfaces. Essentially, this is a blind spot of the\nruntime type checks, and should not cause valid code to break.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-18T08:23:15Z",
+          "tree_id": "dfc94cccd2ddc7f8846b433cd538deee07f99d7e",
+          "url": "https://github.com/aws/jsii/commit/e7fadc0866a9dbd1a0061ec184ae840b0f2f58a1"
+        },
+        "date": 1660814285718,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 73361.69473879994,
+            "unit": "milliseconds",
+            "range": 868275.3562825226,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 73361.69473879994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50673.14367614999,
+            "unit": "milliseconds",
+            "range": 197700.37335595203,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50673.14367614999 milliseconds over 20 runs"
           }
         ]
       }
