@@ -17,16 +17,18 @@ export abstract class Target {
   protected readonly targetName: string;
   protected readonly assembly: reflect.Assembly;
   protected readonly rosetta: Rosetta;
+  protected readonly runtimeTypeChecking: boolean;
 
   protected abstract readonly generator: IGenerator;
 
   public constructor(options: TargetOptions) {
-    this.packageDir = options.packageDir;
+    this.arguments = options.arguments;
     this.assembly = options.assembly;
-    this.rosetta = options.rosetta;
     this.fingerprint = options.fingerprint ?? true;
     this.force = options.force ?? false;
-    this.arguments = options.arguments;
+    this.packageDir = options.packageDir;
+    this.rosetta = options.rosetta;
+    this.runtimeTypeChecking = options.runtimeTypeChecking;
     this.targetName = options.targetName;
   }
 
@@ -210,6 +212,9 @@ export interface TargetOptions {
 
   /** The Rosetta instance */
   rosetta: Rosetta;
+
+  /** Whether to generate runtime type-checking code */
+  runtimeTypeChecking: boolean;
 
   /**
    * Whether to fingerprint the produced artifacts.
