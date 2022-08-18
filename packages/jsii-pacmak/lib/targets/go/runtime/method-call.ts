@@ -1,5 +1,5 @@
-import { CodeMaker } from 'codemaker';
 import { Method } from 'jsii-reflect';
+import { EmitContext } from '../emit-context';
 
 import { GoMethod } from '../types';
 import {
@@ -18,16 +18,18 @@ export class MethodCall extends FunctionCall {
     super(parent);
   }
 
-  public emit(code: CodeMaker) {
+  public emit(context: EmitContext) {
     if (this.inStatic) {
-      this.emitStatic(code);
+      this.emitStatic(context);
     } else {
-      this.emitDynamic(code);
+      this.emitDynamic(context);
     }
   }
 
-  private emitDynamic(code: CodeMaker) {
-    this.parent.validator?.emitCall(code);
+  private emitDynamic({ code, runtimeTypeChecking }: EmitContext) {
+    if (runtimeTypeChecking) {
+      this.parent.validator?.emitCall(code);
+    }
 
     const args = emitArguments(
       code,
@@ -57,11 +59,13 @@ export class MethodCall extends FunctionCall {
     }
   }
 
-  private emitStatic(code: CodeMaker) {
+  private emitStatic({code, runtimeTypeChecking}: EmitContext) {
     emitInitialization(code);
     code.line();
 
-    this.parent.validator?.emitCall(code);
+    if (runtimeTypeChecking) {
+      this.parent.validator?.emitCall(code);
+    }
 
     const args = emitArguments(
       code,

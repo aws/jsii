@@ -48,7 +48,7 @@ export abstract class GoType<T extends Type = Type> {
 
   public abstract emit(context: EmitContext): void;
 
-  public abstract emitRegistration(code: CodeMaker): void;
+  public abstract emitRegistration(context: EmitContext): void;
 
   public abstract get dependencies(): Package[];
   public abstract get specialDependencies(): SpecialDependencies;

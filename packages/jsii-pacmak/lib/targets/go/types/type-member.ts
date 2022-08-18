@@ -170,10 +170,10 @@ export class GoProperty implements GoTypeMember {
           `func (${instanceArg} *${receiver})${this.setterName}(val ${this.returnType})`,
         );
 
-        new SetProperty(this).emit(code);
+        new SetProperty(this).emit(context);
       } else {
         code.openBlock(`func ${this.setterName}(val ${this.returnType})`);
-        new StaticSetProperty(this).emit(code);
+        new StaticSetProperty(this).emit(context);
       }
       code.closeBlock();
       code.line();

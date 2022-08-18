@@ -195,12 +195,14 @@ export abstract class Package {
    * responsible for correctly initializing the module, including registering
    * the declared types with the jsii runtime for go.
    */
-  private emitGoInitFunction({ code }: EmitContext): void {
+  private emitGoInitFunction(context: EmitContext): void {
     // We don't emit anything if there are not types in this (sub)module. This
     // avoids registering an `init` function that does nothing, which is poor
     // form. It also saves us from "imported but unused" errors that would arise
     // as a consequence.
     if (this.types.length > 0) {
+      const { code } = context;
+
       const initFile = join(this.directory, `${this.packageName}.go`);
       code.openFile(initFile);
       code.line(`package ${this.packageName}`);
@@ -209,7 +211,7 @@ export abstract class Package {
       code.line();
       code.openBlock('func init()');
       for (const type of this.types) {
-        type.emitRegistration(code);
+        type.emitRegistration(context);
       }
       code.closeBlock();
       code.closeFile(initFile);
@@ -248,11 +250,15 @@ export abstract class Package {
 
       context.code.closeFile(filePath);
 
-      this.emitValidators(context.code, type);
+      this.emitValidators(context, type);
     }
   }
 
-  private emitValidators(code: CodeMaker, type: GoType): void {
+  private emitValidators({code, runtimeTypeChecking}: EmitContext, type: GoType): void {
+    if (!runtimeTypeChecking) {
+      return;
+    }
+
     if (type.parameterValidators.length === 0 && type.structValidator == null) {
       return;
     }

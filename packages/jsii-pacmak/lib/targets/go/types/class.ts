@@ -1,4 +1,3 @@
-import { CodeMaker } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
 
 import { jsiiToPascalCase } from '../../../naming-util';
@@ -135,7 +134,7 @@ export class GoClass extends GoType<ClassType> {
     }
   }
 
-  public emitRegistration(code: CodeMaker): void {
+  public emitRegistration({code}: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterClass(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
@@ -309,7 +308,9 @@ export class GoClassConstructor extends GoMethod {
     }
   }
 
-  private emitNew({ code, documenter }: EmitContext) {
+  private emitNew(context: EmitContext) {
+    const { code, documenter } = context;
+
     const constr = `New${this.parent.name}`;
     const paramString =
       this.parameters.length === 0
@@ -318,7 +319,7 @@ export class GoClassConstructor extends GoMethod {
 
     documenter.emit(this.type.docs, this.apiLocation);
     code.openBlock(`func ${constr}(${paramString}) ${this.parent.name}`);
-    this.constructorRuntimeCall.emit(code);
+    this.constructorRuntimeCall.emit(context);
     code.closeBlock();
 
     code.line();
@@ -351,9 +352,10 @@ export class ClassMethod extends GoMethod {
   }
 
   /* emit generates method implementation on the class */
-  public emit({ code }: EmitContext) {
+  public emit(context: EmitContext) {
     const name = this.name;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
+    const { code } = context;
 
     code.openBlock(
       `func (${this.instanceArg} *${
@@ -361,7 +363,7 @@ export class ClassMethod extends GoMethod {
       }) ${name}(${this.paramString()})${returnTypeString}`,
     );
 
-    this.runtimeCall.emit(code);
+    this.runtimeCall.emit(context);
 
     code.closeBlock();
     code.line();
@@ -407,15 +409,16 @@ export class StaticMethod extends ClassMethod {
     this.name = `${this.parent.name}_${jsiiToPascalCase(method.name)}`;
   }
 
-  public emit({ code, documenter }: EmitContext) {
+  public emit(context: EmitContext) {
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
+    const { code, documenter } = context;
 
     documenter.emit(this.method.docs, this.apiLocation);
     code.openBlock(
       `func ${this.name}(${this.paramString()})${returnTypeString}`,
     );
 
-    this.runtimeCall.emit(code);
+    this.runtimeCall.emit(context);
 
     code.closeBlock();
     code.line();

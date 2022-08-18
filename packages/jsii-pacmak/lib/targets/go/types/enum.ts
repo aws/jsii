@@ -1,4 +1,3 @@
-import { CodeMaker } from 'codemaker';
 import { EnumType, EnumMember, Docs } from 'jsii-reflect';
 import { ApiLocation } from 'jsii-rosetta';
 
@@ -40,7 +39,7 @@ export class Enum extends GoType<EnumType> {
     code.line();
   }
 
-  public emitRegistration(code: CodeMaker): void {
+  public emitRegistration({code}: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterEnum(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);

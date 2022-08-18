@@ -14,6 +14,7 @@ export const JSII_TEST_PACKAGES: readonly string[] = [
   'jsii-calc',
 ];
 
+const DELETED = Symbol('deleted');
 const DIFF = Symbol('diff');
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
@@ -169,11 +170,16 @@ export function diffTrees(
   const originalStat = tryStat(original);
   const updatedStat = tryStat(updated);
 
+  const relativeFile = path.relative(root, original).replace(/\\/g, '/');
+
+  if (updatedStat == null) {
+    return { [DELETED]: path.basename(original) };
+  }
+
   // Should exist on both sides AND have the same file type
   expect(originalStat?.isDirectory()).toBe(updatedStat?.isDirectory());
   expect(originalStat?.isFile()).toBe(updatedStat?.isFile());
 
-  const relativeFile = path.relative(root, original).replace(/\\/g, '/');
   if (originalStat?.isFile()) {
     if (original.endsWith('.tgz') || original.endsWith('.png')) {
       // This is a binary object, these should match exactly
@@ -231,7 +237,7 @@ function tryStat(at: string) {
   try {
     return fs.statSync(at);
   } catch (e: any) {
-    if (e.code !== os.constants.errno.ENOENT) {
+    if (e.code !== 'ENOENT') {
       throw e;
     }
     return undefined;
@@ -364,7 +370,7 @@ async function runMypy(pythonRoot: string): Promise<void> {
   ).resolves.not.toThrowError();
 }
 
-type TreeStructure = string | { [name: string]: TreeStructure };
+type TreeStructure = string | { [name: string]: TreeStructure; } | { [DELETED]: string };
 
 function formatTree(tree: TreeStructure | undefined): string {
   if (tree == null) {
@@ -373,6 +379,10 @@ function formatTree(tree: TreeStructure | undefined): string {
 
   if (typeof tree === 'string') {
     return `┗━ 📄 ${tree}`;
+  }
+
+  if (DELETED in tree) {
+    return `┗━ 🗑 ${(tree as any)[DELETED]}`;
   }
 
   // Sort the entries by name to minimize differences.
@@ -384,6 +394,10 @@ function formatTree(tree: TreeStructure | undefined): string {
       const box = index < lastIndex ? ' ┣' : ' ┗';
       if (typeof children === 'string') {
         return `${box}━ 📄 ${name}`;
+      }
+
+      if (DELETED in children) {
+        return `${box}━ 🗑 ${name}`;
       }
 
       const subtree = formatTree(children)

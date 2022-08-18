@@ -1,4 +1,3 @@
-import { CodeMaker } from 'codemaker';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 
 import * as comparators from '../comparators';
@@ -140,7 +139,7 @@ export class GoInterface extends GoType<InterfaceType> {
     }
   }
 
-  public emitRegistration(code: CodeMaker): void {
+  public emitRegistration({code}: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterInterface(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
@@ -258,15 +257,16 @@ class InterfaceMethod extends GoMethod {
     code.line(`${this.name}(${this.paramString()})${this.returnTypeString}`);
   }
 
-  public emit({ code }: EmitContext) {
+  public emit(context: EmitContext) {
     const name = this.name;
+    const { code } = context;
     code.openBlock(
       `func (${this.instanceArg} *${
         this.parent.proxyName
       }) ${name}(${this.paramString()})${this.returnTypeString}`,
     );
 
-    this.runtimeCall.emit(code);
+    this.runtimeCall.emit(context);
 
     code.closeBlock();
     code.line();
