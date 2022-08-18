@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.65.0](https://github.com/aws/jsii/compare/v1.64.0...v1.65.0) (2022-08-18)
+
+
+### Features
+
+* **pacmak:** allow opt-out of runtime type checking generation ([#3710](https://github.com/aws/jsii/issues/3710)) ([39923a5](https://github.com/aws/jsii/commit/39923a5885f33e99cc8c9181b8f36f20b6208551))
+
+
+### Bug Fixes
+
+* **dotnet:** AnonymousObject fails runtime type checks ([#3709](https://github.com/aws/jsii/issues/3709)) ([e7fadc0](https://github.com/aws/jsii/commit/e7fadc0866a9dbd1a0061ec184ae840b0f2f58a1))
+
 ## [1.64.0](https://github.com/aws/jsii/compare/v1.63.2...v1.64.0) (2022-08-11)
 
 
