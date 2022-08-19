@@ -1532,7 +1532,7 @@ class JavaGenerator extends Generator {
       validate.call(
         this,
         param.name,
-        `.append(${param.name})`,
+        `.append("${param.name}")`,
         param.type,
         param.name,
       );
@@ -1610,7 +1610,7 @@ class JavaGenerator extends Generator {
       validate.call(
         this,
         `${varName}.getValue()`,
-        `${descr}.append(".get(\\"").append((${varName}.getKey())).append("\\"")`,
+        `${descr}.append(".get(\\"").append((${varName}.getKey())).append("\\") ")`,
         elementType,
         parameterName,
       );
@@ -1651,7 +1651,7 @@ class JavaGenerator extends Generator {
         .append("${placeholders}")
         .append("; received ")
         .append(${value}.getClass())
-        .append(", ${parameterName}").toString());
+        .append(", (Parameter '${parameterName}')").toString());
       `);
       this.code.closeBlock();
     }

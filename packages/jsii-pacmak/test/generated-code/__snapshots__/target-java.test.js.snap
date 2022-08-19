@@ -6457,21 +6457,21 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) throws IllegalArgumentException {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        for (int __idx____unionProperty_ = 0; __idx____unionProperty_ < unionProperty.size(); __idx____unionProperty_++) {
-            for (java.util.Map.Entry<String, java.lang.Object> __item____unionProperty_______________idx____unionProperty_________: unionProperty.get(__idx____unionProperty_).entrySet()) {
+        for (int __idx_____unionProperty__ = 0; __idx_____unionProperty__ < unionProperty.size(); __idx_____unionProperty__++) {
+            for (java.util.Map.Entry<String, java.lang.Object> __item_____unionProperty________________idx_____unionProperty__________: unionProperty.get(__idx_____unionProperty__).entrySet()) {
                 if (
-                     !(__item____unionProperty_______________idx____unionProperty_________.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
-                    && !(__item____unionProperty_______________idx____unionProperty_________.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
+                     !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
+                    && !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
                 )
                  {
                     throw new IllegalArgumentException(
         new java.lang.StringBuilder("Expected ")
-        .append(unionProperty).append(".get(").append(__idx____unionProperty_).append(")").append(".get(\\"").append((__item____unionProperty_______________idx____unionProperty_________.getKey())).append("\\"")
+        .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(\\"").append((__item_____unionProperty________________idx_____unionProperty__________.getKey())).append("\\") ")
         .append("to be one of: ")
         .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
         .append("; received ")
-        .append(__item____unionProperty_______________idx____unionProperty_________.getValue().getClass())
-        .append(", unionProperty").toString());
+        .append(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass())
+        .append(", (Parameter 'unionProperty'").toString());
       
                 }
             }

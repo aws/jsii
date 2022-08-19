@@ -44,7 +44,7 @@ public class TypeCheckingTest {
         }
         catch (IllegalArgumentException e) {
             thrown = true;
-            assertEquals("foo", e.getMessage());
+            assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'unionProperty')", e.getMessage());
         }
         assertTrue(thrown);
     }
