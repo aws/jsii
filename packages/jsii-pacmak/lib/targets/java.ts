@@ -1644,15 +1644,16 @@ class JavaGenerator extends Generator {
         })
         .join(', ');
 
-      this.code.line(`throw new IllegalArgumentException(
-        new java.lang.StringBuilder("Expected ")
-        ${descr}
-        .append("to be one of: ")
-        .append("${placeholders}")
-        .append("; received ")
-        .append(${value}.getClass())
-        .append(", (Parameter '${parameterName}')").toString());
-      `);
+      this.code.line(`throw new IllegalArgumentException(`);
+      this.code.line(`new java.lang.StringBuilder("Expected ")`);
+      this.code.line(`${descr}`);
+      this.code.line(`.append("to be one of: ")`);
+      this.code.line(`.append("${placeholders}")`);
+      this.code.line(`.append("; received ")`);
+      this.code.line(`.append(${value}.getClass())`);
+      this.code.line(
+        `.append(", (Parameter '${parameterName}')").toString());`,
+      );
       this.code.closeBlock();
     }
   }

@@ -6465,14 +6465,13 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
                 )
                  {
                     throw new IllegalArgumentException(
-        new java.lang.StringBuilder("Expected ")
-        .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(\\"").append((__item_____unionProperty________________idx_____unionProperty__________.getKey())).append("\\") ")
-        .append("to be one of: ")
-        .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-        .append("; received ")
-        .append(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass())
-        .append(", (Parameter 'unionProperty'").toString());
-      
+                    new java.lang.StringBuilder("Expected ")
+                    .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(\\"").append((__item_____unionProperty________________idx_____unionProperty__________.getKey())).append("\\") ")
+                    .append("to be one of: ")
+                    .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
+                    .append("; received ")
+                    .append(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass())
+                    .append(", (Parameter 'unionProperty')").toString());
                 }
             }
         }
