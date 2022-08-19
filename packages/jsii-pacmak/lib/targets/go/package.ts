@@ -254,7 +254,10 @@ export abstract class Package {
     }
   }
 
-  private emitValidators({code, runtimeTypeChecking}: EmitContext, type: GoType): void {
+  private emitValidators(
+    { code, runtimeTypeChecking }: EmitContext,
+    type: GoType,
+  ): void {
     if (!runtimeTypeChecking) {
       return;
     }

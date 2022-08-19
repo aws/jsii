@@ -370,7 +370,10 @@ async function runMypy(pythonRoot: string): Promise<void> {
   ).resolves.not.toThrowError();
 }
 
-type TreeStructure = string | { [name: string]: TreeStructure; } | { [DELETED]: string };
+type TreeStructure =
+  | string
+  | { [name: string]: TreeStructure }
+  | { [DELETED]: string };
 
 function formatTree(tree: TreeStructure | undefined): string {
   if (tree == null) {

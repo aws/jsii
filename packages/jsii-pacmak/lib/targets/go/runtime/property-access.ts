@@ -1,6 +1,6 @@
 import { CodeMaker } from 'codemaker';
-import { EmitContext } from '../emit-context';
 
+import { EmitContext } from '../emit-context';
 import { GoProperty } from '../types';
 import {
   JSII_GET_FUNC,
@@ -33,9 +33,8 @@ export class GetProperty extends FunctionCall {
 export class SetProperty {
   public constructor(public readonly parent: GoProperty) {}
 
-  public emit({code, runtimeTypeChecking}: EmitContext) {
-    if (runtimeTypeChecking)
-    this.parent.validator?.emitCall(code);
+  public emit({ code, runtimeTypeChecking }: EmitContext) {
+    if (runtimeTypeChecking) this.parent.validator?.emitCall(code);
 
     code.open(`${JSII_SET_FUNC}(`);
     code.line(`${this.parent.instanceArg},`);
@@ -68,7 +67,7 @@ export class StaticGetProperty extends FunctionCall {
 export class StaticSetProperty {
   public constructor(public readonly parent: GoProperty) {}
 
-  public emit({ code, runtimeTypeChecking}: EmitContext) {
+  public emit({ code, runtimeTypeChecking }: EmitContext) {
     emitInitialization(code);
 
     if (runtimeTypeChecking) {

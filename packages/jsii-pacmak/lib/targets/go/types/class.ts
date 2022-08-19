@@ -134,7 +134,7 @@ export class GoClass extends GoType<ClassType> {
     }
   }
 
-  public emitRegistration({code}: EmitContext): void {
+  public emitRegistration({ code }: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterClass(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);

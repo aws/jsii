@@ -39,7 +39,7 @@ export class Enum extends GoType<EnumType> {
     code.line();
   }
 
-  public emitRegistration({code}: EmitContext): void {
+  public emitRegistration({ code }: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterEnum(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);

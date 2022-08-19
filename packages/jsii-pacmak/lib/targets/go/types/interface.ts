@@ -139,7 +139,7 @@ export class GoInterface extends GoType<InterfaceType> {
     }
   }
 
-  public emitRegistration({code}: EmitContext): void {
+  public emitRegistration({ code }: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterInterface(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);

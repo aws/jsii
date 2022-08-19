@@ -1,6 +1,6 @@
 import { Method } from 'jsii-reflect';
-import { EmitContext } from '../emit-context';
 
+import { EmitContext } from '../emit-context';
 import { GoMethod } from '../types';
 import {
   JSII_INVOKE_FUNC,
@@ -59,7 +59,7 @@ export class MethodCall extends FunctionCall {
     }
   }
 
-  private emitStatic({code, runtimeTypeChecking}: EmitContext) {
+  private emitStatic({ code, runtimeTypeChecking }: EmitContext) {
     emitInitialization(code);
     code.line();
 

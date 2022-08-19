@@ -149,7 +149,10 @@ class GoGenerator implements IGenerator {
   private readonly rosetta: Rosetta;
   private readonly runtimeTypeChecking: boolean;
 
-  public constructor(options: { readonly rosetta: Rosetta, readonly runtimeTypeChecking: boolean }) {
+  public constructor(options: {
+    readonly rosetta: Rosetta;
+    readonly runtimeTypeChecking: boolean;
+  }) {
     this.rosetta = options.rosetta;
     this.documenter = new Documentation(this.code, this.rosetta);
     this.runtimeTypeChecking = options.runtimeTypeChecking;

@@ -75,7 +75,7 @@ export class Struct extends GoType<InterfaceType> {
     code.line();
   }
 
-  public emitRegistration({code, runtimeTypeChecking}: EmitContext): void {
+  public emitRegistration({ code, runtimeTypeChecking }: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterStruct(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
