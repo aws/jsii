@@ -158,6 +158,7 @@ Array [
   "jsii-calc.VirtualMethodPlayground",
   "jsii-calc.VoidCallback",
   "jsii-calc.WithPrivatePropertyInConstructor",
+  "jsii-calc.anonymous.UseOptions",
   "jsii-calc.cdk16625.Cdk16625",
   "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
   "jsii-calc.composition.CompositeOperation",

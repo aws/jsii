@@ -328,13 +328,14 @@ export class JavaBuilder implements TargetBuilder {
 
   private makeTarget(module: JsiiModule, options: BuildOptions): Target {
     return new Java({
-      targetName: this.targetName,
-      packageDir: module.moduleDirectory,
+      arguments: options.arguments,
       assembly: module.assembly,
       fingerprint: options.fingerprint,
       force: options.force,
-      arguments: options.arguments,
+      packageDir: module.moduleDirectory,
       rosetta: options.rosetta,
+      runtimeTypeChecking: options.runtimeTypeChecking,
+      targetName: this.targetName,
     });
   }
 }
@@ -421,7 +422,7 @@ export default class Java extends Target {
   public constructor(options: TargetOptions) {
     super(options);
 
-    this.generator = new JavaGenerator(options.rosetta);
+    this.generator = new JavaGenerator(options);
   }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
@@ -619,8 +620,14 @@ class JavaGenerator extends Generator {
     [name: string]: spec.AssemblyConfiguration;
   } = {};
 
-  public constructor(private readonly rosetta: Rosetta) {
-    super({ generateOverloadsForMethodWithOptionals: true });
+  private readonly rosetta: Rosetta;
+
+  public constructor(options: {
+    readonly rosetta: Rosetta;
+    readonly runtimeTypeChecking: boolean;
+  }) {
+    super({ ...options, generateOverloadsForMethodWithOptionals: true });
+    this.rosetta = options.rosetta;
   }
 
   protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {

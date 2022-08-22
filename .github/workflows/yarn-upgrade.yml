@@ -141,7 +141,6 @@ jobs:
           body: |-
             Ran npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.
           labels: contribution/core,dependencies,auto-approve
-          team-reviewers: aws-cdk-team
           # Privileged token so automated PR validation happens
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
 

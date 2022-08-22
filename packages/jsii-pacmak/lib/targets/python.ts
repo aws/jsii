@@ -50,7 +50,7 @@ export default class Python extends Target {
   public constructor(options: TargetOptions) {
     super(options);
 
-    this.generator = new PythonGenerator(options.rosetta);
+    this.generator = new PythonGenerator(options.rosetta, options);
   }
 
   public async generateCode(outDir: string, tarball: string): Promise<void> {
@@ -120,6 +120,9 @@ export default class Python extends Target {
 interface EmitContext extends NamingContext {
   /** @deprecated The TypeResolver */
   readonly resolver: TypeResolver;
+
+  /** Whether to emit runtime type checking code */
+  readonly runtimeTypeChecking: boolean;
 }
 
 const pythonModuleNameToFilename = (name: string): string => {
@@ -662,6 +665,7 @@ abstract class BaseMethod implements PythonBase {
     ) {
       emitParameterTypeChecks(
         code,
+        context,
         pythonParams.slice(1),
         `${toPythonFullName(this.parent.fqn, context.assembly)}.${
           this.pythonName
@@ -942,6 +946,7 @@ abstract class BaseProperty implements PythonBase {
       ) {
         emitParameterTypeChecks(
           code,
+          context,
           [`value: ${pythonType}`],
           // In order to get a property accessor, we must resort to getting the
           // attribute on the type, instead of the value (where the getter would
@@ -1138,6 +1143,7 @@ class Struct extends BasePythonClassType {
     }
     emitParameterTypeChecks(
       code,
+      context,
       kwargs,
       `${toPythonFullName(this.spec.fqn, context.assembly)}.__init__`,
     );
@@ -2319,7 +2325,7 @@ class PythonGenerator extends Generator {
 
   public constructor(
     private readonly rosetta: Rosetta,
-    options: GeneratorOptions = {},
+    options: GeneratorOptions,
   ) {
     super(options);
 
@@ -2534,6 +2540,7 @@ class PythonGenerator extends Generator {
       assembly: assm,
       emittedTypes: new Set(),
       resolver,
+      runtimeTypeChecking: this.runtimeTypeChecking,
       submodule: assm.name,
       typeResolver: (fqn) => resolver.dereference(fqn),
     });
@@ -3051,9 +3058,14 @@ function openSignature(
  */
 function emitParameterTypeChecks(
   code: CodeMaker,
+  context: EmitContext,
   params: readonly string[],
   typedEntity: string,
 ): void {
+  if (!context.runtimeTypeChecking) {
+    return;
+  }
+
   const paramInfo = params.map((param) => {
     const [name] = param.split(/\s*[:=#]\s*/, 1);
     if (name === '*') {

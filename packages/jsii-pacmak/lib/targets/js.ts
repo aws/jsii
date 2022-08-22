@@ -62,6 +62,11 @@ export default class JavaScript extends Target {
 // ##################
 
 class PackOnly extends Generator {
+  public constructor() {
+    // NB: This does not generate code, so runtime type checking is irrelevant
+    super({ runtimeTypeChecking: false });
+  }
+
   public async save(outdir: string, tarball: string, _: Legalese) {
     // Intentionally ignore the Legalese field here... it's not useful here.
     return super.save(outdir, tarball, {});
