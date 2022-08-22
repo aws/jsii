@@ -21010,6 +21010,20 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructA(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
+        if (
+             !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
+            && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
+        )
+         {
+            throw new IllegalArgumentException(
+            new java.lang.StringBuilder("Expected ")
+            .append("struct")
+            .append("to be one of: ")
+            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
+            .append("; received ")
+            .append(struct.getClass())
+            .append(", (Parameter 'struct')").toString());
+        }
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructUnionConsumer.class, "isStructA", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(struct, "struct is required") });
     }
 
@@ -21018,6 +21032,20 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructB(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
+        if (
+             !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
+            && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
+        )
+         {
+            throw new IllegalArgumentException(
+            new java.lang.StringBuilder("Expected ")
+            .append("struct")
+            .append("to be one of: ")
+            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
+            .append("; received ")
+            .append(struct.getClass())
+            .append(", (Parameter 'struct')").toString());
+        }
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructUnionConsumer.class, "isStructB", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(struct, "struct is required") });
     }
 }

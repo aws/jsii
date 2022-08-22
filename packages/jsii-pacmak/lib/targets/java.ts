@@ -1508,6 +1508,7 @@ class JavaGenerator extends Generator {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
       this.code.openBlock(`${modifiers.join(' ')} ${signature}`);
+      this.emitUnionParameterValdation(method.parameters);
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
     }
@@ -1634,6 +1635,10 @@ class JavaGenerator extends Generator {
         this.code.line(`${prefix} !(${test})`);
         emitAnd = true;
       }
+      /*this.code.line(
+        `&& !(${value} instanceof software.amazon.jsii.AnonymousObject)`,
+      );
+      */
 
       this.code.unindent(')');
       this.code.openBlock('');
