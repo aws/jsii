@@ -25,7 +25,7 @@ func init() {
 	fmt.Fprintf(os.Stderr, "# This binary was compiled with %v, which has reached #\n", compiler.Version)
 	fmt.Fprintf(os.Stderr, "# end-of-life on %v.                              #\n", compiler.EndOfLifeDate)
 	fmt.Fprintln(os.Stderr, "#                                                         #")
-	fmt.Fprintln(os.Stderr, "# Support for this version will be dropped in the future. #")
+	fmt.Fprintln(os.Stderr, "# Support for this version WILL be dropped in the future! #")
 	fmt.Fprintln(os.Stderr, "#                                                         #")
 	fmt.Fprintln(os.Stderr, "# See https://go.dev/security for more information.       #")
 	fmt.Fprintln(os.Stderr, "###########################################################")
