@@ -6481,12 +6481,13 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
                 if (
                      !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
                     && !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
+                    && !(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
                 )
                  {
                     throw new IllegalArgumentException(
                     new java.lang.StringBuilder("Expected ")
-                    .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(\\"").append((__item_____unionProperty________________idx_____unionProperty__________.getKey())).append("\\") ")
-                    .append("to be one of: ")
+                    .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(\\"").append((__item_____unionProperty________________idx_____unionProperty__________.getKey())).append("\\")")
+                    .append(" to be one of: ")
                     .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
                     .append("; received ")
                     .append(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass())
@@ -21032,12 +21033,13 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
         if (
              !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
             && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
+            && !(struct.getClass().equals(software.amazon.jsii.JsiiObject.class))
         )
          {
             throw new IllegalArgumentException(
             new java.lang.StringBuilder("Expected ")
             .append("struct")
-            .append("to be one of: ")
+            .append(" to be one of: ")
             .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
             .append("; received ")
             .append(struct.getClass())
@@ -21054,12 +21056,13 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
         if (
              !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
             && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
+            && !(struct.getClass().equals(software.amazon.jsii.JsiiObject.class))
         )
          {
             throw new IllegalArgumentException(
             new java.lang.StringBuilder("Expected ")
             .append("struct")
-            .append("to be one of: ")
+            .append(" to be one of: ")
             .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
             .append("; received ")
             .append(struct.getClass())
@@ -23446,6 +23449,21 @@ public class UseOptions extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) {
+        if (
+             !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionA)
+            && !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionB)
+            && !(option.getClass().equals(software.amazon.jsii.JsiiObject.class))
+        )
+         {
+            throw new IllegalArgumentException(
+            new java.lang.StringBuilder("Expected ")
+            .append("option")
+            .append(" to be one of: ")
+            .append("software.amazon.jsii.tests.calculator.anonymous.IOptionA, software.amazon.jsii.tests.calculator.anonymous.IOptionB")
+            .append("; received ")
+            .append(option.getClass())
+            .append(", (Parameter 'option')").toString());
+        }
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.anonymous.UseOptions.class, "consume", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(option, "option is required") });
     }
 

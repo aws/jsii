@@ -1618,7 +1618,7 @@ class JavaGenerator extends Generator {
       validate.call(
         this,
         `${varName}.getValue()`,
-        `${descr}.append(".get(\\"").append((${varName}.getKey())).append("\\") ")`,
+        `${descr}.append(".get(\\"").append((${varName}.getKey())).append("\\")")`,
         elementType,
         parameterName,
       );
@@ -1642,10 +1642,9 @@ class JavaGenerator extends Generator {
         this.code.line(`${prefix} !(${test})`);
         emitAnd = true;
       }
-      /*this.code.line(
-        `&& !(${value} instanceof software.amazon.jsii.AnonymousObject)`,
+      this.code.line(
+        `&& !(${value}.getClass().equals(software.amazon.jsii.JsiiObject.class))`,
       );
-      */
 
       this.code.unindent(')');
       this.code.openBlock('');
@@ -1659,7 +1658,7 @@ class JavaGenerator extends Generator {
       this.code.line(`throw new IllegalArgumentException(`);
       this.code.line(`new java.lang.StringBuilder("Expected ")`);
       this.code.line(`${descr}`);
-      this.code.line(`.append("to be one of: ")`);
+      this.code.line(`.append(" to be one of: ")`);
       this.code.line(`.append("${placeholders}")`);
       this.code.line(`.append("; received ")`);
       this.code.line(`.append(${value}.getClass())`);

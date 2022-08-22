@@ -2,7 +2,10 @@ package software.amazon.jsii.testing;
 
 import org.junit.jupiter.api.Test;
 import software.amazon.jsii.JsiiException;
+import software.amazon.jsii.JsiiObject;
 import software.amazon.jsii.tests.calculator.*;
+import software.amazon.jsii.tests.calculator.anonymous.*;
+import software.amazon.jsii.tests.calculator.anonymous.UseOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,9 +55,9 @@ public class TypeCheckingTest {
     @Test
     public void AnonymousObjectIsValid()
     {
-        var anonymousObject = UseOptions.Provide("A");
-        Assert.IsType<AnonymousObject>(anonymousObject);
-        Assert.Equal("A", UseOptions.Consume(anonymousObject));
+        Object anonymousObject = UseOptions.provide("A");
+        assertEquals(JsiiObject.class, anonymousObject.getClass());
+        assertEquals("A", UseOptions.consume(anonymousObject));
     }
 
     /*
