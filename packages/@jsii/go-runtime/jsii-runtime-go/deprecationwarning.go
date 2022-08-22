@@ -6,17 +6,32 @@ package jsii
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/aws/jsii-runtime-go/internal/compiler"
+	"github.com/mattn/go-isatty"
 )
 
 // / Emits a deprecation warning message when
 func init() {
-	fmt.Println("###########################################################")
-	fmt.Printf("# This binary was compiled with %v, which has reached #\n", compiler.Version)
-	fmt.Printf("# end-of-life on %v.                              #", compiler.EndOfLifeDate)
-	fmt.Println("# Support for this version will be dropped in the future. #")
-	fmt.Println("#                                                         #")
-	fmt.Println("# See https://go.dev/security for more information.       #")
-	fmt.Println("###########################################################")
+	tty := isatty.IsTerminal(os.Stderr.Fd()) || isatty.IsCygwinTerminal(os.Stderr.Fd())
+
+	if tty {
+		// Set terminal to bold red
+		fmt.Fprintf(os.Stderr, "\u001b[31m\u001b[1m")
+	}
+
+	fmt.Fprintln(os.Stderr, "###########################################################")
+	fmt.Fprintf(os.Stderr, "# This binary was compiled with %v, which has reached #\n", compiler.Version)
+	fmt.Fprintf(os.Stderr, "# end-of-life on %v.                              #\n", compiler.EndOfLifeDate)
+	fmt.Fprintln(os.Stderr, "#                                                         #")
+	fmt.Fprintln(os.Stderr, "# Support for this version will be dropped in the future. #")
+	fmt.Fprintln(os.Stderr, "#                                                         #")
+	fmt.Fprintln(os.Stderr, "# See https://go.dev/security for more information.       #")
+	fmt.Fprintln(os.Stderr, "###########################################################")
+
+	if tty {
+		// Reset terminal back to normal
+		fmt.Fprintf(os.Stderr, "\u001b[0m")
+	}
 }
