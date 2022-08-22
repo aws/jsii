@@ -41,7 +41,7 @@ export class Golang extends Target {
     const localGoMod = await this.writeLocalGoMod(pkgDir);
 
     try {
-      // run `go build` with local.go.mod, go 1.16 requires that we download
+      // run `go build` with local.go.mod, go 1.16+ requires that we download
       // modules explicit so go.sum is updated. We'd normally want to use
       // `go mod download`, but because of a bug in go 1.16, we have to use
       // `go mod tidy` instead.
