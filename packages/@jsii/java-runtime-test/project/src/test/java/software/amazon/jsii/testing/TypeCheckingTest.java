@@ -60,26 +60,54 @@ public class TypeCheckingTest {
         assertEquals("A", UseOptions.consume(anonymousObject));
     }
 
-    /*
     @Test
-    public void Constructor2() {
+    public void NestedUnion() {
         boolean thrown = false;
         try {
+            ArrayList<Object> list = new ArrayList<Object>();
+            list.add(1337.42);
+            new ClassWithNestedUnion(list);
+        }
+        catch (IllegalArgumentException e) {
+            thrown = true;
+            assertEquals("Expected unionProperty.get(0) to be one of: java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>; received class java.lang.Double, (Parameter 'unionProperty')", e.getMessage());
+        }
 
+        assertTrue(thrown);
+        thrown = false;
+
+        try {
+            ArrayList<Object> list = new ArrayList<Object>();
+            ArrayList<Object> nestedList = new ArrayList<Object>();
+            nestedList.add(new StructAImplementer("required"));
+            nestedList.add(1337.42);
+            list.add(nestedList);
+            new ClassWithNestedUnion(list);
+        }
+        catch (IllegalArgumentException e) {
+            thrown = true;
+            assertEquals("Expected unionProperty.get(0).get(1) to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.Double, (Parameter 'unionProperty')", e.getMessage());
+        }
+
+        assertTrue(thrown);
+        thrown = false;
+
+        try {
             HashMap<String, Object> map = new HashMap<String, Object>();
+            ArrayList<Object> list = new ArrayList<Object>();
             map.put("good", new StructAImplementer("present"));
             map.put("bad", "Not a StructA or StructB");
-            ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
             list.add(map);
-            new ClassWithUnionCollections(list);
+            new ClassWithNestedUnion(list);
         }
         catch (IllegalArgumentException e) {
             thrown = true;
             assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'unionProperty')", e.getMessage());
         }
+
         assertTrue(thrown);
     }
-    */
+
     /*
     @Test
     public void setter() {

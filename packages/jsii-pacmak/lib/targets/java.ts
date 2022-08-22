@@ -1556,11 +1556,14 @@ class JavaGenerator extends Generator {
       if (spec.isUnionTypeReference(type)) {
         validateTypeUnion.call(this, value, descr, type, parameterName);
       } else {
+        // we must cast Map and Array if they are in a nested union type,
+        // since the union that contains this Map will be rendered as an Object
+        // meaning that the compiler cannot tell that this is actually a Collection
         const collectionType = type as spec.CollectionTypeReference;
         if (collectionType.collection.kind === spec.CollectionKind.Array) {
           validateArray.call(
             this,
-            value,
+            `((${this.toJavaType(type)})(${value}))`,
             descr,
             collectionType.collection.elementtype,
             parameterName,
@@ -1568,7 +1571,7 @@ class JavaGenerator extends Generator {
         } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
           validateMap.call(
             this,
-            value,
+            `((${this.toJavaType(type)})(${value}))`,
             descr,
             collectionType.collection.elementtype,
             parameterName,
@@ -1610,10 +1613,9 @@ class JavaGenerator extends Generator {
       parameterName: string,
     ) {
       const varName = `__item_${descr.replace(/[^a-z0-9_]|get|append/gi, '_')}`;
+      const javaElemType = this.toJavaType(elementType);
       this.code.openBlock(
-        `for (java.util.Map.Entry<String, ${this.toJavaType(
-          elementType,
-        )}> ${varName}: ${value}.entrySet())`,
+        `for (java.util.Map.Entry<String, ${javaElemType}> ${varName}: ${value}.entrySet())`,
       );
       validate.call(
         this,
@@ -1634,14 +1636,20 @@ class JavaGenerator extends Generator {
     ) {
       this.code.indent('if (');
       let emitAnd = false;
+      const nestedCollectionUnionTypes = [];
       const typeRefs = type.union.types;
       for (const typeRef of typeRefs) {
         const prefix = emitAnd ? '&&' : '';
-        const javaType = this.toJavaType(typeRef);
+        const javaType = this.toJavaTypeNoGenerics(typeRef);
+        if (javaType !== this.toJavaType(typeRef)) {
+          nestedCollectionUnionTypes.push(typeRef);
+        }
         const test = `${value} instanceof ${javaType}`;
         this.code.line(`${prefix} !(${test})`);
         emitAnd = true;
       }
+      // All anonymous objects at runtime will be `JsiiObject`s.
+      // We cannot type check that at runtime.
       this.code.line(
         `&& !(${value}.getClass().equals(software.amazon.jsii.JsiiObject.class))`,
       );
@@ -1666,6 +1674,14 @@ class JavaGenerator extends Generator {
         `.append(", (Parameter '${parameterName}')").toString());`,
       );
       this.code.closeBlock();
+
+      for (const typeRef of nestedCollectionUnionTypes) {
+        this.code.openBlock(
+          `if (${value} instanceof ${this.toJavaTypeNoGenerics(typeRef)})`,
+        );
+        validate.call(this, value, descr, typeRef, parameterName);
+        this.code.closeBlock();
+      }
     }
   }
 
@@ -2645,6 +2661,31 @@ class JavaGenerator extends Generator {
       (nakedType) =>
         `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`,
     );
+  }
+
+  // Strips <*> from the type name.
+  // necessary, because of type erasure; the compiler
+  // will not let you check `foo instanceof Map<String, Foo>`,
+  // and you must instead check `foo instanceof Map`.
+  private toJavaTypeNoGenerics(
+    type: spec.TypeReference,
+    opts?: { forMarshalling?: boolean; covariant?: boolean },
+  ): string {
+    const typeStr = this.toJavaType(type, opts);
+
+    const leftAngleBracketIdx = typeStr.indexOf('<');
+    const rightAngleBracketIdx = typeStr.indexOf('>');
+
+    if (
+      (leftAngleBracketIdx < 0 && rightAngleBracketIdx >= 0) ||
+      (leftAngleBracketIdx >= 0 && rightAngleBracketIdx < 0)
+    ) {
+      throw new Error(`Invalid generic type: found ${typeStr}`);
+    }
+
+    return leftAngleBracketIdx > 0 && rightAngleBracketIdx > 0
+      ? typeStr.slice(0, leftAngleBracketIdx)
+      : typeStr;
   }
 
   private toJavaType(
