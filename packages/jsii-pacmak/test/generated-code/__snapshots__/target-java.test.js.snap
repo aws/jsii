@@ -723,6 +723,11 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/src/main/reso
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/base/jsii-calc-base@0.0.0.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/base/jsii-calc-base@0.0.0.jsii.tgz is a tarball`;
 
+exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 java
@@ -1400,6 +1405,11 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/m
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@2.1.1.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/jsii-calc-base-of-base@2.1.1.jsii.tgz is a tarball`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
@@ -3564,6 +3574,11 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/lib/jsii-calc-lib@0.0.0.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/lib/jsii-calc-lib@0.0.0.jsii.tgz is a tarball`;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 java
@@ -3588,6 +3603,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 AllTypes.java
           ┃                 ┣━ 📄 AllTypesEnum.java
           ┃                 ┣━ 📄 AmbiguousParameters.java
+          ┃                 ┣━ 📁 anonymous
+          ┃                 ┃  ┣━ 📄 IOptionA.java
+          ┃                 ┃  ┣━ 📄 IOptionB.java
+          ┃                 ┃  ┗━ 📄 UseOptions.java
           ┃                 ┣━ 📄 AnonymousImplementationProvider.java
           ┃                 ┣━ 📄 AsyncVirtualMethods.java
           ┃                 ┣━ 📄 AugmentableClass.java
@@ -21048,6 +21067,14 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
         }
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructUnionConsumer.class, "isStructB", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(struct, "struct is required") });
     }
+
+    /**
+     * @param which This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Object provideStruct(final @org.jetbrains.annotations.NotNull java.lang.String which) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructUnionConsumer.class, "provideStruct", software.amazon.jsii.NativeType.forClass(java.lang.Object.class), new Object[] { java.util.Objects.requireNonNull(which, "which is required") });
+    }
 }
 
 `;
@@ -23287,6 +23314,155 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess() {
         return software.amazon.jsii.Kernel.get(this, "success", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/IOptionA.java 1`] = `
+package software.amazon.jsii.tests.calculator.anonymous;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.anonymous.IOptionA")
+@software.amazon.jsii.Jsii.Proxy(IOptionA.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IOptionA extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String doSomething();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.anonymous.IOptionA.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String doSomething() {
+            return software.amazon.jsii.Kernel.call(this, "doSomething", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IOptionA}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IOptionA {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.String doSomething() {
+            return software.amazon.jsii.Kernel.call(this, "doSomething", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/IOptionB.java 1`] = `
+package software.amazon.jsii.tests.calculator.anonymous;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.anonymous.IOptionB")
+@software.amazon.jsii.Jsii.Proxy(IOptionB.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IOptionB extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String doSomethingElse();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.anonymous.IOptionB.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String doSomethingElse() {
+            return software.amazon.jsii.Kernel.call(this, "doSomethingElse", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IOptionB}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IOptionB {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.String doSomethingElse() {
+            return software.amazon.jsii.Kernel.call(this, "doSomethingElse", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java 1`] = `
+package software.amazon.jsii.tests.calculator.anonymous;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.anonymous.UseOptions")
+public class UseOptions extends software.amazon.jsii.JsiiObject {
+
+    protected UseOptions(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected UseOptions(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param option This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.anonymous.UseOptions.class, "consume", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(option, "option is required") });
+    }
+
+    /**
+     * @param which This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Object privideAsAny(final @org.jetbrains.annotations.NotNull java.lang.String which) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.anonymous.UseOptions.class, "privideAsAny", software.amazon.jsii.NativeType.forClass(java.lang.Object.class), new Object[] { java.util.Objects.requireNonNull(which, "which is required") });
+    }
+
+    /**
+     * @param which This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Object provide(final @org.jetbrains.annotations.NotNull java.lang.String which) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.anonymous.UseOptions.class, "provide", software.amazon.jsii.NativeType.forClass(java.lang.Object.class), new Object[] { java.util.Objects.requireNonNull(which, "which is required") });
     }
 }
 
@@ -27595,6 +27771,9 @@ jsii-calc.VariadicMethod=software.amazon.jsii.tests.calculator.VariadicMethod
 jsii-calc.VirtualMethodPlayground=software.amazon.jsii.tests.calculator.VirtualMethodPlayground
 jsii-calc.VoidCallback=software.amazon.jsii.tests.calculator.VoidCallback
 jsii-calc.WithPrivatePropertyInConstructor=software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor
+jsii-calc.anonymous.IOptionA=software.amazon.jsii.tests.calculator.anonymous.IOptionA
+jsii-calc.anonymous.IOptionB=software.amazon.jsii.tests.calculator.anonymous.IOptionB
+jsii-calc.anonymous.UseOptions=software.amazon.jsii.tests.calculator.anonymous.UseOptions
 jsii-calc.cdk16625.Cdk16625=software.amazon.jsii.tests.calculator.cdk16625.Cdk16625
 jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType=software.amazon.jsii.tests.calculator.cdk16625.donotimport.UnimportedSubmoduleType
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
@@ -27649,3 +27828,8 @@ jsii-calc.submodule.returnsparam.ReturnsSpecialParameter=software.amazon.jsii.te
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@3.20.120.jsii.tgz 1`] = `java/src/main/resources/software/amazon/jsii/tests/calculator/jsii-calc@3.20.120.jsii.tgz is a tarball`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+┗━ 🕳 There is nothing here
+`;

@@ -1,6 +1,7 @@
 import platform
 
 from datetime import datetime, timezone
+from typing import cast, List
 
 import pytest
 
@@ -272,7 +273,9 @@ def test_dynamicTypes():
 
     # json (notice that when deserialized, it is deserialized as a map).
     types.any_property = {"Goo": ["Hello", {"World": 123}]}
-    assert types.any_property.get("Goo")[1].get("World") == 123
+    got = types.any_property.get("Goo")
+    assert got is not None
+    assert got[1].get("World") == 123
 
     # array
     types.any_property = ["Hello", "World"]
@@ -292,7 +295,7 @@ def test_dynamicTypes():
     # map of any
     map_["Goo"] = 19_289_812
     types.any_map_property = map_
-    types.any_map_property.get("Goo") == 19_289_812
+    assert types.any_map_property.get("Goo") == 19_289_812
 
     # classes
     mult = Multiply(Number(10), Number(20))
@@ -323,7 +326,7 @@ def test_unionTypes():
 
     # array
     types.union_array_property = [123, Number(33)]
-    assert types.union_array_property[1].value == 33
+    assert cast(Number, types.union_array_property[1]).value == 33
 
 
 def test_createObjectAndCtorOverloads():
@@ -421,9 +424,11 @@ def test_maps():
     calc2.add(20)
     calc2.mul(2)
 
-    assert len(calc2.operations_map.get("add")) == 2
-    assert len(calc2.operations_map.get("mul")) == 1
-    assert calc2.operations_map.get("add")[1].value == 30
+    assert len(cast(List, calc2.operations_map.get("add"))) == 2
+    assert len(cast(List, calc2.operations_map.get("mul"))) == 1
+    got = calc2.operations_map.get("add")
+    assert got is not None
+    assert got[1].value == 30
 
 
 def test_exceptions():
@@ -649,11 +654,11 @@ def test_propertyOverrides_interfaces():
 
         @property
         def read_write_string(self):
-            return self.x + "?"
+            return f"{self.x}?"
 
         @read_write_string.setter
         def read_write_string(self, value):
-            self.x = value + "!"
+            self.x = f"{value}!"
 
     obj = TInterfaceWithProperties()
     interact = UsesInterfaceWithProperties(obj)
@@ -969,7 +974,7 @@ def test_passNestedStruct():
 
     assert output.required == "hello"
     assert output.optional is None
-    assert output.second_level.deeper_required_prop == "exists"
+    assert cast(SecondLevelStruct, output.second_level).deeper_required_prop == "exists"
 
     # Test stringification
     # Dicts are ordered in Python 3.7+, so this is fine: https://mail.python.org/pipermail/python-dev/2017-December/151283.html
@@ -1086,7 +1091,7 @@ def test_return_subclass_that_implements_interface_976():
 def test_return_subclass_that_implements_interface_976_raises_attributeerror_when_using_non_existent_method():
     obj = SomeTypeJsii976.return_return()
     try:
-        print(obj.not_a_real_method_I_swear)
+        print(obj.not_a_real_method_I_swear)  # type:ignore
         failed = False
     except AttributeError as err:
         failed = True
@@ -1136,7 +1141,10 @@ def test_structs_are_undecorated_on_the_way_to_kernel():
     json = JsonFormatter.stringify(
         StructB(required_string="Bazinga!", optional_boolean=False)
     )
-    assert loads(json) == {"requiredString": "Bazinga!", "optionalBoolean": False}
+    assert loads(cast(str, json)) == {
+        "requiredString": "Bazinga!",
+        "optionalBoolean": False,
+    }
 
 
 def test_can_obtain_reference_with_overloaded_setter():

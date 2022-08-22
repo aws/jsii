@@ -240,13 +240,14 @@ export class DotnetBuilder implements TargetBuilder {
   private makeTarget(module: JsiiModule): Dotnet {
     return new Dotnet(
       {
-        targetName: this.targetName,
-        packageDir: module.moduleDirectory,
+        arguments: this.options.arguments,
         assembly: module.assembly,
         fingerprint: this.options.fingerprint,
         force: this.options.force,
-        arguments: this.options.arguments,
+        packageDir: module.moduleDirectory,
         rosetta: this.options.rosetta,
+        runtimeTypeChecking: this.options.runtimeTypeChecking,
+        targetName: this.targetName,
       },
       this.modules.map((m) => m.name),
     );
@@ -316,7 +317,7 @@ export default class Dotnet extends Target {
 
     this.generator = new DotNetGenerator(
       assembliesCurrentlyBeingCompiled,
-      options.rosetta,
+      options,
     );
   }
 

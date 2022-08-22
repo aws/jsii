@@ -29,6 +29,12 @@ export interface GeneratorOptions {
    * If this property is set, the generator will add "Base" to abstract class names
    */
   addBasePostfixToAbstractClassNames?: boolean;
+
+  /**
+   * If this property is set, the generator will add runtime type checking code in places
+   * where compile-time type checking is not possible.
+   */
+  runtimeTypeChecking: boolean;
 }
 
 export interface IGenerator {
@@ -88,7 +94,11 @@ export abstract class Generator implements IGenerator {
   protected _reflectAssembly?: reflect.Assembly;
   private fingerprint?: string;
 
-  public constructor(private readonly options: GeneratorOptions = {}) {}
+  public constructor(private readonly options: GeneratorOptions) {}
+
+  protected get runtimeTypeChecking() {
+    return this.options.runtimeTypeChecking;
+  }
 
   protected get assembly(): spec.Assembly {
     if (!this._assembly) {

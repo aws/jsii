@@ -32,9 +32,10 @@ export async function pacmak({
   parallel = true,
   recurse = false,
   rosettaTablet,
+  rosettaUnknownSnippets = undefined,
+  runtimeTypeChecking = true,
   targets = Object.values(TargetName),
   timers = new Timers(),
-  rosettaUnknownSnippets = undefined,
   updateNpmIgnoreFiles = false,
   validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
@@ -126,6 +127,7 @@ export async function pacmak({
                   force,
                   perLanguageDirectory,
                   rosetta,
+                  runtimeTypeChecking,
                 },
               ),
             )
@@ -252,6 +254,13 @@ export interface PacmakOptions {
   readonly rosettaTablet?: string;
 
   /**
+   * Whether to inject runtime type checks in places where compile-time type checking is not performed.
+   *
+   * @default true
+   */
+  readonly runtimeTypeChecking?: boolean;
+
+  /**
    * The list of targets for which code should be generated. Unless `forceTarget` is `true`, a given target will only
    * be generated for assemblies that have configured it.
    *
@@ -295,6 +304,7 @@ async function buildTargetsForLanguage(
     force,
     perLanguageDirectory,
     rosetta,
+    runtimeTypeChecking,
   }: {
     argv: { readonly [name: string]: any };
     clean: boolean;
@@ -303,6 +313,7 @@ async function buildTargetsForLanguage(
     force: boolean;
     perLanguageDirectory: boolean;
     rosetta: Rosetta;
+    runtimeTypeChecking: boolean;
   },
 ): Promise<void> {
   // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
@@ -312,13 +323,14 @@ async function buildTargetsForLanguage(
   }
 
   return factory(modules, {
+    arguments: argv,
     clean: clean,
     codeOnly: codeOnly,
-    rosetta,
-    force: force,
     fingerprint: fingerprint,
-    arguments: argv,
+    force: force,
     languageSubdirectory: perLanguageDirectory,
+    rosetta,
+    runtimeTypeChecking,
   }).buildModules();
 }
 

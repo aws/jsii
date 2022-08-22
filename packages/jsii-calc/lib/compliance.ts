@@ -2358,6 +2358,20 @@ export class StructUnionConsumer {
     }
   }
 
+  public static provideStruct(which: 'A' | 'B'): StructA | StructB {
+    switch (which) {
+      case 'A':
+        return { requiredString: 'required', optionalNumber: 1337 };
+      case 'B':
+        return {
+          requiredString: 'required',
+          optionalStructA: this.provideStruct('A'),
+        };
+      default:
+        throw new Error(`Illegal value for which: ${which as any}`);
+    }
+  }
+
   private constructor() {}
 }
 
