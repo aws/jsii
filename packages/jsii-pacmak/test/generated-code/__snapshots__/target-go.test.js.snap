@@ -462,6 +462,7 @@ func StaticConsumer_Consume(args ...interface{}) {
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jcb_StaticConsumer__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // An example direct dependency for jsii-calc.
 package jcb
@@ -477,6 +478,7 @@ func validateStaticConsumer_ConsumeParameters(args []interface{}) error {
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/jcb_StaticConsumer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // An example direct dependency for jsii-calc.
 package jcb
@@ -943,6 +945,7 @@ func StaticConsumer_Consume(_args ...interface{}) {
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // An example transitive dependency for jsii-calc.
 package scopejsiicalcbaseofbase
@@ -958,6 +961,7 @@ func validateStaticConsumer_ConsumeParameters(_args []interface{}) error {
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // An example transitive dependency for jsii-calc.
 package scopejsiicalcbaseofbase
@@ -1610,6 +1614,7 @@ func (r *jsiiProxy_Reflector) AsMap(reflectable IReflectable) *map[string]interf
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package customsubmodulename
 
@@ -1624,6 +1629,7 @@ func (r *jsiiProxy_Reflector) validateAsMapParameters(reflectable IReflectable) 
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package customsubmodulename
 
@@ -1900,6 +1906,7 @@ func (b *jsiiProxy_BaseFor2647) Foo(obj jcb.IBaseInterface) {
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator library built on JSII.
 package scopejsiicalclib
@@ -1919,6 +1926,7 @@ func validateNewBaseFor2647Parameters(very scopejsiicalcbaseofbase.Very) error {
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator library built on JSII.
 package scopejsiicalclib
@@ -2251,6 +2259,7 @@ func (n *jsiiProxy_Number) TypeName() interface{} {
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib_Number__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator library built on JSII.
 package scopejsiicalclib
@@ -2266,6 +2275,7 @@ func validateNewNumberParameters(value *float64) error {
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib_Number__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator library built on JSII.
 package scopejsiicalclib
@@ -3567,6 +3577,7 @@ func UseOptions_Provide(which *string) interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_UseOptions__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package anonymous
 
@@ -3589,6 +3600,7 @@ func validateUseOptions_ProvideParameters(which *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/anonymous/anonymous_UseOptions__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package anonymous
 
@@ -3721,6 +3733,7 @@ func (c *jsiiProxy_Cdk16625) Unwrap(gen jsiicalc.IRandomNumberGenerator) *float6
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/cdk16625_Cdk16625__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package cdk16625
 
@@ -3735,6 +3748,7 @@ func (c *jsiiProxy_Cdk16625) validateUnwrapParameters(gen jsiicalc.IRandomNumber
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/cdk16625_Cdk16625__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package cdk16625
 
@@ -3857,6 +3871,7 @@ func (u *jsiiProxy_UnimportedSubmoduleType) Next() *float64 {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package donotimport
 
@@ -3871,6 +3886,7 @@ func validateNewUnimportedSubmoduleTypeParameters(value *float64) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package donotimport
 
@@ -4103,6 +4119,7 @@ func (c *jsiiProxy_CompositeOperation) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/composition_CompositeOperation__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package composition
 
@@ -4125,6 +4142,7 @@ func (j *jsiiProxy_CompositeOperation) validateSetStringStyleParameters(val Comp
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/composition_CompositeOperation__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package composition
 
@@ -4290,6 +4308,7 @@ func (j *jsiiProxy_Base)SetProp(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package derivedclasshasnoproperties
 
@@ -4304,6 +4323,7 @@ func (j *jsiiProxy_Base) validateSetPropParameters(val *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package derivedclasshasnoproperties
 
@@ -4392,6 +4412,7 @@ func (j *jsiiProxy_Derived)SetProp(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package derivedclasshasnoproperties
 
@@ -4406,6 +4427,7 @@ func (j *jsiiProxy_Derived) validateSetPropParameters(val *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package derivedclasshasnoproperties
 
@@ -4724,6 +4746,7 @@ func (o *jsiiProxy_OverrideMe) ImplementMe(opts *ImplementMeOpts) *bool {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii3656/jsii3656_OverrideMe__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package jsii3656
 
@@ -4742,6 +4765,7 @@ func validateOverrideMe_CallAbstractParameters(receiver OverrideMe) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii3656/jsii3656_OverrideMe__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package jsii3656
 
@@ -7181,6 +7205,7 @@ func (a *jsiiProxy_AbstractClass) NonAbstractMethod() *float64 {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AbstractClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -7196,6 +7221,7 @@ func (a *jsiiProxy_AbstractClass) validateAbstractMethodParameters(name *string)
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AbstractClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -7433,6 +7459,7 @@ func (a *jsiiProxy_AbstractSuite) WorkItAll(seed *string) *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AbstractSuite__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -7456,6 +7483,7 @@ func (j *jsiiProxy_AbstractSuite) validateSetPropertyParameters(val *string) err
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AbstractSuite__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -7628,6 +7656,7 @@ func (a *jsiiProxy_Add) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Add__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -7643,6 +7672,7 @@ func validateNewAddParameters(lhs scopejsiicalclib.NumericValue, rhs scopejsiica
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Add__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -8188,6 +8218,7 @@ func (a *jsiiProxy_AllTypes) EnumMethod(value StringEnum) StringEnum {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AllTypes__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -8275,6 +8306,7 @@ func (j *jsiiProxy_AllTypes) validateSetUnknownPropertyParameters(val interface{
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AllTypes__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -8730,6 +8762,7 @@ func (a *jsiiProxy_AllowedMethodNames) SetFoo(_x *string, _y *float64) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AllowedMethodNames__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -8757,6 +8790,7 @@ func (a *jsiiProxy_AllowedMethodNames) validateSetFooParameters(_x *string, _y *
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AllowedMethodNames__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -8888,6 +8922,7 @@ func NewAmbiguousParameters_Override(a AmbiguousParameters, scope Bell, props *S
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AmbiguousParameters__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -8903,6 +8938,7 @@ func validateNewAmbiguousParametersParameters(scope Bell, props *StructParameter
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AmbiguousParameters__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9143,6 +9179,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) OverrideMeToo() *float64 {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AsyncVirtualMethods__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9158,6 +9195,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) validateOverrideMeParameters(mult *float
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_AsyncVirtualMethods__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9419,6 +9457,7 @@ func (b *jsiiProxy_Bell) Ring() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Bell__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9434,6 +9473,7 @@ func (j *jsiiProxy_Bell) validateSetRungParameters(val *bool) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Bell__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9577,6 +9617,7 @@ func (b *jsiiProxy_BinaryOperation) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_BinaryOperation__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9592,6 +9633,7 @@ func validateNewBinaryOperationParameters(lhs scopejsiicalclib.NumericValue, rhs
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_BinaryOperation__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9684,6 +9726,7 @@ func (b *jsiiProxy_BurriedAnonymousObject) GiveItBack(value interface{}) interfa
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_BurriedAnonymousObject__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -9699,6 +9742,7 @@ func (b *jsiiProxy_BurriedAnonymousObject) validateGiveItBackParameters(value in
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_BurriedAnonymousObject__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10077,6 +10121,7 @@ func (c *jsiiProxy_Calculator) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Calculator__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10124,6 +10169,7 @@ func validateNewCalculatorParameters(props *CalculatorProps) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Calculator__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10392,6 +10438,7 @@ func (j *jsiiProxy_ClassThatImplementsTheInternalInterface)SetD(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10419,6 +10466,7 @@ func (j *jsiiProxy_ClassThatImplementsTheInternalInterface) validateSetDParamete
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10602,6 +10650,7 @@ func (j *jsiiProxy_ClassThatImplementsThePrivateInterface)SetE(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10629,6 +10678,7 @@ func (j *jsiiProxy_ClassThatImplementsThePrivateInterface) validateSetEParameter
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10745,6 +10795,7 @@ func (j *jsiiProxy_ClassWithCollectionOfUnions)SetUnionProperty(val *[]*map[stri
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10764,6 +10815,7 @@ func validateNewClassWithCollectionOfUnionsParameters(unionProperty *[]*map[stri
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11029,6 +11081,7 @@ func ClassWithCollections_SetStaticMap(val *map[string]*string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithCollections__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11060,6 +11113,7 @@ func validateNewClassWithCollectionsParameters(map_ *map[string]*string, array *
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithCollections__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11209,6 +11263,7 @@ func NewClassWithContainerTypes_Override(c ClassWithContainerTypes, array *[]*Du
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithContainerTypes__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11224,6 +11279,7 @@ func validateNewClassWithContainerTypesParameters(array *[]*DummyObj, record *ma
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithContainerTypes__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11404,6 +11460,7 @@ func (c *jsiiProxy_ClassWithJavaReservedWords) Import(assert *string) *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11423,6 +11480,7 @@ func validateNewClassWithJavaReservedWordsParameters(int *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11520,6 +11578,7 @@ func (j *jsiiProxy_ClassWithMutableObjectLiteralProperty)SetMutableObject(val IM
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11535,6 +11594,7 @@ func (j *jsiiProxy_ClassWithMutableObjectLiteralProperty) validateSetMutableObje
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11631,6 +11691,7 @@ func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString *st
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11650,6 +11711,7 @@ func (j *jsiiProxy_ClassWithPrivateConstructorAndAutomaticProperties) validateSe
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11760,6 +11822,7 @@ func ConfusingToJackson_MakeStructInstance() *ConfusingToJacksonStruct {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConfusingToJackson__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11775,6 +11838,7 @@ func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val in
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConfusingToJackson__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11893,6 +11957,7 @@ func NewConstructorPassesThisOut_Override(c ConstructorPassesThisOut, consumer P
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConstructorPassesThisOut__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -11908,6 +11973,7 @@ func validateNewConstructorPassesThisOutParameters(consumer PartiallyInitialized
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConstructorPassesThisOut__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12139,6 +12205,7 @@ func (c *jsiiProxy_ConsumePureInterface) WorkItBaby() *StructB {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumePureInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12154,6 +12221,7 @@ func validateNewConsumePureInterfaceParameters(delegate IStructReturningDelegate
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumePureInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12387,6 +12455,7 @@ func (c *jsiiProxy_ConsumerCanRingBell) WhenTypedAsClass(ringer IConcreteBellRin
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumerCanRingBell__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12430,6 +12499,7 @@ func validateConsumerCanRingBell_StaticWhenTypedAsClassParameters(ringer IConcre
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumerCanRingBell__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12585,6 +12655,7 @@ func (c *jsiiProxy_ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(o
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12604,6 +12675,7 @@ func (c *jsiiProxy_ConsumersOfThisCrazyTypeSystem) validateConsumeNonInternalInt
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12745,6 +12817,7 @@ func (d *jsiiProxy_DataRenderer) RenderMap(map_ *map[string]interface{}) *string
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DataRenderer__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -12768,6 +12841,7 @@ func (d *jsiiProxy_DataRenderer) validateRenderMapParameters(map_ *map[string]in
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DataRenderer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13120,6 +13194,7 @@ func (d *jsiiProxy_DeprecatedClass) Method() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DeprecatedClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13135,6 +13210,7 @@ func validateNewDeprecatedClassParameters(readonlyString *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DeprecatedClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13424,6 +13500,7 @@ func (d *jsiiProxy_DoNotOverridePrivates) PrivatePropertyValue() *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DoNotOverridePrivates__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13439,6 +13516,7 @@ func (d *jsiiProxy_DoNotOverridePrivates) validateChangePrivatePropertyValuePara
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DoNotOverridePrivates__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13517,6 +13595,7 @@ func (d *jsiiProxy_DoNotRecognizeAnyAsOptional) Method(_requiredAny interface{},
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13532,6 +13611,7 @@ func (d *jsiiProxy_DoNotRecognizeAnyAsOptional) validateMethodParameters(_requir
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13644,6 +13724,7 @@ func (d *jsiiProxy_DocumentedClass) Hola() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DocumentedClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13659,6 +13740,7 @@ func (d *jsiiProxy_DocumentedClass) validateGreetParameters(greetee *Greetee) er
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DocumentedClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13746,6 +13828,7 @@ func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(o
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13761,6 +13844,7 @@ func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) validateOptionalAndVa
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13964,6 +14048,7 @@ func (j *jsiiProxy_DynamicPropertyBearer)SetValueStore(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DynamicPropertyBearer__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -13987,6 +14072,7 @@ func validateNewDynamicPropertyBearerParameters(valueStore *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DynamicPropertyBearer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14150,6 +14236,7 @@ func (d *jsiiProxy_DynamicPropertyBearerChild) OverrideValue(newValue *string) *
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14177,6 +14264,7 @@ func validateNewDynamicPropertyBearerChildParameters(originalValue *string) erro
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14291,6 +14379,7 @@ func (e *jsiiProxy_Entropy) Repeat(word *string) *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Entropy__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14310,6 +14399,7 @@ func validateNewEntropyParameters(clock IWallClock) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Entropy__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14487,6 +14577,7 @@ func EraseUndefinedHashValues_Prop2IsUndefined() *map[string]interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_EraseUndefinedHashValues__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14502,6 +14593,7 @@ func validateEraseUndefinedHashValues_DoesKeyExistParameters(opts *EraseUndefine
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_EraseUndefinedHashValues__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14640,6 +14732,7 @@ func (e *jsiiProxy_ExperimentalClass) Method() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExperimentalClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14655,6 +14748,7 @@ func validateNewExperimentalClassParameters(readonlyString *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExperimentalClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14767,6 +14861,7 @@ func NewExportedBaseClass_Override(e ExportedBaseClass, success *bool) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExportedBaseClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14782,6 +14877,7 @@ func validateNewExportedBaseClassParameters(success *bool) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExportedBaseClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14904,6 +15000,7 @@ func (e *jsiiProxy_ExternalClass) Method() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExternalClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -14919,6 +15016,7 @@ func validateNewExternalClassParameters(readonlyString *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ExternalClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15127,6 +15225,7 @@ func (g *jsiiProxy_GiveMeStructs) ReadFirstNumber(first *scopejsiicalclib.MyFirs
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_GiveMeStructs__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15150,6 +15249,7 @@ func (g *jsiiProxy_GiveMeStructs) validateReadFirstNumberParameters(first *scope
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_GiveMeStructs__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15277,6 +15377,7 @@ func (g *jsiiProxy_GreetingAugmenter) BetterGreeting(friendly scopejsiicalclib.I
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_GreetingAugmenter__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15292,6 +15393,7 @@ func (g *jsiiProxy_GreetingAugmenter) validateBetterGreetingParameters(friendly 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_GreetingAugmenter__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15449,6 +15551,7 @@ func (j *jsiiProxy_IAnotherPublicInterface)SetA(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IAnotherPublicInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15464,6 +15567,7 @@ func (j *jsiiProxy_IAnotherPublicInterface) validateSetAParameters(val *string) 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IAnotherPublicInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15545,6 +15649,7 @@ func (i *jsiiProxy_IBellRinger) YourTurn(bell IBell) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IBellRinger__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15560,6 +15665,7 @@ func (i *jsiiProxy_IBellRinger) validateYourTurnParameters(bell IBell) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IBellRinger__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15613,6 +15719,7 @@ func (i *jsiiProxy_IConcreteBellRinger) YourTurn(bell Bell) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IConcreteBellRinger__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15628,6 +15735,7 @@ func (i *jsiiProxy_IConcreteBellRinger) validateYourTurnParameters(bell Bell) er
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IConcreteBellRinger__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15806,6 +15914,7 @@ func (j *jsiiProxy_IExtendsPrivateInterface)SetPrivate(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IExtendsPrivateInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -15821,6 +15930,7 @@ func (j *jsiiProxy_IExtendsPrivateInterface) validateSetPrivateParameters(val *s
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IExtendsPrivateInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -16203,6 +16313,7 @@ func (i *jsiiProxy_IInterfaceWithOptionalMethodArguments) Hello(arg1 *string, ar
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -16218,6 +16329,7 @@ func (i *jsiiProxy_IInterfaceWithOptionalMethodArguments) validateHelloParameter
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -16292,6 +16404,7 @@ func (j *jsiiProxy_IInterfaceWithProperties)SetReadWriteString(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfaceWithProperties__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -16307,6 +16420,7 @@ func (j *jsiiProxy_IInterfaceWithProperties) validateSetReadWriteStringParameter
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfaceWithProperties__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -16371,6 +16485,7 @@ func (j *jsiiProxy_IInterfaceWithPropertiesExtension)SetFoo(val *float64) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -16386,6 +16501,7 @@ func (j *jsiiProxy_IInterfaceWithPropertiesExtension) validateSetFooParameters(v
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17074,6 +17190,7 @@ func (j *jsiiProxy_IMutableObjectLiteral)SetValue(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IMutableObjectLiteral__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17089,6 +17206,7 @@ func (j *jsiiProxy_IMutableObjectLiteral) validateSetValueParameters(val *string
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IMutableObjectLiteral__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17176,6 +17294,7 @@ func (j *jsiiProxy_INonInternalInterface)SetC(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_INonInternalInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17195,6 +17314,7 @@ func (j *jsiiProxy_INonInternalInterface) validateSetCParameters(val *string) er
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_INonInternalInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17281,6 +17401,7 @@ func (j *jsiiProxy_IObjectWithProperty)SetProperty(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IObjectWithProperty__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17296,6 +17417,7 @@ func (j *jsiiProxy_IObjectWithProperty) validateSetPropertyParameters(val *strin
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_IObjectWithProperty__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17746,6 +17868,7 @@ func (j *jsiiProxy_ImplementInternalInterface)SetProp(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ImplementInternalInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -17761,6 +17884,7 @@ func (j *jsiiProxy_ImplementInternalInterface) validateSetPropParameters(val *st
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ImplementInternalInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18014,6 +18138,7 @@ func (j *jsiiProxy_ImplementsPrivateInterface)SetPrivate(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ImplementsPrivateInterface__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18029,6 +18154,7 @@ func (j *jsiiProxy_ImplementsPrivateInterface) validateSetPrivateParameters(val 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ImplementsPrivateInterface__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18263,6 +18389,7 @@ func InterfacesMaker_MakeInterfaces(count *float64) *[]scopejsiicalclib.IDoublab
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_InterfacesMaker__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18278,6 +18405,7 @@ func validateInterfacesMaker_MakeInterfacesParameters(count *float64) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_InterfacesMaker__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18557,6 +18685,7 @@ func (j *jsiiProxy_JSII417Derived) Foo() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JSII417Derived__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18572,6 +18701,7 @@ func validateNewJSII417DerivedParameters(property *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JSII417Derived__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18896,6 +19026,7 @@ func (j *jsiiProxy_JSObjectLiteralToNativeClass)SetPropB(val *float64) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -18915,6 +19046,7 @@ func (j *jsiiProxy_JSObjectLiteralToNativeClass) validateSetPropBParameters(val 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -19480,6 +19612,7 @@ func (j *jsiiProxy_JavaReservedWords) Volatile() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JavaReservedWords__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -19495,6 +19628,7 @@ func (j *jsiiProxy_JavaReservedWords) validateSetWhileParameters(val *string) er
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_JavaReservedWords__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -19957,6 +20091,7 @@ func NewLevelOne_Override(l LevelOne, props *LevelOneProps) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_LevelOne__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -19972,6 +20107,7 @@ func validateNewLevelOneParameters(props *LevelOneProps) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_LevelOne__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -20336,6 +20472,7 @@ func (m *jsiiProxy_Multiply) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Multiply__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -20351,6 +20488,7 @@ func validateNewMultiplyParameters(lhs scopejsiicalclib.NumericValue, rhs scopej
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Multiply__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -20530,6 +20668,7 @@ func (n *jsiiProxy_Negate) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Negate__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -20545,6 +20684,7 @@ func validateNewNegateParameters(operand scopejsiicalclib.NumericValue) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Negate__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -20826,6 +20966,7 @@ func (n *jsiiProxy_NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -20845,6 +20986,7 @@ func validateNewNullShouldBeTreatedAsUndefinedParameters(_param1 *string) error 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -20995,6 +21137,7 @@ func (n *jsiiProxy_NumberGenerator) NextTimes100() *float64 {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_NumberGenerator__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21018,6 +21161,7 @@ func validateNewNumberGeneratorParameters(generator IRandomNumberGenerator) erro
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_NumberGenerator__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21138,6 +21282,7 @@ func (o *jsiiProxy_ObjectRefsInCollections) SumFromMap(values *map[string]scopej
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ObjectRefsInCollections__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21157,6 +21302,7 @@ func (o *jsiiProxy_ObjectRefsInCollections) validateSumFromMapParameters(values 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ObjectRefsInCollections__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21351,6 +21497,7 @@ func (o *jsiiProxy_OptionalArgumentInvoker) InvokeWithoutOptional() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalArgumentInvoker__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21366,6 +21513,7 @@ func validateNewOptionalArgumentInvokerParameters(delegate IInterfaceWithOptiona
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalArgumentInvoker__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21470,6 +21618,7 @@ func NewOptionalConstructorArgument_Override(o OptionalConstructorArgument, arg1
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalConstructorArgument__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21485,6 +21634,7 @@ func validateNewOptionalConstructorArgumentParameters(arg1 *float64, arg2 *strin
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalConstructorArgument__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21592,6 +21742,7 @@ func NewOptionalStructConsumer_Override(o OptionalStructConsumer, optionalStruct
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalStructConsumer__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21607,6 +21758,7 @@ func validateNewOptionalStructConsumerParameters(optionalStruct *OptionalStruct)
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OptionalStructConsumer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21746,6 +21898,7 @@ func (o *jsiiProxy_OverridableProtectedMember) ValueFromProtected() *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OverridableProtectedMember__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21761,6 +21914,7 @@ func (j *jsiiProxy_OverridableProtectedMember) validateSetOverrideReadWriteParam
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OverridableProtectedMember__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21843,6 +21997,7 @@ func (o *jsiiProxy_OverrideReturnsObject) Test(obj IReturnsNumber) *float64 {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OverrideReturnsObject__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21858,6 +22013,7 @@ func (o *jsiiProxy_OverrideReturnsObject) validateTestParameters(obj IReturnsNum
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_OverrideReturnsObject__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21941,6 +22097,7 @@ func (p *jsiiProxy_PartiallyInitializedThisConsumer) ConsumePartiallyInitialized
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -21956,6 +22113,7 @@ func (p *jsiiProxy_PartiallyInitializedThisConsumer) validateConsumePartiallyIni
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -22049,6 +22207,7 @@ func (p *jsiiProxy_Polymorphism) SayHello(friendly scopejsiicalclib.IFriendly) *
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Polymorphism__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -22064,6 +22223,7 @@ func (p *jsiiProxy_Polymorphism) validateSayHelloParameters(friendly scopejsiica
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Polymorphism__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -22295,6 +22455,7 @@ func (p *jsiiProxy_Power) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Power__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -22322,6 +22483,7 @@ func validateNewPowerParameters(base scopejsiicalclib.NumericValue, pow scopejsi
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Power__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -22921,6 +23083,7 @@ func (r *jsiiProxy_ReferenceEnumFromScopedPackage) SaveFoo(value scopejsiicalcli
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -22936,6 +23099,7 @@ func (r *jsiiProxy_ReferenceEnumFromScopedPackage) validateSaveFooParameters(val
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23071,6 +23235,7 @@ func RootStructValidator_Validate(struct_ *RootStruct) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_RootStructValidator__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23086,6 +23251,7 @@ func validateRootStructValidator_ValidateParameters(struct_ *RootStruct) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_RootStructValidator__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23189,6 +23355,7 @@ func (r *jsiiProxy_RuntimeTypeChecking) MethodWithOptionalArguments(arg1 *float6
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_RuntimeTypeChecking__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23204,6 +23371,7 @@ func (r *jsiiProxy_RuntimeTypeChecking) validateMethodWithOptionalArgumentsParam
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_RuntimeTypeChecking__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23360,6 +23528,7 @@ func (s *jsiiProxy_SingletonInt) IsSingletonInt(value *float64) *bool {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SingletonInt__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23375,6 +23544,7 @@ func (s *jsiiProxy_SingletonInt) validateIsSingletonIntParameters(value *float64
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SingletonInt__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23451,6 +23621,7 @@ func (s *jsiiProxy_SingletonString) IsSingletonString(value *string) *bool {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SingletonString__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23466,6 +23637,7 @@ func (s *jsiiProxy_SingletonString) validateIsSingletonStringParameters(value *s
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SingletonString__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23678,6 +23850,7 @@ func (s *jsiiProxy_StableClass) Method() {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StableClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23693,6 +23866,7 @@ func validateNewStableClassParameters(readonlyString *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StableClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23802,6 +23976,7 @@ func StaticContext_SetStaticVariable(val *bool) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StaticContext__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -23817,6 +23992,7 @@ func validateStaticContext_SetStaticVariableParameters(val *bool) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StaticContext__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24132,6 +24308,7 @@ func (s *jsiiProxy_Statics) JustMethod() *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Statics__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24159,6 +24336,7 @@ func validateNewStaticsParameters(value *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Statics__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24288,6 +24466,7 @@ func (j *jsiiProxy_StripInternal)SetYouSeeMe(val *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StripInternal__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24303,6 +24482,7 @@ func (j *jsiiProxy_StripInternal) validateSetYouSeeMeParameters(val *string) err
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StripInternal__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24456,6 +24636,7 @@ func StructPassing_RoundTrip(_positional *float64, input *TopLevelStruct) *TopLe
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StructPassing__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24475,6 +24656,7 @@ func validateStructPassing_RoundTripParameters(_positional *float64, input *TopL
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StructPassing__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24594,6 +24776,7 @@ func StructUnionConsumer_ProvideStruct(which *string) interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StructUnionConsumer__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24617,6 +24800,7 @@ func validateStructUnionConsumer_ProvideStructParameters(which *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_StructUnionConsumer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24957,6 +25141,7 @@ func (s *jsiiProxy_Sum) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Sum__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24984,6 +25169,7 @@ func (j *jsiiProxy_Sum) validateSetStringStyleParameters(val composition.Composi
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_Sum__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25136,6 +25322,7 @@ func NewSupportsNiceJavaBuilder_Override(s SupportsNiceJavaBuilder, id *float64,
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25151,6 +25338,7 @@ func validateNewSupportsNiceJavaBuilderParameters(id *float64, props *SupportsNi
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25282,6 +25470,7 @@ func NewSupportsNiceJavaBuilderWithRequiredProps_Override(s SupportsNiceJavaBuil
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25297,6 +25486,7 @@ func validateNewSupportsNiceJavaBuilderWithRequiredPropsParameters(id *float64, 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25635,6 +25825,7 @@ func (s *jsiiProxy_SyncVirtualMethods) WriteA(value *float64) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SyncVirtualMethods__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25682,6 +25873,7 @@ func (j *jsiiProxy_SyncVirtualMethods) validateSetValueOfOtherPropertyParameters
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_SyncVirtualMethods__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25872,6 +26064,7 @@ func (t *jsiiProxy_TestStructWithEnum) IsStringEnumB(input *StructWithEnum) *boo
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_TestStructWithEnum__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -25891,6 +26084,7 @@ func (t *jsiiProxy_TestStructWithEnum) validateIsStringEnumBParameters(input *St
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_TestStructWithEnum__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26243,6 +26437,7 @@ func (u *jsiiProxy_UnaryOperation) TypeName() interface{} {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UnaryOperation__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26258,6 +26453,7 @@ func validateNewUnaryOperationParameters(operand scopejsiicalclib.NumericValue) 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UnaryOperation__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26369,6 +26565,7 @@ func UpcasingReflectable_Reflector() customsubmodulename.Reflector {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UpcasingReflectable__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26384,6 +26581,7 @@ func validateNewUpcasingReflectableParameters(delegate *map[string]interface{}) 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UpcasingReflectable__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26631,6 +26829,7 @@ func (u *jsiiProxy_UsesInterfaceWithProperties) WriteAndRead(value *string) *str
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26654,6 +26853,7 @@ func validateNewUsesInterfaceWithPropertiesParameters(obj IInterfaceWithProperti
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26760,6 +26960,7 @@ func (v *jsiiProxy_VariadicInvoker) AsArray(values ...*float64) *[]*float64 {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VariadicInvoker__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26779,6 +26980,7 @@ func validateNewVariadicInvokerParameters(method VariadicMethod) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VariadicInvoker__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26887,6 +27089,7 @@ func (v *jsiiProxy_VariadicMethod) AsArray(first *float64, others ...*float64) *
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VariadicMethod__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -26906,6 +27109,7 @@ func validateNewVariadicMethodParameters(prefix []*float64) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VariadicMethod__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -27068,6 +27272,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) SumSync(count *float64) *float64 {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VirtualMethodPlayground__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -27099,6 +27304,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) validateSumSyncParameters(count *flo
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VirtualMethodPlayground__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -27372,6 +27578,7 @@ func (m *jsiiProxy_MyClass) Foo(_arg *string) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2530/module2530_MyClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package module2530
 
@@ -27394,6 +27601,7 @@ func validateNewMyClassParameters(_arg *float64) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2530/module2530_MyClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package module2530
 
@@ -27631,6 +27839,7 @@ func (e *jsiiProxy_ExtendAndImplement) LocalMethod() *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647_ExtendAndImplement__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package module2647
 
@@ -27649,6 +27858,7 @@ func validateNewExtendAndImplementParameters(very scopejsiicalcbaseofbase.Very) 
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2647/module2647_ExtendAndImplement__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package module2647
 
@@ -27775,6 +27985,7 @@ func (m *jsiiProxy_MyClass) Foo(_values *[]scopejsiicalclib.Number) {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2689/methods/methods_MyClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package methods
 
@@ -27793,6 +28004,7 @@ func (m *jsiiProxy_MyClass) validateFooParameters(_values *[]scopejsiicalclib.Nu
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module2689/methods/methods_MyClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package methods
 
@@ -29538,6 +29750,7 @@ func (c *jsiiProxy_ClassWithSelf) Method(self *float64) *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself_ClassWithSelf__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package pythonself
 
@@ -29556,6 +29769,7 @@ func validateNewClassWithSelfParameters(self *string) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself_ClassWithSelf__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package pythonself
 
@@ -29642,6 +29856,7 @@ func NewClassWithSelfKwarg_Override(c ClassWithSelfKwarg, props *StructWithSelf)
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package pythonself
 
@@ -29656,6 +29871,7 @@ func validateNewClassWithSelfKwargParameters(props *StructWithSelf) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package pythonself
 
@@ -29716,6 +29932,7 @@ func (i *jsiiProxy_IInterfaceWithSelf) Method(self *float64) *string {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package pythonself
 
@@ -29730,6 +29947,7 @@ func (i *jsiiProxy_IInterfaceWithSelf) validateMethodParameters(self *float64) e
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package pythonself
 
@@ -30136,6 +30354,7 @@ func Kwargs_Method(props *child.KwargsProps) *bool {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated_Kwargs__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package isolated
 
@@ -30150,6 +30369,7 @@ func validateKwargs_MethodParameters(props *child.KwargsProps) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated_Kwargs__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package isolated
 
@@ -30603,6 +30823,7 @@ func (m *jsiiProxy_MyClass) MethodWithSpecialParam(param *param.SpecialParameter
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/submodule_MyClass__no_runtime_type_checks.go 1`] = `
 //go:build no_runtime_type_checks
+// +build no_runtime_type_checks
 
 package submodule
 
@@ -30621,6 +30842,7 @@ func validateNewMyClassParameters(props *child.SomeStruct) error {
 
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/submodule_MyClass__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checks
+// +build !no_runtime_type_checks
 
 package submodule
 

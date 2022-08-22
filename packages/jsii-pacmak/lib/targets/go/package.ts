@@ -288,6 +288,8 @@ export abstract class Package {
       code.openFile(filePath);
       // Conditional compilation tag...
       code.line(`//go:build ${forNoOp ? '' : '!'}no_runtime_type_checks`);
+      // For go1.16 compatibility
+      code.line(`// +build ${forNoOp ? '' : '!'}no_runtime_type_checks`);
       code.line();
       this.emitHeader(code);
 
