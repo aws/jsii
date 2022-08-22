@@ -32,10 +32,10 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
-      - name: Set up Go 1.16
+      - name: Set up Go 1.18
         uses: actions/setup-go@v3
         with:
-          go-version: '1.16'
+          go-version: '1.18'
       - name: Set up Java 8
         uses: actions/setup-java@v3
         with:
@@ -126,10 +126,10 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
-      - name: Set up Go 1.16
+      - name: Set up Go 1.18
         uses: actions/setup-go@v3
         with:
-          go-version: '1.16'
+          go-version: '1.18'
       - name: Set up Java 8
         uses: actions/setup-java@v3
         with:
@@ -214,7 +214,7 @@ jobs:
       matrix:
         # All currently supported node versions (Maintenance LTS, Active LTS, Current)
         dotnet: ['3.1.x']
-        go: ['1.16']
+        go: ['1.18']
         java: ['8']
         node:
           - '14' # EOL 2023-04-30
@@ -227,47 +227,66 @@ jobs:
           # Test using Windows
           - os: windows-latest
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.18'
             java: '8'
             node: '14'
             python: '3.7'
           # Test using macOS
           - os: macos-latest
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.18'
             java: '8'
             node: '14'
             python: '3.7'
           # Test alternate .NETs
           - java: '8'
             dotnet: '6.0.x'
-            go: '1.16'
+            go: '1.18'
+            node: '14'
+            os: ubuntu-latest
+            python: '3.7'
+          # Test alternate Gos
+          - java: '8'
+            dotnet: '3.1.x'
+            go: '1.16' # EOL since March 15, 2022 (in grace period until end of september 2022)
+            node: '14'
+            os: ubuntu-latest
+            python: '3.7'
+          - java: '8'
+            dotnet: '3.1.x'
+            go: '1.17' # EOL since August 02, 2022 (in grace period until end of september 2022)
+            node: '14'
+            os: ubuntu-latest
+            python: '3.7'
+          - java: '8'
+            dotnet: '3.1.x'
+            go: '1.19'
             node: '14'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Javas
           - java: '11'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.18'
             node: '14'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Pythons
           - python: '3.8'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.18'
             java: '8'
             node: '14'
             os: ubuntu-latest
           - python: '3.9'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.18'
             java: '8'
             node: '14'
             os: ubuntu-latest
           - python: '3.10'
             dotnet: '3.1.x'
-            go: '1.16'
+            go: '1.18'
             java: '8'
             node: '14'
             os: ubuntu-latest

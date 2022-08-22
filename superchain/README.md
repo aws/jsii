@@ -16,7 +16,7 @@ SDK             | Version
 `Javascript`    | see [NodeJS and NPM](#nodejs-and-npm)
 `PowerShell`    | `pwsh >= 7.1.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
-`Go`            | `go >= 1.17`
+`Go`            | `go >= 1.18`
 
 ## Image tags
 
