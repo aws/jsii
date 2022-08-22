@@ -207,7 +207,7 @@ jobs:
   test:
     permissions:
       contents: none
-    name: Test (${{ matrix.os }} / dotnet ${{ matrix.dotnet }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
+    name: Test (${{ matrix.os }} / dotnet ${{ matrix.dotnet }} / go ${{ matrix.go }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
     strategy:
       fail-fast: false
