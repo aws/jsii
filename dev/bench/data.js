@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661167061873,
+  "lastUpdate": 1661181249972,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5237,6 +5237,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 105046.71264358552,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52485.237516449975 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3cf5c28b26e189db1a05f9543a5f6f38583e8868",
+          "message": "feat(go): emit deprecation warning when using go1.16 and go1.17 (#3718)",
+          "timestamp": "2022-08-22T16:22:49+02:00",
+          "tree_id": "2079b708bd41cf8d9e3663680bef300e2c15d910",
+          "url": "https://github.com/aws/jsii/commit/3cf5c28b26e189db1a05f9543a5f6f38583e8868"
+        },
+        "date": 1661181246496,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63550.89709284999,
+            "unit": "milliseconds",
+            "range": 1328265.653569439,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63550.89709284999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45107.04321680001,
+            "unit": "milliseconds",
+            "range": 26403.92598203129,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45107.04321680001 milliseconds over 20 runs"
           }
         ]
       }
