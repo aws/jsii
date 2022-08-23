@@ -47,6 +47,7 @@ Array [
   "jsii-calc.ClassWithDocs",
   "jsii-calc.ClassWithJavaReservedWords",
   "jsii-calc.ClassWithMutableObjectLiteralProperty",
+  "jsii-calc.ClassWithNestedUnion",
   "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
   "jsii-calc.ConfusingToJackson",
   "jsii-calc.ConstructorPassesThisOut",
